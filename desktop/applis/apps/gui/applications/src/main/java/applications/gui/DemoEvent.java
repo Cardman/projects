@@ -17,13 +17,13 @@ public final class DemoEvent extends MouseAdapter {
         if (LaunchingDemo.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingDemo.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingDemo.getMainWindowClass(), window.getFrames())) {
             LaunchingDemo.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingDemo l_;
         l_ = new LaunchingDemo();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

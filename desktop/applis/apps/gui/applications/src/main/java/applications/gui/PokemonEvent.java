@@ -16,13 +16,13 @@ public final class PokemonEvent extends MouseAdapter {
         if (LaunchingPokemon.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingPokemon.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingPokemon.getMainWindowClass(), window.getFrames())) {
             LaunchingPokemon.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingPokemon l_;
         l_ = new LaunchingPokemon();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

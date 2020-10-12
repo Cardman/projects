@@ -38,8 +38,8 @@ public final class MainWindow extends GroupFrame {
 
     private CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
         Panel panel_ = Panel.newPageBox();
@@ -86,7 +86,7 @@ public final class MainWindow extends GroupFrame {
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
-            radio_.addActionListener(new SetLanguage(l));
+            radio_.addActionListener(new SetLanguage(l, getFrames()));
             radio_.setSelected(StringUtil.quickEq(l,_lg));
             group.add(radio_);
             panel_.add(radio_);
@@ -138,13 +138,11 @@ public final class MainWindow extends GroupFrame {
     }
     @Override
     public void changeLanguage(String _language) {
-        if (GroupFrame.canChangeLanguageAll()) {
+        if (canChangeLanguageAll()) {
             setLanguageKey(_language);
             SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(), _language);
-            int i_ = IndexConstants.SECOND_INDEX;
-            while (i_ < GroupFrame.getFrameCount()) {
-                GroupFrame.getFrame(i_).changeLanguage(_language);
-                i_++;
+            for (GroupFrame g: getFrames()) {
+                g.changeLanguage(_language);
             }
             selectLangagueButton(_language);
         } else {

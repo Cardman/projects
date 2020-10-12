@@ -12,6 +12,7 @@ import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.threads.AbstractLock;
 import code.threads.LockFactory;
+import code.util.CustList;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
@@ -26,8 +27,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private int port;
     private AbstractLock lock = LockFactory.newLock();
 
-    protected NetGroupFrame(String _lg) {
-        super(_lg);
+    protected NetGroupFrame(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
     }
     /**
         Create a server then a client

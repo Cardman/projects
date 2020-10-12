@@ -120,10 +120,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         initBoutonJeuChelemTarotMulti();
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
-            Net.getGames().setRulesBelote(null);
-            Net.getGames().setRulesPresident(null);
+            Net.getGames(_window.getNet()).setRulesBelote(null);
+            Net.getGames(_window.getNet()).setRulesPresident(null);
             rulesTarotMulti = new RulesTarot((byte)_nbPlayers);
-            Net.getGames().setRulesTarot(rulesTarotMulti);
+            Net.getGames(_window.getNet()).setRulesTarot(rulesTarotMulti);
         }
     }
 
@@ -1133,20 +1133,20 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     @Override
     public void dealNext() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.TAROT);
-        GameTarot game_ = Net.getGames().partieTarot();
+        GameTarot game_ = Net.getGames(getOwner().getNet()).partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
-        Net.getGames().jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
+        Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());
     }
 
@@ -1165,7 +1165,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public void delegateServer() {
         hasCreatedServer = true;
-        if (!Net.isProgressingGame()) {
+        if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
@@ -1191,11 +1191,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void dealFirst() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
@@ -1208,7 +1208,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         DealTarot deal_ = new DealTarot(0,pile_);
         deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
         deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
-        Net.getGames().jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
+        Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
         getOwner().sendObject(new PlayGame());
     }
 }

@@ -112,9 +112,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         super(_window);
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
-            Net.getGames().setRulesBelote(rulesBeloteMulti);
-            Net.getGames().setRulesPresident(null);
-            Net.getGames().setRulesTarot(null);
+            Net.getGames(_window.getNet()).setRulesBelote(rulesBeloteMulti);
+            Net.getGames(_window.getNet()).setRulesPresident(null);
+            Net.getGames(_window.getNet()).setRulesTarot(null);
         }
     }
 
@@ -883,20 +883,20 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void dealNext() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.BELOTE);
-        GameBelote game_=Net.getGames().partieBelote();
+        GameBelote game_=Net.getGames(getOwner().getNet()).partieBelote();
         DealBelote deal_=new DealBelote(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
         deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator());
-        Net.getGames().jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
+        Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());
     }
 
@@ -915,7 +915,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void delegateServer() {
         hasCreatedServer = true;
-        if (!Net.isProgressingGame()) {
+        if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
@@ -943,11 +943,11 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void dealFirst() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
@@ -964,7 +964,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         deal_.setRandomDealer(rulesBeloteMulti.getRepartition()
                 .getNombreJoueurs(),getOwner().getGenerator());
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
-        Net.getGames().jouerBelote(new GameBelote(
+        Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));
         getOwner().sendObject(new PlayGame());
     }

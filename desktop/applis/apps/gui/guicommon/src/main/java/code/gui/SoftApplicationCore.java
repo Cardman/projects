@@ -16,6 +16,7 @@ import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
@@ -34,6 +35,8 @@ public abstract class SoftApplicationCore {
 
     private static final String EMPTY_STRING = "";
 
+    private CustList<GroupFrame> frames = new CustList<GroupFrame>();
+
     protected SoftApplicationCore() {
         SetStyle.setupStyle();
     }
@@ -43,7 +46,7 @@ public abstract class SoftApplicationCore {
             return;
         }
         StringMap<Object> files_ = getFile(_args);
-        launchWithoutLanguage(lg_, files_);
+        launch(lg_, files_);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, BufferedImage _icon) {
@@ -165,13 +168,9 @@ public abstract class SoftApplicationCore {
         return new IntPoint(width_, height_);
     }
 
-    public void launch(String _lg) {
-        launchWithoutLanguage(_lg, new StringMap<Object>());
-    }
+
 
     public abstract Object getObject(String _fileName);
-
-    public abstract void launchWithoutLanguage(String _language, StringMap<Object> _obj);
 
     protected abstract void launch(String _language, StringMap<Object> _args);
 
@@ -189,4 +188,15 @@ public abstract class SoftApplicationCore {
     }
 
     protected abstract BufferedImage getImageIcon();
+
+    public static void fwd(SoftApplicationCore _dest, CustList<GroupFrame> _frames) {
+        _dest.setFrames(_frames);
+    }
+    public CustList<GroupFrame> getFrames() {
+        return frames;
+    }
+
+    public void setFrames(CustList<GroupFrame> _v) {
+        frames = _v;
+    }
 }

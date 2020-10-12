@@ -15,6 +15,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -22,7 +23,7 @@ import code.util.core.StringUtil;
 
 /**
     le lancement du logiciel*/
-public class LaunchingCards extends SoftApplicationCore {
+public class LaunchingCards extends AdvSoftApplicationCore {
 
     private static final char LINE_RETURN = '\n';
     private static final String TEMP_FOLDER = "cards";
@@ -65,7 +66,7 @@ public class LaunchingCards extends SoftApplicationCore {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN));
         }
         TopLeftFrame coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
-        CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_));
+        CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_, getFrames()));
     }
 
     protected static void loadLaungage(String[] _args) {
@@ -88,11 +89,6 @@ public class LaunchingCards extends SoftApplicationCore {
 
     public static BufferedImage getIcon() {
         return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
-    }
-
-    @Override
-    public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        launch(_language,_args);
     }
 
     public static String getTempFolderSl() {

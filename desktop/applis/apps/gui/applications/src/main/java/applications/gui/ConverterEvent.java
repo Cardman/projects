@@ -17,13 +17,13 @@ public final class ConverterEvent extends MouseAdapter {
         if (LaunchingConverter.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingConverter.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingConverter.getMainWindowClass(), window.getFrames())) {
             LaunchingConverter.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingConverter l_;
         l_ = new LaunchingConverter();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

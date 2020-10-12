@@ -8,17 +8,14 @@ import aiki.sml.Resources;
 import aiki.game.Game;
 import aiki.sml.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
-import code.gui.ConstFiles;
-import code.gui.LoadLanguage;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadInvoker;
-import code.gui.TopLeftFrame;
+import code.gui.*;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class LaunchingPokemon extends SoftApplicationCore {
+public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "pokemon";
 
@@ -94,16 +91,11 @@ public class LaunchingPokemon extends SoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language));
+        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language, getFrames()));
     }
 
     public static BufferedImage getIcon() {
         return getImage(Resources.RESOURCES_FOLDER, Resources.ICON_TXT);
-    }
-
-    @Override
-    public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        launch(_language, _args);
     }
 
     public static String getTempFolderSl() {

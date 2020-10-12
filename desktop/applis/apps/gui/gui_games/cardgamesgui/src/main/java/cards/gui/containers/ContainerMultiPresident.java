@@ -89,10 +89,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         super(_window);
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
-            Net.getGames().setRulesBelote(null);
+            Net.getGames(_window.getNet()).setRulesBelote(null);
             rulesPresidentMulti = new RulesPresident(_nbPlayers);
-            Net.getGames().setRulesPresident(rulesPresidentMulti);
-            Net.getGames().setRulesTarot(null);
+            Net.getGames(_window.getNet()).setRulesPresident(rulesPresidentMulti);
+            Net.getGames(_window.getNet()).setRulesTarot(null);
         }
     }
 
@@ -685,21 +685,21 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealNext() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
         long nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
-        GamePresident game_=Net.getGames().partiePresident();
+        GamePresident game_=Net.getGames(getOwner().getNet()).partiePresident();
         Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
-        Net.getGames().jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
+        Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
         getOwner().sendObject(new PlayGame());
     }
 
@@ -718,7 +718,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     @Override
     public void delegateServer() {
         hasCreatedServer = true;
-        if (!Net.isProgressingGame()) {
+        if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
@@ -747,11 +747,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void dealFirst() {
-        boolean allReady_ = Net.allReady();
+        boolean allReady_ = Net.allReady(getOwner().getNet());
         if (!allReady_) {
             return;
         }
-        boolean distinct_ = Net.distinctPlaces();
+        boolean distinct_ = Net.distinctPlaces(getOwner().getNet());
         if (!distinct_) {
             return;
         }
@@ -768,7 +768,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         DealPresident deal_ = new DealPresident(0, pile_);
         deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
         deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
-        Net.getGames().jouerPresident(new GamePresident(
+        Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(
                 GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
         getOwner().sendObject(new PlayGame());
     }

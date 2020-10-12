@@ -1,12 +1,10 @@
 package code.player.main;
 
 
-import code.gui.ConstFiles;
-import code.gui.LoadLanguage;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadInvoker;
+import code.gui.*;
 import code.player.gui.CreateMainWindow;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -14,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class LaunchingPlayer extends SoftApplicationCore {
+public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     private static final String RESOURCES_FOLDER = "resources_player";
     private static final String ICON = "player.txt";
@@ -32,13 +30,8 @@ public class LaunchingPlayer extends SoftApplicationCore {
     }
 
     @Override
-    public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        launch(_language, _args);
-    }
-
-    @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args));
+        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args, getFrames()));
     }
 
     public static void increment() {

@@ -17,13 +17,13 @@ public final class RenderEvent extends MouseAdapter {
         if (LaunchingRenders.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingRenders.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingRenders.getMainWindowClass(), window.getFrames())) {
             LaunchingRenders.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingRenders l_;
         l_ = new LaunchingRenders();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

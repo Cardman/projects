@@ -528,11 +528,12 @@ public final class MainWindow extends NetGroupFrame {
     private LabelButton singleModeButton;
     private LabelButton multiModeButton;
     private TextLabel goHelpMenu;
+    private final Net net = new Net();
 
     //private final boolean standalone;
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         pseudosJoueurs=new Nicknames(getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -701,8 +702,8 @@ public final class MainWindow extends NetGroupFrame {
 //            helpFrames.first().dispose();
             helpFrames.first().setVisible(false);
         }
-        LaunchingCards.decrement();
         super.dispose();
+        LaunchingCards.decrement();
     }
 
     private int saving() {
@@ -759,21 +760,21 @@ public final class MainWindow extends NetGroupFrame {
 
     @Override
     public void gearClient(Socket _newSocket) {
-        Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
+        Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
         CustComponent.newThread(sendReceiveServer_).start();
-        Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
+        Net.getConnectionsServer(getNet()).put(Net.getSockets(getNet()).size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
-        index_.setIndex(Net.getSockets().size()-1);
-        Net.getReadyPlayers().put(Net.getSockets().size()-1,false);
-        Net.getPlacesPlayers().put(Net.getSockets().size()-1,(byte)(Net.getSockets().size()-1));
+        index_.setIndex(Net.getSockets(getNet()).size()-1);
+        Net.getReadyPlayers(getNet()).put(Net.getSockets(getNet()).size()-1,false);
+        Net.getPlacesPlayers(getNet()).put(Net.getSockets(getNet()).size()-1,(byte)(Net.getSockets(getNet()).size()-1));
         Net.sendObject(_newSocket,index_);
     }
 
     @Override
     public void loop(Object _readObject, Socket _socket) {
         if (_readObject instanceof DelegateServer) {
-            Net.setGames(((DelegateServer)_readObject).getGames());
+            Net.setGames(((DelegateServer)_readObject).getGames(), getNet());
             delegateServer();
             return;
         }
@@ -1736,7 +1737,7 @@ public final class MainWindow extends NetGroupFrame {
         containerGame.setSettings(parametres);
     }
     public void manageLanguage() {
-        if (!GroupFrame.canChangeLanguageAll()) {
+        if (!canChangeLanguageAll()) {
             GroupFrame.showDialogError(this);
             return;
         }
@@ -1745,7 +1746,7 @@ public final class MainWindow extends NetGroupFrame {
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
-        GroupFrame.changeStaticLanguage(langue_);
+        GroupFrame.changeStaticLanguage(langue_, getFrames());
         SoftApplicationCore.saveLanguage(LaunchingCards.getTempFolder(), langue_);
     }
     public void displayingGame(GameEnum _game) {
@@ -1890,7 +1891,7 @@ public final class MainWindow extends NetGroupFrame {
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
             int nbChoosenPlayers_ = DialogServer.getNbPlayers();
-            Net.setNbPlayers(nbChoosenPlayers_);
+            Net.setNbPlayers(nbChoosenPlayers_, getNet());
             createServer(ip_, DialogServer.getIpType(), port_);
             return;
         }
@@ -2139,4 +2140,7 @@ public final class MainWindow extends NetGroupFrame {
         return DocumentReaderCardsMultiUtil.getObject(_object);
     }
 
+    public Net getNet() {
+        return net;
+    }
 }

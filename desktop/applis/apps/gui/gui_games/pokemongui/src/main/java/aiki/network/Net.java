@@ -15,8 +15,6 @@ public final class Net {
 
     private static final String POKEMON = "POKEMON";
 
-    private static final Net INSTANCE = new Net();
-
     private IntMap<Socket> sockets =new IntMap<Socket>();
     private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
     private IntMap<Boolean> readyPlayers = new IntMap<Boolean>();
@@ -25,9 +23,6 @@ public final class Net {
 
     private IntMap<String> nicknames =new IntMap<String>();
     private IntMap<SendReceiveServer> connectionsServer =new IntMap<SendReceiveServer>();
-
-    private Net() {
-    }
 
     public static int getPort() {
         return PORT;
@@ -47,10 +42,11 @@ public final class Net {
     }
 
     /**server
-        @return true &hArr; the players are ready to begin a deal*/
-    public static boolean allReady() {
+        @return true &hArr; the players are ready to begin a deal
+         * @param _instance*/
+    public static boolean allReady(Net _instance) {
         boolean allReady_ = true;
-        for (boolean r: Net.getReadyPlayers().values()) {
+        for (boolean r: Net.getReadyPlayers(_instance).values()) {
             if (r) {
                 continue;
             }
@@ -64,33 +60,40 @@ public final class Net {
         Net.sendText(_socket,DocumentWriterAikiMultiUtil.setObject(_serializable));
     }
 
-    /**server*/
-    public static IntMap<SendReceiveServer> getConnectionsServer() {
-        return INSTANCE.connectionsServer;
+    /**server
+     * @param _instance*/
+    public static IntMap<SendReceiveServer> getConnectionsServer(Net _instance) {
+        return _instance.connectionsServer;
     }
 
-    /**server*/
-    public static IntMap<Boolean> getReadyPlayers() {
-        return INSTANCE.readyPlayers;
+    /**server
+     * @param _instance*/
+    public static IntMap<Boolean> getReadyPlayers(Net _instance) {
+        return _instance.readyPlayers;
     }
 
-    /**server*/
-    public static IntMap<Socket> getSockets() {
-        return INSTANCE.sockets;
+    /**server
+     * @param _instance*/
+    public static IntMap<Socket> getSockets(Net _instance) {
+        return _instance.sockets;
     }
 
-    /**server*/
-    public static IntTreeMap< Byte> getPlacesPlayers() {
-        return INSTANCE.placesPlayers;
+    /**server
+     * @param _instance*/
+    public static IntTreeMap< Byte> getPlacesPlayers(Net _instance) {
+        return _instance.placesPlayers;
     }
 
-    /**server*/
-    public static IntMap<CheckCompatibility> getCheckCompatibility() {
-        return INSTANCE.checkCompatibility;
+    /**server
+     * @param _instance*/
+    public static IntMap<CheckCompatibility> getCheckCompatibility(Net _instance) {
+        return _instance.checkCompatibility;
     }
 
-    /**server*/
-    public static IntMap<String> getNicknames() {
-        return INSTANCE.nicknames;
+    /**server
+     * @param _instance*/
+    public static IntMap<String> getNicknames(Net _instance) {
+        return _instance.nicknames;
     }
+
 }

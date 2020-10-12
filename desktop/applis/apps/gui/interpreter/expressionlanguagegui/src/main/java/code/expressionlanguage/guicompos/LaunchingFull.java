@@ -1,10 +1,8 @@
 package code.expressionlanguage.guicompos;
 
-import code.gui.ConstFiles;
-import code.gui.LoadLanguage;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadInvoker;
+import code.gui.*;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -12,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class LaunchingFull extends SoftApplicationCore {
+public class LaunchingFull extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "launcher";
 
@@ -28,13 +26,8 @@ public class LaunchingFull extends SoftApplicationCore {
     }
 
     @Override
-    public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        launch(_language, _args);
-    }
-
-    @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args));
+        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args, getFrames()));
     }
 
 

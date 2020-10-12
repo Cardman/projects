@@ -17,13 +17,13 @@ public final class CardsEvent extends MouseAdapter {
         if (LaunchingCards.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingCards.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingCards.getMainWindowClass(), window.getFrames())) {
             LaunchingCards.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingCards l_;
         l_ = new LaunchingCards();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

@@ -11,6 +11,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
@@ -41,8 +42,8 @@ public final class MainWindow extends GroupFrame {
 
     private TextField pathExport;
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         setTitle(CONVERT_IMAGE);
         Panel content_ = Panel.newPageBox();
         readImages = new CustCheckBox(READ_IMAGES);
@@ -163,8 +164,8 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void dispose() {
-        LaunchingConverter.decrement();
         super.dispose();
+        LaunchingConverter.decrement();
     }
     @Override
     public boolean canChangeLanguage() {

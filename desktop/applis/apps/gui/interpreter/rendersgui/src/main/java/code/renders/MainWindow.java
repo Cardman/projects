@@ -21,6 +21,7 @@ import code.gui.events.QuittingEvent;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -37,8 +38,8 @@ public final class MainWindow extends GroupFrame {
     private MenuItem open;
     private TextField lgCode;
     private RenderedPage session;
-    protected MainWindow(String _lg) {
-        super(_lg);
+    protected MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         setJMenuBar(new MenuBar());
         menu = new Menu("file");
         open = new MenuItem("open");
@@ -83,8 +84,8 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        LaunchingRenders.decrement();
         super.dispose();
+        LaunchingRenders.decrement();
     }
 
     public void load() {

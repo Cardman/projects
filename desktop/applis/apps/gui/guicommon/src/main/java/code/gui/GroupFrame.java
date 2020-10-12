@@ -10,13 +10,10 @@ import code.sml.stream.ExtractFromFiles;
 import code.maths.random.AdvancedGenerator;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class GroupFrame extends CommonFrame {
     private static final String ACCESS = "gui.groupframe";
-
-    private static final CustList<GroupFrame> FRAMES = new CustList<GroupFrame>();
 
     private static final String TITLE = "title";
 
@@ -29,22 +26,19 @@ public abstract class GroupFrame extends CommonFrame {
     private boolean opened;
 
     private AbstractGenerator generator;
-
-    protected GroupFrame(String _lg) {
+    private CustList<GroupFrame> frames;
+    protected GroupFrame(String _lg, CustList<GroupFrame> _list) {
         super(_lg);
-        addInstance();
-        if (FRAMES.size() == 1) {
+        frames = _list;
+        frames.add(this);
+        if (frames.size() == 1) {
             initGeneIfNull();
-            FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+            frames.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
         }
         if (generator == null) {
-            generator = FRAMES.first().generator;
+            generator = frames.first().generator;
         }
         initGeneIfNull();
-    }
-
-    private void addInstance() {
-        FRAMES.add(this);
     }
 
     private void initGeneIfNull() {
@@ -53,8 +47,8 @@ public abstract class GroupFrame extends CommonFrame {
         }
     }
 
-    public static boolean tryToReopen(String _applicationName) {
-        for (GroupFrame g: FRAMES) {
+    public static boolean tryToReopen(String _applicationName, CustList<GroupFrame> _list) {
+        for (GroupFrame g: _list) {
             if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
                 g.pack();
                 g.setVisible(true);
@@ -74,37 +68,9 @@ public abstract class GroupFrame extends CommonFrame {
         return imageIconFrame;
     }
 
-    protected static GroupFrame getFrame(int _i) {
-        return FRAMES.get(_i);
-    }
-
-    protected static int getFrameCount() {
-        return FRAMES.size();
-    }
-
     public abstract void quit();
 
     public abstract String getApplicationName();
-
-    public void destroy() {
-        int index_ = IndexConstants.FIRST_INDEX;
-        for (GroupFrame g: FRAMES) {
-            if (g == this) {
-                FRAMES.remove(index_);
-                setVisible(false);
-                nativeDispose();
-                break;
-            }
-            index_++;
-        }
-        if(FRAMES.isEmpty()) {
-            exit();
-        }
-    }
-
-    public void nativeDispose() {
-        super.dispose();
-    }
 
     @Override
     public void dispose() {
@@ -129,7 +95,7 @@ public abstract class GroupFrame extends CommonFrame {
 //            }
 //        }
 //        if(index_ == CustList.SIZE_EMPTY) {}
-        if(!FRAMES.first().opened) {
+        if(!frames.first().opened) {
             exit();
         }
     }
@@ -155,18 +121,18 @@ public abstract class GroupFrame extends CommonFrame {
     public abstract boolean canChangeLanguage();
 
     protected static void showDialogError(GroupFrame _group) {
-        StringMap<String> messages_ = FRAMES.first().messages;
-        ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), FRAMES.first().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+        StringMap<String> messages_ = _group.getFrames().first().messages;
+        ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _group.getFrames().first().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void changeStaticLanguage(String _language) {
-        FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language,ACCESS);
-        FRAMES.first().changeLanguage(_language);
+    public static void changeStaticLanguage(String _language, CustList<GroupFrame> _list) {
+        _list.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language,ACCESS);
+        _list.first().changeLanguage(_language);
     }
 
-    protected static boolean canChangeLanguageAll() {
+    protected boolean canChangeLanguageAll() {
         boolean canChange_ = true;
-        for (GroupFrame g: FRAMES) {
+        for (GroupFrame g: frames) {
             if (!g.canChangeLanguage()) {
                 canChange_ = false;
                 break;
@@ -179,5 +145,9 @@ public abstract class GroupFrame extends CommonFrame {
 
     public AbstractGenerator getGenerator() {
         return generator;
+    }
+
+    public CustList<GroupFrame> getFrames() {
+        return frames;
     }
 }

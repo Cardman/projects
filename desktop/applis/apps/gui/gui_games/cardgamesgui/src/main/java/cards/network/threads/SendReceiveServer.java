@@ -109,20 +109,22 @@ public final class SendReceiveServer extends BasicServer {
 
     private final AbstractLock lock;
 
+    private final Net instance;
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net) {
+    public SendReceiveServer(Socket _socket, NetGroupFrame _net, Net _instance) {
         super(_socket, _net);
         lock = _net.getLock();
+        instance = _instance;
     }
 
     @Override
     public void loopServer(String _input, Object _object) {
         lock.lock(this);
-        loop(_input, _object);
+        loop(_input, _object, instance);
         lock.unlock(this);
     }
 
-    private static void loop(String _input, Object _readObject) {
+    private static void loop(String _input, Object _readObject, Net _instance) {
         if (_readObject instanceof AddingPlayer) {
             AddingPlayer newPlayer_ = (AddingPlayer)_readObject;
             if (!newPlayer_.isAcceptable()) {
@@ -130,7 +132,7 @@ public final class SendReceiveServer extends BasicServer {
                 forcedBye_.setBusy(true);
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -142,11 +144,11 @@ public final class SendReceiveServer extends BasicServer {
         }
         if (_readObject instanceof NewPlayer) {
             NewPlayer newPlayer_ = (NewPlayer)_readObject;
-            if (Net.getNbPlayers() == Net.getNicknames().size()) {
+            if (Net.getNbPlayers(_instance) == Net.getNicknames(_instance).size()) {
                 Bye forcedBye_ = new Bye();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -155,11 +157,11 @@ public final class SendReceiveServer extends BasicServer {
 //                Net.sendObject(socket_,forcedBye_);
                 return;
             }
-            if (Net.isProgressingGame()) {
+            if (Net.isProgressingGame(_instance)) {
                 Bye forcedBye_ = new Bye();
                 forcedBye_.setForced(true);
                 forcedBye_.setClosing(false);
-                Net.removePlayer(newPlayer_.getIndex(), forcedBye_);
+                Net.removePlayer(newPlayer_.getIndex(), forcedBye_, _instance);
 //                Socket socket_ = Net.getSockets().getVal(newPlayer_.getIndex());
 //                Net.getSockets().removeKey(newPlayer_.getIndex());
 //                Net.getConnectionsServer().removeKey(newPlayer_.getIndex());
@@ -168,171 +170,171 @@ public final class SendReceiveServer extends BasicServer {
 //                Net.sendObject(socket_,forcedBye_);
                 return;
             }
-            Net.getPlayersLocales().put(newPlayer_.getIndex(), newPlayer_.getLanguage());
-            Net.getNicknames().put(newPlayer_.getIndex(),newPlayer_.getPseudo());
+            Net.getPlayersLocales(_instance).put(newPlayer_.getIndex(), newPlayer_.getLanguage());
+            Net.getNicknames(_instance).put(newPlayer_.getIndex(),newPlayer_.getPseudo());
             PlayersNamePresent pl_ = new PlayersNamePresent();
-            if (Net.getGames().getRulesBelote() != null) {
-                pl_.setRulesBelote(Net.getGames().getRulesBelote());
+            if (Net.getGames(_instance).getRulesBelote() != null) {
+                pl_.setRulesBelote(Net.getGames(_instance).getRulesBelote());
                 pl_.setRulesPresident(new RulesPresident());
                 pl_.setRulesTarot(new RulesTarot());
-            } else if (Net.getGames().getRulesPresident() != null) {
+            } else if (Net.getGames(_instance).getRulesPresident() != null) {
                 pl_.setRulesBelote(new RulesBelote());
-                pl_.setRulesPresident(Net.getGames().getRulesPresident());
+                pl_.setRulesPresident(Net.getGames(_instance).getRulesPresident());
                 pl_.setRulesTarot(new RulesTarot());
-            } else if (Net.getGames().getRulesTarot() != null) {
+            } else if (Net.getGames(_instance).getRulesTarot() != null) {
                 pl_.setRulesBelote(new RulesBelote());
                 pl_.setRulesPresident(new RulesPresident());
-                pl_.setRulesTarot(Net.getGames().getRulesTarot());
+                pl_.setRulesTarot(Net.getGames(_instance).getRulesTarot());
             } else {
                 pl_.setRulesBelote(new RulesBelote());
                 pl_.setRulesPresident(new RulesPresident());
                 pl_.setRulesTarot(new RulesTarot());
             }
-            pl_.setNbPlayers(Net.getNbPlayers());
-            pl_.setPseudos(new IntMap<String>(Net.getNicknames()));
-            pl_.setPlacesPlayers(Net.getPlacesPlayers());
-            pl_.setReadyPlayers(new IntMap<Boolean>(Net.getReadyPlayers()));
-            for (int p:Net.getSockets().getKeys()) {
+            pl_.setNbPlayers(Net.getNbPlayers(_instance));
+            pl_.setPseudos(new IntMap<String>(Net.getNicknames(_instance)));
+            pl_.setPlacesPlayers(Net.getPlacesPlayers(_instance));
+            pl_.setReadyPlayers(new IntMap<Boolean>(Net.getReadyPlayers(_instance)));
+            for (int p:Net.getSockets(_instance).getKeys()) {
                 pl_.setFirst(p == newPlayer_.getIndex());
-                Net.sendObject(Net.getSockets().getVal(p),pl_);
+                Net.sendObject(Net.getSockets(_instance).getVal(p),pl_);
             }
             return;
         }
         if (_readObject instanceof ChoosenPlace) {
             int noClient_ = ((ChoosenPlace)_readObject).getIndex();
-            Net.getPlacesPlayers().put(noClient_, (byte)((ChoosenPlace)_readObject).getPlace());
-            ((ChoosenPlace) _readObject).setPlacesPlayers(Net.getPlacesPlayers());
-            for(Socket so_:Net.getSockets().values()) {
+            Net.getPlacesPlayers(_instance).put(noClient_, (byte)((ChoosenPlace)_readObject).getPlace());
+            ((ChoosenPlace) _readObject).setPlacesPlayers(Net.getPlacesPlayers(_instance));
+            for(Socket so_:Net.getSockets(_instance).values()) {
                 Net.sendObject(so_,_readObject);
             }
             return;
         }
         if (_readObject instanceof RulesBelote) {
-            for(Socket so_:Net.getSockets().values()) {
+            for(Socket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof RulesPresident) {
-            for(Socket so_:Net.getSockets().values()) {
+            for(Socket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof RulesTarot) {
-            for(Socket so_:Net.getSockets().values()) {
+            for(Socket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof Ready) {
             int noClient_ = ((Ready)_readObject).getIndex();
-            Net.getReadyPlayers().put(noClient_, (( Ready)_readObject).isReady());
-            for(Socket so_:Net.getSockets().values()) {
+            Net.getReadyPlayers(_instance).put(noClient_, (( Ready)_readObject).isReady());
+            for(Socket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof Quit) {
-            quitProcess(_readObject);
+            quitProcess(_readObject, _instance);
             return;
         }
         if (_readObject instanceof PlayGame) {
-            Net.initAllPresent();
-            Net.initAllReceived();
-            if (Net.getGames().enCoursDePartieBelote()) {
-                Net.setProgressingGame(true);
-                DealBelote deal_ = Net.getGames().partieBelote().getDistribution();
+            Net.initAllPresent(_instance);
+            Net.initAllReceived(_instance);
+            if (Net.getGames(_instance).enCoursDePartieBelote()) {
+                Net.setProgressingGame(true, _instance);
+                DealBelote deal_ = Net.getGames(_instance).partieBelote().getDistribution();
                 DealtHandBelote hand_ = new DealtHandBelote();
                 hand_.setDeck(deal_.derniereMain());
-                hand_.setDealer(Net.getGames().partieBelote().playerAfter(deal_.getDealer()));
-                hand_.setAllowedBids(Net.getGames().partieBelote().getGameBeloteBid().allowedBids());
-                hand_.setRep(Net.getGames().partieBelote().getRegles().getRepartition());
-                hand_.setPoints(Net.getGames().partieBelote().getContrat().getPoints());
-                for (byte i:Net.activePlayers()) {
+                hand_.setDealer(Net.getGames(_instance).partieBelote().playerAfter(deal_.getDealer()));
+                hand_.setAllowedBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
+                hand_.setRep(Net.getGames(_instance).partieBelote().getRegles().getRepartition());
+                hand_.setPoints(Net.getGames(_instance).partieBelote().getContrat().getPoints());
+                for (byte i:Net.activePlayers(_instance)) {
                     hand_.setCards(deal_.hand(i));
-                    Net.sendObject(Net.getSocketByPlace(i), hand_);
+                    Net.sendObject(Net.getSocketByPlace(i, _instance), hand_);
                 }
-            } else if (Net.getGames().enCoursDePartiePresident()) {
-                Net.setProgressingGame(true);
+            } else if (Net.getGames(_instance).enCoursDePartiePresident()) {
+                Net.setProgressingGame(true, _instance);
                 int nbSuits_ = Suit.couleursOrdinaires().size();
-                RulesPresident rules_ = Net.getGames().partiePresident().getRegles();
+                RulesPresident rules_ = Net.getGames(_instance).partiePresident().getRegles();
                 int nbStacks_ = rules_.getNbStacks();
-                DealPresident deal_ = Net.getGames().partiePresident().getDistribution();
+                DealPresident deal_ = Net.getGames(_instance).partiePresident().getDistribution();
                 DealtHandPresident hand_ = new DealtHandPresident();
-                hand_.setDealer(Net.getGames().partiePresident().getDistribution().getDonneur());
+                hand_.setDealer(Net.getGames(_instance).partiePresident().getDistribution().getDonneur());
                 hand_.setMaxCards(Math.min(nbSuits_ * nbStacks_, rules_.getNbMaxCardsPerPlayer()));
-                hand_.setStatus(Net.getGames().partiePresident().getLastStatus());
-                for (byte i:Net.activePlayers()) {
+                hand_.setStatus(Net.getGames(_instance).partiePresident().getLastStatus());
+                for (byte i:Net.activePlayers(_instance)) {
                     hand_.setCards(deal_.hand(i));
-                    Net.sendObject(Net.getSocketByPlace(i), hand_);
+                    Net.sendObject(Net.getSocketByPlace(i, _instance), hand_);
                 }
-            } else if (Net.getGames().enCoursDePartieTarot()) {
-                Net.setProgressingGame(true);
-                DealTarot deal_ = Net.getGames().partieTarot().getDistribution();
+            } else if (Net.getGames(_instance).enCoursDePartieTarot()) {
+                Net.setProgressingGame(true, _instance);
+                DealTarot deal_ = Net.getGames(_instance).partieTarot().getDistribution();
                 DealtHandTarot hand_ = new DealtHandTarot();
                 hand_.setDog(deal_.derniereMain());
-                hand_.setDealer(Net.getGames().partieTarot().playerAfter(deal_.getDealer()));
-                hand_.setAllowedBids(Net.getGames().partieTarot().allowedBids());
-                hand_.setRep(Net.getGames().partieTarot().getRegles().getRepartition());
-                for (byte i:Net.activePlayers()) {
+                hand_.setDealer(Net.getGames(_instance).partieTarot().playerAfter(deal_.getDealer()));
+                hand_.setAllowedBids(Net.getGames(_instance).partieTarot().allowedBids());
+                hand_.setRep(Net.getGames(_instance).partieTarot().getRegles().getRepartition());
+                for (byte i:Net.activePlayers(_instance)) {
                     hand_.setCards(deal_.hand(i));
-                    Net.sendObject(Net.getSocketByPlace(i), hand_);
+                    Net.sendObject(Net.getSocketByPlace(i, _instance), hand_);
                 }
             }
             return;
         }
-        if (Net.getGames().enCoursDePartieBelote()) {
-            processGameBelote(_input, _readObject);
+        if (Net.getGames(_instance).enCoursDePartieBelote()) {
+            processGameBelote(_input, _readObject, _instance);
             return;
         }
-        if (Net.getGames().enCoursDePartiePresident()) {
-            processGamePresident(_readObject);
+        if (Net.getGames(_instance).enCoursDePartiePresident()) {
+            processGamePresident(_readObject, _instance);
             return;
         }
-        if (Net.getGames().enCoursDePartieTarot()) {
-            processGameTarot(_input, _readObject);
+        if (Net.getGames(_instance).enCoursDePartieTarot()) {
+            processGameTarot(_input, _readObject, _instance);
             return;
         }
     }
 
-    private static void processGameTarot(String _input, Object _readObject) {
+    private static void processGameTarot(String _input, Object _readObject, Net _instance) {
         if (_readObject instanceof Dealt) {
-            processDealtTarot(_readObject);
+            processDealtTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof DoneBidding) {
-            processBetweenBidsTarot(_readObject);
+            processBetweenBidsTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof BiddingTarot) {
             BiddingTarot bid_ = (BiddingTarot)_readObject;
             BidTarot b_ = bid_.getBid();
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (!b_.estDemandable(game_.getContrat())) {
                 ErrorBidding error_ = new ErrorBidding();
                 error_.setBid(game_.getContrat());
-                Net.sendObject(Net.getSocketByPlace(bid_.getPlace()), error_);
+                Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _instance), error_);
                 return;
             }
             game_.ajouterContrat(b_, bid_.getPlace());
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendText(Net.getSocketByPlace(p), _input);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendText(Net.getSocketByPlace(p, _instance), _input);
             }
             return;
         }
         if (_readObject instanceof CalledCards) {
-            processCallingTarot(_readObject);
+            processCallingTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof DiscardedCard) {
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             DiscardedCard discarded_ = (DiscardedCard) _readObject;
             if (!discarded_.isInHand()) {
                 game_.retirerUneCarteDuChien(discarded_.getCard());
                 game_.addCard(discarded_.getPlace(),discarded_.getCard());
-                Net.sendText(Net.getSocketByPlace(discarded_.getPlace()), _input);
+                Net.sendText(Net.getSocketByPlace(discarded_.getPlace(), _instance), _input);
                 return;
             }
             ReasonDiscard reason_ = game_.autoriseEcartDe(discarded_.getCard());
@@ -340,25 +342,25 @@ public final class SendReceiveServer extends BasicServer {
                 ErrorDiscarding error_ = new ErrorDiscarding();
                 error_.setErrorMessage(Games.autoriseMessEcartDe(game_,reason_,discarded_.getCard(), discarded_.getLocale()).toString());
                 error_.setCard(discarded_.getCard());
-                Net.sendObject(Net.getSocketByPlace(discarded_.getPlace()), error_);
+                Net.sendObject(Net.getSocketByPlace(discarded_.getPlace(), _instance), error_);
                 return;
             }
             game_.ajouterUneCarteDansPliEnCours(discarded_.getPlace(),discarded_.getCard());
-            Net.sendText(Net.getSocketByPlace(discarded_.getPlace()), _input);
+            Net.sendText(Net.getSocketByPlace(discarded_.getPlace(), _instance), _input);
             return;
         }
         if (_readObject instanceof CalledCardKnown) {
-            Net.setReceivedForPlayer(((CalledCardKnown)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameTarot game_ = Net.getGames().partieTarot();
+            Net.setReceivedForPlayer(((CalledCardKnown)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameTarot game_ = Net.getGames(_instance).partieTarot();
                 if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
                     Dog show_ = new Dog();
                     show_.setDog(game_.getDistribution().derniereMain());
                     show_.setTaker(false);
                     show_.setHumanTaker(false);
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), show_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), show_);
                     }
                     return;
                 }
@@ -366,50 +368,50 @@ public final class SendReceiveServer extends BasicServer {
                 if (!game_.getContrat().isFaireTousPlis()) {
                     game_.slam();
                     if (game_.chelemAnnonce()) {
-                        Net.initAllReceived();
+                        Net.initAllReceived(_instance);
                         BiddingSlamAfter bid_ = new BiddingSlamAfter();
                         bid_.setPlace(game_.getPreneur());
                         bid_.setLocale(Constants.getDefaultLanguage());
-                        for (byte p: Net.activePlayers()) {
-                            Net.sendObject(Net.getSocketByPlace(p), bid_);
+                        for (byte p: Net.activePlayers(_instance)) {
+                            Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                         }
                         return;
                     }
                 }
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
             }
             return;
         }
         if (_readObject instanceof SeenDiscardedTrumps) {
-            processDiscardingTrumps(_readObject);
+            processDiscardingTrumps(_readObject, _instance);
             return;
         }
         if (_readObject instanceof ShowDog) {
-            processShowDogTarot(_readObject);
+            processShowDogTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof TakeCard) {
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             game_.ajouterCartesUtilisateur();
             if (!game_.getRegles().getDiscardAfterCall()) {
                 CallableCards callableCardsDto_ = new CallableCards();
                 callableCardsDto_.setDiscarding(true);
                 callableCardsDto_.setCallableCards(game_.callableCards());
-                Net.sendObject(Net.getSocketByPlace(game_.getPreneur()), callableCardsDto_);
+                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), callableCardsDto_);
             }
             return;
         }
         if (_readObject instanceof ValidateDog) {
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 game_.addCurTrick();
                 if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), discarded_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
                     }
                     return;
                 }
@@ -420,11 +422,11 @@ public final class SendReceiveServer extends BasicServer {
                 game_.setEntameur(game_.playerAfter(donneur_));
             }
             game_.setPliEnCours(true);
-            playingTarotCard();
+            playingTarotCard(_instance);
             return;
         }
         if (_readObject instanceof BiddingSlamAfter) {
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if(!game_.chelemAnnonce()) {
                 game_.ajouterChelemUtilisateur();
             }
@@ -434,51 +436,51 @@ public final class SendReceiveServer extends BasicServer {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setDeclaringSlam(true);
                     discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), discarded_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
                     }
                     return;
                 }
             }
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendText(Net.getSocketByPlace(p), _input);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendText(Net.getSocketByPlace(p, _instance), _input);
             }
             return;
         }
         if (_readObject instanceof DoneDisplaySlam) {
-            Net.setReceivedForPlayer(((DoneDisplaySlam)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameTarot game_ = Net.getGames().partieTarot();
+            Net.setReceivedForPlayer(((DoneDisplaySlam)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameTarot game_ = Net.getGames(_instance).partieTarot();
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
             return;
         }
         if (_readObject instanceof DonePlaying) {
-            processBetweenPlayedCardsTarot(_readObject);
+            processBetweenPlayedCardsTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameTarot game_ = Net.getGames().partieTarot();
+            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameTarot game_ = Net.getGames(_instance).partieTarot();
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
             }
             return;
         }
         if (_readObject instanceof PlayingCardTarot) {
-            processPlayingTarot(_readObject);
+            processPlayingTarot(_readObject, _instance);
             return;
         }
         if (_readObject instanceof RefreshingDone) {
             PlayingCardTarot p_ = new PlayingCardTarot();
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             p_.setTakerIndex(game_.getPreneur());
             p_.setPlace(((RefreshingDone)_readObject).getPlace());
             p_.setPlayedCard(((RefreshingDone)_readObject).getCard());
@@ -488,119 +490,119 @@ public final class SendReceiveServer extends BasicServer {
             p_.setCalledCard(((RefreshingDone)_readObject).isCalledCard());
             p_.setExcludedTrumps(new HandTarot());
             p_.setLocale(Constants.getDefaultLanguage());
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendObject(Net.getSocketByPlace(p), p_);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendObject(Net.getSocketByPlace(p, _instance), p_);
             }
             return;
         }
         if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.setProgressingGame(false);
+            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.setProgressingGame(false, _instance);
             }
             return;
         }
-        processShowTarot(_readObject);
+        processShowTarot(_readObject, _instance);
     }
 
-    private static void processBetweenBidsTarot(Object _readObject) {
-        Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace());
-        if (Net.allReceived()) {
-            Net.initAllReceived();
+    private static void processBetweenBidsTarot(Object _readObject, Net _instance) {
+        Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace(), _instance);
+        if (Net.allReceived(_instance)) {
+            Net.initAllReceived(_instance);
 
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (!game_.keepBidding()) {
-                processAfterBidTarot(game_);
+                processAfterBidTarot(game_, _instance);
                 return;
             }
             byte place_ = game_.playerHavingToBid();
-            if (Net.isHumanPlayer(place_)) {
+            if (Net.isHumanPlayer(place_, _instance)) {
                 AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
                 allowedBids_.setBids(game_.allowedBids());
-                Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
+                Net.sendObject(Net.getSocketByPlace(place_, _instance), allowedBids_);
                 return;
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(1000);
-            if (Net.getGames().partieTarot().playerHasAlreadyBidded(place_)) {
+            if (Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(place_)) {
                 return;
             }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
-            bid_.setBid(Net.getGames().partieTarot().getLastBid());
+            bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
             bid_.setLocale(Constants.getDefaultLanguage());
-            for (byte p: Net.activePlayers()) {
-                Net.sendObject(Net.getSocketByPlace(p), bid_);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
             }
         }
         return;
     }
 
-    private static void processBetweenPlayedCardsTarot(Object _readObject) {
-        Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace());
-        if (Net.allReceived()) {
-            Net.initAllReceived();
-            GameTarot game_ = Net.getGames().partieTarot();
+    private static void processBetweenPlayedCardsTarot(Object _readObject, Net _instance) {
+        Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+        if (Net.allReceived(_instance)) {
+            Net.initAllReceived(_instance);
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (!game_.keepPlayingCurrentTrick()) {
                 game_.ajouterPetitAuBoutPliEnCours();
 
                 if (!game_.keepPlayingCurrentGame()) {
                     ThreadUtil.sleep(1000);
-                    endGameTarot();
+                    endGameTarot(_instance);
                     return;
                 }
                 ThreadUtil.sleep(3000);
-                Net.initAllReceived();
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), new Pause());
+                Net.initAllReceived(_instance);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
                 }
                 return;
             }
 
-            playingTarotCard();
+            playingTarotCard(_instance);
         }
         return;
     }
 
-    private static void processDealtTarot(Object _readObject) {
-        Net.setReceivedForPlayer(((Dealt)_readObject).getPlace());
-        if (Net.allReceived()) {
-            Net.initAllReceived();
-            if (!Net.getGames().partieTarot().avecContrat()) {
-                GameTarot game_ = Net.getGames().partieTarot();
+    private static void processDealtTarot(Object _readObject, Net _instance) {
+        Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+        if (Net.allReceived(_instance)) {
+            Net.initAllReceived(_instance);
+            if (!Net.getGames(_instance).partieTarot().avecContrat()) {
+                GameTarot game_ = Net.getGames(_instance).partieTarot();
                 game_.setEntameur(game_.playerAfter(game_.getDistribution().getDealer()));
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
-            byte place_ = Net.getGames().partieTarot().playerHavingToBid();
-            if (Net.isHumanPlayer(place_)) {
+            byte place_ = Net.getGames(_instance).partieTarot().playerHavingToBid();
+            if (Net.isHumanPlayer(place_, _instance)) {
                 AllowBiddingTarot allowedBids_ = new AllowBiddingTarot();
-                allowedBids_.setBids(Net.getGames().partieTarot().allowedBids());
-                Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
+                allowedBids_.setBids(Net.getGames(_instance).partieTarot().allowedBids());
+                Net.sendObject(Net.getSocketByPlace(place_, _instance), allowedBids_);
                 return;
             }
             //Les "robots" precedant l'utilisateur annoncent leur contrat
             ThreadUtil.sleep(1000);
-            if (Net.getGames().partieTarot().playerHasAlreadyBidded(place_)) {
+            if (Net.getGames(_instance).partieTarot().playerHasAlreadyBidded(place_)) {
                 return;
             }
             BiddingTarot bid_ = new BiddingTarot();
             bid_.setPlace(place_);
-            bid_.setBid(Net.getGames().partieTarot().getLastBid());
+            bid_.setBid(Net.getGames(_instance).partieTarot().getLastBid());
             bid_.setLocale(Constants.getDefaultLanguage());
-            for (byte p: Net.activePlayers()) {
-                Net.sendObject(Net.getSocketByPlace(p), bid_);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
             }
         }
     }
 
-    private static void processShowDogTarot(Object _readObject) {
-        Net.setReceivedForPlayer(((ShowDog)_readObject).getPlace());
-        if (Net.allReceived()) {
-            Net.initAllReceived();
-            GameTarot game_ = Net.getGames().partieTarot();
+    private static void processShowDogTarot(Object _readObject, Net _instance) {
+        Net.setReceivedForPlayer(((ShowDog)_readObject).getPlace(), _instance);
+        if (Net.allReceived(_instance)) {
+            Net.initAllReceived(_instance);
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (game_.getRegles().getDiscardAfterCall()) {
                 game_.ecarter(true);
             }
@@ -608,9 +610,9 @@ public final class SendReceiveServer extends BasicServer {
             if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                 DiscardedTrumps discarded_ = new DiscardedTrumps();
                 discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
-                Net.initAllReceived();
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), discarded_);
+                Net.initAllReceived(_instance);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
                 }
                 return;
             }
@@ -618,8 +620,8 @@ public final class SendReceiveServer extends BasicServer {
                 BiddingSlamAfter bid_ = new BiddingSlamAfter();
                 bid_.setPlace(game_.getPreneur());
                 bid_.setLocale(Constants.getDefaultLanguage());
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), bid_);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                 }
                 return;
             }
@@ -627,16 +629,16 @@ public final class SendReceiveServer extends BasicServer {
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
             game_.setEntameur(game_.playerAfter(dealer_));
             game_.setPliEnCours(true);
-            playingTarotCard();
+            playingTarotCard(_instance);
             return;
         }
         return;
     }
 
-    private static void processPlayingTarot(Object _readObject) {
+    private static void processPlayingTarot(Object _readObject, Net _instance) {
         PlayingCardTarot info_ = (PlayingCardTarot) _readObject;
         CardTarot card_ = info_.getPlayedCard();
-        GameTarot game_ = Net.getGames().partieTarot();
+        GameTarot game_ = Net.getGames(_instance).partieTarot();
         if (info_.getChoosenHandful() != Handfuls.NO) {
             String messErr_ = Games.isValidHandfulMessage(game_, info_.getChoosenHandful(),
                     info_.getHandful(), info_.getExcludedTrumps(), info_.getLocale());
@@ -645,7 +647,7 @@ public final class SendReceiveServer extends BasicServer {
                 ErrorHandful error_ = new ErrorHandful();
                 error_.setHandful(info_.getChoosenHandful());
                 error_.setError(messErr_);
-                Net.sendObject(Net.getSocketByPlace(info_.getPlace()), error_);
+                Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), error_);
                 return;
             }
         }
@@ -653,7 +655,7 @@ public final class SendReceiveServer extends BasicServer {
             ErrorPlaying error_ = new ErrorPlaying();
             error_.setCard(card_);
             error_.setReason(Games.autoriseTarot(game_, info_.getLocale()));
-            Net.sendObject(Net.getSocketByPlace(info_.getPlace()), error_);
+            Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), error_);
             return;
         }
         game_.changerConfiance();
@@ -684,47 +686,47 @@ public final class SendReceiveServer extends BasicServer {
         ref_.setMiseres(info_.getMiseres());
         ref_.setLocale(Constants.getDefaultLanguage());
         ref_.setCalledCard(game_.getCarteAppelee().contient(card_));
-        Net.sendObject(Net.getSocketByPlace(info_.getPlace()), ref_);
+        Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), ref_);
     }
 
-    private static void processShowTarot(Object _readObject) {
+    private static void processShowTarot(Object _readObject, Net _instance) {
         if (_readObject instanceof SelectTricksHands) {
-            if (!Net.isSameTeam()) {
+            if (!Net.isSameTeam(_instance)) {
                 return;
             }
             byte place_ = ((SelectTricksHands)_readObject).getPlace();
             TricksHandsTarot tricksHands_ = new TricksHandsTarot();
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
-            Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), tricksHands_);
             return;
         }
         if (_readObject instanceof SelectTeams) {
-            if (!Net.isSameTeam()) {
+            if (!Net.isSameTeam(_instance)) {
                 return;
             }
             byte place_ = ((SelectTeams)_readObject).getPlace();
             TeamsPlayers teams_ = new TeamsPlayers();
-            GameTarot game_ = Net.getGames().partieTarot();
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             teams_.setTeams(game_.getTeamsRelation().teams());
-            Net.sendObject(Net.getSocketByPlace(place_), teams_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), teams_);
         }
     }
 
-    private static void processDiscardingTrumps(Object _readObject) {
-        Net.setReceivedForPlayer(((SeenDiscardedTrumps)_readObject).getPlace());
-        if (Net.allReceived()) {
-            GameTarot game_ = Net.getGames().partieTarot();
-            if (Net.isHumanPlayer(game_.getPreneur())) {
+    private static void processDiscardingTrumps(Object _readObject, Net _instance) {
+        Net.setReceivedForPlayer(((SeenDiscardedTrumps)_readObject).getPlace(), _instance);
+        if (Net.allReceived(_instance)) {
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
+            if (Net.isHumanPlayer(game_.getPreneur(), _instance)) {
                 if (((SeenDiscardedTrumps)_readObject).isDeclaringSlam()) {
-                    Net.initAllReceived();
+                    Net.initAllReceived(_instance);
                     BiddingSlamAfter bid_ = new BiddingSlamAfter();
                     bid_.setLocale(Constants.getDefaultLanguage());
                     bid_.setPlace(game_.getPreneur());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                     return;
                 }
@@ -734,15 +736,15 @@ public final class SendReceiveServer extends BasicServer {
                     game_.setEntameur(game_.playerAfter(donneur_));
                 }
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
             if (game_.chelemAnnonce()) {
                 BiddingSlamAfter bid_ = new BiddingSlamAfter();
                 bid_.setPlace(game_.getPreneur());
                 bid_.setLocale(Constants.getDefaultLanguage());
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), bid_);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                 }
                 return;
             }
@@ -750,23 +752,23 @@ public final class SendReceiveServer extends BasicServer {
             /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
             game_.setEntameur(game_.playerAfter(donneur_));
             game_.setPliEnCours(true);
-            playingTarotCard();
+            playingTarotCard(_instance);
             return;
         }
         return;
     }
 
-    private static void processCallingTarot(Object _readObject) {
+    private static void processCallingTarot(Object _readObject, Net _instance) {
         //called cards by a human player
-        GameTarot game_ = Net.getGames().partieTarot();
+        GameTarot game_ = Net.getGames(_instance).partieTarot();
         CalledCards calledCards_ = (CalledCards) _readObject;
         game_.initConfianceAppeleUtilisateur(calledCards_.getCalledCards());
         if (!game_.getRegles().getDiscardAfterCall()) {
             if (!game_.getContrat().isFaireTousPlis()) {
-                Net.sendObject(Net.getSocketByPlace(game_.getPreneur()), new DisplaySlamButton());
+                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), new DisplaySlamButton());
             } else {
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
         }else if(game_.getContrat().getJeuChien() == PlayingDog.WITH) {
@@ -774,32 +776,32 @@ public final class SendReceiveServer extends BasicServer {
             Dog dog_ = new Dog();
             dog_.setHumanTaker(true);
             dog_.setDog(game_.getDistribution().derniereMain());
-            for (byte p: Net.activePlayers()) {
+            for (byte p: Net.activePlayers(_instance)) {
                 dog_.setTaker(p == game_.getPreneur());
-                Net.sendObject(Net.getSocketByPlace(p), dog_);
+                Net.sendObject(Net.getSocketByPlace(p, _instance), dog_);
             }
         } else {
             game_.gererChienInconnu();
             if (!game_.getContrat().isFaireTousPlis()) {
-                Net.sendObject(Net.getSocketByPlace(game_.getPreneur()), new DisplaySlamButton());
+                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), new DisplaySlamButton());
             } else {
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
         }
         return;
     }
 
-    private static void processAfterBidTarot(GameTarot _game) {
+    private static void processAfterBidTarot(GameTarot _game, Net _instance) {
         //Call, dog or play
         if (!_game.getContrat().isJouerDonne()) {
             if (_game.pasJeuApresPasse()) {
-                endGameTarot();
+                endGameTarot(_instance);
             } else {
                 _game.setEntameur(_game.playerAfter(_game.getDistribution().getDealer()));
                 _game.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
             }
             return;
         }
@@ -812,7 +814,7 @@ public final class SendReceiveServer extends BasicServer {
                 _game.initDefense();
             }
         }
-        if (Net.isHumanPlayer(_game.getPreneur())) {
+        if (Net.isHumanPlayer(_game.getPreneur(), _instance)) {
             HandTarot callableCards_ = _game.callableCards();
             if (callableCards_.estVide()) {
                 if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
@@ -820,55 +822,55 @@ public final class SendReceiveServer extends BasicServer {
                     dog_.setHumanTaker(true);
                     dog_.setTakerIndex(_game.getPreneur());
                     dog_.setDog(_game.getDistribution().derniereMain());
-                    for (byte p: Net.activePlayers()) {
+                    for (byte p: Net.activePlayers(_instance)) {
                         dog_.setTaker(p == _game.getPreneur());
-                        Net.sendObject(Net.getSocketByPlace(p), dog_);
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), dog_);
                     }
                     return;
                 }
                 _game.gererChienInconnu();
                 if (!_game.getContrat().isFaireTousPlis()) {
-                    Net.sendObject(Net.getSocketByPlace(_game.getPreneur()), new DisplaySlamButton());
+                    Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _instance), new DisplaySlamButton());
                 } else {
-                    playingTarotCard();
+                    playingTarotCard(_instance);
                     return;
                 }
             } else if (_game.getRegles().getDiscardAfterCall()) {
                 CallableCards callableCardsDto_ = new CallableCards();
                 callableCardsDto_.setTakerIndex(_game.getPreneur());
-                for (byte p: Net.activePlayers()) {
+                for (byte p: Net.activePlayers(_instance)) {
                     if (p == _game.getPreneur()) {
                         callableCardsDto_.setCallableCards(_game.callableCards());
                     } else {
                         callableCardsDto_.setCallableCards(new HandTarot());
                     }
-                    Net.sendObject(Net.getSocketByPlace(p), callableCardsDto_);
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), callableCardsDto_);
                 }
             } else {
                 if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
-                    Net.initAllReceived();
+                    Net.initAllReceived(_instance);
                     Dog dog_ = new Dog();
                     dog_.setDog(_game.getDistribution().derniereMain());
                     dog_.setTaker(false);
                     dog_.setTakerIndex(_game.getPreneur());
                     dog_.setHumanTaker(true);
                     dog_.setCallAfter(true);
-                    for (byte p: Net.activePlayers()) {
+                    for (byte p: Net.activePlayers(_instance)) {
                         dog_.setTaker(p == _game.getPreneur());
-                        Net.sendObject(Net.getSocketByPlace(p), dog_);
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), dog_);
                     }
                     return;
                 }
                 _game.gererChienInconnu();
                 CallableCards callableCardsDto_ = new CallableCards();
                 callableCardsDto_.setTakerIndex(_game.getPreneur());
-                for (byte p: Net.activePlayers()) {
+                for (byte p: Net.activePlayers(_instance)) {
                     if (p == _game.getPreneur()) {
                         callableCardsDto_.setCallableCards(_game.callableCards());
                     } else {
                         callableCardsDto_.setCallableCards(new HandTarot());
                     }
-                    Net.sendObject(Net.getSocketByPlace(p), callableCardsDto_);
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), callableCardsDto_);
                 }
                 return;
             }
@@ -877,14 +879,14 @@ public final class SendReceiveServer extends BasicServer {
         HandTarot callableCards_ = _game.callableCards();
         if (callableCards_.estVide()) {
             if (_game.getContrat().getJeuChien() == PlayingDog.WITH) {
-                Net.initAllReceived();
+                Net.initAllReceived(_instance);
                 Dog show_ = new Dog();
                 show_.setDog(_game.getDistribution().derniereMain());
                 show_.setTaker(false);
                 show_.setTakerIndex(_game.getPreneur());
                 show_.setHumanTaker(false);
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), show_);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), show_);
                 }
                 return;
             }
@@ -892,17 +894,17 @@ public final class SendReceiveServer extends BasicServer {
             if (!_game.getContrat().isFaireTousPlis()) {
                 _game.slam();
                 if (_game.chelemAnnonce()) {
-                    Net.initAllReceived();
+                    Net.initAllReceived(_instance);
                     BiddingSlamAfter bid_ = new BiddingSlamAfter();
                     bid_.setLocale(Constants.getDefaultLanguage());
                     bid_.setPlace(_game.getPreneur());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                     return;
                 }
             }
-            playingTarotCard();
+            playingTarotCard(_instance);
             return;
         }
         if (!_game.getRegles().getDiscardAfterCall()) {
@@ -918,81 +920,81 @@ public final class SendReceiveServer extends BasicServer {
         calledCards_.setPlace(_game.getPreneur());
         calledCards_.setCalledCards(_game.getCarteAppelee());
         calledCards_.setLocale(Constants.getDefaultLanguage());
-        Net.initAllReceived();
-        for (byte p: Net.activePlayers()) {
-            Net.sendObject(Net.getSocketByPlace(p), calledCards_);
+        Net.initAllReceived(_instance);
+        for (byte p: Net.activePlayers(_instance)) {
+            Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
         }
         return;
     }
 
-    private static void processGameBelote(String _input, Object _readObject) {
+    private static void processGameBelote(String _input, Object _readObject, Net _instance) {
         if (_readObject instanceof Dealt) {
-            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                byte place_ = Net.getGames().partieBelote().playerHavingToBid();
-                if (Net.isHumanPlayer(place_)) {
+            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                byte place_ = Net.getGames(_instance).partieBelote().playerHavingToBid();
+                if (Net.isHumanPlayer(place_, _instance)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
-                    allowedBids_.setBids(Net.getGames().partieBelote().getGameBeloteBid().allowedBids());
-                    allowedBids_.setPoints(Net.getGames().partieBelote().getContrat().getPoints());
-                    Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
+                    allowedBids_.setBids(Net.getGames(_instance).partieBelote().getGameBeloteBid().allowedBids());
+                    allowedBids_.setPoints(Net.getGames(_instance).partieBelote().getContrat().getPoints());
+                    Net.sendObject(Net.getSocketByPlace(place_, _instance), allowedBids_);
                     return;
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(1000);
-                if (Net.getGames().partieBelote().playerHasAlreadyBidded(place_)) {
+                if (Net.getGames(_instance).partieBelote().playerHasAlreadyBidded(place_)) {
                     return;
                 }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
-                bid_.setBidBelote(Net.getGames().partieBelote().getLastBid());
+                bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
                 bid_.setLocale(Constants.getDefaultLanguage());
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), bid_);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                 }
             }
             return;
         }
         if (_readObject instanceof DoneBidding) {
-            Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameBelote game_ = Net.getGames().partieBelote();
+            Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameBelote game_ = Net.getGames(_instance).partieBelote();
                 if (!game_.keepBidding()) {
                     if (!game_.getContrat().jouerDonne()) {
-                        endGameBelote();
+                        endGameBelote(_instance);
                     } else {
                         if (game_.completedDeal()) {
                             return;
                         }
-                        for (byte p: Net.activePlayers()) {
+                        for (byte p: Net.activePlayers(_instance)) {
                             RefreshHandBelote hand_ = new RefreshHandBelote();
                             hand_.setRefreshedHand(game_.getDistribution().hand(p));
                             hand_.setLocale(Constants.getDefaultLanguage());
-                            Net.sendObject(Net.getSocketByPlace(p), hand_);
+                            Net.sendObject(Net.getSocketByPlace(p, _instance), hand_);
                         }
                     }
                     return;
                 }
                 byte place_ = game_.playerHavingToBid();
-                if (Net.isHumanPlayer(place_)) {
+                if (Net.isHumanPlayer(place_, _instance)) {
                     AllowBiddingBelote allowedBids_ = new AllowBiddingBelote();
                     allowedBids_.setBids(game_.getGameBeloteBid().allowedBids());
                     allowedBids_.setPoints(game_.getContrat().getPoints());
-                    Net.sendObject(Net.getSocketByPlace(place_), allowedBids_);
+                    Net.sendObject(Net.getSocketByPlace(place_, _instance), allowedBids_);
                     return;
                 }
                 //Les "robots" precedant l'utilisateur annoncent leur contrat
                 ThreadUtil.sleep(1000);
-                if (Net.getGames().partieBelote().playerHasAlreadyBidded(place_)) {
+                if (Net.getGames(_instance).partieBelote().playerHasAlreadyBidded(place_)) {
                     return;
                 }
                 BiddingBelote bid_ = new BiddingBelote();
                 bid_.setPlace(place_);
-                bid_.setBidBelote(Net.getGames().partieBelote().getLastBid());
+                bid_.setBidBelote(Net.getGames(_instance).partieBelote().getLastBid());
                 bid_.setLocale(Constants.getDefaultLanguage());
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), bid_);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                 }
             }
             return;
@@ -1000,12 +1002,12 @@ public final class SendReceiveServer extends BasicServer {
         if (_readObject instanceof BiddingBelote) {
             BiddingBelote bid_ = (BiddingBelote)_readObject;
             BidBeloteSuit b_ = bid_.getBidBelote();
-            GameBelote game_ = Net.getGames().partieBelote();
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             if (!game_.getRegles().dealAll()) {
                 if (!b_.estDemandable(game_.getContrat())) {
                     ErrorBiddingBelote error_ = new ErrorBiddingBelote();
                     error_.setBid(game_.getContrat());
-                    Net.sendObject(Net.getSocketByPlace(bid_.getPlace()), error_);
+                    Net.sendObject(Net.getSocketByPlace(bid_.getPlace(), _instance), error_);
                     return;
                 }
             }
@@ -1015,17 +1017,17 @@ public final class SendReceiveServer extends BasicServer {
                     game_.finEncherePremierTour();
                 }
             }
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendText(Net.getSocketByPlace(p), _input);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendText(Net.getSocketByPlace(p, _instance), _input);
             }
             return;
         }
         if (_readObject instanceof CompletedHand) {
-            Net.setReceivedForPlayer(((CompletedHand)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameBelote game_ = Net.getGames().partieBelote();
+            Net.setReceivedForPlayer(((CompletedHand)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameBelote game_ = Net.getGames(_instance).partieBelote();
                 byte donneur_=game_.getDistribution().getDealer();
                 game_.setEntameur(game_.playerAfter(donneur_));
                 if (game_.getRegles().dealAll()) {
@@ -1035,56 +1037,56 @@ public final class SendReceiveServer extends BasicServer {
                     }
                 }
                 game_.setPliEnCours();
-                playingBeloteCard();
+                playingBeloteCard(_instance);
             }
             return;
         }
         if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.setProgressingGame(false);
+            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.setProgressingGame(false, _instance);
             }
             return;
         }
         if (_readObject instanceof DonePlaying) {
-            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameBelote game_ = Net.getGames().partieBelote();
+            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameBelote game_ = Net.getGames(_instance).partieBelote();
                 if (!game_.keepPlayingCurrentTrick()) {
                     game_.ajouterDixDeDerPliEnCours();
 
                     if (!game_.keepPlayingCurrentGame()) {
                         ThreadUtil.sleep(1000);
-                        endGameBelote();
+                        endGameBelote(_instance);
                         return;
                     }
                     ThreadUtil.sleep(3000);
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), new Pause());
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
                     }
                     return;
                 }
 
-                playingBeloteCard();
+                playingBeloteCard(_instance);
             }
             return;
         }
         if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GameBelote game_ = Net.getGames().partieBelote();
+            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GameBelote game_ = Net.getGames(_instance).partieBelote();
                 game_.setPliEnCours();
-                playingBeloteCard();
+                playingBeloteCard(_instance);
             }
             return;
         }
         if (_readObject instanceof PlayingCardBelote) {
             PlayingCardBelote info_ = (PlayingCardBelote) _readObject;
             CardBelote card_ = info_.getPlayedCard();
-            GameBelote game_ = Net.getGames().partieBelote();
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             boolean autorise_ = game_.autorise(card_);
             if(info_.isDeclaringBeloteRebelote()) {
                 boolean annonceBeloteRebelote_ = game_.cartesBeloteRebelote().contient(card_);
@@ -1100,7 +1102,7 @@ public final class SendReceiveServer extends BasicServer {
                     ErrorPlayingBelote error_ = new ErrorPlayingBelote();
                     error_.setCard(card_);
                     error_.setCards(cartesBeloteRebelote_);
-                    Net.sendObject(Net.getSocketByPlace(info_.getPlace()), error_);
+                    Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), error_);
                     return;
                 }
             }
@@ -1109,7 +1111,7 @@ public final class SendReceiveServer extends BasicServer {
                 error_.setCard(card_);
                 error_.setCards(new HandBelote());
                 error_.setReason(Games.autoriseBelote(game_,info_.getLocale()));
-                Net.sendObject(Net.getSocketByPlace(info_.getPlace()), error_);
+                Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), error_);
                 return;
             }
             if(info_.isDeclaring()) {
@@ -1126,12 +1128,12 @@ public final class SendReceiveServer extends BasicServer {
             ref_.setPlace(info_.getPlace());
             ref_.setDeclare(game_.getAnnonce(info_.getPlace()));
             ref_.setLocale(Constants.getDefaultLanguage());
-            Net.sendObject(Net.getSocketByPlace(info_.getPlace()), ref_);
+            Net.sendObject(Net.getSocketByPlace(info_.getPlace(), _instance), ref_);
             return;
         }
         if (_readObject instanceof RefreshingDoneBelote) {
             PlayingCardBelote p_ = new PlayingCardBelote();
-            GameBelote game_ = Net.getGames().partieBelote();
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             p_.setTakerIndex(game_.getPreneur());
             p_.setPlace(((RefreshingDoneBelote)_readObject).getPlace());
             p_.setPlayedCard(((RefreshingDoneBelote)_readObject).getCard());
@@ -1139,50 +1141,50 @@ public final class SendReceiveServer extends BasicServer {
             p_.setDeclaring(((RefreshingDoneBelote)_readObject).isDeclaring());
             p_.setDeclare(((RefreshingDoneBelote)_readObject).getDeclare());
             p_.setLocale(Constants.getDefaultLanguage());
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendObject(Net.getSocketByPlace(p), p_);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendObject(Net.getSocketByPlace(p, _instance), p_);
             }
             return;
         }
         if (_readObject instanceof SelectTricksHands) {
-            if (!Net.isSameTeam()) {
+            if (!Net.isSameTeam(_instance)) {
                 return;
             }
             byte place_ = ((SelectTricksHands)_readObject).getPlace();
             TricksHandsBelote tricksHands_ = new TricksHandsBelote();
-            GameBelote game_ = Net.getGames().partieBelote();
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             tricksHands_.setRules(game_.getRegles());
             tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setPreneur(game_.getPreneur());
             tricksHands_.setBid(game_.getContrat());
             tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
-            Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), tricksHands_);
             return;
         }
         if (_readObject instanceof SelectTeams) {
-            if (!Net.isSameTeam()) {
+            if (!Net.isSameTeam(_instance)) {
                 return;
             }
             byte place_ = ((SelectTeams)_readObject).getPlace();
             TeamsPlayers teams_ = new TeamsPlayers();
-            GameBelote game_ = Net.getGames().partieBelote();
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             teams_.setTeams(game_.playersBelongingToSameTeam());
-            Net.sendObject(Net.getSocketByPlace(place_), teams_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), teams_);
             return;
         }
     }
 
-    private static void processGamePresident(Object _readObject) {
+    private static void processGamePresident(Object _readObject, Net _instance) {
         if (_readObject instanceof Dealt) {
-            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GamePresident g_ = Net.getGames().partiePresident();
+            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GamePresident g_ = Net.getGames(_instance).partiePresident();
                 g_.initCartesEchanges();
                 g_.donnerMeilleuresCartes();
                 if (g_.availableSwitchingCards()) {
-                    Bytes pl_ = Net.activePlayers();
+                    Bytes pl_ = Net.activePlayers(_instance);
                     Bytes humWin_ = g_.getWinners(pl_);
                     Bytes humLos_ = g_.getLoosers(pl_);
                     if (!humWin_.isEmpty()) {
@@ -1191,7 +1193,7 @@ public final class SendReceiveServer extends BasicServer {
                         for (byte p: humWin_) {
                             byte l_ = g_.getMatchingLoser(p);
                             allow_.setReceivedCards(g_.getSwitchedCards().get(l_));
-                            Net.sendObject(Net.getSocketByPlace(p), allow_);
+                            Net.sendObject(Net.getSocketByPlace(p, _instance), allow_);
                         }
 //                        CustList<Byte> humLosReceiving_ = new CustList<>();
 //                        for (Byte p: humLos_) {
@@ -1219,23 +1221,23 @@ public final class SendReceiveServer extends BasicServer {
                             dis_.setReceived(g_.getSwitchedCards().get(w_));
                             dis_.setGiven(g_.getSwitchedCards().get(p));
                             dis_.setNewHand(g_.getDistribution().hand(w_));
-                            Net.sendObject(Net.getSocketByPlace(p), dis_);
+                            Net.sendObject(Net.getSocketByPlace(p, _instance), dis_);
                         }
                         return;
                     }
                     g_.giveWorstCards();
                 }
                 //Go playing
-                playingPresidentCard();
+                playingPresidentCard(_instance);
             }
             return;
         }
         if (_readObject instanceof DiscardedCards) {
-            Bytes pl_ = Net.activePlayers();
+            Bytes pl_ = Net.activePlayers(_instance);
             DiscardedCards dis_ = (DiscardedCards) _readObject;
             HandPresident cards_ = dis_.getDiscarded();
             byte player_ = dis_.getPlace();
-            GamePresident g_ = Net.getGames().partiePresident();
+            GamePresident g_ = Net.getGames(_instance).partiePresident();
             if (!g_.giveWorstCards(pl_, player_, cards_)) {
                 return;
             }
@@ -1256,25 +1258,25 @@ public final class SendReceiveServer extends BasicServer {
                     disAfter_.setReceived(g_.getSwitchedCards().get(w_));
                     disAfter_.setGiven(g_.getSwitchedCards().get(p));
                     disAfter_.setNewHand(g_.getDistribution().hand(w_));
-                    Net.sendObject(Net.getSocketByPlace(p), disAfter_);
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), disAfter_);
                 }
                 return;
             }
-            playingPresidentCard();
+            playingPresidentCard(_instance);
             return;
         }
         if (_readObject instanceof RefreshedHandPresident) {
-            Net.setReceivedForPlayer(((RefreshedHandPresident)_readObject).getPlace());
-            Bytes pl_ = Net.activePlayers();
-            GamePresident g_ = Net.getGames().partiePresident();
-            if (Net.allReceivedAmong(g_.getLoosers(pl_))) {
-                Net.initAllReceived();
+            Net.setReceivedForPlayer(((RefreshedHandPresident)_readObject).getPlace(), _instance);
+            Bytes pl_ = Net.activePlayers(_instance);
+            GamePresident g_ = Net.getGames(_instance).partiePresident();
+            if (Net.allReceivedAmong(g_.getLoosers(pl_), _instance)) {
+                Net.initAllReceived(_instance);
                 //Go playing
-                playingPresidentCard();
+                playingPresidentCard(_instance);
             }
         }
         if (_readObject instanceof PlayingCardPresident) {
-            GamePresident game_ = Net.getGames().partiePresident();
+            GamePresident game_ = Net.getGames(_instance).partiePresident();
             PlayingCardPresident pl_ = (PlayingCardPresident) _readObject;
             byte player_ = pl_.getPlace();
             if (pl_.isPass()) {
@@ -1283,7 +1285,7 @@ public final class SendReceiveServer extends BasicServer {
                     e_.setPassIssue(true);
                     e_.setReason(Games.canPassMess(game_, pl_.getLocale()));
                     e_.setCard(CardPresident.WHITE);
-                    Net.sendObject(Net.getSocketByPlace(player_), e_);
+                    Net.sendObject(Net.getSocketByPlace(player_, _instance), e_);
                 } else {
                     game_.noPlay(player_);
                     RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
@@ -1294,14 +1296,14 @@ public final class SendReceiveServer extends BasicServer {
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
                     cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.sendObject(Net.getSocketByPlace(player_),cardDto_);
+                    Net.sendObject(Net.getSocketByPlace(player_, _instance),cardDto_);
                 }
             } else {
                 if (!game_.allowPlaying(player_, pl_.getPlayedCard())) {
                     ErrorPlayingPresident e_ = new ErrorPlayingPresident();
                     e_.setCard(pl_.getPlayedCard());
                     e_.setReason(Games.autorisePresident(game_,player_, pl_.getPlayedCard(), pl_.getIndex(), pl_.getLocale()).toString());
-                    Net.sendObject(Net.getSocketByPlace(player_), e_);
+                    Net.sendObject(Net.getSocketByPlace(player_, _instance), e_);
                 } else {
                     game_.addCardsToCurrentTrick(player_, pl_.getPlayedCard(), pl_.getIndex());
                     RefreshHandPlayingPresident cardDto_ = new RefreshHandPlayingPresident();
@@ -1312,72 +1314,72 @@ public final class SendReceiveServer extends BasicServer {
                     cardDto_.setReversed(game_.isReversed());
                     cardDto_.setPlayedCard(CardPresident.WHITE);
                     cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.sendObject(Net.getSocketByPlace(player_),cardDto_);
+                    Net.sendObject(Net.getSocketByPlace(player_, _instance),cardDto_);
                 }
             }
             return;
         }
         if (_readObject instanceof DonePlaying) {
-            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                GamePresident game_ = Net.getGames().partiePresident();
+            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                GamePresident game_ = Net.getGames(_instance).partiePresident();
                 if (game_.getProgressingTrick().estVide()) {
 
                     if (!game_.keepPlayingCurrentGame()) {
                         ThreadUtil.sleep(1000);
-                        endGamePresident();
+                        endGamePresident(_instance);
                         return;
                     }
                     ThreadUtil.sleep(3000);
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), new Pause());
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
                     }
                     return;
                 }
 
-                playingPresidentCard();
+                playingPresidentCard(_instance);
             }
             return;
         }
         if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.initAllReceived();
-                playingPresidentCard();
+            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.initAllReceived(_instance);
+                playingPresidentCard(_instance);
             }
             return;
         }
         if (_readObject instanceof RefreshingDonePresident) {
             PlayingCardPresident cardDto_ = new PlayingCardPresident();
-            GamePresident game_ = Net.getGames().partiePresident();
+            GamePresident game_ = Net.getGames(_instance).partiePresident();
             cardDto_.setPlayedHand(game_.getPlayedCards());
             cardDto_.setPlace(((RefreshingDonePresident)_readObject).getPlace());
             cardDto_.setNextPlayer(game_.getNextPlayer());
             cardDto_.setStatus(game_.getLastStatus());
             cardDto_.setLocale(Constants.getDefaultLanguage());
             cardDto_.setPlayedCard(CardPresident.WHITE);
-            Net.initAllReceived();
-            for (byte p: Net.activePlayers()) {
-                Net.sendObject(Net.getSocketByPlace(p),cardDto_);
+            Net.initAllReceived(_instance);
+            for (byte p: Net.activePlayers(_instance)) {
+                Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
             }
             return;
         }
         if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace());
-            if (Net.allReceived()) {
-                Net.setProgressingGame(false);
+            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+            if (Net.allReceived(_instance)) {
+                Net.setProgressingGame(false, _instance);
             }
             return;
         }
         if (_readObject instanceof SelectTricksHands) {
-            if (!Net.isSameTeam()) {
+            if (!Net.isSameTeam(_instance)) {
                 return;
             }
             byte place_ = ((SelectTricksHands)_readObject).getPlace();
             TricksHandsPresident tricksHands_ = new TricksHandsPresident();
-            GamePresident game_ = Net.getGames().partiePresident();
+            GamePresident game_ = Net.getGames(_instance).partiePresident();
             tricksHands_.setReversed(game_.isReversed());
             tricksHands_.setDistributionCopy(game_.getDistribution());
             tricksHands_.setNumberMaxSwitchedCards(game_.nombresCartesEchangesMax());
@@ -1385,29 +1387,29 @@ public final class SendReceiveServer extends BasicServer {
             tricksHands_.setSwitchedCards(game_.getSwitchedCards());
             tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
             tricksHands_.setDistributionCopy(game_.getDistribution());
-            Net.sendObject(Net.getSocketByPlace(place_), tricksHands_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), tricksHands_);
             return;
         }
     }
 
-    private static void quitProcess(Object _readObject) {
+    private static void quitProcess(Object _readObject, Net _instance) {
         Quit bye_ = (Quit)_readObject;
         if (bye_.isServer()) {
-            if (!Net.delegateServer(bye_)) {
+            if (!Net.delegateServer(bye_, _instance)) {
                 return;
             }
         }
-        Net.quit(bye_.getPlace());
+        Net.quit(bye_.getPlace(), _instance);
         Bye forcedBye_ = new Bye();
         forcedBye_.setForced(false);
         forcedBye_.setServer(false);
         forcedBye_.setClosing(bye_.isClosing());
-        for (int i: Net.getPlacesPlayersByValue(bye_.getPlace())) {
-            Net.removePlayer(i, forcedBye_);
+        for (int i: Net.getPlacesPlayersByValue(bye_.getPlace(), _instance)) {
+            Net.removePlayer(i, forcedBye_, _instance);
             break;
         }
-        if (Net.getGames().enCoursDePartieBelote()) {
-            GameBelote game_ = Net.getGames().partieBelote();
+        if (Net.getGames(_instance).enCoursDePartieBelote()) {
+            GameBelote game_ = Net.getGames(_instance).partieBelote();
             if (!game_.keepPlayingCurrentGame()) {
                 return;
             }
@@ -1422,8 +1424,8 @@ public final class SendReceiveServer extends BasicServer {
                     bid_.setPlace(place_);
                     bid_.setBidBelote(game_.getLastBid());
                     bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                 }
             } else {
@@ -1444,21 +1446,21 @@ public final class SendReceiveServer extends BasicServer {
                     cardDto_.setDeclaringBeloteRebelote(declareBeloteRebelote_);
                     cardDto_.setDeclare(game_.getAnnonce(place_));
                     cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), cardDto_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
                     }
                 }
             }
             return;
         }
-        if (Net.getGames().enCoursDePartiePresident()) {
-            GamePresident game_ = Net.getGames().partiePresident();
+        if (Net.getGames(_instance).enCoursDePartiePresident()) {
+            GamePresident game_ = Net.getGames(_instance).partiePresident();
             if (!game_.keepPlayingCurrentGame()) {
                 return;
             }
             byte player_ = bye_.getPlace();
-            Bytes pl_ = Net.activePlayers();
+            Bytes pl_ = Net.activePlayers(_instance);
             if (game_.availableSwitchingCards() && !game_.readyToPlayMulti(pl_)) {
                 Bytes humWin_ = game_.getWinners(new Bytes(player_));
                 if (!humWin_.isEmpty()) {
@@ -1483,11 +1485,11 @@ public final class SendReceiveServer extends BasicServer {
                             disAfter_.setReceived(game_.getSwitchedCards().get(w_));
                             disAfter_.setGiven(game_.getSwitchedCards().get(p));
                             disAfter_.setNewHand(game_.getDistribution().hand(w_));
-                            Net.sendObject(Net.getSocketByPlace(p), disAfter_);
+                            Net.sendObject(Net.getSocketByPlace(p, _instance), disAfter_);
                         }
                         return;
                     }
-                    playingPresidentCard();
+                    playingPresidentCard(_instance);
                 }
                 return;
             }
@@ -1503,15 +1505,15 @@ public final class SendReceiveServer extends BasicServer {
                 cardDto_.setStatus(game_.getLastStatus());
                 cardDto_.setPlayedCard(CardPresident.WHITE);
                 cardDto_.setLocale(Constants.getDefaultLanguage());
-                Net.initAllReceived();
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p),cardDto_);
+                Net.initAllReceived(_instance);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
                 }
             }
             return;
         }
-        if (Net.getGames().enCoursDePartieTarot()) {
-            GameTarot game_ = Net.getGames().partieTarot();
+        if (Net.getGames(_instance).enCoursDePartieTarot()) {
+            GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (!game_.keepPlayingCurrentGame()) {
                 return;
             }
@@ -1526,8 +1528,8 @@ public final class SendReceiveServer extends BasicServer {
                     bid_.setPlace(place_);
                     bid_.setBid(game_.getLastBid());
                     bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                 }
                 return;
@@ -1555,9 +1557,9 @@ public final class SendReceiveServer extends BasicServer {
                     cardDto_.setMiseres(annoncesMiseres_);
                     cardDto_.setExcludedTrumps(new HandTarot());
                     cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), cardDto_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
                     }
                 }
                 return;
@@ -1568,9 +1570,9 @@ public final class SendReceiveServer extends BasicServer {
                 calledCards_.setPlace(game_.getPreneur());
                 calledCards_.setCalledCards(game_.getCarteAppelee());
                 calledCards_.setLocale(Constants.getDefaultLanguage());
-                Net.initAllReceived();
-                for (byte p: Net.activePlayers()) {
-                    Net.sendObject(Net.getSocketByPlace(p), calledCards_);
+                Net.initAllReceived(_instance);
+                for (byte p: Net.activePlayers(_instance)) {
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
                 }
                 return;
             }
@@ -1582,9 +1584,9 @@ public final class SendReceiveServer extends BasicServer {
                     calledCards_.setPlace(game_.getPreneur());
                     calledCards_.setCalledCards(game_.getCarteAppelee());
                     calledCards_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), calledCards_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
                     }
                     return;
                 }
@@ -1599,9 +1601,9 @@ public final class SendReceiveServer extends BasicServer {
                 if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
                     DiscardedTrumps discarded_ = new DiscardedTrumps();
                     discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
-                    Net.initAllReceived();
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), discarded_);
+                    Net.initAllReceived(_instance);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
                     }
                     return;
                 }
@@ -1609,8 +1611,8 @@ public final class SendReceiveServer extends BasicServer {
                     BiddingSlamAfter bid_ = new BiddingSlamAfter();
                     bid_.setPlace(game_.getPreneur());
                     bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                     return;
                 }
@@ -1618,106 +1620,106 @@ public final class SendReceiveServer extends BasicServer {
                 /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
                 game_.setEntameur(game_.playerAfter(dealer_));
                 game_.setPliEnCours(true);
-                playingTarotCard();
+                playingTarotCard(_instance);
                 return;
             }
             game_.gererChienInconnu();
             if (!game_.getContrat().isFaireTousPlis()) {
                 game_.slam();
                 if (game_.chelemAnnonce()) {
-                    Net.initAllReceived();
+                    Net.initAllReceived(_instance);
                     BiddingSlamAfter bid_ = new BiddingSlamAfter();
                     bid_.setPlace(game_.getPreneur());
                     bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers()) {
-                        Net.sendObject(Net.getSocketByPlace(p), bid_);
+                    for (byte p: Net.activePlayers(_instance)) {
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
                     }
                     return;
                 }
             }
             game_.setPliEnCours(true);
-            playingTarotCard();
+            playingTarotCard(_instance);
         }
     }
-    private static void endGameBelote() {
+    private static void endGameBelote(Net _instance) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames().partieBelote().getNombreDeJoueurs();
+        int nbPlayers_ = Net.getGames(_instance).partieBelote().getNombreDeJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (Net.getNicknames().contains(i)) {
-                players_.add(Net.getNicknames().getVal(i));
+            if (Net.getNicknames(_instance).contains(i)) {
+                players_.add(Net.getNicknames(_instance).getVal(i));
             } else {
                 players_.add(EMPTY_STRING);
             }
         }
-        for (byte p: Net.activePlayers()) {
+        for (byte p: Net.activePlayers(_instance)) {
             ResultsBelote res_ = new ResultsBelote();
-            CustList<Longs> scores_ = Net.getScores();
+            CustList<Longs> scores_ = Net.getScores(_instance);
             CustList<Longs> list_ = new CustList<Longs>();
             for (Longs v: scores_) {
                 list_.add(new Longs(v));
             }
-            res_.setGame(Net.getGames().partieBelote());
+            res_.setGame(Net.getGames(_instance).partieBelote());
             res_.setUser(p);
             res_.initialize(new StringList(players_), list_);
-            String loc_ = Net.getLanguageByPlace(p);
+            String loc_ = Net.getLanguageByPlace(p, _instance);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
-            Net.sendObject(Net.getSocketByPlace(p), res_);
+            Net.sendObject(Net.getSocketByPlace(p, _instance), res_);
         }
     }
-    private static void endGamePresident() {
+    private static void endGamePresident(Net _instance) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames().partiePresident().getNombreDeJoueurs();
+        int nbPlayers_ = Net.getGames(_instance).partiePresident().getNombreDeJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (Net.getNicknames().contains(i)) {
-                players_.add(Net.getNicknames().getVal(i));
+            if (Net.getNicknames(_instance).contains(i)) {
+                players_.add(Net.getNicknames(_instance).getVal(i));
             } else {
                 players_.add(EMPTY_STRING);
             }
         }
         ResultsPresident res_ = new ResultsPresident();
-        res_.setGame(Net.getGames().partiePresident());
-        CustList<Longs> scores_ = Net.getScores();
+        res_.setGame(Net.getGames(_instance).partiePresident());
+        CustList<Longs> scores_ = Net.getScores(_instance);
         CustList<Longs> list_ = new CustList<Longs>();
         for (Longs v: scores_) {
             list_.add(new Longs(v));
         }
         res_.initialize(new StringList(players_), list_);
-        for (byte p: Net.activePlayers()) {
-            String loc_ = Net.getLanguageByPlace(p);
+        for (byte p: Net.activePlayers(_instance)) {
+            String loc_ = Net.getLanguageByPlace(p, _instance);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
-            Net.sendObject(Net.getSocketByPlace(p), res_);
+            Net.sendObject(Net.getSocketByPlace(p, _instance), res_);
         }
     }
-    private static void endGameTarot() {
+    private static void endGameTarot(Net _instance) {
         StringList players_ = new StringList();
-        int nbPlayers_ = Net.getGames().partieTarot().getNombreDeJoueurs();
+        int nbPlayers_ = Net.getGames(_instance).partieTarot().getNombreDeJoueurs();
         for (int i = IndexConstants.FIRST_INDEX; i < nbPlayers_; i++) {
-            if (Net.getNicknames().contains(i)) {
-                players_.add(Net.getNicknames().getVal(i));
+            if (Net.getNicknames(_instance).contains(i)) {
+                players_.add(Net.getNicknames(_instance).getVal(i));
             } else {
                 players_.add(EMPTY_STRING);
             }
         }
-        for (byte p: Net.activePlayers()) {
+        for (byte p: Net.activePlayers(_instance)) {
             ResultsTarot res_ = new ResultsTarot();
-            res_.setGame(Net.getGames().partieTarot());
-            CustList<Longs> scores_ = Net.getScores();
+            res_.setGame(Net.getGames(_instance).partieTarot());
+            CustList<Longs> scores_ = Net.getScores(_instance);
             CustList<Longs> list_ = new CustList<Longs>();
             for (Longs v: scores_) {
                 list_.add(new Longs(v));
             }
-            String loc_ = Net.getLanguageByPlace(p);
+            String loc_ = Net.getLanguageByPlace(p, _instance);
             DocumentReaderCardsResultsUtil.setMessages(res_,loc_);
             res_.setUser(p);
             res_.initialize(new StringList(players_), list_);
-            Net.sendObject(Net.getSocketByPlace(p), res_);
+            Net.sendObject(Net.getSocketByPlace(p, _instance), res_);
         }
     }
-    private static void playingBeloteCard() {
-        GameBelote game_ = Net.getGames().partieBelote();
+    private static void playingBeloteCard(Net _instance) {
+        GameBelote game_ = Net.getGames(_instance).partieBelote();
         byte place_ = game_.playerHavingToPlay();
-        if (Net.isHumanPlayer(place_)) {
+        if (Net.isHumanPlayer(place_, _instance)) {
             AllowPlayingBelote decla_ = new AllowPlayingBelote();
             decla_.setTakerIndex(game_.getPreneur());
             decla_.setFirstRoundPlaying(game_.premierTour());
@@ -1728,7 +1730,7 @@ public final class SendReceiveServer extends BasicServer {
             }
             decla_.setPossibleBeloteRebelote(!game_.cartesBeloteRebelote().estVide());
             decla_.setAllowedBeloteRebelote(game_.autoriseBeloteRebelote(place_));
-            Net.sendObject(Net.getSocketByPlace(place_),decla_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance),decla_);
             return;
         }
         ThreadUtil.sleep(800);
@@ -1753,20 +1755,20 @@ public final class SendReceiveServer extends BasicServer {
             cardDto_.setDeclare(new DeclareHandBelote());
         }
         cardDto_.setLocale(Constants.getDefaultLanguage());
-        Net.initAllReceived();
-        for (byte p: Net.activePlayers()) {
-            Net.sendObject(Net.getSocketByPlace(p),cardDto_);
+        Net.initAllReceived(_instance);
+        for (byte p: Net.activePlayers(_instance)) {
+            Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
         }
     }
-    private static void playingPresidentCard() {
-        GamePresident game_ = Net.getGames().partiePresident();
+    private static void playingPresidentCard(Net _instance) {
+        GamePresident game_ = Net.getGames(_instance).partiePresident();
         byte place_ = game_.getNextPlayer();
-        if (Net.isHumanPlayer(place_)) {
+        if (Net.isHumanPlayer(place_, _instance)) {
             AllowPlayingPresident allow_ = new AllowPlayingPresident();
             allow_.setEnabledPass(!game_.getProgressingTrick().estVide());
             allow_.setStatus(game_.getStatus(place_));
             allow_.setReversed(game_.isReversed());
-            Net.sendObject(Net.getSocketByPlace(place_),allow_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance),allow_);
             return;
         }
         ThreadUtil.sleep(800);
@@ -1780,15 +1782,15 @@ public final class SendReceiveServer extends BasicServer {
         cardDto_.setStatus(game_.getLastStatus());
         cardDto_.setPlayedCard(CardPresident.WHITE);
         cardDto_.setLocale(Constants.getDefaultLanguage());
-        Net.initAllReceived();
-        for (byte p: Net.activePlayers()) {
-            Net.sendObject(Net.getSocketByPlace(p),cardDto_);
+        Net.initAllReceived(_instance);
+        for (byte p: Net.activePlayers(_instance)) {
+            Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
         }
     }
-    private static void playingTarotCard() {
-        GameTarot game_ = Net.getGames().partieTarot();
+    private static void playingTarotCard(Net _instance) {
+        GameTarot game_ = Net.getGames(_instance).partieTarot();
         byte place_ = game_.playerHavingToPlay();
-        if (Net.isHumanPlayer(place_)) {
+        if (Net.isHumanPlayer(place_, _instance)) {
             AllowPlayingTarot decla_ = new AllowPlayingTarot();
             decla_.setTakerIndex(game_.getPreneur());
             boolean firstRound_ = game_.premierTourNoMisere();
@@ -1803,7 +1805,7 @@ public final class SendReceiveServer extends BasicServer {
                 decla_.setRequiredTrumps(new EnumMap<Handfuls,Integer>());
                 decla_.setAllowedMiseres(new EnumList<Miseres>());
             }
-            Net.sendObject(Net.getSocketByPlace(place_), decla_);
+            Net.sendObject(Net.getSocketByPlace(place_, _instance), decla_);
             return;
         }
         ThreadUtil.sleep(800);
@@ -1827,9 +1829,9 @@ public final class SendReceiveServer extends BasicServer {
         cardDto_.setHandful(poignee_);
         cardDto_.setMiseres(annoncesMiseres_);
         cardDto_.setExcludedTrumps(new HandTarot());
-        Net.initAllReceived();
-        for (byte p: Net.activePlayers()) {
-            Net.sendObject(Net.getSocketByPlace(p), cardDto_);
+        Net.initAllReceived(_instance);
+        for (byte p: Net.activePlayers(_instance)) {
+            Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
         }
     }
 }

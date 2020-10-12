@@ -247,8 +247,10 @@ public final class MainWindow extends NetGroupFrame {
 
 //    private final boolean standalone;
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    private final Net net = new Net();
+
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
@@ -403,8 +405,8 @@ public final class MainWindow extends NetGroupFrame {
         //clearHtmlDialogs();
         //battle.clearHtmlDialogs();
         //removeAll();
-        LaunchingPokemon.decrement();
         super.dispose();
+        LaunchingPokemon.decrement();
         //facade = null;
     }
     public void initMessages() {
@@ -876,7 +878,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void manageLanguage() {
-        if (!GroupFrame.canChangeLanguageAll()) {
+        if (!canChangeLanguageAll()) {
             GroupFrame.showDialogError(this);
             return;
         }
@@ -885,7 +887,7 @@ public final class MainWindow extends NetGroupFrame {
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
-        GroupFrame.changeStaticLanguage(langue_);
+        GroupFrame.changeStaticLanguage(langue_, getFrames());
         SoftApplicationCore.saveLanguage(LaunchingPokemon.getTempFolder(), langue_);
     }
 
@@ -1134,14 +1136,14 @@ public final class MainWindow extends NetGroupFrame {
 
     @Override
     public void gearClient(Socket _newSocket) {
-        Net.getSockets().put(Net.getSockets().size(), _newSocket);
-        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this);
+        Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
+        SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
         CustComponent.newThread(sendReceiveServer_).start();
-        Net.getConnectionsServer().put(Net.getSockets().size()-1,sendReceiveServer_);
+        Net.getConnectionsServer(getNet()).put(Net.getSockets(getNet()).size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
-        index_.setIndex(Net.getSockets().size()-1);
-        Net.getReadyPlayers().put(Net.getSockets().size()-1,false);
-        Net.getPlacesPlayers().put(Net.getSockets().size()-1,(byte)(Net.getSockets().size()-1));
+        index_.setIndex(Net.getSockets(getNet()).size()-1);
+        Net.getReadyPlayers(getNet()).put(Net.getSockets(getNet()).size()-1,false);
+        Net.getPlacesPlayers(getNet()).put(Net.getSockets(getNet()).size()-1,(byte)(Net.getSockets(getNet()).size()-1));
         Net.sendObject(_newSocket,index_);
     }
 
@@ -1639,5 +1641,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public void setPreparedProgThread(Thread _preparedProgThread) {
         preparedProgThread = _preparedProgThread;
+    }
+
+    public Net getNet() {
+        return net;
     }
 }

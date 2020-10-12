@@ -17,13 +17,13 @@ public final class AppUnitEvent extends MouseAdapter {
         if (LaunchingAppUnitTests.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingAppUnitTests.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingAppUnitTests.getMainWindowClass(), window.getFrames())) {
             LaunchingAppUnitTests.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingAppUnitTests l_;
         l_ = new LaunchingAppUnitTests();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }

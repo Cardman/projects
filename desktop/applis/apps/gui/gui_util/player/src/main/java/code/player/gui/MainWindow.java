@@ -1,6 +1,5 @@
 package code.player.gui;
 import java.awt.Dimension;
-import java.io.IOException;
 
 import javax.sound.sampled.LineEvent;
 import javax.swing.JOptionPane;
@@ -104,8 +103,8 @@ public class MainWindow extends GroupFrame {
 
     private CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         initMessages(_lg);
         setTitle(messages.getVal(TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon());
@@ -135,7 +134,7 @@ public class MainWindow extends GroupFrame {
         pane_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
-            radio_.addActionListener(new SetLanguage(l));
+            radio_.addActionListener(new SetLanguage(l, getFrames()));
             radio_.setSelected(StringUtil.quickEq(l,_lg));
             group.add(radio_);
             pane_.add(radio_);
@@ -151,8 +150,8 @@ public class MainWindow extends GroupFrame {
     @Override
     public void dispose() {
         saveState();
-        LaunchingPlayer.decrement();
         super.dispose();
+        LaunchingPlayer.decrement();
     }
 
     public void loadList(String _fileName) {

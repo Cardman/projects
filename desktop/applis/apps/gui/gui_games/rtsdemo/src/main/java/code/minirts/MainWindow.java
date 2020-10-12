@@ -12,6 +12,7 @@ import code.minirts.events.*;
 import code.minirts.rts.Direction;
 import code.minirts.rts.Facade;
 import code.resources.ResourceFiles;
+import code.util.CustList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,8 +56,8 @@ public final class MainWindow extends GroupFrame {
 
     private CustPoint last = new CustPoint();
 
-    public MainWindow(String _lg) {
-        super(_lg);
+    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
@@ -126,8 +127,8 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        LaunchingDemo.decrement();
         super.dispose();
+        LaunchingDemo.decrement();
     }
 
     public void setEnabledPause(boolean _enabled) {

@@ -19,6 +19,7 @@ import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.threads.ThreadUtil;
+import code.util.CustList;
 import code.util.StringMap;
 
 import javax.swing.*;
@@ -47,8 +48,8 @@ public final class MainWindow extends GroupFrame {
 
     private Thread th;
     private StringMap<String> messages;
-    protected MainWindow(String _lg) {
-        super(_lg);
+    protected MainWindow(String _lg, CustList<GroupFrame> _list) {
+        super(_lg, _list);
         setAccessFile("unit.mainwindow");
         messages = getMessages(this,"resources_unit/gui/messages");
         setTitle(messages.getVal("title"));
@@ -107,8 +108,8 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        LaunchingAppUnitTests.decrement();
         super.dispose();
+        LaunchingAppUnitTests.decrement();
     }
 
     @Override

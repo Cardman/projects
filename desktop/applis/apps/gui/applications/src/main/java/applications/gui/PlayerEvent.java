@@ -16,13 +16,13 @@ public final class PlayerEvent extends MouseAdapter {
         if (LaunchingPlayer.alreadyLaunched()) {
             return;
         }
-        if (GroupFrame.tryToReopen(LaunchingPlayer.getMainWindowClass())) {
+        if (GroupFrame.tryToReopen(LaunchingPlayer.getMainWindowClass(), window.getFrames())) {
             LaunchingPlayer.increment();
             return;
         }
         String lg_ = window.getLanguageKey();
         LaunchingPlayer l_;
         l_ = new LaunchingPlayer();
-        l_.launch(lg_);
+        l_.launch(lg_, window.getFrames());
     }
 }
