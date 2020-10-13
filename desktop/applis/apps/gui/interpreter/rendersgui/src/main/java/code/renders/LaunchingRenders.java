@@ -6,10 +6,8 @@ import code.gui.initialize.LoadLanguageUtil;
 import code.gui.initialize.ProgramInfos;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class LaunchingRenders extends AdvSoftApplicationCore {
 
@@ -46,15 +44,6 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
     @Override
     protected BufferedImage getImageIcon() {
         return null;
-    }
-
-    public static String getTempFolderSl(String _tmpUserFolderSl) {
-        return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
-    }
-
-    public static String getTempFolder(String _tmpUserFolderSl) {
-        new File(StringUtil.concat(_tmpUserFolderSl,TEMP_FOLDER)).mkdirs();
-        return StringUtil.concat(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
 }
