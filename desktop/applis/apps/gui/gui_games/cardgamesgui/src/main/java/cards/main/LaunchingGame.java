@@ -2,10 +2,12 @@ package cards.main;
 import cards.belote.beans.BeloteStandards;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
+import cards.gui.animations.HelpInitializer;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.president.beans.PresidentStandards;
 import cards.tarot.beans.TarotStandards;
+import code.gui.CustComponent;
 import code.gui.GroupFrame;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
@@ -42,6 +44,11 @@ public final class LaunchingGame implements Runnable {
         SoftApplicationCore.setLocation(window_, topLeft);
         window_.pack();
         window_.setVisible(true);
+        HelpInitializer helpInitializerTask_ = new HelpInitializer();
+        Thread helpInitializerThread_ = CustComponent.newThread(helpInitializerTask_);
+        helpInitializerThread_.start();
+        window_.setHelpInitializerTask(helpInitializerTask_);
+        window_.setHelpInitializerThread(helpInitializerThread_);
 
         if (!args.isEmpty()) {
             window_.loadGameBegin(args.getKeys().first(), args.values().first());

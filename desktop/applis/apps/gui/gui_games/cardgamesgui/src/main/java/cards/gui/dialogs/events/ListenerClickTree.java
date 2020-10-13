@@ -6,7 +6,6 @@ import javax.swing.tree.TreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
-import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.gui.TreeGui;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
@@ -56,6 +55,6 @@ public class ListenerClickTree implements TreeSelectionListener {
             indices_ = new Ints();
         }
         ElementHelp element_ = node.element(indices_).getElementLocal();
-        editor.initialize(element_.getFile(),null, new GeneralHelpLgNames());
+        editor.initialize(element_.getNavigation(),element_.getMetaDocument());
     }
 }

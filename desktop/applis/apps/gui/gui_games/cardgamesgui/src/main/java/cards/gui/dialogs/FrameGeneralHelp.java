@@ -11,23 +11,13 @@ import cards.gui.dialogs.help.ComparatorListSizeElement;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.NodeHelp;
-import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
-import code.resources.ResourceFiles;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
-import code.sml.Node;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class FrameGeneralHelp extends ChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.framegeneralhelp";
@@ -42,16 +32,11 @@ public final class FrameGeneralHelp extends ChildFrame {
 //
 //    private static final String ORDER_NO_TRUMPS = "orderNoTrumps";
 
-    private static final String POSITION = "position";
-
-    private static final String TEXTE = "texte";
-
     private static final String SEARCH_LABEL = "searchLabel";
 
 //    private static final String TYPE = "type";
 
-    private static final String XML_FILE_PATHS = "chemin_acces_aide.xml";
-//    private static final String TOUTE_CARTE_BELOTE = "touteCarteBelote";
+    //    private static final String TOUTE_CARTE_BELOTE = "touteCarteBelote";
 //    private static final String ORDRE_CARTES_BELOTE = "ordreCartesBelote";
 //    private static final String TOUTE_CARTE_TAROT = "touteCarteTarot";
 //    private static final String ORDRE_CARTES_TAROT = "ordreCartesTarot";
@@ -95,64 +80,10 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        window = null;
 //    }
 
-    public void voir(MainWindow _w) {
-//        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
+    public void initialize(MainWindow _w) {
         messages = getMessages(_w,FileConst.FOLDER_MESSAGES_GUI);
         String lg_ = _w.getLanguageKey();
-        elementsBis.clear();
-        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,
-                StreamTextFile.SEPARATEUR,XML_FILE_PATHS)));
-        Element element_ = doc_.getDocumentElement();
-        CustList<Node> noeudsActuels_ = new CustList<Node>();
-        noeudsActuels_.add(element_);
-        StringList cheminsActuels_ = new StringList();
-        cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
-        HelpIndexes indices_ = new HelpIndexes();
-        indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
-        CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
-        cheminsNumeriquesActuels_.add(indices_);
-        ElementHelp elementRacine_ = new ElementHelp(element_
-                .getAttribute(TEXTE));
-        elementRacine_.ajouterInfo(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_, StreamTextFile.SEPARATEUR,
-                element_.getTagName(), FileConst.XML_EXT));
-        elementsBis.put(indices_, elementRacine_);
-        while (true) {
-            CustList<Node> nouveauxElements_ = new CustList<Node>();
-            StringList nouveauxChemins_ = new StringList();
-            CustList<HelpIndexes> nouveauxCheminsNum_ = new CustList<HelpIndexes>();
-            int j_ = IndexConstants.FIRST_INDEX;
-            for (Node e : noeudsActuels_) {
-                String cheminCourant_ = cheminsActuels_.get(j_);
-                HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
-                        .get(j_);
-                for (Element e2_ : e.getChildElements()) {
-                    if (e2_.hasAttributes()) {
-                        ElementHelp noeud_ = new ElementHelp(e2_
-                                .getAttribute(TEXTE));
-                        nouveauxChemins_.add(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
-                                e2_.getTagName()));
-                        noeud_.ajouterInfo(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
-                                e2_.getTagName(), FileConst.XML_EXT));
-                        nouveauxElements_.add(e2_);
-                        HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
-                                cheminNumCourant_);
-                        cheminNumCourantBis_.add(Integer
-                                .parseInt(e2_.getAttribute(
-                                        POSITION)));
-                        nouveauxCheminsNum_.add(cheminNumCourantBis_);
-                        elementsBis.put(nouveauxCheminsNum_.last(),
-                                noeud_);
-                    }
-                }
-                j_++;
-            }
-            if (nouveauxElements_.isEmpty()) {
-                break;
-            }
-            noeudsActuels_ = nouveauxElements_;
-            cheminsActuels_ = nouveauxChemins_;
-            cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
-        }
+        elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_);
         setFocusable(true);
         setFocusableWindowState(true);
         CustList<HelpIndexes> cles_ = new CustList<HelpIndexes>(
@@ -199,8 +130,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         TreeGui arbre_ = new TreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
-        editor.setLanguage(lg_);
-        editor.initialize(racineBis.getFile(),null, new GeneralHelpLgNames());
+        editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
         if (field == null) {
             field = new TextField(20);
             search = new LabelButton();

@@ -24,6 +24,7 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
+import cards.gui.animations.HelpInitializer;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerMulti;
@@ -530,6 +531,8 @@ public final class MainWindow extends NetGroupFrame {
 
     private final IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> prepared;
     //private final boolean standalone;
+    private HelpInitializer helpInitializerTask;
+    private Thread helpInitializerThread;
 
     public MainWindow(String _lg, CustList<GroupFrame> _list, IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> _prepared) {
         super(_lg, _list);
@@ -1786,12 +1789,15 @@ public final class MainWindow extends NetGroupFrame {
         if (!helpFrames.isEmpty()) {
             if (!helpFrames.first().isVisible()) {
                 helpFrames.first().setTitle(getMessages().getVal(GENERAL_HELP));
-                helpFrames.first().voir(this);
+                helpFrames.first().initialize(this);
             }
             return;
         }
+        if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
+            return;
+        }
         FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(GENERAL_HELP),this);
-        aide_.voir(this);
+        aide_.initialize(this);
         helpFrames.add(aide_);
     }
 
@@ -2145,5 +2151,21 @@ public final class MainWindow extends NetGroupFrame {
     }
     public IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> getPrepared() {
         return prepared;
+    }
+
+    public HelpInitializer getHelpInitializerTask() {
+        return helpInitializerTask;
+    }
+
+    public void setHelpInitializerTask(HelpInitializer helpInitializerTask) {
+        this.helpInitializerTask = helpInitializerTask;
+    }
+
+    public Thread getHelpInitializerThread() {
+        return helpInitializerThread;
+    }
+
+    public void setHelpInitializerThread(Thread helpInitializerThread) {
+        this.helpInitializerThread = helpInitializerThread;
     }
 }

@@ -3,10 +3,7 @@ package code.gui.document;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
@@ -95,27 +92,9 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(String _conf, Object _db,BeanNatLgNames _stds) {
-        start();
-        _stds.setDataBase(_db);
-        standards = _stds;
-        contextCreator = new NativeContextCreator();
-        String content_ = ResourceFiles.ressourceFichier(_conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(_stds);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", _stds, DefaultFileBuilder.newInstance(_stds.getContent()), nat_);
-        ContextEl ctx_ = du_.getContext().getContext();
-        setContext(ctx_);
-        if (ctx_ == null) {
-            setupText();
-            return;
-        }
-        setFiles(du_);
-        ReportedMessages reportedMessages_ = _stds.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
-        if (!reportedMessages_.isAllEmptyErrors()) {
-            return;
-        }
-        navigation.initializeRendSession(ctx_, du_.getStds());
-        setupText();
+    public void initialize(Navigation _nav,MetaDocument _metaDoc) {
+        navigation = _nav;
+        CustComponent.invokeLater(new WindowPage(_metaDoc, scroll, this));
     }
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(Object _db, PreparedAnalyzed _stds) {
