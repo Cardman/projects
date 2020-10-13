@@ -101,6 +101,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         _stds.getBeanNatLgNames().setDataBase(_db);
         standards = _stds.getBeanNatLgNames();
+        navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
         ContextEl ctx_ = _stds.getContext();
         setContext(ctx_);
