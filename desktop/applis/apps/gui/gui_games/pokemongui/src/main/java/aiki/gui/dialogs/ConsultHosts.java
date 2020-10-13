@@ -20,8 +20,6 @@ import code.util.core.StringUtil;
 public final class ConsultHosts extends Dialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
 
-    private static final ConsultHosts DIALOG = new ConsultHosts();
-
     private static final String TITLE = "title";
 
     private static final String TITLE_DETAIL = "titleDetail";
@@ -38,12 +36,12 @@ public final class ConsultHosts extends Dialog {
 
 //    private MainWindow window;
     private MainWindow window;
-    private ConsultHosts() {
+    public ConsultHosts() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setConsultHosts(MainWindow _frame, FacadeGame _facade) {
-        DIALOG.init(_frame, _facade);
+        _frame.getConsultHosts().init(_frame, _facade);
     }
 
     private void init(MainWindow _frame, FacadeGame _facade) {

@@ -17,8 +17,6 @@ public final class DialogDifficulty extends Dialog {
 
     private static final String TEXT = "0";
 
-    private static final DialogDifficulty DIALOG = new DialogDifficulty();
-
     private static final String SEARCH_LABEL = "searchLabel";
 
     private MainWindow window;
@@ -29,12 +27,12 @@ public final class DialogDifficulty extends Dialog {
 
     private FacadeGame facade;
 
-    private DialogDifficulty() {
+    public DialogDifficulty() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
-        DIALOG.init(_window, _title, _facade,_pre);
+        _window.getDialogDifficulty().init(_window, _title, _facade,_pre);
     }
 
     private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {

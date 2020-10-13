@@ -251,6 +251,8 @@ public final class MainWindow extends NetGroupFrame {
     private final SelectHealingItem selectHealingItem = new SelectHealingItem();
     private final SelectItem selectItem = new SelectItem();
     private final SelectTm selectTm = new SelectTm();
+    private final ConsultHosts consultHosts = new ConsultHosts();
+    private final DialogDifficulty dialogDifficulty = new DialogDifficulty();
     private final DialogGameProgess dialogGameProgess = new DialogGameProgess();
     private final DialogHtmlData dialogHtmlData = new DialogHtmlData();
     private final SoftParams softParams = new SoftParams();
@@ -1675,6 +1677,14 @@ public final class MainWindow extends NetGroupFrame {
 
     public SelectTm getSelectTm() {
         return selectTm;
+    }
+
+    public ConsultHosts getConsultHosts() {
+        return consultHosts;
+    }
+
+    public DialogDifficulty getDialogDifficulty() {
+        return dialogDifficulty;
     }
 
     public DialogGameProgess getDialogGameProgess() {
