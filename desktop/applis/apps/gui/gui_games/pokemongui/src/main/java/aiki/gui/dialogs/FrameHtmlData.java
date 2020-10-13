@@ -67,7 +67,7 @@ public final class FrameHtmlData extends ChildFrame {
 
     public void initSessionLg(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         setVisible(true);
-        session.initializeOnlyConf(_dataBase,_pre.getBeanNatLgNames(),_pre.getNavigation(), _lg, _pre.getContext());
+        session.initializeOnlyConf(_dataBase,_pre, _lg);
     }
 
     public ProgressingWebDialog getDialog() {

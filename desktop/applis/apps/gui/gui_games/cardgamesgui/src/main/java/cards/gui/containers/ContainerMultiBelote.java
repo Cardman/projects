@@ -14,7 +14,6 @@ import cards.belote.HandBelote;
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
-import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
@@ -234,7 +233,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        String lg_ = getOwner().getLanguageKey();
         getMultiStop().setEnabledMenu(true);
         getTricksHands().setEnabledMenu(true);
         getTeams().setEnabledMenu(true);
@@ -276,10 +274,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
-        editor.setLanguage(lg_);
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
+        editor.initialize(rulesBeloteMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE));
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -353,11 +350,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void updateRules(RulesBelote _rules) {
         rulesBeloteMulti = _rules;
-        String lg_ = getOwner().getLanguageKey();
-        editor.setLanguage(lg_);
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
+        editor.initialize(rulesBeloteMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE));
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -841,17 +836,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        BeloteStandards stds_;
-        editor_.setLanguage(lg_);
-        stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,_res,stds_);
+        editor_.initialize(_res,retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ScrollPane ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        editor_.setLanguage(lg_);
-        stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,_res,stds_);
+        editor_.initialize(_res,retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE));
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

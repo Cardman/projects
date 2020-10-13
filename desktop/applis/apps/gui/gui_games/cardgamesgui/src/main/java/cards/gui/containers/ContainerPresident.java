@@ -5,6 +5,7 @@ import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
@@ -285,5 +286,9 @@ public class ContainerPresident extends ContainerGame {
 
     public String readResource() {
         return readResource(PresidentResoucesAccess.NOM_DOSSIER,PresidentResoucesAccess.NOM_FICHIER);
+    }
+
+    public PreparedPagesCards retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(GameEnum.PRESIDENT).getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }

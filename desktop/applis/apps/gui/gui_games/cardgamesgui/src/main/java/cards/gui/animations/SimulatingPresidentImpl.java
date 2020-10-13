@@ -11,7 +11,6 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.president.*;
-import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.*;
 import code.gui.Panel;
@@ -242,8 +241,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,res_, new PresidentStandards());
+        editor_.initialize(res_, container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT));
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);
         panneau_.add(stopButton);

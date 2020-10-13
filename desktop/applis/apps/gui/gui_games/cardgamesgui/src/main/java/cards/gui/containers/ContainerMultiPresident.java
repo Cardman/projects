@@ -50,7 +50,6 @@ import cards.president.HandPresident;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
-import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
@@ -98,7 +97,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        String lg_ = getOwner().getLanguageKey();
         getMultiStop().setEnabledMenu(true);
         getTricksHands().setEnabledMenu(true);
         getTeams().setEnabledMenu(true);
@@ -139,10 +137,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
-        editor.setLanguage(lg_);
         rulesPresidentMulti.setGeneral(readCoreResource());
         rulesPresidentMulti.setSpecific(readResource());
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresidentMulti, new PresidentStandards());
+        editor.initialize(rulesPresidentMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT));
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -218,9 +215,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
-        String lg_ = getOwner().getLanguageKey();
-        editor.setLanguage(lg_);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresidentMulti, new PresidentStandards());
+        editor.initialize(rulesPresidentMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT));
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -648,8 +643,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,_res, new PresidentStandards());
+        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);

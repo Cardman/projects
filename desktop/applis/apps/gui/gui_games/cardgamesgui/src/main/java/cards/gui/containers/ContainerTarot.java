@@ -5,6 +5,7 @@ import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
@@ -281,5 +282,9 @@ public class ContainerTarot extends ContainerGame{
     }
     public String readResource() {
         return readResource(TarotResoucesAccess.NOM_DOSSIER,TarotResoucesAccess.NOM_FICHIER);
+    }
+
+    public PreparedPagesCards retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(GameEnum.TAROT).getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }

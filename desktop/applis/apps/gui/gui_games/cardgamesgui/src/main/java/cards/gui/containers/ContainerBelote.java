@@ -12,6 +12,7 @@ import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.labels.LabelPoints;
@@ -239,6 +240,10 @@ public class ContainerBelote extends ContainerGame {
     }
     public String readResource() {
         return readResource(BeloteResoucesAccess.NOM_DOSSIER,BeloteResoucesAccess.NOM_FICHIER);
+    }
+
+    public PreparedPagesCards retrieve(String _conf) {
+        return getOwner().getPrepared().getVal(GameEnum.BELOTE).getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }
 

@@ -42,7 +42,6 @@ import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
-import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import cards.president.sml.DocumentWriterPresidentUtil;
@@ -572,8 +571,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,res_, new PresidentStandards());
+        editor_.initialize(res_, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {

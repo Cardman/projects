@@ -73,7 +73,6 @@ import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
 import cards.network.threads.Net;
 import cards.tarot.*;
-import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
@@ -224,7 +223,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void updateFirst(PlayersNamePresent _players) {
-        String lg_ = getOwner().getLanguageKey();
         getMultiStop().setEnabledMenu(true);
         getTricksHands().setEnabledMenu(true);
         getTeams().setEnabledMenu(true);
@@ -265,10 +263,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
 
-        editor.setLanguage(lg_);
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
+        editor.initialize(rulesTarotMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT));
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -327,11 +324,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
-        String lg_ = getOwner().getLanguageKey();
-        editor.setLanguage(lg_);
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
+        editor.initialize(rulesTarotMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT));
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
@@ -1093,14 +1088,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _res.getRes().setSpecific(readResource());
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,_res, new TarotStandards());
+        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,_res, new TarotStandards());
+        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT));
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

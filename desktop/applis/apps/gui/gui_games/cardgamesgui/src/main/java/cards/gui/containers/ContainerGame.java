@@ -9,6 +9,7 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
@@ -490,6 +491,10 @@ public class ContainerGame implements Containable {
 
     public String readResource(String _dossier, String _fichier) {
         return ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,_fichier));
+    }
+
+    public PreparedPagesCards retrieve(GameEnum _game, String _conf) {
+        return getOwner().getPrepared().getVal(_game).getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }
 

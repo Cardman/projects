@@ -52,7 +52,6 @@ import cards.gui.panels.PanelTricksHandsTarot;
 import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
 import cards.tarot.*;
-import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ChoiceTarot;
@@ -950,14 +949,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,res_, new TarotStandards());
+        editor_.initialize(res_, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        editor_.setLanguage(lg_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,res_, new TarotStandards());
+        editor_.initialize(res_, retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT));
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         if(partie_.getType()==GameType.RANDOM) {

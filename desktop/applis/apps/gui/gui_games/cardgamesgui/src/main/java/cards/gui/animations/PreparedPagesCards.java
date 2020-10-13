@@ -1,12 +1,11 @@
-package aiki.gui.threads;
+package cards.gui.animations;
 
-import aiki.beans.PokemonStandards;
+import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.bean.nat.BeanNatLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
 import code.resources.ResourceFiles;
@@ -15,59 +14,62 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
-public final class PreparedRenderedPages implements PreparedAnalyzed {
-    private Navigation navigation;
-    private String relative;
+public final class PreparedPagesCards implements PreparedAnalyzed {
+    private static final String SEPARATOR_PATH = "/";
+    private static final String IMPLICIT_LANGUAGE = "//";
     private String conf;
+    private String lg;
     private BeanNatLgNames beanNatLgNames;
     private ContextEl context;
+    private Navigation navigation;
 
-    public PreparedRenderedPages(String _relative, String _conf) {
-        relative = _relative;
+    public PreparedPagesCards(String _conf,String _lg, BeanNatLgNames _stds) {
         conf = _conf;
+        lg = _lg;
+        beanNatLgNames = _stds;
     }
-
     @Override
     public void run() {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
+        navigation.setLanguage(lg);
         navigation.setLanguages(Constants.getAvailableLanguages());
-        PokemonStandards stds_ = new PokemonStandards();
-        beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_);
-        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames);
+        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_);
         context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: du_.getContext().getAddedFiles()) {
-            String name_ = StringUtil.concat(relative, a);
-            files_.put(a,ResourceFiles.ressourceFichier(name_));
+            files_.put(a,ResourceFiles.ressourceFichier(a));
         }
         for (String l: navigation.getLanguages()) {
             for (String a: du_.getContext().getProperties().values()) {
                 String folder_ = du_.getContext().getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
+                files_.put(fileName_,ResourceFiles.ressourceFichier(fileName_));
             }
         }
-        String realFilePath_ = session_.getFirstUrl();
-        String rel_ = StringUtil.concat(relative,realFilePath_);
-        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
+        String realFilePath_ = getRealFilePath(lg, session_.getFirstUrl());
+        files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
         navigation.setFiles(files_);
-        stds_.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
+        beanNatLgNames.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
     }
-
+    private static String getRealFilePath(String _lg, String _link) {
+        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
+    }
+    @Override
     public Navigation getNavigation() {
         return navigation;
     }
 
+    @Override
     public ContextEl getContext() {
         return context;
     }
 
+    @Override
     public BeanNatLgNames getBeanNatLgNames() {
         return beanNatLgNames;
     }
-
 }

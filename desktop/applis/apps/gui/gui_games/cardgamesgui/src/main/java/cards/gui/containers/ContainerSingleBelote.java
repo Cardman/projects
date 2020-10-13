@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import cards.belote.*;
-import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -689,20 +688,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.getRes().setSpecific(readResource());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
-        BeloteStandards stds_;
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.setLanguage(lg_);
-        stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,res_,stds_);
+        editor_.initialize(res_,retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE));
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=new ScrollPane();
             editor_ = new RenderedPage(scroll_);
-            editor_.setLanguage(lg_);
-            stds_ = new BeloteStandards();
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,res_, stds_);
+            editor_.initialize(res_, retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE));
             scroll_.setPreferredSize(new Dimension(300,300));
             onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),scroll_);
         }

@@ -24,6 +24,7 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
+import cards.gui.animations.PreparedPagesCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerMulti;
 import cards.gui.containers.ContainerMultiBelote;
@@ -147,10 +148,7 @@ import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -530,10 +528,12 @@ public final class MainWindow extends NetGroupFrame {
     private TextLabel goHelpMenu;
     private final Net net = new Net();
 
+    private final IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> prepared;
     //private final boolean standalone;
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, CustList<GroupFrame> _list, IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> _prepared) {
         super(_lg, _list);
+        prepared = _prepared;
         pseudosJoueurs=new Nicknames(getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -2142,5 +2142,8 @@ public final class MainWindow extends NetGroupFrame {
 
     public Net getNet() {
         return net;
+    }
+    public IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> getPrepared() {
+        return prepared;
     }
 }

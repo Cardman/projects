@@ -117,16 +117,26 @@ public final class RenderedPage implements ProcessingSession {
         navigation.initializeRendSession(ctx_, du_.getStds());
         setupText();
     }
-
-    public void initializeOnlyConf(Object _dataBase, BeanNatLgNames _stds, Navigation _navigation, String _lg, ContextEl _context) {
+    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+    public void initialize(Object _db, PreparedAnalyzed _stds) {
+        start();
+        _stds.getBeanNatLgNames().setDataBase(_db);
+        standards = _stds.getBeanNatLgNames();
+        contextCreator = new NativeContextCreator();
+        ContextEl ctx_ = _stds.getContext();
+        setContext(ctx_);
+        navigation.initializeRendSession(ctx_, standards);
+        setupText();
+    }
+    public void initializeOnlyConf(Object _dataBase, PreparedAnalyzed _prepared, String _lg) {
         if (processing.get()) {
             return;
         }
-        navigation = _navigation;
-        setContext(_context);
-        _stds.setDataBase(_dataBase);
+        navigation = _prepared.getNavigation();
+        setContext(_prepared.getContext());
+        _prepared.getBeanNatLgNames().setDataBase(_dataBase);
         navigation.setLanguage(_lg);
-        standards = _stds;
+        standards = _prepared.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();
         ThreadActions th_ = new ThreadActions(this);
         th_.startPage();

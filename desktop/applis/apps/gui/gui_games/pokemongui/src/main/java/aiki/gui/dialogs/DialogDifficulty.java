@@ -49,7 +49,7 @@ public final class DialogDifficulty extends Dialog {
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
         session.setFrame(this);
-        session.initializeOnlyConf(facade, _pre.getBeanNatLgNames(),_pre.getNavigation(),_facade.getLanguage(), _pre.getContext());
+        session.initializeOnlyConf(facade, _pre,_facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
