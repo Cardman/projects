@@ -38,7 +38,7 @@ public class SavingDealEvent extends MouseAdapter {
                     dialog.cancelDeal();
                 }
             } else {
-                ConfirmDialog.showMessage((Dialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), window.getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage((Dialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), window.getLanguageKey(), JOptionPane.ERROR_MESSAGE, window.getConfirmDialog());
                 //JOptionPane.showMessageDialog(this,getMessages().getVal(ERROR_SAVE_FILE),getMessages().getVal(ERROR_SAVE_FILE_TITLE),JOptionPane.ERROR_MESSAGE);
             }
         } else if (mode == SaveDealMode.SAVE_THEN_PLAY) {

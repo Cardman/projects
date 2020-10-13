@@ -10,24 +10,23 @@ import code.gui.Panel;
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulestarot";
 
-    private static final DialogRulesTarot DIALOG = new DialogRulesTarot();
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    private DialogRulesTarot(){
+    public DialogRulesTarot(){
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesTarot(String _titre, MainWindow _fenetre, RulesTarot _rulesTarot) {
         //super(_titre, _fenetre,_rulesTarot);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(_titre);
-        DIALOG.setReglesTarot(_rulesTarot);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.getJt().removeAll();
+        _fenetre.getDialogRulesTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogRulesTarot().setTitle(_titre);
+        _fenetre.getDialogRulesTarot().setReglesTarot(_rulesTarot);
+        _fenetre.getDialogRulesTarot().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogRulesTarot().getJt().removeAll();
     }
 
     public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
-        DIALOG.setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
+        _window.getDialogRulesTarot().setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
     }
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
@@ -50,12 +49,13 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         closeWindow();
     }
 
-    public static RulesTarot getRegles() {
-        DIALOG.setVisible(true);
-        return DIALOG.getReglesTarot();
+    public static RulesTarot getRegles(DialogRulesTarot _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.getReglesTarot();
     }
 
-    public static boolean isValidated() {
-        return DIALOG.validated;
+    public static boolean isValidated(DialogRulesTarot _dialog) {
+        return _dialog.validated;
     }
+
 }

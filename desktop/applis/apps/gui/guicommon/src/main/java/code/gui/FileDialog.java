@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
@@ -31,9 +30,6 @@ public abstract class FileDialog extends Dialog {
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
-    private static final int DIALOG_WIDTH = 400;
-    private static final int DIALOG_HEIGHT = 278;
-    private static final Dimension DIM = new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT);
     private Panel contentPane = Panel.newBorder();
     private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);

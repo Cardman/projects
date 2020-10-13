@@ -30,7 +30,6 @@ import code.util.core.StringUtil;
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorbelote";
-    private static final EditorBelote DIALOG = new EditorBelote();
     private static final String BACK = "back";
     private static final String DEALER = "dealer";
     private static final String DEALING_CARDS = "dealingCards";
@@ -69,26 +68,26 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private MainWindow window;
     private boolean setToNullGame;
 
-    private EditorBelote() {
+    public EditorBelote() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorBelote(MainWindow _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         String lg_ = _fenetre.getLanguageKey();
-        DIALOG.setMain(_fenetre);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.BELOTE.toString(lg_));
-        DIALOG.setReglesBelote(_fenetre.getReglesBelote());
-        DIALOG.partie = null;
-        DIALOG.setToNullGame = true;
-        DIALOG.nombreCartesSelectionneesPrecedent = 0;
-        DIALOG.nombreCartesSelectionnees = 0;
-        DIALOG.partieSauvegardee = false;
-        DIALOG.window = _fenetre;
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.nickNames = _fenetre.getPseudosJoueurs();
-        DIALOG.displayingBelote = _fenetre.getDisplayingBelote();
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getEditorBelote().setMain(_fenetre);
+        _fenetre.getEditorBelote().setDialogIcon(_fenetre);
+        _fenetre.getEditorBelote().setTitle(GameEnum.BELOTE.toString(lg_));
+        _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
+        _fenetre.getEditorBelote().partie = null;
+        _fenetre.getEditorBelote().setToNullGame = true;
+        _fenetre.getEditorBelote().nombreCartesSelectionneesPrecedent = 0;
+        _fenetre.getEditorBelote().nombreCartesSelectionnees = 0;
+        _fenetre.getEditorBelote().partieSauvegardee = false;
+        _fenetre.getEditorBelote().window = _fenetre;
+        _fenetre.getEditorBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorBelote().nickNames = _fenetre.getPseudosJoueurs();
+        _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
+        _fenetre.getEditorBelote().setDialogue(_fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //        addWindowListener(new WindowAdapter() {
 //            @Override
@@ -143,11 +142,11 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
-        String fichier_=FileSaveDialog.getStaticSelectedPath();
+        String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -156,9 +155,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         return fichier_;
     }
-    public static GameBelote getPartie() {
-        DIALOG.setVisible(true);
-        return DIALOG.partie;
+    public static GameBelote getPartie(EditorBelote _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.partie;
     }
 
     private void distribuer(MainWindow _parent) {
@@ -323,7 +322,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -367,7 +366,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

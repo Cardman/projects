@@ -17,15 +17,13 @@ public final class DialogHtmlData extends Dialog {
 
     private static final String SEARCH_LABEL = "searchLabel";
 
-    private static final DialogHtmlData DIALOG = new DialogHtmlData();
-
 //    private Timer timer;
 
     private RenderedPage session;
 
     private StringMap<String> messages;
 
-    private DialogHtmlData() {
+    public DialogHtmlData() {
         setAccessFile(DIALOG_ACCESS);
     }
 
@@ -41,10 +39,10 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        DIALOG.setDialogIcon(_parent);
-        DIALOG.setTitle(_title);
-        DIALOG.init(_window, _parent, _session);
-        DIALOG.initSession(_dataBase,_pre,_lg);
+        _window.getDialogHtmlData().setDialogIcon(_parent);
+        _window.getDialogHtmlData().setTitle(_title);
+        _window.getDialogHtmlData().init(_window, _parent, _session);
+        _window.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
     }
 
 //    public static void setDialogHtmlData(GroupFrame _parent, String _title, SessionEditorPane _session, boolean _successCompile) {
@@ -56,10 +54,10 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,Object _dataBase,PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        DIALOG.setDialogIcon(_parent);
-        DIALOG.setTitle(_title);
-        DIALOG.init(_parent, _parent, _session);
-        DIALOG.initSession(_dataBase,_pre,_lg);
+        _parent.getDialogHtmlData().setDialogIcon(_parent);
+        _parent.getDialogHtmlData().setTitle(_title);
+        _parent.getDialogHtmlData().init(_parent, _parent, _session);
+        _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
     }
 
     private void init(MainWindow _window,Dialog _parent, RenderedPage _session) {

@@ -12,24 +12,19 @@ import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 
-    private static final DialogTricksBelote DIALOG = new DialogTricksBelote();
-
-    private DialogTricksBelote() {
-    }
-
     public static void setDialogTricksBelote(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setTitle(_titre);
-        DIALOG.setResizable(true);
-        DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogTricksBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogTricksBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTricksBelote().setTitle(_titre);
+        _fenetre.getDialogTricksBelote().setResizable(true);
+        _fenetre.getDialogTricksBelote().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, MainWindow _ow) {
-        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
+        _ow.getDialogTricksBelote().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
     }
 
     private void setDialogue(TricksHandsBelote _tricksHands,

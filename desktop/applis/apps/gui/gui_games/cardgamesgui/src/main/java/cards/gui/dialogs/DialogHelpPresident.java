@@ -15,7 +15,6 @@ import code.util.core.StringUtil;
 public final class DialogHelpPresident extends Dialog {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialoghelppresident";
 
-    private static final DialogHelpPresident DIALOG = new DialogHelpPresident();
     private static final String LEVEL = "level";
     private static final String NB_PLAYED = "nbPlayed";
     private static final String NB_REM = "nbRem";
@@ -24,7 +23,7 @@ public final class DialogHelpPresident extends Dialog {
     private static final String NO = "no";
     private StringMap<String> messages = new StringMap<String>();
 
-    private DialogHelpPresident() {
+    public DialogHelpPresident() {
         setAccessFile(DIALOG_ACCESS);
     }
 
@@ -33,19 +32,19 @@ public final class DialogHelpPresident extends Dialog {
         setVisible(true);
     }
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setTitle(_title);
-        DIALOG.initMessageName(_fenetre);
+        _fenetre.getDialogHelpPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpPresident().setTitle(_title);
+        _fenetre.getDialogHelpPresident().initMessageName(_fenetre);
     }
 
-    public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg) {
+    public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg, DialogHelpPresident _dialog) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         Panel contentPane_ = Panel.newPageBox();
         Panel panelCards_ = Panel.newGrid(0, 3);
-        panelCards_.add(new TextLabel(DIALOG.messages.getVal(LEVEL)));
-        panelCards_.add(new TextLabel(DIALOG.messages.getVal(NB_PLAYED)));
-        panelCards_.add(new TextLabel(DIALOG.messages.getVal(NB_REM)));
+        panelCards_.add(new TextLabel(_dialog.messages.getVal(LEVEL)));
+        panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_PLAYED)));
+        panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
             CardChar char_ = c.getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
@@ -58,23 +57,24 @@ public final class DialogHelpPresident extends Dialog {
             panelCards_.add(new TextLabel(Integer.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
-        String message_ = DIALOG.messages.getVal(REVERSED);
+        String message_ = _dialog.messages.getVal(REVERSED);
         String value_;
         if (_reversed) {
-            value_ = DIALOG.messages.getVal(YES);
+            value_ = _dialog.messages.getVal(YES);
         } else {
-            value_ = DIALOG.messages.getVal(NO);
+            value_ = _dialog.messages.getVal(NO);
         }
         message_ = StringUtil.simpleStringsFormat(message_, value_);
         TextLabel reversed_ = new TextLabel(message_);
         contentPane_.add(reversed_);
-        DIALOG.setContentPane(contentPane_);
-        DIALOG.pack();
-        DIALOG.voir();
+        _dialog.setContentPane(contentPane_);
+        _dialog.pack();
+        _dialog.voir();
     }
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
+
 }

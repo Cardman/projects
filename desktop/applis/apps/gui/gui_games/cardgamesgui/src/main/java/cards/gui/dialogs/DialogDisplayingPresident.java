@@ -21,7 +21,6 @@ import code.util.ints.Listable;
 public final class DialogDisplayingPresident extends DialogCards implements DialogDisplaying {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingpresident";
-    private static final DialogDisplayingPresident DIALOG = new DialogDisplayingPresident();
     private static final String ADD_SUIT = "addSuit";
     private static final String CLOCK_WISE = "clockWise";
     private static final String DEALING = "dealing";
@@ -42,28 +41,28 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private Spinner nbDealsDemo;
     private ComboBoxSuit listeChoix;
 
-    private DialogDisplayingPresident() {
+    public DialogDisplayingPresident() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingPresident(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setMain(_fenetre);
-        DIALOG.getJt().removeAll();
-        DIALOG.setTitle(_titre);
-        DIALOG.displayingPresident = _fenetre.getDisplayingPresident();
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getDialogDisplayingPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
+        _fenetre.getDialogDisplayingPresident().getJt().removeAll();
+        _fenetre.getDialogDisplayingPresident().setTitle(_titre);
+        _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
+        _fenetre.getDialogDisplayingPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogDisplayingPresident().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
-    public static DisplayingPresident getDisplaying() {
-        DIALOG.setVisible(true);
-        return DIALOG.displayingPresident;
+    public static DisplayingPresident getDisplaying(DialogDisplayingPresident _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.displayingPresident;
     }
 
     public void setDialogue(MainWindow _window) {
@@ -156,7 +155,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingPresident.setClockwise(checkClockwise.isSelected());
@@ -166,5 +165,6 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             closeWindow();
         }
     }
+
 }
 

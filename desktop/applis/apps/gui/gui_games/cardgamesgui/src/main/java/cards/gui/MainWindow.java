@@ -37,20 +37,7 @@ import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.gui.containers.ContainerSingleTarot;
-import cards.gui.dialogs.DialogDisplayingBelote;
-import cards.gui.dialogs.DialogDisplayingPresident;
-import cards.gui.dialogs.DialogDisplayingTarot;
-import cards.gui.dialogs.DialogNicknames;
-import cards.gui.dialogs.DialogRulesBelote;
-import cards.gui.dialogs.DialogRulesPresident;
-import cards.gui.dialogs.DialogRulesTarot;
-import cards.gui.dialogs.DialogServer;
-import cards.gui.dialogs.DialogSoft;
-import cards.gui.dialogs.EditorBelote;
-import cards.gui.dialogs.EditorPresident;
-import cards.gui.dialogs.EditorTarot;
-import cards.gui.dialogs.FileConst;
-import cards.gui.dialogs.FrameGeneralHelp;
+import cards.gui.dialogs.*;
 import cards.gui.events.BackToMainMenuEvent;
 import cards.gui.events.ChooseModeEvent;
 import cards.gui.events.ListenerBeginGame;
@@ -534,6 +521,25 @@ public final class MainWindow extends NetGroupFrame {
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
     private Thread helpInitializerThread;
+    private final DialogDisplayingBelote dialogDisplayingBelote = new DialogDisplayingBelote();
+    private final DialogDisplayingTarot dialogDisplayingTarot = new DialogDisplayingTarot();
+    private final DialogDisplayingPresident dialogDisplayingPresident = new DialogDisplayingPresident();
+    private final DialogHelpBelote dialogHelpBelote = new DialogHelpBelote();
+    private final DialogHelpPresident dialogHelpPresident = new DialogHelpPresident();
+    private final DialogHelpTarot dialogHelpTarot = new DialogHelpTarot();
+    private final DialogRulesBelote dialogRulesBelote = new DialogRulesBelote();
+    private final DialogRulesPresident dialogRulesPresident = new DialogRulesPresident();
+    private final DialogRulesTarot dialogRulesTarot = new DialogRulesTarot();
+    private final DialogTricksBelote dialogTricksBelote = new DialogTricksBelote();
+    private final DialogTricksPresident dialogTricksPresident = new DialogTricksPresident();
+    private final DialogTricksTarot dialogTricksTarot = new DialogTricksTarot();
+    private final EditorBelote editorBelote = new EditorBelote();
+    private final EditorPresident editorPresident = new EditorPresident();
+    private final EditorTarot editorTarot = new EditorTarot();
+    private final DialogTeamsPlayers dialogTeamsPlayers = new DialogTeamsPlayers();
+    private final DialogNicknames dialogNicknames = new DialogNicknames();
+    private final DialogSoft dialogSoft = new DialogSoft();
+    private final DialogServer dialogServer = new DialogServer();
 
     public MainWindow(String _lg, AbstractProgramInfos _list, IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> _prepared) {
         super(_lg, _list);
@@ -1459,7 +1465,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             editeurBelote();
-            GameBelote partie_ = EditorBelote.getPartie();
+            GameBelote partie_ = EditorBelote.getPartie(getEditorBelote());
             if(partie_ == null) {
                 return;
             }
@@ -1496,7 +1502,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             editeurPresident();
-            GamePresident partie_ = EditorPresident.getPartie();
+            GamePresident partie_ = EditorPresident.getPartie(getEditorPresident());
             if(partie_ == null) {
                 return;
             }
@@ -1534,7 +1540,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             editeurTarot();
-            GameTarot partie_ = EditorTarot.getPartie();
+            GameTarot partie_ = EditorTarot.getPartie(getEditorTarot());
             if(partie_ == null) {
                 return;
             }
@@ -1697,8 +1703,8 @@ public final class MainWindow extends NetGroupFrame {
         String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
             DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this,reglesBelote);
-            RulesBelote reglesBelote_=DialogRulesBelote.getRegles();
-            if (!DialogRulesBelote.isValidated()) {
+            RulesBelote reglesBelote_=DialogRulesBelote.getRegles(getDialogRulesBelote());
+            if (!DialogRulesBelote.isValidated(getDialogRulesBelote())) {
                 return;
             }
             reglesBelote = reglesBelote_;
@@ -1707,8 +1713,8 @@ public final class MainWindow extends NetGroupFrame {
         } else if (_game == GameEnum.PRESIDENT) {
             DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, reglesPresident);
             DialogRulesPresident.setPresidentDialog(true, 0,this);
-            RulesPresident rules_ = DialogRulesPresident.getRegles();
-            if (!DialogRulesPresident.isValidated()) {
+            RulesPresident rules_ = DialogRulesPresident.getRegles(getDialogRulesPresident());
+            if (!DialogRulesPresident.isValidated(getDialogRulesPresident())) {
                 return;
             }
             reglesPresident = rules_;
@@ -1717,8 +1723,8 @@ public final class MainWindow extends NetGroupFrame {
         } else if (_game == GameEnum.TAROT) {
             DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, reglesTarot);
             DialogRulesTarot.setTarotDialog(true,0,this);
-            RulesTarot reglesTarot_=DialogRulesTarot.getRegles();
-            if (!DialogRulesTarot.isValidated()) {
+            RulesTarot reglesTarot_=DialogRulesTarot.getRegles(getDialogRulesTarot());
+            if (!DialogRulesTarot.isValidated(getDialogRulesTarot())) {
                 return;
             }
             reglesTarot = reglesTarot_;
@@ -1728,14 +1734,14 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(PLAYERS), this);
-        pseudosJoueurs=DialogNicknames.getPseudos();
+        pseudosJoueurs=DialogNicknames.getPseudos(getDialogNicknames());
         pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS));
         containerGame.setNicknames(pseudosJoueurs);
     }
     public void manageSoft(String _key) {
         DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
         DialogSoft.setDialogSoft(_key, this);
-        parametres=DialogSoft.getParametres();
+        parametres=DialogSoft.getParametres(getDialogSoft());
         parametres.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS));
         containerGame.setSettings(parametres);
     }
@@ -1745,7 +1751,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         LanguageDialog.setLanguageDialog(this, getMessages().getVal(LANGUAGE));
-        String langue_ = LanguageDialog.getStaticLanguage();
+        String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
@@ -1756,17 +1762,17 @@ public final class MainWindow extends NetGroupFrame {
         String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), this);
-            displayingBelote=DialogDisplayingBelote.getDisplaying();
+            displayingBelote=DialogDisplayingBelote.getDisplaying(getDialogDisplayingBelote());
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote));
             containerGame.setDisplayingBelote(displayingBelote);
         } else if (_game == GameEnum.PRESIDENT) {
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), this);
-            displayingPresident=DialogDisplayingPresident.getDisplaying();
+            displayingPresident=DialogDisplayingPresident.getDisplaying(getDialogDisplayingPresident());
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident));
             containerGame.setDisplayingPresident(displayingPresident);
         } else if (_game == GameEnum.TAROT) {
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), this);
-            displayingTarot=DialogDisplayingTarot.getDisplaying();
+            displayingTarot=DialogDisplayingTarot.getDisplaying(getDialogDisplayingTarot());
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot));
             containerGame.setDisplayingTarot(displayingTarot);
         }
@@ -1821,7 +1827,7 @@ public final class MainWindow extends NetGroupFrame {
         } else {
             FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING, getFrames().getHomePath(), FileConst.EXCLUDED);
         }
-        String fichier_=FileSaveDialog.getStaticSelectedPath();
+        String fichier_=FileSaveDialog.getStaticSelectedPath(getFileSaveDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -1834,7 +1840,7 @@ public final class MainWindow extends NetGroupFrame {
         } else {
             FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
-        String fichier_=FileOpenDialog.getStaticSelectedPath();
+        String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -1874,34 +1880,34 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         DialogServer.setDialogServer(this, _jeuBouton);
-        String ip_ = DialogServer.getIpOrHostName();
+        String ip_ = DialogServer.getIpOrHostName(getDialogServer());
         if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServer.getIpType() == IpType.IP_V6) {
+            if (DialogServer.getIpType(getDialogServer()) == IpType.IP_V6) {
                 ip_ = LOCALHOST_NEW_IP;
             } else {
                 ip_ = LOCALHOST_OLD_IP;
             }
         }
-        if (!DialogServer.isChoosen()) {
+        if (!DialogServer.isChoosen(getDialogServer())) {
             return;
         }
         GameEnum choosenGameMultiPlayers_ = _jeuBouton;
         if (choosenGameMultiPlayers_ == GameEnum.TAROT) {
-            containerGame = new ContainerMultiTarot(this,DialogServer.isCreate(), DialogServer.getNbPlayers());
+            containerGame = new ContainerMultiTarot(this,DialogServer.isCreate(getDialogServer()), DialogServer.getNbPlayers(getDialogServer()));
         } else if (choosenGameMultiPlayers_ == GameEnum.PRESIDENT) {
-            containerGame = new ContainerMultiPresident(this,DialogServer.isCreate(), DialogServer.getNbPlayers());
+            containerGame = new ContainerMultiPresident(this,DialogServer.isCreate(getDialogServer()), DialogServer.getNbPlayers(getDialogServer()));
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
-            containerGame = new ContainerMultiBelote(this,DialogServer.isCreate());
+            containerGame = new ContainerMultiBelote(this,DialogServer.isCreate(getDialogServer()));
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
-        if (DialogServer.isCreate()) {
-            int nbChoosenPlayers_ = DialogServer.getNbPlayers();
+        if (DialogServer.isCreate(getDialogServer())) {
+            int nbChoosenPlayers_ = DialogServer.getNbPlayers(getDialogServer());
             Net.setNbPlayers(nbChoosenPlayers_, getNet());
-            createServer(ip_, DialogServer.getIpType(), port_);
+            createServer(ip_, DialogServer.getIpType(getDialogServer()), port_);
             return;
         }
-        SocketResults connected_ = createClient(ip_, DialogServer.getIpType(), false, port_);
+        SocketResults connected_ = createClient(ip_, DialogServer.getIpType(getDialogServer()), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             containerGame = new ContainerGame(this);
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
@@ -2167,5 +2173,81 @@ public final class MainWindow extends NetGroupFrame {
 
     public void setHelpInitializerThread(Thread helpInitializerThread) {
         this.helpInitializerThread = helpInitializerThread;
+    }
+
+    public DialogDisplayingBelote getDialogDisplayingBelote() {
+        return dialogDisplayingBelote;
+    }
+
+    public DialogDisplayingTarot getDialogDisplayingTarot() {
+        return dialogDisplayingTarot;
+    }
+
+    public DialogDisplayingPresident getDialogDisplayingPresident() {
+        return dialogDisplayingPresident;
+    }
+
+    public DialogHelpBelote getDialogHelpBelote() {
+        return dialogHelpBelote;
+    }
+
+    public DialogHelpPresident getDialogHelpPresident() {
+        return dialogHelpPresident;
+    }
+
+    public DialogHelpTarot getDialogHelpTarot() {
+        return dialogHelpTarot;
+    }
+
+    public DialogRulesBelote getDialogRulesBelote() {
+        return dialogRulesBelote;
+    }
+
+    public DialogRulesPresident getDialogRulesPresident() {
+        return dialogRulesPresident;
+    }
+
+    public DialogRulesTarot getDialogRulesTarot() {
+        return dialogRulesTarot;
+    }
+
+    public DialogTricksBelote getDialogTricksBelote() {
+        return dialogTricksBelote;
+    }
+
+    public DialogTricksPresident getDialogTricksPresident() {
+        return dialogTricksPresident;
+    }
+
+    public DialogTricksTarot getDialogTricksTarot() {
+        return dialogTricksTarot;
+    }
+
+    public EditorBelote getEditorBelote() {
+        return editorBelote;
+    }
+
+    public EditorPresident getEditorPresident() {
+        return editorPresident;
+    }
+
+    public EditorTarot getEditorTarot() {
+        return editorTarot;
+    }
+
+    public DialogTeamsPlayers getDialogTeamsPlayers() {
+        return dialogTeamsPlayers;
+    }
+
+    public DialogNicknames getDialogNicknames() {
+        return dialogNicknames;
+    }
+
+    public DialogSoft getDialogSoft() {
+        return dialogSoft;
+    }
+
+    public DialogServer getDialogServer() {
+        return dialogServer;
     }
 }

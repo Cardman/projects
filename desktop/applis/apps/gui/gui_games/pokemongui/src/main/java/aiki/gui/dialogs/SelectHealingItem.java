@@ -18,8 +18,6 @@ import code.util.core.IndexConstants;
 public final class SelectHealingItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealingitem";
 
-    private static final SelectHealingItem DIALOG = new SelectHealingItem();
-
     private static final String TITLE = "title";
 
     private static final String CANCEL = "cancel";
@@ -30,12 +28,12 @@ public final class SelectHealingItem extends SelectDialog {
 
     private StringMap<String> messages;
 
-    private SelectHealingItem() {
+    public SelectHealingItem() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealingItem(MainWindow _parent, FacadeGame _facade) {
-        DIALOG.init(_parent, _facade);
+        _parent.getSelectHealingItem().init(_parent, _facade);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade) {
@@ -67,12 +65,13 @@ public final class SelectHealingItem extends SelectDialog {
         super.closeWindow();
     }
 
-    public static boolean isSelectedIndex() {
-        DIALOG.setVisible(true);
-        return DIALOG.facade.getLineHealingItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
+    public static boolean isSelectedIndex(SelectHealingItem _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.facade.getLineHealingItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public static boolean isOk() {
-        return DIALOG.isSelected();
+    public static boolean isOk(SelectHealingItem _dialog) {
+        return _dialog.isSelected();
     }
+
 }

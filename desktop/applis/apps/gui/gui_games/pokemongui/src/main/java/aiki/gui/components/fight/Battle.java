@@ -952,10 +952,10 @@ public class Battle extends ChildFrame {
         }
 //        ConfirmDialog dial_ = new ConfirmDialog(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
         ConfirmDialog.showTextField(window, typedNickname, messages.getVal(NICKNAME), messages.getVal(NICKNAME), window.getLanguageKey());
-        if (ConfirmDialog.getStaticAnswer() != JOptionPane.YES_OPTION) {
+        if (ConfirmDialog.getStaticAnswer(window.getConfirmDialog()) != JOptionPane.YES_OPTION) {
             return;
         }
-        typedNickname = ConfirmDialog.getStaticText();
+        typedNickname = ConfirmDialog.getStaticText(window.getConfirmDialog());
         nickname.setText(typedNickname);
     }
 
@@ -1301,8 +1301,8 @@ public class Battle extends ChildFrame {
     public void selectHealingItem() {
         int lineBack_ = facade.getLineHealingItem();
         SelectHealingItem.setSelectHealingItem(window, facade);
-        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex();
-        boolean ok_ = SelectHealingItem.isOk();
+        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(window.getSelectHealingItem());
+        boolean ok_ = SelectHealingItem.isOk(window.getSelectHealingItem());
         if (!ok_) {
             facade.setLineHealingItem(lineBack_);
             facade.clearSortingHealingItem();

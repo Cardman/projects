@@ -1,9 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -26,7 +23,6 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingtarot";
 
-    private static final DialogDisplayingTarot DIALOG = new DialogDisplayingTarot();
     private static final String ADD_SUIT = "addSuit";
     private static final String CLOCK_WISE = "clockWise";
     private static final String DEALING = "dealing";
@@ -44,28 +40,28 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private CustCheckBox sortByDecreasing;
     private ComboBoxSuit listeChoix;
 
-    private DialogDisplayingTarot() {
+    public DialogDisplayingTarot() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingTarot(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setMain(_fenetre);
-        DIALOG.getJt().removeAll();
-        DIALOG.setTitle(_titre);
-        DIALOG.displayingTarot = _fenetre.getDisplayingTarot();
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getDialogDisplayingTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
+        _fenetre.getDialogDisplayingTarot().getJt().removeAll();
+        _fenetre.getDialogDisplayingTarot().setTitle(_titre);
+        _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
+        _fenetre.getDialogDisplayingTarot().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogDisplayingTarot().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
-    public static DisplayingTarot getDisplaying() {
-        DIALOG.setVisible(true);
-        return DIALOG.displayingTarot;
+    public static DisplayingTarot getDisplaying(DialogDisplayingTarot _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.displayingTarot;
     }
 
     public void setDialogue(MainWindow _window) {
@@ -153,7 +149,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<5) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingTarot.setClockwise(checkClockwise.isSelected());
@@ -163,4 +159,5 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         }
 
     }
+
 }

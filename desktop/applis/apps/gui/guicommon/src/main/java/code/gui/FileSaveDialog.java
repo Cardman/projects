@@ -17,8 +17,6 @@ import code.util.core.StringUtil;
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.filesavedialog";
 
-    private static final FileSaveDialog DIALOG = new FileSaveDialog();
-
     private static final String EMPTY_STRING = "";
 
     private static final String CANCEL = "cancel";
@@ -41,9 +39,8 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private static final char QUOTE = 34;
 
-    private static final char[] FORBIDDEN_CHARS_FILE_NAME = CharList.wrapCharArray('<', '>', '?', QUOTE, '*', '/', '\\', '|', ':');
-
     private static final int NB_COLS = 24;
+    private ConfirmDialog dialog;
 
     private TextField typedString = new TextField(NB_COLS);
 
@@ -52,18 +49,20 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private StringMap<String> messages;
     private CommonFrame frame;
 
-    private FileSaveDialog() {
+    public FileSaveDialog() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setFileSaveDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, String... _excludedFolders) {
-        DIALOG.setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog(_w, _homePath);
+        _w.getFileSaveDialog().dialog = _w.getConfirmDialog();
+        _w.getFileSaveDialog().setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        _w.getFileSaveDialog().initSaveDialog(_w, _homePath);
     }
 
-    public static void setFileSaveDialog(CommonFrame _c, Dialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, String... _excludedFolders) {
-        DIALOG.setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog(_c, _homePath);
+    public static void setFileSaveDialog(CommonFrame _c, Dialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog, String... _excludedFolders) {
+        _dialog.getFileSaveDialog().dialog = _dialog.getConfirmDialog();
+        _dialog.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        _dialog.getFileSaveDialog().initSaveDialog(_c, _homePath);
     }
 
     private void initSaveDialog(CommonFrame _c, String _homePath) {
@@ -121,13 +120,13 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
-            ConfirmDialog.showMessage(this, errorContent_, errorTitle_,lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, errorContent_, errorTitle_,lg_, JOptionPane.ERROR_MESSAGE, dialog);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         boolean hasForbbidenChars_ = false;
         for (char c: text_.toCharArray()) {
-            for (char e: FORBIDDEN_CHARS_FILE_NAME) {
+            for (char e: CharList.wrapCharArray('<', '>', '?', QUOTE, '*', '/', '\\', '|', ':')) {
                 if (c == e) {
                     hasForbbidenChars_ = true;
                     break;
@@ -145,7 +144,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         }
         if (hasForbbidenChars_) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
-            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE, dialog);
             return;
         }
         //get selected row first table
@@ -161,7 +160,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                 this,
                 mes_, messages.getVal(TITLE_CONF),
                 getLang(),
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.YES_NO_OPTION, dialog);
             int answer_ = conf_.getAnswer();
             if (answer_ == JOptionPane.NO_OPTION) {
                 return;
@@ -171,7 +170,8 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         closeWindow();
     }
 
-    public static String getStaticSelectedPath() {
-        return DIALOG.getSelectedPath();
+    public static String getStaticSelectedPath(FileSaveDialog _dialog) {
+        return _dialog.getSelectedPath();
     }
+
 }

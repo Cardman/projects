@@ -673,7 +673,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         StringList list_ = new StringList(pseudos_.values());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams);
+        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams, getOwner().getDialogTeamsPlayers());
     }
 
     @Override
@@ -929,8 +929,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         DialogRulesBelote.initDialogRulesBelote(
                 GameEnum.BELOTE.toString(lg_), getOwner(), rulesBeloteMulti);
-        RulesBelote rulesBeloteMulti_ = DialogRulesBelote.getRegles();
-        if (!DialogRulesBelote.isValidated()) {
+        RulesBelote rulesBeloteMulti_ = DialogRulesBelote.getRegles(getOwner().getDialogRulesBelote());
+        if (!DialogRulesBelote.isValidated(getOwner().getDialogRulesBelote())) {
             return;
         }
         rulesBeloteMulti = rulesBeloteMulti_;

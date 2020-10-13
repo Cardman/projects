@@ -70,7 +70,7 @@ public final class MainWindow extends GroupFrame {
 
     public void read() {
         FolderOpenDialog.setFolderOpenDialog(this, Constants.getDefaultLanguage(), false);
-        String folderPathRead_ = FolderOpenDialog.getStaticSelectedPath();
+        String folderPathRead_ = FolderOpenDialog.getStaticSelectedPath(getFolderOpenDialog());
         if (folderPathRead_.isEmpty()) {
             return;
         }

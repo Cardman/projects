@@ -247,6 +247,14 @@ public final class MainWindow extends NetGroupFrame {
     private final Net net = new Net();
     private final SelectEgg selectEgg = new SelectEgg();
     private final SelectPokemon selectPokemon = new SelectPokemon();
+    private final SelectHealedMove selectHealedMove = new SelectHealedMove();
+    private final SelectHealingItem selectHealingItem = new SelectHealingItem();
+    private final SelectItem selectItem = new SelectItem();
+    private final SelectTm selectTm = new SelectTm();
+    private final DialogGameProgess dialogGameProgess = new DialogGameProgess();
+    private final DialogHtmlData dialogHtmlData = new DialogHtmlData();
+    private final SoftParams softParams = new SoftParams();
+    private final DialogServer dialogServer = new DialogServer();
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -766,7 +774,7 @@ public final class MainWindow extends NetGroupFrame {
         String fileName_;
         if (_folder) {
             FolderOpenDialog.setFolderOpenDialog(this, getLanguageKey(), false);
-            fileName_ = FolderOpenDialog.getStaticSelectedPath();
+            fileName_ = FolderOpenDialog.getStaticSelectedPath(getFolderOpenDialog());
         } else {
             fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
         }
@@ -881,7 +889,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         LanguageDialog.setLanguageDialog(this, messages.getVal(LANGUAGE));
-        String langue_ = LanguageDialog.getStaticLanguage();
+        String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
@@ -899,8 +907,8 @@ public final class MainWindow extends NetGroupFrame {
             ThreadUtil.sleep(0);
         }
         SoftParams.setSoftParams(this, loadingConf);
-        SoftParams.setParams(loadingConf);
-        if (SoftParams.isOk()) {
+        SoftParams.setParams(loadingConf, getSoftParams());
+        if (SoftParams.isOk(getSoftParams())) {
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
@@ -1259,7 +1267,7 @@ public final class MainWindow extends NetGroupFrame {
         } else {
             FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, getFrames().getHomePath(), Resources.EXCLUDED);
         }
-        String path_ = FileSaveDialog.getStaticSelectedPath();
+        String path_ = FileSaveDialog.getStaticSelectedPath(getFileSaveDialog());
         if (path_ == null) {
             path_ = DataBase.EMPTY_STRING;
         } else if (saveConfig_) {
@@ -1289,7 +1297,7 @@ public final class MainWindow extends NetGroupFrame {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING, Resources.EXCLUDED);
             }
         }
-        String path_=FileOpenDialog.getStaticSelectedPath();
+        String path_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (path_ == null) {
             path_ = DataBase.EMPTY_STRING;
         }
@@ -1651,5 +1659,37 @@ public final class MainWindow extends NetGroupFrame {
 
     public SelectPokemon getSelectPokemon() {
         return selectPokemon;
+    }
+
+    public SelectHealedMove getSelectHealedMove() {
+        return selectHealedMove;
+    }
+
+    public SelectHealingItem getSelectHealingItem() {
+        return selectHealingItem;
+    }
+
+    public SelectItem getSelectItem() {
+        return selectItem;
+    }
+
+    public SelectTm getSelectTm() {
+        return selectTm;
+    }
+
+    public DialogGameProgess getDialogGameProgess() {
+        return dialogGameProgess;
+    }
+
+    public DialogHtmlData getDialogHtmlData() {
+        return dialogHtmlData;
+    }
+
+    public SoftParams getSoftParams() {
+        return softParams;
+    }
+
+    public DialogServer getDialogServer() {
+        return dialogServer;
     }
 }

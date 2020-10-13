@@ -19,8 +19,6 @@ import code.util.core.StringUtil;
 public final class SelectHealedMove extends Dialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealedmove";
 
-    private static final SelectHealedMove DIALOG = new SelectHealedMove();
-
     private static final String TITLE = "title";
 
     private static final String CANCEL = "cancel";
@@ -33,12 +31,12 @@ public final class SelectHealedMove extends Dialog {
 
     private StringMap<String> messages;
 
-    private SelectHealedMove() {
+    public SelectHealedMove() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealedMove(MainWindow _parent, FacadeGame _facade) {
-        DIALOG.init(_parent, _facade);
+        _parent.getSelectHealedMove().init(_parent, _facade);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade) {

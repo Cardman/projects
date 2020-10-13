@@ -21,7 +21,7 @@ public class HealingItemLabel extends SelectableLabel {
 
     private static final String SEPARATOR = Paginator.SPACE;
 
-    private static final String SPACES = StringUtil.concat(Paginator.SPACE,Paginator.SPACE);
+    private static final String SPACES = Paginator.SPACE+Paginator.SPACE;
 
     private static final String HEAL_ONE_MOVE = "healOneMove";
 

@@ -826,7 +826,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         TeamsPlayers teams_ = new TeamsPlayers();
         teams_.setTeams(game_.playersBelongingToSameTeam());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosBelote(), teams_);
+        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosBelote(), teams_, getOwner().getDialogTeamsPlayers());
     }
     @Override
     public void showTricksHands() {
@@ -912,7 +912,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         } else {
             firstSuit_ = partie_.getPliEnCours().couleurDemandee();
         }
-        DialogHelpBelote.setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), lg_);
+        DialogHelpBelote.setDialogueBelote(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,firstSuit_,contrat_,pseudosBelote(), lg_, getOwner().getDialogHelpBelote());
     }
 
     public BidBeloteSuit getContratUtilisateurBelote() {

@@ -1,8 +1,5 @@
 package code.gui;
-import java.awt.GridLayout;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
 import code.gui.events.LanguageChoice;
@@ -12,15 +9,10 @@ import code.util.consts.Constants;
 
 public final class LanguageDialog extends Dialog implements SetterLanguage {
 
-    private static final LanguageDialog DIALOG = new LanguageDialog();
-
     private static final String NO_TITLE = " ";
 
     private CustButtonGroup groupe = new CustButtonGroup();
     private String langue;
-
-    private LanguageDialog(){
-    }
 
     public static void setLanguageDialog(GroupFrame _owner) {
         initWithoutTitle(_owner);
@@ -31,7 +23,7 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
     }
 
     public static void setLanguageDialog(GroupFrame _owner, String _title) {
-        DIALOG.init(_owner, _title);
+        _owner.getLanguageDialog().init(_owner, _title);
     }
 
     private void init(GroupFrame _owner, String _title) {
@@ -56,8 +48,8 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
         closeWindow();
     }
 
-    public static String getStaticLanguage() {
-        return DIALOG.getLanguage();
+    public static String getStaticLanguage(LanguageDialog _dialog) {
+        return _dialog.getLanguage();
     }
 
     @Override

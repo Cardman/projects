@@ -10,8 +10,6 @@ import code.util.StringMap;
 public final class FolderOpenDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.folderopendialog";
 
-    private static final FolderOpenDialog DIALOG = new FolderOpenDialog();
-
     private static final String EMPTY_STRING = "";
 
     private static final String CANCEL = "cancel";
@@ -20,12 +18,12 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
 
     private StringMap<String> messages;
 
-    private FolderOpenDialog() {
+    public FolderOpenDialog() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void setFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
-        DIALOG.initFolderOpenDialog(_w, _language, _currentFolderRoot);
+        _w.getFolderOpenDialog().initFolderOpenDialog(_w, _language, _currentFolderRoot);
     }
     /**
     @param _w
@@ -61,8 +59,8 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         super.setCurrentFolder(_selectedPath);
     }
 
-    public static String getStaticSelectedPath() {
-        return DIALOG.getSelectedPath();
+    public static String getStaticSelectedPath(FolderOpenDialog _dialog) {
+        return _dialog.getSelectedPath();
     }
 
     @Override

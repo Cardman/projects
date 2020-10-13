@@ -32,7 +32,6 @@ import code.util.core.StringUtil;
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorpresident";
 
-    private static final EditorPresident DIALOG = new EditorPresident();
     private static final String BACK = "back";
     private static final String DEALER = "dealer";
     private static final String DEALING_CARDS = "dealingCards";
@@ -70,26 +69,26 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private MainWindow window;
     private boolean setToNullGame;
 
-    private EditorPresident() {
+    public EditorPresident() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void initEditorPresident(MainWindow _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
-        DIALOG.setMain(_fenetre);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.PRESIDENT.toString(lg_));
-        DIALOG.setReglesPresident(_fenetre.getReglesPresident());
-        DIALOG.partie = null;
-        DIALOG.setToNullGame = true;
-        DIALOG.nombreCartesSelectionneesPrecedent = 0;
-        DIALOG.nombreCartesSelectionnees = 0;
-        DIALOG.partieSauvegardee = false;
-        DIALOG.window = _fenetre;
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.nickNames = _fenetre.getPseudosJoueurs();
-        DIALOG.displayingPresident = _fenetre.getDisplayingPresident();
-        DIALOG.setDialogue(true, 0, _fenetre);
+        _fenetre.getEditorPresident().setMain(_fenetre);
+        _fenetre.getEditorPresident().setDialogIcon(_fenetre);
+        _fenetre.getEditorPresident().setTitle(GameEnum.PRESIDENT.toString(lg_));
+        _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
+        _fenetre.getEditorPresident().partie = null;
+        _fenetre.getEditorPresident().setToNullGame = true;
+        _fenetre.getEditorPresident().nombreCartesSelectionneesPrecedent = 0;
+        _fenetre.getEditorPresident().nombreCartesSelectionnees = 0;
+        _fenetre.getEditorPresident().partieSauvegardee = false;
+        _fenetre.getEditorPresident().window = _fenetre;
+        _fenetre.getEditorPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorPresident().nickNames = _fenetre.getPseudosJoueurs();
+        _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
+        _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
     }
 
     @Override
@@ -265,7 +264,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -299,11 +298,11 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
-        String fichier_=FileSaveDialog.getStaticSelectedPath();
+        String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -342,13 +341,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         }
     }
 
-    public static GamePresident getPartie() {
-        DIALOG.setVisible(true);
-        return DIALOG.partie;
+    public static GamePresident getPartie(EditorPresident _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.partie;
     }
 
     @Override

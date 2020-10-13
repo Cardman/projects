@@ -13,7 +13,6 @@ import code.util.StringMap;
 public final class ConfirmDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.confirmdialog";
 
-    private static final ConfirmDialog DIALOG = new ConfirmDialog();
     private static final String OK = "ok";
     private static final String CANCEL = "cancel";
     private static final String NO = "no";
@@ -31,56 +30,49 @@ public final class ConfirmDialog extends Dialog {
 
     private String typedText;
 
-    private ConfirmDialog() {
-    }
 
-
-    public static void showMessage(Dialog _frame, String _message, String _title, String _language, int _option) {
+    public static void showMessage(Dialog _frame, String _message, String _title, String _language, int _option, ConfirmDialog _dialog) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame);
-        DIALOG.setDialogIcon(_frame);
-        DIALOG.setModal(true);
-        DIALOG.setLocationRelativeTo(_frame);
-        DIALOG.initMessageSingleButton(_message, _title, _language, _option);
+        _dialog.setDialogIcon(_frame);
+        _dialog.setModal(true);
+        _dialog.setLocationRelativeTo(_frame);
+        _dialog.initMessageSingleButton(_message, _title, _language, _option);
     }
 
-    public static int getAnswer(Dialog _frame, String _message, String _title, String _language, int _option) {
-        return showMiniDialog(_frame, _message, _title, _language, _option).getAnswer();
-    }
-
-    public static ConfirmDialog showMiniDialog(Dialog _frame, String _message, String _title, String _language, int _option) {
+    public static ConfirmDialog showMiniDialog(Dialog _frame, String _message, String _title, String _language, int _option, ConfirmDialog _dialog) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame, _message, _title, _language, _option);
-        DIALOG.setDialogIcon(_frame);
-        DIALOG.setModal(true);
-        DIALOG.setLocationRelativeTo(_frame);
-        DIALOG.init(_message, _title, _language, _option);
-        return DIALOG;
+        _dialog.setDialogIcon(_frame);
+        _dialog.setModal(true);
+        _dialog.setLocationRelativeTo(_frame);
+        _dialog.init(_message, _title, _language, _option);
+        return _dialog;
     }
 
     public static void showTextField(GroupFrame _frame, String _value, String _message, String _title, String _language) {
-        DIALOG.setDialogIcon(_frame);
-        DIALOG.setModal(true);
-        DIALOG.setLocationRelativeTo(_frame);
-        DIALOG.init(_message, _value, _title, _language);
+        _frame.getConfirmDialog().setDialogIcon(_frame);
+        _frame.getConfirmDialog().setModal(true);
+        _frame.getConfirmDialog().setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().init(_message, _value, _title, _language);
     }
 
     public static void showComponent(GroupFrame _frame, CustComponent _message, String _title, String _language, int _option) {
 //      ConfirmDialog conf_;
 //      conf_ = new ConfirmDialog(_frame);
-      DIALOG.setDialogIcon(_frame);
-      DIALOG.setModal(true);
-      DIALOG.setLocationRelativeTo(_frame);
-      DIALOG.initComponentSingleButton(_message, _title, _language, _option);
+        _frame.getConfirmDialog().setDialogIcon(_frame);
+        _frame.getConfirmDialog().setModal(true);
+        _frame.getConfirmDialog().setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().initComponentSingleButton(_message, _title, _language, _option);
   }
 
     public static void showMessage(GroupFrame _frame, String _message, String _title, String _language, int _option) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame);
-        DIALOG.setDialogIcon(_frame);
-        DIALOG.setModal(true);
-        DIALOG.setLocationRelativeTo(_frame);
-        DIALOG.initMessageSingleButton(_message, _title, _language, _option);
+        _frame.getConfirmDialog().setDialogIcon(_frame);
+        _frame.getConfirmDialog().setModal(true);
+        _frame.getConfirmDialog().setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().initMessageSingleButton(_message, _title, _language, _option);
     }
 
     public static int getAnswer(GroupFrame _frame, String _message, String _title, String _language, int _option) {
@@ -90,11 +82,11 @@ public final class ConfirmDialog extends Dialog {
     public static ConfirmDialog showMiniDialog(GroupFrame _frame, String _message, String _title, String _language, int _option) {
 //        ConfirmDialog conf_;
 //        conf_ = new ConfirmDialog(_frame, _message, _title, _language, _option);
-        DIALOG.setDialogIcon(_frame);
-        DIALOG.setModal(true);
-        DIALOG.setLocationRelativeTo(_frame);
-        DIALOG.init(_message, _title, _language, _option);
-        return DIALOG;
+        _frame.getConfirmDialog().setDialogIcon(_frame);
+        _frame.getConfirmDialog().setModal(true);
+        _frame.getConfirmDialog().setLocationRelativeTo(_frame);
+        _frame.getConfirmDialog().init(_message, _title, _language, _option);
+        return _frame.getConfirmDialog();
     }
 
     private void initMessageSingleButton(String _message, String _title, String _language, int _option) {
@@ -244,12 +236,12 @@ public final class ConfirmDialog extends Dialog {
         closeWindow();
     }
 
-    public static String getStaticText() {
-        return DIALOG.getTypedText();
+    public static String getStaticText(ConfirmDialog _dialog) {
+        return _dialog.getTypedText();
     }
 
-    public static int getStaticAnswer() {
-        return DIALOG.getAnswer();
+    public static int getStaticAnswer(ConfirmDialog _dialog) {
+        return _dialog.getAnswer();
     }
 
     public int getAnswer() {

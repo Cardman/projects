@@ -40,7 +40,7 @@ public abstract class Paginator {
 
     protected static final String POKEMON = "Pokemon";
 
-    protected static final String SPACES = StringUtil.concat(SPACE,SPACE);
+    protected static final String SPACES = SPACE+SPACE;
     protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
     protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.paginatorhealingitem";
     protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";

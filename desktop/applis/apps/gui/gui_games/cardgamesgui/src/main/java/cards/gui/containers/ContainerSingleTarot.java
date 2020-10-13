@@ -1355,7 +1355,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TeamsPlayers teams_ = new TeamsPlayers();
         teams_.setTeams(game_.getTeamsRelation().teams());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_);
+        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_, getOwner().getDialogTeamsPlayers());
     }
     @Override
     public void showTricksHands() {
@@ -1381,7 +1381,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
-        DialogHelpTarot.setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
+        DialogHelpTarot.setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_, getOwner().getDialogHelpTarot());
     }
 
     public BidTarot getContratUtilisateur() {

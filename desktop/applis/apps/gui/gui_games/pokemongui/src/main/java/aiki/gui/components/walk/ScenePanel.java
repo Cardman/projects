@@ -545,8 +545,8 @@ public class ScenePanel {
 
     public void selectItemForPokemon() {
         SelectItem.setSelectItem(window, facade, false, true);
-        boolean isSelectedIndex_ = SelectItem.isSelectedIndex();
-        boolean ok_ = SelectItem.isOk();
+        boolean isSelectedIndex_ = SelectItem.isSelectedIndex(window.getSelectItem());
+        boolean ok_ = SelectItem.isOk(window.getSelectItem());
         if (!ok_) {
             facade.clearSortingItem();
             return;
@@ -555,7 +555,7 @@ public class ScenePanel {
             facade.clearSortingItem();
             return;
         }
-        boolean give_ = SelectItem.isGive();
+        boolean give_ = SelectItem.isGive(window.getSelectItem());
         facade.setGivingObject(give_);
         facade.chooseObject();
         facade.clearSortingItem();
@@ -607,8 +607,8 @@ public class ScenePanel {
 
     public void selectTmToLearn() {
         SelectTm.setSelectTm(window, facade, false);
-        boolean isSelectedIndex_ = SelectTm.isSelectedIndex();
-        boolean ok_ = SelectTm.isOk();
+        boolean isSelectedIndex_ = SelectTm.isSelectedIndex(window.getSelectTm());
+        boolean ok_ = SelectTm.isOk(window.getSelectTm());
         if (!ok_) {
             facade.clearSortingMove();
             return;
@@ -654,24 +654,24 @@ public class ScenePanel {
     public void manageNetwork() {
         String lg_ = window.getLanguageKey();
         DialogServer.setDialogServer(window);
-        String ip_ = DialogServer.getIpOrHostName();
+        String ip_ = DialogServer.getIpOrHostName(window.getDialogServer());
         if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServer.getIpType() == IpType.IP_V6) {
+            if (DialogServer.getIpType(window.getDialogServer()) == IpType.IP_V6) {
                 ip_ = LOCALHOST_NEW_IP;
             } else {
                 ip_ = LOCALHOST_OLD_IP;
             }
         }
-        if (!DialogServer.isChoosen()) {
+        if (!DialogServer.isChoosen(window.getDialogServer())) {
             return;
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(), Resources.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
-        if (DialogServer.isCreate()) {
-            window.createServer(ip_, DialogServer.getIpType(), port_);
+        if (DialogServer.isCreate(window.getDialogServer())) {
+            window.createServer(ip_, DialogServer.getIpType(window.getDialogServer()), port_);
             return;
         }
-        SocketResults connected_ = window.createClient(ip_, DialogServer.getIpType(), false, port_);
+        SocketResults connected_ = window.createClient(ip_, DialogServer.getIpType(window.getDialogServer()), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = messages.getVal(UNKNOWN_HOST);
@@ -1052,8 +1052,8 @@ public class ScenePanel {
 
     public void addTmToBuy() {
         SelectTm.setSelectTm(window, facade, true);
-        boolean isSelectedIndex_ = SelectTm.isSelectedIndex();
-        boolean ok_ = SelectTm.isOk();
+        boolean isSelectedIndex_ = SelectTm.isSelectedIndex(window.getSelectTm());
+        boolean ok_ = SelectTm.isOk(window.getSelectTm());
         if (!ok_) {
             return;
         }
@@ -1093,8 +1093,8 @@ public class ScenePanel {
 
     public void selectItemForList() {
         SelectItem.setSelectItem(window, facade, true, !buy.isSelected());
-        boolean isSelectedIndex_ = SelectItem.isSelectedIndex();
-        boolean ok_ = SelectItem.isOk();
+        boolean isSelectedIndex_ = SelectItem.isSelectedIndex(window.getSelectItem());
+        boolean ok_ = SelectItem.isOk(window.getSelectItem());
         if (!ok_) {
             return;
         }
@@ -1298,8 +1298,8 @@ public class ScenePanel {
     public void healPokemon() {
         int lineBack_ = facade.getLineHealingItem();
         SelectHealingItem.setSelectHealingItem(window, facade);
-        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex();
-        boolean ok_ = SelectHealingItem.isOk();
+        boolean isSelectedIndex_ = SelectHealingItem.isSelectedIndex(window.getSelectHealingItem());
+        boolean ok_ = SelectHealingItem.isOk(window.getSelectHealingItem());
         if (!ok_) {
             facade.setLineHealingItem(lineBack_);
             facade.clearSortingHealingItem();
@@ -1329,10 +1329,10 @@ public class ScenePanel {
     public void changeNickname() {
         String lg_ = window.getLanguageKey();
         ConfirmDialog.showTextField(window, DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
-        if (ConfirmDialog.getStaticAnswer() != JOptionPane.YES_OPTION) {
+        if (ConfirmDialog.getStaticAnswer(window.getConfirmDialog()) != JOptionPane.YES_OPTION) {
             return;
         }
-        facade.validateNickname(ConfirmDialog.getStaticText());
+        facade.validateNickname(ConfirmDialog.getStaticText(window.getConfirmDialog()));
     }
 
     public void selectPokemonMoveTutor() {

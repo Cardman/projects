@@ -16,20 +16,18 @@ public final class DialogGameProgess extends Dialog {
 
     private static final String TEXT = "0";
 
-    private static final DialogGameProgess DIALOG = new DialogGameProgess();
-
     private static final String SEARCH_LABEL = "searchLabel";
 
     private RenderedPage session;
 
     private StringMap<String> messages;
 
-    private DialogGameProgess() {
+    public DialogGameProgess() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade,PreparedRenderedPages _pre) {
-        DIALOG.init(_window, _title, _facade,_pre);
+        _window.getDialogGameProgess().init(_window, _title, _facade,_pre);
     }
 
     private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {

@@ -777,7 +777,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRegles().getNbStacks();
-        DialogHelpPresident.setDialoguePresident(played_, reversed_, nbStacks_, lg_);
+        DialogHelpPresident.setDialoguePresident(played_, reversed_, nbStacks_, lg_, getOwner().getDialogHelpPresident());
     }
 
     @Override

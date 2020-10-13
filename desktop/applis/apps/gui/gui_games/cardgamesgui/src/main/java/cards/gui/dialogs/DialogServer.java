@@ -20,7 +20,6 @@ import code.util.StringMap;
 public final class DialogServer extends DialogCards implements AbstractDialogServer{
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogserver";
 
-    private static final DialogServer DIALOG = new DialogServer();
     private static final String CANCEL = "cancel";
     private static final String CREATE_SERVER = "createServer";
     private static final String IP_SERVER = "ipServer";
@@ -38,12 +37,12 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
 //    private JComboBox<DealingBelote> repBelote;
 //    private JComboBox<DealingTarot> repTarot;
 
-    private DialogServer() {
+    public DialogServer() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(MainWindow _fenetre, GameEnum _game) {
-        DIALOG.initDialogServer(_fenetre, _game);
+        _fenetre.getDialogServer().initDialogServer(_fenetre, _game);
     }
 
     private void initDialogServer(MainWindow _fenetre, GameEnum _game) {
@@ -141,16 +140,16 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         closeWindow();
     }
 
-    public static String getIpOrHostName() {
-        DIALOG.setVisible(true);
-        return DIALOG.ipOrHostName.getText();
+    public static String getIpOrHostName(DialogServer _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.ipOrHostName.getText();
     }
 
-    public static IpType getIpType() {
-        return DIALOG.ipType.getCurrent();
+    public static IpType getIpType(DialogServer _dialog) {
+        return _dialog.ipType.getCurrent();
     }
-    public static int getNbPlayers() {
-        return DIALOG.nbPlayers.getValue();
+    public static int getNbPlayers(DialogServer _dialog) {
+        return _dialog.nbPlayers.getValue();
     }
 //    public DealingTarot getReparitionTarot() {
 //        return (DealingTarot) repTarot.getSelectedItem();
@@ -158,15 +157,12 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
 //    public DealingBelote getReparitionBelote() {
 //        return (DealingBelote) repBelote.getSelectedItem();
 //    }
-    public static boolean isCreate() {
-        return DIALOG.create;
+    public static boolean isCreate(DialogServer _dialog) {
+        return _dialog.create;
     }
 
-    public static boolean isJoin() {
-        return DIALOG.join;
+    public static boolean isChoosen(DialogServer _dialog) {
+        return _dialog.create || _dialog.join;
     }
 
-    public static boolean isChoosen() {
-        return DIALOG.create || DIALOG.join;
-    }
 }

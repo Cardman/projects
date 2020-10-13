@@ -18,8 +18,6 @@ import code.util.core.IndexConstants;
 public final class SelectTm extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecttm";
 
-    private static final SelectTm DIALOG = new SelectTm();
-
     private static final String TITLE = "title";
 
     private static final String CANCEL = "cancel";
@@ -30,12 +28,12 @@ public final class SelectTm extends SelectDialog {
 
     private StringMap<String> messages;
 
-    private SelectTm() {
+    public SelectTm() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectTm(MainWindow _parent, FacadeGame _facade, boolean _buy) {
-        DIALOG.init(_parent, _facade, _buy);
+        _parent.getSelectTm().init(_parent, _facade, _buy);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade, boolean _buy) {
@@ -67,12 +65,13 @@ public final class SelectTm extends SelectDialog {
         super.closeWindow();
     }
 
-    public static boolean isSelectedIndex() {
-        DIALOG.setVisible(true);
-        return DIALOG.facade.getLineMove() != IndexConstants.INDEX_NOT_FOUND_ELT;
+    public static boolean isSelectedIndex(SelectTm _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.facade.getLineMove() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public static boolean isOk() {
-        return DIALOG.isSelected();
+    public static boolean isOk(SelectTm _dialog) {
+        return _dialog.isSelected();
     }
+
 }

@@ -19,7 +19,6 @@ public final class DialogNicknames extends DialogCards {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialognicknames";
 
-    private static final DialogNicknames DIALOG = new DialogNicknames();
     private static final String TAB = "\t";
     private static final String NICKNAME = "nickname";
     private static final String NICKNAME_PLAYER = "nicknamePlayer";
@@ -34,22 +33,22 @@ public final class DialogNicknames extends DialogCards {
     private CustList<TextField> nicknamesTarot = new CustList<TextField>();
     private CustList<TextField> nicknamesPresident = new CustList<TextField>();
 
-    private DialogNicknames() {
+    public DialogNicknames() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, MainWindow _fenetre) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(_titre);
+        _fenetre.getDialogNicknames().setDialogIcon(_fenetre);
+        _fenetre.getDialogNicknames().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
-        DIALOG.pseudos = _fenetre.getPseudosJoueurs();
-        DIALOG.setMain(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getDialogNicknames().messages = _fenetre.getDialogNicknames().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
+        _fenetre.getDialogNicknames().setMain(_fenetre);
+        _fenetre.getDialogNicknames().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogNicknames().setDialogue(_fenetre);
     }
 
-    public static Nicknames getPseudos() {
-        return DIALOG.pseudos;
+    public static Nicknames getPseudos(DialogNicknames _dialog) {
+        return _dialog.pseudos;
     }
 
     /**Met en place le contenu de la boite de dialogue
@@ -116,10 +115,10 @@ public final class DialogNicknames extends DialogCards {
     public void validateNicknames() {
         String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

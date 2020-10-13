@@ -22,7 +22,6 @@ import code.util.core.StringUtil;
 
 public final class DialogHelpBelote extends Dialog {
 
-    private static final DialogHelpBelote DIALOG = new DialogHelpBelote();
     private static final String EMPTY="";
     private static final String POSSIBLE="P";
     private static final String OWNED="C";
@@ -31,23 +30,20 @@ public final class DialogHelpBelote extends Dialog {
     private static final String SPACE=" ";
     private static final String TAB="\t";
 
-    private DialogHelpBelote() {
-    }
-
     private void voir() {
         setResizable(false);
         setVisible(true);
     }
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setTitle(_title);
+        _fenetre.getDialogHelpBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpBelote().setTitle(_title);
     }
-    public static void setDialogueBelote(EnumMap<Suit,CustList<HandBelote>> _cartesPossibles,
-            EnumMap<Suit,CustList<HandBelote>> _cartesCertaines,
-            EnumMap<Suit,HandBelote> _repartitionJouees,
-            Suit _couleurDemandee,BidBeloteSuit _bid,
-            StringList _pseudos, String _lg) {
+    public static void setDialogueBelote(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
+                                         EnumMap<Suit, CustList<HandBelote>> _cartesCertaines,
+                                         EnumMap<Suit, HandBelote> _repartitionJouees,
+                                         Suit _couleurDemandee, BidBeloteSuit _bid,
+                                         StringList _pseudos, String _lg, DialogHelpBelote _dialog) {
         Panel container_=Panel.newLineBox();
         Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
@@ -121,8 +117,9 @@ public final class DialogHelpBelote extends Dialog {
         ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
-        DIALOG.setContentPane(container_);
-        DIALOG.pack();
-        DIALOG.voir();
+        _dialog.setContentPane(container_);
+        _dialog.pack();
+        _dialog.voir();
     }
+
 }

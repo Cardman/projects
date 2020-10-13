@@ -10,21 +10,20 @@ import code.gui.Panel;
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulesbelote";
-    private static final DialogRulesBelote DIALOG = new DialogRulesBelote();
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    private DialogRulesBelote(){
+    public DialogRulesBelote(){
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
-        DIALOG.setMain(_fenetre);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(_titre);
-        DIALOG.setReglesBelote(_rulesBelote);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.getJt().removeAll();
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getDialogRulesBelote().setMain(_fenetre);
+        _fenetre.getDialogRulesBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogRulesBelote().setTitle(_titre);
+        _fenetre.getDialogRulesBelote().setReglesBelote(_rulesBelote);
+        _fenetre.getDialogRulesBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogRulesBelote().getJt().removeAll();
+        _fenetre.getDialogRulesBelote().setDialogue(_fenetre);
     }
 
     @Override
@@ -50,12 +49,13 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         closeWindow();
     }
 
-    public static RulesBelote getRegles() {
-        DIALOG.setVisible(true);
-        return DIALOG.getReglesBelote();
+    public static RulesBelote getRegles(DialogRulesBelote _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.getReglesBelote();
     }
 
-    public static boolean isValidated() {
-        return DIALOG.validated;
+    public static boolean isValidated(DialogRulesBelote _dialog) {
+        return _dialog.validated;
     }
+
 }

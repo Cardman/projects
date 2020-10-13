@@ -28,7 +28,7 @@ public class TeamPanel {
 
     private static final String SPACE = " ";
 
-    private static final String SPACES = StringUtil.concat(SPACE,SPACE);
+    private static final String SPACES = SPACE+SPACE;
 
     private static final String ROOMS = "rooms";
 

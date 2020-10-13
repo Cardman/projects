@@ -18,7 +18,6 @@ public final class DialogSoft extends DialogCards {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogsoft";
 
-    private static final DialogSoft DIALOG = new DialogSoft();
     private static final String WAITING_SENTENCE = "waitingSentence";
     private static final String WAITING_VALUES = "waitingValues";
     private static final String CLICK_FOR_PLAYING_CARD = "clickForPlayingCard";
@@ -42,24 +41,25 @@ public final class DialogSoft extends DialogCards {
     private Slider delayWaitBids;
     private CustCheckBox clickCard;
 
-    private DialogSoft() {
+    public DialogSoft() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogSoft(String _titre, MainWindow _fenetre) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(_titre);
+        _fenetre.getDialogSoft().setDialogIcon(_fenetre);
+        _fenetre.getDialogSoft().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
-        DIALOG.parametres = _fenetre.getParametresLogiciel();
-        DIALOG.setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogSoft().messages = _fenetre.getDialogSoft().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
+        _fenetre.getDialogSoft().setLocationRelativeTo(_fenetre);
     }
 
-    public static SoftParams getParametres() {
-        DIALOG.setVisible(true);
-        return DIALOG.parametres;
+    public static SoftParams getParametres(DialogSoft _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.parametres;
     }
+
     public static void setDialogSoft(String _menu, MainWindow _fenetre) {
-        DIALOG.setDialogue(_menu, _fenetre);
+        _fenetre.getDialogSoft().setDialogue(_menu, _fenetre);
     }
     private void setDialogue(String _menu, MainWindow _fenetre) {
         menu = _menu;

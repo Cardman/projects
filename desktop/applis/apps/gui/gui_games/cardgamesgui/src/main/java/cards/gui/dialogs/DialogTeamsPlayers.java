@@ -12,24 +12,23 @@ import code.util.core.StringUtil;
 public final class DialogTeamsPlayers extends DialogCards {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogteamsplayers";
 
-    private static final DialogTeamsPlayers DIALOG = new DialogTeamsPlayers();
     private static final String TEAM = "team";
     private static final String TITLE = "title";
     private StringMap<String> messages;
 
-    private DialogTeamsPlayers() {
+    public DialogTeamsPlayers() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogTeamsPlayers(MainWindow _fenetre) {
-        DIALOG.setDialogIcon(_fenetre);
+        _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
-        DIALOG.setTitle(DIALOG.messages.getVal(TITLE));
-        DIALOG.setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTeamsPlayers().messages = _fenetre.getDialogTeamsPlayers().getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
+        _fenetre.getDialogTeamsPlayers().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
+        _fenetre.getDialogTeamsPlayers().setLocationRelativeTo(_fenetre);
     }
 
-    public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers) {
-        DIALOG.setDialogue(_pseudos, _teamsPlayers);
+    public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog) {
+        _dialog.setDialogue(_pseudos, _teamsPlayers);
     }
 
     public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers) {

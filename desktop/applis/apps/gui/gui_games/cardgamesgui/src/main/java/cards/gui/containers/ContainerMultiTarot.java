@@ -743,7 +743,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         StringList list_ = new StringList(pseudos_.values());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams);
+        DialogTeamsPlayers.setDialogTeamsPlayers(list_, _teams, getOwner().getDialogTeamsPlayers());
 
     }
     @Override
@@ -1181,8 +1181,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti);
         DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers, getOwner());
-        RulesTarot rulesTarotMulti_ = DialogRulesTarot.getRegles();
-        if (!DialogRulesTarot.isValidated()) {
+        RulesTarot rulesTarotMulti_ = DialogRulesTarot.getRegles(getOwner().getDialogRulesTarot());
+        if (!DialogRulesTarot.isValidated(getOwner().getDialogRulesTarot())) {
             return;
         }
         rulesTarotMulti = rulesTarotMulti_;

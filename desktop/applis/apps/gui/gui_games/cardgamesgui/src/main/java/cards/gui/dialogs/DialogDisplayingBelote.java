@@ -1,9 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -26,7 +23,6 @@ import code.util.ints.Listable;
 public final class DialogDisplayingBelote extends DialogCards implements DialogDisplaying {
 
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingbelote";
-    private static final DialogDisplayingBelote DIALOG = new DialogDisplayingBelote();
     private static final String ADD_SUIT = "addSuit";
     private static final String CLOCK_WISE = "clockWise";
     private static final String DEALING = "dealing";
@@ -47,28 +43,28 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     private CustCheckBox sortByTrump;
     private ComboBoxSuit listeChoix;
 
-    private DialogDisplayingBelote() {
+    public DialogDisplayingBelote() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void setDialogDisplayingBelote(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setMain(_fenetre);
-        DIALOG.getJt().removeAll();
-        DIALOG.setTitle(_titre);
-        DIALOG.displayingBelote = _fenetre.getDisplayingBelote();
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        DIALOG.setDialogue(_fenetre);
+        _fenetre.getDialogDisplayingBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
+        _fenetre.getDialogDisplayingBelote().getJt().removeAll();
+        _fenetre.getDialogDisplayingBelote().setTitle(_titre);
+        _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
+        _fenetre.getDialogDisplayingBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogDisplayingBelote().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
     }
 
     private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
-    public static DisplayingBelote getDisplaying() {
-        DIALOG.setVisible(true);
-        return DIALOG.displayingBelote;
+    public static DisplayingBelote getDisplaying(DialogDisplayingBelote _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.displayingBelote;
     }
 
     public void setDialogue(MainWindow _window) {
@@ -160,7 +156,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingBelote.setClockwise(checkClockwise.isSelected());
@@ -174,5 +170,6 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             closeWindow();
         }
     }
+
 }
 

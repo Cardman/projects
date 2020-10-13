@@ -12,24 +12,19 @@ import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 
-    private static final DialogTricksPresident DIALOG = new DialogTricksPresident();
-
-    private DialogTricksPresident() {
-    }
-
     public static void setDialogTricksPresident(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setTitle(_titre);
-        DIALOG.setResizable(true);
-        DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogTricksPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogTricksPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTricksPresident().setTitle(_titre);
+        _fenetre.getDialogTricksPresident().setResizable(true);
+        _fenetre.getDialogTricksPresident().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsPresident _tricksHands,
             byte _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, MainWindow _window) {
-        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window);
+        _window.getDialogTricksPresident().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window);
     }
 
     private void setDialogue(TricksHandsPresident _tricksHands,

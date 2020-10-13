@@ -30,7 +30,6 @@ import code.util.core.StringUtil;
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.editortarot";
 
-    private static final EditorTarot DIALOG = new EditorTarot();
     private static final String BACK = "back";
     private static final String DEALER = "dealer";
     private static final String DEALING_CARDS = "dealingCards";
@@ -69,25 +68,25 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private MainWindow window;
-    private EditorTarot() {
+    public EditorTarot() {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorTarot(MainWindow _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
-        DIALOG.setMain(_fenetre);
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.TAROT.toString(lg_));
-        DIALOG.setReglesTarot(_fenetre.getReglesTarot());
-        DIALOG.partie = null;
-        DIALOG.setToNullGame = true;
-        DIALOG.nombreCartesSelectionneesPrecedent = 0;
-        DIALOG.nombreCartesSelectionnees = 0;
-        DIALOG.partieSauvegardee = false;
-        DIALOG.window = _fenetre;
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.nickNames = _fenetre.getPseudosJoueurs();
-        DIALOG.displayingTarot = _fenetre.getDisplayingTarot();
-        DIALOG.setDialogue(true, 0, _fenetre);
+        _fenetre.getEditorTarot().setMain(_fenetre);
+        _fenetre.getEditorTarot().setDialogIcon(_fenetre);
+        _fenetre.getEditorTarot().setTitle(GameEnum.TAROT.toString(lg_));
+        _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
+        _fenetre.getEditorTarot().partie = null;
+        _fenetre.getEditorTarot().setToNullGame = true;
+        _fenetre.getEditorTarot().nombreCartesSelectionneesPrecedent = 0;
+        _fenetre.getEditorTarot().nombreCartesSelectionnees = 0;
+        _fenetre.getEditorTarot().partieSauvegardee = false;
+        _fenetre.getEditorTarot().window = _fenetre;
+        _fenetre.getEditorTarot().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorTarot().nickNames = _fenetre.getPseudosJoueurs();
+        _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
+        _fenetre.getEditorTarot().setDialogue(true, 0, _fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //        addWindowListener(new WindowAdapter() {
 //            @Override
@@ -260,7 +259,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -303,11 +302,11 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
-        String fichier_=FileSaveDialog.getStaticSelectedPath();
+        String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
             fichier_ = EMPTY_STRING;
         }
@@ -360,16 +359,17 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 
 
     }
-    public static GameTarot getPartie() {
-        DIALOG.setVisible(true);
-        return DIALOG.partie;
+    public static GameTarot getPartie(EditorTarot _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.partie;
     }
+
     @Override
     public void doNotSetToNullGame() {
         setToNullGame = false;

@@ -19,8 +19,6 @@ import code.util.core.IndexConstants;
 public final class SelectItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectitem";
 
-    private static final SelectItem DIALOG = new SelectItem();
-
     private static final String TITLE = "title";
 
     private static final String CANCEL = "cancel";
@@ -39,12 +37,12 @@ public final class SelectItem extends SelectDialog {
 
     private StringMap<String> messages;
 
-    private SelectItem() {
+    public SelectItem() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectItem(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
-        DIALOG.init(_parent, _facade, _buy, _sell);
+        _parent.getSelectItem().init(_parent, _facade, _buy, _sell);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
@@ -86,20 +84,20 @@ public final class SelectItem extends SelectDialog {
         super.closeWindow();
     }
 
-    public static boolean isSelectedIndex() {
-        DIALOG.setVisible(true);
-        return DIALOG.facade.getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
+    public static boolean isSelectedIndex(SelectItem _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.facade.getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public static boolean isOk() {
-        return DIALOG.isSelected();
+    public static boolean isOk(SelectItem _dialog) {
+        return _dialog.isSelected();
     }
 
-    public static boolean isGive() {
-        return DIALOG.giveCheckBox.isSelected();
+    public static boolean isGive(SelectItem _dialog) {
+        return _dialog.giveCheckBox.isSelected();
     }
 
-//    public static void setGive(boolean _give) {
+    //    public static void setGive(boolean _give) {
 //        DIALOG.giveCheckBox.setSelected(_give);
 ////        DIALOG.give = _give;
 //    }

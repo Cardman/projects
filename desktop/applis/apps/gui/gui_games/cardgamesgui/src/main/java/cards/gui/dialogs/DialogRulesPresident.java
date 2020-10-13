@@ -10,23 +10,22 @@ import code.gui.Panel;
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
 
-    private static final DialogRulesPresident DIALOG = new DialogRulesPresident();
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    private DialogRulesPresident(){
+    public DialogRulesPresident(){
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, MainWindow _fenetre, RulesPresident _rulesPresident) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(_titre);
-        DIALOG.setReglesPresident(_rulesPresident);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.getJt().removeAll();
+        _fenetre.getDialogRulesPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogRulesPresident().setTitle(_titre);
+        _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
+        _fenetre.getDialogRulesPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogRulesPresident().getJt().removeAll();
     }
 
     public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
-        DIALOG.setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
+        _window.getDialogRulesPresident().setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
     }
 
     @Override
@@ -51,12 +50,13 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         closeWindow();
     }
 
-    public static RulesPresident getRegles() {
-        DIALOG.setVisible(true);
-        return DIALOG.getReglesPresident();
+    public static RulesPresident getRegles(DialogRulesPresident _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.getReglesPresident();
     }
 
-    public static boolean isValidated() {
-        return DIALOG.validated;
+    public static boolean isValidated(DialogRulesPresident _dialog) {
+        return _dialog.validated;
     }
+
 }

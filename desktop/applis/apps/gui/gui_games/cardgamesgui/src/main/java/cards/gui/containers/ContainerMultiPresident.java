@@ -733,8 +733,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         DialogRulesPresident.initDialogRulesPresident(
                 GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti);
         DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers, getOwner());
-        RulesPresident rulesPresidentMulti_ = DialogRulesPresident.getRegles();
-        if (!DialogRulesPresident.isValidated()) {
+        RulesPresident rulesPresidentMulti_ = DialogRulesPresident.getRegles(getOwner().getDialogRulesPresident());
+        if (!DialogRulesPresident.isValidated(getOwner().getDialogRulesPresident())) {
             return;
         }
         rulesPresidentMulti = rulesPresidentMulti_;

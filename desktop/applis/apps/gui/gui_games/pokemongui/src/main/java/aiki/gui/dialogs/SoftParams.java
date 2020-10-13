@@ -1,7 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.GridLayout;
 
-import javax.swing.JCheckBox;
 import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
@@ -17,7 +15,6 @@ import code.util.StringMap;
 public final class SoftParams extends Dialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
 
-    private static final SoftParams DIALOG = new SoftParams();
     private static final String TITLE = "title";
     private static final String ZIP_LOAD = "zipLoad";
     private static final String GAME_LOAD = "gameLoad";
@@ -51,12 +48,12 @@ public final class SoftParams extends Dialog {
 
     private boolean ok;
 
-    private SoftParams() {
+    public SoftParams() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSoftParams(MainWindow _window, LoadingGame _loading) {
-        DIALOG.init(_window, _loading);
+        _window.getSoftParams().init(_window, _loading);
     }
 
     private void init(MainWindow _window, LoadingGame _loading) {
@@ -164,12 +161,12 @@ public final class SoftParams extends Dialog {
         closeWindow();
     }
 
-    public static boolean isOk() {
-        return DIALOG.ok;
+    public static boolean isOk(SoftParams _dialog) {
+        return _dialog.ok;
     }
 
-    public static void setParams(LoadingGame _loading) {
-        DIALOG.validateParams(_loading);
+    public static void setParams(LoadingGame _loading, SoftParams _dialog) {
+        _dialog.validateParams(_loading);
     }
 
     private void validateParams(LoadingGame _loading) {

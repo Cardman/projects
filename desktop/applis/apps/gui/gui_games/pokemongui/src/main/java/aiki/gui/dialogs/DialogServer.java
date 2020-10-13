@@ -1,8 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
@@ -20,8 +17,6 @@ import code.util.StringMap;
 public final class DialogServer extends Dialog implements AbstractDialogServer{
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogserver";
 
-    private static final DialogServer DIALOG = new DialogServer();
-
     private static final String TITLE = "title";
     private static final String IP_SERVER = "ipServer";
     private static final String IP_SERVER_TOOL_TIP = "ipServerToolTip";
@@ -38,12 +33,12 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
 
     private EnumMap<IpType,String> messagesIpEnum;
 
-    private DialogServer() {
+    public DialogServer() {
         setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(MainWindow _fenetre) {
-        DIALOG.init(_fenetre);
+        _fenetre.getDialogServer().init(_fenetre);
     }
     private void init(MainWindow _fenetre) {
         setDialogIcon(_fenetre);
@@ -105,24 +100,21 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         closeWindow();
     }
 
-    public static String getIpOrHostName() {
-        DIALOG.setVisible(true);
-        return DIALOG.ipOrHostName.getText();
+    public static String getIpOrHostName(DialogServer _dialog) {
+        _dialog.setVisible(true);
+        return _dialog.ipOrHostName.getText();
     }
 
-    public static IpType getIpType() {
-        return DIALOG.ipType.getCurrent();
+    public static IpType getIpType(DialogServer _dialog) {
+        return _dialog.ipType.getCurrent();
     }
 
-    public static boolean isCreate() {
-        return DIALOG.create;
+    public static boolean isCreate(DialogServer _dialog) {
+        return _dialog.create;
     }
 
-    public static boolean isJoin() {
-        return DIALOG.join;
+    public static boolean isChoosen(DialogServer _dialog) {
+        return _dialog.create || _dialog.join;
     }
 
-    public static boolean isChoosen() {
-        return DIALOG.create || DIALOG.join;
-    }
 }

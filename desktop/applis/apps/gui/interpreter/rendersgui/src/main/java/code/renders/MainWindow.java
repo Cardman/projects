@@ -90,7 +90,7 @@ public final class MainWindow extends GroupFrame {
 
     public void load() {
         FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
-        String fichier_=FileOpenDialog.getStaticSelectedPath();
+        String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = "";
         }

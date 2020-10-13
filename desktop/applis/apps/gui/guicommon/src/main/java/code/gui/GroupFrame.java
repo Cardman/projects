@@ -25,12 +25,28 @@ public abstract class GroupFrame extends CommonFrame {
     private boolean opened;
 
     private AbstractProgramInfos frames;
+    private final FileOpenDialog fileOpenDialog;
+    private final FileSaveDialog fileSaveDialog;
+    private final FolderOpenDialog folderOpenDialog;
+    private final ConfirmDialog confirmDialog;
+    private final LanguageDialog languageDialog;
     protected GroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg);
         frames = _list;
         frames.getFrames().add(this);
         if (frames.getFrames().size() == 1) {
+            fileOpenDialog = new FileOpenDialog();
+            fileSaveDialog = new FileSaveDialog();
+            folderOpenDialog = new FolderOpenDialog();
+            confirmDialog = new ConfirmDialog();
+            languageDialog = new LanguageDialog();
             frames.getFrames().first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+        } else {
+            fileOpenDialog = frames.getFrames().first().fileOpenDialog;
+            fileSaveDialog = frames.getFrames().first().fileSaveDialog;
+            folderOpenDialog = frames.getFrames().first().folderOpenDialog;
+            confirmDialog = frames.getFrames().first().confirmDialog;
+            languageDialog = frames.getFrames().first().languageDialog;
         }
     }
 
@@ -141,5 +157,25 @@ public abstract class GroupFrame extends CommonFrame {
 
     public AbstractProgramInfos getFrames() {
         return frames;
+    }
+
+    public FileOpenDialog getFileOpenDialog() {
+        return fileOpenDialog;
+    }
+
+    public FileSaveDialog getFileSaveDialog() {
+        return fileSaveDialog;
+    }
+
+    public FolderOpenDialog getFolderOpenDialog() {
+        return folderOpenDialog;
+    }
+
+    public ConfirmDialog getConfirmDialog() {
+        return confirmDialog;
+    }
+
+    public LanguageDialog getLanguageDialog() {
+        return languageDialog;
     }
 }

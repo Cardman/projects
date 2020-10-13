@@ -20,7 +20,6 @@ import code.util.core.StringUtil;
 
 public final class DialogHelpTarot extends Dialog {
 
-    private static final DialogHelpTarot DIALOG = new DialogHelpTarot();
     private static final String EMPTY="";
     private static final String POSSIBLE="P";
     private static final String OWNED="C";
@@ -28,17 +27,16 @@ public final class DialogHelpTarot extends Dialog {
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
-    private DialogHelpTarot() {
-    }
+
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setTitle(_title);
+        _fenetre.getDialogHelpTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpTarot().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpTarot().setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
-    public static void setDialogueTarot(EnumMap<Suit,CustList<HandTarot>> _cartesPossibles,
-                                        EnumMap<Suit,CustList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,
-                                        StringList _pseudos, String _lg) {
+    public static void setDialogueTarot(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+                                        EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, HandTarot> _repartitionJouees,
+                                        StringList _pseudos, String _lg, DialogHelpTarot _dialog) {
         Panel container_=Panel.newLineBox();
         Panel panneau2_=Panel.newBorder();
         Panel panneau3_;
@@ -112,12 +110,13 @@ public final class DialogHelpTarot extends Dialog {
         ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
-        DIALOG.setContentPane(container_);
-        DIALOG.pack();
-        DIALOG.voir();
+        _dialog.setContentPane(container_);
+        _dialog.pack();
+        _dialog.voir();
     }
     private void voir() {
         setResizable(false);
         setVisible(true);
     }
+
 }
