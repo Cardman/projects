@@ -56,17 +56,17 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setFileSaveDialogByFrame(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+    public static void setFileSaveDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, String... _excludedFolders) {
         DIALOG.setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog(_w);
+        DIALOG.initSaveDialog(_w, _homePath);
     }
 
-    public static void setFileSaveDialog(CommonFrame _c,Dialog _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+    public static void setFileSaveDialog(CommonFrame _c, Dialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, String... _excludedFolders) {
         DIALOG.setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog(_c);
+        DIALOG.initSaveDialog(_c, _homePath);
     }
 
-    private void initSaveDialog(CommonFrame _c) {
+    private void initSaveDialog(CommonFrame _c, String _homePath) {
         frame =_c;
         messages = getMessages(_c, GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
@@ -76,7 +76,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         action_ = new LabelButton(messages.getVal(CANCEL));
         action_.addMouseListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
-        if (StringUtil.quickEq(getFolder(),ConstFiles.getHomePath())) {
+        if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             TextLabel label_;
             label_ = new TextLabel(messages.getVal(FOLDER_NAME));

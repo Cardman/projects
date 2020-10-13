@@ -21,6 +21,7 @@ import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
 import code.gui.LabelButton;
 import code.gui.Panel;
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
@@ -130,10 +131,11 @@ public class ContainerBelote extends ContainerGame {
         return pseudosTwo_;
     }
     /**Permet de charger une main de distribution
-    a partir d'un fichier*/
-    protected static HandBelote chargerPileBelote() {
+    a partir d'un fichier
+     * @param _tmpUserFolderSl*/
+    protected static HandBelote chargerPileBelote(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
-                  StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                  StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
                           StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
     }
     public String pseudo() {

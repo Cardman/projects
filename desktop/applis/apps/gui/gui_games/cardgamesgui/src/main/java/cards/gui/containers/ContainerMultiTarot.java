@@ -1140,7 +1140,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.TAROT);
+        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames());
         GameTarot game_ = Net.getGames(getOwner().getNet()).partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
@@ -1200,7 +1200,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot();
+        pile_ = chargerPileTarot(getOwner().getFrames());
         if (!pile_.validStack()) {
             pile_ = HandTarot.pileBase();
         }

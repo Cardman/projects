@@ -17,6 +17,7 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -83,10 +84,11 @@ public class ContainerTarot extends ContainerGame{
         return getPseudosJoueurs().getPseudo();
     }
     /**Permet de charger une main de distribution
-    a partir d'un fichier*/
-    protected static HandTarot chargerPileTarot() {
+    a partir d'un fichier
+     * @param _tmpUserFolderSl*/
+    protected static HandTarot chargerPileTarot(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
-                StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT)));
     }
 

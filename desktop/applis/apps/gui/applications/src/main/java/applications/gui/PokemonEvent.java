@@ -2,27 +2,26 @@ package applications.gui;
 
 import aiki.main.LaunchingPokemon;
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class PokemonEvent extends MouseAdapter {
-    private MainWindow window;
-    PokemonEvent(MainWindow _window) {
-        window = _window;
+public final class PokemonEvent extends AbstractEvent {
+    PokemonEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingPokemon.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingPokemon.getMainWindowClass(), window.getFrames())) {
-            LaunchingPokemon.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
-        LaunchingPokemon l_;
-        l_ = new LaunchingPokemon(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingPokemon.getMainWindowClass(), _list);
     }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
+        LaunchingPokemon l_;
+        l_ = new LaunchingPokemon(_window.getFrames());
+        l_.launch(lg_);
+    }
+
 }

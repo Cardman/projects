@@ -18,8 +18,6 @@ import code.util.core.IndexConstants;
 public final class SelectEgg extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
 
-    private static final SelectEgg DIALOG = new SelectEgg();
-
     private static final String TITLE = "title";
 
     private static final String CANCEL = "cancel";
@@ -30,18 +28,18 @@ public final class SelectEgg extends SelectDialog {
 
     private StringMap<String> messages;
 
-    private SelectEgg() {
+    public SelectEgg() {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectEgg(MainWindow _parent, FacadeGame _facade) {
-        DIALOG.init(_parent, _facade);
+    public static void setSelectEgg(MainWindow _parent, FacadeGame _facade, SelectEgg _dialog) {
+        _dialog.init(_parent, _facade);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
         messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
-        setTitle(DIALOG.messages.getVal(TITLE));
+        setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
 //        ok = false;
@@ -67,16 +65,17 @@ public final class SelectEgg extends SelectDialog {
         super.closeWindow();
     }
 
-    public static void setVisible() {
-        DIALOG.setVisible(true);
+    public static void setVisible(SelectEgg _dialog) {
+        _dialog.setVisible(true);
     }
 
-    public static boolean isSelectedIndex() {
-        DIALOG.setVisible(true);
-        return DIALOG.facade.getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
+    public static boolean isSelectedIndex(SelectEgg _dialog) {
+        setVisible(_dialog);
+        return _dialog.facade.getLineEgg() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
-    public static boolean isOk() {
-        return DIALOG.isSelected();
+    public static boolean isOk(SelectEgg _dialog) {
+        return _dialog.isSelected();
     }
+
 }

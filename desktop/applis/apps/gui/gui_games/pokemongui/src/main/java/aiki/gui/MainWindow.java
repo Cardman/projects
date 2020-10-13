@@ -14,6 +14,7 @@ import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
 import aiki.db.LoadFlag;
 import aiki.db.PerCent;
+import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.sml.*;
 import aiki.facade.FacadeGame;
@@ -23,11 +24,6 @@ import aiki.gui.components.fight.FrontBattle;
 import aiki.gui.components.fight.FrontClickEvent;
 import aiki.gui.components.labels.HeroLabel;
 import aiki.gui.components.walk.ScenePanel;
-import aiki.gui.dialogs.DialogDifficulty;
-import aiki.gui.dialogs.DialogGameProgess;
-import aiki.gui.dialogs.FrameHtmlData;
-import aiki.gui.dialogs.ProgressingDialogPokemon;
-import aiki.gui.dialogs.SoftParams;
 import aiki.gui.events.ConfirmNewGameEvent;
 import aiki.gui.events.LoadGameEvent;
 import aiki.gui.events.LoadZipEvent;
@@ -61,6 +57,7 @@ import aiki.network.stream.Quit;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.network.AttemptConnecting;
 import code.network.BasicClient;
 import code.network.Exiting;
@@ -248,8 +245,10 @@ public final class MainWindow extends NetGroupFrame {
 //    private final boolean standalone;
 
     private final Net net = new Net();
+    private final SelectEgg selectEgg = new SelectEgg();
+    private final SelectPokemon selectPokemon = new SelectPokemon();
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -314,12 +313,12 @@ public final class MainWindow extends NetGroupFrame {
 //        }
         if (loadingConf == null) {
             //LaunchingPokemon.decrement();
-            dispose();
+            basicDispose();
             return;
         }
         if (loadingConf.isSaveGameAtExit()) {
             if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
                 if (!new File(name_).exists()) {
@@ -337,14 +336,14 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = StringUtil.replaceBackSlash(path_);
                 save(path_);
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
             //LaunchingPokemon.decrement();
-            dispose();
+            basicDispose();
         } else if (indexInGame == IndexConstants.INDEX_NOT_FOUND_ELT && !savedGame) {
             if (facade.getGame() == null) {
-                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
-                dispose();
+                basicDispose();
                 return;
             }
             int choix_=saving();
@@ -357,7 +356,7 @@ public final class MainWindow extends NetGroupFrame {
                     }
                 }
                 savedGame = true;
-                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
                 //LaunchingPokemon.decrement();
 //                ecrireCoordonnees();
 //                CustList<FrameHtmlData> frames_ = new CustList<>();
@@ -368,7 +367,7 @@ public final class MainWindow extends NetGroupFrame {
 //                }
 //                clearHtmlDialogs();
 //                battle.clearHtmlDialogs();
-                dispose();
+                basicDispose();
             }
         } else {
             //LaunchingPokemon.decrement();
@@ -381,7 +380,7 @@ public final class MainWindow extends NetGroupFrame {
 //            }
 //            clearHtmlDialogs();
 //            battle.clearHtmlDialogs();
-            dispose();
+            basicDispose();
 //            Constants.exit();
 //            if (Standalone.isStandalone()) {
 //                Constants.exit();
@@ -405,8 +404,7 @@ public final class MainWindow extends NetGroupFrame {
         //clearHtmlDialogs();
         //battle.clearHtmlDialogs();
         //removeAll();
-        super.dispose();
-        LaunchingPokemon.decrement();
+        basicDispose();
         //facade = null;
     }
     public void initMessages() {
@@ -763,7 +761,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_;
         if (_folder) {
@@ -812,7 +810,7 @@ public final class MainWindow extends NetGroupFrame {
                     savedGame = true;
                 }
             }
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
         String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
         if (fileName_.isEmpty()) {
@@ -888,7 +886,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         GroupFrame.changeStaticLanguage(langue_, getFrames());
-        SoftApplicationCore.saveLanguage(LaunchingPokemon.getTempFolder(), langue_);
+        SoftApplicationCore.saveLanguage(LaunchingPokemon.getTempFolder(getFrames()), langue_);
     }
 
     public void manageParams() {
@@ -903,7 +901,7 @@ public final class MainWindow extends NetGroupFrame {
         SoftParams.setSoftParams(this, loadingConf);
         SoftParams.setParams(loadingConf);
         if (SoftParams.isOk()) {
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
@@ -1037,7 +1035,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void ecrireCoordonnees() {
         Point point_=getLocation();
-        SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(),Resources.COORDS, point_.x,point_.y);
+        SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(getFrames()),Resources.COORDS, point_.x,point_.y);
     }
 
     public void processLoad(String _fileName, PerCent _p) {
@@ -1227,7 +1225,7 @@ public final class MainWindow extends NetGroupFrame {
         resetIndexInGame();
         closeConnexion(_socket);
         if (_exit != null && _exit.isClosing()) {
-            dispose();
+            basicDispose();
             return;
         }
         pack();
@@ -1257,9 +1255,9 @@ public final class MainWindow extends NetGroupFrame {
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, ConstFiles.getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, Resources.EXCLUDED);
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, getFrames().getHomePath(), Resources.EXCLUDED);
         }
         String path_ = FileSaveDialog.getStaticSelectedPath();
         if (path_ == null) {
@@ -1279,14 +1277,14 @@ public final class MainWindow extends NetGroupFrame {
     private String fileDialogLoad(String _ext, boolean _zipFile) {
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(), Resources.EXCLUDED);
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
             } else {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING, Resources.EXCLUDED);
             }
@@ -1350,7 +1348,7 @@ public final class MainWindow extends NetGroupFrame {
     public void setLoadingConf(LoadingGame _loadingConf, boolean _save) {
         loadingConf = _loadingConf;
         if (_save) {
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf));
         }
     }
 
@@ -1645,5 +1643,13 @@ public final class MainWindow extends NetGroupFrame {
 
     public Net getNet() {
         return net;
+    }
+
+    public SelectEgg getSelectEgg() {
+        return selectEgg;
+    }
+
+    public SelectPokemon getSelectPokemon() {
+        return selectPokemon;
     }
 }

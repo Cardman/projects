@@ -20,6 +20,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
 import code.resources.ResourceFiles;
 import code.stream.StreamTextFile;
 import code.util.EnumMap;
@@ -102,8 +103,8 @@ public class ContainerGame implements Containable {
         }
     }
 
-    protected static void changerNombreDeParties(GameEnum _game, long _nbGames) {
-        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+    protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
+        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         StringList vl_=new StringList();
         boolean read_ = true;
@@ -165,8 +166,8 @@ public class ContainerGame implements Containable {
     public void conseil() {
 
     }
-    protected static long chargerNombreDeParties(GameEnum _jeu) {
-        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+    protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
+        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
         String content_ = StreamTextFile.contentsOfFile(fileName_);
         if (content_ == null) {
             return 0L;

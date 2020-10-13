@@ -4,17 +4,16 @@ import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.sml.Resources;
 import code.gui.CustComponent;
-import code.gui.GroupFrame;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
-import code.util.CustList;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class CreateMainWindow implements Runnable {
 
-    private final CustList<GroupFrame> list;
+    private final AbstractProgramInfos list;
     private LoadingGame load;
 
     private StringMap<Object> withParam;
@@ -26,7 +25,7 @@ public final class CreateMainWindow implements Runnable {
     private String lg;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg, CustList<GroupFrame> _list) {
+    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list) {
         load = _load;
         withParam = _withParam;
         path = _path;

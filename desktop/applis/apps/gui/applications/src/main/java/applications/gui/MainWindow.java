@@ -9,6 +9,7 @@ import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
 import code.gui.Panel;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
@@ -19,6 +20,7 @@ import code.util.core.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class MainWindow extends GroupFrame {
 
@@ -38,49 +40,65 @@ public final class MainWindow extends GroupFrame {
 
     private CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
         Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = Panel.newLineBox();
         buttonPokemon = new LabelButton(LaunchingPokemon.getIcon());
-        buttonPokemon.addMouseListener(new PokemonEvent(this));
+        AtomicInteger at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
+        buttonPokemon.addMouseListener(new PokemonEvent(this,at_));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
         buttonCards = new LabelButton(LaunchingCards.getIcon());
-        buttonCards.addMouseListener(new CardsEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
+        buttonCards.addMouseListener(new CardsEvent(this,at_));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         Panel lineTests_ = Panel.newLineBox();
         buttonTests = new LabelButton("3");
-        buttonTests.addMouseListener(new AppUnitEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingAppUnitTests.getMainWindowClass(),at_);
+        buttonTests.addMouseListener(new AppUnitEvent(this,at_));
         lineTests_.add(buttonTests);
         panel_.add(lineTests_);
         Panel lineRenders_ = Panel.newLineBox();
         buttonRenders = new LabelButton("4");
-        buttonRenders.addMouseListener(new RenderEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingRenders.getMainWindowClass(),at_);
+        buttonRenders.addMouseListener(new RenderEvent(this,at_));
         lineRenders_.add(buttonRenders);
         panel_.add(lineRenders_);
         Panel lineDemo_ = Panel.newLineBox();
         buttonDemo = new LabelButton("5");
-        buttonDemo.addMouseListener(new DemoEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingDemo.getMainWindowClass(),at_);
+        buttonDemo.addMouseListener(new DemoEvent(this,at_));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         Panel linePlayer_ = Panel.newLineBox();
         buttonPlayer = new LabelButton(LaunchingPlayer.getIcon());
-        buttonPlayer.addMouseListener(new PlayerEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
+        buttonPlayer.addMouseListener(new PlayerEvent(this,at_));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
         Panel lineConverter_ = Panel.newLineBox();
         buttonConverter = new LabelButton("7");
-        buttonConverter.addMouseListener(new ConverterEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingConverter.getMainWindowClass(),at_);
+        buttonConverter.addMouseListener(new ConverterEvent(this,at_));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
         Panel lineApp_ = Panel.newLineBox();
         buttonApps = new LabelButton("8");
-        buttonApps.addMouseListener(new AppsEvent(this));
+        at_ = new AtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingFull.getMainWindowClass(),at_);
+        buttonApps.addMouseListener(new AppsEvent(this,at_));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
         panel_.add(new Clock());
@@ -102,29 +120,10 @@ public final class MainWindow extends GroupFrame {
     @Override
     public void quit() {
         int nb_ = IndexConstants.SIZE_EMPTY;
-        if (LaunchingPokemon.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingCards.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingAppUnitTests.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingRenders.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingDemo.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingPlayer.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingConverter.alreadyLaunched()) {
-            nb_++;
-        }
-        if (LaunchingFull.alreadyLaunched()) {
-            nb_++;
+        for (AtomicInteger a: getFrames().getCounts().values()) {
+            if (a.get() > 0) {
+                nb_++;
+            }
         }
         if (nb_ > IndexConstants.SIZE_EMPTY) {
             return;
@@ -140,8 +139,8 @@ public final class MainWindow extends GroupFrame {
     public void changeLanguage(String _language) {
         if (canChangeLanguageAll()) {
             setLanguageKey(_language);
-            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(), _language);
-            for (GroupFrame g: getFrames()) {
+            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language);
+            for (GroupFrame g: getFrames().getFrames()) {
                 g.changeLanguage(_language);
             }
             selectLangagueButton(_language);
@@ -169,7 +168,7 @@ public final class MainWindow extends GroupFrame {
         Point point_=getLocation();
         int x_ = point_.x;
         int y_ = point_.y;
-        SoftApplicationCore.saveCoords(LaunchingApplications.getTempFolder(), LaunchingApplications.COORDS, x_, y_);
+        SoftApplicationCore.saveCoords(LaunchingApplications.getTempFolder(getFrames()), LaunchingApplications.COORDS, x_, y_);
     }
 
     @Override

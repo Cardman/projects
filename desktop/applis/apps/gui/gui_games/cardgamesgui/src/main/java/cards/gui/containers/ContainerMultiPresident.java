@@ -689,7 +689,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
+        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames());
         GamePresident game_=Net.getGames(getOwner().getNet()).partiePresident();
         Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
@@ -757,7 +757,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         on la cree
         */
         int nbStack_ = rulesPresidentMulti.getNbStacks();
-        pile_ = chargerPilePresident(nbStack_);
+        pile_ = chargerPilePresident(nbStack_, getOwner().getFrames());
         if (!pile_.validStack(nbStack_)) {
             pile_ = HandPresident.stack(nbStack_);
         }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.gui.stream.DocumentReaderGuiUtil;
 import code.gui.stream.DocumentWriterGuiUtil;
 import code.images.BaseSixtyFourUtil;
@@ -35,10 +36,9 @@ public abstract class SoftApplicationCore {
 
     private static final String EMPTY_STRING = "";
 
-    private final CustList<GroupFrame> frames;
+    private final AbstractProgramInfos frames;
 
-    protected SoftApplicationCore(CustList<GroupFrame> _frames) {
-        SetStyle.setupStyle();
+    protected SoftApplicationCore(AbstractProgramInfos _frames) {
         frames = _frames;
     }
     protected void loadLaungage(String _dir, String[] _args, BufferedImage _icon) {
@@ -190,8 +190,14 @@ public abstract class SoftApplicationCore {
 
     protected abstract BufferedImage getImageIcon();
 
-    public CustList<GroupFrame> getFrames() {
+    public AbstractProgramInfos getFrames() {
         return frames;
+    }
+
+
+    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl, String _folder) {
+        new File(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder)).mkdirs();
+        return StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder);
     }
 
 }

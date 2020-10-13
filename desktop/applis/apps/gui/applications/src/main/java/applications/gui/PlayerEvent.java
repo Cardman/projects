@@ -1,28 +1,26 @@
 package applications.gui;
 
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchingPlayer;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class PlayerEvent extends MouseAdapter {
-    private MainWindow window;
-    PlayerEvent(MainWindow _window) {
-        window = _window;
+public final class PlayerEvent extends AbstractEvent {
+    PlayerEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingPlayer.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingPlayer.getMainWindowClass(), window.getFrames())) {
-            LaunchingPlayer.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingPlayer.getMainWindowClass(), _list);
+    }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         LaunchingPlayer l_;
-        l_ = new LaunchingPlayer(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+        l_ = new LaunchingPlayer(_window.getFrames());
+        l_.launch(lg_);
     }
 }

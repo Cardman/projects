@@ -8,10 +8,9 @@ import cards.gui.dialogs.FileConst;
 import cards.president.beans.PresidentStandards;
 import cards.tarot.beans.TarotStandards;
 import code.gui.CustComponent;
-import code.gui.GroupFrame;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
-import code.util.CustList;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -21,7 +20,7 @@ import code.util.consts.Constants;
 Thread safe class*/
 public final class LaunchingGame implements Runnable {
 
-    private final CustList<GroupFrame> list;
+    private final AbstractProgramInfos list;
     private StringMap<Object> args;
 
     private String language;
@@ -29,7 +28,7 @@ public final class LaunchingGame implements Runnable {
     private TopLeftFrame topLeft;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringMap<Object> _args, String _language, TopLeftFrame _topLeft, CustList<GroupFrame> _list) {
+    public LaunchingGame(StringMap<Object> _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list) {
         args = _args;
         language = _language;
         topLeft = _topLeft;

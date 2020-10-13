@@ -920,7 +920,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
             StreamTextFile.saveTextFile(StringUtil.concat(
-                    LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                    LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
                     DocumentWriterTarotUtil.setHandTarot(partie_.empiler()));
         }
@@ -933,7 +933,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals());
+                changerNombreDeParties(GameEnum.TAROT, partie_.getDistribution().getNbDeals(), getOwner().getFrames());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
@@ -1058,12 +1058,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getConsulting().setEnabledMenu(false);
         HandTarot pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileTarot();
+        pile_ = chargerPileTarot(getOwner().getFrames());
         if (!pile_.validStack()) {
             pile_ = HandTarot.pileBase();
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.TAROT);
+        long nb_=chargerNombreDeParties(GameEnum.TAROT, getOwner().getFrames());
         DealTarot donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);

@@ -8,10 +8,10 @@ import code.converterimages.main.LaunchingConverter;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
@@ -42,7 +42,7 @@ public final class MainWindow extends GroupFrame {
 
     private TextField pathExport;
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setTitle(CONVERT_IMAGE);
         Panel content_ = Panel.newPageBox();
@@ -160,12 +160,11 @@ public final class MainWindow extends GroupFrame {
     }
     @Override
     public void quit() {
-        dispose();
+        basicDispose();
     }
 
     public void dispose() {
-        super.dispose();
-        LaunchingConverter.decrement();
+        basicDispose();
     }
     @Override
     public boolean canChangeLanguage() {
@@ -178,6 +177,6 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public String getApplicationName() {
-        return "converter";
+        return LaunchingConverter.getMainWindowClass();
     }
 }

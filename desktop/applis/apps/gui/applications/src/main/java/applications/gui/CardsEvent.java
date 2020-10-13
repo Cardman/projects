@@ -2,28 +2,27 @@ package applications.gui;
 
 import cards.main.LaunchingCards;
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class CardsEvent extends MouseAdapter {
+public final class CardsEvent extends AbstractEvent {
 
-    private MainWindow window;
-    CardsEvent(MainWindow _window) {
-        window = _window;
+    CardsEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingCards.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingCards.getMainWindowClass(), window.getFrames())) {
-            LaunchingCards.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
-        LaunchingCards l_;
-        l_ = new LaunchingCards(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingCards.getMainWindowClass(), _list);
     }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
+        LaunchingCards l_;
+        l_ = new LaunchingCards(_window.getFrames());
+        l_.launch(lg_);
+    }
+
 }

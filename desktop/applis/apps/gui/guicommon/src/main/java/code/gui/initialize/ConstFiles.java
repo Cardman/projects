@@ -1,10 +1,10 @@
-package code.gui;
+package code.gui.initialize;
 import java.io.File;
 
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ConstFiles {
+final class ConstFiles {
 
     private static final String SEPARATEUR = "/";
 
@@ -135,11 +135,11 @@ public final class ConstFiles {
         return INIT_FOLDER;
     }
 
-    public static String getTmpUserFolderSl() {
+    static String getTmpUserFolderSl() {
         return StringUtil.concat(TMP_USER_FOLDER,SEPARATEUR);
     }
 
-    public static String getHomePath() {
+    static String getHomePath() {
         return HOME_PATH;
     }
 }

@@ -515,12 +515,12 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getConsulting().setEnabledMenu(false);
         HandBelote pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPileBelote();
+        pile_ = chargerPileBelote(getOwner().getFrames());
         if (!pile_.validStack()) {
             pile_ = HandBelote.pileBase();
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.BELOTE);
+        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames());
         DealBelote donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
@@ -664,7 +664,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
             StreamTextFile.saveTextFile(
-                    StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+                    StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                             StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),
                     DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()));
         }
@@ -676,7 +676,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals());
+                changerNombreDeParties(GameEnum.BELOTE, partie_.getDistribution().getNbDeals(), getOwner().getFrames());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();

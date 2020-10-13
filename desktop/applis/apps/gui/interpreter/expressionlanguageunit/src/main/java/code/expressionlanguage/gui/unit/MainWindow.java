@@ -18,8 +18,8 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.ThreadUtil;
-import code.util.CustList;
 import code.util.StringMap;
 
 import javax.swing.*;
@@ -48,7 +48,7 @@ public final class MainWindow extends GroupFrame {
 
     private Thread th;
     private StringMap<String> messages;
-    protected MainWindow(String _lg, CustList<GroupFrame> _list) {
+    protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
         messages = getMessages(this,"resources_unit/gui/messages");
@@ -108,8 +108,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        super.dispose();
-        LaunchingAppUnitTests.decrement();
+        basicDispose();
     }
 
     @Override
@@ -119,12 +118,12 @@ public final class MainWindow extends GroupFrame {
                 ThreadUtil.sleep(0);
             }
         }
-        dispose();
+        basicDispose();
     }
 
     @Override
     public String getApplicationName() {
-        return "ug";
+        return LaunchingAppUnitTests.getMainWindowClass();
     }
 
     @Override
@@ -147,7 +146,7 @@ public final class MainWindow extends GroupFrame {
         th_.start();
     }
     public void selectFile() {
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", ConstFiles.getHomePath());
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
         String fichier_=FileOpenDialog.getStaticSelectedPath();
         if (fichier_ == null) {
             fichier_ = "";

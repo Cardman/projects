@@ -1,31 +1,27 @@
 package code.minirts;
 
 import code.gui.*;
-import code.stream.StreamTextFile;
-import code.util.CustList;
+import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.LoadLanguageUtil;
+import code.gui.initialize.ProgramInfos;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class LaunchingDemo extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "rts";
 
-    private static final AtomicInteger COUNT = new AtomicInteger();
-
     public LaunchingDemo() {
-        this(new CustList<GroupFrame>());
+        this(new ProgramInfos());
     }
 
-    public LaunchingDemo(CustList<GroupFrame> _frames) {
+    public LaunchingDemo(AbstractProgramInfos _frames) {
         super(_frames);
     }
 
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingDemo(), getTempFolder(), _args, null));
+        LoadLanguageUtil.loadLaungage(new LaunchingDemo(), TEMP_FOLDER, _args);
     }
 
     @Override
@@ -39,18 +35,10 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
     }
 
 
-    public static void increment() {
-        COUNT.incrementAndGet();
+    @Override
+    protected String getApplicationName() {
+        return getMainWindowClass();
     }
-
-    public static void decrement() {
-        COUNT.decrementAndGet();
-    }
-
-    public static boolean alreadyLaunched() {
-        return COUNT.get() > 0;
-    }
-
     public static String getMainWindowClass() {
         return "rts";
     }
@@ -60,13 +48,4 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
         return null;
     }
 
-    public static String getTempFolderSl() {
-        return StringUtil.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
-    }
-
-    public static String getTempFolder() {
-        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(), TEMP_FOLDER)).mkdirs();
-        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(), TEMP_FOLDER);
-
-    }
 }

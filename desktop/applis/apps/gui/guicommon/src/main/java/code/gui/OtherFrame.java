@@ -16,7 +16,6 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
 
     public void setMainFrame(boolean _mainFrame) {
         mainFrame = _mainFrame;
-        SetStyle.setupStyle();
     }
 
     @Override

@@ -8,8 +8,8 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringMap;
 
 import javax.swing.*;
@@ -29,7 +29,7 @@ public final class MainWindow extends GroupFrame {
 
     private StringMap<String> messages;
     private GuiProcess current;
-    protected MainWindow(String _lg, CustList<GroupFrame> _list) {
+    protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("launcher.mainwindow");
         messages = getMessages(this,"resources_lg_gui/gui/messages");
@@ -61,7 +61,7 @@ public final class MainWindow extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", ConstFiles.getHomePath());
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
         String fichier_=FileOpenDialog.getStaticSelectedPath();
         if (fichier_ == null) {
             fichier_ = "";
@@ -74,8 +74,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        super.dispose();
-        LaunchingFull.decrement();
+        basicDispose();
     }
 
     public void process() {
@@ -117,12 +116,12 @@ public final class MainWindow extends GroupFrame {
         if (current != null&&current.isVisible()) {
             return;
         }
-        dispose();
+        basicDispose();
     }
 
     @Override
     public String getApplicationName() {
-        return "launcher";
+        return LaunchingFull.getMainWindowClass();
     }
 
     @Override

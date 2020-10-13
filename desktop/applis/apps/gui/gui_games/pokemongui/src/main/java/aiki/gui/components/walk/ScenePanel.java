@@ -1128,9 +1128,9 @@ public class ScenePanel {
 
     public void selectPokemonBox() {
         int lineBack_ = facade.getLineFirstBox();
-        SelectPokemon.setSelectPokemon(window, facade, true);
-        SelectPokemon.isSelectedIndex();
-        if (!SelectPokemon.isStaticOk()) {
+        SelectPokemon.setSelectPokemon(window, facade, true, window.getSelectPokemon());
+        SelectPokemon.isSelectedIndex(window.getSelectPokemon());
+        if (!SelectPokemon.isStaticOk(window.getSelectPokemon())) {
             facade.setLinePokemonFirstBox(lineBack_);
         } else {
             setEnablingStoring();
@@ -1143,9 +1143,9 @@ public class ScenePanel {
 
     public void selectEggBox() {
         int lineBack_ = facade.getLineEgg();
-        SelectEgg.setSelectEgg(window, facade);
-        SelectEgg.isSelectedIndex();
-        if (!SelectEgg.isOk()) {
+        SelectEgg.setSelectEgg(window, facade, window.getSelectEgg());
+        SelectEgg.isSelectedIndex(window.getSelectEgg());
+        if (!SelectEgg.isOk(window.getSelectEgg())) {
             facade.setLineEggs(lineBack_);
         } else {
             setEnablingStoring();

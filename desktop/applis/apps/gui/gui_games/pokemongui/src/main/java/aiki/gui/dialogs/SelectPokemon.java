@@ -19,8 +19,6 @@ import code.util.StringMap;
 public final class SelectPokemon extends SelectDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectpokemon";
 
-    private static final SelectPokemon DIALOG = new SelectPokemon();
-
     private static final String TITLE = "title";
 
     private static final String TITLE_DETAIL = "titleDetail";
@@ -40,12 +38,12 @@ public final class SelectPokemon extends SelectDialog {
     private StringMap<String> messages;
     private MainWindow window;
 
-    private SelectPokemon() {
+    public SelectPokemon() {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectPokemon(MainWindow _parent, FacadeGame _facade, boolean _storage) {
-        DIALOG.init(_parent, _facade, _storage);
+    public static void setSelectPokemon(MainWindow _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
+        _dialog.init(_parent, _facade, _storage);
     }
 
     private void init(MainWindow _parent, FacadeGame _facade, boolean _storage) {
@@ -107,25 +105,26 @@ public final class SelectPokemon extends SelectDialog {
         super.closeWindow();
     }
 
-    public static boolean isSelectedIndex() {
-        DIALOG.setVisible(true);
-        return DIALOG.facade.getSelectedPokemonFirstBox() != null;
+    public static boolean isSelectedIndex(SelectPokemon _dialog) {
+        setVisible(_dialog);
+        return _dialog.facade.getSelectedPokemonFirstBox() != null;
     }
 
     private boolean isOk() {
         return isSelected();
     }
 
-    public static boolean isStaticOk() {
-        return DIALOG.isOk();
+    public static boolean isStaticOk(SelectPokemon _dialog) {
+        return _dialog.isOk();
     }
 
     private void showHtmlDialog(RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }
 
-    public static void setVisible() {
-        DIALOG.setVisible(true);
+    public static void setVisible(SelectPokemon _dialog) {
+        _dialog.setVisible(true);
     }
+
 }

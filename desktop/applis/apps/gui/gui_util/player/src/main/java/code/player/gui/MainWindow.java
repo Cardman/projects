@@ -8,6 +8,7 @@ import javax.swing.WindowConstants;
 
 import code.gui.*;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.player.main.LaunchingPlayer;
@@ -103,7 +104,7 @@ public class MainWindow extends GroupFrame {
 
     private CustList<RadioButton> radios = new CustList<RadioButton>();
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         initMessages(_lg);
         setTitle(messages.getVal(TITLE_PLAYER));
@@ -150,8 +151,7 @@ public class MainWindow extends GroupFrame {
     @Override
     public void dispose() {
         saveState();
-        super.dispose();
-        LaunchingPlayer.decrement();
+        basicDispose();
     }
 
     public void loadList(String _fileName) {
@@ -586,7 +586,7 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        dispose();
+        basicDispose();
     }
 
     @Override
@@ -605,6 +605,6 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public String getApplicationName() {
-        return "musicplayer";
+        return LaunchingPlayer.getMainWindowClass();
     }
 }

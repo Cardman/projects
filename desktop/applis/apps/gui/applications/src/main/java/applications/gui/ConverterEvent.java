@@ -2,28 +2,26 @@ package applications.gui;
 
 import code.converterimages.main.LaunchingConverter;
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class ConverterEvent extends MouseAdapter {
+public final class ConverterEvent extends AbstractEvent {
 
-    private MainWindow window;
-    ConverterEvent(MainWindow _window) {
-        window = _window;
+    ConverterEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingConverter.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingConverter.getMainWindowClass(), window.getFrames())) {
-            LaunchingConverter.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingConverter.getMainWindowClass(), _list);
+    }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         LaunchingConverter l_;
-        l_ = new LaunchingConverter(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+        l_ = new LaunchingConverter(_window.getFrames());
+        l_.launch(lg_);
     }
 }

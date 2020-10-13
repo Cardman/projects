@@ -1,29 +1,27 @@
 package applications.gui;
 
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 import code.renders.LaunchingRenders;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class RenderEvent extends MouseAdapter {
+public final class RenderEvent extends AbstractEvent {
 
-    private MainWindow window;
-    RenderEvent(MainWindow _window) {
-        window = _window;
+    RenderEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingRenders.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingRenders.getMainWindowClass(), window.getFrames())) {
-            LaunchingRenders.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingRenders.getMainWindowClass(), _list);
+    }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         LaunchingRenders l_;
-        l_ = new LaunchingRenders(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+        l_ = new LaunchingRenders(_window.getFrames());
+        l_.launch(lg_);
     }
 }

@@ -14,6 +14,9 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.LoadLanguageUtil;
+import code.gui.initialize.ProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.LaunchingDemo;
 import code.player.SongList;
@@ -24,14 +27,12 @@ import code.sml.DocumentBuilder;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.converterimages.main.LaunchingConverter;
 import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class LaunchingApplications extends SoftApplicationCore {
 
@@ -40,18 +41,18 @@ public class LaunchingApplications extends SoftApplicationCore {
     private static final String TEMP_FOLDER = "applications";
 
     public LaunchingApplications() {
-        this(new CustList<GroupFrame>());
+        this(new ProgramInfos());
     }
 
-    public LaunchingApplications(CustList<GroupFrame> _frames) {
+    public LaunchingApplications(AbstractProgramInfos _frames) {
         super(_frames);
     }
 
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingApplications(), getTempFolder(), _args, null));
+        LoadLanguageUtil.loadLaungage(new LaunchingApplications(), TEMP_FOLDER, _args);
     }
 
-    private static MainWindow getWindow(String _lg, CustList<GroupFrame> _list) {
+    private static MainWindow getWindow(String _lg, AbstractProgramInfos _list) {
         return new MainWindow(_lg, _list);
     }
 
@@ -128,15 +129,13 @@ public class LaunchingApplications extends SoftApplicationCore {
         launchWindow(_language, getFrames());
     }
 
-    private static void launchWindow(String _language, CustList<GroupFrame> _list) {
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(),COORDS);
+    private static void launchWindow(String _language, AbstractProgramInfos _list) {
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list,TEMP_FOLDER),COORDS);
         MainWindow w_ = getWindow(_language, _list);
         setLocation(w_, topLeft_);
     }
-
-    public static String getTempFolder() {
-        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
+        return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
     @Override

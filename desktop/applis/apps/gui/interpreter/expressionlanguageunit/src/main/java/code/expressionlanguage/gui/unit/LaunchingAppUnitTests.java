@@ -1,31 +1,30 @@
 package code.expressionlanguage.gui.unit;
 
 import code.gui.*;
+import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.LoadLanguageUtil;
+import code.gui.initialize.ProgramInfos;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
 
-    private static final AtomicInteger COUNT = new AtomicInteger();
-
     public LaunchingAppUnitTests() {
-        this(new CustList<GroupFrame>());
+        this(new ProgramInfos());
     }
 
-    public LaunchingAppUnitTests(CustList<GroupFrame> _frames) {
+    public LaunchingAppUnitTests(AbstractProgramInfos _frames) {
         super(_frames);
     }
 
     protected static void loadLaungage(String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(new LaunchingAppUnitTests(), getTempFolder(), _args, null));
+        LoadLanguageUtil.loadLaungage(new LaunchingAppUnitTests(), TEMP_FOLDER, _args);
     }
     @Override
     public Object getObject(String _fileName) {
@@ -38,16 +37,9 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
     }
 
 
-    public static void increment() {
-        COUNT.incrementAndGet();
-    }
-
-    public static void decrement() {
-        COUNT.decrementAndGet();
-    }
-
-    public static boolean alreadyLaunched() {
-        return COUNT.get() > 0;
+    @Override
+    protected String getApplicationName() {
+        return getMainWindowClass();
     }
 
     public static String getMainWindowClass() {
@@ -58,13 +50,13 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
         return null;
     }
 
-    public static String getTempFolderSl() {
-        return StringUtil.concat(getTempFolder(), StreamTextFile.SEPARATEUR);
+    public static String getTempFolderSl(String _tmpUserFolderSl) {
+        return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
     }
 
-    public static String getTempFolder() {
-        new File(StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER)).mkdirs();
-        return StringUtil.concat(ConstFiles.getTmpUserFolderSl(),TEMP_FOLDER);
+    public static String getTempFolder(String _tmpUserFolderSl) {
+        new File(StringUtil.concat(_tmpUserFolderSl,TEMP_FOLDER)).mkdirs();
+        return StringUtil.concat(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
 }

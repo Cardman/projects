@@ -415,12 +415,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getConsulting().setEnabledMenu(false);
         HandPresident pile_;
         /*Chargement de la pile de cartes depuis un fichier sinon on la cree*/
-        pile_ = chargerPilePresident(getNbStacks());
+        pile_ = chargerPilePresident(getNbStacks(),getOwner().getFrames());
         if (!pile_.validStack(getNbStacks())) {
             pile_ = HandPresident.stack(getNbStacks());
         }
         /*Chargement du nombre de parties jouees depuis le lancement du logiciel*/
-        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT);
+        long nb_=chargerNombreDeParties(GameEnum.PRESIDENT, getOwner().getFrames());
         DealPresident donne_;
         if(nb_==0||!getPar().enCoursDePartie()) {
             setNbStacks(getReglesPresident().getNbStacks());
@@ -543,7 +543,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(),FileConst.DECK_FOLDER,
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
                     Long.toString(partie_.getRegles().getNbStacks()),FileConst.DECK_EXT),
                     DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()));
@@ -557,7 +557,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);
             if(isChangerPileFin()) {
-                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDistribution().getNombreDeParties());
+                changerNombreDeParties(GameEnum.PRESIDENT, partie_.getDistribution().getNombreDeParties(), getOwner().getFrames());
             }
         }
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();

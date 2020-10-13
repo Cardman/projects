@@ -21,8 +21,8 @@ public class ConsultPokemonEvent extends MouseAdapter {
     public void mouseReleased(MouseEvent _e) {
         int lineBack_ = facade.getLineFirstBox();
 //        SelectPokemon select_ = new SelectPokemon(window, facade, false);
-        SelectPokemon.setSelectPokemon(window, facade, false);
-        SelectPokemon.setVisible();
+        SelectPokemon.setSelectPokemon(window, facade, false, window.getSelectPokemon());
+        SelectPokemon.setVisible(window.getSelectPokemon());
         facade.setLinePokemonFirstBox(lineBack_);
         facade.clearSortingFirstBox();
     }

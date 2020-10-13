@@ -20,8 +20,8 @@ public class ConsultEggEvent extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent _e) {
         int lineBack_ = facade.getLineEgg();
-        SelectEgg.setSelectEgg(window, facade);
-        SelectEgg.setVisible();
+        SelectEgg.setSelectEgg(window, facade, window.getSelectEgg());
+        SelectEgg.setVisible(window.getSelectEgg());
         facade.setLineEggs(lineBack_);
         facade.clearSortingEgg();
     }

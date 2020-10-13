@@ -2,28 +2,26 @@ package applications.gui;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.GroupFrame;
+import code.gui.initialize.AbstractProgramInfos;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public final class AppsEvent extends MouseAdapter {
+public final class AppsEvent extends AbstractEvent {
 
-    private MainWindow window;
-    AppsEvent(MainWindow _window) {
-        window = _window;
+    AppsEvent(MainWindow _window, AtomicInteger at_) {
+        super(_window,at_);
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (LaunchingFull.alreadyLaunched()) {
-            return;
-        }
-        if (GroupFrame.tryToReopen(LaunchingFull.getMainWindowClass(), window.getFrames())) {
-            LaunchingFull.increment();
-            return;
-        }
-        String lg_ = window.getLanguageKey();
+    protected boolean tryToReopen(AbstractProgramInfos _list) {
+        return GroupFrame.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
+    }
+
+    @Override
+    protected void launch(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         LaunchingFull l_;
-        l_ = new LaunchingFull(window.getFrames());
-        l_.launch(lg_, window.getFrames());
+        l_ = new LaunchingFull(_window.getFrames());
+        l_.launch(lg_);
     }
 }

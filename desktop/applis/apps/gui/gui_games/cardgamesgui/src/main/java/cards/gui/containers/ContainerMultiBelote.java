@@ -887,7 +887,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!distinct_) {
             return;
         }
-        long nb_=chargerNombreDeParties(GameEnum.BELOTE);
+        long nb_=chargerNombreDeParties(GameEnum.BELOTE, getOwner().getFrames());
         GameBelote game_=Net.getGames(getOwner().getNet()).partieBelote();
         DealBelote deal_=new DealBelote(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
@@ -952,7 +952,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Chargement de la pile de cartes depuis un fichier sinon
         on la cree
         */
-        pile_ = chargerPileBelote();
+        pile_ = chargerPileBelote(getOwner().getFrames());
         if (!pile_.validStack()) {
             pile_ = HandBelote.pileBase();
         }

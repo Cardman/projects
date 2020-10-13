@@ -17,7 +17,7 @@ public final class LoadLanguage implements Runnable {
     public LoadLanguage(SoftApplicationCore _application, String _dir, String[] _args,
                         BufferedImage _icon) {
         application = _application;
-        dir = _dir;
+        dir = SoftApplicationCore.getTempFolder(_application.getFrames(),_dir);
         args = _args;
         icon = _icon;
     }

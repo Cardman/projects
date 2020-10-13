@@ -6,13 +6,13 @@ import code.gui.Panel;
 import code.gui.PlainButton;
 import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.maths.geo.CustPoint;
 import code.minirts.events.*;
 import code.minirts.rts.Direction;
 import code.minirts.rts.Facade;
 import code.resources.ResourceFiles;
-import code.util.CustList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +56,7 @@ public final class MainWindow extends GroupFrame {
 
     private CustPoint last = new CustPoint();
 
-    public MainWindow(String _lg, CustList<GroupFrame> _list) {
+    public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
@@ -127,8 +127,7 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        super.dispose();
-        LaunchingDemo.decrement();
+        basicDispose();
     }
 
     public void setEnabledPause(boolean _enabled) {
@@ -241,12 +240,12 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        dispose();
+        basicDispose();
     }
 
     @Override
     public String getApplicationName() {
-        return "rts";
+        return LaunchingDemo.getMainWindowClass();
     }
 
     @Override

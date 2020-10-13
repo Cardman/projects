@@ -1,13 +1,12 @@
 package code.minirts;
 
-import code.gui.GroupFrame;
-import code.util.CustList;
+import code.gui.initialize.AbstractProgramInfos;
 
 public class CreateMainWindow implements Runnable {
-    private final CustList<GroupFrame> list;
+    private final AbstractProgramInfos list;
     private String lg;
 
-    public CreateMainWindow(String _lg, CustList<GroupFrame> _list) {
+    public CreateMainWindow(String _lg, AbstractProgramInfos _list) {
         lg = _lg;
         list = _list;
     }

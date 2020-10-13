@@ -18,10 +18,10 @@ import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -38,7 +38,7 @@ public final class MainWindow extends GroupFrame {
     private MenuItem open;
     private TextField lgCode;
     private RenderedPage session;
-    protected MainWindow(String _lg, CustList<GroupFrame> _list) {
+    protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setJMenuBar(new MenuBar());
         menu = new Menu("file");
@@ -85,12 +85,11 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void dispose() {
-        super.dispose();
-        LaunchingRenders.decrement();
+        basicDispose();
     }
 
     public void load() {
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", ConstFiles.getHomePath());
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
         String fichier_=FileOpenDialog.getStaticSelectedPath();
         if (fichier_ == null) {
             fichier_ = "";
@@ -188,12 +187,12 @@ public final class MainWindow extends GroupFrame {
 
     @Override
     public void quit() {
-        dispose();
+        basicDispose();
     }
 
     @Override
     public String getApplicationName() {
-        return "renders_sites";
+        return LaunchingRenders.getMainWindowClass();
     }
 
     @Override
