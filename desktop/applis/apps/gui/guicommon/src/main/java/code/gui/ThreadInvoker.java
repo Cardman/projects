@@ -1,5 +1,4 @@
 package code.gui;
-import javax.swing.SwingUtilities;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

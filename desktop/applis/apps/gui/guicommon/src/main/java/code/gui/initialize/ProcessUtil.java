@@ -1,4 +1,4 @@
-package code.gui;
+package code.gui.initialize;
 
 public final class ProcessUtil {
 
