@@ -52,6 +52,7 @@ public final class MainWindow extends GroupFrame {
         lgCode = new TextField(20);
         pane_.add(lgCode);
         session = new RenderedPage(new ScrollPane());
+        session.initNav();
         session.setLanguage(_lg);
         session.setFrame(this);
         TextField field_;

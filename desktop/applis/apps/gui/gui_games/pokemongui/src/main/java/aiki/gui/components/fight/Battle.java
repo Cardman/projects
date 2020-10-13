@@ -1005,7 +1005,7 @@ public class Battle extends ChildFrame {
             return;
         }
         Thread fightThread_ = window.getPreparedFightThread();
-        PreparedRenderedPages fightTask_ = window.getPreparedDiffTask();
+        PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
         if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
             return;
         }
@@ -1045,7 +1045,12 @@ public class Battle extends ChildFrame {
         if (facade.isChangeToFightScene()) {
             if (!htmlDialogs.isEmpty()) {
                 if (htmlDialogs.first().isVisible()) {
-                    htmlDialogs.first().reset();
+                    Thread fightThread_ = window.getPreparedFightThread();
+                    PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
+                    if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+                        return;
+                    }
+                    reinitWebFight(fightTask_);
                 }
             }
         } else {

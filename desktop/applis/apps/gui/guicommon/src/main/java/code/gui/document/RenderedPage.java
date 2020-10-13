@@ -12,22 +12,16 @@ import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
-import code.formathtml.util.DualAnalyzedContext;
 import code.gui.*;
-import code.resources.ResourceFiles;
 import code.sml.Document;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.util.core.StringUtil;
 
 public final class RenderedPage implements ProcessingSession {
 
-    private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = "//";
     private DualPanel page;
     private final ScrollPane scroll;
     private Navigation navigation;
@@ -58,14 +52,6 @@ public final class RenderedPage implements ProcessingSession {
 
     public RenderedPage(ScrollPane _frame) {
         scroll = _frame;
-        initNav();
-    }
-
-    public RenderedPage(ScrollPane _frame, LabelButton _find, TextField _field) {
-        scroll = _frame;
-        initNav();
-        finding = new FindEvent(_field, this);
-        _find.addMouseListener(finding);
     }
 
     public void initNav() {
@@ -118,8 +104,7 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setLanguage(_lg);
         standards = _prepared.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();
-        ThreadActions th_ = new ThreadActions(this);
-        th_.startPage();
+        ThreadDirectActions th_ = new ThreadDirectActions(this);
         threadAction = CustComponent.newThread(th_);
         threadAction.start();
         animateProcess();
@@ -143,9 +128,6 @@ public final class RenderedPage implements ProcessingSession {
         }
     }
 
-    private static String getRealFilePath(String _lg, String _link) {
-        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
-    }
     public void refresh() {
         if (processing.get()) {
             return;
@@ -156,36 +138,6 @@ public final class RenderedPage implements ProcessingSession {
         threadAction = CustComponent.newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
         threadAction.start();
         animateProcess();
-    }
-
-    public void reset(BeanNatLgNames _lgNames) {
-        if (processing.get()) {
-            return;
-        }
-        standards = _lgNames;
-        contextCreator = new NativeContextCreator();
-        threadAction = CustComponent.newThread(ThreadActions.inst(this, _lgNames, navigation.getSession().getFirstUrl()));
-        threadAction.start();
-        animateProcess();
-    }
-
-    void setFiles(DualAnalyzedContext _dual) {
-        String lg_ = navigation.getLanguage();
-        StringMap<String> files_ = new StringMap<String>();
-        Configuration session_ = navigation.getSession();
-        for (String a: _dual.getContext().getAddedFiles()) {
-            files_.put(a,ResourceFiles.ressourceFichier(a));
-        }
-        for (String l: navigation.getLanguages()) {
-            for (String a: _dual.getContext().getProperties().values()) {
-                String folder_ = _dual.getContext().getMessagesFolder();
-                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
-                files_.put(fileName_,ResourceFiles.ressourceFichier(fileName_));
-            }
-        }
-        String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
-        files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
-        navigation.setFiles(files_);
     }
 
     public void start() {

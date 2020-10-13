@@ -803,7 +803,7 @@ public class ScenePanel {
     }
 
     public void seeNetPokemonDetail() {
-        Thread thread_ = window.getPreparedPkThread();
+        Thread thread_ = window.getPreparedPkNetThread();
         PreparedRenderedPages task_ = window.getPreparedPkNetTask();
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;

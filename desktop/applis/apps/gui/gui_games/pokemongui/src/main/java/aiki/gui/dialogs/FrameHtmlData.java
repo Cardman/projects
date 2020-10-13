@@ -3,7 +3,6 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
-import aiki.beans.PokemonStandards;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
@@ -81,10 +80,6 @@ public final class FrameHtmlData extends ChildFrame {
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         session.setLanguage(key_);
         session.refresh();
-    }
-
-    public void reset() {
-        session.reset(new PokemonStandards());
     }
 
     public RenderedPage getSession() {
