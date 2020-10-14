@@ -2,12 +2,15 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodToStringTest extends ProcessMethodCommon {
@@ -1887,6 +1890,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
+        assertSame(NullStruct.NULL_VALUE,getStaticField(cont_,new ClassField("pkg.Apply","nulInt")));
     }
     @Test
     public void calculate57Test() {
@@ -1898,6 +1902,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxReadOnlyOk(files_);
+        assertSame(NullStruct.NULL_VALUE,getStaticField(cont_,new ClassField("pkg.Apply","nulInt")));
     }
     @Test
     public void calculate58Test() {

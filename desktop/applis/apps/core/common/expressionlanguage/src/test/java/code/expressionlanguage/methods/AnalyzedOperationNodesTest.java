@@ -4010,7 +4010,9 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        failAna(files_, "en");
+        AnalyzedTestContext cont_ = ctxLgAna("en");
+        buildAllBracesBodies(files_, cont_);
+        assertTrue(!isEmptyErrors(cont_));
     }
 
 
@@ -5138,12 +5140,6 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(isEmptyErrors(cont_));
         forwardAndClear(cont_);
         return isEmptyErrors(cont_);
-    }
-
-    private static void failAna(StringMap<String> files_, String en) {
-        AnalyzedTestContext cont_ = ctxLgAna(en);
-        buildAllBracesBodies(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
     }
 
     private static void buildAllBracesBodies(StringMap<String> files_, AnalyzedTestContext cont_) {

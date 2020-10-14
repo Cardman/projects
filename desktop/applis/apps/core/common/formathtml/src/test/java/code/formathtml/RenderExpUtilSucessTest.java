@@ -561,7 +561,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        processElNormal("$new pkg.Ex()", cont_,"pkg.Ex");
+        Argument arg_ = processElNormal("$new pkg.Ex()", cont_, "pkg.Ex");
+        assertEq("pkg.Ex",arg_.getStruct().getClassName(cont_.getContext()));
     }
     @Test
     public void processEl109Test() {

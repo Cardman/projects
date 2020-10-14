@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringMap;
@@ -28,11 +27,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     private static final String ARR_INTEGER = "[java.lang.Integer";
     @Test
     public void processEl7FailTest() {
-        checkSimEx(new StringMap<String>(), "$new $int[-1i]");
+        assertNotNull(ex(new StringMap<String>(), "$new $int[-1i]"));
     }
     @Test
     public void processEl8FailTest() {
-        checkSimEx(new StringMap<String>(), "$new java.lang.Integer[-1i]");
+        assertNotNull(ex(new StringMap<String>(), "$new java.lang.Integer[-1i]"));
     }
     @Test
     public void processEl182Test() {
@@ -294,15 +293,15 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     @Test
     public void processEl242Test() {
-        checkSimEx(new StringMap<String>(), "$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke($null)");
+        assertNotNull(ex(new StringMap<String>(), "$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke($null)"));
     }
     @Test
     public void processEl243Test() {
-        checkSimEx(new StringMap<String>(), "$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke(1i)");
+        assertNotNull(ex(new StringMap<String>(), "$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke(1i)"));
     }
     @Test
     public void processEl244Test() {
-        checkSimEx(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i)");
+        assertNotNull(ex(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i)"));
     }
     @Test
     public void processEl245Test() {
@@ -338,15 +337,15 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl246Test() {
-        checkSimEx(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,\"\")");
+        assertNotNull(ex(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,\"\")"));
     }
     @Test
     public void processEl247Test() {
-        checkSimEx(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,$null)");
+        assertNotNull(ex(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,$null)"));
     }
     @Test
     public void processEl248Test() {
@@ -387,7 +386,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl249Test() {
@@ -428,7 +427,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl262Test() {
@@ -470,7 +469,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl263Test() {
@@ -515,7 +514,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl264Test() {
@@ -560,7 +559,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl265Test() {
@@ -605,7 +604,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl266Test() {
@@ -650,7 +649,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl272Test() {
@@ -697,7 +696,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl273Test() {
@@ -746,7 +745,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl274Test() {
@@ -789,7 +788,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl279Test() {
@@ -832,7 +831,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl280Test() {
@@ -874,7 +873,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl281Test() {
@@ -916,7 +915,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl284Test() {
@@ -959,7 +958,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
 
     @Test
@@ -1003,7 +1002,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl287Test() {
@@ -1046,7 +1045,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl288Test() {
@@ -1089,7 +1088,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl289Test() {
@@ -1132,7 +1131,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl290Test() {
@@ -1175,7 +1174,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl294Test() {
@@ -1219,7 +1218,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        checkSimEx(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(ex(files_, "$static(pkg.ExTwo).exmeth()"));
     }
     @Test
     public void processEl295Test() {
@@ -1464,7 +1463,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     @Test
     public void processEl306Test() {
-        checkSimEx(new StringMap<String>(), "$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")");
+        assertNotNull(ex(new StringMap<String>(), "$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")"));
     }
     @Test
     public void processEl320FailTest() {
@@ -1637,11 +1636,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "$new{} pkg.Ex(5).inst/=0");
-    }
-
-    private static void checkEx(StringMap<String> files_, String s) {
-        checkEx2(getConfiguration(files_), s);
+        assertNotNull(ex(files_, "$new{} pkg.Ex(5).inst/=0"));
     }
 
     @Test
@@ -1669,7 +1664,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.inst/=0");
+        assertNotNull(ex(files_, "pkg.Ex.inst/=0"));
     }
     @Test
     public void processEl385Test() {
@@ -1696,7 +1691,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.elt.inst=10");
+        assertNotNull(ex(files_, "pkg.Ex.elt.inst=10"));
     }
     @Test
     public void processEl386Test() {
@@ -1723,7 +1718,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.elt.inst");
+        assertNotNull(ex(files_, "pkg.Ex.elt.inst"));
     }
     @Test
     public void processEl388Test() {
@@ -1749,7 +1744,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.inst=10/0");
+        assertNotNull(ex(files_, "pkg.Ex.inst=10/0"));
     }
     @Test
     public void processEl391Test() {
@@ -1779,7 +1774,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.res(8)/0");
+        assertNotNull(ex(files_, "pkg.Ex.res(8)/0"));
     }
     @Test
     public void processEl392Test() {
@@ -1810,7 +1805,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.elt.res(8)");
+        assertNotNull(ex(files_, "pkg.Ex.elt.res(8)"));
     }
     @Test
     public void processEl395Test() {
@@ -1836,7 +1831,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "(pkg.Ex.inst).$classchoice(pkg.Ex<java.lang.Integer>)res(8)");
+        assertNotNull(ex(files_, "(pkg.Ex.inst).$classchoice(pkg.Ex<java.lang.Integer>)res(8)"));
     }
     @Test
     public void processEl396Test() {
@@ -1867,7 +1862,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.elt.$classchoice(pkg.Ex)res(8)");
+        assertNotNull(ex(files_, "pkg.Ex.elt.$classchoice(pkg.Ex)res(8)"));
     }
     @Test
     public void processEl397Test() {
@@ -1897,7 +1892,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)/0");
+        assertNotNull(ex(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)/0"));
     }
     @Test
     public void processEl400Test() {
@@ -1928,7 +1923,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.elt.$superaccess(pkg.Ex)res(8)");
+        assertNotNull(ex(files_, "pkg.Ex.elt.$superaccess(pkg.Ex)res(8)"));
     }
     @Test
     public void processEl401Test() {
@@ -1958,7 +1953,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)/0");
+        assertNotNull(ex(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)/0"));
     }
     @Test
     public void processEl405Test() {
@@ -1975,7 +1970,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "$values(pkg.ExTwo).length/0");
+        assertNotNull(ex(files_, "$values(pkg.ExTwo).length/0"));
     }
     @Test
     public void processEl406Test() {
@@ -1993,7 +1988,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval");
+        assertNotNull(ex(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval"));
     }
     @Test
     public void processEl407Test() {
@@ -2011,7 +2006,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        checkEx(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval");
+        assertNotNull(ex(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval"));
     }
     @Test
     public void processEl420___Test() {
@@ -2023,7 +2018,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        checkEx(files_, "($(pkg.Int)(5,$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)");
+        assertNotNull(ex(files_, "($(pkg.Int)(5,$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)"));
     }
     @Test
     public void processEl421___Test() {
@@ -2034,7 +2029,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        checkEx(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)()))");
+        assertNotNull(ex(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)()))"));
     }
     @Test
     public void processEl444Test() {
@@ -2066,18 +2061,15 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        checkEx2(files_);
+        assertNotNull(ex(files_, "$new pkg.Ex<java.lang.Integer>(5).$classchoice(pkg.Ex<java.lang.String>)[\"\"]"));
     }
 
-    private static void checkEx2(StringMap<String> files_) {
-        checkEx2(getConfiguration(files_), "$new pkg.Ex<java.lang.Integer>(5).$classchoice(pkg.Ex<java.lang.String>)[\"\"]");
-    }
-
-    private static void checkEx2(AnalyzedTestConfiguration configuration, String s) {
+    private static Struct checkEx2(AnalyzedTestConfiguration configuration, String s) {
         AnalyzedTestConfiguration conf_ = configuration;
         addImportingPage(conf_);
         processEl(s, conf_);
         assertNotNull(getException(conf_));
+        return getException(conf_);
     }
 
     @Test
@@ -2179,7 +2171,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        checkEx(files_, "pkg.Apply.test()");
+        assertNotNull(ex(files_, "pkg.Apply.test()"));
     }
     @Test
     public void processEl451Test() {
@@ -2193,12 +2185,12 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        checkEx(files_, "\"\"+$new pkg.Ex()");
+        assertNotNull(ex(files_, "\"\"+$new pkg.Ex()"));
     }
     @Test
     public void processEl467Test() {
         StringMap<String> files_ = new StringMap<String>();
-        checkSimEx(files_, "explicit($int)\"5\"");
+        assertNotNull(ex(files_, "explicit($int)\"5\""));
 
     }
     @Test
@@ -2289,10 +2281,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(getException(_cont));
     }
 
-    private static void checkSimEx(StringMap<String> files_, String _el) {
-        checkEx2(getConfiguration(files_), _el);
-    }
-
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
@@ -2325,6 +2313,10 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         _conf.getContext().setExiting(new NoExiting());
         calculateReuse(_conf,out_);
+    }
+
+    private static Struct ex(StringMap<String> files_, String _el) {
+        return checkEx2(getConfiguration(files_), _el);
     }
 
 }
