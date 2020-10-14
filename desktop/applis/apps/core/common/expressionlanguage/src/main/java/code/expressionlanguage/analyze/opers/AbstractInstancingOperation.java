@@ -75,16 +75,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             }
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             for (String o: arg_.getNames()) {
-                boolean ok_ = true;
-                for (String p: StringExpUtil.getAllTypes(o).mid(1)) {
-                    if (p.startsWith(Templates.SUB_TYPE)) {
-                        ok_ = false;
-                    }
-                    if (p.startsWith(Templates.SUP_TYPE)) {
-                        ok_ = false;
-                    }
-                }
-                if (!ok_) {
+                if (StringExpUtil.isWildCard(o)) {
                     return;
                 }
             }

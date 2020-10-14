@@ -92,15 +92,17 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _page.getAnaGeneType(id_);
             boolean final_ = true;
+            boolean wildcard_ = false;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);
+                wildcard_ = StringExpUtil.isWildCard(type_);
             } else if (type_.startsWith("#")||type_.startsWith("[")) {
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
                 if (!StringUtil.quickEq(id_, _page.getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
-                        if (!final_) {
+                        if (!final_||wildcard_) {
                             instanceTest = type_;
                         } else {
                             FoundErrorInterpret un_ = new FoundErrorInterpret();

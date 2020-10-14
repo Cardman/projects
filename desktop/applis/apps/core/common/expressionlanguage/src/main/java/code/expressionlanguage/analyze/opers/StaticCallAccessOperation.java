@@ -58,16 +58,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             _page.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
-        boolean ok_ = true;
-        for (String p: StringExpUtil.getAllTypes(classStr_).mid(1)) {
-            if (p.startsWith(Templates.SUB_TYPE)) {
-                ok_ = false;
-            }
-            if (p.startsWith(Templates.SUP_TYPE)) {
-                ok_ = false;
-            }
-        }
-        if (!ok_) {
+        if (StringExpUtil.isWildCard(classStr_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());

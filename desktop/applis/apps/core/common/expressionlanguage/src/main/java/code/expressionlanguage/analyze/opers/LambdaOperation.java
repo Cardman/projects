@@ -965,29 +965,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            for (String p:StringExpUtil.getAllTypes(clFrom_).mid(1)){
-                if (p.startsWith(Templates.SUB_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //_fromType len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            clFrom_);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                }
-                if (p.startsWith(Templates.SUP_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //_fromType len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            clFrom_);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                }
+            for (String p:StringExpUtil.getWildCards(clFrom_)){
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //_fromType len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                        p,
+                        clFrom_);
+                _page.getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
             }
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructorLambda(this, vararg_, new AnaClassArgumentMatching(clFrom_),id_, h_,feed_, _page, OperationNode.toArgArray(methodTypes_));
@@ -1048,31 +1035,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 ok_ = false;
                 continue;
             }
-            for (String p:StringExpUtil.getAllTypes(o).mid(1)){
-                if (p.startsWith(Templates.SUB_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //key word len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            o);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                    ok_ = false;
-                }
-                if (p.startsWith(Templates.SUP_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //key word len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            o);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                    ok_ = false;
-                }
+            for (String p:StringExpUtil.getWildCards(o)){
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //key word len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                        p,
+                        o);
+                _page.getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
+                ok_ = false;
             }
         }
         if (!ok_) {
@@ -1122,29 +1095,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void processCtor(CustList<AnaClassArgumentMatching> _methodTypes, int _vararg, ConstructorId _feed, String _cl, AnalyzedPageEl _page) {
         lambdaCommonContent.setFoundClass(_cl);
         lambdaCommonContent.setShiftArgument(true);
-        for (String p:StringExpUtil.getAllTypes(_cl).mid(1)){
-            if (p.startsWith(Templates.SUB_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //key word len or _fromType
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _cl);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
-            if (p.startsWith(Templates.SUP_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //key word len or _fromType
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _cl);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
+        for (String p:StringExpUtil.getWildCards(_cl)){
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len or _fromType
+            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                    p,
+                    _cl);
+            _page.getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
         AnaGeneType h_ = _page.getAnaGeneType(id_);

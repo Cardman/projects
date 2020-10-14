@@ -2,7 +2,7 @@ package code.gui.initialize;
 
 import javax.swing.UIManager;
 
-public class UpdateStyleImpl implements UpdateStyle {
+public final class UpdateStyleImpl implements UpdateStyle {
     @Override
     public String update() {
         String className_ = UIManager.getSystemLookAndFeelClassName();

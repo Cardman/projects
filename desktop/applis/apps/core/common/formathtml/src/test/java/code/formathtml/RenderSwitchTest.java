@@ -524,7 +524,23 @@ public final class RenderSwitchTest extends CommonRender {
         files_.put("ex_enum",enum_.toString());
         assertEq("<html><body>10</body></html>", getRes(html_, files_));
     }
-
+    @Test
+    public void process54Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(pkg.ExSub&lt;?&gt;)$new pkg.ExSub&lt;$int&gt;()'><c:case className='pkg.ExSub&lt;?&gt;' var='v'>{v.v}</c:case><c:case className='pkg.ExAbs' var='v'>-{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $final $class pkg.ExSub<T>:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>10</body></html>", getRes(html_, files_));
+    }
     private String getRes(String html_, StringMap<String> files_) {
         return getCommRes(html_, files_);
     }

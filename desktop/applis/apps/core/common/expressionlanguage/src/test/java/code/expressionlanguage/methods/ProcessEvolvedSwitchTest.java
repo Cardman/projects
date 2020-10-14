@@ -773,4 +773,120 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq("eight", getString(ret_));
     }
+    @Test
+    public void calculateArgument27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  ExParam<?> t;\n");
+        xml_.append("  t=$new ExParam<$int>();\n");
+        xml_.append("  ((ExParam<$int>)t).field=8;\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ExParam<$int> v:\n");
+        xml_.append("    o=v.field+\" int\";\n");
+        xml_.append("   $case ExParam<?> v:\n");
+        xml_.append("    o=v.field+\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExParam<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("8 int", getString(ret_));
+    }
+    @Test
+    public void calculateArgument28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  ExParam<?> t;\n");
+        xml_.append("  t=$new ExParam<$byte>();\n");
+        xml_.append("  ((ExParam<$byte>)t).field=($byte)8;\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ExParam<$int> v:\n");
+        xml_.append("    o=v.field+\" int\";\n");
+        xml_.append("   $case ExParam<?> v:\n");
+        xml_.append("    o=v.field+\" byte\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExParam<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("8 byte", getString(ret_));
+    }
+    @Test
+    public void calculateArgument29Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $Fct<$int,$int> t=x->2*x;\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $Fct<$int,Object> v:\n");
+        xml_.append("    o=v.call(5)+\" int\";\n");
+        xml_.append("   $case $Fct v:\n");
+        xml_.append("    o=v+\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExParam<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("10 int", getString(ret_));
+    }
+    @Test
+    public void calculateArgument30Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $Fct<$int,$int> t=x->2*x;\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $Fct<Object,Object> v:\n");
+        xml_.append("    o=v+\" int\";\n");
+        xml_.append("   $case $Fct<$int,$int> v:\n");
+        xml_.append("    o=v.call(5)+\" default\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExParam<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("10 default", getString(ret_));
+    }
 }

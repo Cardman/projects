@@ -220,15 +220,10 @@ public final class ExecTemplates {
         return "";
     }
     public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {
-        CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(_className).mid(1);
-        for (String m: allArgTypes_) {
-            if (m.startsWith(SUB_TYPE)) {
-                return "";
-            }
-            if (m.startsWith(SUP_TYPE)) {
-                return "";
-            }
+        if (StringExpUtil.isWildCard(_className)) {
+            return "";
         }
+        CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(_className).mid(1);
         return getMade(_className, _context, allArgTypes_);
     }
     public static String correctClassPartsDynamicNotWildCard(String _className, ContextEl _context) {

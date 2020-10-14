@@ -87,29 +87,16 @@ public final class ResolvingSuperTypes {
         if (resType_ == null) {
             return new AnaResultPartType(_page.getAliasObject(),null);
         }
-        for (String p:StringExpUtil.getAllTypes(resType_.getResult()).mid(1)){
-            if (p.startsWith(Templates.SUB_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_ana.getFile().getFileName());
-                call_.setIndexFile(_location);
-                //_in len
-                call_.buildError(_page.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
-                        p,
-                        resType_.getResult());
-                _page.addLocError(call_);
-                _ana.addNameErrors(call_);
-            }
-            if (p.startsWith(Templates.SUP_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_ana.getFile().getFileName());
-                call_.setIndexFile(_location);
-                //_in len
-                call_.buildError(_page.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
-                        p,
-                        resType_.getResult());
-                _page.addLocError(call_);
-                _ana.addNameErrors(call_);
-            }
+        for (String p:StringExpUtil.getWildCards(resType_.getResult())){
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_ana.getFile().getFileName());
+            call_.setIndexFile(_location);
+            //_in len
+            call_.buildError(_page.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
+                    p,
+                    resType_.getResult());
+            _page.addLocError(call_);
+            _ana.addNameErrors(call_);
         }
         return resType_;
     }

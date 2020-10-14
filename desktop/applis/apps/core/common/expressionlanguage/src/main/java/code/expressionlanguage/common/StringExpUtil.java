@@ -4,6 +4,7 @@ import code.expressionlanguage.inherits.MappingPairs;
 import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.inherits.MatchingEnum;
 
+import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -77,6 +78,22 @@ public final class StringExpUtil {
         }
         types_.add(out_.toString());
         return types_;
+    }
+
+    public static boolean isWildCard(String _type) {
+        return !getWildCards(_type).isEmpty();
+    }
+    public static StringList getWildCards(String _type) {
+        StringList list_ = new StringList();
+        for (String p: getAllTypes(_type).mid(1)) {
+            if (p.startsWith(Templates.SUB_TYPE)) {
+                list_.add(p);
+            }
+            if (p.startsWith(Templates.SUP_TYPE)) {
+                list_.add(p);
+            }
+        }
+        return list_;
     }
     /** Returns the id of a type<br/>
      Sample 1: "int" => ["int"]<br/>
@@ -1026,16 +1043,7 @@ public final class StringExpUtil {
     }
 
     public static boolean customCast(String _type) {
-        boolean direct_ = false;
-        for (String p: getAllTypes(_type).mid(1)) {
-            if (p.startsWith(SUB_TYPE)) {
-                direct_ = true;
-            }
-            if (p.startsWith(SUP_TYPE)) {
-                direct_ = true;
-            }
-        }
-        if (direct_) {
+        if (isWildCard(_type)) {
             return false;
         }
         if (_type.startsWith("#")) {

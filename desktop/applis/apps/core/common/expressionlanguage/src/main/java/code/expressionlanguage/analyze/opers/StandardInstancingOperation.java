@@ -112,31 +112,17 @@ public final class StandardInstancingOperation extends
         offset_ += idClass_.length() + 1;
         for (String o: arg_.getNames()) {
             boolean ok_ = true;
-            for (String p: StringExpUtil.getAllTypes(o).mid(1)) {
-                if (p.startsWith(Templates.SUB_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //key word len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            o);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                    ok_ = false;
-                }
-                if (p.startsWith(Templates.SUP_TYPE)) {
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //key word len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            o);
-                    _page.getLocalizer().addError(call_);
-                    getErrs().add(call_.getBuiltError());
-                    ok_ = false;
-                }
+            for (String p: StringExpUtil.getWildCards(o)) {
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //key word len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                        p,
+                        o);
+                _page.getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
+                ok_ = false;
             }
             if (!ok_) {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -199,29 +185,16 @@ public final class StandardInstancingOperation extends
             boolean staticType_ = g_.isStaticType();
             st_.setInit(base_,staticType_, _page);
         }
-        for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
-            if (p.startsWith(Templates.SUB_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //part type len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _realClassName);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
-            if (p.startsWith(Templates.SUP_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //part type len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _realClassName);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
+        for (String p:StringExpUtil.getWildCards(_realClassName)){
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //part type len
+            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                    p,
+                    _realClassName);
+            _page.getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
         }
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();

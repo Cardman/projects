@@ -114,29 +114,16 @@ public final class AnonymousInstancingOperation extends
             boolean staticType_ = g_.isStaticType();
             st_.setInit(base_,staticType_, _page);
         }
-        for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
-            if (p.startsWith(Templates.SUB_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //part type len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _realClassName);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
-            if (p.startsWith(Templates.SUP_TYPE)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //part type len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        _realClassName);
-                _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
-            }
+        for (String p:StringExpUtil.getWildCards(_realClassName)){
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //part type len
+            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                    p,
+                    _realClassName);
+            _page.getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
         }
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);

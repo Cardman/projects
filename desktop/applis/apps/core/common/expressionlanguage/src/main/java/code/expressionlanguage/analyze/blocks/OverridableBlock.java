@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.common.StringExpUtil;
@@ -217,6 +218,11 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
+            String return_ = AnaTemplates.quickFormat(_root,formattedDeclaring_,getImportedReturnType());
+            StringMap<StringList> vars_ = new StringMap<StringList>();
+            for (TypeVar t: root_.getParamTypesMapValues()) {
+                vars_.put(t.getName(), t.getConstraints());
+            }
             ClassMethodId id_ = null;
             int rc_ = _page.getTraceIndex() +off_;
             for (OverridableBlock m: methods_) {
@@ -224,6 +230,10 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     continue;
                 }
                 if (m.getId().eq(methodIdDest_)) {
+                    String returnDest_ = AnaTemplates.quickFormat(formattedDestType_,formattedDest_,m.getImportedReturnType());
+                    if (!AnaTemplates.isReturnCorrect(return_,returnDest_,vars_,_page)) {
+                        continue;
+                    }
                     id_ = new ClassMethodId(clDest_,m.getId());
                     overrides.put(clKey_,new GeneStringOverridable(formattedDest_,formattedDestType_,m));
                     break;
