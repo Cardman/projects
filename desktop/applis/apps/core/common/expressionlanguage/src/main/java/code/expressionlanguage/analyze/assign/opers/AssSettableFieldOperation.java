@@ -90,7 +90,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         vars_.getVariables().put(this, ass_);
         vars_.getFields().put(this, assA_);
     }
-    public final boolean isFromCurrentClass(AnalyzedPageEl _page) {
+    public boolean isFromCurrentClass(AnalyzedPageEl _page) {
         if (notMatchCurrentType(_page)) {
             return false;
         }
@@ -122,7 +122,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         return declare;
     }
 
-    public final ClassField getFieldId() {
+    public ClassField getFieldId() {
         return fieldMetaInfo.getClassField();
     }
 

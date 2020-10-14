@@ -8,7 +8,7 @@ public final class AssSimStdMethodBlock extends AssBracedBlock {
     AssSimStdMethodBlock(boolean _completeNormally, boolean _completeNormallyGroup) {
         super(_completeNormally,_completeNormallyGroup);
     }
-    public final void buildFctInstructions(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+    public void buildFctInstructions(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssBlock firstChild_ = getFirstChild();
         AssBlock en_ = this;
         if (firstChild_ == null) {
