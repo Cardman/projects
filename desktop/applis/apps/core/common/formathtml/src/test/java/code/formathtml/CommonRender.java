@@ -203,18 +203,20 @@ public abstract class CommonRender {
     }
 
     protected static String getCommRes(String html_, StringMap<String> files_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(files_);
         
         analyzeInner(a_, html_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        String res_ = getRes(a_);
-        assertNull(getException(a_));
-        return res_;
+        return successRes(a_);
+    }
+
+    private static AnalyzedTestConfiguration validateBase(StringMap<String> files_) {
+        AnalyzedTestConfiguration a_ = build();
+        getHeaders(files_, a_);
+        assertTrue(isEmptyErrors(a_));
+        return a_;
     }
 
     protected static String getRes(AnalyzedTestConfiguration _a) {
@@ -226,9 +228,7 @@ public abstract class CommonRender {
     }
 
     protected static String getCommRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
 
         setup(folder_, relative_, files_, a_);
         
@@ -236,16 +236,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        String res_ = getRes(a_);
-        assertNull(getException(a_));
-        return res_;
+        return successRes(a_);
     }
 
     protected static String getRes(String folder_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
 
         setup(folder_, a_);
         setFiles(files_, a_);
@@ -255,26 +250,18 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
     protected static String getRes2(String folder_, String relative_, String html_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
         setup(folder_, relative_, a_);
         
         analyzeInner(a_, html_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
     protected static void setFirst(AnalyzedTestConfiguration cont_) {
@@ -284,17 +271,13 @@ public abstract class CommonRender {
     }
 
     protected static Struct getCommEx(String html_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
         
         analyzeInner(a_, html_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     private static AnalyzedTestContext buildStd(String... _types) {
@@ -308,24 +291,18 @@ public abstract class CommonRender {
     }
 
     protected static Struct getCommEx(String folder_, String relative_, String html_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
         setup(folder_, relative_, a_);
         
         analyzeInner(a_, html_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     protected static Struct getEx(String folder_, String html_, StringMap<String> files_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(new StringMap<String>(), a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(new StringMap<String>());
 
         setup(folder_, a_);
         setFiles(files_, a_);
@@ -335,14 +312,10 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
     protected static Struct getEx(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
 
         setup(folder_, relative_, files_, a_);
         
@@ -350,24 +323,18 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     protected static boolean hasCommErr(String html_, StringMap<String> files_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(files_);
         
         analyzeInner(a_, html_);
         return !isEmptyErrors(a_);
     }
 
     protected static boolean hasErr(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(_files);
 
         setup(folder_, relative_, files_, a_);
         
@@ -376,9 +343,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean hasErr(String folder_, String relative_, String html_, StringMap<String> files_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(files_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(files_);
         setup(folder_, relative_, a_);
         
         analyzeInner(a_, html_);
@@ -388,9 +353,7 @@ public abstract class CommonRender {
 
 
     protected static String getCommOneBean(String html_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         analyzeInner(a_, html_);
@@ -401,10 +364,7 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        String res_ = getRes(a_);
-        assertNull(getException(a_));
-        return res_;
+        return successRes(a_);
     }
 
     protected static String getCommOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
@@ -423,10 +383,7 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        String res_ = getRes(a_);
-        assertNull(getException(a_));
-        return res_;
+        return successRes(a_);
     }
 
     protected static Struct getCommExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
@@ -443,16 +400,11 @@ public abstract class CommonRender {
         tryInitStaticlyTypes(a_);
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
-
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     protected static boolean hasCommErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
         
@@ -463,9 +415,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean hasErrOneBean(String html_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         analyzeInner(a_, html_);
@@ -474,9 +424,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean hasErrOneBean2(String folder_, String relative_, String html_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, a_);
         
@@ -486,9 +434,7 @@ public abstract class CommonRender {
         return !isEmptyErrors(a_);
     }
     protected static String getAncOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
         
@@ -501,9 +447,7 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        String res_ = getRes(a_);
-        assertNull(getException(a_));
+        String res_ = successRes(a_);
         assertEq(1, a_.getConfiguration().getHtmlPage().getAnchorsArgs().size());
         assertEq("2", a_.getConfiguration().getHtmlPage().getAnchorsArgs().last().last());
         return res_;
@@ -524,9 +468,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestConfiguration simulateNav2(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setFirst(a_, "page1.html");
         setup(folder_, relative_, files_, a_);
@@ -541,8 +483,7 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        getRes(a_);
+        successRes(a_);
         return a_;
     }
 
@@ -551,9 +492,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestConfiguration simulateNav(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
         
@@ -566,15 +505,12 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        getRes(a_);
+        successRes(a_);
         return a_;
     }
 
     protected static AnalyzedTestConfiguration simulateNavEx(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
 
@@ -587,16 +523,13 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        getRes(a_);
+        successRes(a_);
         return a_;
     }
 
 
     protected static AnalyzedTestNavigation initSession(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -617,9 +550,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean initSessionFail(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -636,9 +567,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -663,9 +592,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession3(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -692,9 +619,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession4(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -720,9 +645,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession44(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -749,9 +672,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSessionSim(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _className, String _scope) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -772,9 +693,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSessionSim2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -806,9 +725,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession55(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String s, String s2, String s3, String session, String s4) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -845,9 +762,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation initSession56(String locale_, String folder_, String relative_, String content_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -883,9 +798,7 @@ public abstract class CommonRender {
     }
 
     protected static Navigation getStdNavigation(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -907,9 +820,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedTestNavigation getStdNavigation2(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_, String _scope, String _className) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -932,9 +843,7 @@ public abstract class CommonRender {
 
 
     protected static AnalyzedTestNavigation getStdNavigation2(String locale_, String folder_, String relative_, StringMap<String> filesSec_, StringMap<String> files_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -952,9 +861,7 @@ public abstract class CommonRender {
     }
 
     protected static Navigation getStdNavigation3(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
@@ -974,9 +881,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean getStdNavigation7(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String s) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, s);
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -989,9 +894,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean getStdNavigation6(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setFirst(a_, "page1.html");
         setup(folder_, relative_, a_);
         Navigation nav_ = newNavigation(a_);
@@ -1025,9 +928,7 @@ public abstract class CommonRender {
     }
 
     protected static Struct getExTwoPages(String folder_, String relative_, String html_, String htmlTwo_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(new StringMap<String>(), a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(new StringMap<String>());
 
         setup(folder_, relative_, a_);
         
@@ -1035,15 +936,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     protected static String getResTwoPages(String folder_, String relative_, String html_, String htmlTwo_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(new StringMap<String>(), a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(new StringMap<String>());
 
         setup(folder_, relative_, a_);
         
@@ -1051,16 +948,11 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
     protected static String getResTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
@@ -1075,16 +967,11 @@ public abstract class CommonRender {
         bean_ = calculateReuse(a_, ops2_);
         addBean(a_, bean_, "bean_two");
 
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
     protected static Struct getExTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -1100,15 +987,11 @@ public abstract class CommonRender {
         bean_ = calculateReuse(a_, ops2_);
         addBean(a_, bean_, "bean_two");
 
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     protected static String getResTwoPagesOne(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         analyzeInner(a_, html_, htmlTwo_);
@@ -1119,17 +1002,12 @@ public abstract class CommonRender {
         Struct bean_ = calculateReuse(a_, ops_);
         addBean(a_, bean_, "bean_one");
 
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
 
     protected static Struct getExThreeBeans(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -1149,9 +1027,7 @@ public abstract class CommonRender {
         bean_ = calculateReuse(a_, ops3_);
         addBean(a_, bean_, "bean_three");
 
-        setFirst(a_);
-        getRes(a_);
-        return getException(a_);
+        return failRes(a_);
     }
 
     private static void analyzeInner(AnalyzedTestConfiguration a_, String... _html) {
@@ -1186,9 +1062,7 @@ public abstract class CommonRender {
     }
 
     protected static String getResThreeBean(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _currentUrl) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -1209,16 +1083,11 @@ public abstract class CommonRender {
         addBean(a_, bean_, "bean_three");
 
 
-        setFirst(a_);
-        String res = getRes(a_);
-        assertNull(getException(a_));
-        return res;
+        return successRes(a_);
     }
 
     protected static boolean hasErrThree(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -1232,9 +1101,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean hasErrTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
-        AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
-        assertTrue(isEmptyErrors(a_));
+        AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
         
         newBeanInfo(a_, "pkg.BeanOne", "bean_one");
@@ -1274,6 +1141,22 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         return build(conf_,_types);
+    }
+
+    private static String successRes(AnalyzedTestConfiguration a_) {
+        String res = res(a_);
+        assertNull(getException(a_));
+        return res;
+    }
+
+    private static Struct failRes(AnalyzedTestConfiguration a_) {
+        res(a_);
+        return getException(a_);
+    }
+
+    private static String res(AnalyzedTestConfiguration a_) {
+        setFirst(a_);
+        return getRes(a_);
     }
 
     protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
