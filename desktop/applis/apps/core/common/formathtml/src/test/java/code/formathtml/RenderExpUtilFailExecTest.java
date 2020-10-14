@@ -2283,9 +2283,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void processEl(String _el, AnalyzedTestConfiguration _cont) {
-        if (_cont.hasPages() && _cont.getAnalyzing() != null) {
-            _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
-        }
+        _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
         processEl(_el, 0, _cont);
         assertTrue(_cont.isEmptyErrors());
         assertNotNull(getException(_cont));
@@ -2299,7 +2297,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
         _an.getContext().setExiting(new NoExiting());
-        RenderExpUtil.calculateReuse(out_, _an.getConfiguration(), _an.getAdvStandards(), _an.getContext());
+        calculateReuse(_an,out_);
         assertNotNull(getException(_an));
     }
 
@@ -2326,7 +2324,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         }
         out_ = CommonRender.getReducedNodes(out_.last());
         _conf.getContext().setExiting(new NoExiting());
-        RenderExpUtil.calculateReuse(out_, _conf.getConfiguration(), _conf.getAdvStandards(), _conf.getContext());
+        calculateReuse(_conf,out_);
     }
 
 }

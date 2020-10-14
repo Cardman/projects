@@ -33,7 +33,7 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        conf_.setFirstUrl("page1.html");
+        setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -74,7 +74,7 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        conf_.setFirstUrl("page1.html");
+        setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -112,7 +112,7 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        conf_.setFirstUrl("page1.html");
+        setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -149,7 +149,7 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        conf_.setFirstUrl("page1.html");
+        setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
@@ -455,7 +455,7 @@ public final class RenderInitNavTest extends CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfiguration a_ = build(conf_);
-        conf_.setFirstUrl("page1.html");
+        setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);

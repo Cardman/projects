@@ -331,7 +331,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));
-        getList(_el, _index, _conf, analyzingDoc_);
+        getSuccessList(_el, _index, _conf, analyzingDoc_);
     }
 
 }

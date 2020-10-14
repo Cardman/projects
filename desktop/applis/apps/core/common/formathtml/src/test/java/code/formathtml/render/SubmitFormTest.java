@@ -973,18 +973,16 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
 
 
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build();
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,a_.getDual());
-        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_,a_);
+        setFirst(a_,"page1.html");
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
+        nav_.setSession(a_.getConfiguration());
         nav_.setFiles(files_);
         a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
@@ -1003,18 +1001,16 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c:");
 
 
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfiguration a_ = build();
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,a_.getDual());
-        conf_.setFirstUrl("page1.html");
+        setup(folder_, relative_,a_);
+        setFirst(a_,"page1.html");
         Navigation nav_ = newNavigation(a_);
         nav_.setLanguage(locale_);
-        nav_.setSession(conf_);
+        nav_.setSession(a_.getConfiguration());
         nav_.setFiles(files_);
         a_.getDual().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();

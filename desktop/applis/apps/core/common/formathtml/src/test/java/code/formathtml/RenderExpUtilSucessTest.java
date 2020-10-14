@@ -2825,7 +2825,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument caculateReuse(AnalyzedTestConfiguration conf_, CustList<RendDynOperationNode> out_) {
         conf_.getContext().setExiting(new NoExiting());
-        return RenderExpUtil.calculateReuse(out_, conf_.getConfiguration(), conf_.getAdvStandards(), conf_.getContext());
+        return new Argument(calculateReuse(conf_,out_));
     }
 
     private static Delimiters checkDel(String s, int i, AnalyzedTestConfiguration context_) {
@@ -5661,9 +5661,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Argument calc(String s, AnalyzedTestConfiguration context_) {
-        if (context_.hasPages() && context_.getAnalyzing() != null) {
-            context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
-        }
+        context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
         CustList<RendDynOperationNode> out_ = getAnalyzed(s, 0, context_, context_.getAnalyzingDoc());
         AnalyzedPageEl page_ = context_.getAnalyzing();
         assertTrue(context_.isEmptyErrors());
