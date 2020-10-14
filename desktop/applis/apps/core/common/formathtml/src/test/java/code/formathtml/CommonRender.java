@@ -354,15 +354,8 @@ public abstract class CommonRender {
 
     protected static String getCommOneBean(String html_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+
+        calcOneBean(html_, a_);
 
         return successRes(a_);
     }
@@ -373,15 +366,8 @@ public abstract class CommonRender {
         assertTrue(isEmptyErrors(a_));
 
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+
+        calcOneBean(html_, a_);
 
         return successRes(a_);
     }
@@ -391,15 +377,8 @@ public abstract class CommonRender {
         getHeaders(filesSec_, a_);
         assertTrue(isEmptyErrors(a_));
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+
+        calcOneBean(html_, a_);
         return failRes(a_);
     }
 
@@ -407,19 +386,15 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
+
+        errOneBean(html_, a_);
         return !isEmptyErrors(a_);
     }
 
     protected static boolean hasErrOneBean(String html_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
+
+        errOneBean(html_, a_);
         return !isEmptyErrors(a_);
     }
 
@@ -427,30 +402,42 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
+
+        errOneBean(html_, a_);
         return !isEmptyErrors(a_);
     }
+
+    private static void errOneBean(String html_, AnalyzedTestConfiguration a_) {
+        newOneBean(a_);
+        analyzeInner(a_, html_);
+        buildExecPart(a_, "bean_one");
+    }
+
     protected static String getAncOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+
+        calcOneBean(html_, a_);
 
         String res_ = successRes(a_);
         assertEq(1, a_.getConfiguration().getHtmlPage().getAnchorsArgs().size());
         assertEq("2", a_.getConfiguration().getHtmlPage().getAnchorsArgs().last().last());
         return res_;
+    }
+
+    private static void calcOneBean(String html_, AnalyzedTestConfiguration a_) {
+        newOneBean(a_);
+        analyzeInner(a_, html_);
+        assertTrue(isEmptyErrors(a_));
+        tryForward(a_);
+        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
+        tryInitStaticlyTypes(a_);
+        calcBean(a_, ops_, "bean_one");
+    }
+
+    private static void newOneBean(AnalyzedTestConfiguration a_) {
+        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
     }
 
     private static void setup(String folder_, String relative_, StringMap<String> files_, AnalyzedTestConfiguration a_) {
@@ -472,17 +459,9 @@ public abstract class CommonRender {
 
         setFirst(a_, "page1.html");
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
         setNavigation(a_);
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
 
+        calcOneBean(html_,a_);
         successRes(a_);
         return a_;
     }
@@ -495,15 +474,8 @@ public abstract class CommonRender {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
 
         setup(folder_, relative_, files_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+
+        calcOneBean(html_, a_);
 
         successRes(a_);
         return a_;
@@ -514,14 +486,7 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, files_, a_);
 
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        analyzeInner(a_, html_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
+        calcOneBean(html_, a_);
 
         successRes(a_);
         return a_;
@@ -954,18 +919,7 @@ public abstract class CommonRender {
     protected static String getResTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        analyzeInner(a_, html_, htmlTwo_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
-        bean_ = calculateReuse(a_, ops2_);
-        addBean(a_, bean_, "bean_two");
+        calcTwoPagesTwoBean(html_, htmlTwo_, a_);
 
         return successRes(a_);
     }
@@ -973,46 +927,54 @@ public abstract class CommonRender {
     protected static Struct getExTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
+
+        calcTwoPagesTwoBean(html_, htmlTwo_, a_);
+
+        return failRes(a_);
+    }
+
+    private static void calcTwoPagesTwoBean(String html_, String htmlTwo_, AnalyzedTestConfiguration a_) {
+        newTwoBean(a_);
         analyzeInner(a_, html_, htmlTwo_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
-        bean_ = calculateReuse(a_, ops2_);
-        addBean(a_, bean_, "bean_two");
-
-        return failRes(a_);
+        calcBean(a_, ops_, "bean_one");
+        calcBean(a_, ops2_, "bean_two");
     }
 
     protected static String getResTwoPagesOne(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
+        calcTwoPagesOneBean(html_, htmlTwo_, a_);
+
+        return successRes(a_);
+    }
+
+    private static void calcTwoPagesOneBean(String html_, String htmlTwo_, AnalyzedTestConfiguration a_) {
+        newOneBean(a_);
         analyzeInner(a_, html_, htmlTwo_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
         CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
-
-        return successRes(a_);
+        calcBean(a_, ops_, "bean_one");
     }
 
 
     protected static Struct getExThreeBeans(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
+
+        calcThree(html_, htmlTwo_, htmlThree_, a_);
+
+        return failRes(a_);
+    }
+
+    private static void calcThree(String html_, String htmlTwo_, String htmlThree_, AnalyzedTestConfiguration a_) {
+        newThreeBean(a_);
         analyzeInner(a_, html_, htmlTwo_, htmlThree_);
         assertTrue(isEmptyErrors(a_));
         tryForward(a_);
@@ -1020,14 +982,19 @@ public abstract class CommonRender {
         CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
         CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, "bean_three");
         tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
-        bean_ = calculateReuse(a_, ops2_);
-        addBean(a_, bean_, "bean_two");
-        bean_ = calculateReuse(a_, ops3_);
-        addBean(a_, bean_, "bean_three");
+        calcBean(a_, ops_, "bean_one");
+        calcBean(a_, ops2_, "bean_two");
+        calcBean(a_, ops3_, "bean_three");
+    }
 
-        return failRes(a_);
+    private static void newThreeBean(AnalyzedTestConfiguration a_) {
+        newTwoBean(a_);
+        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
+    }
+
+    private static void calcBean(AnalyzedTestConfiguration _a, CustList<RendDynOperationNode> _ops, String _bean) {
+        Struct bean_ = calculateReuse(_a, _ops);
+        addBean(_a, bean_, _bean);
     }
 
     private static void analyzeInner(AnalyzedTestConfiguration a_, String... _html) {
@@ -1064,23 +1031,8 @@ public abstract class CommonRender {
     protected static String getResThreeBean(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _currentUrl) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
-        analyzeInner(a_, html_, htmlTwo_, htmlThree_);
-        assertTrue(isEmptyErrors(a_));
-        tryForward(a_);
-        CustList<RendDynOperationNode> ops_ = buildExecPart(a_, "bean_one");
-        CustList<RendDynOperationNode> ops2_ = buildExecPart(a_, "bean_two");
-        CustList<RendDynOperationNode> ops3_ = buildExecPart(a_, "bean_three");
-        tryInitStaticlyTypes(a_);
-        Struct bean_ = calculateReuse(a_, ops_);
-        addBean(a_, bean_, "bean_one");
-        bean_ = calculateReuse(a_, ops2_);
-        addBean(a_, bean_, "bean_two");
-        bean_ = calculateReuse(a_, ops3_);
-        addBean(a_, bean_, "bean_three");
+
+        calcThree(html_, htmlTwo_, htmlThree_, a_);
 
 
         return successRes(a_);
@@ -1089,27 +1041,37 @@ public abstract class CommonRender {
     protected static boolean hasErrThree(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
-        newBeanInfo(a_, "pkg.BeanThree", "bean_three");
+
+        errThreeBean(html_, htmlTwo_, htmlThree_, a_);
+        return !isEmptyErrors(a_);
+    }
+
+    private static void errThreeBean(String html_, String htmlTwo_, String htmlThree_, AnalyzedTestConfiguration a_) {
+        newThreeBean(a_);
         analyzeInner(a_, html_, htmlTwo_, htmlThree_);
         buildExecPart(a_, "bean_one");
         buildExecPart(a_, "bean_two");
         buildExecPart(a_, "bean_three");
-        return !isEmptyErrors(a_);
     }
 
     protected static boolean hasErrTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
         AnalyzedTestConfiguration a_ = validateBase(filesSec_);
         setup(folder_, relative_, a_);
-        
-        newBeanInfo(a_, "pkg.BeanOne", "bean_one");
-        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
+
+        errTwoBean(html_, htmlTwo_, a_);
+        return !isEmptyErrors(a_);
+    }
+
+    private static void errTwoBean(String html_, String htmlTwo_, AnalyzedTestConfiguration a_) {
+        newTwoBean(a_);
         analyzeInner(a_, html_, htmlTwo_);
         buildExecPart(a_, "bean_one");
         buildExecPart(a_, "bean_two");
-        return !isEmptyErrors(a_);
+    }
+
+    private static void newTwoBean(AnalyzedTestConfiguration a_) {
+        newOneBean(a_);
+        newBeanInfo(a_, "pkg.BeanTwo", "bean_two");
     }
 
     private static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Forwards _forwards) {
