@@ -1174,7 +1174,6 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append(" public class InnerFive<E> {\n");
         xml_.append("  public class InnerInner<G> {\n");
         xml_.append("   public normal String get(){\n");
-        //pkgtwo.OuterThree.InnerFive.this
         xml_.append("    return static(Class).getClass(pkgtwo.OuterThree.InnerFive.this).getName();\n");
         xml_.append("   }\n");
         xml_.append("  }\n");

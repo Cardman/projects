@@ -22,7 +22,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -76,7 +76,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument171Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -129,7 +129,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument172Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -178,7 +178,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument18Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -231,7 +231,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument19Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -286,7 +286,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument20Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -343,7 +343,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument20_Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -400,7 +400,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument21Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -457,7 +457,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument22Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -517,7 +517,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument23Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -583,7 +583,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument24Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -653,7 +653,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument25Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -706,7 +706,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument26Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -763,7 +763,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument27Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -829,7 +829,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument28Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -901,7 +901,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument29Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -950,7 +950,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -997,7 +997,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument31Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $int ance=17i;\n");
@@ -1028,7 +1028,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument32Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $int three=17i;\n");
@@ -1073,7 +1073,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $int ance=2i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExEnum", xml_.toString());
-        //ContextEl cont_ = ctx();
+        
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1105,7 +1105,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $int ance=2i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExEnum", xml_.toString());
-        //ContextEl cont_ = ctx();
+        
         ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1128,7 +1128,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument35Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1175,7 +1175,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument36Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1222,7 +1222,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument37Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1269,7 +1269,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument38Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1308,7 +1308,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument39Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $private $int inst=2i;\n");
@@ -1347,7 +1347,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument40Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1397,7 +1397,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument41Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1436,7 +1436,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument42Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $package $normal $int getter(){\n");
@@ -1475,7 +1475,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument43Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1514,7 +1514,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument44Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -1555,7 +1555,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument45Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int getter(java.lang.Integer p){\n");
@@ -1587,7 +1587,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument46Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $private $static $int getter(java.lang.Integer p){\n");
@@ -1620,7 +1620,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument47Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int inst;\n");
@@ -1654,7 +1654,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument48Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int inst;\n");
@@ -1688,7 +1688,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument49Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1731,7 +1731,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument50Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1774,7 +1774,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument51Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1821,7 +1821,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument52Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1865,7 +1865,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument53Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1923,7 +1923,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument54Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -1981,7 +1981,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument55Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -2019,7 +2019,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument56Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2093,7 +2093,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument57Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2167,7 +2167,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument58Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2241,7 +2241,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument59Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2316,7 +2316,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2371,7 +2371,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2419,7 +2419,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2471,7 +2471,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2526,7 +2526,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument64Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2590,7 +2590,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument65Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2654,7 +2654,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2710,7 +2710,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2778,7 +2778,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance;\n");
@@ -2802,7 +2802,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance;\n");
@@ -2838,7 +2838,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument70Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2910,7 +2910,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument71Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2969,7 +2969,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3066,7 +3066,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3164,7 +3164,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument174Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3214,7 +3214,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument175Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3264,7 +3264,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument176Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3315,7 +3315,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument177Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3375,7 +3375,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument178Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3433,7 +3433,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument79Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3473,7 +3473,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument80Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3515,7 +3515,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument81Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3564,7 +3564,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument82Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3604,7 +3604,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument83Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3644,7 +3644,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument1740Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3694,7 +3694,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument1741Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3744,7 +3744,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument1742Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3794,7 +3794,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument1743Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3844,7 +3844,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument1744Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
@@ -3895,7 +3895,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument8FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree;pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -3916,7 +3916,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentNullPe() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $void execute(){\n");
@@ -3941,7 +3941,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentNullPe2() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append("}\n");
@@ -3968,7 +3968,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentNullPe3() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append("}\n");
@@ -3995,7 +3995,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentNullPe4() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public Object execute;\n");
@@ -4019,7 +4019,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentNullPe5() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public Object execute;\n");
@@ -4043,7 +4043,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument9FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append("}\n");
@@ -4065,7 +4065,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument74Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int infoOne = ++ExTwo.infoTwo;\n");
@@ -4100,7 +4100,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgumentFailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4131,7 +4131,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument22FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");

@@ -63,7 +63,6 @@ public abstract class CommonRender {
     }
 
     protected static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
-        //
 
         String globalClass_ = _analyzing.getGlobalClass();
         setupAna(_analyzingDoc, _analyzing);

@@ -27,7 +27,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(3, opers_.size());
         assertEq("(", opers_.getVal(3));
         assertEq(",", opers_.getVal(5));
@@ -314,7 +313,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(2, opers_.size());
         assertEq("(", opers_.getVal(0));
         assertEq(")", opers_.getVal(4));
@@ -350,7 +348,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
         assertEq(",", opers_.getVal(18));
@@ -1314,7 +1311,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
         assertEq(",", opers_.getVal(29));
@@ -1338,7 +1334,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
         assertEq(",", opers_.getVal(29));
@@ -1430,7 +1425,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertTrue(seq_.isCall());
     }
 
-    //optional parameter with qualified access
     @Test
     public void getOperationsSequence78Test() {
         AnalyzedTestContext conf_ = contextEl();
@@ -1915,7 +1909,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(7));
         IntTreeMap<String> values_ = seq_.getValues();
@@ -2455,7 +2448,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
         IntTreeMap<String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(3, opers_.size());
         assertEq("(", opers_.getVal(3));
         assertEq(",", opers_.getVal(5));

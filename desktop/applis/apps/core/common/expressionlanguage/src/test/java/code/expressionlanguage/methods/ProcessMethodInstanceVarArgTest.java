@@ -556,7 +556,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument106Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -702,7 +702,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument110Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append("}\n");
@@ -787,7 +787,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument112Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -829,7 +829,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument113Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -923,7 +923,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument116Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -961,7 +961,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument117Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1229,7 +1229,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument124Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1267,7 +1267,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument125Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1305,7 +1305,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument126Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");

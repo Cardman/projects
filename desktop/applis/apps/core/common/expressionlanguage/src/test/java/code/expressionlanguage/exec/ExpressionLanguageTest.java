@@ -1201,7 +1201,6 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         assertEq(-671088641, getNumber(arg_));
     }
 
-    //To check math random behavior
     @Test
     public void processEl371Test() {
         Argument arg_ = directCalculate("0.5d*2d");

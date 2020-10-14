@@ -5761,9 +5761,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processElNormalNotInit(StringMap<String> files_, String s,String... _types) {
         AnalyzedTestConfiguration cont_ = getConfiguration(files_,_types);
         addImportingPage(cont_);
-        Argument arg_ = calc(s, cont_);
-//        assertTrue(!isInitialized(cont_));
-        return arg_;
+        return calc(s, cont_);
     }
 
     private static boolean isInitialized(AnalyzedTestConfiguration cont_) {
@@ -5809,7 +5807,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
-        //
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         AnalysisMessages analysisMessages_ = a_.getAnalyzing().getAnalysisMessages();

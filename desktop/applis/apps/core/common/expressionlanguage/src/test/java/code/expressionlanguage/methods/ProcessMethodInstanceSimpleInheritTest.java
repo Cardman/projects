@@ -19,7 +19,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -73,7 +73,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -124,7 +124,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -179,7 +179,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append("}\n");
@@ -210,7 +210,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public (){}\n");
@@ -242,7 +242,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -278,7 +278,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -313,7 +313,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -350,7 +350,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -408,7 +408,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        //ContextEl cont_ = ctx();
+        
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");

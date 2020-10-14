@@ -444,7 +444,6 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance;\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-//        xml_.append("   ance=inst.$classchoice(pkg.ExTwo<!java.lang.String>)get(\"\"):\n");
         xml_.append("   ance=((pkg.ExTwo<!java.lang.Number>)inst).get(1i);\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicArrayStoreException e){\n");
