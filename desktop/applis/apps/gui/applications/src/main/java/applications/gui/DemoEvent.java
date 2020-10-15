@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class DemoEvent extends AbstractEvent {
 
-    DemoEvent(MainWindow _window, AtomicInteger at_) {
-        super(_window,at_);
+    DemoEvent(MainWindow _window, AtomicInteger _at) {
+        super(_window,_at);
     }
 
     @Override

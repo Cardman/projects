@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ConverterEvent extends AbstractEvent {
 
-    ConverterEvent(MainWindow _window, AtomicInteger at_) {
-        super(_window,at_);
+    ConverterEvent(MainWindow _window, AtomicInteger _at) {
+        super(_window,_at);
     }
 
     @Override

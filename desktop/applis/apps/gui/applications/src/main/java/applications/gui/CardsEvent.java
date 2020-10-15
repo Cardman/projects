@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class CardsEvent extends AbstractEvent {
 
-    CardsEvent(MainWindow _window, AtomicInteger at_) {
-        super(_window,at_);
+    CardsEvent(MainWindow _window, AtomicInteger _at) {
+        super(_window,_at);
     }
 
     @Override

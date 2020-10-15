@@ -7,8 +7,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class PokemonEvent extends AbstractEvent {
-    PokemonEvent(MainWindow _window, AtomicInteger at_) {
-        super(_window,at_);
+    PokemonEvent(MainWindow _window, AtomicInteger _at) {
+        super(_window,_at);
     }
 
     @Override

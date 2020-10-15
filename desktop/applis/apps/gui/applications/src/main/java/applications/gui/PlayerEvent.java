@@ -7,8 +7,8 @@ import code.player.main.LaunchingPlayer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class PlayerEvent extends AbstractEvent {
-    PlayerEvent(MainWindow _window, AtomicInteger at_) {
-        super(_window,at_);
+    PlayerEvent(MainWindow _window, AtomicInteger _at) {
+        super(_window,_at);
     }
 
     @Override
