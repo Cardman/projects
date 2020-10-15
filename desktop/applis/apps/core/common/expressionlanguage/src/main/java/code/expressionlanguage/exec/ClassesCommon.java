@@ -26,7 +26,7 @@ public final class ClassesCommon {
         return staticFields;
     }
 
-    public void setStaticFields(StringMap<StringMap<Struct>> staticFields) {
-        this.staticFields = staticFields;
+    public void setStaticFields(StringMap<StringMap<Struct>> _staticFields) {
+        this.staticFields = _staticFields;
     }
 }

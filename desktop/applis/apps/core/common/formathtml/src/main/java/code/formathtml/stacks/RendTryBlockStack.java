@@ -62,7 +62,7 @@ public final class RendTryBlockStack extends RendAbstractStask {
         return exception;
     }
 
-    public void setException(Struct exception) {
-        this.exception = exception;
+    public void setException(Struct _exception) {
+        this.exception = _exception;
     }
 }

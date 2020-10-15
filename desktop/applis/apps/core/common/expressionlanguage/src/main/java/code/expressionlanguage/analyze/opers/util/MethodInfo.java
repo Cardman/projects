@@ -60,16 +60,16 @@ public final class MethodInfo implements Parametrable {
         return originalReturnType;
     }
 
-    public void setOriginalReturnType(String originalReturnType) {
-        this.originalReturnType = originalReturnType;
+    public void setOriginalReturnType(String _originalReturnType) {
+        this.originalReturnType = _originalReturnType;
     }
 
     public String getFileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
     }
 
     @Override
@@ -200,40 +200,40 @@ public final class MethodInfo implements Parametrable {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
 
-    public void setStandardMethod(StandardMethod standardMethod) {
-        this.standardMethod = standardMethod;
+    public void setStandardMethod(StandardMethod _standardMethod) {
+        this.standardMethod = _standardMethod;
     }
 
     public NamedFunctionBlock getCustMethod() {
         return custMethod;
     }
 
-    public void setCustMethod(NamedFunctionBlock custMethod) {
-        this.custMethod = custMethod;
+    public void setCustMethod(NamedFunctionBlock _custMethod) {
+        this.custMethod = _custMethod;
     }
 
     public StringList getParametersNames() {
         return parametersNames;
     }
 
-    public void setParametersNames(StringList parametersNames) {
-        this.parametersNames = parametersNames;
+    public void setParametersNames(StringList _parametersNames) {
+        this.parametersNames = _parametersNames;
     }
 
     public Ints getNameParametersFilterIndexes() {

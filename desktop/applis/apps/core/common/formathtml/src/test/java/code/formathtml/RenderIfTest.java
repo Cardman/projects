@@ -188,11 +188,11 @@ public final class RenderIfTest extends CommonRender {
         String html_ = "<html><body><c:if condition=\"&quot;&quot;.length()==1\" label='lab'>ONE</c:if><c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY<c:break label='lab'/></c:elseif></body></html>";
         assertEq("<html><body>NOT EMPTY</body></html>", getRes(html_, new StringMap<String>()));
     }
-    private Struct getEx(String html_, StringMap<String> _file) {
-        return getCommEx(html_, _file);
+    private Struct getEx(String _html, StringMap<String> _file) {
+        return getCommEx(_html, _file);
     }
-    private String getRes(String html_, StringMap<String> files_) {
-        return getCommRes(html_,files_);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -253,7 +253,7 @@ public final class RenderIfTest extends CommonRender {
         String html_ = "<html><body><c:if condition=\"!&quot;string&quot;.isEmpty()\" label=','>NOT EMPTY</c:if></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

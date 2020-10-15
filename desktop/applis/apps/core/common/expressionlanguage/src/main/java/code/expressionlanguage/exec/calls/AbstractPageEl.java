@@ -255,24 +255,24 @@ public abstract class AbstractPageEl extends PageEl {
         return lastLoop;
     }
 
-    public void setLastLoop(LoopBlockStack lastLoop) {
-        this.lastLoop = lastLoop;
+    public void setLastLoop(LoopBlockStack _lastLoop) {
+        this.lastLoop = _lastLoop;
     }
 
     public IfBlockStack getLastIf() {
         return lastIf;
     }
 
-    public void setLastIf(IfBlockStack lastIf) {
-        this.lastIf = lastIf;
+    public void setLastIf(IfBlockStack _lastIf) {
+        this.lastIf = _lastIf;
     }
 
     public TryBlockStack getLastTry() {
         return lastTry;
     }
 
-    public void setLastTry(TryBlockStack lastTry) {
-        this.lastTry = lastTry;
+    public void setLastTry(TryBlockStack _lastTry) {
+        this.lastTry = _lastTry;
     }
 
     public String getGlobalClass() {

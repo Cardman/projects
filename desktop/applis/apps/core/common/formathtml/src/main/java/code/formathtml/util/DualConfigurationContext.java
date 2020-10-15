@@ -33,40 +33,40 @@ public final class DualConfigurationContext {
         return fileBuilder;
     }
 
-    public void setFileBuilder(AbstractFileBuilder fileBuilder) {
-        this.fileBuilder = fileBuilder;
+    public void setFileBuilder(AbstractFileBuilder _fileBuilder) {
+        this.fileBuilder = _fileBuilder;
     }
 
     public String getMessagesFolder() {
         return messagesFolder;
     }
 
-    public void setMessagesFolder(String messagesFolder) {
-        this.messagesFolder = messagesFolder;
+    public void setMessagesFolder(String _messagesFolder) {
+        this.messagesFolder = _messagesFolder;
     }
 
     public StringMap<String> getProperties() {
         return properties;
     }
 
-    public void setProperties(StringMap<String> properties) {
-        this.properties = properties;
+    public void setProperties(StringMap<String> _properties) {
+        this.properties = _properties;
     }
 
     public StringList getAddedFiles() {
         return addedFiles;
     }
 
-    public void setAddedFiles(StringList addedFiles) {
-        this.addedFiles = addedFiles;
+    public void setAddedFiles(StringList _addedFiles) {
+        this.addedFiles = _addedFiles;
     }
 
     public StringList getRenderFiles() {
         return renderFiles;
     }
 
-    public void setRenderFiles(StringList renderFiles) {
-        this.renderFiles = renderFiles;
+    public void setRenderFiles(StringList _renderFiles) {
+        this.renderFiles = _renderFiles;
     }
 
     public StringMap<ValidatorInfo> getLateValidators() {
@@ -83,24 +83,24 @@ public final class DualConfigurationContext {
         setLateValidators(lateValidators_);
     }
 
-    public void setLateValidators(StringMap<ValidatorInfo> lateValidators) {
-        this.lateValidators = lateValidators;
+    public void setLateValidators(StringMap<ValidatorInfo> _lateValidators) {
+        this.lateValidators = _lateValidators;
     }
 
     public String getFilesConfName() {
         return filesConfName;
     }
 
-    public void setFilesConfName(String filesConfName) {
-        this.filesConfName = filesConfName;
+    public void setFilesConfName(String _filesConfName) {
+        this.filesConfName = _filesConfName;
     }
 
     public ContextEl getContext() {
         return context;
     }
 
-    public void setContext(ContextEl context) {
-        this.context = context;
+    public void setContext(ContextEl _context) {
+        this.context = _context;
     }
 
 }

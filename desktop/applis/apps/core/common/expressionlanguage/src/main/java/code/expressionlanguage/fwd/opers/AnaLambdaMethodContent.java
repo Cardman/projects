@@ -10,31 +10,31 @@ public final class AnaLambdaMethodContent {
         return polymorph;
     }
 
-    public void setPolymorph(boolean polymorph) {
-        this.polymorph = polymorph;
+    public void setPolymorph(boolean _polymorph) {
+        this.polymorph = _polymorph;
     }
 
     public boolean isAbstractMethod() {
         return abstractMethod;
     }
 
-    public void setAbstractMethod(boolean abstractMethod) {
-        this.abstractMethod = abstractMethod;
+    public void setAbstractMethod(boolean _abstractMethod) {
+        this.abstractMethod = _abstractMethod;
     }
 
     public boolean isDirectCast() {
         return directCast;
     }
 
-    public void setDirectCast(boolean directCast) {
-        this.directCast = directCast;
+    public void setDirectCast(boolean _directCast) {
+        this.directCast = _directCast;
     }
 
     public boolean isExpCast() {
         return expCast;
     }
 
-    public void setExpCast(boolean expCast) {
-        this.expCast = expCast;
+    public void setExpCast(boolean _expCast) {
+        this.expCast = _expCast;
     }
 }

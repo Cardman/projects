@@ -600,8 +600,8 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
         return parent;
     }
 
-    public void setParent(AnaRendParentBlock parent) {
-        this.parent = parent;
+    public void setParent(AnaRendParentBlock _parent) {
+        this.parent = _parent;
     }
 
     public static String lookForVar(StringList _varNames, AnalyzedPageEl _page) {

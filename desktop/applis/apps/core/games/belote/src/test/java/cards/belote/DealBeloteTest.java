@@ -544,7 +544,7 @@ public class DealBeloteTest {
         assertTrue(donne_.derniereMain().contient(CardBelote.DIAMOND_7));
     }
 
-    private static void initDonneLoc(DealBelote donne_, RulesBelote regles_) {
-        donne_.initDonne(regles_,new DisplayingBelote(), new DefaultGenerator());
+    private static void initDonneLoc(DealBelote _donne, RulesBelote _regles) {
+        _donne.initDonne(_regles,new DisplayingBelote(), new DefaultGenerator());
     }
 }

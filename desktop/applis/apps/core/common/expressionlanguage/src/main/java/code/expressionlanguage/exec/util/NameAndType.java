@@ -4,9 +4,9 @@ public final class NameAndType {
     private final String name;
     private final String type;
 
-    public NameAndType(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public NameAndType(String _name, String _type) {
+        this.name = _name;
+        this.type = _type;
     }
 
     public String getName() {

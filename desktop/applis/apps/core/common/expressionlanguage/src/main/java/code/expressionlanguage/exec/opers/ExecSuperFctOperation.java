@@ -47,8 +47,8 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         return callPrepare(_conf.getExiting(),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), MethodAccessKind.INSTANCE, "");
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct pr_) {
-        return fetchFormattedArgs(_nodes,_conf,pr_,getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
+        return fetchFormattedArgs(_nodes,_conf,_pr,getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
     public String getClassName() {

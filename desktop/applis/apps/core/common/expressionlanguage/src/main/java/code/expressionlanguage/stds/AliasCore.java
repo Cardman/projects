@@ -349,24 +349,24 @@ public final class AliasCore {
         return aliasAbstractTypeErr;
     }
 
-    public void setAliasAbstractTypeErr(String aliasAbstractTypeErr) {
-        this.aliasAbstractTypeErr = aliasAbstractTypeErr;
+    public void setAliasAbstractTypeErr(String _aliasAbstractTypeErr) {
+        this.aliasAbstractTypeErr = _aliasAbstractTypeErr;
     }
 
     public String getAliasIllegalType() {
         return aliasIllegalType;
     }
 
-    public void setAliasIllegalType(String aliasIllegalType) {
-        this.aliasIllegalType = aliasIllegalType;
+    public void setAliasIllegalType(String _aliasIllegalType) {
+        this.aliasIllegalType = _aliasIllegalType;
     }
 
     public String getAliasNonInvokable() {
         return aliasNonInvokable;
     }
 
-    public void setAliasNonInvokable(String aliasNonInvokable) {
-        this.aliasNonInvokable = aliasNonInvokable;
+    public void setAliasNonInvokable(String _aliasNonInvokable) {
+        this.aliasNonInvokable = _aliasNonInvokable;
     }
 
     public String getAliasIllegalArg() {
@@ -477,8 +477,8 @@ public final class AliasCore {
         return aliasReadResourcesNamesLength;
     }
 
-    public void setAliasReadResourcesNamesLength(String aliasReadResourcesNamesLength) {
-        this.aliasReadResourcesNamesLength = aliasReadResourcesNamesLength;
+    public void setAliasReadResourcesNamesLength(String _aliasReadResourcesNamesLength) {
+        this.aliasReadResourcesNamesLength = _aliasReadResourcesNamesLength;
     }
 
     public String getAliasReadResources() {
@@ -493,8 +493,8 @@ public final class AliasCore {
         return aliasReadResourcesIndex;
     }
 
-    public void setAliasReadResourcesIndex(String aliasReadResourcesIndex) {
-        this.aliasReadResourcesIndex = aliasReadResourcesIndex;
+    public void setAliasReadResourcesIndex(String _aliasReadResourcesIndex) {
+        this.aliasReadResourcesIndex = _aliasReadResourcesIndex;
     }
 
     public String getAliasResources() {
@@ -509,8 +509,8 @@ public final class AliasCore {
         return aliasArrayLength;
     }
 
-    public void setAliasArrayLength(String aliasArrayLength) {
-        this.aliasArrayLength = aliasArrayLength;
+    public void setAliasArrayLength(String _aliasArrayLength) {
+        this.aliasArrayLength = _aliasArrayLength;
     }
 
     public AliasParamCore getParams() {

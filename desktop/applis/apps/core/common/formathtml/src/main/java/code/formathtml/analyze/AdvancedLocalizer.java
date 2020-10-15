@@ -9,9 +9,9 @@ public final class AdvancedLocalizer implements AbstractLocalizer {
     private final AnalyzedPageEl page;
     private final AnalyzingDoc analyzingDoc;
 
-    public AdvancedLocalizer(AnalyzedPageEl page, AnalyzingDoc analyzingDoc) {
-        this.page = page;
-        this.analyzingDoc = analyzingDoc;
+    public AdvancedLocalizer(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
+        this.page = _page;
+        this.analyzingDoc = _analyzingDoc;
     }
 
     @Override

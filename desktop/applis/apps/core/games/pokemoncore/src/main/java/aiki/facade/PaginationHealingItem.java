@@ -392,8 +392,8 @@ public final class PaginationHealingItem extends
     protected boolean hasNoResult() {
         return getResults().isEmpty();
     }
-    protected void updateRendered(int end_) {
-        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), end_));
+    protected void updateRendered(int _end) {
+        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), _end));
     }
     protected void clearResults() {
         getResults().clear();
@@ -402,12 +402,12 @@ public final class PaginationHealingItem extends
         return getResults().size();
     }
 
-    protected int getIndex(int index_) {
-        return getResults().getKey(index_).getIndex();
+    protected int getIndex(int _index) {
+        return getResults().getKey(_index).getIndex();
     }
 
-    protected boolean isValidIndex(int index_) {
-        return getResults().getKeys().isValidIndex(index_);
+    protected boolean isValidIndex(int _index) {
+        return getResults().getKeys().isValidIndex(_index);
     }
 
     protected TreeMap<SortingHealingItem, String> getResults() {

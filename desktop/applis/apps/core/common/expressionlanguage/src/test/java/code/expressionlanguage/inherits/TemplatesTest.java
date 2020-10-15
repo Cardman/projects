@@ -3,13 +3,10 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -679,8 +676,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", t_);
     }
 
-    private static String getFullTypeByBasesTmp(ContextEl cont_, String _sub, String _sup) {
-        return ExecTemplates.getFullTypeByBases(_sub, _sup, cont_);
+    private static String getFullTypeByBasesTmp(ContextEl _cont, String _sub, String _sup) {
+        return ExecTemplates.getFullTypeByBases(_sub, _sup, _cont);
     }
 
     @Test
@@ -955,8 +952,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertEq("", getOverridingFullTypeByBases(cont_, "Inex", ""));
     }
 
-    private static String getOverridingFullTypeByBases(AnalyzedTestContext cont_, String _sub, String _sup) {
-        return ExecTemplates.getOverridingFullTypeByBases(_sub, _sup,cont_.getContext());
+    private static String getOverridingFullTypeByBases(AnalyzedTestContext _cont, String _sub, String _sup) {
+        return ExecTemplates.getOverridingFullTypeByBases(_sub, _sup,_cont.getContext());
     }
 
     private static AnalyzedTestContext unfullValidateOverridingMethodsStd(StringMap<String> _files) {
@@ -992,24 +989,24 @@ public final class TemplatesTest extends ProcessMethodCommon {
         return cont_;
     }
 
-    private static String getFullTypeByBases(AnalyzedTestContext context_, String s, String s2) {
-        return getFullTypeByBasesTmp(context_.getContext(), s, s2);
+    private static String getFullTypeByBases(AnalyzedTestContext _context, String _s, String _s2) {
+        return getFullTypeByBasesTmp(_context.getContext(), _s, _s2);
     }
 
-    private static String quickFormat(AnalyzedTestContext context_, String first_, String second_) {
-        return ExecTemplates.quickFormat(first_, second_, context_.getContext());
+    private static String quickFormat(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.quickFormat(_first, _second, _context.getContext());
     }
 
-    private static String format(AnalyzedTestContext context_, String first_, String second_) {
-        return ExecTemplates.format(first_, second_, context_.getContext());
+    private static String format(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.format(_first, _second, _context.getContext());
     }
 
     private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedTestContext _an) {
         return Templates.getAllInnerTypesSingleDotted(_type, _an.getAnalyzing());
     }
 
-    private static boolean correctNbParameters(AnalyzedTestContext cont_, String pkg) {
-        return ExecTemplates.correctNbParameters(pkg, cont_.getContext());
+    private static boolean correctNbParameters(AnalyzedTestContext _cont, String _pkg) {
+        return ExecTemplates.correctNbParameters(_pkg, _cont.getContext());
     }
 
 }

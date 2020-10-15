@@ -34,8 +34,8 @@ public final class IfBlockStack extends AbstractStask {
         return execLastBlock;
     }
 
-    public void setExecLastBlock(ExecBracedBlock execLastBlock) {
-        this.execLastBlock = execLastBlock;
+    public void setExecLastBlock(ExecBracedBlock _execLastBlock) {
+        this.execLastBlock = _execLastBlock;
     }
 
     public ExecBracedBlock getCurrentVisitedBlock() {

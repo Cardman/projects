@@ -616,12 +616,12 @@ public final class ElResolver {
         return i_;
     }
 
-    private static int incrInstanceOf(String _string, int len_, int _next) {
+    private static int incrInstanceOf(String _string, int _len, int _next) {
         int next_ = incrType(_next,_string);
-        if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
+        if (next_ < _len && _string.charAt(next_) == LOWER_CHAR) {
             int nbOpened_ = 1;
             next_++;
-            while (next_ < len_) {
+            while (next_ < _len) {
                 char curLoc_ = _string.charAt(next_);
                 if (curLoc_ == LOWER_CHAR) {
                     nbOpened_++;
@@ -645,10 +645,10 @@ public final class ElResolver {
                 next_++;
             }
         }
-        if (next_ < len_) {
+        if (next_ < _len) {
             char curLoc_ = _string.charAt(next_);
             if (curLoc_ == ARR_LEFT) {
-                while (next_ < len_) {
+                while (next_ < _len) {
                     curLoc_ = _string.charAt(next_);
                     if (Character.isWhitespace(curLoc_)) {
                         next_++;
@@ -1869,8 +1869,8 @@ public final class ElResolver {
         }
         return next_;
     }
-    private static boolean followedByParLeft(String _string, int len_, int afterSuper_) {
-        return afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT;
+    private static boolean followedByParLeft(String _string, int _len, int _afterSuper) {
+        return _afterSuper < _len && _string.charAt(_afterSuper) == PAR_LEFT;
     }
 
     private static int nextAfterWhite(int _i, String _string,int _len) {
@@ -2000,13 +2000,13 @@ public final class ElResolver {
         _out.setNextIndex(i_);
     }
 
-    static boolean isPureAffectation(String _string, int len_) {
-        int index_ = StringExpUtil.nextPrintCharIs(0, len_, _string, '=');
-        return hasCharOtherThanEq(_string, len_, index_);
+    static boolean isPureAffectation(String _string, int _len) {
+        int index_ = StringExpUtil.nextPrintCharIs(0, _len, _string, '=');
+        return hasCharOtherThanEq(_string, _len, index_);
     }
 
-    private static boolean hasCharOtherThanEq(String _string, int len_, int index_) {
-        return index_ > -1 && !StringExpUtil.nextCharIs(_string, index_ + 1, len_, '=');
+    private static boolean hasCharOtherThanEq(String _string, int _len, int _index) {
+        return _index > -1 && !StringExpUtil.nextCharIs(_string, _index + 1, _len, '=');
     }
 
     private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,

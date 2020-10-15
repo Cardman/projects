@@ -14,10 +14,10 @@ public final class RendSpan extends RendElement {
     private ExecTextPart result;
     private StringMap<String> formatted=new StringMap<String>();
 
-    public RendSpan(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, ExecTextPart result, StringMap<String> formatted) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.result = result;
-        this.formatted = formatted;
+    public RendSpan(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _result, StringMap<String> _formatted) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.result = _result;
+        this.formatted = _formatted;
     }
 
     @Override

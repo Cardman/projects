@@ -10,9 +10,9 @@ public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
     private final AnalyzedPageEl page;
     private final AnalyzingDoc analyzingDoc;
 
-    public AdvancedProcessKeyWord(AnalyzedPageEl page, AnalyzingDoc analyzingDoc) {
-        this.page = page;
-        this.analyzingDoc = analyzingDoc;
+    public AdvancedProcessKeyWord(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
+        this.page = _page;
+        this.analyzingDoc = _analyzingDoc;
     }
 
     @Override
@@ -21,12 +21,12 @@ public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
     }
 
     private static void processInternKeyWord(String _string, int _fr,
-                                             ResultAfterInstKeyWord _out, AnalyzedPageEl analyzing, AnalyzingDoc analyzingDoc) {
-        KeyWords keyWords_ = analyzing.getKeyWords();
+                                             ResultAfterInstKeyWord _out, AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {
+        KeyWords keyWords_ = _analyzing.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String sub_ = _string.substring(_fr);
         int i_ = _fr;
-        if (analyzingDoc.isInternGlobal()) {
+        if (_analyzingDoc.isInternGlobal()) {
             if (StringExpUtil.startsWithKeyWord(sub_, keyWordIntern_)) {
                 int afterSuper_ = i_ + keyWordIntern_.length();
                 String trim_ = _string.substring(afterSuper_).trim();

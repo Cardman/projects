@@ -7,10 +7,10 @@ public final class ParentInferring {
     private final OperationNode operation;
     private final int nbParentsInfer;
 
-    private ParentInferring(OperationNode operationChild, OperationNode operation, int nbParentsInfer) {
-        this.operationChild = operationChild;
-        this.operation = operation;
-        this.nbParentsInfer = nbParentsInfer;
+    private ParentInferring(OperationNode _operationChild, OperationNode _operation, int _nbParentsInfer) {
+        this.operationChild = _operationChild;
+        this.operation = _operation;
+        this.nbParentsInfer = _nbParentsInfer;
     }
 
     public static ParentInferring getParentInferring(OperationNode _from) {

@@ -44,7 +44,7 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
-    public void setImplicitCallSuper(boolean implicitCallSuper) {
-        this.implicitCallSuper = implicitCallSuper;
+    public void setImplicitCallSuper(boolean _implicitCallSuper) {
+        this.implicitCallSuper = _implicitCallSuper;
     }
 }

@@ -164,8 +164,8 @@ public final class AnaClassArgumentMatching {
         return unwrapObjectNb;
     }
 
-    public void setUnwrapObjectNb(byte unwrapObjectNb) {
-        this.unwrapObjectNb = unwrapObjectNb;
+    public void setUnwrapObjectNb(byte _unwrapObjectNb) {
+        this.unwrapObjectNb = _unwrapObjectNb;
     }
 
     public boolean isCheckOnlyNullPe() {
@@ -196,32 +196,32 @@ public final class AnaClassArgumentMatching {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumberTest() {
         return rootNumberTest;
     }
 
-    public void setRootNumberTest(int rootNumberTest) {
-        this.rootNumberTest = rootNumberTest;
+    public void setRootNumberTest(int _rootNumberTest) {
+        this.rootNumberTest = _rootNumberTest;
     }
 
     public int getMemberNumberTest() {
         return memberNumberTest;
     }
 
-    public void setMemberNumberTest(int memberNumberTest) {
-        this.memberNumberTest = memberNumberTest;
+    public void setMemberNumberTest(int _memberNumberTest) {
+        this.memberNumberTest = _memberNumberTest;
     }
 
 }

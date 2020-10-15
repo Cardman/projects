@@ -1669,40 +1669,40 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateEscapingsContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> escapings_) {
-        kw_.validateEscapingsContents(escapings_, s_.getAnalyzing());
+    private static void validateEscapingsContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _escapings) {
+        _kw.validateEscapingsContents(_escapings, _s.getAnalyzing());
     }
 
-    private static void validateBinarySeparators(KeyWords kw_, AnalyzedTestContext s_) {
-        kw_.validateBinarySeparators(s_.getAnalyzing());
+    private static void validateBinarySeparators(KeyWords _kw, AnalyzedTestContext _s) {
+        _kw.validateBinarySeparators(_s.getAnalyzing());
     }
 
-    private static void validateMethodsContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> methods_) {
-        ValidatorStandard.validateMethodsContents(methods_, prims_, s_.getAnalyzing());
+    private static void validateMethodsContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsContents(_methods, _prims, _s.getAnalyzing());
     }
 
-    private static void validateFieldsContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> fields_) {
-        ValidatorStandard.validateFieldsContents(fields_, prims_, s_.getAnalyzing());
+    private static void validateFieldsContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _fields) {
+        ValidatorStandard.validateFieldsContents(_fields, _prims, _s.getAnalyzing());
     }
 
-    private static void validateKeyWordDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> keyWords_) {
-        kw_.validateKeyWordDuplicates(keyWords_, s_.getAnalyzing());
+    private static void validateKeyWordDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _keyWords) {
+        _kw.validateKeyWordDuplicates(_keyWords, _s.getAnalyzing());
     }
 
-    private static void validateNbWordDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> nbWordsBin_) {
-        kw_.validateNbWordDuplicates(nbWordsBin_, s_.getAnalyzing());
+    private static void validateNbWordDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _nbWordsBin) {
+        _kw.validateNbWordDuplicates(_nbWordsBin, _s.getAnalyzing());
     }
 
-    private static void validatePrimitiveDuplicates(AnalyzedTestContext s_, StringMap<String> prims_) {
-        ValidatorStandard.validatePrimitiveDuplicates(prims_, s_.getAnalyzing());
+    private static void validatePrimitiveDuplicates(AnalyzedTestContext _s, StringMap<String> _prims) {
+        ValidatorStandard.validatePrimitiveDuplicates(_prims, _s.getAnalyzing());
     }
 
-    private static void validateMethodsDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> methods_) {
-        ValidatorStandard.validateMethodsDuplicates(methods_, s_.getAnalyzing());
+    private static void validateMethodsDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsDuplicates(_methods, _s.getAnalyzing());
     }
 
-    private static void validateVarTypesDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> varTypes_) {
-        ValidatorStandard.validateVarTypesDuplicates(varTypes_, s_.getAnalyzing());
+    private static void validateVarTypesDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _varTypes) {
+        ValidatorStandard.validateVarTypesDuplicates(_varTypes, _s.getAnalyzing());
     }
 
     @Test
@@ -2209,52 +2209,52 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateParamtersDuplicates(AnalyzedTestContext s_, CustList<CustList<KeyValueMemberName>> params_) {
-        ValidatorStandard.validateParamtersDuplicates(params_, s_.getAnalyzing());
+    private static void validateParamtersDuplicates(AnalyzedTestContext _s, CustList<CustList<KeyValueMemberName>> _params) {
+        ValidatorStandard.validateParamtersDuplicates(_params, _s.getAnalyzing());
     }
 
-    private static void validateKeyWordContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> keyWords_) {
-        kw_.validateKeyWordContents(keyWords_, s_.getAnalyzing());
+    private static void validateKeyWordContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _keyWords) {
+        _kw.validateKeyWordContents(_keyWords, _s.getAnalyzing());
     }
 
-    private static void validateNbWordContents(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> nbWords_) {
-        kw_.validateNbWordContents(nbWords_, s_.getAnalyzing());
+    private static void validateNbWordContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _nbWords) {
+        _kw.validateNbWordContents(_nbWords, _s.getAnalyzing());
     }
 
-    private static void validatePrimitiveContents(AnalyzedTestContext s_, StringMap<String> prims_) {
-        ValidatorStandard.validatePrimitiveContents(prims_, s_.getAnalyzing());
+    private static void validatePrimitiveContents(AnalyzedTestContext _s, StringMap<String> _prims) {
+        ValidatorStandard.validatePrimitiveContents(_prims, _s.getAnalyzing());
     }
 
-    private static void validateRefTypeContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<String> refTypes_) {
-        ValidatorStandard.validateRefTypeContents(refTypes_, prims_, s_.getAnalyzing());
+    private static void validateRefTypeContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<String> _refTypes) {
+        ValidatorStandard.validateRefTypeContents(_refTypes, _prims, _s.getAnalyzing());
     }
 
-    private static void validateParamtersContents(AnalyzedTestContext s_, StringMap<String> prims_, CustList<CustList<KeyValueMemberName>> params_) {
-        ValidatorStandard.validateParamtersContents(params_, prims_, s_.getAnalyzing());
+    private static void validateParamtersContents(AnalyzedTestContext _s, StringMap<String> _prims, CustList<CustList<KeyValueMemberName>> _params) {
+        ValidatorStandard.validateParamtersContents(_params, _prims, _s.getAnalyzing());
     }
 
-    private static void validateVarTypesContents(AnalyzedTestContext s_, StringMap<String> prims_, StringMap<CustList<KeyValueMemberName>> varTypes_) {
-        ValidatorStandard.validateVarTypesContents(varTypes_, prims_, s_.getAnalyzing());
+    private static void validateVarTypesContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _varTypes) {
+        ValidatorStandard.validateVarTypesContents(_varTypes, _prims, _s.getAnalyzing());
     }
 
-    private static void validateEscapingsDuplicates(KeyWords kw_, AnalyzedTestContext s_, StringMap<String> escapings_) {
-        kw_.validateEscapingsDuplicates(escapings_, s_.getAnalyzing());
+    private static void validateEscapingsDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _escapings) {
+        _kw.validateEscapingsDuplicates(_escapings, _s.getAnalyzing());
     }
 
-    private static void validateStartsPrefixesDuplicates(KeyWords kw_, AnalyzedTestContext s_) {
-        kw_.validateStartsPrefixesDuplicates(s_.getAnalyzing());
+    private static void validateStartsPrefixesDuplicates(KeyWords _kw, AnalyzedTestContext _s) {
+        _kw.validateStartsPrefixesDuplicates(_s.getAnalyzing());
     }
 
-    private static void validateRefTypeDuplicates(AnalyzedTestContext s_, StringMap<String> refTypes_) {
-        ValidatorStandard.validateRefTypeDuplicates(refTypes_, s_.getAnalyzing());
+    private static void validateRefTypeDuplicates(AnalyzedTestContext _s, StringMap<String> _refTypes) {
+        ValidatorStandard.validateRefTypeDuplicates(_refTypes, _s.getAnalyzing());
     }
 
-    private static void validateFieldsDuplicates(AnalyzedTestContext s_, StringMap<CustList<KeyValueMemberName>> fields_) {
-        ValidatorStandard.validateFieldsDuplicates(fields_, s_.getAnalyzing());
+    private static void validateFieldsDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _fields) {
+        ValidatorStandard.validateFieldsDuplicates(_fields, _s.getAnalyzing());
     }
 
-    private static void validateMergedDuplicates(AnalyzedTestContext s_, CustList<CustList<KeyValueMemberName>> merge_) {
-        ValidatorStandard.validateMergedDuplicates(merge_, s_.getAnalyzing());
+    private static void validateMergedDuplicates(AnalyzedTestContext _s, CustList<CustList<KeyValueMemberName>> _merge) {
+        ValidatorStandard.validateMergedDuplicates(_merge, _s.getAnalyzing());
     }
     @Test
     public void success1Test() {
@@ -2327,51 +2327,51 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
-    private static AnalyzedTestContext getCtx(KeyWords kw_, LgNames lgName_, Options _options, AbstractConstantsCalculator _calculator) {
+    private static AnalyzedTestContext getCtx(KeyWords _kw, LgNames _lgName, Options _options, AbstractConstantsCalculator _calculator) {
         AnalysisMessages mess_ = new AnalysisMessages();
-        ContextEl ctx_ = lgName_.newContext(4,-1, new Coverage(_options.isCovering()));
+        ContextEl ctx_ = _lgName.newContext(4,-1, new Coverage(_options.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
-        page_.setKeyWords(kw_);
-        page_.setFileBuilder(DefaultFileBuilder.newInstance(lgName_.getContent()));
-        page_.setStandards(lgName_.getContent());
+        page_.setKeyWords(_kw);
+        page_.setFileBuilder(DefaultFileBuilder.newInstance(_lgName.getContent()));
+        page_.setStandards(_lgName.getContent());
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         return new AnalyzedTestContext(ctx_,page_, new Forwards());
     }
 
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
     }
 
-    private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
+    private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
     }
 
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
     }
 
-    private static StringMap<String> allPrimitives(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allPrimitives();
+    private static StringMap<String> allPrimitives(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allPrimitives();
     }
 
-    private static StringMap<String> allRefTypes(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allRefTypes();
+    private static StringMap<String> allRefTypes(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allRefTypes();
     }
 
-    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
+    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
     }
 
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedTestContext lgName_) {
-        return lgName_.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedTestContext _lgName) {
+        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
     }
 
 
-    private static AnalyzedTestContext getCtx(KeyWords kw_, LgNames lgName_) {
-        return getCtx(kw_, lgName_, new Options(), null);
+    private static AnalyzedTestContext getCtx(KeyWords _kw, LgNames _lgName) {
+        return getCtx(_kw, _lgName, new Options(), null);
     }
     @Test
     public void getAlias1() {

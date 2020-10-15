@@ -11,23 +11,23 @@ public final class FoundSuperType {
         return type;
     }
 
-    public void setType(RootBlock type) {
-        this.type = type;
+    public void setType(RootBlock _type) {
+        this.type = _type;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String _name) {
+        this.name = _name;
     }
 
     public int getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
-        this.location = location;
+    public void setLocation(int _location) {
+        this.location = _location;
     }
 }

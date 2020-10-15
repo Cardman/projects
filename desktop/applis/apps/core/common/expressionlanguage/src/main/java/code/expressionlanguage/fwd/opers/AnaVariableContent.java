@@ -19,24 +19,24 @@ public final class AnaVariableContent {
         return variable;
     }
 
-    public void setVariable(boolean variable) {
-        this.variable = variable;
+    public void setVariable(boolean _variable) {
+        this.variable = _variable;
     }
 
     public boolean isCatString() {
         return catString;
     }
 
-    public void setCatString(boolean catString) {
-        this.catString = catString;
+    public void setCatString(boolean _catString) {
+        this.catString = _catString;
     }
 
     public String getVariableName() {
         return variableName;
     }
 
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
+    public void setVariableName(String _variableName) {
+        this.variableName = _variableName;
     }
 
     public int getOff() {
@@ -47,7 +47,7 @@ public final class AnaVariableContent {
         return deep;
     }
 
-    public void setDeep(int deep) {
-        this.deep = deep;
+    public void setDeep(int _deep) {
+        this.deep = _deep;
     }
 }

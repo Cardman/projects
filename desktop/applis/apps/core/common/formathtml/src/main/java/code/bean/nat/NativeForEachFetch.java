@@ -8,8 +8,8 @@ import code.util.core.StringUtil;
 public final class NativeForEachFetch implements AbstractForEachFetch {
     private final BeanNatLgNames stds;
 
-    public NativeForEachFetch(BeanNatLgNames stds) {
-        this.stds = stds;
+    public NativeForEachFetch(BeanNatLgNames _stds) {
+        this.stds = _stds;
     }
 
     @Override

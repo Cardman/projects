@@ -10,8 +10,8 @@ import code.util.core.StringUtil;
 public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalysis {
     private final AnalyzedPageEl context;
 
-    public DefaultAnnotationAnalysis(AnalyzedPageEl context) {
-        this.context = context;
+    public DefaultAnnotationAnalysis(AnalyzedPageEl _context) {
+        this.context = _context;
     }
 
     @Override

@@ -8,10 +8,10 @@ public final class ExecOverrideInfo {
     private final ExecRootBlock rootBlock;
     private final ExecNamedFunctionBlock overridableBlock;
 
-    public ExecOverrideInfo(String className, ExecRootBlock rootBlock, ExecNamedFunctionBlock overridableBlock) {
-        this.className = className;
-        this.rootBlock = rootBlock;
-        this.overridableBlock = overridableBlock;
+    public ExecOverrideInfo(String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _overridableBlock) {
+        this.className = _className;
+        this.rootBlock = _rootBlock;
+        this.overridableBlock = _overridableBlock;
     }
 
     public String getClassName() {

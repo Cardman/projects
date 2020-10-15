@@ -53,9 +53,9 @@ public final class ResourcesStruct {
 		return getResourceIndex(_in, res_);
 	}
 
-	private static Struct getResourceIndex(Struct _in, StringMap<String> res_) {
+	private static Struct getResourceIndex(Struct _in, StringMap<String> _res) {
 		int name_ = NumParsers.convertToNumber(_in).intStruct();
-		CustList<String> values_ = res_.getKeys();
+		CustList<String> values_ = _res.getKeys();
 		if (values_.isValidIndex(name_)) {
 			return  Argument.wrapStr(values_.get(name_));
 		}

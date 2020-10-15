@@ -291,23 +291,23 @@ public final class ImportingPage {
         return lastTry;
     }
 
-    public void setLastTry(RendTryBlockStack lastTry) {
-        this.lastTry = lastTry;
+    public void setLastTry(RendTryBlockStack _lastTry) {
+        this.lastTry = _lastTry;
     }
 
     public RendIfStack getLastIf() {
         return lastIf;
     }
 
-    public void setLastIf(RendIfStack lastIf) {
-        this.lastIf = lastIf;
+    public void setLastIf(RendIfStack _lastIf) {
+        this.lastIf = _lastIf;
     }
 
     public RendLoopBlockStack getLastLoop() {
         return lastLoop;
     }
 
-    public void setLastLoop(RendLoopBlockStack lastLoop) {
-        this.lastLoop = lastLoop;
+    public void setLastLoop(RendLoopBlockStack _lastLoop) {
+        this.lastLoop = _lastLoop;
     }
 }

@@ -141,8 +141,8 @@ public final class AnalyzingEl {
         return variableIssue;
     }
 
-    public void setVariableIssue(boolean variableIssue) {
-        this.variableIssue = variableIssue;
+    public void setVariableIssue(boolean _variableIssue) {
+        this.variableIssue = _variableIssue;
     }
 
 }

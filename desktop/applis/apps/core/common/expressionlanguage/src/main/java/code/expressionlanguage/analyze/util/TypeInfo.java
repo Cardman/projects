@@ -22,8 +22,8 @@ public final class TypeInfo {
         return scope;
     }
 
-    public void setScope(MethodAccessKind scope) {
-        this.scope = scope;
+    public void setScope(MethodAccessKind _scope) {
+        this.scope = _scope;
     }
 
     public int getAncestor() {
@@ -38,15 +38,15 @@ public final class TypeInfo {
         return base;
     }
 
-    public void setBase(boolean base) {
-        this.base = base;
+    public void setBase(boolean _base) {
+        this.base = _base;
     }
 
     public StringList getSuperTypes() {
         return superTypes;
     }
 
-    public void setSuperTypes(StringList superTypes) {
-        this.superTypes = superTypes;
+    public void setSuperTypes(StringList _superTypes) {
+        this.superTypes = _superTypes;
     }
 }

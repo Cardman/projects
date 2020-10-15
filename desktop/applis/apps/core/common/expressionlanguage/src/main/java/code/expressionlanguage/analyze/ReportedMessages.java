@@ -66,7 +66,7 @@ public final class ReportedMessages {
         return errors;
     }
 
-    public void setErrors(StringMap<String> errors) {
-        this.errors = errors;
+    public void setErrors(StringMap<String> _errors) {
+        this.errors = _errors;
     }
 }

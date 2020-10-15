@@ -190,22 +190,22 @@ public final class AnaPartTypeUtil {
         return new AnaResultPartType(root_.getAnalyzedType(),root_);
     }
 
-    private static void processInexist(String _input, AnaPartType current_, AnalyzedPageEl _page) {
-        if (current_ instanceof AnaEmptyPartType) {
-            AnaParentPartType par_ = current_.getParent();
+    private static void processInexist(String _input, AnaPartType _current, AnalyzedPageEl _page) {
+        if (_current instanceof AnaEmptyPartType) {
+            AnaParentPartType par_ = _current.getParent();
             if (par_ != null) {
                 return;
             }
-            current_.processInexistType(_input, _page);
-            current_.buildOffsetPartDefault(_page);
+            _current.processInexistType(_input, _page);
+            _current.buildOffsetPartDefault(_page);
             return;
         }
-        current_.processInexistType(_input, _page);
-        if (current_ instanceof AnaParentPartType) {
-            ((AnaParentPartType)current_).buildErrorInexist(_page);
+        _current.processInexistType(_input, _page);
+        if (_current instanceof AnaParentPartType) {
+            ((AnaParentPartType)_current).buildErrorInexist(_page);
             return;
         }
-        current_.buildOffsetPartDefault(_page);
+        _current.buildOffsetPartDefault(_page);
     }
 
     private static void checkAccessGeneral(String _gl, AnaPartType _current, AnalyzedPageEl _page) {
@@ -275,11 +275,11 @@ public final class AnaPartTypeUtil {
         return ok_;
     }
 
-    private static void processErrorParamCount(AnaPartType current_, AnalyzedPageEl _page) {
-        AnaPartType ch_ = current_.getFirstChild();
-        if (ch_ != null&&current_ instanceof AnaTemplatePartType) {
+    private static void processErrorParamCount(AnaPartType _current, AnalyzedPageEl _page) {
+        AnaPartType ch_ = _current.getFirstChild();
+        if (ch_ != null&&_current instanceof AnaTemplatePartType) {
             String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), ch_.getAnalyzedType());
-            current_.getErrs().add(err_);
+            _current.getErrs().add(err_);
             return;
         }
         AnaPartType l_ = ch_;
@@ -290,10 +290,10 @@ public final class AnaPartTypeUtil {
         if (l_ != null) {
             //inner
             String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), l_.getAnalyzedType());
-            current_.getErrs().add(err_);
+            _current.getErrs().add(err_);
             return;
         }
-        current_.processBadFormedOffsets(_page);
+        _current.processBadFormedOffsets(_page);
     }
 
     private static boolean isNotCorrectParam(AnaPartType _current, AnalyzedPageEl _page) {
@@ -372,12 +372,12 @@ public final class AnaPartTypeUtil {
         return ok_;
     }
 
-    private static void processBadLen(AnaParentPartType par_, AnalyzedPageEl _page) {
-        if (par_ instanceof AnaTemplatePartType) {
-            ((AnaTemplatePartType)par_).processBadLen(_page);
+    private static void processBadLen(AnaParentPartType _par, AnalyzedPageEl _page) {
+        if (_par instanceof AnaTemplatePartType) {
+            ((AnaTemplatePartType)_par).processBadLen(_page);
         }
-        if (par_ instanceof AnaInnerPartType) {
-            par_.buildErrorInexist(_page);
+        if (_par instanceof AnaInnerPartType) {
+            _par.buildErrorInexist(_page);
         }
     }
 
@@ -585,12 +585,12 @@ public final class AnaPartTypeUtil {
         return new AnaResultPartType(analyzedType_,root_);
     }
 
-    private static void processLeafOffsets(AccessedBlock _rooted, AnaPartType current_, AnalyzedPageEl _page) {
-        if (current_ instanceof AnaNamePartType) {
-            ((AnaNamePartType)current_).processOffsets(_rooted, _page);
+    private static void processLeafOffsets(AccessedBlock _rooted, AnaPartType _current, AnalyzedPageEl _page) {
+        if (_current instanceof AnaNamePartType) {
+            ((AnaNamePartType)_current).processOffsets(_rooted, _page);
         }
-        if (current_ instanceof AnaVariablePartType) {
-            ((AnaVariablePartType)current_).processOffsets(_rooted, _page);
+        if (_current instanceof AnaVariablePartType) {
+            ((AnaVariablePartType)_current).processOffsets(_rooted, _page);
         }
     }
 
@@ -642,10 +642,10 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static void appendEnd(CustList<PartOffset> _offs, AnaParentPartType par_) {
-        if (par_ instanceof AnaTemplatePartType) {
-            _offs.add(((AnaTemplatePartType)par_).getLastPartBegin());
-            _offs.add(((AnaTemplatePartType)par_).getLastPartEnd());
+    private static void appendEnd(CustList<PartOffset> _offs, AnaParentPartType _par) {
+        if (_par instanceof AnaTemplatePartType) {
+            _offs.add(((AnaTemplatePartType)_par).getLastPartBegin());
+            _offs.add(((AnaTemplatePartType)_par).getLastPartEnd());
         }
     }
 

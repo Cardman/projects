@@ -12,12 +12,12 @@ public final class RendDocumentBlock extends RendParentBlock {
     private String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
 
-    public RendDocumentBlock(int _offsetTrim, Element elt, String file, String fileName, String beanName) {
+    public RendDocumentBlock(int _offsetTrim, Element _elt, String _file, String _fileName, String _beanName) {
         super(_offsetTrim);
-        this.elt = elt;
-        this.file = file;
-        this.fileName = fileName;
-        this.beanName = beanName;
+        this.elt = _elt;
+        this.file = _file;
+        this.fileName = _fileName;
+        this.beanName = _beanName;
     }
 
     public Element getElt() {

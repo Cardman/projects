@@ -2,9 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -996,7 +994,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1458,7 +1456,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1517,7 +1515,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1576,7 +1574,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1591,10 +1589,6 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         subField_ = getField(field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, ((NumberStruct)subField_).intStruct());
-    }
-
-    private static boolean isInitialized(ContextEl cont_) {
-        return cont_.getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
     }
 
     @Test

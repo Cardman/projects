@@ -541,12 +541,12 @@ public final class RenderSwitchTest extends CommonRender {
         files_.put("ex_enum",enum_.toString());
         assertEq("<html><body>10</body></html>", getRes(html_, files_));
     }
-    private String getRes(String html_, StringMap<String> files_) {
-        return getCommRes(html_, files_);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html, _files);
     }
 
-    private Struct getEx(String html_, StringMap<String> _files) {
-        return getCommEx(html_, _files);
+    private Struct getEx(String _html, StringMap<String> _files) {
+        return getCommEx(_html, _files);
     }
 
     @Test
@@ -802,7 +802,7 @@ public final class RenderSwitchTest extends CommonRender {
         String html_ = "<html><body><c:switch value='10' label=','><c:case value='8'/></c:switch></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> files_) {
-        return hasCommErr(html_, files_);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

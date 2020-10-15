@@ -37,8 +37,8 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(1, game_.getRamasseur());
     }
 
-    private static void initDonneLoc(RulesTarot rules_, DealTarot deal_) {
-        deal_.initDonne(rules_, new DefaultGenerator());
+    private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {
+        _deal.initDonne(_rules, new DefaultGenerator());
     }
 
     @Test

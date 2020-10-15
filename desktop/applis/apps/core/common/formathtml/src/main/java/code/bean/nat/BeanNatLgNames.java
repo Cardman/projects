@@ -434,10 +434,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     ContextEl setupNative(AnalyzedPageEl _page) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        Options _options = new Options();
+        Options options_ = new Options();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, _options, this, tabWidth_);
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, this, tabWidth_);
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
         return contextEl_;
     }
 

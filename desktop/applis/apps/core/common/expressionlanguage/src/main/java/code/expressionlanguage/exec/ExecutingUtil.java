@@ -723,29 +723,29 @@ public final class ExecutingUtil {
 
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index) {
         AbstractPageEl call_ = _cont.getCall(_index);
-        int indexFileType = call_.getTraceIndex();
+        int indexFileType_ = call_.getTraceIndex();
         ExecFileBlock f_ = call_.getFile();
-        String fileName;
-        int row;
-        int col;
+        String fileName_;
+        int row_;
+        int col_;
         if (f_ != null) {
-            fileName = f_.getFileName();
+            fileName_ = f_.getFileName();
             FileMetrics metrics_ = f_.getMetrics(_cont.getTabWidth());
-            row = metrics_.getRowFile(indexFileType);
-            col = metrics_.getColFile(indexFileType,row);
+            row_ = metrics_.getRowFile(indexFileType_);
+            col_ = metrics_.getColFile(indexFileType_,row_);
         } else {
-            fileName = "";
-            row = 0;
-            col = 0;
+            fileName_ = "";
+            row_ = 0;
+            col_ = 0;
         }
-        String currentClassName = call_.getGlobalClass();
+        String currentClassName_ = call_.getGlobalClass();
         ExecBlock bl_ = call_.getBlockRoot();
         if (bl_ instanceof ExecReturnableWithSignature) {
-            String signature =((ExecReturnableWithSignature)bl_).getSignature(_cont);
-            return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
+            String signature_ =((ExecReturnableWithSignature)bl_).getSignature(_cont);
+            return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
         }
-        String signature = "";
-        return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
+        String signature_ = "";
+        return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
     }
 
     public static void addPage(ContextEl _cont,AbstractPageEl _page) {

@@ -6,9 +6,9 @@ final class CodeAccess {
     private final int code;
     private final RootBlock root;
 
-    CodeAccess(int code, RootBlock root) {
-        this.code = code;
-        this.root = root;
+    CodeAccess(int _code, RootBlock _root) {
+        this.code = _code;
+        this.root = _root;
     }
 
     RootBlock getRoot() {

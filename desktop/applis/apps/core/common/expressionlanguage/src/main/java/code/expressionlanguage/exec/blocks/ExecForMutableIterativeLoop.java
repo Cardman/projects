@@ -40,18 +40,20 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
 
     private CustList<ExecOperationNode> opStep;
 
-    public ExecForMutableIterativeLoop(String label, String importedClassName, String importedClassIndexName, StringList variableNames, int initOffset, int expressionOffset, int stepOffset, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep, int _offsetTrim) {
+    public ExecForMutableIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, StringList _variableNames,
+                                       int _initOffset, int _expressionOffset, int _stepOffset,
+                                       CustList<ExecOperationNode> _opInit, CustList<ExecOperationNode> _opExp, CustList<ExecOperationNode> _opStep, int _offsetTrim) {
         super(_offsetTrim);
-        this.label = label;
-        this.importedClassName = importedClassName;
-        this.importedClassIndexName = importedClassIndexName;
-        this.variableNames = variableNames;
-        this.initOffset = initOffset;
-        this.expressionOffset = expressionOffset;
-        this.stepOffset = stepOffset;
-        this.opInit = opInit;
-        this.opExp = opExp;
-        this.opStep = opStep;
+        this.label = _label;
+        this.importedClassName = _importedClassName;
+        this.importedClassIndexName = _importedClassIndexName;
+        this.variableNames = _variableNames;
+        this.initOffset = _initOffset;
+        this.expressionOffset = _expressionOffset;
+        this.stepOffset = _stepOffset;
+        this.opInit = _opInit;
+        this.opExp = _opExp;
+        this.opStep = _opStep;
     }
 
     @Override

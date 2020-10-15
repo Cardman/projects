@@ -49,8 +49,8 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return metaInfo;
     }
 
-    public void setMetaInfo(Struct metaInfo) {
-        this.metaInfo = metaInfo;
+    public void setMetaInfo(Struct _metaInfo) {
+        this.metaInfo = _metaInfo;
     }
 
     public String getFormClassName() {
@@ -95,8 +95,8 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         directCast = _directCast;
     }
 
-    public void setExpCast(boolean expCast) {
-        this.expCast = expCast;
+    public void setExpCast(boolean _expCast) {
+        this.expCast = _expCast;
     }
 
     @Override

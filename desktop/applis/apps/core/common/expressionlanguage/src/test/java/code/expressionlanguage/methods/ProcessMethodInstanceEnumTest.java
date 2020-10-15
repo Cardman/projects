@@ -1136,10 +1136,6 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("code.expressionlanguage.exceptions.DivideZeroException",c_.getClassName(cont_));
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void initializeClass2FailTest() {
         StringBuilder xml_ = new StringBuilder();

@@ -34,8 +34,8 @@ public final class AnaOperationContent {
         return resultClass;
     }
 
-    public void setResultClass(AnaClassArgumentMatching resultClass) {
-        this.resultClass = resultClass;
+    public void setResultClass(AnaClassArgumentMatching _resultClass) {
+        this.resultClass = _resultClass;
     }
 
     public int getIndexBegin() {
@@ -46,15 +46,15 @@ public final class AnaOperationContent {
         return argument;
     }
 
-    public void setArgument(Argument argument) {
-        this.argument = argument;
+    public void setArgument(Argument _argument) {
+        this.argument = _argument;
     }
 
     public int getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrder(int _order) {
+        this.order = _order;
     }
 }

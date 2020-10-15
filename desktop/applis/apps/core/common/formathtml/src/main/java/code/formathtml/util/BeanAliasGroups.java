@@ -9,8 +9,8 @@ import code.util.StringMap;
 
 public class BeanAliasGroups extends DefaultAliasGroups {
     private DefaultBeanAliases beanAliases;
-    public BeanAliasGroups(DefaultBeanAliases _beanAliases,LgNamesContent content) {
-        super(content);
+    public BeanAliasGroups(DefaultBeanAliases _beanAliases,LgNamesContent _content) {
+        super(_content);
         beanAliases = _beanAliases;
     }
 

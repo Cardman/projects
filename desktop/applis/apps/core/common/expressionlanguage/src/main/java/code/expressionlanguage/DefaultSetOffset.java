@@ -3,8 +3,8 @@ package code.expressionlanguage;
 public final class DefaultSetOffset implements AbstractSetOffset {
     private final ContextEl context;
 
-    public DefaultSetOffset(ContextEl context) {
-        this.context = context;
+    public DefaultSetOffset(ContextEl _context) {
+        this.context = _context;
     }
 
     @Override

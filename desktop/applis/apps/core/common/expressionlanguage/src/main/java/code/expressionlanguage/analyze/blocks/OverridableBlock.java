@@ -66,12 +66,12 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         normalMethod = StringUtil.quickEq(modifier_, keyWordNormal_);
     }
 
-    public void setDefinition(String definition) {
-        this.definition = definition;
+    public void setDefinition(String _definition) {
+        this.definition = _definition;
     }
 
-    public void setDefinitionOffset(int definitionOffset) {
-        this.definitionOffset = definitionOffset;
+    public void setDefinitionOffset(int _definitionOffset) {
+        this.definitionOffset = _definitionOffset;
     }
 
     @Override
@@ -265,15 +265,15 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return nameOverrideNumber;
     }
 
-    public void setNameOverrideNumber(int nameOverrideNumber) {
-        this.nameOverrideNumber = nameOverrideNumber;
+    public void setNameOverrideNumber(int _nameOverrideNumber) {
+        this.nameOverrideNumber = _nameOverrideNumber;
     }
 
     public String getReturnTypeGet() {
         return returnTypeGet;
     }
 
-    public void setReturnTypeGet(String returnTypeGet) {
-        this.returnTypeGet = returnTypeGet;
+    public void setReturnTypeGet(String _returnTypeGet) {
+        this.returnTypeGet = _returnTypeGet;
     }
 }

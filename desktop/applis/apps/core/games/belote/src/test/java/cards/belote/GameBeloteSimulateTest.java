@@ -44,8 +44,8 @@ public final class GameBeloteSimulateTest {
         assertEq(0,game_.getBids().size());
     }
 
-    private static void initDonneLoc(RulesBelote rules_, DealBelote deal_) {
-        deal_.initDonne(rules_, new DisplayingBelote(), new DefaultGenerator());
+    private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
+        _deal.initDonne(_rules, new DisplayingBelote(), new DefaultGenerator());
     }
 
     @Test

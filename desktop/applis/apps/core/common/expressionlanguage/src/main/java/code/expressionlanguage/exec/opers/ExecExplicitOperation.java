@@ -43,9 +43,9 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     public static Argument prepare(AbstractExiting _exit, ExecRootBlock _rootBlock, boolean _direct, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,
                                    String _classNameOwner, AbstractPageEl _page, ContextEl _conf) {
         if (direct(_direct, _castOpId, _className)) {
-            return getArgument(_arguments, _className, _page, _conf);
+            return getFormattedArgument(_arguments, _className, _conf);
         }
-        checkCustomOper(_exit, _rootBlock, _castOpId, _arguments, _classNameOwner, _page, _conf,null);
+        checkFormattedCustomOper(_exit, _rootBlock, _castOpId, _arguments, _classNameOwner, _conf,null);
         return Argument.createVoid();
     }
 
@@ -54,31 +54,31 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _classNameOwner, AbstractPageEl _page, ContextEl _conf, Argument _fwd) {
+    public static boolean checkFormattedCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _classNameOwner, ContextEl _conf, Argument _fwd) {
         String paramNameOwner_ = _conf.formatVarType(_classNameOwner);
         return checkCustomOper(_exit, _rootBlock, _castOpId, _arguments, paramNameOwner_, _conf, _fwd);
     }
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String paramNameOwner_, ContextEl _conf, Argument _fwd) {
-        if (_exit.hasToExit(paramNameOwner_,_fwd)) {
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _paramNameOwner, ContextEl _conf, Argument _fwd) {
+        if (_exit.hasToExit(_paramNameOwner,_fwd)) {
             return true;
         }
-        Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _castOpId, true, paramNameOwner_, _arguments, _conf, null);
+        Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _castOpId, true, _paramNameOwner, _arguments, _conf, null);
         if (parameters_.getError() != null) {
             return true;
         }
-        _conf.setCallingState(new CustomFoundCast(paramNameOwner_,_rootBlock,_castOpId,parameters_));
+        _conf.setCallingState(new CustomFoundCast(_paramNameOwner,_rootBlock,_castOpId,parameters_));
         return false;
     }
 
-    public static Argument getArgument(CustList<Argument> _arguments, String _className, AbstractPageEl _page, ContextEl _conf) {
+    public static Argument getFormattedArgument(CustList<Argument> _arguments, String _className, ContextEl _conf) {
         String paramName_ = _conf.formatVarType(_className);
         return getArgument(_arguments, paramName_, _conf);
     }
 
-    public static Argument getArgument(CustList<Argument> _arguments, String paramName_, ContextEl _conf) {
+    public static Argument getArgument(CustList<Argument> _arguments, String _paramName, ContextEl _conf) {
         Argument objArg_ = new Argument(_arguments.first().getStruct());
-        ExecTemplates.checkObject(paramName_, objArg_, _conf);
+        ExecTemplates.checkObject(_paramName, objArg_, _conf);
         return objArg_;
     }
 }

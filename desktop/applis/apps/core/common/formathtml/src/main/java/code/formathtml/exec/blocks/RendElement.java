@@ -15,11 +15,11 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
     private StringMap<ExecTextPart> execAttributes;
     private StringMap<ExecTextPart> execAttributesText;
 
-    public RendElement(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText) {
+    public RendElement(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
         super(_offsetTrim);
-        this.read = read;
-        this.execAttributes = execAttributes;
-        this.execAttributesText = execAttributesText;
+        this.read = _read;
+        this.execAttributes = _execAttributes;
+        this.execAttributesText = _execAttributesText;
     }
 
     public final Element getRead() {

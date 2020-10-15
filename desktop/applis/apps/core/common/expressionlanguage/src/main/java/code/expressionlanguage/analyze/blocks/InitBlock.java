@@ -25,7 +25,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNumber(int _number) {
+        this.number = _number;
     }
 }

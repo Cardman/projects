@@ -56,8 +56,8 @@ public final class EquallableBeloteUtil {
         Assert.assertEquals(_expected,_result);
     }
 
-    public static void assertEqSet(CustList<BidBeloteSuit> bids_, CustList<BidBeloteSuit> expected_) {
-        Assert.assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
+    public static void assertEqSet(CustList<BidBeloteSuit> _bids, CustList<BidBeloteSuit> _expected) {
+        Assert.assertTrue(EquallableBeloteUtil.equalsSet(_expected,_bids));
     }
 
     private static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {

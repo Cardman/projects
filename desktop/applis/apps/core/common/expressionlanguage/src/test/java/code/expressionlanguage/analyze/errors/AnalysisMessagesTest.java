@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.errors;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -249,7 +248,7 @@ public final class AnalysisMessagesTest {
         assertTrue(!page_.isEmptyMessageError());
     }
 
-    private static ContextEl getCtx(LgNames lgName_, Options opts_) {
-        return lgName_.newContext(4,-1, new Coverage(opts_.isCovering()));
+    private static ContextEl getCtx(LgNames _lgName, Options _opts) {
+        return _lgName.newContext(4,-1, new Coverage(_opts.isCovering()));
     }
 }

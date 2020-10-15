@@ -269,17 +269,17 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
-    private Struct getEx(String html_, StringMap<String> _files) {
-        return getCommEx(html_, _files);
+    private Struct getEx(String _html, StringMap<String> _files) {
+        return getCommEx(_html, _files);
     }
 
 
-    private String getResOneBean(String html_, StringMap<String> filesSec_) {
-        return getCommOneBean(html_, filesSec_);
+    private String getResOneBean(String _html, StringMap<String> _filesSec) {
+        return getCommOneBean(_html, _filesSec);
     }
 
-    private String getRes(String html_, StringMap<String> files_) {
-        return getCommRes(html_,files_);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
     @Test
     public void process1FailTest() {
@@ -404,8 +404,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         files_.put(CUST_LIST_PATH, getCustomList());
         assertTrue(hasErr(html_,files_));
     }
-    private boolean hasErr(String html_, StringMap<String> files_) {
-        return hasCommErr(html_, files_);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 
 

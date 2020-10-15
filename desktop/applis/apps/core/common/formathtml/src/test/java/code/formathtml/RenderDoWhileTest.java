@@ -57,12 +57,12 @@ public final class RenderDoWhileTest extends CommonRender {
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do label='lab'>{i}<br/><c:set value='i++'/><c:break label='lab'/></c:do><c:while condition='i&lt;=2'/></body></html>";
         assertEq("<html><body>0<br/></body></html>", getRes(html_, new StringMap<String>()));
     }
-    private Struct getEx(String html_, StringMap<String> _files) {
-        return getCommEx(html_,_files);
+    private Struct getEx(String _html, StringMap<String> _files) {
+        return getCommEx(_html,_files);
     }
 
-    private String getRes(String html_, StringMap<String> _files) {
-        return getCommRes(html_,_files);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -100,7 +100,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do label=','>{i}<br/><c:set value='i++'/></c:do><c:while condition='i&lt;=2'/></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

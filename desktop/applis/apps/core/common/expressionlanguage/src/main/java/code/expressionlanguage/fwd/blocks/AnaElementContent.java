@@ -10,15 +10,15 @@ public final class AnaElementContent {
         return fieldName;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+    public void setFieldName(String _fieldName) {
+        this.fieldName = _fieldName;
     }
 
     public int getFieldNameOffest() {
         return fieldNameOffest;
     }
 
-    public void setFieldNameOffest(int fieldNameOffest) {
-        this.fieldNameOffest = fieldNameOffest;
+    public void setFieldNameOffest(int _fieldNameOffest) {
+        this.fieldNameOffest = _fieldNameOffest;
     }
 }

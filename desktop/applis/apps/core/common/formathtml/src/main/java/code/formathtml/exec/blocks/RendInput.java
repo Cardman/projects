@@ -25,20 +25,23 @@ public abstract class RendInput extends RendElement {
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
 
-    public RendInput(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, String varName, String varNameConverter, String varNameConverterField, String id, String idClass, String idName, String className) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.opsRead = opsRead;
-        this.opsValue = opsValue;
-        this.opsWrite = opsWrite;
-        this.opsConverter = opsConverter;
-        this.opsConverterField = opsConverterField;
-        this.varName = varName;
-        this.varNameConverter = varNameConverter;
-        this.varNameConverterField = varNameConverterField;
-        this.id = id;
-        this.idClass = idClass;
-        this.idName = idName;
-        this.className = className;
+    public RendInput(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+                     CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+                     CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField, String _varName, String _varNameConverter,
+                     String _varNameConverterField, String _id, String _idClass, String _idName, String _className) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.opsRead = _opsRead;
+        this.opsValue = _opsValue;
+        this.opsWrite = _opsWrite;
+        this.opsConverter = _opsConverter;
+        this.opsConverterField = _opsConverterField;
+        this.varName = _varName;
+        this.varNameConverter = _varNameConverter;
+        this.varNameConverterField = _varNameConverterField;
+        this.id = _id;
+        this.idClass = _idClass;
+        this.idName = _idName;
+        this.className = _className;
     }
 
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx) {

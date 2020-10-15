@@ -3764,10 +3764,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertSame(NullStruct.NULL_VALUE,elt_);
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void calculateArgument76Test() {
         StringBuilder xml_ = new StringBuilder();

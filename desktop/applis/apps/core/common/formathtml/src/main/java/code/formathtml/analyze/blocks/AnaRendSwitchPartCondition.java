@@ -14,16 +14,16 @@ public abstract class AnaRendSwitchPartCondition extends AnaRendParentBlock {
         return importedClassName;
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
+    public void setImportedClassName(String _importedClassName) {
+        this.importedClassName = _importedClassName;
     }
 
     public String getVariableName() {
         return variableName;
     }
 
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
+    public void setVariableName(String _variableName) {
+        this.variableName = _variableName;
     }
 
 }

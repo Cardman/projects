@@ -823,8 +823,8 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
-    private static void processRendFormRequest(AnalyzedTestNavigation nav_) {
-        nav_.getNav().processRendFormRequest(nav_.getAdvStandards(), nav_.getContext());
+    private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
+        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext());
     }
 
     private static String getCustomPair() {
@@ -969,19 +969,19 @@ public final class SubmitFormTest extends CommonRender {
         _nav.getSession().getLateValidators().addEntry(_valId,v_);
     }
 
-    private AnalyzedTestNavigation initWithoutValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+    private AnalyzedTestNavigation initWithoutValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
-        files_.put("page1.html", html_);
+        files_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        files_.put("page1.html", _html);
 
 
         AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
+        getHeaders(_filesSec, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,a_);
+        setup(_folder, _relative,a_);
         setFirst(a_,"page1.html");
         Navigation nav_ = newNavigation(a_);
-        nav_.setLanguage(locale_);
+        nav_.setLanguage(_locale);
         nav_.setSession(a_.getConfiguration());
         nav_.setFiles(files_);
         a_.getDual().getRenderFiles().add("page1.html");
@@ -989,27 +989,27 @@ public final class SubmitFormTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
-        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc, a_.getDual());
+        AnalyzingDoc anaDoc_ = a_.getAnalyzingDoc();
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), anaDoc_, a_.getDual());
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
         nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
         return new AnalyzedTestNavigation(nav_,a_);
     }
-    private AnalyzedTestNavigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+    private AnalyzedTestNavigation initWithValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
-        files_.put("page1.html", html_);
+        files_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        files_.put("page1.html", _html);
 
 
         AnalyzedTestConfiguration a_ = build();
-        getHeaders(filesSec_, a_);
+        getHeaders(_filesSec, a_);
         assertTrue(isEmptyErrors(a_));
-        setup(folder_, relative_,a_);
+        setup(_folder, _relative,a_);
         setFirst(a_,"page1.html");
         Navigation nav_ = newNavigation(a_);
-        nav_.setLanguage(locale_);
+        nav_.setLanguage(_locale);
         nav_.setSession(a_.getConfiguration());
         nav_.setFiles(files_);
         a_.getDual().getRenderFiles().add("page1.html");
@@ -1018,8 +1018,8 @@ public final class SubmitFormTest extends CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
-        AnalyzingDoc _anaDoc = a_.getAnalyzingDoc();
-        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), _anaDoc, a_.getDual());
+        AnalyzingDoc anaDoc_ = a_.getAnalyzingDoc();
+        StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), anaDoc_, a_.getDual());
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
@@ -1027,13 +1027,13 @@ public final class SubmitFormTest extends CommonRender {
         return new AnalyzedTestNavigation(nav_,a_);
     }
 
-    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl page_, BeanLgNames _stds, AnalyzingDoc _anaDoc, DualConfigurationContext _dual) {
+    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _anaDoc, DualConfigurationContext _dual) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         _anaDoc.setup(_nav.getSession(), _stds, _dual);
-        setupAna(_anaDoc, page_);
-        _nav.initInstancesPattern(page_, _anaDoc);
+        setupAna(_anaDoc, _page);
+        _nav.initInstancesPattern(_page, _anaDoc);
         _nav.getSession().setPrefix("c:");
-        return _nav.analyzedRenders(page_, _stds, _anaDoc, _dual);
+        return _nav.analyzedRenders(_page, _stds, _anaDoc, _dual);
     }
 
 

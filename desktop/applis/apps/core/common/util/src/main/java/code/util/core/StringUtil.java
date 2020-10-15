@@ -220,10 +220,10 @@ public final class StringUtil {
         return true;
     }
 
-    private static boolean containsString(CustList<String> _list1, String c) {
+    private static boolean containsString(CustList<String> _list1, String _c) {
         boolean contains_ = false;
         for (String d: _list1) {
-            if (quickEq(c, d)) {
+            if (quickEq(_c, d)) {
                 contains_ = true;
                 break;
             }
@@ -247,10 +247,10 @@ public final class StringUtil {
         return true;
     }
 
-    private static boolean containsListString(CustList<StringList> _list1, StringList c) {
+    private static boolean containsListString(CustList<StringList> _list1, StringList _c) {
         boolean contains_ = false;
         for (StringList d: _list1) {
-            if (eqStrings(c, d)) {
+            if (eqStrings(_c, d)) {
                 contains_ = true;
                 break;
             }
@@ -868,8 +868,8 @@ public final class StringUtil {
         }
         int i_= IndexConstants.FIRST_INDEX;
         int index_= IndexConstants.FIRST_INDEX;
-        int indiceRDecalePt_=0;
-        int indiceNext_=0;
+        int indiceRDecalePt_;
+        int indiceNext_;
         for(String e:words_){
             indiceRDecalePt_=index_;
           //indiceNext_=_string.indexOf(e,indiceRDecalePt_);

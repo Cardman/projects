@@ -4,9 +4,9 @@ public class ExecParentChildType {
     private final ExecParentPartType parentPartType;
     private final ExecPartType child;
 
-    public ExecParentChildType(ExecParentPartType parentPartType, ExecPartType child) {
-        this.parentPartType = parentPartType;
-        this.child = child;
+    public ExecParentChildType(ExecParentPartType _parentPartType, ExecPartType _child) {
+        this.parentPartType = _parentPartType;
+        this.child = _child;
     }
 
     public ExecParentPartType getParentPartType() {

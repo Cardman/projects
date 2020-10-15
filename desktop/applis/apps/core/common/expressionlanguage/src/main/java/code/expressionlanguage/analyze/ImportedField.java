@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.common.GeneField;
 
 public final class ImportedField {
     private int imported;
@@ -13,11 +12,11 @@ public final class ImportedField {
     private int rootNumber;
     private int memberNumber;
 
-    public ImportedField(int imported, Accessed geneField, String type, boolean finalField, int _valueOffset) {
-        this.imported = imported;
-        this.geneField = geneField;
-        this.type = type;
-        this.finalField = finalField;
+    public ImportedField(int _imported, Accessed _geneField, String _type, boolean _finalField, int _valueOffset) {
+        this.imported = _imported;
+        this.geneField = _geneField;
+        this.type = _type;
+        this.finalField = _finalField;
         valueOffset = _valueOffset;
     }
 
@@ -45,23 +44,23 @@ public final class ImportedField {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 }

@@ -8,8 +8,8 @@ import code.expressionlanguage.analyze.AbstractTokenValidation;
 public final class AdvancedTokenValidation implements AbstractTokenValidation {
     private final AnalyzedPageEl context;
 
-    public AdvancedTokenValidation(AnalyzedPageEl context) {
-        this.context = context;
+    public AdvancedTokenValidation(AnalyzedPageEl _context) {
+        this.context = _context;
     }
 
     @Override

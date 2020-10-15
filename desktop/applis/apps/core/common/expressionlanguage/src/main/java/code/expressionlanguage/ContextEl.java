@@ -243,8 +243,8 @@ public abstract class ContextEl {
         return fullStack;
     }
 
-    public final void setFullStack(AbstractFullStack fullStack) {
-        this.fullStack = fullStack;
+    public final void setFullStack(AbstractFullStack _fullStack) {
+        this.fullStack = _fullStack;
     }
 
 
@@ -256,8 +256,8 @@ public abstract class ContextEl {
         return seed;
     }
 
-    public void setSeed(Struct seed) {
-        this.seed = seed;
+    public void setSeed(Struct _seed) {
+        this.seed = _seed;
     }
 
     public AbstractExiting getExiting() {

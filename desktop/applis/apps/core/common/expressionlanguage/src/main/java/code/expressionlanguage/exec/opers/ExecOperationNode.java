@@ -6,7 +6,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -56,15 +55,14 @@ public abstract class ExecOperationNode {
         this(new ExecOperationContent(_indexChild,_res,_order));
     }
 
-    static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods implicits_, int indexImplicit_) {
-        ExecNamedFunctionBlock c = implicits_.get(indexImplicit_);
+    static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit) {
+        ExecNamedFunctionBlock c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
         CustList<Argument> args_ = new CustList<Argument>(_right);
-        AbstractPageEl last_ = _conf.getLastPage();
-        if (ExecExplicitOperation.checkCustomOper(ex_,implicits_.getRootBlock(), c, args_, implicits_.getOwnerClass(), last_,_conf,_right)) {
-            return indexImplicit_;
+        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,_implicits.getRootBlock(), c, args_, _implicits.getOwnerClass(), _conf,_right)) {
+            return _indexImplicit;
         }
-        return indexImplicit_ +1;
+        return _indexImplicit +1;
     }
 
     public void setParent(ExecMethodOperation _parent) {
@@ -325,13 +323,13 @@ public abstract class ExecOperationNode {
         calcArg(_possiblePartial, _conf, _nodes, arg_);
     }
 
-    private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument arg_) {
+    private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _arg) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ instanceof ExecOperationNode) {
-            _nodes.getValue(((ExecOperationNode)n_).getOrder()).setPreviousArgument(arg_);
+            _nodes.getValue(((ExecOperationNode)n_).getOrder()).setPreviousArgument(_arg);
         }
         ArgumentsPair pair_ = _nodes.getValue(getOrder());
-        pair_.setArgument(arg_);
+        pair_.setArgument(_arg);
         _conf.getCoverage().passBlockOperation(_conf, this, !_possiblePartial, pair_);
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {

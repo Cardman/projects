@@ -8,15 +8,15 @@ public final class AnaNamedContent {
         return offset;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public void setOffset(int _offset) {
+        this.offset = _offset;
     }
 
     public int getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setIndex(int _index) {
+        this.index = _index;
     }
 }

@@ -105,22 +105,22 @@ public final class OverridesTypeUtil {
         return eq_;
     }
 
-    private static void feedMehodsLists(CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_, CustList<GeneStringOverridable> foundSuperClasses_) {
-        for (GeneStringOverridable t: foundSuperClasses_) {
+    private static void feedMehodsLists(CustList<GeneStringOverridable> _finalMethods, CustList<GeneStringOverridable> _methods, CustList<GeneStringOverridable> _foundSuperClasses) {
+        for (GeneStringOverridable t: _foundSuperClasses) {
             OverridableBlock method_ = t.getBlock();
             if (method_.isAbstractMethod()) {
                 continue;
             }
             if (method_.isFinalMethod()) {
-                finalMethods_.add(t);
+                _finalMethods.add(t);
             }
-            methods_.add(t);
+            _methods.add(t);
         }
     }
-    private static GeneStringOverridable filterUniqId(CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_, AnalyzedPageEl _page) {
+    private static GeneStringOverridable filterUniqId(CustList<GeneStringOverridable> _finalMethods, CustList<GeneStringOverridable> _methods, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> defs_ = new StringMap<GeneStringOverridable>();
         StringList list_ = new StringList();
-        for (GeneStringOverridable v: finalMethods_) {
+        for (GeneStringOverridable v: _finalMethods) {
             defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }
@@ -131,7 +131,7 @@ public final class OverridesTypeUtil {
         }
         defs_ = new StringMap<GeneStringOverridable>();
         list_ = new StringList();
-        for (GeneStringOverridable v: methods_) {
+        for (GeneStringOverridable v: _methods) {
             defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }

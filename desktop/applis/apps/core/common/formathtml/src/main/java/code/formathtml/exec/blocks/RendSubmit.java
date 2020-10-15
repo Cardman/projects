@@ -17,10 +17,10 @@ public final class RendSubmit extends RendElement {
 
     private StringMap<String> preformatted;
 
-    public RendSubmit(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, StringMap<ExecTextPart> opExp, StringMap<String> preformatted) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.opExp = opExp;
-        this.preformatted = preformatted;
+    public RendSubmit(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _opExp, StringMap<String> _preformatted) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.opExp = _opExp;
+        this.preformatted = _preformatted;
     }
 
     @Override

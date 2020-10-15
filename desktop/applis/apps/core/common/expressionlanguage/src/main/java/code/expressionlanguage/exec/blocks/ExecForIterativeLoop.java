@@ -46,20 +46,22 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     private CustList<ExecOperationNode> opStep;
 
-    public ExecForIterativeLoop(String label, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, int initOffset, int expressionOffset, int stepOffset, boolean eq, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep, int _offsetTrim) {
+    public ExecForIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset,
+                                int _initOffset, int _expressionOffset, int _stepOffset, boolean _eq,
+                                CustList<ExecOperationNode> _opInit, CustList<ExecOperationNode> _opExp, CustList<ExecOperationNode> _opStep, int _offsetTrim) {
         super(_offsetTrim);
-        this.label = label;
-        this.importedClassName = importedClassName;
-        this.importedClassIndexName = importedClassIndexName;
-        this.variableName = variableName;
-        this.variableNameOffset = variableNameOffset;
-        this.initOffset = initOffset;
-        this.expressionOffset = expressionOffset;
-        this.stepOffset = stepOffset;
-        this.eq = eq;
-        this.opInit = opInit;
-        this.opExp = opExp;
-        this.opStep = opStep;
+        this.label = _label;
+        this.importedClassName = _importedClassName;
+        this.importedClassIndexName = _importedClassIndexName;
+        this.variableName = _variableName;
+        this.variableNameOffset = _variableNameOffset;
+        this.initOffset = _initOffset;
+        this.expressionOffset = _expressionOffset;
+        this.stepOffset = _stepOffset;
+        this.eq = _eq;
+        this.opInit = _opInit;
+        this.opExp = _opExp;
+        this.opStep = _opStep;
     }
 
     @Override

@@ -14,14 +14,16 @@ public final class CommonExecutionInfos {
     private final DefaultLockingClass locks;
     private final Initializer initializer;
 
-    public CommonExecutionInfos(int tabWidth, int stackOverFlow, LgNames standards, Classes classes, Coverage coverage, DefaultLockingClass locks, Initializer initializer) {
-        this.tabWidth = tabWidth;
-        this.stackOverFlow = stackOverFlow;
-        this.standards = standards;
-        this.classes = classes;
-        this.coverage = coverage;
-        this.locks = locks;
-        this.initializer = initializer;
+    public CommonExecutionInfos(int _tabWidth, int _stackOverFlow,
+                                LgNames _standards, Classes _classes, Coverage _coverage,
+                                DefaultLockingClass _locks, Initializer _initializer) {
+        this.tabWidth = _tabWidth;
+        this.stackOverFlow = _stackOverFlow;
+        this.standards = _standards;
+        this.classes = _classes;
+        this.coverage = _coverage;
+        this.locks = _locks;
+        this.initializer = _initializer;
     }
 
     public int getTabWidth() {

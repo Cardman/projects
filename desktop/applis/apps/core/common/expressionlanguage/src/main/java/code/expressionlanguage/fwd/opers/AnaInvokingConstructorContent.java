@@ -12,31 +12,31 @@ public final class AnaInvokingConstructorContent {
         return lastType;
     }
 
-    public void setLastType(String lastType) {
-        this.lastType = lastType;
+    public void setLastType(String _lastType) {
+        this.lastType = _lastType;
     }
 
     public int getNaturalVararg() {
         return naturalVararg;
     }
 
-    public void setNaturalVararg(int naturalVararg) {
-        this.naturalVararg = naturalVararg;
+    public void setNaturalVararg(int _naturalVararg) {
+        this.naturalVararg = _naturalVararg;
     }
 
     public String getClassFromName() {
         return classFromName;
     }
 
-    public void setClassFromName(String classFromName) {
-        this.classFromName = classFromName;
+    public void setClassFromName(String _classFromName) {
+        this.classFromName = _classFromName;
     }
 
     public int getOffsetOper() {
         return offsetOper;
     }
 
-    public void setOffsetOper(int offsetOper) {
-        this.offsetOper = offsetOper;
+    public void setOffsetOper(int _offsetOper) {
+        this.offsetOper = _offsetOper;
     }
 }

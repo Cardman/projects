@@ -9,8 +9,8 @@ public class DefaultAliasGroups {
 
     private final LgNamesContent content;
 
-    public DefaultAliasGroups(LgNamesContent content) {
-        this.content = content;
+    public DefaultAliasGroups(LgNamesContent _content) {
+        this.content = _content;
     }
 
     public LgNamesContent getContent() {

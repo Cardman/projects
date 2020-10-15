@@ -10,15 +10,15 @@ public final class AnaArrContent {
         return variable;
     }
 
-    public void setVariable(boolean variable) {
-        this.variable = variable;
+    public void setVariable(boolean _variable) {
+        this.variable = _variable;
     }
 
     public boolean isCatString() {
         return catString;
     }
 
-    public void setCatString(boolean catString) {
-        this.catString = catString;
+    public void setCatString(boolean _catString) {
+        this.catString = _catString;
     }
 }

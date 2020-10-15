@@ -17,24 +17,24 @@ public final class ImplicitMethods {
         return ownerClass;
     }
 
-    public void setOwnerClass(String ownerClass) {
-        this.ownerClass = ownerClass;
+    public void setOwnerClass(String _ownerClass) {
+        this.ownerClass = _ownerClass;
     }
 
     public ExecRootBlock getRootBlock() {
         return rootBlock;
     }
 
-    public void setRootBlock(ExecRootBlock rootBlock) {
-        this.rootBlock = rootBlock;
+    public void setRootBlock(ExecRootBlock _rootBlock) {
+        this.rootBlock = _rootBlock;
     }
 
-    public boolean isValidIndex(int indexImplicit_) {
-        return converter.isValidIndex(indexImplicit_);
+    public boolean isValidIndex(int _indexImplicit) {
+        return converter.isValidIndex(_indexImplicit);
     }
 
-    public ExecNamedFunctionBlock get(int indexImplicit_) {
-        return converter.get(indexImplicit_);
+    public ExecNamedFunctionBlock get(int _indexImplicit) {
+        return converter.get(_indexImplicit);
     }
 
     public boolean isEmpty() {

@@ -352,15 +352,15 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFct(MemberCallingsBlock b1_, ExecMemberCallingsBlock value_, Forwards _forwards) {
-        for (AnonymousFunctionBlock a: b1_.getAnonymousFct()) {
-            value_.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
+    private static void feedFct(MemberCallingsBlock _b1, ExecMemberCallingsBlock _value, Forwards _forwards) {
+        for (AnonymousFunctionBlock a: _b1.getAnonymousFct()) {
+            _value.getAnonymousLambda().add(_forwards.getMapAnonLambda().getValue(a.getNumberLambda()));
         }
-        for (AnonymousTypeBlock a: b1_.getAnonymous()) {
-            value_.getAnonymous().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
+        for (AnonymousTypeBlock a: _b1.getAnonymous()) {
+            _value.getAnonymous().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
         }
-        for (RootBlock a: b1_.getReserved()) {
-            value_.getReserved().add(_forwards.getMapMembers().getValue(a.getNumberAll()).getRootBlock());
+        for (RootBlock a: _b1.getReserved()) {
+            _value.getReserved().add(_forwards.getMapMembers().getValue(a.getNumberAll()).getRootBlock());
         }
     }
 
@@ -433,9 +433,9 @@ public final class ForwardInfos {
         }
     }
 
-    private static void appendType(ExecFileBlock _exFile, Block _outer, RootBlock _root, ExecRootBlock e_) {
+    private static void appendType(ExecFileBlock _exFile, Block _outer, RootBlock _root, ExecRootBlock _e) {
         if (_outer == _root) {
-            _exFile.appendChild(e_);
+            _exFile.appendChild(_e);
         }
     }
 
@@ -588,18 +588,18 @@ public final class ForwardInfos {
         }
     }
 
-    private static void tryProcessAppend(ExecFileBlock _exeFile, Block _r, Coverage _coverage, Classes _classes, Forwards _forwards, Block c_) {
-        if (c_ instanceof RootBlock) {
-            processAppend(_exeFile,_r,(RootBlock) c_, _coverage, _classes, _forwards);
+    private static void tryProcessAppend(ExecFileBlock _exeFile, Block _r, Coverage _coverage, Classes _classes, Forwards _forwards, Block _c) {
+        if (_c instanceof RootBlock) {
+            processAppend(_exeFile,_r,(RootBlock) _c, _coverage, _classes, _forwards);
         }
     }
 
     private static ExecAnonymousFunctionBlock buildExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, Forwards _forwards) {
-        ExecRootBlock declaring = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
+        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         AnonymousFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.getMapAnonLambda().size());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()));
-        fct_.setParentType(declaring);
+        fct_.setParentType(declaring_);
         _forwards.getMapAnonLambda().addEntry(block_,fct_);
         fct_.buildImportedTypes(block_.getImportedReturnType(), block_.getImportedParametersTypes());
         return fct_;
@@ -916,9 +916,9 @@ public final class ForwardInfos {
         }
     }
 
-    private static CustList<ExecOperationNode> getExecutableNodes(OperationNode root_, Coverage _coverage, Forwards _forwards, Block _currentBlock) {
+    private static CustList<ExecOperationNode> getExecutableNodes(OperationNode _root, Coverage _coverage, Forwards _forwards, Block _currentBlock) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
-        OperationNode current_ = root_;
+        OperationNode current_ = _root;
         ExecOperationNode exp_ = createExecOperationNode(current_, _forwards);
         setImplicits(exp_, current_, _forwards);
         _coverage.putBlockOperation(_forwards, _currentBlock, current_,exp_);
@@ -964,7 +964,7 @@ public final class ForwardInfos {
                     break;
                 }
                 ExecMethodOperation par_ = exp_.getParent();
-                if (op_ == root_) {
+                if (op_ == _root) {
                     if (par_ instanceof ExecAffectationOperation) {
                         ((ExecAffectationOperation)par_).setup();
                     }
@@ -1023,18 +1023,18 @@ public final class ForwardInfos {
 
     public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, int _root, int _member, Forwards _forwards) {
         ExecNamedFunctionBlock conv_ = null;
-        String converterClass = "";
+        String converterClass_ = "";
         if (_clMet != null) {
-            converterClass = _clMet.getClassName();
+            converterClass_ = _clMet.getClassName();
             conv_ = fetchFunction(_root,_member, _forwards);
         }
         if (conv_ != null) {
-            ImplicitMethods converter = new ImplicitMethods();
+            ImplicitMethods converter_ = new ImplicitMethods();
             ExecRootBlock classBody_ = fetchType(_root, _forwards);
-            converter.getConverter().add(conv_);
-            converter.setOwnerClass(converterClass);
-            converter.setRootBlock(classBody_);
-            return converter;
+            converter_.getConverter().add(conv_);
+            converter_.setOwnerClass(converterClass_);
+            converter_.setRootBlock(classBody_);
+            return converter_;
         }
         return null;
     }
@@ -1513,9 +1513,9 @@ public final class ForwardInfos {
             e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
         }
         for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: mem_.getAllAnnotMethods().entryList()) {
-            AnnotationMethodBlock _key1 = e.getKey();
-            e.getValue().setImportedReturnType(_key1.getImportedReturnType());
-            e.getValue().getImportedParametersTypes().addAllElts(_key1.getImportedParametersTypes());
+            AnnotationMethodBlock key1_ = e.getKey();
+            e.getValue().setImportedReturnType(key1_.getImportedReturnType());
+            e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
         }
         for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: mem_.getAllInnerElementFields().entryList()) {
             buildImportedTypes(e.getValue(),e.getKey());

@@ -28,7 +28,7 @@ public abstract class ExecInitBlock extends ExecMemberCallingsBlock implements E
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNumber(int _number) {
+        this.number = _number;
     }
 }

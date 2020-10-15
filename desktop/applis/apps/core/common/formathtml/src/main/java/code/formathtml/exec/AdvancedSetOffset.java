@@ -7,8 +7,8 @@ import code.formathtml.Configuration;
 public final class AdvancedSetOffset implements AbstractSetOffset {
     private final Configuration context;
 
-    public AdvancedSetOffset(Configuration context) {
-        this.context = context;
+    public AdvancedSetOffset(Configuration _context) {
+        this.context = _context;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -12,17 +11,16 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class RendForm extends RendElement {
-    private CustList<OperationNode> opExpRoot;
     private CustList<RendDynOperationNode> opForm;
 
-    private StringList varNames = new StringList();
+    private StringList varNames;
     private ExecTextPart textPart;
 
-    public RendForm(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opForm, StringList varNames, ExecTextPart textPart) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.opForm = opForm;
-        this.varNames = varNames;
-        this.textPart = textPart;
+    public RendForm(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, ExecTextPart _textPart) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.opForm = _opForm;
+        this.varNames = _varNames;
+        this.textPart = _textPart;
     }
 
     @Override

@@ -26,10 +26,10 @@ public final class AnaRendSpan extends AnaRendElement {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
         int off_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        ResultText result = new ResultText();
-        result.buildIdAna(id_, off_, _anaDoc, _page);
-        roots = result.getOpExpRoot();
-        texts = result.getTexts();
+        ResultText result_ = new ResultText();
+        result_.buildIdAna(id_, off_, _anaDoc, _page);
+        roots = result_.getOpExpRoot();
+        texts = result_.getTexts();
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }

@@ -243,28 +243,28 @@ public final class ResolvingImportTypes {
         resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, false,gl_, a_,r_, rc_,partOffsets_, _page);
         return checkResType(_in, true, rc_, varsCt_, resType_,partOffsets_, _page);
     }
-    private static String checkResType(String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, AnaResultPartType resType_, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
-        if (resType_.getResult().trim().isEmpty()) {
+    private static String checkResType(String _in, boolean _exact, int _rc, StringMap<StringList> _varsCt, AnaResultPartType _resType, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        if (_resType.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_rc);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
             _page.getLocalizer().addError(un_);
             return _page.getAliasObject();
         }
-        if (!AnaPartTypeUtil.processAnalyzeConstraints(resType_, varsCt_, _exact,_parts, _page)) {
+        if (!AnaPartTypeUtil.processAnalyzeConstraints(_resType, _varsCt, _exact,_parts, _page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_rc);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                     _in);
             _page.getLocalizer().addError(un_);
             return _page.getAliasObject();
         }
-        return resType_.getResult();
+        return _resType.getResult();
     }
 
     public static String resolveAccessibleIdType(int _loc, String _in, AnalyzedPageEl _page) {

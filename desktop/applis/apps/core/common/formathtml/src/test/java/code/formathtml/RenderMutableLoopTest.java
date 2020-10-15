@@ -243,12 +243,12 @@ public final class RenderMutableLoopTest extends CommonRender {
         assertEq("<html>1-2-3-4-</html>", getRes(files_, html_));
     }
 
-    private Struct getEx(String html_, StringMap<String> _files) {
-        return getCommEx(html_, _files);
+    private Struct getEx(String _html, StringMap<String> _files) {
+        return getCommEx(_html, _files);
     }
 
-    private String getRes(StringMap<String> files_, String html_) {
-        return getCommRes(html_, files_);
+    private String getRes(StringMap<String> _files, String _html) {
+        return getCommRes(_html, _files);
     }
 
     @Test
@@ -286,7 +286,7 @@ public final class RenderMutableLoopTest extends CommonRender {
         String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"\" step=\"i++\" label=','><c:if condition='i&gt;=4'><c:break label='lab'/></c:if>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

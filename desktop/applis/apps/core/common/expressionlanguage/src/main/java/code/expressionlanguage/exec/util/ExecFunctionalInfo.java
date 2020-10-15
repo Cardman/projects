@@ -6,9 +6,9 @@ public final class ExecFunctionalInfo {
     private final String className;
     private final ExecOverridableBlock overridableBlock;
 
-    public ExecFunctionalInfo(String className, ExecOverridableBlock overridableBlock) {
-        this.className = className;
-        this.overridableBlock = overridableBlock;
+    public ExecFunctionalInfo(String _className, ExecOverridableBlock _overridableBlock) {
+        this.className = _className;
+        this.overridableBlock = _overridableBlock;
     }
 
     public String getClassName() {

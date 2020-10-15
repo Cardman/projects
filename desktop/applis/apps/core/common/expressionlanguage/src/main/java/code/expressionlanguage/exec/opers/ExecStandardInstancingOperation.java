@@ -55,8 +55,8 @@ public final class ExecStandardInstancingOperation extends
         return instancePrepareFormatted(_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_) {
-        return fectchInstFormattedArgs(_nodes,className_,rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
+        return fectchInstFormattedArgs(_nodes,_className,rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
     }
 
     public String getClassName() {

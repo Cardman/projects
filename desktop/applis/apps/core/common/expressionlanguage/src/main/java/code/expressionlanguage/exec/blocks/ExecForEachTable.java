@@ -38,16 +38,18 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
 
     private CustList<ExecOperationNode> opList;
 
-    public ExecForEachTable(String label, String importedClassNameFirst, String importedClassNameSecond, String importedClassIndexName, String variableNameFirst, String variableNameSecond, int expressionOffset, CustList<ExecOperationNode> opList, int _offsetTrim) {
+    public ExecForEachTable(String _label, String _importedClassNameFirst, String _importedClassNameSecond, String _importedClassIndexName,
+                            String _variableNameFirst, String _variableNameSecond,
+                            int _expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
         super(_offsetTrim);
-        this.label = label;
-        this.importedClassNameFirst = importedClassNameFirst;
-        this.importedClassNameSecond = importedClassNameSecond;
-        this.importedClassIndexName = importedClassIndexName;
-        this.variableNameFirst = variableNameFirst;
-        this.variableNameSecond = variableNameSecond;
-        this.expressionOffset = expressionOffset;
-        this.opList = opList;
+        this.label = _label;
+        this.importedClassNameFirst = _importedClassNameFirst;
+        this.importedClassNameSecond = _importedClassNameSecond;
+        this.importedClassIndexName = _importedClassIndexName;
+        this.variableNameFirst = _variableNameFirst;
+        this.variableNameSecond = _variableNameSecond;
+        this.expressionOffset = _expressionOffset;
+        this.opList = _opList;
     }
 
     @Override

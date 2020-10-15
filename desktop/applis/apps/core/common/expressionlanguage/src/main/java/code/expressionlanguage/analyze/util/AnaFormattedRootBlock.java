@@ -6,9 +6,9 @@ public final class AnaFormattedRootBlock {
     private final RootBlock rootBlock;
     private final String formatted;
 
-    public AnaFormattedRootBlock(RootBlock rootBlock, String formatted) {
-        this.rootBlock = rootBlock;
-        this.formatted = formatted;
+    public AnaFormattedRootBlock(RootBlock _rootBlock, String _formatted) {
+        this.rootBlock = _rootBlock;
+        this.formatted = _formatted;
     }
 
     public RootBlock getRootBlock() {

@@ -210,8 +210,8 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         assertEq("<html><body>0 - 0 - 0 - 0 -<br/>1 - 1 -<br/>+<br/>1 - 1 - 0 - 0 -<br/>1 - 1 -<br/>+<br/></body></html>", getRes(html_, new StringMap<String>()));
     }
 
-    private String getRes(String html_, StringMap<String> _files) {
-        return getCommRes(html_,_files);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -280,9 +280,9 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         assertNotNull(getEx(html_, new StringMap<String>()));
     }
-    private Struct getEx(String html_, StringMap<String> _files) {
+    private Struct getEx(String _html, StringMap<String> _files) {
 
-        return getCommEx(html_, _files);
+        return getCommEx(_html, _files);
     }
     @Test
     public void process25Test() {
@@ -385,7 +385,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

@@ -247,11 +247,11 @@ public final class ParsedTemplatedTypeTest {
         assertEq(0, begin_.size());
         assertEq(0, ends_.size());
     }
-    private static void parse(ParsedTemplatedType p_, String _file) {
-        parse(p_,_file, new CustList<CommentDelimiters>(), new Ints(), new Ints());
+    private static void parse(ParsedTemplatedType _p, String _file) {
+        parse(_p,_file, new CustList<CommentDelimiters>(), new Ints(), new Ints());
     }
 
-    private static void parse(ParsedTemplatedType p_, String _file, CustList<CommentDelimiters> _comments, Ints _begin, Ints _end) {
-        p_.parse(_file, _comments, _begin, _end);
+    private static void parse(ParsedTemplatedType _p, String _file, CustList<CommentDelimiters> _comments, Ints _begin, Ints _end) {
+        _p.parse(_file, _comments, _begin, _end);
     }
 }

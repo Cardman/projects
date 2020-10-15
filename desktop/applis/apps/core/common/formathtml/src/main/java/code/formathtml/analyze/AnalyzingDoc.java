@@ -161,8 +161,8 @@ public final class AnalyzingDoc {
         return currentBlock;
     }
 
-    public void setCurrentBlock(AnaRendBlock currentBlock) {
-        this.currentBlock = currentBlock;
+    public void setCurrentBlock(AnaRendBlock _currentBlock) {
+        this.currentBlock = _currentBlock;
     }
 
     public String getInternGlobalClass() {
@@ -185,24 +185,24 @@ public final class AnalyzingDoc {
         return currentDoc;
     }
 
-    public void setCurrentDoc(AnaRendDocumentBlock current) {
-        this.currentDoc = current;
+    public void setCurrentDoc(AnaRendDocumentBlock _current) {
+        this.currentDoc = _current;
     }
 
     public int getNextIndex() {
         return nextIndex;
     }
 
-    public void setNextIndex(int nextIndex) {
-        this.nextIndex = nextIndex;
+    public void setNextIndex(int _nextIndex) {
+        this.nextIndex = _nextIndex;
     }
 
     public RendAnalysisMessages getRendAnalysisMessages() {
         return rendAnalysisMessages;
     }
 
-    public void setRendAnalysisMessages(RendAnalysisMessages rendAnalysisMessages) {
-        this.rendAnalysisMessages = rendAnalysisMessages;
+    public void setRendAnalysisMessages(RendAnalysisMessages _rendAnalysisMessages) {
+        this.rendAnalysisMessages = _rendAnalysisMessages;
     }
 
     public RendKeyWords getRendKeyWords() {

@@ -35,8 +35,8 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         return Argument.createVoid();
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String superClass_) {
-        String lastType_ = ExecTemplates.quickFormat(getRootBlock(),superClass_, getLastType());
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
+        String lastType_ = ExecTemplates.quickFormat(getRootBlock(),_superClass, getLastType());
         return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }
 

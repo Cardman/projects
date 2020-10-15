@@ -13,10 +13,10 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPoss
 
     private boolean add;
 
-    public RendEmptyText(int _offsetTrim, String expression, boolean add) {
+    public RendEmptyText(int _offsetTrim, String _expression, boolean _add) {
         super(_offsetTrim);
-        this.expression = expression;
-        this.add = add;
+        this.expression = _expression;
+        this.add = _add;
     }
 
     @Override

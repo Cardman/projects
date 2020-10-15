@@ -1085,9 +1085,9 @@ public final class NumParsers {
         return NumberUtil.compareLg(_nb1.longStruct(),_nb2.longStruct());
     }
 
-    public static double asDouble(Struct _struct, StringList list_, Struct[] _args) {
+    public static double asDouble(Struct _struct, StringList _list, Struct[] _args) {
         double one_;
-        if (list_.isEmpty()) {
+        if (_list.isEmpty()) {
             NumberStruct instance_ = convertToNumber(_struct);
             one_ = instance_.doubleStruct();
         } else {
@@ -1197,13 +1197,13 @@ public final class NumParsers {
         return true;
     }
 
-    public static boolean isDisplay(StringList list_, Struct arg_) {
-        return list_.size() == 1 && arg_ instanceof DisplayableStruct;
+    public static boolean isDisplay(StringList _list, Struct _arg) {
+        return _list.size() == 1 && _arg instanceof DisplayableStruct;
     }
 
-    public static Struct getArg(StringList list_, Struct[] _args) {
+    public static Struct getArg(StringList _list, Struct[] _args) {
         Struct arg_;
-        if (list_.size() == 1) {
+        if (_list.size() == 1) {
             arg_ = _args[0];
         } else {
             arg_ = _args[2];
@@ -1211,8 +1211,8 @@ public final class NumParsers {
         return arg_;
     }
 
-    public static boolean okArray(char[] arr_, int one_, int two_) {
-        return one_ < 0 || two_ < 0 || one_ + two_ > arr_.length;
+    public static boolean okArray(char[] _arr, int _one, int _two) {
+        return _one < 0 || _two < 0 || _one + _two > _arr.length;
     }
 
     public static String getStringValue(Struct _oldChar) {
@@ -1440,11 +1440,11 @@ public final class NumParsers {
         return NullStruct.NULL_VALUE;
     }
 
-    public static String getSingleNameOrEmpty(StringList className) {
-        if (!className.onlyOneElt()) {
+    public static String getSingleNameOrEmpty(StringList _className) {
+        if (!_className.onlyOneElt()) {
             return "";
         }
-        return className.first();
+        return _className.first();
     }
 
     public static BooleanStruct convertToBoolean(Struct _arg) {
@@ -2031,11 +2031,11 @@ public final class NumParsers {
         return BooleanStruct.of(_inst.length() == 0);
     }
 
-    public static boolean isInvalidIndex(int ind_, CharSequenceStruct _inst) {
-        return ind_ < 0 || ind_ >= _inst.length();
+    public static boolean isInvalidIndex(int _ind, CharSequenceStruct _inst) {
+        return _ind < 0 || _ind >= _inst.length();
     }
 
-    public static boolean isIncorrectSub(int begin_, int end_, CharSequenceStruct _inst) {
-        return begin_ < 0 || end_ > _inst.length() || begin_ > end_;
+    public static boolean isIncorrectSub(int _begin, int _end, CharSequenceStruct _inst) {
+        return _begin < 0 || _end > _inst.length() || _begin > _end;
     }
 }

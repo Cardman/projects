@@ -5442,23 +5442,23 @@ public final class ElResolverTest extends ProcessMethodCommon {
         return conf_;
     }
 
-    private static OperationsSequence getOperationsSequence(AnalyzedTestContext conf_, String el_, Delimiters d_, int _offset) {
-        return ElResolver.getOperationsSequence(_offset, el_, d_, conf_.getAnalyzing());
+    private static OperationsSequence getOperationsSequence(AnalyzedTestContext _conf, String _el, Delimiters _d, int _offset) {
+        return ElResolver.getOperationsSequence(_offset, _el, _d, _conf.getAnalyzing());
     }
     private AnalyzedTestContext contextEl() {
         return ctxAna();
     }
 
-    private static Delimiters checkSyntax(AnalyzedTestContext conf_, String el_) {
-        return ElResolver.checkSyntax(el_, 0, conf_.getAnalyzing());
+    private static Delimiters checkSyntax(AnalyzedTestContext _conf, String _el) {
+        return ElResolver.checkSyntax(_el, 0, _conf.getAnalyzing());
     }
 
-    private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext conf_, String el_, int _minIndex) {
-        return ElResolver.checkSyntaxDelimiters(el_, _minIndex, conf_.getAnalyzing());
+    private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext _conf, String _el, int _minIndex) {
+        return ElResolver.checkSyntaxDelimiters(_el, _minIndex, _conf.getAnalyzing());
     }
 
-    private static RootBlock getAnaClassBody(AnalyzedTestContext classes_, String _className) {
-        for (RootBlock r: classes_.getAnalyzing().getFoundTypes()) {
+    private static RootBlock getAnaClassBody(AnalyzedTestContext _classes, String _className) {
+        for (RootBlock r: _classes.getAnalyzing().getFoundTypes()) {
             if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }

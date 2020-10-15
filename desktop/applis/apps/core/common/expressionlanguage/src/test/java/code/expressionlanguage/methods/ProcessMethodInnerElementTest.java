@@ -42,10 +42,6 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void calculate2Test() {
         StringBuilder xml_ = new StringBuilder();

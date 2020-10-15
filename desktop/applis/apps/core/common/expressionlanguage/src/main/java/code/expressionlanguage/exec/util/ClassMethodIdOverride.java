@@ -8,8 +8,8 @@ public class ClassMethodIdOverride {
     private final ExecNamedFunctionBlock analyzedMethod;
     private StringMap<ExecOverrideInfo> redirections = new StringMap<ExecOverrideInfo>();
 
-    public ClassMethodIdOverride(ExecNamedFunctionBlock analyzedMethod) {
-        this.analyzedMethod = analyzedMethod;
+    public ClassMethodIdOverride(ExecNamedFunctionBlock _analyzedMethod) {
+        this.analyzedMethod = _analyzedMethod;
     }
 
     public ExecNamedFunctionBlock getAnalyzedMethod() {

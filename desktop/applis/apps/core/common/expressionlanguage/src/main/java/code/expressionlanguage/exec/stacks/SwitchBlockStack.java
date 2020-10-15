@@ -19,8 +19,8 @@ public final class SwitchBlockStack extends AbstractStask {
     }
 
     @Override
-    public void setCurrentVisitedBlock(ExecBracedBlock execCurrentVisitedBlock) {
-        this.execCurrentVisitedBlock = execCurrentVisitedBlock;
+    public void setCurrentVisitedBlock(ExecBracedBlock _execCurrentVisitedBlock) {
+        this.execCurrentVisitedBlock = _execCurrentVisitedBlock;
     }
 
     @Override

@@ -64,14 +64,14 @@ public final class RenderExpUtil {
         return arguments_;
     }
 
-    private static int getNextIndex(int _max, RendDynOperationNode o, ArgumentsPair pair_, ContextEl _context) {
+    private static int getNextIndex(int _max, RendDynOperationNode _o, ArgumentsPair _pair, ContextEl _context) {
         if (_context.callsOrException()) {
             return _max;
         }
-        Argument res_ = Argument.getNullableValue(pair_.getArgument());
+        Argument res_ = Argument.getNullableValue(_pair.getArgument());
         Struct st_ = res_.getStruct();
-        if (o.getNextSibling() != null&&pair_.isArgumentTest()){
-            RendMethodOperation par_ = o.getParent();
+        if (_o.getNextSibling() != null&&_pair.isArgumentTest()){
+            RendMethodOperation par_ = _o.getParent();
             if (par_ instanceof RendAndOperation){
                 st_ = BooleanStruct.of(false);
             }
@@ -88,7 +88,7 @@ public final class RenderExpUtil {
                 }
             }
         }
-        return RendDynOperationNode.getNextIndex(o, st_);
+        return RendDynOperationNode.getNextIndex(_o, st_);
     }
 
 }

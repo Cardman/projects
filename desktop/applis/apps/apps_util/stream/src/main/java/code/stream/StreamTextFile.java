@@ -173,8 +173,8 @@ public final class StreamTextFile {
         if (_bw == null) {
             return false;
         }
-        PrintWriter _bw1 = new PrintWriter(_bw);
-        println(_bw1, _text);
+        PrintWriter pr_ = new PrintWriter(_bw);
+        println(pr_, _text);
         return StreamCoreUtil.close(_bw);
     }
 

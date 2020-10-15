@@ -375,7 +375,7 @@ public final class AliasNumber {
         _res.setResult(disp_);
     }
 
-    public static void processNumbers(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, String type_, Struct[] _args) {
+    public static void processNumbers(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, String _type, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         String byteType_ = lgNames_.getContent().getNbAlias().getAliasByte();
         String shortType_ = lgNames_.getContent().getNbAlias().getAliasShort();
@@ -393,7 +393,7 @@ public final class AliasNumber {
             _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
             return;
         }
-        if (StringUtil.quickEq(type_, byteType_)) {
+        if (StringUtil.quickEq(_type, byteType_)) {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
@@ -403,7 +403,7 @@ public final class AliasNumber {
             parseByte(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringUtil.quickEq(type_, shortType_)) {
+        if (StringUtil.quickEq(_type, shortType_)) {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
@@ -413,7 +413,7 @@ public final class AliasNumber {
             parseShort(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringUtil.quickEq(type_, intType_)) {
+        if (StringUtil.quickEq(_type, intType_)) {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 _res.setResult(new StringStruct(Integer.toString(one_)));
@@ -423,7 +423,7 @@ public final class AliasNumber {
             parseInt(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringUtil.quickEq(type_, longType_)) {
+        if (StringUtil.quickEq(_type, longType_)) {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                 _res.setResult(new StringStruct(Long.toString(one_)));
@@ -433,7 +433,7 @@ public final class AliasNumber {
             parseLong(_res, list_, lgNames_, _args,exc_, _cont);
             return;
         }
-        if (StringUtil.quickEq(type_, floatType_)) {
+        if (StringUtil.quickEq(_type, floatType_)) {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
                 float one_;
                 one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
@@ -449,10 +449,9 @@ public final class AliasNumber {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
                 NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
-                StringStruct tmp = NumParsers.getFloatString(nb_,dis_.getInfinity(),
+                _res.setResult(NumParsers.getFloatString(nb_,dis_.getInfinity(),
                         dis_.getNan(),
-                        dis_.getExponent());
-                _res.setResult(tmp);
+                        dis_.getExponent()));
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseFloat());
@@ -472,15 +471,13 @@ public final class AliasNumber {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
             DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
             NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
-            StringStruct displayedString = NumParsers.getDoubleString(nb_,dis_.getInfinity(),
+            _res.setResult(NumParsers.getDoubleString(nb_,dis_.getInfinity(),
                     dis_.getNan(),
-                    dis_.getExponent());
-            _res.setResult(displayedString);
+                    dis_.getExponent()));
             return;
         }
         boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseDouble());
         parseDouble(_res, lgNames_, _args[0],exc_, _cont);
-        return;
     }
 
     public static void processCharacter(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
@@ -581,7 +578,6 @@ public final class AliasNumber {
         char one_ = ch_.getChar();
         char two_ = ((CharStruct) _args[0]).getChar();
         _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
-        return;
     }
 
     public static void processBoolean(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
@@ -636,7 +632,6 @@ public final class AliasNumber {
             return;
         }
         _res.setResult(BooleanStruct.of(false));
-        return;
     }
 
     public void build(LgNames _lgNames) {
@@ -840,37 +835,37 @@ public final class AliasNumber {
         standards_.addEntry(aliasCharacter, std_);
     }
 
-    private static void numbersSafeParsersMethodsRadix(LgNames _lgNames, CustList<StandardMethod> methods_, String _aliasType, String _aliasParseOrNull, StringList _first, StringList _second) {
+    private static void numbersSafeParsersMethodsRadix(LgNames _lgNames, CustList<StandardMethod> _methods, String _aliasType, String _aliasParseOrNull, StringList _first, StringList _second) {
         String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
         params_ = new StringList(_lgNames.getContent().getCharSeq().getAliasString());
         method_ = new StandardMethod(_aliasParseOrNull, params_, _aliasType, false, MethodModifier.STATIC, _first);
-        methods_.add(method_);
+        _methods.add(method_);
         params_ = new StringList(_lgNames.getContent().getCharSeq().getAliasString(), aliasPrimInteger_);
         method_ = new StandardMethod(_aliasParseOrNull, params_, _aliasType, false, MethodModifier.STATIC, _second);
-        methods_.add(method_);
+        _methods.add(method_);
     }
 
-    private void numbersValuesMethodsRadix(LgNames _lgNames, CustList<StandardMethod> methods_, String _primitive, String _aliasLong, String _aliasParse, StringList _first, StringList _second, StringList _third, StringList _fourth, StringList _fifth) {
+    private void numbersValuesMethodsRadix(LgNames _lgNames, CustList<StandardMethod> _methods, String _primitive, String _aliasLong, String _aliasParse, StringList _first, StringList _second, StringList _third, StringList _fourth, StringList _fifth) {
         String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
         params_ = new StringList(_primitive);
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _first);
-        methods_.add( method_);
+        _methods.add( method_);
         params_ = new StringList(_lgNames.getContent().getCharSeq().getAliasString());
         method_ = new StandardMethod(_aliasParse, params_, _aliasLong, false, MethodModifier.STATIC, _second);
-        methods_.add( method_);
+        _methods.add( method_);
         params_ = new StringList(_lgNames.getContent().getCharSeq().getAliasString(), aliasPrimInteger_);
         method_ = new StandardMethod(_aliasParse, params_, _aliasLong, false, MethodModifier.STATIC, _third);
-        methods_.add( method_);
+        _methods.add( method_);
         params_ = new StringList(_aliasLong);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _fourth);
-        methods_.add( method_);
+        _methods.add( method_);
         params_ = new StringList(_primitive, _primitive);
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _fifth);
-        methods_.add( method_);
+        _methods.add( method_);
     }
 
     private static void numbersConstructors(LgNames _lgNames, CustList<StandardConstructor> _ctors, String _primitive, StringList _first,StringList _second) {
@@ -1020,24 +1015,24 @@ public final class AliasNumber {
         return aliasPlusInfinityField;
     }
 
-    public void setAliasPlusInfinityField(String aliasPlusInfinityField) {
-        this.aliasPlusInfinityField = aliasPlusInfinityField;
+    public void setAliasPlusInfinityField(String _aliasPlusInfinityField) {
+        this.aliasPlusInfinityField = _aliasPlusInfinityField;
     }
 
     public String getAliasMinusInfinityField() {
         return aliasMinusInfinityField;
     }
 
-    public void setAliasMinusInfinityField(String aliasMinusInfinityField) {
-        this.aliasMinusInfinityField = aliasMinusInfinityField;
+    public void setAliasMinusInfinityField(String _aliasMinusInfinityField) {
+        this.aliasMinusInfinityField = _aliasMinusInfinityField;
     }
 
     public String getAliasNanField() {
         return aliasNanField;
     }
 
-    public void setAliasNanField(String aliasNanField) {
-        this.aliasNanField = aliasNanField;
+    public void setAliasNanField(String _aliasNanField) {
+        this.aliasNanField = _aliasNanField;
     }
 
     public String getAliasBoolean() {
@@ -1309,16 +1304,16 @@ public final class AliasNumber {
         return aliasToLowerCaseChar;
     }
 
-    public void setAliasToLowerCaseChar(String aliasToLowerCaseChar) {
-        this.aliasToLowerCaseChar = aliasToLowerCaseChar;
+    public void setAliasToLowerCaseChar(String _aliasToLowerCaseChar) {
+        this.aliasToLowerCaseChar = _aliasToLowerCaseChar;
     }
 
     public String getAliasToUpperCaseChar() {
         return aliasToUpperCaseChar;
     }
 
-    public void setAliasToUpperCaseChar(String aliasToUpperCaseChar) {
-        this.aliasToUpperCaseChar = aliasToUpperCaseChar;
+    public void setAliasToUpperCaseChar(String _aliasToUpperCaseChar) {
+        this.aliasToUpperCaseChar = _aliasToUpperCaseChar;
     }
 
     public AliasParamNumber getParams() {

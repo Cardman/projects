@@ -104,16 +104,16 @@ public final class InitializingTypeInfos {
         return initEnums;
     }
 
-    public void setInitEnums(InitPhase initEnums) {
-        this.initEnums = initEnums;
+    public void setInitEnums(InitPhase _initEnums) {
+        this.initEnums = _initEnums;
     }
 
     public boolean isFailInit() {
         return failInit;
     }
 
-    public void setFailInit(boolean failInit) {
-        this.failInit = failInit;
+    public void setFailInit(boolean _failInit) {
+        this.failInit = _failInit;
     }
 
     public IdList<Struct> getSensibleFields() {

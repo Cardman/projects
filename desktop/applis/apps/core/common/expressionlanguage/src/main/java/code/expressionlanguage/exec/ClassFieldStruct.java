@@ -8,9 +8,9 @@ public final class ClassFieldStruct {
     private final ClassField classField;
     private Struct struct;
 
-    public ClassFieldStruct(ClassField classField, Struct struct) {
-        this.classField = classField;
-        this.struct = struct;
+    public ClassFieldStruct(ClassField _classField, Struct _struct) {
+        this.classField = _classField;
+        this.struct = _struct;
     }
 
     public static ClassFieldStruct getPair(CustList<ClassFieldStruct> _list, ClassField _id) {
@@ -30,7 +30,7 @@ public final class ClassFieldStruct {
         return struct;
     }
 
-    public void setStruct(Struct struct) {
-        this.struct = struct;
+    public void setStruct(Struct _struct) {
+        this.struct = _struct;
     }
 }

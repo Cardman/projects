@@ -248,967 +248,967 @@ public final class AliasParamMath {
         return aliasMath0Abs0;
     }
 
-    public void setAliasMath0Abs0(String aliasMath0Abs0) {
-        this.aliasMath0Abs0 = aliasMath0Abs0;
+    public void setAliasMath0Abs0(String _v) {
+        this.aliasMath0Abs0 =_v;
     }
 
     public String getAliasMath1Abs0() {
         return aliasMath1Abs0;
     }
 
-    public void setAliasMath1Abs0(String aliasMath1Abs0) {
-        this.aliasMath1Abs0 = aliasMath1Abs0;
+    public void setAliasMath1Abs0(String _v) {
+        this.aliasMath1Abs0 =_v;
     }
 
     public String getAliasMath0Quot0() {
         return aliasMath0Quot0;
     }
 
-    public void setAliasMath0Quot0(String aliasMath0Quot0) {
-        this.aliasMath0Quot0 = aliasMath0Quot0;
+    public void setAliasMath0Quot0(String _v) {
+        this.aliasMath0Quot0 =_v;
     }
 
     public String getAliasMath0Quot1() {
         return aliasMath0Quot1;
     }
 
-    public void setAliasMath0Quot1(String aliasMath0Quot1) {
-        this.aliasMath0Quot1 = aliasMath0Quot1;
+    public void setAliasMath0Quot1(String _v) {
+        this.aliasMath0Quot1 =_v;
     }
 
     public String getAliasMath1Quot0() {
         return aliasMath1Quot0;
     }
 
-    public void setAliasMath1Quot0(String aliasMath1Quot0) {
-        this.aliasMath1Quot0 = aliasMath1Quot0;
+    public void setAliasMath1Quot0(String _v) {
+        this.aliasMath1Quot0 =_v;
     }
 
     public String getAliasMath1Quot1() {
         return aliasMath1Quot1;
     }
 
-    public void setAliasMath1Quot1(String aliasMath1Quot1) {
-        this.aliasMath1Quot1 = aliasMath1Quot1;
+    public void setAliasMath1Quot1(String _v) {
+        this.aliasMath1Quot1 =_v;
     }
 
     public String getAliasMath0Mod0() {
         return aliasMath0Mod0;
     }
 
-    public void setAliasMath0Mod0(String aliasMath0Mod0) {
-        this.aliasMath0Mod0 = aliasMath0Mod0;
+    public void setAliasMath0Mod0(String _v) {
+        this.aliasMath0Mod0 =_v;
     }
 
     public String getAliasMath0Mod1() {
         return aliasMath0Mod1;
     }
 
-    public void setAliasMath0Mod1(String aliasMath0Mod1) {
-        this.aliasMath0Mod1 = aliasMath0Mod1;
+    public void setAliasMath0Mod1(String _v) {
+        this.aliasMath0Mod1 =_v;
     }
 
     public String getAliasMath1Mod0() {
         return aliasMath1Mod0;
     }
 
-    public void setAliasMath1Mod0(String aliasMath1Mod0) {
-        this.aliasMath1Mod0 = aliasMath1Mod0;
+    public void setAliasMath1Mod0(String _v) {
+        this.aliasMath1Mod0 =_v;
     }
 
     public String getAliasMath1Mod1() {
         return aliasMath1Mod1;
     }
 
-    public void setAliasMath1Mod1(String aliasMath1Mod1) {
-        this.aliasMath1Mod1 = aliasMath1Mod1;
+    public void setAliasMath1Mod1(String _v) {
+        this.aliasMath1Mod1 =_v;
     }
 
     public String getAliasMath0Plus0() {
         return aliasMath0Plus0;
     }
 
-    public void setAliasMath0Plus0(String aliasMath0Plus0) {
-        this.aliasMath0Plus0 = aliasMath0Plus0;
+    public void setAliasMath0Plus0(String _v) {
+        this.aliasMath0Plus0 =_v;
     }
 
     public String getAliasMath1Plus0() {
         return aliasMath1Plus0;
     }
 
-    public void setAliasMath1Plus0(String aliasMath1Plus0) {
-        this.aliasMath1Plus0 = aliasMath1Plus0;
+    public void setAliasMath1Plus0(String _v) {
+        this.aliasMath1Plus0 =_v;
     }
 
     public String getAliasMath2Plus0() {
         return aliasMath2Plus0;
     }
 
-    public void setAliasMath2Plus0(String aliasMath2Plus0) {
-        this.aliasMath2Plus0 = aliasMath2Plus0;
+    public void setAliasMath2Plus0(String _v) {
+        this.aliasMath2Plus0 =_v;
     }
 
     public String getAliasMath3Plus0() {
         return aliasMath3Plus0;
     }
 
-    public void setAliasMath3Plus0(String aliasMath3Plus0) {
-        this.aliasMath3Plus0 = aliasMath3Plus0;
+    public void setAliasMath3Plus0(String _v) {
+        this.aliasMath3Plus0 =_v;
     }
 
     public String getAliasMath0Minus0() {
         return aliasMath0Minus0;
     }
 
-    public void setAliasMath0Minus0(String aliasMath0Minus0) {
-        this.aliasMath0Minus0 = aliasMath0Minus0;
+    public void setAliasMath0Minus0(String _v) {
+        this.aliasMath0Minus0 =_v;
     }
 
     public String getAliasMath1Minus0() {
         return aliasMath1Minus0;
     }
 
-    public void setAliasMath1Minus0(String aliasMath1Minus0) {
-        this.aliasMath1Minus0 = aliasMath1Minus0;
+    public void setAliasMath1Minus0(String _v) {
+        this.aliasMath1Minus0 =_v;
     }
 
     public String getAliasMath2Minus0() {
         return aliasMath2Minus0;
     }
 
-    public void setAliasMath2Minus0(String aliasMath2Minus0) {
-        this.aliasMath2Minus0 = aliasMath2Minus0;
+    public void setAliasMath2Minus0(String _v) {
+        this.aliasMath2Minus0 =_v;
     }
 
     public String getAliasMath3Minus0() {
         return aliasMath3Minus0;
     }
 
-    public void setAliasMath3Minus0(String aliasMath3Minus0) {
-        this.aliasMath3Minus0 = aliasMath3Minus0;
+    public void setAliasMath3Minus0(String _v) {
+        this.aliasMath3Minus0 =_v;
     }
 
     public String getAliasMath0Neg0() {
         return aliasMath0Neg0;
     }
 
-    public void setAliasMath0Neg0(String aliasMath0Neg0) {
-        this.aliasMath0Neg0 = aliasMath0Neg0;
+    public void setAliasMath0Neg0(String _v) {
+        this.aliasMath0Neg0 =_v;
     }
 
     public String getAliasMath0NegBin0() {
         return aliasMath0NegBin0;
     }
 
-    public void setAliasMath0NegBin0(String aliasMath0NegBin0) {
-        this.aliasMath0NegBin0 = aliasMath0NegBin0;
+    public void setAliasMath0NegBin0(String _v) {
+        this.aliasMath0NegBin0 =_v;
     }
 
     public String getAliasMath1NegBin0() {
         return aliasMath1NegBin0;
     }
 
-    public void setAliasMath1NegBin0(String aliasMath1NegBin0) {
-        this.aliasMath1NegBin0 = aliasMath1NegBin0;
+    public void setAliasMath1NegBin0(String _v) {
+        this.aliasMath1NegBin0 =_v;
     }
 
     public String getAliasMath4Plus0() {
         return aliasMath4Plus0;
     }
 
-    public void setAliasMath4Plus0(String aliasMath4Plus0) {
-        this.aliasMath4Plus0 = aliasMath4Plus0;
+    public void setAliasMath4Plus0(String _v) {
+        this.aliasMath4Plus0 =_v;
     }
 
     public String getAliasMath4Plus1() {
         return aliasMath4Plus1;
     }
 
-    public void setAliasMath4Plus1(String aliasMath4Plus1) {
-        this.aliasMath4Plus1 = aliasMath4Plus1;
+    public void setAliasMath4Plus1(String _v) {
+        this.aliasMath4Plus1 =_v;
     }
 
     public String getAliasMath5Plus0() {
         return aliasMath5Plus0;
     }
 
-    public void setAliasMath5Plus0(String aliasMath5Plus0) {
-        this.aliasMath5Plus0 = aliasMath5Plus0;
+    public void setAliasMath5Plus0(String _v) {
+        this.aliasMath5Plus0 =_v;
     }
 
     public String getAliasMath5Plus1() {
         return aliasMath5Plus1;
     }
 
-    public void setAliasMath5Plus1(String aliasMath5Plus1) {
-        this.aliasMath5Plus1 = aliasMath5Plus1;
+    public void setAliasMath5Plus1(String _v) {
+        this.aliasMath5Plus1 =_v;
     }
 
     public String getAliasMath6Plus0() {
         return aliasMath6Plus0;
     }
 
-    public void setAliasMath6Plus0(String aliasMath6Plus0) {
-        this.aliasMath6Plus0 = aliasMath6Plus0;
+    public void setAliasMath6Plus0(String _v) {
+        this.aliasMath6Plus0 =_v;
     }
 
     public String getAliasMath6Plus1() {
         return aliasMath6Plus1;
     }
 
-    public void setAliasMath6Plus1(String aliasMath6Plus1) {
-        this.aliasMath6Plus1 = aliasMath6Plus1;
+    public void setAliasMath6Plus1(String _v) {
+        this.aliasMath6Plus1 =_v;
     }
 
     public String getAliasMath7Plus0() {
         return aliasMath7Plus0;
     }
 
-    public void setAliasMath7Plus0(String aliasMath7Plus0) {
-        this.aliasMath7Plus0 = aliasMath7Plus0;
+    public void setAliasMath7Plus0(String _v) {
+        this.aliasMath7Plus0 =_v;
     }
 
     public String getAliasMath7Plus1() {
         return aliasMath7Plus1;
     }
 
-    public void setAliasMath7Plus1(String aliasMath7Plus1) {
-        this.aliasMath7Plus1 = aliasMath7Plus1;
+    public void setAliasMath7Plus1(String _v) {
+        this.aliasMath7Plus1 =_v;
     }
 
     public String getAliasMath4Minus0() {
         return aliasMath4Minus0;
     }
 
-    public void setAliasMath4Minus0(String aliasMath4Minus0) {
-        this.aliasMath4Minus0 = aliasMath4Minus0;
+    public void setAliasMath4Minus0(String _v) {
+        this.aliasMath4Minus0 =_v;
     }
 
     public String getAliasMath4Minus1() {
         return aliasMath4Minus1;
     }
 
-    public void setAliasMath4Minus1(String aliasMath4Minus1) {
-        this.aliasMath4Minus1 = aliasMath4Minus1;
+    public void setAliasMath4Minus1(String _v) {
+        this.aliasMath4Minus1 =_v;
     }
 
     public String getAliasMath5Minus0() {
         return aliasMath5Minus0;
     }
 
-    public void setAliasMath5Minus0(String aliasMath5Minus0) {
-        this.aliasMath5Minus0 = aliasMath5Minus0;
+    public void setAliasMath5Minus0(String _v) {
+        this.aliasMath5Minus0 =_v;
     }
 
     public String getAliasMath5Minus1() {
         return aliasMath5Minus1;
     }
 
-    public void setAliasMath5Minus1(String aliasMath5Minus1) {
-        this.aliasMath5Minus1 = aliasMath5Minus1;
+    public void setAliasMath5Minus1(String _v) {
+        this.aliasMath5Minus1 =_v;
     }
 
     public String getAliasMath6Minus0() {
         return aliasMath6Minus0;
     }
 
-    public void setAliasMath6Minus0(String aliasMath6Minus0) {
-        this.aliasMath6Minus0 = aliasMath6Minus0;
+    public void setAliasMath6Minus0(String _v) {
+        this.aliasMath6Minus0 =_v;
     }
 
     public String getAliasMath6Minus1() {
         return aliasMath6Minus1;
     }
 
-    public void setAliasMath6Minus1(String aliasMath6Minus1) {
-        this.aliasMath6Minus1 = aliasMath6Minus1;
+    public void setAliasMath6Minus1(String _v) {
+        this.aliasMath6Minus1 =_v;
     }
 
     public String getAliasMath7Minus0() {
         return aliasMath7Minus0;
     }
 
-    public void setAliasMath7Minus0(String aliasMath7Minus0) {
-        this.aliasMath7Minus0 = aliasMath7Minus0;
+    public void setAliasMath7Minus0(String _v) {
+        this.aliasMath7Minus0 =_v;
     }
 
     public String getAliasMath7Minus1() {
         return aliasMath7Minus1;
     }
 
-    public void setAliasMath7Minus1(String aliasMath7Minus1) {
-        this.aliasMath7Minus1 = aliasMath7Minus1;
+    public void setAliasMath7Minus1(String _v) {
+        this.aliasMath7Minus1 =_v;
     }
 
     public String getAliasMath0Mult0() {
         return aliasMath0Mult0;
     }
 
-    public void setAliasMath0Mult0(String aliasMath0Mult0) {
-        this.aliasMath0Mult0 = aliasMath0Mult0;
+    public void setAliasMath0Mult0(String _v) {
+        this.aliasMath0Mult0 =_v;
     }
 
     public String getAliasMath0Mult1() {
         return aliasMath0Mult1;
     }
 
-    public void setAliasMath0Mult1(String aliasMath0Mult1) {
-        this.aliasMath0Mult1 = aliasMath0Mult1;
+    public void setAliasMath0Mult1(String _v) {
+        this.aliasMath0Mult1 =_v;
     }
 
     public String getAliasMath1Mult0() {
         return aliasMath1Mult0;
     }
 
-    public void setAliasMath1Mult0(String aliasMath1Mult0) {
-        this.aliasMath1Mult0 = aliasMath1Mult0;
+    public void setAliasMath1Mult0(String _v) {
+        this.aliasMath1Mult0 =_v;
     }
 
     public String getAliasMath1Mult1() {
         return aliasMath1Mult1;
     }
 
-    public void setAliasMath1Mult1(String aliasMath1Mult1) {
-        this.aliasMath1Mult1 = aliasMath1Mult1;
+    public void setAliasMath1Mult1(String _v) {
+        this.aliasMath1Mult1 =_v;
     }
 
     public String getAliasMath2Mult0() {
         return aliasMath2Mult0;
     }
 
-    public void setAliasMath2Mult0(String aliasMath2Mult0) {
-        this.aliasMath2Mult0 = aliasMath2Mult0;
+    public void setAliasMath2Mult0(String _v) {
+        this.aliasMath2Mult0 =_v;
     }
 
     public String getAliasMath2Mult1() {
         return aliasMath2Mult1;
     }
 
-    public void setAliasMath2Mult1(String aliasMath2Mult1) {
-        this.aliasMath2Mult1 = aliasMath2Mult1;
+    public void setAliasMath2Mult1(String _v) {
+        this.aliasMath2Mult1 =_v;
     }
 
     public String getAliasMath3Mult0() {
         return aliasMath3Mult0;
     }
 
-    public void setAliasMath3Mult0(String aliasMath3Mult0) {
-        this.aliasMath3Mult0 = aliasMath3Mult0;
+    public void setAliasMath3Mult0(String _v) {
+        this.aliasMath3Mult0 =_v;
     }
 
     public String getAliasMath3Mult1() {
         return aliasMath3Mult1;
     }
 
-    public void setAliasMath3Mult1(String aliasMath3Mult1) {
-        this.aliasMath3Mult1 = aliasMath3Mult1;
+    public void setAliasMath3Mult1(String _v) {
+        this.aliasMath3Mult1 =_v;
     }
 
     public String getAliasMath0BinQuot0() {
         return aliasMath0BinQuot0;
     }
 
-    public void setAliasMath0BinQuot0(String aliasMath0BinQuot0) {
-        this.aliasMath0BinQuot0 = aliasMath0BinQuot0;
+    public void setAliasMath0BinQuot0(String _v) {
+        this.aliasMath0BinQuot0 =_v;
     }
 
     public String getAliasMath0BinQuot1() {
         return aliasMath0BinQuot1;
     }
 
-    public void setAliasMath0BinQuot1(String aliasMath0BinQuot1) {
-        this.aliasMath0BinQuot1 = aliasMath0BinQuot1;
+    public void setAliasMath0BinQuot1(String _v) {
+        this.aliasMath0BinQuot1 =_v;
     }
 
     public String getAliasMath1BinQuot0() {
         return aliasMath1BinQuot0;
     }
 
-    public void setAliasMath1BinQuot0(String aliasMath1BinQuot0) {
-        this.aliasMath1BinQuot0 = aliasMath1BinQuot0;
+    public void setAliasMath1BinQuot0(String _v) {
+        this.aliasMath1BinQuot0 =_v;
     }
 
     public String getAliasMath1BinQuot1() {
         return aliasMath1BinQuot1;
     }
 
-    public void setAliasMath1BinQuot1(String aliasMath1BinQuot1) {
-        this.aliasMath1BinQuot1 = aliasMath1BinQuot1;
+    public void setAliasMath1BinQuot1(String _v) {
+        this.aliasMath1BinQuot1 =_v;
     }
 
     public String getAliasMath2BinQuot0() {
         return aliasMath2BinQuot0;
     }
 
-    public void setAliasMath2BinQuot0(String aliasMath2BinQuot0) {
-        this.aliasMath2BinQuot0 = aliasMath2BinQuot0;
+    public void setAliasMath2BinQuot0(String _v) {
+        this.aliasMath2BinQuot0 =_v;
     }
 
     public String getAliasMath2BinQuot1() {
         return aliasMath2BinQuot1;
     }
 
-    public void setAliasMath2BinQuot1(String aliasMath2BinQuot1) {
-        this.aliasMath2BinQuot1 = aliasMath2BinQuot1;
+    public void setAliasMath2BinQuot1(String _v) {
+        this.aliasMath2BinQuot1 =_v;
     }
 
     public String getAliasMath3BinQuot0() {
         return aliasMath3BinQuot0;
     }
 
-    public void setAliasMath3BinQuot0(String aliasMath3BinQuot0) {
-        this.aliasMath3BinQuot0 = aliasMath3BinQuot0;
+    public void setAliasMath3BinQuot0(String _v) {
+        this.aliasMath3BinQuot0 =_v;
     }
 
     public String getAliasMath3BinQuot1() {
         return aliasMath3BinQuot1;
     }
 
-    public void setAliasMath3BinQuot1(String aliasMath3BinQuot1) {
-        this.aliasMath3BinQuot1 = aliasMath3BinQuot1;
+    public void setAliasMath3BinQuot1(String _v) {
+        this.aliasMath3BinQuot1 =_v;
     }
 
     public String getAliasMath0BinMod0() {
         return aliasMath0BinMod0;
     }
 
-    public void setAliasMath0BinMod0(String aliasMath0BinMod0) {
-        this.aliasMath0BinMod0 = aliasMath0BinMod0;
+    public void setAliasMath0BinMod0(String _v) {
+        this.aliasMath0BinMod0 =_v;
     }
 
     public String getAliasMath0BinMod1() {
         return aliasMath0BinMod1;
     }
 
-    public void setAliasMath0BinMod1(String aliasMath0BinMod1) {
-        this.aliasMath0BinMod1 = aliasMath0BinMod1;
+    public void setAliasMath0BinMod1(String _v) {
+        this.aliasMath0BinMod1 =_v;
     }
 
     public String getAliasMath1BinMod0() {
         return aliasMath1BinMod0;
     }
 
-    public void setAliasMath1BinMod0(String aliasMath1BinMod0) {
-        this.aliasMath1BinMod0 = aliasMath1BinMod0;
+    public void setAliasMath1BinMod0(String _v) {
+        this.aliasMath1BinMod0 =_v;
     }
 
     public String getAliasMath1BinMod1() {
         return aliasMath1BinMod1;
     }
 
-    public void setAliasMath1BinMod1(String aliasMath1BinMod1) {
-        this.aliasMath1BinMod1 = aliasMath1BinMod1;
+    public void setAliasMath1BinMod1(String _v) {
+        this.aliasMath1BinMod1 =_v;
     }
 
     public String getAliasMath2BinMod0() {
         return aliasMath2BinMod0;
     }
 
-    public void setAliasMath2BinMod0(String aliasMath2BinMod0) {
-        this.aliasMath2BinMod0 = aliasMath2BinMod0;
+    public void setAliasMath2BinMod0(String _v) {
+        this.aliasMath2BinMod0 =_v;
     }
 
     public String getAliasMath2BinMod1() {
         return aliasMath2BinMod1;
     }
 
-    public void setAliasMath2BinMod1(String aliasMath2BinMod1) {
-        this.aliasMath2BinMod1 = aliasMath2BinMod1;
+    public void setAliasMath2BinMod1(String _v) {
+        this.aliasMath2BinMod1 =_v;
     }
 
     public String getAliasMath3BinMod0() {
         return aliasMath3BinMod0;
     }
 
-    public void setAliasMath3BinMod0(String aliasMath3BinMod0) {
-        this.aliasMath3BinMod0 = aliasMath3BinMod0;
+    public void setAliasMath3BinMod0(String _v) {
+        this.aliasMath3BinMod0 =_v;
     }
 
     public String getAliasMath3BinMod1() {
         return aliasMath3BinMod1;
     }
 
-    public void setAliasMath3BinMod1(String aliasMath3BinMod1) {
-        this.aliasMath3BinMod1 = aliasMath3BinMod1;
+    public void setAliasMath3BinMod1(String _v) {
+        this.aliasMath3BinMod1 =_v;
     }
 
     public String getAliasMath0And0() {
         return aliasMath0And0;
     }
 
-    public void setAliasMath0And0(String aliasMath0And0) {
-        this.aliasMath0And0 = aliasMath0And0;
+    public void setAliasMath0And0(String _v) {
+        this.aliasMath0And0 =_v;
     }
 
     public String getAliasMath0And1() {
         return aliasMath0And1;
     }
 
-    public void setAliasMath0And1(String aliasMath0And1) {
-        this.aliasMath0And1 = aliasMath0And1;
+    public void setAliasMath0And1(String _v) {
+        this.aliasMath0And1 =_v;
     }
 
     public String getAliasMath1And0() {
         return aliasMath1And0;
     }
 
-    public void setAliasMath1And0(String aliasMath1And0) {
-        this.aliasMath1And0 = aliasMath1And0;
+    public void setAliasMath1And0(String _v) {
+        this.aliasMath1And0 =_v;
     }
 
     public String getAliasMath1And1() {
         return aliasMath1And1;
     }
 
-    public void setAliasMath1And1(String aliasMath1And1) {
-        this.aliasMath1And1 = aliasMath1And1;
+    public void setAliasMath1And1(String _v) {
+        this.aliasMath1And1 =_v;
     }
 
     public String getAliasMath2And0() {
         return aliasMath2And0;
     }
 
-    public void setAliasMath2And0(String aliasMath2And0) {
-        this.aliasMath2And0 = aliasMath2And0;
+    public void setAliasMath2And0(String _v) {
+        this.aliasMath2And0 =_v;
     }
 
     public String getAliasMath2And1() {
         return aliasMath2And1;
     }
 
-    public void setAliasMath2And1(String aliasMath2And1) {
-        this.aliasMath2And1 = aliasMath2And1;
+    public void setAliasMath2And1(String _v) {
+        this.aliasMath2And1 =_v;
     }
 
     public String getAliasMath0Or0() {
         return aliasMath0Or0;
     }
 
-    public void setAliasMath0Or0(String aliasMath0Or0) {
-        this.aliasMath0Or0 = aliasMath0Or0;
+    public void setAliasMath0Or0(String _v) {
+        this.aliasMath0Or0 =_v;
     }
 
     public String getAliasMath0Or1() {
         return aliasMath0Or1;
     }
 
-    public void setAliasMath0Or1(String aliasMath0Or1) {
-        this.aliasMath0Or1 = aliasMath0Or1;
+    public void setAliasMath0Or1(String _v) {
+        this.aliasMath0Or1 =_v;
     }
 
     public String getAliasMath1Or0() {
         return aliasMath1Or0;
     }
 
-    public void setAliasMath1Or0(String aliasMath1Or0) {
-        this.aliasMath1Or0 = aliasMath1Or0;
+    public void setAliasMath1Or0(String _v) {
+        this.aliasMath1Or0 =_v;
     }
 
     public String getAliasMath1Or1() {
         return aliasMath1Or1;
     }
 
-    public void setAliasMath1Or1(String aliasMath1Or1) {
-        this.aliasMath1Or1 = aliasMath1Or1;
+    public void setAliasMath1Or1(String _v) {
+        this.aliasMath1Or1 =_v;
     }
 
     public String getAliasMath2Or0() {
         return aliasMath2Or0;
     }
 
-    public void setAliasMath2Or0(String aliasMath2Or0) {
-        this.aliasMath2Or0 = aliasMath2Or0;
+    public void setAliasMath2Or0(String _v) {
+        this.aliasMath2Or0 =_v;
     }
 
     public String getAliasMath2Or1() {
         return aliasMath2Or1;
     }
 
-    public void setAliasMath2Or1(String aliasMath2Or1) {
-        this.aliasMath2Or1 = aliasMath2Or1;
+    public void setAliasMath2Or1(String _v) {
+        this.aliasMath2Or1 =_v;
     }
 
     public String getAliasMath0Xor0() {
         return aliasMath0Xor0;
     }
 
-    public void setAliasMath0Xor0(String aliasMath0Xor0) {
-        this.aliasMath0Xor0 = aliasMath0Xor0;
+    public void setAliasMath0Xor0(String _v) {
+        this.aliasMath0Xor0 =_v;
     }
 
     public String getAliasMath0Xor1() {
         return aliasMath0Xor1;
     }
 
-    public void setAliasMath0Xor1(String aliasMath0Xor1) {
-        this.aliasMath0Xor1 = aliasMath0Xor1;
+    public void setAliasMath0Xor1(String _v) {
+        this.aliasMath0Xor1 =_v;
     }
 
     public String getAliasMath1Xor0() {
         return aliasMath1Xor0;
     }
 
-    public void setAliasMath1Xor0(String aliasMath1Xor0) {
-        this.aliasMath1Xor0 = aliasMath1Xor0;
+    public void setAliasMath1Xor0(String _v) {
+        this.aliasMath1Xor0 =_v;
     }
 
     public String getAliasMath1Xor1() {
         return aliasMath1Xor1;
     }
 
-    public void setAliasMath1Xor1(String aliasMath1Xor1) {
-        this.aliasMath1Xor1 = aliasMath1Xor1;
+    public void setAliasMath1Xor1(String _v) {
+        this.aliasMath1Xor1 =_v;
     }
 
     public String getAliasMath2Xor0() {
         return aliasMath2Xor0;
     }
 
-    public void setAliasMath2Xor0(String aliasMath2Xor0) {
-        this.aliasMath2Xor0 = aliasMath2Xor0;
+    public void setAliasMath2Xor0(String _v) {
+        this.aliasMath2Xor0 =_v;
     }
 
     public String getAliasMath2Xor1() {
         return aliasMath2Xor1;
     }
 
-    public void setAliasMath2Xor1(String aliasMath2Xor1) {
-        this.aliasMath2Xor1 = aliasMath2Xor1;
+    public void setAliasMath2Xor1(String _v) {
+        this.aliasMath2Xor1 =_v;
     }
 
     public String getAliasMath0ShiftLeft0() {
         return aliasMath0ShiftLeft0;
     }
 
-    public void setAliasMath0ShiftLeft0(String aliasMath0ShiftLeft0) {
-        this.aliasMath0ShiftLeft0 = aliasMath0ShiftLeft0;
+    public void setAliasMath0ShiftLeft0(String _v) {
+        this.aliasMath0ShiftLeft0 =_v;
     }
 
     public String getAliasMath0ShiftLeft1() {
         return aliasMath0ShiftLeft1;
     }
 
-    public void setAliasMath0ShiftLeft1(String aliasMath0ShiftLeft1) {
-        this.aliasMath0ShiftLeft1 = aliasMath0ShiftLeft1;
+    public void setAliasMath0ShiftLeft1(String _v) {
+        this.aliasMath0ShiftLeft1 =_v;
     }
 
     public String getAliasMath1ShiftLeft0() {
         return aliasMath1ShiftLeft0;
     }
 
-    public void setAliasMath1ShiftLeft0(String aliasMath1ShiftLeft0) {
-        this.aliasMath1ShiftLeft0 = aliasMath1ShiftLeft0;
+    public void setAliasMath1ShiftLeft0(String _v) {
+        this.aliasMath1ShiftLeft0 =_v;
     }
 
     public String getAliasMath1ShiftLeft1() {
         return aliasMath1ShiftLeft1;
     }
 
-    public void setAliasMath1ShiftLeft1(String aliasMath1ShiftLeft1) {
-        this.aliasMath1ShiftLeft1 = aliasMath1ShiftLeft1;
+    public void setAliasMath1ShiftLeft1(String _v) {
+        this.aliasMath1ShiftLeft1 =_v;
     }
 
     public String getAliasMath0ShiftRight0() {
         return aliasMath0ShiftRight0;
     }
 
-    public void setAliasMath0ShiftRight0(String aliasMath0ShiftRight0) {
-        this.aliasMath0ShiftRight0 = aliasMath0ShiftRight0;
+    public void setAliasMath0ShiftRight0(String _v) {
+        this.aliasMath0ShiftRight0 =_v;
     }
 
     public String getAliasMath0ShiftRight1() {
         return aliasMath0ShiftRight1;
     }
 
-    public void setAliasMath0ShiftRight1(String aliasMath0ShiftRight1) {
-        this.aliasMath0ShiftRight1 = aliasMath0ShiftRight1;
+    public void setAliasMath0ShiftRight1(String _v) {
+        this.aliasMath0ShiftRight1 =_v;
     }
 
     public String getAliasMath1ShiftRight0() {
         return aliasMath1ShiftRight0;
     }
 
-    public void setAliasMath1ShiftRight0(String aliasMath1ShiftRight0) {
-        this.aliasMath1ShiftRight0 = aliasMath1ShiftRight0;
+    public void setAliasMath1ShiftRight0(String _v) {
+        this.aliasMath1ShiftRight0 =_v;
     }
 
     public String getAliasMath1ShiftRight1() {
         return aliasMath1ShiftRight1;
     }
 
-    public void setAliasMath1ShiftRight1(String aliasMath1ShiftRight1) {
-        this.aliasMath1ShiftRight1 = aliasMath1ShiftRight1;
+    public void setAliasMath1ShiftRight1(String _v) {
+        this.aliasMath1ShiftRight1 =_v;
     }
 
     public String getAliasMath0BitShiftLeft0() {
         return aliasMath0BitShiftLeft0;
     }
 
-    public void setAliasMath0BitShiftLeft0(String aliasMath0BitShiftLeft0) {
-        this.aliasMath0BitShiftLeft0 = aliasMath0BitShiftLeft0;
+    public void setAliasMath0BitShiftLeft0(String _v) {
+        this.aliasMath0BitShiftLeft0 =_v;
     }
 
     public String getAliasMath0BitShiftLeft1() {
         return aliasMath0BitShiftLeft1;
     }
 
-    public void setAliasMath0BitShiftLeft1(String aliasMath0BitShiftLeft1) {
-        this.aliasMath0BitShiftLeft1 = aliasMath0BitShiftLeft1;
+    public void setAliasMath0BitShiftLeft1(String _v) {
+        this.aliasMath0BitShiftLeft1 =_v;
     }
 
     public String getAliasMath1BitShiftLeft0() {
         return aliasMath1BitShiftLeft0;
     }
 
-    public void setAliasMath1BitShiftLeft0(String aliasMath1BitShiftLeft0) {
-        this.aliasMath1BitShiftLeft0 = aliasMath1BitShiftLeft0;
+    public void setAliasMath1BitShiftLeft0(String _v) {
+        this.aliasMath1BitShiftLeft0 =_v;
     }
 
     public String getAliasMath1BitShiftLeft1() {
         return aliasMath1BitShiftLeft1;
     }
 
-    public void setAliasMath1BitShiftLeft1(String aliasMath1BitShiftLeft1) {
-        this.aliasMath1BitShiftLeft1 = aliasMath1BitShiftLeft1;
+    public void setAliasMath1BitShiftLeft1(String _v) {
+        this.aliasMath1BitShiftLeft1 =_v;
     }
 
     public String getAliasMath0BitShiftRight0() {
         return aliasMath0BitShiftRight0;
     }
 
-    public void setAliasMath0BitShiftRight0(String aliasMath0BitShiftRight0) {
-        this.aliasMath0BitShiftRight0 = aliasMath0BitShiftRight0;
+    public void setAliasMath0BitShiftRight0(String _v) {
+        this.aliasMath0BitShiftRight0 =_v;
     }
 
     public String getAliasMath0BitShiftRight1() {
         return aliasMath0BitShiftRight1;
     }
 
-    public void setAliasMath0BitShiftRight1(String aliasMath0BitShiftRight1) {
-        this.aliasMath0BitShiftRight1 = aliasMath0BitShiftRight1;
+    public void setAliasMath0BitShiftRight1(String _v) {
+        this.aliasMath0BitShiftRight1 =_v;
     }
 
     public String getAliasMath1BitShiftRight0() {
         return aliasMath1BitShiftRight0;
     }
 
-    public void setAliasMath1BitShiftRight0(String aliasMath1BitShiftRight0) {
-        this.aliasMath1BitShiftRight0 = aliasMath1BitShiftRight0;
+    public void setAliasMath1BitShiftRight0(String _v) {
+        this.aliasMath1BitShiftRight0 =_v;
     }
 
     public String getAliasMath1BitShiftRight1() {
         return aliasMath1BitShiftRight1;
     }
 
-    public void setAliasMath1BitShiftRight1(String aliasMath1BitShiftRight1) {
-        this.aliasMath1BitShiftRight1 = aliasMath1BitShiftRight1;
+    public void setAliasMath1BitShiftRight1(String _v) {
+        this.aliasMath1BitShiftRight1 =_v;
     }
 
     public String getAliasMath0RotateLeft0() {
         return aliasMath0RotateLeft0;
     }
 
-    public void setAliasMath0RotateLeft0(String aliasMath0RotateLeft0) {
-        this.aliasMath0RotateLeft0 = aliasMath0RotateLeft0;
+    public void setAliasMath0RotateLeft0(String _v) {
+        this.aliasMath0RotateLeft0 =_v;
     }
 
     public String getAliasMath0RotateLeft1() {
         return aliasMath0RotateLeft1;
     }
 
-    public void setAliasMath0RotateLeft1(String aliasMath0RotateLeft1) {
-        this.aliasMath0RotateLeft1 = aliasMath0RotateLeft1;
+    public void setAliasMath0RotateLeft1(String _v) {
+        this.aliasMath0RotateLeft1 =_v;
     }
 
     public String getAliasMath1RotateLeft0() {
         return aliasMath1RotateLeft0;
     }
 
-    public void setAliasMath1RotateLeft0(String aliasMath1RotateLeft0) {
-        this.aliasMath1RotateLeft0 = aliasMath1RotateLeft0;
+    public void setAliasMath1RotateLeft0(String _v) {
+        this.aliasMath1RotateLeft0 =_v;
     }
 
     public String getAliasMath1RotateLeft1() {
         return aliasMath1RotateLeft1;
     }
 
-    public void setAliasMath1RotateLeft1(String aliasMath1RotateLeft1) {
-        this.aliasMath1RotateLeft1 = aliasMath1RotateLeft1;
+    public void setAliasMath1RotateLeft1(String _v) {
+        this.aliasMath1RotateLeft1 =_v;
     }
 
     public String getAliasMath0RotateRight0() {
         return aliasMath0RotateRight0;
     }
 
-    public void setAliasMath0RotateRight0(String aliasMath0RotateRight0) {
-        this.aliasMath0RotateRight0 = aliasMath0RotateRight0;
+    public void setAliasMath0RotateRight0(String _v) {
+        this.aliasMath0RotateRight0 =_v;
     }
 
     public String getAliasMath0RotateRight1() {
         return aliasMath0RotateRight1;
     }
 
-    public void setAliasMath0RotateRight1(String aliasMath0RotateRight1) {
-        this.aliasMath0RotateRight1 = aliasMath0RotateRight1;
+    public void setAliasMath0RotateRight1(String _v) {
+        this.aliasMath0RotateRight1 =_v;
     }
 
     public String getAliasMath1RotateRight0() {
         return aliasMath1RotateRight0;
     }
 
-    public void setAliasMath1RotateRight0(String aliasMath1RotateRight0) {
-        this.aliasMath1RotateRight0 = aliasMath1RotateRight0;
+    public void setAliasMath1RotateRight0(String _v) {
+        this.aliasMath1RotateRight0 =_v;
     }
 
     public String getAliasMath1RotateRight1() {
         return aliasMath1RotateRight1;
     }
 
-    public void setAliasMath1RotateRight1(String aliasMath1RotateRight1) {
-        this.aliasMath1RotateRight1 = aliasMath1RotateRight1;
+    public void setAliasMath1RotateRight1(String _v) {
+        this.aliasMath1RotateRight1 =_v;
     }
 
     public String getAliasMath0Le0() {
         return aliasMath0Le0;
     }
 
-    public void setAliasMath0Le0(String aliasMath0Le0) {
-        this.aliasMath0Le0 = aliasMath0Le0;
+    public void setAliasMath0Le0(String _v) {
+        this.aliasMath0Le0 =_v;
     }
 
     public String getAliasMath0Le1() {
         return aliasMath0Le1;
     }
 
-    public void setAliasMath0Le1(String aliasMath0Le1) {
-        this.aliasMath0Le1 = aliasMath0Le1;
+    public void setAliasMath0Le1(String _v) {
+        this.aliasMath0Le1 =_v;
     }
 
     public String getAliasMath0Ge0() {
         return aliasMath0Ge0;
     }
 
-    public void setAliasMath0Ge0(String aliasMath0Ge0) {
-        this.aliasMath0Ge0 = aliasMath0Ge0;
+    public void setAliasMath0Ge0(String _v) {
+        this.aliasMath0Ge0 =_v;
     }
 
     public String getAliasMath0Ge1() {
         return aliasMath0Ge1;
     }
 
-    public void setAliasMath0Ge1(String aliasMath0Ge1) {
-        this.aliasMath0Ge1 = aliasMath0Ge1;
+    public void setAliasMath0Ge1(String _v) {
+        this.aliasMath0Ge1 =_v;
     }
 
     public String getAliasMath0Lt0() {
         return aliasMath0Lt0;
     }
 
-    public void setAliasMath0Lt0(String aliasMath0Lt0) {
-        this.aliasMath0Lt0 = aliasMath0Lt0;
+    public void setAliasMath0Lt0(String _v) {
+        this.aliasMath0Lt0 =_v;
     }
 
     public String getAliasMath0Lt1() {
         return aliasMath0Lt1;
     }
 
-    public void setAliasMath0Lt1(String aliasMath0Lt1) {
-        this.aliasMath0Lt1 = aliasMath0Lt1;
+    public void setAliasMath0Lt1(String _v) {
+        this.aliasMath0Lt1 =_v;
     }
 
     public String getAliasMath0Gt0() {
         return aliasMath0Gt0;
     }
 
-    public void setAliasMath0Gt0(String aliasMath0Gt0) {
-        this.aliasMath0Gt0 = aliasMath0Gt0;
+    public void setAliasMath0Gt0(String _v) {
+        this.aliasMath0Gt0 =_v;
     }
 
     public String getAliasMath0Gt1() {
         return aliasMath0Gt1;
     }
 
-    public void setAliasMath0Gt1(String aliasMath0Gt1) {
-        this.aliasMath0Gt1 = aliasMath0Gt1;
+    public void setAliasMath0Gt1(String _v) {
+        this.aliasMath0Gt1 =_v;
     }
 
     public String getAliasMath1Le0() {
         return aliasMath1Le0;
     }
 
-    public void setAliasMath1Le0(String aliasMath1Le0) {
-        this.aliasMath1Le0 = aliasMath1Le0;
+    public void setAliasMath1Le0(String _v) {
+        this.aliasMath1Le0 =_v;
     }
 
     public String getAliasMath1Le1() {
         return aliasMath1Le1;
     }
 
-    public void setAliasMath1Le1(String aliasMath1Le1) {
-        this.aliasMath1Le1 = aliasMath1Le1;
+    public void setAliasMath1Le1(String _v) {
+        this.aliasMath1Le1 =_v;
     }
 
     public String getAliasMath1Ge0() {
         return aliasMath1Ge0;
     }
 
-    public void setAliasMath1Ge0(String aliasMath1Ge0) {
-        this.aliasMath1Ge0 = aliasMath1Ge0;
+    public void setAliasMath1Ge0(String _v) {
+        this.aliasMath1Ge0 =_v;
     }
 
     public String getAliasMath1Ge1() {
         return aliasMath1Ge1;
     }
 
-    public void setAliasMath1Ge1(String aliasMath1Ge1) {
-        this.aliasMath1Ge1 = aliasMath1Ge1;
+    public void setAliasMath1Ge1(String _v) {
+        this.aliasMath1Ge1 =_v;
     }
 
     public String getAliasMath1Lt0() {
         return aliasMath1Lt0;
     }
 
-    public void setAliasMath1Lt0(String aliasMath1Lt0) {
-        this.aliasMath1Lt0 = aliasMath1Lt0;
+    public void setAliasMath1Lt0(String _v) {
+        this.aliasMath1Lt0 =_v;
     }
 
     public String getAliasMath1Lt1() {
         return aliasMath1Lt1;
     }
 
-    public void setAliasMath1Lt1(String aliasMath1Lt1) {
-        this.aliasMath1Lt1 = aliasMath1Lt1;
+    public void setAliasMath1Lt1(String _v) {
+        this.aliasMath1Lt1 =_v;
     }
 
     public String getAliasMath1Gt0() {
         return aliasMath1Gt0;
     }
 
-    public void setAliasMath1Gt0(String aliasMath1Gt0) {
-        this.aliasMath1Gt0 = aliasMath1Gt0;
+    public void setAliasMath1Gt0(String _v) {
+        this.aliasMath1Gt0 =_v;
     }
 
     public String getAliasMath1Gt1() {
         return aliasMath1Gt1;
     }
 
-    public void setAliasMath1Gt1(String aliasMath1Gt1) {
-        this.aliasMath1Gt1 = aliasMath1Gt1;
+    public void setAliasMath1Gt1(String _v) {
+        this.aliasMath1Gt1 =_v;
     }
 
     public String getAliasMath0Random0() {
         return aliasMath0Random0;
     }
 
-    public void setAliasMath0Random0(String aliasMath0Random0) {
-        this.aliasMath0Random0 = aliasMath0Random0;
+    public void setAliasMath0Random0(String _v) {
+        this.aliasMath0Random0 =_v;
     }
 
     public String getAliasMath0Seed0() {
         return aliasMath0Seed0;
     }
 
-    public void setAliasMath0Seed0(String aliasMath0Seed0) {
-        this.aliasMath0Seed0 = aliasMath0Seed0;
+    public void setAliasMath0Seed0(String _v) {
+        this.aliasMath0Seed0 =_v;
     }
 }

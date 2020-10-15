@@ -28,10 +28,10 @@ public final class FullFieldRetriever implements FieldRetriever {
     private final String string;
     private final AnalyzedPageEl context;
 
-    public FullFieldRetriever(Delimiters delimiters, String string, AnalyzedPageEl context) {
-        this.delimiters = delimiters;
-        this.string = string;
-        this.context = context;
+    public FullFieldRetriever(Delimiters _delimiters, String _string, AnalyzedPageEl _context) {
+        this.delimiters = _delimiters;
+        this.string = _string;
+        this.context = _context;
     }
 
     @Override

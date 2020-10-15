@@ -376,8 +376,8 @@ public class DataBase {
     private String language = "";
     private final AbstractGenerator generator;
 
-    public DataBase(AbstractGenerator generator) {
-        this.generator = generator;
+    public DataBase(AbstractGenerator _generator) {
+        this.generator = _generator;
     }
 
     public LgInt getMaxRd() {

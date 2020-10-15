@@ -48,63 +48,63 @@ public final class RendAnalysisMessages {
         return badInputName;
     }
 
-    public void setBadInputName(String badInputName) {
-        this.badInputName = badInputName;
+    public void setBadInputName(String _badInputName) {
+        this.badInputName = _badInputName;
     }
 
     public String getStaticInputName() {
         return staticInputName;
     }
 
-    public void setStaticInputName(String staticInputName) {
-        this.staticInputName = staticInputName;
+    public void setStaticInputName(String _staticInputName) {
+        this.staticInputName = _staticInputName;
     }
 
     public String getUnexpectedChildTag() {
         return unexpectedChildTag;
     }
 
-    public void setUnexpectedChildTag(String unexpectedChildTag) {
-        this.unexpectedChildTag = unexpectedChildTag;
+    public void setUnexpectedChildTag(String _unexpectedChildTag) {
+        this.unexpectedChildTag = _unexpectedChildTag;
     }
 
     public String getEmptyAttr() {
         return emptyAttr;
     }
 
-    public void setEmptyAttr(String emptyAttr) {
-        this.emptyAttr = emptyAttr;
+    public void setEmptyAttr(String _emptyAttr) {
+        this.emptyAttr = _emptyAttr;
     }
 
     public String getUnexpectedExp() {
         return unexpectedExp;
     }
 
-    public void setUnexpectedExp(String unexpectedExp) {
-        this.unexpectedExp = unexpectedExp;
+    public void setUnexpectedExp(String _unexpectedExp) {
+        this.unexpectedExp = _unexpectedExp;
     }
 
     public String getInexistantFile() {
         return inexistantFile;
     }
 
-    public void setInexistantFile(String inexistantFile) {
-        this.inexistantFile = inexistantFile;
+    public void setInexistantFile(String _inexistantFile) {
+        this.inexistantFile = _inexistantFile;
     }
 
     public String getInexistantKey() {
         return inexistantKey;
     }
 
-    public void setInexistantKey(String inexistantKey) {
-        this.inexistantKey = inexistantKey;
+    public void setInexistantKey(String _inexistantKey) {
+        this.inexistantKey = _inexistantKey;
     }
 
     public String getBadDocument() {
         return badDocument;
     }
 
-    public void setBadDocument(String badDocument) {
-        this.badDocument = badDocument;
+    public void setBadDocument(String _badDocument) {
+        this.badDocument = _badDocument;
     }
 }

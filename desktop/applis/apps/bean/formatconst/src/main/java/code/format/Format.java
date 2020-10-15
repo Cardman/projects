@@ -15,17 +15,17 @@ public final class Format {
 
     private Format(){}
 
-    public static String getConstanteLangue(String fichier_,String _group ,String _nomConstante) {
-        return getConstanteLangue(concatParts(_group, _nomConstante),fichier_);
+    public static String getConstanteLangue(String _fichier,String _group ,String _nomConstante) {
+        return getConstanteLangue(concatParts(_group, _nomConstante),_fichier);
     }
 
     public static String concatParts(String _group, String _nomConstante) {
         return StringUtil.concat(_group,Format.DOT,_nomConstante);
     }
 
-    public static String getConstanteLangue(String _nomConstante, String fichier_) {
+    public static String getConstanteLangue(String _nomConstante, String _fichier) {
         StringMap<String> constantes_ = new StringMap<String>();
-        for(String line_: StringUtil.splitStrings(fichier_, RETURNE_LINE)){
+        for(String line_: StringUtil.splitStrings(_fichier, RETURNE_LINE)){
             if(!line_.contains(SEPARATOR)){
                 continue;
             }

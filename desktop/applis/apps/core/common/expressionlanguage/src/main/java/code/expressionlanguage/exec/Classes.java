@@ -197,8 +197,8 @@ public final class Classes {
         return ExecClassArgumentMatching.defaultValue(_returnType, _context);
     }
 
-    public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> staticFields_) {
-        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), staticFields_);
+    public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> _staticFields) {
+        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), _staticFields);
         if (map_.isEmpty()) {
             return null;
         }
@@ -346,39 +346,39 @@ public final class Classes {
         return seedDoublePick;
     }
 
-    public void setSeedDoublePick(ExecNamedFunctionBlock seedDoublePick) {
-        this.seedDoublePick = seedDoublePick;
+    public void setSeedDoublePick(ExecNamedFunctionBlock _seedDoublePick) {
+        this.seedDoublePick = _seedDoublePick;
     }
 
     public ExecNamedFunctionBlock getSeedPick() {
         return seedPick;
     }
 
-    public void setSeedPick(ExecNamedFunctionBlock seedPick) {
-        this.seedPick = seedPick;
+    public void setSeedPick(ExecNamedFunctionBlock _seedPick) {
+        this.seedPick = _seedPick;
     }
 
     public ExecRootBlock getSeedDoubleGenerator() {
         return seedDoubleGenerator;
     }
 
-    public void setSeedDoubleGenerator(ExecRootBlock seedDoubleGenerator) {
-        this.seedDoubleGenerator = seedDoubleGenerator;
+    public void setSeedDoubleGenerator(ExecRootBlock _seedDoubleGenerator) {
+        this.seedDoubleGenerator = _seedDoubleGenerator;
     }
 
     public ExecRootBlock getSeedGenerator() {
         return seedGenerator;
     }
 
-    public void setSeedGenerator(ExecRootBlock seedGenerator) {
-        this.seedGenerator = seedGenerator;
+    public void setSeedGenerator(ExecRootBlock _seedGenerator) {
+        this.seedGenerator = _seedGenerator;
     }
 
     public String getKeyWordValue() {
         return keyWordValue;
     }
 
-    public void setKeyWordValue(String keyWordValue) {
-        this.keyWordValue = keyWordValue;
+    public void setKeyWordValue(String _keyWordValue) {
+        this.keyWordValue = _keyWordValue;
     }
 }

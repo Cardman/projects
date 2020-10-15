@@ -36,25 +36,28 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
         return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaConstructorContent.getRealId(), getReturnFieldType()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ConstructorId _realId, String _returnFieldType) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = foundClass;
+        String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, realId, returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
+        return newLambda(_previous, _conf, ownerType_, _realId, _returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaConstructorContent.getFunctionBlock(), lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction());
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String ownerType_, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String clArg_, String fileName, ExecNamedFunctionBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
-        LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, shiftArgument);
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId, String _returnFieldType,
+                                   boolean _shiftArgument, boolean _safeInstance,
+                                   String _clArg, String _fileName,
+                                   ExecNamedFunctionBlock _functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _function) {
+        LambdaConstructorStruct l_ = new LambdaConstructorStruct(_clArg, _ownerType, _shiftArgument);
         l_.setInstanceCall(_previous);
-        l_.setSafeInstance(safeInstance);
-        if (!ownerType_.startsWith(ARR)) {
-            String className_ = StringExpUtil.getIdFromAllTypes(ownerType_);
-            ConstructorId fid_ = ExecutingUtil.tryFormatId(ownerType_, _conf, realId);
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(ownerType_,AccessEnum.PUBLIC, realId, returnFieldType, fid_, className_);
-            met_.setFileName(fileName);
-            met_.setAnnotableBlock(functionBlock);
-            met_.setCallee(function);
+        l_.setSafeInstance(_safeInstance);
+        if (!_ownerType.startsWith(ARR)) {
+            String className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
+            ConstructorId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _realId);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _returnFieldType, fid_, className_);
+            met_.setFileName(_fileName);
+            met_.setAnnotableBlock(_functionBlock);
+            met_.setCallee(_function);
             met_.setDeclaring(_rootBlock);
             l_.setMetaInfo(met_);
         }

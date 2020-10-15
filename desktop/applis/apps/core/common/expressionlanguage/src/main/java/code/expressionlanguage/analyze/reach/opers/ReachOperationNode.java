@@ -210,16 +210,16 @@ public abstract class ReachOperationNode {
         return parent;
     }
 
-    public void setParent(ReachMethodOperation parent) {
-        this.parent = parent;
+    public void setParent(ReachMethodOperation _parent) {
+        this.parent = _parent;
     }
 
     public ReachOperationNode getNextSibling() {
         return nextSibling;
     }
 
-    public void setNextSibling(ReachOperationNode nextSibling) {
-        this.nextSibling = nextSibling;
+    public void setNextSibling(ReachOperationNode _nextSibling) {
+        this.nextSibling = _nextSibling;
     }
 
     public final Argument getArgument() {
@@ -268,8 +268,8 @@ public abstract class ReachOperationNode {
             getInfo().getErrs().add(static_.getBuiltError());
         }
     }
-    public void setSiblingSet(ReachPossibleIntermediateDotted siblingSet) {
-        this.siblingSet = siblingSet;
+    public void setSiblingSet(ReachPossibleIntermediateDotted _siblingSet) {
+        this.siblingSet = _siblingSet;
     }
 
     public OperationNode getInfo() {

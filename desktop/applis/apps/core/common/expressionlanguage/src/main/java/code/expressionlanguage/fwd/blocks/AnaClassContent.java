@@ -6,10 +6,10 @@ public final class AnaClassContent {
     private final boolean abstractType;
     private final boolean staticType;
 
-    public AnaClassContent(boolean finalType, boolean abstractType, boolean staticType) {
-        this.finalType = finalType;
-        this.abstractType = abstractType;
-        this.staticType = staticType;
+    public AnaClassContent(boolean _finalType, boolean _abstractType, boolean _staticType) {
+        this.finalType = _finalType;
+        this.abstractType = _abstractType;
+        this.staticType = _staticType;
     }
 
     public boolean isAbstractType() {

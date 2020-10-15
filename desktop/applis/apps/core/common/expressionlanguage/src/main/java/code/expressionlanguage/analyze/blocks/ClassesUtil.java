@@ -762,15 +762,15 @@ public final class ClassesUtil {
         }
     }
 
-    public static void checkBody(AnalyzedPageEl _page, OperatorBlock r_) {
-        Block c_ = r_;
-        if (r_.getFirstChild() != null) {
+    public static void checkBody(AnalyzedPageEl _page, OperatorBlock _r) {
+        Block c_ = _r;
+        if (_r.getFirstChild() != null) {
             while (true) {
                 if (c_ instanceof RootBlock) {
                     RootBlock cur_ = (RootBlock) c_;
                     String s_ = cur_.getName();
                     FoundErrorInterpret d_ = new FoundErrorInterpret();
-                    d_.setFileName(r_.getFile().getFileName());
+                    d_.setFileName(_r.getFile().getFileName());
                     d_.setIndexFile(cur_.getIdRowCol());
                     //s_ len
                     d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -791,7 +791,7 @@ public final class ClassesUtil {
                         break;
                     }
                     BracedBlock p_ = c_.getParent();
-                    if (p_ == r_) {
+                    if (p_ == _r) {
                         end_ = true;
                         break;
                     }
@@ -2046,7 +2046,7 @@ public final class ClassesUtil {
                     _page.getResultsAnaInst().addEntry(method_,a_);
                 }
             }
-            processInterfaceCtor(c, fullName_, bl_, _page);
+            processInterfaceCtor(c, bl_, _page);
             for (Block b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     _page.getInitFieldsCtors().clear();
@@ -2451,9 +2451,9 @@ public final class ClassesUtil {
         }
     }
 
-    private static void tryAnalyseAssign(AssignedVariablesBlock assVars_, AssBlock pr_, AnalyzingEl anAss_, AssMemberCallingsBlock assign_, AnalyzedPageEl _page) {
-        if (!anAss_.isVariableIssue()) {
-            assign_.buildFctInstructions(pr_,assVars_, _page);
+    private static void tryAnalyseAssign(AssignedVariablesBlock _assVars, AssBlock _pr, AnalyzingEl _anAss, AssMemberCallingsBlock _assign, AnalyzedPageEl _page) {
+        if (!_anAss.isVariableIssue()) {
+            _assign.buildFctInstructions(_pr,_assVars, _page);
         }
     }
 
@@ -2567,31 +2567,31 @@ public final class ClassesUtil {
             _page.clearAllLocalVars(assVars_);
         }
     }
-    private static void tryAnalyseAssign(AssignedVariablesBlock assVars_, AnalyzingEl anAss_, AssSimStdMethodBlock assign_, AnalyzedPageEl _page) {
-        if (!anAss_.isVariableIssue()) {
-            assign_.buildFctInstructions(assVars_, _page);
+    private static void tryAnalyseAssign(AssignedVariablesBlock _assVars, AnalyzingEl _anAss, AssSimStdMethodBlock _assign, AnalyzedPageEl _page) {
+        if (!_anAss.isVariableIssue()) {
+            _assign.buildFctInstructions(_assVars, _page);
         }
     }
 
-    private static StringMap<SimpleAssignment> getFieldsRoot(AssignedVariablesBlock assVars_, AssMemberCallingsBlock res_) {
-        AssignedVariables val_ = assVars_.getFinalVariables().getVal(res_);
+    private static StringMap<SimpleAssignment> getFieldsRoot(AssignedVariablesBlock _assVars, AssMemberCallingsBlock _res) {
+        AssignedVariables val_ = _assVars.getFinalVariables().getVal(_res);
         if (val_ == null) {
             return new StringMap<SimpleAssignment>();
         }
         return val_.getFieldsRoot();
     }
 
-    private static StringList getErFields(InfoBlock f_, int v_) {
+    private static StringList getErFields(InfoBlock _f, int _v) {
         StringList errs_ = new StringList();
-        if (f_ instanceof FieldBlock) {
-            errs_ = ((FieldBlock)f_).getCstErrorsFields().get(v_);
+        if (_f instanceof FieldBlock) {
+            errs_ = ((FieldBlock)_f).getCstErrorsFields().get(_v);
         }
         return errs_;
     }
 
-    private static boolean isStdOrExplicit(OverridableBlock method_) {
-        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.TO_STRING || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
-                || method_.getKind() == MethodKind.TRUE_OPERATOR || method_.getKind() == MethodKind.FALSE_OPERATOR;
+    private static boolean isStdOrExplicit(OverridableBlock _method) {
+        return _method.getKind() == MethodKind.STD_METHOD || _method.getKind() == MethodKind.TO_STRING || _method.getKind() == MethodKind.EXPLICIT_CAST || _method.getKind() == MethodKind.IMPLICIT_CAST
+                || _method.getKind() == MethodKind.TRUE_OPERATOR || _method.getKind() == MethodKind.FALSE_OPERATOR;
     }
 
     private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
@@ -2623,7 +2623,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processInterfaceCtor(RootBlock _cl, String _name, CustList<Block> _blocks, AnalyzedPageEl _page) {
+    private static void processInterfaceCtor(RootBlock _cl, CustList<Block> _blocks, AnalyzedPageEl _page) {
         boolean hasCtor_ = false;
         for (Block b: _blocks) {
             if (b instanceof ConstructorBlock) {

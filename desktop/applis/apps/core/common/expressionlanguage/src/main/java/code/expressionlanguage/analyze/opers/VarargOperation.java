@@ -106,12 +106,12 @@ public final class VarargOperation extends LeafOperation {
         setSimpleArgument(new Argument());
     }
 
-    private boolean exclude(Parametrable methodInfo_) {
-        Identifiable geneFormatted = methodInfo_.getGeneFormatted();
-        if (!methodInfo_.isVararg()) {
+    private boolean exclude(Parametrable _methodInfo) {
+        Identifiable geneFormatted_ = _methodInfo.getGeneFormatted();
+        if (!_methodInfo.isVararg()) {
             return true;
         }
-        String wc_ = geneFormatted.getParametersType(geneFormatted.getParametersTypesLength() - 1);
+        String wc_ = geneFormatted_.getParametersType(geneFormatted_.getParametersTypesLength() - 1);
         return !StringUtil.quickEq(wc_, className);
     }
 

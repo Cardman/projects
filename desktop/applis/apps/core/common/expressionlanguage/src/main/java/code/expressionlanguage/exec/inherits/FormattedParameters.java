@@ -16,7 +16,7 @@ public final class FormattedParameters {
         return parameters;
     }
 
-    public void setParameters(Parameters parameters) {
-        this.parameters = parameters;
+    public void setParameters(Parameters _parameters) {
+        this.parameters = _parameters;
     }
 }

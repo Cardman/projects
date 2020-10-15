@@ -48,7 +48,7 @@ public final class AssignedVariablesBlock {
         return cache;
     }
 
-    public void setCache(AnaCache cache) {
-        this.cache = cache;
+    public void setCache(AnaCache _cache) {
+        this.cache = _cache;
     }
 }

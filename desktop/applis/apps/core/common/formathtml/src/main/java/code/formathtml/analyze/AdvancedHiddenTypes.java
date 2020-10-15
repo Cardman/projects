@@ -9,8 +9,8 @@ import code.expressionlanguage.analyze.AbstractHiddenTypes;
 public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
     private final AnalyzedPageEl configuration;
 
-    public AdvancedHiddenTypes(AnalyzedPageEl configuration) {
-        this.configuration = configuration;
+    public AdvancedHiddenTypes(AnalyzedPageEl _configuration) {
+        this.configuration = _configuration;
     }
 
     @Override

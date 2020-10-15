@@ -4,9 +4,9 @@ public final class TokenErrorMessage {
     private final String message;
     private final boolean error;
 
-    public TokenErrorMessage(String message, boolean error) {
-        this.message = message;
-        this.error = error;
+    public TokenErrorMessage(String _message, boolean _error) {
+        this.message = _message;
+        this.error = _error;
     }
 
     public String getMessage() {

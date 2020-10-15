@@ -7,9 +7,9 @@ public final class ListEffectCombo {
     private final StringList list;
     private final EffectCombo combo;
 
-    public ListEffectCombo(StringList list, EffectCombo combo) {
-        this.list = list;
-        this.combo = combo;
+    public ListEffectCombo(StringList _list, EffectCombo _combo) {
+        this.list = _list;
+        this.combo = _combo;
     }
 
     public StringList getList() {

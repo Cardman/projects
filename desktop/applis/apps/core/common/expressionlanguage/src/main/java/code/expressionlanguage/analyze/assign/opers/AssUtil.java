@@ -113,23 +113,23 @@ public final class AssUtil {
         }
         return out_;
     }
-    private static void setup(AssOperationNode exp_) {
-        if (exp_ instanceof AssAffectationOperation) {
-            ((AssAffectationOperation)exp_).setup();
+    private static void setup(AssOperationNode _exp) {
+        if (_exp instanceof AssAffectationOperation) {
+            ((AssAffectationOperation)_exp).setup();
         }
-        if (exp_ instanceof AssSemiAffectationOperation) {
-            ((AssSemiAffectationOperation)exp_).setup();
+        if (_exp instanceof AssSemiAffectationOperation) {
+            ((AssSemiAffectationOperation)_exp).setup();
         }
-        if (exp_ instanceof AssCompoundAffectationOperation) {
-            ((AssCompoundAffectationOperation)exp_).setup();
+        if (_exp instanceof AssCompoundAffectationOperation) {
+            ((AssCompoundAffectationOperation)_exp).setup();
         }
     }
-    private static void setupSim(AssOperationNode exp_) {
-        if (exp_ instanceof AssSimAffectationOperation) {
-            ((AssSimAffectationOperation)exp_).setup();
+    private static void setupSim(AssOperationNode _exp) {
+        if (_exp instanceof AssSimAffectationOperation) {
+            ((AssSimAffectationOperation)_exp).setup();
         }
-        if (exp_ instanceof AssSimReadWriteAffectationOperation) {
-            ((AssSimReadWriteAffectationOperation)exp_).setup();
+        if (_exp instanceof AssSimReadWriteAffectationOperation) {
+            ((AssSimReadWriteAffectationOperation)_exp).setup();
         }
     }
 

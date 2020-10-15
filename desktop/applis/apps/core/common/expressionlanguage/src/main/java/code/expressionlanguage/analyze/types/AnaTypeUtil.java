@@ -507,8 +507,8 @@ public final class AnaTypeUtil {
         _new.add(_format);
     }
 
-    private static void added(String _innerName, boolean _staticOnly, StringList owners_, String s, RootBlock sub_) {
-        for (RootBlock b: ClassesUtil.accessedClassMembers(sub_)) {
+    private static void added(String _innerName, boolean _staticOnly, StringList _owners, String _s, RootBlock _sub) {
+        for (RootBlock b: ClassesUtil.accessedClassMembers(_sub)) {
             if (_staticOnly) {
                 if (!b.isStaticType()) {
                     continue;
@@ -516,7 +516,7 @@ public final class AnaTypeUtil {
             }
             String name_ = b.getName();
             if (StringUtil.quickEq(name_, _innerName)) {
-                owners_.add(s);
+                _owners.add(_s);
             }
         }
     }
@@ -529,11 +529,11 @@ public final class AnaTypeUtil {
         }
         return owners_;
     }
-    private static void addedInnerElement(String _innerName, StringList owners_, String s, RootBlock sub_) {
-        for (RootBlock b: ClassesUtil.accessedInnerElements(sub_)) {
+    private static void addedInnerElement(String _innerName, StringList _owners, String _s, RootBlock _sub) {
+        for (RootBlock b: ClassesUtil.accessedInnerElements(_sub)) {
             String name_ = b.getName();
             if (StringUtil.quickEq(name_, _innerName)) {
-                owners_.add(s);
+                _owners.add(_s);
             }
         }
     }

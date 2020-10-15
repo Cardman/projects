@@ -15,48 +15,48 @@ public final class LinkageStackElement {
         return block;
     }
 
-    public void setBlock(Block block) {
-        this.block = block;
+    public void setBlock(Block _v) {
+        this.block = _v;
     }
 
     public OperationNode getCurrent() {
         return current;
     }
 
-    public void setCurrent(OperationNode current) {
-        this.current = current;
+    public void setCurrent(OperationNode _v) {
+        this.current = _v;
     }
 
     public int getIndexLoop() {
         return indexLoop;
     }
 
-    public void setIndexLoop(int indexLoop) {
-        this.indexLoop = indexLoop;
+    public void setIndexLoop(int _v) {
+        this.indexLoop = _v;
     }
 
     public int getIndexAnnotationGroup() {
         return indexAnnotationGroup;
     }
 
-    public void setIndexAnnotationGroup(int indexAnnotationGroup) {
-        this.indexAnnotationGroup = indexAnnotationGroup;
+    public void setIndexAnnotationGroup(int _v) {
+        this.indexAnnotationGroup = _v;
     }
 
     public int getIndexAnnotation() {
         return indexAnnotation;
     }
 
-    public void setIndexAnnotation(int indexAnnotation) {
-        this.indexAnnotation = indexAnnotation;
+    public void setIndexAnnotation(int _v) {
+        this.indexAnnotation = _v;
     }
 
     public int getIndexEnd() {
         return indexEnd;
     }
 
-    public void setIndexEnd(int indexEnd) {
-        this.indexEnd = indexEnd;
+    public void setIndexEnd(int _v) {
+        this.indexEnd = _v;
     }
 
 }

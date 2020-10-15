@@ -13,8 +13,8 @@ public final class AnaCallFctContent {
     private int naturalVararg = -1;
     private int rootNumber = -1;
     private int memberNumber = -1;
-    public AnaCallFctContent(String methodName) {
-        this.methodName = methodName;
+    public AnaCallFctContent(String _methodName) {
+        this.methodName = _methodName;
     }
 
     public String getMethodName() {
@@ -25,39 +25,39 @@ public final class AnaCallFctContent {
         return classMethodId;
     }
 
-    public void setClassMethodId(ClassMethodId classMethodId) {
-        this.classMethodId = classMethodId;
+    public void setClassMethodId(ClassMethodId _classMethodId) {
+        this.classMethodId = _classMethodId;
     }
 
     public String getLastType() {
         return lastType;
     }
 
-    public void setLastType(String lastType) {
-        this.lastType = lastType;
+    public void setLastType(String _lastType) {
+        this.lastType = _lastType;
     }
 
     public int getNaturalVararg() {
         return naturalVararg;
     }
 
-    public void setNaturalVararg(int naturalVararg) {
-        this.naturalVararg = naturalVararg;
+    public void setNaturalVararg(int _naturalVararg) {
+        this.naturalVararg = _naturalVararg;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 }

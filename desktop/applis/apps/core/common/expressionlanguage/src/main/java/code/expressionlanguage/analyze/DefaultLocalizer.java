@@ -6,8 +6,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 public final class DefaultLocalizer implements AbstractLocalizer {
     private final AnalyzedPageEl context;
 
-    public DefaultLocalizer(AnalyzedPageEl context) {
-        this.context = context;
+    public DefaultLocalizer(AnalyzedPageEl _context) {
+        this.context = _context;
     }
 
     @Override

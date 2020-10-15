@@ -40,28 +40,31 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         return new Argument(newLambda(_previous,_conf, getFoundClass(), method, getReturnFieldType()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ClassMethodId _method, String _returnFieldType) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = foundClass;
+        String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, method, returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, function);
+        return newLambda(_previous, _conf, ownerType_, _method, _returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, function);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String ownerType_, ClassMethodId method, String returnFieldType, boolean shiftArgument, boolean safeInstance, String clArg_, StandardMethod function) {
-        MethodId id_ = method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, false, shiftArgument, 0, false);
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType,
+                                   ClassMethodId _method, String _returnFieldType,
+                                   boolean _shiftArgument, boolean _safeInstance,
+                                   String _clArg, StandardMethod _function) {
+        MethodId id_ = _method.getConstraints();
+        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, id_, false, _shiftArgument, 0, false);
         l_.setInstanceCall(_previous);
-        l_.setSafeInstance(safeInstance);
-        MethodId fid_ = ExecutingUtil.tryFormatId(ownerType_, _conf, id_);
+        l_.setSafeInstance(_safeInstance);
+        MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, id_);
         String className_;
-        className_ = StringExpUtil.getIdFromAllTypes(ownerType_);
+        className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         String from_ = className_;
-        String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
-        String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);
-        MethodModifier met_ = function.getModifier();
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(ownerType_,AccessEnum.PUBLIC, from_, id_, met_, returnFieldType, fid_, formCl_);
-        metaInfo_.setStdCallee(function);
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
+        String formCl_ = ExecutingUtil.tryFormatType(idCl_, _ownerType, _conf);
+        MethodModifier met_ = _function.getModifier();
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, id_, met_, _returnFieldType, fid_, formCl_);
+        metaInfo_.setStdCallee(_function);
         l_.setMetaInfo(metaInfo_);
         return l_;
     }

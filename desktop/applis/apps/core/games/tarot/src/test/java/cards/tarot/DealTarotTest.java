@@ -187,8 +187,8 @@ public class DealTarotTest {
         assertTrue(donne_.derniereMain().contient(CardTarot.HEART_10));
     }
 
-    private static void initDonneLoc(DealTarot donne_, RulesTarot regles_) {
-        donne_.initDonne(regles_, new DefaultGenerator());
+    private static void initDonneLoc(DealTarot _donne, RulesTarot _regles) {
+        _donne.initDonne(_regles, new DefaultGenerator());
     }
 
     @Test
@@ -463,8 +463,8 @@ public class DealTarotTest {
         assertEq(15, deal_.hand().total());
     }
 
-    private static void initHuntSmall(RulesTarot regles_, DealTarot deal_) {
-        deal_.initDonne(ChoiceTarot.HUNT_SMALL,regles_, new DefaultGenerator());
+    private static void initHuntSmall(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.HUNT_SMALL,_regles, new DefaultGenerator());
     }
 
     @Test
@@ -484,8 +484,8 @@ public class DealTarotTest {
         assertEq(24, deal_.hand().total());
     }
 
-    private static void initLeadSmallBound(RulesTarot regles_, DealTarot deal_) {
-        deal_.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,regles_, new DefaultGenerator());
+    private static void initLeadSmallBound(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,_regles, new DefaultGenerator());
     }
 
     @Test
@@ -529,8 +529,8 @@ public class DealTarotTest {
         assertEq(24, deal_.hand().total());
     }
 
-    private static void initSaveSmall(RulesTarot regles_, DealTarot deal_) {
-        deal_.initDonne(ChoiceTarot.SAVE_SMALL,regles_, new DefaultGenerator());
+    private static void initSaveSmall(RulesTarot _regles, DealTarot _deal) {
+        _deal.initDonne(ChoiceTarot.SAVE_SMALL,_regles, new DefaultGenerator());
     }
 
     @Test

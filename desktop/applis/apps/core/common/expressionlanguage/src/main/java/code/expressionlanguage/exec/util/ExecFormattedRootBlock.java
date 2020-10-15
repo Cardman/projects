@@ -6,9 +6,9 @@ public final class ExecFormattedRootBlock {
     private final ExecRootBlock rootBlock;
     private final String formatted;
 
-    public ExecFormattedRootBlock(ExecRootBlock rootBlock, String formatted) {
-        this.rootBlock = rootBlock;
-        this.formatted = formatted;
+    public ExecFormattedRootBlock(ExecRootBlock _rootBlock, String _formatted) {
+        this.rootBlock = _rootBlock;
+        this.formatted = _formatted;
     }
 
     public ExecRootBlock getRootBlock() {

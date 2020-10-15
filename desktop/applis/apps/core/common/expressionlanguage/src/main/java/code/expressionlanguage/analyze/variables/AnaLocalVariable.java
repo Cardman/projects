@@ -34,8 +34,8 @@ public class AnaLocalVariable {
         return constType;
     }
 
-    public void setConstType(ConstType constType) {
-        this.constType = constType;
+    public void setConstType(ConstType _constType) {
+        this.constType = _constType;
     }
 
     public int getRef() {
@@ -50,7 +50,7 @@ public class AnaLocalVariable {
         return keyWord;
     }
 
-    public void setKeyWord(boolean keyWord) {
-        this.keyWord = keyWord;
+    public void setKeyWord(boolean _keyWord) {
+        this.keyWord = _keyWord;
     }
 }

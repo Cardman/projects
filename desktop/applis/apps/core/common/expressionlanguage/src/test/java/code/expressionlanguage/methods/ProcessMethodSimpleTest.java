@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -1273,7 +1272,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("\n  static {`next\"// /*\t)now\nreturn to line\n`but capture all \\ \"`",((StringStruct)out_).getInstance());
     }
@@ -1290,7 +1289,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1307,7 +1306,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1324,7 +1323,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:137\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1341,13 +1340,9 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:5,30:137\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
-    }
-
-    private static boolean isInitialized(ContextEl cont_) {
-        return cont_.getLocks().getState("pkgtwo.ExClass") != InitClassState.NOT_YET;
     }
 
     @Test
@@ -1363,7 +1358,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1380,7 +1375,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:5,32:136\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1397,7 +1392,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:4,48:135\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1414,7 +1409,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:2,32:55\npkgtwo.ExClass.pkg/Ex:5,32:135\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1431,7 +1426,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:1,55:54\npkgtwo.ExClass.pkg/Ex:1,136:133\npkgtwo.ExClass.$static m()",((StringStruct)out_).getInstance());
     }
@@ -1494,7 +1489,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "value"));
         assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,212:208\npkgtwo.ExClass.()",((StringStruct)out_).getInstance());
     }
@@ -1513,7 +1508,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "value"));
         assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,220:217\npkgtwo.ExClass.($int...)",((StringStruct)out_).getInstance());
     }
@@ -3128,7 +3123,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         Struct out_ = getStaticField(cont_, new ClassField("pkgtwo.ExClass", "out"));
         assertEq("pkg/Ex:3,2:55\n" +
                 "pkgtwo.ExClass.pkg/Ex:4,48:110\n" +
@@ -3150,7 +3145,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOk(files_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExClass"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         Argument ret_;

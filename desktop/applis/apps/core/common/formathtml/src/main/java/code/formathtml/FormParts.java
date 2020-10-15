@@ -101,7 +101,7 @@ public final class FormParts {
         return currentForm;
     }
 
-    public void setCurrentForm(long currentForm) {
-        this.currentForm = currentForm;
+    public void setCurrentForm(long _currentForm) {
+        this.currentForm = _currentForm;
     }
 }

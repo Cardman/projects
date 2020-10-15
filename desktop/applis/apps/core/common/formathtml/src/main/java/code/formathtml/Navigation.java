@@ -428,12 +428,12 @@ public final class Navigation {
         setupText(_doc.export());
     }
 
-    private static NodeContainer getValue(LongTreeMap<NodeContainer> containers_, String idInput_) {
+    private static NodeContainer getValue(LongTreeMap<NodeContainer> _containers, String _idInput) {
         NodeContainer val_;
-        if (idInput_.isEmpty()) {
+        if (_idInput.isEmpty()) {
             val_ = null;
         } else {
-            val_ = containers_.getVal(NumberUtil.parseLongZero(idInput_));
+            val_ = _containers.getVal(NumberUtil.parseLongZero(_idInput));
         }
         if (val_ == null) {
             val_ = new NodeContainer();

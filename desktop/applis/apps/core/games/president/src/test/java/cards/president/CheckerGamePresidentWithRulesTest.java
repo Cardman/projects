@@ -5178,8 +5178,8 @@ public class CheckerGamePresidentWithRulesTest {
         assertTrue(!g_.getError().isEmpty());
     }
 
-    private static void initDonneLoc(RulesPresident r_, DealPresident d_) {
-        d_.initDonne(r_, new DefaultGenerator());
+    private static void initDonneLoc(RulesPresident _r, DealPresident _d) {
+        _d.initDonne(_r, new DefaultGenerator());
     }
 
     @Test

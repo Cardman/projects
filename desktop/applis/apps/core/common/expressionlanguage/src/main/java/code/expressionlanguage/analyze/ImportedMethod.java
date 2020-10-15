@@ -13,9 +13,9 @@ public final class ImportedMethod {
     private StandardMethod standardMethod;
     private NamedFunctionBlock custMethod;
 
-    public ImportedMethod(String returnType, ClassMethodId id) {
-        this.returnType = returnType;
-        this.id = id;
+    public ImportedMethod(String _returnType, ClassMethodId _id) {
+        this.returnType = _returnType;
+        this.id = _id;
     }
 
     public String getReturnType() {
@@ -30,39 +30,39 @@ public final class ImportedMethod {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
 
-    public void setStandardMethod(StandardMethod standardMethod) {
-        this.standardMethod = standardMethod;
+    public void setStandardMethod(StandardMethod _standardMethod) {
+        this.standardMethod = _standardMethod;
     }
 
     public NamedFunctionBlock getCustMethod() {
         return custMethod;
     }
 
-    public void setCustMethod(NamedFunctionBlock custMethod) {
-        this.custMethod = custMethod;
+    public void setCustMethod(NamedFunctionBlock _custMethod) {
+        this.custMethod = _custMethod;
     }
 }

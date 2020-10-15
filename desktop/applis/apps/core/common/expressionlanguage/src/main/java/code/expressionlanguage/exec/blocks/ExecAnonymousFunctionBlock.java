@@ -51,8 +51,8 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
         return parentType;
     }
 
-    public void setParentType(ExecRootBlock parentType) {
-        this.parentType = parentType;
+    public void setParentType(ExecRootBlock _parentType) {
+        this.parentType = _parentType;
     }
 
     public CacheInfo getCacheInfo() {

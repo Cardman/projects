@@ -16,8 +16,8 @@ public final class Parameters {
         return error;
     }
 
-    public void setError(Struct error) {
-        this.error = error;
+    public void setError(Struct _error) {
+        this.error = _error;
     }
 
     public StringMap<LocalVariable> getParameters() {
@@ -28,15 +28,15 @@ public final class Parameters {
         return cache;
     }
 
-    public void setCache(Cache cache) {
-        this.cache = cache;
+    public void setCache(Cache _cache) {
+        this.cache = _cache;
     }
 
     public Argument getRight() {
         return right;
     }
 
-    public void setRight(Argument right) {
-        this.right = right;
+    public void setRight(Argument _right) {
+        this.right = _right;
     }
 }

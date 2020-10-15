@@ -8,15 +8,15 @@ public final class AnaInstancingStdContent {
         return fieldName;
     }
 
-    public void setBlockIndex(int blockIndex) {
-        this.blockIndex = blockIndex;
+    public void setBlockIndex(int _blockIndex) {
+        this.blockIndex = _blockIndex;
     }
 
     public int getBlockIndex() {
         return blockIndex;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+    public void setFieldName(String _fieldName) {
+        this.fieldName = _fieldName;
     }
 }

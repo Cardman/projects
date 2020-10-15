@@ -696,8 +696,8 @@ public final class AliasMath {
         return aliasSeed;
     }
 
-    public void setAliasSeed(String aliasSeed) {
-        this.aliasSeed = aliasSeed;
+    public void setAliasSeed(String _aliasSeed) {
+        this.aliasSeed = _aliasSeed;
     }
 
     public AliasParamMath getParams() {

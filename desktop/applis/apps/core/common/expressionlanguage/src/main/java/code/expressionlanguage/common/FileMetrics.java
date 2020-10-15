@@ -6,9 +6,9 @@ public final class FileMetrics {
 
     private final int tabWidth;
 
-    public FileMetrics(FileMetricsCore _metricsCore, int tabWidth) {
-        metricsCore = _metricsCore;
-        this.tabWidth = tabWidth;
+    public FileMetrics(FileMetricsCore _metCore, int _width) {
+        metricsCore = _metCore;
+        this.tabWidth = _width;
     }
 
     public int getRowFile(int _sum) {

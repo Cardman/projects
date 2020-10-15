@@ -7,9 +7,9 @@ public final class ResultTypeAncestor {
     private final String simpleName;
     private RootBlock resolvedType;
 
-    public ResultTypeAncestor(boolean local, String simpleName) {
-        this.local = local;
-        this.simpleName = simpleName;
+    public ResultTypeAncestor(boolean _local, String _simpleName) {
+        this.local = _local;
+        this.simpleName = _simpleName;
     }
 
     public boolean isLocal() {
@@ -20,8 +20,8 @@ public final class ResultTypeAncestor {
         return resolvedType;
     }
 
-    public void setResolvedType(RootBlock resolvedType) {
-        this.resolvedType = resolvedType;
+    public void setResolvedType(RootBlock _resolvedType) {
+        this.resolvedType = _resolvedType;
     }
 
     public String getSimpleName() {

@@ -48,8 +48,8 @@ public final class ExecRootBlockContent {
         return boundsAll;
     }
 
-    public void setBoundsAll(CustList<StringList> boundsAll) {
-        this.boundsAll = boundsAll;
+    public void setBoundsAll(CustList<StringList> _boundsAll) {
+        this.boundsAll = _boundsAll;
     }
 
     public StringList getParamTypesValues() {
@@ -60,55 +60,55 @@ public final class ExecRootBlockContent {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(String _fullName) {
+        this.fullName = _fullName;
     }
 
     public String getGenericString() {
         return genericString;
     }
 
-    public void setGenericString(String genericString) {
-        this.genericString = genericString;
+    public void setGenericString(String _genericString) {
+        this.genericString = _genericString;
     }
 
     public String getWildCardString() {
         return wildCardString;
     }
 
-    public void setWildCardString(String wildCardString) {
-        this.wildCardString = wildCardString;
+    public void setWildCardString(String _wildCardString) {
+        this.wildCardString = _wildCardString;
     }
 
     public CustList<ExecRootBlock> getSelfAndParentTypes() {
         return selfAndParentTypes;
     }
 
-    public void setSelfAndParentTypes(CustList<ExecRootBlock> selfAndParentTypes) {
-        this.selfAndParentTypes = selfAndParentTypes;
+    public void setSelfAndParentTypes(CustList<ExecRootBlock> _selfAndParentTypes) {
+        this.selfAndParentTypes = _selfAndParentTypes;
     }
 
     public Ints getTypeVarCounts() {
         return typeVarCounts;
     }
 
-    public void setTypeVarCounts(Ints typeVarCounts) {
-        this.typeVarCounts = typeVarCounts;
+    public void setTypeVarCounts(Ints _typeVarCounts) {
+        this.typeVarCounts = _typeVarCounts;
     }
 
     public StringList getImportedDirectSuperInterfaces() {
         return importedDirectSuperInterfaces;
     }
 
-    public void setImportedDirectSuperInterfaces(StringList importedDirectSuperInterfaces) {
-        this.importedDirectSuperInterfaces = importedDirectSuperInterfaces;
+    public void setImportedDirectSuperInterfaces(StringList _importedDirectSuperInterfaces) {
+        this.importedDirectSuperInterfaces = _importedDirectSuperInterfaces;
     }
 
     public String getImportedDirectSuperClass() {
         return importedDirectSuperClass;
     }
 
-    public void setImportedDirectSuperClass(String importedDirectSuperClass) {
-        this.importedDirectSuperClass = importedDirectSuperClass;
+    public void setImportedDirectSuperClass(String _importedDirectSuperClass) {
+        this.importedDirectSuperClass = _importedDirectSuperClass;
     }
 }

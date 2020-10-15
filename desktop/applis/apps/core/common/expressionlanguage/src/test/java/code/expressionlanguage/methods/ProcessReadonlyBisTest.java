@@ -593,10 +593,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void fail1Test() {
         StringMap<String> files_ = new StringMap<String>();

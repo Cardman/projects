@@ -68,31 +68,31 @@ public final class FieldUpdates {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String _id) {
+        this.id = _id;
     }
 
     public String getIdClass() {
         return idClass;
     }
 
-    public void setIdClass(String idClass) {
-        this.idClass = idClass;
+    public void setIdClass(String _idClass) {
+        this.idClass = _idClass;
     }
 
     public String getIdName() {
         return idName;
     }
 
-    public void setIdName(String idName) {
-        this.idName = idName;
+    public void setIdName(String _idName) {
+        this.idName = _idName;
     }
 
     public String getClassName() {
         return className;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClassName(String _className) {
+        this.className = _className;
     }
 }

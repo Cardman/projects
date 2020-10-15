@@ -9,9 +9,9 @@ public final class AnalyzedTestContext {
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
 
-    public AnalyzedTestContext(ContextEl context, AnalyzedPageEl analyzing, Forwards _forwards) {
-        this.context = context;
-        this.analyzing = analyzing;
+    public AnalyzedTestContext(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards) {
+        this.context = _context;
+        this.analyzing = _analyzing;
         forwards = _forwards;
     }
 

@@ -14,16 +14,16 @@ public final class AnonymousResult {
         return results;
     }
 
-    public void setResults(ParsedFctHeader results) {
-        this.results = results;
+    public void setResults(ParsedFctHeader _results) {
+        this.results = _results;
     }
 
     public int getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setIndex(int _index) {
+        this.index = _index;
     }
 
     public int getUntil() {
@@ -38,15 +38,15 @@ public final class AnonymousResult {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setLength(int _length) {
+        this.length = _length;
     }
 
     public Block getType() {
         return type;
     }
 
-    public void setType(Block type) {
-        this.type = type;
+    public void setType(Block _type) {
+        this.type = _type;
     }
 }

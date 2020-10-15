@@ -52,24 +52,24 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return annotableBlock;
     }
 
-    public void setAnnotableBlock(ExecNamedFunctionBlock annotableBlock) {
-        this.annotableBlock = annotableBlock;
+    public void setAnnotableBlock(ExecNamedFunctionBlock _annotableBlock) {
+        this.annotableBlock = _annotableBlock;
     }
 
     public ExecNamedFunctionBlock getCallee() {
         return callee;
     }
 
-    public void setCallee(ExecNamedFunctionBlock callee) {
-        this.callee = callee;
+    public void setCallee(ExecNamedFunctionBlock _callee) {
+        this.callee = _callee;
     }
 
     public ExecRootBlock getDeclaring() {
         return declaring;
     }
 
-    public void setDeclaring(ExecRootBlock declaring) {
-        this.declaring = declaring;
+    public void setDeclaring(ExecRootBlock _declaring) {
+        this.declaring = _declaring;
     }
 
     @Override

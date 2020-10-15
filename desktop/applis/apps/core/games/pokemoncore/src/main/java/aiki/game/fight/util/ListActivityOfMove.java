@@ -7,9 +7,9 @@ public final class ListActivityOfMove {
     private final StringList list;
     private final ActivityOfMove combo;
 
-    public ListActivityOfMove(StringList list, ActivityOfMove combo) {
-        this.list = list;
-        this.combo = combo;
+    public ListActivityOfMove(StringList _list, ActivityOfMove _combo) {
+        this.list = _list;
+        this.combo = _combo;
     }
 
     public StringList getList() {

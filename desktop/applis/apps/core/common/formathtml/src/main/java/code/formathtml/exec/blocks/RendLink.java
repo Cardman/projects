@@ -15,10 +15,10 @@ public final class RendLink extends RendElement {
     private String content;
     private StringMap<ExecTextPart> execOpExpTitle;
 
-    public RendLink(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, String content, StringMap<ExecTextPart> execOpExpTitle) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.content = content;
-        this.execOpExpTitle = execOpExpTitle;
+    public RendLink(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, String _content, StringMap<ExecTextPart> _execOpExpTitle) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.content = _content;
+        this.execOpExpTitle = _execOpExpTitle;
     }
 
     @Override

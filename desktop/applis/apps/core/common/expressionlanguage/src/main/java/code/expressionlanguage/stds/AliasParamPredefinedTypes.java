@@ -8,7 +8,7 @@ public final class AliasParamPredefinedTypes {
         return aliasSeedGenerator0Get0;
     }
 
-    public void setAliasSeedGenerator0Get0(String aliasSeedGenerator0Get0) {
-        this.aliasSeedGenerator0Get0 = aliasSeedGenerator0Get0;
+    public void setAliasSeedGenerator0Get0(String _v) {
+        this.aliasSeedGenerator0Get0 = _v;
     }
 }

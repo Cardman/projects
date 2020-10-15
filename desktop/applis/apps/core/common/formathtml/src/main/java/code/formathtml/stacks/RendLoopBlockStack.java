@@ -76,8 +76,8 @@ public final class RendLoopBlockStack extends RendAbstractStask {
         return loop;
     }
 
-    public void setLoop(RendLoop loop) {
-        this.loop = loop;
+    public void setLoop(RendLoop _loop) {
+        this.loop = _loop;
     }
 
     @Override
@@ -89,15 +89,15 @@ public final class RendLoopBlockStack extends RendAbstractStask {
         return step;
     }
 
-    public void setStep(long step) {
-        this.step = step;
+    public void setStep(long _step) {
+        this.step = _step;
     }
 
     public Struct getContainer() {
         return container;
     }
 
-    public void setContainer(Struct container) {
-        this.container = container;
+    public void setContainer(Struct _container) {
+        this.container = _container;
     }
 }

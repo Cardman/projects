@@ -40,8 +40,8 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return importedClassName;
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
+    public void setImportedClassName(String _importedClassName) {
+        this.importedClassName = _importedClassName;
     }
 
     @Override
@@ -109,8 +109,8 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         processBlock(_cont);
     }
 
-    public void setOpValue(CustList<ExecOperationNode> opValue) {
-        this.opValue = opValue;
+    public void setOpValue(CustList<ExecOperationNode> _opValue) {
+        this.opValue = _opValue;
     }
 
     public ExpressionLanguage getValueEl() {

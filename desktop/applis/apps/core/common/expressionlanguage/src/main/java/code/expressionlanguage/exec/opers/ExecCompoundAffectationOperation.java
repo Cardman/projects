@@ -87,10 +87,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
-            Argument res_;
-            StringList arg = new StringList(tres_);
+            StringList arg_ = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
-            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg, cast_);
+            Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg_, cast_);
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
             return;
         }
@@ -100,19 +99,19 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
-    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument rightArg_) {
+    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _rightArg) {
         Argument arg_ = null;
         if (settable instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((ExecStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
         if (settable instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((ExecSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
         if (settable instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((ExecArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
         if (settable instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
+            arg_ = ((ExecCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
         return Argument.getNullableValue(arg_);
     }

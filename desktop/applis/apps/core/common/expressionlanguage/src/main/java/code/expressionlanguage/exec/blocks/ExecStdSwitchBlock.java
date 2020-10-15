@@ -11,17 +11,17 @@ public final class ExecStdSwitchBlock extends ExecEnumValueSwitchBlock {
     }
 
     @Override
-    protected ExecBracedBlock process(CustList<ExecBracedBlock> children_, Argument arg_) {
+    protected ExecBracedBlock process(CustList<ExecBracedBlock> _children, Argument _arg) {
         ExecBracedBlock def_ = null;
         ExecBracedBlock found_ = null;
-        for (ExecBracedBlock b: children_) {
+        for (ExecBracedBlock b: _children) {
             if (b instanceof ExecDefaultCondition) {
                 def_ = b;
                 continue;
             }
             if (b instanceof ExecStdCaseCondition) {
                 ExecStdCaseCondition c_ = (ExecStdCaseCondition) b;
-                if (c_.getArg().getStruct().sameReference(arg_.getStruct())) {
+                if (c_.getArg().getStruct().sameReference(_arg.getStruct())) {
                     found_ = c_;
                     break;
                 }

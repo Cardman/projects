@@ -48,14 +48,6 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
-    private static boolean isSuccessfulInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) == InitClassState.SUCCESS;
-    }
-
     @Test
     public void calculate1Test() {
         StringBuilder xml_ = new StringBuilder();

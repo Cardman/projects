@@ -15,16 +15,16 @@ public final class NameParametersFilter {
         return index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setIndex(int _index) {
+        this.index = _index;
     }
 
     public boolean isOk() {
         return ok;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
+    public void setOk(boolean _ok) {
+        this.ok = _ok;
     }
     public boolean isEmptyArg() {
         return positional.size() + parameterFilter.size() == 0;

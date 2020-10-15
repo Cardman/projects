@@ -244,12 +244,12 @@ public final class FileResolver {
         }
     }
 
-    static void appendEndComment(StringBuilder str_, String endCom_) {
-        for (char c: endCom_.toCharArray()) {
+    static void appendEndComment(StringBuilder _str, String _endCom) {
+        for (char c: _endCom.toCharArray()) {
             if (c < ' ') {
-                str_.append(c);
+                _str.append(c);
             } else {
-                str_.append(' ');
+                _str.append(' ');
             }
         }
     }
@@ -527,11 +527,11 @@ public final class FileResolver {
         return out_;
     }
 
-    private static int setInstLocation(StringBuilder instruction_, int instructionLocation_, int i_) {
-        if (instruction_.length() == 0) {
-            return i_;
+    private static int setInstLocation(StringBuilder _instruction, int _instructionLocation, int _i) {
+        if (_instruction.length() == 0) {
+            return _i;
         }
-        return instructionLocation_;
+        return _instructionLocation;
     }
 
     private static void addBadIndex(InputTypeCreation _input, ResultCreation _out,BracedBlock _currentParent, int _index) {

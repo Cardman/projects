@@ -13,11 +13,11 @@ public final class ExecEnumSwitchBlock extends ExecEnumValueSwitchBlock {
     }
 
     @Override
-    protected ExecBracedBlock process(CustList<ExecBracedBlock> children_, Argument arg_) {
-        String name_ = NumParsers.getNameOfEnum(arg_.getStruct());
+    protected ExecBracedBlock process(CustList<ExecBracedBlock> _children, Argument _arg) {
+        String name_ = NumParsers.getNameOfEnum(_arg.getStruct());
         ExecBracedBlock def_ = null;
         ExecBracedBlock found_ = null;
-        for (ExecBracedBlock b: children_) {
+        for (ExecBracedBlock b: _children) {
             if (b instanceof ExecDefaultCondition) {
                 def_ = b;
                 continue;

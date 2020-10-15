@@ -328,7 +328,4 @@ public final class ProcessMethodParentTest extends ProcessMethodCommon {
         assertSame(NullStruct.NULL_VALUE, str_);
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
 }

@@ -8,9 +8,9 @@ public final class FileMetricsCore {
     private final Ints tabulations;
 
 
-    public FileMetricsCore(Ints lineReturns, Ints tabulations) {
-        this.lineReturns = lineReturns;
-        this.tabulations = tabulations;
+    public FileMetricsCore(Ints _liRet, Ints _tabs) {
+        this.lineReturns = _liRet;
+        this.tabulations = _tabs;
     }
 
     public Ints getLineReturns() {

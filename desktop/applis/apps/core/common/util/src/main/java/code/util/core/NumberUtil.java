@@ -24,10 +24,10 @@ public final class NumberUtil {
         return true;
     }
 
-    private static boolean containsByte(Listable<Byte> _list1, Byte c) {
+    private static boolean containsByte(Listable<Byte> _list1, Byte _c) {
         boolean contains_ = false;
         for (Byte d: _list1) {
-            if (eq(c, d)) {
+            if (eq(_c, d)) {
                 contains_ = true;
                 break;
             }
@@ -51,10 +51,10 @@ public final class NumberUtil {
         return true;
     }
 
-    private static boolean containsShort(Listable<Short> _list1, Short c) {
+    private static boolean containsShort(Listable<Short> _list1, Short _c) {
         boolean contains_ = false;
         for (Short d: _list1) {
-            if (eq(c, d)) {
+            if (eq(_c, d)) {
                 contains_ = true;
                 break;
             }

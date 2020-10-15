@@ -223,16 +223,16 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     }
 
     @Override
-    public void setFieldNumber(int fieldNumber) {
-        this.fieldNumber = fieldNumber;
+    public void setFieldNumber(int _fieldNumber) {
+        this.fieldNumber = _fieldNumber;
     }
 
     public int getNumberInner() {
         return numberInner;
     }
 
-    public void setNumberInner(int numberInner) {
-        this.numberInner = numberInner;
+    public void setNumberInner(int _numberInner) {
+        this.numberInner = _numberInner;
     }
 
     @Override

@@ -7,8 +7,8 @@ import code.expressionlanguage.common.VariableInfo;
 public final class QuickFieldRetriever implements FieldRetriever {
     private final Delimiters delimiters;
 
-    public QuickFieldRetriever(Delimiters delimiters) {
-        this.delimiters = delimiters;
+    public QuickFieldRetriever(Delimiters _delimiters) {
+        this.delimiters = _delimiters;
     }
 
     @Override

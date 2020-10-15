@@ -913,20 +913,20 @@ public abstract class OperationNode {
         return out_;
     }
 
-    private static void setupContainer(AnaGeneType _type, ConstrustorIdVarArg out_) {
+    private static void setupContainer(AnaGeneType _type, ConstrustorIdVarArg _out) {
         if (_type instanceof RootBlock) {
-            out_.setFileName(((Block)_type).getFile().getFileName());
-            out_.setRootNumber(((RootBlock)_type).getNumberAll());
+            _out.setFileName(((Block)_type).getFile().getFileName());
+            _out.setRootNumber(((RootBlock)_type).getNumberAll());
         }
     }
 
-    private static boolean isUniqCtor(int varargOnly_) {
-        return varargOnly_ > -1;
+    private static boolean isUniqCtor(int _varargOnly) {
+        return _varargOnly > -1;
     }
 
-    protected static boolean exclude(AnaGeneType _g, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e, AnalyzedPageEl _page) {
+    protected static boolean exclude(AnaGeneType _g, ConstructorId _uniqueId, int _varargOnly, GeneConstructor _e, AnalyzedPageEl _page) {
         String glClass_ = _page.getGlobalClass();
-        ConstructorId ctor_ = e.getId();
+        ConstructorId ctor_ = _e.getId();
         boolean varArg_ = ctor_.isVararg();
         if (_varargOnly > -1) {
             if (!varArg_) {
@@ -942,8 +942,8 @@ public abstract class OperationNode {
         if (_g instanceof RootBlock) {
             outer_ = ((RootBlock)_g).getOuterFullName();
         }
-        if (e instanceof ConstructorBlock) {
-            ConstructorBlock c = (ConstructorBlock) e;
+        if (_e instanceof ConstructorBlock) {
+            ConstructorBlock c = (ConstructorBlock) _e;
             Accessed a_ = new Accessed(c.getAccess(), _g.getPackageName(), _g.getFullName(), outer_);
             return !ContextUtil.canAccess(glClass_, a_, _page);
         }
@@ -1853,7 +1853,7 @@ public abstract class OperationNode {
         return methods_;
     }
 
-    private static void fetchFrom(String glClass_, CustList<MethodInfo> methods_, String _returnType, String _id, AnalyzedPageEl _page) {
+    private static void fetchFrom(String _glClass, CustList<MethodInfo> _methods, String _returnType, String _id, AnalyzedPageEl _page) {
         if (!StringExpUtil.customCast(_id)) {
             return;
         }
@@ -1871,11 +1871,11 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getImplicitFromCastMethods().getVal(supId_);
             RootBlock t_ = _page.getAnaClassBody(supId_);
-            fetchCastMethods(t_, null, glClass_, methods_, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_, _page);
+            fetchCastMethods(t_, null, _glClass, _methods, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_, _page);
         }
     }
 
-    private static void fetchTo(String glClass_, CustList<MethodInfo> methods_, String _returnType, String _id, AnalyzedPageEl _page) {
+    private static void fetchTo(String _glClass, CustList<MethodInfo> _methods, String _returnType, String _id, AnalyzedPageEl _page) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         if (!StringExpUtil.customCast(_id)) {
             return;
@@ -1885,11 +1885,11 @@ public abstract class OperationNode {
         CustList<MethodHeaderInfo> casts_ = _page.getImplicitCastMethods().getVal(di_);
         CustList<MethodHeaderInfo> castsId_ = _page.getImplicitIdCastMethods().getVal(di_);
         RootBlock t_ = _page.getAnaClassBody(di_);
-        fetchCastMethods(t_, null, glClass_, methods_, _returnType,_id, casts_, superTypesBaseAncBis_, _page);
-        fetchCastMethods(t_, null, glClass_, methods_, _returnType,_id, castsId_, superTypesBaseAncBis_, _page);
+        fetchCastMethods(t_, null, _glClass, _methods, _returnType,_id, casts_, superTypesBaseAncBis_, _page);
+        fetchCastMethods(t_, null, _glClass, _methods, _returnType,_id, castsId_, superTypesBaseAncBis_, _page);
     }
 
-    private static void fetchBinary(CustList<MethodInfo> methods_, String _first, String _second, AnalyzedPageEl _page) {
+    private static void fetchBinary(CustList<MethodInfo> _methods, String _first, String _second, AnalyzedPageEl _page) {
         if (StringExpUtil.customCast(_first)) {
             String di_ = StringExpUtil.getIdFromAllTypes(_first);
             RootBlock r_ = _page.getAnaClassBody(di_);
@@ -1901,8 +1901,8 @@ public abstract class OperationNode {
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binaryFirst_ = _page.getBinaryFirst().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _page.getBinaryAll().getVal(supId_);
-                    fetchImproveOperators(s.getRootBlock(),methods_,formatted_, binaryFirst_, _page);
-                    fetchImproveOperators(s.getRootBlock(),methods_,formatted_, binaryAll_, _page);
+                    fetchImproveOperators(s.getRootBlock(),_methods,formatted_, binaryFirst_, _page);
+                    fetchImproveOperators(s.getRootBlock(),_methods,formatted_, binaryAll_, _page);
                 }
             }
         }
@@ -1917,13 +1917,13 @@ public abstract class OperationNode {
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binarySecond_ = _page.getBinarySecond().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _page.getBinaryAll().getVal(supId_);
-                    fetchImproveOperators(s.getRootBlock(),methods_,formatted_, binarySecond_, _page);
-                    fetchImproveOperators(s.getRootBlock(),methods_,formatted_, binaryAll_, _page);
+                    fetchImproveOperators(s.getRootBlock(),_methods,formatted_, binarySecond_, _page);
+                    fetchImproveOperators(s.getRootBlock(),_methods,formatted_, binaryAll_, _page);
                 }
             }
         }
     }
-    private static void fetchUnary(CustList<MethodInfo> methods_, String _id, AnalyzedPageEl _page) {
+    private static void fetchUnary(CustList<MethodInfo> _methods, String _id, AnalyzedPageEl _page) {
         if (!StringExpUtil.customCast(_id)) {
             return;
         }
@@ -1938,7 +1938,7 @@ public abstract class OperationNode {
             String formatted_ = AnaTemplates.quickFormat(r_,_id,s.getFormatted());
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getUnary().getVal(supId_);
-            fetchImproveOperators(s.getRootBlock(),methods_,formatted_, castsFrom_, _page);
+            fetchImproveOperators(s.getRootBlock(),_methods,formatted_, castsFrom_, _page);
         }
     }
     public static ClassMethodIdReturn fetchTrueOperator(AnaClassArgumentMatching _arg, AnalyzedPageEl _page) {
@@ -1959,7 +1959,7 @@ public abstract class OperationNode {
         }
         return getCustCastResult(listTrue_,  _arg, _page);
     }
-    private static void fetchTrue(CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
+    private static void fetchTrue(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
         if (!StringExpUtil.customCast(_id)) {
             return;
         }
@@ -1978,10 +1978,10 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getTrues().getVal(supId_);
             RootBlock t_ = _page.getAnaClassBody(supId_);
-            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
+            fetchCastMethods(t_, _uniqueId, glClass_, _methods, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
         }
     }
-    private static void fetchFalse(CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
+    private static void fetchFalse(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page) {
         if (!StringExpUtil.customCast(_id)) {
             return;
         }
@@ -2000,7 +2000,7 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _page.getFalses().getVal(supId_);
             RootBlock t_ = _page.getAnaClassBody(supId_);
-            fetchCastMethods(t_, _uniqueId, glClass_, methods_, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
+            fetchCastMethods(t_, _uniqueId, glClass_, _methods, _page.getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_, _page);
         }
     }
     protected static CustList<CustList<MethodInfo>>
@@ -2911,11 +2911,11 @@ public abstract class OperationNode {
         }
         return true;
     }
-    private static void setWideInvoke(Parametrable _id, boolean vararg_, boolean allNotBoxUnbox_, boolean implicit_) {
-        if (vararg_||implicit_) {
-            setVarargOrImplicit(_id, implicit_);
+    private static void setWideInvoke(Parametrable _id, boolean _vararg, boolean _allNotBoxUnbox, boolean _implicit) {
+        if (_vararg||_implicit) {
+            setVarargOrImplicit(_id, _implicit);
         } else {
-            if (allNotBoxUnbox_) {
+            if (_allNotBoxUnbox) {
                 _id.setInvocation(InvocationMethod.STRICT);
             } else {
                 _id.setInvocation(InvocationMethod.BOX_UNBOX);

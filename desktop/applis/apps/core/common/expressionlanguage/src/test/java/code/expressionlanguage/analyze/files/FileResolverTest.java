@@ -9916,8 +9916,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         }
         return cont_;
     }
-    private CustList<OperatorBlock> getOperators(AnalyzedTestContext context_) {
-        return context_.getAnalyzing().getAllOperators();
+    private CustList<OperatorBlock> getOperators(AnalyzedTestContext _context) {
+        return _context.getAnalyzing().getAllOperators();
     }
 
 }

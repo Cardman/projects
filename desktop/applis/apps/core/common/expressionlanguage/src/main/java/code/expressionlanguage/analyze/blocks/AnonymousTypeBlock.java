@@ -41,15 +41,15 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
         return indexEnd;
     }
 
-    public void setIndexEnd(int indexEnd) {
-        this.indexEnd = indexEnd;
+    public void setIndexEnd(int _indexEnd) {
+        this.indexEnd = _indexEnd;
     }
 
     public int getNumberAnonType() {
         return numberAnonType;
     }
 
-    public void setNumberAnonType(int numberAnonType) {
-        this.numberAnonType = numberAnonType;
+    public void setNumberAnonType(int _numberAnonType) {
+        this.numberAnonType = _numberAnonType;
     }
 }

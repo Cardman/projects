@@ -326,8 +326,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
     }
 
-    private static String reflectFormat(ContextEl context_, String first_, String second_) {
-        return ExecTemplates.reflectFormat(first_,second_,context_);
+    private static String reflectFormat(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.reflectFormat(_first,_second,_context);
     }
 
     @Test
@@ -386,8 +386,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertEq("",t_);
     }
 
-    private String getFullObject(ContextEl context_, String first_, String second_) {
-        return ExecTemplates.getFullObject(first_, second_, context_);
+    private String getFullObject(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getFullObject(_first, _second, _context);
     }
 
     @Test
@@ -433,8 +433,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertEq("",t_);
     }
 
-    private static String getSuperGeneric(ContextEl context_, String first_, String second_) {
-        return ExecTemplates.getSuperGeneric(first_, second_, context_);
+    private static String getSuperGeneric(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getSuperGeneric(_first, _second, _context);
     }
 
     @Test
@@ -493,8 +493,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertEq("",t_);
     }
 
-    private static String getFullTypeByBases(ContextEl context_, String first_, String second_) {
-        return ExecTemplates.getFullTypeByBases(first_, second_, context_);
+    private static String getFullTypeByBases(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getFullTypeByBases(_first, _second, _context);
     }
 
     @Test
@@ -714,10 +714,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
-        LoopVariable loopVariable = new LoopVariable();
-        loopVariable.setIndex(2);
-        loopVariable.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-        cache_.addLoop("myvar", loopVariable);
+        LoopVariable loop_ = new LoopVariable();
+        loop_.setIndex(2);
+        loop_.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
+        cache_.addLoop("myvar", loop_);
         cache_.setClassLoopValue(-1,"");
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -858,10 +858,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
-        LoopVariable loopVariable = new LoopVariable();
-        loopVariable.setIndex(2);
-        loopVariable.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
-        cache_.addLoop("myvar", loopVariable);
+        LoopVariable loop_ = new LoopVariable();
+        loop_.setIndex(2);
+        loop_.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
+        cache_.addLoop("myvar", loop_);
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage(), 0);
@@ -1032,8 +1032,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         return defaultArr(_value, _className);
     }
 
-    private static ArrayStruct defaultArray2(String s) {
-        return defaultArr(new StringStruct(""),s);
+    private static ArrayStruct defaultArray2(String _s) {
+        return defaultArr(new StringStruct(""),_s);
     }
 
     private static ArrayStruct defaultArr(Struct _value, String _className) {
@@ -1050,9 +1050,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertTrue(!ExecTemplates.hasToLookForParent(cont_,"",null));
     }
 
-    private static ContextEl validated(StringMap<String> files_) {
+    private static ContextEl validated(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        validateWithoutInit(files_,cont_);
+        validateWithoutInit(_files,cont_);
         assertTrue(isEmptyErrors(cont_));
         forwardAndClear(cont_);
         return cont_.getContext();

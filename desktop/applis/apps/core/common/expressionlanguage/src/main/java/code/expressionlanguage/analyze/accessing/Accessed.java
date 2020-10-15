@@ -10,20 +10,20 @@ public final class Accessed implements AccessibleBlock {
     private final String fullName;
     private final String outerFullName;
 
-    public Accessed(AccessEnum access, String packageName, String parentFullName, String fullName, String outerFullName) {
-        this.access = access;
-        this.packageName = packageName;
-        this.parentFullName = parentFullName;
-        this.fullName = fullName;
-        this.outerFullName = outerFullName;
+    public Accessed(AccessEnum _access, String _packageName, String _parentFullName, String _fullName, String _outerFullName) {
+        this.access = _access;
+        this.packageName = _packageName;
+        this.parentFullName = _parentFullName;
+        this.fullName = _fullName;
+        this.outerFullName = _outerFullName;
     }
 
-    public Accessed(AccessEnum access, String packageName, String fullName, String outerFullName) {
-        this.access = access;
-        this.packageName = packageName;
+    public Accessed(AccessEnum _access, String _packageName, String _fullName, String _outerFullName) {
+        this.access = _access;
+        this.packageName = _packageName;
         this.parentFullName = "";
-        this.fullName = fullName;
-        this.outerFullName = outerFullName;
+        this.fullName = _fullName;
+        this.outerFullName = _outerFullName;
     }
 
     @Override

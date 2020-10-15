@@ -193,7 +193,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return numberFile;
     }
 
-    public void setNumberFile(int numberFile) {
-        this.numberFile = numberFile;
+    public void setNumberFile(int _numberFile) {
+        this.numberFile = _numberFile;
     }
 }

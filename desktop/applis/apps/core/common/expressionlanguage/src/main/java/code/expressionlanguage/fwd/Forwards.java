@@ -44,31 +44,31 @@ public final class Forwards {
         return annotAnalysis;
     }
 
-    public void setAnnotAnalysis(boolean annotAnalysis) {
-        this.annotAnalysis = annotAnalysis;
+    public void setAnnotAnalysis(boolean _annotAnalysis) {
+        this.annotAnalysis = _annotAnalysis;
     }
 
     public boolean isAnnotAnalysisField() {
         return annotAnalysisField;
     }
 
-    public void setAnnotAnalysisField(boolean annotAnalysisField) {
-        this.annotAnalysisField = annotAnalysisField;
+    public void setAnnotAnalysisField(boolean _annotAnalysisField) {
+        this.annotAnalysisField = _annotAnalysisField;
     }
 
     public String getAliasBoolean() {
         return aliasBoolean;
     }
 
-    public void setAliasBoolean(String aliasBoolean) {
-        this.aliasBoolean = aliasBoolean;
+    public void setAliasBoolean(String _aliasBoolean) {
+        this.aliasBoolean = _aliasBoolean;
     }
 
     public String getAliasPrimBoolean() {
         return aliasPrimBoolean;
     }
 
-    public void setAliasPrimBoolean(String aliasPrimBoolean) {
-        this.aliasPrimBoolean = aliasPrimBoolean;
+    public void setAliasPrimBoolean(String _aliasPrimBoolean) {
+        this.aliasPrimBoolean = _aliasPrimBoolean;
     }
 }

@@ -22,8 +22,8 @@ public abstract class FoundWarningInterpret {
         return str_.toString();
     }
 
-    public void setLocationFile(String locationFile) {
-        this.locationFile = locationFile;
+    public void setLocationFile(String _locationFile) {
+        this.locationFile = _locationFile;
     }
 
     public String getFileName() {

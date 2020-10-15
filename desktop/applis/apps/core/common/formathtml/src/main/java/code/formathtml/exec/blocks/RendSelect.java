@@ -38,29 +38,35 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private String className = EMPTY_STRING;
     private boolean arrayConverter;
 
-    public RendSelect(int _offsetTrim, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsMap, CustList<RendDynOperationNode> opsDefault, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, CustList<RendDynOperationNode> opsConverterFieldValue, StringMap<ExecTextPart> execAttributesText, StringMap<ExecTextPart> execAttributes, String varName, String id, String idClass, String idName, Element elt, boolean multiple, String varNameConverter, String varNameConverterField, String varNameConverterFieldValue, String className, boolean arrayConverter) {
+    public RendSelect(int _offsetTrim, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+                      CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
+                      CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
+                      StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
+                      String _varName, String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
+                      String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
+                      String _className, boolean _arrayConverter) {
         super(_offsetTrim);
-        this.opsRead = opsRead;
-        this.opsValue = opsValue;
-        this.opsWrite = opsWrite;
-        this.opsMap = opsMap;
-        this.opsDefault = opsDefault;
-        this.opsConverter = opsConverter;
-        this.opsConverterField = opsConverterField;
-        this.opsConverterFieldValue = opsConverterFieldValue;
-        this.execAttributesText = execAttributesText;
-        this.execAttributes = execAttributes;
-        this.varName = varName;
-        this.id = id;
-        this.idClass = idClass;
-        this.idName = idName;
-        this.elt = elt;
-        this.multiple = multiple;
-        this.varNameConverter = varNameConverter;
-        this.varNameConverterField = varNameConverterField;
-        this.varNameConverterFieldValue = varNameConverterFieldValue;
-        this.className = className;
-        this.arrayConverter = arrayConverter;
+        this.opsRead = _opsRead;
+        this.opsValue = _opsValue;
+        this.opsWrite = _opsWrite;
+        this.opsMap = _opsMap;
+        this.opsDefault = _opsDefault;
+        this.opsConverter = _opsConverter;
+        this.opsConverterField = _opsConverterField;
+        this.opsConverterFieldValue = _opsConverterFieldValue;
+        this.execAttributesText = _execAttributesText;
+        this.execAttributes = _execAttributes;
+        this.varName = _varName;
+        this.id = _id;
+        this.idClass = _idClass;
+        this.idName = _idName;
+        this.elt = _elt;
+        this.multiple = _multiple;
+        this.varNameConverter = _varNameConverter;
+        this.varNameConverterField = _varNameConverterField;
+        this.varNameConverterFieldValue = _varNameConverterFieldValue;
+        this.className = _className;
+        this.arrayConverter = _arrayConverter;
     }
 
     @Override

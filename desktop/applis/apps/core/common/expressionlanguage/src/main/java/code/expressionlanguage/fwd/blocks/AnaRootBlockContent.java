@@ -22,8 +22,8 @@ public final class AnaRootBlockContent {
         return packageName;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setPackageName(String _packageName) {
+        this.packageName = _packageName;
     }
 
     public CustList<TypeVar> getParamTypes() {
@@ -34,39 +34,39 @@ public final class AnaRootBlockContent {
         return paramTypesMap;
     }
 
-    public void setParamTypesMap(StringMap<TypeVar> paramTypesMap) {
-        this.paramTypesMap = paramTypesMap;
+    public void setParamTypesMap(StringMap<TypeVar> _paramTypesMap) {
+        this.paramTypesMap = _paramTypesMap;
     }
 
     public int getIdRowCol() {
         return idRowCol;
     }
 
-    public void setIdRowCol(int idRowCol) {
-        this.idRowCol = idRowCol;
+    public void setIdRowCol(int _idRowCol) {
+        this.idRowCol = _idRowCol;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String _name) {
+        this.name = _name;
     }
 
     public String getSuffix() {
         return suffix;
     }
 
-    public void setSuffix(String suffix) {
-        this.suffix = suffix;
+    public void setSuffix(String _suffix) {
+        this.suffix = _suffix;
     }
 
     public RootBlock getParentType() {
         return parentType;
     }
 
-    public void setParentType(RootBlock parentType) {
-        this.parentType = parentType;
+    public void setParentType(RootBlock _parentType) {
+        this.parentType = _parentType;
     }
 }

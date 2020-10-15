@@ -32,8 +32,8 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
         processBlock(_cont);
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
+    public void setImportedClassName(String _importedClassName) {
+        this.importedClassName = _importedClassName;
     }
 
     public StringList getVariableNames() {

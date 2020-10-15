@@ -67,9 +67,9 @@ public abstract class Pagination {
         return getIndex(index_);
     }
 
-    protected abstract int getIndex(int index_);
+    protected abstract int getIndex(int _index);
 
-    protected abstract boolean isValidIndex(int index_);
+    protected abstract boolean isValidIndex(int _index);
 
     protected int getIndex() {
         if (line == IndexConstants.INDEX_NOT_FOUND_ELT) {
@@ -144,7 +144,7 @@ public abstract class Pagination {
         updateRendered(end_);
     }
 
-    protected abstract void updateRendered(int end_);
+    protected abstract void updateRendered(int _end);
 
     protected int getFullCount() {
         return nbResultsPerPage * numberPage;

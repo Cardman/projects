@@ -32,10 +32,10 @@ public final class FoundErrorInterpret {
         return str_.toString();
     }
 
-    public void setLocationFile(String locationFile) {
+    public void setLocationFile(String _locationFile) {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
-        str_.append(LINE_COL).append(SEP_KEY_VAL).append(locationFile).append(SEP_INFO);
+        str_.append(LINE_COL).append(SEP_KEY_VAL).append(_locationFile).append(SEP_INFO);
         fullLocationFile = str_.toString();
     }
 

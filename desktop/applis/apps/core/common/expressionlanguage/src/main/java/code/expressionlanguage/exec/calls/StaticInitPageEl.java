@@ -80,7 +80,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
         return fwd;
     }
 
-    public void setFwd(Argument fwd) {
-        this.fwd = fwd;
+    public void setFwd(Argument _fwd) {
+        this.fwd = _fwd;
     }
 }

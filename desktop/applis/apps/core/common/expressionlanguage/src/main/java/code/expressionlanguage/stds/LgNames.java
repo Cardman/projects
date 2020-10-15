@@ -29,8 +29,8 @@ public abstract class LgNames implements BuildableLgNames {
     private final AbstractGenerator generator;
     private AbstractExecConstantsCalculator calculator;
 
-    protected LgNames(AbstractGenerator generator) {
-        this.generator = generator;
+    protected LgNames(AbstractGenerator _generator) {
+        this.generator = _generator;
         setCalculator(new DefaultExecConstantsCalculator(content.getNbAlias()));
     }
 
@@ -141,7 +141,7 @@ public abstract class LgNames implements BuildableLgNames {
         return content;
     }
 
-    protected void setCalculator(AbstractExecConstantsCalculator calculator) {
-        this.calculator = calculator;
+    protected void setCalculator(AbstractExecConstantsCalculator _calculator) {
+        this.calculator = _calculator;
     }
 }

@@ -35,11 +35,11 @@ public final class ContextUtil {
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
     }
 
-    private static boolean processNormalProtected(AccessibleBlock _block, RootBlock root_, String belongPkg_, String rootPkg_, AnalyzedPageEl _analyzing) {
-        if (root_.isSubTypeOf(_block.getFullName(), _analyzing)) {
+    private static boolean processNormalProtected(AccessibleBlock _block, RootBlock _root, String _belongPkg, String _rootPkg, AnalyzedPageEl _analyzing) {
+        if (_root.isSubTypeOf(_block.getFullName(), _analyzing)) {
             return true;
         }
-        return StringUtil.quickEq(belongPkg_, rootPkg_);
+        return StringUtil.quickEq(_belongPkg, _rootPkg);
     }
 
     public static boolean canAccessType(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
@@ -75,11 +75,11 @@ public final class ContextUtil {
     private static boolean access(int _code) {
         return _code == 2;
     }
-    private static boolean processPackagePrivate(AccessibleBlock _block, RootBlock root_, String belongPkg_, String rootPkg_) {
+    private static boolean processPackagePrivate(AccessibleBlock _block, RootBlock _root, String _belongPkg, String _rootPkg) {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
-            return StringUtil.quickEq(belongPkg_, rootPkg_);
+            return StringUtil.quickEq(_belongPkg, _rootPkg);
         }
-        return StringUtil.quickEq(_block.getOuterFullName(), root_.getOuterFullName());
+        return StringUtil.quickEq(_block.getOuterFullName(), _root.getOuterFullName());
     }
 
     public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
@@ -230,12 +230,11 @@ public final class ContextUtil {
         if (!_page.isGettingParts()) {
             return;
         }
-        AnalyzedPageEl page_ = _page;
-        AnaGeneType g_ = page_.getAnaGeneType(_in);
+        AnaGeneType g_ = _page.getAnaGeneType(_in);
         if (!isFromCustFile(g_)) {
             return;
         }
-        AccessedBlock r_ = page_.getImporting();
+        AccessedBlock r_ = _page.getImporting();
         int rc_ = _page.getTraceIndex();
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();

@@ -125,8 +125,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public void setNameLength(int nameLength) {
-        this.nameLength = nameLength;
+    public void setNameLength(int _nameLength) {
+        this.nameLength = _nameLength;
     }
 
     public int getAccessOffset() {
@@ -420,12 +420,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return paramTypesConstraintsOffset;
     }
 
-    private static void appendParts(StringBuilder generic_, RootBlock previous_, RootBlock r) {
-        if (previous_ != null) {
-            if (r instanceof InnerElementBlock) {
-                generic_.append("-");
+    private static void appendParts(StringBuilder _generic, RootBlock _previous, RootBlock _r) {
+        if (_previous != null) {
+            if (_r instanceof InnerElementBlock) {
+                _generic.append("-");
             } else {
-                generic_.append("..");
+                _generic.append("..");
             }
         }
     }
@@ -1863,8 +1863,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return getOuterParent().getFullName();
     }
 
-    public boolean isSubTypeOf(String parName_, AnalyzedPageEl context) {
-        return isSubTypeOf(parName_);
+    public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
+        return isSubTypeOf(_fullName);
     }
 
     private boolean isSubTypeOf(String _parName) {
@@ -1951,8 +1951,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return countsAnon;
     }
 
-    public void setSuffix(String suffix) {
-        this.rootBlockContent.setSuffix(suffix);
+    public void setSuffix(String _suffix) {
+        this.rootBlockContent.setSuffix(_suffix);
     }
 
     public StringMap<MappingLocalType> getMappings() {
@@ -1971,8 +1971,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return countsAnonFct;
     }
 
-    public void setCountsAnonFct(int countsAnonFct) {
-        this.countsAnonFct = countsAnonFct;
+    public void setCountsAnonFct(int _countsAnonFct) {
+        this.countsAnonFct = _countsAnonFct;
     }
 
     public CustList<AnonymousFunctionBlock> getAnonymousRootFct() {

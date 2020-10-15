@@ -43,8 +43,8 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         return callPrepare(_conf.getExiting(),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), staticFctContent.getKind(), "");
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String classNameFound_) {
-        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {
+        String lastType_ = ClassMethodId.formatType(rootBlock,_classNameFound, staticFctContent.getLastType(), staticFctContent.getKind());
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }
 

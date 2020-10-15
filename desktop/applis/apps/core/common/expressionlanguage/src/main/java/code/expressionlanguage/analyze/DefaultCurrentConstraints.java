@@ -7,8 +7,8 @@ import code.util.StringMap;
 public final class DefaultCurrentConstraints implements AbstractCurrentConstraints {
     private final AnalyzedPageEl context;
 
-    public DefaultCurrentConstraints(AnalyzedPageEl context) {
-        this.context = context;
+    public DefaultCurrentConstraints(AnalyzedPageEl _context) {
+        this.context = _context;
     }
 
     @Override

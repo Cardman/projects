@@ -364,12 +364,12 @@ public final class RenderForEachTableTest extends CommonRender {
         String html_ = xml_.toString();
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr></table></body></html>", getRes(files_, html_));
     }
-    private Struct getEx(StringMap<String> files_, String html_) {
-        return getCommEx(html_,files_);
+    private Struct getEx(StringMap<String> _files, String _html) {
+        return getCommEx(_html,_files);
     }
 
-    private String getRes(StringMap<String> files_, String html_) {
-        return getCommRes(html_,files_);
+    private String getRes(StringMap<String> _files, String _html) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -579,8 +579,8 @@ public final class RenderForEachTableTest extends CommonRender {
         String html_ = xml_.toString();
         assertTrue(hasErr(files_, html_));
     }
-    private boolean hasErr(StringMap<String> files_, String html_) {
-        return hasCommErr(html_, files_);
+    private boolean hasErr(StringMap<String> _files, String _html) {
+        return hasCommErr(_html, _files);
     }
 
     private static String getCustomPairFailFirst() {

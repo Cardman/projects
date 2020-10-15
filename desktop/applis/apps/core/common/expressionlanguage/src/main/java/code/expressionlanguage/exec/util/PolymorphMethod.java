@@ -7,9 +7,9 @@ public final class PolymorphMethod {
     private final ExecRootBlock rootBlock;
     private final ExecNamedFunctionBlock named;
 
-    public PolymorphMethod(ExecRootBlock rootBlock, ExecNamedFunctionBlock named) {
-        this.rootBlock = rootBlock;
-        this.named = named;
+    public PolymorphMethod(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named) {
+        this.rootBlock = _rootBlock;
+        this.named = _named;
     }
 
     public ExecRootBlock getRootBlock() {

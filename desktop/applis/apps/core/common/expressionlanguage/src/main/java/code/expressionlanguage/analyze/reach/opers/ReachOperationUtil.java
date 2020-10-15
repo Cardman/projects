@@ -65,11 +65,11 @@ public final class ReachOperationUtil {
         return _list.getArgument();
     }
 
-    public static void tryCalculate(AnalyzedPageEl _page, CustList<ReachMethodOperation> list_) {
+    public static void tryCalculate(AnalyzedPageEl _page, CustList<ReachMethodOperation> _list) {
         int ind_ = 0;
-        int len_ = list_.size();
+        int len_ = _list.size();
         while (ind_ < len_) {
-            ReachMethodOperation curr_ = list_.get(ind_);
+            ReachMethodOperation curr_ = _list.get(ind_);
             curr_.setRelativeOffsetPossibleAnalyzable(_page);
             ReachOperationNode n_ = curr_.getNextSibling();
             processDot(n_,curr_,curr_.getParent());
@@ -96,9 +96,9 @@ public final class ReachOperationUtil {
         return getExecutableNodes(root_);
     }
 
-    private static CustList<ReachMethodOperation> getExecutableNodes(OperationNode root_) {
+    private static CustList<ReachMethodOperation> getExecutableNodes(OperationNode _root) {
         CustList<ReachMethodOperation> out_ = new CustList<ReachMethodOperation>();
-        OperationNode current_ = root_;
+        OperationNode current_ = _root;
         ReachMethodOperation exp_ = ReachOperationNode.creatReachOperationNode(current_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
@@ -126,7 +126,7 @@ public final class ReachOperationUtil {
                     break;
                 }
                 ReachMethodOperation par_ = exp_.getParent();
-                if (op_ == root_) {
+                if (op_ == _root) {
                     out_.add(par_);
                     current_ = null;
                     break;

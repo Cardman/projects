@@ -608,7 +608,7 @@ public final class AliasReflection {
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }
 
-    public static ResultErrorStd invokeAnnotated(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+    public static ResultErrorStd invokeAnnotated(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
         String name_ = _method.getConstraints().getName();
@@ -617,16 +617,16 @@ public final class AliasReflection {
         String aliasGetAnnotationsParam_ = ref_.getAliasGetAnnotationsParameters();
         String aliasGetDeclaredAnonymousLambda_ = ref_.getAliasGetDeclaredAnonymousLambda();
         if (StringUtil.quickEq(aliasGetAnnotations_, name_)) {
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(aliasGetAnnotationsParam_, name_)) {
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_struct);
         if (StringUtil.quickEq(aliasGetDeclaredAnonymousLambda_, name_)) {
-            result_.setResult(fetchAnonLambdaCallee(_cont,annotated_,args_));
+            result_.setResult(fetchAnonLambdaCallee(_cont,annotated_,_args));
             return result_;
         }
         String fileName_ = annotated_.getFileName();
@@ -643,13 +643,13 @@ public final class AliasReflection {
         String declaringClass_ = _annot.getDeclaringClass();
         for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
             MethodId id_ = f.getId();
-            ExecRootBlock _type = f.getParentType();
+            ExecRootBlock type_ = f.getParentType();
             String ret_ = f.getImportedReturnType();
             boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
             MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
-            String idType_ = _type.getFullName();
+            String idType_ = type_.getFullName();
             String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
-            String idCl_ = _type.getFullName();
+            String idCl_ = type_.getFullName();
             if (param_) {
                 idCl_ = declaringClass_;
             }
@@ -658,7 +658,7 @@ public final class AliasReflection {
             met_.setAnnotableBlock(f);
             met_.setCallee(f);
             met_.setCalleeInv(f);
-            met_.setDeclaring(_type);
+            met_.setDeclaring(type_);
             met_.setFileName(f.getFile().getFileName());
             methods_.add(met_);
         }
@@ -679,7 +679,7 @@ public final class AliasReflection {
         return array_;
     }
 
-    public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+    public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
         String name_ = _method.getConstraints().getName();
@@ -695,7 +695,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new ErrorStruct(_cont,meta_.getDisplayedString(_cont).getInstance(),null_));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.GET_FIELD, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.GET_FIELD, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(aliasSetField_, name_)) {
@@ -706,7 +706,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new ErrorStruct(_cont,meta_.getDisplayedString(_cont).getInstance(),null_));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.SET_FIELD, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.SET_FIELD, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsStatic)) {
@@ -786,7 +786,7 @@ public final class AliasReflection {
         return result_;
     }
 
-    public static ResultErrorStd invokeMethodInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+    public static ResultErrorStd invokeMethodInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
         String name_ = _method.getConstraints().getName();
@@ -796,7 +796,7 @@ public final class AliasReflection {
         String aliasInvokeDirect_ = lgNames_.getContent().getReflect().getAliasInvokeDirect();
         String aliasGetDefaultValue_ = lgNames_.getContent().getReflect().getAliasGetDefaultValue();
         if (StringUtil.quickEq(aliasGetDefaultValue_, name_)) {
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         boolean invoke_ = StringUtil.quickEq(aliasInvoke_, name_);
@@ -805,12 +805,12 @@ public final class AliasReflection {
             MethodMetaInfo m_ = NumParsers.getMethod(_struct);
             if (m_.isInvokable()) {
                 if (m_.getStdCallee() != null) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                     return result_;
                 }
                 ExecRootBlock e_ = m_.getDeclaring();
                 if (e_ instanceof ExecAnnotationBlock) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                     return result_;
                 }
             }
@@ -824,15 +824,15 @@ public final class AliasReflection {
                 return result_;
             }
             if (m_.isExpCast()) {
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                 return result_;
             }
             if (m_.getCalleeInv() != null) {
                 if (m_.isStaticCall()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                     return result_;
                 }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                 return result_;
             }
         }
@@ -845,21 +845,21 @@ public final class AliasReflection {
                 return result_;
             }
             if (m_.isExpCast()) {
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                 return result_;
             }
             if (m_.getCalleeInv() != null) {
                 if (m_.isStaticCall()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                     return result_;
                 }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, new Argument(_struct), ExecTemplates.getArgs(_args), false));
                 return result_;
             }
         }
         if (invoke_ || invokeDirect_) {
             MethodMetaInfo m_ = NumParsers.getMethod(_struct);
-            ExecInvokingOperation.redirectGenerated(_cont,m_,new Argument(_struct), ExecTemplates.getArgs(args_),false);
+            ExecInvokingOperation.redirectGenerated(_cont,m_,new Argument(_struct), ExecTemplates.getArgs(_args),false);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsAbstract)) {
@@ -968,37 +968,37 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLocalVars)) {
-            if (args_.length == 3) {
+            if (_args.length == 3) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    cache_.putLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),args_[2]);
+                    cache_.putLocalValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct(),_args[2]);
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (args_.length == 2) {
+            if (_args.length == 2) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (StringUtil.quickEq(_method.getConstraints().getParametersType(1), lgNames_.getContent().getPrimTypes().getAliasPrimLong())) {
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
+                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct()));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
                     return result_;
                 }
                 if (cache_ != null) {
-                    cache_.putLocalValue(NumParsers.getStringValue(args_[0]),args_[1]);
+                    cache_.putLocalValue(NumParsers.getStringValue(_args[0]),_args[1]);
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (args_.length == 1) {
+            if (_args.length == 1) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),0));
+                    result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(_args[0]),0));
                 } else {
                     result_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -1022,41 +1022,41 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLoopVars)) {
-            if (args_.length == 3) {
+            if (_args.length == 3) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    if (args_[2] instanceof NumberStruct) {
-                        cache_.putLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
+                    if (_args[2] instanceof NumberStruct) {
+                        cache_.putLoopValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct(),((NumberStruct)_args[2]).longStruct());
                     }
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (args_.length == 2) {
+            if (_args.length == 2) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (StringUtil.quickEq(_method.getConstraints().getParametersType(1), lgNames_.getContent().getPrimTypes().getAliasPrimLong())) {
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
+                        result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct()));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
                     return result_;
                 }
                 if (cache_ != null) {
-                    if (args_[1] instanceof NumberStruct) {
-                        cache_.putLoopValue(NumParsers.getStringValue(args_[0]),((NumberStruct)args_[1]).longStruct());
+                    if (_args[1] instanceof NumberStruct) {
+                        cache_.putLoopValue(NumParsers.getStringValue(_args[0]),((NumberStruct)_args[1]).longStruct());
                     }
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            if (args_.length == 1) {
+            if (_args.length == 1) {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),0));
+                    result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(_args[0]),0));
                 } else {
                     result_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -1143,7 +1143,7 @@ public final class AliasReflection {
         return result_;
     }
 
-    public static ResultErrorStd invokeClassInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Struct[] args_) {
+    public static ResultErrorStd invokeClassInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
         String aliasClass_ = ref_.aliasClassType;
@@ -1162,7 +1162,7 @@ public final class AliasReflection {
             String enumName_ = cl_.getName();
             ExecRootBlock r_ = _cont.getClasses().getClassBody(enumName_);
             ClassCategory category_ = cl_.getCategory();
-            Argument clArg_ = new Argument(args_[0]);
+            Argument clArg_ = new Argument(_args[0]);
             result_.setResult(ExecInvokingOperation.tryGetEnumValue(_exit, _cont, r_, category_, clArg_).getStruct());
             return result_;
         }
@@ -1175,7 +1175,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(aliasForName_, name_)) {
-            Argument clArg_ = new Argument(args_[0]);
+            Argument clArg_ = new Argument(_args[0]);
             Struct struct_ = clArg_.getStruct();
             if (!(struct_ instanceof StringStruct)) {
                 _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
@@ -1191,7 +1191,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new ErrorStruct(_cont,clDyn_, lgNames_.getContent().getReflect().getAliasClassNotFoundError()));
                 return result_;
             }
-            if (BooleanStruct.isTrue(args_[args_.length-1])) {
+            if (BooleanStruct.isTrue(_args[_args.length-1])) {
                 if (_exit.hasToExit(res_)) {
                     return result_;
                 }
@@ -1214,7 +1214,7 @@ public final class AliasReflection {
                     || StringUtil.quickEq(id_,aliasConstructor_)
                     || StringUtil.quickEq(id_,aliasField_)
                     || StringUtil.quickEq(id_,aliasClass_)) {
-                result_.setResult(ApplyCoreMethodUtil.defaultMeta(_cont,id_,args_));
+                result_.setResult(ApplyCoreMethodUtil.defaultMeta(_cont,id_,_args));
                 return result_;
             }
             if (ExecutingUtil.isAbstractType(type_)) {
@@ -1233,7 +1233,7 @@ public final class AliasReflection {
             className_ = res_;
             String first_;
             if (!(type_ instanceof ExecRootBlock)) {
-                result_.setResult(ApplyCoreMethodUtil.defaultInstance(_cont,id_,args_));
+                result_.setResult(ApplyCoreMethodUtil.defaultInstance(_cont,id_,_args));
                 return result_;
             }
             ExecRootBlock root_ = (ExecRootBlock) type_;
@@ -1245,8 +1245,8 @@ public final class AliasReflection {
             for (ExecRootBlock r: needRoot_) {
                 need_.add(r);
             }
-            if (args_.length > 0) {
-                Struct par_ = args_[0];
+            if (_args.length > 0) {
+                Struct par_ = _args[0];
                 if (root_.withoutInstance()) {
                     if (_exit.hasToExit(first_)) {
                         return result_;
@@ -1334,7 +1334,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            Struct isUpper_ = args_[0];
+            Struct isUpper_ = _args[0];
             String varOwn_ = class_.getVariableOwner();
             String nameCl_ = class_.getName();
             if (!(isUpper_ instanceof BooleanStruct)) {
@@ -1430,7 +1430,7 @@ public final class AliasReflection {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            Argument arg_ = new Argument(args_[0]);
+            Argument arg_ = new Argument(_args[0]);
             if (arg_.isNull()) {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
@@ -1441,7 +1441,7 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasIsAssignableFrom)) {
             ClassMetaInfo class_ = NumParsers.getClass(_struct);
             String param_ = class_.getName();
-            Struct subType_ = args_[0];
+            Struct subType_ = _args[0];
             if (!(subType_ instanceof ClassMetaInfo)) {
                 result_.setResult(BooleanStruct.of(!ExecClassArgumentMatching.isPrimitive(param_,_cont)));
                 return result_;
@@ -1491,7 +1491,7 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasGetOperators)) {
             CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                     MethodId id_ = o.getId();
                     String ret_ = o.getImportedReturnType();
@@ -1520,7 +1520,7 @@ public final class AliasReflection {
             candidates_ = new CustList<MethodMetaInfo>();
             for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                 MethodId id_ = o.getId();
-                if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
+                if (eq(id_,_args[0],NullStruct.NULL_VALUE,_args[1],_args[2])) {
                     String ret_ = o.getImportedReturnType();
                     AccessEnum acc_ = o.getAccess();
                     MethodId fid_;
@@ -1567,7 +1567,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetClass)) {
-            Struct str_ = args_[0];
+            Struct str_ = _args[0];
             if (str_ == NullStruct.NULL_VALUE) {
                 result_.setResult(NullStruct.NULL_VALUE);
             } else {
@@ -1581,7 +1581,7 @@ public final class AliasReflection {
             CustList<ConstructorMetaInfo> ctors_;
             ctors_ = cl_.getConstructorsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasConstructor_);
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 ArrayStruct str_ = new ArrayStruct(ctors_.size(), className_);
                 int index_ = 0;
                 for (ConstructorMetaInfo e: ctors_) {
@@ -1597,14 +1597,14 @@ public final class AliasReflection {
             if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                 for (ConstructorMetaInfo e: ctors_) {
                     ConstructorId id_ = e.getRealId();
-                    if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                    if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0],_args[1])) {
                         candidates_.add(e);
                     }
                 }
             } else {
                 for (ConstructorMetaInfo e: ctors_) {
                     ConstructorId id_ = e.getRealId();
-                    if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
+                    if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0],_args[1])) {
                         candidates_.add(e);
                     }
                 }
@@ -1623,7 +1623,7 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getExplicitsInfos();
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
@@ -1639,14 +1639,14 @@ public final class AliasReflection {
             if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                 for (MethodMetaInfo e: methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,_args[0])) {
                         candidates_.add(e);
                     }
                 }
             } else {
                 for (MethodMetaInfo e : methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,_args[0])) {
                         candidates_.add(e);
                     }
                 }
@@ -1665,7 +1665,7 @@ public final class AliasReflection {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getImplicitsInfos();
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
@@ -1681,14 +1681,14 @@ public final class AliasReflection {
             if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                 for (MethodMetaInfo e: methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                    if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,_args[0])) {
                         candidates_.add(e);
                     }
                 }
             } else {
                 for (MethodMetaInfo e : methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                    if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,_args[0])) {
                         candidates_.add(e);
                     }
                 }
@@ -1735,7 +1735,7 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getMethodsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 if (cl_.isTypeArray()) {
                     String instClassName_ = cl_.getName();
                     String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getContent().getCoreNames().getAliasObject());
@@ -1760,7 +1760,7 @@ public final class AliasReflection {
             }
             if (cl_.isTypeArray()) {
                 MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
-                if (!eq(id_,args_[0],args_[1],args_[2],args_[3])) {
+                if (!eq(id_,_args[0],_args[1],_args[2],_args[3])) {
                     ArrayStruct str_ = new ArrayStruct(0, className_);
                     result_.setResult(str_);
                     return result_;
@@ -1779,7 +1779,7 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> candidates_;
             candidates_ = new CustList<MethodMetaInfo>();
             String instClassName_ = cl_.getName();
-            filterMethods(_cont, args_, instClassName_, candidates_, methods_);
+            filterMethods(_cont, _args, instClassName_, candidates_, methods_);
             ArrayStruct str_ = new ArrayStruct(candidates_.size(), className_);
             int index_ = 0;
             for (MethodMetaInfo c: candidates_) {
@@ -1799,7 +1799,7 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
                 for (MethodMetaInfo e: methods_) {
                     if (e.getKind() == MethodAccessKind.INSTANCE) {
@@ -1822,14 +1822,14 @@ public final class AliasReflection {
             if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                 for (MethodMetaInfo e: methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
+                    if (eqType(id_.reflectFormat(instClassName_, _cont),_args[0],_args[1],_args[2],_args[3])) {
                         candidates_.add(e);
                     }
                 }
             } else {
                 for (MethodMetaInfo e : methods_) {
                     MethodId id_ = e.getRealId();
-                    if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
+                    if (eqType(id_,_args[0],_args[1],_args[2],_args[3])) {
                         candidates_.add(e);
                     }
                 }
@@ -1848,7 +1848,7 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> methods_;
             methods_ = cl_.getBlocsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
                 int index_ = 0;
                 for (MethodMetaInfo e: methods_) {
@@ -1862,7 +1862,7 @@ public final class AliasReflection {
             candidates_ = new CustList<MethodMetaInfo>();
             for (MethodMetaInfo e : methods_) {
                 MethodId id_ = e.getRealId();
-                if (eq(id_,args_[0],args_[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE)) {
+                if (eq(id_,_args[0],_args[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE)) {
                     candidates_.add(e);
                 }
             }
@@ -1880,7 +1880,7 @@ public final class AliasReflection {
             StringMap<FieldMetaInfo> fields_;
             fields_ = cl_.getFieldsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasField_);
-            if (args_.length == 0 || !(args_[0] instanceof StringStruct)) {
+            if (_args.length == 0 || !(_args[0] instanceof StringStruct)) {
                 ArrayStruct str_ = new ArrayStruct(fields_.size(), className_);
                 int index_ = 0;
                 for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
@@ -1890,7 +1890,7 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            String fieldName_ = ((StringStruct) args_[0]).getInstance();
+            String fieldName_ = ((StringStruct) _args[0]).getInstance();
             FieldMetaInfo meta_ = fields_.getVal(fieldName_);
             ArrayStruct str_;
             if (meta_ != null) {
@@ -2145,11 +2145,11 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasMakeGeneric)) {
             ClassMetaInfo cl_ = NumParsers.getClass(_struct);
             StringList classesNames_ = new StringList();
-            if (!(args_[0] instanceof ArrayStruct)) {
+            if (!(_args[0] instanceof ArrayStruct)) {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            for (Struct s: ((ArrayStruct)args_[0]).getInstance()) {
+            for (Struct s: ((ArrayStruct)_args[0]).getInstance()) {
                 if (!(s instanceof ClassMetaInfo)) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -2184,7 +2184,7 @@ public final class AliasReflection {
                 return result_;
             }
             Ints dims_ = new Ints();
-            Struct inst_ = args_[0];
+            Struct inst_ = _args[0];
             if (!(inst_ instanceof ArrayStruct)) {
                 _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
                 return result_;
@@ -2202,7 +2202,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasArrayGetLength)) {
-            Struct inst_ = args_[0];
+            Struct inst_ = _args[0];
             if (!(inst_ instanceof ArrayStruct)) {
                 _cont.setCallingState(new ErrorStruct(_cont,inst_.getClassName(_cont), lgNames_.getContent().getCoreNames().getAliasIllegalArg()));
                 return result_;
@@ -2213,15 +2213,15 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasArrayGet)) {
-            Struct inst_ = args_[0];
-            Struct out_ = ExecTemplates.getElement(inst_, args_[1], _cont);
+            Struct inst_ = _args[0];
+            Struct out_ = ExecTemplates.getElement(inst_, _args[1], _cont);
             result_.setResult(out_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasArraySet)) {
-            Struct inst_ = args_[0];
-            Struct value_ = args_[2];
-            ExecTemplates.setElement(inst_, args_[1], value_, _cont);
+            Struct inst_ = _args[0];
+            Struct value_ = _args[2];
+            ExecTemplates.setElement(inst_, _args[1], value_, _cont);
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
@@ -2255,7 +2255,7 @@ public final class AliasReflection {
         return result_;
     }
 
-    public static ResultErrorStd invokeCtorInfo(ContextEl _cont, Struct _struct, ClassMethodId _method, Struct[] args_) {
+    public static ResultErrorStd invokeCtorInfo(ContextEl _cont, Struct _struct, ClassMethodId _method, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         AliasReflection ref_ = lgNames_.getReflect();
@@ -2270,7 +2270,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new ErrorStruct(_cont,meta_.getDisplayedString(_cont).getInstance(),null_));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, new Argument(_struct), ExecTemplates.getArgs(args_), false));
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, new Argument(_struct), ExecTemplates.getArgs(_args), false));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsVarargs)) {
@@ -2407,44 +2407,44 @@ public final class AliasReflection {
         return result_;
     }
 
-    public static void filterMethods(ContextEl _cont, Struct[] args_, String declaringClass_, CustList<MethodMetaInfo> candidates_, CustList<MethodMetaInfo> methods_) {
-        if (ExecTemplates.correctNbParameters(declaringClass_,_cont)) {
-            for (MethodMetaInfo e: methods_) {
+    public static void filterMethods(ContextEl _cont, Struct[] _args, String _declaringClass, CustList<MethodMetaInfo> _candidates, CustList<MethodMetaInfo> _methods) {
+        if (ExecTemplates.correctNbParameters(_declaringClass,_cont)) {
+            for (MethodMetaInfo e: _methods) {
                 MethodId id_ = e.getRealId();
-                if (eq(id_.reflectFormat(declaringClass_, _cont),args_[0],args_[1],args_[2],args_[3])) {
-                    candidates_.add(e);
+                if (eq(id_.reflectFormat(_declaringClass, _cont),_args[0],_args[1],_args[2],_args[3])) {
+                    _candidates.add(e);
                 }
             }
         } else {
-            for (MethodMetaInfo e : methods_) {
+            for (MethodMetaInfo e : _methods) {
                 MethodId id_ = e.getRealId();
-                if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
-                    candidates_.add(e);
+                if (eq(id_,_args[0],_args[1],_args[2],_args[3])) {
+                    _candidates.add(e);
                 }
             }
         }
     }
 
-    private static void fetchLocalTypes(StringList methods_, ExecMemberCallingsBlock callee_) {
-        if (callee_ != null) {
-            for (ExecRootBlock c: callee_.getReserved()) {
-                methods_.add(c.getFullName());
+    private static void fetchLocalTypes(StringList _methods, ExecMemberCallingsBlock _callee) {
+        if (_callee != null) {
+            for (ExecRootBlock c: _callee.getReserved()) {
+                _methods.add(c.getFullName());
             }
         }
     }
 
-    private static void fetchAnonymous(StringList methods_, ExecMemberCallingsBlock callee_) {
-        if (callee_ != null) {
-            for (ExecRootBlock c: callee_.getAnonymous()) {
-                methods_.add(c.getFullName());
+    private static void fetchAnonymous(StringList _methods, ExecMemberCallingsBlock _callee) {
+        if (_callee != null) {
+            for (ExecRootBlock c: _callee.getAnonymous()) {
+                _methods.add(c.getFullName());
             }
         }
     }
 
-    private static void fetchAnonymous(StringList methods_, ExecRootBlock callee_) {
-        if (callee_ != null) {
-            for (ExecRootBlock c: callee_.getAnonymousRoot()) {
-                methods_.add(c.getFullName());
+    private static void fetchAnonymous(StringList _methods, ExecRootBlock _callee) {
+        if (_callee != null) {
+            for (ExecRootBlock c: _callee.getAnonymousRoot()) {
+                _methods.add(c.getFullName());
             }
         }
     }
@@ -2535,16 +2535,16 @@ public final class AliasReflection {
         return aliasInstance;
     }
 
-    public void setAliasInstance(String aliasInstance) {
-        this.aliasInstance = aliasInstance;
+    public void setAliasInstance(String _aliasInstance) {
+        this.aliasInstance = _aliasInstance;
     }
 
     public String getAliasMetaInfo() {
         return aliasMetaInfo;
     }
 
-    public void setAliasMetaInfo(String aliasMetaInfo) {
-        this.aliasMetaInfo = aliasMetaInfo;
+    public void setAliasMetaInfo(String _aliasMetaInfo) {
+        this.aliasMetaInfo = _aliasMetaInfo;
     }
 
     public String getAliasAnnotationType() {
@@ -2600,32 +2600,32 @@ public final class AliasReflection {
         return aliasGetDeclaredExplicits;
     }
 
-    public void setAliasGetDeclaredExplicits(String aliasGetDeclaredExplicits) {
-        this.aliasGetDeclaredExplicits = aliasGetDeclaredExplicits;
+    public void setAliasGetDeclaredExplicits(String _aliasGetDeclaredExplicits) {
+        this.aliasGetDeclaredExplicits = _aliasGetDeclaredExplicits;
     }
 
     public String getAliasGetDeclaredImplicits() {
         return aliasGetDeclaredImplicits;
     }
 
-    public void setAliasGetDeclaredImplicits(String aliasGetDeclaredExplicits) {
-        this.aliasGetDeclaredImplicits = aliasGetDeclaredExplicits;
+    public void setAliasGetDeclaredImplicits(String _aliasGetDeclaredExplicits) {
+        this.aliasGetDeclaredImplicits = _aliasGetDeclaredExplicits;
     }
 
     public String getAliasGetDeclaredTrueOperators() {
         return aliasGetDeclaredTrueOperators;
     }
 
-    public void setAliasGetDeclaredTrueOperators(String aliasGetDeclaredTrueOperators) {
-        this.aliasGetDeclaredTrueOperators = aliasGetDeclaredTrueOperators;
+    public void setAliasGetDeclaredTrueOperators(String _aliasGetDeclaredTrueOperators) {
+        this.aliasGetDeclaredTrueOperators = _aliasGetDeclaredTrueOperators;
     }
 
     public String getAliasGetDeclaredFalseOperators() {
         return aliasGetDeclaredFalseOperators;
     }
 
-    public void setAliasGetDeclaredFalseOperators(String aliasGetDeclaredFalseOperators) {
-        this.aliasGetDeclaredFalseOperators = aliasGetDeclaredFalseOperators;
+    public void setAliasGetDeclaredFalseOperators(String _aliasGetDeclaredFalseOperators) {
+        this.aliasGetDeclaredFalseOperators = _aliasGetDeclaredFalseOperators;
     }
 
     public String getAliasGetDeclaredMethods() {
@@ -2660,48 +2660,48 @@ public final class AliasReflection {
         return aliasGetDeclaredAnonymousTypes;
     }
 
-    public void setAliasGetDeclaredAnonymousTypes(String aliasGetDeclaredAnonymousTypes) {
-        this.aliasGetDeclaredAnonymousTypes = aliasGetDeclaredAnonymousTypes;
+    public void setAliasGetDeclaredAnonymousTypes(String _aliasGetDeclaredAnonymousTypes) {
+        this.aliasGetDeclaredAnonymousTypes = _aliasGetDeclaredAnonymousTypes;
     }
 
     public String getAliasGetDeclaredAnonymousLambda() {
         return aliasGetDeclaredAnonymousLambda;
     }
 
-    public void setAliasGetDeclaredAnonymousLambda(String aliasGetDeclaredAnonymousLambda) {
-        this.aliasGetDeclaredAnonymousLambda = aliasGetDeclaredAnonymousLambda;
+    public void setAliasGetDeclaredAnonymousLambda(String _aliasGetDeclaredAnonymousLambda) {
+        this.aliasGetDeclaredAnonymousLambda = _aliasGetDeclaredAnonymousLambda;
     }
 
     public String getAliasGetDeclaredAnonymousLambdaLocalVars() {
         return aliasGetDeclaredAnonymousLambdaLocalVars;
     }
 
-    public void setAliasGetDeclaredAnonymousLambdaLocalVars(String aliasGetDeclaredAnonymousLambdaLocalVars) {
-        this.aliasGetDeclaredAnonymousLambdaLocalVars = aliasGetDeclaredAnonymousLambdaLocalVars;
+    public void setAliasGetDeclaredAnonymousLambdaLocalVars(String _aliasGetDeclaredAnonymousLambdaLocalVars) {
+        this.aliasGetDeclaredAnonymousLambdaLocalVars = _aliasGetDeclaredAnonymousLambdaLocalVars;
     }
 
     public String getAliasGetDeclaredAnonymousLambdaLoopVars() {
         return aliasGetDeclaredAnonymousLambdaLoopVars;
     }
 
-    public void setAliasGetDeclaredAnonymousLambdaLoopVars(String aliasGetDeclaredAnonymousLambdaLoopVars) {
-        this.aliasGetDeclaredAnonymousLambdaLoopVars = aliasGetDeclaredAnonymousLambdaLoopVars;
+    public void setAliasGetDeclaredAnonymousLambdaLoopVars(String _aliasGetDeclaredAnonymousLambdaLoopVars) {
+        this.aliasGetDeclaredAnonymousLambdaLoopVars = _aliasGetDeclaredAnonymousLambdaLoopVars;
     }
 
     public String getAliasGetDeclaredBlocks() {
         return aliasGetDeclaredBlocks;
     }
 
-    public void setAliasGetDeclaredBlocks(String aliasGetDeclaredBlocks) {
-        this.aliasGetDeclaredBlocks = aliasGetDeclaredBlocks;
+    public void setAliasGetDeclaredBlocks(String _aliasGetDeclaredBlocks) {
+        this.aliasGetDeclaredBlocks = _aliasGetDeclaredBlocks;
     }
 
     public String getAliasGetDeclaredLocalTypes() {
         return aliasGetDeclaredLocalTypes;
     }
 
-    public void setAliasGetDeclaredLocalTypes(String aliasGetDeclaredLocalTypes) {
-        this.aliasGetDeclaredLocalTypes = aliasGetDeclaredLocalTypes;
+    public void setAliasGetDeclaredLocalTypes(String _aliasGetDeclaredLocalTypes) {
+        this.aliasGetDeclaredLocalTypes = _aliasGetDeclaredLocalTypes;
     }
 
     public String getAliasGetSuperClass() {

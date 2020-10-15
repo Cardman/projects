@@ -31,23 +31,27 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private String className = EMPTY_STRING;
     private Element elt;
 
-    public RendTextArea(int _offsetTrim, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, StringMap<ExecTextPart> execAttributesText, StringMap<ExecTextPart> execAttributes, String varNameConverter, String varNameConverterField, String varName, String id, String idClass, String idName, String className, Element elt) {
+    public RendTextArea(int _offsetTrim, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+                        CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
+                        StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
+                        String _varNameConverter, String _varNameConverterField,
+                        String _varName, String _id, String _idClass, String _idName, String _className, Element _elt) {
         super(_offsetTrim);
-        this.opsRead = opsRead;
-        this.opsValue = opsValue;
-        this.opsWrite = opsWrite;
-        this.opsConverter = opsConverter;
-        this.opsConverterField = opsConverterField;
-        this.execAttributesText = execAttributesText;
-        this.execAttributes = execAttributes;
-        this.varNameConverter = varNameConverter;
-        this.varNameConverterField = varNameConverterField;
-        this.varName = varName;
-        this.id = id;
-        this.idClass = idClass;
-        this.idName = idName;
-        this.className = className;
-        this.elt = elt;
+        this.opsRead = _opsRead;
+        this.opsValue = _opsValue;
+        this.opsWrite = _opsWrite;
+        this.opsConverter = _opsConverter;
+        this.opsConverterField = _opsConverterField;
+        this.execAttributesText = _execAttributesText;
+        this.execAttributes = _execAttributes;
+        this.varNameConverter = _varNameConverter;
+        this.varNameConverterField = _varNameConverterField;
+        this.varName = _varName;
+        this.id = _id;
+        this.idClass = _idClass;
+        this.idName = _idName;
+        this.className = _className;
+        this.elt = _elt;
     }
 
     @Override

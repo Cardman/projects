@@ -212,9 +212,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     }
 
     private void processVariables(AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        page_.setGlobalOffset(classIndexNameOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -227,8 +226,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
+        _page.setGlobalOffset(classNameOffset);
+        _page.setOffset(0);
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -238,11 +237,11 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
             }
-            page_.setMerged(true);
-            page_.setFinalVariable(finalVariable);
-            page_.setCurrentVarSetting(importedClassName);
+            _page.setMerged(true);
+            _page.setFinalVariable(finalVariable);
+            _page.setCurrentVarSetting(importedClassName);
         } else {
-            page_.setMerged(false);
+            _page.setMerged(false);
         }
     }
     private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {
@@ -332,15 +331,15 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         return test;
     }
 
-    public void setArgument(Argument argument) {
-        this.argument = argument;
+    public void setArgument(Argument _arg) {
+        this.argument = _arg;
     }
 
     public boolean isAlwaysTrue() {
         return alwaysTrue;
     }
 
-    public void setAlwaysTrue(boolean alwaysTrue) {
-        this.alwaysTrue = alwaysTrue;
+    public void setAlwaysTrue(boolean _alwaysTrue) {
+        this.alwaysTrue = _alwaysTrue;
     }
 }

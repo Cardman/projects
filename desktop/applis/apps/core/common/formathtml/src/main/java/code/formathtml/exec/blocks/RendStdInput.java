@@ -11,8 +11,12 @@ import code.util.StringMap;
 
 public final class RendStdInput extends RendInput {
 
-    public RendStdInput(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opsRead, CustList<RendDynOperationNode> opsValue, CustList<RendDynOperationNode> opsWrite, CustList<RendDynOperationNode> opsConverter, CustList<RendDynOperationNode> opsConverterField, String varName, String varNameConverter, String varNameConverterField, String id, String idClass, String idName, String className) {
-        super(_offsetTrim, read, execAttributes, execAttributesText, opsRead, opsValue, opsWrite, opsConverter, opsConverterField, varName, varNameConverter, varNameConverterField, id, idClass, idName, className);
+    public RendStdInput(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+                        CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+                        CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
+                        String _varName, String _varNameConverter, String _varNameConverterField,
+                        String _id, String _idClass, String _idName, String _className) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsWrite, _opsConverter, _opsConverterField, _varName, _varNameConverter, _varNameConverterField, _id, _idClass, _idName, _className);
     }
 
     @Override

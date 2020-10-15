@@ -176,19 +176,19 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return Argument.getNullableValue(arg_);
     }
 
-    private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument stored_, ExecOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent) {
+    private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent) {
         Argument arg_ = null;
         if (_settable instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+            arg_ = ((ExecStdVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         if (_settable instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+            arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         if (_settable instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+            arg_ = ((ExecCustArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         if (_settable instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), stored_, _right);
+            arg_ = ((ExecArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         return Argument.getNullableValue(arg_);
     }

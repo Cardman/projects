@@ -5414,10 +5414,6 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void processEl1466Test() {
         StringBuilder xml_ = new StringBuilder();

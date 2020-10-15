@@ -13,16 +13,16 @@ import code.util.StringMap;
 public final class RendAnchor extends RendElement {
     private CustList<RendDynOperationNode> opExpAnch;
 
-    private StringList varNames = new StringList();
+    private StringList varNames;
     private ExecTextPart textPart;
 
-    public RendAnchor(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText,
+    public RendAnchor(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
                       CustList<RendDynOperationNode> _opAnc,
-                      StringList varNames, ExecTextPart textPart) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
+                      StringList _varNames, ExecTextPart _textPart) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
         opExpAnch = _opAnc;
-        this.varNames = varNames;
-        this.textPart = textPart;
+        this.varNames = _varNames;
+        this.textPart = _textPart;
     }
 
 

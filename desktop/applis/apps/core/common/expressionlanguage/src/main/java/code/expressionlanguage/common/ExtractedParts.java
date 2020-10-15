@@ -8,15 +8,15 @@ public final class ExtractedParts {
         return first;
     }
 
-    public void setFirst(String first) {
-        this.first = first;
+    public void setFirst(String _v) {
+        this.first = _v;
     }
 
     public String getSecond() {
         return second;
     }
 
-    public void setSecond(String second) {
-        this.second = second;
+    public void setSecond(String _v) {
+        this.second = _v;
     }
 }

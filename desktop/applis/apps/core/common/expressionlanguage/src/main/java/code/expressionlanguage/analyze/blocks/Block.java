@@ -206,15 +206,15 @@ public abstract class Block implements AnalyzedBlock {
         return begin;
     }
 
-    public void setBegin(int begin) {
-        this.begin = begin;
+    public void setBegin(int _begin) {
+        this.begin = _begin;
     }
 
     public int getLengthHeader() {
         return lengthHeader;
     }
 
-    public void setLengthHeader(int lengthHeader) {
-        this.lengthHeader = lengthHeader;
+    public void setLengthHeader(int _lengthHeader) {
+        this.lengthHeader = _lengthHeader;
     }
 }

@@ -58,7 +58,7 @@ public abstract class PageEl {
         return cache;
     }
 
-    public void setCache(Cache cache) {
-        this.cache = cache;
+    public void setCache(Cache _cache) {
+        this.cache = _cache;
     }
 }

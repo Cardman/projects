@@ -71,15 +71,15 @@ public final class ElUtil {
         return names_;
     }
 
-    private static void addPart(CustList<PartOffsetAffect> names_, String var_, String trimmed_, String name_, int i, boolean b) {
-        if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-            addFieldName(names_, var_, i, b, name_);
+    private static void addPart(CustList<PartOffsetAffect> _names, String _var, String _trimmed, String _name, int _i, boolean _b) {
+        if (StringExpUtil.isTypeLeafPart(_trimmed)) {
+            addFieldName(_names, _var, _i, _b, _name);
         }
     }
 
-    private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
+    private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String _op) {
         int delta_ = StringUtil.getFirstPrintableCharIndex(_name);
-        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff, new StringList()));
+        _list.add(new PartOffsetAffect(new PartOffset(_op,delta_+_offset),_aff, new StringList()));
     }
 
     private static String getFieldName(String _v) {
@@ -275,8 +275,8 @@ public final class ElUtil {
         }
     }
 
-    private static void unwrapPrimitive(MethodOperation par_, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching cl_ = par_.getResultClass();
+    private static void unwrapPrimitive(MethodOperation _par, AnalyzedPageEl _page) {
+        AnaClassArgumentMatching cl_ = _par.getResultClass();
         if (AnaTypeUtil.isPrimitive(cl_, _page)) {
             cl_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
         }
@@ -363,10 +363,10 @@ public final class ElUtil {
         return op_;
     }
 
-    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
-        return block_ instanceof AbstractInstancingOperation
+    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation _block) {
+        return _block instanceof AbstractInstancingOperation
                 && _index == IndexConstants.FIRST_INDEX
-                && ((AbstractInstancingOperation) block_).isNewBefore();
+                && ((AbstractInstancingOperation) _block).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {

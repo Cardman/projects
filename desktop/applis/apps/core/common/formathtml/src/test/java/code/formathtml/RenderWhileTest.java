@@ -90,18 +90,18 @@ public final class RenderWhileTest extends CommonRender {
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;=2' label=','>{i}<br/><c:set value='i++'/></c:while></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
-    private Struct getEx(String html_, StringMap<String> _files) {
-        return getCommEx(html_, _files);
-    }
-
-    private String getRes(String html_, StringMap<String> _files) {
-        return getCommRes(html_,_files);
+    private Struct getEx(String _html, StringMap<String> _files) {
+        return getCommEx(_html, _files);
     }
 
-    private String getResOneBean(String html_, StringMap<String> filesSec_) {
-        return getCommOneBean(html_, filesSec_);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
+    }
+
+    private String getResOneBean(String _html, StringMap<String> _filesSec) {
+        return getCommOneBean(_html, _filesSec);
     }
 }

@@ -68,8 +68,8 @@ public final class LoopBlockStack extends AbstractStask {
         return execLoop;
     }
 
-    public void setExecLoop(ExecLoop execLoop) {
-        this.execLoop = execLoop;
+    public void setExecLoop(ExecLoop _execLoop) {
+        this.execLoop = _execLoop;
     }
 
     public boolean isEvaluatingKeepLoop() {
@@ -99,15 +99,15 @@ public final class LoopBlockStack extends AbstractStask {
         return step;
     }
 
-    public void setStep(long step) {
-        this.step = step;
+    public void setStep(long _step) {
+        this.step = _step;
     }
 
     public Struct getContainer() {
         return container;
     }
 
-    public void setContainer(Struct container) {
-        this.container = container;
+    public void setContainer(Struct _container) {
+        this.container = _container;
     }
 }

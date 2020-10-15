@@ -10,15 +10,15 @@ public final class AnaLambdaAnoContent {
         return method;
     }
 
-    public void setMethod(ClassMethodId method) {
-        this.method = method;
+    public void setMethod(ClassMethodId _method) {
+        this.method = _method;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 }

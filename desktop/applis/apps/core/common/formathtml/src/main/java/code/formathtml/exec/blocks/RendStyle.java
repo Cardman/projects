@@ -11,8 +11,8 @@ import code.util.core.StringUtil;
 
 public final class RendStyle extends RendElement {
 
-    public RendStyle(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
+    public RendStyle(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
     }
 
     @Override

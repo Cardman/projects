@@ -8,8 +8,8 @@ import code.util.CustList;
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
     private final AnalyzedPageEl page;
 
-    public DefaultCurrentGlobalBlock(AnalyzedPageEl page) {
-        this.page = page;
+    public DefaultCurrentGlobalBlock(AnalyzedPageEl _page) {
+        this.page = _page;
     }
 
     @Override

@@ -9,23 +9,23 @@ public final class AnaLambdaMemberNumberContent {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getOperatorNumber() {
         return operatorNumber;
     }
 
-    public void setOperatorNumber(int operatorNumber) {
-        this.operatorNumber = operatorNumber;
+    public void setOperatorNumber(int _operatorNumber) {
+        this.operatorNumber = _operatorNumber;
     }
 }

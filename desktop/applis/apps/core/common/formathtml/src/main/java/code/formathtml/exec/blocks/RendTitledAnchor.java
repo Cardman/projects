@@ -22,13 +22,15 @@ public final class RendTitledAnchor extends RendElement {
     private StringMap<String> preformatted;
     private ExecTextPart textPart;
 
-    public RendTitledAnchor(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, CustList<RendDynOperationNode> opExpAnch, StringList varNames, StringMap<ExecTextPart> opExpTitle, StringMap<String> preformatted, ExecTextPart textPart) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.opExpAnch = opExpAnch;
-        this.varNames = varNames;
-        this.opExpTitle = opExpTitle;
-        this.preformatted = preformatted;
-        this.textPart = textPart;
+    public RendTitledAnchor(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+                            CustList<RendDynOperationNode> _opExpAnch, StringList _varNames,
+                            StringMap<ExecTextPart> _opExpTitle, StringMap<String> _preformatted, ExecTextPart _textPart) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.opExpAnch = _opExpAnch;
+        this.varNames = _varNames;
+        this.opExpTitle = _opExpTitle;
+        this.preformatted = _preformatted;
+        this.textPart = _textPart;
     }
 
     @Override

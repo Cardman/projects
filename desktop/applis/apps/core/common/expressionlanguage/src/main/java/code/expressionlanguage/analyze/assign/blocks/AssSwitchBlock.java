@@ -68,8 +68,8 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
         return def_;
     }
 
-    private boolean isDef(AssBlock ch_) {
-        return ch_ instanceof AssSwitchPartBlock && ((AssSwitchPartBlock)ch_).isDef();
+    private boolean isDef(AssBlock _ch) {
+        return _ch instanceof AssSwitchPartBlock && ((AssSwitchPartBlock)_ch).isDef();
     }
 
     @Override

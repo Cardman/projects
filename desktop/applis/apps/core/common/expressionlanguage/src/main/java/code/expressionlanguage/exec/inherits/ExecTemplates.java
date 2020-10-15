@@ -143,16 +143,16 @@ public final class ExecTemplates {
             PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
             GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
             InheritedType in_ = null;
-            boolean without;
+            boolean without_;
             if (g_ != null) {
-                without = g_.withoutInstance();
+                without_ = g_.withoutInstance();
             } else {
-                without = false;
+                without_ = false;
             }
             if (pr_ != null) {
                 in_ = pr_;
             } else {
-                if (cl_.startsWith(Templates.ARR_BEG_STRING) || without) {
+                if (cl_.startsWith(Templates.ARR_BEG_STRING) || without_) {
                     in_ = g_;
                 }
             }
@@ -200,8 +200,8 @@ public final class ExecTemplates {
         return current_;
     }
 
-    static boolean hasToLookForParent(ContextEl _an, String id_, GeneType g_) {
-        return g_!= null && !g_.isSubTypeOf(id_,_an);
+    static boolean hasToLookForParent(ContextEl _an, String _id, GeneType _g) {
+        return _g!= null && !_g.isSubTypeOf(_id,_an);
     }
 
     /**Calls Templates.isCorrect*/
@@ -231,8 +231,8 @@ public final class ExecTemplates {
         return getMade(_className, _context, allArgTypes_);
     }
 
-    private static String getMade(String _className, ContextEl _context, CustList<String> allArgTypes_) {
-        String madeVarTypes_ = getMadeVarTypes(_className, new StringList(allArgTypes_), _context);
+    private static String getMade(String _className, ContextEl _context, CustList<String> _allArgTypes) {
+        String madeVarTypes_ = getMadeVarTypes(_className, new StringList(_allArgTypes), _context);
         if (madeVarTypes_ == null) {
             return "";
         }
@@ -612,15 +612,15 @@ public final class ExecTemplates {
         return p_;
     }
 
-    private static Struct processError(ContextEl _conf, ArrayStruct arr_, Struct s, ErrorType state_) {
+    private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state) {
         LgNames stds_ = _conf.getStandards();
-        if (state_ == ErrorType.NPE) {
+        if (_state == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             return new ErrorStruct(_conf,npe_);
         } else {
-            String arrType_ = arr_.getClassName();
+            String arrType_ = _arr.getClassName();
             String param_ = StringExpUtil.getQuickComponentType(arrType_);
-            String arg_ = s.getClassName(_conf);
+            String arg_ = _s.getClassName(_conf);
             String cast_ = stds_.getContent().getCoreNames().getAliasStore();
             StringBuilder mess_ = new StringBuilder();
             mess_.append(arg_);

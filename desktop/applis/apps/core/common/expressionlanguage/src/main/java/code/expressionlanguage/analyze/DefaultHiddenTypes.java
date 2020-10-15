@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 public final class DefaultHiddenTypes implements AbstractHiddenTypes {
     private final AnalyzedPageEl context;
 
-    public DefaultHiddenTypes(AnalyzedPageEl context) {
-        this.context = context;
+    public DefaultHiddenTypes(AnalyzedPageEl _context) {
+        this.context = _context;
     }
 
     @Override

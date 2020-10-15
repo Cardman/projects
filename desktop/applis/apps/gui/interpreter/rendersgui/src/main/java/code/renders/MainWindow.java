@@ -56,9 +56,9 @@ public final class MainWindow extends GroupFrame {
         session.setLanguage(_lg);
         session.setFrame(this);
         TextField field_;
-        LabelButton search = new LabelButton("search");
+        LabelButton search_ = new LabelButton("search");
         field_ = new TextField(20);
-        session.setSearchText(search);
+        session.setSearchText(search_);
         session.setField(field_);
         TextArea t_ = new TextArea(8,32);
         session.setArea(t_);
@@ -67,7 +67,7 @@ public final class MainWindow extends GroupFrame {
         scrollSession_.setPreferredSize(new Dimension(400, 400));
         pane_.add(scrollSession_);
         pane_.add(field_);
-        pane_.add(search);
+        pane_.add(search_);
         pane_.add(t_);
         setContentPane(pane_);
         pack();

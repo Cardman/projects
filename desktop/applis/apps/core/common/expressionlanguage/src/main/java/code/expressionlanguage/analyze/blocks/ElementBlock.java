@@ -244,8 +244,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public void setFieldNumber(int fieldNumber) {
-        this.fieldNumber = fieldNumber;
+    public void setFieldNumber(int _fieldNumber) {
+        this.fieldNumber = _fieldNumber;
     }
 
     @Override

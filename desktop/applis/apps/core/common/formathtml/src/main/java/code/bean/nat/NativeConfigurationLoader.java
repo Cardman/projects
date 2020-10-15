@@ -11,8 +11,8 @@ import code.util.core.StringUtil;
 public final class NativeConfigurationLoader extends AbstractConfigurationLoader {
     private final BeanNatLgNames stds;
 
-    public NativeConfigurationLoader(BeanNatLgNames stds) {
-        this.stds = stds;
+    public NativeConfigurationLoader(BeanNatLgNames _stds) {
+        this.stds = _stds;
     }
 
     @Override

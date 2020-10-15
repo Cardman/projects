@@ -45,8 +45,8 @@ public final class ExecAnonymousInstancingOperation extends
         return instancePrepareFormatted(_conf, className_,rootBlock,ctor, _previous, firstArgs_, "", -1);
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_) {
-        return fectchInstFormattedArgs(_nodes, className_, rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
+    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
+        return fectchInstFormattedArgs(_nodes, _className, rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
     }
 
 }

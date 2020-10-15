@@ -786,7 +786,7 @@ final class FightValues {
         return variables_;
     }
 
-    private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String fighterDerJoue) {
+    private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String _fighterDerJoue) {
         CustList<TeamPosition> cbts_ = FightOrder.fightersHavingToAct(_fight, true, _import);
         cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
         boolean onlyOne_;
@@ -796,9 +796,9 @@ final class FightValues {
             onlyOne_ = onlyOne(cbts_);
         }
         if (onlyOne_) {
-            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, fighterDerJoue), Fight.ONE);
+            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _fighterDerJoue), Fight.ONE);
         } else {
-            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, fighterDerJoue), Fight.ZERO);
+            _variables.put(StringUtil.concat(DataBase.VAR_PREFIX, _fighterDerJoue), Fight.ZERO);
         }
     }
 

@@ -142,23 +142,23 @@ public abstract class ReachBlock {
         return parent;
     }
 
-    public void setParent(ReachBracedBlock parent) {
-        this.parent = parent;
+    public void setParent(ReachBracedBlock _parent) {
+        this.parent = _parent;
     }
 
     public ReachBlock getNextSibling() {
         return nextSibling;
     }
 
-    public void setNextSibling(ReachBlock nextSibling) {
-        this.nextSibling = nextSibling;
+    public void setNextSibling(ReachBlock _nextSibling) {
+        this.nextSibling = _nextSibling;
     }
 
     public ReachBlock getPreviousSibling() {
         return previousSibling;
     }
 
-    public void setPreviousSibling(ReachBlock previousSibling) {
-        this.previousSibling = previousSibling;
+    public void setPreviousSibling(ReachBlock _previousSibling) {
+        this.previousSibling = _previousSibling;
     }
 }

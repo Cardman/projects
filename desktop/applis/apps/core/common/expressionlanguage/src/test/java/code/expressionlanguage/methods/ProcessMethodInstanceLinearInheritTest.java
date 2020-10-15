@@ -69,10 +69,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
 
-    private static boolean isInitialized(ContextEl cont_, String _cl) {
-        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
-    }
-
     @Test
     public void instanceArgument171Test() {
         StringMap<String> files_ = new StringMap<String>();

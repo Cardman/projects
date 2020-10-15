@@ -10,12 +10,12 @@ public final class PartOffsetsClassMethodId {
     private final int begin;
     private final int length;
 
-    public PartOffsetsClassMethodId(CustList<PartOffset> types, CustList<PartOffset> superTypes, ClassMethodId id, int begin, int length) {
-        this.types = types;
-        this.superTypes = superTypes;
-        this.id = id;
-        this.begin = begin;
-        this.length = length;
+    public PartOffsetsClassMethodId(CustList<PartOffset> _types, CustList<PartOffset> _superTypes, ClassMethodId _id, int _begin, int _length) {
+        this.types = _types;
+        this.superTypes = _superTypes;
+        this.id = _id;
+        this.begin = _begin;
+        this.length = _length;
     }
 
     public CustList<PartOffset> getTypes() {

@@ -5,8 +5,8 @@ import code.expressionlanguage.exec.ExecutingUtil;
 public final class DefaultExiting implements AbstractExiting {
     private final ContextEl context;
 
-    public DefaultExiting(ContextEl context) {
-        this.context = context;
+    public DefaultExiting(ContextEl _context) {
+        this.context = _context;
     }
 
     @Override

@@ -27,13 +27,13 @@ public final class RendSwitchBlock extends RendParentBlock implements RendReduca
     private boolean enumTest;
     private String instanceTest;
 
-    public RendSwitchBlock(int _offsetTrim, String label, int valueOffset, CustList<RendDynOperationNode> opValue, boolean enumTest, String instanceTest) {
+    public RendSwitchBlock(int _offsetTrim, String _label, int _valueOffset, CustList<RendDynOperationNode> _opValue, boolean _enumTest, String _instanceTest) {
         super(_offsetTrim);
-        this.label = label;
-        this.valueOffset = valueOffset;
-        this.opValue = opValue;
-        this.enumTest = enumTest;
-        this.instanceTest = instanceTest;
+        this.label = _label;
+        this.valueOffset = _valueOffset;
+        this.opValue = _opValue;
+        this.enumTest = _enumTest;
+        this.instanceTest = _instanceTest;
     }
 
     @Override
@@ -171,17 +171,17 @@ public final class RendSwitchBlock extends RendParentBlock implements RendReduca
         }
         ip_.addBlock(if_);
     }
-    private static RendParentBlock fetch(Configuration _cont, RendSwitchBlockStack if_, Argument arg_,
+    private static RendParentBlock fetch(Configuration _cont, RendSwitchBlockStack _if, Argument _arg,
                                          RendParentBlock _found, RendSwitchPartCondition _s, ContextEl _ctx) {
         if (_found != null) {
             return _found;
         }
         String type_ = _s.getImportedClassName();
         ImportingPage ip_ = _cont.getLastPage();
-        if (ExecTemplates.safeObject(type_, arg_, _ctx) == ErrorType.NOTHING) {
+        if (ExecTemplates.safeObject(type_, _arg, _ctx) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
-            ip_.putValueVar(var_,LocalVariable.newLocalVariable(arg_.getStruct(),type_));
-            if_.setLastVisitedBlock(_s);
+            ip_.putValueVar(var_,LocalVariable.newLocalVariable(_arg.getStruct(),type_));
+            _if.setLastVisitedBlock(_s);
             return _s;
         }
         return null;

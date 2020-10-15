@@ -111,36 +111,36 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         return Argument.getNullableValue(arg_);
     }
 
-    private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_, Argument res_, RendDynOperationNode _settable, ExecStaticPostEltContent staticPostEltContent, BeanLgNames _advStandards, ContextEl _context) {
+    private static Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _stored, Argument _res, RendDynOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (_settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
+            arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
         if (_settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
+            arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
         if (_settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
+            arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
         if (_settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes,_conf, staticPostEltContent.isPost(), stored_, res_, _advStandards, _context);
+            arg_ = ((RendArrOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }
 
-    private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument stored_, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _stored, BeanLgNames _advStandards, ContextEl _context) {
         Argument arg_ = null;
         if (settable instanceof RendStdVariableOperation) {
-            arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+            arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+            arg_ = ((RendSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+            arg_ = ((RendCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),stored_, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+            arg_ = ((RendArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }

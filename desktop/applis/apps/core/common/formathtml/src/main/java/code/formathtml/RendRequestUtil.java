@@ -28,15 +28,15 @@ final class RendRequestUtil {
         return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context);
     }
 
-    private static Struct calculate(Configuration _conf, Argument _bean, StringList varNames_, CustList<RendDynOperationNode> exps_, StringList args_, BeanLgNames _advStandards, ContextEl _context) {
+    private static Struct calculate(Configuration _conf, Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, BeanLgNames _advStandards, ContextEl _context) {
         ImportingPage ip_ = _conf.getLastPage();
-        int s_ = varNames_.size();
+        int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(args_.get(i))), _advStandards.getAliasPrimLong());
-            ip_.putLocalVar(varNames_.get(i), locVar_);
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), _advStandards.getAliasPrimLong());
+            ip_.putLocalVar(_varNames.get(i), locVar_);
         }
-        Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean, _advStandards, _context);
-        for (String n: varNames_) {
+        Argument arg_ = RenderExpUtil.calculateReuse(_exps,_conf,_bean, _advStandards, _context);
+        for (String n: _varNames) {
             ip_.removeLocalVar(n);
         }
         if (_context.callsOrException()) {

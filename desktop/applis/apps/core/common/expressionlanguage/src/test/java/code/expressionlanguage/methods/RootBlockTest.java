@@ -102,8 +102,8 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
     }
 
-    public StringList getAllGenericSuperTypes(AnalyzedTestContext cont_, String className) {
-        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).fetchAllGenericSuperTypes();
+    public StringList getAllGenericSuperTypes(AnalyzedTestContext _cont, String _className) {
+        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(_cont, _className).fetchAllGenericSuperTypes();
         StringList l_ = new StringList();
         for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
             l_.add(a.getFormatted());
@@ -182,9 +182,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedTestContext cont_, String _className) {
+    private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedTestContext _cont, String _className) {
         CustList<OverridingMethodDto> out_ = new CustList<OverridingMethodDto>();
-        for (OverridingMethodDto o: getClassBody(cont_, _className).getAllOverridingMethods()) {
+        for (OverridingMethodDto o: getClassBody(_cont, _className).getAllOverridingMethods()) {
             out_.add(o);
         }
         return out_;
@@ -610,8 +610,8 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static RootBlock getClassBody(AnalyzedTestContext cont_, String _className) {
-        for (RootBlock r: cont_.getAnalyzing().getFoundTypes()) {
+    private static RootBlock getClassBody(AnalyzedTestContext _cont, String _className) {
+        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
             if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
@@ -1179,9 +1179,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedTestContext cont_, MethodId id_, RootBlock r_) {
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
-        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(page_.getAnaClassBody(r_.getFullName()), id_, page_);
+    private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedTestContext _cont, MethodId _id, RootBlock _r) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(page_.getAnaClassBody(_r.getFullName()), _id, page_);
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
         for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
             GeneStringOverridable value_ = e.getValue();
@@ -1768,9 +1768,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
 
-    private static StringList listOfTypes(CustList<OverridingMethodDto> map_, MethodId _id) {
+    private static StringList listOfTypes(CustList<OverridingMethodDto> _map, MethodId _id) {
         StringList l_ = new StringList();
-        for (OverridingMethodDto o: map_) {
+        for (OverridingMethodDto o: _map) {
             if (o.getFormattedMethodId().eq(MethodId.to(_id))) {
                 for (GeneStringOverridable i : o.getMethodIds()) {
                     if (StringUtil.contains(l_,i.getGeneString())) {

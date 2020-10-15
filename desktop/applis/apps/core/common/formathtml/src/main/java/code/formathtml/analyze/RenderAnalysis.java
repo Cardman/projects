@@ -222,10 +222,10 @@ public final class RenderAnalysis {
         return createOperationNode(offset_, _index, block_, r_, _anaDoc, _page);
     }
 
-    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
-        return block_ instanceof AbstractInstancingOperation
+    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation _block) {
+        return _block instanceof AbstractInstancingOperation
                 && _index == IndexConstants.FIRST_INDEX
-                && ((AbstractInstancingOperation) block_).isNewBefore();
+                && ((AbstractInstancingOperation) _block).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

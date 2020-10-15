@@ -8,8 +8,8 @@ public final class OverridingMethodDto {
 
     private CustList<GeneStringOverridable> methodIds = new CustList<GeneStringOverridable>();
 
-    public OverridingMethodDto(FormattedMethodId formattedMethodId) {
-        this.formattedMethodId = formattedMethodId;
+    public OverridingMethodDto(FormattedMethodId _formattedMethodId) {
+        this.formattedMethodId = _formattedMethodId;
     }
 
     public FormattedMethodId getFormattedMethodId() {

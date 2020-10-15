@@ -202,8 +202,8 @@ public final class CaseCondition extends SwitchPartBlock {
         return argument;
     }
 
-    public void setArgument(Argument argument) {
-        this.argument = argument;
+    public void setArgument(Argument _argument) {
+        this.argument = _argument;
     }
 
     public OperationNode getRoot() {
@@ -218,16 +218,16 @@ public final class CaseCondition extends SwitchPartBlock {
         return builtEnum;
     }
 
-    public void setBuiltEnum(boolean builtEnum) {
-        this.builtEnum = builtEnum;
+    public void setBuiltEnum(boolean _builtEnum) {
+        this.builtEnum = _builtEnum;
     }
 
     public boolean isNullCaseEnum() {
         return nullCaseEnum;
     }
 
-    public void setNullCaseEnum(boolean nullCaseEnum) {
-        this.nullCaseEnum = nullCaseEnum;
+    public void setNullCaseEnum(boolean _nullCaseEnum) {
+        this.nullCaseEnum = _nullCaseEnum;
     }
 
     public StringList getEmptErrs() {

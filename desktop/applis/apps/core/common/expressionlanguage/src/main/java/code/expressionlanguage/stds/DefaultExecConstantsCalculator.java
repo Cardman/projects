@@ -7,8 +7,8 @@ import code.expressionlanguage.structs.Struct;
 public final class DefaultExecConstantsCalculator implements AbstractExecConstantsCalculator {
     private final AliasNumber refNb;
 
-    public DefaultExecConstantsCalculator(AliasNumber refNb) {
-        this.refNb = refNb;
+    public DefaultExecConstantsCalculator(AliasNumber _refNb) {
+        this.refNb = _refNb;
     }
 
     @Override

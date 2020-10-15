@@ -16,31 +16,31 @@ public final class AnaFieldContent {
         return valueOffset;
     }
 
-    public void setValueOffset(int valueOffset) {
-        this.valueOffset = valueOffset;
+    public void setValueOffset(int _valueOffset) {
+        this.valueOffset = _valueOffset;
     }
 
     public boolean isStaticField() {
         return staticField;
     }
 
-    public void setStaticField(boolean staticField) {
-        this.staticField = staticField;
+    public void setStaticField(boolean _staticField) {
+        this.staticField = _staticField;
     }
 
     public boolean isFinalField() {
         return finalField;
     }
 
-    public void setFinalField(boolean finalField) {
-        this.finalField = finalField;
+    public void setFinalField(boolean _finalField) {
+        this.finalField = _finalField;
     }
 
     public AccessEnum getAccess() {
         return access;
     }
 
-    public void setAccess(AccessEnum access) {
-        this.access = access;
+    public void setAccess(AccessEnum _access) {
+        this.access = _access;
     }
 }

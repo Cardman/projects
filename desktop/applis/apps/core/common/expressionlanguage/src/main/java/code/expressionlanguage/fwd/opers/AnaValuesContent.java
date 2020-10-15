@@ -17,11 +17,11 @@ public final class AnaValuesContent {
         return argOffset;
     }
 
-    public void setArgOffset(int argOffset) {
-        this.argOffset = argOffset;
+    public void setArgOffset(int _argOffset) {
+        this.argOffset = _argOffset;
     }
 
-    public void setNumberEnum(int numberEnum) {
-        this.numberEnum = numberEnum;
+    public void setNumberEnum(int _numberEnum) {
+        this.numberEnum = _numberEnum;
     }
 }

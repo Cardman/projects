@@ -12,8 +12,8 @@ import code.util.core.StringUtil;
 public final class DefaultConfigurationLoader extends AbstractConfigurationLoader {
     private final BeanCustLgNames stds;
 
-    public DefaultConfigurationLoader(BeanCustLgNames stds) {
-        this.stds = stds;
+    public DefaultConfigurationLoader(BeanCustLgNames _stds) {
+        this.stds = _stds;
     }
 
     @Override

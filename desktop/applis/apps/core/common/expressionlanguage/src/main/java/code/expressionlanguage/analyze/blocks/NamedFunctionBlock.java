@@ -180,8 +180,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return name;
     }
 
-    public void setIntenName(String name) {
-        this.name = StringUtil.concat(".",name);
+    public void setIntenName(String _name) {
+        this.name = StringUtil.concat(".",_name);
     }
 
     public final StringList getParametersTypes() {
@@ -323,16 +323,16 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return nameNumber;
     }
 
-    public void setNameNumber(int nameNumber) {
-        this.nameNumber = nameNumber;
+    public void setNameNumber(int _nameNumber) {
+        this.nameNumber = _nameNumber;
     }
 
     public boolean isMatchParamNames() {
         return matchParamNames;
     }
 
-    public void setMatchParamNames(boolean matchParamNames) {
-        this.matchParamNames = matchParamNames;
+    public void setMatchParamNames(boolean _matchParamNames) {
+        this.matchParamNames = _matchParamNames;
     }
 
 }

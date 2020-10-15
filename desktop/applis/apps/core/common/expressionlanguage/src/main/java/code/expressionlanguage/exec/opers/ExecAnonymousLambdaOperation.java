@@ -33,8 +33,8 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
         return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaAnoContent.getMethod(), getReturnFieldType()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType) {
-        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, foundClass, method, returnFieldType, 0, false, false, false, false, isShiftArgument(), isSafeInstance(),
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ClassMethodId _method, String _returnFieldType) {
+        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, _foundClass, _method, _returnFieldType, 0, false, false, false, false, isShiftArgument(), isSafeInstance(),
                 getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(),functionBlock,function, lambdaAnoContent.getDeclaring());
     }
 }

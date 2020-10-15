@@ -210,14 +210,14 @@ public final class ApplyCoreMethodUtil {
         }
         return result_;
     }
-    public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] args_) {
+    public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] _args) {
         LgNames stds_ = _conf.getStandards();
         String aliasField_ = stds_.getContent().getReflect().getAliasField();
         String aliasMethod_ = stds_.getContent().getReflect().getAliasMethod();
         String aliasConstructor_ = stds_.getContent().getReflect().getAliasConstructor();
         Struct previous_ = NullStruct.NULL_VALUE;
-        if (args_.length > 0) {
-            previous_ = args_[0];
+        if (_args.length > 0) {
+            previous_ = _args[0];
         }
         if (StringUtil.quickEq(_id,aliasMethod_)) {
             return NumParsers.getMethod(previous_);
@@ -231,44 +231,44 @@ public final class ApplyCoreMethodUtil {
         return NumParsers.getClass(previous_);
     }
 
-    private static ResultErrorStd processResources(ContextEl _cont, ClassMethodId _method, Struct[] args_) {
+    private static ResultErrorStd processResources(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNamesLength())) {
             result_.setResult(ResourcesStruct.getResourceNamesLength(_cont));
         } else if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesIndex())) {
-            result_.setResult(ResourcesStruct.getResourceIndex(_cont,args_[0]));
+            result_.setResult(ResourcesStruct.getResourceIndex(_cont,_args[0]));
         } else if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNames())) {
             result_.setResult(ResourcesStruct.getResourceNames(_cont));
         } else {
-            result_.setResult(ResourcesStruct.getResource(_cont, NumParsers.getString(args_[0])));
+            result_.setResult(ResourcesStruct.getResource(_cont, NumParsers.getString(_args[0])));
         }
         return result_;
     }
 
-    private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] args_) {
+    private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasSameRef())) {
-            result_.setResult(BooleanStruct.of(args_[0].sameReference(args_[1])));
+            result_.setResult(BooleanStruct.of(_args[0].sameReference(_args[1])));
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetParent())) {
-            Struct arg_ = args_[0];
+            Struct arg_ = _args[0];
             Struct par_ = arg_.getParent();
             _cont.getInitializingTypeInfos().addSensibleField(arg_, par_);
             result_.setResult(par_);
             return result_;
         }
-        Struct inst_ = args_[0];
+        Struct inst_ = _args[0];
         if (!(inst_ instanceof WithParentStruct)) {
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
         WithParentStruct i_ = (WithParentStruct) inst_;
-        Struct par_ = args_[1];
+        Struct par_ = _args[1];
         if (!StringUtil.quickEq(i_.getParentClassName(),par_.getClassName(_cont))) {
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
@@ -282,18 +282,18 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    private static ResultErrorStd processError(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] args_) {
+    private static ResultErrorStd processError(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args) {
         LgNames lgNames_ = _cont.getStandards();
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getStackElt().getAliasCurrentStack())) {
             ErroneousStruct err_;
-            if (args_.length == 0) {
+            if (_args.length == 0) {
                 err_ = getError(_struct,_cont);
                 result_.setResult(err_.getStack());
                 return result_;
             }
-            err_ = getError(args_[0],_cont);
+            err_ = getError(_args[0],_cont);
             result_.setResult(err_.getFullStack());
             return result_;
         }
@@ -308,12 +308,12 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         ErroneousStruct err_;
-        if (args_.length == 0) {
+        if (_args.length == 0) {
             err_ = getError(_struct,_cont);
             result_.setResult(err_.getDisplayedString(_cont));
             return result_;
         }
-        err_ = getError(args_[0],_cont);
+        err_ = getError(_args[0],_cont);
         result_.setResult(new StringStruct(err_.getStringRep(_cont, err_.getFullStack())));
         return result_;
     }
@@ -323,11 +323,11 @@ public final class ApplyCoreMethodUtil {
         return lgNames_.instance(_cont,_method,_args);
     }
 
-    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] args_) {
+    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] _args) {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = NullStruct.NULL_VALUE;
-        if (args_.length > 0) {
-            previous_ = args_[0];
+        if (_args.length > 0) {
+            previous_ = _args[0];
         }
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_id, stds_);
         if (cast_ > 0) {

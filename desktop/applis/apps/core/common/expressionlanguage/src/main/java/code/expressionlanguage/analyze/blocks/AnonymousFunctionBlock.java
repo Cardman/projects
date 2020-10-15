@@ -76,8 +76,8 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         return parentType;
     }
 
-    public void setParentType(RootBlock parentType) {
-        this.parentType = parentType;
+    public void setParentType(RootBlock _parentType) {
+        this.parentType = _parentType;
     }
 
     public StringList getAllReservedInners() {
@@ -88,16 +88,16 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         return indexEnd;
     }
 
-    public void setIndexEnd(int indexEnd) {
-        this.indexEnd = indexEnd;
+    public void setIndexEnd(int _indexEnd) {
+        this.indexEnd = _indexEnd;
     }
 
     public int getNumberLambda() {
         return numberLambda;
     }
 
-    public void setNumberLambda(int numberLambda) {
-        this.numberLambda = numberLambda;
+    public void setNumberLambda(int _numberLambda) {
+        this.numberLambda = _numberLambda;
     }
 
     public AnaCache getCache() {

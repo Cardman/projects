@@ -253,15 +253,15 @@ public final class RulesTarot {
         return general;
     }
 
-    public void setGeneral(String general) {
-        this.general = general;
+    public void setGeneral(String _general) {
+        this.general = _general;
     }
 
     public String getSpecific() {
         return specific;
     }
 
-    public void setSpecific(String specific) {
-        this.specific = specific;
+    public void setSpecific(String _specific) {
+        this.specific = _specific;
     }
 }

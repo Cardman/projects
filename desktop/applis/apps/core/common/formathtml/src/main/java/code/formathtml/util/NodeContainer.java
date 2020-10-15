@@ -59,8 +59,8 @@ public class NodeContainer {
         object = _struct;
     }
 
-    public void setObjectClasses(StringList objectClasses) {
-        this.objectClasses = objectClasses;
+    public void setObjectClasses(StringList _objectClasses) {
+        this.objectClasses = _objectClasses;
     }
 
     public Struct getTypedStruct() {
@@ -82,24 +82,24 @@ public class NodeContainer {
         return idClass;
     }
 
-    public void setIdClass(String idClass) {
-        this.idClass = idClass;
+    public void setIdClass(String _idClass) {
+        this.idClass = _idClass;
     }
 
     public String getIdFieldClass() {
         return idFieldClass;
     }
 
-    public void setIdFieldClass(String idFieldClass) {
-        this.idFieldClass = idFieldClass;
+    public void setIdFieldClass(String _idFieldClass) {
+        this.idFieldClass = _idFieldClass;
     }
 
     public String getIdFieldName() {
         return idFieldName;
     }
 
-    public void setIdFieldName(String idFieldName) {
-        this.idFieldName = idFieldName;
+    public void setIdFieldName(String _idFieldName) {
+        this.idFieldName = _idFieldName;
     }
 
     public NodeInformations getNodeInformation() {
@@ -126,8 +126,8 @@ public class NodeContainer {
         return varParamName;
     }
 
-    public void setVarParamName(CustList<String> varParamName) {
-        this.varParamName = varParamName;
+    public void setVarParamName(CustList<String> _varParamName) {
+        this.varParamName = _varParamName;
     }
 
     public String getVarName() {

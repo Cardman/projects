@@ -8,11 +8,11 @@ public final class MappingLocalType {
     private final RootBlock parentType;
     private final RootBlock type;
 
-    public MappingLocalType(String fullName, String suffixedName, RootBlock parentType,RootBlock type) {
-        this.fullName = fullName;
-        this.suffixedName = suffixedName;
-        this.parentType = parentType;
-        this.type = type;
+    public MappingLocalType(String _fullName, String _suffixedName, RootBlock _parentType,RootBlock _type) {
+        this.fullName = _fullName;
+        this.suffixedName = _suffixedName;
+        this.parentType = _parentType;
+        this.type = _type;
     }
 
     public String getFullName() {

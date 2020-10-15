@@ -163,12 +163,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             _ctors.add(mloc_);
         }
     }
-    protected static String tryParamFormat(NameParametersFilter _filter, Parametrable _param, String _name, int nbParentsInfer_, String type_, StringMap<String> vars_, AnalyzedPageEl _page) {
+    protected static String tryParamFormat(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
         if (!isValidNameIndex(_filter,_param,_name)) {
             return null;
         }
         int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
-        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _page);
+        return tryFormat(_param, ind_, _nbParentsInfer, _type, _vars, _page);
     }
     protected static boolean isValidNameIndex(NameParametersFilter _filter, Parametrable _param, String _name) {
         int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
@@ -194,54 +194,54 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return StringExpUtil.getPrettyArrayType(idMethod_.getParametersTypes().last());
     }
-    protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, AnalyzedPageEl _page) {
-        String parametersType_ = tryGetParam(_param,indexChild_);
+    protected static String tryFormat(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String parametersType_ = tryGetParam(_param,_indexChild);
         if (parametersType_ == null) {
             return null;
         }
-        boolean applyTwo_ = applyArrayOrElement(_param, indexChild_);
-        String cp_ = StringExpUtil.getQuickComponentType(parametersType_, nbParentsInfer_);
+        boolean applyTwo_ = applyArrayOrElement(_param, _indexChild);
+        String cp_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer);
         if (!applyTwo_) {
             if (isNotCorrectDim(cp_)) {
                 return null;
             }
         } else {
             if (isNotCorrectDim(cp_)) {
-                String cpTwo_ = StringExpUtil.getQuickComponentType(parametersType_, nbParentsInfer_-1);
+                String cpTwo_ = StringExpUtil.getQuickComponentType(parametersType_, _nbParentsInfer-1);
                 if (isNotCorrectDim(cpTwo_)) {
                     return null;
                 }
                 cp_ = cpTwo_;
             }
         }
-        return AnaTemplates.tryInfer(type_,vars_, cp_, _page);
+        return AnaTemplates.tryInfer(_type,_vars, cp_, _page);
     }
-    protected static String tryGetParam(Parametrable _param, int indexChild_) {
+    protected static String tryGetParam(Parametrable _param, int _indexChild) {
         String parametersType_;
         Identifiable idMethod_ = _param.getGeneFormatted();
         if (!idMethod_.isVararg()) {
-            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+            if (idMethod_.getParametersTypesLength() <= _indexChild) {
                 return null;
             }
-            parametersType_ = idMethod_.getParametersType(indexChild_);
+            parametersType_ = idMethod_.getParametersType(_indexChild);
         } else {
-            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+            if (idMethod_.getParametersTypesLength() <= _indexChild) {
                 parametersType_ = idMethod_.getParametersTypes().last();
             } else {
-                parametersType_ = idMethod_.getParametersType(indexChild_);
+                parametersType_ = idMethod_.getParametersType(_indexChild);
             }
         }
         return parametersType_;
     }
-    protected static boolean applyArrayOrElement(Parametrable _param, int indexChild_) {
+    protected static boolean applyArrayOrElement(Parametrable _param, int _indexChild) {
         Identifiable idMethod_ = _param.getGeneFormatted();
         if (!idMethod_.isVararg()) {
             return false;
         } else {
-            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+            if (idMethod_.getParametersTypesLength() <= _indexChild) {
                 return false;
             } else {
-                return indexChild_ + 1 == idMethod_.getParametersTypesLength();
+                return _indexChild + 1 == idMethod_.getParametersTypesLength();
             }
         }
     }
@@ -261,14 +261,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return apply_;
     }
 
-    protected static void filterByNameReturnType(String trimMeth_, boolean apply_, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+    protected static void filterByNameReturnType(String _trimMeth, boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
         int len_ = _methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = _methodInfos.get(i).size();
             CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
             for (int j = 0; j < gr_; j++) {
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
-                if (!StringUtil.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                if (!StringUtil.quickEq(methodInfo_.getConstraints().getName(),_trimMeth)) {
                     continue;
                 }
                 newList_.add(methodInfo_);
@@ -277,21 +277,21 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         String typeAff_ = EMPTY_STRING;
         AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
-        if (apply_ && cur_ instanceof ReturnMethod) {
+        if (_apply && cur_ instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
         }
         filterByReturnType(typeAff_, _methodInfos, _page);
     }
 
-    protected static void filterByReturnType(String typeAff_, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+    protected static void filterByReturnType(String _typeAff, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (isUndefined(typeAff_, keyWordVar_)) {
+        if (isUndefined(_typeAff, keyWordVar_)) {
             return;
         }
         int len_ = _methodInfos.size();
         Mapping mapping_ = new Mapping();
-        mapping_.setParam(typeAff_);
+        mapping_.setParam(_typeAff);
         StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
         mapping_.setMapping(currVars_);
         for (int i = 0; i < len_; i++) {
@@ -302,7 +302,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 String returnType_ = methodInfo_.getReturnType();
                 mapping_.setArg(returnType_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(typeAff_, new AnaClassArgumentMatching(returnType_), _page);
+                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
                     if (!res_.isFoundMethod()) {
                         continue;
                     }
@@ -329,12 +329,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return StringUtil.quickEq(_trimMeth, _page.getKeyWords().getKeyWordTrue())
                 || StringUtil.quickEq(_trimMeth, _page.getKeyWords().getKeyWordFalse());
     }
-    protected static boolean isNotCorrectDim(String cp_) {
-        return cp_ == null||cp_.startsWith("[");
+    protected static boolean isNotCorrectDim(String _cp) {
+        return _cp == null||_cp.startsWith("[");
     }
 
-    protected static boolean isUndefined(String typeAff_, String keyWordVar_) {
-        return typeAff_.isEmpty() || StringUtil.quickEq(typeAff_, keyWordVar_);
+    protected static boolean isUndefined(String _typeAff, String _keyWordVar) {
+        return _typeAff.isEmpty() || StringUtil.quickEq(_typeAff, _keyWordVar);
     }
 
     static StringList getBounds(String _cl, AnalyzedPageEl _page) {

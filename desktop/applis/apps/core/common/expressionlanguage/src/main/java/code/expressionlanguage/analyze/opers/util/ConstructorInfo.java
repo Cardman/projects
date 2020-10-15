@@ -121,24 +121,24 @@ public final class ConstructorInfo implements Parametrable {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public StringList getParametersNames() {
         return parametersNames;
     }
 
-    public void setParametersNames(StringList parametersNames) {
-        this.parametersNames = parametersNames;
+    public void setParametersNames(StringList _parametersNames) {
+        this.parametersNames = _parametersNames;
     }
 
     public NamedFunctionBlock getCustomCtor() {
         return customCtor;
     }
 
-    public void setCustomCtor(NamedFunctionBlock customCtor) {
-        this.customCtor = customCtor;
+    public void setCustomCtor(NamedFunctionBlock _customCtor) {
+        this.customCtor = _customCtor;
     }
 
     public Ints getNameParametersFilterIndexes() {

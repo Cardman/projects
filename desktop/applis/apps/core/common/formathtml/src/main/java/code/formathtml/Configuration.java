@@ -196,8 +196,8 @@ public final class Configuration {
         return lateValidators;
     }
 
-    public void setLateValidators(StringMap<ValidatorInfo> lateValidators) {
-        this.lateValidators = lateValidators;
+    public void setLateValidators(StringMap<ValidatorInfo> _lateValidators) {
+        this.lateValidators = _lateValidators;
     }
 
     public StringMap<Struct> getBuiltBeans() {
@@ -269,8 +269,8 @@ public final class Configuration {
         return rendDocumentBlock;
     }
 
-    public void setRendDocumentBlock(RendDocumentBlock rendDocumentBlock) {
-        this.rendDocumentBlock = rendDocumentBlock;
+    public void setRendDocumentBlock(RendDocumentBlock _rendDocumentBlock) {
+        this.rendDocumentBlock = _rendDocumentBlock;
     }
 
     public void setFiles(StringMap<String> _files) {

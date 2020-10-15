@@ -5996,3120 +5996,3120 @@ public final class GuiAliases {
         return aliasActionListener;
     }
 
-    public void setAliasActionListener(String aliasActionListener) {
-        this.aliasActionListener = aliasActionListener;
+    public void setAliasActionListener(String _v) {
+        this.aliasActionListener = _v;
     }
 
     public String getAliasActionPerformed() {
         return aliasActionPerformed;
     }
 
-    public void setAliasActionPerformed(String aliasActionPerformed) {
-        this.aliasActionPerformed = aliasActionPerformed;
+    public void setAliasActionPerformed(String _v) {
+        this.aliasActionPerformed = _v;
     }
 
     public String getAliasActionEvent() {
         return aliasActionEvent;
     }
 
-    public void setAliasActionEvent(String aliasActionEvent) {
-        this.aliasActionEvent = aliasActionEvent;
+    public void setAliasActionEvent(String _v) {
+        this.aliasActionEvent = _v;
     }
 
     public String getAliasAddChange() {
         return aliasAddChange;
     }
 
-    public void setAliasAddChange(String aliasAddChange) {
-        this.aliasAddChange = aliasAddChange;
+    public void setAliasAddChange(String _v) {
+        this.aliasAddChange = _v;
     }
 
     public String getAliasChangeListener() {
         return aliasChangeListener;
     }
 
-    public void setAliasChangeListener(String aliasChangeListener) {
-        this.aliasChangeListener = aliasChangeListener;
+    public void setAliasChangeListener(String _v) {
+        this.aliasChangeListener = _v;
     }
 
     public String getAliasStateChanged() {
         return aliasStateChanged;
     }
 
-    public void setAliasStateChanged(String aliasStateChanged) {
-        this.aliasStateChanged = aliasStateChanged;
+    public void setAliasStateChanged(String _v) {
+        this.aliasStateChanged = _v;
     }
 
     public String getAliasTreeListener() {
         return aliasTreeListener;
     }
 
-    public void setAliasTreeListener(String aliasTreeListener) {
-        this.aliasTreeListener = aliasTreeListener;
+    public void setAliasTreeListener(String _v) {
+        this.aliasTreeListener = _v;
     }
 
     public String getAliasTreeListenerValueChanged() {
         return aliasTreeListenerValueChanged;
     }
 
-    public void setAliasTreeListenerValueChanged(String aliasTreeListenerValueChanged) {
-        this.aliasTreeListenerValueChanged = aliasTreeListenerValueChanged;
+    public void setAliasTreeListenerValueChanged(String _v) {
+        this.aliasTreeListenerValueChanged = _v;
     }
 
     public String getAliasTreeNode() {
         return aliasTreeNode;
     }
 
-    public void setAliasTreeNode(String aliasTreeNode) {
-        this.aliasTreeNode = aliasTreeNode;
+    public void setAliasTreeNode(String _v) {
+        this.aliasTreeNode = _v;
     }
 
     public String getAliasTreeNodeAdd() {
         return aliasTreeNodeAdd;
     }
 
-    public void setAliasTreeNodeAdd(String aliasTreeNodeAdd) {
-        this.aliasTreeNodeAdd = aliasTreeNodeAdd;
+    public void setAliasTreeNodeAdd(String _v) {
+        this.aliasTreeNodeAdd = _v;
     }
 
     public String getAliasTreeNodeInsert() {
         return aliasTreeNodeInsert;
     }
 
-    public void setAliasTreeNodeInsert(String aliasTreeNodeInsert) {
-        this.aliasTreeNodeInsert = aliasTreeNodeInsert;
+    public void setAliasTreeNodeInsert(String _v) {
+        this.aliasTreeNodeInsert = _v;
     }
 
     public String getAliasTreeNodeRemove() {
         return aliasTreeNodeRemove;
     }
 
-    public void setAliasTreeNodeRemove(String aliasTreeNodeRemove) {
-        this.aliasTreeNodeRemove = aliasTreeNodeRemove;
+    public void setAliasTreeNodeRemove(String _v) {
+        this.aliasTreeNodeRemove = _v;
     }
 
     public String getAliasTreeNodeRemoveFromParent() {
         return aliasTreeNodeRemoveFromParent;
     }
 
-    public void setAliasTreeNodeRemoveFromParent(String aliasTreeNodeRemoveFromParent) {
-        this.aliasTreeNodeRemoveFromParent = aliasTreeNodeRemoveFromParent;
+    public void setAliasTreeNodeRemoveFromParent(String _v) {
+        this.aliasTreeNodeRemoveFromParent = _v;
     }
 
     public String getAliasTreeNodeRemoveAllChildren() {
         return aliasTreeNodeRemoveAllChildren;
     }
 
-    public void setAliasTreeNodeRemoveAllChildren(String aliasTreeNodeRemoveAllChildren) {
-        this.aliasTreeNodeRemoveAllChildren = aliasTreeNodeRemoveAllChildren;
+    public void setAliasTreeNodeRemoveAllChildren(String _v) {
+        this.aliasTreeNodeRemoveAllChildren = _v;
     }
 
     public String getAliasTreeNodeSetUserObject() {
         return aliasTreeNodeSetUserObject;
     }
 
-    public void setAliasTreeNodeSetUserObject(String aliasTreeNodeSetUserObject) {
-        this.aliasTreeNodeSetUserObject = aliasTreeNodeSetUserObject;
+    public void setAliasTreeNodeSetUserObject(String _v) {
+        this.aliasTreeNodeSetUserObject = _v;
     }
 
     public String getAliasTreeNodeNb() {
         return aliasTreeNodeNb;
     }
 
-    public void setAliasTreeNodeNb(String aliasTreeNodeNb) {
-        this.aliasTreeNodeNb = aliasTreeNodeNb;
+    public void setAliasTreeNodeNb(String _v) {
+        this.aliasTreeNodeNb = _v;
     }
 
     public String getAliasTreeNodeGetFirstChild() {
         return aliasTreeNodeGetFirstChild;
     }
 
-    public void setAliasTreeNodeGetFirstChild(String aliasTreeNodeGetFirstChild) {
-        this.aliasTreeNodeGetFirstChild = aliasTreeNodeGetFirstChild;
+    public void setAliasTreeNodeGetFirstChild(String _v) {
+        this.aliasTreeNodeGetFirstChild = _v;
     }
 
     public String getAliasTreeNodeGetLastChild() {
         return aliasTreeNodeGetLastChild;
     }
 
-    public void setAliasTreeNodeGetLastChild(String aliasTreeNodeGetLastChild) {
-        this.aliasTreeNodeGetLastChild = aliasTreeNodeGetLastChild;
+    public void setAliasTreeNodeGetLastChild(String _v) {
+        this.aliasTreeNodeGetLastChild = _v;
     }
 
     public String getAliasTreeNodeGetNextSibling() {
         return aliasTreeNodeGetNextSibling;
     }
 
-    public void setAliasTreeNodeGetNextSibling(String aliasTreeNodeGetNextSibling) {
-        this.aliasTreeNodeGetNextSibling = aliasTreeNodeGetNextSibling;
+    public void setAliasTreeNodeGetNextSibling(String _v) {
+        this.aliasTreeNodeGetNextSibling = _v;
     }
 
     public String getAliasTreeNodeGetPreviousSibling() {
         return aliasTreeNodeGetPreviousSibling;
     }
 
-    public void setAliasTreeNodeGetPreviousSibling(String aliasTreeNodeGetPreviousSibling) {
-        this.aliasTreeNodeGetPreviousSibling = aliasTreeNodeGetPreviousSibling;
+    public void setAliasTreeNodeGetPreviousSibling(String _v) {
+        this.aliasTreeNodeGetPreviousSibling = _v;
     }
 
     public String getAliasTreeNodeGetParentNode() {
         return aliasTreeNodeGetParentNode;
     }
 
-    public void setAliasTreeNodeGetParentNode(String aliasTreeNodeGetParentNode) {
-        this.aliasTreeNodeGetParentNode = aliasTreeNodeGetParentNode;
+    public void setAliasTreeNodeGetParentNode(String _v) {
+        this.aliasTreeNodeGetParentNode = _v;
     }
 
     public String getAliasTreeNodeGetUserObject() {
         return aliasTreeNodeGetUserObject;
     }
 
-    public void setAliasTreeNodeGetUserObject(String aliasTreeNodeGetUserObject) {
-        this.aliasTreeNodeGetUserObject = aliasTreeNodeGetUserObject;
+    public void setAliasTreeNodeGetUserObject(String _v) {
+        this.aliasTreeNodeGetUserObject = _v;
     }
 
     public String getAliasTreeNodeIsAncestor() {
         return aliasTreeNodeIsAncestor;
     }
 
-    public void setAliasTreeNodeIsAncestor(String aliasTreeNodeIsAncestor) {
-        this.aliasTreeNodeIsAncestor = aliasTreeNodeIsAncestor;
+    public void setAliasTreeNodeIsAncestor(String _v) {
+        this.aliasTreeNodeIsAncestor = _v;
     }
 
     public String getAliasTreeNodeIsDescendant() {
         return aliasTreeNodeIsDescendant;
     }
 
-    public void setAliasTreeNodeIsDescendant(String aliasTreeNodeIsDescendant) {
-        this.aliasTreeNodeIsDescendant = aliasTreeNodeIsDescendant;
+    public void setAliasTreeNodeIsDescendant(String _v) {
+        this.aliasTreeNodeIsDescendant = _v;
     }
 
     public String getAliasTree() {
         return aliasTree;
     }
 
-    public void setAliasTree(String aliasTree) {
-        this.aliasTree = aliasTree;
+    public void setAliasTree(String _v) {
+        this.aliasTree = _v;
     }
 
     public String getAliasTreeSetRootVisible() {
         return aliasTreeSetRootVisible;
     }
 
-    public void setAliasTreeSetRootVisible(String aliasTreeSetRootVisible) {
-        this.aliasTreeSetRootVisible = aliasTreeSetRootVisible;
+    public void setAliasTreeSetRootVisible(String _v) {
+        this.aliasTreeSetRootVisible = _v;
     }
 
     public String getAliasTreeIsRootVisible() {
         return aliasTreeIsRootVisible;
     }
 
-    public void setAliasTreeIsRootVisible(String aliasTreeIsRootVisible) {
-        this.aliasTreeIsRootVisible = aliasTreeIsRootVisible;
+    public void setAliasTreeIsRootVisible(String _v) {
+        this.aliasTreeIsRootVisible = _v;
     }
 
     public String getAliasTreeGetSelected() {
         return aliasTreeGetSelected;
     }
 
-    public void setAliasTreeGetSelected(String aliasTreeGetSelected) {
-        this.aliasTreeGetSelected = aliasTreeGetSelected;
+    public void setAliasTreeGetSelected(String _v) {
+        this.aliasTreeGetSelected = _v;
     }
 
     public String getAliasTreeAddTreeListener() {
         return aliasTreeAddTreeListener;
     }
 
-    public void setAliasTreeAddTreeListener(String aliasTreeAddTreeListener) {
-        this.aliasTreeAddTreeListener = aliasTreeAddTreeListener;
+    public void setAliasTreeAddTreeListener(String _v) {
+        this.aliasTreeAddTreeListener = _v;
     }
 
     public String getAliasTreeReload() {
         return aliasTreeReload;
     }
 
-    public void setAliasTreeReload(String aliasTreeReload) {
-        this.aliasTreeReload = aliasTreeReload;
+    public void setAliasTreeReload(String _v) {
+        this.aliasTreeReload = _v;
     }
 
     public String getAliasTableListener() {
         return aliasTableListener;
     }
 
-    public void setAliasTableListener(String aliasTableListener) {
-        this.aliasTableListener = aliasTableListener;
+    public void setAliasTableListener(String _v) {
+        this.aliasTableListener = _v;
     }
 
     public String getAliasTableValueTableChanged() {
         return aliasTableValueTableChanged;
     }
 
-    public void setAliasTableValueTableChanged(String aliasTableValueTableChanged) {
-        this.aliasTableValueTableChanged = aliasTableValueTableChanged;
+    public void setAliasTableValueTableChanged(String _v) {
+        this.aliasTableValueTableChanged = _v;
     }
 
     public String getAliasTableGui() {
         return aliasTableGui;
     }
 
-    public void setAliasTableGui(String aliasTable) {
-        this.aliasTableGui = aliasTable;
+    public void setAliasTableGui(String _v) {
+        this.aliasTableGui = _v;
     }
 
     public String getAliasTableGetSelectedRow() {
         return aliasTableGetSelectedRow;
     }
 
-    public void setAliasTableGetSelectedRow(String aliasTableGetSelectedRow) {
-        this.aliasTableGetSelectedRow = aliasTableGetSelectedRow;
+    public void setAliasTableGetSelectedRow(String _v) {
+        this.aliasTableGetSelectedRow = _v;
     }
 
     public String getAliasTableGetSelectedRows() {
         return aliasTableGetSelectedRows;
     }
 
-    public void setAliasTableGetSelectedRows(String aliasTableGetSelectedRows) {
-        this.aliasTableGetSelectedRows = aliasTableGetSelectedRows;
+    public void setAliasTableGetSelectedRows(String _v) {
+        this.aliasTableGetSelectedRows = _v;
     }
 
     public String getAliasTableGetSelectedRowCount() {
         return aliasTableGetSelectedRowCount;
     }
 
-    public void setAliasTableGetSelectedRowCount(String aliasTableGetSelectedRowCount) {
-        this.aliasTableGetSelectedRowCount = aliasTableGetSelectedRowCount;
+    public void setAliasTableGetSelectedRowCount(String _v) {
+        this.aliasTableGetSelectedRowCount = _v;
     }
 
     public String getAliasTableGetRowCount() {
         return aliasTableGetRowCount;
     }
 
-    public void setAliasTableGetRowCount(String aliasTableGetRowCount) {
-        this.aliasTableGetRowCount = aliasTableGetRowCount;
+    public void setAliasTableGetRowCount(String _v) {
+        this.aliasTableGetRowCount = _v;
     }
 
     public String getAliasTableSetRowCount() {
         return aliasTableSetRowCount;
     }
 
-    public void setAliasTableSetRowCount(String aliasTableSetRowCount) {
-        this.aliasTableSetRowCount = aliasTableSetRowCount;
+    public void setAliasTableSetRowCount(String _v) {
+        this.aliasTableSetRowCount = _v;
     }
 
     public String getAliasTableGetColumnCount() {
         return aliasTableGetColumnCount;
     }
 
-    public void setAliasTableGetColumnCount(String aliasTableGetColumnCount) {
-        this.aliasTableGetColumnCount = aliasTableGetColumnCount;
+    public void setAliasTableGetColumnCount(String _v) {
+        this.aliasTableGetColumnCount = _v;
     }
 
     public String getAliasTableSetColumns() {
         return aliasTableSetColumns;
     }
 
-    public void setAliasTableSetColumns(String aliasTableSetColumns) {
-        this.aliasTableSetColumns = aliasTableSetColumns;
+    public void setAliasTableSetColumns(String _v) {
+        this.aliasTableSetColumns = _v;
     }
 
     public String getAliasTableGetColumnName() {
         return aliasTableGetColumnName;
     }
 
-    public void setAliasTableGetColumnName(String aliasTableGetColumnName) {
-        this.aliasTableGetColumnName = aliasTableGetColumnName;
+    public void setAliasTableGetColumnName(String _v) {
+        this.aliasTableGetColumnName = _v;
     }
 
     public String getAliasTableGetValue() {
         return aliasTableGetValue;
     }
 
-    public void setAliasTableGetValue(String aliasTableGetValue) {
-        this.aliasTableGetValue = aliasTableGetValue;
+    public void setAliasTableGetValue(String _v) {
+        this.aliasTableGetValue = _v;
     }
 
     public String getAliasTableSetValue() {
         return aliasTableSetValue;
     }
 
-    public void setAliasTableSetValue(String aliasTableSetValue) {
-        this.aliasTableSetValue = aliasTableSetValue;
+    public void setAliasTableSetValue(String _v) {
+        this.aliasTableSetValue = _v;
     }
 
     public String getAliasTableGetRowAtPoint() {
         return aliasTableGetRowAtPoint;
     }
 
-    public void setAliasTableGetRowAtPoint(String aliasTableGetRowAtPoint) {
-        this.aliasTableGetRowAtPoint = aliasTableGetRowAtPoint;
+    public void setAliasTableGetRowAtPoint(String _v) {
+        this.aliasTableGetRowAtPoint = _v;
     }
 
     public String getAliasTableGetColumnAtPoint() {
         return aliasTableGetColumnAtPoint;
     }
 
-    public void setAliasTableGetColumnAtPoint(String aliasTableGetColumnAtPoint) {
-        this.aliasTableGetColumnAtPoint = aliasTableGetColumnAtPoint;
+    public void setAliasTableGetColumnAtPoint(String _v) {
+        this.aliasTableGetColumnAtPoint = _v;
     }
 
     public String getAliasTableIsMultiple() {
         return aliasTableIsMultiple;
     }
 
-    public void setAliasTableIsMultiple(String aliasTableIsMultiple) {
-        this.aliasTableIsMultiple = aliasTableIsMultiple;
+    public void setAliasTableIsMultiple(String _v) {
+        this.aliasTableIsMultiple = _v;
     }
 
     public String getAliasTableSetMultiple() {
         return aliasTableSetMultiple;
     }
 
-    public void setAliasTableSetMultiple(String aliasTableSetMultiple) {
-        this.aliasTableSetMultiple = aliasTableSetMultiple;
+    public void setAliasTableSetMultiple(String _v) {
+        this.aliasTableSetMultiple = _v;
     }
 
     public String getAliasTableIsReorder() {
         return aliasTableIsReorder;
     }
 
-    public void setAliasTableIsReorder(String aliasTableIsReorder) {
-        this.aliasTableIsReorder = aliasTableIsReorder;
+    public void setAliasTableIsReorder(String _v) {
+        this.aliasTableIsReorder = _v;
     }
 
     public String getAliasTableSetReorder() {
         return aliasTableSetReorder;
     }
 
-    public void setAliasTableSetReorder(String aliasTableSetReorder) {
-        this.aliasTableSetReorder = aliasTableSetReorder;
+    public void setAliasTableSetReorder(String _v) {
+        this.aliasTableSetReorder = _v;
     }
 
     public String getAliasTableMoveColumn() {
         return aliasTableMoveColumn;
     }
 
-    public void setAliasTableMoveColumn(String aliasTableMoveColumn) {
-        this.aliasTableMoveColumn = aliasTableMoveColumn;
+    public void setAliasTableMoveColumn(String _v) {
+        this.aliasTableMoveColumn = _v;
     }
 
     public String getAliasTableAddInterval() {
         return aliasTableAddInterval;
     }
 
-    public void setAliasTableAddInterval(String aliasTableAddInterval) {
-        this.aliasTableAddInterval = aliasTableAddInterval;
+    public void setAliasTableAddInterval(String _v) {
+        this.aliasTableAddInterval = _v;
     }
 
     public String getAliasTableRemoveInterval() {
         return aliasTableRemoveInterval;
     }
 
-    public void setAliasTableRemoveInterval(String aliasTableRemoveInterval) {
-        this.aliasTableRemoveInterval = aliasTableRemoveInterval;
+    public void setAliasTableRemoveInterval(String _v) {
+        this.aliasTableRemoveInterval = _v;
     }
 
     public String getAliasTableApplyChanges() {
         return aliasTableApplyChanges;
     }
 
-    public void setAliasTableApplyChanges(String aliasTableApplyChanges) {
-        this.aliasTableApplyChanges = aliasTableApplyChanges;
+    public void setAliasTableApplyChanges(String _v) {
+        this.aliasTableApplyChanges = _v;
     }
 
     public String getAliasTableAddHeader() {
         return aliasTableAddHeader;
     }
 
-    public void setAliasTableAddHeader(String aliasTableAddHeader) {
-        this.aliasTableAddHeader = aliasTableAddHeader;
+    public void setAliasTableAddHeader(String _v) {
+        this.aliasTableAddHeader = _v;
     }
 
     public String getAliasTableAddSelect() {
         return aliasTableAddSelect;
     }
 
-    public void setAliasTableAddSelect(String aliasTableAddSelect) {
-        this.aliasTableAddSelect = aliasTableAddSelect;
+    public void setAliasTableAddSelect(String _v) {
+        this.aliasTableAddSelect = _v;
     }
 
     public String getAliasConfirm() {
         return aliasConfirm;
     }
 
-    public void setAliasConfirm(String aliasConfirm) {
-        this.aliasConfirm = aliasConfirm;
+    public void setAliasConfirm(String _v) {
+        this.aliasConfirm = _v;
     }
 
     public String getAliasConfirmMessage() {
         return aliasConfirmMessage;
     }
 
-    public void setAliasConfirmMessage(String aliasConfirmMessage) {
-        this.aliasConfirmMessage = aliasConfirmMessage;
+    public void setAliasConfirmMessage(String _v) {
+        this.aliasConfirmMessage = _v;
     }
 
     public String getAliasConfirmField() {
         return aliasConfirmField;
     }
 
-    public void setAliasConfirmField(String aliasConfirmField) {
-        this.aliasConfirmField = aliasConfirmField;
+    public void setAliasConfirmField(String _v) {
+        this.aliasConfirmField = _v;
     }
 
     public String getAliasConfirmOk() {
         return aliasConfirmOk;
     }
 
-    public void setAliasConfirmOk(String aliasConfirmOk) {
-        this.aliasConfirmOk = aliasConfirmOk;
+    public void setAliasConfirmOk(String _v) {
+        this.aliasConfirmOk = _v;
     }
 
     public String getAliasConfirmYesNo() {
         return aliasConfirmYesNo;
     }
 
-    public void setAliasConfirmYesNo(String aliasConfirmYesNo) {
-        this.aliasConfirmYesNo = aliasConfirmYesNo;
+    public void setAliasConfirmYesNo(String _v) {
+        this.aliasConfirmYesNo = _v;
     }
 
     public String getAliasConfirmFull() {
         return aliasConfirmFull;
     }
 
-    public void setAliasConfirmFull(String aliasConfirmFull) {
-        this.aliasConfirmFull = aliasConfirmFull;
+    public void setAliasConfirmFull(String _v) {
+        this.aliasConfirmFull = _v;
     }
 
     public String getAliasConfirmFieldOk() {
         return aliasConfirmFieldOk;
     }
 
-    public void setAliasConfirmFieldOk(String aliasConfirmFieldOk) {
-        this.aliasConfirmFieldOk = aliasConfirmFieldOk;
+    public void setAliasConfirmFieldOk(String _v) {
+        this.aliasConfirmFieldOk = _v;
     }
 
     public String getAliasConfirmFieldCancel() {
         return aliasConfirmFieldCancel;
     }
 
-    public void setAliasConfirmFieldCancel(String aliasConfirmFieldCancel) {
-        this.aliasConfirmFieldCancel = aliasConfirmFieldCancel;
+    public void setAliasConfirmFieldCancel(String _v) {
+        this.aliasConfirmFieldCancel = _v;
     }
 
     public String getAliasConfirmFieldYes() {
         return aliasConfirmFieldYes;
     }
 
-    public void setAliasConfirmFieldYes(String aliasConfirmFieldYes) {
-        this.aliasConfirmFieldYes = aliasConfirmFieldYes;
+    public void setAliasConfirmFieldYes(String _v) {
+        this.aliasConfirmFieldYes = _v;
     }
 
     public String getAliasConfirmFieldNo() {
         return aliasConfirmFieldNo;
     }
 
-    public void setAliasConfirmFieldNo(String aliasConfirmFieldNo) {
-        this.aliasConfirmFieldNo = aliasConfirmFieldNo;
+    public void setAliasConfirmFieldNo(String _v) {
+        this.aliasConfirmFieldNo = _v;
     }
 
     public String getAliasFrame() {
         return aliasFrame;
     }
 
-    public void setAliasFrame(String aliasFrame) {
-        this.aliasFrame = aliasFrame;
+    public void setAliasFrame(String _v) {
+        this.aliasFrame = _v;
     }
 
     public String getAliasDialog() {
         return aliasDialog;
     }
 
-    public void setAliasDialog(String aliasDialog) {
-        this.aliasDialog = aliasDialog;
+    public void setAliasDialog(String _v) {
+        this.aliasDialog = _v;
     }
 
     public String getAliasDialogIsModal() {
         return aliasDialogIsModal;
     }
 
-    public void setAliasDialogIsModal(String aliasDialogIsModal) {
-        this.aliasDialogIsModal = aliasDialogIsModal;
+    public void setAliasDialogIsModal(String _v) {
+        this.aliasDialogIsModal = _v;
     }
 
     public String getAliasDialogSetModal() {
         return aliasDialogSetModal;
     }
 
-    public void setAliasDialogSetModal(String aliasDialogSetModal) {
-        this.aliasDialogSetModal = aliasDialogSetModal;
+    public void setAliasDialogSetModal(String _v) {
+        this.aliasDialogSetModal = _v;
     }
 
     public String getAliasWindowType() {
         return aliasWindowType;
     }
 
-    public void setAliasWindowType(String aliasWindowType) {
-        this.aliasWindowType = aliasWindowType;
+    public void setAliasWindowType(String _v) {
+        this.aliasWindowType = _v;
     }
 
     public String getAliasWindowTypeRelative() {
         return aliasWindowTypeRelative;
     }
 
-    public void setAliasWindowTypeRelative(String aliasWindowTypeRelative) {
-        this.aliasWindowTypeRelative = aliasWindowTypeRelative;
+    public void setAliasWindowTypeRelative(String _v) {
+        this.aliasWindowTypeRelative = _v;
     }
 
     public String getAliasRemoveWindowListener() {
         return aliasRemoveWindowListener;
     }
 
-    public void setAliasRemoveWindowListener(String aliasRemoveWindowListener) {
-        this.aliasRemoveWindowListener = aliasRemoveWindowListener;
+    public void setAliasRemoveWindowListener(String _v) {
+        this.aliasRemoveWindowListener = _v;
     }
 
     public String getAliasGetWindowListeners() {
         return aliasGetWindowListeners;
     }
 
-    public void setAliasGetWindowListeners(String aliasGetWindowListeners) {
-        this.aliasGetWindowListeners = aliasGetWindowListeners;
+    public void setAliasGetWindowListeners(String _v) {
+        this.aliasGetWindowListeners = _v;
     }
 
     public String getAliasPanel() {
         return aliasPanel;
     }
 
-    public void setAliasPanel(String aliasPanel) {
-        this.aliasPanel = aliasPanel;
+    public void setAliasPanel(String _v) {
+        this.aliasPanel = _v;
     }
 
     public String getAliasPanelBorder() {
         return aliasPanelBorder;
     }
 
-    public void setAliasPanelBorder(String _aliasPanelBorder) {
-        this.aliasPanelBorder = _aliasPanelBorder;
+    public void setAliasPanelBorder(String _v) {
+        this.aliasPanelBorder = _v;
     }
 
     public String getAliasPanelBorderNorth() {
         return aliasPanelBorderNorth;
     }
 
-    public void setAliasPanelBorderNorth(String aliasPanelBorderNorth) {
-        this.aliasPanelBorderNorth = aliasPanelBorderNorth;
+    public void setAliasPanelBorderNorth(String _v) {
+        this.aliasPanelBorderNorth = _v;
     }
 
     public String getAliasPanelBorderSouth() {
         return aliasPanelBorderSouth;
     }
 
-    public void setAliasPanelBorderSouth(String aliasPanelBorderSouth) {
-        this.aliasPanelBorderSouth = aliasPanelBorderSouth;
+    public void setAliasPanelBorderSouth(String _v) {
+        this.aliasPanelBorderSouth = _v;
     }
 
     public String getAliasPanelBorderEast() {
         return aliasPanelBorderEast;
     }
 
-    public void setAliasPanelBorderEast(String aliasPanelBorderEast) {
-        this.aliasPanelBorderEast = aliasPanelBorderEast;
+    public void setAliasPanelBorderEast(String _v) {
+        this.aliasPanelBorderEast = _v;
     }
 
     public String getAliasPanelBorderWest() {
         return aliasPanelBorderWest;
     }
 
-    public void setAliasPanelBorderWest(String aliasPanelBorderWest) {
-        this.aliasPanelBorderWest = aliasPanelBorderWest;
+    public void setAliasPanelBorderWest(String _v) {
+        this.aliasPanelBorderWest = _v;
     }
 
     public String getAliasPanelBorderCenter() {
         return aliasPanelBorderCenter;
     }
 
-    public void setAliasPanelBorderCenter(String aliasPanelBorderCenter) {
-        this.aliasPanelBorderCenter = aliasPanelBorderCenter;
+    public void setAliasPanelBorderCenter(String _v) {
+        this.aliasPanelBorderCenter = _v;
     }
 
     public String getAliasPanelBorderBeforeFirst() {
         return aliasPanelBorderBeforeFirst;
     }
 
-    public void setAliasPanelBorderBeforeFirst(String aliasPanelBorderBeforeFirst) {
-        this.aliasPanelBorderBeforeFirst = aliasPanelBorderBeforeFirst;
+    public void setAliasPanelBorderBeforeFirst(String _v) {
+        this.aliasPanelBorderBeforeFirst = _v;
     }
 
     public String getAliasPanelBorderBeforeLineBegins() {
         return aliasPanelBorderBeforeLineBegins;
     }
 
-    public void setAliasPanelBorderBeforeLineBegins(String aliasPanelBorderBeforeLineBegins) {
-        this.aliasPanelBorderBeforeLineBegins = aliasPanelBorderBeforeLineBegins;
+    public void setAliasPanelBorderBeforeLineBegins(String _v) {
+        this.aliasPanelBorderBeforeLineBegins = _v;
     }
 
     public String getAliasPanelBorderAfterLast() {
         return aliasPanelBorderAfterLast;
     }
 
-    public void setAliasPanelBorderAfterLast(String aliasPanelBorderAfterLast) {
-        this.aliasPanelBorderAfterLast = aliasPanelBorderAfterLast;
+    public void setAliasPanelBorderAfterLast(String _v) {
+        this.aliasPanelBorderAfterLast = _v;
     }
 
     public String getAliasPanelBorderAfterLineEnds() {
         return aliasPanelBorderAfterLineEnds;
     }
 
-    public void setAliasPanelBorderAfterLineEnds(String aliasPanelBorderAfterLineEnds) {
-        this.aliasPanelBorderAfterLineEnds = aliasPanelBorderAfterLineEnds;
+    public void setAliasPanelBorderAfterLineEnds(String _v) {
+        this.aliasPanelBorderAfterLineEnds = _v;
     }
 
     public String getAliasProgBar() {
         return aliasProgBar;
     }
 
-    public void setAliasProgBar(String aliasProgBar) {
-        this.aliasProgBar = aliasProgBar;
+    public void setAliasProgBar(String _v) {
+        this.aliasProgBar = _v;
     }
 
     public String getAliasProgBarValue() {
         return aliasProgBarValue;
     }
 
-    public void setAliasProgBarValue(String aliasProgBarValue) {
-        this.aliasProgBarValue = aliasProgBarValue;
+    public void setAliasProgBarValue(String _v) {
+        this.aliasProgBarValue = _v;
     }
 
     public String getAliasProgBarMax() {
         return aliasProgBarMax;
     }
 
-    public void setAliasProgBarMax(String aliasProgBarMax) {
-        this.aliasProgBarMax = aliasProgBarMax;
+    public void setAliasProgBarMax(String _v) {
+        this.aliasProgBarMax = _v;
     }
 
     public String getAliasProgBarMin() {
         return aliasProgBarMin;
     }
 
-    public void setAliasProgBarMin(String aliasProgBarMin) {
-        this.aliasProgBarMin = aliasProgBarMin;
+    public void setAliasProgBarMin(String _v) {
+        this.aliasProgBarMin = _v;
     }
 
     public String getAliasProgBarOr() {
         return aliasProgBarOr;
     }
 
-    public void setAliasProgBarOr(String aliasProgBarOr) {
-        this.aliasProgBarOr = aliasProgBarOr;
+    public void setAliasProgBarOr(String _v) {
+        this.aliasProgBarOr = _v;
     }
 
     public String getAliasButton() {
         return aliasButton;
     }
 
-    public void setAliasButton(String aliasButton) {
-        this.aliasButton = aliasButton;
+    public void setAliasButton(String _v) {
+        this.aliasButton = _v;
     }
 
     public String getAliasTextLabel() {
         return aliasTextLabel;
     }
 
-    public void setAliasTextLabel(String aliasTextLabel) {
-        this.aliasTextLabel = aliasTextLabel;
+    public void setAliasTextLabel(String _v) {
+        this.aliasTextLabel = _v;
     }
 
     public String getAliasImageLabel() {
         return aliasImageLabel;
     }
 
-    public void setAliasImageLabel(String aliasImageLabel) {
-        this.aliasImageLabel = aliasImageLabel;
+    public void setAliasImageLabel(String _v) {
+        this.aliasImageLabel = _v;
     }
 
     public String getAliasGetFont() {
         return aliasGetFont;
     }
 
-    public void setAliasGetFont(String aliasGetFont) {
-        this.aliasGetFont = aliasGetFont;
+    public void setAliasGetFont(String _v) {
+        this.aliasGetFont = _v;
     }
 
     public String getAliasSetFont() {
         return aliasSetFont;
     }
 
-    public void setAliasSetFont(String aliasSetFont) {
-        this.aliasSetFont = aliasSetFont;
+    public void setAliasSetFont(String _v) {
+        this.aliasSetFont = _v;
     }
 
     public String getAliasFont() {
         return aliasFont;
     }
 
-    public void setAliasFont(String aliasFont) {
-        this.aliasFont = aliasFont;
+    public void setAliasFont(String _v) {
+        this.aliasFont = _v;
     }
 
     public String getAliasFontGetName() {
         return aliasFontGetName;
     }
 
-    public void setAliasFontGetName(String aliasFontGetName) {
-        this.aliasFontGetName = aliasFontGetName;
+    public void setAliasFontGetName(String _v) {
+        this.aliasFontGetName = _v;
     }
 
     public String getAliasFontGetSize() {
         return aliasFontGetSize;
     }
 
-    public void setAliasFontGetSize(String aliasFontGetSize) {
-        this.aliasFontGetSize = aliasFontGetSize;
+    public void setAliasFontGetSize(String _v) {
+        this.aliasFontGetSize = _v;
     }
 
     public String getAliasFontIsBold() {
         return aliasFontIsBold;
     }
 
-    public void setAliasFontIsBold(String aliasFontIsBold) {
-        this.aliasFontIsBold = aliasFontIsBold;
+    public void setAliasFontIsBold(String _v) {
+        this.aliasFontIsBold = _v;
     }
 
     public String getAliasFontIsItalic() {
         return aliasFontIsItalic;
     }
 
-    public void setAliasFontIsItalic(String aliasFontIsItalic) {
-        this.aliasFontIsItalic = aliasFontIsItalic;
+    public void setAliasFontIsItalic(String _v) {
+        this.aliasFontIsItalic = _v;
     }
 
     public String getAliasFontStringWidth() {
         return aliasFontStringWidth;
     }
 
-    public void setAliasFontStringWidth(String aliasFontStringWidth) {
-        this.aliasFontStringWidth = aliasFontStringWidth;
+    public void setAliasFontStringWidth(String _v) {
+        this.aliasFontStringWidth = _v;
     }
 
     public String getAliasDimension() {
         return aliasDimension;
     }
 
-    public void setAliasDimension(String aliasDimension) {
-        this.aliasDimension = aliasDimension;
+    public void setAliasDimension(String _v) {
+        this.aliasDimension = _v;
     }
 
     public String getAliasDimensionGetHeight() {
         return aliasDimensionGetHeight;
     }
 
-    public void setAliasDimensionGetHeight(String aliasDimensionGetHeight) {
-        this.aliasDimensionGetHeight = aliasDimensionGetHeight;
+    public void setAliasDimensionGetHeight(String _v) {
+        this.aliasDimensionGetHeight = _v;
     }
 
     public String getAliasDimensionGetWidth() {
         return aliasDimensionGetWidth;
     }
 
-    public void setAliasDimensionGetWidth(String aliasDimensionGetWidth) {
-        this.aliasDimensionGetWidth = aliasDimensionGetWidth;
+    public void setAliasDimensionGetWidth(String _v) {
+        this.aliasDimensionGetWidth = _v;
     }
 
     public String getAliasComponent() {
         return aliasComponent;
     }
 
-    public void setAliasComponent(String aliasComponent) {
-        this.aliasComponent = aliasComponent;
+    public void setAliasComponent(String _v) {
+        this.aliasComponent = _v;
     }
 
     public String getAliasComponentSetAutoscrolls() {
         return aliasComponentSetAutoscrolls;
     }
 
-    public void setAliasComponentSetAutoscrolls(String aliasComponentSetAutoscrolls) {
-        this.aliasComponentSetAutoscrolls = aliasComponentSetAutoscrolls;
+    public void setAliasComponentSetAutoscrolls(String _v) {
+        this.aliasComponentSetAutoscrolls = _v;
     }
 
     public String getAliasComponentIsAutoscrolls() {
         return aliasComponentIsAutoscrolls;
     }
 
-    public void setAliasComponentIsAutoscrolls(String aliasComponentIsAutoscrolls) {
-        this.aliasComponentIsAutoscrolls = aliasComponentIsAutoscrolls;
+    public void setAliasComponentIsAutoscrolls(String _v) {
+        this.aliasComponentIsAutoscrolls = _v;
     }
 
     public String getAliasComponentGetWidth() {
         return aliasComponentGetWidth;
     }
 
-    public void setAliasComponentGetWidth(String aliasComponentGetWidth) {
-        this.aliasComponentGetWidth = aliasComponentGetWidth;
+    public void setAliasComponentGetWidth(String _v) {
+        this.aliasComponentGetWidth = _v;
     }
 
     public String getAliasComponentGetHeight() {
         return aliasComponentGetHeight;
     }
 
-    public void setAliasComponentGetHeight(String aliasComponentGetHeight) {
-        this.aliasComponentGetHeight = aliasComponentGetHeight;
+    public void setAliasComponentGetHeight(String _v) {
+        this.aliasComponentGetHeight = _v;
     }
 
     public String getAliasComponentGetPreferredSize() {
         return aliasComponentGetPreferredSize;
     }
 
-    public void setAliasComponentGetPreferredSize(String aliasComponentGetPreferredSize) {
-        this.aliasComponentGetPreferredSize = aliasComponentGetPreferredSize;
+    public void setAliasComponentGetPreferredSize(String _v) {
+        this.aliasComponentGetPreferredSize = _v;
     }
 
     public String getAliasComponentSetPreferredSize() {
         return aliasComponentSetPreferredSize;
     }
 
-    public void setAliasComponentSetPreferredSize(String aliasComponentSetPreferredSize) {
-        this.aliasComponentSetPreferredSize = aliasComponentSetPreferredSize;
+    public void setAliasComponentSetPreferredSize(String _v) {
+        this.aliasComponentSetPreferredSize = _v;
     }
 
     public String getAliasComponentSetSize() {
         return aliasComponentSetSize;
     }
 
-    public void setAliasComponentSetSize(String aliasComponentSetSize) {
-        this.aliasComponentSetSize = aliasComponentSetSize;
+    public void setAliasComponentSetSize(String _v) {
+        this.aliasComponentSetSize = _v;
     }
 
     public String getAliasComponentIsVisible() {
         return aliasComponentIsVisible;
     }
 
-    public void setAliasComponentIsVisible(String aliasComponentIsVisible) {
-        this.aliasComponentIsVisible = aliasComponentIsVisible;
+    public void setAliasComponentIsVisible(String _v) {
+        this.aliasComponentIsVisible = _v;
     }
 
     public String getAliasComponentSetVisible() {
         return aliasComponentSetVisible;
     }
 
-    public void setAliasComponentSetVisible(String aliasComponentSetVisible) {
-        this.aliasComponentSetVisible = aliasComponentSetVisible;
+    public void setAliasComponentSetVisible(String _v) {
+        this.aliasComponentSetVisible = _v;
     }
 
     public String getAliasComponentInvokeLater() {
         return aliasComponentInvokeLater;
     }
 
-    public void setAliasComponentInvokeLater(String aliasComponentInvokeLater) {
-        this.aliasComponentInvokeLater = aliasComponentInvokeLater;
+    public void setAliasComponentInvokeLater(String _v) {
+        this.aliasComponentInvokeLater = _v;
     }
 
     public String getAliasImage() {
         return aliasImage;
     }
 
-    public void setAliasImage(String aliasImage) {
-        this.aliasImage = aliasImage;
+    public void setAliasImage(String _v) {
+        this.aliasImage = _v;
     }
 
     public String getAliasImageGetWidth() {
         return aliasImageGetWidth;
     }
 
-    public void setAliasImageGetWidth(String aliasImageGetWidth) {
-        this.aliasImageGetWidth = aliasImageGetWidth;
+    public void setAliasImageGetWidth(String _v) {
+        this.aliasImageGetWidth = _v;
     }
 
     public String getAliasImageGetHeight() {
         return aliasImageGetHeight;
     }
 
-    public void setAliasImageGetHeight(String aliasImageGetHeight) {
-        this.aliasImageGetHeight = aliasImageGetHeight;
+    public void setAliasImageGetHeight(String _v) {
+        this.aliasImageGetHeight = _v;
     }
 
     public String getAliasImageGet() {
         return aliasImageGet;
     }
 
-    public void setAliasImageGet(String aliasImageGet) {
-        this.aliasImageGet = aliasImageGet;
+    public void setAliasImageGet(String _v) {
+        this.aliasImageGet = _v;
     }
 
     public String getAliasImageSet() {
         return aliasImageSet;
     }
 
-    public void setAliasImageSet(String aliasImageSet) {
-        this.aliasImageSet = aliasImageSet;
+    public void setAliasImageSet(String _v) {
+        this.aliasImageSet = _v;
     }
 
     public String getAliasImageIsWithAlpha() {
         return aliasImageIsWithAlpha;
     }
 
-    public void setAliasImageIsWithAlpha(String aliasImageIsWithAlpha) {
-        this.aliasImageIsWithAlpha = aliasImageIsWithAlpha;
+    public void setAliasImageIsWithAlpha(String _v) {
+        this.aliasImageIsWithAlpha = _v;
     }
 
     public String getAliasImageGetColor() {
         return aliasImageGetColor;
     }
 
-    public void setAliasImageGetColor(String aliasImageGetColor) {
-        this.aliasImageGetColor = aliasImageGetColor;
+    public void setAliasImageGetColor(String _v) {
+        this.aliasImageGetColor = _v;
     }
 
     public String getAliasImageSetColor() {
         return aliasImageSetColor;
     }
 
-    public void setAliasImageSetColor(String aliasImageSetColor) {
-        this.aliasImageSetColor = aliasImageSetColor;
+    public void setAliasImageSetColor(String _v) {
+        this.aliasImageSetColor = _v;
     }
 
     public String getAliasImageGetFont() {
         return aliasImageGetFont;
     }
 
-    public void setAliasImageGetFont(String aliasImageGetFont) {
-        this.aliasImageGetFont = aliasImageGetFont;
+    public void setAliasImageGetFont(String _v) {
+        this.aliasImageGetFont = _v;
     }
 
     public String getAliasImageSetFont() {
         return aliasImageSetFont;
     }
 
-    public void setAliasImageSetFont(String aliasImageSetFont) {
-        this.aliasImageSetFont = aliasImageSetFont;
+    public void setAliasImageSetFont(String _v) {
+        this.aliasImageSetFont = _v;
     }
 
     public String getAliasImageDraw() {
         return aliasImageDraw;
     }
 
-    public void setAliasImageDraw(String aliasImageDraw) {
-        this.aliasImageDraw = aliasImageDraw;
+    public void setAliasImageDraw(String _v) {
+        this.aliasImageDraw = _v;
     }
 
     public String getAliasImageDrawLine() {
         return aliasImageDrawLine;
     }
 
-    public void setAliasImageDrawLine(String aliasImageDrawLine) {
-        this.aliasImageDrawLine = aliasImageDrawLine;
+    public void setAliasImageDrawLine(String _v) {
+        this.aliasImageDrawLine = _v;
     }
 
     public String getAliasImageDrawRect() {
         return aliasImageDrawRect;
     }
 
-    public void setAliasImageDrawRect(String aliasImageDrawRect) {
-        this.aliasImageDrawRect = aliasImageDrawRect;
+    public void setAliasImageDrawRect(String _v) {
+        this.aliasImageDrawRect = _v;
     }
 
     public String getAliasImageDrawOval() {
         return aliasImageDrawOval;
     }
 
-    public void setAliasImageDrawOval(String aliasImageDrawOval) {
-        this.aliasImageDrawOval = aliasImageDrawOval;
+    public void setAliasImageDrawOval(String _v) {
+        this.aliasImageDrawOval = _v;
     }
 
     public String getAliasImageFillRect() {
         return aliasImageFillRect;
     }
 
-    public void setAliasImageFillRect(String aliasImageFillRect) {
-        this.aliasImageFillRect = aliasImageFillRect;
+    public void setAliasImageFillRect(String _v) {
+        this.aliasImageFillRect = _v;
     }
 
     public String getAliasImageFillOval() {
         return aliasImageFillOval;
     }
 
-    public void setAliasImageFillOval(String aliasImageFillOval) {
-        this.aliasImageFillOval = aliasImageFillOval;
+    public void setAliasImageFillOval(String _v) {
+        this.aliasImageFillOval = _v;
     }
 
     public String getAliasImageDrawPolygon() {
         return aliasImageDrawPolygon;
     }
 
-    public void setAliasImageDrawPolygon(String aliasImageDrawPolygon) {
-        this.aliasImageDrawPolygon = aliasImageDrawPolygon;
+    public void setAliasImageDrawPolygon(String _v) {
+        this.aliasImageDrawPolygon = _v;
     }
 
     public String getAliasImageFillPolygon() {
         return aliasImageFillPolygon;
     }
 
-    public void setAliasImageFillPolygon(String aliasImageFillPolygon) {
-        this.aliasImageFillPolygon = aliasImageFillPolygon;
+    public void setAliasImageFillPolygon(String _v) {
+        this.aliasImageFillPolygon = _v;
     }
 
     public String getAliasImageDispose() {
         return aliasImageDispose;
     }
 
-    public void setAliasImageDispose(String aliasImageDispose) {
-        this.aliasImageDispose = aliasImageDispose;
+    public void setAliasImageDispose(String _v) {
+        this.aliasImageDispose = _v;
     }
 
     public String getAliasColor() {
         return aliasColor;
     }
 
-    public void setAliasColor(String aliasColor) {
-        this.aliasColor = aliasColor;
+    public void setAliasColor(String _v) {
+        this.aliasColor = _v;
     }
 
     public String getAliasColorRed() {
         return aliasColorRed;
     }
 
-    public void setAliasColorRed(String aliasColorRed) {
-        this.aliasColorRed = aliasColorRed;
+    public void setAliasColorRed(String _v) {
+        this.aliasColorRed = _v;
     }
 
     public String getAliasColorGreen() {
         return aliasColorGreen;
     }
 
-    public void setAliasColorGreen(String aliasColorGreen) {
-        this.aliasColorGreen = aliasColorGreen;
+    public void setAliasColorGreen(String _v) {
+        this.aliasColorGreen = _v;
     }
 
     public String getAliasColorBlue() {
         return aliasColorBlue;
     }
 
-    public void setAliasColorBlue(String aliasColorBlue) {
-        this.aliasColorBlue = aliasColorBlue;
+    public void setAliasColorBlue(String _v) {
+        this.aliasColorBlue = _v;
     }
 
     public String getAliasColorAlpha() {
         return aliasColorAlpha;
     }
 
-    public void setAliasColorAlpha(String aliasColorAlpha) {
-        this.aliasColorAlpha = aliasColorAlpha;
+    public void setAliasColorAlpha(String _v) {
+        this.aliasColorAlpha = _v;
     }
 
     public String getAliasColorIsTransparent() {
         return aliasColorIsTransparent;
     }
 
-    public void setAliasColorIsTransparent(String aliasColorIsTransparent) {
-        this.aliasColorIsTransparent = aliasColorIsTransparent;
+    public void setAliasColorIsTransparent(String _v) {
+        this.aliasColorIsTransparent = _v;
     }
 
     public String getAliasComponentSetPaint() {
         return aliasComponentSetPaint;
     }
 
-    public void setAliasComponentSetPaint(String aliasComponentSetPaint) {
-        this.aliasComponentSetPaint = aliasComponentSetPaint;
+    public void setAliasComponentSetPaint(String _v) {
+        this.aliasComponentSetPaint = _v;
     }
 
     public String getAliasComponentGetPaint() {
         return aliasComponentGetPaint;
     }
 
-    public void setAliasComponentGetPaint(String aliasComponentGetPaint) {
-        this.aliasComponentGetPaint = aliasComponentGetPaint;
+    public void setAliasComponentGetPaint(String _v) {
+        this.aliasComponentGetPaint = _v;
     }
 
     public String getAliasComponentRepaint() {
         return aliasComponentRepaint;
     }
 
-    public void setAliasComponentRepaint(String aliasComponentRepaint) {
-        this.aliasComponentRepaint = aliasComponentRepaint;
+    public void setAliasComponentRepaint(String _v) {
+        this.aliasComponentRepaint = _v;
     }
 
     public String getAliasSetContent() {
         return aliasSetContent;
     }
 
-    public void setAliasSetContent(String aliasSetContent) {
-        this.aliasSetContent = aliasSetContent;
+    public void setAliasSetContent(String _v) {
+        this.aliasSetContent = _v;
     }
 
     public String getAliasAddCompo() {
         return aliasAddCompo;
     }
 
-    public void setAliasAddCompo(String aliasAddCompo) {
-        this.aliasAddCompo = aliasAddCompo;
+    public void setAliasAddCompo(String _v) {
+        this.aliasAddCompo = _v;
     }
 
     public String getAliasRemoveAll() {
         return aliasRemoveAll;
     }
 
-    public void setAliasRemoveAll(String _aliasRemoveAll) {
-        aliasRemoveAll = _aliasRemoveAll;
+    public void setAliasRemoveAll(String _v) {
+        aliasRemoveAll = _v;
     }
 
     public String getAliasGetParentCompo() {
         return aliasGetParentCompo;
     }
 
-    public void setAliasGetParentCompo(String aliasGetParentCompo) {
-        this.aliasGetParentCompo = aliasGetParentCompo;
+    public void setAliasGetParentCompo(String _v) {
+        this.aliasGetParentCompo = _v;
     }
 
     public String getAliasGetNextCompo() {
         return aliasGetNextCompo;
     }
 
-    public void setAliasGetNextCompo(String aliasGetNextCompo) {
-        this.aliasGetNextCompo = aliasGetNextCompo;
+    public void setAliasGetNextCompo(String _v) {
+        this.aliasGetNextCompo = _v;
     }
 
     public String getAliasGetIndexCompo() {
         return aliasGetIndexCompo;
     }
 
-    public void setAliasGetIndexCompo(String aliasGetIndexCompo) {
-        this.aliasGetIndexCompo = aliasGetIndexCompo;
+    public void setAliasGetIndexCompo(String _v) {
+        this.aliasGetIndexCompo = _v;
     }
 
     public String getAliasPanelFlow() {
         return aliasPanelFlow;
     }
 
-    public void setAliasPanelFlow(String aliasPanelFlow) {
-        this.aliasPanelFlow = aliasPanelFlow;
+    public void setAliasPanelFlow(String _v) {
+        this.aliasPanelFlow = _v;
     }
 
     public String getAliasPanelAbsolute() {
         return aliasPanelAbsolute;
     }
 
-    public void setAliasPanelAbsolute(String aliasPanelAbsolute) {
-        this.aliasPanelAbsolute = aliasPanelAbsolute;
+    public void setAliasPanelAbsolute(String _v) {
+        this.aliasPanelAbsolute = _v;
     }
 
     public String getAliasPanelGrid() {
         return aliasPanelGrid;
     }
 
-    public void setAliasPanelGrid(String aliasPanelGrid) {
-        this.aliasPanelGrid = aliasPanelGrid;
+    public void setAliasPanelGrid(String _v) {
+        this.aliasPanelGrid = _v;
     }
 
     public String getAliasPanelPageBox() {
         return aliasPanelPageBox;
     }
 
-    public void setAliasPanelPageBox(String aliasPanelPageBox) {
-        this.aliasPanelPageBox = aliasPanelPageBox;
+    public void setAliasPanelPageBox(String _v) {
+        this.aliasPanelPageBox = _v;
     }
 
     public String getAliasPanelValidate() {
         return aliasPanelValidate;
     }
 
-    public void setAliasPanelValidate(String aliasPanelValidate) {
-        this.aliasPanelValidate = aliasPanelValidate;
+    public void setAliasPanelValidate(String _v) {
+        this.aliasPanelValidate = _v;
     }
 
     public String getAliasTabbedPane() {
         return aliasTabbedPane;
     }
 
-    public void setAliasTabbedPane(String aliasTabbedPane) {
-        this.aliasTabbedPane = aliasTabbedPane;
+    public void setAliasTabbedPane(String _v) {
+        this.aliasTabbedPane = _v;
     }
 
     public String getAliasTabbedPaneNb() {
         return aliasTabbedPaneNb;
     }
 
-    public void setAliasTabbedPaneNb(String aliasTabbedPaneNb) {
-        this.aliasTabbedPaneNb = aliasTabbedPaneNb;
+    public void setAliasTabbedPaneNb(String _v) {
+        this.aliasTabbedPaneNb = _v;
     }
 
     public String getAliasTabbedPaneAdd() {
         return aliasTabbedPaneAdd;
     }
 
-    public void setAliasTabbedPaneAdd(String aliasTabbedPaneAdd) {
-        this.aliasTabbedPaneAdd = aliasTabbedPaneAdd;
+    public void setAliasTabbedPaneAdd(String _v) {
+        this.aliasTabbedPaneAdd = _v;
     }
 
     public String getAliasTabbedPaneGet() {
         return aliasTabbedPaneGet;
     }
 
-    public void setAliasTabbedPaneGet(String aliasTabbedPaneGet) {
-        this.aliasTabbedPaneGet = aliasTabbedPaneGet;
+    public void setAliasTabbedPaneGet(String _v) {
+        this.aliasTabbedPaneGet = _v;
     }
 
     public String getAliasTabbedPaneGetTitle() {
         return aliasTabbedPaneGetTitle;
     }
 
-    public void setAliasTabbedPaneGetTitle(String aliasTabbedPaneGetTitle) {
-        this.aliasTabbedPaneGetTitle = aliasTabbedPaneGetTitle;
+    public void setAliasTabbedPaneGetTitle(String _v) {
+        this.aliasTabbedPaneGetTitle = _v;
     }
 
     public String getAliasTabbedPaneSet() {
         return aliasTabbedPaneSet;
     }
 
-    public void setAliasTabbedPaneSet(String aliasTabbedPaneSet) {
-        this.aliasTabbedPaneSet = aliasTabbedPaneSet;
+    public void setAliasTabbedPaneSet(String _v) {
+        this.aliasTabbedPaneSet = _v;
     }
 
     public String getAliasTabbedPaneSetTitle() {
         return aliasTabbedPaneSetTitle;
     }
 
-    public void setAliasTabbedPaneSetTitle(String aliasTabbedPaneSetTitle) {
-        this.aliasTabbedPaneSetTitle = aliasTabbedPaneSetTitle;
+    public void setAliasTabbedPaneSetTitle(String _v) {
+        this.aliasTabbedPaneSetTitle = _v;
     }
 
     public String getAliasTabbedPaneRemove() {
         return aliasTabbedPaneRemove;
     }
 
-    public void setAliasTabbedPaneRemove(String aliasTabbedPaneRemove) {
-        this.aliasTabbedPaneRemove = aliasTabbedPaneRemove;
+    public void setAliasTabbedPaneRemove(String _v) {
+        this.aliasTabbedPaneRemove = _v;
     }
 
     public String getAliasTabbedPaneIndex() {
         return aliasTabbedPaneIndex;
     }
 
-    public void setAliasTabbedPaneIndex(String aliasTabbedPaneIndex) {
-        this.aliasTabbedPaneIndex = aliasTabbedPaneIndex;
+    public void setAliasTabbedPaneIndex(String _v) {
+        this.aliasTabbedPaneIndex = _v;
     }
 
     public String getAliasTabbedPaneSelIndex() {
         return aliasTabbedPaneSelIndex;
     }
 
-    public void setAliasTabbedPaneSelIndex(String aliasTabbedPaneSelIndex) {
-        this.aliasTabbedPaneSelIndex = aliasTabbedPaneSelIndex;
+    public void setAliasTabbedPaneSelIndex(String _v) {
+        this.aliasTabbedPaneSelIndex = _v;
     }
 
     public String getAliasAddListener() {
         return aliasAddListener;
     }
 
-    public void setAliasAddListener(String aliasAddListener) {
-        this.aliasAddListener = aliasAddListener;
+    public void setAliasAddListener(String _v) {
+        this.aliasAddListener = _v;
     }
 
     public String getAliasAddWindowListener() {
         return aliasAddWindowListener;
     }
 
-    public void setAliasAddWindowListener(String aliasAddWindowListener) {
-        this.aliasAddWindowListener = aliasAddWindowListener;
+    public void setAliasAddWindowListener(String _v) {
+        this.aliasAddWindowListener = _v;
     }
 
     public String getAliasSetLabelText() {
         return aliasSetLabelText;
     }
 
-    public void setAliasSetLabelText(String aliasSetLabelText) {
-        this.aliasSetLabelText = aliasSetLabelText;
+    public void setAliasSetLabelText(String _v) {
+        this.aliasSetLabelText = _v;
     }
 
     public String getAliasSetLabelImage() {
         return aliasSetLabelImage;
     }
 
-    public void setAliasSetLabelImage(String aliasSetLabelImage) {
-        this.aliasSetLabelImage = aliasSetLabelImage;
+    public void setAliasSetLabelImage(String _v) {
+        this.aliasSetLabelImage = _v;
     }
 
     public String getAliasPaint() {
         return aliasPaint;
     }
 
-    public void setAliasPaint(String aliasPaint) {
-        this.aliasPaint = aliasPaint;
+    public void setAliasPaint(String _v) {
+        this.aliasPaint = _v;
     }
 
     public String getAliasPaintMethod() {
         return aliasPaintMethod;
     }
 
-    public void setAliasPaintMethod(String aliasPaintMethod) {
-        this.aliasPaintMethod = aliasPaintMethod;
+    public void setAliasPaintMethod(String _v) {
+        this.aliasPaintMethod = _v;
     }
 
     public String getAliasPaintAdd() {
         return aliasPaintAdd;
     }
 
-    public void setAliasPaintAdd(String aliasPaintAdd) {
-        this.aliasPaintAdd = aliasPaintAdd;
+    public void setAliasPaintAdd(String _v) {
+        this.aliasPaintAdd = _v;
     }
 
     public String getAliasPaintRefresh() {
         return aliasPaintRefresh;
     }
 
-    public void setAliasPaintRefresh(String aliasPaintRefresh) {
-        this.aliasPaintRefresh = aliasPaintRefresh;
+    public void setAliasPaintRefresh(String _v) {
+        this.aliasPaintRefresh = _v;
     }
 
     public String getAliasRemoveCompo() {
         return aliasRemoveCompo;
     }
 
-    public void setAliasRemoveCompo(String aliasRemoveCompo) {
-        this.aliasRemoveCompo = aliasRemoveCompo;
+    public void setAliasRemoveCompo(String _v) {
+        this.aliasRemoveCompo = _v;
     }
 
     public String getAliasCount() {
         return aliasCount;
     }
 
-    public void setAliasCount(String aliasCount) {
-        this.aliasCount = aliasCount;
+    public void setAliasCount(String _v) {
+        this.aliasCount = _v;
     }
 
     public String getAliasScrollPane() {
         return aliasScrollPane;
     }
 
-    public void setAliasScrollPane(String aliasScrollPane) {
-        this.aliasScrollPane = aliasScrollPane;
+    public void setAliasScrollPane(String _v) {
+        this.aliasScrollPane = _v;
     }
 
     public String getAliasScrollPaneGetView() {
         return aliasScrollPaneGetView;
     }
 
-    public void setAliasScrollPaneGetView(String aliasScrollPaneGetView) {
-        this.aliasScrollPaneGetView = aliasScrollPaneGetView;
+    public void setAliasScrollPaneGetView(String _v) {
+        this.aliasScrollPaneGetView = _v;
     }
 
     public String getAliasScrollPaneSetView() {
         return aliasScrollPaneSetView;
     }
 
-    public void setAliasScrollPaneSetView(String aliasScrollPaneSetView) {
-        this.aliasScrollPaneSetView = aliasScrollPaneSetView;
+    public void setAliasScrollPaneSetView(String _v) {
+        this.aliasScrollPaneSetView = _v;
     }
 
     public String getAliasScrollPaneHorizontalValue() {
         return aliasScrollPaneHorizontalValue;
     }
 
-    public void setAliasScrollPaneHorizontalValue(String aliasScrollPaneHorizontalValue) {
-        this.aliasScrollPaneHorizontalValue = aliasScrollPaneHorizontalValue;
+    public void setAliasScrollPaneHorizontalValue(String _v) {
+        this.aliasScrollPaneHorizontalValue = _v;
     }
 
     public String getAliasScrollPaneVerticalValue() {
         return aliasScrollPaneVerticalValue;
     }
 
-    public void setAliasScrollPaneVerticalValue(String aliasScrollPaneVerticalValue) {
-        this.aliasScrollPaneVerticalValue = aliasScrollPaneVerticalValue;
+    public void setAliasScrollPaneVerticalValue(String _v) {
+        this.aliasScrollPaneVerticalValue = _v;
     }
 
     public String getAliasScrollPaneValidate() {
         return aliasScrollPaneValidate;
     }
 
-    public void setAliasScrollPaneValidate(String aliasScrollPaneValidate) {
-        this.aliasScrollPaneValidate = aliasScrollPaneValidate;
+    public void setAliasScrollPaneValidate(String _v) {
+        this.aliasScrollPaneValidate = _v;
     }
 
     public String getAliasSplitPane() {
         return aliasSplitPane;
     }
 
-    public void setAliasSplitPane(String aliasSplitPane) {
-        this.aliasSplitPane = aliasSplitPane;
+    public void setAliasSplitPane(String _v) {
+        this.aliasSplitPane = _v;
     }
 
     public String getAliasSplitPaneGetDividerLocation() {
         return aliasSplitPaneGetDividerLocation;
     }
 
-    public void setAliasSplitPaneGetDividerLocation(String aliasSplitPaneGetDividerLocation) {
-        this.aliasSplitPaneGetDividerLocation = aliasSplitPaneGetDividerLocation;
+    public void setAliasSplitPaneGetDividerLocation(String _v) {
+        this.aliasSplitPaneGetDividerLocation = _v;
     }
 
     public String getAliasSplitPaneSetDividerLocation() {
         return aliasSplitPaneSetDividerLocation;
     }
 
-    public void setAliasSplitPaneSetDividerLocation(String aliasSplitPaneSetDividerLocation) {
-        this.aliasSplitPaneSetDividerLocation = aliasSplitPaneSetDividerLocation;
+    public void setAliasSplitPaneSetDividerLocation(String _v) {
+        this.aliasSplitPaneSetDividerLocation = _v;
     }
 
     public String getAliasSplitPaneGetDividerSize() {
         return aliasSplitPaneGetDividerSize;
     }
 
-    public void setAliasSplitPaneGetDividerSize(String aliasSplitPaneGetDividerSize) {
-        this.aliasSplitPaneGetDividerSize = aliasSplitPaneGetDividerSize;
+    public void setAliasSplitPaneGetDividerSize(String _v) {
+        this.aliasSplitPaneGetDividerSize = _v;
     }
 
     public String getAliasSplitPaneSetDividerSize() {
         return aliasSplitPaneSetDividerSize;
     }
 
-    public void setAliasSplitPaneSetDividerSize(String aliasSplitPaneSetDividerSize) {
-        this.aliasSplitPaneSetDividerSize = aliasSplitPaneSetDividerSize;
+    public void setAliasSplitPaneSetDividerSize(String _v) {
+        this.aliasSplitPaneSetDividerSize = _v;
     }
 
     public String getAliasSplitPaneIsContinuousLayout() {
         return aliasSplitPaneIsContinuousLayout;
     }
 
-    public void setAliasSplitPaneIsContinuousLayout(String aliasSplitPaneIsContinuousLayout) {
-        this.aliasSplitPaneIsContinuousLayout = aliasSplitPaneIsContinuousLayout;
+    public void setAliasSplitPaneIsContinuousLayout(String _v) {
+        this.aliasSplitPaneIsContinuousLayout = _v;
     }
 
     public String getAliasSplitPaneSetContinuousLayout() {
         return aliasSplitPaneSetContinuousLayout;
     }
 
-    public void setAliasSplitPaneSetContinuousLayout(String aliasSplitPaneSetContinuousLayout) {
-        this.aliasSplitPaneSetContinuousLayout = aliasSplitPaneSetContinuousLayout;
+    public void setAliasSplitPaneSetContinuousLayout(String _v) {
+        this.aliasSplitPaneSetContinuousLayout = _v;
     }
 
     public String getAliasSplitPaneIsOneTouchExpandable() {
         return aliasSplitPaneIsOneTouchExpandable;
     }
 
-    public void setAliasSplitPaneIsOneTouchExpandable(String aliasSplitPaneIsOneTouchExpandable) {
-        this.aliasSplitPaneIsOneTouchExpandable = aliasSplitPaneIsOneTouchExpandable;
+    public void setAliasSplitPaneIsOneTouchExpandable(String _v) {
+        this.aliasSplitPaneIsOneTouchExpandable = _v;
     }
 
     public String getAliasSplitPaneSetOneTouchExpandable() {
         return aliasSplitPaneSetOneTouchExpandable;
     }
 
-    public void setAliasSplitPaneSetOneTouchExpandable(String aliasSplitPaneSetOneTouchExpandable) {
-        this.aliasSplitPaneSetOneTouchExpandable = aliasSplitPaneSetOneTouchExpandable;
+    public void setAliasSplitPaneSetOneTouchExpandable(String _v) {
+        this.aliasSplitPaneSetOneTouchExpandable = _v;
     }
 
     public String getAliasSplitPaneGetLeft() {
         return aliasSplitPaneGetLeft;
     }
 
-    public void setAliasSplitPaneGetLeft(String aliasSplitPaneGetLeft) {
-        this.aliasSplitPaneGetLeft = aliasSplitPaneGetLeft;
+    public void setAliasSplitPaneGetLeft(String _v) {
+        this.aliasSplitPaneGetLeft = _v;
     }
 
     public String getAliasSplitPaneSetLeft() {
         return aliasSplitPaneSetLeft;
     }
 
-    public void setAliasSplitPaneSetLeft(String aliasSplitPaneSetLeft) {
-        this.aliasSplitPaneSetLeft = aliasSplitPaneSetLeft;
+    public void setAliasSplitPaneSetLeft(String _v) {
+        this.aliasSplitPaneSetLeft = _v;
     }
 
     public String getAliasSplitPaneGetRight() {
         return aliasSplitPaneGetRight;
     }
 
-    public void setAliasSplitPaneGetRight(String aliasSplitPaneGetRight) {
-        this.aliasSplitPaneGetRight = aliasSplitPaneGetRight;
+    public void setAliasSplitPaneGetRight(String _v) {
+        this.aliasSplitPaneGetRight = _v;
     }
 
     public String getAliasSplitPaneSetRight() {
         return aliasSplitPaneSetRight;
     }
 
-    public void setAliasSplitPaneSetRight(String aliasSplitPaneSetRight) {
-        this.aliasSplitPaneSetRight = aliasSplitPaneSetRight;
+    public void setAliasSplitPaneSetRight(String _v) {
+        this.aliasSplitPaneSetRight = _v;
     }
 
     public String getAliasSplitPaneValidate() {
         return aliasSplitPaneValidate;
     }
 
-    public void setAliasSplitPaneValidate(String aliasSplitPaneValidate) {
-        this.aliasSplitPaneValidate = aliasSplitPaneValidate;
+    public void setAliasSplitPaneValidate(String _v) {
+        this.aliasSplitPaneValidate = _v;
     }
 
     public String getAliasPack() {
         return aliasPack;
     }
 
-    public void setAliasPack(String aliasPack) {
-        this.aliasPack = aliasPack;
+    public void setAliasPack(String _v) {
+        this.aliasPack = _v;
     }
 
     public String getAliasDispose() {
         return aliasDispose;
     }
 
-    public void setAliasDispose(String aliasDispose) {
-        this.aliasDispose = aliasDispose;
+    public void setAliasDispose(String _v) {
+        this.aliasDispose = _v;
     }
 
     public String getAliasIsVisible() {
         return aliasIsVisible;
     }
 
-    public void setAliasIsVisible(String aliasIsVisible) {
-        this.aliasIsVisible = aliasIsVisible;
+    public void setAliasIsVisible(String _v) {
+        this.aliasIsVisible = _v;
     }
 
     public String getAliasSetVisible() {
         return aliasSetVisible;
     }
 
-    public void setAliasSetVisible(String aliasSetVisible) {
-        this.aliasSetVisible = aliasSetVisible;
+    public void setAliasSetVisible(String _v) {
+        this.aliasSetVisible = _v;
     }
 
     public String getAliasWindow() {
         return aliasWindow;
     }
 
-    public void setAliasWindow(String aliasWindow) {
-        this.aliasWindow = aliasWindow;
+    public void setAliasWindow(String _v) {
+        this.aliasWindow = _v;
     }
 
     public String getAliasWindowSet() {
         return aliasWindowSet;
     }
 
-    public void setAliasWindowSet(String aliasWindowSet) {
-        this.aliasWindowSet = aliasWindowSet;
+    public void setAliasWindowSet(String _v) {
+        this.aliasWindowSet = _v;
     }
 
     public String getAliasWindowSetAll() {
         return aliasWindowSetAll;
     }
 
-    public void setAliasWindowSetAll(String aliasWindowSetAll) {
-        this.aliasWindowSetAll = aliasWindowSetAll;
+    public void setAliasWindowSetAll(String _v) {
+        this.aliasWindowSetAll = _v;
     }
 
     public String getAliasWindowSetAdd() {
         return aliasWindowSetAdd;
     }
 
-    public void setAliasWindowSetAdd(String aliasWindowSetAdd) {
-        this.aliasWindowSetAdd = aliasWindowSetAdd;
+    public void setAliasWindowSetAdd(String _v) {
+        this.aliasWindowSetAdd = _v;
     }
 
     public String getAliasWindowSetContains() {
         return aliasWindowSetContains;
     }
 
-    public void setAliasWindowSetContains(String aliasWindowSetContains) {
-        this.aliasWindowSetContains = aliasWindowSetContains;
+    public void setAliasWindowSetContains(String _v) {
+        this.aliasWindowSetContains = _v;
     }
 
     public String getAliasWindowSetRemove() {
         return aliasWindowSetRemove;
     }
 
-    public void setAliasWindowSetRemove(String aliasWindowSetRemove) {
-        this.aliasWindowSetRemove = aliasWindowSetRemove;
+    public void setAliasWindowSetRemove(String _v) {
+        this.aliasWindowSetRemove = _v;
     }
 
     public String getAliasWindowSetSnapshot() {
         return aliasWindowSetSnapshot;
     }
 
-    public void setAliasWindowSetSnapshot(String aliasWindowSetSnapshot) {
-        this.aliasWindowSetSnapshot = aliasWindowSetSnapshot;
+    public void setAliasWindowSetSnapshot(String _v) {
+        this.aliasWindowSetSnapshot = _v;
     }
 
     public String getAliasArgs() {
         return aliasArgs;
     }
 
-    public void setAliasArgs(String aliasArgs) {
-        this.aliasArgs = aliasArgs;
+    public void setAliasArgs(String _v) {
+        this.aliasArgs = _v;
     }
 
     public String getAliasMouseListener() {
         return aliasMouseListener;
     }
 
-    public void setAliasMouseListener(String aliasMouseListener) {
-        this.aliasMouseListener = aliasMouseListener;
+    public void setAliasMouseListener(String _v) {
+        this.aliasMouseListener = _v;
     }
 
     public String getAliasMouseClicked() {
         return aliasMouseClicked;
     }
 
-    public void setAliasMouseClicked(String aliasMouseClicked) {
-        this.aliasMouseClicked = aliasMouseClicked;
+    public void setAliasMouseClicked(String _v) {
+        this.aliasMouseClicked = _v;
     }
 
     public String getAliasMousePressed() {
         return aliasMousePressed;
     }
 
-    public void setAliasMousePressed(String aliasMousePressed) {
-        this.aliasMousePressed = aliasMousePressed;
+    public void setAliasMousePressed(String _v) {
+        this.aliasMousePressed = _v;
     }
 
     public String getAliasMouseReleased() {
         return aliasMouseReleased;
     }
 
-    public void setAliasMouseReleased(String aliasMouseReleased) {
-        this.aliasMouseReleased = aliasMouseReleased;
+    public void setAliasMouseReleased(String _v) {
+        this.aliasMouseReleased = _v;
     }
 
     public String getAliasMouseEntered() {
         return aliasMouseEntered;
     }
 
-    public void setAliasMouseEntered(String aliasMouseEntered) {
-        this.aliasMouseEntered = aliasMouseEntered;
+    public void setAliasMouseEntered(String _v) {
+        this.aliasMouseEntered = _v;
     }
 
     public String getAliasMouseExited() {
         return aliasMouseExited;
     }
 
-    public void setAliasMouseExited(String aliasMouseExited) {
-        this.aliasMouseExited = aliasMouseExited;
+    public void setAliasMouseExited(String _v) {
+        this.aliasMouseExited = _v;
     }
 
     public String getAliasMouseDragged() {
         return aliasMouseDragged;
     }
 
-    public void setAliasMouseDragged(String aliasMouseDragged) {
-        this.aliasMouseDragged = aliasMouseDragged;
+    public void setAliasMouseDragged(String _v) {
+        this.aliasMouseDragged = _v;
     }
 
     public String getAliasMouseMoved() {
         return aliasMouseMoved;
     }
 
-    public void setAliasMouseMoved(String aliasMouseMoved) {
-        this.aliasMouseMoved = aliasMouseMoved;
+    public void setAliasMouseMoved(String _v) {
+        this.aliasMouseMoved = _v;
     }
 
     public String getAliasMouseEvent() {
         return aliasMouseEvent;
     }
 
-    public void setAliasMouseEvent(String aliasMouseEvent) {
-        this.aliasMouseEvent = aliasMouseEvent;
+    public void setAliasMouseEvent(String _v) {
+        this.aliasMouseEvent = _v;
     }
 
     public String getAliasMouseEventGetFirst() {
         return aliasMouseEventGetFirst;
     }
 
-    public void setAliasMouseEventGetFirst(String aliasMouseEventGetFirst) {
-        this.aliasMouseEventGetFirst = aliasMouseEventGetFirst;
+    public void setAliasMouseEventGetFirst(String _v) {
+        this.aliasMouseEventGetFirst = _v;
     }
 
     public String getAliasMouseEventGetSecond() {
         return aliasMouseEventGetSecond;
     }
 
-    public void setAliasMouseEventGetSecond(String aliasMouseEventGetSecond) {
-        this.aliasMouseEventGetSecond = aliasMouseEventGetSecond;
+    public void setAliasMouseEventGetSecond(String _v) {
+        this.aliasMouseEventGetSecond = _v;
     }
 
     public String getAliasMouseEventGetClicks() {
         return aliasMouseEventGetClicks;
     }
 
-    public void setAliasMouseEventGetClicks(String aliasMouseEventGetClicks) {
-        this.aliasMouseEventGetClicks = aliasMouseEventGetClicks;
+    public void setAliasMouseEventGetClicks(String _v) {
+        this.aliasMouseEventGetClicks = _v;
     }
 
     public String getAliasMouseEventIsAlt() {
         return aliasMouseEventIsAlt;
     }
 
-    public void setAliasMouseEventIsAlt(String aliasMouseEventIsAlt) {
-        this.aliasMouseEventIsAlt = aliasMouseEventIsAlt;
+    public void setAliasMouseEventIsAlt(String _v) {
+        this.aliasMouseEventIsAlt = _v;
     }
 
     public String getAliasMouseEventIsCtrl() {
         return aliasMouseEventIsCtrl;
     }
 
-    public void setAliasMouseEventIsCtrl(String aliasMouseEventIsCtrl) {
-        this.aliasMouseEventIsCtrl = aliasMouseEventIsCtrl;
+    public void setAliasMouseEventIsCtrl(String _v) {
+        this.aliasMouseEventIsCtrl = _v;
     }
 
     public String getAliasMouseEventIsShift() {
         return aliasMouseEventIsShift;
     }
 
-    public void setAliasMouseEventIsShift(String aliasMouseEventIsShift) {
-        this.aliasMouseEventIsShift = aliasMouseEventIsShift;
+    public void setAliasMouseEventIsShift(String _v) {
+        this.aliasMouseEventIsShift = _v;
     }
 
     public String getAliasMouseEventIsLeft() {
         return aliasMouseEventIsLeft;
     }
 
-    public void setAliasMouseEventIsLeft(String aliasMouseEventIsLeft) {
-        this.aliasMouseEventIsLeft = aliasMouseEventIsLeft;
+    public void setAliasMouseEventIsLeft(String _v) {
+        this.aliasMouseEventIsLeft = _v;
     }
 
     public String getAliasMouseEventIsMiddle() {
         return aliasMouseEventIsMiddle;
     }
 
-    public void setAliasMouseEventIsMiddle(String aliasMouseEventIsMiddle) {
-        this.aliasMouseEventIsMiddle = aliasMouseEventIsMiddle;
+    public void setAliasMouseEventIsMiddle(String _v) {
+        this.aliasMouseEventIsMiddle = _v;
     }
 
     public String getAliasMouseEventIsRight() {
         return aliasMouseEventIsRight;
     }
 
-    public void setAliasMouseEventIsRight(String aliasMouseEventIsRight) {
-        this.aliasMouseEventIsRight = aliasMouseEventIsRight;
+    public void setAliasMouseEventIsRight(String _v) {
+        this.aliasMouseEventIsRight = _v;
     }
 
     public String getAliasWheelListener() {
         return aliasWheelListener;
     }
 
-    public void setAliasWheelListener(String aliasWheelListener) {
-        this.aliasWheelListener = aliasWheelListener;
+    public void setAliasWheelListener(String _v) {
+        this.aliasWheelListener = _v;
     }
 
     public String getAliasWheelMove() {
         return aliasWheelMove;
     }
 
-    public void setAliasWheelMove(String aliasWheelMove) {
-        this.aliasWheelMove = aliasWheelMove;
+    public void setAliasWheelMove(String _v) {
+        this.aliasWheelMove = _v;
     }
 
     public String getAliasWheelEvent() {
         return aliasWheelEvent;
     }
 
-    public void setAliasWheelEvent(String aliasWheelEvent) {
-        this.aliasWheelEvent = aliasWheelEvent;
+    public void setAliasWheelEvent(String _v) {
+        this.aliasWheelEvent = _v;
     }
 
     public String getAliasWheelRotatedClicks() {
         return aliasWheelRotatedClicks;
     }
 
-    public void setAliasWheelRotatedClicks(String aliasWheelRotatedClicks) {
-        this.aliasWheelRotatedClicks = aliasWheelRotatedClicks;
+    public void setAliasWheelRotatedClicks(String _v) {
+        this.aliasWheelRotatedClicks = _v;
     }
 
     public String getAliasRequestFocus() {
         return aliasRequestFocus;
     }
 
-    public void setAliasRequestFocus(String aliasRequestFocus) {
-        this.aliasRequestFocus = aliasRequestFocus;
+    public void setAliasRequestFocus(String _v) {
+        this.aliasRequestFocus = _v;
     }
 
     public String getAliasCompToolTip() {
         return aliasCompToolTip;
     }
 
-    public void setAliasCompToolTip(String aliasCompToolTip) {
-        this.aliasCompToolTip = aliasCompToolTip;
+    public void setAliasCompToolTip(String _v) {
+        this.aliasCompToolTip = _v;
     }
 
     public String getAliasCompFocusable() {
         return aliasCompFocusable;
     }
 
-    public void setAliasCompFocusable(String aliasCompFocusable) {
-        this.aliasCompFocusable = aliasCompFocusable;
+    public void setAliasCompFocusable(String _v) {
+        this.aliasCompFocusable = _v;
     }
 
     public String getAliasCompOpaque() {
         return aliasCompOpaque;
     }
 
-    public void setAliasCompOpaque(String aliasCompOpaque) {
-        this.aliasCompOpaque = aliasCompOpaque;
+    public void setAliasCompOpaque(String _v) {
+        this.aliasCompOpaque = _v;
     }
 
     public String getAliasCompBack() {
         return aliasCompBack;
     }
 
-    public void setAliasCompBack(String aliasCompBack) {
-        this.aliasCompBack = aliasCompBack;
+    public void setAliasCompBack(String _v) {
+        this.aliasCompBack = _v;
     }
 
     public String getAliasCompFore() {
         return aliasCompFore;
     }
 
-    public void setAliasCompFore(String aliasCompFore) {
-        this.aliasCompFore = aliasCompFore;
+    public void setAliasCompFore(String _v) {
+        this.aliasCompFore = _v;
     }
 
     public String getAliasCompGetFirstPos() {
         return aliasCompGetFirstPos;
     }
 
-    public void setAliasCompGetFirstPos(String aliasCompGetFirstPos) {
-        this.aliasCompGetFirstPos = aliasCompGetFirstPos;
+    public void setAliasCompGetFirstPos(String _v) {
+        this.aliasCompGetFirstPos = _v;
     }
 
     public String getAliasCompGetSecondPos() {
         return aliasCompGetSecondPos;
     }
 
-    public void setAliasCompGetSecondPos(String aliasCompGetSecondPos) {
-        this.aliasCompGetSecondPos = aliasCompGetSecondPos;
+    public void setAliasCompGetSecondPos(String _v) {
+        this.aliasCompGetSecondPos = _v;
     }
 
     public String getAliasCompLoc() {
         return aliasCompLoc;
     }
 
-    public void setAliasCompLoc(String aliasCompLoc) {
-        this.aliasCompLoc = aliasCompLoc;
+    public void setAliasCompLoc(String _v) {
+        this.aliasCompLoc = _v;
     }
 
     public String getAliasCompBorLine() {
         return aliasCompBorLine;
     }
 
-    public void setAliasCompBorLine(String aliasCompBorLine) {
-        this.aliasCompBorLine = aliasCompBorLine;
+    public void setAliasCompBorLine(String _v) {
+        this.aliasCompBorLine = _v;
     }
 
     public String getAliasCompBorTitle() {
         return aliasCompBorTitle;
     }
 
-    public void setAliasCompBorTitle(String aliasCompBorTitle) {
-        this.aliasCompBorTitle = aliasCompBorTitle;
+    public void setAliasCompBorTitle(String _v) {
+        this.aliasCompBorTitle = _v;
     }
 
     public String getAliasCompBorLower() {
         return aliasCompBorLower;
     }
 
-    public void setAliasCompBorLower(String aliasCompBorLower) {
-        this.aliasCompBorLower = aliasCompBorLower;
+    public void setAliasCompBorLower(String _v) {
+        this.aliasCompBorLower = _v;
     }
 
     public String getAliasCompBorRaise() {
         return aliasCompBorRaise;
     }
 
-    public void setAliasCompBorRaise(String aliasCompBorRaise) {
-        this.aliasCompBorRaise = aliasCompBorRaise;
+    public void setAliasCompBorRaise(String _v) {
+        this.aliasCompBorRaise = _v;
     }
 
     public String getAliasAddKeyListener() {
         return aliasAddKeyListener;
     }
 
-    public void setAliasAddKeyListener(String aliasAddKeyListener) {
-        this.aliasAddKeyListener = aliasAddKeyListener;
+    public void setAliasAddKeyListener(String _v) {
+        this.aliasAddKeyListener = _v;
     }
 
     public String getAliasAddWheelListener() {
         return aliasAddWheelListener;
     }
 
-    public void setAliasAddWheelListener(String aliasAddWheelListener) {
-        this.aliasAddWheelListener = aliasAddWheelListener;
+    public void setAliasAddWheelListener(String _v) {
+        this.aliasAddWheelListener = _v;
     }
 
     public String getAliasKeyListener() {
         return aliasKeyListener;
     }
 
-    public void setAliasKeyListener(String aliasKeyListener) {
-        this.aliasKeyListener = aliasKeyListener;
+    public void setAliasKeyListener(String _v) {
+        this.aliasKeyListener = _v;
     }
 
     public String getAliasKeyPressed() {
         return aliasKeyPressed;
     }
 
-    public void setAliasKeyPressed(String aliasKeyPressed) {
-        this.aliasKeyPressed = aliasKeyPressed;
+    public void setAliasKeyPressed(String _v) {
+        this.aliasKeyPressed = _v;
     }
 
     public String getAliasKeyTyped() {
         return aliasKeyTyped;
     }
 
-    public void setAliasKeyTyped(String aliasKeyTyped) {
-        this.aliasKeyTyped = aliasKeyTyped;
+    public void setAliasKeyTyped(String _v) {
+        this.aliasKeyTyped = _v;
     }
 
     public String getAliasKeyReleased() {
         return aliasKeyReleased;
     }
 
-    public void setAliasKeyReleased(String aliasKeyReleased) {
-        this.aliasKeyReleased = aliasKeyReleased;
+    public void setAliasKeyReleased(String _v) {
+        this.aliasKeyReleased = _v;
     }
 
     public String getAliasKeyEvent() {
         return aliasKeyEvent;
     }
 
-    public void setAliasKeyEvent(String aliasKeyEvent) {
-        this.aliasKeyEvent = aliasKeyEvent;
+    public void setAliasKeyEvent(String _v) {
+        this.aliasKeyEvent = _v;
     }
 
     public String getAliasKeyEventChar() {
         return aliasKeyEventChar;
     }
 
-    public void setAliasKeyEventChar(String aliasKeyEventChar) {
-        this.aliasKeyEventChar = aliasKeyEventChar;
+    public void setAliasKeyEventChar(String _v) {
+        this.aliasKeyEventChar = _v;
     }
 
     public String getAliasKeyEventCode() {
         return aliasKeyEventCode;
     }
 
-    public void setAliasKeyEventCode(String aliasKeyEventCode) {
-        this.aliasKeyEventCode = aliasKeyEventCode;
+    public void setAliasKeyEventCode(String _v) {
+        this.aliasKeyEventCode = _v;
     }
 
     public String getAliasKeyEventIsShift() {
         return aliasKeyEventIsShift;
     }
 
-    public void setAliasKeyEventIsShift(String aliasKeyEventIsShift) {
-        this.aliasKeyEventIsShift = aliasKeyEventIsShift;
+    public void setAliasKeyEventIsShift(String _v) {
+        this.aliasKeyEventIsShift = _v;
     }
 
     public String getAliasKeyEventIsAlt() {
         return aliasKeyEventIsAlt;
     }
 
-    public void setAliasKeyEventIsAlt(String aliasKeyEventIsAlt) {
-        this.aliasKeyEventIsAlt = aliasKeyEventIsAlt;
+    public void setAliasKeyEventIsAlt(String _v) {
+        this.aliasKeyEventIsAlt = _v;
     }
 
     public String getAliasKeyEventIsCtrl() {
         return aliasKeyEventIsCtrl;
     }
 
-    public void setAliasKeyEventIsCtrl(String aliasKeyEventIsCtrl) {
-        this.aliasKeyEventIsCtrl = aliasKeyEventIsCtrl;
+    public void setAliasKeyEventIsCtrl(String _v) {
+        this.aliasKeyEventIsCtrl = _v;
     }
 
     public String getAliasWindowListener() {
         return aliasWindowListener;
     }
 
-    public void setAliasWindowListener(String aliasWindowListener) {
-        this.aliasWindowListener = aliasWindowListener;
+    public void setAliasWindowListener(String _v) {
+        this.aliasWindowListener = _v;
     }
 
     public String getAliasWindowOpened() {
         return aliasWindowOpened;
     }
 
-    public void setAliasWindowOpened(String aliasWindowOpened) {
-        this.aliasWindowOpened = aliasWindowOpened;
+    public void setAliasWindowOpened(String _v) {
+        this.aliasWindowOpened = _v;
     }
 
     public String getAliasWindowClosed() {
         return aliasWindowClosed;
     }
 
-    public void setAliasWindowClosed(String aliasWindowClosed) {
-        this.aliasWindowClosed = aliasWindowClosed;
+    public void setAliasWindowClosed(String _v) {
+        this.aliasWindowClosed = _v;
     }
 
     public String getAliasWindowClosing() {
         return aliasWindowClosing;
     }
 
-    public void setAliasWindowClosing(String aliasWindowClosing) {
-        this.aliasWindowClosing = aliasWindowClosing;
+    public void setAliasWindowClosing(String _v) {
+        this.aliasWindowClosing = _v;
     }
 
     public String getAliasWindowIconified() {
         return aliasWindowIconified;
     }
 
-    public void setAliasWindowIconified(String aliasWindowIconified) {
-        this.aliasWindowIconified = aliasWindowIconified;
+    public void setAliasWindowIconified(String _v) {
+        this.aliasWindowIconified = _v;
     }
 
     public String getAliasWindowDeiconified() {
         return aliasWindowDeiconified;
     }
 
-    public void setAliasWindowDeiconified(String aliasWindowDeiconified) {
-        this.aliasWindowDeiconified = aliasWindowDeiconified;
+    public void setAliasWindowDeiconified(String _v) {
+        this.aliasWindowDeiconified = _v;
     }
 
     public String getAliasWindowActivated() {
         return aliasWindowActivated;
     }
 
-    public void setAliasWindowActivated(String aliasWindowActivated) {
-        this.aliasWindowActivated = aliasWindowActivated;
+    public void setAliasWindowActivated(String _v) {
+        this.aliasWindowActivated = _v;
     }
 
     public String getAliasWindowDeactivated() {
         return aliasWindowDeactivated;
     }
 
-    public void setAliasWindowDeactivated(String aliasWindowDeactivated) {
-        this.aliasWindowDeactivated = aliasWindowDeactivated;
+    public void setAliasWindowDeactivated(String _v) {
+        this.aliasWindowDeactivated = _v;
     }
 
     public String getAliasWindowEvent() {
         return aliasWindowEvent;
     }
 
-    public void setAliasWindowEvent(String aliasWindowEvent) {
-        this.aliasWindowEvent = aliasWindowEvent;
+    public void setAliasWindowEvent(String _v) {
+        this.aliasWindowEvent = _v;
     }
 
     public String getAliasListSelection() {
         return aliasListSelection;
     }
 
-    public void setAliasListSelection(String aliasListSelection) {
-        this.aliasListSelection = aliasListSelection;
+    public void setAliasListSelection(String _v) {
+        this.aliasListSelection = _v;
     }
 
     public String getAliasValueChanged() {
         return aliasValueChanged;
     }
 
-    public void setAliasValueChanged(String aliasValueChanged) {
-        this.aliasValueChanged = aliasValueChanged;
+    public void setAliasValueChanged(String _v) {
+        this.aliasValueChanged = _v;
     }
 
     public String getAliasInput() {
         return aliasInput;
     }
 
-    public void setAliasInput(String _aliasInput) {
-        aliasInput = _aliasInput;
+    public void setAliasInput(String _v) {
+        aliasInput = _v;
     }
 
     public String getAliasInputIsEnabled() {
         return aliasInputIsEnabled;
     }
 
-    public void setAliasInputIsEnabled(String _aliasInputIsEnabled) {
-        aliasInputIsEnabled = _aliasInputIsEnabled;
+    public void setAliasInputIsEnabled(String _v) {
+        aliasInputIsEnabled = _v;
     }
 
     public String getAliasInputSetEnabled() {
         return aliasInputSetEnabled;
     }
 
-    public void setAliasInputSetEnabled(String _aliasInputSetEnabled) {
-        aliasInputSetEnabled = _aliasInputSetEnabled;
+    public void setAliasInputSetEnabled(String _v) {
+        aliasInputSetEnabled = _v;
     }
 
     public String getAliasRender() {
         return aliasRender;
     }
 
-    public void setAliasRender(String aliasRender) {
-        this.aliasRender = aliasRender;
+    public void setAliasRender(String _v) {
+        this.aliasRender = _v;
     }
 
     public String getAliasRenderGetHeight() {
         return aliasRenderGetHeight;
     }
 
-    public void setAliasRenderGetHeight(String aliasRenderGetHeight) {
-        this.aliasRenderGetHeight = aliasRenderGetHeight;
+    public void setAliasRenderGetHeight(String _v) {
+        this.aliasRenderGetHeight = _v;
     }
 
     public String getAliasRenderSetHeight() {
         return aliasRenderSetHeight;
     }
 
-    public void setAliasRenderSetHeight(String aliasRenderSetHeight) {
-        this.aliasRenderSetHeight = aliasRenderSetHeight;
+    public void setAliasRenderSetHeight(String _v) {
+        this.aliasRenderSetHeight = _v;
     }
 
     public String getAliasRenderGetWidth() {
         return aliasRenderGetWidth;
     }
 
-    public void setAliasRenderGetWidth(String aliasRenderGetWidth) {
-        this.aliasRenderGetWidth = aliasRenderGetWidth;
+    public void setAliasRenderGetWidth(String _v) {
+        this.aliasRenderGetWidth = _v;
     }
 
     public String getAliasRenderSetWidth() {
         return aliasRenderSetWidth;
     }
 
-    public void setAliasRenderSetWidth(String aliasRenderSetWidth) {
-        this.aliasRenderSetWidth = aliasRenderSetWidth;
+    public void setAliasRenderSetWidth(String _v) {
+        this.aliasRenderSetWidth = _v;
     }
 
     public String getAliasRenderGetPaint() {
         return aliasRenderGetPaint;
     }
 
-    public void setAliasRenderGetPaint(String aliasRenderGetPaint) {
-        this.aliasRenderGetPaint = aliasRenderGetPaint;
+    public void setAliasRenderGetPaint(String _v) {
+        this.aliasRenderGetPaint = _v;
     }
 
     public String getAliasRenderSetPaint() {
         return aliasRenderSetPaint;
     }
 
-    public void setAliasRenderSetPaint(String aliasRenderSetPaint) {
-        this.aliasRenderSetPaint = aliasRenderSetPaint;
+    public void setAliasRenderSetPaint(String _v) {
+        this.aliasRenderSetPaint = _v;
     }
 
     public String getAliasGrList() {
         return aliasGrList;
     }
 
-    public void setAliasGrList(String aliasGrList) {
-        this.aliasGrList = aliasGrList;
+    public void setAliasGrList(String _v) {
+        this.aliasGrList = _v;
     }
 
     public String getAliasGrListAdd() {
         return aliasGrListAdd;
     }
 
-    public void setAliasGrListAdd(String aliasGrListAdd) {
-        this.aliasGrListAdd = aliasGrListAdd;
+    public void setAliasGrListAdd(String _v) {
+        this.aliasGrListAdd = _v;
     }
 
     public String getAliasGrListSet() {
         return aliasGrListSet;
     }
 
-    public void setAliasGrListSet(String aliasGrListSet) {
-        this.aliasGrListSet = aliasGrListSet;
+    public void setAliasGrListSet(String _v) {
+        this.aliasGrListSet = _v;
     }
 
     public String getAliasGrListGetListView() {
         return aliasGrListGetListView;
     }
 
-    public void setAliasGrListGetListView(String aliasGrListGetListView) {
-        this.aliasGrListGetListView = aliasGrListGetListView;
+    public void setAliasGrListGetListView(String _v) {
+        this.aliasGrListGetListView = _v;
     }
 
     public String getAliasGrListGetSelectedIndexes() {
         return aliasGrListGetSelectedIndexes;
     }
 
-    public void setAliasGrListGetSelectedIndexes(String aliasGrListGetSelectedIndexes) {
-        this.aliasGrListGetSelectedIndexes = aliasGrListGetSelectedIndexes;
+    public void setAliasGrListGetSelectedIndexes(String _v) {
+        this.aliasGrListGetSelectedIndexes = _v;
     }
 
     public String getAliasGrListSetSelectedIndexes() {
         return aliasGrListSetSelectedIndexes;
     }
 
-    public void setAliasGrListSetSelectedIndexes(String aliasGrListSetSelectedIndexes) {
-        this.aliasGrListSetSelectedIndexes = aliasGrListSetSelectedIndexes;
+    public void setAliasGrListSetSelectedIndexes(String _v) {
+        this.aliasGrListSetSelectedIndexes = _v;
     }
 
     public String getAliasGrListClearSelection() {
         return aliasGrListClearSelection;
     }
 
-    public void setAliasGrListClearSelection(String aliasGrListClearSelection) {
-        this.aliasGrListClearSelection = aliasGrListClearSelection;
+    public void setAliasGrListClearSelection(String _v) {
+        this.aliasGrListClearSelection = _v;
     }
 
     public String getAliasGrListUpdateGraphics() {
         return aliasGrListUpdateGraphics;
     }
 
-    public void setAliasGrListUpdateGraphics(String aliasGrListUpdateGraphics) {
-        this.aliasGrListUpdateGraphics = aliasGrListUpdateGraphics;
+    public void setAliasGrListUpdateGraphics(String _v) {
+        this.aliasGrListUpdateGraphics = _v;
     }
 
     public String getAliasGrListGetRender() {
         return aliasGrListGetRender;
     }
 
-    public void setAliasGrListGetRender(String aliasGrListGetRender) {
-        this.aliasGrListGetRender = aliasGrListGetRender;
+    public void setAliasGrListGetRender(String _v) {
+        this.aliasGrListGetRender = _v;
     }
 
     public String getAliasGrListSetRender() {
         return aliasGrListSetRender;
     }
 
-    public void setAliasGrListSetRender(String aliasGrListSetRender) {
-        this.aliasGrListSetRender = aliasGrListSetRender;
+    public void setAliasGrListSetRender(String _v) {
+        this.aliasGrListSetRender = _v;
     }
 
     public String getAliasGrListGetSelection() {
         return aliasGrListGetSelection;
     }
 
-    public void setAliasGrListGetSelection(String aliasGrListGetSelection) {
-        this.aliasGrListGetSelection = aliasGrListGetSelection;
+    public void setAliasGrListGetSelection(String _v) {
+        this.aliasGrListGetSelection = _v;
     }
 
     public String getAliasGrListSetSelection() {
         return aliasGrListSetSelection;
     }
 
-    public void setAliasGrListSetSelection(String aliasGrListSetSelection) {
-        this.aliasGrListSetSelection = aliasGrListSetSelection;
+    public void setAliasGrListSetSelection(String _v) {
+        this.aliasGrListSetSelection = _v;
     }
 
     public String getAliasGrListGetVisibleRowCount() {
         return aliasGrListGetVisibleRowCount;
     }
 
-    public void setAliasGrListGetVisibleRowCount(String aliasGrListGetVisibleRowCount) {
-        this.aliasGrListGetVisibleRowCount = aliasGrListGetVisibleRowCount;
+    public void setAliasGrListGetVisibleRowCount(String _v) {
+        this.aliasGrListGetVisibleRowCount = _v;
     }
 
     public String getAliasGrListSetVisibleRowCount() {
         return aliasGrListSetVisibleRowCount;
     }
 
-    public void setAliasGrListSetVisibleRowCount(String aliasGrListSetVisibleRowCount) {
-        this.aliasGrListSetVisibleRowCount = aliasGrListSetVisibleRowCount;
+    public void setAliasGrListSetVisibleRowCount(String _v) {
+        this.aliasGrListSetVisibleRowCount = _v;
     }
 
     public String getAliasGrListClear() {
         return aliasGrListClear;
     }
 
-    public void setAliasGrListClear(String aliasGrListClear) {
-        this.aliasGrListClear = aliasGrListClear;
+    public void setAliasGrListClear(String _v) {
+        this.aliasGrListClear = _v;
     }
 
     public String getAliasGrListRemove() {
         return aliasGrListRemove;
     }
 
-    public void setAliasGrListRemove(String aliasGrListRemove) {
-        this.aliasGrListRemove = aliasGrListRemove;
+    public void setAliasGrListRemove(String _v) {
+        this.aliasGrListRemove = _v;
     }
 
     public String getAliasCombo() {
         return aliasCombo;
     }
 
-    public void setAliasCombo(String aliasCombo) {
-        this.aliasCombo = aliasCombo;
+    public void setAliasCombo(String _v) {
+        this.aliasCombo = _v;
     }
 
     public String getAliasComboGetSelectedItem() {
         return aliasComboGetSelectedItem;
     }
 
-    public void setAliasComboGetSelectedItem(String aliasComboGetSelectedItem) {
-        this.aliasComboGetSelectedItem = aliasComboGetSelectedItem;
+    public void setAliasComboGetSelectedItem(String _v) {
+        this.aliasComboGetSelectedItem = _v;
     }
 
     public String getAliasComboAddItem() {
         return aliasComboAddItem;
     }
 
-    public void setAliasComboAddItem(String aliasComboAddItem) {
-        this.aliasComboAddItem = aliasComboAddItem;
+    public void setAliasComboAddItem(String _v) {
+        this.aliasComboAddItem = _v;
     }
 
     public String getAliasComboGetItemCount() {
         return aliasComboGetItemCount;
     }
 
-    public void setAliasComboGetItemCount(String aliasComboGetItemCount) {
-        this.aliasComboGetItemCount = aliasComboGetItemCount;
+    public void setAliasComboGetItemCount(String _v) {
+        this.aliasComboGetItemCount = _v;
     }
 
     public String getAliasComboSelectItem() {
         return aliasComboSelectItem;
     }
 
-    public void setAliasComboSelectItem(String aliasComboSelectItem) {
-        this.aliasComboSelectItem = aliasComboSelectItem;
+    public void setAliasComboSelectItem(String _v) {
+        this.aliasComboSelectItem = _v;
     }
 
     public String getAliasComboSetListener() {
         return aliasComboSetListener;
     }
 
-    public void setAliasComboSetListener(String aliasComboSetListener) {
-        this.aliasComboSetListener = aliasComboSetListener;
+    public void setAliasComboSetListener(String _v) {
+        this.aliasComboSetListener = _v;
     }
 
     public String getAliasComboGetListener() {
         return aliasComboGetListener;
     }
 
-    public void setAliasComboGetListener(String aliasComboGetListener) {
-        this.aliasComboGetListener = aliasComboGetListener;
+    public void setAliasComboGetListener(String _v) {
+        this.aliasComboGetListener = _v;
     }
 
     public String getAliasComboGetSelectedIndexes() {
         return aliasComboGetSelectedIndexes;
     }
 
-    public void setAliasComboGetSelectedIndexes(String aliasComboGetSelectedIndexes) {
-        this.aliasComboGetSelectedIndexes = aliasComboGetSelectedIndexes;
+    public void setAliasComboGetSelectedIndexes(String _v) {
+        this.aliasComboGetSelectedIndexes = _v;
     }
 
     public String getAliasComboGetSelectedIndex() {
         return aliasComboGetSelectedIndex;
     }
 
-    public void setAliasComboGetSelectedIndex(String aliasComboGetSelectedIndex) {
-        this.aliasComboGetSelectedIndex = aliasComboGetSelectedIndex;
+    public void setAliasComboGetSelectedIndex(String _v) {
+        this.aliasComboGetSelectedIndex = _v;
     }
 
     public String getAliasComboRemoveAllItems() {
         return aliasComboRemoveAllItems;
     }
 
-    public void setAliasComboRemoveAllItems(String aliasComboRemoveAllItems) {
-        this.aliasComboRemoveAllItems = aliasComboRemoveAllItems;
+    public void setAliasComboRemoveAllItems(String _v) {
+        this.aliasComboRemoveAllItems = _v;
     }
 
     public String getAliasComboRemoveItem() {
         return aliasComboRemoveItem;
     }
 
-    public void setAliasComboRemoveItem(String aliasComboRemoveItem) {
-        this.aliasComboRemoveItem = aliasComboRemoveItem;
+    public void setAliasComboRemoveItem(String _v) {
+        this.aliasComboRemoveItem = _v;
     }
 
     public String getAliasButtonGroup() {
         return aliasButtonGroup;
     }
 
-    public void setAliasButtonGroup(String aliasButtonGroup) {
-        this.aliasButtonGroup = aliasButtonGroup;
+    public void setAliasButtonGroup(String _v) {
+        this.aliasButtonGroup = _v;
     }
 
     public String getAliasButtonGroupAdd() {
         return aliasButtonGroupAdd;
     }
 
-    public void setAliasButtonGroupAdd(String aliasButtonGroupAdd) {
-        this.aliasButtonGroupAdd = aliasButtonGroupAdd;
+    public void setAliasButtonGroupAdd(String _v) {
+        this.aliasButtonGroupAdd = _v;
     }
 
     public String getAliasRadio() {
         return aliasRadio;
     }
 
-    public void setAliasRadio(String aliasRadio) {
-        this.aliasRadio = aliasRadio;
+    public void setAliasRadio(String _v) {
+        this.aliasRadio = _v;
     }
 
     public String getAliasRadioIsSelected() {
         return aliasRadioIsSelected;
     }
 
-    public void setAliasRadioIsSelected(String aliasRadioIsSelected) {
-        this.aliasRadioIsSelected = aliasRadioIsSelected;
+    public void setAliasRadioIsSelected(String _v) {
+        this.aliasRadioIsSelected = _v;
     }
 
     public String getAliasRadioSetSelected() {
         return aliasRadioSetSelected;
     }
 
-    public void setAliasRadioSetSelected(String aliasRadioSetSelected) {
-        this.aliasRadioSetSelected = aliasRadioSetSelected;
+    public void setAliasRadioSetSelected(String _v) {
+        this.aliasRadioSetSelected = _v;
     }
 
     public String getAliasRadioGetText() {
         return aliasRadioGetText;
     }
 
-    public void setAliasRadioGetText(String aliasRadioGetText) {
-        this.aliasRadioGetText = aliasRadioGetText;
+    public void setAliasRadioGetText(String _v) {
+        this.aliasRadioGetText = _v;
     }
 
     public String getAliasRadioSetText() {
         return aliasRadioSetText;
     }
 
-    public void setAliasRadioSetText(String aliasRadioSetText) {
-        this.aliasRadioSetText = aliasRadioSetText;
+    public void setAliasRadioSetText(String _v) {
+        this.aliasRadioSetText = _v;
     }
 
     public String getAliasPopupMenu() {
         return aliasPopupMenu;
     }
 
-    public void setAliasPopupMenu(String aliasPopupMenu) {
-        this.aliasPopupMenu = aliasPopupMenu;
+    public void setAliasPopupMenu(String _v) {
+        this.aliasPopupMenu = _v;
     }
 
     public String getAliasPopupMenuAdd() {
         return aliasPopupMenuAdd;
     }
 
-    public void setAliasPopupMenuAdd(String aliasPopupMenuAdd) {
-        this.aliasPopupMenuAdd = aliasPopupMenuAdd;
+    public void setAliasPopupMenuAdd(String _v) {
+        this.aliasPopupMenuAdd = _v;
     }
 
     public String getAliasPopupMenuGetComp() {
         return aliasPopupMenuGetComp;
     }
 
-    public void setAliasPopupMenuGetComp(String aliasPopupMenuGetComp) {
-        this.aliasPopupMenuGetComp = aliasPopupMenuGetComp;
+    public void setAliasPopupMenuGetComp(String _v) {
+        this.aliasPopupMenuGetComp = _v;
     }
 
     public String getAliasPopupMenuRemoveComp() {
         return aliasPopupMenuRemoveComp;
     }
 
-    public void setAliasPopupMenuRemoveComp(String aliasPopupMenuRemoveComp) {
-        this.aliasPopupMenuRemoveComp = aliasPopupMenuRemoveComp;
+    public void setAliasPopupMenuRemoveComp(String _v) {
+        this.aliasPopupMenuRemoveComp = _v;
     }
 
     public String getAliasPopupMenuNbComp() {
         return aliasPopupMenuNbComp;
     }
 
-    public void setAliasPopupMenuNbComp(String aliasPopupMenuNbComp) {
-        this.aliasPopupMenuNbComp = aliasPopupMenuNbComp;
+    public void setAliasPopupMenuNbComp(String _v) {
+        this.aliasPopupMenuNbComp = _v;
     }
 
     public String getAliasPopupMenuAddMenu() {
         return aliasPopupMenuAddMenu;
     }
 
-    public void setAliasPopupMenuAddMenu(String aliasPopupMenuAddMenu) {
-        this.aliasPopupMenuAddMenu = aliasPopupMenuAddMenu;
+    public void setAliasPopupMenuAddMenu(String _v) {
+        this.aliasPopupMenuAddMenu = _v;
     }
 
     public String getAliasPopupMenuGetMenu() {
         return aliasPopupMenuGetMenu;
     }
 
-    public void setAliasPopupMenuGetMenu(String aliasPopupMenuGetMenu) {
-        this.aliasPopupMenuGetMenu = aliasPopupMenuGetMenu;
+    public void setAliasPopupMenuGetMenu(String _v) {
+        this.aliasPopupMenuGetMenu = _v;
     }
 
     public String getAliasPopupMenuRemoveMenu() {
         return aliasPopupMenuRemoveMenu;
     }
 
-    public void setAliasPopupMenuRemoveMenu(String aliasPopupMenuRemoveMenu) {
-        this.aliasPopupMenuRemoveMenu = aliasPopupMenuRemoveMenu;
+    public void setAliasPopupMenuRemoveMenu(String _v) {
+        this.aliasPopupMenuRemoveMenu = _v;
     }
 
     public String getAliasPopupMenuNbMenu() {
         return aliasPopupMenuNbMenu;
     }
 
-    public void setAliasPopupMenuNbMenu(String aliasPopupMenuNbMenu) {
-        this.aliasPopupMenuNbMenu = aliasPopupMenuNbMenu;
+    public void setAliasPopupMenuNbMenu(String _v) {
+        this.aliasPopupMenuNbMenu = _v;
     }
 
     public String getAliasPopupMenuShow() {
         return aliasPopupMenuShow;
     }
 
-    public void setAliasPopupMenuShow(String aliasPopupMenuShow) {
-        this.aliasPopupMenuShow = aliasPopupMenuShow;
+    public void setAliasPopupMenuShow(String _v) {
+        this.aliasPopupMenuShow = _v;
     }
 
     public String getAliasTextField() {
         return aliasTextField;
     }
 
-    public void setAliasTextField(String aliasTextField) {
-        this.aliasTextField = aliasTextField;
+    public void setAliasTextField(String _v) {
+        this.aliasTextField = _v;
     }
 
     public String getAliasTextFieldGetText() {
         return aliasTextFieldGetText;
     }
 
-    public void setAliasTextFieldGetText(String aliasTextFieldGetText) {
-        this.aliasTextFieldGetText = aliasTextFieldGetText;
+    public void setAliasTextFieldGetText(String _v) {
+        this.aliasTextFieldGetText = _v;
     }
 
     public String getAliasTextFieldSetText() {
         return aliasTextFieldSetText;
     }
 
-    public void setAliasTextFieldSetText(String aliasTextFieldSetText) {
-        this.aliasTextFieldSetText = aliasTextFieldSetText;
+    public void setAliasTextFieldSetText(String _v) {
+        this.aliasTextFieldSetText = _v;
     }
 
     public String getAliasTextFieldAuto() {
         return aliasTextFieldAuto;
     }
 
-    public void setAliasTextFieldAuto(String aliasTextFieldAuto) {
-        this.aliasTextFieldAuto = aliasTextFieldAuto;
+    public void setAliasTextFieldAuto(String _v) {
+        this.aliasTextFieldAuto = _v;
     }
 
     public String getAliasTextFieldAddAction() {
         return aliasTextFieldAddAction;
     }
 
-    public void setAliasTextFieldAddAction(String aliasTextFieldAddAction) {
-        this.aliasTextFieldAddAction = aliasTextFieldAddAction;
+    public void setAliasTextFieldAddAction(String _v) {
+        this.aliasTextFieldAddAction = _v;
     }
 
     public String getAliasTextFieldAddDocument() {
         return aliasTextFieldAddDocument;
     }
 
-    public void setAliasTextFieldAddDocument(String aliasTextFieldAddDocument) {
-        this.aliasTextFieldAddDocument = aliasTextFieldAddDocument;
+    public void setAliasTextFieldAddDocument(String _v) {
+        this.aliasTextFieldAddDocument = _v;
     }
 
     public String getAliasTextFieldAddPopup() {
         return aliasTextFieldAddPopup;
     }
 
-    public void setAliasTextFieldAddPopup(String aliasTextFieldAddPopup) {
-        this.aliasTextFieldAddPopup = aliasTextFieldAddPopup;
+    public void setAliasTextFieldAddPopup(String _v) {
+        this.aliasTextFieldAddPopup = _v;
     }
 
     public String getAliasTextArea() {
         return aliasTextArea;
     }
 
-    public void setAliasTextArea(String aliasTextArea) {
-        this.aliasTextArea = aliasTextArea;
+    public void setAliasTextArea(String _v) {
+        this.aliasTextArea = _v;
     }
 
     public String getAliasTextAreaGetText() {
         return aliasTextAreaGetText;
     }
 
-    public void setAliasTextAreaGetText(String aliasTextAreaGetText) {
-        this.aliasTextAreaGetText = aliasTextAreaGetText;
+    public void setAliasTextAreaGetText(String _v) {
+        this.aliasTextAreaGetText = _v;
     }
 
     public String getAliasTextAreaSetText() {
         return aliasTextAreaSetText;
     }
 
-    public void setAliasTextAreaSetText(String aliasTextAreaSetText) {
-        this.aliasTextAreaSetText = aliasTextAreaSetText;
+    public void setAliasTextAreaSetText(String _v) {
+        this.aliasTextAreaSetText = _v;
     }
 
     public String getAliasTextAreaGetTabSize() {
         return aliasTextAreaGetTabSize;
     }
 
-    public void setAliasTextAreaGetTabSize(String aliasTextAreaGetTabSize) {
-        this.aliasTextAreaGetTabSize = aliasTextAreaGetTabSize;
+    public void setAliasTextAreaGetTabSize(String _v) {
+        this.aliasTextAreaGetTabSize = _v;
     }
 
     public String getAliasTextAreaSetTabSize() {
         return aliasTextAreaSetTabSize;
     }
 
-    public void setAliasTextAreaSetTabSize(String aliasTextAreaSetTabSize) {
-        this.aliasTextAreaSetTabSize = aliasTextAreaSetTabSize;
+    public void setAliasTextAreaSetTabSize(String _v) {
+        this.aliasTextAreaSetTabSize = _v;
     }
 
     public String getAliasTextAreaAppend() {
         return aliasTextAreaAppend;
     }
 
-    public void setAliasTextAreaAppend(String aliasTextAreaAppend) {
-        this.aliasTextAreaAppend = aliasTextAreaAppend;
+    public void setAliasTextAreaAppend(String _v) {
+        this.aliasTextAreaAppend = _v;
     }
 
     public String getAliasTextAreaInsert() {
         return aliasTextAreaInsert;
     }
 
-    public void setAliasTextAreaInsert(String aliasTextAreaInsert) {
-        this.aliasTextAreaInsert = aliasTextAreaInsert;
+    public void setAliasTextAreaInsert(String _v) {
+        this.aliasTextAreaInsert = _v;
     }
 
     public String getAliasTextAreaReplaceRange() {
         return aliasTextAreaReplaceRange;
     }
 
-    public void setAliasTextAreaReplaceRange(String aliasTextAreaReplaceRange) {
-        this.aliasTextAreaReplaceRange = aliasTextAreaReplaceRange;
+    public void setAliasTextAreaReplaceRange(String _v) {
+        this.aliasTextAreaReplaceRange = _v;
     }
 
     public String getAliasTextAreaReplaceSelection() {
         return aliasTextAreaReplaceSelection;
     }
 
-    public void setAliasTextAreaReplaceSelection(String aliasTextAreaReplaceSelection) {
-        this.aliasTextAreaReplaceSelection = aliasTextAreaReplaceSelection;
+    public void setAliasTextAreaReplaceSelection(String _v) {
+        this.aliasTextAreaReplaceSelection = _v;
     }
 
     public String getAliasTextAreaGetSelectedText() {
         return aliasTextAreaGetSelectedText;
     }
 
-    public void setAliasTextAreaGetSelectedText(String aliasTextAreaGetSelectedText) {
-        this.aliasTextAreaGetSelectedText = aliasTextAreaGetSelectedText;
+    public void setAliasTextAreaGetSelectedText(String _v) {
+        this.aliasTextAreaGetSelectedText = _v;
     }
 
     public String getAliasTextAreaSetSelectionStart() {
         return aliasTextAreaSetSelectionStart;
     }
 
-    public void setAliasTextAreaSetSelectionStart(String aliasTextAreaSetSelectionStart) {
-        this.aliasTextAreaSetSelectionStart = aliasTextAreaSetSelectionStart;
+    public void setAliasTextAreaSetSelectionStart(String _v) {
+        this.aliasTextAreaSetSelectionStart = _v;
     }
 
     public String getAliasTextAreaSetSelectionEnd() {
         return aliasTextAreaSetSelectionEnd;
     }
 
-    public void setAliasTextAreaSetSelectionEnd(String aliasTextAreaSetSelectionEnd) {
-        this.aliasTextAreaSetSelectionEnd = aliasTextAreaSetSelectionEnd;
+    public void setAliasTextAreaSetSelectionEnd(String _v) {
+        this.aliasTextAreaSetSelectionEnd = _v;
     }
 
     public String getAliasTextAreaSelect() {
         return aliasTextAreaSelect;
     }
 
-    public void setAliasTextAreaSelect(String aliasTextAreaSelect) {
-        this.aliasTextAreaSelect = aliasTextAreaSelect;
+    public void setAliasTextAreaSelect(String _v) {
+        this.aliasTextAreaSelect = _v;
     }
 
     public String getAliasTextAreaSelectAll() {
         return aliasTextAreaSelectAll;
     }
 
-    public void setAliasTextAreaSelectAll(String aliasTextAreaSelectAll) {
-        this.aliasTextAreaSelectAll = aliasTextAreaSelectAll;
+    public void setAliasTextAreaSelectAll(String _v) {
+        this.aliasTextAreaSelectAll = _v;
     }
 
     public String getAliasCheckBox() {
         return aliasCheckBox;
     }
 
-    public void setAliasCheckBox(String aliasCheckBox) {
-        this.aliasCheckBox = aliasCheckBox;
+    public void setAliasCheckBox(String _v) {
+        this.aliasCheckBox = _v;
     }
 
     public String getAliasCheckBoxGetText() {
         return aliasCheckBoxGetText;
     }
 
-    public void setAliasCheckBoxGetText(String aliasCheckBoxGetText) {
-        this.aliasCheckBoxGetText = aliasCheckBoxGetText;
+    public void setAliasCheckBoxGetText(String _v) {
+        this.aliasCheckBoxGetText = _v;
     }
 
     public String getAliasCheckBoxSetText() {
         return aliasCheckBoxSetText;
     }
 
-    public void setAliasCheckBoxSetText(String aliasCheckBoxSetText) {
-        this.aliasCheckBoxSetText = aliasCheckBoxSetText;
+    public void setAliasCheckBoxSetText(String _v) {
+        this.aliasCheckBoxSetText = _v;
     }
 
     public String getAliasCheckBoxIsSelected() {
         return aliasCheckBoxIsSelected;
     }
 
-    public void setAliasCheckBoxIsSelected(String aliasCheckBoxIsSelected) {
-        this.aliasCheckBoxIsSelected = aliasCheckBoxIsSelected;
+    public void setAliasCheckBoxIsSelected(String _v) {
+        this.aliasCheckBoxIsSelected = _v;
     }
 
     public String getAliasCheckBoxSetSelected() {
         return aliasCheckBoxSetSelected;
     }
 
-    public void setAliasCheckBoxSetSelected(String aliasCheckBoxSetSelected) {
-        this.aliasCheckBoxSetSelected = aliasCheckBoxSetSelected;
+    public void setAliasCheckBoxSetSelected(String _v) {
+        this.aliasCheckBoxSetSelected = _v;
     }
 
     public String getAliasCheckBoxAddAction() {
         return aliasCheckBoxAddAction;
     }
 
-    public void setAliasCheckBoxAddAction(String aliasCheckBoxAddAction) {
-        this.aliasCheckBoxAddAction = aliasCheckBoxAddAction;
+    public void setAliasCheckBoxAddAction(String _v) {
+        this.aliasCheckBoxAddAction = _v;
     }
 
     public String getAliasSpinner() {
         return aliasSpinner;
     }
 
-    public void setAliasSpinner(String aliasSpinner) {
-        this.aliasSpinner = aliasSpinner;
+    public void setAliasSpinner(String _v) {
+        this.aliasSpinner = _v;
     }
 
     public String getAliasSpinnerSetRange() {
         return aliasSpinnerSetRange;
     }
 
-    public void setAliasSpinnerSetRange(String aliasSpinnerSetRange) {
-        this.aliasSpinnerSetRange = aliasSpinnerSetRange;
+    public void setAliasSpinnerSetRange(String _v) {
+        this.aliasSpinnerSetRange = _v;
     }
 
     public String getAliasSpinnerSetRangeValue() {
         return aliasSpinnerSetRangeValue;
     }
 
-    public void setAliasSpinnerSetRangeValue(String aliasSpinnerSetRangeValue) {
-        this.aliasSpinnerSetRangeValue = aliasSpinnerSetRangeValue;
+    public void setAliasSpinnerSetRangeValue(String _v) {
+        this.aliasSpinnerSetRangeValue = _v;
     }
 
     public String getAliasSpinnerGetValue() {
         return aliasSpinnerGetValue;
     }
 
-    public void setAliasSpinnerGetValue(String aliasSpinnerGetValue) {
-        this.aliasSpinnerGetValue = aliasSpinnerGetValue;
+    public void setAliasSpinnerGetValue(String _v) {
+        this.aliasSpinnerGetValue = _v;
     }
 
     public String getAliasSpinnerSetValue() {
         return aliasSpinnerSetValue;
     }
 
-    public void setAliasSpinnerSetValue(String aliasSpinnerSetValue) {
-        this.aliasSpinnerSetValue = aliasSpinnerSetValue;
+    public void setAliasSpinnerSetValue(String _v) {
+        this.aliasSpinnerSetValue = _v;
     }
 
     public String getAliasSpinnerGetMax() {
         return aliasSpinnerGetMax;
     }
 
-    public void setAliasSpinnerGetMax(String aliasSpinnerGetMax) {
-        this.aliasSpinnerGetMax = aliasSpinnerGetMax;
+    public void setAliasSpinnerGetMax(String _v) {
+        this.aliasSpinnerGetMax = _v;
     }
 
     public String getAliasSpinnerSetMax() {
         return aliasSpinnerSetMax;
     }
 
-    public void setAliasSpinnerSetMax(String aliasSpinnerSetMax) {
-        this.aliasSpinnerSetMax = aliasSpinnerSetMax;
+    public void setAliasSpinnerSetMax(String _v) {
+        this.aliasSpinnerSetMax = _v;
     }
 
     public String getAliasSpinnerGetMin() {
         return aliasSpinnerGetMin;
     }
 
-    public void setAliasSpinnerGetMin(String aliasSpinnerGetMin) {
-        this.aliasSpinnerGetMin = aliasSpinnerGetMin;
+    public void setAliasSpinnerGetMin(String _v) {
+        this.aliasSpinnerGetMin = _v;
     }
 
     public String getAliasSpinnerSetMin() {
         return aliasSpinnerSetMin;
     }
 
-    public void setAliasSpinnerSetMin(String aliasSpinnerSetMin) {
-        this.aliasSpinnerSetMin = aliasSpinnerSetMin;
+    public void setAliasSpinnerSetMin(String _v) {
+        this.aliasSpinnerSetMin = _v;
     }
 
     public String getAliasSpinnerGetStep() {
         return aliasSpinnerGetStep;
     }
 
-    public void setAliasSpinnerGetStep(String aliasSpinnerGetStep) {
-        this.aliasSpinnerGetStep = aliasSpinnerGetStep;
+    public void setAliasSpinnerGetStep(String _v) {
+        this.aliasSpinnerGetStep = _v;
     }
 
     public String getAliasSpinnerSetStep() {
         return aliasSpinnerSetStep;
     }
 
-    public void setAliasSpinnerSetStep(String aliasSpinnerSetStep) {
-        this.aliasSpinnerSetStep = aliasSpinnerSetStep;
+    public void setAliasSpinnerSetStep(String _v) {
+        this.aliasSpinnerSetStep = _v;
     }
 
     public String getAliasSlider() {
         return aliasSlider;
     }
 
-    public void setAliasSlider(String aliasSlider) {
-        this.aliasSlider = aliasSlider;
+    public void setAliasSlider(String _v) {
+        this.aliasSlider = _v;
     }
 
     public String getAliasSliderGetValue() {
         return aliasSliderGetValue;
     }
 
-    public void setAliasSliderGetValue(String aliasSliderGetValue) {
-        this.aliasSliderGetValue = aliasSliderGetValue;
+    public void setAliasSliderGetValue(String _v) {
+        this.aliasSliderGetValue = _v;
     }
 
     public String getAliasSliderSetValue() {
         return aliasSliderSetValue;
     }
 
-    public void setAliasSliderSetValue(String aliasSliderSetValue) {
-        this.aliasSliderSetValue = aliasSliderSetValue;
+    public void setAliasSliderSetValue(String _v) {
+        this.aliasSliderSetValue = _v;
     }
 
     public String getAliasSliderGetMax() {
         return aliasSliderGetMax;
     }
 
-    public void setAliasSliderGetMax(String aliasSliderGetMax) {
-        this.aliasSliderGetMax = aliasSliderGetMax;
+    public void setAliasSliderGetMax(String _v) {
+        this.aliasSliderGetMax = _v;
     }
 
     public String getAliasSliderSetMax() {
         return aliasSliderSetMax;
     }
 
-    public void setAliasSliderSetMax(String aliasSliderSetMax) {
-        this.aliasSliderSetMax = aliasSliderSetMax;
+    public void setAliasSliderSetMax(String _v) {
+        this.aliasSliderSetMax = _v;
     }
 
     public String getAliasSliderGetMin() {
         return aliasSliderGetMin;
     }
 
-    public void setAliasSliderGetMin(String aliasSliderGetMin) {
-        this.aliasSliderGetMin = aliasSliderGetMin;
+    public void setAliasSliderGetMin(String _v) {
+        this.aliasSliderGetMin = _v;
     }
 
     public String getAliasSliderSetMin() {
         return aliasSliderSetMin;
     }
 
-    public void setAliasSliderSetMin(String aliasSliderSetMin) {
-        this.aliasSliderSetMin = aliasSliderSetMin;
+    public void setAliasSliderSetMin(String _v) {
+        this.aliasSliderSetMin = _v;
     }
 
     public String getAliasSliderGetOrientation() {
         return aliasSliderGetOrientation;
     }
 
-    public void setAliasSliderGetOrientation(String aliasSliderGetOrientation) {
-        this.aliasSliderGetOrientation = aliasSliderGetOrientation;
+    public void setAliasSliderGetOrientation(String _v) {
+        this.aliasSliderGetOrientation = _v;
     }
 
     public String getAliasSliderSetOrientation() {
         return aliasSliderSetOrientation;
     }
 
-    public void setAliasSliderSetOrientation(String aliasSliderSetOrientation) {
-        this.aliasSliderSetOrientation = aliasSliderSetOrientation;
+    public void setAliasSliderSetOrientation(String _v) {
+        this.aliasSliderSetOrientation = _v;
     }
 
     public String getAliasGetMenuBar() {
         return aliasGetMenuBar;
     }
 
-    public void setAliasGetMenuBar(String aliasGetMenuBar) {
-        this.aliasGetMenuBar = aliasGetMenuBar;
+    public void setAliasGetMenuBar(String _v) {
+        this.aliasGetMenuBar = _v;
     }
 
     public String getAliasSetMenuBar() {
         return aliasSetMenuBar;
     }
 
-    public void setAliasSetMenuBar(String aliasSetMenuBar) {
-        this.aliasSetMenuBar = aliasSetMenuBar;
+    public void setAliasSetMenuBar(String _v) {
+        this.aliasSetMenuBar = _v;
     }
 
     public String getAliasMenuBar() {
         return aliasMenuBar;
     }
 
-    public void setAliasMenuBar(String aliasMenuBar) {
-        this.aliasMenuBar = aliasMenuBar;
+    public void setAliasMenuBar(String _v) {
+        this.aliasMenuBar = _v;
     }
 
     public String getAliasMenuBarAdd() {
         return aliasMenuBarAdd;
     }
 
-    public void setAliasMenuBarAdd(String aliasMenuBarAdd) {
-        this.aliasMenuBarAdd = aliasMenuBarAdd;
+    public void setAliasMenuBarAdd(String _v) {
+        this.aliasMenuBarAdd = _v;
     }
 
     public String getAliasMenuBarGet() {
         return aliasMenuBarGet;
     }
 
-    public void setAliasMenuBarGet(String aliasMenuBarGet) {
-        this.aliasMenuBarGet = aliasMenuBarGet;
+    public void setAliasMenuBarGet(String _v) {
+        this.aliasMenuBarGet = _v;
     }
 
     public String getAliasMenuBarRemove() {
         return aliasMenuBarRemove;
     }
 
-    public void setAliasMenuBarRemove(String aliasMenuBarRemove) {
-        this.aliasMenuBarRemove = aliasMenuBarRemove;
+    public void setAliasMenuBarRemove(String _v) {
+        this.aliasMenuBarRemove = _v;
     }
 
     public String getAliasMenuBarNb() {
         return aliasMenuBarNb;
     }
 
-    public void setAliasMenuBarNb(String aliasMenuBarNb) {
-        this.aliasMenuBarNb = aliasMenuBarNb;
+    public void setAliasMenuBarNb(String _v) {
+        this.aliasMenuBarNb = _v;
     }
 
     public String getAliasAbsMenu() {
         return aliasAbsMenu;
     }
 
-    public void setAliasAbsMenu(String aliasAbsMenu) {
-        this.aliasAbsMenu = aliasAbsMenu;
+    public void setAliasAbsMenu(String _v) {
+        this.aliasAbsMenu = _v;
     }
 
     public String getAliasAbsMenuGetParent() {
         return aliasAbsMenuGetParent;
     }
 
-    public void setAliasAbsMenuGetParent(String aliasAbsMenuGetParent) {
-        this.aliasAbsMenuGetParent = aliasAbsMenuGetParent;
+    public void setAliasAbsMenuGetParent(String _v) {
+        this.aliasAbsMenuGetParent = _v;
     }
 
     public String getAliasAbsMenuIsEnabled() {
         return aliasAbsMenuIsEnabled;
     }
 
-    public void setAliasAbsMenuIsEnabled(String aliasAbsMenuIsEnabled) {
-        this.aliasAbsMenuIsEnabled = aliasAbsMenuIsEnabled;
+    public void setAliasAbsMenuIsEnabled(String _v) {
+        this.aliasAbsMenuIsEnabled = _v;
     }
 
     public String getAliasMenu() {
         return aliasMenu;
     }
 
-    public void setAliasMenu(String aliasMenu) {
-        this.aliasMenu = aliasMenu;
+    public void setAliasMenu(String _v) {
+        this.aliasMenu = _v;
     }
 
     public String getAliasMenuAdd() {
         return aliasMenuAdd;
     }
 
-    public void setAliasMenuAdd(String aliasMenuAdd) {
-        this.aliasMenuAdd = aliasMenuAdd;
+    public void setAliasMenuAdd(String _v) {
+        this.aliasMenuAdd = _v;
     }
 
     public String getAliasMenuGet() {
         return aliasMenuGet;
     }
 
-    public void setAliasMenuGet(String aliasMenuGet) {
-        this.aliasMenuGet = aliasMenuGet;
+    public void setAliasMenuGet(String _v) {
+        this.aliasMenuGet = _v;
     }
 
     public String getAliasMenuRemove() {
         return aliasMenuRemove;
     }
 
-    public void setAliasMenuRemove(String aliasMenuRemove) {
-        this.aliasMenuRemove = aliasMenuRemove;
+    public void setAliasMenuRemove(String _v) {
+        this.aliasMenuRemove = _v;
     }
 
     public String getAliasMenuNb() {
         return aliasMenuNb;
     }
 
-    public void setAliasMenuNb(String aliasMenuNb) {
-        this.aliasMenuNb = aliasMenuNb;
+    public void setAliasMenuNb(String _v) {
+        this.aliasMenuNb = _v;
     }
 
     public String getAliasAbsMenuSetEnabled() {
         return aliasAbsMenuSetEnabled;
     }
 
-    public void setAliasAbsMenuSetEnabled(String aliasAbsMenuSetEnabled) {
-        this.aliasAbsMenuSetEnabled = aliasAbsMenuSetEnabled;
+    public void setAliasAbsMenuSetEnabled(String _v) {
+        this.aliasAbsMenuSetEnabled = _v;
     }
 
     public String getAliasAbsMenuSetDeepEnabled() {
         return aliasAbsMenuSetDeepEnabled;
     }
 
-    public void setAliasAbsMenuSetDeepEnabled(String aliasAbsMenuSetDeepEnabled) {
-        this.aliasAbsMenuSetDeepEnabled = aliasAbsMenuSetDeepEnabled;
+    public void setAliasAbsMenuSetDeepEnabled(String _v) {
+        this.aliasAbsMenuSetDeepEnabled = _v;
     }
 
     public String getAliasAbsMenuGetText() {
         return aliasAbsMenuGetText;
     }
 
-    public void setAliasAbsMenuGetText(String aliasAbsMenuGetText) {
-        this.aliasAbsMenuGetText = aliasAbsMenuGetText;
+    public void setAliasAbsMenuGetText(String _v) {
+        this.aliasAbsMenuGetText = _v;
     }
 
     public String getAliasAbsMenuSetText() {
         return aliasAbsMenuSetText;
     }
 
-    public void setAliasAbsMenuSetText(String aliasAbsMenuSetText) {
-        this.aliasAbsMenuSetText = aliasAbsMenuSetText;
+    public void setAliasAbsMenuSetText(String _v) {
+        this.aliasAbsMenuSetText = _v;
     }
 
     public String getAliasMenuAddSeparator() {
         return aliasMenuAddSeparator;
     }
 
-    public void setAliasMenuAddSeparator(String aliasMenuAddSeparator) {
-        this.aliasMenuAddSeparator = aliasMenuAddSeparator;
+    public void setAliasMenuAddSeparator(String _v) {
+        this.aliasMenuAddSeparator = _v;
     }
 
     public String getAliasAbsMenuItem() {
         return aliasAbsMenuItem;
     }
 
-    public void setAliasAbsMenuItem(String aliasAbsMenuItem) {
-        this.aliasAbsMenuItem = aliasAbsMenuItem;
+    public void setAliasAbsMenuItem(String _v) {
+        this.aliasAbsMenuItem = _v;
     }
 
     public String getAliasAbsMenuItemAddAction() {
         return aliasAbsMenuItemAddAction;
     }
 
-    public void setAliasAbsMenuItemAddAction(String aliasAbsMenuItemAddAction) {
-        this.aliasAbsMenuItemAddAction = aliasAbsMenuItemAddAction;
+    public void setAliasAbsMenuItemAddAction(String _v) {
+        this.aliasAbsMenuItemAddAction = _v;
     }
 
     public String getAliasMenuItem() {
         return aliasMenuItem;
     }
 
-    public void setAliasMenuItem(String aliasMenuItem) {
-        this.aliasMenuItem = aliasMenuItem;
+    public void setAliasMenuItem(String _v) {
+        this.aliasMenuItem = _v;
     }
 
     public String getAliasMenuItemCheck() {
         return aliasMenuItemCheck;
     }
 
-    public void setAliasMenuItemCheck(String aliasMenuItemCheck) {
-        this.aliasMenuItemCheck = aliasMenuItemCheck;
+    public void setAliasMenuItemCheck(String _v) {
+        this.aliasMenuItemCheck = _v;
     }
 
     public String getAliasMenuItemCheckIsSelected() {
         return aliasMenuItemCheckIsSelected;
     }
 
-    public void setAliasMenuItemCheckIsSelected(String aliasMenuItemCheckIsSelected) {
-        this.aliasMenuItemCheckIsSelected = aliasMenuItemCheckIsSelected;
+    public void setAliasMenuItemCheckIsSelected(String _v) {
+        this.aliasMenuItemCheckIsSelected = _v;
     }
 
     public String getAliasMenuItemCheckSetSelected() {
         return aliasMenuItemCheckSetSelected;
     }
 
-    public void setAliasMenuItemCheckSetSelected(String aliasMenuItemCheckSetSelected) {
-        this.aliasMenuItemCheckSetSelected = aliasMenuItemCheckSetSelected;
+    public void setAliasMenuItemCheckSetSelected(String _v) {
+        this.aliasMenuItemCheckSetSelected = _v;
     }
 
 }

@@ -46,19 +46,19 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
         return getAllSuperType(all_, _cont.getPrimitiveTypes(), _cont.getAliasNumber(), _cont.getAliasObject());
     }
 
-    public StringList getAllSuperType(StringList all_, StringMap<PrimitiveType> _primitiveTypes, String _aliasNumber, String _aliasObject) {
+    public StringList getAllSuperType(StringList _all, StringMap<PrimitiveType> _primitiveTypes, String _aliasNumber, String _aliasObject) {
         String name_ = name;
         while (!name_.isEmpty()) {
             PrimitiveType prim_ = _primitiveTypes.getVal(name_);
-            all_.add(prim_.name);
-            all_.add(prim_.wrapper);
+            _all.add(prim_.name);
+            _all.add(prim_.wrapper);
             name_ = prim_.getDirectUpperPrimitiveInherit();
         }
         if (nb) {
-            all_.add(_aliasNumber);
+            _all.add(_aliasNumber);
         }
-        all_.add(_aliasObject);
-        return all_;
+        _all.add(_aliasObject);
+        return _all;
     }
 
     @Override

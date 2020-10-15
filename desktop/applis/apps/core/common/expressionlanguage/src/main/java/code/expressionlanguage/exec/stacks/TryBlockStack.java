@@ -64,7 +64,7 @@ public final class TryBlockStack extends AbstractStask {
         return exception;
     }
 
-    public void setException(Struct exception) {
-        this.exception = exception;
+    public void setException(Struct _exception) {
+        this.exception = _exception;
     }
 }

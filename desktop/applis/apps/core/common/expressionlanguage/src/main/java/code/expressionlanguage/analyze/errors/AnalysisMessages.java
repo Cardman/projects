@@ -924,1775 +924,1775 @@ public final class AnalysisMessages {
         return emptyWord;
     }
 
-    public void setEmptyWord(String emptyWord) {
-        this.emptyWord = emptyWord;
+    public void setEmptyWord(String _v) {
+        this.emptyWord =_v;
     }
 
     public String getNotWordChar() {
         return notWordChar;
     }
 
-    public void setNotWordChar(String notWordChar) {
-        this.notWordChar = notWordChar;
+    public void setNotWordChar(String _v) {
+        this.notWordChar =_v;
     }
 
     public String getDigitFirst() {
         return digitFirst;
     }
 
-    public void setDigitFirst(String digitFirst) {
-        this.digitFirst = digitFirst;
+    public void setDigitFirst(String _v) {
+        this.digitFirst =_v;
     }
 
     public String getEmptyString() {
         return emptyString;
     }
 
-    public void setEmptyString(String emptyString) {
-        this.emptyString = emptyString;
+    public void setEmptyString(String _v) {
+        this.emptyString =_v;
     }
 
     public String getEmptyNb() {
         return emptyNb;
     }
 
-    public void setEmptyNb(String emptyNb) {
-        this.emptyNb = emptyNb;
+    public void setEmptyNb(String _v) {
+        this.emptyNb =_v;
     }
 
     public String getEmptyBinExp() {
         return emptyBinExp;
     }
 
-    public void setEmptyBinExp(String emptyBinExp) {
-        this.emptyBinExp = emptyBinExp;
+    public void setEmptyBinExp(String _v) {
+        this.emptyBinExp =_v;
     }
 
     public String getEmptyPreBin() {
         return emptyPreBin;
     }
 
-    public void setEmptyPreBin(String emptyPreBin) {
-        this.emptyPreBin = emptyPreBin;
+    public void setEmptyPreBin(String _v) {
+        this.emptyPreBin =_v;
     }
 
     public String getEmptyPreHex() {
         return emptyPreHex;
     }
 
-    public void setEmptyPreHex(String emptyPreHex) {
-        this.emptyPreHex = emptyPreHex;
+    public void setEmptyPreHex(String _v) {
+        this.emptyPreHex =_v;
     }
 
     public String getIllegalChar() {
         return illegalChar;
     }
 
-    public void setIllegalChar(String illegalChar) {
-        this.illegalChar = illegalChar;
+    public void setIllegalChar(String _v) {
+        this.illegalChar =_v;
     }
 
     public String getIllegalFirstChar() {
         return illegalFirstChar;
     }
 
-    public void setIllegalFirstChar(String illegalFirstChar) {
-        this.illegalFirstChar = illegalFirstChar;
+    public void setIllegalFirstChar(String _v) {
+        this.illegalFirstChar =_v;
     }
 
     public String getEmptyPrimitive() {
         return emptyPrimitive;
     }
 
-    public void setEmptyPrimitive(String emptyPrimitive) {
-        this.emptyPrimitive = emptyPrimitive;
+    public void setEmptyPrimitive(String _v) {
+        this.emptyPrimitive =_v;
     }
 
     public String getNotWordCharPrimitive() {
         return notWordCharPrimitive;
     }
 
-    public void setNotWordCharPrimitive(String notWordCharPrimitive) {
-        this.notWordCharPrimitive = notWordCharPrimitive;
+    public void setNotWordCharPrimitive(String _v) {
+        this.notWordCharPrimitive =_v;
     }
 
     public String getPrimitiveKeyWord() {
         return primitiveKeyWord;
     }
 
-    public void setPrimitiveKeyWord(String primitiveKeyWord) {
-        this.primitiveKeyWord = primitiveKeyWord;
+    public void setPrimitiveKeyWord(String _v) {
+        this.primitiveKeyWord =_v;
     }
 
     public String getDigitFirstPrimitive() {
         return digitFirstPrimitive;
     }
 
-    public void setDigitFirstPrimitive(String digitFirstPrimitive) {
-        this.digitFirstPrimitive = digitFirstPrimitive;
+    public void setDigitFirstPrimitive(String _v) {
+        this.digitFirstPrimitive =_v;
     }
 
     public String getEmptyRefType() {
         return emptyRefType;
     }
 
-    public void setEmptyRefType(String emptyRefType) {
-        this.emptyRefType = emptyRefType;
+    public void setEmptyRefType(String _v) {
+        this.emptyRefType =_v;
     }
 
     public String getEmptyRefTypeIn() {
         return emptyRefTypeIn;
     }
 
-    public void setEmptyRefTypeIn(String emptyRefTypeIn) {
-        this.emptyRefTypeIn = emptyRefTypeIn;
+    public void setEmptyRefTypeIn(String _v) {
+        this.emptyRefTypeIn =_v;
     }
 
     public String getNotWordCharRefType() {
         return notWordCharRefType;
     }
 
-    public void setNotWordCharRefType(String notWordCharRefType) {
-        this.notWordCharRefType = notWordCharRefType;
+    public void setNotWordCharRefType(String _v) {
+        this.notWordCharRefType =_v;
     }
 
     public String getRefTypeKeyWord() {
         return refTypeKeyWord;
     }
 
-    public void setRefTypeKeyWord(String refTypeKeyWord) {
-        this.refTypeKeyWord = refTypeKeyWord;
+    public void setRefTypeKeyWord(String _v) {
+        this.refTypeKeyWord =_v;
     }
 
     public String getRefTypePrimitive() {
         return refTypePrimitive;
     }
 
-    public void setRefTypePrimitive(String refTypePrimitive) {
-        this.refTypePrimitive = refTypePrimitive;
+    public void setRefTypePrimitive(String _v) {
+        this.refTypePrimitive =_v;
     }
 
     public String getDigitFirstRefType() {
         return digitFirstRefType;
     }
 
-    public void setDigitFirstRefType(String digitFirstRefType) {
-        this.digitFirstRefType = digitFirstRefType;
+    public void setDigitFirstRefType(String _v) {
+        this.digitFirstRefType =_v;
     }
 
     public String getEmptyPkgRefType() {
         return emptyPkgRefType;
     }
 
-    public void setEmptyPkgRefType(String emptyPkgRefType) {
-        this.emptyPkgRefType = emptyPkgRefType;
+    public void setEmptyPkgRefType(String _v) {
+        this.emptyPkgRefType =_v;
     }
 
     public String getDefaultPkgRefType() {
         return defaultPkgRefType;
     }
 
-    public void setDefaultPkgRefType(String defaultPkgRefType) {
-        this.defaultPkgRefType = defaultPkgRefType;
+    public void setDefaultPkgRefType(String _v) {
+        this.defaultPkgRefType =_v;
     }
 
     public String getDefaultPkgNoMatch() {
         return defaultPkgNoMatch;
     }
 
-    public void setDefaultPkgNoMatch(String defaultPkgNoMatch) {
-        this.defaultPkgNoMatch = defaultPkgNoMatch;
+    public void setDefaultPkgNoMatch(String _v) {
+        this.defaultPkgNoMatch =_v;
     }
 
     public String getEmptyMethod() {
         return emptyMethod;
     }
 
-    public void setEmptyMethod(String emptyMethod) {
-        this.emptyMethod = emptyMethod;
+    public void setEmptyMethod(String _v) {
+        this.emptyMethod =_v;
     }
 
     public String getNotWordCharMethod() {
         return notWordCharMethod;
     }
 
-    public void setNotWordCharMethod(String notWordCharMethod) {
-        this.notWordCharMethod = notWordCharMethod;
+    public void setNotWordCharMethod(String _v) {
+        this.notWordCharMethod =_v;
     }
 
     public String getMethodKeyWord() {
         return methodKeyWord;
     }
 
-    public void setMethodKeyWord(String methodKeyWord) {
-        this.methodKeyWord = methodKeyWord;
+    public void setMethodKeyWord(String _v) {
+        this.methodKeyWord =_v;
     }
 
     public String getMethodPrimitive() {
         return methodPrimitive;
     }
 
-    public void setMethodPrimitive(String methodPrimitive) {
-        this.methodPrimitive = methodPrimitive;
+    public void setMethodPrimitive(String _v) {
+        this.methodPrimitive =_v;
     }
 
     public String getDigitFirstMethod() {
         return digitFirstMethod;
     }
 
-    public void setDigitFirstMethod(String digitFirstMethod) {
-        this.digitFirstMethod = digitFirstMethod;
+    public void setDigitFirstMethod(String _v) {
+        this.digitFirstMethod =_v;
     }
 
     public String getEmptyField() {
         return emptyField;
     }
 
-    public void setEmptyField(String emptyField) {
-        this.emptyField = emptyField;
+    public void setEmptyField(String _v) {
+        this.emptyField =_v;
     }
 
     public String getNotWordCharField() {
         return notWordCharField;
     }
 
-    public void setNotWordCharField(String notWordCharField) {
-        this.notWordCharField = notWordCharField;
+    public void setNotWordCharField(String _v) {
+        this.notWordCharField =_v;
     }
 
     public String getFieldKeyWord() {
         return fieldKeyWord;
     }
 
-    public void setFieldKeyWord(String fieldKeyWord) {
-        this.fieldKeyWord = fieldKeyWord;
+    public void setFieldKeyWord(String _v) {
+        this.fieldKeyWord =_v;
     }
 
     public String getFieldPrimitive() {
         return fieldPrimitive;
     }
 
-    public void setFieldPrimitive(String fieldPrimitive) {
-        this.fieldPrimitive = fieldPrimitive;
+    public void setFieldPrimitive(String _v) {
+        this.fieldPrimitive =_v;
     }
 
     public String getDigitFirstField() {
         return digitFirstField;
     }
 
-    public void setDigitFirstField(String digitFirstField) {
-        this.digitFirstField = digitFirstField;
+    public void setDigitFirstField(String _v) {
+        this.digitFirstField =_v;
     }
 
     public String getEmptyVarType() {
         return emptyVarType;
     }
 
-    public void setEmptyVarType(String emptyVarType) {
-        this.emptyVarType = emptyVarType;
+    public void setEmptyVarType(String _v) {
+        this.emptyVarType =_v;
     }
 
     public String getNotWordCharVarType() {
         return notWordCharVarType;
     }
 
-    public void setNotWordCharVarType(String notWordCharVarType) {
-        this.notWordCharVarType = notWordCharVarType;
+    public void setNotWordCharVarType(String _v) {
+        this.notWordCharVarType =_v;
     }
 
     public String getVarTypeKeyWord() {
         return varTypeKeyWord;
     }
 
-    public void setVarTypeKeyWord(String varTypeKeyWord) {
-        this.varTypeKeyWord = varTypeKeyWord;
+    public void setVarTypeKeyWord(String _v) {
+        this.varTypeKeyWord =_v;
     }
 
     public String getVarTypePrimitive() {
         return varTypePrimitive;
     }
 
-    public void setVarTypePrimitive(String varTypePrimitive) {
-        this.varTypePrimitive = varTypePrimitive;
+    public void setVarTypePrimitive(String _v) {
+        this.varTypePrimitive =_v;
     }
 
     public String getDigitFirstVarType() {
         return digitFirstVarType;
     }
 
-    public void setDigitFirstVarType(String digitFirstVarType) {
-        this.digitFirstVarType = digitFirstVarType;
+    public void setDigitFirstVarType(String _v) {
+        this.digitFirstVarType =_v;
     }
 
     public String getDuplicateKeyWord() {
         return duplicateKeyWord;
     }
 
-    public void setDuplicateKeyWord(String duplicateKeyWord) {
-        this.duplicateKeyWord = duplicateKeyWord;
+    public void setDuplicateKeyWord(String _v) {
+        this.duplicateKeyWord =_v;
     }
 
     public String getDuplicateStringWord() {
         return duplicateStringWord;
     }
 
-    public void setDuplicateStringWord(String duplicateStringWord) {
-        this.duplicateStringWord = duplicateStringWord;
+    public void setDuplicateStringWord(String _v) {
+        this.duplicateStringWord =_v;
     }
 
     public String getDuplicateStarting() {
         return duplicateStarting;
     }
 
-    public void setDuplicateStarting(String duplicateStarting) {
-        this.duplicateStarting = duplicateStarting;
+    public void setDuplicateStarting(String _v) {
+        this.duplicateStarting =_v;
     }
 
     public String getDuplicateStartingUni() {
         return duplicateStartingUni;
     }
 
-    public void setDuplicateStartingUni(String duplicateStartingUni) {
-        this.duplicateStartingUni = duplicateStartingUni;
+    public void setDuplicateStartingUni(String _v) {
+        this.duplicateStartingUni =_v;
     }
 
     public String getDuplicateNumberWord() {
         return duplicateNumberWord;
     }
 
-    public void setDuplicateNumberWord(String duplicateNumberWord) {
-        this.duplicateNumberWord = duplicateNumberWord;
+    public void setDuplicateNumberWord(String _v) {
+        this.duplicateNumberWord =_v;
     }
 
     public String getDuplicateStartingNb() {
         return duplicateStartingNb;
     }
 
-    public void setDuplicateStartingNb(String duplicateStartingNb) {
-        this.duplicateStartingNb = duplicateStartingNb;
+    public void setDuplicateStartingNb(String _v) {
+        this.duplicateStartingNb =_v;
     }
 
     public String getDuplicatePrimtive() {
         return duplicatePrimtive;
     }
 
-    public void setDuplicatePrimtive(String duplicatePrimtive) {
-        this.duplicatePrimtive = duplicatePrimtive;
+    public void setDuplicatePrimtive(String _v) {
+        this.duplicatePrimtive =_v;
     }
 
     public String getDuplicateRefType() {
         return duplicateRefType;
     }
 
-    public void setDuplicateRefType(String duplicateRefType) {
-        this.duplicateRefType = duplicateRefType;
+    public void setDuplicateRefType(String _v) {
+        this.duplicateRefType =_v;
     }
 
     public String getDuplicateMethod() {
         return duplicateMethod;
     }
 
-    public void setDuplicateMethod(String duplicateMethod) {
-        this.duplicateMethod = duplicateMethod;
+    public void setDuplicateMethod(String _v) {
+        this.duplicateMethod =_v;
     }
 
     public String getDuplicateField() {
         return duplicateField;
     }
 
-    public void setDuplicateField(String duplicateField) {
-        this.duplicateField = duplicateField;
+    public void setDuplicateField(String _v) {
+        this.duplicateField =_v;
     }
 
     public String getDuplicateVarType() {
         return duplicateVarType;
     }
 
-    public void setDuplicateVarType(String duplicateVarType) {
-        this.duplicateVarType = duplicateVarType;
+    public void setDuplicateVarType(String _v) {
+        this.duplicateVarType =_v;
     }
 
     public String getDuplicateMergedMethod() {
         return duplicateMergedMethod;
     }
 
-    public void setDuplicateMergedMethod(String duplicateMergedMethod) {
-        this.duplicateMergedMethod = duplicateMergedMethod;
+    public void setDuplicateMergedMethod(String _v) {
+        this.duplicateMergedMethod =_v;
     }
 
     public String getAbstractMethodBody() {
         return abstractMethodBody;
     }
 
-    public void setAbstractMethodBody(String abstractMethodBody) {
-        this.abstractMethodBody = abstractMethodBody;
+    public void setAbstractMethodBody(String _v) {
+        this.abstractMethodBody =_v;
     }
 
     public String getAbstractMethodConc() {
         return abstractMethodConc;
     }
 
-    public void setAbstractMethodConc(String abstractMethodConc) {
-        this.abstractMethodConc = abstractMethodConc;
+    public void setAbstractMethodConc(String _v) {
+        this.abstractMethodConc =_v;
     }
 
     public String getAbstractMethodImpl() {
         return abstractMethodImpl;
     }
 
-    public void setAbstractMethodImpl(String abstractMethodImpl) {
-        this.abstractMethodImpl = abstractMethodImpl;
+    public void setAbstractMethodImpl(String _v) {
+        this.abstractMethodImpl =_v;
     }
 
     public String getAbstractMethodRef() {
         return abstractMethodRef;
     }
 
-    public void setAbstractMethodRef(String abstractMethodRef) {
-        this.abstractMethodRef = abstractMethodRef;
+    public void setAbstractMethodRef(String _v) {
+        this.abstractMethodRef =_v;
     }
 
     public String getInaccessibleType() {
         return inaccessibleType;
     }
 
-    public void setInaccessibleType(String inaccessibleType) {
-        this.inaccessibleType = inaccessibleType;
+    public void setInaccessibleType(String _v) {
+        this.inaccessibleType =_v;
     }
 
     public String getUnexpectedType() {
         return unexpectedType;
     }
 
-    public void setUnexpectedType(String unexpectedType) {
-        this.unexpectedType = unexpectedType;
+    public void setUnexpectedType(String _v) {
+        this.unexpectedType =_v;
     }
 
     public String getUnexpectedRetType() {
         return unexpectedRetType;
     }
 
-    public void setUnexpectedRetType(String unexpectedRetType) {
-        this.unexpectedRetType = unexpectedRetType;
+    public void setUnexpectedRetType(String _v) {
+        this.unexpectedRetType =_v;
     }
 
     public String getMethodsAccesses() {
         return methodsAccesses;
     }
 
-    public void setMethodsAccesses(String methodsAccesses) {
-        this.methodsAccesses = methodsAccesses;
+    public void setMethodsAccesses(String _v) {
+        this.methodsAccesses =_v;
     }
 
     public String getEmptyPackage() {
         return emptyPackage;
     }
 
-    public void setEmptyPackage(String emptyPackage) {
-        this.emptyPackage = emptyPackage;
+    public void setEmptyPackage(String _v) {
+        this.emptyPackage =_v;
     }
 
     public String getEmptyPartClassName() {
         return emptyPartClassName;
     }
 
-    public void setEmptyPartClassName(String emptyPartClassName) {
-        this.emptyPartClassName = emptyPartClassName;
+    public void setEmptyPartClassName(String _v) {
+        this.emptyPartClassName =_v;
     }
 
     public String getBadPartClassName() {
         return badPartClassName;
     }
 
-    public void setBadPartClassName(String badPartClassName) {
-        this.badPartClassName = badPartClassName;
+    public void setBadPartClassName(String _v) {
+        this.badPartClassName =_v;
     }
 
     public String getBadPartVarClassName() {
         return badPartVarClassName;
     }
 
-    public void setBadPartVarClassName(String badPartVarClassName) {
-        this.badPartVarClassName = badPartVarClassName;
+    public void setBadPartVarClassName(String _v) {
+        this.badPartVarClassName =_v;
     }
 
     public String getCallCtorEnd() {
         return callCtorEnd;
     }
 
-    public void setCallCtorEnd(String callCtorEnd) {
-        this.callCtorEnd = callCtorEnd;
+    public void setCallCtorEnd(String _v) {
+        this.callCtorEnd =_v;
     }
 
     public String getCallCtor() {
         return callCtor;
     }
 
-    public void setCallCtor(String callCtor) {
-        this.callCtor = callCtor;
+    public void setCallCtor(String _v) {
+        this.callCtor =_v;
     }
 
     public String getCallCtorBeforeBlock() {
         return callCtorBeforeBlock;
     }
 
-    public void setCallCtorBeforeBlock(String callCtorBeforeBlock) {
-        this.callCtorBeforeBlock = callCtorBeforeBlock;
+    public void setCallCtorBeforeBlock(String _v) {
+        this.callCtorBeforeBlock =_v;
     }
 
     public String getCallCtorFirstLine() {
         return callCtorFirstLine;
     }
 
-    public void setCallCtorFirstLine(String callCtorFirstLine) {
-        this.callCtorFirstLine = callCtorFirstLine;
+    public void setCallCtorFirstLine(String _v) {
+        this.callCtorFirstLine =_v;
     }
 
     public String getCallCtorIntFromSuperInt() {
         return callCtorIntFromSuperInt;
     }
 
-    public void setCallCtorIntFromSuperInt(String callCtorIntFromSuperInt) {
-        this.callCtorIntFromSuperInt = callCtorIntFromSuperInt;
+    public void setCallCtorIntFromSuperInt(String _v) {
+        this.callCtorIntFromSuperInt =_v;
     }
 
     public String getCallCtorIntNotFromInt() {
         return callCtorIntNotFromInt;
     }
 
-    public void setCallCtorIntNotFromInt(String callCtorIntNotFromInt) {
-        this.callCtorIntNotFromInt = callCtorIntNotFromInt;
+    public void setCallCtorIntNotFromInt(String _v) {
+        this.callCtorIntNotFromInt =_v;
     }
 
     public String getCallCtorIntAfterSuperThis() {
         return callCtorIntAfterSuperThis;
     }
 
-    public void setCallCtorIntAfterSuperThis(String callCtorIntAfterSuperThis) {
-        this.callCtorIntAfterSuperThis = callCtorIntAfterSuperThis;
+    public void setCallCtorIntAfterSuperThis(String _v) {
+        this.callCtorIntAfterSuperThis =_v;
     }
 
     public String getCallCtorIntInherits() {
         return callCtorIntInherits;
     }
 
-    public void setCallCtorIntInherits(String callCtorIntInherits) {
-        this.callCtorIntInherits = callCtorIntInherits;
+    public void setCallCtorIntInherits(String _v) {
+        this.callCtorIntInherits =_v;
     }
 
     public String getCallCtorSuperClassEnumSingleton() {
         return callCtorSuperClassEnumSingleton;
     }
 
-    public void setCallCtorSuperClassEnumSingleton(String callCtorSuperClassEnumSingleton) {
-        this.callCtorSuperClassEnumSingleton = callCtorSuperClassEnumSingleton;
+    public void setCallCtorSuperClassEnumSingleton(String _v) {
+        this.callCtorSuperClassEnumSingleton =_v;
     }
 
     public String getAnnotFieldNotUniq() {
         return annotFieldNotUniq;
     }
 
-    public void setAnnotFieldNotUniq(String annotFieldNotUniq) {
-        this.annotFieldNotUniq = annotFieldNotUniq;
+    public void setAnnotFieldNotUniq(String _v) {
+        this.annotFieldNotUniq =_v;
     }
 
     public String getAnnotFieldMust() {
         return annotFieldMust;
     }
 
-    public void setAnnotFieldMust(String annotFieldMust) {
-        this.annotFieldMust = annotFieldMust;
+    public void setAnnotFieldMust(String _v) {
+        this.annotFieldMust =_v;
     }
 
     public String getDupSuppliedAnnotField() {
         return dupSuppliedAnnotField;
     }
 
-    public void setDupSuppliedAnnotField(String dupSuppliedAnnotField) {
-        this.dupSuppliedAnnotField = dupSuppliedAnnotField;
+    public void setDupSuppliedAnnotField(String _v) {
+        this.dupSuppliedAnnotField =_v;
     }
 
     public String getBadExpression() {
         return badExpression;
     }
 
-    public void setBadExpression(String badExpression) {
-        this.badExpression = badExpression;
+    public void setBadExpression(String _v) {
+        this.badExpression =_v;
     }
 
     public String getBadFieldName() {
         return badFieldName;
     }
 
-    public void setBadFieldName(String badFieldName) {
-        this.badFieldName = badFieldName;
+    public void setBadFieldName(String _v) {
+        this.badFieldName =_v;
     }
 
     public String getNotRetrievedFields() {
         return notRetrievedFields;
     }
 
-    public void setNotRetrievedFields(String notRetrievedFields) {
-        this.notRetrievedFields = notRetrievedFields;
+    public void setNotRetrievedFields(String _v) {
+        this.notRetrievedFields =_v;
     }
 
     public String getBadNbFormat() {
         return badNbFormat;
     }
 
-    public void setBadNbFormat(String badNbFormat) {
-        this.badNbFormat = badNbFormat;
+    public void setBadNbFormat(String _v) {
+        this.badNbFormat =_v;
     }
 
     public String getBadCharFormat() {
         return badCharFormat;
     }
 
-    public void setBadCharFormat(String badCharFormat) {
-        this.badCharFormat = badCharFormat;
+    public void setBadCharFormat(String _v) {
+        this.badCharFormat =_v;
     }
 
     public String getBadImplicitCast() {
         return badImplicitCast;
     }
 
-    public void setBadImplicitCast(String badImplicitCast) {
-        this.badImplicitCast = badImplicitCast;
+    public void setBadImplicitCast(String _v) {
+        this.badImplicitCast =_v;
     }
 
     public String getNotPrimitiveWrapper() {
         return notPrimitiveWrapper;
     }
 
-    public void setNotPrimitiveWrapper(String notPrimitiveWrapper) {
-        this.notPrimitiveWrapper = notPrimitiveWrapper;
+    public void setNotPrimitiveWrapper(String _v) {
+        this.notPrimitiveWrapper =_v;
     }
 
     public String getVoidType() {
         return voidType;
     }
 
-    public void setVoidType(String voidType) {
-        this.voidType = voidType;
+    public void setVoidType(String _v) {
+        this.voidType =_v;
     }
 
     public String getBadIndexInParser() {
         return badIndexInParser;
     }
 
-    public void setBadIndexInParser(String badIndexInParser) {
-        this.badIndexInParser = badIndexInParser;
+    public void setBadIndexInParser(String _v) {
+        this.badIndexInParser =_v;
     }
 
     public String getIllegalCharacter() {
         return illegalCharacter;
     }
 
-    public void setIllegalCharacter(String illegalCharacter) {
-        this.illegalCharacter = illegalCharacter;
+    public void setIllegalCharacter(String _v) {
+        this.illegalCharacter =_v;
     }
 
     public String getCallIntInherits() {
         return callIntInherits;
     }
 
-    public void setCallIntInherits(String callIntInherits) {
-        this.callIntInherits = callIntInherits;
+    public void setCallIntInherits(String _v) {
+        this.callIntInherits =_v;
     }
 
     public String getCallIntNoNeed() {
         return callIntNoNeed;
     }
 
-    public void setCallIntNoNeed(String callIntNoNeed) {
-        this.callIntNoNeed = callIntNoNeed;
+    public void setCallIntNoNeed(String _v) {
+        this.callIntNoNeed =_v;
     }
 
     public String getCallIntNoNeedType() {
         return callIntNoNeedType;
     }
 
-    public void setCallIntNoNeedType(String callIntNoNeedType) {
-        this.callIntNoNeedType = callIntNoNeedType;
+    public void setCallIntNoNeedType(String _v) {
+        this.callIntNoNeedType =_v;
     }
 
     public String getCallIntNeedType() {
         return callIntNeedType;
     }
 
-    public void setCallIntNeedType(String callIntNeedType) {
-        this.callIntNeedType = callIntNeedType;
+    public void setCallIntNeedType(String _v) {
+        this.callIntNeedType =_v;
     }
 
     public String getCallIntOnly() {
         return callIntOnly;
     }
 
-    public void setCallIntOnly(String callIntOnly) {
-        this.callIntOnly = callIntOnly;
+    public void setCallIntOnly(String _v) {
+        this.callIntOnly =_v;
     }
 
     public String getBadInheritsType() {
         return badInheritsType;
     }
 
-    public void setBadInheritsType(String badInheritsType) {
-        this.badInheritsType = badInheritsType;
+    public void setBadInheritsType(String _v) {
+        this.badInheritsType =_v;
     }
 
     public String getBadInheritsTypeInn() {
         return badInheritsTypeInn;
     }
 
-    public void setBadInheritsTypeInn(String badInheritsTypeInn) {
-        this.badInheritsTypeInn = badInheritsTypeInn;
+    public void setBadInheritsTypeInn(String _v) {
+        this.badInheritsTypeInn =_v;
     }
 
     public String getBadInheritsTypeAsInn() {
         return badInheritsTypeAsInn;
     }
 
-    public void setBadInheritsTypeAsInn(String badInheritsTypeAsInn) {
-        this.badInheritsTypeAsInn = badInheritsTypeAsInn;
+    public void setBadInheritsTypeAsInn(String _v) {
+        this.badInheritsTypeAsInn =_v;
     }
 
     public String getBadInheritsTypeInt() {
         return badInheritsTypeInt;
     }
 
-    public void setBadInheritsTypeInt(String badInheritsTypeInt) {
-        this.badInheritsTypeInt = badInheritsTypeInt;
+    public void setBadInheritsTypeInt(String _v) {
+        this.badInheritsTypeInt =_v;
     }
 
     public String getFinalType() {
         return finalType;
     }
 
-    public void setFinalType(String finalType) {
-        this.finalType = finalType;
+    public void setFinalType(String _v) {
+        this.finalType =_v;
     }
 
     public String getDuplicateSuper() {
         return duplicateSuper;
     }
 
-    public void setDuplicateSuper(String duplicateSuper) {
-        this.duplicateSuper = duplicateSuper;
+    public void setDuplicateSuper(String _v) {
+        this.duplicateSuper =_v;
     }
 
     public String getReservedType() {
         return reservedType;
     }
 
-    public void setReservedType(String reservedType) {
-        this.reservedType = reservedType;
+    public void setReservedType(String _v) {
+        this.reservedType =_v;
     }
 
     public String getSuperClass() {
         return superClass;
     }
 
-    public void setSuperClass(String superClass) {
-        this.superClass = superClass;
+    public void setSuperClass(String _v) {
+        this.superClass =_v;
     }
 
     public String getUnknownSuperType() {
         return unknownSuperType;
     }
 
-    public void setUnknownSuperType(String unknownSuperType) {
-        this.unknownSuperType = unknownSuperType;
+    public void setUnknownSuperType(String _v) {
+        this.unknownSuperType =_v;
     }
 
     public String getCyclicInherits() {
         return cyclicInherits;
     }
 
-    public void setCyclicInherits(String cyclicInherits) {
-        this.cyclicInherits = cyclicInherits;
+    public void setCyclicInherits(String _v) {
+        this.cyclicInherits =_v;
     }
 
     public String getAnnotationParam() {
         return annotationParam;
     }
 
-    public void setAnnotationParam(String annotationParam) {
-        this.annotationParam = annotationParam;
+    public void setAnnotationParam(String _v) {
+        this.annotationParam =_v;
     }
 
     public String getCyclicMapping() {
         return cyclicMapping;
     }
 
-    public void setCyclicMapping(String cyclicMapping) {
-        this.cyclicMapping = cyclicMapping;
+    public void setCyclicMapping(String _v) {
+        this.cyclicMapping =_v;
     }
 
     public String getAbsMapping() {
         return absMapping;
     }
 
-    public void setAbsMapping(String absMapping) {
-        this.absMapping = absMapping;
+    public void setAbsMapping(String _v) {
+        this.absMapping =_v;
     }
 
     public String getFinalMapping() {
         return finalMapping;
     }
 
-    public void setFinalMapping(String finalMapping) {
-        this.finalMapping = finalMapping;
+    public void setFinalMapping(String _v) {
+        this.finalMapping =_v;
     }
 
     public String getMustCallIntCtor() {
         return mustCallIntCtor;
     }
 
-    public void setMustCallIntCtor(String mustCallIntCtor) {
-        this.mustCallIntCtor = mustCallIntCtor;
+    public void setMustCallIntCtor(String _v) {
+        this.mustCallIntCtor =_v;
     }
 
     public String getMustNotCallIntCtorAfterThis() {
         return mustNotCallIntCtorAfterThis;
     }
 
-    public void setMustNotCallIntCtorAfterThis(String mustNotCallIntCtorAfterThis) {
-        this.mustNotCallIntCtorAfterThis = mustNotCallIntCtorAfterThis;
+    public void setMustNotCallIntCtorAfterThis(String _v) {
+        this.mustNotCallIntCtorAfterThis =_v;
     }
 
     public String getMustCallIntCtorNeed() {
         return mustCallIntCtorNeed;
     }
 
-    public void setMustCallIntCtorNeed(String mustCallIntCtorNeed) {
-        this.mustCallIntCtorNeed = mustCallIntCtorNeed;
+    public void setMustCallIntCtorNeed(String _v) {
+        this.mustCallIntCtorNeed =_v;
     }
 
     public String getMustCallIntCtorNotNeed() {
         return mustCallIntCtorNotNeed;
     }
 
-    public void setMustCallIntCtorNotNeed(String mustCallIntCtorNotNeed) {
-        this.mustCallIntCtorNotNeed = mustCallIntCtorNotNeed;
+    public void setMustCallIntCtorNotNeed(String _v) {
+        this.mustCallIntCtorNotNeed =_v;
     }
 
     public String getBadLabel() {
         return badLabel;
     }
 
-    public void setBadLabel(String badLabel) {
-        this.badLabel = badLabel;
+    public void setBadLabel(String _v) {
+        this.badLabel =_v;
     }
 
     public String getDuplicatedLabel() {
         return duplicatedLabel;
     }
 
-    public void setDuplicatedLabel(String duplicatedLabel) {
-        this.duplicatedLabel = duplicatedLabel;
+    public void setDuplicatedLabel(String _v) {
+        this.duplicatedLabel =_v;
     }
 
     public String getBadMethodName() {
         return badMethodName;
     }
 
-    public void setBadMethodName(String badMethodName) {
-        this.badMethodName = badMethodName;
+    public void setBadMethodName(String _v) {
+        this.badMethodName =_v;
     }
 
     public String getBadOperatorName() {
         return badOperatorName;
     }
 
-    public void setBadOperatorName(String badOperatorName) {
-        this.badOperatorName = badOperatorName;
+    public void setBadOperatorName(String _v) {
+        this.badOperatorName =_v;
     }
 
     public String getBadAccess() {
         return badAccess;
     }
 
-    public void setBadAccess(String badAccess) {
-        this.badAccess = badAccess;
+    public void setBadAccess(String _v) {
+        this.badAccess =_v;
     }
 
     public String getBadReturnType() {
         return badReturnType;
     }
 
-    public void setBadReturnType(String badReturnType) {
-        this.badReturnType = badReturnType;
+    public void setBadReturnType(String _v) {
+        this.badReturnType =_v;
     }
 
     public String getBadParams() {
         return badParams;
     }
 
-    public void setBadParams(String badParams) {
-        this.badParams = badParams;
+    public void setBadParams(String _v) {
+        this.badParams =_v;
     }
 
     public String getBadMethodModifier() {
         return badMethodModifier;
     }
 
-    public void setBadMethodModifier(String badMethodModifier) {
-        this.badMethodModifier = badMethodModifier;
+    public void setBadMethodModifier(String _v) {
+        this.badMethodModifier =_v;
     }
 
     public String getBadMethodVararg() {
         return badMethodVararg;
     }
 
-    public void setBadMethodVararg(String badMethodVararg) {
-        this.badMethodVararg = badMethodVararg;
+    public void setBadMethodVararg(String _v) {
+        this.badMethodVararg =_v;
     }
 
     public String getBadIndexerParams() {
         return badIndexerParams;
     }
 
-    public void setBadIndexerParams(String badIndexerParams) {
-        this.badIndexerParams = badIndexerParams;
+    public void setBadIndexerParams(String _v) {
+        this.badIndexerParams =_v;
     }
 
     public String getBadIndexerModifier() {
         return badIndexerModifier;
     }
 
-    public void setBadIndexerModifier(String badIndexerModifier) {
-        this.badIndexerModifier = badIndexerModifier;
+    public void setBadIndexerModifier(String _v) {
+        this.badIndexerModifier =_v;
     }
 
     public String getBadIndexerModifiers() {
         return badIndexerModifiers;
     }
 
-    public void setBadIndexerModifiers(String badIndexerModifiers) {
-        this.badIndexerModifiers = badIndexerModifiers;
+    public void setBadIndexerModifiers(String _v) {
+        this.badIndexerModifiers =_v;
     }
 
     public String getBadIndexerAccesses() {
         return badIndexerAccesses;
     }
 
-    public void setBadIndexerAccesses(String badIndexerAccesses) {
-        this.badIndexerAccesses = badIndexerAccesses;
+    public void setBadIndexerAccesses(String _v) {
+        this.badIndexerAccesses =_v;
     }
 
     public String getBadIndexerPairGet() {
         return badIndexerPairGet;
     }
 
-    public void setBadIndexerPairGet(String badIndexerPairGet) {
-        this.badIndexerPairGet = badIndexerPairGet;
+    public void setBadIndexerPairGet(String _v) {
+        this.badIndexerPairGet =_v;
     }
 
     public String getBadIndexerPairSet() {
         return badIndexerPairSet;
     }
 
-    public void setBadIndexerPairSet(String badIndexerPairSet) {
-        this.badIndexerPairSet = badIndexerPairSet;
+    public void setBadIndexerPairSet(String _v) {
+        this.badIndexerPairSet =_v;
     }
 
     public String getDuplicateCustomMethod() {
         return duplicateCustomMethod;
     }
 
-    public void setDuplicateCustomMethod(String duplicateCustomMethod) {
-        this.duplicateCustomMethod = duplicateCustomMethod;
+    public void setDuplicateCustomMethod(String _v) {
+        this.duplicateCustomMethod =_v;
     }
 
     public String getReservedCustomMethod() {
         return reservedCustomMethod;
     }
 
-    public void setReservedCustomMethod(String reservedCustomMethod) {
-        this.reservedCustomMethod = reservedCustomMethod;
+    public void setReservedCustomMethod(String _v) {
+        this.reservedCustomMethod =_v;
     }
 
     public String getDuplicateIndexer() {
         return duplicateIndexer;
     }
 
-    public void setDuplicateIndexer(String duplicateIndexer) {
-        this.duplicateIndexer = duplicateIndexer;
+    public void setDuplicateIndexer(String _v) {
+        this.duplicateIndexer =_v;
     }
 
     public String getDuplicateOperator() {
         return duplicateOperator;
     }
 
-    public void setDuplicateOperator(String duplicateOperator) {
-        this.duplicateOperator = duplicateOperator;
+    public void setDuplicateOperator(String _v) {
+        this.duplicateOperator =_v;
     }
 
     public String getFunctionalApplyNbDiff() {
         return functionalApplyNbDiff;
     }
 
-    public void setFunctionalApplyNbDiff(String functionalApplyNbDiff) {
-        this.functionalApplyNbDiff = functionalApplyNbDiff;
+    public void setFunctionalApplyNbDiff(String _v) {
+        this.functionalApplyNbDiff =_v;
     }
 
     public String getFunctionalApplyOnly() {
         return functionalApplyOnly;
     }
 
-    public void setFunctionalApplyOnly(String functionalApplyOnly) {
-        this.functionalApplyOnly = functionalApplyOnly;
+    public void setFunctionalApplyOnly(String _v) {
+        this.functionalApplyOnly =_v;
     }
 
     public String getOperatorNbDiff() {
         return operatorNbDiff;
     }
 
-    public void setOperatorNbDiff(String operatorNbDiff) {
-        this.operatorNbDiff = operatorNbDiff;
+    public void setOperatorNbDiff(String _v) {
+        this.operatorNbDiff =_v;
     }
 
     public String getSplitComa() {
         return splitComa;
     }
 
-    public void setSplitComa(String splitComa) {
-        this.splitComa = splitComa;
+    public void setSplitComa(String _v) {
+        this.splitComa =_v;
     }
 
     public String getSplitComaLow() {
         return splitComaLow;
     }
 
-    public void setSplitComaLow(String splitComaLow) {
-        this.splitComaLow = splitComaLow;
+    public void setSplitComaLow(String _v) {
+        this.splitComaLow =_v;
     }
 
     public String getSplitDiff() {
         return splitDiff;
     }
 
-    public void setSplitDiff(String splitDiff) {
-        this.splitDiff = splitDiff;
+    public void setSplitDiff(String _v) {
+        this.splitDiff =_v;
     }
 
     public String getBadDotted() {
         return badDotted;
     }
 
-    public void setBadDotted(String badDotted) {
-        this.badDotted = badDotted;
+    public void setBadDotted(String _v) {
+        this.badDotted =_v;
     }
 
     public String getBadParamName() {
         return badParamName;
     }
 
-    public void setBadParamName(String badParamName) {
-        this.badParamName = badParamName;
+    public void setBadParamName(String _v) {
+        this.badParamName =_v;
     }
 
     public String getReservedParamName() {
         return reservedParamName;
     }
 
-    public void setReservedParamName(String reservedParamName) {
-        this.reservedParamName = reservedParamName;
+    public void setReservedParamName(String _v) {
+        this.reservedParamName =_v;
     }
 
     public String getDuplicatedParamName() {
         return duplicatedParamName;
     }
 
-    public void setDuplicatedParamName(String duplicatedParamName) {
-        this.duplicatedParamName = duplicatedParamName;
+    public void setDuplicatedParamName(String _v) {
+        this.duplicatedParamName =_v;
     }
 
     public String getBadReturnTypeInherit() {
         return badReturnTypeInherit;
     }
 
-    public void setBadReturnTypeInherit(String badReturnTypeInherit) {
-        this.badReturnTypeInherit = badReturnTypeInherit;
+    public void setBadReturnTypeInherit(String _v) {
+        this.badReturnTypeInherit =_v;
     }
 
     public String getBadReturnTypeIndexer() {
         return badReturnTypeIndexer;
     }
 
-    public void setBadReturnTypeIndexer(String badReturnTypeIndexer) {
-        this.badReturnTypeIndexer = badReturnTypeIndexer;
+    public void setBadReturnTypeIndexer(String _v) {
+        this.badReturnTypeIndexer =_v;
     }
 
     public String getDuplicatedOverriding() {
         return duplicatedOverriding;
     }
 
-    public void setDuplicatedOverriding(String duplicatedOverriding) {
-        this.duplicatedOverriding = duplicatedOverriding;
+    public void setDuplicatedOverriding(String _v) {
+        this.duplicatedOverriding =_v;
     }
 
     public String getTwoFinal() {
         return twoFinal;
     }
 
-    public void setTwoFinal(String twoFinal) {
-        this.twoFinal = twoFinal;
+    public void setTwoFinal(String _v) {
+        this.twoFinal =_v;
     }
 
     public String getFinalNotSubReturnType() {
         return finalNotSubReturnType;
     }
 
-    public void setFinalNotSubReturnType(String finalNotSubReturnType) {
-        this.finalNotSubReturnType = finalNotSubReturnType;
+    public void setFinalNotSubReturnType(String _v) {
+        this.finalNotSubReturnType =_v;
     }
 
     public String getTwoReturnTypes() {
         return twoReturnTypes;
     }
 
-    public void setTwoReturnTypes(String twoReturnTypes) {
-        this.twoReturnTypes = twoReturnTypes;
+    public void setTwoReturnTypes(String _v) {
+        this.twoReturnTypes =_v;
     }
 
     public String getReturnTypes() {
         return returnTypes;
     }
 
-    public void setReturnTypes(String returnTypes) {
-        this.returnTypes = returnTypes;
+    public void setReturnTypes(String _v) {
+        this.returnTypes =_v;
     }
 
     public String getBadVariableName() {
         return badVariableName;
     }
 
-    public void setBadVariableName(String badVariableName) {
-        this.badVariableName = badVariableName;
+    public void setBadVariableName(String _v) {
+        this.badVariableName =_v;
     }
 
     public String getCyclicCtorCall() {
         return cyclicCtorCall;
     }
 
-    public void setCyclicCtorCall(String cyclicCtorCall) {
-        this.cyclicCtorCall = cyclicCtorCall;
+    public void setCyclicCtorCall(String _v) {
+        this.cyclicCtorCall =_v;
     }
 
     public String getDeadCode() {
         return deadCode;
     }
 
-    public void setDeadCode(String deadCode) {
-        this.deadCode = deadCode;
+    public void setDeadCode(String _v) {
+        this.deadCode =_v;
     }
 
     public String getDuplicatedCtor() {
         return duplicatedCtor;
     }
 
-    public void setDuplicatedCtor(String duplicatedCtor) {
-        this.duplicatedCtor = duplicatedCtor;
+    public void setDuplicatedCtor(String _v) {
+        this.duplicatedCtor =_v;
     }
 
     public String getDuplicatedGenericSuperTypes() {
         return duplicatedGenericSuperTypes;
     }
 
-    public void setDuplicatedGenericSuperTypes(String duplicatedGenericSuperTypes) {
-        this.duplicatedGenericSuperTypes = duplicatedGenericSuperTypes;
+    public void setDuplicatedGenericSuperTypes(String _v) {
+        this.duplicatedGenericSuperTypes =_v;
     }
 
     public String getDuplicatedInnerType() {
         return duplicatedInnerType;
     }
 
-    public void setDuplicatedInnerType(String duplicatedInnerType) {
-        this.duplicatedInnerType = duplicatedInnerType;
+    public void setDuplicatedInnerType(String _v) {
+        this.duplicatedInnerType =_v;
     }
 
     public String getDuplicatedType() {
         return duplicatedType;
     }
 
-    public void setDuplicatedType(String duplicatedType) {
-        this.duplicatedType = duplicatedType;
+    public void setDuplicatedType(String _v) {
+        this.duplicatedType =_v;
     }
 
     public String getDuplicatedTypePrim() {
         return duplicatedTypePrim;
     }
 
-    public void setDuplicatedTypePrim(String duplicatedTypePrim) {
-        this.duplicatedTypePrim = duplicatedTypePrim;
+    public void setDuplicatedTypePrim(String _v) {
+        this.duplicatedTypePrim =_v;
     }
 
     public String getDuplicatedTypeStd() {
         return duplicatedTypeStd;
     }
 
-    public void setDuplicatedTypeStd(String duplicatedTypeStd) {
-        this.duplicatedTypeStd = duplicatedTypeStd;
+    public void setDuplicatedTypeStd(String _v) {
+        this.duplicatedTypeStd =_v;
     }
 
     public String getDuplicatedTypePkg() {
         return duplicatedTypePkg;
     }
 
-    public void setDuplicatedTypePkg(String duplicatedTypePkg) {
-        this.duplicatedTypePkg = duplicatedTypePkg;
+    public void setDuplicatedTypePkg(String _v) {
+        this.duplicatedTypePkg =_v;
     }
 
     public String getEmptyExpressionPart() {
         return emptyExpressionPart;
     }
 
-    public void setEmptyExpressionPart(String emptyExpressionPart) {
-        this.emptyExpressionPart = emptyExpressionPart;
+    public void setEmptyExpressionPart(String _v) {
+        this.emptyExpressionPart =_v;
     }
 
     public String getDoWhileNotEmpty() {
         return doWhileNotEmpty;
     }
 
-    public void setDoWhileNotEmpty(String doWhileNotEmpty) {
-        this.doWhileNotEmpty = doWhileNotEmpty;
+    public void setDoWhileNotEmpty(String _v) {
+        this.doWhileNotEmpty =_v;
     }
 
     public String getDuplicatedFinal() {
         return duplicatedFinal;
     }
 
-    public void setDuplicatedFinal(String duplicatedFinal) {
-        this.duplicatedFinal = duplicatedFinal;
+    public void setDuplicatedFinal(String _v) {
+        this.duplicatedFinal =_v;
     }
 
     public String getIllegalCtorEnum() {
         return illegalCtorEnum;
     }
 
-    public void setIllegalCtorEnum(String illegalCtorEnum) {
-        this.illegalCtorEnum = illegalCtorEnum;
+    public void setIllegalCtorEnum(String _v) {
+        this.illegalCtorEnum =_v;
     }
 
     public String getIllegalGenericSuperTypeBound() {
         return illegalGenericSuperTypeBound;
     }
 
-    public void setIllegalGenericSuperTypeBound(String illegalGenericSuperTypeBound) {
-        this.illegalGenericSuperTypeBound = illegalGenericSuperTypeBound;
+    public void setIllegalGenericSuperTypeBound(String _v) {
+        this.illegalGenericSuperTypeBound =_v;
     }
 
     public String getIllegalCtorAnnotation() {
         return illegalCtorAnnotation;
     }
 
-    public void setIllegalCtorAnnotation(String illegalCtorAnnotation) {
-        this.illegalCtorAnnotation = illegalCtorAnnotation;
+    public void setIllegalCtorAnnotation(String _v) {
+        this.illegalCtorAnnotation =_v;
     }
 
     public String getIllegalCtorAbstract() {
         return illegalCtorAbstract;
     }
 
-    public void setIllegalCtorAbstract(String illegalCtorAbstract) {
-        this.illegalCtorAbstract = illegalCtorAbstract;
+    public void setIllegalCtorAbstract(String _v) {
+        this.illegalCtorAbstract =_v;
     }
 
     public String getIllegalCtorBound() {
         return illegalCtorBound;
     }
 
-    public void setIllegalCtorBound(String illegalCtorBound) {
-        this.illegalCtorBound = illegalCtorBound;
+    public void setIllegalCtorBound(String _v) {
+        this.illegalCtorBound =_v;
     }
 
     public String getIllegalCtorArray() {
         return illegalCtorArray;
     }
 
-    public void setIllegalCtorArray(String illegalCtorArray) {
-        this.illegalCtorArray = illegalCtorArray;
+    public void setIllegalCtorArray(String _v) {
+        this.illegalCtorArray =_v;
     }
 
     public String getIllegalCtorUnknown() {
         return illegalCtorUnknown;
     }
 
-    public void setIllegalCtorUnknown(String illegalCtorUnknown) {
-        this.illegalCtorUnknown = illegalCtorUnknown;
+    public void setIllegalCtorUnknown(String _v) {
+        this.illegalCtorUnknown =_v;
     }
 
     public String getMissingAbrupt() {
         return missingAbrupt;
     }
 
-    public void setMissingAbrupt(String missingAbrupt) {
-        this.missingAbrupt = missingAbrupt;
+    public void setMissingAbrupt(String _v) {
+        this.missingAbrupt =_v;
     }
 
     public String getNotInitClass() {
         return notInitClass;
     }
 
-    public void setNotInitClass(String notInitClass) {
-        this.notInitClass = notInitClass;
+    public void setNotInitClass(String _v) {
+        this.notInitClass =_v;
     }
 
     public String getNullValue() {
         return nullValue;
     }
 
-    public void setNullValue(String nullValue) {
-        this.nullValue = nullValue;
+    public void setNullValue(String _v) {
+        this.nullValue =_v;
     }
 
     public String getBadParameTypeForId() {
         return badParameTypeForId;
     }
 
-    public void setBadParameTypeForId(String badParameTypeForId) {
-        this.badParameTypeForId = badParameTypeForId;
+    public void setBadParameTypeForId(String _v) {
+        this.badParameTypeForId =_v;
     }
 
     public String getNotResolvedOwner() {
         return notResolvedOwner;
     }
 
-    public void setNotResolvedOwner(String notResolvedOwner) {
-        this.notResolvedOwner = notResolvedOwner;
+    public void setNotResolvedOwner(String _v) {
+        this.notResolvedOwner =_v;
     }
 
     public String getUndefinedAccessibleField() {
         return undefinedAccessibleField;
     }
 
-    public void setUndefinedAccessibleField(String undefinedAccessibleField) {
-        this.undefinedAccessibleField = undefinedAccessibleField;
+    public void setUndefinedAccessibleField(String _v) {
+        this.undefinedAccessibleField =_v;
     }
 
     public String getStaticAccess() {
         return staticAccess;
     }
 
-    public void setStaticAccess(String staticAccess) {
-        this.staticAccess = staticAccess;
+    public void setStaticAccess(String _v) {
+        this.staticAccess =_v;
     }
 
     public String getStaticAccessPrev() {
         return staticAccessPrev;
     }
 
-    public void setStaticAccessPrev(String staticAccessPrev) {
-        this.staticAccessPrev = staticAccessPrev;
+    public void setStaticAccessPrev(String _v) {
+        this.staticAccessPrev =_v;
     }
 
     public String getUnassignedFinalField() {
         return unassignedFinalField;
     }
 
-    public void setUnassignedFinalField(String unassignedFinalField) {
-        this.unassignedFinalField = unassignedFinalField;
+    public void setUnassignedFinalField(String _v) {
+        this.unassignedFinalField =_v;
     }
 
     public String getUnassignedInferingType() {
         return unassignedInferingType;
     }
 
-    public void setUnassignedInferingType(String unassignedInferingType) {
-        this.unassignedInferingType = unassignedInferingType;
+    public void setUnassignedInferingType(String _v) {
+        this.unassignedInferingType =_v;
     }
 
     public String getUndefinedCtor() {
         return undefinedCtor;
     }
 
-    public void setUndefinedCtor(String undefinedCtor) {
-        this.undefinedCtor = undefinedCtor;
+    public void setUndefinedCtor(String _v) {
+        this.undefinedCtor =_v;
     }
 
     public String getUndefinedMethod() {
         return undefinedMethod;
     }
 
-    public void setUndefinedMethod(String undefinedMethod) {
-        this.undefinedMethod = undefinedMethod;
+    public void setUndefinedMethod(String _v) {
+        this.undefinedMethod =_v;
     }
 
     public String getArrayCloneOnly() {
         return arrayCloneOnly;
     }
 
-    public void setArrayCloneOnly(String arrayCloneOnly) {
-        this.arrayCloneOnly = arrayCloneOnly;
+    public void setArrayCloneOnly(String _v) {
+        this.arrayCloneOnly =_v;
     }
 
     public String getUndefinedSuperCtor() {
         return undefinedSuperCtor;
     }
 
-    public void setUndefinedSuperCtor(String undefinedSuperCtor) {
-        this.undefinedSuperCtor = undefinedSuperCtor;
+    public void setUndefinedSuperCtor(String _v) {
+        this.undefinedSuperCtor =_v;
     }
 
     public String getUndefinedSuperCtorCall() {
         return undefinedSuperCtorCall;
     }
 
-    public void setUndefinedSuperCtorCall(String undefinedSuperCtorCall) {
-        this.undefinedSuperCtorCall = undefinedSuperCtorCall;
+    public void setUndefinedSuperCtorCall(String _v) {
+        this.undefinedSuperCtorCall =_v;
     }
 
     public String getUndefinedVariable() {
         return undefinedVariable;
     }
 
-    public void setUndefinedVariable(String undefinedVariable) {
-        this.undefinedVariable = undefinedVariable;
+    public void setUndefinedVariable(String _v) {
+        this.undefinedVariable =_v;
     }
 
     public String getUnexpectedAffect() {
         return unexpectedAffect;
     }
 
-    public void setUnexpectedAffect(String unexpectedAffect) {
-        this.unexpectedAffect = unexpectedAffect;
+    public void setUnexpectedAffect(String _v) {
+        this.unexpectedAffect =_v;
     }
 
     public String getFinalField() {
         return finalField;
     }
 
-    public void setFinalField(String finalField) {
-        this.finalField = finalField;
+    public void setFinalField(String _v) {
+        this.finalField =_v;
     }
 
     public String getBadOperatorRef() {
         return badOperatorRef;
     }
 
-    public void setBadOperatorRef(String badOperatorRef) {
-        this.badOperatorRef = badOperatorRef;
+    public void setBadOperatorRef(String _v) {
+        this.badOperatorRef =_v;
     }
 
     public String getUnexpectedCatchElseFinally() {
         return unexpectedCatchElseFinally;
     }
 
-    public void setUnexpectedCatchElseFinally(String unexpectedCatchElseFinally) {
-        this.unexpectedCatchElseFinally = unexpectedCatchElseFinally;
+    public void setUnexpectedCatchElseFinally(String _v) {
+        this.unexpectedCatchElseFinally =_v;
     }
 
     public String getUnexpectedAbrupt() {
         return unexpectedAbrupt;
     }
 
-    public void setUnexpectedAbrupt(String unexpectedAbrupt) {
-        this.unexpectedAbrupt = unexpectedAbrupt;
+    public void setUnexpectedAbrupt(String _v) {
+        this.unexpectedAbrupt =_v;
     }
 
     public String getUnexpectedAbruptLab() {
         return unexpectedAbruptLab;
     }
 
-    public void setUnexpectedAbruptLab(String unexpectedAbruptLab) {
-        this.unexpectedAbruptLab = unexpectedAbruptLab;
+    public void setUnexpectedAbruptLab(String _v) {
+        this.unexpectedAbruptLab =_v;
     }
 
     public String getUnexpectedCaseDef() {
         return unexpectedCaseDef;
     }
 
-    public void setUnexpectedCaseDef(String unexpectedCaseDef) {
-        this.unexpectedCaseDef = unexpectedCaseDef;
+    public void setUnexpectedCaseDef(String _v) {
+        this.unexpectedCaseDef =_v;
     }
 
     public String getUnexpectedCaseVar() {
         return unexpectedCaseVar;
     }
 
-    public void setUnexpectedCaseVar(String unexpectedCaseVar) {
-        this.unexpectedCaseVar = unexpectedCaseVar;
+    public void setUnexpectedCaseVar(String _v) {
+        this.unexpectedCaseVar =_v;
     }
 
     public String getUnexpectedCaseValue() {
         return unexpectedCaseValue;
     }
 
-    public void setUnexpectedCaseValue(String unexpectedCaseValue) {
-        this.unexpectedCaseValue = unexpectedCaseValue;
+    public void setUnexpectedCaseValue(String _v) {
+        this.unexpectedCaseValue =_v;
     }
 
     public String getUnexpectedCaseDup() {
         return unexpectedCaseDup;
     }
 
-    public void setUnexpectedCaseDup(String unexpectedCaseDup) {
-        this.unexpectedCaseDup = unexpectedCaseDup;
+    public void setUnexpectedCaseDup(String _v) {
+        this.unexpectedCaseDup =_v;
     }
 
     public String getUnexpectedDefDup() {
         return unexpectedDefDup;
     }
 
-    public void setUnexpectedDefDup(String unexpectedDefDup) {
-        this.unexpectedDefDup = unexpectedDefDup;
+    public void setUnexpectedDefDup(String _v) {
+        this.unexpectedDefDup =_v;
     }
 
     public String getUnexpectedDoTry() {
         return unexpectedDoTry;
     }
 
-    public void setUnexpectedDoTry(String unexpectedDoTry) {
-        this.unexpectedDoTry = unexpectedDoTry;
+    public void setUnexpectedDoTry(String _v) {
+        this.unexpectedDoTry =_v;
     }
 
     public String getUnexpectedSwitch() {
         return unexpectedSwitch;
     }
 
-    public void setUnexpectedSwitch(String unexpectedSwitch) {
-        this.unexpectedSwitch = unexpectedSwitch;
+    public void setUnexpectedSwitch(String _v) {
+        this.unexpectedSwitch =_v;
     }
 
     public String getUnexpectedMemberInst() {
         return unexpectedMemberInst;
     }
 
-    public void setUnexpectedMemberInst(String unexpectedMemberInst) {
-        this.unexpectedMemberInst = unexpectedMemberInst;
+    public void setUnexpectedMemberInst(String _v) {
+        this.unexpectedMemberInst =_v;
     }
 
     public String getUnexpectedBlockExp() {
         return unexpectedBlockExp;
     }
 
-    public void setUnexpectedBlockExp(String unexpectedBlockExp) {
-        this.unexpectedBlockExp = unexpectedBlockExp;
+    public void setUnexpectedBlockExp(String _v) {
+        this.unexpectedBlockExp =_v;
     }
 
     public String getUnexpectedOperandTypes() {
         return unexpectedOperandTypes;
     }
 
-    public void setUnexpectedOperandTypes(String unexpectedOperandTypes) {
-        this.unexpectedOperandTypes = unexpectedOperandTypes;
+    public void setUnexpectedOperandTypes(String _v) {
+        this.unexpectedOperandTypes =_v;
     }
 
     public String getUnknownType() {
         return unknownType;
     }
 
-    public void setUnknownType(String unknownType) {
-        this.unknownType = unknownType;
+    public void setUnknownType(String _v) {
+        this.unknownType =_v;
     }
 
     public String getEmptyType() {
         return emptyType;
     }
 
-    public void setEmptyType(String emptyType) {
-        this.emptyType = emptyType;
+    public void setEmptyType(String _v) {
+        this.emptyType =_v;
     }
 
     public String getBadParamerizedType() {
         return badParamerizedType;
     }
 
-    public void setBadParamerizedType(String badParamerizedType) {
-        this.badParamerizedType = badParamerizedType;
+    public void setBadParamerizedType(String _v) {
+        this.badParamerizedType =_v;
     }
 
     public String getUnexpectedTypeBound() {
         return unexpectedTypeBound;
     }
 
-    public void setUnexpectedTypeBound(String unexpectedTypeBound) {
-        this.unexpectedTypeBound = unexpectedTypeBound;
+    public void setUnexpectedTypeBound(String _v) {
+        this.unexpectedTypeBound =_v;
     }
 
     public String getUnexpectedVararg() {
         return unexpectedVararg;
     }
 
-    public void setUnexpectedVararg(String unexpectedVararg) {
-        this.unexpectedVararg = unexpectedVararg;
+    public void setUnexpectedVararg(String _v) {
+        this.unexpectedVararg =_v;
     }
 
     public String getUnexpectedLeaf() {
         return unexpectedLeaf;
     }
 
-    public void setUnexpectedLeaf(String unexpectedLeaf) {
-        this.unexpectedLeaf = unexpectedLeaf;
+    public void setUnexpectedLeaf(String _v) {
+        this.unexpectedLeaf =_v;
     }
 
     public String getEmptyPart() {
         return emptyPart;
     }
 
-    public void setEmptyPart(String _emptyPart) {
-        emptyPart = _emptyPart;
+    public void setEmptyPart(String _v) {
+        emptyPart =_v;
     }
 
     public String getKeyWordPartClassName() {
         return keyWordPartClassName;
     }
 
-    public void setKeyWordPartClassName(String keyWordPartClassName) {
-        this.keyWordPartClassName = keyWordPartClassName;
+    public void setKeyWordPartClassName(String _v) {
+        this.keyWordPartClassName =_v;
     }
 
     public String getPrimPartClassName() {
         return primPartClassName;
     }
 
-    public void setPrimPartClassName(String primPartClassName) {
-        this.primPartClassName = primPartClassName;
+    public void setPrimPartClassName(String _v) {
+        this.primPartClassName =_v;
     }
 
     public String getDigitPartClassName() {
         return digitPartClassName;
     }
 
-    public void setDigitPartClassName(String digitPartClassName) {
-        this.digitPartClassName = digitPartClassName;
+    public void setDigitPartClassName(String _v) {
+        this.digitPartClassName =_v;
     }
 
     public String getKeyWordPartVarClassName() {
         return keyWordPartVarClassName;
     }
 
-    public void setKeyWordPartVarClassName(String keyWordPartVarClassName) {
-        this.keyWordPartVarClassName = keyWordPartVarClassName;
+    public void setKeyWordPartVarClassName(String _v) {
+        this.keyWordPartVarClassName =_v;
     }
 
     public String getPrimPartVarClassName() {
         return primPartVarClassName;
     }
 
-    public void setPrimPartVarClassName(String primPartVarClassName) {
-        this.primPartVarClassName = primPartVarClassName;
+    public void setPrimPartVarClassName(String _v) {
+        this.primPartVarClassName =_v;
     }
 
     public String getDigitPartVarClassName() {
         return digitPartVarClassName;
     }
 
-    public void setDigitPartVarClassName(String digitPartVarClassName) {
-        this.digitPartVarClassName = digitPartVarClassName;
+    public void setDigitPartVarClassName(String _v) {
+        this.digitPartVarClassName =_v;
     }
 
     public String getDuplicatedPartVarClassName() {
         return duplicatedPartVarClassName;
     }
 
-    public void setDuplicatedPartVarClassName(String duplicatedPartVarClassName) {
-        this.duplicatedPartVarClassName = duplicatedPartVarClassName;
+    public void setDuplicatedPartVarClassName(String _v) {
+        this.duplicatedPartVarClassName =_v;
     }
 
     public String getKeyWordFieldName() {
         return keyWordFieldName;
     }
 
-    public void setKeyWordFieldName(String keyWordFieldName) {
-        this.keyWordFieldName = keyWordFieldName;
+    public void setKeyWordFieldName(String _v) {
+        this.keyWordFieldName =_v;
     }
 
     public String getPrimFieldName() {
         return primFieldName;
     }
 
-    public void setPrimFieldName(String primFieldName) {
-        this.primFieldName = primFieldName;
+    public void setPrimFieldName(String _v) {
+        this.primFieldName =_v;
     }
 
     public String getDigitFieldName() {
         return digitFieldName;
     }
 
-    public void setDigitFieldName(String digitFieldName) {
-        this.digitFieldName = digitFieldName;
+    public void setDigitFieldName(String _v) {
+        this.digitFieldName =_v;
     }
 
     public String getKeyWordMethodName() {
         return keyWordMethodName;
     }
 
-    public void setKeyWordMethodName(String keyWordMethodName) {
-        this.keyWordMethodName = keyWordMethodName;
+    public void setKeyWordMethodName(String _v) {
+        this.keyWordMethodName =_v;
     }
 
     public String getPrimMethodName() {
         return primMethodName;
     }
 
-    public void setPrimMethodName(String primMethodName) {
-        this.primMethodName = primMethodName;
+    public void setPrimMethodName(String _v) {
+        this.primMethodName =_v;
     }
 
     public String getDigitMethodName() {
         return digitMethodName;
     }
 
-    public void setDigitMethodName(String digitMethodName) {
-        this.digitMethodName = digitMethodName;
+    public void setDigitMethodName(String _v) {
+        this.digitMethodName =_v;
     }
 
     public String getKeyWordParamName() {
         return keyWordParamName;
     }
 
-    public void setKeyWordParamName(String keyWordParamName) {
-        this.keyWordParamName = keyWordParamName;
+    public void setKeyWordParamName(String _v) {
+        this.keyWordParamName =_v;
     }
 
     public String getPrimParamName() {
         return primParamName;
     }
 
-    public void setPrimParamName(String primParamName) {
-        this.primParamName = primParamName;
+    public void setPrimParamName(String _v) {
+        this.primParamName =_v;
     }
 
     public String getDigitParamName() {
         return digitParamName;
     }
 
-    public void setDigitParamName(String digitParamName) {
-        this.digitParamName = digitParamName;
+    public void setDigitParamName(String _v) {
+        this.digitParamName =_v;
     }
 
     public String getKeyWordVariableName() {
         return keyWordVariableName;
     }
 
-    public void setKeyWordVariableName(String keyWordVariableName) {
-        this.keyWordVariableName = keyWordVariableName;
+    public void setKeyWordVariableName(String _v) {
+        this.keyWordVariableName =_v;
     }
 
     public String getPrimVariableName() {
         return primVariableName;
     }
 
-    public void setPrimVariableName(String primVariableName) {
-        this.primVariableName = primVariableName;
+    public void setPrimVariableName(String _v) {
+        this.primVariableName =_v;
     }
 
     public String getDigitVariableName() {
         return digitVariableName;
     }
 
-    public void setDigitVariableName(String digitVariableName) {
-        this.digitVariableName = digitVariableName;
+    public void setDigitVariableName(String _v) {
+        this.digitVariableName =_v;
     }
 
     public String getDuplicatedVariableName() {
         return duplicatedVariableName;
     }
 
-    public void setDuplicatedVariableName(String duplicatedVariableName) {
-        this.duplicatedVariableName = duplicatedVariableName;
+    public void setDuplicatedVariableName(String _v) {
+        this.duplicatedVariableName =_v;
     }
 }

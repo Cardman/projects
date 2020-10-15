@@ -25,31 +25,31 @@ public final class AnaInstancingCommonContent {
         return className;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClassName(String _className) {
+        this.className = _className;
     }
 
     public int getNaturalVararg() {
         return naturalVararg;
     }
 
-    public void setNaturalVararg(int naturalVararg) {
-        this.naturalVararg = naturalVararg;
+    public void setNaturalVararg(int _naturalVararg) {
+        this.naturalVararg = _naturalVararg;
     }
 
     public String getLastType() {
         return lastType;
     }
 
-    public void setLastType(String lastType) {
-        this.lastType = lastType;
+    public void setLastType(String _lastType) {
+        this.lastType = _lastType;
     }
 
     public ConstructorId getConstId() {
         return constId;
     }
 
-    public void setConstId(ConstructorId constId) {
-        this.constId = constId;
+    public void setConstId(ConstructorId _constId) {
+        this.constId = _constId;
     }
 }

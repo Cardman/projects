@@ -35,8 +35,8 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
         return AccessEnum.PUBLIC;
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
+    public void setImportedClassName(String _importedClassName) {
+        this.importedClassName = _importedClassName;
     }
 
     @Override
@@ -45,13 +45,13 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     }
 
     @Override
-    public void setTrOffset(int trOffset) {
-        this.trOffset = trOffset;
+    public void setTrOffset(int _trOffset) {
+        this.trOffset = _trOffset;
     }
 
     @Override
-    public void setOpValue(CustList<ExecOperationNode> opValue) {
-        this.opValue = opValue;
+    public void setOpValue(CustList<ExecOperationNode> _opValue) {
+        this.opValue = _opValue;
     }
 
     @Override

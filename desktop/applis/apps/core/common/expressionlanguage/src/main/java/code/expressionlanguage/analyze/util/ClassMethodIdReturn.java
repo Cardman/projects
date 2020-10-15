@@ -69,16 +69,16 @@ public final class ClassMethodIdReturn {
         return originalReturnType;
     }
 
-    public void setOriginalReturnType(String originalReturnType) {
-        this.originalReturnType = originalReturnType;
+    public void setOriginalReturnType(String _originalReturnType) {
+        this.originalReturnType = _originalReturnType;
     }
 
     public String getFileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
     }
 
     public boolean isStaticMethod() {
@@ -117,24 +117,24 @@ public final class ClassMethodIdReturn {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
 
-    public void setStandardMethod(StandardMethod standardMethod) {
-        this.standardMethod = standardMethod;
+    public void setStandardMethod(StandardMethod _standardMethod) {
+        this.standardMethod = _standardMethod;
     }
 
 }

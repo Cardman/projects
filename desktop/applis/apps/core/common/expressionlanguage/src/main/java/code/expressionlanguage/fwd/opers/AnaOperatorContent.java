@@ -12,11 +12,11 @@ public final class AnaOperatorContent {
         return oper;
     }
 
-    public void setOper(String oper) {
-        this.oper = oper;
+    public void setOper(String _oper) {
+        this.oper = _oper;
     }
 
-    public void setOpOffset(int opOffset) {
-        this.opOffset = opOffset;
+    public void setOpOffset(int _opOffset) {
+        this.opOffset = _opOffset;
     }
 }

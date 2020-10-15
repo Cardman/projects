@@ -11,9 +11,9 @@ public final class RendImg extends RendElement {
 
     private ExecTextPart textPart;
 
-    public RendImg(int _offsetTrim, Element read, StringMap<ExecTextPart> execAttributes, StringMap<ExecTextPart> execAttributesText, ExecTextPart textPart) {
-        super(_offsetTrim, read, execAttributes, execAttributesText);
-        this.textPart = textPart;
+    public RendImg(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _textPart) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        this.textPart = _textPart;
     }
 
     @Override

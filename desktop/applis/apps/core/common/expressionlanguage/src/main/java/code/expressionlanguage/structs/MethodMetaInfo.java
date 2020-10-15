@@ -65,8 +65,8 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return declaringClass;
     }
 
-    public void setInvokable(boolean invokable) {
-        this.invokable = invokable;
+    public void setInvokable(boolean _invokable) {
+        this.invokable = _invokable;
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -76,40 +76,40 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     public ExecNamedFunctionBlock getAnnotableBlockParam() {
         return annotableBlock;
     }
-    public void setAnnotableBlock(ExecNamedFunctionBlock annotableBlock) {
-        this.annotableBlock = annotableBlock;
+    public void setAnnotableBlock(ExecNamedFunctionBlock _annotableBlock) {
+        this.annotableBlock = _annotableBlock;
     }
 
     public ExecMemberCallingsBlock getCallee() {
         return callee;
     }
 
-    public void setCallee(ExecMemberCallingsBlock callee) {
-        this.callee = callee;
+    public void setCallee(ExecMemberCallingsBlock _callee) {
+        this.callee = _callee;
     }
 
     public ExecNamedFunctionBlock getCalleeInv() {
         return calleeInv;
     }
 
-    public void setCalleeInv(ExecNamedFunctionBlock calleeInv) {
-        this.calleeInv = calleeInv;
+    public void setCalleeInv(ExecNamedFunctionBlock _calleeInv) {
+        this.calleeInv = _calleeInv;
     }
 
     public StandardMethod getStdCallee() {
         return stdCallee;
     }
 
-    public void setStdCallee(StandardMethod stdCallee) {
-        this.stdCallee = stdCallee;
+    public void setStdCallee(StandardMethod _stdCallee) {
+        this.stdCallee = _stdCallee;
     }
 
     public ExecRootBlock getDeclaring() {
         return declaring;
     }
 
-    public void setDeclaring(ExecRootBlock declaring) {
-        this.declaring = declaring;
+    public void setDeclaring(ExecRootBlock _declaring) {
+        this.declaring = _declaring;
     }
 
     @Override
@@ -121,8 +121,8 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         fileName = _fileName;
     }
 
-    public void setExpCast(boolean expCast) {
-        this.expCast = expCast;
+    public void setExpCast(boolean _expCast) {
+        this.expCast = _expCast;
     }
 
     public String getClassName() {
@@ -237,7 +237,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return cache;
     }
 
-    public void setCache(Cache cache) {
-        this.cache = cache;
+    public void setCache(Cache _cache) {
+        this.cache = _cache;
     }
 }

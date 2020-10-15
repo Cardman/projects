@@ -35,27 +35,31 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), lambdaFieldContent.getClassField(), getAncestor(), lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, ClassField _fieldId, int _ancestor,
+                             boolean _affField, boolean _staticField, boolean _finalField) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = foundClass;
+        String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        String formatType_ = _conf.formatVarType(returnFieldType);
-        return newLambda(_previous, ownerType_, returnFieldType, fieldId, ancestor, affField, staticField, finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_);
+        String formatType_ = _conf.formatVarType(_returnFieldType);
+        return newLambda(_previous, ownerType_, _returnFieldType, _fieldId, _ancestor, _affField, _staticField, _finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_);
     }
 
-    public static Struct newLambda(Argument _previous, String ownerType_, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField, boolean shiftArgument, boolean safeInstance, String clArg_, String fileName, ExecRootBlock rootBlock, ExecAnnotableBlock infoBlock, String formatType_) {
-        LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_,ownerType_, fieldId, shiftArgument, ancestor, affField, formatType_);
+    public static Struct newLambda(Argument _previous, String _ownerType, String _returnFieldType, ClassField _fieldId, int _ancestor,
+                                   boolean _affField, boolean _staticField, boolean _finalField, boolean _shiftArgument, boolean _safeInstance,
+                                   String _clArg, String _fileName,
+                                   ExecRootBlock _rootBlock, ExecAnnotableBlock _infoBlock, String _formatType) {
+        LambdaFieldStruct l_ = new LambdaFieldStruct(_clArg,_ownerType, _fieldId, _shiftArgument, _ancestor, _affField, _formatType);
         l_.setInstanceCall(_previous);
-        l_.setStaticField(staticField);
-        l_.setSafeInstance(safeInstance);
-        if (fieldId != null) {
-            String name_ = fieldId.getFieldName();
-            String clName_ = fieldId.getClassName();
-            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, returnFieldType, staticField, finalField, AccessEnum.PUBLIC);
-            f_.setFileName(fileName);
-            f_.setAnnotableBlock(infoBlock);
-            f_.setDeclaring(rootBlock);
+        l_.setStaticField(_staticField);
+        l_.setSafeInstance(_safeInstance);
+        if (_fieldId != null) {
+            String name_ = _fieldId.getFieldName();
+            String clName_ = _fieldId.getClassName();
+            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, _returnFieldType, _staticField, _finalField, AccessEnum.PUBLIC);
+            f_.setFileName(_fileName);
+            f_.setAnnotableBlock(_infoBlock);
+            f_.setDeclaring(_rootBlock);
             l_.setMetaInfo(f_);
         }
         return l_;

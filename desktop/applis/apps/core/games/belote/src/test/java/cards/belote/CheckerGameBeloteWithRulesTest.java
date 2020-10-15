@@ -31,8 +31,8 @@ public class CheckerGameBeloteWithRulesTest {
         assertEq(1, game_.getRamasseur());
     }
 
-    private static void initDonneLoc(RulesBelote rules_, DealBelote deal_) {
-        deal_.initDonne(rules_, new DisplayingBelote(), new DefaultGenerator());
+    private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
+        _deal.initDonne(_rules, new DisplayingBelote(), new DefaultGenerator());
     }
 
     @Test

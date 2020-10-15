@@ -458,12 +458,9 @@ public final class DefaultBeanAliases {
         for (String p: _params){
             allKeysWords_.add(p);
         }
-        return getCandidate(_var, allKeysWords_);
+        return ValidatorStandard.tr(allKeysWords_, _var);
     }
 
-    private static String getCandidate(String _var, CustList<String> allKeysWords_) {
-        return ValidatorStandard.tr(allKeysWords_,_var);
-    }
     public void buildOther(LgNamesContent _content) {
         CustList<StandardField> fields_;
         StringList params_;

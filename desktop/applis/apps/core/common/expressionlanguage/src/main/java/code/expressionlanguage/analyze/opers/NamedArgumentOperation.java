@@ -62,8 +62,8 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
         return namedContent.getIndex();
     }
 
-    public void setIndex(int index) {
-        this.namedContent.setIndex(index);
+    public void setIndex(int _index) {
+        this.namedContent.setIndex(_index);
     }
 
     public AnaNamedContent getNamedContent() {

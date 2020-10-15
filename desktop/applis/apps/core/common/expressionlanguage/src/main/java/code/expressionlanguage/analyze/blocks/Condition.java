@@ -87,8 +87,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         return argument;
     }
 
-    public void setArgument(Argument argument) {
-        this.argument = argument;
+    public void setArgument(Argument _arg) {
+        this.argument = _arg;
     }
 
     public final String getCondition() {

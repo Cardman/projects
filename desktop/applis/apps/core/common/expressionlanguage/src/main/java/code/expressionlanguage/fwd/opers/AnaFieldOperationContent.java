@@ -6,8 +6,8 @@ public final class AnaFieldOperationContent {
 
     private final int off;
 
-    public AnaFieldOperationContent(int off) {
-        this.off = off;
+    public AnaFieldOperationContent(int _off) {
+        this.off = _off;
     }
 
     public int getOff() {
@@ -18,7 +18,7 @@ public final class AnaFieldOperationContent {
         return intermediate;
     }
 
-    public void setIntermediate(boolean intermediate) {
-        this.intermediate = intermediate;
+    public void setIntermediate(boolean _intermediate) {
+        this.intermediate = _intermediate;
     }
 }

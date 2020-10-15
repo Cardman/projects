@@ -11,23 +11,23 @@ public final class ImplicitInfos {
         return idMethod;
     }
 
-    public void setIdMethod(ClassMethodId idMethod) {
-        this.idMethod = idMethod;
+    public void setIdMethod(ClassMethodId _idMethod) {
+        this.idMethod = _idMethod;
     }
 
     public int getRootNumber() {
         return rootNumber;
     }
 
-    public void setRootNumber(int rootNumber) {
-        this.rootNumber = rootNumber;
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
     }
 
     public int getMemberNumber() {
         return memberNumber;
     }
 
-    public void setMemberNumber(int memberNumber) {
-        this.memberNumber = memberNumber;
+    public void setMemberNumber(int _memberNumber) {
+        this.memberNumber = _memberNumber;
     }
 }

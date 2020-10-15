@@ -1440,10 +1440,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         assertTrue(ret_.isTrue());
     }
 
-    private static boolean isSuccessfulInitialized(ContextEl cont_, String s) {
-        return cont_.getLocks().getState(s) == InitClassState.SUCCESS;
-    }
-
     @Test
     public void calculateArgument1056Test() {
         StringBuilder xml_ = new StringBuilder();

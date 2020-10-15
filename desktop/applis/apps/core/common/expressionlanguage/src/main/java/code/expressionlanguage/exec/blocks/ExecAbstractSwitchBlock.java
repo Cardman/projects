@@ -58,6 +58,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         processCase(_cont,if_,arg_);
     }
 
-    protected abstract void processCase(ContextEl _cont,SwitchBlockStack if_, Argument arg_);
+    protected abstract void processCase(ContextEl _cont,SwitchBlockStack _if, Argument _arg);
 
 }

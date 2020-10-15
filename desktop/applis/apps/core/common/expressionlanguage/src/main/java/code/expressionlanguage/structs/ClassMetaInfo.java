@@ -231,16 +231,16 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return annotableBlock;
     }
 
-    public void setAnnotableBlock(ExecAnnotableBlock annotableBlock) {
-        this.annotableBlock = annotableBlock;
+    public void setAnnotableBlock(ExecAnnotableBlock _annotableBlock) {
+        this.annotableBlock = _annotableBlock;
     }
 
     public ExecRootBlock getRootBlock() {
         return rootBlock;
     }
 
-    public void setRootBlock(ExecRootBlock rootBlock) {
-        this.rootBlock = rootBlock;
+    public void setRootBlock(ExecRootBlock _rootBlock) {
+        this.rootBlock = _rootBlock;
     }
 
     @Override

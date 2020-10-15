@@ -9,8 +9,8 @@ import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 public final class TypeAccessor implements AccessingImportingBlock {
     private final String fullName;
 
-    public TypeAccessor(String fullName) {
-        this.fullName = fullName;
+    public TypeAccessor(String _fullName) {
+        this.fullName = _fullName;
     }
 
     @Override

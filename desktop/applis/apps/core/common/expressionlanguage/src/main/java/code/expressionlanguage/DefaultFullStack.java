@@ -6,8 +6,8 @@ import code.expressionlanguage.structs.ArrayStruct;
 public final class DefaultFullStack implements AbstractFullStack {
     private final ContextEl context;
 
-    public DefaultFullStack(ContextEl context) {
-        this.context = context;
+    public DefaultFullStack(ContextEl _context) {
+        this.context = _context;
     }
 
     @Override

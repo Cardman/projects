@@ -182,9 +182,9 @@ public final class ValidatorStandard {
         }
     }
 
-    private static void checkContent(StringMap<String> _prims, CustList<KeyValueMemberName> list_, String _key, AnalyzedPageEl _page) {
+    private static void checkContent(StringMap<String> _prims, CustList<KeyValueMemberName> _list, String _key, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
-        for (KeyValueMemberName f: list_) {
+        for (KeyValueMemberName f: _list) {
             String key_ = f.getKey();
             String value_ = f.getValue();
             if (value_.isEmpty()) {
@@ -234,14 +234,14 @@ public final class ValidatorStandard {
             checkDuplicates(e, _page);
         }
     }
-    private static void checkDuplicates(CustList<KeyValueMemberName> value_, AnalyzedPageEl _page) {
+    private static void checkDuplicates(CustList<KeyValueMemberName> _value, AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
         StringList keyWords_ = new StringList();
-        for (KeyValueMemberName f: value_) {
+        for (KeyValueMemberName f: _value) {
             keyWords_.add(f.getValue());
         }
         if (keyWords_.hasDuplicates()) {
-            for (KeyValueMemberName f: value_) {
+            for (KeyValueMemberName f: _value) {
                 String v_ = f.getValue();
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateMethod(),v_));
@@ -399,8 +399,7 @@ public final class ValidatorStandard {
     public static void setupOverrides(AnalyzedPageEl _page) {
         StringList pkgs_ = new StringList();
         StringList pkgsBase_ = new StringList();
-        AnalyzedPageEl page_ = _page;
-        for (StandardType r: page_.getStandardsTypes().values()) {
+        for (StandardType r: _page.getStandardsTypes().values()) {
             String pkg_ = r.getPackageName();
             int until_ = Math.max(0, pkg_.indexOf('.'));
             pkgsBase_.add(pkg_.substring(0,until_));
@@ -413,8 +412,8 @@ public final class ValidatorStandard {
         }
         pkgs_.removeDuplicates();
         pkgsBase_.removeDuplicates();
-        page_.getHeaders().getPackagesFound().addAllElts(pkgs_);
-        page_.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
+        _page.getHeaders().getPackagesFound().addAllElts(pkgs_);
+        _page.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
         buildInherits(_page);
     }
 

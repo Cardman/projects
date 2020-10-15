@@ -82,53 +82,53 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent _e) {
         if (skip()) {
             return;
         }
-        int keyCode_ = e.getKeyCode();
+        int keyCode_ = _e.getKeyCode();
         if (keyCode_ == KeyEvent.VK_UP) {
-            int index = list.getSelectedIndex();
-            if (index != -1 && index > 0) {
+            int index_ = list.getSelectedIndex();
+            if (index_ != -1 && index_ > 0) {
                 list.clearAllRange();
-                list.setSelectedIndice(index - 1);
+                list.setSelectedIndice(index_ - 1);
             }
         } else if (keyCode_ == KeyEvent.VK_DOWN) {
-            int index = list.getSelectedIndex();
-            if (index != -1 && results.size() > index + 1) {
+            int index_ = list.getSelectedIndex();
+            if (index_ != -1 && results.size() > index_ + 1) {
                 list.clearAllRange();
-                list.setSelectedIndice(index + 1);
+                list.setSelectedIndice(index_ + 1);
             }
         } else if (keyCode_ == KeyEvent.VK_ENTER) {
-            String text = list.getSelectedValue();
-            textField.setText(text);
-            textField.setCaretPosition(text.length());
+            String text_ = list.getSelectedValue();
+            textField.setText(text_);
+            textField.setCaretPosition(text_.length());
         } else if (keyCode_ == KeyEvent.VK_ESCAPE) {
             hideAutocompletePopup();
         }
     }
     @Override
-    public void insertUpdate(DocumentEvent e){
+    public void insertUpdate(DocumentEvent _e){
         documentChangedEvent();
     }
 
     @Override
-    public void removeUpdate(DocumentEvent e){
+    public void removeUpdate(DocumentEvent _e){
         documentChangedEvent();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
+    public void changedUpdate(DocumentEvent _e) {
         documentChangedEvent();
     }
 
     @Override
-    public void keyTyped(KeyEvent e ){
+    public void keyTyped(KeyEvent _e ){
         // Do nothing
     }
 
     @Override
-    public void keyReleased(KeyEvent e ){
+    public void keyReleased(KeyEvent _e ){
         // Do nothing
     }
     private void documentChangedEvent() {

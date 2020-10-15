@@ -42,8 +42,8 @@ public final class Coverage {
     private KeyWords keyWords;
     private final boolean covering;
 
-    public Coverage(boolean covering) {
-        this.covering = covering;
+    public Coverage(boolean _covering) {
+        this.covering = _covering;
     }
 
     public void putFile(FileBlock _file) {
@@ -369,11 +369,11 @@ public final class Coverage {
         return keyWords;
     }
 
-    public void setKeyWords(KeyWords keyWords) {
+    public void setKeyWords(KeyWords _keyWords) {
         if (!isCovering()) {
             return;
         }
-        this.keyWords = keyWords;
+        this.keyWords = _keyWords;
     }
 
     public boolean isCovering() {

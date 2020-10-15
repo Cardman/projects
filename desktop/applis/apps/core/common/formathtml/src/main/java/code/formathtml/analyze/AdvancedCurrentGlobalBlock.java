@@ -11,9 +11,9 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
     private final AnalyzedPageEl page;
     private final AnalyzingDoc analyzingDoc;
 
-    public AdvancedCurrentGlobalBlock(AnalyzedPageEl page, AnalyzingDoc analyzingDoc) {
-        this.page = page;
-        this.analyzingDoc = analyzingDoc;
+    public AdvancedCurrentGlobalBlock(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
+        this.page = _page;
+        this.analyzingDoc = _analyzingDoc;
     }
 
     private static AccessedBlock getAccessingImportingBlock(AccessedBlock _r, RootBlock _root) {

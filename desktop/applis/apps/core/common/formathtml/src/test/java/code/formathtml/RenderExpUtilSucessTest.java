@@ -19,7 +19,6 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
@@ -2798,7 +2797,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         analyzingDoc_.setNextIndex(end1_ +2);
         String el1_ = s.substring(beg1_, end1_ +1);
         OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
-        OperationNode op1_ = rendOp(context_, analyzingDoc_, opTwo1_);
+        OperationNode op1_ = rendOp(context_, opTwo1_);
         CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
         CustList<RendDynOperationNode> out1_ = getExecutableNodes(context_, all1_);
         assertTrue(isEmptyErrors(context_));
@@ -2813,7 +2812,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = s.substring(beg_,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(i, context_, d_, el_);
-        OperationNode op_ = rendOp(i, context_, analyzingDoc_, opTwo_);
+        OperationNode op_ = rendOp(i, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
@@ -2845,7 +2844,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = s.substring(beg_,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
-        OperationNode op_ = rendOp(context_, analyzingDoc_, opTwo_);
+        OperationNode op_ = rendOp(context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
@@ -2860,8 +2859,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         return rendOpSeq(_off, context_, d_, el_);
     }
 
-    protected static OperationNode rendOp(AnalyzedTestConfiguration context_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return rendOp(2, context_, analyzingDoc_, opTwo_);
+    protected static OperationNode rendOp(AnalyzedTestConfiguration context_, OperationsSequence opTwo_) {
+        return rendOp(2, context_, opTwo_);
     }
 
     @Test

@@ -24,16 +24,16 @@ public final class InputTypeCreation {
         return nextIndexBef;
     }
 
-    public void setNextIndexBef(int nextIndexBef) {
-        this.nextIndexBef = nextIndexBef;
+    public void setNextIndexBef(int _nextIndexBef) {
+        this.nextIndexBef = _nextIndexBef;
     }
 
     public OuterBlockEnum getType() {
         return type;
     }
 
-    public void setType(OuterBlockEnum type) {
-        this.type = type;
+    public void setType(OuterBlockEnum _type) {
+        this.type = _type;
     }
 
     public FileBlock getFile() {

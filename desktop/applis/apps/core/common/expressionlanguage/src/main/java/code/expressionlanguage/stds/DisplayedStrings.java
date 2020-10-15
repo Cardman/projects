@@ -67,23 +67,23 @@ public final class DisplayedStrings {
         return infinity;
     }
 
-    public void setInfinity(String infinity) {
-        this.infinity = infinity;
+    public void setInfinity(String _infinity) {
+        this.infinity = _infinity;
     }
 
     public String getExponent() {
         return exponent;
     }
 
-    public void setExponent(String exponent) {
-        this.exponent = exponent;
+    public void setExponent(String _exponent) {
+        this.exponent = _exponent;
     }
 
     public String getNan() {
         return nan;
     }
 
-    public void setNan(String nan) {
-        this.nan = nan;
+    public void setNan(String _nan) {
+        this.nan = _nan;
     }
 }

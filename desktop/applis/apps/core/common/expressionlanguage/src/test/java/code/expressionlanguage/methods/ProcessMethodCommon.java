@@ -111,31 +111,31 @@ public abstract class ProcessMethodCommon {
         return constraints_;
     }
 
-    private static Parameters getParameters(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock ctor_) {
+    private static Parameters getParameters(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock _ctor) {
         Parameters p_ = new Parameters();
-        if (ctor_ != null) {
-            feedParams(_args, _cont, ctor_, p_);
+        if (_ctor != null) {
+            feedParams(_args, _cont, _ctor, p_);
         }
         return p_;
     }
 
-    private static void feedParams(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock ctor_, Parameters p_) {
+    private static void feedParams(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock _ctor, Parameters _p) {
         int i_ = IndexConstants.FIRST_INDEX;
         for (Argument a : _args) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
-            p_.getParameters().addEntry(ctor_.getParametersNames().get(i_), lv_);
+            _p.getParameters().addEntry(_ctor.getParametersNames().get(i_), lv_);
             i_++;
         }
     }
 
-    private static ExecConstructorBlock tryGet(ExecRootBlock _root, ConstructorId id_) {
+    private static ExecConstructorBlock tryGet(ExecRootBlock _root, ConstructorId _id) {
         CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_root);
         for (ExecBlock b: bl_) {
             if (!(b instanceof ExecConstructorBlock)) {
                 continue;
             }
             ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-            if (!method_.getId().eq(id_)) {
+            if (!method_.getId().eq(_id)) {
                 continue;
             }
             return method_;
@@ -193,24 +193,24 @@ public abstract class ProcessMethodCommon {
         return getErrors(report_);
     }
 
-    protected static boolean covErr(StringMap<String> files_) {
+    protected static boolean covErr(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        validate(cont_,files_);
+        validate(cont_,_files);
         return !isEmptyErrors(cont_);
     }
 
-    protected static StringMap<String> ctxNotErrReadOnly(StringMap<String> files_) {
+    protected static StringMap<String> ctxNotErrReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
-        return validateAndCheckNoReportErrors(files_, cont_);
+        return validateAndCheckNoReportErrors(_files, cont_);
     }
-    protected static StringMap<String> ctxErrReadOnly(StringMap<String> files_) {
+    protected static StringMap<String> ctxErrReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
-        return validateAndCheckReportErrors(files_, cont_);
+        return validateAndCheckReportErrors(_files, cont_);
     }
 
-    protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> files_) {
+    protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDef();
-        return validateAndCheckReportErrors(files_, cont_);
+        return validateAndCheckReportErrors(_files, cont_);
     }
     private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
         Options opt_ = new Options();
@@ -240,9 +240,9 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    protected static ContextEl covEnReadOnly(StringMap<String> files_) {
+    protected static ContextEl covEnReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEn();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
@@ -252,14 +252,14 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
 
-    protected static ContextEl covEn(StringMap<String> files_) {
+    protected static ContextEl covEn(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covValEn(StringMap<String> files_) {
+    protected static ContextEl covValEn(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElCoverageEnAna() {
@@ -268,9 +268,9 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
 
-    protected static ContextEl contextElEnum(StringMap<String> files_) {
+    protected static ContextEl contextElEnum(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElEnumAna();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElEnumAna() {
@@ -278,20 +278,20 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdEnumsAna(opt_);
     }
 
-    protected static ContextEl ctxMustInitFail(StringMap<String> files_) {
+    protected static ContextEl ctxMustInitFail(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        ReportedMessages reportedMessages_ = validateAll(files_, cont_);
+        ReportedMessages reportedMessages_ = validateAll(_files, cont_);
         assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isAllEmptyErrors());
         return cont_.getContext();
     }
 
-    protected static ReportedMessages validateAll(StringMap<String> files_, AnalyzedTestContext cont_) {
-        return Classes.validateAll(files_, cont_.getContext(), cont_.getAnalyzing(), cont_.getForwards());
+    protected static ReportedMessages validateAll(StringMap<String> _files, AnalyzedTestContext _cont) {
+        return Classes.validateAll(_files, _cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
     }
 
-    protected static ContextEl ctxMustInit(StringMap<String> files_) {
+    protected static ContextEl ctxMustInit(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElReadOnlyMustInit() {
@@ -300,9 +300,9 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    protected static ContextEl contextElToString(StringMap<String> files_) {
+    protected static ContextEl contextElToString(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElToStringAna();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElToStringAna() {
@@ -310,15 +310,15 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdToStringAna(opt_);
     }
 
-    protected static boolean ok(StringMap<String> files_) {
+    protected static boolean ok(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        validateAll(files_, cont_);
+        validateAll(_files, cont_);
         return isEmptyErrors(cont_);
     }
 
-    protected static ContextEl ctxNoErrExp(StringMap<String> files_) {
+    protected static ContextEl ctxNoErrExp(StringMap<String> _files) {
         AnalyzedTestContext ctx_ = contextElExp();
-        return validateAndRet(files_, ctx_);
+        return validateAndRet(_files, ctx_);
     }
 
     private static AnalyzedTestContext contextElExp() {
@@ -326,16 +326,16 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdExp(opt_);
     }
 
-    private static AnalyzedTestContext ctxLgReadOnlyAna(String fr, String... _types) {
+    private static AnalyzedTestContext ctxLgReadOnlyAna(String _lg, String... _types) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(fr, opt_);
+        return InitializationLgNames.buildStdOneAna(_lg, opt_);
     }
 
-    protected static ContextEl contextElDefault(StringMap<String> files_, int i) {
-        AnalyzedTestContext cont_ = contextElDefault(i);
-        return validateAndRet(files_, cont_);
+    protected static ContextEl contextElDefault(StringMap<String> _files, int _i) {
+        AnalyzedTestContext cont_ = contextElDefault(_i);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElDefault(int _m) {
@@ -343,9 +343,9 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna(_m, opt_);
     }
 
-    protected static ContextEl contextElTypes(StringMap<String> files_) {
+    protected static ContextEl contextElTypes(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElTypes("pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext contextElTypes(String... _types) {
@@ -354,79 +354,79 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    private static void addTypesInit(Options opt_, String... _types) {
+    private static void addTypesInit(Options _opt, String... _types) {
         for (String t: _types) {
-            opt_.getTypesInit().add(t);
+            _opt.getTypesInit().add(t);
         }
     }
 
-    protected static ContextEl ctxResOk(StringMap<String> srcFiles_, StringMap<String> all_) {
+    protected static ContextEl ctxResOk(StringMap<String> _srcFiles, StringMap<String> _all) {
         AnalyzedTestContext cont_ = ctxAna();
-        cont_.getAnalyzing().addResources(all_);
-        return validateAndRet(srcFiles_, cont_);
+        cont_.getAnalyzing().addResources(_all);
+        return validateAndRet(_srcFiles, cont_);
     }
 
-    protected static ContextEl ctxOk(StringMap<String> files_, String... _types) {
+    protected static ContextEl ctxOk(StringMap<String> _files, String... _types) {
         AnalyzedTestContext cont_ = ctxAna(_types);
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
-    private static ContextEl validateAndRet(StringMap<String> files_, AnalyzedTestContext cont_) {
-        validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+    private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
+        validateAll(_files, _cont);
+        assertTrue(isEmptyErrors(_cont));
+        return _cont.getContext();
     }
 
-    protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_, String... _types) {
+    protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
         AnalyzedTestContext cont_ = ctxLgAna(_lg,_types);
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
-    protected static ContextEl ctxOkQuick(StringMap<String> files_) {
+    protected static ContextEl ctxOkQuick(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        return validQuick(files_, cont_);
+        return validQuick(_files, cont_);
     }
 
-    protected static void forwardAndClear(AnalyzedTestContext cont_) {
-        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing(), cont_.getForwards());
+    protected static void forwardAndClear(AnalyzedTestContext _cont) {
+        Classes.forwardAndClear(_cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
     }
 
-    protected static void validateWithoutInit(StringMap<String> files_, AnalyzedTestContext cont_) {
-        Classes.validateWithoutInit(files_, cont_.getAnalyzing());
+    protected static void validateWithoutInit(StringMap<String> _files, AnalyzedTestContext _cont) {
+        Classes.validateWithoutInit(_files, _cont.getAnalyzing());
     }
 
 
-    protected static void buildFilesBodies(AnalyzedTestContext cont_, StringMap<String> files_) {
-        ClassesUtil.buildFilesBodies(files_,true, cont_.getAnalyzing());
+    protected static void buildFilesBodies(AnalyzedTestContext _cont, StringMap<String> _files) {
+        ClassesUtil.buildFilesBodies(_files,true, _cont.getAnalyzing());
     }
 
-    protected static void parseFiles(AnalyzedTestContext cont_) {
-        ClassesUtil.parseFiles(cont_.getAnalyzing());
+    protected static void parseFiles(AnalyzedTestContext _cont) {
+        ClassesUtil.parseFiles(_cont.getAnalyzing());
     }
 
-    protected static void validateInheritingClasses(AnalyzedTestContext cont_) {
-        ClassesUtil.validateInheritingClasses(cont_.getAnalyzing());
+    protected static void validateInheritingClasses(AnalyzedTestContext _cont) {
+        ClassesUtil.validateInheritingClasses(_cont.getAnalyzing());
     }
 
-    protected static void validateIds(AnalyzedTestContext cont_) {
-        ClassesUtil.validateIds(cont_.getAnalyzing());
+    protected static void validateIds(AnalyzedTestContext _cont) {
+        ClassesUtil.validateIds(_cont.getAnalyzing());
     }
 
-    protected static void validateOverridingInherit(AnalyzedTestContext cont_) {
-        ClassesUtil.validateOverridingInherit(cont_.getAnalyzing());
+    protected static void validateOverridingInherit(AnalyzedTestContext _cont) {
+        ClassesUtil.validateOverridingInherit(_cont.getAnalyzing());
     }
 
-    protected static void postValidation(AnalyzedTestContext ctx_) {
-        ClassesUtil.postValidation(ctx_.getAnalyzing());
-        ForwardInfos.generalForward(ctx_.getAnalyzing(), ctx_.getForwards(), ctx_.getContext());
+    protected static void postValidation(AnalyzedTestContext _ctx) {
+        ClassesUtil.postValidation(_ctx.getAnalyzing());
+        ForwardInfos.generalForward(_ctx.getAnalyzing(), _ctx.getForwards(), _ctx.getContext());
     }
 
-    protected static void validateEl(AnalyzedTestContext cont_) {
-        ClassesUtil.validateEl(cont_.getAnalyzing());
+    protected static void validateEl(AnalyzedTestContext _cont) {
+        ClassesUtil.validateEl(_cont.getAnalyzing());
     }
 
-    protected static void checkInterfaces(AnalyzedTestContext cont_) {
-        AnaTypeUtil.checkInterfaces(cont_.getAnalyzing());
+    protected static void checkInterfaces(AnalyzedTestContext _cont) {
+        AnaTypeUtil.checkInterfaces(_cont.getAnalyzing());
     }
 
     protected static AnalyzedTestContext ctxAna(String... _types) {
@@ -461,19 +461,19 @@ public abstract class ProcessMethodCommon {
         return !isEmptyErrors(cont_);
     }
 
-    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_, String... _types) {
+    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> _files, String... _types) {
         AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg,_types);
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
-    protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> files_) {
+    protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
-        return invalid(files_, cont_);
+        return invalid(_files, cont_);
     }
 
-    protected static ContextEl ctxReadOnlyOk(StringMap<String> files_) {
+    protected static ContextEl ctxReadOnlyOk(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxReadOnlyAna();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     private static AnalyzedTestContext ctxReadOnlyAna() {
@@ -498,16 +498,16 @@ public abstract class ProcessMethodCommon {
         return validQuick(_files, cont_);
     }
 
-    protected static Struct getStaticField(ContextEl ctx_, ClassField _id) {
-        StringMap<StringMap<Struct>> staticFields_ = ctx_.getClasses().getStaticFields();
+    protected static Struct getStaticField(ContextEl _ctx, ClassField _id) {
+        StringMap<StringMap<Struct>> staticFields_ = _ctx.getClasses().getStaticFields();
         return Classes.getStaticField(_id, staticFields_);
     }
 
-    private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext cont_) {
-        validateWithoutInit(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        forwardAndClear(cont_);
-        return cont_.getContext();
+    private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
+        validateWithoutInit(_files, _cont);
+        assertTrue( isEmptyErrors(_cont));
+        forwardAndClear(_cont);
+        return _cont.getContext();
     }
 
     protected ContextEl validateStaticFieldsFail(StringMap<String> _files) {
@@ -552,8 +552,8 @@ public abstract class ProcessMethodCommon {
         ClassesUtil.tryBuildAllBracedClassesBodies(_files, _cont.getAnalyzing());
     }
 
-    protected static void validateInheritingClassesId(AnalyzedTestContext cont_) {
-        ClassesUtil.validateInheritingClassesId(cont_.getAnalyzing());
+    protected static void validateInheritingClassesId(AnalyzedTestContext _cont) {
+        ClassesUtil.validateInheritingClassesId(_cont.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtx() {
@@ -563,29 +563,29 @@ public abstract class ProcessMethodCommon {
         return cont_;
     }
 
-    protected static void parseFile(StringBuilder file_, AnalyzedTestContext context_, String _myFile, boolean _predefined) {
-        String content_ = file_.toString();
-        parseFile(context_, _myFile, _predefined, content_, context_.getAnalyzing());
+    protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
+        String content_ = _file.toString();
+        parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());
     }
 
-    protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file) {
-        parseFile(context_,_fileName,_predefined,_file, context_.getAnalyzing());
+    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file) {
+        parseFile(_context,_fileName,_predefined,_file, _context.getAnalyzing());
     }
 
-    protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
+    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
         _page.putFileBlock(_fileName, fileBlock_);
-        ContextEl ctx_ = context_.getContext();
+        ContextEl ctx_ = _context.getContext();
         ctx_.getCoverage().putFile(fileBlock_);
-        _page.getErrors().putFile(fileBlock_, context_.getAnalyzing());
-        fileBlock_.processLinesTabsWithError(_file, context_.getAnalyzing());
-        FileResolver.parseFile(fileBlock_, _fileName, _file, context_.getAnalyzing());
+        _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
+        fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
+        FileResolver.parseFile(fileBlock_, _fileName, _file, _context.getAnalyzing());
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
-        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, context_.getAnalyzing());
+        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, _context.getAnalyzing());
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {
@@ -597,12 +597,12 @@ public abstract class ProcessMethodCommon {
         return cont_;
     }
 
-    private static void parsePredefFiles(AnalyzedTestContext cont_) {
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
+    private static void parsePredefFiles(AnalyzedTestContext _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
-            parseFile(cont_, name_, true, content_);
+            parseFile(_cont, name_, true, content_);
         }
     }
 
@@ -615,45 +615,45 @@ public abstract class ProcessMethodCommon {
         return (Struct) str_;
     }
 
-    protected static ContextEl cov(StringMap<String> files_) {
+    protected static ContextEl cov(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covReadOnly(StringMap<String> files_) {
+    protected static ContextEl covReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageReadOnlyDef();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covDisplay(StringMap<String> files_) {
+    protected static ContextEl covDisplay(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDisplayDef();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covCom(StringMap<String> files_) {
+    protected static ContextEl covCom(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefaultComment();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covEnCom(StringMap<String> files_) {
+    protected static ContextEl covEnCom(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefaultEnComment();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    protected static ContextEl covVal(StringMap<String> files_) {
+    protected static ContextEl covVal(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateCovAndRet(files_, cont_);
+        return validateCovAndRet(_files, cont_);
     }
 
-    private static ContextEl validateCovAndRet(StringMap<String> files_, AnalyzedTestContext cont_) {
-        validate(cont_,files_);
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+    private static ContextEl validateCovAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
+        validate(_cont,_files);
+        assertTrue(isEmptyErrors(_cont));
+        return _cont.getContext();
     }
 
-    protected static ContextEl covVal2(StringMap<String> files_) {
+    protected static ContextEl covVal2(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateAndRet(files_, cont_);
+        return validateAndRet(_files, cont_);
     }
 
     protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
@@ -704,40 +704,49 @@ public abstract class ProcessMethodCommon {
         return methods_;
     }
 
-    protected static ContextEl checkWarn(StringMap<String> files_) {
+    protected static ContextEl checkWarn(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        ReportedMessages methodHeaders_ = validateAll(files_, cont_);
+        ReportedMessages methodHeaders_ = validateAll(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
         return cont_.getContext();
     }
 
-    protected static boolean hasErrReadOnly(StringMap<String> files_) {
+    protected static boolean hasErrReadOnly(StringMap<String> _files) {
         AnalyzedTestContext ctx_ = ctxReadOnlyAna();
-        return invalid(files_, ctx_);
+        return invalid(_files, ctx_);
     }
 
-    protected static boolean hasErrDefCom(StringMap<String> files_) {
+    protected static boolean hasErrDefCom(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElSingleDotDefaultComment();
-        return invalid(files_, cont_);
+        return invalid(_files, cont_);
     }
 
-    private static boolean invalid(StringMap<String> files_, AnalyzedTestContext cont_) {
-        validateAll(files_, cont_);
-        return !isEmptyErrors(cont_);
+    private static boolean invalid(StringMap<String> _files, AnalyzedTestContext _cont) {
+        validateAll(_files, _cont);
+        return !isEmptyErrors(_cont);
     }
 
-    protected static boolean hasErr(StringMap<String> files_) {
+    protected static boolean hasErr(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        return invalid(files_, cont_);
+        return invalid(_files, cont_);
     }
 
-    protected static boolean hasErrLg(StringMap<String> files_, String _lg) {
+    protected static boolean hasErrLg(StringMap<String> _files, String _lg) {
         AnalyzedTestContext cont_ = ctxLgAna(_lg);
-        return invalid(files_, cont_);
+        return invalid(_files, cont_);
     }
 
-    protected static boolean isEmptyErrors(AnalyzedTestContext cont_) {
-        return cont_.getAnalyzing() == null || (cont_.getAnalyzing().isEmptyErrors());
+    protected static boolean isSuccessfulInitialized(ContextEl _cont, String _s) {
+        return _cont.getLocks().getState(_s) == InitClassState.SUCCESS;
     }
+
+    protected static boolean isEmptyErrors(AnalyzedTestContext _cont) {
+        return _cont.getAnalyzing() == null || (_cont.getAnalyzing().isEmptyErrors());
+    }
+
+    protected static boolean isInitialized(ContextEl _cont, String _cl) {
+        return _cont.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
 }

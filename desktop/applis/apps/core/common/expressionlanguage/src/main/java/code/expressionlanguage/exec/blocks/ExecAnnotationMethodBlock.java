@@ -58,8 +58,8 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         opValue = ExpressionLanguage.getReducedNodes(r_);
     }
 
-    public void setOpValue(CustList<ExecOperationNode> opValue) {
-        this.opValue = opValue;
+    public void setOpValue(CustList<ExecOperationNode> _opValue) {
+        this.opValue = _opValue;
     }
 
     @Override

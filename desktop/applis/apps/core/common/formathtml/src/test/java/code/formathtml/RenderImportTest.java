@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -186,7 +185,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" $public $int nb;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body>3</body></html>", getResThreeBean(folder_,relative_,html_, htmlTwo_, htmlThree_,filesSec_,"page1.html"));
+        assertEq("<html><body>3</body></html>", getResThreeBean(folder_,relative_,html_, htmlTwo_, htmlThree_,filesSec_));
     }
 
     @Test
@@ -795,7 +794,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append(" }\n");
         file_.append("}\n");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html>\n<body>\n\n\n\t\ncode.expressionlanguage.exceptions.DivideZeroException\n\npage1.html:4,17:56\npkg.BeanOne.\npage2.html:3,21:49\npkg.BeanTwo.\nmy_file:17,3:371\npkg.BeanThree.beforeDisplaying()\nmy_file:20,7:415\npkg.BeanThree.callee()\n\n</body>\n</html>", getResThreeBean(folder_, relative_, html_, htmlTwo_, htmlThree_, filesSec_, "page1.html"));
+        assertEq("<html>\n<body>\n\n\n\t\ncode.expressionlanguage.exceptions.DivideZeroException\n\npage1.html:4,17:56\npkg.BeanOne.\npage2.html:3,21:49\npkg.BeanTwo.\nmy_file:17,3:371\npkg.BeanThree.beforeDisplaying()\nmy_file:20,7:415\npkg.BeanThree.callee()\n\n</body>\n</html>", getResThreeBean(folder_, relative_, html_, htmlTwo_, htmlThree_, filesSec_));
     }
 
 

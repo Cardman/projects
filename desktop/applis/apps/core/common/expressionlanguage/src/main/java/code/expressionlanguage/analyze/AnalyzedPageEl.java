@@ -188,12 +188,12 @@ public final class AnalyzedPageEl {
         }
     }
 
-    public void setStaticFields(StringMap<StringMap<Struct>> staticFields) {
-        this.staticFields = staticFields;
+    public void setStaticFields(StringMap<StringMap<Struct>> _staticFields) {
+        this.staticFields = _staticFields;
     }
 
-    public void setResources(StringMap<String> resources) {
-        this.resources = resources;
+    public void setResources(StringMap<String> _resources) {
+        this.resources = _resources;
     }
 
     public String getDefaultPkg() {
@@ -388,8 +388,8 @@ public final class AnalyzedPageEl {
         return tabWidth;
     }
 
-    public void setTabWidth(int tabWidth) {
-        this.tabWidth = tabWidth;
+    public void setTabWidth(int _tabWidth) {
+        this.tabWidth = _tabWidth;
     }
 
     public void setTranslatedOffset(int _translatedOffset) {
@@ -509,16 +509,16 @@ public final class AnalyzedPageEl {
         return importingAcces;
     }
 
-    public void setImportingAcces(AccessingImportingBlock importingAcces) {
-        this.importingAcces = importingAcces;
+    public void setImportingAcces(AccessingImportingBlock _importingAcces) {
+        this.importingAcces = _importingAcces;
     }
 
     public AccessedBlock getImportingTypes() {
         return importingTypes;
     }
 
-    public void setImportingTypes(AccessedBlock importingTypes) {
-        this.importingTypes = importingTypes;
+    public void setImportingTypes(AccessedBlock _importingTypes) {
+        this.importingTypes = _importingTypes;
     }
 
     public int getIndexChildType() {
@@ -746,120 +746,120 @@ public final class AnalyzedPageEl {
         return countTypes;
     }
 
-    public void setCountTypes(int countTypes) {
-        this.countTypes = countTypes;
+    public void setCountTypes(int _countTypes) {
+        this.countTypes = _countTypes;
     }
 
     public int getCountInnerEltTypes() {
         return countInnerEltTypes;
     }
 
-    public void setCountInnerEltTypes(int countInnerEltTypes) {
-        this.countInnerEltTypes = countInnerEltTypes;
+    public void setCountInnerEltTypes(int _countInnerEltTypes) {
+        this.countInnerEltTypes = _countInnerEltTypes;
     }
 
     public int getCountOperators() {
         return countOperators;
     }
 
-    public void setCountOperators(int countOperators) {
-        this.countOperators = countOperators;
+    public void setCountOperators(int _countOperators) {
+        this.countOperators = _countOperators;
     }
 
     public AbstractProcessKeyWord getProcessKeyWord() {
         return processKeyWord;
     }
 
-    public void setProcessKeyWord(AbstractProcessKeyWord processKeyWord) {
-        this.processKeyWord = processKeyWord;
+    public void setProcessKeyWord(AbstractProcessKeyWord _processKeyWord) {
+        this.processKeyWord = _processKeyWord;
     }
 
     public AnalyzedBlock getCurrentAnaBlock() {
         return currentAnaBlock;
     }
 
-    public void setCurrentAnaBlock(AnalyzedBlock currentAnaBlock) {
-        this.currentAnaBlock = currentAnaBlock;
+    public void setCurrentAnaBlock(AnalyzedBlock _currentAnaBlock) {
+        this.currentAnaBlock = _currentAnaBlock;
     }
 
     public AbstractHiddenTypes getHiddenTypes() {
         return hiddenTypes;
     }
 
-    public void setHiddenTypes(AbstractHiddenTypes hiddenTypes) {
-        this.hiddenTypes = hiddenTypes;
+    public void setHiddenTypes(AbstractHiddenTypes _hiddenTypes) {
+        this.hiddenTypes = _hiddenTypes;
     }
 
     public AbstractForEachFetch getForEachFetch() {
         return forEachFetch;
     }
 
-    public void setForEachFetch(AbstractForEachFetch forEachFetch) {
-        this.forEachFetch = forEachFetch;
+    public void setForEachFetch(AbstractForEachFetch _forEachFetch) {
+        this.forEachFetch = _forEachFetch;
     }
 
     public AbstractCurrentConstraints getCurrentConstraints() {
         return currentConstraints;
     }
 
-    public void setCurrentConstraints(AbstractCurrentConstraints currentConstraints) {
-        this.currentConstraints = currentConstraints;
+    public void setCurrentConstraints(AbstractCurrentConstraints _currentConstraints) {
+        this.currentConstraints = _currentConstraints;
     }
 
     public AbstractAnnotationAnalysis getAnnotationAnalysis() {
         return annotationAnalysis;
     }
 
-    public void setAnnotationAnalysis(AbstractAnnotationAnalysis annotationAnalysis) {
-        this.annotationAnalysis = annotationAnalysis;
+    public void setAnnotationAnalysis(AbstractAnnotationAnalysis _annotationAnalysis) {
+        this.annotationAnalysis = _annotationAnalysis;
     }
 
     public AbstractCurrentGlobalBlock getCurrentGlobalBlock() {
         return currentGlobalBlock;
     }
 
-    public void setCurrentGlobalBlock(AbstractCurrentGlobalBlock currentGlobalBlock) {
-        this.currentGlobalBlock = currentGlobalBlock;
+    public void setCurrentGlobalBlock(AbstractCurrentGlobalBlock _currentGlobalBlock) {
+        this.currentGlobalBlock = _currentGlobalBlock;
     }
 
     public AbstractLoopDeclaring getLoopDeclaring() {
         return loopDeclaring;
     }
 
-    public void setLoopDeclaring(AbstractLoopDeclaring loopDeclaring) {
-        this.loopDeclaring = loopDeclaring;
+    public void setLoopDeclaring(AbstractLoopDeclaring _loopDeclaring) {
+        this.loopDeclaring = _loopDeclaring;
     }
 
     public AbstractLocalDeclaring getLocalDeclaring() {
         return localDeclaring;
     }
 
-    public void setLocalDeclaring(AbstractLocalDeclaring localDeclaring) {
-        this.localDeclaring = localDeclaring;
+    public void setLocalDeclaring(AbstractLocalDeclaring _localDeclaring) {
+        this.localDeclaring = _localDeclaring;
     }
 
     public AbstractBuildingConstraints getBuildingConstraints() {
         return buildingConstraints;
     }
 
-    public void setBuildingConstraints(AbstractBuildingConstraints buildingConstraints) {
-        this.buildingConstraints = buildingConstraints;
+    public void setBuildingConstraints(AbstractBuildingConstraints _buildingConstraints) {
+        this.buildingConstraints = _buildingConstraints;
     }
 
     public AbstractLocalizer getLocalizer() {
         return localizer;
     }
 
-    public void setLocalizer(AbstractLocalizer localizer) {
-        this.localizer = localizer;
+    public void setLocalizer(AbstractLocalizer _localizer) {
+        this.localizer = _localizer;
     }
 
     public AbstractTokenValidation getTokenValidation() {
         return tokenValidation;
     }
 
-    public void setTokenValidation(AbstractTokenValidation tokenValidation) {
-        this.tokenValidation = tokenValidation;
+    public void setTokenValidation(AbstractTokenValidation _tokenValidation) {
+        this.tokenValidation = _tokenValidation;
     }
 
     public CustList<PartOffset> getCurrentParts() {
@@ -870,8 +870,8 @@ public final class AnalyzedPageEl {
         return currentEmptyPartErr;
     }
 
-    public void setCurrentEmptyPartErr(String currentEmptyPartErr) {
-        this.currentEmptyPartErr = currentEmptyPartErr;
+    public void setCurrentEmptyPartErr(String _currentEmptyPartErr) {
+        this.currentEmptyPartErr = _currentEmptyPartErr;
     }
 
     public Errors getErrors() {
@@ -966,9 +966,9 @@ public final class AnalyzedPageEl {
         addError(_error);
     }
 
-    private static String getLocationFile(String _fileName, int _sum, AnalyzedPageEl analyzing) {
-        FileBlock file_ = analyzing.getFileBody(_fileName);
-        FileMetrics metrics_ = file_.getMetrics(analyzing.getTabWidth());
+    private static String getLocationFile(String _fileName, int _sum, AnalyzedPageEl _analyzing) {
+        FileBlock file_ = _analyzing.getFileBody(_fileName);
+        FileMetrics metrics_ = file_.getMetrics(_analyzing.getTabWidth());
         int r_ = metrics_.getRowFile(_sum);
         int c_ = metrics_.getColFile(_sum,r_);
         return StringUtil.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
@@ -1057,8 +1057,8 @@ public final class AnalyzedPageEl {
         return countAnonTypes;
     }
 
-    public void setCountAnonTypes(int countAnonTypes) {
-        this.countAnonTypes = countAnonTypes;
+    public void setCountAnonTypes(int _countAnonTypes) {
+        this.countAnonTypes = _countAnonTypes;
     }
 
     public IdMap<Block, AssBlock> getFieldsAssSt() {
@@ -1101,8 +1101,8 @@ public final class AnalyzedPageEl {
         return variableIssue;
     }
 
-    public void setVariableIssue(boolean variableIssue) {
-        this.variableIssue = variableIssue;
+    public void setVariableIssue(boolean _variableIssue) {
+        this.variableIssue = _variableIssue;
     }
 
     public StringList getToStringOwners() {
@@ -1113,8 +1113,8 @@ public final class AnalyzedPageEl {
         return comments;
     }
 
-    public void setComments(CustList<CommentDelimiters> comments) {
-        this.comments = comments;
+    public void setComments(CustList<CommentDelimiters> _comments) {
+        this.comments = _comments;
     }
 
     public AnalysisMessages getAnalysisMessages() {
@@ -1129,8 +1129,8 @@ public final class AnalyzedPageEl {
         return keyWords;
     }
 
-    public void setKeyWords(KeyWords keyWords) {
-        this.keyWords = keyWords;
+    public void setKeyWords(KeyWords _keyWords) {
+        this.keyWords = _keyWords;
     }
 
     public boolean isGettingParts() {
@@ -1145,16 +1145,16 @@ public final class AnalyzedPageEl {
         return gettingErrors;
     }
 
-    public void setGettingErrors(boolean gettingErrors) {
-        this.gettingErrors = gettingErrors;
+    public void setGettingErrors(boolean _gettingErrors) {
+        this.gettingErrors = _gettingErrors;
     }
 
     public Options getOptions() {
         return options;
     }
 
-    public void setOptions(Options options) {
-        this.options = options;
+    public void setOptions(Options _options) {
+        this.options = _options;
     }
 
     public IdMap<RootBlock, ClassMethodIdReturn> getToStr() {
@@ -1173,15 +1173,15 @@ public final class AnalyzedPageEl {
         return calculator;
     }
 
-    public void setCalculator(AbstractConstantsCalculator calculator) {
-        this.calculator = calculator;
+    public void setCalculator(AbstractConstantsCalculator _calculator) {
+        this.calculator = _calculator;
     }
 
     public AbstractFileBuilder getFileBuilder() {
         return fileBuilder;
     }
 
-    public void setFileBuilder(AbstractFileBuilder fileBuilder) {
-        this.fileBuilder = fileBuilder;
+    public void setFileBuilder(AbstractFileBuilder _fileBuilder) {
+        this.fileBuilder = _fileBuilder;
     }
 }

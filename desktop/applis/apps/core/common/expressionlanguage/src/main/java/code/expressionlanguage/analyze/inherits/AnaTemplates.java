@@ -832,13 +832,13 @@ public final class AnaTemplates {
         return true;
     }
 
-    public static String getGeneric(String _arg, String _param, Mapping map_, AnalyzedPageEl _page) {
+    public static String getGeneric(String _arg, String _param, Mapping _map, AnalyzedPageEl _page) {
         String objType_ = _page.getAliasObject();
         DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
         String baseArrayArg_ = dArg_.getComponent();
         String generic_ = "";
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            StringMap<StringList> mapping_ = map_.getMapping();
+            StringMap<StringList> mapping_ = _map.getMapping();
             for (String c: Mapping.getAllUpperBounds(mapping_,baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 String arr_ = StringExpUtil.getPrettyArrayType(c,dArg_.getDim());
                 String idCl_ = StringExpUtil.getIdFromAllTypes(arr_);
@@ -926,8 +926,7 @@ public final class AnaTemplates {
         String classParam_ = dBaseParam_.getComponent();
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        AnalyzedPageEl page_ = _page;
-        if (StringUtil.quickEq(classParam_, page_.getAliasObject())) {
+        if (StringUtil.quickEq(classParam_, _page.getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
                 return "";
             }
@@ -936,17 +935,17 @@ public final class AnaTemplates {
         if (dBaseArg_.getDim() != dim_) {
             return "";
         }
-        if (AnaTypeUtil.isPrimitive(baseArr_,page_)) {
-            PrimitiveType pr_ = page_.getPrimitiveTypes().getVal(baseArr_);
-            if (StringUtil.contains(pr_.getAllSuperType(page_), classParam_)) {
+        if (AnaTypeUtil.isPrimitive(baseArr_, _page)) {
+            PrimitiveType pr_ = _page.getPrimitiveTypes().getVal(baseArr_);
+            if (StringUtil.contains(pr_.getAllSuperType(_page), classParam_)) {
                 return _superType;
             }
             return "";
         }
-        if (StringUtil.quickEq(_subType, page_.getAliasVoid())) {
+        if (StringUtil.quickEq(_subType, _page.getAliasVoid())) {
             return "";
         }
-        if (StringUtil.quickEq(_superType, page_.getAliasVoid())) {
+        if (StringUtil.quickEq(_superType, _page.getAliasVoid())) {
             return "";
         }
         String generic_ = getSuperGeneric(_typeSub, dim_, classParam_, _page);

@@ -4,8 +4,8 @@ public final class AnaParentInstanceContent {
     private boolean intermediate;
     private final int off;
 
-    public AnaParentInstanceContent(int off) {
-        this.off = off;
+    public AnaParentInstanceContent(int _off) {
+        this.off = _off;
     }
 
     public int getOff() {
@@ -16,7 +16,7 @@ public final class AnaParentInstanceContent {
         return intermediate;
     }
 
-    public void setIntermediate(boolean intermediate) {
-        this.intermediate = intermediate;
+    public void setIntermediate(boolean _intermediate) {
+        this.intermediate = _intermediate;
     }
 }

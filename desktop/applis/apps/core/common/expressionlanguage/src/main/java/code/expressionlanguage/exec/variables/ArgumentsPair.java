@@ -1,9 +1,6 @@
 package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.util.CustList;
 
 public class ArgumentsPair {
 
@@ -42,16 +39,16 @@ public class ArgumentsPair {
         return argumentTest;
     }
 
-    public void setArgumentTest(boolean argumentTest) {
-        this.argumentTest = argumentTest;
+    public void setArgumentTest(boolean _argumentTest) {
+        this.argumentTest = _argumentTest;
     }
 
     public boolean isCalcArgumentTest() {
         return calcArgumentTest;
     }
 
-    public void setCalcArgumentTest(boolean calcArgumentTest) {
-        this.calcArgumentTest = calcArgumentTest;
+    public void setCalcArgumentTest(boolean _calcArgumentTest) {
+        this.calcArgumentTest = _calcArgumentTest;
     }
 
     public Argument getPreviousArgument() {
@@ -65,87 +62,87 @@ public class ArgumentsPair {
         return endCalculate;
     }
 
-    public void setEndCalculate(boolean endCalculate) {
-        this.endCalculate = endCalculate;
+    public void setEndCalculate(boolean _endCalculate) {
+        this.endCalculate = _endCalculate;
     }
 
     public ImplicitMethods getImplicits() {
         return implicits;
     }
 
-    public void setImplicits(ImplicitMethods implicits) {
-        this.implicits = implicits;
+    public void setImplicits(ImplicitMethods _implicits) {
+        this.implicits = _implicits;
     }
 
     public ImplicitMethods getImplicitsTest() {
         return implicitsTest;
     }
 
-    public void setImplicitsTest(ImplicitMethods implicitsTest) {
-        this.implicitsTest = implicitsTest;
+    public void setImplicitsTest(ImplicitMethods _implicitsTest) {
+        this.implicitsTest = _implicitsTest;
     }
 
     public ImplicitMethods getImplicitsCompound() {
         return implicitsCompound;
     }
 
-    public void setImplicitsCompound(ImplicitMethods implicitsCompound) {
-        this.implicitsCompound = implicitsCompound;
+    public void setImplicitsCompound(ImplicitMethods _implicitsCompound) {
+        this.implicitsCompound = _implicitsCompound;
     }
 
     public ImplicitMethods getImplicitsSemiFrom() {
         return implicitsSemiFrom;
     }
 
-    public void setImplicitsSemiFrom(ImplicitMethods implicitsSemiFrom) {
-        this.implicitsSemiFrom = implicitsSemiFrom;
+    public void setImplicitsSemiFrom(ImplicitMethods _implicitsSemiFrom) {
+        this.implicitsSemiFrom = _implicitsSemiFrom;
     }
 
     public ImplicitMethods getImplicitsSemiTo() {
         return implicitsSemiTo;
     }
 
-    public void setImplicitsSemiTo(ImplicitMethods implicitsSemiTo) {
-        this.implicitsSemiTo = implicitsSemiTo;
+    public void setImplicitsSemiTo(ImplicitMethods _implicitsSemiTo) {
+        this.implicitsSemiTo = _implicitsSemiTo;
     }
 
     public int getIndexImplicit() {
         return indexImplicit;
     }
 
-    public void setIndexImplicit(int indexImplicit) {
-        this.indexImplicit = indexImplicit;
+    public void setIndexImplicit(int _indexImplicit) {
+        this.indexImplicit = _indexImplicit;
     }
 
     public int getIndexImplicitTest() {
         return indexImplicitTest;
     }
 
-    public void setIndexImplicitTest(int indexImplicitTest) {
-        this.indexImplicitTest = indexImplicitTest;
+    public void setIndexImplicitTest(int _indexImplicitTest) {
+        this.indexImplicitTest = _indexImplicitTest;
     }
 
     public int getIndexImplicitCompound() {
         return indexImplicitCompound;
     }
 
-    public void setIndexImplicitCompound(int indexImplicitCompound) {
-        this.indexImplicitCompound = indexImplicitCompound;
+    public void setIndexImplicitCompound(int _indexImplicitCompound) {
+        this.indexImplicitCompound = _indexImplicitCompound;
     }
 
     public int getIndexImplicitSemiFrom() {
         return indexImplicitSemiFrom;
     }
 
-    public void setIndexImplicitSemiFrom(int indexImplicitSemiFrom) {
-        this.indexImplicitSemiFrom = indexImplicitSemiFrom;
+    public void setIndexImplicitSemiFrom(int _indexImplicitSemiFrom) {
+        this.indexImplicitSemiFrom = _indexImplicitSemiFrom;
     }
 
     public int getIndexImplicitSemiTo() {
         return indexImplicitSemiTo;
     }
 
-    public void setIndexImplicitSemiTo(int indexImplicitSemiTo) {
-        this.indexImplicitSemiTo = indexImplicitSemiTo;
+    public void setIndexImplicitSemiTo(int _indexImplicitSemiTo) {
+        this.indexImplicitSemiTo = _indexImplicitSemiTo;
     }
 }

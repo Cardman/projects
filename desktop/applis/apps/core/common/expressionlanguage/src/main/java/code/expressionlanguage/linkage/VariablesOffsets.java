@@ -66,31 +66,31 @@ public final class VariablesOffsets {
         return state;
     }
 
-    public void setState(LinkageStackElement state) {
-        this.state = state;
+    public void setState(LinkageStackElement _v) {
+        this.state = _v;
     }
 
     public KeyWords getKeyWords() {
         return keyWords;
     }
 
-    public void setKeyWords(KeyWords keyWords) {
-        this.keyWords = keyWords;
+    public void setKeyWords(KeyWords _v) {
+        this.keyWords = _v;
     }
 
     public DisplayedStrings getDisplayedStrings() {
         return displayedStrings;
     }
 
-    public void setDisplayedStrings(DisplayedStrings displayedStrings) {
-        this.displayedStrings = displayedStrings;
+    public void setDisplayedStrings(DisplayedStrings _v) {
+        this.displayedStrings = _v;
     }
 
     public StringList getToStringOwners() {
         return toStringOwners;
     }
 
-    public void setToStringOwners(StringList toStringOwners) {
-        this.toStringOwners = toStringOwners;
+    public void setToStringOwners(StringList _v) {
+        this.toStringOwners = _v;
     }
 }

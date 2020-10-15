@@ -30,95 +30,95 @@ public final class AliasParamCore {
         return aliasError0CurrentStack0;
     }
 
-    public void setAliasError0CurrentStack0(String aliasError0CurrentStack0) {
-        this.aliasError0CurrentStack0 = aliasError0CurrentStack0;
+    public void setAliasError0CurrentStack0(String _v) {
+        this.aliasError0CurrentStack0 =_v;
     }
 
     public String getAliasError0ToStringMethod0() {
         return aliasError0ToStringMethod0;
     }
 
-    public void setAliasError0ToStringMethod0(String aliasError0ToStringMethod0) {
-        this.aliasError0ToStringMethod0 = aliasError0ToStringMethod0;
+    public void setAliasError0ToStringMethod0(String _v) {
+        this.aliasError0ToStringMethod0 =_v;
     }
 
     public String getAliasEnums0Name0() {
         return aliasEnums0Name0;
     }
 
-    public void setAliasEnums0Name0(String aliasEnums0Name0) {
-        this.aliasEnums0Name0 = aliasEnums0Name0;
+    public void setAliasEnums0Name0(String _v) {
+        this.aliasEnums0Name0 =_v;
     }
 
     public String getAliasEnums0Ordinal0() {
         return aliasEnums0Ordinal0;
     }
 
-    public void setAliasEnums0Ordinal0(String aliasEnums0Ordinal0) {
-        this.aliasEnums0Ordinal0 = aliasEnums0Ordinal0;
+    public void setAliasEnums0Ordinal0(String _v) {
+        this.aliasEnums0Ordinal0 =_v;
     }
 
     public String getAliasObjectsUtil0SameRef0() {
         return aliasObjectsUtil0SameRef0;
     }
 
-    public void setAliasObjectsUtil0SameRef0(String aliasObjectsUtil0SameRef0) {
-        this.aliasObjectsUtil0SameRef0 = aliasObjectsUtil0SameRef0;
+    public void setAliasObjectsUtil0SameRef0(String _v) {
+        this.aliasObjectsUtil0SameRef0 =_v;
     }
 
     public String getAliasObjectsUtil0SameRef1() {
         return aliasObjectsUtil0SameRef1;
     }
 
-    public void setAliasObjectsUtil0SameRef1(String aliasObjectsUtil0SameRef1) {
-        this.aliasObjectsUtil0SameRef1 = aliasObjectsUtil0SameRef1;
+    public void setAliasObjectsUtil0SameRef1(String _v) {
+        this.aliasObjectsUtil0SameRef1 =_v;
     }
 
     public String getAliasObjectsUtil0GetParent0() {
         return aliasObjectsUtil0GetParent0;
     }
 
-    public void setAliasObjectsUtil0GetParent0(String aliasObjectsUtil0GetParent0) {
-        this.aliasObjectsUtil0GetParent0 = aliasObjectsUtil0GetParent0;
+    public void setAliasObjectsUtil0GetParent0(String _v) {
+        this.aliasObjectsUtil0GetParent0 =_v;
     }
 
     public String getAliasObjectsUtil0SetParent0() {
         return aliasObjectsUtil0SetParent0;
     }
 
-    public void setAliasObjectsUtil0SetParent0(String aliasObjectsUtil0SetParent0) {
-        this.aliasObjectsUtil0SetParent0 = aliasObjectsUtil0SetParent0;
+    public void setAliasObjectsUtil0SetParent0(String _v) {
+        this.aliasObjectsUtil0SetParent0 =_v;
     }
 
     public String getAliasObjectsUtil0SetParent1() {
         return aliasObjectsUtil0SetParent1;
     }
 
-    public void setAliasObjectsUtil0SetParent1(String aliasObjectsUtil0SetParent1) {
-        this.aliasObjectsUtil0SetParent1 = aliasObjectsUtil0SetParent1;
+    public void setAliasObjectsUtil0SetParent1(String _v) {
+        this.aliasObjectsUtil0SetParent1 =_v;
     }
 
     public String getAliasStringUtil0ValueOfMethod0() {
         return aliasStringUtil0ValueOfMethod0;
     }
 
-    public void setAliasStringUtil0ValueOfMethod0(String aliasStringUtil0ValueOfMethod0) {
-        this.aliasStringUtil0ValueOfMethod0 = aliasStringUtil0ValueOfMethod0;
+    public void setAliasStringUtil0ValueOfMethod0(String _v) {
+        this.aliasStringUtil0ValueOfMethod0 =_v;
     }
 
     public String getAliasResources0ReadResources0() {
         return aliasResources0ReadResources0;
     }
 
-    public void setAliasResources0ReadResources0(String aliasResources0ReadResources0) {
-        this.aliasResources0ReadResources0 = aliasResources0ReadResources0;
+    public void setAliasResources0ReadResources0(String _v) {
+        this.aliasResources0ReadResources0 =_v;
     }
 
     public String getAliasResources0ReadResourcesIndex0() {
         return aliasResources0ReadResourcesIndex0;
     }
 
-    public void setAliasResources0ReadResourcesIndex0(String aliasResources0ReadResourcesIndex0) {
-        this.aliasResources0ReadResourcesIndex0 = aliasResources0ReadResourcesIndex0;
+    public void setAliasResources0ReadResourcesIndex0(String _v) {
+        this.aliasResources0ReadResourcesIndex0 =_v;
     }
 }

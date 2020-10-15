@@ -14,24 +14,24 @@ public final class AnaInstancingAnnotContent {
         return array;
     }
 
-    public void setArray(boolean array) {
-        this.array = array;
+    public void setArray(boolean _array) {
+        this.array = _array;
     }
 
     public String getClassName() {
         return className;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClassName(String _className) {
+        this.className = _className;
     }
 
     public String getMethodName() {
         return methodName;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
+    public void setMethodName(String _methodName) {
+        this.methodName = _methodName;
     }
 
     public StringMap<AnnotationTypeInfo> getFieldNames() {

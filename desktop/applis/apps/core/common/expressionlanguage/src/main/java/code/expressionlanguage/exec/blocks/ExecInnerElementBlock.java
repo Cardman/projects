@@ -35,12 +35,12 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public void setTrOffset(int trOffset) {
-        this.trOffset = trOffset;
+    public void setTrOffset(int _off) {
+        this.trOffset = _off;
     }
 
-    public void setOpValue(CustList<ExecOperationNode> opValue) {
-        this.opValue = opValue;
+    public void setOpValue(CustList<ExecOperationNode> _op) {
+        this.opValue = _op;
     }
 
     @Override
@@ -48,12 +48,12 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
         return importedClassName;
     }
 
-    public void setImportedClassName(String importedClassName) {
-        this.importedClassName = importedClassName;
+    public void setImportedClassName(String _importedClassName) {
+        this.importedClassName = _importedClassName;
     }
 
-    public void setRealImportedClassName(String realImportedClassName) {
-        this.realImportedClassName = realImportedClassName;
+    public void setRealImportedClassName(String _realImportedClassName) {
+        this.realImportedClassName = _realImportedClassName;
     }
 
     @Override

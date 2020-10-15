@@ -304,8 +304,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public void setFieldNumber(int fieldNumber) {
-        this.fieldNumber = fieldNumber;
+    public void setFieldNumber(int _fieldNumber) {
+        this.fieldNumber = _fieldNumber;
     }
 
     @Override

@@ -34,8 +34,8 @@ public final class DealPresidentTest {
         assertEq(13,donne_.hand((byte)3).total());
     }
 
-    private static void initDonneLoc(RulesPresident rules_, DealPresident donne_) {
-        donne_.initDonne(rules_, new DefaultGenerator());
+    private static void initDonneLoc(RulesPresident _rules, DealPresident _donne) {
+        _donne.initDonne(_rules, new DefaultGenerator());
     }
 
     @Test

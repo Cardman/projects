@@ -42,11 +42,11 @@ public final class ExecClassArgumentMatching {
         return convert(_arg, _exec, className_);
     }
 
-    public static Struct convert(Struct _arg, ContextEl _exec, StringList className_) {
-        if (StringUtil.equalsSet(className_,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
+    public static Struct convert(Struct _arg, ContextEl _exec, StringList _className) {
+        if (StringUtil.equalsSet(_className,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
             return NumParsers.convertToNumber(_arg);
         }
-        byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(className_), _exec.getStandards());
+        byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(_className), _exec.getStandards());
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
             return NumParsers.convertToBoolean(_arg);
         }
@@ -92,17 +92,17 @@ public final class ExecClassArgumentMatching {
         return className_;
     }
 
-    private static boolean isPrimitive(LgNames stds_, StringList _names) {
+    private static boolean isPrimitive(LgNames _stds, StringList _names) {
         for (String n: _names) {
-            if (stds_.getPrimitiveTypes().contains(n)) {
+            if (_stds.getPrimitiveTypes().contains(n)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static byte getPrimitiveWrapCast(String _className, LgNames stds_) {
-        return ClassArgumentMatching.getPrimitiveCast(new StringList(toPrimitive(_className,stds_)), stds_.getPrimTypes());
+    public static byte getPrimitiveWrapCast(String _className, LgNames _stds) {
+        return ClassArgumentMatching.getPrimitiveCast(new StringList(toPrimitive(_className,_stds)), _stds.getPrimTypes());
     }
 
     private static String toPrimitive(String _class, LgNames _stds) {

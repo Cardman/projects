@@ -44,8 +44,8 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         assertEq(SortConstants.SWAP_SORT, cmpTypes(context_, int_, nb_));
     }
 
-    private static int cmpTypes(AnalyzedTestContext context_, String int_, String nb_) {
-        return AnaTypeUtil.cmpTypes(nb_,int_, context_.getAnalyzing());
+    private static int cmpTypes(AnalyzedTestContext _context, String _int, String _nb) {
+        return AnaTypeUtil.cmpTypes(_nb,_int, _context.getAnalyzing());
     }
 
     @Test
@@ -76,8 +76,8 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         assertEq(context_.getAliasVoid(), sub_.get(0));
     }
 
-    private static StringList getSubclasses(AnalyzedTestContext context_, StringList classes_) {
-        return AnaTypeUtil.getSubclasses(classes_, context_.getAnalyzing());
+    private static StringList getSubclasses(AnalyzedTestContext _context, StringList _classes) {
+        return AnaTypeUtil.getSubclasses(_classes, _context.getAnalyzing());
     }
 
     private AnalyzedTestContext simpleContextEl() {

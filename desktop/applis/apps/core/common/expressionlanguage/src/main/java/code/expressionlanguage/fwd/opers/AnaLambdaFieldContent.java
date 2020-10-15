@@ -9,23 +9,23 @@ public final class AnaLambdaFieldContent {
         return staticField;
     }
 
-    public void setStaticField(boolean staticField) {
-        this.staticField = staticField;
+    public void setStaticField(boolean _staticField) {
+        this.staticField = _staticField;
     }
 
     public boolean isFinalField() {
         return finalField;
     }
 
-    public void setFinalField(boolean finalField) {
-        this.finalField = finalField;
+    public void setFinalField(boolean _finalField) {
+        this.finalField = _finalField;
     }
 
     public boolean isAffField() {
         return affField;
     }
 
-    public void setAffField(boolean affField) {
-        this.affField = affField;
+    public void setAffField(boolean _affField) {
+        this.affField = _affField;
     }
 }

@@ -31,8 +31,8 @@ public final class AffectationOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    public void setSynthetic(boolean synthetic) {
-        this.synthetic = synthetic;
+    public void setSynthetic(boolean _synthetic) {
+        this.synthetic = _synthetic;
     }
 
     @Override
@@ -224,12 +224,12 @@ public final class AffectationOperation extends MethodOperation {
         return castDottedTo(root_);
     }
 
-    public static SettableElResult castDottedTo(OperationNode root_) {
+    public static SettableElResult castDottedTo(OperationNode _root) {
         SettableElResult elt_;
-        if (!(root_ instanceof AbstractDotOperation)) {
-            elt_ = castTo(root_);
+        if (!(_root instanceof AbstractDotOperation)) {
+            elt_ = castTo(_root);
         } else {
-            OperationNode beforeLast_ = ((MethodOperation)root_).getChildrenNodes().last();
+            OperationNode beforeLast_ = ((MethodOperation)_root).getChildrenNodes().last();
             elt_ = castTo(beforeLast_);
         }
         return elt_;

@@ -9,8 +9,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 public final class DefaultTokenValidation implements AbstractTokenValidation {
     private final AnalyzedPageEl page;
 
-    public DefaultTokenValidation(AnalyzedPageEl page) {
-        this.page = page;
+    public DefaultTokenValidation(AnalyzedPageEl _page) {
+        this.page = _page;
     }
 
     @Override

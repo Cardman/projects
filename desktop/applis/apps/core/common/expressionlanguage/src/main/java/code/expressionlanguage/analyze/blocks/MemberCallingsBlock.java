@@ -103,16 +103,16 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private void checkIndexes(Block en_, AnalyzedPageEl _page) {
-        for (int i:en_.getBadIndexes()) {
+    private void checkIndexes(Block _en, AnalyzedPageEl _page) {
+        for (int i:_en.getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(i);
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
             _page.addLocError(b_);
-            en_.setReachableError(true);
-            en_.getErrorsBlock().add(b_.getBuiltError());
+            _en.setReachableError(true);
+            _en.getErrorsBlock().add(b_.getBuiltError());
         }
     }
 
@@ -147,7 +147,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         return numberFct;
     }
 
-    public void setNumberFct(int numberFct) {
-        this.numberFct = numberFct;
+    public void setNumberFct(int _numberFct) {
+        this.numberFct = _numberFct;
     }
 }

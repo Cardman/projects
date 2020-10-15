@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -45,7 +44,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -814,7 +813,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -858,7 +857,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -902,7 +901,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -916,10 +915,6 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         assertEq(8, ((NumberStruct) arr_[0]).intStruct());
         field_ = getField(str_, new ClassField("pkg.Ex", "ance"));
         assertSame(NullStruct.NULL_VALUE,field_);
-    }
-
-    private static boolean isInitialized(ContextEl cont_) {
-        return cont_.getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
     }
 
     @Test

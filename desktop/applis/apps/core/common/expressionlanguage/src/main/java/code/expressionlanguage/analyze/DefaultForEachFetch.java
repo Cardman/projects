@@ -7,8 +7,8 @@ import code.util.StringList;
 public final class DefaultForEachFetch implements AbstractForEachFetch {
     private final AnalyzedPageEl page;
 
-    public DefaultForEachFetch(AnalyzedPageEl page) {
-        this.page = page;
+    public DefaultForEachFetch(AnalyzedPageEl _page) {
+        this.page = _page;
     }
 
     @Override

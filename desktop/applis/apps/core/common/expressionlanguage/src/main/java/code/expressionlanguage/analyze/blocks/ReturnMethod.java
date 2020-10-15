@@ -138,8 +138,8 @@ public final class ReturnMethod extends AbruptBlock {
         return implicit;
     }
 
-    public void setImplicit(boolean implicit) {
-        this.implicit = implicit;
+    public void setImplicit(boolean _implicit) {
+        this.implicit = _implicit;
     }
 
     public String getReturnType() {

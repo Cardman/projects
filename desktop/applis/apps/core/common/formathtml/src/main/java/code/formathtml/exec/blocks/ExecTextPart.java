@@ -14,8 +14,8 @@ public final class ExecTextPart {
         return opExp;
     }
 
-    public void setOpExp(CustList<CustList<RendDynOperationNode>> opExp) {
-        this.opExp = opExp;
+    public void setOpExp(CustList<CustList<RendDynOperationNode>> _opExp) {
+        this.opExp = _opExp;
     }
 
     public StringList getTexts() {

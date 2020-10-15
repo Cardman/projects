@@ -202,14 +202,14 @@ public abstract class RendBlock {
         return currentNode_;
     }
 
-    static void simpleAppendChild(Document _doc, RendReadWrite _rw, MutableNode currentNode_) {
-        simpleAppendChild(_doc,_rw.getWrite(),currentNode_);
+    static void simpleAppendChild(Document _doc, RendReadWrite _rw, MutableNode _currentNode) {
+        simpleAppendChild(_doc,_rw.getWrite(),_currentNode);
     }
-    static void simpleAppendChild(Document _doc, Element _parent, MutableNode currentNode_) {
+    static void simpleAppendChild(Document _doc, Element _parent, MutableNode _currentNode) {
         if (_parent == null) {
-            _doc.appendChild(currentNode_);
+            _doc.appendChild(_currentNode);
         } else {
-            _parent.appendChild(currentNode_);
+            _parent.appendChild(_currentNode);
         }
     }
     public static Element getParentNode(RendReadWrite _rw) {

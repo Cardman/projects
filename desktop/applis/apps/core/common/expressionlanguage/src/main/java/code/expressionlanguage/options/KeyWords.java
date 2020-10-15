@@ -1278,7 +1278,7 @@ public final class KeyWords {
         return keyWordParent;
     }
 
-    public void setKeyWordParent(String keyWordParent) {
-        this.keyWordParent = keyWordParent;
+    public void setKeyWordParent(String _keyWordParent) {
+        this.keyWordParent = _keyWordParent;
     }
 }

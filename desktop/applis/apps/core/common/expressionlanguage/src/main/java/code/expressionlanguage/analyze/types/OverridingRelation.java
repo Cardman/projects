@@ -15,8 +15,8 @@ public final class OverridingRelation {
         return sub;
     }
 
-    public void setSub(RootBlock sub) {
-        this.sub = sub;
+    public void setSub(RootBlock _sub) {
+        this.sub = _sub;
     }
 
     public GeneStringOverridable getSubMethod() {
@@ -31,8 +31,8 @@ public final class OverridingRelation {
         return sup;
     }
 
-    public void setSup(RootBlock sup) {
-        this.sup = sup;
+    public void setSup(RootBlock _sup) {
+        this.sup = _sup;
     }
 
     public GeneStringOverridable getSupMethod() {

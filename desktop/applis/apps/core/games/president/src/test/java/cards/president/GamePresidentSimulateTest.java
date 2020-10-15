@@ -35,8 +35,8 @@ public final class GamePresidentSimulateTest {
         assertTrue(g_.isEnded());
     }
 
-    private static void simulateLoc(GamePresident g_, AbstractSimulatingPresident s_) {
-        g_.simulate(2,s_, new DefaultGenerator());
+    private static void simulateLoc(GamePresident _g, AbstractSimulatingPresident _s) {
+        _g.simulate(2,_s, new DefaultGenerator());
     }
 
     static CustList<HandPresident> deal1() {

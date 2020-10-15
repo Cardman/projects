@@ -875,8 +875,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         assertEq(29, indexes_.last());
     }
 
-    private static Ints getIndexes(AnalyzedTestContext cont_, String s) {
-        return ParserType.getIndexes(s, cont_.getAnalyzing());
+    private static Ints getIndexes(AnalyzedTestContext _cont, String _s) {
+        return ParserType.getIndexes(_s, _cont.getAnalyzing());
     }
 
     private AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {

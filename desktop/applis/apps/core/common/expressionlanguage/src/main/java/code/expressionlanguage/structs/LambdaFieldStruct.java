@@ -41,8 +41,8 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         return staticField;
     }
 
-    public void setStaticField(boolean staticField) {
-        this.staticField = staticField;
+    public void setStaticField(boolean _staticField) {
+        this.staticField = _staticField;
     }
 
     public boolean isSafeInstance() {
@@ -61,8 +61,8 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         return metaInfo;
     }
 
-    public void setMetaInfo(Struct metaInfo) {
-        this.metaInfo = metaInfo;
+    public void setMetaInfo(Struct _metaInfo) {
+        this.metaInfo = _metaInfo;
     }
 
     public ClassField getFid() {

@@ -40,8 +40,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected CustList<Argument> fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String className_, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
-        String lastType_ = ExecTemplates.quickFormat(_rootBlock,className_, _lastType);
+    protected CustList<Argument> fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+        String lastType_ = ExecTemplates.quickFormat(_rootBlock,_className, _lastType);
         return fectchArgs(_nodes, lastType_, _naturalVararg);
     }
 
@@ -155,8 +155,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return instancePrepareFormat(_conf, className_, _rootBlock, _ctor, _previous, _arguments, _fieldName, _blockIndex);
     }
 
-    public static Argument instancePrepareFormat(ContextEl _conf, String className_, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
-        return instancePrepareCust(_conf,className_, _rootBlock,_ctor,_previous,_arguments,_fieldName,_blockIndex);
+    public static Argument instancePrepareFormat(ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
+        return instancePrepareCust(_conf,_className, _rootBlock,_ctor,_previous,_arguments,_fieldName,_blockIndex);
     }
 
     private static Argument instancePrepareCust(ContextEl _conf, String _className, ExecRootBlock _root,ExecNamedFunctionBlock _constId,
@@ -181,8 +181,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    private static void checkNeeded(ContextEl _conf, String _className, Argument _previous, LgNames stds_, ExecRootBlock g_) {
-        if (g_.withoutInstance()) {
+    private static void checkNeeded(ContextEl _conf, String _className, Argument _previous, LgNames _stds, ExecRootBlock _g) {
+        if (_g.withoutInstance()) {
             return;
         }
         //From analyze
@@ -190,14 +190,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String param_ = StringUtil.join(parts_.left(parts_.size()-2), "");
         if (_previous.isNull()) {
             String npe_;
-            npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            npe_ = _stds.getContent().getCoreNames().getAliasNullPe();
             _conf.setCallingState(new ErrorStruct(_conf,npe_));
             return;
         }
         String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
-            cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            cast_ = _stds.getContent().getCoreNames().getAliasCastType();
             _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE,param_, RETURN_LINE),cast_));
         }
     }
@@ -234,20 +234,20 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(res_.getResult());
     }
 
-    public static Argument tryGetEnumValues(AbstractExiting _exit, ContextEl _cont, ExecRootBlock r_, ClassCategory category_) {
-        if (isNotEnumType(r_, category_)) {
+    public static Argument tryGetEnumValues(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category) {
+        if (isNotEnumType(_r, _category)) {
             return new Argument();
         }
-        String className_ = r_.getWildCardElement();
-        return getEnumValues(_exit,className_,r_, _cont);
+        String className_ = _r.getWildCardElement();
+        return getEnumValues(_exit,className_,_r, _cont);
     }
 
-    public static Argument tryGetEnumValue(AbstractExiting _exit, ContextEl _cont, ExecRootBlock r_, ClassCategory category_, Argument clArg_) {
-        if (isNotEnumType(r_, category_)) {
+    public static Argument tryGetEnumValue(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, Argument _clArg) {
+        if (isNotEnumType(_r, _category)) {
             return new Argument();
         }
-        String enumName_ = r_.getFullName();
-        return getEnumValue(_exit,enumName_,r_, clArg_, _cont);
+        String enumName_ = _r.getFullName();
+        return getEnumValue(_exit,enumName_,_r, _clArg, _cont);
     }
 
     public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
@@ -304,8 +304,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    private static boolean isNotEnumType(ExecRootBlock r_, ClassCategory _category) {
-        return r_ == null || _category != ClassCategory.ENUM;
+    private static boolean isNotEnumType(ExecRootBlock _r, ClassCategory _category) {
+        return _r == null || _category != ClassCategory.ENUM;
     }
 
     public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,
@@ -315,11 +315,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         checkParametersOperators(_exit, _conf, _rootBlock, _named, _firstArgs, classNameFound_);
     }
 
-    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named, CustList<Argument> _firstArgs, String classNameFound_) {
-        if (_exit.hasToExit(classNameFound_)) {
+    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named, CustList<Argument> _firstArgs, String _classNameFound) {
+        if (_exit.hasToExit(_classNameFound)) {
             return;
         }
-        checkParameters(_conf, classNameFound_,_rootBlock, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, null);
+        checkParameters(_conf, _classNameFound,_rootBlock, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, null);
     }
 
     private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,

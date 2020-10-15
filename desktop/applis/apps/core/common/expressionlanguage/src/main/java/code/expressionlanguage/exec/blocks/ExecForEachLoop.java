@@ -32,14 +32,14 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
 
     private CustList<ExecOperationNode> opList;
 
-    public ExecForEachLoop(String _label, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, int expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
+    public ExecForEachLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset, int _expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
         super(_offsetTrim);
         label = _label;
-        this.importedClassName = importedClassName;
-        this.importedClassIndexName = importedClassIndexName;
-        this.variableName = variableName;
-        this.variableNameOffset = variableNameOffset;
-        this.expressionOffset = expressionOffset;
+        this.importedClassName = _importedClassName;
+        this.importedClassIndexName = _importedClassIndexName;
+        this.variableName = _variableName;
+        this.variableNameOffset = _variableNameOffset;
+        this.expressionOffset = _expressionOffset;
         opList = _opList;
     }
 

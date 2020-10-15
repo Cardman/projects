@@ -52,7 +52,7 @@ public final class ExecOperationContent {
         return order;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setOrder(int _order) {
+        this.order = _order;
     }
 }

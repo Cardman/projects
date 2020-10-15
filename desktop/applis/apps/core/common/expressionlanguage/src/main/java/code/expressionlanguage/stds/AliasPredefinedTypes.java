@@ -154,96 +154,96 @@ public final class AliasPredefinedTypes {
         return aliasIterableVar;
     }
 
-    public void setAliasIterableVar(String aliasIterableVar) {
-        this.aliasIterableVar = aliasIterableVar;
+    public void setAliasIterableVar(String _aliasIterableVar) {
+        this.aliasIterableVar = _aliasIterableVar;
     }
 
     public String getAliasIteratorTypeVar() {
         return aliasIteratorTypeVar;
     }
 
-    public void setAliasIteratorTypeVar(String aliasIteratorTypeVar) {
-        this.aliasIteratorTypeVar = aliasIteratorTypeVar;
+    public void setAliasIteratorTypeVar(String _aliasIteratorTypeVar) {
+        this.aliasIteratorTypeVar = _aliasIteratorTypeVar;
     }
 
     public String getAliasIterableTableVarFirst() {
         return aliasIterableTableVarFirst;
     }
 
-    public void setAliasIterableTableVarFirst(String aliasIterableTableVarFirst) {
-        this.aliasIterableTableVarFirst = aliasIterableTableVarFirst;
+    public void setAliasIterableTableVarFirst(String _aliasIterableTableVarFirst) {
+        this.aliasIterableTableVarFirst = _aliasIterableTableVarFirst;
     }
 
     public String getAliasIterableTableVarSecond() {
         return aliasIterableTableVarSecond;
     }
 
-    public void setAliasIterableTableVarSecond(String aliasIterableTableVarSecond) {
-        this.aliasIterableTableVarSecond = aliasIterableTableVarSecond;
+    public void setAliasIterableTableVarSecond(String _aliasIterableTableVarSecond) {
+        this.aliasIterableTableVarSecond = _aliasIterableTableVarSecond;
     }
 
     public String getAliasIteratorTableTypeVarFirst() {
         return aliasIteratorTableTypeVarFirst;
     }
 
-    public void setAliasIteratorTableTypeVarFirst(String aliasIteratorTableTypeVarFirst) {
-        this.aliasIteratorTableTypeVarFirst = aliasIteratorTableTypeVarFirst;
+    public void setAliasIteratorTableTypeVarFirst(String _aliasIteratorTableTypeVarFirst) {
+        this.aliasIteratorTableTypeVarFirst = _aliasIteratorTableTypeVarFirst;
     }
 
     public String getAliasIteratorTableTypeVarSecond() {
         return aliasIteratorTableTypeVarSecond;
     }
 
-    public void setAliasIteratorTableTypeVarSecond(String aliasIteratorTableTypeVarSecond) {
-        this.aliasIteratorTableTypeVarSecond = aliasIteratorTableTypeVarSecond;
+    public void setAliasIteratorTableTypeVarSecond(String _aliasIteratorTableTypeVarSecond) {
+        this.aliasIteratorTableTypeVarSecond = _aliasIteratorTableTypeVarSecond;
     }
 
     public String getAliasPairTypeVarFirst() {
         return aliasPairTypeVarFirst;
     }
 
-    public void setAliasPairTypeVarFirst(String aliasPairTypeVarFirst) {
-        this.aliasPairTypeVarFirst = aliasPairTypeVarFirst;
+    public void setAliasPairTypeVarFirst(String _aliasPairTypeVarFirst) {
+        this.aliasPairTypeVarFirst = _aliasPairTypeVarFirst;
     }
 
     public String getAliasPairTypeVarSecond() {
         return aliasPairTypeVarSecond;
     }
 
-    public void setAliasPairTypeVarSecond(String aliasPairTypeVarSecond) {
-        this.aliasPairTypeVarSecond = aliasPairTypeVarSecond;
+    public void setAliasPairTypeVarSecond(String _aliasPairTypeVarSecond) {
+        this.aliasPairTypeVarSecond = _aliasPairTypeVarSecond;
     }
 
     public String getAliasEnumParamVar() {
         return aliasEnumParamVar;
     }
 
-    public void setAliasEnumParamVar(String aliasEnumParamVar) {
-        this.aliasEnumParamVar = aliasEnumParamVar;
+    public void setAliasEnumParamVar(String _aliasEnumParamVar) {
+        this.aliasEnumParamVar = _aliasEnumParamVar;
     }
 
     public String getAliasSeedDoubleGenerator() {
         return aliasSeedDoubleGenerator;
     }
 
-    public void setAliasSeedDoubleGenerator(String aliasSeedDoubleGenerator) {
-        this.aliasSeedDoubleGenerator = aliasSeedDoubleGenerator;
+    public void setAliasSeedDoubleGenerator(String _aliasSeedDoubleGenerator) {
+        this.aliasSeedDoubleGenerator = _aliasSeedDoubleGenerator;
     }
 
     public String getAliasSeedGenerator() {
         return aliasSeedGenerator;
     }
 
-    public void setAliasSeedGenerator(String aliasSeedGenerator) {
-        this.aliasSeedGenerator = aliasSeedGenerator;
+    public void setAliasSeedGenerator(String _aliasSeedGenerator) {
+        this.aliasSeedGenerator = _aliasSeedGenerator;
     }
 
     public String getAliasSeedGet() {
         return aliasSeedGet;
     }
 
-    public void setAliasSeedGet(String aliasSeedGet) {
-        this.aliasSeedGet = aliasSeedGet;
+    public void setAliasSeedGet(String _aliasSeedGet) {
+        this.aliasSeedGet = _aliasSeedGet;
     }
 
     public AliasParamPredefinedTypes getParams() {

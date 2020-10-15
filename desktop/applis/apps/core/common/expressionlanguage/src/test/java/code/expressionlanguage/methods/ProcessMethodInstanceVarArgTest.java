@@ -2,9 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
@@ -583,7 +581,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -726,7 +724,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -950,7 +948,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -988,7 +986,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1256,7 +1254,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1294,7 +1292,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1332,17 +1330,13 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
-        assertTrue(isInitialized(cont_));
+        assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-    }
-
-    private static boolean isInitialized(ContextEl cont_) {
-        return cont_.getLocks().getState("pkgtwo.ExThree") != InitClassState.NOT_YET;
     }
 
     @Test

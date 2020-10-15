@@ -387,8 +387,8 @@ public final class OperationsSequence {
         return results;
     }
 
-    public void setResults(ParsedFctHeader results) {
-        this.results = results;
+    public void setResults(ParsedFctHeader _results) {
+        this.results = _results;
     }
 
     public Block getBlock() {
@@ -403,7 +403,7 @@ public final class OperationsSequence {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setLength(int _length) {
+        this.length = _length;
     }
 }

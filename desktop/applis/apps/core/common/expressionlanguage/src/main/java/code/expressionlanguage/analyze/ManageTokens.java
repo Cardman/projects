@@ -13,11 +13,11 @@ public final class ManageTokens {
     private final String primMessage;
     private final String digitMessage;
 
-    private ManageTokens(String badCharactersMessage, String keyWordMessage, String primMessage, String digitMessage) {
-        this.badCharactersMessage = badCharactersMessage;
-        this.keyWordMessage = keyWordMessage;
-        this.primMessage = primMessage;
-        this.digitMessage = digitMessage;
+    private ManageTokens(String _badCharactersMessage, String _keyWordMessage, String _primMessage, String _digitMessage) {
+        this.badCharactersMessage = _badCharactersMessage;
+        this.keyWordMessage = _keyWordMessage;
+        this.primMessage = _primMessage;
+        this.digitMessage = _digitMessage;
     }
 
     public static ManageTokens partClass(AnalyzedPageEl _analyzing) {

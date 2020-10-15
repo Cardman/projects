@@ -385,24 +385,24 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         return instancingCommonContent.getClassName();
     }
 
-    public void setClassName(String className) {
-        this.instancingCommonContent.setClassName(className);
+    public void setClassName(String _className) {
+        this.instancingCommonContent.setClassName(_className);
     }
 
     public int getNaturalVararg() {
         return instancingCommonContent.getNaturalVararg();
     }
 
-    public void setNaturalVararg(int naturalVararg) {
-        this.instancingCommonContent.setNaturalVararg(naturalVararg);
+    public void setNaturalVararg(int _naturalVararg) {
+        this.instancingCommonContent.setNaturalVararg(_naturalVararg);
     }
 
     public String getLastType() {
         return instancingCommonContent.getLastType();
     }
 
-    public void setLastType(String lastType) {
-        this.instancingCommonContent.setLastType(lastType);
+    public void setLastType(String _lastType) {
+        this.instancingCommonContent.setLastType(_lastType);
     }
 
     public AnaInstancingCommonContent getInstancingCommonContent() {
@@ -413,8 +413,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         return newBefore;
     }
 
-    public void setNewBefore(boolean newBefore) {
-        this.newBefore = newBefore;
+    public void setNewBefore(boolean _newBefore) {
+        this.newBefore = _newBefore;
     }
 
     public CustList<PartOffset> getPartOffsets() {

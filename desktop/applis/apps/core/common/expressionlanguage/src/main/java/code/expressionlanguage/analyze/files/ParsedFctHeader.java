@@ -194,8 +194,8 @@ public final class ParsedFctHeader {
         info = info_;
     }
 
-    private boolean noAddedInfo(String info_, int lenInfo_) {
-        return info_.isEmpty()||info_.length()>=lenInfo_;
+    private boolean noAddedInfo(String _info, int _lenInfo) {
+        return _info.isEmpty()||_info.length()>=_lenInfo;
     }
     public String getReturnType() {
         return returnType;

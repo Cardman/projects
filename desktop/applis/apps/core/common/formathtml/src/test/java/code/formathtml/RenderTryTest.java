@@ -151,8 +151,8 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:try label='lab'>{1/0}</c:try><c:catch/><c:catch className='java.lang.Object' var='ex'>Exc<c:break label='lab'/></c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
-    private String getRes(String html_, StringMap<String> _files) {
-        return getCommRes(html_,_files);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -218,7 +218,7 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:catch className='java.lang.Object' var='ex'>Exc<c:break label='lab'/></c:catch></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
-    private boolean hasErr(String html_, StringMap<String> _files) {
-        return hasCommErr(html_, _files);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

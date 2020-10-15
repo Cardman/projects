@@ -13,16 +13,16 @@ public final class AnaThisContent {
         return intermediate;
     }
 
-    public void setIntermediate(boolean intermediate) {
-        this.intermediate = intermediate;
+    public void setIntermediate(boolean _intermediate) {
+        this.intermediate = _intermediate;
     }
 
     public int getNbAncestors() {
         return nbAncestors;
     }
 
-    public void setNbAncestors(int nbAncestors) {
-        this.nbAncestors = nbAncestors;
+    public void setNbAncestors(int _nbAncestors) {
+        this.nbAncestors = _nbAncestors;
     }
 
     public int getOff() {

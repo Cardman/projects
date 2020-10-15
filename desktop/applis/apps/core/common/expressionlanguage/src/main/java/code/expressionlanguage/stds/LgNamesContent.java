@@ -2028,8 +2028,8 @@ public final class LgNamesContent {
         return defaultPkg;
     }
 
-    public void setDefaultPkg(String defaultPkg) {
-        this.defaultPkg = defaultPkg;
+    public void setDefaultPkg(String _defaultPkg) {
+        this.defaultPkg = _defaultPkg;
     }
 
     public StringMap<StandardType> getStandards() {

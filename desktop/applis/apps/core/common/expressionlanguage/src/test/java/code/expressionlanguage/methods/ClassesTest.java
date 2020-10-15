@@ -131,8 +131,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<#T>", types_.last());
     }
 
-    private static StringList getAllGenericClasses(AnalyzedTestContext context_, String _className) {
-        return context_.getAnalyzing().getAnaClassBody(_className).getAllGenericClasses();
+    private static StringList getAllGenericClasses(AnalyzedTestContext _context, String _className) {
+        return _context.getAnalyzing().getAnaClassBody(_className).getAllGenericClasses();
     }
 
     @Test
@@ -2860,9 +2860,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq("pkg.Outer..InnerTwo..InnerThree..InnerFour", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
 
-    private static StringList getImportedDirectSuperTypes(AnalyzedTestContext ctx_, String _className) {
+    private static StringList getImportedDirectSuperTypes(AnalyzedTestContext _ctx, String _className) {
         StringList list_ = new StringList();
-        for (AnaFormattedRootBlock l:ctx_.getAnalyzing().getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
+        for (AnaFormattedRootBlock l:_ctx.getAnalyzing().getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
             list_.add(l.getFormatted());
         }
         return list_;

@@ -41,9 +41,9 @@ public final class ProgramInfos implements AbstractProgramInfos {
     }
     private static String initialize(String _homePath) {
 
-        String userName = System.getProperty("user.name");
+        String userName_ = System.getProperty("user.name");
 
-        String tmpFolder = StringUtil.replaceBackSlashDot(System.getProperty(TMP_FOLDER_KEY));
+        String tmpFolder_ = StringUtil.replaceBackSlashDot(System.getProperty(TMP_FOLDER_KEY));
 
         String init_ = StringUtil.replaceBackSlashDot(new File(DOT).getAbsolutePath());
 
@@ -102,7 +102,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
                 return init_.substring(0, init_.length() - 1);
             }
             //use temp folder
-            String tmpUserFolder_ = StringUtil.concat(tmpFolder, userName);
+            String tmpUserFolder_ = StringUtil.concat(tmpFolder_, userName_);
             String realTmpUserFolder_;
             if (!new File(tmpUserFolder_).exists()) {
                 realTmpUserFolder_ = tmpUserFolder_;

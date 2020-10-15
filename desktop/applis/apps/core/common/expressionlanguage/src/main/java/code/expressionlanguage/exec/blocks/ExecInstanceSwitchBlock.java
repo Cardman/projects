@@ -17,7 +17,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
     }
 
     @Override
-    protected void processCase(ContextEl _cont, SwitchBlockStack if_, Argument arg_) {
+    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         ExecBlock n_ = getFirstChild();
@@ -27,12 +27,12 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             children_.add((ExecBracedBlock)n_);
             n_ = n_.getNextSibling();
         }
-        if_.setExecBlock(this);
+        _if.setExecBlock(this);
         ExecBracedBlock found_ = null;
-        if (arg_.isNull()) {
+        if (_arg.isNull()) {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecNullInstanceCaseCondition) {
-                    if_.setExecLastVisitedBlock(b);
+                    _if.setExecLastVisitedBlock(b);
                     found_ = b;
                     break;
                 }
@@ -41,7 +41,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecInstanceCaseCondition) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                    found_ = fetch(_cont,if_,arg_,found_,b_);
+                    found_ = fetch(_cont, _if, _arg,found_,b_);
                 }
             }
         }
@@ -49,21 +49,21 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecInstanceDefaultCondition) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                    found_ = fetch(_cont,if_,arg_,found_,b_);
+                    found_ = fetch(_cont, _if, _arg,found_,b_);
                 }
             }
         }
         if (found_ == null) {
-            _cont.getCoverage().passSwitch(_cont, this, arg_);
-            if_.setCurrentVisitedBlock(this);
+            _cont.getCoverage().passSwitch(_cont, this, _arg);
+            _if.setCurrentVisitedBlock(this);
         } else {
-            _cont.getCoverage().passSwitch(_cont, this, found_,arg_);
+            _cont.getCoverage().passSwitch(_cont, this, found_, _arg);
             rw_.setBlock(found_);
-            if_.setCurrentVisitedBlock(found_);
+            _if.setCurrentVisitedBlock(found_);
         }
-        ip_.addBlock(if_);
+        ip_.addBlock(_if);
     }
-    private static ExecBracedBlock fetch(ContextEl _cont, SwitchBlockStack if_, Argument arg_,
+    private static ExecBracedBlock fetch(ContextEl _cont, SwitchBlockStack _if, Argument _arg,
                                          ExecBracedBlock _found, ExecAbstractInstanceTypeCaseCondition _s) {
         if (_found != null) {
             return _found;
@@ -71,10 +71,10 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         String type_ = _s.getImportedClassName();
         AbstractPageEl ip_ = _cont.getLastPage();
         type_ = _cont.formatVarType(type_);
-        if (ExecTemplates.safeObject(type_, arg_, _cont) == ErrorType.NOTHING) {
+        if (ExecTemplates.safeObject(type_, _arg, _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
-            ip_.putValueVar(var_,LocalVariable.newLocalVariable(arg_.getStruct(),type_));
-            if_.setExecLastVisitedBlock(_s);
+            ip_.putValueVar(var_,LocalVariable.newLocalVariable(_arg.getStruct(),type_));
+            _if.setExecLastVisitedBlock(_s);
             return _s;
         }
         return null;

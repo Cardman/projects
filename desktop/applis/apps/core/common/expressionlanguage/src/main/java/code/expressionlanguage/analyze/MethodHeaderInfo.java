@@ -9,11 +9,11 @@ public final class MethodHeaderInfo {
     private final String importedReturnType;
     private final AccessEnum access;
 
-    public MethodHeaderInfo(MethodId id, int nameNumber, String importedReturnType, AccessEnum access) {
-        this.id = id;
-        this.nameNumber = nameNumber;
-        this.importedReturnType = importedReturnType;
-        this.access = access;
+    public MethodHeaderInfo(MethodId _id, int _nameNumber, String _importedReturnType, AccessEnum _access) {
+        this.id = _id;
+        this.nameNumber = _nameNumber;
+        this.importedReturnType = _importedReturnType;
+        this.access = _access;
     }
 
     public MethodId getId() {

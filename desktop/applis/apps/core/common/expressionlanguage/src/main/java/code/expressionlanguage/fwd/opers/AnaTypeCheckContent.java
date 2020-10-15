@@ -12,8 +12,8 @@ public final class AnaTypeCheckContent {
         return className;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClassName(String _className) {
+        this.className = _className;
     }
 
     public int getOffset() {

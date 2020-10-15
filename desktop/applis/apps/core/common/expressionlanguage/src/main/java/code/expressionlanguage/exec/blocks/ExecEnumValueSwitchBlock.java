@@ -15,7 +15,7 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
     }
 
     @Override
-    protected void processCase(ContextEl _cont,SwitchBlockStack if_, Argument arg_) {
+    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         ExecBlock n_ = getFirstChild();
@@ -23,12 +23,12 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
         children_ = new CustList<ExecBracedBlock>();
         while (n_ instanceof ExecBracedBlock) {
             children_.add((ExecBracedBlock)n_);
-            if_.setExecLastVisitedBlock((ExecBracedBlock) n_);
+            _if.setExecLastVisitedBlock((ExecBracedBlock) n_);
             n_ = n_.getNextSibling();
         }
-        if_.setExecBlock(this);
+        _if.setExecBlock(this);
         ExecBracedBlock found_ = null;
-        if (arg_.isNull()) {
+        if (_arg.isNull()) {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecDefaultCondition) {
                     found_ = b;
@@ -40,18 +40,18 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
                 }
             }
         } else {
-            found_ = process(children_,arg_);
+            found_ = process(children_, _arg);
         }
         if (found_ == null) {
-            _cont.getCoverage().passSwitch(_cont, this, arg_);
-            if_.setCurrentVisitedBlock(this);
+            _cont.getCoverage().passSwitch(_cont, this, _arg);
+            _if.setCurrentVisitedBlock(this);
         } else {
-            _cont.getCoverage().passSwitch(_cont, this, found_,arg_);
+            _cont.getCoverage().passSwitch(_cont, this, found_, _arg);
             rw_.setBlock(found_);
-            if_.setCurrentVisitedBlock(found_);
+            _if.setCurrentVisitedBlock(found_);
         }
-        ip_.addBlock(if_);
+        ip_.addBlock(_if);
     }
 
-    protected abstract ExecBracedBlock process(CustList<ExecBracedBlock> children_, Argument arg_);
+    protected abstract ExecBracedBlock process(CustList<ExecBracedBlock> _children, Argument _arg);
 }
