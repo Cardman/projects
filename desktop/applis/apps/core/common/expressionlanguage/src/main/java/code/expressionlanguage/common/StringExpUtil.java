@@ -1051,4 +1051,48 @@ public final class StringExpUtil {
         }
         return !_type.startsWith("[");
     }
+
+    public static String toGeneHex(int _i) {
+        if (_i >= 0) {
+            return toHex(_i).toString();
+        }
+        StringBuilder str_ = toHex(-_i - 1);
+        int len_ = str_.length();
+        int nbZeros_ = 8 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 8; i++) {
+            char c_ = str_.charAt(i);
+            if (c_ >= '6' &&c_ <= '9') {
+                int s_ = '6' + '9';
+                str_.setCharAt(i,(char)(s_-c_));
+                continue;
+            }
+            int s_ = 'a' + '5';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+    private static StringBuilder toHex(int _i) {
+        StringBuilder str_ = new StringBuilder();
+        if (_i == 0) {
+            str_.append(0);
+            return str_;
+        }
+        int p_ = 16;
+        int q_ = _i;
+        while (q_ > 0) {
+            int r_ = q_ % p_;
+            str_.insert(0,toBaseHex(r_));
+            q_ = q_ /p_;
+        }
+        return str_;
+    }
+    private static String toBaseHex(int _i) {
+        if (_i < 10) {
+            return Integer.toString(_i);
+        }
+        return Character.toString((char)(_i+'a'-10));
+    }
 }

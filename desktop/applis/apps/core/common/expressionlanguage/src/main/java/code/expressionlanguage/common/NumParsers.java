@@ -1166,12 +1166,12 @@ public final class NumParsers {
             }
             if (c < 16) {
                 out_.append("\\u000");
-                out_.append(Integer.toHexString(c));
+                out_.append(StringExpUtil.toGeneHex(c));
                 continue;
             }
             if (c < 31) {
                 out_.append("\\u00");
-                out_.append(Integer.toHexString(c));
+                out_.append(StringExpUtil.toGeneHex(c));
                 continue;
             }
             out_.append(c);

@@ -291,4 +291,100 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void tryToExtract6Test(){
         assertEq("hello",StringExpUtil.tryToExtract("hello()",'(',')').getFirst());
     }
+    @Test
+    public void toGeneHex1Test(){
+        assertEq("0",StringExpUtil.toGeneHex(0));
+    }
+    @Test
+    public void toGeneHex2Test(){
+        assertEq("1",StringExpUtil.toGeneHex(1));
+    }
+    @Test
+    public void toGeneHex3Test(){
+        assertEq("9",StringExpUtil.toGeneHex(9));
+    }
+    @Test
+    public void toGeneHex4Test(){
+        assertEq("a",StringExpUtil.toGeneHex(10));
+    }
+    @Test
+    public void toGeneHex5Test(){
+        assertEq("f",StringExpUtil.toGeneHex(15));
+    }
+    @Test
+    public void toGeneHex6Test(){
+        assertEq("10",StringExpUtil.toGeneHex(16));
+    }
+    @Test
+    public void toGeneHex7Test(){
+        assertEq("11",StringExpUtil.toGeneHex(17));
+    }
+    @Test
+    public void toGeneHex8Test(){
+        assertEq("1e",StringExpUtil.toGeneHex(30));
+    }
+    @Test
+    public void toGeneHex9Test(){
+        assertEq("7f",StringExpUtil.toGeneHex(127));
+    }
+    @Test
+    public void toGeneHex10Test(){
+        assertEq("80",StringExpUtil.toGeneHex(128));
+    }
+    @Test
+    public void toGeneHex11Test(){
+        assertEq("ff",StringExpUtil.toGeneHex(255));
+    }
+    @Test
+    public void toGeneHex12Test(){
+        assertEq("100",StringExpUtil.toGeneHex(256));
+    }
+    @Test
+    public void toGeneHex13Test(){
+        assertEq("123",StringExpUtil.toGeneHex(291));
+    }
+    @Test
+    public void toGeneHex14Test(){
+        assertEq("ffffffff",StringExpUtil.toGeneHex(-1));
+    }
+    @Test
+    public void toGeneHex15Test(){
+        assertEq("fffffffe",StringExpUtil.toGeneHex(-2));
+    }
+    @Test
+    public void toGeneHex16Test(){
+        assertEq("fffffffa",StringExpUtil.toGeneHex(-6));
+    }
+    @Test
+    public void toGeneHex17Test(){
+        assertEq("fffffff9",StringExpUtil.toGeneHex(-7));
+    }
+    @Test
+    public void toGeneHex18Test(){
+        assertEq("fffffff0",StringExpUtil.toGeneHex(-16));
+    }
+    @Test
+    public void toGeneHex19Test(){
+        assertEq("ffffffef",StringExpUtil.toGeneHex(-17));
+    }
+    @Test
+    public void toGeneHex20Test(){
+        assertEq("ffffffea",StringExpUtil.toGeneHex(-22));
+    }
+    @Test
+    public void toGeneHex21Test(){
+        assertEq("ffffffe9",StringExpUtil.toGeneHex(-23));
+    }
+    @Test
+    public void toGeneHex22Test(){
+        assertEq("ffffffe5",StringExpUtil.toGeneHex(-27));
+    }
+    @Test
+    public void toGeneHex23Test(){
+        assertEq("ffffffe0",StringExpUtil.toGeneHex(-32));
+    }
+    @Test
+    public void toGeneHex24Test(){
+        assertEq("fffffedc",StringExpUtil.toGeneHex(-292));
+    }
 }
