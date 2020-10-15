@@ -6,9 +6,9 @@ public final class PairVar {
     private final String name;
     private final AnaLocalVariable local;
 
-    public PairVar(String name, AnaLocalVariable local) {
-        this.name = name;
-        this.local = local;
+    public PairVar(String _name, AnaLocalVariable _local) {
+        this.name = _name;
+        this.local = _local;
     }
 
     public String getName() {

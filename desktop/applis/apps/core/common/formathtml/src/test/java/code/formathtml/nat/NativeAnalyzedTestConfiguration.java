@@ -20,14 +20,14 @@ class NativeAnalyzedTestConfiguration {
     private DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
-    NativeAnalyzedTestConfiguration(Configuration configuration, NativeAnalyzedTestContext analyzing, Forwards _forwards, BeanNatLgNames _standards) {
-        this.configuration = configuration;
+    NativeAnalyzedTestConfiguration(Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
+        this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
-        dual = analyzing.getDual();
+        dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
-        this.analyzing = analyzing.getAnalyzing();
-        context = analyzing.getContext();
+        this.analyzing = _analyzing.getAnalyzing();
+        context = _analyzing.getContext();
     }
 
     Configuration getConfiguration() {
@@ -54,8 +54,8 @@ class NativeAnalyzedTestConfiguration {
         return analyzing.isEmptyErrors();
     }
 
-    void setNavigation(StringMap<StringMap<String>> stringMapStringMap) {
-        configuration.setNavigation(stringMapStringMap);
+    void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {
+        configuration.setNavigation(_stringMapStringMap);
     }
 
     StringMap<StringMap<String>> getNavigation() {
@@ -70,8 +70,8 @@ class NativeAnalyzedTestConfiguration {
         return analyzed;
     }
 
-    void setAnalyzed(StringMap<AnaRendDocumentBlock> analyzed) {
-        this.analyzed = analyzed;
+    void setAnalyzed(StringMap<AnaRendDocumentBlock> _analyzed) {
+        this.analyzed = _analyzed;
     }
 
     DualConfigurationContext getDual() {

@@ -48,7 +48,7 @@ public final class CustomLock implements AbstractLock {
         return sleep;
     }
 
-    public void setSleep(long sleep) {
-        this.sleep = Math.max(1,sleep);
+    public void setSleep(long _sleep) {
+        this.sleep = Math.max(1, _sleep);
     }
 }

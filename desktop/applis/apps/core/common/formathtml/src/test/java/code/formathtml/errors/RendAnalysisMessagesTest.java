@@ -46,7 +46,7 @@ public final class RendAnalysisMessagesTest {
         lgNamesContent_.rendMessages(def_, cust_);
         assertEq("",lgNamesContent_.getEmptyAttr());
     }
-    private static void getCtx(LgNames lgName_, Options opts_) {
-        lgName_.newContext(4, -1, new Coverage(opts_.isCovering()));
+    private static void getCtx(LgNames _lgName, Options _opts) {
+        _lgName.newContext(4, -1, new Coverage(_opts.isCovering()));
     }
 }

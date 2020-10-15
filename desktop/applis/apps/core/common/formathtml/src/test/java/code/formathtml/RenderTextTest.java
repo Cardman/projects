@@ -1510,20 +1510,20 @@ public final class RenderTextTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>9</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
-    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
-        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_,_types);
+    private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
+        return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }
 
-    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        return getCommRes(folder_,relative_,html_,files_,_files);
+    private String getRes(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommRes(_folder,_relative,_html,_files,_filesSec);
     }
 
 
-    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String... _types) {
-        return getCommOneBean(folder_,relative_,html_,files_,filesSec_,_types);
+    private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
+        return getCommOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }
-    private Struct getEx(String folder_, String relative_, String html_, StringMap<String> _files) {
-        return getCommEx(folder_, relative_, html_, _files);
+    private Struct getEx(String _folder, String _relative, String _html, StringMap<String> _files) {
+        return getCommEx(_folder, _relative, _html, _files);
     }
 
     @Test
@@ -1606,9 +1606,9 @@ public final class RenderTextTest extends CommonRender {
         assertTrue(hasErr(folder_, relative_, html_, files_));
     }
 
-    private boolean hasErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_) {
+    private boolean hasErrOneBean(String _folder, String _relative, String _html, StringMap<String> _files) {
         StringMap<String> filesSec_ = new StringMap<String>();
-        return hasCommErrOneBean(folder_,relative_,html_,files_,filesSec_);
+        return hasCommErrOneBean(_folder,_relative,_html,_files,filesSec_);
     }
 
 }

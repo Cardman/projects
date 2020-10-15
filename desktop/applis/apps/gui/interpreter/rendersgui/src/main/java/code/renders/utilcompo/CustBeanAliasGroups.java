@@ -11,8 +11,8 @@ import code.util.StringMap;
 
 public class CustBeanAliasGroups extends BeanAliasGroups {
     private CustAliases custAliases;
-    public CustBeanAliasGroups(DefaultBeanAliases _beanAliases, CustAliases _custAliases, LgNamesContent content) {
-        super(_beanAliases, content);
+    public CustBeanAliasGroups(DefaultBeanAliases _beanAliases, CustAliases _custAliases, LgNamesContent _content) {
+        super(_beanAliases, _content);
         custAliases = _custAliases;
     }
 

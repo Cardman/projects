@@ -21,15 +21,15 @@ public final class AnalyzedTestConfiguration {
     private DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
-    public AnalyzedTestConfiguration(Configuration configuration, AnalyzedTestContext analyzing, Forwards _forwards, BeanCustLgNames _standards) {
-        this.configuration = configuration;
+    public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
+        this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
         analyzingDoc.setContent(adv);
-        context = analyzing.getContext();
-        dual = analyzing.getDual();
+        context = _analyzing.getContext();
+        dual = _analyzing.getDual();
         dual.setContext(context);
-        this.analyzing = analyzing.getAnalyzing();
+        this.analyzing = _analyzing.getAnalyzing();
     }
 
     public Configuration getConfiguration() {
@@ -103,8 +103,8 @@ public final class AnalyzedTestConfiguration {
     public String getAliasByte() {
         return analyzing.getAliasByte();
     }
-    public void setNavigation(StringMap<StringMap<String>> stringMapStringMap) {
-        configuration.setNavigation(stringMapStringMap);
+    public void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {
+        configuration.setNavigation(_stringMapStringMap);
     }
 
     public StringMap<StringMap<String>> getNavigation() {
@@ -119,8 +119,8 @@ public final class AnalyzedTestConfiguration {
         return analyzed;
     }
 
-    public void setAnalyzed(StringMap<AnaRendDocumentBlock> analyzed) {
-        this.analyzed = analyzed;
+    public void setAnalyzed(StringMap<AnaRendDocumentBlock> _analyzed) {
+        this.analyzed = _analyzed;
     }
 
     public DualConfigurationContext getDual() {

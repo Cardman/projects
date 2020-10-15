@@ -47,19 +47,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v&=1/0 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(getAliasDivisionZero(context_), getClassName(context_));
-    }
-
-    private static String getClassName(AnalyzedTestConfiguration context_) {
-        return getClassName2(context_);
+        assertEq(getAliasDivisionZero(context_), exClass(context_));
     }
 
     @Test
@@ -76,19 +71,18 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v|=1/0 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(getAliasDivisionZero(context_), getClassName(context_));
+        assertEq(getAliasDivisionZero(context_), exClass(context_));
     }
 
-    private static String getAliasDivisionZero(AnalyzedTestConfiguration context_) {
-        return context_.getStandards().getContent().getCoreNames().getAliasDivisionZero();
+    private static String getAliasDivisionZero(AnalyzedTestConfiguration _context) {
+        return _context.getStandards().getContent().getCoreNames().getAliasDivisionZero();
     }
 
     @Test
@@ -105,20 +99,19 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v&=1 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
 
-    public static void setupAnalyzing(AnalyzedTestConfiguration context_) {
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getAdvStandards(), context_.getDual());
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
+    private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
+        _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getAdvStandards(), _context.getDual());
+        setupAnalyzing(_context.getAnalyzing(), _context.getLastPage(), _context.getAnalyzingDoc());
     }
 
     @Test
@@ -135,30 +128,29 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v|=1 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
     @Test
     public void processEl202Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         processEl("$(java.lang.Byte)\"not cast\"", context_);
-        assertEq(getAliasCastType(context_), getClassName2(context_));
+        assertEq(getAliasCastType(context_), exClass(context_));
     }
 
-    private static String getAliasCastType(AnalyzedTestConfiguration context_) {
-        return context_.getStandards().getContent().getCoreNames().getAliasCastType();
+    private static String getAliasCastType(AnalyzedTestConfiguration _context) {
+        return _context.getStandards().getContent().getCoreNames().getAliasCastType();
     }
 
-    private static String getClassName2(AnalyzedTestConfiguration context_) {
-        return getClassName3(context_, getException(context_));
+    private static String exClass(AnalyzedTestConfiguration _context) {
+        return exClass(_context, getException(_context));
     }
 
     @Test
@@ -174,7 +166,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl(el_, context_);
         
         assertNotNull(getException(context_));
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
     @Test
     public void processEl205Test() {
@@ -188,7 +180,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String el_ = "$($byte)v";
         processEl(el_, context_);
 
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
     @Test
     public void processEl206Test() {
@@ -203,15 +195,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "++v";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
 
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
     @Test
     public void processEl207Test() {
@@ -226,15 +217,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
 
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
     @Test
     public void processEl208Test() {
@@ -249,15 +239,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "v[0i]++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
 
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
 
     @Test
@@ -273,22 +262,21 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String elr_ = "++v[0i]";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         
         calculate(all_, context_);
 
-        assertEq(getAliasNullPe(context_), getClassName(context_));
+        assertEq(getAliasNullPe(context_), exClass(context_));
     }
 
-    private static void setValue(LocalVariable lv_) {
+    private static void setValue(LocalVariable _lv) {
         ArrayStruct array_ = new ArrayStruct(1, ARR_INTEGER);
         array_.set(0,NullStruct.NULL_VALUE);
-        lv_.setStruct(array_);
-        lv_.setClassName(ARR_INTEGER);
+        _lv.setStruct(array_);
+        _lv.setClassName(ARR_INTEGER);
     }
 
     @Test
@@ -1262,11 +1250,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), exClass(cont_, cause_));
     }
 
-    private static String getClassName3(AnalyzedTestConfiguration cont_, Struct cause_) {
-        return cause_.getClassName(cont_.getContext());
+    private static String exClass(AnalyzedTestConfiguration _cont, Struct _cause) {
+        return _cause.getClassName(_cont.getContext());
     }
 
     @Test
@@ -1311,7 +1299,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), exClass(cont_, cause_));
     }
     @Test
     public void processEl297Test() {
@@ -1353,7 +1341,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
-        assertEq(getAliasNullPe(cont_), getClassName3(cont_, exc_));
+        assertEq(getAliasNullPe(cont_), exClass(cont_, exc_));
     }
     @Test
     public void processEl298Test() {
@@ -1395,7 +1383,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
-        assertEq(getAliasNullPe(cont_), getClassName3(cont_, exc_));
+        assertEq(getAliasNullPe(cont_), exClass(cont_, exc_));
     }
     @Test
     public void processEl303Test() {
@@ -1422,11 +1410,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
 
-        assertEq(getAliasClassNotFoundError(cont_), getClassName2(cont_));
+        assertEq(getAliasClassNotFoundError(cont_), exClass(cont_));
     }
 
-    private static String getAliasClassNotFoundError(AnalyzedTestConfiguration cont_) {
-        return cont_.getStandards().getContent().getReflect().getAliasClassNotFoundError();
+    private static String getAliasClassNotFoundError(AnalyzedTestConfiguration _cont) {
+        return _cont.getStandards().getContent().getReflect().getAliasClassNotFoundError();
     }
 
     @Test
@@ -1454,11 +1442,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
 
-        assertEq(getAliasNullPe(cont_), getClassName2(cont_));
+        assertEq(getAliasNullPe(cont_), exClass(cont_));
     }
 
-    private static String getAliasNullPe(AnalyzedTestConfiguration cont_) {
-        return cont_.getStandards().getContent().getCoreNames().getAliasNullPe();
+    private static String getAliasNullPe(AnalyzedTestConfiguration _cont) {
+        return _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
     }
 
     @Test
@@ -1496,8 +1484,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertTrue(!isSuccessfulInitialized(cont_));
     }
 
-    private static boolean isSuccessfulInitialized(AnalyzedTestConfiguration cont_) {
-        return cont_.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
+    private static boolean isSuccessfulInitialized(AnalyzedTestConfiguration _cont) {
+        return _cont.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
     }
 
     @Test
@@ -1559,10 +1547,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(conf_);
         processEl("$new pkg.Ex(5).inst+1/0", conf_);
         assertNotNull(getException(conf_));
-    }
-
-    private static boolean isInitialized(AnalyzedTestConfiguration conf_) {
-        return conf_.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
     }
 
     @Test
@@ -2064,12 +2048,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(ex(files_, "$new pkg.Ex<java.lang.Integer>(5).$classchoice(pkg.Ex<java.lang.String>)[\"\"]"));
     }
 
-    private static Struct checkEx2(AnalyzedTestConfiguration configuration, String s) {
-        AnalyzedTestConfiguration conf_ = configuration;
-        addImportingPage(conf_);
-        processEl(s, conf_);
-        assertNotNull(getException(conf_));
-        return getException(conf_);
+    private static Struct checkEx2(AnalyzedTestConfiguration _cont, String _s) {
+        addImportingPage(_cont);
+        processEl(_s, _cont);
+        assertNotNull(getException(_cont));
+        return getException(_cont);
     }
 
     @Test
@@ -2149,8 +2132,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(getException(conf_));
     }
 
-    private static Struct init(AnalyzedTestConfiguration cont_, String _cl) {
-        return cont_.getContext().getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, _cl,cont_.getClasses().getClassBody(_cl), "", -1);
+    private static Struct init(AnalyzedTestConfiguration _cont, String _cl) {
+        return _cont.getContext().getInit().processInit(_cont.getContext(), NullStruct.NULL_VALUE, _cl,_cont.getClasses().getClassBody(_cl), "", -1);
     }
 
     @Test
@@ -2315,8 +2298,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         calculateReuse(_conf,out_);
     }
 
-    private static Struct ex(StringMap<String> files_, String _el) {
-        return checkEx2(getConfiguration(files_), _el);
+    private static Struct ex(StringMap<String> _files, String _el) {
+        return checkEx2(getConfiguration(_files), _el);
     }
 
 }

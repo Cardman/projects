@@ -725,11 +725,8 @@ public final class CustAliases {
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
         String content_ = infos.getReader().read("resources_lg/threads/runnable.txt");
-        KeyWords keyWords_ = _keyWords;
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
-        StringList predefinedClasses_ = _predefinedClasses;
-        StringList predefinedInterfacesInitOrder_ = _predefinedInterfacesInitOrder;
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         AliasPredefinedTypes predefTypes_ = _content.getPredefTypes();
         AliasCharSequence charSeq_ = _content.getCharSeq();
@@ -737,18 +734,18 @@ public final class CustAliases {
         AliasMath mathRef_ = _content.getMathRef();
         AliasNumber nbAlias_ = _content.getNbAlias();
         AliasStackTraceElement stackElt_ = _content.getStackElt();
-        String public_ = keyWords_.getKeyWordPublic();
-        String private_ = keyWords_.getKeyWordPrivate();
-        String interface_ = keyWords_.getKeyWordInterface();
+        String public_ = _keyWords.getKeyWordPublic();
+        String private_ = _keyWords.getKeyWordPrivate();
+        String interface_ = _keyWords.getKeyWordInterface();
         String int_ = primTypes_.getAliasPrimInteger();
         String boolean_ = primTypes_.getAliasPrimBoolean();
-        String class_ = keyWords_.getKeyWordClass();
-        String this_ = keyWords_.getKeyWordThis();
-        String new_ = keyWords_.getKeyWordNew();
-        String return_ = keyWords_.getKeyWordReturn();
-        String iter_ = keyWords_.getKeyWordIter();
-        String value_ = keyWords_.getKeyWordValue();
-        String abstract_ = keyWords_.getKeyWordAbstract();
+        String class_ = _keyWords.getKeyWordClass();
+        String this_ = _keyWords.getKeyWordThis();
+        String new_ = _keyWords.getKeyWordNew();
+        String return_ = _keyWords.getKeyWordReturn();
+        String iter_ = _keyWords.getKeyWordIter();
+        String value_ = _keyWords.getKeyWordValue();
+        String abstract_ = _keyWords.getKeyWordAbstract();
         String endLine_ = String.valueOf(';');
         String suffixLocal_ = "";
         String suffixParam_ = "";
@@ -764,9 +761,9 @@ public final class CustAliases {
         map_.put("{run}", aliasRun);
         map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasRunnable);
+        _predefinedClasses.add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
-        predefinedInterfacesInitOrder_.add(aliasRunnable);
+        _predefinedInterfacesInitOrder.add(aliasRunnable);
         content_ = infos.getReader().read("resources_lg/collections/list.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -787,9 +784,9 @@ public final class CustAliases {
         map_.put("{liRem}", custAliasParameters.getAliasList0RemoveLi0());
         map_.put("{liInd1}", custAliasParameters.getAliasList0This0());
         map_.put("{liInd2}", custAliasParameters.getAliasList1This0());
-        map_.put("{i}", tr("i", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
-        map_.put("{p}", tr("p", keyWords_, primitiveTypes_, coreNames_));
-        map_.put("{out}", tr("out", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
+        map_.put("{i}", tr("i", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
+        map_.put("{p}", tr("p", _keyWords, primitiveTypes_, coreNames_));
+        map_.put("{out}", tr("out", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
         map_.put("{loop}", suffixLoop_);
@@ -818,11 +815,11 @@ public final class CustAliases {
         map_.put("{clear}",aliasListClear);
         map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasCustIterator);
-        predefinedClasses_.add(aliasList);
+        _predefinedClasses.add(aliasCustIterator);
+        _predefinedClasses.add(aliasList);
         stds_.put(aliasList, content_);
-        predefinedInterfacesInitOrder_.add(aliasCustIterator);
-        predefinedInterfacesInitOrder_.add(aliasList);
+        _predefinedInterfacesInitOrder.add(aliasCustIterator);
+        _predefinedInterfacesInitOrder.add(aliasList);
         content_ = infos.getReader().read("resources_lg/collections/table.txt");
         map_.put("{CustPair}",aliasCustPair);
         map_.put("{Pair}",predefTypes_.getAliasPairType());
@@ -850,8 +847,8 @@ public final class CustAliases {
         map_.put("{p13}", custAliasParameters.getAliasTable0SetSecond0());
         map_.put("{p14}", custAliasParameters.getAliasTable0SetSecond1());
         map_.put("{p15}", custAliasParameters.getAliasTable0RemoveLi0());
-        map_.put("{f}", tr("f", keyWords_, primitiveTypes_, coreNames_));
-        map_.put("{s}", tr("s", keyWords_, primitiveTypes_, coreNames_));
+        map_.put("{f}", tr("f", _keyWords, primitiveTypes_, coreNames_));
+        map_.put("{s}", tr("s", _keyWords, primitiveTypes_, coreNames_));
         map_.put("{CustIterTable}", aliasCustIterTable);
         map_.put("{IterTypeTable}", predefTypes_.getAliasIteratorTableType());
         map_.put("{listItrTa}", aliasListIterTable);
@@ -876,20 +873,20 @@ public final class CustAliases {
         map_.put("{removeTa}",aliasRemoveTa);
         map_.put("{iteratorTable}",predefTypes_.getAliasIteratorTable());
         content_ = StringUtil.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasCustPair);
-        predefinedClasses_.add(aliasCustIterTable);
-        predefinedClasses_.add(aliasTable);
+        _predefinedClasses.add(aliasCustPair);
+        _predefinedClasses.add(aliasCustIterTable);
+        _predefinedClasses.add(aliasTable);
         stds_.put(aliasTable, content_);
-        predefinedInterfacesInitOrder_.add(aliasCustPair);
-        predefinedInterfacesInitOrder_.add(aliasCustIterTable);
-        predefinedInterfacesInitOrder_.add(aliasTable);
+        _predefinedInterfacesInitOrder.add(aliasCustPair);
+        _predefinedInterfacesInitOrder.add(aliasCustIterTable);
+        _predefinedInterfacesInitOrder.add(aliasTable);
 
         content_ = infos.getReader().read("resources_lg/tests/run.txt");
-        map_.put("{a}",tr("a", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{b}",tr("b", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{a}",tr("a", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{b}",tr("b", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{c}",tr("c", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{c}",tr("c", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
         map_.put("{a11}",custAliasParameters.getAliasAssert0AssertAssert0());
         map_.put("{a12}",custAliasParameters.getAliasAssert0AssertAssert1());
         map_.put("{a21}",custAliasParameters.getAliasAssert1AssertAssert0());
@@ -910,7 +907,7 @@ public final class CustAliases {
         map_.put("{a103}",custAliasParameters.getAliasAssert5AssertAssert2());
         map_.put("{a111}",custAliasParameters.getAliasAssert6AssertAssert0());
         map_.put("{a112}",custAliasParameters.getAliasAssert6AssertAssert1());
-        map_.put("{d}",tr("d", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{d}",tr("d", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
                 custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
                 custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
@@ -923,24 +920,24 @@ public final class CustAliases {
                 custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
                 custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1()));
         map_.put("{co}",custAliasParameters.getAliasExecute0ExecuteConvert0());
-        map_.put("{e}",tr("e", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0(),custAliasParameters.getAliasExecute0ExecuteConvert0()));
-        map_.put("{f}",tr("f", keyWords_, primitiveTypes_, coreNames_));
-        map_.put("{i}",tr("i", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{l}",tr("l", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{m}",tr("m", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{o}",tr("o", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{e}",tr("e", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0(),custAliasParameters.getAliasExecute0ExecuteConvert0()));
+        map_.put("{f}",tr("f", _keyWords, primitiveTypes_, coreNames_));
+        map_.put("{i}",tr("i", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{l}",tr("l", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{m}",tr("m", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{o}",tr("o", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
         map_.put("{r1}",custAliasParameters.getAliasExecute0Run0());
         map_.put("{r2}",custAliasParameters.getAliasExecute0Run1());
         map_.put("{r3}",custAliasParameters.getAliasExecute0Run2());
-        map_.put("{p}",tr("p", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{s}",tr("s", keyWords_, primitiveTypes_, coreNames_));
-        map_.put("{t}",tr("t", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{tt}",tr("tt", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{p}",tr("p", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{s}",tr("s", _keyWords, primitiveTypes_, coreNames_));
+        map_.put("{t}",tr("t", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{tt}",tr("tt", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
                 custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
-        map_.put("{ex}",tr("ex", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{ex}",tr("ex", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2()));
         map_.put("{et2}",custAliasParameters.getAliasExecute0ExecuteSetupError0());
         map_.put("{et3}",custAliasParameters.getAliasExecute0ExecuteSetupError1());
@@ -949,53 +946,53 @@ public final class CustAliases {
         map_.put("{er}",custAliasParameters.getAliasExecute1ExecuteSetupError1());
         map_.put("{et1}",custAliasParameters.getAliasExecute0ExecuteSetupNoException0());
         map_.put("{info}",custAliasParameters.getAliasExecute0ExecuteTests0());
-        map_.put("{res}",tr("res", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{res}",tr("res", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
                 custAliasParameters.getAliasExecute1ExecuteSetupError0(),custAliasParameters.getAliasExecute1ExecuteSetupError1(),
                 custAliasParameters.getAliasExecute0ExecuteSetupNoException0(),custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{out}",tr("out", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{processEx}",tr("processEx", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{out}",tr("out", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{processEx}",tr("processEx", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{ctor}",tr("ctor", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{ctor}",tr("ctor", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{classTest}",tr("classTest", keyWords_, primitiveTypes_, coreNames_,
+        map_.put("{classTest}",tr("classTest", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{results}",tr("results", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{exc}",tr("exc", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{nbParams}",tr("nbParams", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{params}",tr("params", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{arr}",tr("arr", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{as}",tr("as", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{bs}",tr("bs", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{tts}",tr("tts", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{locType}",tr("locType", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{loc}",tr("loc", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{paramAnn}",tr("paramAnn", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{aParam}",tr("aParam", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
-        map_.put("{final}",keyWords_.getKeyWordFinal());
-        map_.put("{static}",keyWords_.getKeyWordStatic());
-        map_.put("{for}",keyWords_.getKeyWordFor());
-        map_.put("{if}",keyWords_.getKeyWordIf());
-        map_.put("{else}",keyWords_.getKeyWordElse());
-        map_.put("{var}",keyWords_.getKeyWordVar());
-        map_.put("{annotation}",keyWords_.getKeyWordAnnotation());
-        map_.put("{null}",keyWords_.getKeyWordNull());
-        map_.put("{throw}",keyWords_.getKeyWordThrow());
-        map_.put("{continue}",keyWords_.getKeyWordContinue());
-        map_.put("{break}",keyWords_.getKeyWordBreak());
-        map_.put("{instanceof}",keyWords_.getKeyWordInstanceof());
-        map_.put("{true}",keyWords_.getKeyWordTrue());
-        map_.put("{false}",keyWords_.getKeyWordFalse());
-        map_.put("{try}",keyWords_.getKeyWordTry());
-        map_.put("{catch}",keyWords_.getKeyWordCatch());
-        map_.put("{cast}",keyWords_.getKeyWordCast());
+        map_.put("{results}",tr("results", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{exc}",tr("exc", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{nbParams}",tr("nbParams", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{params}",tr("params", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{arr}",tr("arr", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{as}",tr("as", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{bs}",tr("bs", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{tts}",tr("tts", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{locType}",tr("locType", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{loc}",tr("loc", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{paramAnn}",tr("paramAnn", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{aParam}",tr("aParam", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{final}", _keyWords.getKeyWordFinal());
+        map_.put("{static}", _keyWords.getKeyWordStatic());
+        map_.put("{for}", _keyWords.getKeyWordFor());
+        map_.put("{if}", _keyWords.getKeyWordIf());
+        map_.put("{else}", _keyWords.getKeyWordElse());
+        map_.put("{var}", _keyWords.getKeyWordVar());
+        map_.put("{annotation}", _keyWords.getKeyWordAnnotation());
+        map_.put("{null}", _keyWords.getKeyWordNull());
+        map_.put("{throw}", _keyWords.getKeyWordThrow());
+        map_.put("{continue}", _keyWords.getKeyWordContinue());
+        map_.put("{break}", _keyWords.getKeyWordBreak());
+        map_.put("{instanceof}", _keyWords.getKeyWordInstanceof());
+        map_.put("{true}", _keyWords.getKeyWordTrue());
+        map_.put("{false}", _keyWords.getKeyWordFalse());
+        map_.put("{try}", _keyWords.getKeyWordTry());
+        map_.put("{catch}", _keyWords.getKeyWordCatch());
+        map_.put("{cast}", _keyWords.getKeyWordCast());
         map_.put("{abstract}", abstract_);
         map_.put("{long}",primTypes_.getAliasPrimLong());
         map_.put("{double}",primTypes_.getAliasPrimDouble());
-        map_.put("{toSpecString}",keyWords_.getKeyWordToString());
+        map_.put("{toSpecString}", _keyWords.getKeyWordToString());
         map_.put("{Class}", reflect_.getAliasClassType());
         map_.put("{InvokeTarget}",reflect_.getAliasInvokeTarget());
         map_.put("{Stack}",stackElt_.getAliasStackTraceElement());
@@ -1079,41 +1076,41 @@ public final class CustAliases {
         map_.put("{currentParams}",aliasInfoTestCurrentParams);
         content_ = StringUtil.formatQuote(content_, map_);
 
-        predefinedClasses_.add(aliasInfoTest);
-        predefinedClasses_.add(aliasDifference);
-        predefinedClasses_.add(aliasAssert);
-        predefinedClasses_.add(aliasParameters);
-        predefinedClasses_.add(aliasBefore);
-        predefinedClasses_.add(aliasAfter);
-        predefinedClasses_.add(aliasTest);
-        predefinedClasses_.add(aliasExecutedTest);
-        predefinedClasses_.add(aliasResult);
-        predefinedClasses_.add(aliasExecute);
+        _predefinedClasses.add(aliasInfoTest);
+        _predefinedClasses.add(aliasDifference);
+        _predefinedClasses.add(aliasAssert);
+        _predefinedClasses.add(aliasParameters);
+        _predefinedClasses.add(aliasBefore);
+        _predefinedClasses.add(aliasAfter);
+        _predefinedClasses.add(aliasTest);
+        _predefinedClasses.add(aliasExecutedTest);
+        _predefinedClasses.add(aliasResult);
+        _predefinedClasses.add(aliasExecute);
         stds_.put(aliasExecute, content_);
-        predefinedInterfacesInitOrder_.add(aliasInfoTest);
-        predefinedInterfacesInitOrder_.add(aliasDifference);
-        predefinedInterfacesInitOrder_.add(aliasAssert);
-        predefinedInterfacesInitOrder_.add(aliasParameters);
-        predefinedInterfacesInitOrder_.add(aliasBefore);
-        predefinedInterfacesInitOrder_.add(aliasAfter);
-        predefinedInterfacesInitOrder_.add(aliasTest);
-        predefinedInterfacesInitOrder_.add(aliasExecutedTest);
-        predefinedInterfacesInitOrder_.add(aliasResult);
-        predefinedInterfacesInitOrder_.add(aliasExecute);
+        _predefinedInterfacesInitOrder.add(aliasInfoTest);
+        _predefinedInterfacesInitOrder.add(aliasDifference);
+        _predefinedInterfacesInitOrder.add(aliasAssert);
+        _predefinedInterfacesInitOrder.add(aliasParameters);
+        _predefinedInterfacesInitOrder.add(aliasBefore);
+        _predefinedInterfacesInitOrder.add(aliasAfter);
+        _predefinedInterfacesInitOrder.add(aliasTest);
+        _predefinedInterfacesInitOrder.add(aliasExecutedTest);
+        _predefinedInterfacesInitOrder.add(aliasResult);
+        _predefinedInterfacesInitOrder.add(aliasExecute);
         content_ = infos.getReader().read("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
         map_.put("{fo1}", custAliasParameters.getAliasFormatType0Print0());
         map_.put("{fo2}", custAliasParameters.getAliasFormatType1Print0());
         map_.put("{fo3}", custAliasParameters.getAliasFormatType1Print1());
-        map_.put("{as}", tr("as", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1()));
-        map_.put("{e}", tr("e", keyWords_, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1()));
+        map_.put("{as}", tr("as", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1()));
+        map_.put("{e}", tr("e", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasFormatType1Print0(),custAliasParameters.getAliasFormatType1Print1()));
         map_.put("{print}",getAliasPrint());
         map_.put("{format}",charSeq_.getAliasFormat());
         content_ = StringUtil.formatQuote(content_, map_);
-        predefinedClasses_.add(aliasFormatType);
+        _predefinedClasses.add(aliasFormatType);
         stds_.put(aliasFormatType, content_);
-        predefinedInterfacesInitOrder_.add(aliasFormatType);
+        _predefinedInterfacesInitOrder.add(aliasFormatType);
         return stds_;
     }
     public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {
@@ -2558,8 +2555,8 @@ public final class CustAliases {
         return aliasThreadExitHook;
     }
 
-    public void setAliasThreadExitHook(String aliasThreadExitHook) {
-        this.aliasThreadExitHook = aliasThreadExitHook;
+    public void setAliasThreadExitHook(String _aliasThreadExitHook) {
+        this.aliasThreadExitHook = _aliasThreadExitHook;
     }
 
     public String getAliasThreadCurrentTime() {
@@ -2623,16 +2620,16 @@ public final class CustAliases {
         return aliasIsEnded;
     }
 
-    public void setAliasIsEnded(String aliasIsEnded) {
-        this.aliasIsEnded = aliasIsEnded;
+    public void setAliasIsEnded(String _aliasIsEnded) {
+        this.aliasIsEnded = _aliasIsEnded;
     }
 
     public String getAliasEnd() {
         return aliasEnd;
     }
 
-    public void setAliasEnd(String aliasEnd) {
-        this.aliasEnd = aliasEnd;
+    public void setAliasEnd(String _aliasEnd) {
+        this.aliasEnd = _aliasEnd;
     }
 
     public String getAliasGetId() {
@@ -2720,72 +2717,72 @@ public final class CustAliases {
         return aliasCompareAndSetAtomic;
     }
 
-    public void setAliasCompareAndSetAtomic(String aliasCompareAndSetAtomic) {
-        this.aliasCompareAndSetAtomic = aliasCompareAndSetAtomic;
+    public void setAliasCompareAndSetAtomic(String _aliasCompareAndSetAtomic) {
+        this.aliasCompareAndSetAtomic = _aliasCompareAndSetAtomic;
     }
 
     public String getAliasLazySetAtomic() {
         return aliasLazySetAtomic;
     }
 
-    public void setAliasLazySetAtomic(String aliasLazySetAtomic) {
-        this.aliasLazySetAtomic = aliasLazySetAtomic;
+    public void setAliasLazySetAtomic(String _aliasLazySetAtomic) {
+        this.aliasLazySetAtomic = _aliasLazySetAtomic;
     }
 
     public String getAliasAddAndGetAtomic() {
         return aliasAddAndGetAtomic;
     }
 
-    public void setAliasAddAndGetAtomic(String aliasAddAndGetAtomic) {
-        this.aliasAddAndGetAtomic = aliasAddAndGetAtomic;
+    public void setAliasAddAndGetAtomic(String _aliasAddAndGetAtomic) {
+        this.aliasAddAndGetAtomic = _aliasAddAndGetAtomic;
     }
 
     public String getAliasGetAndAddAtomic() {
         return aliasGetAndAddAtomic;
     }
 
-    public void setAliasGetAndAddAtomic(String aliasGetAndAddAtomic) {
-        this.aliasGetAndAddAtomic = aliasGetAndAddAtomic;
+    public void setAliasGetAndAddAtomic(String _aliasGetAndAddAtomic) {
+        this.aliasGetAndAddAtomic = _aliasGetAndAddAtomic;
     }
 
     public String getAliasGetAndSetAtomic() {
         return aliasGetAndSetAtomic;
     }
 
-    public void setAliasGetAndSetAtomic(String aliasGetAndSetAtomic) {
-        this.aliasGetAndSetAtomic = aliasGetAndSetAtomic;
+    public void setAliasGetAndSetAtomic(String _aliasGetAndSetAtomic) {
+        this.aliasGetAndSetAtomic = _aliasGetAndSetAtomic;
     }
 
     public String getAliasIncrementAndGetAtomic() {
         return aliasIncrementAndGetAtomic;
     }
 
-    public void setAliasIncrementAndGetAtomic(String aliasIncrementAndGetAtomic) {
-        this.aliasIncrementAndGetAtomic = aliasIncrementAndGetAtomic;
+    public void setAliasIncrementAndGetAtomic(String _aliasIncrementAndGetAtomic) {
+        this.aliasIncrementAndGetAtomic = _aliasIncrementAndGetAtomic;
     }
 
     public String getAliasGetAndIncrementAtomic() {
         return aliasGetAndIncrementAtomic;
     }
 
-    public void setAliasGetAndIncrementAtomic(String aliasGetAndIncrementAtomic) {
-        this.aliasGetAndIncrementAtomic = aliasGetAndIncrementAtomic;
+    public void setAliasGetAndIncrementAtomic(String _aliasGetAndIncrementAtomic) {
+        this.aliasGetAndIncrementAtomic = _aliasGetAndIncrementAtomic;
     }
 
     public String getAliasDecrementAndGetAtomic() {
         return aliasDecrementAndGetAtomic;
     }
 
-    public void setAliasDecrementAndGetAtomic(String aliasDecrementAndGetAtomic) {
-        this.aliasDecrementAndGetAtomic = aliasDecrementAndGetAtomic;
+    public void setAliasDecrementAndGetAtomic(String _aliasDecrementAndGetAtomic) {
+        this.aliasDecrementAndGetAtomic = _aliasDecrementAndGetAtomic;
     }
 
     public String getAliasGetAndDecrementAtomic() {
         return aliasGetAndDecrementAtomic;
     }
 
-    public void setAliasGetAndDecrementAtomic(String aliasGetAndDecrementAtomic) {
-        this.aliasGetAndDecrementAtomic = aliasGetAndDecrementAtomic;
+    public void setAliasGetAndDecrementAtomic(String _aliasGetAndDecrementAtomic) {
+        this.aliasGetAndDecrementAtomic = _aliasGetAndDecrementAtomic;
     }
 
     public String getAliasFormatType() {
@@ -2831,200 +2828,200 @@ public final class CustAliases {
         return aliasFileIsDirectory;
     }
 
-    public void setAliasFileIsDirectory(String aliasFileIsDirectory) {
-        this.aliasFileIsDirectory = aliasFileIsDirectory;
+    public void setAliasFileIsDirectory(String _aliasFileIsDirectory) {
+        this.aliasFileIsDirectory = _aliasFileIsDirectory;
     }
 
     public String getAliasFileIsFile() {
         return aliasFileIsFile;
     }
 
-    public void setAliasFileIsFile(String aliasFileIsFile) {
-        this.aliasFileIsFile = aliasFileIsFile;
+    public void setAliasFileIsFile(String _aliasFileIsFile) {
+        this.aliasFileIsFile = _aliasFileIsFile;
     }
 
     public String getAliasFileGetParentPath() {
         return aliasFileGetParentPath;
     }
 
-    public void setAliasFileGetParentPath(String aliasFileGetParentPath) {
-        this.aliasFileGetParentPath = aliasFileGetParentPath;
+    public void setAliasFileGetParentPath(String _aliasFileGetParentPath) {
+        this.aliasFileGetParentPath = _aliasFileGetParentPath;
     }
 
     public String getAliasFileGetName() {
         return aliasFileGetName;
     }
 
-    public void setAliasFileGetName(String aliasFileGetName) {
-        this.aliasFileGetName = aliasFileGetName;
+    public void setAliasFileGetName(String _aliasFileGetName) {
+        this.aliasFileGetName = _aliasFileGetName;
     }
 
     public String getAliasFileGetLength() {
         return aliasFileGetLength;
     }
 
-    public void setAliasFileGetLength(String aliasFileGetLength) {
-        this.aliasFileGetLength = aliasFileGetLength;
+    public void setAliasFileGetLength(String _aliasFileGetLength) {
+        this.aliasFileGetLength = _aliasFileGetLength;
     }
 
     public String getAliasFileAbsolutePath() {
         return aliasFileAbsolutePath;
     }
 
-    public void setAliasFileAbsolutePath(String aliasFileAbsolutePath) {
-        this.aliasFileAbsolutePath = aliasFileAbsolutePath;
+    public void setAliasFileAbsolutePath(String _aliasFileAbsolutePath) {
+        this.aliasFileAbsolutePath = _aliasFileAbsolutePath;
     }
 
     public String getAliasFileLastModif() {
         return aliasFileLastModif;
     }
 
-    public void setAliasFileLastModif(String aliasFileLastModif) {
-        this.aliasFileLastModif = aliasFileLastModif;
+    public void setAliasFileLastModif(String _aliasFileLastModif) {
+        this.aliasFileLastModif = _aliasFileLastModif;
     }
 
     public String getAliasFileListFiles() {
         return aliasFileListFiles;
     }
 
-    public void setAliasFileListFiles(String aliasFileListFiles) {
-        this.aliasFileListFiles = aliasFileListFiles;
+    public void setAliasFileListFiles(String _aliasFileListFiles) {
+        this.aliasFileListFiles = _aliasFileListFiles;
     }
 
     public String getAliasFileListDirectories() {
         return aliasFileListDirectories;
     }
 
-    public void setAliasFileListDirectories(String aliasFileListDirectories) {
-        this.aliasFileListDirectories = aliasFileListDirectories;
+    public void setAliasFileListDirectories(String _aliasFileListDirectories) {
+        this.aliasFileListDirectories = _aliasFileListDirectories;
     }
 
     public String getAliasFileZippedBin() {
         return aliasFileZippedBin;
     }
 
-    public void setAliasFileZippedBin(String aliasFileZippedBin) {
-        this.aliasFileZippedBin = aliasFileZippedBin;
+    public void setAliasFileZippedBin(String _aliasFileZippedBin) {
+        this.aliasFileZippedBin = _aliasFileZippedBin;
     }
 
     public String getAliasFileZippedBinArray() {
         return aliasFileZippedBinArray;
     }
 
-    public void setAliasFileZippedBinArray(String aliasFileZippedBinArray) {
-        this.aliasFileZippedBinArray = aliasFileZippedBinArray;
+    public void setAliasFileZippedBinArray(String _aliasFileZippedBinArray) {
+        this.aliasFileZippedBinArray = _aliasFileZippedBinArray;
     }
 
     public String getAliasFileZippedText() {
         return aliasFileZippedText;
     }
 
-    public void setAliasFileZippedText(String aliasFileZippedText) {
-        this.aliasFileZippedText = aliasFileZippedText;
+    public void setAliasFileZippedText(String _aliasFileZippedText) {
+        this.aliasFileZippedText = _aliasFileZippedText;
     }
 
     public String getAliasFileZipBin() {
         return aliasFileZipBin;
     }
 
-    public void setAliasFileZipBin(String aliasFileZipBin) {
-        this.aliasFileZipBin = aliasFileZipBin;
+    public void setAliasFileZipBin(String _aliasFileZipBin) {
+        this.aliasFileZipBin = _aliasFileZipBin;
     }
 
     public String getAliasFileZipBinArray() {
         return aliasFileZipBinArray;
     }
 
-    public void setAliasFileZipBinArray(String aliasFileZipBinArray) {
-        this.aliasFileZipBinArray = aliasFileZipBinArray;
+    public void setAliasFileZipBinArray(String _aliasFileZipBinArray) {
+        this.aliasFileZipBinArray = _aliasFileZipBinArray;
     }
 
     public String getAliasFileZipText() {
         return aliasFileZipText;
     }
 
-    public void setAliasFileZipText(String aliasFileZipText) {
-        this.aliasFileZipText = aliasFileZipText;
+    public void setAliasFileZipText(String _aliasFileZipText) {
+        this.aliasFileZipText = _aliasFileZipText;
     }
 
     public String getAliasEntryBinary() {
         return aliasEntryBinary;
     }
 
-    public void setAliasEntryBinary(String aliasEntryBinary) {
-        this.aliasEntryBinary = aliasEntryBinary;
+    public void setAliasEntryBinary(String _aliasEntryBinary) {
+        this.aliasEntryBinary = _aliasEntryBinary;
     }
 
     public String getAliasEntryText() {
         return aliasEntryText;
     }
 
-    public void setAliasEntryText(String aliasEntryText) {
-        this.aliasEntryText = aliasEntryText;
+    public void setAliasEntryText(String _aliasEntryText) {
+        this.aliasEntryText = _aliasEntryText;
     }
 
     public String getAliasEntryName() {
         return aliasEntryName;
     }
 
-    public void setAliasEntryName(String aliasEntryName) {
-        this.aliasEntryName = aliasEntryName;
+    public void setAliasEntryName(String _aliasEntryName) {
+        this.aliasEntryName = _aliasEntryName;
     }
 
     public String getAliasEntryValue() {
         return aliasEntryValue;
     }
 
-    public void setAliasEntryValue(String aliasEntryValue) {
-        this.aliasEntryValue = aliasEntryValue;
+    public void setAliasEntryValue(String _aliasEntryValue) {
+        this.aliasEntryValue = _aliasEntryValue;
     }
 
     public String getAliasFileIsAbsolute() {
         return aliasFileIsAbsolute;
     }
 
-    public void setAliasFileIsAbsolute(String aliasFileIsAbsolute) {
-        this.aliasFileIsAbsolute = aliasFileIsAbsolute;
+    public void setAliasFileIsAbsolute(String _aliasFileIsAbsolute) {
+        this.aliasFileIsAbsolute = _aliasFileIsAbsolute;
     }
 
     public String getAliasFileReadBin() {
         return aliasFileReadBin;
     }
 
-    public void setAliasFileReadBin(String aliasFileReadBin) {
-        this.aliasFileReadBin = aliasFileReadBin;
+    public void setAliasFileReadBin(String _aliasFileReadBin) {
+        this.aliasFileReadBin = _aliasFileReadBin;
     }
 
     public String getAliasFileWriteBin() {
         return aliasFileWriteBin;
     }
 
-    public void setAliasFileWriteBin(String aliasFileWriteBin) {
-        this.aliasFileWriteBin = aliasFileWriteBin;
+    public void setAliasFileWriteBin(String _aliasFileWriteBin) {
+        this.aliasFileWriteBin = _aliasFileWriteBin;
     }
 
     public String getAliasFileDelete() {
         return aliasFileDelete;
     }
 
-    public void setAliasFileDelete(String aliasFileDelete) {
-        this.aliasFileDelete = aliasFileDelete;
+    public void setAliasFileDelete(String _aliasFileDelete) {
+        this.aliasFileDelete = _aliasFileDelete;
     }
 
     public String getAliasFileRename() {
         return aliasFileRename;
     }
 
-    public void setAliasFileRename(String aliasFileRename) {
-        this.aliasFileRename = aliasFileRename;
+    public void setAliasFileRename(String _aliasFileRename) {
+        this.aliasFileRename = _aliasFileRename;
     }
 
     public String getAliasFileMakeDirs() {
         return aliasFileMakeDirs;
     }
 
-    public void setAliasFileMakeDirs(String aliasFileMakeDirs) {
-        this.aliasFileMakeDirs = aliasFileMakeDirs;
+    public void setAliasFileMakeDirs(String _aliasFileMakeDirs) {
+        this.aliasFileMakeDirs = _aliasFileMakeDirs;
     }
 
     public String getAliasIllegalThreadStateException() {
@@ -3039,184 +3036,184 @@ public final class CustAliases {
         return aliasCustIterator;
     }
 
-    public void setAliasCustIterator(String aliasCustIterator) {
-        this.aliasCustIterator = aliasCustIterator;
+    public void setAliasCustIterator(String _aliasCustIterator) {
+        this.aliasCustIterator = _aliasCustIterator;
     }
 
     public String getAliasList() {
         return aliasList;
     }
 
-    public void setAliasList(String aliasList) {
-        this.aliasList = aliasList;
+    public void setAliasList(String _aliasList) {
+        this.aliasList = _aliasList;
     }
 
     public String getAliasListItr() {
         return aliasListItr;
     }
 
-    public void setAliasListItr(String aliasListItr) {
-        this.aliasListItr = aliasListItr;
+    public void setAliasListItr(String _aliasListItr) {
+        this.aliasListItr = _aliasListItr;
     }
 
     public String getAliasLengthItrLi() {
         return aliasLengthItrLi;
     }
 
-    public void setAliasLengthItrLi(String aliasLengthItrLi) {
-        this.aliasLengthItrLi = aliasLengthItrLi;
+    public void setAliasLengthItrLi(String _aliasLengthItrLi) {
+        this.aliasLengthItrLi = _aliasLengthItrLi;
     }
 
     public String getAliasLengthLi() {
         return aliasLengthLi;
     }
 
-    public void setAliasLengthLi(String aliasLengthLi) {
-        this.aliasLengthLi = aliasLengthLi;
+    public void setAliasLengthLi(String _aliasLengthLi) {
+        this.aliasLengthLi = _aliasLengthLi;
     }
 
     public String getAliasIndexItrLi() {
         return aliasIndexItrLi;
     }
 
-    public void setAliasIndexItrLi(String aliasIndexItrLi) {
-        this.aliasIndexItrLi = aliasIndexItrLi;
+    public void setAliasIndexItrLi(String _aliasIndexItrLi) {
+        this.aliasIndexItrLi = _aliasIndexItrLi;
     }
 
     public String getAliasSizeLi() {
         return aliasSizeLi;
     }
 
-    public void setAliasSizeLi(String aliasSizeLi) {
-        this.aliasSizeLi = aliasSizeLi;
+    public void setAliasSizeLi(String _aliasSizeLi) {
+        this.aliasSizeLi = _aliasSizeLi;
     }
 
     public String getAliasAddLi() {
         return aliasAddLi;
     }
 
-    public void setAliasAddLi(String aliasAddLi) {
-        this.aliasAddLi = aliasAddLi;
+    public void setAliasAddLi(String _aliasAddLi) {
+        this.aliasAddLi = _aliasAddLi;
     }
 
     public String getAliasRemoveLi() {
         return aliasRemoveLi;
     }
 
-    public void setAliasRemoveLi(String aliasRemoveLi) {
-        this.aliasRemoveLi = aliasRemoveLi;
+    public void setAliasRemoveLi(String _aliasRemoveLi) {
+        this.aliasRemoveLi = _aliasRemoveLi;
     }
 
     public String getAliasArrayLi() {
         return aliasArrayLi;
     }
 
-    public void setAliasArrayLi(String aliasArrayLi) {
-        this.aliasArrayLi = aliasArrayLi;
+    public void setAliasArrayLi(String _aliasArrayLi) {
+        this.aliasArrayLi = _aliasArrayLi;
     }
 
     public String getAliasCustIteratorVar() {
         return aliasCustIteratorVar;
     }
 
-    public void setAliasCustIteratorVar(String aliasCustIteratorVar) {
-        this.aliasCustIteratorVar = aliasCustIteratorVar;
+    public void setAliasCustIteratorVar(String _aliasCustIteratorVar) {
+        this.aliasCustIteratorVar = _aliasCustIteratorVar;
     }
 
     public String getAliasListVar() {
         return aliasListVar;
     }
 
-    public void setAliasListVar(String aliasListVar) {
-        this.aliasListVar = aliasListVar;
+    public void setAliasListVar(String _aliasListVar) {
+        this.aliasListVar = _aliasListVar;
     }
 
     public String getAliasCustPair() {
         return aliasCustPair;
     }
 
-    public void setAliasCustPair(String aliasCustPair) {
-        this.aliasCustPair = aliasCustPair;
+    public void setAliasCustPair(String _aliasCustPair) {
+        this.aliasCustPair = _aliasCustPair;
     }
 
     public String getAliasFirst() {
         return aliasFirst;
     }
 
-    public void setAliasFirst(String aliasFirst) {
-        this.aliasFirst = aliasFirst;
+    public void setAliasFirst(String _aliasFirst) {
+        this.aliasFirst = _aliasFirst;
     }
 
     public String getAliasSecond() {
         return aliasSecond;
     }
 
-    public void setAliasSecond(String aliasSecond) {
-        this.aliasSecond = aliasSecond;
+    public void setAliasSecond(String _aliasSecond) {
+        this.aliasSecond = _aliasSecond;
     }
 
     public String getAliasSetFirst() {
         return aliasSetFirst;
     }
 
-    public void setAliasSetFirst(String aliasSetFirst) {
-        this.aliasSetFirst = aliasSetFirst;
+    public void setAliasSetFirst(String _aliasSetFirst) {
+        this.aliasSetFirst = _aliasSetFirst;
     }
 
     public String getAliasSetSecond() {
         return aliasSetSecond;
     }
 
-    public void setAliasSetSecond(String aliasSetSecond) {
-        this.aliasSetSecond = aliasSetSecond;
+    public void setAliasSetSecond(String _aliasSetSecond) {
+        this.aliasSetSecond = _aliasSetSecond;
     }
 
     public String getAliasCustIterTable() {
         return aliasCustIterTable;
     }
 
-    public void setAliasCustIterTable(String aliasCustIterTable) {
-        this.aliasCustIterTable = aliasCustIterTable;
+    public void setAliasCustIterTable(String _aliasCustIterTable) {
+        this.aliasCustIterTable = _aliasCustIterTable;
     }
 
     public String getAliasListIterTable() {
         return aliasListIterTable;
     }
 
-    public void setAliasListIterTable(String aliasListIterTable) {
-        this.aliasListIterTable = aliasListIterTable;
+    public void setAliasListIterTable(String _aliasListIterTable) {
+        this.aliasListIterTable = _aliasListIterTable;
     }
 
     public String getAliasLengthItrTa() {
         return aliasLengthItrTa;
     }
 
-    public void setAliasLengthItrTa(String aliasLengthItrTa) {
-        this.aliasLengthItrTa = aliasLengthItrTa;
+    public void setAliasLengthItrTa(String _aliasLengthItrTa) {
+        this.aliasLengthItrTa = _aliasLengthItrTa;
     }
 
     public String getAliasIndexItrTa() {
         return aliasIndexItrTa;
     }
 
-    public void setAliasIndexItrTa(String aliasIndexItrTa) {
-        this.aliasIndexItrTa = aliasIndexItrTa;
+    public void setAliasIndexItrTa(String _aliasIndexItrTa) {
+        this.aliasIndexItrTa = _aliasIndexItrTa;
     }
 
     public String getAliasTable() {
         return aliasTable;
     }
 
-    public void setAliasTable(String aliasTable) {
-        this.aliasTable = aliasTable;
+    public void setAliasTable(String _aliasTable) {
+        this.aliasTable = _aliasTable;
     }
 
     public String getAliasListTa() {
         return aliasListTa;
     }
 
-    public void setAliasListTa(String aliasListTa) {
-        this.aliasListTa = aliasListTa;
+    public void setAliasListTa(String _aliasListTa) {
+        this.aliasListTa = _aliasListTa;
     }
 
     public String getAliasListClear() {
@@ -3231,448 +3228,448 @@ public final class CustAliases {
         return aliasAddTa;
     }
 
-    public void setAliasAddTa(String aliasAddTa) {
-        this.aliasAddTa = aliasAddTa;
+    public void setAliasAddTa(String _aliasAddTa) {
+        this.aliasAddTa = _aliasAddTa;
     }
 
     public String getAliasGetTa() {
         return aliasGetTa;
     }
 
-    public void setAliasGetTa(String aliasGetTa) {
-        this.aliasGetTa = aliasGetTa;
+    public void setAliasGetTa(String _aliasGetTa) {
+        this.aliasGetTa = _aliasGetTa;
     }
 
     public String getAliasSizeTa() {
         return aliasSizeTa;
     }
 
-    public void setAliasSizeTa(String aliasSizeTa) {
-        this.aliasSizeTa = aliasSizeTa;
+    public void setAliasSizeTa(String _aliasSizeTa) {
+        this.aliasSizeTa = _aliasSizeTa;
     }
 
     public String getAliasGetFirstTa() {
         return aliasGetFirstTa;
     }
 
-    public void setAliasGetFirstTa(String aliasGetFirstTa) {
-        this.aliasGetFirstTa = aliasGetFirstTa;
+    public void setAliasGetFirstTa(String _aliasGetFirstTa) {
+        this.aliasGetFirstTa = _aliasGetFirstTa;
     }
 
     public String getAliasGetSecondTa() {
         return aliasGetSecondTa;
     }
 
-    public void setAliasGetSecondTa(String aliasGetSecondTa) {
-        this.aliasGetSecondTa = aliasGetSecondTa;
+    public void setAliasGetSecondTa(String _aliasGetSecondTa) {
+        this.aliasGetSecondTa = _aliasGetSecondTa;
     }
 
     public String getAliasSetFirstTa() {
         return aliasSetFirstTa;
     }
 
-    public void setAliasSetFirstTa(String aliasSetFirstTa) {
-        this.aliasSetFirstTa = aliasSetFirstTa;
+    public void setAliasSetFirstTa(String _aliasSetFirstTa) {
+        this.aliasSetFirstTa = _aliasSetFirstTa;
     }
 
     public String getAliasSetSecondTa() {
         return aliasSetSecondTa;
     }
 
-    public void setAliasSetSecondTa(String aliasSetSecondTa) {
-        this.aliasSetSecondTa = aliasSetSecondTa;
+    public void setAliasSetSecondTa(String _aliasSetSecondTa) {
+        this.aliasSetSecondTa = _aliasSetSecondTa;
     }
 
     public String getAliasRemoveTa() {
         return aliasRemoveTa;
     }
 
-    public void setAliasRemoveTa(String aliasRemoveTa) {
-        this.aliasRemoveTa = aliasRemoveTa;
+    public void setAliasRemoveTa(String _aliasRemoveTa) {
+        this.aliasRemoveTa = _aliasRemoveTa;
     }
 
     public String getAliasPairVarFirst() {
         return aliasPairVarFirst;
     }
 
-    public void setAliasPairVarFirst(String aliasPairVarFirst) {
-        this.aliasPairVarFirst = aliasPairVarFirst;
+    public void setAliasPairVarFirst(String _aliasPairVarFirst) {
+        this.aliasPairVarFirst = _aliasPairVarFirst;
     }
 
     public String getAliasPairVarSecond() {
         return aliasPairVarSecond;
     }
 
-    public void setAliasPairVarSecond(String aliasPairVarSecond) {
-        this.aliasPairVarSecond = aliasPairVarSecond;
+    public void setAliasPairVarSecond(String _aliasPairVarSecond) {
+        this.aliasPairVarSecond = _aliasPairVarSecond;
     }
 
     public String getAliasIterTaVarFirst() {
         return aliasIterTaVarFirst;
     }
 
-    public void setAliasIterTaVarFirst(String aliasIterTaVarFirst) {
-        this.aliasIterTaVarFirst = aliasIterTaVarFirst;
+    public void setAliasIterTaVarFirst(String _aliasIterTaVarFirst) {
+        this.aliasIterTaVarFirst = _aliasIterTaVarFirst;
     }
 
     public String getAliasIterTaVarSecond() {
         return aliasIterTaVarSecond;
     }
 
-    public void setAliasIterTaVarSecond(String aliasIterTaVarSecond) {
-        this.aliasIterTaVarSecond = aliasIterTaVarSecond;
+    public void setAliasIterTaVarSecond(String _aliasIterTaVarSecond) {
+        this.aliasIterTaVarSecond = _aliasIterTaVarSecond;
     }
 
     public String getAliasTableVarFirst() {
         return aliasTableVarFirst;
     }
 
-    public void setAliasTableVarFirst(String aliasTableVarFirst) {
-        this.aliasTableVarFirst = aliasTableVarFirst;
+    public void setAliasTableVarFirst(String _aliasTableVarFirst) {
+        this.aliasTableVarFirst = _aliasTableVarFirst;
     }
 
     public String getAliasTableVarSecond() {
         return aliasTableVarSecond;
     }
 
-    public void setAliasTableVarSecond(String aliasTableVarSecond) {
-        this.aliasTableVarSecond = aliasTableVarSecond;
+    public void setAliasTableVarSecond(String _aliasTableVarSecond) {
+        this.aliasTableVarSecond = _aliasTableVarSecond;
     }
 
     public String getAliasExecute() {
         return aliasExecute;
     }
 
-    public void setAliasExecute(String aliasExecute) {
-        this.aliasExecute = aliasExecute;
+    public void setAliasExecute(String _aliasExecute) {
+        this.aliasExecute = _aliasExecute;
     }
 
     public String getAliasResult() {
         return aliasResult;
     }
 
-    public void setAliasResult(String aliasResult) {
-        this.aliasResult = aliasResult;
+    public void setAliasResult(String _aliasResult) {
+        this.aliasResult = _aliasResult;
     }
 
     public String getAliasExecutedTest() {
         return aliasExecutedTest;
     }
 
-    public void setAliasExecutedTest(String aliasExecutedTest) {
-        this.aliasExecutedTest = aliasExecutedTest;
+    public void setAliasExecutedTest(String _aliasExecutedTest) {
+        this.aliasExecutedTest = _aliasExecutedTest;
     }
 
     public String getAliasTest() {
         return aliasTest;
     }
 
-    public void setAliasTest(String aliasTest) {
-        this.aliasTest = aliasTest;
+    public void setAliasTest(String _aliasTest) {
+        this.aliasTest = _aliasTest;
     }
 
     public String getAliasAfter() {
         return aliasAfter;
     }
 
-    public void setAliasAfter(String aliasAfter) {
-        this.aliasAfter = aliasAfter;
+    public void setAliasAfter(String _aliasAfter) {
+        this.aliasAfter = _aliasAfter;
     }
 
     public String getAliasBefore() {
         return aliasBefore;
     }
 
-    public void setAliasBefore(String aliasBefore) {
-        this.aliasBefore = aliasBefore;
+    public void setAliasBefore(String _aliasBefore) {
+        this.aliasBefore = _aliasBefore;
     }
 
     public String getAliasParameters() {
         return aliasParameters;
     }
 
-    public void setAliasParameters(String aliasParameters) {
-        this.aliasParameters = aliasParameters;
+    public void setAliasParameters(String _aliasParameters) {
+        this.aliasParameters = _aliasParameters;
     }
 
     public String getAliasAssert() {
         return aliasAssert;
     }
 
-    public void setAliasAssert(String aliasAssert) {
-        this.aliasAssert = aliasAssert;
+    public void setAliasAssert(String _aliasAssert) {
+        this.aliasAssert = _aliasAssert;
     }
 
     public String getAliasDifference() {
         return aliasDifference;
     }
 
-    public void setAliasDifference(String aliasDifference) {
-        this.aliasDifference = aliasDifference;
+    public void setAliasDifference(String _aliasDifference) {
+        this.aliasDifference = _aliasDifference;
     }
 
     public String getAliasInfoTest() {
         return aliasInfoTest;
     }
 
-    public void setAliasInfoTest(String aliasInfoTest) {
-        this.aliasInfoTest = aliasInfoTest;
+    public void setAliasInfoTest(String _aliasInfoTest) {
+        this.aliasInfoTest = _aliasInfoTest;
     }
 
     public String getAliasTestException() {
         return aliasTestException;
     }
 
-    public void setAliasTestException(String aliasTestException) {
-        this.aliasTestException = aliasTestException;
+    public void setAliasTestException(String _aliasTestException) {
+        this.aliasTestException = _aliasTestException;
     }
 
     public String getAliasTestNullException() {
         return aliasTestNullException;
     }
 
-    public void setAliasTestNullException(String aliasTestNullException) {
-        this.aliasTestNullException = aliasTestNullException;
+    public void setAliasTestNullException(String _aliasTestNullException) {
+        this.aliasTestNullException = _aliasTestNullException;
     }
 
     public String getAliasExecutedTestAnnotations() {
         return aliasExecutedTestAnnotations;
     }
 
-    public void setAliasExecutedTestAnnotations(String aliasExecutedTestAnnotations) {
-        this.aliasExecutedTestAnnotations = aliasExecutedTestAnnotations;
+    public void setAliasExecutedTestAnnotations(String _aliasExecutedTestAnnotations) {
+        this.aliasExecutedTestAnnotations = _aliasExecutedTestAnnotations;
     }
 
     public String getAliasExecutedTestTest() {
         return aliasExecutedTestTest;
     }
 
-    public void setAliasExecutedTestTest(String aliasExecutedTestTest) {
-        this.aliasExecutedTestTest = aliasExecutedTestTest;
+    public void setAliasExecutedTestTest(String _aliasExecutedTestTest) {
+        this.aliasExecutedTestTest = _aliasExecutedTestTest;
     }
 
     public String getAliasExecutedTestBefore() {
         return aliasExecutedTestBefore;
     }
 
-    public void setAliasExecutedTestBefore(String aliasExecutedTestBefore) {
-        this.aliasExecutedTestBefore = aliasExecutedTestBefore;
+    public void setAliasExecutedTestBefore(String _aliasExecutedTestBefore) {
+        this.aliasExecutedTestBefore = _aliasExecutedTestBefore;
     }
 
     public String getAliasExecutedTestAfter() {
         return aliasExecutedTestAfter;
     }
 
-    public void setAliasExecutedTestAfter(String aliasExecutedTestAfter) {
-        this.aliasExecutedTestAfter = aliasExecutedTestAfter;
+    public void setAliasExecutedTestAfter(String _aliasExecutedTestAfter) {
+        this.aliasExecutedTestAfter = _aliasExecutedTestAfter;
     }
 
     public String getAliasExecutedTestMethod() {
         return aliasExecutedTestMethod;
     }
 
-    public void setAliasExecutedTestMethod(String aliasExecutedTestMethod) {
-        this.aliasExecutedTestMethod = aliasExecutedTestMethod;
+    public void setAliasExecutedTestMethod(String _aliasExecutedTestMethod) {
+        this.aliasExecutedTestMethod = _aliasExecutedTestMethod;
     }
 
     public String getAliasResultSuccess() {
         return aliasResultSuccess;
     }
 
-    public void setAliasResultSuccess(String aliasResultSuccess) {
-        this.aliasResultSuccess = aliasResultSuccess;
+    public void setAliasResultSuccess(String _aliasResultSuccess) {
+        this.aliasResultSuccess = _aliasResultSuccess;
     }
 
     public String getAliasResultFailMessage() {
         return aliasResultFailMessage;
     }
 
-    public void setAliasResultFailMessage(String aliasResultFailMessage) {
-        this.aliasResultFailMessage = aliasResultFailMessage;
+    public void setAliasResultFailMessage(String _aliasResultFailMessage) {
+        this.aliasResultFailMessage = _aliasResultFailMessage;
     }
 
     public String getAliasResultParams() {
         return aliasResultParams;
     }
 
-    public void setAliasResultParams(String aliasResultParams) {
-        this.aliasResultParams = aliasResultParams;
+    public void setAliasResultParams(String _aliasResultParams) {
+        this.aliasResultParams = _aliasResultParams;
     }
 
     public String getAliasParametersMethod() {
         return aliasParametersMethod;
     }
 
-    public void setAliasParametersMethod(String aliasParametersMethod) {
-        this.aliasParametersMethod = aliasParametersMethod;
+    public void setAliasParametersMethod(String _aliasParametersMethod) {
+        this.aliasParametersMethod = _aliasParametersMethod;
     }
 
     public String getAliasParametersLocation() {
         return aliasParametersLocation;
     }
 
-    public void setAliasParametersLocation(String aliasParametersLocation) {
-        this.aliasParametersLocation = aliasParametersLocation;
+    public void setAliasParametersLocation(String _aliasParametersLocation) {
+        this.aliasParametersLocation = _aliasParametersLocation;
     }
 
     public String getAliasExecuteTests() {
         return aliasExecuteTests;
     }
 
-    public void setAliasExecuteTests(String aliasExecuteTests) {
-        this.aliasExecuteTests = aliasExecuteTests;
+    public void setAliasExecuteTests(String _aliasExecuteTests) {
+        this.aliasExecuteTests = _aliasExecuteTests;
     }
 
     public String getAliasExecuteExecute() {
         return aliasExecuteExecute;
     }
 
-    public void setAliasExecuteExecute(String aliasExecuteExecute) {
-        this.aliasExecuteExecute = aliasExecuteExecute;
+    public void setAliasExecuteExecute(String _aliasExecuteExecute) {
+        this.aliasExecuteExecute = _aliasExecuteExecute;
     }
 
     public String getAliasExecuteConvert() {
         return aliasExecuteConvert;
     }
 
-    public void setAliasExecuteConvert(String aliasExecuteConvert) {
-        this.aliasExecuteConvert = aliasExecuteConvert;
+    public void setAliasExecuteConvert(String _aliasExecuteConvert) {
+        this.aliasExecuteConvert = _aliasExecuteConvert;
     }
 
     public String getAliasExecuteSetupNoException() {
         return aliasExecuteSetupNoException;
     }
 
-    public void setAliasExecuteSetupNoException(String aliasExecuteSetupNoException) {
-        this.aliasExecuteSetupNoException = aliasExecuteSetupNoException;
+    public void setAliasExecuteSetupNoException(String _aliasExecuteSetupNoException) {
+        this.aliasExecuteSetupNoException = _aliasExecuteSetupNoException;
     }
 
     public String getAliasExecuteSetupError() {
         return aliasExecuteSetupError;
     }
 
-    public void setAliasExecuteSetupError(String aliasExecuteSetupError) {
-        this.aliasExecuteSetupError = aliasExecuteSetupError;
+    public void setAliasExecuteSetupError(String _aliasExecuteSetupError) {
+        this.aliasExecuteSetupError = _aliasExecuteSetupError;
     }
 
     public String getAliasAssertAssert() {
         return aliasAssertAssert;
     }
 
-    public void setAliasAssertAssert(String aliasAssertAssert) {
-        this.aliasAssertAssert = aliasAssertAssert;
+    public void setAliasAssertAssert(String _aliasAssertAssert) {
+        this.aliasAssertAssert = _aliasAssertAssert;
     }
 
     public String getAliasAssertAssertTrue() {
         return aliasAssertAssertTrue;
     }
 
-    public void setAliasAssertAssertTrue(String aliasAssertAssertTrue) {
-        this.aliasAssertAssertTrue = aliasAssertAssertTrue;
+    public void setAliasAssertAssertTrue(String _aliasAssertAssertTrue) {
+        this.aliasAssertAssertTrue = _aliasAssertAssertTrue;
     }
 
     public String getAliasAssertAssertNull() {
         return aliasAssertAssertNull;
     }
 
-    public void setAliasAssertAssertNull(String aliasAssertAssertNull) {
-        this.aliasAssertAssertNull = aliasAssertAssertNull;
+    public void setAliasAssertAssertNull(String _aliasAssertAssertNull) {
+        this.aliasAssertAssertNull = _aliasAssertAssertNull;
     }
 
     public String getAliasAssertAssertNotNull() {
         return aliasAssertAssertNotNull;
     }
 
-    public void setAliasAssertAssertNotNull(String aliasAssertAssertNotNull) {
-        this.aliasAssertAssertNotNull = aliasAssertAssertNotNull;
+    public void setAliasAssertAssertNotNull(String _aliasAssertAssertNotNull) {
+        this.aliasAssertAssertNotNull = _aliasAssertAssertNotNull;
     }
 
     public String getAliasAssertAssertSame() {
         return aliasAssertAssertSame;
     }
 
-    public void setAliasAssertAssertSame(String aliasAssertAssertSame) {
-        this.aliasAssertAssertSame = aliasAssertAssertSame;
+    public void setAliasAssertAssertSame(String _aliasAssertAssertSame) {
+        this.aliasAssertAssertSame = _aliasAssertAssertSame;
     }
 
     public String getAliasDifferenceExpected() {
         return aliasDifferenceExpected;
     }
 
-    public void setAliasDifferenceExpected(String aliasDifferenceExpected) {
-        this.aliasDifferenceExpected = aliasDifferenceExpected;
+    public void setAliasDifferenceExpected(String _aliasDifferenceExpected) {
+        this.aliasDifferenceExpected = _aliasDifferenceExpected;
     }
 
     public String getAliasDifferenceFound() {
         return aliasDifferenceFound;
     }
 
-    public void setAliasDifferenceFound(String aliasDifferenceFound) {
-        this.aliasDifferenceFound = aliasDifferenceFound;
+    public void setAliasDifferenceFound(String _aliasDifferenceFound) {
+        this.aliasDifferenceFound = _aliasDifferenceFound;
     }
 
     public String getAliasDifferenceFoundNull() {
         return aliasDifferenceFoundNull;
     }
 
-    public void setAliasDifferenceFoundNull(String aliasDifferenceFoundNull) {
-        this.aliasDifferenceFoundNull = aliasDifferenceFoundNull;
+    public void setAliasDifferenceFoundNull(String _aliasDifferenceFoundNull) {
+        this.aliasDifferenceFoundNull = _aliasDifferenceFoundNull;
     }
 
     public String getAliasDifferenceFoundNotTrue() {
         return aliasDifferenceFoundNotTrue;
     }
 
-    public void setAliasDifferenceFoundNotTrue(String aliasDifferenceFoundNotTrue) {
-        this.aliasDifferenceFoundNotTrue = aliasDifferenceFoundNotTrue;
+    public void setAliasDifferenceFoundNotTrue(String _aliasDifferenceFoundNotTrue) {
+        this.aliasDifferenceFoundNotTrue = _aliasDifferenceFoundNotTrue;
     }
 
     public String getAliasDifferenceStackDiff() {
         return aliasDifferenceStackDiff;
     }
 
-    public void setAliasDifferenceStackDiff(String aliasDifferenceStackDiff) {
-        this.aliasDifferenceStackDiff = aliasDifferenceStackDiff;
+    public void setAliasDifferenceStackDiff(String _aliasDifferenceStackDiff) {
+        this.aliasDifferenceStackDiff = _aliasDifferenceStackDiff;
     }
 
     public String getAliasInfoTestCount() {
         return aliasInfoTestCount;
     }
 
-    public void setAliasInfoTestCount(String aliasInfoTestCount) {
-        this.aliasInfoTestCount = aliasInfoTestCount;
+    public void setAliasInfoTestCount(String _aliasInfoTestCount) {
+        this.aliasInfoTestCount = _aliasInfoTestCount;
     }
 
     public String getAliasInfoTestDone() {
         return aliasInfoTestDone;
     }
 
-    public void setAliasInfoTestDone(String aliasInfoTestDone) {
-        this.aliasInfoTestDone = aliasInfoTestDone;
+    public void setAliasInfoTestDone(String _aliasInfoTestDone) {
+        this.aliasInfoTestDone = _aliasInfoTestDone;
     }
 
     public String getAliasInfoTestCurrentClass() {
         return aliasInfoTestCurrentClass;
     }
 
-    public void setAliasInfoTestCurrentClass(String aliasInfoTestCurrentClass) {
-        this.aliasInfoTestCurrentClass = aliasInfoTestCurrentClass;
+    public void setAliasInfoTestCurrentClass(String _aliasInfoTestCurrentClass) {
+        this.aliasInfoTestCurrentClass = _aliasInfoTestCurrentClass;
     }
 
     public String getAliasInfoTestCurrentMethod() {
         return aliasInfoTestCurrentMethod;
     }
 
-    public void setAliasInfoTestCurrentMethod(String aliasInfoTestCurrentMethod) {
-        this.aliasInfoTestCurrentMethod = aliasInfoTestCurrentMethod;
+    public void setAliasInfoTestCurrentMethod(String _aliasInfoTestCurrentMethod) {
+        this.aliasInfoTestCurrentMethod = _aliasInfoTestCurrentMethod;
     }
 
     public String getAliasInfoTestCurrentParams() {
         return aliasInfoTestCurrentParams;
     }
 
-    public void setAliasInfoTestCurrentParams(String aliasInfoTestCurrentParams) {
-        this.aliasInfoTestCurrentParams = aliasInfoTestCurrentParams;
+    public void setAliasInfoTestCurrentParams(String _aliasInfoTestCurrentParams) {
+        this.aliasInfoTestCurrentParams = _aliasInfoTestCurrentParams;
     }
 
     public String getAliasConcurrentError() {

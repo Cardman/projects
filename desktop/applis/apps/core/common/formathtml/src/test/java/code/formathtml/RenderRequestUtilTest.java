@@ -368,8 +368,8 @@ public final class RenderRequestUtilTest extends CommonRender {
         assertNotNull(getException(session_));
     }
 
-    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration conf_, Struct build_) {
-        conf_.getLastPage().setGlobalArgumentStruct(build_);
+    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _conf, Struct _build) {
+        _conf.getLastPage().setGlobalArgumentStruct(_build);
     }
 
 
@@ -526,13 +526,13 @@ public final class RenderRequestUtilTest extends CommonRender {
         assertEq(6, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbersTwo"))).getInstance()[2]).intStruct());
     }
 
-    private static void setRendObject(AnalyzedTestConfiguration conf_, NodeContainer nCont_, IntStruct _attribute) {
-        RendRequestUtil.setRendObject(conf_.getConfiguration(),nCont_, _attribute, conf_.getAdvStandards(), conf_.getContext());
+    private static void setRendObject(AnalyzedTestConfiguration _conf, NodeContainer _nCont, IntStruct _attribute) {
+        RendRequestUtil.setRendObject(_conf.getConfiguration(),_nCont, _attribute, _conf.getAdvStandards(), _conf.getContext());
     }
 
 
-    private static Struct redirect(AnalyzedTestConfiguration conf_, Argument _bean, int _url) {
-        return RendRequestUtil.redirect(conf_.getConfiguration(), _bean, _url, conf_.getAdvStandards(), conf_.getContext());
+    private static Struct redirect(AnalyzedTestConfiguration _conf, Argument _bean, int _url) {
+        return RendRequestUtil.redirect(_conf.getConfiguration(), _bean, _url, _conf.getAdvStandards(), _conf.getContext());
     }
 
 }

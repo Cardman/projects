@@ -118,8 +118,8 @@ public final class ExecutingOptions {
         return messages;
     }
 
-    public void setMessages(StringMap<String> messages) {
-        this.messages = messages;
+    public void setMessages(StringMap<String> _messages) {
+        this.messages = _messages;
     }
 
     public StringMap<String> getKeyWords() {

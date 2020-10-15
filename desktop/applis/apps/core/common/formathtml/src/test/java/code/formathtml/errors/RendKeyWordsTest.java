@@ -41,8 +41,8 @@ public final class RendKeyWordsTest {
         assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateTagContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateTagContents(tags_, conf_.getAnalyzing());
+    private static void validateTagContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateTagContents(_tags, _conf.getAnalyzing());
     }
 
     @Test
@@ -87,8 +87,8 @@ public final class RendKeyWordsTest {
         assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateValueContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateValueContents(tags_, conf_.getAnalyzing());
+    private static void validateValueContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateValueContents(_tags, _conf.getAnalyzing());
     }
 
     @Test
@@ -112,8 +112,8 @@ public final class RendKeyWordsTest {
         assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateStyleValueContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateStyleValueContents(tags_, conf_.getAnalyzing());
+    private static void validateStyleValueContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateStyleValueContents(_tags, _conf.getAnalyzing());
     }
 
     @Test
@@ -343,34 +343,34 @@ public final class RendKeyWordsTest {
         assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
-    private static void validateStyle(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateStyleUnitContents(tags_, conf_.getAnalyzing());
+    private static void validateStyle(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateStyleUnitContents(_tags, _conf.getAnalyzing());
     }
 
-    private static void validateMess(RendAnalysisMessages def_, AnalyzedTestConfiguration s_) {
-        AnalysisMessages.validateMessageContents(def_.allMessages(), s_.getAnalyzing());
+    private static void validateMess(RendAnalysisMessages _def, AnalyzedTestConfiguration _s) {
+        AnalysisMessages.validateMessageContents(_def.allMessages(), _s.getAnalyzing());
     }
 
-    private static AnalyzedTestConfiguration build(KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_, opts_);
+    private static AnalyzedTestConfiguration build(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
+        AnalyzedTestContext s_ = getCtx(_kw, _lgName, _opts);
         Configuration conf_ = new Configuration();
-        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), lgName_);
+        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), _lgName);
     }
 
-    private static AnalyzedTestContext getCtx(KeyWords kw_, BeanCustLgNames lgName_, Options opts_) {
-        ContextEl s_ =  lgName_.newContext(4, -1, new Coverage(opts_.isCovering()));
+    private static AnalyzedTestContext getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
+        ContextEl s_ =  _lgName.newContext(4, -1, new Coverage(_opts.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
-        page_.setKeyWords(kw_);
-        return new AnalyzedTestContext(s_, page_, new Forwards(), lgName_);
+        page_.setKeyWords(_kw);
+        return new AnalyzedTestContext(s_, page_, new Forwards(), _lgName);
     }
 
-    private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateAttrContents(tags_, conf_.getAnalyzing());
+    private static void validateAttrContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateAttrContents(_tags, _conf.getAnalyzing());
     }
 
-    private static void validateDuplicates(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
-        r_.validateDuplicates(tags_, conf_.getAnalyzing());
+    private static void validateDuplicates(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateDuplicates(_tags, _conf.getAnalyzing());
     }
 
     @Test

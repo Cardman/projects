@@ -13,9 +13,9 @@ class NativeAnalyzedTestContext {
     private final BeanNatLgNames stds;
     private DualConfigurationContext dual = new DualConfigurationContext();
 
-    NativeAnalyzedTestContext(ContextEl context, AnalyzedPageEl analyzing, Forwards _forwards, BeanNatLgNames _standards) {
-        this.context = context;
-        this.analyzing = analyzing;
+    NativeAnalyzedTestContext(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
+        this.context = _context;
+        this.analyzing = _analyzing;
         stds = _standards;
         forwards = _forwards;
     }

@@ -306,10 +306,10 @@ public final class NativeTest {
         assertEq("page2.html", n_.getCurrentUrl());
     }
 
-    private static NativeAnalyzedTestConfiguration buildNat(Configuration conf_) {
+    private static NativeAnalyzedTestConfiguration buildNat(Configuration _conf) {
         Options opt_ = new Options();
         NativeAnalyzedTestContext cont_ = buildStdOne(opt_);
-        return new NativeAnalyzedTestConfiguration(conf_,cont_, cont_.getForwards(), cont_.getStds());
+        return new NativeAnalyzedTestConfiguration(_conf,cont_, cont_.getForwards(), cont_.getStds());
     }
 
     @Test
@@ -1256,40 +1256,40 @@ public final class NativeTest {
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
-        AnalyzedPageEl _page = _conf.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(_page, standards_, analyzingDoc_, _conf.getDual());
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv());
     }
 
-    private boolean hasNatErr(String folder_, String relative_, String html_, BeanOne bean_) {
+    private boolean hasNatErr(String _folder, String _relative, String _html, BeanOne _bean) {
         NativeAnalyzedTestConfiguration context_ = contextElSec();
 
-        setupNative(folder_, relative_, context_.getDual());
-        putBean(bean_, "bean_one", context_.getAdv());
-        addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
+        setupNative(_folder, _relative, context_.getDual());
+        putBean(_bean, "bean_one", context_.getAdv());
+        addBeanInfo(context_,"bean_one",new BeanStruct(_bean));
         context_.getAnalyzing().setForEachFetch(new NativeForEachFetch(context_.getAdv()));
-        analyzeInner(context_.getConfiguration(),context_, html_);
+        analyzeInner(context_.getConfiguration(),context_, _html);
         return !context_.isEmptyErrors();
     }
 
-    private String getNatRes(String folder_, String relative_, String html_, BeanOne bean_) {
+    private String getNatRes(String _folder, String _relative, String _html, BeanOne _bean) {
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
-        setupNative(folder_, relative_, conf_.getDual());
-        putBean(bean_, "bean_one", conf_.getAdv());
-        addBeanInfo(conf_,"bean_one",new BeanStruct(bean_));
+        setupNative(_folder, _relative, conf_.getDual());
+        putBean(_bean, "bean_one", conf_.getAdv());
+        addBeanInfo(conf_,"bean_one",new BeanStruct(_bean));
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
         conf_.getAnalyzing().setForEachFetch(new NativeForEachFetch(conf_.getAdv()));
-        analyzeInner(conf_.getConfiguration(),conf_, html_);
+        analyzeInner(conf_.getConfiguration(),conf_, _html);
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        String res = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext());
+        String res_ = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext());
         assertNull(getException(conf_));
-        return res;
+        return res_;
     }
 
     private NativeAnalyzedTestConfiguration contextElSec() {
@@ -1298,51 +1298,51 @@ public final class NativeTest {
         return buildNat(conf_);
     }
 
-    private static RendDocumentBlock buildRendWithTwoNativeBean(String html_, String htmlTwo_, BeanOne bean_, BeanTwo beanTwo_, NativeAnalyzedTestConfiguration conf_) {
-        Configuration c_ = conf_.getConfiguration();
-        addBeanInfo(conf_,"bean_one", new BeanStruct(bean_));
-        addBeanInfo(conf_,"bean_two", new BeanStruct(beanTwo_));
-        analyzeInner(c_,conf_, html_,htmlTwo_);
-        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
-        setFirst(conf_);
-        return conf_.getConfiguration().getRenders().getVal("page1.html");
+    private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanOne _bean, BeanTwo _beanTwo, NativeAnalyzedTestConfiguration _conf) {
+        Configuration c_ = _conf.getConfiguration();
+        addBeanInfo(_conf,"bean_one", new BeanStruct(_bean));
+        addBeanInfo(_conf,"bean_two", new BeanStruct(_beanTwo));
+        analyzeInner(c_,_conf, _html,_htmlTwo);
+        RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), _conf.getAnalyzed(), new Forwards(), _conf.getConfiguration());
+        setFirst(_conf);
+        return _conf.getConfiguration().getRenders().getVal("page1.html");
     }
 
-    private static void analyzeInner(Configuration conf_, NativeAnalyzedTestConfiguration a_, String... _html) {
-        StringMap<AnaRendDocumentBlock> d_ = analyze(conf_, a_, a_.getAnalyzingDoc(), _html);
-        a_.setAnalyzed(d_);
+    private static void analyzeInner(Configuration _conf, NativeAnalyzedTestConfiguration _a, String... _html) {
+        StringMap<AnaRendDocumentBlock> d_ = analyze(_conf, _a, _a.getAnalyzingDoc(), _html);
+        _a.setAnalyzed(d_);
     }
 
-    private static void setLocalFiles(NativeAnalyzedTestConfiguration context_, AnalyzingDoc _analyzingDoc) {
-        AnalyzedPageEl analyzing_ = context_.getAnalyzing();
-        Configuration conf_ = context_.getConfiguration();
+    private static void setLocalFiles(NativeAnalyzedTestConfiguration _context, AnalyzingDoc _analyzingDoc) {
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        Configuration conf_ = _context.getConfiguration();
         conf_.setCurrentLanguage("en");
-        _analyzingDoc.setup(conf_, context_.getAdv(), context_.getDual());
+        _analyzingDoc.setup(conf_, _context.getAdv(), _context.getDual());
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 
-    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, AnalyzedPageEl analyzing) {
+    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _analyzingDoc.setLanguages(new StringList("en"));
-        setupAna(_analyzingDoc, analyzing);
+        setupAna(_analyzingDoc, _analyzing);
     }
-    private static StringMap<AnaRendDocumentBlock> analyze(Configuration conf_, NativeAnalyzedTestConfiguration a_, AnalyzingDoc analyzingDoc_, String... _html) {
+    private static StringMap<AnaRendDocumentBlock> analyze(Configuration _conf, NativeAnalyzedTestConfiguration _a, AnalyzingDoc _analyzingDoc, String... _html) {
         int c_ = 1;
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, a_.getAnalyzing().getPrimTypes(), conf_.getCurrentUrl(), conf_.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), _conf.getCurrentUrl(), _conf.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
-        setLocalFiles(a_, analyzingDoc_);
+        setLocalFiles(_a, _analyzingDoc);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(analyzingDoc_, a_.getAnalyzing());
+            v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing());
         }
         return d_;
     }
-    protected static void setFirst(NativeAnalyzedTestConfiguration cont_) {
-        RendDocumentBlock doc_ = cont_.getConfiguration().getRenders().getVal("page1.html");
-        cont_.getConfiguration().setRendDocumentBlock(doc_);
+    protected static void setFirst(NativeAnalyzedTestConfiguration _cont) {
+        RendDocumentBlock doc_ = _cont.getConfiguration().getRenders().getVal("page1.html");
+        _cont.getConfiguration().setRendDocumentBlock(doc_);
     }
 
     private static NativeAnalyzedTestContext buildStdOne(Options _opt) {
@@ -1371,70 +1371,69 @@ public final class NativeTest {
     }
 
 
-    private static void setupNative(String folder_, String relative_, DualConfigurationContext context_) {
-        setup(folder_, relative_, context_);
+    private static void setupNative(String _folder, String _relative, DualConfigurationContext _context) {
+        setup(_folder, _relative, _context);
     }
 
-    private static void putBean(Bean beanTwo_, String _key, LgNames _stds) {
-        ((BeanNatLgNames) _stds).getBeans().put(_key, beanTwo_);
+    private static void putBean(Bean _beanTwo, String _key, LgNames _stds) {
+        ((BeanNatLgNames) _stds).getBeans().put(_key, _beanTwo);
     }
 
-    private static void setupNative(String folder_, String relative_, NativeAnalyzedTestConfiguration context_) {
-        setup(folder_, relative_, context_.getDual());
+    private static void setupNative(String _folder, String _relative, NativeAnalyzedTestConfiguration _context) {
+        setup(_folder, _relative, _context.getDual());
     }
 
-    private static void setupNative2(String folder_, String relative_, NativeAnalyzedTestConfiguration conf_) {
-        conf_.getConfiguration().setFirstUrl("page2.html");
-        setup(folder_, relative_, conf_.getDual());
+    private static void setupNative2(String _folder, String _relative, NativeAnalyzedTestConfiguration _conf) {
+        _conf.getConfiguration().setFirstUrl("page2.html");
+        setup(_folder, _relative, _conf.getDual());
     }
-    private static void setupVal(String folder_, String relative_, NativeAnalyzedTestConfiguration conf_) {
-        conf_.getConfiguration().setFirstUrl("page1.html");
-        setup(folder_, relative_, conf_.getDual());
-        conf_.getAdv().getValidators().put("rate_val", new MyValidator());
-    }
-
-    private static void setSess(Configuration conf_, Navigation nav_) {
-        nav_.setSession(conf_);
+    private static void setupVal(String _folder, String _relative, NativeAnalyzedTestConfiguration _conf) {
+        _conf.getConfiguration().setFirstUrl("page1.html");
+        setup(_folder, _relative, _conf.getDual());
+        _conf.getAdv().getValidators().put("rate_val", new MyValidator());
     }
 
-    private static void setSess(NativeAnalyzedTestConfiguration conf_, Navigation nav_) {
-        nav_.setSession(conf_.getConfiguration());
+    private static void setSess(Configuration _conf, Navigation _nav) {
+        _nav.setSession(_conf);
     }
 
-    private static Bean getBean(NativeAnalyzedTestConfiguration conf_, String _key) {
-        return conf_.getAdv().getBeans().getVal(_key);
+    private static void setSess(NativeAnalyzedTestConfiguration _conf, Navigation _nav) {
+        _nav.setSession(_conf.getConfiguration());
     }
 
-    private static void putBean(Bean beanTwo_, NativeAnalyzedTestConfiguration conf_, String _key) {
-        putBean(beanTwo_, _key, conf_.getAdv());
+    private static Bean getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
+        return _conf.getAdv().getBeans().getVal(_key);
     }
 
-    private static String getSampleRes(Configuration conf_, RendDocumentBlock rendDocumentBlock_, BeanLgNames _stds, ContextEl _ctx) {
-        return getRes(conf_,rendDocumentBlock_, _stds, _ctx);
+    private static void putBean(Bean _beanTwo, NativeAnalyzedTestConfiguration _conf, String _key) {
+        putBean(_beanTwo, _key, _conf.getAdv());
     }
 
-    private static String getSampleRes(NativeAnalyzedTestConfiguration conf_, RendDocumentBlock rendDocumentBlock_) {
-        return getSampleRes(conf_.getConfiguration(), rendDocumentBlock_, conf_.getAdv(), conf_.getContext());
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx) {
+        return getRes(_conf,_rendDocumentBlock, _stds, _ctx);
     }
 
-    private static void preinit(NativeAnalyzedTestConfiguration conf_) {
-        conf_.getAdv().preInitBeans(conf_.getConfiguration());
+    private static String getSampleRes(NativeAnalyzedTestConfiguration _conf, RendDocumentBlock _rendDocumentBlock) {
+        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext());
     }
 
-    private static String getRes(Configuration conf_, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context) {
-        return RendBlock.getRes(_doc, conf_, _stds, _context);
+    private static void preinit(NativeAnalyzedTestConfiguration _conf) {
+        _conf.getAdv().preInitBeans(_conf.getConfiguration());
+    }
+
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context) {
+        return RendBlock.getRes(_doc, _conf, _stds, _context);
     }
 
     private static Navigation newNavigation(NativeAnalyzedTestConfiguration _conf) {
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf.getConfiguration());
-        ContextEl context_ = _conf.getContext();
 
         return nav_;
     }
 
-    private static void setFiles(StringMap<String> files_, NativeAnalyzedTestConfiguration conf_) {
-        conf_.getConfiguration().setFiles(files_);
+    private static void setFiles(StringMap<String> _files, NativeAnalyzedTestConfiguration _conf) {
+        _conf.getConfiguration().setFiles(_files);
     }
 
     private static Struct getException(NativeAnalyzedTestConfiguration _cont) {
@@ -1445,18 +1444,18 @@ public final class NativeTest {
         return null;
     }
 
-    private static void setup(String folder_, String relative_, DualConfigurationContext conf_) {
-        setup(folder_, conf_);
-        conf_.getProperties().put("msg_example", relative_);
+    private static void setup(String _folder, String _relative, DualConfigurationContext _conf) {
+        setup(_folder, _conf);
+        _conf.getProperties().put("msg_example", _relative);
     }
 
-    private static void setup(String folder_, DualConfigurationContext conf_) {
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+    private static void setup(String _folder, DualConfigurationContext _conf) {
+        _conf.setMessagesFolder(_folder);
+        _conf.setProperties(new StringMap<String>());
     }
 
-    private static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl page_) {
-        AnalyzingDoc.setupInts(page_, _analyzingDoc);
+    private static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+        AnalyzingDoc.setupInts(_page, _analyzingDoc);
     }
 
 }

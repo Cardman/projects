@@ -279,17 +279,17 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         assertTrue(hasEr(files_, "$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()"));
     }
 
-    private static boolean hasEr(StringMap<String> files_, String s) {
+    private static boolean hasEr(StringMap<String> _files, String _s) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
-        getHeaders(files_, a_);
+        getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
-        getCheckedConfiguration(a_, s);
+        getCheckedConfiguration(a_, _s);
         return !a_.getAnalyzing().isEmptyErrors();
     }
 
-    private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String s, StringMap<String> _files) {
+    private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String _s, StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
@@ -297,13 +297,13 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         assertTrue(isEmptyErrors(a_));
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
-        processFail(s, a_, new PairVar("v", lv_));
+        processFail(_s, a_, new PairVar("v", lv_));
         return a_.getAnalyzing();
     }
 
-    private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration configuration, String s) {
-        processFail(s, configuration);
-        return configuration;
+    private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration _configuration, String _s) {
+        processFail(_s, _configuration);
+        return _configuration;
     }
 
     private static void processFail(String _el, AnalyzedTestConfiguration _cont,PairVar... _vars) {

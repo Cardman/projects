@@ -428,9 +428,9 @@ public final class RenderInitNavTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
-    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames lgNames_, String xmlConf_, Navigation n_) {
-        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(lgNames_);
-        return n_.loadConfiguration(xmlConf_, "", lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), def_);
+    private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames);
+        return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
     }
 
     @Test
@@ -474,10 +474,10 @@ public final class RenderInitNavTest extends CommonRender {
         n_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
-    private static boolean setupRendClassesInitStdMess(AnalyzedTestConfiguration a_, Navigation n_) {
-        DualConfigurationContext d_ = a_.getDual();
-        DualAnalyzedContext dual_ = new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdvStandards(),d_);
-        return setupRendClassesInit(n_, a_.getAdvStandards(), new RendAnalysisMessages(), dual_);
+    private static boolean setupRendClassesInitStdMess(AnalyzedTestConfiguration _a, Navigation _n) {
+        DualConfigurationContext d_ = _a.getDual();
+        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getAnalyzing(),_a.getAdvStandards(),d_);
+        return setupRendClassesInit(_n, _a.getAdvStandards(), new RendAnalysisMessages(), dual_);
     }
 
     private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {

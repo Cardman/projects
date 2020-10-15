@@ -9,12 +9,12 @@ public final class FileInfos {
     private final AbstractReporter reporter;
     private final AbstractGenerator generator;
 
-    public FileInfos(AbstractResourcesReader reader, AbstractLogger logger, AbstractFileSystem fileSystem, AbstractReporter reporter, AbstractGenerator generator) {
-        this.reader = reader;
-        this.logger = logger;
-        this.fileSystem = fileSystem;
-        this.reporter = reporter;
-        this.generator = generator;
+    public FileInfos(AbstractResourcesReader _reader, AbstractLogger _logger, AbstractFileSystem _fileSystem, AbstractReporter _reporter, AbstractGenerator _generator) {
+        this.reader = _reader;
+        this.logger = _logger;
+        this.fileSystem = _fileSystem;
+        this.reporter = _reporter;
+        this.generator = _generator;
     }
 
     public AbstractResourcesReader getReader() {

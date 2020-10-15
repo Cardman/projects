@@ -160,11 +160,11 @@ public final class RenderFormTest extends CommonRender {
         assertEq("<html><body><form action=\"\" c:command=\"$bean_one.click\" n-f=\"0\"/><form action=\"\" c:command=\"$bean_one.click2\" n-f=\"1\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
-    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommExOneBean(_folder,_relative,_html,_files,_filesSec);
     }
-    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommOneBean(_folder,_relative,_html,_files,_filesSec);
     }
 
     @Test
@@ -197,7 +197,7 @@ public final class RenderFormTest extends CommonRender {
         assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
-    private boolean hasErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return hasCommErrOneBean(folder_,relative_,html_,files_,filesSec_);
+    private boolean hasErrOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return hasCommErrOneBean(_folder,_relative,_html,_files,_filesSec);
     }
 }

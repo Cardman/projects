@@ -21,15 +21,15 @@ public final class AnalyzedTestNavigation {
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private AnalyzedTestConfiguration gl;
 
-    public AnalyzedTestNavigation(Navigation _nav, AnalyzedTestConfiguration analyzing) {
+    public AnalyzedTestNavigation(Navigation _nav, AnalyzedTestConfiguration _analyzing) {
         nav = _nav;
-        gl = analyzing;
-        this.configuration = analyzing.getConfiguration();
-        forwards = analyzing.getForwards();
-        adv= analyzing.getAdvStandards();
+        gl = _analyzing;
+        this.configuration = _analyzing.getConfiguration();
+        forwards = _analyzing.getForwards();
+        adv= _analyzing.getAdvStandards();
         analyzingDoc.setContent(adv);
-        context = analyzing.getContext();
-        this.analyzing = analyzing.getAnalyzing();
+        context = _analyzing.getContext();
+        this.analyzing = _analyzing.getAnalyzing();
     }
 
     public Navigation getNav() {
@@ -76,8 +76,8 @@ public final class AnalyzedTestNavigation {
         return configuration.hasPages();
     }
 
-    public void setNavigation(StringMap<StringMap<String>> stringMapStringMap) {
-        configuration.setNavigation(stringMapStringMap);
+    public void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {
+        configuration.setNavigation(_stringMapStringMap);
     }
 
     public StringMap<StringMap<String>> getNavigation() {
@@ -90,10 +90,6 @@ public final class AnalyzedTestNavigation {
 
     public StringMap<AnaRendDocumentBlock> getAnalyzed() {
         return analyzed;
-    }
-
-    public void setAnalyzed(StringMap<AnaRendDocumentBlock> analyzed) {
-        this.analyzed = analyzed;
     }
 
     public AnalyzedTestConfiguration getGl() {

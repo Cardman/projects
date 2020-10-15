@@ -42,8 +42,8 @@ public final class ZipBinStructUtil {
         return files_;
     }
 
-    public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] bytes_, RunnableContextEl _ctx) {
-        StringMap<byte[]> unzip_ = StreamZipFile.zippedBinaryFiles(bytes_);
+    public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] _bytes, RunnableContextEl _ctx) {
+        StringMap<byte[]> unzip_ = StreamZipFile.zippedBinaryFiles(_bytes);
         if (unzip_ == null) {
             return null;
         }

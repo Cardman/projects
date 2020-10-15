@@ -48,8 +48,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
     }
 
 
-    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
-        return getCommRes(folder_, relative_, html_, files_, _files);
+    private String getRes(String _folder, String _relative, String _html, StringMap<String> _f, StringMap<String> _files) {
+        return getCommRes(_folder, _relative, _html, _f, _files);
     }
 
 

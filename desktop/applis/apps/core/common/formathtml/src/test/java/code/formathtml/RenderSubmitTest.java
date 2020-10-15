@@ -59,12 +59,12 @@ public final class RenderSubmitTest extends CommonRender {
         assertNotNull(getEx(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
-    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_) {
-        return getCommRes(folder_,relative_,html_,files_,new StringMap<String>());
+    private String getRes(String _folder, String _relative, String _html, StringMap<String> _files) {
+        return getCommRes(_folder,_relative,_html,_files,new StringMap<String>());
     }
 
-    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommOneBean(_folder,_relative,_html,_files,_filesSec);
     }
 
 
@@ -134,7 +134,7 @@ public final class RenderSubmitTest extends CommonRender {
         assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, StringUtil.concat(relative_, "2")));
     }
 
-    private boolean hasErrOneBean(String folder_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String concat) {
-        return hasCommErrOneBean(folder_,concat,html_,files_,filesSec_);
+    private boolean hasErrOneBean(String _folder, String _html, StringMap<String> _files, StringMap<String> _filesSec, String _concat) {
+        return hasCommErrOneBean(_folder,_concat,_html,_files,_filesSec);
     }
 }

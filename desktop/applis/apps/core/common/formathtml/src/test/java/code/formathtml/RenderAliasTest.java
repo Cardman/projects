@@ -1576,8 +1576,8 @@ public final class RenderAliasTest extends CommonRender {
         assertEq("<html><body>127</body></html>", getRes(html_, files_));
     }
 
-    private String getRes(String html_, StringMap<String> files_) {
-        return getCommRes(html_,files_);
+    private String getRes(String _html, StringMap<String> _files) {
+        return getCommRes(_html,_files);
     }
 
     @Test
@@ -1639,7 +1639,7 @@ public final class RenderAliasTest extends CommonRender {
         assertTrue(hasErr(html_, files_));
     }
 
-    private boolean hasErr(String html_, StringMap<String> files_) {
-        return hasCommErr(html_, files_);
+    private boolean hasErr(String _html, StringMap<String> _files) {
+        return hasCommErr(_html, _files);
     }
 }

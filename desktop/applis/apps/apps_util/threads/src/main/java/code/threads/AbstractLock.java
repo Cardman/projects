@@ -5,6 +5,6 @@ public interface AbstractLock {
     boolean heldLock(Locking _context);
     int unlock(Locking _context);
     long getSleep();
-    void setSleep(long sleep);
+    void setSleep(long _sleep);
 
 }

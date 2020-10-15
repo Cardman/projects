@@ -7,9 +7,9 @@ public final class ResultsRunnableContext {
     private final RunnableContextEl runnable;
     private final ReportedMessages reportedMessages;
 
-    public ResultsRunnableContext(RunnableContextEl runnable, ReportedMessages reportedMessages) {
-        this.runnable = runnable;
-        this.reportedMessages = reportedMessages;
+    public ResultsRunnableContext(RunnableContextEl _runnable, ReportedMessages _reportedMessages) {
+        this.runnable = _runnable;
+        this.reportedMessages = _reportedMessages;
     }
 
     public RunnableContextEl getRunnable() {

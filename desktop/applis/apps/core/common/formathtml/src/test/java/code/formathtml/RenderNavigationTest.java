@@ -114,8 +114,8 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
 
-    private static void processRendAnchorRequest(AnalyzedTestNavigation nav_, String s) {
-        nav_.getNav().processRendAnchorRequest(s, nav_.getAdvStandards(), nav_.getContext());
+    private static void processRendAnchorRequest(AnalyzedTestNavigation _nav, String _s) {
+        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext());
     }
 
     @Test
@@ -4910,8 +4910,8 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
     }
 
-    private static void processRendFormRequest(AnalyzedTestNavigation nav_) {
-        nav_.getNav().processRendFormRequest(nav_.getAdvStandards(), nav_.getContext());
+    private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
+        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext());
     }
 
     @Test

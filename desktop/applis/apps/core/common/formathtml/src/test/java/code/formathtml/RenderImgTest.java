@@ -161,10 +161,10 @@ public final class RenderImgTest extends CommonRender {
         assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
-    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommOneBean(_folder,_relative,_html,_files,_filesSec);
     }
-    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
-        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
+        return getCommExOneBean(_folder,_relative,_html,_files,_filesSec);
     }
 }
