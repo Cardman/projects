@@ -21,6 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
@@ -158,7 +159,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     @Override
     public void changeTrick() {
         String lg_ = window.getLanguageKey();
-        byte numeroSelectionne_=Byte.parseByte(trickNumber.getCurrent().toString());
+        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
         byte numeroPli_=numeroSelectionne_;
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingTarot, numberPlayers, numeroPli_);
@@ -258,13 +259,13 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
     @Override
     public void changeCard() {
         String lg_ = window.getLanguageKey();
-        byte numeroSelectionne_=Byte.parseByte(trickNumber.getCurrent().toString());
+        byte numeroSelectionne_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
         byte numeroPli_=numeroSelectionne_;
         if(numeroPli_<1) {
             return;
         }
         CustList<TrickTarot> tricks_ = tricksHands.getTricks();
-        byte numeroCarte_=Byte.parseByte(cardNumberTrick.getCurrent().toString());
+        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getCurrent().toString());
         numeroCarte_--;
         tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingTarot, numberPlayers, numeroPli_, numeroCarte_);
 

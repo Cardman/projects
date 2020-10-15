@@ -72,7 +72,7 @@ public final class HelpInitializer implements Runnable {
                             nouveauxElements_.add(e2_);
                             HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
                                     cheminNumCourant_);
-                            cheminNumCourantBis_.add(Integer
+                            cheminNumCourantBis_.add(NumberUtil
                                     .parseInt(e2_.getAttribute(
                                             POSITION)));
                             nouveauxCheminsNum_.add(cheminNumCourantBis_);

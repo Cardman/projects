@@ -2539,7 +2539,7 @@ public class DataBase {
         while (i_ < len_) {
             char cur_ = _litt.charAt(i_);
             if (br_) {
-                boolean dig_ = Character.isDigit(cur_);
+                boolean dig_ = StringUtil.isDigit(cur_);
                 int j_ = i_;
                 int delta_ = 0;
                 if (!StringUtil.isWordChar(cur_)) {
@@ -2586,7 +2586,7 @@ public class DataBase {
                 continue;
             }
             if (StringUtil.isWordChar(cur_)) {
-                boolean dig_ = Character.isDigit(cur_);
+                boolean dig_ = StringUtil.isDigit(cur_);
                 int j_ = i_;
                 while (StringUtil.isWordChar(cur_)) {
                     j_++;

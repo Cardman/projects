@@ -165,21 +165,21 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 if (i_ >= _input.length()) {
                     break;
                 }
-                if (!Character.isDigit(_input.charAt(i_))) {
+                if (!StringUtil.isDigit(_input.charAt(i_))) {
                     return false;
                 }
                 i_++;
             }
             return true;
         }
-        if (!Character.isDigit(_input.charAt(i_))) {
+        if (!StringUtil.isDigit(_input.charAt(i_))) {
             return false;
         }
         while (true) {
             if (i_ >= _input.length()) {
                 return true;
             }
-            if (!Character.isDigit(_input.charAt(i_))) {
+            if (!StringUtil.isDigit(_input.charAt(i_))) {
                 if (_input.charAt(i_) == SEP_NUM_DEN_CHAR) {
                     break;
                 }
@@ -196,7 +196,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 if (i_ >= _input.length()) {
                     break;
                 }
-                if (!Character.isDigit(_input.charAt(i_))) {
+                if (!StringUtil.isDigit(_input.charAt(i_))) {
                     return false;
                 }
                 i_++;
@@ -220,7 +220,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
                 return false;
             }
             if (_input.charAt(i_) != ZERO) {
-                if (!Character.isDigit(_input.charAt(i_))) {
+                if (!StringUtil.isDigit(_input.charAt(i_))) {
                     return false;
                 }
                 break;
@@ -232,7 +232,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
             if (i_ >= _input.length()) {
                 break;
             }
-            if (!Character.isDigit(_input.charAt(i_))) {
+            if (!StringUtil.isDigit(_input.charAt(i_))) {
                 return false;
             }
             i_++;

@@ -1763,7 +1763,7 @@ public final class StringUtil {
         }
         int len_ = _string.length();
         while (i_ < len_) {
-            if (!Character.isDigit(_string.charAt(i_))) {
+            if (!isDigit(_string.charAt(i_))) {
                 return false;
             }
             i_++;
@@ -1791,11 +1791,14 @@ public final class StringUtil {
             return false;
         }
         for (char c : _string.toCharArray()) {
-            if (!Character.isDigit(c)) {
+            if (!isDigit(c)) {
                 return false;
             }
         }
         return true;
+    }
+    public static boolean isDigit(char _ch) {
+        return _ch >= '0' && _ch <= '9';
     }
 
     public static boolean isWord(String _string) {

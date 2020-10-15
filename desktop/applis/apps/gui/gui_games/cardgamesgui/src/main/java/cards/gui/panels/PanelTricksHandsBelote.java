@@ -21,6 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
 
@@ -143,7 +144,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     @Override
     public void changeTrick() {
 
-        byte numeroPli_=Byte.parseByte(trickNumber.getCurrent().toString());
+        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
         tricksHands.restituerMains(displayingBelote, numberPlayers, numeroPli_);
         hands.removeAll();
         DealBelote dealt_ = tricksHands.getDistribution();
@@ -242,11 +243,11 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     @Override
     public void changeCard() {
 
-        byte numeroPli_=Byte.parseByte(trickNumber.getCurrent().toString());
+        byte numeroPli_=(byte)NumberUtil.parseInt(trickNumber.getCurrent().toString());
         if(numeroPli_<1) {
             return;
         }
-        byte numeroCarte_=Byte.parseByte(cardNumberTrick.getCurrent().toString());
+        byte numeroCarte_=(byte)NumberUtil.parseInt(cardNumberTrick.getCurrent().toString());
         numeroCarte_--;
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();

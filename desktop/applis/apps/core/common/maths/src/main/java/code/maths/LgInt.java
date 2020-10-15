@@ -9,6 +9,7 @@ import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -236,14 +237,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (i_ >= _input.length()) {
             return false;
         }
-        if (!Character.isDigit(_input.charAt(i_))) {
+        if (!StringUtil.isDigit(_input.charAt(i_))) {
             return false;
         }
         while (true) {
             if (i_ >= _input.length()) {
                 break;
             }
-            if (!Character.isDigit(_input.charAt(i_))) {
+            if (!StringUtil.isDigit(_input.charAt(i_))) {
                 return false;
             }
             i_++;

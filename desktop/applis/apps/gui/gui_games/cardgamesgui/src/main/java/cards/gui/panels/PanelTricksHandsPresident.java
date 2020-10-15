@@ -357,7 +357,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             if (selected_ == null) {
                 return;
             }
-            byte numeroCarte_=Byte.parseByte(selected_.toString());
+            byte numeroCarte_=(byte)(int)selected_;
             numeroCarte_--;
             DealPresident dealt_ = tricksHands.getDistribution();
             tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, numeroCarte_);
@@ -439,7 +439,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             return;
         }
         numeroPli_ = (byte) tricksHands.getFilledTricksIndex(numeroPli_);
-        byte numeroCarte_=Byte.parseByte(selected_.toString());
+        byte numeroCarte_=(byte)(int)selected_;
         numeroCarte_--;
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
