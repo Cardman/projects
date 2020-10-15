@@ -23,12 +23,12 @@ public final class TextAreaStruct extends InputStruct {
         textArea = new TextArea(getText(_txt),((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
     }
 
-    public void insert(Struct str, Struct pos) {
-        textArea.insert(getText(str), ((NumberStruct)pos).intStruct());
+    public void insert(Struct _str, Struct _pos) {
+        textArea.insert(getText(_str), ((NumberStruct)_pos).intStruct());
     }
 
-    public void append(Struct str) {
-        textArea.append(getText(str));
+    public void append(Struct _str) {
+        textArea.append(getText(_str));
     }
 
     @Override
@@ -41,8 +41,8 @@ public final class TextAreaStruct extends InputStruct {
         textArea.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
-    public void setText(Struct t) {
-        textArea.setText(getText(t));
+    public void setText(Struct _t) {
+        textArea.setText(getText(_t));
     }
 
     private static String getText(Struct _txt) {
@@ -88,16 +88,16 @@ public final class TextAreaStruct extends InputStruct {
         return new IntStruct(textArea.getTabSize());
     }
 
-    public void replaceRange(Struct str, Struct start, Struct end) {
-        textArea.replaceRange(getText(str), ((NumberStruct)start).intStruct(), ((NumberStruct)end).intStruct());
+    public void replaceRange(Struct _str, Struct _start, Struct _end) {
+        textArea.replaceRange(getText(_str), ((NumberStruct)_start).intStruct(), ((NumberStruct)_end).intStruct());
     }
 
-    public void replaceSelection(Struct str) {
-        textArea.replaceSelection(getText(str));
+    public void replaceSelection(Struct _str) {
+        textArea.replaceSelection(getText(_str));
     }
 
-    public void select(Struct start, Struct end) {
-        textArea.select(((NumberStruct)start).intStruct(), ((NumberStruct)end).intStruct());
+    public void select(Struct _start, Struct _end) {
+        textArea.select(((NumberStruct)_start).intStruct(), ((NumberStruct)_end).intStruct());
     }
 
     public void selectAll() {

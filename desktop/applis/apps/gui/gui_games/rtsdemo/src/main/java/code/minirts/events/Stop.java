@@ -14,7 +14,7 @@ public class Stop implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent _e) {
         window.stopGame();
     }
 

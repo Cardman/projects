@@ -23,8 +23,8 @@ public final class TreeGui extends CustComponent {
         return tree.isRootVisible();
     }
 
-    public void setRootVisible(boolean rootVisible) {
-        tree.setRootVisible(rootVisible);
+    public void setRootVisible(boolean _rootVisible) {
+        tree.setRootVisible(_rootVisible);
     }
 
     public Object getLastSelectedPathComponent() {
@@ -41,8 +41,8 @@ public final class TreeGui extends CustComponent {
         }
         tree.setSelectionPath(new TreePath(nodes_.toArray()));
     }
-    public void addTreeSelectionListener(TreeSelectionListener tsl) {
-        tree.addTreeSelectionListener(tsl);
+    public void addTreeSelectionListener(TreeSelectionListener _tsl) {
+        tree.addTreeSelectionListener(_tsl);
     }
 
     public void reload() {

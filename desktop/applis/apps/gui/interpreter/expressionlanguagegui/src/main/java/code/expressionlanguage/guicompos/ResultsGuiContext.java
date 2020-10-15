@@ -6,9 +6,9 @@ public final class ResultsGuiContext {
     private final GuiContextEl runnable;
     private final ReportedMessages reportedMessages;
 
-    public ResultsGuiContext(GuiContextEl runnable, ReportedMessages reportedMessages) {
-        this.runnable = runnable;
-        this.reportedMessages = reportedMessages;
+    public ResultsGuiContext(GuiContextEl _runnable, ReportedMessages _reportedMessages) {
+        this.runnable = _runnable;
+        this.reportedMessages = _reportedMessages;
     }
 
     public GuiContextEl getRunnable() {

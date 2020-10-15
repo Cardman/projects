@@ -29,16 +29,16 @@ public final class ProgressBarStruct extends CustComponentStruct {
         return new IntStruct(progressBar.getMaximum());
     }
 
-    public void setValue(Struct n) {
-        progressBar.setValue(((NumberStruct)n).intStruct());
+    public void setValue(Struct _n) {
+        progressBar.setValue(((NumberStruct)_n).intStruct());
     }
 
-    public void setMinimum(Struct n) {
-        progressBar.setMinimum(((NumberStruct)n).intStruct());
+    public void setMinimum(Struct _n) {
+        progressBar.setMinimum(((NumberStruct)_n).intStruct());
     }
 
-    public void setMaximum(Struct n) {
-        progressBar.setMaximum(((NumberStruct)n).intStruct());
+    public void setMaximum(Struct _n) {
+        progressBar.setMaximum(((NumberStruct)_n).intStruct());
     }
 
     public void setHorizontal(Struct _bool) {

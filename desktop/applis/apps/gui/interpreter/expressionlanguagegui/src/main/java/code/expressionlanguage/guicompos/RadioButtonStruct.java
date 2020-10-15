@@ -55,8 +55,8 @@ public final class RadioButtonStruct extends InputStruct {
         return BooleanStruct.of(radioButton.isSelected());
     }
 
-    public void setSelected(Struct b) {
-        radioButton.setSelected(BooleanStruct.isTrue(b));
+    public void setSelected(Struct _b) {
+        radioButton.setSelected(BooleanStruct.isTrue(_b));
     }
 
     @Override
@@ -65,8 +65,8 @@ public final class RadioButtonStruct extends InputStruct {
     }
 
     @Override
-    public void setEnabled(Struct b) {
-        radioButton.setEnabled(BooleanStruct.isTrue(b));
+    public void setEnabled(Struct _b) {
+        radioButton.setEnabled(BooleanStruct.isTrue(_b));
     }
 
     @Override

@@ -103,35 +103,35 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
         graphics.dispose();
     }
 
-    public void drawLine(int x1, int y1, int x2, int y2) {
-        graphics.drawLine(x1, y1, x2, y2);
+    public void drawLine(int _x1, int _y1, int _x2, int _y2) {
+        graphics.drawLine(_x1, _y1, _x2, _y2);
     }
 
-    public void fillRect(int x, int y, int width, int height) {
-        graphics.fillRect(x, y, width, height);
+    public void fillRect(int _x, int _y, int _width, int _height) {
+        graphics.fillRect(_x, _y, _width, _height);
     }
 
-    public void drawRect(int x, int y, int width, int height) {
-        graphics.drawRect(x, y, width, height);
+    public void drawRect(int _x, int _y, int _width, int _height) {
+        graphics.drawRect(_x, _y, _width, _height);
     }
 
-    public void drawOval(int x, int y, int width, int height) {
-        graphics.drawOval(x, y, width, height);
+    public void drawOval(int _x, int _y, int _width, int _height) {
+        graphics.drawOval(_x, _y, _width, _height);
     }
 
-    public void fillOval(int x, int y, int width, int height) {
-        graphics.fillOval(x, y, width, height);
+    public void fillOval(int _x, int _y, int _width, int _height) {
+        graphics.fillOval(_x, _y, _width, _height);
     }
 
-    public void drawPolygon(Struct xPoints, Struct yPoints) {
-        if (!(xPoints instanceof ArrayStruct)) {
+    public void drawPolygon(Struct _xPoints, Struct _yPoints) {
+        if (!(_xPoints instanceof ArrayStruct)) {
             return;
         }
-        if (!(yPoints instanceof ArrayStruct)) {
+        if (!(_yPoints instanceof ArrayStruct)) {
             return;
         }
-        ArrayStruct x_ = (ArrayStruct) xPoints;
-        ArrayStruct y_ = (ArrayStruct) yPoints;
+        ArrayStruct x_ = (ArrayStruct) _xPoints;
+        ArrayStruct y_ = (ArrayStruct) _yPoints;
         if (x_.getLength() != y_.getLength()) {
             return;
         }
@@ -145,15 +145,15 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
         graphics.drawPolygon(xs_, ys_, len_);
     }
 
-    public void fillPolygon(Struct xPoints, Struct yPoints) {
-        if (!(xPoints instanceof ArrayStruct)) {
+    public void fillPolygon(Struct _xPoints, Struct _yPoints) {
+        if (!(_xPoints instanceof ArrayStruct)) {
             return;
         }
-        if (!(yPoints instanceof ArrayStruct)) {
+        if (!(_yPoints instanceof ArrayStruct)) {
             return;
         }
-        ArrayStruct x_ = (ArrayStruct) xPoints;
-        ArrayStruct y_ = (ArrayStruct) yPoints;
+        ArrayStruct x_ = (ArrayStruct) _xPoints;
+        ArrayStruct y_ = (ArrayStruct) _yPoints;
         if (x_.getLength() != y_.getLength()) {
             return;
         }

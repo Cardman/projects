@@ -29,11 +29,11 @@ public final class PlainButtonStruct extends InputStruct {
         return new StringStruct(txt_);
     }
 
-    public void setText(Struct text) {
-        if (!(text instanceof StringStruct)) {
+    public void setText(Struct _text) {
+        if (!(_text instanceof StringStruct)) {
             plainButton.setText(null);
         } else {
-            plainButton.setText(((StringStruct)text).getInstance());
+            plainButton.setText(((StringStruct)_text).getInstance());
         }
     }
 
@@ -42,8 +42,8 @@ public final class PlainButtonStruct extends InputStruct {
         return BooleanStruct.of(plainButton.isEnabled());
     }
     @Override
-    public void setEnabled(Struct b) {
-        plainButton.setEnabled(BooleanStruct.isTrue(b));
+    public void setEnabled(Struct _b) {
+        plainButton.setEnabled(BooleanStruct.isTrue(_b));
     }
     public void addActionListener(Struct _list) {
         if (_list instanceof ActionListener) {

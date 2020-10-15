@@ -7,8 +7,8 @@ import code.expressionlanguage.structs.Struct;
 public final class AdvancedExecConstantsCalculator implements AbstractExecConstantsCalculator {
     private final LgNamesGui stds;
 
-    public AdvancedExecConstantsCalculator(LgNamesGui stds) {
-        this.stds = stds;
+    public AdvancedExecConstantsCalculator(LgNamesGui _stds) {
+        this.stds = _stds;
     }
 
     @Override

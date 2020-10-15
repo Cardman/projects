@@ -251,8 +251,8 @@ public final class RenderedPage implements ProcessingSession {
         return context;
     }
 
-    public void setContext(ContextEl context) {
-        this.context = context;
+    public void setContext(ContextEl _context) {
+        this.context = _context;
     }
 
     public AbstractContextCreator getContextCreator() {

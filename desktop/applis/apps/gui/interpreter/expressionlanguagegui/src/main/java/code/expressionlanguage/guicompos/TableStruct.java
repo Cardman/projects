@@ -72,24 +72,24 @@ public final class TableStruct extends CustComponentStruct {
         return new IntStruct(table.getColumnCount());
     }
 
-    public Struct getColumnName(Struct column) {
-        String v_ = table.getColumnName(((NumberStruct) column).intStruct());
+    public Struct getColumnName(Struct _column) {
+        String v_ = table.getColumnName(((NumberStruct) _column).intStruct());
         if (v_ == null) {
             return new StringStruct("");
         }
         return new StringStruct(v_);
     }
 
-    public Struct getValueAt(Struct row, Struct column) {
-        String v_ = table.getValueAt(((NumberStruct)row).intStruct(), ((NumberStruct)column).intStruct());
+    public Struct getValueAt(Struct _row, Struct _column) {
+        String v_ = table.getValueAt(((NumberStruct)_row).intStruct(), ((NumberStruct)_column).intStruct());
         if (v_ == null) {
             return new StringStruct("");
         }
         return new StringStruct(v_);
     }
 
-    public void setValueAt(Struct aValue, Struct row, Struct column) {
-        table.setValueAt(getString(aValue), ((NumberStruct)row).intStruct(), ((NumberStruct)column).intStruct());
+    public void setValueAt(Struct _aValue, Struct _row, Struct _column) {
+        table.setValueAt(getString(_aValue), ((NumberStruct)_row).intStruct(), ((NumberStruct)_column).intStruct());
     }
 
     private String getString(Struct _s) {
@@ -98,8 +98,8 @@ public final class TableStruct extends CustComponentStruct {
         }
         return "";
     }
-    public void moveColumn(Struct column, Struct targetColumn) {
-        table.moveColumn(((NumberStruct)column).intStruct(), ((NumberStruct)targetColumn).intStruct());
+    public void moveColumn(Struct _column, Struct _targetColumn) {
+        table.moveColumn(((NumberStruct)_column).intStruct(), ((NumberStruct)_targetColumn).intStruct());
     }
 
     public IntStruct columnAtPoint(Struct _x,Struct _y) {

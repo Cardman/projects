@@ -230,8 +230,8 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             i_++;
         }
     }
-    public void setPaintEvent(Struct paintEvent) {
-        this.paintEvent = paintEvent;
+    public void setPaintEvent(Struct _paintEvent) {
+        this.paintEvent = _paintEvent;
     }
 
     public BooleanStruct isAutoscrolls(){

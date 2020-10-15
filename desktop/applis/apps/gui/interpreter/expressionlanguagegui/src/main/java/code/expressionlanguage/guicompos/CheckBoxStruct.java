@@ -46,8 +46,8 @@ public final class CheckBoxStruct extends InputStruct {
         return BooleanStruct.of(checkBox.isSelected());
     }
 
-    public void setSelected(Struct b) {
-        checkBox.setSelected(BooleanStruct.isTrue(b));
+    public void setSelected(Struct _b) {
+        checkBox.setSelected(BooleanStruct.isTrue(_b));
     }
 
     @Override

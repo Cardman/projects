@@ -8,13 +8,13 @@ public final class DefaultClosingMainWindow extends WindowAdapter {
     private final GuiExecutingBlocks executingBlocks;
     private final GuiContextEl context;
 
-    public DefaultClosingMainWindow(GuiExecutingBlocks executingBlocks, GuiContextEl context) {
-        this.executingBlocks = executingBlocks;
-        this.context = context;
+    public DefaultClosingMainWindow(GuiExecutingBlocks _executingBlocks, GuiContextEl _context) {
+        this.executingBlocks = _executingBlocks;
+        this.context = _context;
     }
 
     @Override
-    public void windowClosing(WindowEvent e) {
+    public void windowClosing(WindowEvent _e) {
         context.disposeAll(executingBlocks);
     }
 }

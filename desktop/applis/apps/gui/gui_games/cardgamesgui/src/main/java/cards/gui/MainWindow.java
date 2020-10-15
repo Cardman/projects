@@ -2163,16 +2163,16 @@ public final class MainWindow extends NetGroupFrame {
         return helpInitializerTask;
     }
 
-    public void setHelpInitializerTask(HelpInitializer helpInitializerTask) {
-        this.helpInitializerTask = helpInitializerTask;
+    public void setHelpInitializerTask(HelpInitializer _helpInitializerTask) {
+        this.helpInitializerTask = _helpInitializerTask;
     }
 
     public Thread getHelpInitializerThread() {
         return helpInitializerThread;
     }
 
-    public void setHelpInitializerThread(Thread helpInitializerThread) {
-        this.helpInitializerThread = helpInitializerThread;
+    public void setHelpInitializerThread(Thread _helpInitializerThread) {
+        this.helpInitializerThread = _helpInitializerThread;
     }
 
     public DialogDisplayingBelote getDialogDisplayingBelote() {

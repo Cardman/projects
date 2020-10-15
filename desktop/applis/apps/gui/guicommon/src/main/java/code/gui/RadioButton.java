@@ -3,7 +3,6 @@ package code.gui;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 public final class RadioButton extends CustComponent {
     private JRadioButton radioButton;
@@ -22,20 +21,20 @@ public final class RadioButton extends CustComponent {
         return radioButton.getText();
     }
 
-    public void setText(String text) {
-        radioButton.setText(text);
+    public void setText(String _text) {
+        radioButton.setText(_text);
     }
 
     public boolean isSelected() {
         return radioButton.isSelected();
     }
 
-    public void setSelected(boolean b) {
-        radioButton.setSelected(b);
+    public void setSelected(boolean _b) {
+        radioButton.setSelected(_b);
     }
 
-    public void addChangeListener(ChangeListener l) {
-        radioButton.addChangeListener(l);
+    public void addChangeListener(ChangeListener _l) {
+        radioButton.addChangeListener(_l);
     }
 
     @Override
@@ -47,8 +46,8 @@ public final class RadioButton extends CustComponent {
         radioButton.addActionListener(_list);
     }
 
-    public void setEnabled(boolean b) {
-        radioButton.setEnabled(b);
+    public void setEnabled(boolean _b) {
+        radioButton.setEnabled(_b);
     }
 
     public CustButtonGroup getButtonGroup() {

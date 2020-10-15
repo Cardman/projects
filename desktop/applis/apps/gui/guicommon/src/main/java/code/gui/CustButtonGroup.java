@@ -12,27 +12,27 @@ public final class CustButtonGroup {
 
     private RadioButton selected;
 
-    public void add(RadioButton b) {
-        if (b.getButtonGroup() != null) {
+    public void add(RadioButton _b) {
+        if (_b.getButtonGroup() != null) {
             return;
         }
-        b.setButtonGroup(this);
-        if (b.isSelected()) {
+        _b.setButtonGroup(this);
+        if (_b.isSelected()) {
             for (RadioButton c: group) {
                 c.setSelected(false);
             }
-            selected = b;
+            selected = _b;
         }
-        group.add(b);
-        b.addActionListener(new ChangeRadioEvent(this,b));
+        group.add(_b);
+        _b.addActionListener(new ChangeRadioEvent(this,_b));
     }
 
-    public void add(RadioButton b, String _value) {
-        if (b.getButtonGroup() != null) {
+    public void add(RadioButton _b, String _value) {
+        if (_b.getButtonGroup() != null) {
             return;
         }
-        b.setButtonGroup(this);
-        if (b.isSelected()) {
+        _b.setButtonGroup(this);
+        if (_b.isSelected()) {
             for (RadioButton c: group) {
                 c.setSelected(false);
             }
@@ -44,11 +44,11 @@ public final class CustButtonGroup {
                     r_.setSelected(true);
                 }
             }
-            selected = b;
+            selected = _b;
         }
-        group.add(b);
+        group.add(_b);
         values.add(_value);
-        b.addActionListener(new ChangeRadioEvent(this,b,_value));
+        _b.addActionListener(new ChangeRadioEvent(this,_b,_value));
     }
     public CustList<RadioButton> getGroup() {
         return group;

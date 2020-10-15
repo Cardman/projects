@@ -11,7 +11,7 @@ public final class ListenerLaunchTests implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent _e) {
         mainWindow.process();
     }
 }

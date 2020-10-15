@@ -268,8 +268,8 @@ public class GraphicListStruct extends InputStruct {
         return render;
     }
 
-    public void setRender(Struct render) {
-        this.render = render;
+    public void setRender(Struct _render) {
+        this.render = _render;
     }
 
     public boolean isEnabledList() {

@@ -26,11 +26,11 @@ public final class TextLabelStruct extends CustComponentStruct {
         return new StringStruct(txt_);
     }
 
-    public void setText(Struct text) {
-        if (!(text instanceof StringStruct)) {
+    public void setText(Struct _text) {
+        if (!(_text instanceof StringStruct)) {
             textLabel.setText("");
         } else {
-            textLabel.setText(((StringStruct) text).getInstance());
+            textLabel.setText(((StringStruct) _text).getInstance());
         }
     }
 

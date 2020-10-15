@@ -24,19 +24,19 @@ public final class PlainButton extends CustComponent {
         return button.getText();
     }
 
-    public void setText(String text) {
-        button.setText(text);
+    public void setText(String _text) {
+        button.setText(_text);
     }
 
-    public void addActionListener(ActionListener l) {
-        button.addActionListener(l);
+    public void addActionListener(ActionListener _l) {
+        button.addActionListener(_l);
     }
 
     public boolean isEnabled() {
         return button.isEnabled();
     }
-    public void setEnabled(boolean b) {
-        button.setEnabled(b);
+    public void setEnabled(boolean _b) {
+        button.setEnabled(_b);
     }
 
     @Override

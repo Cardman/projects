@@ -13,8 +13,8 @@ public interface WithListener {
 
     void setContentPane(Panel _p);
 
-    void setLocationRelativeTo(CustComponent c);
-    void setLocationRelativeTo(WithListener c);
+    void setLocationRelativeTo(CustComponent _c);
+    void setLocationRelativeTo(WithListener _c);
     void setLocationRelativeToNull();
     boolean isVisible();
 

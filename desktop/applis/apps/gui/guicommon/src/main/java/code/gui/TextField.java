@@ -23,48 +23,48 @@ public final class TextField extends CustComponent {
         textField = new JTextField(_txt,_nbCols);
     }
 
-    void setDocument(Document doc) {
-        textField.setDocument(doc);
+    void setDocument(Document _doc) {
+        textField.setDocument(_doc);
     }
 
-    public void addActionListener(ActionListener l) {
-        textField.addActionListener(l);
+    public void addActionListener(ActionListener _l) {
+        textField.addActionListener(_l);
     }
 
     Document getDocument() {
         return textField.getDocument();
     }
 
-    public void moveCaretPosition(int pos) {
-        textField.moveCaretPosition(pos);
+    public void moveCaretPosition(int _pos) {
+        textField.moveCaretPosition(_pos);
     }
 
-    public void setCaretPosition(int position) {
-        textField.setCaretPosition(position);
+    public void setCaretPosition(int _position) {
+        textField.setCaretPosition(_position);
     }
 
-    public void setText(String t) {
-        textField.setText(t);
+    public void setText(String _t) {
+        textField.setText(_t);
     }
 
     public String getText() {
         return textField.getText();
     }
 
-    public void setEditable(boolean b) {
-        textField.setEditable(b);
+    public void setEditable(boolean _b) {
+        textField.setEditable(_b);
     }
 
-    public void select(int selectionStart, int selectionEnd) {
-        textField.select(selectionStart, selectionEnd);
+    public void select(int _selectionStart, int _selectionEnd) {
+        textField.select(_selectionStart, _selectionEnd);
     }
 
-    public boolean contains(int x, int y) {
-        return textField.contains(x, y);
+    public boolean contains(int _x, int _y) {
+        return textField.contains(_x, _y);
     }
 
-    public void setEnabled(boolean enabled) {
-        textField.setEnabled(enabled);
+    public void setEnabled(boolean _enabled) {
+        textField.setEnabled(_enabled);
     }
 
     public int getX() {
@@ -79,9 +79,9 @@ public final class TextField extends CustComponent {
         return textField.getCursor();
     }
 
-    public void add(PopupMenu popup) {
-        textField.add(popup.getComponent());
-        textField.setComponentPopupMenu(popup.getPopupMenu());
+    public void add(PopupMenu _popup) {
+        textField.add(_popup.getComponent());
+        textField.setComponentPopupMenu(_popup.getPopupMenu());
     }
 
 

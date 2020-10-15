@@ -15,12 +15,12 @@ public final class SimpleSelectCombo extends MouseAdapter implements IndexableLi
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent _e) {
         grList.repaintSelect(index,false);
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent _e) {
         grList.repaintSelect(index,true);
     }
 

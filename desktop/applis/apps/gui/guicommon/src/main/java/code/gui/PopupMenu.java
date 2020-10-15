@@ -13,35 +13,35 @@ public final class PopupMenu extends CustComponent {
         return popupMenu;
     }
 
-    public void show(CustComponent panel, int i, int height) {
-        popupMenu.show(panel.getComponent(),i,height);
+    public void show(CustComponent _panel, int _i, int _height) {
+        popupMenu.show(_panel.getComponent(),_i,_height);
     }
 
-    public void show(int i, int height) {
-        popupMenu.show(null,i,height);
+    public void show(int _i, int _height) {
+        popupMenu.show(null,_i,_height);
     }
-    public void add(CustComponent global) {
-        popupMenu.add(global.getComponent());
+    public void add(CustComponent _global) {
+        popupMenu.add(_global.getComponent());
     }
-    public void add(Menu global) {
-        popupMenu.add(global.getMenu());
+    public void add(Menu _global) {
+        popupMenu.add(_global.getMenu());
     }
-    public void add(MenuItem global) {
-        popupMenu.add(global.getMenu());
+    public void add(MenuItem _global) {
+        popupMenu.add(_global.getMenu());
     }
-    public void add(CheckBoxMenuItem global) {
-        popupMenu.add(global.getMenu());
+    public void add(CheckBoxMenuItem _global) {
+        popupMenu.add(_global.getMenu());
     }
-    public void remove(CustComponent global) {
-        popupMenu.remove(global.getComponent());
+    public void remove(CustComponent _global) {
+        popupMenu.remove(_global.getComponent());
     }
-    public void remove(Menu global) {
-        popupMenu.remove(global.getMenu());
+    public void remove(Menu _global) {
+        popupMenu.remove(_global.getMenu());
     }
-    public void remove(MenuItem global) {
-        popupMenu.remove(global.getMenu());
+    public void remove(MenuItem _global) {
+        popupMenu.remove(_global.getMenu());
     }
-    public void remove(CheckBoxMenuItem global) {
-        popupMenu.remove(global.getMenu());
+    public void remove(CheckBoxMenuItem _global) {
+        popupMenu.remove(_global.getMenu());
     }
 }

@@ -4963,8 +4963,8 @@ public final class GuiAliases {
     protected void processFailInit(ContextEl _cont, CustAliases _custAliases) {
         _custAliases.processFailInit(_cont);
     }
-    private void wrapAndCall(ContextEl _cont, ExecRootBlock classBody_, ExecNamedFunctionBlock fct_, CustList<Argument> args_) {
-        ExecTemplates.wrapAndCall(fct_,classBody_,aliasPaint,Argument.createVoid(), args_,_cont);
+    private void wrapAndCall(ContextEl _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _fct, CustList<Argument> _args) {
+        ExecTemplates.wrapAndCall(_fct,_classBody,aliasPaint,Argument.createVoid(), _args,_cont);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

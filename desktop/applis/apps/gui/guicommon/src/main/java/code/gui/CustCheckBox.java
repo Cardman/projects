@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 public final class CustCheckBox extends CustComponent {
@@ -17,16 +16,16 @@ public final class CustCheckBox extends CustComponent {
         checkBox = new JCheckBox(_t,_s);
     }
 
-    public void setBorderPaintedFlat(boolean b) {
-        checkBox.setBorderPaintedFlat(b);
+    public void setBorderPaintedFlat(boolean _b) {
+        checkBox.setBorderPaintedFlat(_b);
     }
 
     public boolean isBorderPaintedFlat() {
         return checkBox.isBorderPaintedFlat();
     }
 
-    public void setHideActionText(boolean hideActionText) {
-        checkBox.setHideActionText(hideActionText);
+    public void setHideActionText(boolean _hideActionText) {
+        checkBox.setHideActionText(_hideActionText);
     }
 
     public boolean getHideActionText() {
@@ -37,56 +36,56 @@ public final class CustCheckBox extends CustComponent {
         return checkBox.getText();
     }
 
-    public void setText(String text) {
-        checkBox.setText(text);
+    public void setText(String _text) {
+        checkBox.setText(_text);
     }
 
     public boolean isSelected() {
         return checkBox.isSelected();
     }
 
-    public void setSelected(boolean b) {
-        checkBox.setSelected(b);
+    public void setSelected(boolean _b) {
+        checkBox.setSelected(_b);
     }
 
     public void doClick() {
         checkBox.doClick();
     }
 
-    public void doClick(int pressTime) {
-        checkBox.doClick(pressTime);
+    public void doClick(int _pressTime) {
+        checkBox.doClick(_pressTime);
     }
 
     public int getMnemonic() {
         return checkBox.getMnemonic();
     }
 
-    public void setMnemonic(int mnemonic) {
-        checkBox.setMnemonic(mnemonic);
+    public void setMnemonic(int _mnemonic) {
+        checkBox.setMnemonic(_mnemonic);
     }
 
-    public void setMnemonic(char mnemonic) {
-        checkBox.setMnemonic(mnemonic);
+    public void setMnemonic(char _mnemonic) {
+        checkBox.setMnemonic(_mnemonic);
     }
 
     public int getDisplayedMnemonicIndex() {
         return checkBox.getDisplayedMnemonicIndex();
     }
 
-    public void setMultiClickThreshhold(long threshhold) {
-        checkBox.setMultiClickThreshhold(threshhold);
+    public void setMultiClickThreshhold(long _threshhold) {
+        checkBox.setMultiClickThreshhold(_threshhold);
     }
 
     public long getMultiClickThreshhold() {
         return checkBox.getMultiClickThreshhold();
     }
 
-    public void addActionListener(ActionListener l) {
-        checkBox.addActionListener(l);
+    public void addActionListener(ActionListener _l) {
+        checkBox.addActionListener(_l);
     }
 
-    public void removeActionListener(ActionListener l) {
-        checkBox.removeActionListener(l);
+    public void removeActionListener(ActionListener _l) {
+        checkBox.removeActionListener(_l);
     }
 
     public ActionListener[] getActionListeners() {
@@ -96,8 +95,8 @@ public final class CustCheckBox extends CustComponent {
     public boolean isEnabled() {
         return checkBox.isEnabled();
     }
-    public void setEnabled(boolean b) {
-        checkBox.setEnabled(b);
+    public void setEnabled(boolean _b) {
+        checkBox.setEnabled(_b);
     }
 
     @Override

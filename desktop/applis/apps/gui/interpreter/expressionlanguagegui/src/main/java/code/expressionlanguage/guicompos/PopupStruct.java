@@ -16,38 +16,38 @@ public final class PopupStruct extends CustComponentStruct {
         super(_className);
     }
 
-    public void show(Struct panel, Struct _i, Struct _height) {
+    public void show(Struct _panel, Struct _i, Struct _height) {
         int i_ = ((IntStruct)_i).intStruct();
         int h_ = ((IntStruct)_height).intStruct();
-        if (panel instanceof CustComponentStruct) {
-            popupMenu.show(((CustComponentStruct)panel).getComponent(),i_,h_);
+        if (_panel instanceof CustComponentStruct) {
+            popupMenu.show(((CustComponentStruct)_panel).getComponent(),i_,h_);
         } else {
             popupMenu.show(i_,h_);
         }
     }
 
-    public void add(Struct global) {
-        if (global instanceof CustComponentStruct) {
-            if ((((CustComponentStruct) global)).getParentComponent() != NullStruct.NULL_VALUE) {
+    public void add(Struct _global) {
+        if (_global instanceof CustComponentStruct) {
+            if ((((CustComponentStruct) _global)).getParentComponent() != NullStruct.NULL_VALUE) {
                 return;
             }
             for (CustComponentStruct a: compo) {
-                if (a.sameReference(global)) {
+                if (a.sameReference(_global)) {
                     return;
                 }
             }
-            (((CustComponentStruct) global)).setParentComponent(this);
-            compo.add((CustComponentStruct) global);
-            popupMenu.add(((CustComponentStruct)global).getComponent());
+            (((CustComponentStruct) _global)).setParentComponent(this);
+            compo.add((CustComponentStruct) _global);
+            popupMenu.add(((CustComponentStruct)_global).getComponent());
         }
     }
 
-    public void remove(Struct global) {
-        if (global instanceof CustComponentStruct) {
+    public void remove(Struct _global) {
+        if (_global instanceof CustComponentStruct) {
             int i_ = 0;
             int index_ = -1;
             for (CustComponentStruct a: compo) {
-                if (a.sameReference(global)) {
+                if (a.sameReference(_global)) {
                     index_ = i_;
                     break;
                 }
@@ -57,7 +57,7 @@ public final class PopupStruct extends CustComponentStruct {
                 return;
             }
             compo.remove(index_);
-            popupMenu.remove(((CustComponentStruct)global).getComponent());
+            popupMenu.remove(((CustComponentStruct)_global).getComponent());
         }
     }
     Struct getCompo(Struct _index) {
@@ -70,32 +70,32 @@ public final class PopupStruct extends CustComponentStruct {
     Struct getCompoCount() {
         return new IntStruct(compo.size());
     }
-    public void addMenu(Struct global) {
-        if (global instanceof AbsMenuStruct) {
-            if ((((AbsMenuStruct) global)).getParentMenu() != NullStruct.NULL_VALUE) {
+    public void addMenu(Struct _global) {
+        if (_global instanceof AbsMenuStruct) {
+            if ((((AbsMenuStruct) _global)).getParentMenu() != NullStruct.NULL_VALUE) {
                 return;
             }
             for (AbsMenuStruct a: menus) {
-                if (a.sameReference(global)) {
+                if (a.sameReference(_global)) {
                     return;
                 }
             }
-            menus.add((AbsMenuStruct) global);
-            if (global instanceof MenuStruct) {
-                popupMenu.add(((MenuStruct)global).getComponent());
-            } else if (global instanceof MenuItemStruct) {
-                popupMenu.add(((MenuItemStruct)global).getComponent());
+            menus.add((AbsMenuStruct) _global);
+            if (_global instanceof MenuStruct) {
+                popupMenu.add(((MenuStruct)_global).getComponent());
+            } else if (_global instanceof MenuItemStruct) {
+                popupMenu.add(((MenuItemStruct)_global).getComponent());
             } else {
-                popupMenu.add(((MenuItemCheckStruct)global).getComponent());
+                popupMenu.add(((MenuItemCheckStruct)_global).getComponent());
             }
         }
     }
-    public void removeMenu(Struct global) {
-        if (global instanceof AbsMenuStruct) {
+    public void removeMenu(Struct _global) {
+        if (_global instanceof AbsMenuStruct) {
             int i_ = 0;
             int index_ = -1;
             for (AbsMenuStruct a: menus) {
-                if (a.sameReference(global)) {
+                if (a.sameReference(_global)) {
                     index_ = i_;
                     break;
                 }
@@ -105,12 +105,12 @@ public final class PopupStruct extends CustComponentStruct {
                 return;
             }
             menus.remove(index_);
-            if (global instanceof MenuStruct) {
-                popupMenu.remove(((MenuStruct)global).getComponent());
-            } else if (global instanceof MenuItemStruct) {
-                popupMenu.remove(((MenuItemStruct)global).getComponent());
+            if (_global instanceof MenuStruct) {
+                popupMenu.remove(((MenuStruct)_global).getComponent());
+            } else if (_global instanceof MenuItemStruct) {
+                popupMenu.remove(((MenuItemStruct)_global).getComponent());
             } else {
-                popupMenu.remove(((MenuItemCheckStruct)global).getComponent());
+                popupMenu.remove(((MenuItemCheckStruct)_global).getComponent());
             }
         }
     }

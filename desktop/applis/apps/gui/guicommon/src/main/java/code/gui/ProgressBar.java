@@ -29,16 +29,16 @@ public final class ProgressBar extends CustComponent {
         }
     }
 
-    public void setValue(int n) {
-        progressBar.setValue(n);
+    public void setValue(int _n) {
+        progressBar.setValue(_n);
     }
 
-    public void setMinimum(int n) {
-        progressBar.setMinimum(n);
+    public void setMinimum(int _n) {
+        progressBar.setMinimum(_n);
     }
 
-    public void setMaximum(int n) {
-        progressBar.setMaximum(n);
+    public void setMaximum(int _n) {
+        progressBar.setMaximum(_n);
     }
 
     @Override

@@ -48,11 +48,11 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
     }
 
     @Override
-    public void setLocationRelativeTo(WithListener c) {
-        if (c instanceof CommonFrame) {
-            dialog.setLocationRelativeTo(((CommonFrame)c).getComponent());
-        } else if (c instanceof OtherDialog) {
-            dialog.setLocationRelativeTo(((OtherDialog)c).getComponent());
+    public void setLocationRelativeTo(WithListener _c) {
+        if (_c instanceof CommonFrame) {
+            dialog.setLocationRelativeTo(((CommonFrame) _c).getComponent());
+        } else if (_c instanceof OtherDialog) {
+            dialog.setLocationRelativeTo(((OtherDialog) _c).getComponent());
         } else {
             dialog.setLocationRelativeTo(null);
         }
@@ -117,7 +117,7 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         owner = _owner;
     }
 
-    public void setJMenuBar(MenuBar menuBar) {
-        dialog.setJMenuBar(menuBar.getMenuBar());
+    public void setJMenuBar(MenuBar _menuBar) {
+        dialog.setJMenuBar(_menuBar.getMenuBar());
     }
 }

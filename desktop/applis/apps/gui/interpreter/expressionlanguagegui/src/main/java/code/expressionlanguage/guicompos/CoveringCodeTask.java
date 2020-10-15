@@ -11,9 +11,9 @@ public final class CoveringCodeTask implements Runnable {
     private GuiContextEl contextEl;
     private ExecutingOptions executingOptions;
 
-    public CoveringCodeTask(GuiContextEl contextEl, ExecutingOptions executingOptions) {
-        this.contextEl = contextEl;
-        this.executingOptions = executingOptions;
+    public CoveringCodeTask(GuiContextEl _contextEl, ExecutingOptions _executingOptions) {
+        this.contextEl = _contextEl;
+        this.executingOptions = _executingOptions;
     }
 
     @Override

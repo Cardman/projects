@@ -20,8 +20,8 @@ public final class TreeStruct extends CustComponentStruct {
         return BooleanStruct.of(tree.isRootVisible());
     }
 
-    public void setRootVisible(Struct rootVisible) {
-        tree.setRootVisible(BooleanStruct.isTrue(rootVisible));
+    public void setRootVisible(Struct _rootVisible) {
+        tree.setRootVisible(BooleanStruct.isTrue(_rootVisible));
     }
 
     public Struct getLastSelectedPathComponent() {
@@ -37,9 +37,9 @@ public final class TreeStruct extends CustComponentStruct {
         }
     }
 
-    public void addTreeSelectionListener(Struct tsl) {
-        if (tsl instanceof TreeSelectionListener) {
-            tree.addTreeSelectionListener((TreeSelectionListener) tsl);
+    public void addTreeSelectionListener(Struct _tsl) {
+        if (_tsl instanceof TreeSelectionListener) {
+            tree.addTreeSelectionListener((TreeSelectionListener) _tsl);
         }
     }
 

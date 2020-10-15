@@ -28,36 +28,36 @@ public final class Slider extends CustComponent {
         }
         return SwingConstants.HORIZONTAL;
     }
-    public void addChangeListener(ChangeListener l) {
-        slider.addChangeListener(l);
+    public void addChangeListener(ChangeListener _l) {
+        slider.addChangeListener(_l);
     }
 
-    public void removeChangeListener(ChangeListener l) {
-        slider.removeChangeListener(l);
+    public void removeChangeListener(ChangeListener _l) {
+        slider.removeChangeListener(_l);
     }
 
     public int getValue() {
         return slider.getValue();
     }
 
-    public void setValue(int n) {
-        slider.setValue(n);
+    public void setValue(int _n) {
+        slider.setValue(_n);
     }
 
     public int getMinimum() {
         return slider.getMinimum();
     }
 
-    public void setMinimum(int minimum) {
-        slider.setMinimum(minimum);
+    public void setMinimum(int _minimum) {
+        slider.setMinimum(_minimum);
     }
 
     public int getMaximum() {
         return slider.getMaximum();
     }
 
-    public void setMaximum(int maximum) {
-        slider.setMaximum(maximum);
+    public void setMaximum(int _maximum) {
+        slider.setMaximum(_maximum);
     }
 
     public int getOrientation() {

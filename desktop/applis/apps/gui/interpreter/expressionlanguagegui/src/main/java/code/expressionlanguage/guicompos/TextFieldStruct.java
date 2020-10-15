@@ -37,8 +37,8 @@ public final class TextFieldStruct extends InputStruct {
         textField.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
-    public void setText(Struct t) {
-        textField.setText(getText(t));
+    public void setText(Struct _t) {
+        textField.setText(getText(_t));
     }
 
     private static String getText(Struct _txt) {

@@ -12,7 +12,7 @@ public final class OpenArchive implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent _e) {
         mainWindow.load();
     }
 }

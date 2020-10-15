@@ -14,9 +14,9 @@ public class InteractClick extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        if (!SwingUtilities.isLeftMouseButton(e)) {
-            fenetre.setNewLocation(e.getX(), e.getY());
+    public void mouseReleased(MouseEvent _e) {
+        if (!SwingUtilities.isLeftMouseButton(_e)) {
+            fenetre.setNewLocation(_e.getX(), _e.getY());
             return;
         }
         if (fenetre.isDragged()) {
@@ -24,10 +24,10 @@ public class InteractClick extends MouseAdapter {
             return;
         }
         if (fenetre.isAddingSoldier()) {
-            fenetre.addNewSoldier(e.getX(), e.getY());
+            fenetre.addNewSoldier(_e.getX(), _e.getY());
             return;
         }
-        fenetre.selectOrDeselect(e.getX(), e.getY());
+        fenetre.selectOrDeselect(_e.getX(), _e.getY());
     }
 
     @Override

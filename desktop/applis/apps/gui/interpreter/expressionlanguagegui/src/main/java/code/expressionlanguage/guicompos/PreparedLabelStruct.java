@@ -21,13 +21,13 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         textLabel = new PreparedLabel();
         setImage(_img);
     }
-    public void setImage(Struct text) {
-        if (!(text instanceof ImageStruct)) {
+    public void setImage(Struct _text) {
+        if (!(_text instanceof ImageStruct)) {
             textLabel.setEmptyIcon();
             width = 0;
             height = 0;
         } else {
-            BufferedImage img_ = ((ImageStruct) text).getImage();
+            BufferedImage img_ = ((ImageStruct) _text).getImage();
             textLabel.setIcon(img_);
             width = img_.getWidth();
             height = img_.getHeight();

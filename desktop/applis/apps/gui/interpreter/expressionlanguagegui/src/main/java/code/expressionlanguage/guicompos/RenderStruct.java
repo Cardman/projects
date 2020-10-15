@@ -20,23 +20,23 @@ public class RenderStruct extends WithoutParentIdStruct implements Struct {
         return height;
     }
 
-    public void setHeight(Struct height) {
-        this.height = height;
+    public void setHeight(Struct _height) {
+        this.height = _height;
     }
 
     public Struct getWidth() {
         return width;
     }
 
-    public void setWidth(Struct width) {
-        this.width = width;
+    public void setWidth(Struct _width) {
+        this.width = _width;
     }
 
     public Struct getPaint() {
         return paint;
     }
 
-    public void setPaint(Struct paint) {
-        this.paint = paint;
+    public void setPaint(Struct _paint) {
+        this.paint = _paint;
     }
 }

@@ -32,15 +32,15 @@ public class ElementHelp {
         return navigation;
     }
 
-    public void setNavigation(Navigation navigation) {
-        this.navigation = navigation;
+    public void setNavigation(Navigation _navigation) {
+        this.navigation = _navigation;
     }
 
     public MetaDocument getMetaDocument() {
         return metaDocument;
     }
 
-    public void setMetaDocument(MetaDocument metaDocument) {
-        this.metaDocument = metaDocument;
+    public void setMetaDocument(MetaDocument _metaDocument) {
+        this.metaDocument = _metaDocument;
     }
 }

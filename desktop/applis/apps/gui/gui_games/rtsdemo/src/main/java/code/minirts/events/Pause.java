@@ -14,7 +14,7 @@ public class Pause implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent _e) {
         window.pause();
     }
 

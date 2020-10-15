@@ -98,24 +98,24 @@ public abstract class CustComponent {
         getComponent().setToolTipText(_title);
     }
 
-    public void setCursor(Cursor cursor) {
-        getComponent().setCursor(cursor);
+    public void setCursor(Cursor _cursor) {
+        getComponent().setCursor(_cursor);
     }
 
     public Dimension getSize() {
         return getComponent().getSize();
     }
 
-    public void setSize(Dimension dimension) {
-        getComponent().setSize(dimension);
+    public void setSize(Dimension _dimension) {
+        getComponent().setSize(_dimension);
     }
 
     public Dimension getPreferredSize() {
         return getComponent().getPreferredSize();
     }
 
-    public void setPreferredSize(Dimension dimension) {
-        getComponent().setPreferredSize(dimension);
+    public void setPreferredSize(Dimension _dimension) {
+        getComponent().setPreferredSize(_dimension);
     }
 
     public boolean isFocusable() {

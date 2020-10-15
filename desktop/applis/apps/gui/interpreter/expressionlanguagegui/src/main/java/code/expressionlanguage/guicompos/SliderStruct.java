@@ -38,8 +38,8 @@ public final class SliderStruct extends InputStruct {
         }
     }
 
-    public void removeChangeListener(ChangeListener l) {
-        slider.removeChangeListener(l);
+    public void removeChangeListener(ChangeListener _l) {
+        slider.removeChangeListener(_l);
     }
 
     public Struct getValue() {
@@ -70,8 +70,8 @@ public final class SliderStruct extends InputStruct {
         return new IntStruct(slider.getOrientation());
     }
 
-    public void setOrientation(Struct orientation) {
-        slider.setOrientation(((NumberStruct)orientation).intStruct());
+    public void setOrientation(Struct _orientation) {
+        slider.setOrientation(((NumberStruct)_orientation).intStruct());
     }
     @Override
     public Struct isEnabled() {

@@ -57,24 +57,24 @@ public final class TableGui extends CustComponent {
         return table.getColumnCount();
     }
 
-    public String getColumnName(int column) {
-        return table.getColumnName(column);
+    public String getColumnName(int _column) {
+        return table.getColumnName(_column);
     }
 
-    public String getValueAt(int row, int column) {
-        Object v_ = table.getValueAt(row, column);
+    public String getValueAt(int _row, int _column) {
+        Object v_ = table.getValueAt(_row, _column);
         if (!(v_ instanceof String)) {
             return "";
         }
         return (String) v_;
     }
 
-    public void setValueAt(String aValue, int row, int column) {
-        table.setValueAt(aValue, row, column);
+    public void setValueAt(String _aValue, int _row, int _column) {
+        table.setValueAt(_aValue, _row, _column);
     }
 
-    public void moveColumn(int column, int targetColumn) {
-        table.moveColumn(column, targetColumn);
+    public void moveColumn(int _column, int _targetColumn) {
+        table.moveColumn(_column, _targetColumn);
     }
 
     public int columnAtPoint(int _x,int _y) {
