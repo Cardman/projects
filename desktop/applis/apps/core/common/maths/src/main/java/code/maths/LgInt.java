@@ -832,12 +832,17 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         int nbDigMinusOne_ = nbDig_;
         nbDigMinusOne_--;
         for (int i = nbDigMinusOne_; i >= IndexConstants.FIRST_INDEX; i--) {
-            resultatChiffres_.set(i, (long) Math.floor(grDigits.get(i) * _db));
-            double tmp_ = ((double) grDigits.get(i) * _db - (double) resultatChiffres_.get(i)) * (double) BASE;
+            double mult_ = (double) grDigits.get(i) * _db;
+            long multLong_ = (long) mult_;
+            resultatChiffres_.set(i, multLong_);
+            double part_ = (double) multLong_;
+            double tmp_ = (mult_ - part_) * (double) BASE;
             int j_ = i + 1;
             for (int j = j_; j < nbDig_; j++) {
-                resultatChiffres_.set(j, resultatChiffres_.get(j) + (long) Math.floor(tmp_));
-                tmp_ = (tmp_ - Math.floor(tmp_)) * (double)BASE;
+                long tmpLong_ = (long)tmp_;
+                resultatChiffres_.set(j, resultatChiffres_.get(j) + tmpLong_);
+                double floor_ = (double)tmpLong_;
+                tmp_ = (tmp_ - floor_) * (double)BASE;
             }
         }
         long retenue_ = 0;
