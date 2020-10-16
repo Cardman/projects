@@ -91,7 +91,7 @@ public final class NumberUtil {
         //_one < 0
         if (_two <= 0) {
             if (_one == Long.MIN_VALUE) {
-                return (-(-_one+1))/(-_two)+1;
+                return (-(_one+1))/(-_two)+1;
             }
             if ((-_one) % (-_two) == 0) {
                 return (-_one)/(-_two);
@@ -99,7 +99,7 @@ public final class NumberUtil {
             return (-_one)/(-_two)+1;
         }
         if (_one == Long.MIN_VALUE) {
-            return -(-(-_one+1)/_two)-1;
+            return -(-(_one+1)/_two)-1;
         }
         //_one < 0 && _two > 0
         if ((-_one) % _two == 0) {
