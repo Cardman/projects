@@ -130,7 +130,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     private static void launchWindow(String _language, AbstractProgramInfos _list) {
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list,TEMP_FOLDER),COORDS);
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS);
         MainWindow w_ = getWindow(_language, _list);
         setLocation(w_, topLeft_);
     }

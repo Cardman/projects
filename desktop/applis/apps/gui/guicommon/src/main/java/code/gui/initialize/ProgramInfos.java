@@ -34,7 +34,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final String homePath;
     public ProgramInfos() {
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
-        tmpUserFolder = initialize(homePath);
+        tmpUserFolder = StringUtil.concat(initialize(homePath),SEPARATEUR);
         generator = new AdvancedGenerator();
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
