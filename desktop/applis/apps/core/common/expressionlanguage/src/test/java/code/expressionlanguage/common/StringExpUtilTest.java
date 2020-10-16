@@ -792,6 +792,435 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
         assertEq("1000000000000000000000000000000000000000000000000000000000000000",StringExpUtil.toLongGeneBin(Long.MIN_VALUE));
     }
     @Test
+    public void toShortGeneHex1Test(){
+        assertEq("0",StringExpUtil.toShortGeneHex((short) 0));
+    }
+    @Test
+    public void toShortGeneHex2Test(){
+        assertEq("1",StringExpUtil.toShortGeneHex((short) 1));
+    }
+    @Test
+    public void toShortGeneHex3Test(){
+        assertEq("9",StringExpUtil.toShortGeneHex((short) 9));
+    }
+    @Test
+    public void toShortGeneHex4Test(){
+        assertEq("a",StringExpUtil.toShortGeneHex((short) 10));
+    }
+    @Test
+    public void toShortGeneHex5Test(){
+        assertEq("f",StringExpUtil.toShortGeneHex((short) 15));
+    }
+    @Test
+    public void toShortGeneHex6Test(){
+        assertEq("10",StringExpUtil.toShortGeneHex((short) 16));
+    }
+    @Test
+    public void toShortGeneHex7Test(){
+        assertEq("11",StringExpUtil.toShortGeneHex((short) 17));
+    }
+    @Test
+    public void toShortGeneHex8Test(){
+        assertEq("1e",StringExpUtil.toShortGeneHex((short) 30));
+    }
+    @Test
+    public void toShortGeneHex9Test(){
+        assertEq("7f",StringExpUtil.toShortGeneHex((short) 127));
+    }
+    @Test
+    public void toShortGeneHex10Test(){
+        assertEq("80",StringExpUtil.toShortGeneHex((short) 128));
+    }
+    @Test
+    public void toShortGeneHex11Test(){
+        assertEq("ff",StringExpUtil.toShortGeneHex((short) 255));
+    }
+    @Test
+    public void toShortGeneHex12Test(){
+        assertEq("100",StringExpUtil.toShortGeneHex((short) 256));
+    }
+    @Test
+    public void toShortGeneHex13Test(){
+        assertEq("123",StringExpUtil.toShortGeneHex((short) 291));
+    }
+    @Test
+    public void toShortGeneHex14Test(){
+        assertEq("ffff",StringExpUtil.toShortGeneHex((short) -1));
+    }
+    @Test
+    public void toShortGeneHex15Test(){
+        assertEq("fffe",StringExpUtil.toShortGeneHex((short) -2));
+    }
+    @Test
+    public void toShortGeneHex16Test(){
+        assertEq("fffa",StringExpUtil.toShortGeneHex((short) -6));
+    }
+    @Test
+    public void toShortGeneHex17Test(){
+        assertEq("fff9",StringExpUtil.toShortGeneHex((short) -7));
+    }
+    @Test
+    public void toShortGeneHex18Test(){
+        assertEq("fff0",StringExpUtil.toShortGeneHex((short) -16));
+    }
+    @Test
+    public void toShortGeneHex19Test(){
+        assertEq("ffef",StringExpUtil.toShortGeneHex((short) -17));
+    }
+    @Test
+    public void toShortGeneHex20Test(){
+        assertEq("ffea",StringExpUtil.toShortGeneHex((short) -22));
+    }
+    @Test
+    public void toShortGeneHex21Test(){
+        assertEq("ffe9",StringExpUtil.toShortGeneHex((short) -23));
+    }
+    @Test
+    public void toShortGeneHex22Test(){
+        assertEq("ffe5",StringExpUtil.toShortGeneHex((short) -27));
+    }
+    @Test
+    public void toShortGeneHex23Test(){
+        assertEq("ffe0",StringExpUtil.toShortGeneHex((short) -32));
+    }
+    @Test
+    public void toShortGeneHex24Test(){
+        assertEq("fedc",StringExpUtil.toShortGeneHex((short) -292));
+    }
+    @Test
+    public void toShortGeneHex25Test(){
+        assertEq("8000",StringExpUtil.toShortGeneHex(Short.MIN_VALUE));
+    }
+    @Test
+    public void toShortGeneOct1Test(){
+        assertEq("0",StringExpUtil.toShortGeneOct((short) 0));
+    }
+    @Test
+    public void toShortGeneOct2Test(){
+        assertEq("1",StringExpUtil.toShortGeneOct((short) 1));
+    }
+    @Test
+    public void toShortGeneOct3Test(){
+        assertEq("11",StringExpUtil.toShortGeneOct((short) 9));
+    }
+    @Test
+    public void toShortGeneOct4Test(){
+        assertEq("12",StringExpUtil.toShortGeneOct((short) 10));
+    }
+    @Test
+    public void toShortGeneOct5Test(){
+        assertEq("7",StringExpUtil.toShortGeneOct((short) 7));
+    }
+    @Test
+    public void toShortGeneOct6Test(){
+        assertEq("10",StringExpUtil.toShortGeneOct((short) 8));
+    }
+    @Test
+    public void toShortGeneOct7Test(){
+        assertEq("21",StringExpUtil.toShortGeneOct((short) 17));
+    }
+    @Test
+    public void toShortGeneOct8Test(){
+        assertEq("36",StringExpUtil.toShortGeneOct((short) 30));
+    }
+    @Test
+    public void toShortGeneOct9Test(){
+        assertEq("177",StringExpUtil.toShortGeneOct((short) 127));
+    }
+    @Test
+    public void toShortGeneOct10Test(){
+        assertEq("200",StringExpUtil.toShortGeneOct((short) 128));
+    }
+    @Test
+    public void toShortGeneOct11Test(){
+        assertEq("377",StringExpUtil.toShortGeneOct((short) 255));
+    }
+    @Test
+    public void toShortGeneOct12Test(){
+        assertEq("400",StringExpUtil.toShortGeneOct((short) 256));
+    }
+    @Test
+    public void tShortoGeneOct13Test(){
+        assertEq("443",StringExpUtil.toShortGeneOct((short) 291));
+    }
+    @Test
+    public void toShortGeneOct14Test(){
+        assertEq("177777",StringExpUtil.toShortGeneOct((short) -1));
+    }
+    @Test
+    public void toShortGeneOct15Test(){
+        assertEq("177776",StringExpUtil.toShortGeneOct((short) -2));
+    }
+    @Test
+    public void toShortGeneOct16Test(){
+        assertEq("177772",StringExpUtil.toShortGeneOct((short) -6));
+    }
+    @Test
+    public void toShortGeneOct17Test(){
+        assertEq("177771",StringExpUtil.toShortGeneOct((short) -7));
+    }
+    @Test
+    public void toShortGeneOct18Test(){
+        assertEq("177760",StringExpUtil.toShortGeneOct((short) -16));
+    }
+    @Test
+    public void toShortGeneOct19Test(){
+        assertEq("177757",StringExpUtil.toShortGeneOct((short) -17));
+    }
+    @Test
+    public void toShortGeneOct20Test(){
+        assertEq("177752",StringExpUtil.toShortGeneOct((short) -22));
+    }
+    @Test
+    public void toShortGeneOct21Test(){
+        assertEq("177751",StringExpUtil.toShortGeneOct((short) -23));
+    }
+    @Test
+    public void toShortGeneOct22Test(){
+        assertEq("177745",StringExpUtil.toShortGeneOct((short) -27));
+    }
+    @Test
+    public void toShortGeneOct23Test(){
+        assertEq("177740",StringExpUtil.toShortGeneOct((short) -32));
+    }
+    @Test
+    public void toShortGeneOct24Test(){
+        assertEq("177334",StringExpUtil.toShortGeneOct((short) -292));
+    }
+    @Test
+    public void toShortGeneOct25Test(){
+        assertEq("100000",StringExpUtil.toShortGeneOct(Short.MIN_VALUE));
+    }
+    @Test
+    public void toShortGeneOct26Test(){
+        assertEq("100001",StringExpUtil.toShortGeneOct((short) (Short.MIN_VALUE+1)));
+    }
+    @Test
+    public void toShortGeneBin1Test(){
+        assertEq("0",StringExpUtil.toShortGeneBin((short) 0));
+    }
+    @Test
+    public void toShortGeneBin2Test(){
+        assertEq("1",StringExpUtil.toShortGeneBin((short) 1));
+    }
+    @Test
+    public void toShortGeneBin3Test(){
+        assertEq("10",StringExpUtil.toShortGeneBin((short) 2));
+    }
+    @Test
+    public void toShortGeneBin4Test(){
+        assertEq("11",StringExpUtil.toShortGeneBin((short) 3));
+    }
+    @Test
+    public void toShortGeneBin5Test(){
+        assertEq("100",StringExpUtil.toShortGeneBin((short) 4));
+    }
+    @Test
+    public void toShortGeneBin6Test(){
+        assertEq("1111111111111111",StringExpUtil.toShortGeneBin((short) -1));
+    }
+    @Test
+    public void toShortGeneBin7Test(){
+        assertEq("1111111111111110",StringExpUtil.toShortGeneBin((short) -2));
+    }
+    @Test
+    public void toShortGeneBin8Test(){
+        assertEq("1111111111111101",StringExpUtil.toShortGeneBin((short) -3));
+    }
+    @Test
+    public void toShortGeneBin9Test(){
+        assertEq("1111111111111100",StringExpUtil.toShortGeneBin((short) -4));
+    }
+    @Test
+    public void toShortGeneBin10Test(){
+        assertEq("1000000000000000",StringExpUtil.toShortGeneBin(Short.MIN_VALUE));
+    }
+    @Test
+    public void toByteGeneHex1Test(){
+        assertEq("0",StringExpUtil.toByteGeneHex((byte) 0));
+    }
+    @Test
+    public void toByteGeneHex2Test(){
+        assertEq("1",StringExpUtil.toByteGeneHex((byte) 1));
+    }
+    @Test
+    public void toByteGeneHex3Test(){
+        assertEq("9",StringExpUtil.toByteGeneHex((byte) 9));
+    }
+    @Test
+    public void toByteGeneHex4Test(){
+        assertEq("a",StringExpUtil.toByteGeneHex((byte) 10));
+    }
+    @Test
+    public void toByteGeneHex5Test(){
+        assertEq("f",StringExpUtil.toByteGeneHex((byte) 15));
+    }
+    @Test
+    public void toByteGeneHex6Test(){
+        assertEq("10",StringExpUtil.toByteGeneHex((byte) 16));
+    }
+    @Test
+    public void toByteGeneHex7Test(){
+        assertEq("11",StringExpUtil.toByteGeneHex((byte) 17));
+    }
+    @Test
+    public void toByteGeneHex8Test(){
+        assertEq("1e",StringExpUtil.toByteGeneHex((byte) 30));
+    }
+    @Test
+    public void toByteGeneHex9Test(){
+        assertEq("7f",StringExpUtil.toByteGeneHex((byte) 127));
+    }
+    @Test
+    public void toByteGeneHex10Test(){
+        assertEq("80",StringExpUtil.toByteGeneHex((byte) -128));
+    }
+    @Test
+    public void toByteGeneHex11Test(){
+        assertEq("ff",StringExpUtil.toByteGeneHex((byte) -1));
+    }
+    @Test
+    public void toByteGeneHex12Test(){
+        assertEq("fe",StringExpUtil.toByteGeneHex((byte) -2));
+    }
+    @Test
+    public void toByteGeneHex13Test(){
+        assertEq("fa",StringExpUtil.toByteGeneHex((byte) -6));
+    }
+    @Test
+    public void toByteGeneHex14Test(){
+        assertEq("f9",StringExpUtil.toByteGeneHex((byte) -7));
+    }
+    @Test
+    public void toByteGeneHex15Test(){
+        assertEq("f0",StringExpUtil.toByteGeneHex((byte) -16));
+    }
+    @Test
+    public void toByteGeneHex16Test(){
+        assertEq("ef",StringExpUtil.toByteGeneHex((byte) -17));
+    }
+    @Test
+    public void toByteGeneHex17Test(){
+        assertEq("ea",StringExpUtil.toByteGeneHex((byte) -22));
+    }
+    @Test
+    public void toByteGeneHex18Test(){
+        assertEq("e9",StringExpUtil.toByteGeneHex((byte) -23));
+    }
+    @Test
+    public void toByteGeneHex19Test(){
+        assertEq("e5",StringExpUtil.toByteGeneHex((byte) -27));
+    }
+    @Test
+    public void toByteGeneHex20Test(){
+        assertEq("e0",StringExpUtil.toByteGeneHex((byte) -32));
+    }
+    @Test
+    public void toByteGeneOct1Test(){
+        assertEq("0",StringExpUtil.toByteGeneOct((byte) 0));
+    }
+    @Test
+    public void toByteGeneOct2Test(){
+        assertEq("1",StringExpUtil.toByteGeneOct((byte) 1));
+    }
+    @Test
+    public void toByteGeneOct3Test(){
+        assertEq("11",StringExpUtil.toByteGeneOct((byte) 9));
+    }
+    @Test
+    public void toByteGeneOct4Test(){
+        assertEq("12",StringExpUtil.toByteGeneOct((byte) 10));
+    }
+    @Test
+    public void toByteGeneOct5Test(){
+        assertEq("7",StringExpUtil.toByteGeneOct((byte) 7));
+    }
+    @Test
+    public void toByteGeneOct6Test(){
+        assertEq("10",StringExpUtil.toByteGeneOct((byte) 8));
+    }
+    @Test
+    public void toByteGeneOct7Test(){
+        assertEq("21",StringExpUtil.toByteGeneOct((byte) 17));
+    }
+    @Test
+    public void toByteGeneOct8Test(){
+        assertEq("36",StringExpUtil.toByteGeneOct((byte) 30));
+    }
+    @Test
+    public void toByteGeneOct9Test(){
+        assertEq("177",StringExpUtil.toByteGeneOct((byte) 127));
+    }
+    @Test
+    public void toByteGeneOct10Test(){
+        assertEq("200",StringExpUtil.toByteGeneOct((byte) -128));
+    }
+    @Test
+    public void toByteGeneOct11Test(){
+        assertEq("377",StringExpUtil.toByteGeneOct((byte) -1));
+    }
+    @Test
+    public void toByteGeneOct12Test(){
+        assertEq("376",StringExpUtil.toByteGeneOct((byte) -2));
+    }
+    @Test
+    public void toByteGeneOct13Test(){
+        assertEq("372",StringExpUtil.toByteGeneOct((byte) -6));
+    }
+    @Test
+    public void toByteGeneOct14Test(){
+        assertEq("371",StringExpUtil.toByteGeneOct((byte) -7));
+    }
+    @Test
+    public void toByteGeneOct15Test(){
+        assertEq("360",StringExpUtil.toByteGeneOct((byte) -16));
+    }
+    @Test
+    public void toByteGeneOct16Test(){
+        assertEq("357",StringExpUtil.toByteGeneOct((byte) -17));
+    }
+    @Test
+    public void toByteGeneBin1Test(){
+        assertEq("0",StringExpUtil.toByteGeneBin((byte) 0));
+    }
+    @Test
+    public void toByteGeneBin2Test(){
+        assertEq("1",StringExpUtil.toByteGeneBin((byte) 1));
+    }
+    @Test
+    public void toByteGeneBin3Test(){
+        assertEq("10",StringExpUtil.toByteGeneBin((byte) 2));
+    }
+    @Test
+    public void toByteGeneBin4Test(){
+        assertEq("11",StringExpUtil.toByteGeneBin((byte) 3));
+    }
+    @Test
+    public void toByteGeneBin5Test(){
+        assertEq("100",StringExpUtil.toByteGeneBin((byte) 4));
+    }
+    @Test
+    public void toByteGeneBin6Test(){
+        assertEq("11111111",StringExpUtil.toByteGeneBin((byte) -1));
+    }
+    @Test
+    public void toByteGeneBin7Test(){
+        assertEq("11111110",StringExpUtil.toByteGeneBin((byte) -2));
+    }
+    @Test
+    public void toByteGeneBin8Test(){
+        assertEq("11111101",StringExpUtil.toByteGeneBin((byte) -3));
+    }
+    @Test
+    public void toByteGeneBin9Test(){
+        assertEq("11111100",StringExpUtil.toByteGeneBin((byte) -4));
+    }
+    @Test
+    public void toByteGeneBin10Test(){
+        assertEq("10000000",StringExpUtil.toByteGeneBin(Byte.MIN_VALUE));
+    }
+
+    @Test
     public void toLongRadix1Test(){
         assertEq("0",StringExpUtil.toLongRadix(0,10));
     }

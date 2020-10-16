@@ -1338,6 +1338,160 @@ public final class StringExpUtil {
         }
         return str_;
     }
+
+    public static String toShortGeneHex(short _i) {
+        if (_i >= 0) {
+            return toShortBase(_i, 16).toString();
+        }
+        StringBuilder str_ = toShortBase((short) (-_i - 1), 16);
+        int len_ = str_.length();
+        int nbZeros_ = 4 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 4; i++) {
+            char c_ = str_.charAt(i);
+            if (c_ >= '6' &&c_ <= '9') {
+                int s_ = '6' + '9';
+                str_.setCharAt(i,(char)(s_-c_));
+                continue;
+            }
+            int s_ = 'a' + '5';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toShortGeneOct(short _i) {
+        if (_i >= 0) {
+            return toShortBase(_i, 8).toString();
+        }
+        StringBuilder str_ = toShortBase((short) (-_i - 1), 8);
+        int len_ = str_.length();
+        int nbZeros_ = 6 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        char c_ = str_.charAt(0);
+        int s_ = '0' + '1';
+        str_.setCharAt(0,(char)(s_-c_));
+        for (int i = 1; i < 6; i++) {
+            c_ = str_.charAt(i);
+            s_ = '0' + '7';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toShortGeneBin(short _i) {
+        if (_i >= 0) {
+            return toShortBase(_i, 2).toString();
+        }
+        StringBuilder str_ = toShortBase((short) (-_i - 1), 2);
+        int len_ = str_.length();
+        int nbZeros_ = 16 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 16; i++) {
+            char c_ = str_.charAt(i);
+            int s_ = '0' + '1';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    private static StringBuilder toShortBase(short _i, int _base) {
+        StringBuilder str_ = new StringBuilder();
+        if (_i == 0) {
+            str_.append(0);
+            return str_;
+        }
+        int q_ = _i;
+        while (q_ > 0) {
+            int r_ = q_ % _base;
+            str_.insert(0, toSingleChar(r_));
+            q_ = q_ / _base;
+        }
+        return str_;
+    }
+
+    public static String toByteGeneHex(byte _i) {
+        if (_i >= 0) {
+            return toByteBase(_i, 16).toString();
+        }
+        StringBuilder str_ = toByteBase((byte) (-_i - 1), 16);
+        int len_ = str_.length();
+        int nbZeros_ = 2 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 2; i++) {
+            char c_ = str_.charAt(i);
+            if (c_ >= '6' &&c_ <= '9') {
+                int s_ = '6' + '9';
+                str_.setCharAt(i,(char)(s_-c_));
+                continue;
+            }
+            int s_ = 'a' + '5';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toByteGeneOct(byte _i) {
+        if (_i >= 0) {
+            return toByteBase(_i, 8).toString();
+        }
+        StringBuilder str_ = toByteBase((byte) (-_i - 1), 8);
+        int len_ = str_.length();
+        int nbZeros_ = 3 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        char c_ = str_.charAt(0);
+        int s_ = '0' + '3';
+        str_.setCharAt(0,(char)(s_-c_));
+        for (int i = 1; i < 3; i++) {
+            c_ = str_.charAt(i);
+            s_ = '0' + '7';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toByteGeneBin(byte _i) {
+        if (_i >= 0) {
+            return toByteBase(_i, 2).toString();
+        }
+        StringBuilder str_ = toByteBase((byte) (-_i - 1), 2);
+        int len_ = str_.length();
+        int nbZeros_ = 8 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 8; i++) {
+            char c_ = str_.charAt(i);
+            int s_ = '0' + '1';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    private static StringBuilder toByteBase(byte _i, int _base) {
+        StringBuilder str_ = new StringBuilder();
+        if (_i == 0) {
+            str_.append(0);
+            return str_;
+        }
+        int q_ = _i;
+        while (q_ > 0) {
+            int r_ = q_ % _base;
+            str_.insert(0, toSingleChar(r_));
+            q_ = q_ / _base;
+        }
+        return str_;
+    }
     private static String toSingleChar(int _i) {
         if (_i < 10) {
             return Integer.toString(_i);
