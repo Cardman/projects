@@ -109,6 +109,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("equals");
         _lgNames.getContent().getNbAlias().setAliasToStringMethod("toString");
+        _lgNames.getContent().getNbAlias().setAliasSignum("sgn");
         _lgNames.getContent().getNbAlias().setAliasValueOfMethod("valueOf");
         _lgNames.getContent().getNbAlias().setAliasMaxValueField("MAX_VALUE");
         _lgNames.getContent().getNbAlias().setAliasMinValueField("MIN_VALUE");

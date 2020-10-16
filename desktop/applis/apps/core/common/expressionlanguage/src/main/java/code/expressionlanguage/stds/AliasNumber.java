@@ -20,6 +20,7 @@ public final class AliasNumber {
     private String aliasCompare;
     private String aliasEquals;
     private String aliasToStringMethod;
+    private String aliasSignum;
     private String aliasValueOfMethod;
     private String aliasMaxValueField;
     private String aliasMinValueField;
@@ -424,7 +425,18 @@ public final class AliasNumber {
             return;
         }
         if (StringUtil.quickEq(_type, longType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasSignum())) {
+                long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                _res.setResult(new ByteStruct(NumberUtil.signum(nb_)));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
+                if (list_.size() == 2) {
+                    long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                    int radix_ = (NumParsers.convertToNumber(_args[1])).intStruct();
+                    _res.setResult(new StringStruct(StringExpUtil.toLongRadix(nb_,radix_)));
+                    return;
+                }
                 long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                 _res.setResult(new StringStruct(Long.toString(one_)));
                 return;
@@ -726,6 +738,12 @@ public final class AliasNumber {
         numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimLong_, aliasLong, aliasParseLong, new StringList(params.getAliasLong0ToStringMethod0()), new StringList(params.getAliasLong0ParseLong0()), new StringList(params.getAliasLong1ParseLong0(),params.getAliasLong1ParseLong1()), new StringList(params.getAliasLong0CompareTo0()), new StringList(params.getAliasLong0Compare0(),params.getAliasLong0Compare1()));
         numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong0ParseLongOrNull0()), new StringList(params.getAliasLong1ParseLongOrNull0(),params.getAliasLong1ParseLongOrNull1()));
         numbersValuesFields(fields_, aliasPrimLong_, std_);
+        params_ = new StringList(aliasPrimLong_,aliasPrimInteger_);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasLong1ToStringMethod0(),params.getAliasLong1ToStringMethod1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimLong_);
+        method_ = new StandardMethod(aliasSignum, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasLong0Signum0()));
+        methods_.add( method_);
         standards_.addEntry(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
@@ -991,6 +1009,12 @@ public final class AliasNumber {
     }
     public void setAliasToStringMethod(String _aliasToString) {
         aliasToStringMethod = _aliasToString;
+    }
+    public String getAliasSignum() {
+        return aliasSignum;
+    }
+    public void setAliasSignum(String _aliasToString) {
+        aliasSignum = _aliasToString;
     }
     public String getAliasValueOfMethod() {
         return aliasValueOfMethod;

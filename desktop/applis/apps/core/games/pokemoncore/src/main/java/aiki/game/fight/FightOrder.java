@@ -685,12 +685,11 @@ final class FightOrder {
         }
         for(byte e:posAdv_){
             int currDiff_ = Math.abs(e-posCbt_);
-            int sgn_ = Integer.signum(e-posCbt_);
             if(NumberUtil.eq(diff_,Fighter.BACK)){
                 diff_=(byte) currDiff_;
                 continue;
             }
-            if (sgn_ != 0) {
+            if (e != posCbt_) {
                 if(diff_>currDiff_){
                     diff_=(byte) currDiff_;
                 }

@@ -626,7 +626,16 @@ public final class AnaApplyCoreMethodUtil {
                 return parseInt(list_, _args, exc_);
             }
             if (StringUtil.quickEq(type_, longType_)) {
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasSignum())) {
+                    long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                    return new ByteStruct(NumberUtil.signum(nb_));
+                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
+                    if (list_.size() == 2) {
+                        long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                        int radix_ = (NumParsers.convertToNumber(_args[1])).intStruct();
+                        return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_));
+                    }
                     long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                     return (new StringStruct(Long.toString(one_)));
                 }

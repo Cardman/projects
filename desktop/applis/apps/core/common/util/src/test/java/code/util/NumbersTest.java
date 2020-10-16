@@ -805,4 +805,24 @@ public class NumbersTest {
         assertTrue(!nbs_.containsObj(1));
         assertTrue(!nbs_.containsObj(2));
     }
+    @Test
+    public void signum1Test(){
+        assertEq(-1,NumberUtil.signum(-2));
+    }
+    @Test
+    public void signum2Test(){
+        assertEq(-1,NumberUtil.signum(-1));
+    }
+    @Test
+    public void signum3Test(){
+        assertEq(0,NumberUtil.signum(0));
+    }
+    @Test
+    public void signum4Test(){
+        assertEq(1,NumberUtil.signum(1));
+    }
+    @Test
+    public void signum5Test(){
+        assertEq(1,NumberUtil.signum(2));
+    }
 }

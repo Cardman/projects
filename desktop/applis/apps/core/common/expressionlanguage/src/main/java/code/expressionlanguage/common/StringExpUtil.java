@@ -1052,11 +1052,221 @@ public final class StringExpUtil {
         return !_type.startsWith("[");
     }
 
+    public static String toLongRadix(long _i, int _radix) {
+        int radix_ = _radix;
+        if (radix_ < 2 || radix_ > 36) {
+            radix_ = 10;
+        }
+        if (_i == Long.MIN_VALUE) {
+            return processMaxAbsValue(radix_);
+        }
+        if (_i >= 0) {
+            return toLongBase(_i, radix_).toString();
+        }
+        StringBuilder str_ = toLongBase(-_i, radix_);
+        str_.insert(0,"-");
+        return str_.toString();
+    }
+
+    private static String processMaxAbsValue(int _radix) {
+        if (_radix == 2) {
+            return "-1000000000000000000000000000000000000000000000000000000000000000";
+        }
+        if (_radix == 3) {
+            return "-2021110011022210012102010021220101220222";
+        }
+        if (_radix == 4) {
+            return "-20000000000000000000000000000000";
+        }
+        if (_radix == 5) {
+            return "-1104332401304422434310311213";
+        }
+        if (_radix == 6) {
+            return "-1540241003031030222122212";
+        }
+        if (_radix == 7) {
+            return "-22341010611245052052301";
+        }
+        return processMaxAbsValue3(_radix);
+    }
+
+    private static String processMaxAbsValue3(int _radix) {
+        if (_radix == 8) {
+            return "-1000000000000000000000";
+        }
+        if (_radix == 9) {
+            return "-67404283172107811828";
+        }
+        if (_radix == 10) {
+            return "-9223372036854775808";
+        }
+        if (_radix == 11) {
+            return "-1728002635214590698";
+        }
+        if (_radix == 12) {
+            return "-41a792678515120368";
+        }
+        if (_radix == 13) {
+            return "-10b269549075433c38";
+        }
+        if (_radix == 14) {
+            return "-4340724c6c71dc7a8";
+        }
+        if (_radix == 15) {
+            return "-160e2ad3246366808";
+        }
+        return processMaxAbsValue2(_radix);
+    }
+
+    private static String processMaxAbsValue2(int _radix) {
+        if (_radix == 16) {
+            return "-8000000000000000";
+        }
+        if (_radix == 17) {
+            return "-33d3d8307b214009";
+        }
+        if (_radix == 18) {
+            return "-16agh595df825fa8";
+        }
+        if (_radix == 19) {
+            return "-ba643dci0ffeehi";
+        }
+        if (_radix == 20) {
+            return "-5cbfjia3fh26ja8";
+        }
+        if (_radix == 21) {
+            return "-2heiciiie82dh98";
+        }
+        if (_radix == 22) {
+            return "-1adaibb21dckfa8";
+        }
+        if (_radix == 23) {
+            return "-i6k448cf4192c3";
+        }
+        if (_radix == 24) {
+            return "-acd772jnc9l0l8";
+        }
+        if (_radix == 25) {
+            return "-64ie1focnn5g78";
+        }
+        if (_radix == 26) {
+            return "-3igoecjbmca688";
+        }
+        if (_radix == 27) {
+            return "-27c48l5b37oaoq";
+        }
+        return processMaxAbsValue1(_radix);
+    }
+
+    private static String processMaxAbsValue1(int _radix) {
+        if (_radix == 28) {
+            return "-1bk39f3ah3dmq8";
+        }
+        if (_radix == 29) {
+            return "-q1se8f0m04isc";
+        }
+        if (_radix == 30) {
+            return "-hajppbc1fc208";
+        }
+        if (_radix == 31) {
+            return "-bm03i95hia438";
+        }
+        if (_radix == 32) {
+            return "-8000000000000";
+        }
+        if (_radix == 33) {
+            return "-5hg4ck9jd4u38";
+        }
+        if (_radix == 34) {
+            return "-3tdtk1v8j6tpq";
+        }
+        if (_radix == 35) {
+            return "-2pijmikexrxp8";
+        }
+        return "-1y2p0ij32e8e8";
+    }
+
+    public static String toLongGeneHex(long _i) {
+        if (_i >= 0) {
+            return toLongBase(_i, 16).toString();
+        }
+        StringBuilder str_ = toLongBase(-_i - 1, 16);
+        int len_ = str_.length();
+        int nbZeros_ = 16 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 16; i++) {
+            char c_ = str_.charAt(i);
+            if (c_ >= '6' &&c_ <= '9') {
+                int s_ = '6' + '9';
+                str_.setCharAt(i,(char)(s_-c_));
+                continue;
+            }
+            int s_ = 'a' + '5';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toLongGeneOct(long _i) {
+        if (_i >= 0) {
+            return toLongBase(_i, 8).toString();
+        }
+        StringBuilder str_ = toLongBase(-_i - 1, 8);
+        int len_ = str_.length();
+        int nbZeros_ = 22 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        char c_ = str_.charAt(0);
+        int s_ = '0' + '1';
+        str_.setCharAt(0,(char)(s_-c_));
+        for (int i = 1; i < 22; i++) {
+            c_ = str_.charAt(i);
+            s_ = '0' + '7';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toLongGeneBin(long _i) {
+        if (_i >= 0) {
+            return toLongBase(_i, 2).toString();
+        }
+        StringBuilder str_ = toLongBase(-_i - 1, 2);
+        int len_ = str_.length();
+        int nbZeros_ = 64 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 64; i++) {
+            char c_ = str_.charAt(i);
+            int s_ = '0' + '1';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    private static StringBuilder toLongBase(long _i, int _base) {
+        StringBuilder str_ = new StringBuilder();
+        if (_i == 0) {
+            str_.append(0);
+            return str_;
+        }
+        long q_ = _i;
+        while (q_ > 0) {
+            int r_ = (int)(q_ % _base);
+            str_.insert(0, toSingleChar(r_));
+            q_ = q_ / _base;
+        }
+        return str_;
+    }
     public static String toGeneHex(int _i) {
         if (_i >= 0) {
-            return toHex(_i).toString();
+            return toBase(_i, 16).toString();
         }
-        StringBuilder str_ = toHex(-_i - 1);
+        StringBuilder str_ = toBase(-_i - 1, 16);
         int len_ = str_.length();
         int nbZeros_ = 8 - len_;
         for (int i = 0; i < nbZeros_; i++) {
@@ -1074,22 +1284,61 @@ public final class StringExpUtil {
         }
         return str_.toString();
     }
-    private static StringBuilder toHex(int _i) {
+
+    public static String toGeneOct(int _i) {
+        if (_i >= 0) {
+            return toBase(_i, 8).toString();
+        }
+        StringBuilder str_ = toBase(-_i - 1, 8);
+        int len_ = str_.length();
+        int nbZeros_ = 11 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        char c_ = str_.charAt(0);
+        int s_ = '0' + '3';
+        str_.setCharAt(0,(char)(s_-c_));
+        for (int i = 1; i < 11; i++) {
+            c_ = str_.charAt(i);
+            s_ = '0' + '7';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    public static String toGeneBin(int _i) {
+        if (_i >= 0) {
+            return toBase(_i, 2).toString();
+        }
+        StringBuilder str_ = toBase(-_i - 1, 2);
+        int len_ = str_.length();
+        int nbZeros_ = 32 - len_;
+        for (int i = 0; i < nbZeros_; i++) {
+            str_.insert(0,'0');
+        }
+        for (int i = 0; i < 32; i++) {
+            char c_ = str_.charAt(i);
+            int s_ = '0' + '1';
+            str_.setCharAt(i,(char)(s_-c_));
+        }
+        return str_.toString();
+    }
+
+    private static StringBuilder toBase(int _i, int _base) {
         StringBuilder str_ = new StringBuilder();
         if (_i == 0) {
             str_.append(0);
             return str_;
         }
-        int p_ = 16;
         int q_ = _i;
         while (q_ > 0) {
-            int r_ = q_ % p_;
-            str_.insert(0,toBaseHex(r_));
-            q_ = q_ /p_;
+            int r_ = q_ % _base;
+            str_.insert(0, toSingleChar(r_));
+            q_ = q_ / _base;
         }
         return str_;
     }
-    private static String toBaseHex(int _i) {
+    private static String toSingleChar(int _i) {
         if (_i < 10) {
             return Integer.toString(_i);
         }

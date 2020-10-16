@@ -193,6 +193,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("equals");
         _lgNames.getContent().getNbAlias().setAliasToStringMethod("toString");
+        _lgNames.getContent().getNbAlias().setAliasSignum("sgn");
         _lgNames.getContent().getNbAlias().setAliasValueOfMethod("valueOf");
         _lgNames.getContent().getNbAlias().setAliasMaxValueField("MAX_VALUE");
         _lgNames.getContent().getNbAlias().setAliasMinValueField("MIN_VALUE");
@@ -509,6 +510,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("egal");
         _lgNames.getContent().getNbAlias().setAliasToStringMethod("chaine");
+        _lgNames.getContent().getNbAlias().setAliasSignum("sgn");
         _lgNames.getContent().getNbAlias().setAliasValueOfMethod("valeurDe");
         _lgNames.getContent().getNbAlias().setAliasMaxValueField("MAX_VALEUR");
         _lgNames.getContent().getNbAlias().setAliasMinValueField("MIN_VALEUR");

@@ -823,8 +823,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         LgInt resultat_ = LgInt.zero();
         Longs resultatChiffres_ = resultat_.grDigits;
         resultatChiffres_.clear();
-        int len_;
-        len_ = grDigits.size();
+        int len_ = grDigits.size();
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             resultatChiffres_.add(0L);
         }
@@ -846,12 +845,10 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
         }
         long retenue_ = 0;
-        long quotient_;
-        long reste_;
         for (int i = nbDigMinusOne_; i >= IndexConstants.FIRST_INDEX; i--) {
             resultatChiffres_.set(i, resultatChiffres_.get(i) + retenue_);
-            quotient_ = resultatChiffres_.get(i) / BASE;
-            reste_ = resultatChiffres_.get(i) - BASE * quotient_;
+            long quotient_ = resultatChiffres_.get(i) / BASE;
+            long reste_ = resultatChiffres_.get(i) - BASE * quotient_;
             retenue_ = quotient_;
             resultatChiffres_.set(i, reste_);
         }

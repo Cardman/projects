@@ -181,4 +181,14 @@ public final class NumberUtil {
         }
         return -result_;
     }
+
+    public static byte signum(long _v) {
+        if (_v < 0) {
+            return (byte)-1;
+        }
+        if (_v > 0) {
+            return (byte)1;
+        }
+        return (byte)0;
+    }
 }

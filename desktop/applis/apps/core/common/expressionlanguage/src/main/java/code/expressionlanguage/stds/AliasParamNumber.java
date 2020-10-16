@@ -48,6 +48,9 @@ public final class AliasParamNumber {
     public static final String INTEGER_0_INTEGER_0="Integer0Integer0";
     public static final String INTEGER_1_INTEGER_0="Integer1Integer0";
     public static final String LONG_0_TO_STRING_METHOD_0="Long0ToStringMethod0";
+    public static final String LONG_1_TO_STRING_METHOD_0="Long1ToStringMethod0";
+    public static final String LONG_1_TO_STRING_METHOD_1="Long1ToStringMethod1";
+    public static final String LONG_0_SIGNUM_0="Long0Signum0";
     public static final String LONG_0_PARSE_LONG_0="Long0ParseLong0";
     public static final String LONG_1_PARSE_LONG_0="Long1ParseLong0";
     public static final String LONG_1_PARSE_LONG_1="Long1ParseLong1";
@@ -154,6 +157,9 @@ public final class AliasParamNumber {
     private String aliasInteger0Integer0="a";
     private String aliasInteger1Integer0="a";
     private String aliasLong0ToStringMethod0="a";
+    private String aliasLong1ToStringMethod0="a";
+    private String aliasLong1ToStringMethod1="b";
+    private String aliasLong0Signum0="a";
     private String aliasLong0ParseLong0="a";
     private String aliasLong1ParseLong0="a";
     private String aliasLong1ParseLong1="b";
@@ -588,6 +594,30 @@ public final class AliasParamNumber {
 
     public void setAliasLong0ToStringMethod0(String _v) {
         this.aliasLong0ToStringMethod0 =_v;
+    }
+
+    public String getAliasLong1ToStringMethod0() {
+        return aliasLong1ToStringMethod0;
+    }
+
+    public void setAliasLong1ToStringMethod0(String _v) {
+        this.aliasLong1ToStringMethod0 =_v;
+    }
+
+    public String getAliasLong1ToStringMethod1() {
+        return aliasLong1ToStringMethod1;
+    }
+
+    public void setAliasLong1ToStringMethod1(String _v) {
+        this.aliasLong1ToStringMethod1 =_v;
+    }
+
+    public String getAliasLong0Signum0() {
+        return aliasLong0Signum0;
+    }
+
+    public void setAliasLong0Signum0(String _v) {
+        this.aliasLong0Signum0 = _v;
     }
 
     public String getAliasLong0ParseLong0() {

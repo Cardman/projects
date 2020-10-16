@@ -5930,6 +5930,18 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("Double.parseDoubleOrNull(\"1e-\")");
         assertTrue(arg_.isNull());
     }
+
+    @Test
+    public void processEl103063Test() {
+        Argument arg_ = directCalculate("Long.toString(33,16)");
+        assertEq("21", getString(arg_));
+    }
+
+    @Test
+    public void processEl103064Test() {
+        Argument arg_ = directCalculate("Long.sgn(0)");
+        assertEq(0, getNumber(arg_));
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
