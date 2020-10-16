@@ -63,29 +63,11 @@ public final class NumberUtil {
     }
 
     public static int mod(int _one, int _two) {
-        return _one - _two * quot(_one, _two);
+        return (int) mod((long)_one,(long)_two);
     }
 
     public static int quot(int _one, int _two) {
-        if (_one >= 0) {
-            if (_two >= 0) {
-                return _one/_two;
-            }
-            //_two < 0
-            return -(_one/(-_two));
-        }
-        //_one < 0
-        if (_two <= 0) {
-            if ((-_one) % (-_two) == 0) {
-                return (-_one)/(-_two);
-            }
-            return (-_one)/(-_two)+1;
-        }
-        //_one < 0 && _two > 0
-        if ((-_one) % _two == 0) {
-            return -((-_one)/_two);
-        }
-        return -((-_one)/_two)-1;
+        return (int) quot((long)_one,(long)_two);
     }
 
     public static long mod(long _one, long _two) {
@@ -93,6 +75,12 @@ public final class NumberUtil {
     }
 
     public static long quot(long _one, long _two) {
+        if (_two == Long.MIN_VALUE) {
+            if (_one >= 0) {
+                return 0;
+            }
+            return 1;
+        }
         if (_one >= 0) {
             if (_two >= 0) {
                 return _one/_two;
@@ -102,10 +90,16 @@ public final class NumberUtil {
         }
         //_one < 0
         if (_two <= 0) {
+            if (_one == Long.MIN_VALUE) {
+                return (-(-_one+1))/(-_two)+1;
+            }
             if ((-_one) % (-_two) == 0) {
                 return (-_one)/(-_two);
             }
             return (-_one)/(-_two)+1;
+        }
+        if (_one == Long.MIN_VALUE) {
+            return -(-(-_one+1)/_two)-1;
         }
         //_one < 0 && _two > 0
         if ((-_one) % _two == 0) {

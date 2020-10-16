@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 
 public class NumbersTest {
     @Test
@@ -423,6 +425,98 @@ public class NumbersTest {
     @Test
     public void quot26Test() {
         assertEq(1, NumberUtil.quot(-1L,-3));
+    }
+    @Test
+    public void quot27Test() {
+        assertEq(3074457345618258603L, NumberUtil.quot(Long.MIN_VALUE,-3));
+    }
+    @Test
+    public void quot28Test() {
+        assertEq(4611686018427387904L, NumberUtil.quot(Long.MIN_VALUE,-2));
+    }
+    @Test
+    public void quot29Test() {
+        assertEq(-3074457345618258603L, NumberUtil.quot(Long.MIN_VALUE,3));
+    }
+    @Test
+    public void quot30Test() {
+        assertEq(-4611686018427387904L, NumberUtil.quot(Long.MIN_VALUE,2));
+    }
+    @Test
+    public void quot31Test() {
+        assertEq(-1537228672809129302L, NumberUtil.quot(Long.MIN_VALUE,6));
+    }
+    @Test
+    public void quot32Test() {
+        assertEq(1537228672809129302L, NumberUtil.quot(Long.MIN_VALUE,-6));
+    }
+    @Test
+    public void quot33Test() {
+        assertEq(-1317624576693539402L, NumberUtil.quot(Long.MIN_VALUE,7));
+    }
+    @Test
+    public void quot34Test() {
+        assertEq(1317624576693539402L, NumberUtil.quot(Long.MIN_VALUE,-7));
+    }
+    @Test
+    public void quot35Test() {
+        assertEq(-1152921504606846976L, NumberUtil.quot(Long.MIN_VALUE,8));
+    }
+    @Test
+    public void quot36Test() {
+        assertEq(1152921504606846976L, NumberUtil.quot(Long.MIN_VALUE,-8));
+    }
+    @Test
+    public void quot37Test() {
+        assertEq(-1024819115206086201L, NumberUtil.quot(Long.MIN_VALUE,9));
+    }
+    @Test
+    public void quot38Test() {
+        assertEq(1024819115206086201L, NumberUtil.quot(Long.MIN_VALUE,-9));
+    }
+    @Test
+    public void quot39Test() {
+        assertEq(-128102389400760776L, NumberUtil.quot(Long.MIN_VALUE,72));
+    }
+    @Test
+    public void quot40Test() {
+        assertEq(128102389400760776L, NumberUtil.quot(Long.MIN_VALUE,-72));
+    }
+    @Test
+    public void quot41Test() {
+        assertEq(-126347562148695560L, NumberUtil.quot(Long.MIN_VALUE,73));
+    }
+    @Test
+    public void quot42Test() {
+        assertEq(126347562148695560L, NumberUtil.quot(Long.MIN_VALUE,-73));
+    }
+    @Test
+    public void quot43Test() {
+        assertEq(-124640162660199674L, NumberUtil.quot(Long.MIN_VALUE,74));
+    }
+    @Test
+    public void quot44Test() {
+        assertEq(124640162660199674L, NumberUtil.quot(Long.MIN_VALUE,-74));
+    }
+    @Test
+    public void quot45Test() {
+        assertEq(-122978293824730345L, NumberUtil.quot(Long.MIN_VALUE,75));
+    }
+    @Test
+    public void quot46Test() {
+        assertEq(122978293824730345L, NumberUtil.quot(Long.MIN_VALUE,-75));
+    }
+    @Test
+    public void quot47Test() {
+        assertEq(1, NumberUtil.quot(-1,Long.MIN_VALUE));
+    }
+    @Test
+    public void quot48Test() {
+        assertEq(0, NumberUtil.quot(1,Long.MIN_VALUE));
+    }
+    @Test
+    public void quot49Test() {
+        assertEq(1, NumberUtil.quot(Long.MIN_VALUE,Long.MIN_VALUE));
     }
     @Test
     public void mod14Test() {
