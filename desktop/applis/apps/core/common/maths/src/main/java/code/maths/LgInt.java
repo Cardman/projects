@@ -97,15 +97,15 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     public LgInt(long _entierL) {
         grDigits = new Longs();
         long nombre_;
-        if (_entierL < 0) {
+        if (_entierL == Long.MIN_VALUE) {
+            nombre_ = -(_entierL+1);
+        } else if (_entierL < 0) {
             nombre_ = -_entierL;
         } else {
             nombre_ = _entierL;
         }
-        long quotient_;
-        long reste_;
-        quotient_ = nombre_ / BASE;
-        reste_ = nombre_ - quotient_ * BASE;
+        long quotient_ = nombre_ / BASE;
+        long reste_ = nombre_ - quotient_ * BASE;
         grDigits.add(reste_);
         while (quotient_ > BASE) {
             nombre_ = quotient_;
@@ -115,6 +115,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         if (quotient_ != 0) {
             grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
+        }
+        if (_entierL == Long.MIN_VALUE) {
+            grDigits.setLast(grDigits.last()+1);
         }
         signum = (_entierL >= 0) == SIGNE_POSITIF;
     }

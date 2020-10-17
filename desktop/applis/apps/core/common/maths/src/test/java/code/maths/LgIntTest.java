@@ -70,6 +70,13 @@ public class LgIntTest {
         assertEq(LgInt.SIGNE_POSITIF, int_.getSignum());
     }
     @Test
+    public void new_LgInt_long_7Test(){
+        LgInt int_ = new LgInt(Long.MIN_VALUE);
+        Longs resDigits_ = int_.getGrDigits();
+        assertEqDigits(new Longs(9L,223372036L,854775808L), resDigits_);
+        assertEq(!LgInt.SIGNE_POSITIF, int_.getSignum());
+    }
+    @Test
     public void new_LgInt_String_1Test(){
         LgInt int_ = new LgInt("1");
         Longs resDigits_ = int_.getGrDigits();
