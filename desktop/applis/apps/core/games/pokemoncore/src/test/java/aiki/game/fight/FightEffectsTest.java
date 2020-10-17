@@ -2656,13 +2656,13 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(SOMMEIL));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(SOMMEIL));
         assertEq(new LgInt("1"),res_.rate(NULL_REF));
         assertEq(new LgInt("1"),res_.rate(SOMMEIL));
     }
@@ -2679,12 +2679,12 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
         assertTrue(res_.isValid());
     }
 
@@ -2700,11 +2700,11 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
         assertTrue(res_.isValid());
     }
 
@@ -2722,13 +2722,13 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterStatut(SOMMEIL);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         fails_.put(SOMMEIL, SOMMEIL_FAILURE);
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
         assertTrue(res_.isValid());
     }
 
@@ -2743,14 +2743,14 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         fails_.put(SOMMEIL, SOMMEIL_FAILURE);
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(SOMMEIL));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(SOMMEIL));
         assertEq(new LgInt("1"),res_.rate(NULL_REF));
         assertEq(new LgInt("1"),res_.rate(SOMMEIL));
     }
@@ -2766,14 +2766,14 @@ public class FightEffectsTest extends InitializationDataBase {
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         fails_.put(SOMMEIL, NULL_REF);
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(SOMMEIL));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(SOMMEIL));
         assertEq(new LgInt("1"),res_.rate(NULL_REF));
         assertEq(new LgInt("1"),res_.rate(SOMMEIL));
     }
@@ -2791,12 +2791,12 @@ public class FightEffectsTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterStatut(SOMMEIL);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         StringMap<String> fails_ = new StringMap<String>();
         fails_.put(SOMMEIL, SOMMEIL_FAILURE);
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
         assertTrue(res_.isValid());
     }
 
@@ -3130,7 +3130,7 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         FightEffects.processStatusLaw(fight_, thrower_, target_, law_, new StringMap<String>(), data);
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(1, fighter_.getStatusNbRound(SOMMEIL));
@@ -3147,8 +3147,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         FightEffects.processStatusLaw(fight_, thrower_, target_, law_, new StringMap<String>(), data);
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));
@@ -3165,8 +3165,8 @@ public class FightEffectsTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(SOMMEIL, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(SOMMEIL, LgInt.one());
         FightEffects.processStatusLaw(fight_, thrower_, target_, law_, new StringMap<String>(), data);
         Fighter fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));

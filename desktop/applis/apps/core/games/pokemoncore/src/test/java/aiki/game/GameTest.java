@@ -4497,8 +4497,8 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(pokemonMale_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(PTITARD));
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.containsEvent(PTITARD));
     }
 
     @Test
@@ -4526,7 +4526,7 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(pokemonMale_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(2, law_.getLaw().size());
+        assertEq(2, law_.nbEvents());
         assertEq(LgInt.one(), law_.rate(PTITARD));
         assertEq(LgInt.one(), law_.rate(BABIMANTA));
     }
@@ -4556,8 +4556,8 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(pokemonNoGender_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(PTITARD));
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.containsEvent(PTITARD));
     }
 
     @Test
@@ -4585,8 +4585,8 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(pokemonNoGender_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(PTITARD));
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.containsEvent(PTITARD));
     }
 
     @Test
@@ -4614,8 +4614,8 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(secondPokemonNoGender_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(PIKACHU));
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.containsEvent(PIKACHU));
     }
 
     @Test
@@ -4643,8 +4643,8 @@ public class GameTest extends InitializationDataBase {
         hosted_.setSecondPokemon(secondPokemonNoGender_);
         hosted_.setNbSteps(256);
         MonteCarloString law_ = game_.lawForProductedEgg(newCoords(3, 0, 2, 1, 8, 4), data);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(LIMAGMA));
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.containsEvent(LIMAGMA));
     }
 
     @Test

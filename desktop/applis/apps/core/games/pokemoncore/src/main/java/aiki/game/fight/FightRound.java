@@ -722,7 +722,7 @@ final class FightRound {
         _fight.setLettingUserAttackWithStatus(attaquer_&&attaquerAdv_);
     }
 
-    static void disableRandomlyStatus(Fight _fight,AbMonteCarlo<Boolean> _lawFullHeal, TeamPosition _combattant, String _nomStatut, boolean _return, DataBase _import) {
+    static void disableRandomlyStatus(Fight _fight,MonteCarloBoolean _lawFullHeal, TeamPosition _combattant, String _nomStatut, boolean _return, DataBase _import) {
         if (_lawFullHeal.events().isEmpty()) {
             return;
         }

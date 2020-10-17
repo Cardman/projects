@@ -1501,7 +1501,7 @@ public final class DocumentReaderAikiCoreUtil {
                 }
                 if (defaultLaw_) {
                     law_ = new MonteCarloNumber();
-                    law_.addEvent(new Rate(1),DataBase.defElementaryEvent());
+                    law_.addQuickEvent(new Rate(1),DataBase.defElementaryEvent());
 
                     break;
                 }
@@ -2045,7 +2045,7 @@ public final class DocumentReaderAikiCoreUtil {
                 if (defaultLaw_) {
                     law_ = new MonteCarloNumber();
 
-                    law_.addEvent(new Rate(1), DataBase.defElementaryEvent());
+                    law_.addQuickEvent(new Rate(1), DataBase.defElementaryEvent());
                     break;
                 }
 
@@ -2417,10 +2417,10 @@ public final class DocumentReaderAikiCoreUtil {
                     if (f instanceof EffectDamage) {
                         EffectDamage dam_ = (EffectDamage) f;
                         if (dam_.getChLaw().events().isEmpty()) {
-                            dam_.getChLaw().addEvent(Rate.one(),LgInt.one());
+                            dam_.getChLaw().addQuickEvent(Rate.one(),LgInt.one());
                         }
                         if (dam_.getHitsLaw().events().isEmpty()) {
-                            dam_.getHitsLaw().addEvent(Rate.one(),LgInt.one());
+                            dam_.getHitsLaw().addQuickEvent(Rate.one(),LgInt.one());
                         }
                     }
                 }

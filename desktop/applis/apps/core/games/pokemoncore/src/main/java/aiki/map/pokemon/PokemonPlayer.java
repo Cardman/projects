@@ -228,7 +228,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         GenderRepartition repartitionGenre_=fPk_.getGenderRep();
         MonteCarloEnum<Gender> loiGenre_ = new MonteCarloEnum<Gender>();
         for(Gender g:repartitionGenre_.getPossibleGenders()){
-            loiGenre_.addEvent(g,DataBase.defElementaryEvent());
+            loiGenre_.addQuickEvent(g,DataBase.defElementaryEvent());
         }
         LgInt maxRd_ = _import.getMaxRd();
         setGender(loiGenre_.editNumber(maxRd_,_import.getGenerator()));

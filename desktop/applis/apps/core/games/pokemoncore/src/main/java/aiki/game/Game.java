@@ -876,10 +876,10 @@ public final class Game {
         if (oppositeSex_) {
             PokemonData fPk_ = _d.getPokemon(firstPokemon_.getName());
             String event_ = fPk_.getBaseEvo();
-            law_.addEvent(event_, DataBase.defElementaryEvent());
+            law_.addQuickEvent(event_, DataBase.defElementaryEvent());
             fPk_ = _d.getPokemon(secondPokemon_.getName());
             if (!StringUtil.quickEq(fPk_.getBaseEvo(), event_)) {
-                law_.addEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
+                law_.addQuickEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
             }
             return law_;
         }
@@ -887,7 +887,7 @@ public final class Game {
         if (StringUtil.contains(fPk_.getEggGroups(), _d.getDefaultEggGroup())) {
             fPk_ = _d.getPokemon(secondPokemon_.getName());
         }
-        law_.addEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
+        law_.addQuickEvent(fPk_.getBaseEvo(), DataBase.defElementaryEvent());
         return law_;
     }
 
@@ -2373,7 +2373,7 @@ public final class Game {
         }
         MonteCarloEq<WildPk> lawCopy_ = new MonteCarloEq<WildPk>(new CollCapacity(tmpLaw_.size()));
         for(WildPk c:tmpLaw_.getKeys()){
-            lawCopy_.addEvent(c,tmpLaw_.getVal(c));
+            lawCopy_.addQuickEvent(c,tmpLaw_.getVal(c));
         }
         return lawCopy_;
     }

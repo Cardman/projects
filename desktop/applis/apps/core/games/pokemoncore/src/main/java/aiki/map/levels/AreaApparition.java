@@ -5,20 +5,20 @@ import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
 import code.util.CollCapacity;
-import code.util.EqList;
+import code.util.CustList;
 
 
 public final class AreaApparition {
 
     static final byte ALWAYS_APPARITION = 1;
 
-    private EqList<WildPk> wildPokemon;
+    private CustList<WildPk> wildPokemon;
 
     private short avgNbSteps;
 
     private byte multFight;
 
-    private EqList<WildPk> wildPokemonFishing;
+    private CustList<WildPk> wildPokemonFishing;
 
     private MonteCarloEq<WildPk> wildPokemonRand;
 
@@ -50,9 +50,9 @@ public final class AreaApparition {
         wildPokemonRandFishing = random(wildPokemonFishing, ALWAYS_APPARITION);
     }
 
-    static MonteCarloEq<WildPk> random(EqList<WildPk> _wildPokemon,
+    static MonteCarloEq<WildPk> random(CustList<WildPk> _wildPokemon,
             int _avgNbSteps) {
-        EqList<WildPk> wildPokemonCopy_ = new EqList<WildPk>(_wildPokemon);
+        CustList<WildPk> wildPokemonCopy_ = new CustList<WildPk>(_wildPokemon);
         int i_ = 0;
         while (i_ < wildPokemonCopy_.size()) {
             WildPk pk_ = wildPokemonCopy_.get(i_);
@@ -75,10 +75,10 @@ public final class AreaApparition {
                 }
                 count_++;
             }
-            wildPokemonRand_.addEvent(p, new LgInt(count_));
+            wildPokemonRand_.addQuickEvent(p, new LgInt(count_));
         }
         if (_avgNbSteps > 1) {
-            wildPokemonRand_.addEvent(new WildPk(), new LgInt((_avgNbSteps - 1)
+            wildPokemonRand_.addQuickEvent(new WildPk(), new LgInt((_avgNbSteps - 1)
                     * _wildPokemon.size()));
         }
         return wildPokemonRand_;
@@ -102,7 +102,7 @@ public final class AreaApparition {
         return getPokemonFishing(_index);
     }
 
-    public EqList<WildPk> getWildPokemon() {
+    public CustList<WildPk> getWildPokemon() {
         return wildPokemon;
     }
 
@@ -110,7 +110,7 @@ public final class AreaApparition {
         return wildPokemon.get(_index);
     }
 
-    public void setWildPokemon(EqList<WildPk> _wildPokemon) {
+    public void setWildPokemon(CustList<WildPk> _wildPokemon) {
         wildPokemon = _wildPokemon;
     }
 
@@ -130,7 +130,7 @@ public final class AreaApparition {
         multFight = _multFight;
     }
 
-    public EqList<WildPk> getWildPokemonFishing() {
+    public CustList<WildPk> getWildPokemonFishing() {
         return wildPokemonFishing;
     }
 
@@ -138,7 +138,7 @@ public final class AreaApparition {
         return wildPokemonFishing.get(_index);
     }
 
-    public void setWildPokemonFishing(EqList<WildPk> _wildPokemonFishing) {
+    public void setWildPokemonFishing(CustList<WildPk> _wildPokemonFishing) {
         wildPokemonFishing = _wildPokemonFishing;
     }
 

@@ -76,7 +76,7 @@ public final class VideoLoading {
         }
         MonteCarloNumber law_ = new MonteCarloNumber();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            law_.addEvent(new Rate(i), LgInt.one());
+            law_.addQuickEvent(new Rate(i), LgInt.one());
         }
         return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd, _abs).ll()));
     }

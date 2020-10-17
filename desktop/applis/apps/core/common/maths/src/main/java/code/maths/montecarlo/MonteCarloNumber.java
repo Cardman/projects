@@ -137,10 +137,10 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if(!containsEvent(_event)){
             if(Rate.lowerEq(_event, minimum())){
-                loi_.addEvent(false,new LgInt(1));
+                loi_.addQuickEvent(false,new LgInt(1));
                 return loi_;
             }
-            loi_.addEvent(true,new LgInt(1));
+            loi_.addQuickEvent(true,new LgInt(1));
             return loi_;
         }
         LgInt somme_=LgInt.zero();
@@ -149,9 +149,9 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 somme_.addNb(rate(e));
             }
         }
-        loi_.addEvent(false,rate(_event));
+        loi_.addQuickEvent(false,rate(_event));
         if(!somme_.isZero()){
-            loi_.addEvent(true,somme_);
+            loi_.addQuickEvent(true,somme_);
         }
         return loi_;
     }
@@ -160,10 +160,10 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if(!containsEvent(_event)){
             if(Rate.greaterEq(_event, maximum())){
-                loi_.addEvent(false,new LgInt(1));
+                loi_.addQuickEvent(false,new LgInt(1));
                 return loi_;
             }
-            loi_.addEvent(true,new LgInt(1));
+            loi_.addQuickEvent(true,new LgInt(1));
             return loi_;
         }
         LgInt somme_=LgInt.zero();
@@ -172,9 +172,9 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 somme_.addNb(rate(e));
             }
         }
-        loi_.addEvent(false,rate(_event));
+        loi_.addQuickEvent(false,rate(_event));
         if(!somme_.isZero()){
-            loi_.addEvent(true,somme_);
+            loi_.addQuickEvent(true,somme_);
         }
         return loi_;
     }

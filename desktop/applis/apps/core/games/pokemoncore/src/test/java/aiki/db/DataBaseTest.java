@@ -406,7 +406,7 @@ public class DataBaseTest {
         damage_.setFail("");
         damage_.setPower("50");
         damage_.setDamageLaw(new MonteCarloString());
-        damage_.getDamageLaw().addEvent(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"), LgInt.one());
+        damage_.getDamageLaw().addQuickEvent(StringUtil.concat("1+",DataBase.VAR_PREFIX,"NB_TURN*100"), LgInt.one());
         moveDamage_.getEffects().add(damage_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         data_.completeMembers("CHARGE", moveDamage_);
@@ -1058,7 +1058,7 @@ public class DataBaseTest {
         effStatus_.setChoiceRestriction(MoveChoiceRestrictionType.DER);
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(1, data_.getMovesEffectIndivIncr().size());
         assertEq(1, data_.getMovesEffectIndiv().size());
@@ -1081,7 +1081,7 @@ public class DataBaseTest {
         effStatus_.setFail("");
         moveDamage_.getEffects().add(effStatus_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(1, data_.getMovesEffectIndivIncr().size());
         assertEq(1, data_.getMovesEffectProt().size());
@@ -1241,7 +1241,7 @@ public class DataBaseTest {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
@@ -1270,7 +1270,7 @@ public class DataBaseTest {
         effect_.setEndRoundRank(2);
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(0, data_.getTrappingMoves().size());
@@ -1299,11 +1299,11 @@ public class DataBaseTest {
         effect_.setEndRoundRank(2);
         effect_.setRateDamageFunctionOfNbRounds(new LongMap<Rate>());
         effect_.setLawForEnablingEffect(new MonteCarloNumber());
-        effect_.getLawForEnablingEffect().addEvent(Rate.one(), LgInt.zero());
+        effect_.getLawForEnablingEffect().addQuickEvent(Rate.one(), LgInt.zero());
         effect_.getRateDamageFunctionOfNbRounds().put(1L, new Rate(1,2));
         moveDamage_.getEffects().add(effect_);
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getMovesConstChoices().size());
         assertEq(1, data_.getTrappingMoves().size());
@@ -1327,7 +1327,7 @@ public class DataBaseTest {
         moveDamage_.setEffects(new CustList<Effect>());
         moveDamage_.setRepeatRoundLaw(new MonteCarloNumber());
         moveDamage_.setConstUserChoice(true);
-        moveDamage_.getRepeatRoundLaw().addEvent(Rate.one(), LgInt.one());
+        moveDamage_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(1, data_.getMovesConstChoices().size());
         assertEq(0, data_.getMovesEffEndRoundIndiv().size());

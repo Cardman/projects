@@ -341,7 +341,7 @@ final class InitializationAbilities {
         ficheCapacite_.getBreakFoeImmune().add(new TypesDuo(COMBAT,SPECTRE));
         _data.completeQuickMembers(QUERELLEUR,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getSingleStatus().addEvent(AMOUR, LgInt.one());
+        ficheCapacite_.getSingleStatus().addQuickEvent(AMOUR, LgInt.one());
         _data.completeQuickMembers(JOLI_SOURIRE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getChangingBoostTypes().addEntry(NORMAL, new TypeDamageBoost(FEE, new Rate("3/2")));
@@ -807,14 +807,14 @@ final class InitializationAbilities {
         ficheCapacite_.setMultDamageCh(new Rate("3/2"));
         _data.completeQuickMembers(SNIPER,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getSingleStatus().addEvent(NULL_REF,new LgInt("7"));
-        ficheCapacite_.getSingleStatus().addEvent(POISON_ST,new LgInt("3"));
+        ficheCapacite_.getSingleStatus().addQuickEvent(NULL_REF,new LgInt("7"));
+        ficheCapacite_.getSingleStatus().addQuickEvent(POISON_ST,new LgInt("3"));
         _data.completeQuickMembers(TOXITOUCHE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getSingleStatus().addEvent(BRULURE,new LgInt("1"));
+        ficheCapacite_.getSingleStatus().addQuickEvent(BRULURE,new LgInt("1"));
         _data.completeQuickMembers(PYROMANE,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
-        ficheCapacite_.getSingleStatus().addEvent(PARALYSIE,new LgInt("1"));
+        ficheCapacite_.getSingleStatus().addQuickEvent(PARALYSIE,new LgInt("1"));
         _data.completeQuickMembers(STATIK,ficheCapacite_);
         ficheCapacite_ = defaultFicheCapacite();
         ficheCapacite_.getImmuMove().add(JET_DE_SABLE);

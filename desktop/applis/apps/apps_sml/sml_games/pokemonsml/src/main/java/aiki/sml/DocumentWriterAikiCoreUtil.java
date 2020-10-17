@@ -4369,7 +4369,7 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListWildPk(EqList<WildPk> _object, String _fieldName, Document _document) {
+    private static Element setListWildPk(CustList<WildPk> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (WildPk s: _object) {

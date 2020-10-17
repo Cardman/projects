@@ -107,7 +107,7 @@ public class FightSuccessTest extends InitializationDataBase {
     @Test
     public void random1Test() {
         MonteCarloNumber law_ = new MonteCarloNumber();
-        law_.addEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.one(), LgInt.one());
         Rate event_ = FightSuccess.random(data, law_);
         assertEq(Rate.one(), event_);
     }
@@ -115,8 +115,8 @@ public class FightSuccessTest extends InitializationDataBase {
     @Test
     public void random2Test() {
         MonteCarloNumber law_ = new MonteCarloNumber();
-        law_.addEvent(Rate.one(), LgInt.one());
-        law_.addEvent(Rate.zero(), LgInt.zero());
+        law_.addQuickEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.zero(), LgInt.zero());
         Rate event_ = FightSuccess.random(data, law_);
         assertEq(Rate.one(), event_);
     }
@@ -126,8 +126,8 @@ public class FightSuccessTest extends InitializationDataBase {
         Fight fight_ = random();
         fight_.setSimulation(true);
         MonteCarloNumber law_ = new MonteCarloNumber();
-        law_.addEvent(Rate.one(), LgInt.one());
-        law_.addEvent(Rate.zero(), LgInt.zero());
+        law_.addQuickEvent(Rate.one(), LgInt.one());
+        law_.addQuickEvent(Rate.zero(), LgInt.zero());
         assertTrue(FightSuccess.isBadSimulation(fight_, law_));
     }
 
@@ -4763,10 +4763,10 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
     }
 
     @Test
@@ -4776,12 +4776,12 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(NULL_REF);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(BRULURE, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(BRULURE, LgInt.one());
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(BRULURE));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(BRULURE));
     }
 
     @Test
@@ -4791,12 +4791,12 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(METEO);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(BRULURE, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(BRULURE, LgInt.one());
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(BRULURE));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(BRULURE));
     }
 
     @Test
@@ -4806,11 +4806,11 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(SERENITE);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, LgInt.one());
-        law_.addEvent(BRULURE, LgInt.one());
+        law_.addQuickEvent(NULL_REF, LgInt.one());
+        law_.addQuickEvent(BRULURE, LgInt.one());
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(BRULURE));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(BRULURE));
     }
 
     @Test
@@ -4820,14 +4820,14 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(METEO);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, new LgInt("3"));
-        law_.addEvent(BRULURE, LgInt.one());
+        law_.addQuickEvent(NULL_REF, new LgInt("3"));
+        law_.addQuickEvent(BRULURE, LgInt.one());
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_DE_FEU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_EAU);
         fight_.getUserTeam().addSuccessfulMoveRound(AIRE_D_HERBE);
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(1, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(BRULURE));
+        assertEq(1, res_.nbEvents());
+        assertTrue(res_.containsEvent(BRULURE));
     }
 
     @Test
@@ -4837,12 +4837,12 @@ public class FightSuccessTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         f_.setCurrentAbility(SERENITE);
         MonteCarloString law_ = new MonteCarloString();
-        law_.addEvent(NULL_REF, new LgInt("3"));
-        law_.addEvent(BRULURE, LgInt.one());
+        law_.addQuickEvent(NULL_REF, new LgInt("3"));
+        law_.addQuickEvent(BRULURE, LgInt.one());
         MonteCarloString res_ = FightSuccess.probaEffectStatus(fight_, fighter_, law_, data);
-        assertEq(2, res_.getLaw().size());
-        assertTrue(res_.getLaw().contains(NULL_REF));
-        assertTrue(res_.getLaw().contains(BRULURE));
+        assertEq(2, res_.nbEvents());
+        assertTrue(res_.containsEvent(NULL_REF));
+        assertTrue(res_.containsEvent(BRULURE));
         assertEq(new LgInt("2"),res_.rate(NULL_REF));
         assertEq(new LgInt("2"),res_.rate(BRULURE));
     }

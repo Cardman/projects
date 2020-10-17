@@ -1069,7 +1069,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
         EffectStatus effectStatistic_ = Instances.newEffectStatus();
         effectStatistic_.setTargetChoice(TargetChoice.LANCEUR);
-        effectStatistic_.getLawStatus().addEvent(TREMPETTE,LgInt.one());
+        effectStatistic_.getLawStatus().addQuickEvent(TREMPETTE,LgInt.one());
         move_.getEffects().add(effectStatistic_);
         data_.completeMembers(CHARGE, move_);
         assertTrue(DataBase.nextIteration(move_,0));

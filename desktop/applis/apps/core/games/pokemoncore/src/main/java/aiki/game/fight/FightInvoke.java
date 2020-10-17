@@ -63,7 +63,7 @@ final class FightInvoke {
         StringList attaquesInvocables_=invokableMoves(_fight,_lanceur,_cible,_effet,_import);
         MonteCarloString loi_ = new MonteCarloString();
         for(String e:attaquesInvocables_){
-            loi_.addEvent(e,DataBase.defElementaryEvent());
+            loi_.addQuickEvent(e,DataBase.defElementaryEvent());
         }
         if (FightSuccess.isBadSimulation(_fight, loi_)) {
             return;

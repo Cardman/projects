@@ -1288,7 +1288,7 @@ final class FightSuccess {
         return proba_;
     }
 
-    static MonteCarloString probaEffectStatus(Fight _fight,TeamPosition _combattant,AbMonteCarlo<String> _loi,DataBase _import){
+    static MonteCarloString probaEffectStatus(Fight _fight,TeamPosition _combattant,MonteCarloString _loi,DataBase _import){
         MonteCarloString retour_ =new MonteCarloString();
         Fighter creature_=_fight.getFighter(_combattant);
         LgInt somme_=_loi.sum();
@@ -1315,16 +1315,16 @@ final class FightSuccess {
                 if(e.isEmpty()){
                     continue;
                 }
-                retour_.addEvent(e,_loi.rate(e));
+                retour_.addQuickEvent(e,_loi.rate(e));
             }
             return retour_;
         }
         for(String e:_loi.events()){
             if(e.isEmpty()){
-                retour_.addEvent(e,Rate.minus(new Rate(somme_),sommePartielle_).intPart());
+                retour_.addQuickEvent(e,Rate.minus(new Rate(somme_),sommePartielle_).intPart());
                 continue;
             }
-            retour_.addEvent(e,LgInt.multiply(_loi.rate(e),coeff_.intPart()));
+            retour_.addQuickEvent(e,LgInt.multiply(_loi.rate(e),coeff_.intPart()));
         }
         return retour_;
     }

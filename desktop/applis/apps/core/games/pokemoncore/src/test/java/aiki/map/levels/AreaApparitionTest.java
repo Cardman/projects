@@ -17,15 +17,15 @@ public class AreaApparitionTest {
     public void random1Test() {
         EqList<WildPk> list_ = new EqList<WildPk>();
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
-        assertEq(0, law_.getLaw().size());
+        assertEq(0, law_.nbEvents());
     }
 
     @Test
     public void random2Test() {
         EqList<WildPk> list_ = new EqList<WildPk>();
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 2);
-        assertEq(1, law_.getLaw().size());
-        assertTrue(law_.getLaw().getKeys().first().hasJustBeenCreated());
+        assertEq(1, law_.nbEvents());
+        assertTrue(law_.events().first().hasJustBeenCreated());
     }
 
     @Test
@@ -40,9 +40,9 @@ public class AreaApparitionTest {
         pk_.setItem("");
         list_.add(pk_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
-        assertEq(1, law_.getLaw().size());
+        assertEq(1, law_.nbEvents());
         WildPk event_;
-        event_ = law_.getLaw().getKeys().first();
+        event_ = law_.events().first();
         assertEq("PIKACHU", event_.getName());
         assertEq("STATIK", event_.getAbility());
         assertEq("", event_.getItem());
@@ -62,9 +62,9 @@ public class AreaApparitionTest {
         pk_.setItem("");
         list_.add(pk_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
-        assertEq(2, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(pk_));
-        assertTrue(law_.getLaw().contains(new WildPk()));
+        assertEq(2, law_.nbEvents());
+        assertTrue(law_.containsEvent(pk_));
+        assertTrue(law_.containsEvent(new WildPk()));
         assertEq(new LgInt("1"), law_.rate(pk_));
         assertEq(new LgInt("2"), law_.rate(new WildPk()));
     }
@@ -87,10 +87,10 @@ public class AreaApparitionTest {
         pkTwo_.setItem("");
         list_.add(pkTwo_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
-        assertEq(3, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(pkOne_));
-        assertTrue(law_.getLaw().contains(pkTwo_));
-        assertTrue(law_.getLaw().contains(new WildPk()));
+        assertEq(3, law_.nbEvents());
+        assertTrue(law_.containsEvent(pkOne_));
+        assertTrue(law_.containsEvent(pkTwo_));
+        assertTrue(law_.containsEvent(new WildPk()));
         assertEq(new LgInt("1"), law_.rate(pkOne_));
         assertEq(new LgInt("1"), law_.rate(pkTwo_));
         assertEq(new LgInt("4"), law_.rate(new WildPk()));
@@ -121,10 +121,10 @@ public class AreaApparitionTest {
         pkThree_.setItem("");
         list_.add(pkThree_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, 3);
-        assertEq(3, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(pkOne_));
-        assertTrue(law_.getLaw().contains(pkTwo_));
-        assertTrue(law_.getLaw().contains(new WildPk()));
+        assertEq(3, law_.nbEvents());
+        assertTrue(law_.containsEvent(pkOne_));
+        assertTrue(law_.containsEvent(pkTwo_));
+        assertTrue(law_.containsEvent(new WildPk()));
         assertEq(new LgInt("1"), law_.rate(pkOne_));
         assertEq(new LgInt("2"), law_.rate(pkTwo_));
         assertEq(new LgInt("6"), law_.rate(new WildPk()));
@@ -148,9 +148,9 @@ public class AreaApparitionTest {
         pkTwo_.setItem("");
         list_.add(pkTwo_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
-        assertEq(2, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(pkOne_));
-        assertTrue(law_.getLaw().contains(pkTwo_));
+        assertEq(2, law_.nbEvents());
+        assertTrue(law_.containsEvent(pkOne_));
+        assertTrue(law_.containsEvent(pkTwo_));
         assertEq(new LgInt("1"), law_.rate(pkOne_));
         assertEq(new LgInt("1"), law_.rate(pkTwo_));
     }
@@ -180,9 +180,9 @@ public class AreaApparitionTest {
         pkThree_.setItem("");
         list_.add(pkThree_);
         MonteCarloEq<WildPk> law_ = AreaApparition.random(list_, AreaApparition.ALWAYS_APPARITION);
-        assertEq(2, law_.getLaw().size());
-        assertTrue(law_.getLaw().contains(pkOne_));
-        assertTrue(law_.getLaw().contains(pkTwo_));
+        assertEq(2, law_.nbEvents());
+        assertTrue(law_.containsEvent(pkOne_));
+        assertTrue(law_.containsEvent(pkTwo_));
         assertEq(new LgInt("1"), law_.rate(pkOne_));
         assertEq(new LgInt("2"), law_.rate(pkTwo_));
     }

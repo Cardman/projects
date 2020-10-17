@@ -475,9 +475,9 @@ public final class DataMap {
                     }
                     AreaApparition areaApparition_ = wildPokemonAreas_
                             .get(index_);
-                    EqList<WildPk> wildPokemon_ = areaApparition_.getWildPokemon();
+                    CustList<WildPk> wildPokemon_ = areaApparition_.getWildPokemon();
                     feedDirectCatch(directCatchPk_, wildPokemon_);
-                    EqList<WildPk> wildPokemonFishing_ = areaApparition_.getWildPokemonFishing();
+                    CustList<WildPk> wildPokemonFishing_ = areaApparition_.getWildPokemonFishing();
                     feedDirectCatch(directCatchPk_, wildPokemonFishing_);
                 }
             }
@@ -720,7 +720,7 @@ public final class DataMap {
         }
     }
 
-    void feedDirectCatch(StringMap<EnumList<Gender>> _directCatchPk, EqList<WildPk> _wildPokemon) {
+    void feedDirectCatch(StringMap<EnumList<Gender>> _directCatchPk, CustList<WildPk> _wildPokemon) {
         for (WildPk p : _wildPokemon) {
             if (!_directCatchPk.contains(p.getName())) {
                 _directCatchPk.put(p.getName(),

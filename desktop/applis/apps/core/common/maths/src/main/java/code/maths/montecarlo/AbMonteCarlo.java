@@ -15,20 +15,20 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
     public static MonteCarloBoolean booleanLaw(Rate _rateEnabled) {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if (_rateEnabled.greaterOrEqualsOne()){
-            loi_.addEvent(true,LgInt.one());
+            loi_.addQuickEvent(true,LgInt.one());
             return loi_;
         }
         if (!_rateEnabled.isZeroOrGt()) {
-            loi_.addEvent(false,LgInt.one());
+            loi_.addQuickEvent(false,LgInt.one());
             return loi_;
         }
         if (_rateEnabled.isZero()) {
-            loi_.addEvent(false,LgInt.one());
+            loi_.addQuickEvent(false,LgInt.one());
             return loi_;
         }
         NumDiffDenNum p_ = _rateEnabled.getNumDiffDenNum();
-        loi_.addEvent(true,p_.getNumerator());
-        loi_.addEvent(false,p_.getDiffDenNumerator());
+        loi_.addQuickEvent(true,p_.getNumerator());
+        loi_.addQuickEvent(false,p_.getDiffDenNumerator());
         return loi_;
     }
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
@@ -152,6 +152,10 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     public void addEvent(E _event,LgInt _probaRelative){
         getLaw().put(_event, _probaRelative);
+    }
+
+    public void addQuickEvent(E _event,LgInt _probaRelative){
+        getLaw().addEntry(_event, _probaRelative);
     }
 
     public boolean checkEvents() {

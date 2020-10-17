@@ -250,6 +250,30 @@ public class MonteCarloTest {
     }
 
     @Test
+    public void editNumber11Test() {
+        MonteCarloNb law_ = new MonteCarloNb();
+        law_.addQuickEvent(2L, new LgInt(1));
+        law_.addQuickEvent(2L, new LgInt(1));
+        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+    }
+
+    @Test
+    public void editNumber12Test() {
+        MonteCarloNb law_ = new MonteCarloNb();
+        law_.addQuickEvent(2L, new LgInt(1));
+        law_.addQuickEvent(2L, new LgInt(2));
+        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+    }
+
+    @Test
+    public void editNumber13Test() {
+        MonteCarloNb law_ = new MonteCarloNb();
+        law_.addQuickEvent(2L, new LgInt(2));
+        law_.addQuickEvent(2L, new LgInt(1));
+        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+    }
+
+    @Test
     public void nbEventsTest() {
         MonteCarloNb law_ = new MonteCarloNb();
         assertEq(0, law_.nbEvents());

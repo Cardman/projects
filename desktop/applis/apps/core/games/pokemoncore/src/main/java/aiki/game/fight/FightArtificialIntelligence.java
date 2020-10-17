@@ -380,7 +380,7 @@ final class FightArtificialIntelligence {
             StringList attaquesUtilisables_= FightFacade.allowedMovesNotEmpty(_fight,Fight.toFoeFighter((byte) 0),_import);
             MonteCarloString loi_ = new MonteCarloString();
             for(String e:attaquesUtilisables_){
-                loi_.addEvent(e,DataBase.defElementaryEvent());
+                loi_.addQuickEvent(e,DataBase.defElementaryEvent());
             }
             LgInt maxRd_ = _import.getMaxRd();
             String attaqueUtilisee_=loi_.editNumber(maxRd_,_import.getGenerator());

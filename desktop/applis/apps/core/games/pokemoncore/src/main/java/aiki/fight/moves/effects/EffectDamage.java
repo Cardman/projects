@@ -92,7 +92,7 @@ public final class EffectDamage extends Effect {
                 _data.setError(true);
             }
         } else {
-            chLaw.addEvent(Rate.one(),LgInt.one());
+            chLaw.addQuickEvent(Rate.one(),LgInt.one());
         }
         if (!hitsLaw.events().isEmpty()) {
             Rate min_ = hitsLaw.minimum();
@@ -108,7 +108,7 @@ public final class EffectDamage extends Effect {
                 }
             }
         } else {
-            hitsLaw.addEvent(Rate.one(),LgInt.one());
+            hitsLaw.addQuickEvent(Rate.one(),LgInt.one());
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 ignVarStatTargetPos)) {
