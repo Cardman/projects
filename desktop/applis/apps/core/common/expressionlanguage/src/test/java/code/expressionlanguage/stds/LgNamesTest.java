@@ -2054,6 +2054,18 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getNbAlias().getParams().setAliasLong0ParseLongOrNull0("");
         lgName_.getNbAlias().getParams().setAliasLong1ParseLongOrNull0("");
         lgName_.getNbAlias().getParams().setAliasLong1ParseLongOrNull1("");
+        lgName_.getNbAlias().getParams().setAliasByte0ToBinString0("");
+        lgName_.getNbAlias().getParams().setAliasByte0ToOctString0("");
+        lgName_.getNbAlias().getParams().setAliasByte0ToHexString0("");
+        lgName_.getNbAlias().getParams().setAliasShort0ToBinString0("");
+        lgName_.getNbAlias().getParams().setAliasShort0ToOctString0("");
+        lgName_.getNbAlias().getParams().setAliasShort0ToHexString0("");
+        lgName_.getNbAlias().getParams().setAliasInteger0ToBinString0("");
+        lgName_.getNbAlias().getParams().setAliasInteger0ToOctString0("");
+        lgName_.getNbAlias().getParams().setAliasInteger0ToHexString0("");
+        lgName_.getNbAlias().getParams().setAliasLong0ToBinString0("");
+        lgName_.getNbAlias().getParams().setAliasLong0ToOctString0("");
+        lgName_.getNbAlias().getParams().setAliasLong0ToHexString0("");
         lgName_.getNbAlias().getParams().setAliasLong0Long0("");
         lgName_.getNbAlias().getParams().setAliasLong1Long0("");
         lgName_.getNbAlias().getParams().setAliasFloat0ToStringMethod0("");

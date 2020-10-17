@@ -21,6 +21,9 @@ public final class AliasParamNumber {
     public static final String BYTE_0_PARSE_BYTE_OR_NULL_0="Byte0ParseByteOrNull0";
     public static final String BYTE_1_PARSE_BYTE_OR_NULL_0="Byte1ParseByteOrNull0";
     public static final String BYTE_1_PARSE_BYTE_OR_NULL_1="Byte1ParseByteOrNull1";
+    public static final String BYTE_0_TO_BIN_STRING_0="Byte0ToBinString0";
+    public static final String BYTE_0_TO_OCT_STRING_0="Byte0ToOctString0";
+    public static final String BYTE_0_TO_HEX_STRING_0="Byte0ToHexString0";
     public static final String BYTE_0_BYTE_0="Byte0Byte0";
     public static final String BYTE_1_BYTE_0="Byte1Byte0";
     public static final String SHORT_0_TO_STRING_METHOD_0="Short0ToStringMethod0";
@@ -33,6 +36,9 @@ public final class AliasParamNumber {
     public static final String SHORT_0_PARSE_SHORT_OR_NULL_0="Short0ParseShortOrNull0";
     public static final String SHORT_1_PARSE_SHORT_OR_NULL_0="Short1ParseShortOrNull0";
     public static final String SHORT_1_PARSE_SHORT_OR_NULL_1="Short1ParseShortOrNull1";
+    public static final String SHORT_0_TO_BIN_STRING_0="Short0ToBinString0";
+    public static final String SHORT_0_TO_OCT_STRING_0="Short0ToOctString0";
+    public static final String SHORT_0_TO_HEX_STRING_0="Short0ToHexString0";
     public static final String SHORT_0_SHORT_0="Short0Short0";
     public static final String SHORT_1_SHORT_0="Short1Short0";
     public static final String INTEGER_0_TO_STRING_METHOD_0="Integer0ToStringMethod0";
@@ -45,6 +51,9 @@ public final class AliasParamNumber {
     public static final String INTEGER_0_PARSE_INT_OR_NULL_0="Integer0ParseIntOrNull0";
     public static final String INTEGER_1_PARSE_INT_OR_NULL_0="Integer1ParseIntOrNull0";
     public static final String INTEGER_1_PARSE_INT_OR_NULL_1="Integer1ParseIntOrNull1";
+    public static final String INTEGER_0_TO_BIN_STRING_0="Integer0ToBinString0";
+    public static final String INTEGER_0_TO_OCT_STRING_0="Integer0ToOctString0";
+    public static final String INTEGER_0_TO_HEX_STRING_0="Integer0ToHexString0";
     public static final String INTEGER_0_INTEGER_0="Integer0Integer0";
     public static final String INTEGER_1_INTEGER_0="Integer1Integer0";
     public static final String LONG_0_TO_STRING_METHOD_0="Long0ToStringMethod0";
@@ -60,6 +69,9 @@ public final class AliasParamNumber {
     public static final String LONG_0_PARSE_LONG_OR_NULL_0="Long0ParseLongOrNull0";
     public static final String LONG_1_PARSE_LONG_OR_NULL_0="Long1ParseLongOrNull0";
     public static final String LONG_1_PARSE_LONG_OR_NULL_1="Long1ParseLongOrNull1";
+    public static final String LONG_0_TO_BIN_STRING_0="Long0ToBinString0";
+    public static final String LONG_0_TO_OCT_STRING_0="Long0ToOctString0";
+    public static final String LONG_0_TO_HEX_STRING_0="Long0ToHexString0";
     public static final String LONG_0_LONG_0="Long0Long0";
     public static final String LONG_1_LONG_0="Long1Long0";
     public static final String FLOAT_0_TO_STRING_METHOD_0="Float0ToStringMethod0";
@@ -130,6 +142,9 @@ public final class AliasParamNumber {
     private String aliasByte0ParseByteOrNull0="a";
     private String aliasByte1ParseByteOrNull0="a";
     private String aliasByte1ParseByteOrNull1="b";
+    private String aliasByte0ToBinString0="a";
+    private String aliasByte0ToOctString0="a";
+    private String aliasByte0ToHexString0="a";
     private String aliasByte0Byte0="a";
     private String aliasByte1Byte0="a";
     private String aliasShort0ToStringMethod0="a";
@@ -142,6 +157,9 @@ public final class AliasParamNumber {
     private String aliasShort0ParseShortOrNull0="a";
     private String aliasShort1ParseShortOrNull0="a";
     private String aliasShort1ParseShortOrNull1="b";
+    private String aliasShort0ToBinString0="a";
+    private String aliasShort0ToOctString0="a";
+    private String aliasShort0ToHexString0="a";
     private String aliasShort0Short0="a";
     private String aliasShort1Short0="a";
     private String aliasInteger0ToStringMethod0="a";
@@ -154,6 +172,9 @@ public final class AliasParamNumber {
     private String aliasInteger0ParseIntOrNull0="a";
     private String aliasInteger1ParseIntOrNull0="a";
     private String aliasInteger1ParseIntOrNull1="b";
+    private String aliasInteger0ToBinString0="a";
+    private String aliasInteger0ToOctString0="a";
+    private String aliasInteger0ToHexString0="a";
     private String aliasInteger0Integer0="a";
     private String aliasInteger1Integer0="a";
     private String aliasLong0ToStringMethod0="a";
@@ -169,6 +190,9 @@ public final class AliasParamNumber {
     private String aliasLong0ParseLongOrNull0="a";
     private String aliasLong1ParseLongOrNull0="a";
     private String aliasLong1ParseLongOrNull1="b";
+    private String aliasLong0ToBinString0="a";
+    private String aliasLong0ToOctString0="a";
+    private String aliasLong0ToHexString0="a";
     private String aliasLong0Long0="a";
     private String aliasLong1Long0="a";
     private String aliasFloat0ToStringMethod0="a";
@@ -380,6 +404,30 @@ public final class AliasParamNumber {
         this.aliasByte1ParseByteOrNull1 =_v;
     }
 
+    public String getAliasByte0ToBinString0() {
+        return aliasByte0ToBinString0;
+    }
+
+    public void setAliasByte0ToBinString0(String _v) {
+        this.aliasByte0ToBinString0 = _v;
+    }
+
+    public String getAliasByte0ToOctString0() {
+        return aliasByte0ToOctString0;
+    }
+
+    public void setAliasByte0ToOctString0(String _v) {
+        this.aliasByte0ToOctString0 = _v;
+    }
+
+    public String getAliasByte0ToHexString0() {
+        return aliasByte0ToHexString0;
+    }
+
+    public void setAliasByte0ToHexString0(String _v) {
+        this.aliasByte0ToHexString0 = _v;
+    }
+
     public String getAliasByte0Byte0() {
         return aliasByte0Byte0;
     }
@@ -476,6 +524,30 @@ public final class AliasParamNumber {
         this.aliasShort1ParseShortOrNull1 =_v;
     }
 
+    public String getAliasShort0ToBinString0() {
+        return aliasShort0ToBinString0;
+    }
+
+    public void setAliasShort0ToBinString0(String _v) {
+        this.aliasShort0ToBinString0 = _v;
+    }
+
+    public String getAliasShort0ToOctString0() {
+        return aliasShort0ToOctString0;
+    }
+
+    public void setAliasShort0ToOctString0(String _v) {
+        this.aliasShort0ToOctString0 = _v;
+    }
+
+    public String getAliasShort0ToHexString0() {
+        return aliasShort0ToHexString0;
+    }
+
+    public void setAliasShort0ToHexString0(String _v) {
+        this.aliasShort0ToHexString0 = _v;
+    }
+
     public String getAliasShort0Short0() {
         return aliasShort0Short0;
     }
@@ -570,6 +642,30 @@ public final class AliasParamNumber {
 
     public void setAliasInteger1ParseIntOrNull1(String _v) {
         this.aliasInteger1ParseIntOrNull1 =_v;
+    }
+
+    public String getAliasInteger0ToBinString0() {
+        return aliasInteger0ToBinString0;
+    }
+
+    public void setAliasInteger0ToBinString0(String _v) {
+        this.aliasInteger0ToBinString0 = _v;
+    }
+
+    public String getAliasInteger0ToOctString0() {
+        return aliasInteger0ToOctString0;
+    }
+
+    public void setAliasInteger0ToOctString0(String _v) {
+        this.aliasInteger0ToOctString0 = _v;
+    }
+
+    public String getAliasInteger0ToHexString0() {
+        return aliasInteger0ToHexString0;
+    }
+
+    public void setAliasInteger0ToHexString0(String _v) {
+        this.aliasInteger0ToHexString0 = _v;
     }
 
     public String getAliasInteger0Integer0() {
@@ -690,6 +786,30 @@ public final class AliasParamNumber {
 
     public void setAliasLong1ParseLongOrNull1(String _v) {
         this.aliasLong1ParseLongOrNull1 =_v;
+    }
+
+    public String getAliasLong0ToBinString0() {
+        return aliasLong0ToBinString0;
+    }
+
+    public void setAliasLong0ToBinString0(String _v) {
+        this.aliasLong0ToBinString0 = _v;
+    }
+
+    public String getAliasLong0ToOctString0() {
+        return aliasLong0ToOctString0;
+    }
+
+    public void setAliasLong0ToOctString0(String _v) {
+        this.aliasLong0ToOctString0 = _v;
+    }
+
+    public String getAliasLong0ToHexString0() {
+        return aliasLong0ToHexString0;
+    }
+
+    public void setAliasLong0ToHexString0(String _v) {
+        this.aliasLong0ToHexString0 = _v;
     }
 
     public String getAliasLong0Long0() {

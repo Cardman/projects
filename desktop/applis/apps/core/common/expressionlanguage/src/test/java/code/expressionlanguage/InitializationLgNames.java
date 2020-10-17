@@ -109,6 +109,9 @@ public final class InitializationLgNames {
         _lgNames.getContent().getNbAlias().setAliasEquals("equals");
         _lgNames.getContent().getNbAlias().setAliasToStringMethod("toString");
         _lgNames.getContent().getNbAlias().setAliasSignum("sgn");
+        _lgNames.getContent().getNbAlias().setAliasToBinString("bin");
+        _lgNames.getContent().getNbAlias().setAliasToOctString("oct");
+        _lgNames.getContent().getNbAlias().setAliasToHexString("hex");
         _lgNames.getContent().getNbAlias().setAliasValueOfMethod("valueOf");
         _lgNames.getContent().getNbAlias().setAliasMaxValueField("MAX_VALUE");
         _lgNames.getContent().getNbAlias().setAliasMinValueField("MIN_VALUE");

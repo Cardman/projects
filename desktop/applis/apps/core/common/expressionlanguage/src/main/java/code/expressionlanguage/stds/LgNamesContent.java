@@ -61,6 +61,9 @@ public final class LgNamesContent {
     private static final String PARSE_FLOAT = "ParseFloat";
     private static final String TO_STRING_METHOD = "ToStringMethod";
     private static final String SIGNUM = "Signum";
+    private static final String BIN = "Bin";
+    private static final String OCT = "Oct";
+    private static final String HEX = "Hex";
     private static final String PARSE_LONG_OR_NULL = "ParseLongOrNull";
     private static final String PARSE_SHORT_OR_NULL = "ParseShortOrNull";
     private static final String PARSE_FLOAT_OR_NULL = "ParseFloatOrNull";
@@ -388,6 +391,9 @@ public final class LgNamesContent {
         getNbAlias().setAliasParseFloat(get(_util,_cust, PARSE_FLOAT));
         getNbAlias().setAliasToStringMethod(get(_util,_cust, TO_STRING_METHOD));
         getNbAlias().setAliasSignum(get(_util,_cust, SIGNUM));
+        getNbAlias().setAliasToBinString(get(_util,_cust, BIN));
+        getNbAlias().setAliasToOctString(get(_util,_cust, OCT));
+        getNbAlias().setAliasToHexString(get(_util,_cust, HEX));
         getNbAlias().setAliasParseLongOrNull(get(_util,_cust, PARSE_LONG_OR_NULL));
         getNbAlias().setAliasParseShortOrNull(get(_util,_cust, PARSE_SHORT_OR_NULL));
         getNbAlias().setAliasParseFloatOrNull(get(_util,_cust, PARSE_FLOAT_OR_NULL));
@@ -947,6 +953,9 @@ public final class LgNamesContent {
         getNbAlias().getParams().setAliasByte0ParseByteOrNull0(get(_util,_cust, AliasParamNumber.BYTE_0_PARSE_BYTE_OR_NULL_0));
         getNbAlias().getParams().setAliasByte1ParseByteOrNull0(get(_util,_cust, AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_0));
         getNbAlias().getParams().setAliasByte1ParseByteOrNull1(get(_util,_cust, AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_1));
+        getNbAlias().getParams().setAliasByte0ToBinString0(get(_util,_cust, AliasParamNumber.BYTE_0_TO_BIN_STRING_0));
+        getNbAlias().getParams().setAliasByte0ToOctString0(get(_util,_cust, AliasParamNumber.BYTE_0_TO_OCT_STRING_0));
+        getNbAlias().getParams().setAliasByte0ToHexString0(get(_util,_cust, AliasParamNumber.BYTE_0_TO_HEX_STRING_0));
         getNbAlias().getParams().setAliasByte0Byte0(get(_util,_cust, AliasParamNumber.BYTE_0_BYTE_0));
         getNbAlias().getParams().setAliasByte1Byte0(get(_util,_cust, AliasParamNumber.BYTE_1_BYTE_0));
         getNbAlias().getParams().setAliasShort0ToStringMethod0(get(_util,_cust, AliasParamNumber.SHORT_0_TO_STRING_METHOD_0));
@@ -959,6 +968,9 @@ public final class LgNamesContent {
         getNbAlias().getParams().setAliasShort0ParseShortOrNull0(get(_util,_cust, AliasParamNumber.SHORT_0_PARSE_SHORT_OR_NULL_0));
         getNbAlias().getParams().setAliasShort1ParseShortOrNull0(get(_util,_cust, AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_0));
         getNbAlias().getParams().setAliasShort1ParseShortOrNull1(get(_util,_cust, AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_1));
+        getNbAlias().getParams().setAliasShort0ToBinString0(get(_util,_cust, AliasParamNumber.SHORT_0_TO_BIN_STRING_0));
+        getNbAlias().getParams().setAliasShort0ToOctString0(get(_util,_cust, AliasParamNumber.SHORT_0_TO_OCT_STRING_0));
+        getNbAlias().getParams().setAliasShort0ToHexString0(get(_util,_cust, AliasParamNumber.SHORT_0_TO_HEX_STRING_0));
         getNbAlias().getParams().setAliasShort0Short0(get(_util,_cust, AliasParamNumber.SHORT_0_SHORT_0));
         getNbAlias().getParams().setAliasShort1Short0(get(_util,_cust, AliasParamNumber.SHORT_1_SHORT_0));
         getNbAlias().getParams().setAliasInteger0ToStringMethod0(get(_util,_cust, AliasParamNumber.INTEGER_0_TO_STRING_METHOD_0));
@@ -971,6 +983,9 @@ public final class LgNamesContent {
         getNbAlias().getParams().setAliasInteger0ParseIntOrNull0(get(_util,_cust, AliasParamNumber.INTEGER_0_PARSE_INT_OR_NULL_0));
         getNbAlias().getParams().setAliasInteger1ParseIntOrNull0(get(_util,_cust, AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_0));
         getNbAlias().getParams().setAliasInteger1ParseIntOrNull1(get(_util,_cust, AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_1));
+        getNbAlias().getParams().setAliasInteger0ToBinString0(get(_util,_cust, AliasParamNumber.INTEGER_0_TO_BIN_STRING_0));
+        getNbAlias().getParams().setAliasInteger0ToOctString0(get(_util,_cust, AliasParamNumber.INTEGER_0_TO_OCT_STRING_0));
+        getNbAlias().getParams().setAliasInteger0ToHexString0(get(_util,_cust, AliasParamNumber.INTEGER_0_TO_HEX_STRING_0));
         getNbAlias().getParams().setAliasInteger0Integer0(get(_util,_cust, AliasParamNumber.INTEGER_0_INTEGER_0));
         getNbAlias().getParams().setAliasInteger1Integer0(get(_util,_cust, AliasParamNumber.INTEGER_1_INTEGER_0));
         getNbAlias().getParams().setAliasLong0ToStringMethod0(get(_util,_cust, AliasParamNumber.LONG_0_TO_STRING_METHOD_0));
@@ -986,6 +1001,9 @@ public final class LgNamesContent {
         getNbAlias().getParams().setAliasLong0ParseLongOrNull0(get(_util,_cust, AliasParamNumber.LONG_0_PARSE_LONG_OR_NULL_0));
         getNbAlias().getParams().setAliasLong1ParseLongOrNull0(get(_util,_cust, AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_0));
         getNbAlias().getParams().setAliasLong1ParseLongOrNull1(get(_util,_cust, AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_1));
+        getNbAlias().getParams().setAliasLong0ToBinString0(get(_util,_cust, AliasParamNumber.LONG_0_TO_BIN_STRING_0));
+        getNbAlias().getParams().setAliasLong0ToOctString0(get(_util,_cust, AliasParamNumber.LONG_0_TO_OCT_STRING_0));
+        getNbAlias().getParams().setAliasLong0ToHexString0(get(_util,_cust, AliasParamNumber.LONG_0_TO_HEX_STRING_0));
         getNbAlias().getParams().setAliasLong0Long0(get(_util,_cust, AliasParamNumber.LONG_0_LONG_0));
         getNbAlias().getParams().setAliasLong1Long0(get(_util,_cust, AliasParamNumber.LONG_1_LONG_0));
         getNbAlias().getParams().setAliasFloat0ToStringMethod0(get(_util,_cust, AliasParamNumber.FLOAT_0_TO_STRING_METHOD_0));
@@ -1485,6 +1503,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SHORT_VALUE,getNbAlias().getAliasShortValue()),
                 new KeyValueMemberName(TO_STRING_METHOD,getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(SIGNUM,getNbAlias().getAliasSignum()),
+                new KeyValueMemberName(BIN,getNbAlias().getAliasToBinString()),
+                new KeyValueMemberName(OCT,getNbAlias().getAliasToOctString()),
+                new KeyValueMemberName(HEX,getNbAlias().getAliasToHexString()),
                 new KeyValueMemberName(PARSE_BYTE,getNbAlias().getAliasParseByte()),
                 new KeyValueMemberName(PARSE_BYTE_OR_NULL,getNbAlias().getAliasParseByteOrNull())));
         map_.addEntry(getCharSeq().getAliasCharSequence(), new CustList<KeyValueMemberName>(
@@ -1537,6 +1558,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(TO_LOWER_CASE_CHAR,getNbAlias().getAliasToLowerCaseChar()),
                 new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(SIGNUM,getNbAlias().getAliasSignum()),
+                new KeyValueMemberName(BIN,getNbAlias().getAliasToBinString()),
+                new KeyValueMemberName(OCT,getNbAlias().getAliasToOctString()),
+                new KeyValueMemberName(HEX,getNbAlias().getAliasToHexString()),
                 new KeyValueMemberName(TO_UPPER_CASE_CHAR,getNbAlias().getAliasToUpperCaseChar())));
         map_.addEntry(getNbAlias().getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getNbAlias().getAliasByteValue()),
@@ -1580,6 +1604,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SHORT_VALUE,getNbAlias().getAliasShortValue()),
                 new KeyValueMemberName(TO_STRING_METHOD,getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(SIGNUM,getNbAlias().getAliasSignum()),
+                new KeyValueMemberName(BIN,getNbAlias().getAliasToBinString()),
+                new KeyValueMemberName(OCT,getNbAlias().getAliasToOctString()),
+                new KeyValueMemberName(HEX,getNbAlias().getAliasToHexString()),
                 new KeyValueMemberName(PARSE_INT,getNbAlias().getAliasParseInt()),
                 new KeyValueMemberName(PARSE_INT_OR_NULL,getNbAlias().getAliasParseIntOrNull())));
         map_.addEntry(getNbAlias().getAliasLong(), new CustList<KeyValueMemberName>(
@@ -1594,6 +1621,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SHORT_VALUE,getNbAlias().getAliasShortValue()),
                 new KeyValueMemberName(TO_STRING_METHOD,getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(SIGNUM,getNbAlias().getAliasSignum()),
+                new KeyValueMemberName(BIN,getNbAlias().getAliasToBinString()),
+                new KeyValueMemberName(OCT,getNbAlias().getAliasToOctString()),
+                new KeyValueMemberName(HEX,getNbAlias().getAliasToHexString()),
                 new KeyValueMemberName(PARSE_LONG,getNbAlias().getAliasParseLong()),
                 new KeyValueMemberName(PARSE_LONG_OR_NULL,getNbAlias().getAliasParseLongOrNull())));
         map_.addEntry(getNbAlias().getAliasNumber(), new CustList<KeyValueMemberName>(
@@ -1619,6 +1649,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SHORT_VALUE,getNbAlias().getAliasShortValue()),
                 new KeyValueMemberName(TO_STRING_METHOD,getNbAlias().getAliasToStringMethod()),
                 new KeyValueMemberName(SIGNUM,getNbAlias().getAliasSignum()),
+                new KeyValueMemberName(BIN,getNbAlias().getAliasToBinString()),
+                new KeyValueMemberName(OCT,getNbAlias().getAliasToOctString()),
+                new KeyValueMemberName(HEX,getNbAlias().getAliasToHexString()),
                 new KeyValueMemberName(PARSE_SHORT,getNbAlias().getAliasParseShort()),
                 new KeyValueMemberName(PARSE_SHORT_OR_NULL,getNbAlias().getAliasParseShortOrNull())));
         map_.addEntry(getCharSeq().getAliasString(), new CustList<KeyValueMemberName>(
@@ -1876,6 +1909,9 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_0, getNbAlias().getParams().getAliasByte0Compare0()),new KeyValueMemberName(AliasParamNumber.BYTE_0_COMPARE_1, getNbAlias().getParams().getAliasByte0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_PARSE_BYTE_OR_NULL_0, getNbAlias().getParams().getAliasByte0ParseByteOrNull0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_0, getNbAlias().getParams().getAliasByte1ParseByteOrNull0()),new KeyValueMemberName(AliasParamNumber.BYTE_1_PARSE_BYTE_OR_NULL_1, getNbAlias().getParams().getAliasByte1ParseByteOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_TO_BIN_STRING_0, getNbAlias().getParams().getAliasByte0ToBinString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_TO_OCT_STRING_0, getNbAlias().getParams().getAliasByte0ToOctString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_TO_HEX_STRING_0, getNbAlias().getParams().getAliasByte0ToHexString0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_0_BYTE_0, getNbAlias().getParams().getAliasByte0Byte0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BYTE_1_BYTE_0, getNbAlias().getParams().getAliasByte1Byte0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasShort0ToStringMethod0())));
@@ -1885,6 +1921,9 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_0, getNbAlias().getParams().getAliasShort0Compare0()),new KeyValueMemberName(AliasParamNumber.SHORT_0_COMPARE_1, getNbAlias().getParams().getAliasShort0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_PARSE_SHORT_OR_NULL_0, getNbAlias().getParams().getAliasShort0ParseShortOrNull0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_0, getNbAlias().getParams().getAliasShort1ParseShortOrNull0()),new KeyValueMemberName(AliasParamNumber.SHORT_1_PARSE_SHORT_OR_NULL_1, getNbAlias().getParams().getAliasShort1ParseShortOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_BIN_STRING_0, getNbAlias().getParams().getAliasShort0ToBinString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_OCT_STRING_0, getNbAlias().getParams().getAliasShort0ToOctString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_TO_HEX_STRING_0, getNbAlias().getParams().getAliasShort0ToHexString0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_0_SHORT_0, getNbAlias().getParams().getAliasShort0Short0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.SHORT_1_SHORT_0, getNbAlias().getParams().getAliasShort1Short0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasInteger0ToStringMethod0())));
@@ -1894,6 +1933,9 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_0, getNbAlias().getParams().getAliasInteger0Compare0()),new KeyValueMemberName(AliasParamNumber.INTEGER_0_COMPARE_1, getNbAlias().getParams().getAliasInteger0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_PARSE_INT_OR_NULL_0, getNbAlias().getParams().getAliasInteger0ParseIntOrNull0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_0, getNbAlias().getParams().getAliasInteger1ParseIntOrNull0()),new KeyValueMemberName(AliasParamNumber.INTEGER_1_PARSE_INT_OR_NULL_1, getNbAlias().getParams().getAliasInteger1ParseIntOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_BIN_STRING_0, getNbAlias().getParams().getAliasInteger0ToBinString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_OCT_STRING_0, getNbAlias().getParams().getAliasInteger0ToOctString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_TO_HEX_STRING_0, getNbAlias().getParams().getAliasInteger0ToHexString0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_0_INTEGER_0, getNbAlias().getParams().getAliasInteger0Integer0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.INTEGER_1_INTEGER_0, getNbAlias().getParams().getAliasInteger1Integer0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasLong0ToStringMethod0())));
@@ -1905,6 +1947,9 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_0, getNbAlias().getParams().getAliasLong0Compare0()),new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_1, getNbAlias().getParams().getAliasLong0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_OR_NULL_0, getNbAlias().getParams().getAliasLong0ParseLongOrNull0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_0, getNbAlias().getParams().getAliasLong1ParseLongOrNull0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_OR_NULL_1, getNbAlias().getParams().getAliasLong1ParseLongOrNull1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_BIN_STRING_0, getNbAlias().getParams().getAliasLong0ToBinString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_OCT_STRING_0, getNbAlias().getParams().getAliasLong0ToOctString0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_HEX_STRING_0, getNbAlias().getParams().getAliasLong0ToHexString0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_LONG_0, getNbAlias().getParams().getAliasLong0Long0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_LONG_0, getNbAlias().getParams().getAliasLong1Long0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.FLOAT_0_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasFloat0ToStringMethod0())));

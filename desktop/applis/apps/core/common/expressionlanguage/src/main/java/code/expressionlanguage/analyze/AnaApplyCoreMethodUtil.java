@@ -602,6 +602,18 @@ public final class AnaApplyCoreMethodUtil {
                 return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             if (StringUtil.quickEq(type_, byteType_)) {
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
+                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
+                    return (new StringStruct(StringExpUtil.toByteGeneBin(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
+                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
+                    return (new StringStruct(StringExpUtil.toByteGeneOct(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
+                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
+                    return (new StringStruct(StringExpUtil.toByteGeneHex(one_)));
+                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
                     return (new StringStruct(Integer.toString(one_)));
@@ -610,6 +622,18 @@ public final class AnaApplyCoreMethodUtil {
                 return parseByte(list_, _args, exc_);
             }
             if (StringUtil.quickEq(type_, shortType_)) {
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
+                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
+                    return (new StringStruct(StringExpUtil.toShortGeneBin(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
+                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
+                    return (new StringStruct(StringExpUtil.toShortGeneOct(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
+                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
+                    return (new StringStruct(StringExpUtil.toShortGeneHex(one_)));
+                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                     return (new StringStruct(Integer.toString(one_)));
@@ -618,6 +642,18 @@ public final class AnaApplyCoreMethodUtil {
                 return parseShort(list_, _args, exc_);
             }
             if (StringUtil.quickEq(type_, intType_)) {
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
+                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+                    return (new StringStruct(StringExpUtil.toGeneBin(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
+                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+                    return (new StringStruct(StringExpUtil.toGeneOct(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
+                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+                    return (new StringStruct(StringExpUtil.toGeneHex(one_)));
+                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                     return (new StringStruct(Integer.toString(one_)));
@@ -626,6 +662,18 @@ public final class AnaApplyCoreMethodUtil {
                 return parseInt(list_, _args, exc_);
             }
             if (StringUtil.quickEq(type_, longType_)) {
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
+                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                    return (new StringStruct(StringExpUtil.toLongGeneBin(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
+                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                    return (new StringStruct(StringExpUtil.toLongGeneOct(one_)));
+                }
+                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
+                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
+                    return (new StringStruct(StringExpUtil.toLongGeneHex(one_)));
+                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasSignum())) {
                     long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                     return new ByteStruct(NumberUtil.signum(nb_));

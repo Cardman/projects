@@ -5942,6 +5942,78 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("Long.sgn(0)");
         assertEq(0, getNumber(arg_));
     }
+
+    @Test
+    public void processEl103065Test() {
+        Argument arg_ = directCalculate("Byte.bin(($byte)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103066Test() {
+        Argument arg_ = directCalculate("Byte.oct(($byte)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103067Test() {
+        Argument arg_ = directCalculate("Byte.hex(($byte)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103068Test() {
+        Argument arg_ = directCalculate("Short.bin(($short)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103069Test() {
+        Argument arg_ = directCalculate("Short.oct(($short)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103070Test() {
+        Argument arg_ = directCalculate("Short.hex(($short)0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103071Test() {
+        Argument arg_ = directCalculate("Integer.bin(0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103072Test() {
+        Argument arg_ = directCalculate("Integer.oct(0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103073Test() {
+        Argument arg_ = directCalculate("Integer.hex(0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103074Test() {
+        Argument arg_ = directCalculate("Long.bin(0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103075Test() {
+        Argument arg_ = directCalculate("Long.oct(0)");
+        assertEq("0", getString(arg_));
+    }
+
+    @Test
+    public void processEl103076Test() {
+        Argument arg_ = directCalculate("Long.hex(0)");
+        assertEq("0", getString(arg_));
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
