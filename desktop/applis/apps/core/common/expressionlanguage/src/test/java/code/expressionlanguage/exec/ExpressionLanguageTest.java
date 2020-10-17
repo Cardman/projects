@@ -6014,6 +6014,29 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("Long.hex(0)");
         assertEq("0", getString(arg_));
     }
+
+    @Test
+    public void processEl103077Test() {
+        Argument arg_ = directCalculate("$math.max(0,0)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103078Test() {
+        Argument arg_ = directCalculate("$math.max(0,0L)");
+        assertEq(0, getNumber(arg_));
+    }
+    @Test
+    public void processEl103079Test() {
+        Argument arg_ = directCalculate("$math.min(0,0)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103080Test() {
+        Argument arg_ = directCalculate("$math.min(0,0L)");
+        assertEq(0, getNumber(arg_));
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

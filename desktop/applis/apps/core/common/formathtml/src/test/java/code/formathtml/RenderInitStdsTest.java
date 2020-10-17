@@ -142,6 +142,8 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
         _lgNames.getContent().getMathRef().setAliasMath("java.lang.Math");
         _lgNames.getContent().getMathRef().setAliasAbs("abs");
+        _lgNames.getContent().getMathRef().setAliasMax("max");
+        _lgNames.getContent().getMathRef().setAliasMin("min");
         _lgNames.getContent().getMathRef().setAliasMod("mod");
         _lgNames.getContent().getMathRef().setAliasQuot("quot");
         _lgNames.getContent().getCoreNames().setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");

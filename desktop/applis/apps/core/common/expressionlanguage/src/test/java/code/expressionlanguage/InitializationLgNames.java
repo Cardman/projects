@@ -148,6 +148,8 @@ public final class InitializationLgNames {
         //_lgNames.setAliasSof("$sofe");
         _lgNames.getContent().getMathRef().setAliasMath("java.lang.$math");
         _lgNames.getContent().getMathRef().setAliasAbs("abs");
+        _lgNames.getContent().getMathRef().setAliasMax("max");
+        _lgNames.getContent().getMathRef().setAliasMin("min");
         _lgNames.getContent().getMathRef().setAliasMod("mod");
         _lgNames.getContent().getMathRef().setAliasQuot("quot");
         _lgNames.getContent().getCoreNames().setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");

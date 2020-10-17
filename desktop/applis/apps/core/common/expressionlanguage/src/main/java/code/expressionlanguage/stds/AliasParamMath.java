@@ -3,6 +3,14 @@ package code.expressionlanguage.stds;
 public final class AliasParamMath {
     public static final String MATH_0_ABS_0="Math0Abs0";
     public static final String MATH_1_ABS_0="Math1Abs0";
+    public static final String MATH_0_MAX_0="Math0Max0";
+    public static final String MATH_0_MAX_1="Math0Max1";
+    public static final String MATH_1_MAX_0="Math1Max0";
+    public static final String MATH_1_MAX_1="Math1Max1";
+    public static final String MATH_0_MIN_0="Math0Min0";
+    public static final String MATH_0_MIN_1="Math0Min1";
+    public static final String MATH_1_MIN_0="Math1Min0";
+    public static final String MATH_1_MIN_1="Math1Min1";
     public static final String MATH_0_QUOT_0="Math0Quot0";
     public static final String MATH_0_QUOT_1="Math0Quot1";
     public static final String MATH_1_QUOT_0="Math1Quot0";
@@ -124,6 +132,14 @@ public final class AliasParamMath {
     public static final String MATH_0_SEED_0="Math0Seed0";
     private String aliasMath0Abs0="a";
     private String aliasMath1Abs0="a";
+    private String aliasMath0Max0="a";
+    private String aliasMath0Max1="b";
+    private String aliasMath1Max0="a";
+    private String aliasMath1Max1="b";
+    private String aliasMath0Min0="a";
+    private String aliasMath0Min1="b";
+    private String aliasMath1Min0="a";
+    private String aliasMath1Min1="b";
     private String aliasMath0Quot0="a";
     private String aliasMath0Quot1="b";
     private String aliasMath1Quot0="a";
@@ -258,6 +274,70 @@ public final class AliasParamMath {
 
     public void setAliasMath1Abs0(String _v) {
         this.aliasMath1Abs0 =_v;
+    }
+
+    public String getAliasMath0Max0() {
+        return aliasMath0Max0;
+    }
+
+    public void setAliasMath0Max0(String _v) {
+        this.aliasMath0Max0 = _v;
+    }
+
+    public String getAliasMath0Max1() {
+        return aliasMath0Max1;
+    }
+
+    public void setAliasMath0Max1(String _v) {
+        this.aliasMath0Max1 = _v;
+    }
+
+    public String getAliasMath1Max0() {
+        return aliasMath1Max0;
+    }
+
+    public void setAliasMath1Max0(String _v) {
+        this.aliasMath1Max0 = _v;
+    }
+
+    public String getAliasMath1Max1() {
+        return aliasMath1Max1;
+    }
+
+    public void setAliasMath1Max1(String _v) {
+        this.aliasMath1Max1 = _v;
+    }
+
+    public String getAliasMath0Min0() {
+        return aliasMath0Min0;
+    }
+
+    public void setAliasMath0Min0(String _v) {
+        this.aliasMath0Min0 = _v;
+    }
+
+    public String getAliasMath0Min1() {
+        return aliasMath0Min1;
+    }
+
+    public void setAliasMath0Min1(String _v) {
+        this.aliasMath0Min1 = _v;
+    }
+
+    public String getAliasMath1Min0() {
+        return aliasMath1Min0;
+    }
+
+    public void setAliasMath1Min0(String _v) {
+        this.aliasMath1Min0 = _v;
+    }
+
+    public String getAliasMath1Min1() {
+        return aliasMath1Min1;
+    }
+
+    public void setAliasMath1Min1(String _v) {
+        this.aliasMath1Min1 = _v;
     }
 
     public String getAliasMath0Quot0() {

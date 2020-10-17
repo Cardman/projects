@@ -25,6 +25,8 @@ import code.util.core.StringUtil;
 
 public final class AliasMath {
     private String aliasAbs;
+    private String aliasMax;
+    private String aliasMin;
     private String aliasQuot;
     private String aliasMod;
     private String aliasMath;
@@ -72,6 +74,18 @@ public final class AliasMath {
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Abs0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
+        method_ = new StandardMethod(aliasMax, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Max0(),params.getAliasMath0Max1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimLong_,aliasPrimLong_);
+        method_ = new StandardMethod(aliasMax, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Max0(),params.getAliasMath1Max1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
+        method_ = new StandardMethod(aliasMin, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Min0(),params.getAliasMath0Min1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimLong_,aliasPrimLong_);
+        method_ = new StandardMethod(aliasMin, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Min0(),params.getAliasMath1Min1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasQuot, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Quot0(),params.getAliasMath0Quot1()));
@@ -294,6 +308,22 @@ public final class AliasMath {
                 return result_;
             }
             result_.setResult(new IntStruct(Math.abs(NumParsers.convertToNumber(args_[0]).intStruct())));
+            return result_;
+        }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMax())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+                result_.setResult(new LongStruct(Math.max(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
+                return result_;
+            }
+            result_.setResult(new IntStruct(Math.max(NumParsers.convertToNumber(args_[0]).intStruct(),NumParsers.convertToNumber(args_[1]).intStruct())));
+            return result_;
+        }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMin())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+                result_.setResult(new LongStruct(Math.min(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
+                return result_;
+            }
+            result_.setResult(new IntStruct(Math.min(NumParsers.convertToNumber(args_[0]).intStruct(),NumParsers.convertToNumber(args_[1]).intStruct())));
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMod())) {
@@ -545,6 +575,23 @@ public final class AliasMath {
     public void setAliasAbs(String _aliasAbs) {
         aliasAbs = _aliasAbs;
     }
+
+    public String getAliasMax() {
+        return aliasMax;
+    }
+
+    public void setAliasMax(String _aliasMax) {
+        this.aliasMax = _aliasMax;
+    }
+
+    public String getAliasMin() {
+        return aliasMin;
+    }
+
+    public void setAliasMin(String _aliasMin) {
+        this.aliasMin = _aliasMin;
+    }
+
     public String getAliasQuot() {
         return aliasQuot;
     }

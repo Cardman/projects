@@ -1875,6 +1875,14 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getMathRef().getParams().setAliasMath0Abs0("");
         lgName_.getMathRef().getParams().setAliasMath1Abs0("");
+        lgName_.getMathRef().getParams().setAliasMath0Max0("");
+        lgName_.getMathRef().getParams().setAliasMath0Max1("");
+        lgName_.getMathRef().getParams().setAliasMath1Max0("");
+        lgName_.getMathRef().getParams().setAliasMath1Max1("");
+        lgName_.getMathRef().getParams().setAliasMath0Min0("");
+        lgName_.getMathRef().getParams().setAliasMath0Min1("");
+        lgName_.getMathRef().getParams().setAliasMath1Min0("");
+        lgName_.getMathRef().getParams().setAliasMath1Min1("");
         lgName_.getMathRef().getParams().setAliasMath0Quot0("");
         lgName_.getMathRef().getParams().setAliasMath0Quot1("");
         lgName_.getMathRef().getParams().setAliasMath1Quot0("");

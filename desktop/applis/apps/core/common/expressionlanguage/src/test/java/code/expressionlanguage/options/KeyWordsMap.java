@@ -225,6 +225,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("$core.DivideZero");
         _lgNames.getContent().getMathRef().setAliasMath("$core.Math");
         _lgNames.getContent().getMathRef().setAliasAbs("abs");
+        _lgNames.getContent().getMathRef().setAliasMax("max");
+        _lgNames.getContent().getMathRef().setAliasMin("min");
         _lgNames.getContent().getMathRef().setAliasMod("mod");
         _lgNames.getContent().getMathRef().setAliasQuot("quot");
         _lgNames.getContent().getCoreNames().setAliasSof("$core.StackOverFlow");
@@ -546,6 +548,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("$coeur.DivisionZero");
         _lgNames.getContent().getMathRef().setAliasMath("$coeur.Math");
         _lgNames.getContent().getMathRef().setAliasAbs("abs");
+        _lgNames.getContent().getMathRef().setAliasMax("max");
+        _lgNames.getContent().getMathRef().setAliasMin("min");
         _lgNames.getContent().getMathRef().setAliasMod("mod");
         _lgNames.getContent().getMathRef().setAliasQuot("quot");
         _lgNames.getContent().getCoreNames().setAliasSof("$coeur.PileTropGrande");
