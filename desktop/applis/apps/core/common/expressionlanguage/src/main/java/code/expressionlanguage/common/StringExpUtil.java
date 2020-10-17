@@ -1058,7 +1058,31 @@ public final class StringExpUtil {
             radix_ = 10;
         }
         if (_i == Long.MIN_VALUE) {
-            return processMaxAbsValue(radix_);
+            int p_ = 1;
+            int q_ = 0;
+            while (p_ < radix_) {
+                q_++;
+                p_ = p_ * 2;
+            }
+            if (p_ == radix_) {
+                int r_ = 63 % q_;
+                int m_ = 63 / q_;
+                int ch_ = 1;
+                for (int i = 0; i < r_; i++) {
+                    ch_ *= 2;
+                }
+                StringBuilder str_ = new StringBuilder("-");
+                str_.append(ch_);
+                for (int i = 0; i < m_; i++) {
+                    str_.append(0);
+                }
+                return str_.toString();
+            }
+            StringBuilder str_ = toLongBase(-(_i+1), radix_);
+            str_.insert(0,"-");
+            int last_ = str_.length() - 1;
+            str_.setCharAt(last_, (char) (str_.charAt(last_)+1));
+            return str_.toString();
         }
         if (_i >= 0) {
             return toLongBase(_i, radix_).toString();
@@ -1066,124 +1090,6 @@ public final class StringExpUtil {
         StringBuilder str_ = toLongBase(-_i, radix_);
         str_.insert(0,"-");
         return str_.toString();
-    }
-
-    private static String processMaxAbsValue(int _radix) {
-        if (_radix == 2) {
-            return "-1000000000000000000000000000000000000000000000000000000000000000";
-        }
-        if (_radix == 3) {
-            return "-2021110011022210012102010021220101220222";
-        }
-        if (_radix == 4) {
-            return "-20000000000000000000000000000000";
-        }
-        if (_radix == 5) {
-            return "-1104332401304422434310311213";
-        }
-        if (_radix == 6) {
-            return "-1540241003031030222122212";
-        }
-        if (_radix == 7) {
-            return "-22341010611245052052301";
-        }
-        return processMaxAbsValue3(_radix);
-    }
-
-    private static String processMaxAbsValue3(int _radix) {
-        if (_radix == 8) {
-            return "-1000000000000000000000";
-        }
-        if (_radix == 9) {
-            return "-67404283172107811828";
-        }
-        if (_radix == 10) {
-            return "-9223372036854775808";
-        }
-        if (_radix == 11) {
-            return "-1728002635214590698";
-        }
-        if (_radix == 12) {
-            return "-41a792678515120368";
-        }
-        if (_radix == 13) {
-            return "-10b269549075433c38";
-        }
-        if (_radix == 14) {
-            return "-4340724c6c71dc7a8";
-        }
-        if (_radix == 15) {
-            return "-160e2ad3246366808";
-        }
-        return processMaxAbsValue2(_radix);
-    }
-
-    private static String processMaxAbsValue2(int _radix) {
-        if (_radix == 16) {
-            return "-8000000000000000";
-        }
-        if (_radix == 17) {
-            return "-33d3d8307b214009";
-        }
-        if (_radix == 18) {
-            return "-16agh595df825fa8";
-        }
-        if (_radix == 19) {
-            return "-ba643dci0ffeehi";
-        }
-        if (_radix == 20) {
-            return "-5cbfjia3fh26ja8";
-        }
-        if (_radix == 21) {
-            return "-2heiciiie82dh98";
-        }
-        if (_radix == 22) {
-            return "-1adaibb21dckfa8";
-        }
-        if (_radix == 23) {
-            return "-i6k448cf4192c3";
-        }
-        if (_radix == 24) {
-            return "-acd772jnc9l0l8";
-        }
-        if (_radix == 25) {
-            return "-64ie1focnn5g78";
-        }
-        if (_radix == 26) {
-            return "-3igoecjbmca688";
-        }
-        if (_radix == 27) {
-            return "-27c48l5b37oaoq";
-        }
-        return processMaxAbsValue1(_radix);
-    }
-
-    private static String processMaxAbsValue1(int _radix) {
-        if (_radix == 28) {
-            return "-1bk39f3ah3dmq8";
-        }
-        if (_radix == 29) {
-            return "-q1se8f0m04isc";
-        }
-        if (_radix == 30) {
-            return "-hajppbc1fc208";
-        }
-        if (_radix == 31) {
-            return "-bm03i95hia438";
-        }
-        if (_radix == 32) {
-            return "-8000000000000";
-        }
-        if (_radix == 33) {
-            return "-5hg4ck9jd4u38";
-        }
-        if (_radix == 34) {
-            return "-3tdtk1v8j6tpq";
-        }
-        if (_radix == 35) {
-            return "-2pijmikexrxp8";
-        }
-        return "-1y2p0ij32e8e8";
     }
 
     public static String toLongGeneHex(long _i) {
