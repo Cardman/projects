@@ -39,9 +39,10 @@ public final class ExportAnnotationUtil {
             }
             while (current_ != null) {
                 ParentAnnotPart par_ = current_.getParent();
-                if (!elts_.isEmpty()&&current_.getIndex() + 1 < elts_.last().size()) {
+                int nextIndex_ = current_.getIndex() + 1;
+                if (!elts_.isEmpty()&& nextIndex_ < elts_.last().size()) {
                     out_.append(ParentAnnotPart.PART_SEP);
-                    StackObject value_ = elts_.last().get(current_.getIndex() + 1);
+                    StackObject value_ = elts_.last().get(nextIndex_);
                     InfoAnnotPart next_ = InfoAnnotPart.create(value_.getValue(), par_);
                     par_.append(next_);
                     current_ = next_;

@@ -13,7 +13,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.formathtml.*;
 import code.formathtml.analyze.InternGlobalOperation;
 import code.formathtml.analyze.ResultInput;
@@ -828,7 +827,7 @@ public final class RendForwardInfos {
     private static CustList<RendDynOperationNode> buildWritePartArr(ResultInput _resultInput, ArrOperation _settable) {
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
-        ExecClassArgumentMatching pr_ = PrimitiveTypeUtil.toExec(_resultInput.getPreviousResult());
+        ExecClassArgumentMatching pr_ = ForwardInfos.toExec(_resultInput.getPreviousResult());
         CustList<OperationNode> childrenNodes_ = _settable.getChildrenNodes();
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4+childrenNodes_.size()));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
@@ -839,7 +838,7 @@ public final class RendForwardInfos {
         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
         for (OperationNode o: childrenNodes_) {
             String varParam_ = _resultInput.getVarNames().get(i_);
-            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i_-1, PrimitiveTypeUtil.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
+            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i_-1, ForwardInfos.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
             arr_.appendChild(rendVar_);
             list_.add(rendVar_);
             i_++;
@@ -867,7 +866,7 @@ public final class RendForwardInfos {
         ExecNamedFunctionBlock get_ = ForwardInfos.fetchFunction(_settable.getRootNumber(), _settable.getMemberNumber(), _forwards);
         ExecNamedFunctionBlock set_ = ForwardInfos.fetchFunction(_settable.getRootNumber(), _settable.getMemberNumberSet(), _forwards);
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
-        ExecClassArgumentMatching pr_ = PrimitiveTypeUtil.toExec(_resultInput.getPreviousResult());
+        ExecClassArgumentMatching pr_ = ForwardInfos.toExec(_resultInput.getPreviousResult());
         CustList<OperationNode> childrenNodes_ = _settable.getChildrenNodes();
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4+childrenNodes_.size()));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
@@ -878,7 +877,7 @@ public final class RendForwardInfos {
         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
         for (OperationNode o: childrenNodes_) {
             String varParam_ = _resultInput.getVarNames().get(i_);
-            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i_-1, PrimitiveTypeUtil.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
+            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(i_-1, ForwardInfos.toExec(o.getResultClass()), i_), new ExecVariableContent(generateVariable(varParam_)));
             arr_.appendChild(rendVar_);
             list_.add(rendVar_);
             i_++;
@@ -910,7 +909,7 @@ public final class RendForwardInfos {
     private static CustList<RendDynOperationNode> buildWritePartField(ResultInput _resultInput, SettableAbstractFieldOperation _settable, Forwards _forwards) {
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
-        ExecClassArgumentMatching pr_ = PrimitiveTypeUtil.toExec(_resultInput.getPreviousResult());
+        ExecClassArgumentMatching pr_ = ForwardInfos.toExec(_resultInput.getPreviousResult());
         RendAffectationOperation rendAff_ = new RendAffectationOperation(new ExecOperationContent(0, pr_, 4));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 2));

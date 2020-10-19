@@ -23,7 +23,6 @@ import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaFieldContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaMemberNumberContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -839,7 +838,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private boolean cloneArray(StringList _bounds) {
         boolean cloneArray_ = false;
         for (String b: _bounds) {
-            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+            if (b.startsWith(StringExpUtil.ARR_CLASS)) {
                 cloneArray_ = true;
                 break;
             }
@@ -865,7 +864,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void getArrayBounds(StringList _bounds, StringList _a) {
         for (String b: _bounds) {
-            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+            if (b.startsWith(StringExpUtil.ARR_CLASS)) {
                 _a.add(b);
                 lambdaCommonContent.setFoundClass(b);
             }

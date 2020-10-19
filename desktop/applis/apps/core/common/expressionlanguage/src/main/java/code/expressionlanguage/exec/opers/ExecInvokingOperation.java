@@ -15,7 +15,6 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -591,7 +590,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _pr, CustList<Argument> _nList) {
-        if (_l.getFormClassName().startsWith(PrimitiveTypeUtil.ARR_CLASS) && _l.getFid().getName().startsWith("[]")) {
+        if (_l.getFormClassName().startsWith(StringExpUtil.ARR_CLASS) && _l.getFid().getName().startsWith("[]")) {
             Struct arr_ = _nList.first().getStruct();
             ArrayStruct argArr_ = ExecArrayFieldOperation.getArray(_nList.get(1).getStruct(),_conf);
             int len_ = argArr_.getLength() - 1;

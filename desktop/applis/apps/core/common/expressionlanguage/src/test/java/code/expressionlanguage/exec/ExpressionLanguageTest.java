@@ -6037,6 +6037,66 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.min(0,0L)");
         assertEq(0, getNumber(arg_));
     }
+
+    @Test
+    public void processEl103081Test() {
+        Argument arg_ = directCalculate("Long.compare(1,1)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103082Test() {
+        Argument arg_ = directCalculate("((Long)1).compareTo(1L)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103083Test() {
+        Argument arg_ = directCalculate("Short.compare(1s,1s)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103084Test() {
+        Argument arg_ = directCalculate("((Short)1S).compareTo(1S)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103085Test() {
+        Argument arg_ = directCalculate("Byte.compare(1y,1y)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103086Test() {
+        Argument arg_ = directCalculate("((Byte)1Y).compareTo(1Y)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103087Test() {
+        Argument arg_ = directCalculate("Float.compare(1f,1f)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103088Test() {
+        Argument arg_ = directCalculate("((Float)1F).compareTo(1F)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103089Test() {
+        Argument arg_ = directCalculate("Double.compare(1d,1d)");
+        assertEq(0, getNumber(arg_));
+    }
+
+    @Test
+    public void processEl103090Test() {
+        Argument arg_ = directCalculate("((Double)1D).compareTo(1D)");
+        assertEq(0, getNumber(arg_));
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

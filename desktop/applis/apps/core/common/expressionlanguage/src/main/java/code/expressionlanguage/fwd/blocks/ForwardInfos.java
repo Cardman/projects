@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.Classes;
@@ -1614,5 +1615,10 @@ public final class ForwardInfos {
         }
         _ann.getAnnotationsOps().clear();
         _ann.getAnnotationsOps().addAllElts(ops_);
+    }
+
+    public static ExecClassArgumentMatching toExec(AnaClassArgumentMatching _cl) {
+        return new ExecClassArgumentMatching(_cl.getNames(),_cl.getUnwrapObjectNb(),
+                _cl.isCheckOnlyNullPe(),_cl.isConvertToString());
     }
 }

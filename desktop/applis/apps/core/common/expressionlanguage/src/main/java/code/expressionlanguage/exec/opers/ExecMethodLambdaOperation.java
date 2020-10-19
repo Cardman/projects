@@ -15,7 +15,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
@@ -57,7 +56,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         l_.setDirectCast(_directCast);
         l_.setExpCast(_expCast);
         l_.setSafeInstance(_safeInstance);
-        if (!(_ownerType.startsWith(PrimitiveTypeUtil.ARR_CLASS) && id_.getName().startsWith("[]"))) {
+        if (!(_ownerType.startsWith(StringExpUtil.ARR_CLASS) && id_.getName().startsWith("[]"))) {
             MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _functionBlock, _function, _rootBlock, _ownerType, id_, l_);
             l_.setMetaInfo(metaInfo_);
         }

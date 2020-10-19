@@ -100,7 +100,7 @@ public final class AliasNumber {
                 _res.setResult(BooleanStruct.of(false));
                 return;
             }
-            _res.setResult(NumParsers.convertToBoolean(_args[0]));
+            _res.setResult(_args[0]);
             return;
         }
       if (StringUtil.quickEq(type_, charType_)) {
@@ -158,153 +158,6 @@ public final class AliasNumber {
       }
         double one_ = (NumParsers.convertToNumber(_args[0])).doubleStruct();
       _res.setResult(new DoubleStruct(one_));
-  }
-
-    public static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg, boolean _exception, ContextEl _context) {
-      if (!(_arg instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-      DoubleInfo v_ = NumParsers.splitDouble(one_);
-      if (!v_.isValid()) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new DoubleStruct(v_.getValue()));
-      }
-  }
-
-    public static void parseFloat(ResultErrorStd _res, LgNames _stds, Struct _arg, boolean _exception, ContextEl _context) {
-      if (!(_arg instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-      boolean valid_ = true;
-      DoubleInfo v_ = NumParsers.splitDouble(one_);
-      double d_ = 0.0;
-      if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
-          valid_ = false;
-      } else {
-          d_ = v_.getValue();
-      }
-      if (!valid_) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new FloatStruct((float) d_));
-      }
-  }
-
-    public static void parseLong(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
-      if (!(_args[0] instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-      LongInfo lg_;
-      int radix_ = NumParsers.getRadix(_list, _args);
-      lg_ = NumParsers.parseLong(one_, radix_);
-      if (!lg_.isValid()) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new LongStruct(lg_.getValue()));
-      }
-  }
-
-    public static void parseInt(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
-      if (!(_args[0] instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-      LongInfo lg_;
-      int radix_ = NumParsers.getRadix(_list, _args);
-      lg_ = NumParsers.parseLong(one_, radix_);
-      if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new IntStruct((int) lg_.getValue()));
-      }
-  }
-
-    public static void parseShort(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
-      if (!(_args[0] instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-      LongInfo lg_;
-      int radix_ = NumParsers.getRadix(_list, _args);
-      lg_ = NumParsers.parseLong(one_, radix_);
-      if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new ShortStruct((short) lg_.getValue()));
-      }
-  }
-
-    public static void parseByte(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
-      if (!(_args[0] instanceof CharSequenceStruct)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
-          return;
-      }
-      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-      LongInfo lg_;
-      int radix_ = NumParsers.getRadix(_list, _args);
-      lg_ = NumParsers.parseLong(one_, radix_);
-      if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
-          if (!_exception) {
-              _res.setResult(NullStruct.NULL_VALUE);
-              return;
-          }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
-      } else {
-          _res.setResult(new ByteStruct((byte)lg_.getValue()));
-      }
   }
 
     public static void processNumber(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
@@ -388,16 +241,16 @@ public final class AliasNumber {
         String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
-            _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-            return;
-        }
         if (StringUtil.quickEq(_type, byteType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+                _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+                return;
+            }
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
                 byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
                 _res.setResult(new StringStruct(StringExpUtil.toByteGeneBin(one_)));
@@ -423,6 +276,15 @@ public final class AliasNumber {
             return;
         }
         if (StringUtil.quickEq(_type, shortType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+                _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+                return;
+            }
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
                 short one_ = NumParsers.convertToNumber(_args[0]).shortStruct();
                 _res.setResult(new StringStruct(StringExpUtil.toShortGeneBin(one_)));
@@ -448,6 +310,15 @@ public final class AliasNumber {
             return;
         }
         if (StringUtil.quickEq(_type, intType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+                _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+                return;
+            }
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
                 int one_ = NumParsers.convertToNumber(_args[0]).intStruct();
                 _res.setResult(new StringStruct(StringExpUtil.toGeneBin(one_)));
@@ -473,6 +344,15 @@ public final class AliasNumber {
             return;
         }
         if (StringUtil.quickEq(_type, longType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+                _res.setResult(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+                return;
+            }
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasSignum())) {
                 long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                 _res.setResult(new ByteStruct(NumberUtil.signum(nb_)));
@@ -509,6 +389,15 @@ public final class AliasNumber {
             return;
         }
         if (StringUtil.quickEq(_type, floatType_)) {
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+                _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+                return;
+            }
+            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
+                return;
+            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
                 float one_;
                 one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
@@ -531,6 +420,15 @@ public final class AliasNumber {
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseFloat());
             parseFloat(_res, lgNames_, _args[0],exc_, _cont);
+            return;
+        }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
+            _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
+            return;
+        }
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
+            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+            _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
@@ -708,6 +606,146 @@ public final class AliasNumber {
         }
         _res.setResult(BooleanStruct.of(false));
     }
+
+    public static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg, boolean _exception, ContextEl _context) {
+      if (!(_arg instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
+      DoubleInfo v_ = NumParsers.splitDouble(one_);
+      if (!v_.isValid()) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new DoubleStruct(v_.getValue()));
+      }
+  }
+
+    public static void parseFloat(ResultErrorStd _res, LgNames _stds, Struct _arg, boolean _exception, ContextEl _context) {
+      if (!(_arg instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
+      DoubleInfo v_ = NumParsers.splitDouble(one_);
+      if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new FloatStruct((float) v_.getValue()));
+      }
+  }
+
+    public static void parseLong(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
+      if (!(_args[0] instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+      LongInfo lg_;
+      int radix_ = NumParsers.getRadix(_list, _args);
+      lg_ = NumParsers.parseLong(one_, radix_);
+      if (!lg_.isValid()) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new LongStruct(lg_.getValue()));
+      }
+  }
+
+    public static void parseInt(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
+      if (!(_args[0] instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+      LongInfo lg_;
+      int radix_ = NumParsers.getRadix(_list, _args);
+      lg_ = NumParsers.parseLong(one_, radix_);
+      if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new IntStruct((int) lg_.getValue()));
+      }
+  }
+
+    public static void parseShort(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
+      if (!(_args[0] instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+      LongInfo lg_;
+      int radix_ = NumParsers.getRadix(_list, _args);
+      lg_ = NumParsers.parseLong(one_, radix_);
+      if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new ShortStruct((short) lg_.getValue()));
+      }
+  }
+
+    public static void parseByte(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception, ContextEl _context) {
+      if (!(_args[0] instanceof CharSequenceStruct)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          return;
+      }
+      String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+      LongInfo lg_;
+      int radix_ = NumParsers.getRadix(_list, _args);
+      lg_ = NumParsers.parseLong(one_, radix_);
+      if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
+          if (!_exception) {
+              _res.setResult(NullStruct.NULL_VALUE);
+              return;
+          }
+          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Integer.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+      } else {
+          _res.setResult(new ByteStruct((byte)lg_.getValue()));
+      }
+  }
 
     public void build(LgNames _lgNames) {
         CustList<StandardField> fields_;

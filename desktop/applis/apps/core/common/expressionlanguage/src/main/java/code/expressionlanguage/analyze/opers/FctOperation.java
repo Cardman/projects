@@ -12,7 +12,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
@@ -319,7 +318,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     private static StringList getArrayBounds(StringList _bounds) {
         StringList b_ = new StringList();
         for (String b: _bounds) {
-            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+            if (b.startsWith(StringExpUtil.ARR_CLASS)) {
                 b_.add(b);
             }
         }
