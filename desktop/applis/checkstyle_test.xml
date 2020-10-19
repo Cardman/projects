@@ -15,7 +15,6 @@
         <module name="AvoidNestedBlocks" />
         <module name="LocalVariableName">
             <property name="format" value="^[a-z]([A-Za-z0-9]*_)?$" />
-            <property name="tokens" value="VARIABLE_DEF" />
         </module>
         <module name="ParameterName">
             <property name="format" value="^_[a-z][A-Za-z0-9]*$" />
@@ -82,7 +81,9 @@
         <module name="InterfaceIsType" />
 
         <module name="ClassTypeParameterName" />
-        <module name="LocalFinalVariableName" />
+        <module name="LocalFinalVariableName" >
+            <property name="format" value="^[a-z]([A-Za-z0-9]*_)?$" />
+        </module>
         <module name="MethodTypeParameterName" />
         <module name="RedundantModifier" />
 

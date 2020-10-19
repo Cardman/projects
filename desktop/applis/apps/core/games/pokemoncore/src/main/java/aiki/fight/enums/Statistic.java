@@ -24,30 +24,29 @@ public enum Statistic {
     }
     public static boolean equalsSet(Listable<Statistic> _list1,Listable<Statistic> _list2) {
         for (Statistic a: _list2) {
-            boolean contains_ = false;
-            for (Statistic b: _list1) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsStatistic(_list1, a);
             if (!contains_) {
                 return false;
             }
         }
         for (Statistic a: _list1) {
-            boolean contains_ = false;
-            for (Statistic b: _list2) {
-                if (a == b) {
-                    contains_ = true;
-                    break;
-                }
-            }
+            boolean contains_ = containsStatistic(_list2, a);
             if (!contains_) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static boolean containsStatistic(Listable<Statistic> _list, Statistic _s) {
+        boolean contains_ = false;
+        for (Statistic b: _list) {
+            if (_s == b) {
+                contains_ = true;
+                break;
+            }
+        }
+        return contains_;
     }
 
     public static EnumList<Statistic> getStatisticsWithBase() {

@@ -506,7 +506,7 @@ final class FightEffects {
                 StringList resistingTypes_ = creatureLanceur_.resistingTypes(_import);
                 MonteCarloString types_ = new MonteCarloString();
                 for(String e:resistingTypes_){
-                    types_.addEvent(e,DataBase.defElementaryEvent());
+                    types_.addQuickEvent(e,DataBase.defElementaryEvent());
                 }
                 if (!FightSuccess.isBadSimulation(_fight, types_)) {
                     String type_ = FightSuccess.random(_import, types_);
@@ -2243,8 +2243,10 @@ final class FightEffects {
         Fighter creatureCible_= _fight.getFighter(_cible);
         if(!_effet.getLawBoost().events().isEmpty()){
             MonteCarloEnum<Statistic> loi_ = new MonteCarloEnum<Statistic>();
-            for(Statistic e:_statistiques){
-                loi_.addEvent(e,_effet.getLawBoost().rate(e));
+            for (Statistic e:_effet.getLawBoost().events()) {
+                if (Statistic.containsStatistic(_statistiques,e)) {
+                    loi_.addQuickEvent(e,_effet.getLawBoost().rate(e));
+                }
             }
             if (!FightSuccess.isBadSimulation(_fight, loi_)) {
                 Statistic statistique_= FightSuccess.random(_import, loi_);
@@ -2256,8 +2258,10 @@ final class FightEffects {
         }
         if(!varStatisCran_.isEmpty()){
             EnumMap<Statistic,Byte> vars_ = new EnumMap<Statistic,Byte>();
-            for(Statistic e:_statistiques){
-                vars_.put(e, varStatisCran_.getVal(e));
+            for (EntryCust<Statistic,Byte> e: varStatisCran_.entryList()) {
+                if (Statistic.containsStatistic(_statistiques,e.getKey())) {
+                    vars_.put(e.getKey(), e.getValue());
+                }
             }
             vars_ = deltaBoostStatisticMap(_fight, _cible, vars_, _import);
             for(Statistic e:vars_.getKeys()){

@@ -2049,7 +2049,7 @@ public final class DocumentReaderAikiCoreUtil {
                     break;
                 }
 
-                law_.addEvent(new Rate(infosLoc_.first()),
+                law_.addQuickEvent(new Rate(infosLoc_.first()),
                         new LgInt(infosLoc_.get(1)));
 
             }
