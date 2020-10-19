@@ -17,10 +17,7 @@ public final class LongInfo {
     }
 
     public boolean outOfRange(long _min, long _max) {
-        if (!valid) {
-            return true;
-        }
-        return value < _min || value > _max;
+        return !valid || value < _min || value > _max;
     }
     public boolean isValid() {
         return valid;

@@ -129,19 +129,22 @@ public final class ExecTemplates {
             String cl_ = StringExpUtil.getIdFromAllTypes(className_);
             DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
             DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
+            int dCurrent_ = dimCurrent_.getDim();
+            int dReq_ = dimReq_.getDim();
             if (StringUtil.quickEq(dimReq_.getComponent(), _an.getStandards().getContent().getCoreNames().getAliasObject())) {
-                if (dimReq_.getDim() > dimCurrent_.getDim()) {
+                if (dReq_ > dCurrent_) {
                     _an.setCallingState(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE,_required, RETURN_LINE),cast_));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
             }
-            if (dimReq_.getDim() != dimCurrent_.getDim()) {
+            if (dReq_ != dCurrent_) {
                 _an.setCallingState(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE,_required, RETURN_LINE),cast_));
                 return NullStruct.NULL_VALUE;
             }
-            PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
-            GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
+            String dComp_ = dimCurrent_.getComponent();
+            PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dComp_);
+            GeneType g_ = _an.getClassBody(dComp_);
             InheritedType in_ = null;
             boolean without_;
             if (g_ != null) {
@@ -315,10 +318,6 @@ public final class ExecTemplates {
                 if (StringUtil.quickEq(baseArrayParam_, fct_)) {
                     return new MappingPairs();
                 }
-                int len_ = typesParam_.size();
-                if (typesArg_.size() != len_) {
-                    return null;
-                }
                 return StringExpUtil.newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
             return StringExpUtil.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
@@ -326,8 +325,7 @@ public final class ExecTemplates {
         if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
             return null;
         }
-        String generic_;
-        generic_ = getFullTypeByBases(_arg, _param, _context);
+        String generic_ = getFullTypeByBases(_arg, _param, _context);
         if (generic_.isEmpty()) {
             return null;
         }
@@ -376,11 +374,9 @@ public final class ExecTemplates {
     }
 
     public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                     Argument _previous, CustList<Argument> _firstArgs,
-                                     Argument _right) {
+                                     Argument _previous, CustList<Argument> _firstArgs) {
         LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
@@ -390,7 +386,7 @@ public final class ExecTemplates {
                 return "";
             }
         }
-        if (!okArgs(_methodId, classFormat_,_firstArgs, _conf, _right)) {
+        if (!okArgs(_methodId, classFormat_,_firstArgs, _conf)) {
             return "";
         }
         return classFormat_;
@@ -400,8 +396,7 @@ public final class ExecTemplates {
                                                   Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
                                                   Argument _right) {
         LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
         FormattedParameters f_ = new FormattedParameters();
         if (!(_methodId instanceof GeneMethod) || !((GeneMethod)_methodId).getId().isStaticMethod()) {
@@ -422,7 +417,7 @@ public final class ExecTemplates {
     }
 
 
-    public static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    private static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof MethodId) {
@@ -473,7 +468,7 @@ public final class ExecTemplates {
         }
         return null;
     }
-    public static Parameters okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound,Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         boolean hasFormat_;
         if (_id instanceof GeneMethod) {
             hasFormat_ = ((GeneMethod)_id).getId().canAccessParamTypes() || _format;
@@ -630,8 +625,8 @@ public final class ExecTemplates {
         }
     }
 
-    public static boolean okArgs(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsSet(_id, _classNameFound, _firstArgs, _conf, _right);
+    public static boolean okArgs(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf) {
+        Struct ex_ = okArgsSet(_id, _classNameFound, _firstArgs, _conf);
         return ex_ == null;
     }
     public static Parameters okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
@@ -640,8 +635,8 @@ public final class ExecTemplates {
     public static Parameters okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         return okArgsSet(_rootBlock,_id, _format, _classNameFound, _cache, _firstArgs, _conf, _right);
     }
-    public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _right);
+    private static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf) {
+        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf);
         if (ex_ != null) {
             _conf.setCallingState(ex_);
         }
@@ -673,7 +668,7 @@ public final class ExecTemplates {
         }
         return ErrorType.NOTHING;
     }
-    public static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
+    private static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
         ErrorType err_ = getErrorWhenContain(_array, _index, _value, _context);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
@@ -757,7 +752,7 @@ public final class ExecTemplates {
         }
         return ErrorType.NOTHING;
     }
-    public static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
+    private static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
         String arrType_ = _arr.getClassName();
         String param_ = StringExpUtil.getQuickComponentType(arrType_);
         LgNames stds_ = _context.getStandards();
@@ -773,7 +768,7 @@ public final class ExecTemplates {
         }
         return ErrorType.NOTHING;
     }
-    public static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context) {
+    private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context) {
         ErrorType err_ = getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
@@ -898,7 +893,7 @@ public final class ExecTemplates {
         return formatted_;
     }
 
-    public static boolean isCorrectTemplateAllExec(ExecResultPartType _className, ContextEl _context) {
+    private static boolean isCorrectTemplateAllExec(ExecResultPartType _className, ContextEl _context) {
         return ExecPartTypeUtil.processAnalyzeConstraintsExec(_className,_context);
     }
 
@@ -910,13 +905,14 @@ public final class ExecTemplates {
         int dim_ = dBaseParam_.getDim();
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
+        int dimArg_ = dBaseArg_.getDim();
         if (StringUtil.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
-            if (dBaseArg_.getDim() < dim_) {
+            if (dimArg_ < dim_) {
                 return "";
             }
             return _superType;
         }
-        if (dBaseArg_.getDim() != dim_) {
+        if (dimArg_ != dim_) {
             return "";
         }
         return getFullObject(_subType, _superType,_context);
@@ -925,14 +921,13 @@ public final class ExecTemplates {
         if (!correctNbParameters(_arg,_context)) {
             return "";
         }
-        String generic_ = "";
         String idArg_ = StringExpUtil.getIdFromAllTypes(_arg);
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
             return _arg;
         }
         GeneType classBody_ = _context.getClassBody(idArg_);
-        generic_ = getSuperGeneric(classBody_, _context, 0, _classParam);
+        String generic_ = getSuperGeneric(classBody_, _context, 0, _classParam);
         return quickFormat(classBody_,_arg, generic_);
     }
     public static String getFullObject(String _subType, String _superType, ContextEl _context) {
@@ -959,11 +954,11 @@ public final class ExecTemplates {
         return StringExpUtil.getReflectFormattedType(_second, varTypes_);
     }
 
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
+    private static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
 
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance, LgNames _stds) {
+    private static boolean primitiveTypeNullObject(String _className, Struct _instance, LgNames _stds) {
         if (!_stds.getPrimitiveTypes().contains(_className)) {
             return false;
         }
@@ -1213,7 +1208,7 @@ public final class ExecTemplates {
         return checkSet(_context,locVar_,_value);
     }
 
-    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
+    private static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
         if (!checkQuick(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
@@ -1245,13 +1240,14 @@ public final class ExecTemplates {
         String classParam_ = dBaseParam_.getComponent();
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
+        int dimArg_ = dBaseArg_.getDim();
         if (StringUtil.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
-            if (dBaseArg_.getDim() < dim_) {
+            if (dimArg_ < dim_) {
                 return "";
             }
             return _superType;
         }
-        if (dBaseArg_.getDim() != dim_) {
+        if (dimArg_ != dim_) {
             return "";
         }
         if (ExecClassArgumentMatching.isPrimitive(baseArr_,_context)) {
@@ -1283,7 +1279,7 @@ public final class ExecTemplates {
         return quickFormat(classBody_,_subType, generic_);
     }
 
-    public static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
+    private static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof ExecAnnotationBlock) {
@@ -1372,7 +1368,7 @@ public final class ExecTemplates {
      Sample 3: "my.pkg.MyThirdClass..Inner&lt;int&gt;" => ["V"-"int"]<br/>
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;[]" => ["K"-"long","V"-"int"]<br/>
      */
-    public static StringMap<String> getVarTypes(String _className, ContextEl _context) {
+    private static StringMap<String> getVarTypes(String _className, ContextEl _context) {
         StringList types_ = StringExpUtil.getAllTypes(_className);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _context.getClassBody(className_);
@@ -1436,20 +1432,7 @@ public final class ExecTemplates {
         }
         String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
         Ints rep_ = info_.getTypeVarCounts();
-        StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
-        int len_ = inners_.size();
-        if (!StringUtil.quickEq(compo_, fct_)) {
-            for (int i = 0; i < len_; i++) {
-                String i_ = inners_.get(i);
-                int req_ = rep_.get(i);
-                StringList params_ = StringExpUtil.getAllTypes(i_);
-                int nbParams_ = params_.size() - 1;
-                if (req_ != nbParams_) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return StringExpUtil.commonCorrectType(_genericClass,compo_,fct_,rep_);
     }
 
     public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf) {
@@ -1557,9 +1540,7 @@ public final class ExecTemplates {
             return Argument.createVoid();
         }
         classNameFound_ = getSuperGeneric(argClassName_, classNameFound_, _conf);
-        String fieldType_;
-        fieldType_ = _returnType;
-        fieldType_ = quickFormat(_rootBlock,classNameFound_, fieldType_);
+        String fieldType_ = quickFormat(_rootBlock,classNameFound_, _returnType);
         if (!checkQuick(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
@@ -1571,7 +1552,7 @@ public final class ExecTemplates {
         return _right;
     }
 
-    public static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf) {
+    private static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         LgNames stds_ = _conf.getStandards();
@@ -1584,9 +1565,7 @@ public final class ExecTemplates {
         if (_exit.hasToExit(_className)) {
             return Argument.createVoid();
         }
-        String fieldType_;
-        fieldType_ = _returnType;
-        if (!checkQuick(fieldType_, _right, _conf)) {
+        if (!checkQuick(_returnType, _right, _conf)) {
             return Argument.createVoid();
         }
         if (_conf.getInitializingTypeInfos().isSensibleField(_conf,fieldId_.getClassName())) {

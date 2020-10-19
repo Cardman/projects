@@ -3,6 +3,7 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.util.Ints;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -174,6 +175,10 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     @Test
     public void getAllInnerTypes18Test(){
         assertEq(new StringList("Map<[String..Character,Rate>","Inner<Boolean,Number>"), StringExpUtil.getAllInnerTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void commonCorrectType(){
+        assertTrue(!StringExpUtil.commonCorrectType("Tmp<Type>","Tmp","",new Ints()));
     }
     @Test
     public void getAllPartInnerTypes1Test(){

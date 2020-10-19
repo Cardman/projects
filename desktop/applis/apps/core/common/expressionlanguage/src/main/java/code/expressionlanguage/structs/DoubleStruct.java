@@ -1,8 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.stds.DisplayedStrings;
 
-public final class DoubleStruct extends NumberStruct {
+public final class DoubleStruct extends AbsRealNumberStruct {
 
     private final double value;
 
@@ -26,23 +28,9 @@ public final class DoubleStruct extends NumberStruct {
     }
 
     @Override
-    public long longStruct() {
-        return (long) value;
+    protected StringStruct getStringValue(DisplayedStrings _dis) {
+        return NumParsers.getDoubleString(this,_dis.getInfinity(),
+                _dis.getNan(),
+                _dis.getExponent());
     }
-
-    @Override
-    public int intStruct() {
-        return (int) value;
-    }
-
-    @Override
-    public short shortStruct() {
-        return (short) value;
-    }
-
-    @Override
-    public byte byteStruct() {
-        return (byte) value;
-    }
-
 }

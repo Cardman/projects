@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 
-public final class IntStruct extends NumberStruct {
+public final class IntStruct extends AbsRelativeNumberStruct {
 
     private final int value;
 
@@ -13,16 +13,6 @@ public final class IntStruct extends NumberStruct {
     @Override
     public String getClassName(ContextEl _context) {
         return _context.getStandards().getContent().getNbAlias().getAliasInteger();
-    }
-
-    @Override
-    public double doubleStruct() {
-        return (double)value;
-    }
-
-    @Override
-    public float floatStruct() {
-        return (float)value;
     }
 
     @Override

@@ -26,7 +26,7 @@ public final class DirectCloneRefectMethodPageEl extends AbstractRefectMethodPag
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        if (ExecTemplates.checkParams(_context,_className,_mid,_instance,_args,_right).isEmpty()) {
+        if (ExecTemplates.checkParams(_context,_className,_mid,_instance,_args).isEmpty()) {
             return Argument.createVoid();
         }
         return ExecCloneOperation.cloneArray(_instance,_context);

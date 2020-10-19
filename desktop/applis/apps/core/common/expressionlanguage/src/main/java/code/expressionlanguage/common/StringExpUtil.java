@@ -5,10 +5,7 @@ import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.inherits.MatchingEnum;
 
 import code.expressionlanguage.inherits.Templates;
-import code.util.CustList;
-import code.util.IntTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -205,21 +202,22 @@ public final class StringExpUtil {
         int diese_ = 0;
         boolean var_ = false;
         for (int i = 0; i < len_; i++) {
-            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
                 var_ = true;
                 diese_ = i;
                 continue;
             }
             if (!var_) {
-                str_.append(_type.charAt(i));
+                str_.append(ch_);
                 continue;
             }
-            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(ch_)) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
-            if (_varTypes.contains(sub_)) {
-                String value_ = _varTypes.getVal(sub_);
+            String value_ = _varTypes.getVal(sub_);
+            if (value_ != null) {
                 int max_ = str_.length() -1;
                 int j_ = getMaxIndex(str_, max_);
                 if (StringUtil.quickEq(value_, SUB_TYPE)) {
@@ -228,7 +226,7 @@ public final class StringExpUtil {
                     }
                     str_.delete(j_+1, max_+1);
                     str_.append(SUB_TYPE);
-                    str_.append(_type.charAt(i));
+                    str_.append(ch_);
                     var_ = false;
                     continue;
 
@@ -238,7 +236,7 @@ public final class StringExpUtil {
                     if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(SUB_TYPE);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
@@ -246,7 +244,7 @@ public final class StringExpUtil {
                         str_.insert(j_ +1, SUB_TYPE);
                     }
                     str_.append(bound_);
-                    str_.append(_type.charAt(i));
+                    str_.append(ch_);
                     var_ = false;
                     continue;
 
@@ -256,7 +254,7 @@ public final class StringExpUtil {
                     if (isSubChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(SUB_TYPE);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
@@ -264,7 +262,7 @@ public final class StringExpUtil {
                         str_.insert(j_ +1, SUP_TYPE);
                     }
                     str_.append(bound_);
-                    str_.append(_type.charAt(i));
+                    str_.append(ch_);
                     var_ = false;
                     continue;
 
@@ -274,7 +272,7 @@ public final class StringExpUtil {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
             }
-            str_.append(_type.charAt(i));
+            str_.append(ch_);
             var_ = false;
         }
         return str_.toString();
@@ -289,20 +287,21 @@ public final class StringExpUtil {
         int diese_ = 0;
         boolean var_ = false;
         for (int i = 0; i < len_; i++) {
-            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
                 var_ = true;
                 diese_ = i;
                 continue;
             }
             if (!var_) {
-                str_.append(_type.charAt(i));
+                str_.append(ch_);
                 continue;
             }
-            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(ch_)) {
                 continue;
             }
             quickReplaceType(str_,_type,_varTypes,diese_,i);
-            str_.append(_type.charAt(i));
+            str_.append(ch_);
             var_ = false;
         }
         if (var_) {
@@ -328,32 +327,35 @@ public final class StringExpUtil {
         int diese_ = 0;
         boolean var_ = false;
         for (int i = 0; i < len_; i++) {
-            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
                 var_ = true;
                 diese_ = i;
                 continue;
             }
             if (!var_) {
-                str_.append(_type.charAt(i));
+                str_.append(ch_);
                 continue;
             }
-            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(ch_)) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
-            if (_varTypes.contains(sub_)) {
-                tryReplaceType(_varTypes, str_, sub_);
+            String val_ = _varTypes.getVal(sub_);
+            if (val_ != null) {
+                tryReplaceType(str_, val_);
             } else {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
             }
-            str_.append(_type.charAt(i));
+            str_.append(ch_);
             var_ = false;
         }
         if (var_) {
             String sub_ = _type.substring(diese_+1);
-            if (_varTypes.contains(sub_)) {
-                tryReplaceType(_varTypes, str_, sub_);
+            String val_ = _varTypes.getVal(sub_);
+            if (val_ != null) {
+                tryReplaceType(str_, val_);
             } else {
                 sub_ = _type.substring(diese_);
                 str_.append(sub_);
@@ -361,25 +363,24 @@ public final class StringExpUtil {
         }
         return str_.toString();
     }
-    private static void tryReplaceType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
+    private static void tryReplaceType(StringBuilder _str, String _value) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
-        String value_ = _varTypes.getVal(_sub);
-        if (value_.startsWith(SUB_TYPE)) {
+        if (_value.startsWith(SUB_TYPE)) {
             if (isSubOrSubChar(_str,j_)) {
-                _str.append(value_.substring(SUB_TYPE.length()));
+                _str.append(_value.substring(SUB_TYPE.length()));
             } else {
                 _str.insert(j_ +1, SUB_TYPE);
-                _str.append(value_.substring(SUB_TYPE.length()));
+                _str.append(_value.substring(SUB_TYPE.length()));
             }
-        } else if (value_.startsWith(SUP_TYPE)) {
+        } else if (_value.startsWith(SUP_TYPE)) {
             if (isSubOrSubChar(_str,j_)) {
-                _str.append(value_.substring(SUP_TYPE.length()));
+                _str.append(_value.substring(SUP_TYPE.length()));
             } else {
                 _str.insert(j_ + 1, SUP_TYPE);
-                _str.append(value_.substring(SUP_TYPE.length()));
+                _str.append(_value.substring(SUP_TYPE.length()));
             }
         } else {
-            _str.append(value_);
+            _str.append(_value);
         }
     }
     public static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {
@@ -391,32 +392,35 @@ public final class StringExpUtil {
         int diese_ = 0;
         boolean var_ = false;
         for (int i = 0; i < len_; i++) {
-            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
                 var_ = true;
                 diese_ = i;
                 continue;
             }
             if (!var_) {
-                str_.append(_type.charAt(i));
+                str_.append(ch_);
                 continue;
             }
-            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(ch_)) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
-            if (_varTypes.contains(sub_)) {
-                replaceReflectedType(_varTypes, str_, sub_);
+            String value_ = _varTypes.getVal(sub_);
+            if (value_ != null) {
+                replaceReflectedType(str_, value_);
             } else {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
             }
-            str_.append(_type.charAt(i));
+            str_.append(ch_);
             var_ = false;
         }
         if (var_) {
             String sub_ = _type.substring(diese_+1);
-            if (_varTypes.contains(sub_)) {
-                replaceReflectedType(_varTypes, str_, sub_);
+            String value_ = _varTypes.getVal(sub_);
+            if (value_ != null) {
+                replaceReflectedType(str_, value_);
             } else {
                 sub_ = _type.substring(diese_);
                 str_.append(sub_);
@@ -425,24 +429,23 @@ public final class StringExpUtil {
         return str_.toString();
     }
 
-    static void replaceReflectedType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
+    private static void replaceReflectedType(StringBuilder _str, String _value) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
-        String value_ = _varTypes.getVal(_sub);
-        if (StringUtil.quickEq(value_,SUB_TYPE)) {
+        if (StringUtil.quickEq(_value,SUB_TYPE)) {
             _str.delete(j_+1,_str.length());
-            _str.append(value_);
-        } else if (value_.startsWith(SUB_TYPE)) {
+            _str.append(_value);
+        } else if (_value.startsWith(SUB_TYPE)) {
             if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
                 _str.insert(j_ +1, SUB_TYPE);
             }
-            _str.append(value_.substring(SUB_TYPE.length()));
-        } else if (value_.startsWith(SUP_TYPE)) {
+            _str.append(_value.substring(SUB_TYPE.length()));
+        } else if (_value.startsWith(SUP_TYPE)) {
             if (isNotChar(_str,j_,SUB_TYPE_CHAR) && isNotChar(_str,j_,SUP_TYPE_CHAR)) {
                 _str.insert(j_ +1, SUP_TYPE);
             }
-            _str.append(value_.substring(SUP_TYPE.length()));
+            _str.append(_value.substring(SUP_TYPE.length()));
         } else {
-            _str.append(value_);
+            _str.append(_value);
         }
     }
 
@@ -452,28 +455,29 @@ public final class StringExpUtil {
         int diese_ = 0;
         boolean var_ = false;
         for (int i = 0; i < len_; i++) {
-            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+            char ch_ = _type.charAt(i);
+            if (ch_ == PREFIX_VAR_TYPE_CHAR) {
                 var_ = true;
                 diese_ = i;
                 continue;
             }
             if (!var_) {
-                str_.append(_type.charAt(i));
+                str_.append(ch_);
                 continue;
             }
-            if (StringUtil.isDollarWordChar(_type.charAt(i))) {
+            if (StringUtil.isDollarWordChar(ch_)) {
                 continue;
             }
             String sub_ = _type.substring(diese_+1, i);
-            if (_varTypes.contains(sub_)) {
-                String value_ = _varTypes.getVal(sub_);
+            String value_ = _varTypes.getVal(sub_);
+            if (value_ != null) {
                 int max_ = str_.length() -1;
                 int j_ = getMaxIndex(str_, max_);
                 if (StringUtil.quickEq(value_, SUB_TYPE)) {
                     if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(_objType);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
@@ -483,7 +487,7 @@ public final class StringExpUtil {
                     String bound_= value_.substring(SUB_TYPE.length());
                     if (isSupChar(str_, j_)) {
                         str_.append(bound_);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
@@ -493,14 +497,14 @@ public final class StringExpUtil {
                     String bound_= value_.substring(SUP_TYPE.length());
                     if (isSubChar(str_, j_)) {
                         str_.append(bound_);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
                     if (isSupChar(str_, j_)) {
                         str_.delete(j_, max_+1);
                         str_.append(_objType);
-                        str_.append(_type.charAt(i));
+                        str_.append(ch_);
                         var_ = false;
                         continue;
                     }
@@ -511,13 +515,13 @@ public final class StringExpUtil {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
             }
-            str_.append(_type.charAt(i));
+            str_.append(ch_);
             var_ = false;
         }
         return str_.toString();
     }
 
-    static int getMaxIndex(StringBuilder _str, int _max) {
+    private static int getMaxIndex(StringBuilder _str, int _max) {
         int j_ = _max;
         while (j_ >= 0) {
             if (_str.charAt(j_) != ARR_BEG) {
@@ -528,19 +532,19 @@ public final class StringExpUtil {
         return j_;
     }
 
-    static boolean isNotChar(StringBuilder _str, int _j, char _subTypeChar) {
+    private static boolean isNotChar(StringBuilder _str, int _j, char _subTypeChar) {
         return _j >= 0 && _str.charAt(_j) != _subTypeChar;
     }
 
-    static boolean isSubOrSubChar(StringBuilder _str, int _j) {
+    private static boolean isSubOrSubChar(StringBuilder _str, int _j) {
         return isSubChar(_str,_j) || isSupChar(_str, _j);
     }
 
-    static boolean isSubChar(StringBuilder _str, int _j) {
+    private static boolean isSubChar(StringBuilder _str, int _j) {
         return _j >= 0 && _str.charAt(_j) == SUB_TYPE_CHAR;
     }
 
-    static boolean isSupChar(StringBuilder _str, int _j) {
+    private static boolean isSupChar(StringBuilder _str, int _j) {
         return _j >= 0 && _str.charAt(_j) == SUP_TYPE_CHAR;
     }
 
@@ -604,8 +608,11 @@ public final class StringExpUtil {
 
     /**arg - param*/
     public static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
-        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int len_ = _params.size();
+        if (_args.size() != len_) {
+            return null;
+        }
+        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int argCall_ = len_ - 1;
         for (int i = IndexConstants.SECOND_INDEX; i < argCall_; i++) {
             String arg_ = _args.get(i);
@@ -650,13 +657,12 @@ public final class StringExpUtil {
     }
     /**arg - param*/
     public static MappingPairs newMappingPairs(String _generic, StringList _params) {
-        int len_;
         StringList foundSuperClass_ = getAllTypes(_generic);
-        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
-        len_ = foundSuperClass_.size();
+        int len_ = foundSuperClass_.size();
         if (_params.size() != len_) {
             return null;
         }
+        CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
             String arg_ = foundSuperClass_.get(i);
@@ -670,23 +676,8 @@ public final class StringExpUtil {
             if (StringUtil.quickEq(param_, SUB_TYPE)) {
                 continue;
             }
-            if (arg_.startsWith(SUP_TYPE)) {
-                if (param_.startsWith(SUB_TYPE)) {
-                    return null;
-                }
-            }
-            if (arg_.startsWith(SUB_TYPE)) {
-                if (param_.startsWith(SUP_TYPE)) {
-                    return null;
-                }
-            }
-            boolean eqParam_ = !param_.startsWith(SUP_TYPE) && !param_.startsWith(SUB_TYPE);
-            boolean eqArg_ = !arg_.startsWith(SUP_TYPE) && !arg_.startsWith(SUB_TYPE);
-            if (eqParam_) {
-                if (arg_.startsWith(SUB_TYPE)) {
-                    return null;
-                }
-                if (arg_.startsWith(SUP_TYPE)) {
+            if (!isBound(param_)) {
+                if (isBound(arg_)) {
                     return null;
                 }
                 match_.setArg(arg_);
@@ -694,7 +685,7 @@ public final class StringExpUtil {
                 pairsArgParam_.add(match_);
                 continue;
             }
-            if (eqArg_) {
+            if (!isBound(arg_)) {
                 if (param_.startsWith(SUP_TYPE)) {
                     match_.setArg(arg_);
                     match_.setParam(param_.substring(SUP_TYPE.length()));
@@ -709,11 +700,17 @@ public final class StringExpUtil {
                 continue;
             }
             if (arg_.startsWith(SUP_TYPE)) {
+                if (param_.startsWith(SUB_TYPE)) {
+                    return null;
+                }
                 match_.setArg(arg_.substring(SUP_TYPE.length()));
                 match_.setParam(param_.substring(SUP_TYPE.length()));
                 match_.setMatchEq(MatchingEnum.SUP);
                 pairsArgParam_.add(match_);
                 continue;
+            }
+            if (param_.startsWith(SUP_TYPE)) {
+                return null;
             }
             match_.setArg(arg_.substring(SUB_TYPE.length()));
             match_.setParam(param_.substring(SUB_TYPE.length()));
@@ -725,11 +722,15 @@ public final class StringExpUtil {
         return m_;
     }
 
+    private static boolean isBound(String _type) {
+        return _type.startsWith(SUP_TYPE) || _type.startsWith(SUB_TYPE);
+    }
+
     public static boolean nextCharIs(String _str, int _i, int _len, char _value) {
         if (_i < 0) {
             return false;
         }
-        if (_i >= _len) {
+        if (_i >= Math.min(_len,_str.length())) {
             return false;
         }
         return _str.charAt(_i) == _value;
@@ -755,14 +756,15 @@ public final class StringExpUtil {
             return _j;
         }
         int j_ = _j;
-        while (j_ < _len) {
+        int len_ = Math.min(_len,_string.length());
+        while (j_ < len_) {
             char ch_ = _string.charAt(j_);
             if (!Character.isWhitespace(ch_)) {
                 break;
             }
             j_++;
         }
-        if (j_ >= _len) {
+        if (j_ >= len_) {
             return -1;
         }
         return j_;
@@ -846,29 +848,6 @@ public final class StringExpUtil {
         return StringUtil.quickEq(_op, "--");
     }
 
-    public static int countPrefix(String _varRef) {
-        int count_ = 0;
-        int len_ = _varRef.length();
-        for (int i = 0; i < len_; i++) {
-            if (_varRef.charAt(i) != '#') {
-                break;
-            }
-            count_++;
-        }
-        return count_;
-    }
-    public static String skipPrefix(String _varRef) {
-        int count_ = 0;
-        int len_ = _varRef.length();
-        for (int i = 0; i < len_; i++) {
-            if (_varRef.charAt(i) != '#') {
-                break;
-            }
-            count_++;
-        }
-        return _varRef.substring(count_);
-    }
-
     public static boolean startsWithKeyWord(String _found, String _keyWord) {
         return startsWithKeyWord(_found,0,_keyWord);
     }
@@ -877,10 +856,11 @@ public final class StringExpUtil {
         if (!_found.startsWith(_keyWord,_start)) {
             return false;
         }
-        if (_found.length() == _keyWord.length()+_start) {
+        int offset_ = _keyWord.length() + _start;
+        if (offset_ >= _found.length()) {
             return true;
         }
-        char first_ = _found.charAt(_keyWord.length()+_start);
+        char first_ = _found.charAt(offset_);
         return !StringExpUtil.isTypeLeafChar(first_);
     }
 
@@ -947,20 +927,8 @@ public final class StringExpUtil {
     }
     /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
-        int d_ = 0;
-        String comp_ = getQuickComponentType(_className);
-        if (comp_ == null) {
-            return new DimComp(d_, _className);
-        }
-        d_++;
-        while (true) {
-            String res_ = getQuickComponentType(comp_);
-            if (res_ == null) {
-                return new DimComp(d_, comp_);
-            }
-            d_++;
-            comp_ = res_;
-        }
+        int count_ = countPrefix(_className, ARR_BEG);
+        return new DimComp(count_, _className.substring(count_));
     }
 
     public static String getQuickComponentType(String _className) {
@@ -976,6 +944,22 @@ public final class StringExpUtil {
         }
         return className_;
     }
+    public static String skipPrefix(String _varRef) {
+        int count_ = countPrefix(_varRef, '#');
+        return _varRef.substring(count_);
+    }
+
+    public static int countPrefix(String _varRef, char _prefChar) {
+        int count_ = 0;
+        int len_ = _varRef.length();
+        for (int i = 0; i < len_; i++) {
+            if (_varRef.charAt(i) != _prefChar) {
+                break;
+            }
+            count_++;
+        }
+        return count_;
+    }
 
     public static boolean isIndexerOrInexist(String _nameLoc) {
         return _nameLoc.trim().isEmpty() || _nameLoc.startsWith("[]");
@@ -988,14 +972,35 @@ public final class StringExpUtil {
         ExtractedParts e_ = new ExtractedParts();
         e_.setFirst(_string.substring(0,index_));
         int last_ = _string.lastIndexOf(_last);
-        if (last_ <= index_) {
+        int afterIndex_ = index_ + 1;
+        if (afterIndex_ > last_) {
             return e_;
         }
-        e_.setSecond(_string.substring(index_+1,last_));
+        e_.setSecond(_string.substring(afterIndex_,last_));
         return e_;
     }
     public static int getOffset(String _str) {
         return Math.max(0, StringUtil.getFirstPrintableCharIndex(_str));
+    }
+
+    public static boolean commonCorrectType(String _genericClass, String _compo, String _fct, Ints _rep) {
+        StringList inners_ = getAllInnerTypes(_genericClass);
+        int len_ = inners_.size();
+        if (!StringUtil.quickEq(_compo, _fct)) {
+            if (len_ != _rep.size()) {
+                return false;
+            }
+            for (int i = 0; i < len_; i++) {
+                String i_ = inners_.get(i);
+                int req_ = _rep.get(i);
+                StringList params_ = getAllTypes(i_);
+                int nbParams_ = params_.size() - 1;
+                if (req_ != nbParams_) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static ArrayResult tryGetArray(String _string, IntTreeMap<String> _values, IntTreeMap<String> _operators) {

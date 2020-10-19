@@ -516,7 +516,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray1(NullStruct.NULL_VALUE, "[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -527,7 +527,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -542,7 +542,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -553,7 +553,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -568,7 +568,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -583,7 +583,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex<$int>",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex<$int>",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -593,7 +593,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(NullStruct.NULL_VALUE));
-        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_));
         assertNotNull(getException(cont_));
     }
     @Test

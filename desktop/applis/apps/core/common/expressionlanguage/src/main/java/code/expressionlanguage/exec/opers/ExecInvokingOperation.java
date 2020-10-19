@@ -137,7 +137,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static Argument instancePrepareStd(ContextEl _conf, String _className, ConstructorId _constId,
                                               CustList<Argument> _arguments) {
-        if (!ExecTemplates.okArgs(_constId, _className,_arguments, _conf,null)) {
+        if (!ExecTemplates.okArgs(_constId, _className,_arguments, _conf)) {
             return new Argument();
         }
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf, _constId, Argument.toArgArray(_arguments));
@@ -222,8 +222,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ExecOverrideInfo(_root.getGenericString(),_root, _named);
     }
-    public static Argument callStd(AbstractExiting _exit,ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right) {
-        checkParameters(_cont, _classNameFound, _methodId, _previous, _firstArgs, _right);
+    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs) {
+        checkParameters(_cont, _classNameFound, _methodId, _previous, _firstArgs);
         if (_cont.callsOrException()) {
             return Argument.createVoid();
         }
@@ -323,9 +323,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                        Argument _previous, CustList<Argument> _firstArgs,
-                                        Argument _right) {
-        ExecTemplates.checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs, _right);
+                                        Argument _previous, CustList<Argument> _firstArgs) {
+        ExecTemplates.checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs);
     }
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
                                             ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,

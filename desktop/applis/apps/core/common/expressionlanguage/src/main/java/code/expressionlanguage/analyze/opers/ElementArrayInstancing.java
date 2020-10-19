@@ -70,10 +70,11 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (inferForm_ == null) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
-            if (res_.startsWith(ARR)) {
+            String comp_ = StringExpUtil.getQuickComponentType(res_);
+            if (comp_ != null) {
                 partOffsets.addAllElts(partOffsets_);
                 typeInfer = res_;
-                setClassName(StringExpUtil.getQuickComponentType(res_));
+                setClassName(comp_);
             }
             return;
         }
@@ -83,7 +84,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             return;
         }
 
-        if (dim_.getDim() == 0) {
+        int dimArr_ = dim_.getDim();
+        if (dimArr_ == 0) {
             return;
         }
         StringMap<String> vars_ = new StringMap<String>();
@@ -102,7 +104,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
+                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
@@ -112,7 +114,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     methodInfos_.set(i,newList_);
                 }
                 if (candidates_.onlyOneElt()) {
-                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
@@ -130,7 +132,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
+                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -140,7 +142,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 methodInfos_.clear();
                 methodInfos_.addAllElts(newList_);
                 if (candidates_.onlyOneElt()) {
-                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                     partOffsets.addAllElts(partOffsets_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
@@ -164,7 +166,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
+                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -174,7 +176,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 methodInfos_.set(i,newList_);
             }
             if (candidates_.onlyOneElt()) {
-                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
@@ -195,7 +197,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+dim_.getDim(), type_, vars_, _page);
+                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_+ dimArr_, type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
@@ -205,7 +207,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             methodInfos_.clear();
             methodInfos_.addAllElts(newList_);
             if (candidates_.onlyOneElt()) {
-                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                 partOffsets.addAllElts(partOffsets_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
@@ -219,7 +221,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (isUndefined(typeAff_, keyWordVar_)) {
             return;
         }
-        String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_+dim_.getDim());
+        String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_+ dimArr_);
         if (isNotCorrectDim(cp_)) {
             return;
         }
@@ -227,7 +229,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (infer_ == null) {
             return;
         }
-        String arr_ = StringExpUtil.getPrettyArrayType(infer_, dim_.getDim());
+        String arr_ = StringExpUtil.getPrettyArrayType(infer_, dimArr_);
         partOffsets.addAllElts(partOffsets_);
         int begin_ = new_.length()+local_+className_.indexOf('<');
         int end_ = new_.length()+local_+className_.indexOf('>')+1;
@@ -253,7 +255,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         } else {
             className_ = typeInfer;
         }
-        if (!className_.startsWith(ARR)) {
+        String eltType_ = StringExpUtil.getQuickComponentType(className_);
+        if (eltType_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -274,7 +277,6 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         }
         StringMap<StringList> map_;
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
-        String eltType_ = StringExpUtil.getQuickComponentType(className_);
         Mapping mapping_ = new Mapping();
         mapping_.setParam(eltType_);
         for (OperationNode o: chidren_) {

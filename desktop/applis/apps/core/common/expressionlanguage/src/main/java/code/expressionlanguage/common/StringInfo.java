@@ -4,10 +4,10 @@ import code.util.CharList;
 
 public final class StringInfo {
 
-    private CharList chars = new CharList();
+    private final CharList chars = new CharList();
     private String found;
     private boolean ko;
-    private char[] builtUnicode = new char[4];
+    private final char[] builtUnicode = new char[4];
 
 
     public CharList getChars() {

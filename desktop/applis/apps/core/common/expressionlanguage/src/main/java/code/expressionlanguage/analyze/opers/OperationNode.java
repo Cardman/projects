@@ -469,7 +469,7 @@ public abstract class OperationNode {
         if (val_ == null) {
             String shortStr_ = StringExpUtil.skipPrefix(str_);
             AnaLocalVariable loc_ = _page.getInfosVars().getVal(shortStr_);
-            deep_ = StringExpUtil.countPrefix(str_);
+            deep_ = StringExpUtil.countPrefix(str_, '#');
             if (loc_ != null) {
                 deep_--;
             }

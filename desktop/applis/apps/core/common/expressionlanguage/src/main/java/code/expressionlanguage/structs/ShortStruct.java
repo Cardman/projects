@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 
-public final class ShortStruct extends NumberStruct {
+public final class ShortStruct extends AbsRelativeNumberStruct {
 
     private final short value;
 
@@ -13,16 +13,6 @@ public final class ShortStruct extends NumberStruct {
     @Override
     public String getClassName(ContextEl _context) {
         return _context.getStandards().getContent().getNbAlias().getAliasShort();
-    }
-
-    @Override
-    public double doubleStruct() {
-        return (double)value;
-    }
-
-    @Override
-    public float floatStruct() {
-        return (float)value;
     }
 
     @Override

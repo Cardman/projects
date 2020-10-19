@@ -230,7 +230,7 @@ public final class NumParsers {
             return new LongStruct(value_);
         }
         if (suffix_ == 'I' || suffix_ == 'i') {
-            if (value_ > (long) Integer.MAX_VALUE) {
+            if (value_ > Integer.MAX_VALUE) {
                 if (value_ == Integer.MAX_VALUE + 1L) {
                     return new IntStruct(Integer.MIN_VALUE);
                 }
@@ -239,7 +239,7 @@ public final class NumParsers {
             return new IntStruct((int) value_);
         }
         if (suffix_ == 'S' || suffix_ == 's') {
-            if (value_ > (long) Short.MAX_VALUE) {
+            if (value_ > Short.MAX_VALUE) {
                 if (value_ == Short.MAX_VALUE + 1L) {
                     return new ShortStruct(Short.MIN_VALUE);
                 }
@@ -248,7 +248,7 @@ public final class NumParsers {
             return new ShortStruct((short) value_);
         }
         if (suffix_ == 'B' || suffix_ == 'b') {
-            if (value_ > (long) Byte.MAX_VALUE) {
+            if (value_ > Byte.MAX_VALUE) {
                 if (value_ == Byte.MAX_VALUE + 1L) {
                     return new ByteStruct(Byte.MIN_VALUE);
                 }
@@ -256,7 +256,7 @@ public final class NumParsers {
             }
             return new ByteStruct((byte) value_);
         }
-        if (value_ > (long) Character.MAX_VALUE) {
+        if (value_ > Character.MAX_VALUE) {
             return NullStruct.NULL_VALUE;
         }
         return new CharStruct((char) value_);
@@ -407,7 +407,6 @@ public final class NumParsers {
         if (-expNbLong_ >= int_.length()) {
             StringBuilder number_ = new StringBuilder(int_);
             number_.append(dec_);
-            int nbLeadingZeros_;
             StringBuilder decCopy_ = new StringBuilder();
             int index_ = 0;
             while (index_ < number_.length()) {
@@ -416,7 +415,7 @@ public final class NumParsers {
                 }
                 index_++;
             }
-            nbLeadingZeros_ = index_;
+            int nbLeadingZeros_ = index_;
             decCopy_.append(number_.substring(nbLeadingZeros_));
             if (decCopy_.length() == 0) {
                 if (!positive_) {
@@ -499,9 +498,9 @@ public final class NumParsers {
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
-        double long_ = (double) parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
+        double long_ = (double) parseQuickLongTen(_nb.substring(0, MAX_DIGITS_DOUBLE + 1));
         double power_ = 1.0;
-        int logDec_ = _nb.length() - (int) MAX_DIGITS_DOUBLE - 1;
+        int logDec_ = _nb.length() - MAX_DIGITS_DOUBLE - 1;
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
         }
@@ -530,7 +529,7 @@ public final class NumParsers {
         return (char)result_;
     }
 
-    public static boolean[] toBits(long _l) {
+    private static boolean[] toBits(long _l) {
         boolean[] bits_ = new boolean[64];
         long t_ = _l;
         if (_l < 0) {
@@ -548,7 +547,7 @@ public final class NumParsers {
         return bits_;
     }
 
-    public static boolean[] toBits(int _l) {
+    private static boolean[] toBits(int _l) {
         boolean[] bits_ = new boolean[32];
         long t_ = _l;
         if (_l < 0) {
@@ -566,11 +565,11 @@ public final class NumParsers {
         return bits_;
     }
 
-    public static long toLong(boolean[] _bits) {
+    private static long toLong(boolean[] _bits) {
         return toLong(_bits,_bits[0],1,64);
     }
 
-    public static long toLong(boolean[] _bits, boolean _reverse, int _from, int _to) {
+    private static long toLong(boolean[] _bits, boolean _reverse, int _from, int _to) {
         long s_ = 0;
         for (int i = _from; i < _to; i++) {
             s_ *= 2;
@@ -583,7 +582,7 @@ public final class NumParsers {
         }
         return s_;
     }
-    public static int toInt(boolean[] _bits) {
+    private static int toInt(boolean[] _bits) {
         int s_ = 0;
         for (int i = 1; i < 32; i++) {
             s_ *= 2;
@@ -597,7 +596,7 @@ public final class NumParsers {
         return s_;
     }
 
-    public static int extractInt(boolean[] _bits) {
+    private static int extractInt(boolean[] _bits) {
         int s_ = 0;
         for (int i = 33; i < 64; i++) {
             s_ *= 2;
@@ -611,7 +610,7 @@ public final class NumParsers {
         return s_;
     }
 
-    public static short extractShort(boolean[] _bits) {
+    private static short extractShort(boolean[] _bits) {
         int s_ = 0;
         for (int i = 49; i < 64; i++) {
             s_ *= 2;
@@ -625,7 +624,7 @@ public final class NumParsers {
         return (short) s_;
     }
 
-    public static byte extractByte(boolean[] _bits) {
+    private static byte extractByte(boolean[] _bits) {
         int s_ = 0;
         for (int i = 57; i < 64; i++) {
             s_ *= 2;
@@ -639,9 +638,9 @@ public final class NumParsers {
         return (byte) s_;
     }
 
-    public static int toUnsignedInt(boolean[] _bits, int _max) {
+    private static int toUnsignedInt(boolean[] _bits) {
         int s_ = 0;
-        for (int i = 32 - _max+1; i < 32; i++) {
+        for (int i = 32 - 5 +1; i < 32; i++) {
             s_ *= 2;
             if (_bits[i]) {
                 s_++;
@@ -650,9 +649,9 @@ public final class NumParsers {
         return s_;
     }
 
-    public static long toUnsignedLong(boolean[] _bits, int _max) {
+    private static int toUnsignedLong(boolean[] _bits) {
         int s_ = 0;
-        for (int i = 64 - _max +1; i < 64; i++) {
+        for (int i = 64 - 6 +1; i < 64; i++) {
             s_ *= 2;
             if (_bits[i]) {
                 s_++;
@@ -661,7 +660,7 @@ public final class NumParsers {
         return s_;
     }
 
-    public static boolean[] parseLongSixteenToBits(String _string) {
+    private static boolean[] parseLongSixteenToBits(String _string) {
         StringBuilder str_;
         if (_string.length() < 16) {
             str_ = new StringBuilder();
@@ -700,7 +699,7 @@ public final class NumParsers {
         return out_;
     }
 
-    public static boolean[] parseLongOctalToBits(String _string) {
+    private static boolean[] parseLongOctalToBits(String _string) {
         StringBuilder str_;
         if (_string.length() < 21) {
             str_ = new StringBuilder();
@@ -735,7 +734,7 @@ public final class NumParsers {
         return out_;
     }
 
-    public static boolean[] parseLongBinaryToBits(String _string) {
+    private static boolean[] parseLongBinaryToBits(String _string) {
         StringBuilder str_;
         if (_string.length() < 64) {
             str_ = new StringBuilder();
@@ -862,7 +861,7 @@ public final class NumParsers {
             }
             if (i_ < max_) {
                 int ch_ = _string.charAt(i_);
-                if (!parsableChar(ch_)) {
+                if (nonParsableChar(ch_)) {
                     return new LongInfo();
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
@@ -879,7 +878,7 @@ public final class NumParsers {
             while (i_ < max_) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
                 int ch_ = _string.charAt(i_);
-                if (!parsableChar(ch_)) {
+                if (nonParsableChar(ch_)) {
                     return new LongInfo();
                 }
                 if (ch_ >= 'A' && ch_ <= 'Z') {
@@ -912,21 +911,21 @@ public final class NumParsers {
         return new LongInfo(-result_);
     }
 
-    private static boolean parsableChar(int _ch) {
+    private static boolean nonParsableChar(int _ch) {
         if (_ch >= '0' && _ch <= '9') {
-            return true;
+            return false;
         }
         if (_ch >= 'a' && _ch <= 'z') {
-            return true;
+            return false;
         }
-        return _ch >= 'A' && _ch <= 'Z';
+        return _ch < 'A' || _ch > 'Z';
     }
 
     public static DoubleInfo splitDouble(String _nb) {
         NumberInfos nb_ = trySplitDouble(_nb);
         return parseDoubleOrInvalid(nb_);
     }
-    public static DoubleInfo parseDoubleOrInvalid(NumberInfos _nb) {
+    private static DoubleInfo parseDoubleOrInvalid(NumberInfos _nb) {
         if (_nb == null) {
             return new DoubleInfo();
         }
@@ -974,10 +973,7 @@ public final class NumParsers {
             intPart_.append(cur_);
             i_++;
         }
-        if (intPart_.length() > 0 && i_ >= len_) {
-            return infos_;
-        }
-        if (_nb.charAt(i_) == DOT_VAR) {
+        if (StringExpUtil.nextCharIs(_nb,i_,len_,DOT_VAR)) {
             i_++;
             while (i_ < len_) {
                 char cur_ = _nb.charAt(i_);
@@ -1027,10 +1023,6 @@ public final class NumParsers {
     }
 
     public static StringStruct exportValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
-        return getStringValue(_nb,_infinity,_nan,_exp);
-    }
-
-    public static StringStruct getStringValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
         if (_nb instanceof DoubleStruct) {
             return getDoubleString(_nb,_infinity, _nan, _exp);
         }
@@ -1114,30 +1106,24 @@ public final class NumParsers {
         return new IntStruct(SortConstants.NO_SWAP_SORT);
     }
 
-    public static boolean sameReference(NumberStruct _first, NumberStruct _other) {
-        if (isFloatType(_first) && !isFloatType(_other)) {
-            return false;
-        }
-        if (!isFloatType(_first) && isFloatType(_other)) {
-            return false;
-        }
-        return cmpWide(_first, _other);
-    }
-
     public static boolean sameValue(Struct _first, Struct _other) {
         NumberStruct first_ = convertToNumber(_first);
         NumberStruct other_ = convertToNumber(_other);
         return cmpWide(first_, other_);
     }
 
-    public static boolean cmpWide(NumberStruct _first, NumberStruct _other) {
+    private static boolean cmpWide(NumberStruct _first, NumberStruct _other) {
         if (isFloatType(_first, _other)) {
             return compareFloat(_first, _other);
         }
+        return compareRelative(_first, _other);
+    }
+
+    public static boolean compareRelative(NumberStruct _first, NumberStruct _other) {
         return _first.longStruct() == _other.longStruct();
     }
 
-    public static boolean isFloatType(Struct _first, Struct _other) {
+    private static boolean isFloatType(Struct _first, Struct _other) {
         return isFloatType(_first) || isFloatType(_other);
     }
 
@@ -1147,7 +1133,7 @@ public final class NumParsers {
         return Double.compare(f_,d_) == 0;
     }
 
-    public static boolean isFloatType(Struct _value) {
+    private static boolean isFloatType(Struct _value) {
         return _value instanceof DoubleStruct || _value instanceof FloatStruct;
     }
 
@@ -1211,7 +1197,7 @@ public final class NumParsers {
         return arg_;
     }
 
-    public static boolean okArray(char[] _arr, int _one, int _two) {
+    public static boolean koArray(char[] _arr, int _one, int _two) {
         return _one < 0 || _two < 0 || _one + _two > _arr.length;
     }
 
@@ -1376,39 +1362,39 @@ public final class NumParsers {
         return convertStrictObject(_match, _obj);
     }
 
-    public static boolean isLessInt(byte _class) {
+    private static boolean isLessInt(byte _class) {
         return _class < PrimitiveTypes.INT_WRAP;
     }
 
-    public static boolean isByte(byte _class) {
+    private static boolean isByte(byte _class) {
         return _class == PrimitiveTypes.BYTE_WRAP;
     }
 
-    public static boolean isShort(byte _class) {
+    private static boolean isShort(byte _class) {
         return _class == PrimitiveTypes.SHORT_WRAP;
     }
 
-    public static boolean isChar(byte _class) {
+    private static boolean isChar(byte _class) {
         return _class == PrimitiveTypes.CHAR_WRAP;
     }
 
-    public static boolean isIntOrLess(byte _class) {
+    private static boolean isIntOrLess(byte _class) {
         return isInt(_class) || isLessInt(_class);
     }
 
-    public static boolean isInt(byte _class) {
+    private static boolean isInt(byte _class) {
         return _class == PrimitiveTypes.INT_WRAP;
     }
 
-    public static boolean isLong(byte _class) {
+    private static boolean isLong(byte _class) {
         return _class == PrimitiveTypes.LONG_WRAP;
     }
 
-    public static boolean isFloat(byte _class) {
+    private static boolean isFloat(byte _class) {
         return isInternFloat(_class);
     }
 
-    public static boolean isInternFloat(byte _class) {
+    private static boolean isInternFloat(byte _class) {
         return _class == PrimitiveTypes.FLOAT_WRAP;
     }
 
@@ -1526,13 +1512,13 @@ public final class NumParsers {
         return BooleanStruct.of(convertToNumber(_a).longStruct() > convertToNumber(_b).longStruct());
     }
 
-    public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
+    private static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(first_.compareTo(second_) < 0);
     }
 
-    public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
+    private static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(first_.compareTo(second_) > 0);
@@ -1826,7 +1812,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             int power_ = 1;
             for (int i = 0; i< value_; i++) {
                 power_ *= 2;
@@ -1836,7 +1822,7 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        long value_ = toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         long power_ = 1;
         for (int i = 0; i< value_; i++) {
             power_ *= 2;
@@ -1849,7 +1835,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             int power_ = 1;
             for (int i = 0; i< value_; i++) {
                 power_ *= 2;
@@ -1859,7 +1845,7 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        long value_ = toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         long power_ = 1;
         for (int i = 0; i< value_; i++) {
             power_ *= 2;
@@ -1872,7 +1858,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             boolean[] bitsLeft_ = toBits(left_);
             int diff_ = 32 - value_;
             for (int i = 1; i < diff_; i++) {
@@ -1886,7 +1872,7 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        int value_ = (int) toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         boolean[] bitsLeft_ = toBits(left_);
         int diff_ = 64 - value_;
         for (int i = 1; i < diff_; i++) {
@@ -1907,7 +1893,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             boolean[] bitsLeft_ = toBits(left_);
             int diff_ = 32 - value_;
             for (int i = 0; i < diff_; i++) {
@@ -1923,12 +1909,12 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        long value_ = toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         boolean[] bitsLeft_ = toBits(left_);
-        int diff_ = 64 - (int)value_;
+        int diff_ = 64 - value_;
         for (int i = 0; i < diff_; i++) {
             int index_ = 63 - i;
-            bitsLeft_[index_] = bitsLeft_[index_ - (int)value_];
+            bitsLeft_[index_] = bitsLeft_[index_ - value_];
         }
         for (int i = diff_; i < 64; i++) {
             int index_ = 63 - i;
@@ -1942,7 +1928,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             boolean[] bitsLeft_ = toBits(left_);
             int max_ = bitsLeft_.length - 1;
             for (int i = 0; i < value_; i++) {
@@ -1957,7 +1943,7 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        long value_ = toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         boolean[] bitsLeft_ = toBits(left_);
         int max_ = bitsLeft_.length - 1;
         for (int i = 0; i < value_; i++) {
@@ -1979,7 +1965,7 @@ public final class NumParsers {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             boolean[] bitsRight_ = toBits(right_);
-            int value_ = toUnsignedInt(bitsRight_,5);
+            int value_ = toUnsignedInt(bitsRight_);
             boolean[] bitsLeft_ = toBits(left_);
             int max_ = bitsLeft_.length - 1;
             for (int i = 0; i < value_; i++) {
@@ -1995,7 +1981,7 @@ public final class NumParsers {
         long left_ = _a.longStruct();
         long right_ = _b.longStruct();
         boolean[] bitsRight_ = toBits(right_);
-        long value_ = toUnsignedLong(bitsRight_,6);
+        int value_ = toUnsignedLong(bitsRight_);
         boolean[] bitsLeft_ = toBits(left_);
         int max_ = bitsLeft_.length - 1;
         for (int i = 0; i < value_; i++) {

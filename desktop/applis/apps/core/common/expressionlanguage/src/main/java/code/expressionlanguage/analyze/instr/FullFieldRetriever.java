@@ -41,7 +41,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         if (val_ == null) {
             String sh_ = StringExpUtil.skipPrefix(_word);
             AnaLocalVariable loc_ = ana_.getInfosVars().getVal(sh_);
-            int deep_ = StringExpUtil.countPrefix(_word);
+            int deep_ = StringExpUtil.countPrefix(_word, '#');
             if (loc_ != null) {
                 deep_--;
             }

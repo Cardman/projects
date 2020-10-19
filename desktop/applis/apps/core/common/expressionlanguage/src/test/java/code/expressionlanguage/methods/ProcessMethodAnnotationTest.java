@@ -4176,6 +4176,78 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         assertEq("", getString(ret_));
     }
     @Test
+    public void calculateArgument109Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotTwo info()@MyAnnotTwo(infoInt=3d);\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $double infoInt()2d;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4d))\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr[0i];\n");
+        xml_.append("  $return $static($Annotation).getString(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(ret_));
+    }
+    @Test
+    public void calculateArgument110Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotTwo info()@MyAnnotTwo(infoInt=3f);\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $float infoInt()2f;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4f))\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return \"\";\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr[0i];\n");
+        xml_.append("  $return $static($Annotation).getString(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4.0))", getString(ret_));
+    }
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $annotation pkg.MyAnnot {\n");

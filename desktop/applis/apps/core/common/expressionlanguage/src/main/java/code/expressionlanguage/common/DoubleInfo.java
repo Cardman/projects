@@ -17,10 +17,7 @@ public final class DoubleInfo {
     }
 
     public boolean outOfRange(double _min, double _max) {
-        if (!valid) {
-            return true;
-        }
-        return value < _min || value > _max;
+        return !valid || value < _min || value > _max;
     }
     public boolean isValid() {
         return valid;

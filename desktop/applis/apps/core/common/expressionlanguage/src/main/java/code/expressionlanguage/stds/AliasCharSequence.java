@@ -103,7 +103,7 @@ public final class AliasCharSequence {
         }
         int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
         int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-        if (NumParsers.okArray(arr_, one_, two_)) {
+        if (NumParsers.koArray(arr_, one_, two_)) {
             if (one_ < 0) {
                 _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(Long.toString(one_),"<0"), _lgNames.getContent().getCoreNames().getAliasBadIndex()));
             } else if (two_ < 0) {

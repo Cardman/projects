@@ -47,7 +47,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         }
         classNameFound_ = stdFctContent.getClassMethodId().getClassName();
         CustList<Argument> firstArgs_ = getArgs(_nodes);
-        return callStd(_conf.getExiting(),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callStd(_conf.getExiting(),_conf, classNameFound_, methodId_, prev_, firstArgs_);
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

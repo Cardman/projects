@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 
-public final class CharStruct extends NumberStruct {
+public final class CharStruct extends AbsRelativeNumberStruct {
 
     private final char value;
 
@@ -29,16 +29,6 @@ public final class CharStruct extends NumberStruct {
 
     public char getChar() {
         return value;
-    }
-
-    @Override
-    public double doubleStruct() {
-        return (double)value;
-    }
-
-    @Override
-    public float floatStruct() {
-        return (float)value;
     }
 
     @Override

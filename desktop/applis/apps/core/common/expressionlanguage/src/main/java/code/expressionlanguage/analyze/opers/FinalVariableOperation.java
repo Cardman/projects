@@ -54,7 +54,7 @@ public final class FinalVariableOperation extends LeafOperation {
         String shortStr_ = str_;
         AnaLoopVariable val_ = _page.getLoopsVars().getVal(str_);
         if (val_ == null) {
-            deep_ = StringExpUtil.countPrefix(str_);
+            deep_ = StringExpUtil.countPrefix(str_, '#');
             shortStr_ = StringExpUtil.skipPrefix(str_);
             AnaLoopVariable loc_ = _page.getLoopsVars().getVal(shortStr_);
             if (loc_ != null) {

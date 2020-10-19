@@ -894,10 +894,6 @@ public final class AnaTemplates {
                 if (StringUtil.quickEq(baseArrayParam_, fct_)) {
                     return new MappingPairs();
                 }
-                int len_ = typesParam_.size();
-                if (typesArg_.size() != len_) {
-                    return null;
-                }
                 return StringExpUtil.newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
             return StringExpUtil.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
@@ -1040,19 +1036,7 @@ public final class AnaTemplates {
         }
         String fct_ = _page.getAliasFct();
         Ints rep_ = _info.getTypeVarCounts();
-        StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
-        int len_ = inners_.size();
-        if (!StringUtil.quickEq(compo_, fct_)) {
-            for (int i = 0; i < len_; i++) {
-                String i_ = inners_.get(i);
-                int req_ = rep_.get(i);
-                StringList params_ = StringExpUtil.getAllTypes(i_);
-                int nbParams_ = params_.size() - 1;
-                if (req_ != nbParams_) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return StringExpUtil.commonCorrectType(_genericClass, compo_, fct_, rep_);
     }
+
 }

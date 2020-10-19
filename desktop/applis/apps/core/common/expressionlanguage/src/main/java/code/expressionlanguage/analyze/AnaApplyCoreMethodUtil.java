@@ -845,7 +845,7 @@ public final class AnaApplyCoreMethodUtil {
         }
         int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
         int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-        if (NumParsers.okArray(arr_, one_, two_)) {
+        if (NumParsers.koArray(arr_, one_, two_)) {
             return null;
         }
         return new StringStruct(String.valueOf(arr_,one_,two_));
