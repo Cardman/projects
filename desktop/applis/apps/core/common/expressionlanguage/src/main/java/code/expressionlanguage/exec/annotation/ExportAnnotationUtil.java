@@ -40,7 +40,7 @@ public final class ExportAnnotationUtil {
                             String clGeneName_ = getStringClass(annot_);
                             int count_ = incrCount(counts_, clGeneName_);
                             if (annot_ instanceof AnnotationStruct) {
-                                cls_.put(annot_, StringUtil.concatNbs(clGeneName_, count_));
+                                cls_.put(annot_, StringUtil.concatNbs(StringUtil.concat(clGeneName_,"/"), count_));
                             }
                             elts_.add(eltCur_);
                             StackObject f_ = eltCur_.first();

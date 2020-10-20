@@ -1038,7 +1038,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
         ExecutingUtil.addPage(c_, instancingClass_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
     public void exportAnnotation2() {
@@ -1056,7 +1056,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(c_, instancingClass_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1),myAnnot2=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
     public void exportAnnotation3() {
@@ -1076,7 +1076,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         c_.removeLastPage();
         ExecutingUtil.addPage(c_, instancingClass2_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1)))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1)))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
     public void exportAnnotation4() {
@@ -1099,7 +1099,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(c_, instancingClass2_);
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot2),myAnnot2=@pkg.Annot(pkg.Annot1)),myAnnot2=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/2),myAnnot2=@pkg.Annot(pkg.Annot/1)),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
         assertTrue(!ExportAnnotationUtil.hasNext(NullStruct.NULL_VALUE, 0));
     }
     private static ArrayStruct defaultArray() {
