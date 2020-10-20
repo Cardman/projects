@@ -1612,4 +1612,8 @@ public final class ExecTemplates {
         }
         return classes_;
     }
+
+    public static boolean hasNext(Object _par, int _size) {
+        return _par != null && _size != 0;
+    }
 }

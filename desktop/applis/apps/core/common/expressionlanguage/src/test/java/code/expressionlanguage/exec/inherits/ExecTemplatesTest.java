@@ -1100,7 +1100,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/2),myAnnot2=@pkg.Annot(pkg.Annot/1)),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
-        assertTrue(!ExportAnnotationUtil.hasNext(NullStruct.NULL_VALUE, 0));
+        assertTrue(!ExecTemplates.hasNext(NullStruct.NULL_VALUE, 0));
     }
     private static ArrayStruct defaultArray() {
         ArrayStruct array_ = new ArrayStruct(1, "[java.lang.Number");

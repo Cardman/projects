@@ -11,6 +11,8 @@ abstract class InfoAnnotPart {
 
     private ParentAnnotPart parent;
     private InfoAnnotPart next;
+    private StackObject stackObject;
+
     private int index;
     
     int getIndex() {
@@ -20,11 +22,12 @@ abstract class InfoAnnotPart {
         index = _index;
     }
 
-    static InfoAnnotPart create(Struct _value, ParentAnnotPart _parent) {
+    static InfoAnnotPart create(Struct _value, StackObject _stack, ParentAnnotPart _parent) {
         if (_value instanceof AnnotationStruct) {
             CompleteAnnotPart c_ = new CompleteAnnotPart();
             AnnotationStruct a_ = (AnnotationStruct)_value;
             c_.setClassName(a_.getClassName());
+            c_.setStackObject(_stack);
             c_.setParent(_parent);
             c_.setStruct(_value);
             NatStringTreeMap<Struct> fields_ = new NatStringTreeMap<Struct>();
@@ -37,11 +40,13 @@ abstract class InfoAnnotPart {
         if (_value instanceof ArrayStruct) {
             ArrayAnnotPart arr_ = new ArrayAnnotPart();
             ArrayStruct a_ = (ArrayStruct)_value;
+            arr_.setStackObject(_stack);
             arr_.setArray(a_);
             arr_.setParent(_parent);
             return arr_;
         }
         LeafAnnotPart l_ = new LeafAnnotPart();
+        l_.setStackObject(_stack);
         l_.setPart(_value);
         l_.setParent(_parent);
         return l_;
@@ -58,6 +63,14 @@ abstract class InfoAnnotPart {
     }
     void setNext(InfoAnnotPart _next) {
         next = _next;
+    }
+
+    StackObject getStackObject() {
+        return stackObject;
+    }
+
+    void setStackObject(StackObject _stackObject) {
+        stackObject = _stackObject;
     }
 
 }

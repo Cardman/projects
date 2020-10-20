@@ -34,4 +34,7 @@ final class ArrayAnnotPart extends ParentAnnotPart {
         return elts_;
     }
 
+    ArrayStruct getArray() {
+        return array;
+    }
 }
