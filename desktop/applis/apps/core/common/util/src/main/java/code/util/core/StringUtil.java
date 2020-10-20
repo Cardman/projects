@@ -279,7 +279,7 @@ public final class StringUtil {
                 while (true) {
                     StringList nexList_ = new StringList();
                     for (String k: list_) {
-                        if (k.length() <= j_) {
+                        if (checkLengths(_pattern, i_, j_, k)) {
                             continue;
                         }
                         if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
@@ -329,7 +329,7 @@ public final class StringUtil {
             while (true) {
                 StringList nexList_ = new StringList();
                 for (String k: list_) {
-                    if (k.length() <= j_) {
+                    if (checkLengths(_pattern, i_, j_, k)) {
                         continue;
                     }
                     if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
@@ -349,9 +349,8 @@ public final class StringUtil {
                 }
 //                String subString_ = _pattern.substring(i_, j_ + i_ + 1);
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
-                StringList filterList_ = new StringList(list_);
                 boolean exist_ = false;
-                for (String s: filterList_) {
+                for (String s: list_) {
                     if (s.contains(concat(subString_, String.valueOf(_pattern.charAt(j_ + i_ + 1))))) {
                         exist_ = true;
                         break;
@@ -418,7 +417,7 @@ public final class StringUtil {
             while (true) {
                 StringList nexList_ = new StringList();
                 for (String k: list_) {
-                    if (k.length() <= j_) {
+                    if (checkLengths(_pattern, i_, j_, k)) {
                         continue;
                     }
                     if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
@@ -443,6 +442,10 @@ public final class StringUtil {
             i_++;
         }
         return strBuilder_.toString();
+    }
+
+    private static boolean checkLengths(String _pattern, int _i, int _j, String _k) {
+        return _k.length() <= _j || _pattern.length() <= _j + _i;
     }
 
     public static boolean eq(String _string1, String _string2) {

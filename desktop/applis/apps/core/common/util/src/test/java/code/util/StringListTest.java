@@ -1147,6 +1147,14 @@ public class StringListTest {
         assertEq(outPut_, StringUtil.format(pattern_, '\'', new StringMap<String>()));
     }
     @Test
+    public void format12Test(){
+        String pattern_ = "With long variable in string";
+        String outPut_ = "With variable in string ";
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry("With long variable in string ",outPut_);
+        assertEq(pattern_, StringUtil.format(pattern_, '\'', map_));
+    }
+    @Test
     public void formatBasic1Test(){
         String pattern_ = "With variables STR STRING in string";
         String outPut_ = "With variables zero zeroING in string";
