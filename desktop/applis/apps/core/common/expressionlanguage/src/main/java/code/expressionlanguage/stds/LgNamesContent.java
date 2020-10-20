@@ -47,6 +47,8 @@ public final class LgNamesContent {
     private static final String ENUM_TYPE = "EnumType";
     private static final String PRIM_BYTE = "PrimByte";
     private static final String ERROR = "Error";
+    private static final String ERROR_CURRENT_STACK = "ErrorCurrentStack";
+    private static final String ERROR_TO_STRING = "ErrorToString";
     private static final String VOID = "Void";
     private static final String GET_CAUSE = "GetCause";
     private static final String BAD_INDEX = "BadIndex";
@@ -98,6 +100,8 @@ public final class LgNamesContent {
     private static final String IS_LOWER_CASE = "IsLowerCase";
     private static final String INDEX_OF = "IndexOf";
     private static final String STRING = "String";
+    private static final String STRING_COMPARE = "StringCompare";
+    private static final String STRING_VALUE_OF = "StringValueOf";
     private static final String IS_EMPTY = "IsEmpty";
     private static final String TRIM = "Trim";
     private static final String GET_BYTES = "GetBytes";
@@ -165,6 +169,9 @@ public final class LgNamesContent {
     private static final String SUB_SEQUENCE = "SubSequence";
     private static final String COMPARE_TO_IGNORE_CASE = "CompareToIgnoreCase";
     private static final String TO_CHAR_ARRAY = "ToCharArray";
+    private static final String CHAR_SEQUENCE_TO_STRING = "CharSequenceToString";
+    private static final String CHAR_SEQUENCE_EQUALS = "CharSequenceEquals";
+    private static final String CHAR_SEQUENCE_COMPARE_TO = "CharSequenceCompareTo";
     private static final String REPLACE_MULTIPLE = "ReplaceMultiple";
     private static final String SPLIT_STRINGS = "SplitStrings";
     private static final String SPLIT_CHARS = "SplitChars";
@@ -259,6 +266,7 @@ public final class LgNamesContent {
     private static final String ENUM_ORDINAL = "EnumOrdinal";
     private static final String SHIFT_RIGHT = "ShiftRight";
     private static final String CURRENT_FULL_STACK = "CurrentFullStack";
+    private static final String STACK_TRACE_ELEMENT_TO_STRING = "StackTraceElementToString";
     private static final String GET_BOUNDS = "GetBounds";
     private static final String GET_DECLARING_CLASS = "GetDeclaringClass";
     private static final String STACK_TRACE_ELEMENT = "StackTraceElement";
@@ -281,6 +289,7 @@ public final class LgNamesContent {
     private static final String GET_GENERIC_RETURN_TYPE = "GetGenericReturnType";
     private static final String INVOKE_DIRECT = "InvokeDirect";
     private static final String STRING_UTIL = "StringUtil";
+    private static final String STRING_UTIL_VALUE_OF = "StringUtilValueOf";
     private static final String GET_LOWER_BOUNDS = "GetLowerBounds";
     private static final String GET_TYPE_PARAMETERS = "GetTypeParameters";
     private static final String CONSTRUCTOR = "Constructor";
@@ -379,6 +388,8 @@ public final class LgNamesContent {
         getPredefTypes().setAliasEnumType(get(_util,_cust, ENUM_TYPE));
         getPrimTypes().setAliasPrimByte(get(_util,_cust, PRIM_BYTE));
         getCoreNames().setAliasError(get(_util,_cust, ERROR));
+        getCoreNames().setAliasErrorCurrentStack(get(_util,_cust, ERROR_CURRENT_STACK));
+        getCoreNames().setAliasErrorToString(get(_util,_cust, ERROR_TO_STRING));
         getCoreNames().setAliasVoid(get(_util,_cust, VOID));
         getCoreNames().setAliasGetCause(get(_util,_cust, GET_CAUSE));
         getCoreNames().setAliasBadIndex(get(_util,_cust, BAD_INDEX));
@@ -430,6 +441,8 @@ public final class LgNamesContent {
         getNbAlias().setAliasIsLowerCase(get(_util,_cust, IS_LOWER_CASE));
         getCharSeq().setAliasIndexOf(get(_util,_cust, INDEX_OF));
         getCharSeq().setAliasString(get(_util,_cust, STRING));
+        getCharSeq().setAliasStringValueOf(get(_util,_cust, STRING_VALUE_OF));
+        getCharSeq().setAliasStringCompare(get(_util,_cust, STRING_COMPARE));
         getCharSeq().setAliasIsEmpty(get(_util,_cust, IS_EMPTY));
         getCharSeq().setAliasTrim(get(_util,_cust, TRIM));
         getCharSeq().setAliasGetBytes(get(_util,_cust, GET_BYTES));
@@ -496,6 +509,9 @@ public final class LgNamesContent {
         getCharSeq().setAliasSubSequence(get(_util,_cust, SUB_SEQUENCE));
         getCharSeq().setAliasCompareToIgnoreCase(get(_util,_cust, COMPARE_TO_IGNORE_CASE));
         getCharSeq().setAliasToCharArray(get(_util,_cust, TO_CHAR_ARRAY));
+        getCharSeq().setAliasCharSequenceToString(get(_util,_cust, CHAR_SEQUENCE_TO_STRING));
+        getCharSeq().setAliasCharSequenceEquals(get(_util,_cust, CHAR_SEQUENCE_EQUALS));
+        getCharSeq().setAliasCharSequenceCompareTo(get(_util,_cust, CHAR_SEQUENCE_COMPARE_TO));
         getCharSeq().setAliasReplaceMultiple(get(_util,_cust, REPLACE_MULTIPLE));
         getCharSeq().setAliasSplitStrings(get(_util,_cust, SPLIT_STRINGS));
         getCharSeq().setAliasSplitChars(get(_util,_cust, SPLIT_CHARS));
@@ -591,6 +607,7 @@ public final class LgNamesContent {
         getPredefTypes().setAliasEnumOrdinal(get(_util,_cust, ENUM_ORDINAL));
         getMathRef().setAliasShiftRight(get(_util,_cust, SHIFT_RIGHT));
         getStackElt().setAliasCurrentFullStack(get(_util,_cust, CURRENT_FULL_STACK));
+        getStackElt().setAliasStackTraceElementToString(get(_util,_cust, STACK_TRACE_ELEMENT_TO_STRING));
         getReflect().setAliasGetBounds(get(_util,_cust, GET_BOUNDS));
         getReflect().setAliasGetDeclaringClass(get(_util,_cust, GET_DECLARING_CLASS));
         getStackElt().setAliasStackTraceElement(get(_util,_cust, STACK_TRACE_ELEMENT));
@@ -613,6 +630,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetGenericReturnType(get(_util,_cust, GET_GENERIC_RETURN_TYPE));
         getReflect().setAliasInvokeDirect(get(_util,_cust, INVOKE_DIRECT));
         getCoreNames().setAliasStringUtil(get(_util,_cust, STRING_UTIL));
+        getCoreNames().setAliasStringUtilValueOf(get(_util,_cust, STRING_UTIL_VALUE_OF));
         getReflect().setAliasGetLowerBounds(get(_util,_cust, GET_LOWER_BOUNDS));
         getReflect().setAliasGetTypeParameters(get(_util,_cust, GET_TYPE_PARAMETERS));
         getReflect().setAliasConstructor(get(_util,_cust, CONSTRUCTOR));
@@ -1280,8 +1298,8 @@ public final class LgNamesContent {
         map_.addEntry(StringExpUtil.getPrettyArrayType(getCoreNames().getAliasObject()), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CLONE, getCoreNames().getAliasClone())));
         map_.addEntry(getCoreNames().getAliasError(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CURRENT_STACK, getStackElt().getAliasCurrentStack()),
-                new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
+                new KeyValueMemberName(ERROR_CURRENT_STACK, getCoreNames().getAliasErrorCurrentStack()),
+                new KeyValueMemberName(ERROR_TO_STRING, getCoreNames().getAliasErrorToString()),
                 new KeyValueMemberName(GET_MESSAGE, getCoreNames().getAliasGetMessage()),
                 new KeyValueMemberName(GET_CAUSE, getCoreNames().getAliasGetCause())));
         map_.addEntry(getReflect().getAliasAnnotated(), new CustList<KeyValueMemberName>(
@@ -1431,7 +1449,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_PARENT, getCoreNames().getAliasGetParent()),
                 new KeyValueMemberName(SET_PARENT, getCoreNames().getAliasSetParent())));
         map_.addEntry(getCoreNames().getAliasStringUtil(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(VALUE_OF_METHOD, getNbAlias().getAliasValueOfMethod())));
+                new KeyValueMemberName(STRING_UTIL_VALUE_OF, getCoreNames().getAliasStringUtilValueOf())));
         map_.addEntry(getCoreNames().getAliasResources(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(READ_RESOURCES_NAMES, getCoreNames().getAliasReadResourcesNames()),
                 new KeyValueMemberName(READ_RESOURCES_NAMES_LENGTH, getCoreNames().getAliasReadResourcesNamesLength()),
@@ -1465,7 +1483,7 @@ public final class LgNamesContent {
         map_.addEntry(getStackElt().getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CURRENT_STACK, getStackElt().getAliasCurrentStack()),
                 new KeyValueMemberName(CURRENT_FULL_STACK,getStackElt().getAliasCurrentFullStack()),
-                new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod())));
+                new KeyValueMemberName(STACK_TRACE_ELEMENT_TO_STRING, getStackElt().getAliasStackTraceElementToString())));
         map_.addEntry(getMathRef().getAliasMath(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ABS, getMathRef().getAliasAbs()),
                 new KeyValueMemberName(MAX, getMathRef().getAliasMax()),
@@ -1524,8 +1542,8 @@ public final class LgNamesContent {
                 new KeyValueMemberName(PARSE_BYTE_OR_NULL,getNbAlias().getAliasParseByteOrNull())));
         map_.addEntry(getCharSeq().getAliasCharSequence(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(CHAR_AT, getCharSeq().getAliasCharAt()),
-                new KeyValueMemberName(EQUALS, getNbAlias().getAliasEquals()),
-                new KeyValueMemberName(COMPARE_TO, getNbAlias().getAliasCompareTo()),
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getCharSeq().getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getCharSeq().getAliasCharSequenceCompareTo()),
                 new KeyValueMemberName(CONTAINS,getCharSeq().getAliasContains()),
                 new KeyValueMemberName(ENDS_WITH,getCharSeq().getAliasEndsWith()),
                 new KeyValueMemberName(FORMAT,getCharSeq().getAliasFormat()),
@@ -1542,7 +1560,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SUB_SEQUENCE,getCharSeq().getAliasSubSequence()),
                 new KeyValueMemberName(SUBSTRING,getCharSeq().getAliasSubstring()),
                 new KeyValueMemberName(TO_CHAR_ARRAY,getCharSeq().getAliasToCharArray()),
-                new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getCharSeq().getAliasCharSequenceToString()),
                 new KeyValueMemberName(TRIM,getCharSeq().getAliasTrim())));
         map_.addEntry(getNbAlias().getAliasCharacter(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getNbAlias().getAliasByteValue()),
@@ -1669,8 +1687,8 @@ public final class LgNamesContent {
                 new KeyValueMemberName(PARSE_SHORT,getNbAlias().getAliasParseShort()),
                 new KeyValueMemberName(PARSE_SHORT_OR_NULL,getNbAlias().getAliasParseShortOrNull())));
         map_.addEntry(getCharSeq().getAliasString(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EQUALS,getNbAlias().getAliasEquals()),
-                new KeyValueMemberName(COMPARE_TO,getNbAlias().getAliasCompareTo()),
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS,getCharSeq().getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getCharSeq().getAliasCharSequenceCompareTo()),
                 new KeyValueMemberName(CHAR_AT, getCharSeq().getAliasCharAt()),
                 new KeyValueMemberName(CONTAINS,getCharSeq().getAliasContains()),
                 new KeyValueMemberName(ENDS_WITH,getCharSeq().getAliasEndsWith()),
@@ -1689,18 +1707,18 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SUB_SEQUENCE,getCharSeq().getAliasSubSequence()),
                 new KeyValueMemberName(SUBSTRING,getCharSeq().getAliasSubstring()),
                 new KeyValueMemberName(TO_CHAR_ARRAY,getCharSeq().getAliasToCharArray()),
-                new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getCharSeq().getAliasCharSequenceToString()),
                 new KeyValueMemberName(TRIM,getCharSeq().getAliasTrim()),
-                new KeyValueMemberName(COMPARE, getNbAlias().getAliasCompare()),
+                new KeyValueMemberName(STRING_COMPARE, getCharSeq().getAliasStringCompare()),
                 new KeyValueMemberName(COMPARE_TO_IGNORE_CASE,getCharSeq().getAliasCompareToIgnoreCase()),
                 new KeyValueMemberName(EQUALS_IGNORE_CASE,getCharSeq().getAliasEqualsIgnoreCase()),
                 new KeyValueMemberName(REPLACE_MULTIPLE,getCharSeq().getAliasReplaceMultiple()),
                 new KeyValueMemberName(TO_LOWER_CASE,getCharSeq().getAliasToLowerCase()),
                 new KeyValueMemberName(TO_UPPER_CASE,getCharSeq().getAliasToUpperCase()),
-                new KeyValueMemberName(VALUE_OF_METHOD, getNbAlias().getAliasValueOfMethod())));
+                new KeyValueMemberName(STRING_VALUE_OF, getCharSeq().getAliasStringValueOf())));
         map_.addEntry(getCharSeq().getAliasStringBuilder(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EQUALS, getNbAlias().getAliasEquals()),
-                new KeyValueMemberName(COMPARE_TO, getNbAlias().getAliasCompareTo()),
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getCharSeq().getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getCharSeq().getAliasCharSequenceCompareTo()),
                 new KeyValueMemberName(CHAR_AT,getCharSeq().getAliasCharAt()),
                 new KeyValueMemberName(CONTAINS,getCharSeq().getAliasContains()),
                 new KeyValueMemberName(ENDS_WITH,getCharSeq().getAliasEndsWith()),
@@ -1719,7 +1737,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SUB_SEQUENCE,getCharSeq().getAliasSubSequence()),
                 new KeyValueMemberName(SUBSTRING,getCharSeq().getAliasSubstring()),
                 new KeyValueMemberName(TO_CHAR_ARRAY,getCharSeq().getAliasToCharArray()),
-                new KeyValueMemberName(TO_STRING_METHOD, getNbAlias().getAliasToStringMethod()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getCharSeq().getAliasCharSequenceToString()),
                 new KeyValueMemberName(TRIM,getCharSeq().getAliasTrim()),
                 new KeyValueMemberName(APPEND,getCharSeq().getAliasAppend()),
                 new KeyValueMemberName(CAPACITY,getCharSeq().getAliasCapacity()),

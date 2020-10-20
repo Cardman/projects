@@ -189,6 +189,9 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasObject("$core.Object");
         _lgNames.getContent().getCoreNames().setAliasVoid("void");
         _lgNames.getContent().getCharSeq().setAliasCharSequence("$core.CharSequence");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceCompareTo("compareTo");
+        _lgNames.getContent().getCharSeq().setAliasStringCompare("compare");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceEquals("equals");
         _lgNames.getContent().getNbAlias().setAliasCompareTo("compareTo");
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("equals");
@@ -220,6 +223,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("$core.IllegalArgument");
         _lgNames.getContent().getCoreNames().setAliasBadSize("$core.NegativeSize");
         _lgNames.getContent().getCoreNames().setAliasError("$core.Error");
+        _lgNames.getContent().getCoreNames().setAliasErrorCurrentStack("current");
+        _lgNames.getContent().getCoreNames().setAliasErrorToString("toString");
         _lgNames.getContent().getCoreNames().setAliasGetMessage("getMessage");
         _lgNames.getContent().getCoreNames().setAliasCastType("$core.BadCast");
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("$core.DivideZero");
@@ -286,9 +291,11 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetType("getType");
         _lgNames.getContent().getNbAlias().setAliasGetCharType("getType");
         _lgNames.getContent().getCharSeq().setAliasString("$core.String");
+        _lgNames.getContent().getCharSeq().setAliasStringValueOf("valueOf");
         _lgNames.getContent().getCharSeq().setAliasLength("length");
         _lgNames.getContent().getCharSeq().setAliasCharAt("charAt");
         _lgNames.getContent().getCharSeq().setAliasToCharArray("toCharArray");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceToString("toString");
         _lgNames.getContent().getCharSeq().setAliasSplit("split");
         _lgNames.getContent().getCharSeq().setAliasSplitChars("splitChars");
         _lgNames.getContent().getCharSeq().setAliasSplitStrings("splitStrings");
@@ -345,6 +352,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getStackElt().setAliasStackTraceElement("$core.Stack");
         _lgNames.getContent().getStackElt().setAliasCurrentStack("current");
         _lgNames.getContent().getStackElt().setAliasCurrentFullStack("currentFull");
+        _lgNames.getContent().getStackElt().setAliasStackTraceElementToString("toString");
         _lgNames.getContent().getReflect().setAliasFct("$core.Fct");
         _lgNames.getContent().getReflect().setAliasCall("call");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
@@ -390,6 +398,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasForName("forName");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$core.ObjectsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("$core.StringUtil");
+        _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valueOf");
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("getParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("setParent");
@@ -511,6 +520,9 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasObject("$coeur.Objet");
         _lgNames.getContent().getCoreNames().setAliasVoid("vide");
         _lgNames.getContent().getCharSeq().setAliasCharSequence("$coeur.SequenceCaractere");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceCompareTo("comparer");
+        _lgNames.getContent().getCharSeq().setAliasStringCompare("compare");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceEquals("egal");
         _lgNames.getContent().getNbAlias().setAliasCompareTo("comparer");
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("egal");
@@ -543,6 +555,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("$coeur.IllegalArgument");
         _lgNames.getContent().getCoreNames().setAliasBadSize("$coeur.TailleNegative");
         _lgNames.getContent().getCoreNames().setAliasError("$coeur.Erreur");
+        _lgNames.getContent().getCoreNames().setAliasErrorCurrentStack("courante");
+        _lgNames.getContent().getCoreNames().setAliasErrorToString("chaine");
         _lgNames.getContent().getCoreNames().setAliasGetMessage("valMessage");
         _lgNames.getContent().getCoreNames().setAliasCastType("$coeur.MauvaisTranstype");
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("$coeur.DivisionZero");
@@ -608,9 +622,11 @@ public final class KeyWordsMap {
         _lgNames.getContent().getNbAlias().setAliasGetCharType("valType");
         _lgNames.getContent().getReflect().setAliasGetType("valType");
         _lgNames.getContent().getCharSeq().setAliasString("$coeur.Chaine");
+        _lgNames.getContent().getCharSeq().setAliasStringValueOf("valeurDe");
         _lgNames.getContent().getCharSeq().setAliasLength("longueur");
         _lgNames.getContent().getCharSeq().setAliasCharAt("car");
         _lgNames.getContent().getCharSeq().setAliasToCharArray("versTableauCaracter");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceToString("chaine");
         _lgNames.getContent().getCharSeq().setAliasSplit("separer");
         _lgNames.getContent().getCharSeq().setAliasSplitChars("separerCaracteres");
         _lgNames.getContent().getCharSeq().setAliasSplitStrings("separerChaines");
@@ -667,6 +683,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getStackElt().setAliasStackTraceElement("$coeur.Pile");
         _lgNames.getContent().getStackElt().setAliasCurrentStack("courante");
         _lgNames.getContent().getStackElt().setAliasCurrentFullStack("couranteComplete");
+        _lgNames.getContent().getStackElt().setAliasStackTraceElementToString("chaine");
         _lgNames.getContent().getReflect().setAliasFct("$coeur.Fct");
         _lgNames.getContent().getReflect().setAliasCall("appeler");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
@@ -712,6 +729,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasForName("parNom");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$coeur.ObjetsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("$coeur.ChaineUtil");
+        _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valeurDe");
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("valParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("majParent");

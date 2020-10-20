@@ -14,6 +14,7 @@ import code.util.core.StringUtil;
 public final class AliasStackTraceElement {
 
     private String aliasStackTraceElement;
+    private String aliasStackTraceElementToString;
 
     private String aliasCurrentStack;
     private String aliasCurrentFullStack;
@@ -30,7 +31,6 @@ public final class AliasStackTraceElement {
         fields_ = new CustList<StandardField>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        String aliasToString_ = _stds.getContent().getNbAlias().getAliasToStringMethod();
         stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);
@@ -41,7 +41,7 @@ public final class AliasStackTraceElement {
         method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString_, params_, aliasString_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasStackTraceElementToString, params_, aliasString_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
     }
@@ -68,6 +68,14 @@ public final class AliasStackTraceElement {
 
     public void setAliasStackTraceElement(String _aliasStackTraceElement) {
         aliasStackTraceElement = _aliasStackTraceElement;
+    }
+
+    public String getAliasStackTraceElementToString() {
+        return aliasStackTraceElementToString;
+    }
+
+    public void setAliasStackTraceElementToString(String _aliasStackTraceElementToString) {
+        aliasStackTraceElementToString = _aliasStackTraceElementToString;
     }
 
     public String getAliasCurrentStack() {

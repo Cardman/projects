@@ -16,6 +16,8 @@ public final class AliasCore {
 
     private String aliasEnums;
     private String aliasError;
+    private String aliasErrorCurrentStack;
+    private String aliasErrorToString;
     private String aliasGetCause;
     private String aliasGetMessage;
     private String aliasBadSize;
@@ -47,6 +49,7 @@ public final class AliasCore {
     private String aliasReadResourcesIndex;
     private String aliasResources;
     private String aliasStringUtil;
+    private String aliasStringUtilValueOf;
     private String aliasArrayLength;
     private AliasParamCore params = new AliasParamCore();
 
@@ -72,16 +75,16 @@ public final class AliasCore {
         String stackElt_ = _lgNames.getContent().getStackElt().getAliasStackTraceElement();
         stackElt_ = StringExpUtil.getPrettyArrayType(stackElt_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getContent().getStackElt().getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasErrorCurrentStack, params_, stackElt_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(_lgNames.getContent().getNbAlias().getAliasToStringMethod(), params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasErrorToString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getContent().getStackElt().getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,new StringList(params.getAliasError0CurrentStack0()));
+        method_ = new StandardMethod(aliasErrorCurrentStack, params_, stackElt_, false, MethodModifier.STATIC,new StringList(params.getAliasError0CurrentStack0()));
         methods_.add( method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getContent().getNbAlias().getAliasToStringMethod(), params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasError0ToStringMethod0()));
+        method_ = new StandardMethod(aliasErrorToString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasError0ToStringMethod0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL);
@@ -211,7 +214,7 @@ public final class AliasCore {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasStringUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(_lgNames.getContent().getNbAlias().getAliasValueOfMethod(), params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasStringUtil0ValueOfMethod0()));
+        method_ = new StandardMethod(aliasStringUtilValueOf, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasStringUtil0ValueOfMethod0()));
         methods_.add( method_);
         standards_.addEntry(aliasStringUtil, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -255,6 +258,22 @@ public final class AliasCore {
 
     public void setAliasError(String _aliasError) {
         aliasError = _aliasError;
+    }
+
+    public String getAliasErrorToString() {
+        return aliasErrorToString;
+    }
+
+    public void setAliasErrorToString(String _aliasErrorToString) {
+        this.aliasErrorToString = _aliasErrorToString;
+    }
+
+    public String getAliasErrorCurrentStack() {
+        return aliasErrorCurrentStack;
+    }
+
+    public void setAliasErrorCurrentStack(String _aliasErrorCurrentStack) {
+        this.aliasErrorCurrentStack = _aliasErrorCurrentStack;
     }
 
     public String getAliasGetMessage() {
@@ -423,6 +442,14 @@ public final class AliasCore {
 
     public void setAliasStringUtil(String _aliasStringUtil) {
         aliasStringUtil = _aliasStringUtil;
+    }
+
+    public String getAliasStringUtilValueOf() {
+        return aliasStringUtilValueOf;
+    }
+
+    public void setAliasStringUtilValueOf(String _aliasStringUtilValueOf) {
+        this.aliasStringUtilValueOf = _aliasStringUtilValueOf;
     }
 
     public String getAliasSameRef() {

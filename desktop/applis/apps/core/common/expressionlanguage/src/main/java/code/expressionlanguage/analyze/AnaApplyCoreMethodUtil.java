@@ -851,7 +851,7 @@ public final class AnaApplyCoreMethodUtil {
         }
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
+        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasStringCompare())) {
             Struct arg_ = _args[0];
             if (!(arg_ instanceof StringStruct)) {
                 return null;
@@ -1007,7 +1007,7 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCharAt())) {
             return charAt(_charSequence, _args[0]);
         }
-        if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
+        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCharSequenceCompareTo())) {
             return compareTo(_charSequence, _args[0]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
@@ -1061,7 +1061,7 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasFormat())) {
             return format(_charSequence, _args[0]);
         }
-        if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
+        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCharSequenceToString())) {
             return _charSequence;
         }
         return null;

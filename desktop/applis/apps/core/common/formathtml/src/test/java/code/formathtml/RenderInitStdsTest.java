@@ -105,6 +105,9 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getCoreNames().setAliasObject("java.lang.Object");
         _lgNames.getContent().getCoreNames().setAliasVoid("$void");
         _lgNames.getContent().getCharSeq().setAliasCharSequence("java.lang.CharSequence");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceCompareTo("compareTo");
+        _lgNames.getContent().getCharSeq().setAliasStringCompare("compare");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceEquals("equals");
         _lgNames.getContent().getNbAlias().setAliasCompareTo("compareTo");
         _lgNames.getContent().getNbAlias().setAliasCompare("compare");
         _lgNames.getContent().getNbAlias().setAliasEquals("equals");
@@ -137,6 +140,8 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getCoreNames().setAliasIllegalArg("code.expressionlanguage.exceptions.IllegalArgument");
         _lgNames.getContent().getCoreNames().setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
         _lgNames.getContent().getCoreNames().setAliasError("java.lang.Exception");
+        _lgNames.getContent().getCoreNames().setAliasErrorCurrentStack("current");
+        _lgNames.getContent().getCoreNames().setAliasErrorToString("toString");
         _lgNames.getContent().getCoreNames().setAliasGetMessage("getMessage");
         _lgNames.getContent().getCoreNames().setAliasCastType("code.expressionlanguage.exceptions.DynamicCastClassException");
         _lgNames.getContent().getCoreNames().setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
@@ -202,9 +207,11 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasGetType("getType");
         _lgNames.getContent().getNbAlias().setAliasGetCharType("getType");
         _lgNames.getContent().getCharSeq().setAliasString("java.lang.String");
+        _lgNames.getContent().getCharSeq().setAliasStringValueOf("valueOf");
         _lgNames.getContent().getCharSeq().setAliasLength("length");
         _lgNames.getContent().getCharSeq().setAliasCharAt("charAt");
         _lgNames.getContent().getCharSeq().setAliasToCharArray("toCharArray");
+        _lgNames.getContent().getCharSeq().setAliasCharSequenceToString("toString");
         _lgNames.getContent().getCharSeq().setAliasSplit("split");
         _lgNames.getContent().getCharSeq().setAliasSplitChars("splitChars");
         _lgNames.getContent().getCharSeq().setAliasSplitStrings("splitStrings");
@@ -261,6 +268,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getStackElt().setAliasStackTraceElement("java.lang.$stack");
         _lgNames.getContent().getStackElt().setAliasCurrentStack("current");
         _lgNames.getContent().getStackElt().setAliasCurrentFullStack("currentFull");
+        _lgNames.getContent().getStackElt().setAliasStackTraceElementToString("toString");
         _lgNames.getContent().getReflect().setAliasFct("java.lang.$Fct");
         _lgNames.getContent().getReflect().setAliasCall("call");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
@@ -306,6 +314,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasForName("forName");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("java.lang.$ObjectsUtil");
         _lgNames.getContent().getCoreNames().setAliasStringUtil("java.lang.$StringUtil");
+        _lgNames.getContent().getCoreNames().setAliasStringUtilValueOf("valueOf");
         _lgNames.getContent().getCoreNames().setAliasSameRef("eq");
         _lgNames.getContent().getCoreNames().setAliasGetParent("getParent");
         _lgNames.getContent().getCoreNames().setAliasSetParent("setParent");

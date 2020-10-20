@@ -286,7 +286,7 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getStackElt().getAliasCurrentStack())) {
+        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasErrorCurrentStack())) {
             ErroneousStruct err_;
             if (_args.length == 0) {
                 err_ = getError(_struct,_cont);

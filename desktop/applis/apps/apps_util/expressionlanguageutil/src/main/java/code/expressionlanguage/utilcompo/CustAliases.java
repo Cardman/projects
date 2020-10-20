@@ -732,7 +732,6 @@ public final class CustAliases {
         AliasCharSequence charSeq_ = _content.getCharSeq();
         AliasReflection reflect_ = _content.getReflect();
         AliasMath mathRef_ = _content.getMathRef();
-        AliasNumber nbAlias_ = _content.getNbAlias();
         AliasStackTraceElement stackElt_ = _content.getStackElt();
         String public_ = _keyWords.getKeyWordPublic();
         String private_ = _keyWords.getKeyWordPrivate();
@@ -1024,10 +1023,10 @@ public final class CustAliases {
         map_.put("{current}",stackElt_.getAliasCurrentStack());
         map_.put("{eq}",coreNames_.getAliasSameRef());
         map_.put("{call}",reflect_.getAliasCall());
-        map_.put("{valueOf}",nbAlias_.getAliasValueOfMethod());
+        map_.put("{valueOf}",coreNames_.getAliasStringUtilValueOf());
         map_.put("{append}",charSeq_.getAliasAppend());
         map_.put("{insert}",charSeq_.getAliasInsert());
-        map_.put("{toString}",nbAlias_.getAliasToStringMethod());
+        map_.put("{toString}",charSeq_.getAliasCharSequenceToString());
         map_.put("{plus}",mathRef_.getAliasPlus());
         map_.put("{minus}",mathRef_.getAliasMinus());
         map_.put("{lt}",mathRef_.getAliasLt());
