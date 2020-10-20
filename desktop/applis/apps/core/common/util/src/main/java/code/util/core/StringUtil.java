@@ -279,10 +279,7 @@ public final class StringUtil {
                 while (true) {
                     StringList nexList_ = new StringList();
                     for (String k: list_) {
-                        if (checkLengths(_pattern, i_, j_, k)) {
-                            continue;
-                        }
-                        if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
+                        if (okKey(_pattern, i_, j_, k)) {
                             nexList_.add(k);
                         }
                     }
@@ -329,10 +326,7 @@ public final class StringUtil {
             while (true) {
                 StringList nexList_ = new StringList();
                 for (String k: list_) {
-                    if (checkLengths(_pattern, i_, j_, k)) {
-                        continue;
-                    }
-                    if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
+                    if (okKey(_pattern, i_, j_, k)) {
                         nexList_.add(k);
                     }
                 }
@@ -417,10 +411,7 @@ public final class StringUtil {
             while (true) {
                 StringList nexList_ = new StringList();
                 for (String k: list_) {
-                    if (checkLengths(_pattern, i_, j_, k)) {
-                        continue;
-                    }
-                    if (k.charAt(j_) == _pattern.charAt(j_ + i_)) {
+                    if (okKey(_pattern, i_, j_, k)) {
                         nexList_.add(k);
                     }
                 }
@@ -442,6 +433,10 @@ public final class StringUtil {
             i_++;
         }
         return strBuilder_.toString();
+    }
+
+    private static boolean okKey(String _pattern, int _i, int _j, String _k) {
+        return !checkLengths(_pattern, _i, _j, _k) && _k.charAt(_j) == _pattern.charAt(_j + _i);
     }
 
     private static boolean checkLengths(String _pattern, int _i, int _j, String _k) {
