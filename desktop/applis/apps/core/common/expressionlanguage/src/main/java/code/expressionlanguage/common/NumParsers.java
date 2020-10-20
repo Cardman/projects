@@ -263,7 +263,7 @@ public final class NumParsers {
     }
 
 
-    public static double parseDouble(NumberInfos _nb) {
+    public static DoubleInfo parseDouble(NumberInfos _nb) {
         StringBuilder int_ = new StringBuilder(_nb.getIntPart());
         while(int_.indexOf("_") >= 0) {
             int_.deleteCharAt(int_.indexOf("_"));
@@ -290,21 +290,22 @@ public final class NumParsers {
         if (!expNb_.isValid()) {
             if (positive_) {
                 if (exp_.charAt(0) == '-') {
-                    return 0.0;
+                    return new DoubleInfo(0.0);
                 }
-                return Double.POSITIVE_INFINITY;
+                return new DoubleInfo(Double.POSITIVE_INFINITY);
             }
             if (exp_.charAt(0) == '-') {
-                return -0.0;
+                return new DoubleInfo(-0.0);
             }
-            return Double.NEGATIVE_INFINITY;
+            return new DoubleInfo(Double.NEGATIVE_INFINITY);
         }
         long expNbLong_ = expNb_.getValue();
         if (_nb.getBase() == 16) {
             StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
             merged_.append(int_);
             merged_.append(dec_);
-            double parsed_ = parseDoubleSixteen(merged_.toString());
+            long longValue_ = parseLongSixteen(merged_.toString());
+            double parsed_ = (double) longValue_;
             long delta_ = expNbLong_;
             delta_ -= 4 * dec_.length();
             double p_ = 1.0;
@@ -312,16 +313,18 @@ public final class NumParsers {
             for (int i = 0; i < absExpNbLong_; i++) {
                 p_ *= 2.0;
             }
+            boolean zero_ = longValue_ == 0;
             if (delta_ > 0) {
-                return parsed_ * p_;
+                return new DoubleInfo(parsed_ * p_,zero_);
             }
-            return parsed_ / p_;
+            return new DoubleInfo(parsed_ / p_,zero_);
         }
         if (_nb.getBase() == 2) {
             StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
             merged_.append(int_);
             merged_.append(dec_);
-            double parsed_ = parseDoubleBinary(merged_.toString());
+            long longValue_ = parseLongBase(merged_.toString(), 2);
+            double parsed_ = (double) longValue_;
             long delta_ = expNbLong_;
             delta_ -= dec_.length();
             double p_ = 1.0;
@@ -329,16 +332,18 @@ public final class NumParsers {
             for (int i = 0; i < absExpNbLong_; i++) {
                 p_ *= 2.0;
             }
+            boolean zero_ = longValue_ == 0;
             if (delta_ > 0) {
-                return parsed_ * p_;
+                return new DoubleInfo(parsed_ * p_,zero_);
             }
-            return parsed_ / p_;
+            return new DoubleInfo(parsed_ / p_,zero_);
         }
         if (_nb.getBase() == 8) {
             StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
             merged_.append(int_);
             merged_.append(dec_);
-            double parsed_ = parseDoubleOctal(merged_.toString());
+            long longValue_ = parseLongBase(merged_.toString(), 8);
+            double parsed_ = (double) longValue_;
             long delta_ = expNbLong_;
             delta_ -= 3*dec_.length();
             double p_ = 1.0;
@@ -346,45 +351,51 @@ public final class NumParsers {
             for (int i = 0; i < absExpNbLong_; i++) {
                 p_ *= 2.0;
             }
+            boolean zero_ = longValue_ == 0;
             if (delta_ > 0) {
-                return parsed_ * p_;
+                return new DoubleInfo(parsed_ * p_,zero_);
             }
-            return parsed_ / p_;
+            return new DoubleInfo(parsed_ / p_,zero_);
         }
         if (dec_.length() == 0) {
             if (expNbLong_ == 0) {
-                double long_;
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
-                    return processBigNumbers(int_, positive_);
+                    return new DoubleInfo(processBigNumbers(int_, positive_));
                 }
-                long_ = (double)parseQuickLongTen(int_.toString());
+                long longValue_ = parseQuickLongTen(int_.toString());
+                double value_ = (double) longValue_;
+                boolean zero_ = longValue_ == 0;
                 if (!positive_) {
-                    return -long_;
+                    return new DoubleInfo(-value_,zero_);
                 }
-                return long_;
+                return new DoubleInfo(value_,zero_);
             }
-            double long_;
+            double value_;
+            long longValue_;
             if (int_.length() > MAX_DIGITS_DOUBLE) {
-                long_ = (double)parseQuickLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                longValue_ = parseQuickLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                value_ = (double)longValue_;
                 expNbLong_ += int_.length() - MAX_DIGITS_DOUBLE - 1;
             } else {
-                long_ = (double)parseQuickLongTen(int_.toString());
+                longValue_ = parseQuickLongTen(int_.toString());
+                value_ = (double)longValue_;
             }
             double power_ = 1.0;
             long absExp_ = Math.abs(expNbLong_);
             for (long i = 0; i < absExp_; i++) {
-                power_ *= 10d;
+                power_ *= 10.0;
             }
+            boolean zero_ = longValue_ == 0;
             if (!positive_) {
                 if (expNbLong_ > 0) {
-                    return -long_ * power_;
+                    return new DoubleInfo(-value_ * power_,zero_);
                 }
-                return -long_ / power_;
+                return new DoubleInfo(-value_ / power_,zero_);
             }
             if (expNbLong_ > 0) {
-                return long_ * power_;
+                return new DoubleInfo(value_ * power_,zero_);
             }
-            return long_ / power_;
+            return new DoubleInfo(value_ / power_,zero_);
         }
         if (expNbLong_ >= dec_.length()) {
             //try to get "double" as int
@@ -396,13 +407,15 @@ public final class NumParsers {
                 number_.append("0");
             }
             if (number_.length() > MAX_DIGITS_DOUBLE) {
-                return processBigNumbers(number_, positive_);
+                return new DoubleInfo(processBigNumbers(number_, positive_));
             }
-            double long_ = (double)parseQuickLongTen(number_.toString());
+            long longValue_ = parseQuickLongTen(number_.toString());
+            double value_ = (double) longValue_;
+            boolean zero_ = longValue_ == 0;
             if (!positive_) {
-                return -long_;
+                return new DoubleInfo(-value_,zero_);
             }
-            return long_;
+            return new DoubleInfo(value_,zero_);
         }
         if (-expNbLong_ >= int_.length()) {
             StringBuilder number_ = new StringBuilder(int_);
@@ -419,9 +432,9 @@ public final class NumParsers {
             decCopy_.append(number_.substring(nbLeadingZeros_));
             if (decCopy_.length() == 0) {
                 if (!positive_) {
-                    return -0.0;
+                    return new DoubleInfo(-0.0,true);
                 }
-                return 0.0;
+                return new DoubleInfo(0.0,true);
             }
             double value_;
             int diff_;
@@ -434,12 +447,12 @@ public final class NumParsers {
             }
             double power_ = 1.0;
             for (int i = 0; i < diff_; i++) {
-                power_ *= 10d;
+                power_ *= 10.0;
             }
             if (!positive_) {
-                return -value_ / power_;
+                return new DoubleInfo(-value_ / power_);
             }
-            return value_ / power_;
+            return new DoubleInfo(value_ / power_);
         }
         StringBuilder numberInt_ = new StringBuilder();
         StringBuilder numberDec_ = new StringBuilder();
@@ -464,9 +477,10 @@ public final class NumParsers {
             numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
-            return processBigNumbers(numberInt_, positive_);
+            return new DoubleInfo(processBigNumbers(numberInt_, positive_));
         }
-        double longValue_ = (double)parseQuickLongTen(numberInt_.toString());
+        long longValue_ = parseQuickLongTen(numberInt_.toString());
+        double value_ = (double) longValue_;
         StringBuilder decCopy_ = new StringBuilder();
         int nbLeadingZeros_;
         int index_ = 0;
@@ -480,21 +494,23 @@ public final class NumParsers {
         decCopy_.append(numberDec_.substring(nbLeadingZeros_));
         decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
         if (decCopy_.length() == 0) {
+            boolean zero_ = longValue_ == 0;
             if (!positive_) {
-                return -longValue_;
+                return new DoubleInfo(-value_,zero_);
             }
-            return longValue_;
+            return new DoubleInfo(value_,zero_);
         }
-        double decValue_ = parseQuickLongTen(decCopy_.toString());
+        long decLongValue_ = parseQuickLongTen(decCopy_.toString());
+        double decValue_ = (double) decLongValue_;
         double power_ = 1.0;
         int logDec_ = numberDec_.length();
         for (int i = 0; i < logDec_; i++) {
-            power_ *= 10d;
+            power_ *= 10.0;
         }
         if (!positive_) {
-            return -longValue_ - decValue_ / power_;
+            return new DoubleInfo(-value_ - decValue_ / power_);
         }
-        return longValue_ + decValue_ / power_;
+        return new DoubleInfo(value_ + decValue_ / power_);
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
@@ -502,7 +518,7 @@ public final class NumParsers {
         double power_ = 1.0;
         int logDec_ = _nb.length() - MAX_DIGITS_DOUBLE - 1;
         for (int i = 0; i < logDec_; i++) {
-            power_ *= 10d;
+            power_ *= 10.0;
         }
         double out_ = long_ * power_;
         if (_positive) {
@@ -762,7 +778,7 @@ public final class NumParsers {
         return out_;
     }
 
-    private static double parseDoubleSixteen(String _string) {
+    private static long parseLongSixteen(String _string) {
         long result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
@@ -776,10 +792,10 @@ public final class NumParsers {
             result_ *= HEX_BASE;
             result_ += digit_;
         }
-        return (double)result_;
+        return result_;
     }
 
-    private static double parseDoubleOctal(String _string) {
+    private static long parseLongBase(String _string, int _base) {
         long result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
@@ -787,24 +803,10 @@ public final class NumParsers {
             int ch_ = _string.charAt(i_);
             i_++;
             int digit_ = ch_ - '0';
-            result_ *= 8;
+            result_ *= _base;
             result_ += digit_;
         }
-        return (double)result_;
-    }
-
-    private static double parseDoubleBinary(String _string) {
-        long result_ = 0;
-        int i_ = 0;
-        int max_ = _string.length();
-        while (i_ < max_) {
-            int ch_ = _string.charAt(i_);
-            i_++;
-            int digit_ = ch_ - '0';
-            result_ *= 2;
-            result_ += digit_;
-        }
-        return (double)result_;
+        return result_;
     }
 
     private static long parseQuickLongTen(String _string) {
@@ -929,7 +931,7 @@ public final class NumParsers {
         if (_nb == null) {
             return new DoubleInfo();
         }
-        return new DoubleInfo(parseDouble(_nb));
+        return parseDouble(_nb);
     }
     private static NumberInfos trySplitDouble(String _nb) {
         if (_nb.isEmpty()) {
@@ -1096,7 +1098,7 @@ public final class NumParsers {
         return radix_;
     }
 
-    public static IntStruct cmpBool(BooleanStruct _one, BooleanStruct _two) {
+    public static IntStruct cmpBool(Struct _one, Struct _two) {
         if (_one.sameReference(_two)) {
             return new IntStruct(SortConstants.EQ_CMP);
         }

@@ -8,13 +8,16 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
 
     private static final BooleanStruct FALSE = new BooleanStruct();
     private static final BooleanStruct TRUE = new BooleanStruct();
-    private static final boolean ALT_VALUE = true;
 
     private BooleanStruct() {
     }
 
     public static BooleanStruct of(boolean _value) {
-        if (_value == ALT_VALUE) {
+        return ofValue(_value);
+    }
+
+    private static BooleanStruct ofValue(boolean _value) {
+        if (_value) {
             return TRUE;
         }
         return FALSE;

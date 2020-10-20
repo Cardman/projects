@@ -472,7 +472,6 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        AnalyzedPageEl page_ = _page;
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
         String byteType_ = _page.getNbAlias().getAliasByte();
@@ -485,18 +484,16 @@ public final class AnaApplyCoreMethodUtil {
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         if (StringUtil.quickEq(type_, booleanType_)) {
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasBooleanValue())) {
-                return(NumParsers.convertToBoolean(_struct));
+                return _struct;
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                return(NumParsers.cmpBool((NumParsers.convertToBoolean(_args[0])),(NumParsers.convertToBoolean(_args[1]))));
+                return NumParsers.cmpBool(_args[0],_args[1]);
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-                return(NumParsers.cmpBool(instance_,(NumParsers.convertToBoolean(_args[0]))));
+                return NumParsers.cmpBool(_struct,_args[0]);
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasEquals())) {
-                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-                return(BooleanStruct.of(instance_.sameReference(_args[0])));
+                return BooleanStruct.of(_struct.sameReference(_args[0]));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseBoolean())) {
                 StringStruct disp_ = NumParsers.getString(_args[0]);
@@ -507,10 +504,10 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                 if (!list_.isEmpty()) {
-                    return ((NumParsers.convertToBoolean(_args[0])).getDisplayedString(page_));
+                    return ((NumParsers.convertToBoolean(_args[0])).getDisplayedString(_page));
                 }
                 BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-                return (instance_.getDisplayedString(page_));
+                return (instance_.getDisplayedString(_page));
             }
             if (StringUtil.quickEq(list_.first(), booleanPrimType_)) {
                 return (_args[0]);
@@ -825,11 +822,11 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (list_.isEmpty()) {
                 NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(instance_.getDisplayedString(page_));
+                return(instance_.getDisplayedString(_page));
             }
             AnaDisplayableStruct instance_ = getAnaDisplayable(_args[0]);
             return(instance_
-                    .getDisplayedString(page_));
+                    .getDisplayedString(_page));
         }
         return null;
     }

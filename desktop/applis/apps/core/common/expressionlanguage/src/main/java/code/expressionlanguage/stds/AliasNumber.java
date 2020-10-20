@@ -559,22 +559,19 @@ public final class AliasNumber {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasBooleanValue())) {
-            BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-            _res.setResult(instance_);
+            _res.setResult(_struct);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
-            _res.setResult(NumParsers.cmpBool((NumParsers.convertToBoolean(_args[0])),(NumParsers.convertToBoolean(_args[1]))));
+            _res.setResult(NumParsers.cmpBool(_args[0],_args[1]));
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
-            BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-            _res.setResult(NumParsers.cmpBool(instance_,(NumParsers.convertToBoolean(_args[0]))));
+            _res.setResult(NumParsers.cmpBool(_struct,_args[0]));
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
-            BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-            _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
+            _res.setResult(BooleanStruct.of(_struct.sameReference(_args[0])));
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseBoolean())) {
