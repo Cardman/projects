@@ -3,9 +3,12 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -1021,7 +1024,84 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.processBlockAndRemove(cont_,null);
         assertNull(instancingClass_.getReadWrite());
     }
-
+    @Test
+    public void exportAnnotation1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append(" Annot myAnnot();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = validated(files_);
+        ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecutingUtil.addPage(c_, instancingClass_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+    }
+    @Test
+    public void exportAnnotation2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append(" Annot myAnnot();\n");
+        xml_.append(" Annot myAnnot2();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = validated(files_);
+        ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecutingUtil.addPage(c_, instancingClass_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1),myAnnot2=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+    }
+    @Test
+    public void exportAnnotation3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append(" Annot myAnnot();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = validated(files_);
+        ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecutingUtil.addPage(c_, instancingClass_);
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
+        c_.removeLastPage();
+        ExecutingUtil.addPage(c_, instancingClass2_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot1)))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+    }
+    @Test
+    public void exportAnnotation4() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot{\n");
+        xml_.append(" Annot myAnnot();\n");
+        xml_.append(" Annot myAnnot2();\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = validated(files_);
+        ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecutingUtil.addPage(c_, instancingClass_);
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        c_.removeLastPage();
+        ExecutingUtil.addPage(c_, instancingClass2_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot2),myAnnot2=@pkg.Annot(pkg.Annot1)),myAnnot2=@pkg.Annot(pkg.Annot1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
+        assertTrue(!ExportAnnotationUtil.hasNext(NullStruct.NULL_VALUE, 0));
+    }
     private static ArrayStruct defaultArray() {
         ArrayStruct array_ = new ArrayStruct(1, "[java.lang.Number");
         array_.set(0, NullStruct.NULL_VALUE);

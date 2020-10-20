@@ -26,6 +26,7 @@ abstract class InfoAnnotPart {
             AnnotationStruct a_ = (AnnotationStruct)_value;
             c_.setClassName(a_.getClassName());
             c_.setParent(_parent);
+            c_.setStruct(_value);
             NatStringTreeMap<Struct> fields_ = new NatStringTreeMap<Struct>();
             for (ClassFieldStruct e: a_.getFields()) {
                 fields_.put(e.getClassField().getFieldName(), e.getStruct());

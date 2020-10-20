@@ -176,7 +176,7 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    private static NewAnnotationPageEl createAnnotation(ContextEl _context,String _class,ExecRootBlock _type,
+    public static NewAnnotationPageEl createAnnotation(ContextEl _context,String _class,ExecRootBlock _type,
                                                         StringMap<AnnotationTypeInfo> _id,
                                                         CustList<Argument> _args) {
         _context.setCallingState(null);

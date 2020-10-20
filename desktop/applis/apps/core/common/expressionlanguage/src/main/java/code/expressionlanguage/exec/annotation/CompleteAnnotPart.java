@@ -9,6 +9,7 @@ import code.util.core.StringUtil;
 
 final class CompleteAnnotPart extends ParentAnnotPart {
 
+    private Struct struct;
     private String className;
 
     private NatStringTreeMap<Struct> fields;
@@ -28,6 +29,14 @@ final class CompleteAnnotPart extends ParentAnnotPart {
 
     void setFields(NatStringTreeMap<Struct> _fields) {
         fields = _fields;
+    }
+
+    Struct getStruct() {
+        return struct;
+    }
+
+    void setStruct(Struct _struct) {
+        struct = _struct;
     }
 
     @Override
