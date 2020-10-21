@@ -4142,6 +4142,14 @@ public final class GuiAliases {
         }
         if (StringUtil.quickEq(type_,aliasImage)) {
             if (StringUtil.quickEq(name_, aliasImageEq)) {
+                if (!(_args[0] instanceof ImageStruct)) {
+                    res_.setResult(BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE));
+                    return res_;
+                }
+                if (!(_args[1] instanceof ImageStruct)) {
+                    res_.setResult(BooleanStruct.of(false));
+                    return res_;
+                }
                 ImageStruct first_ = (ImageStruct) _args[0];
                 ImageStruct second_ = (ImageStruct) _args[1];
                 res_.setResult(BooleanStruct.of(ImageStruct.eq(first_.getImage(),second_.getImage())));
