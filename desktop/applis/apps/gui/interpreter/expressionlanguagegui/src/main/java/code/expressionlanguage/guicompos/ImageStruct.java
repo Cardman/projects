@@ -188,10 +188,7 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof ImageStruct)) {
-            return false;
-        }
-        return eq(image, ((ImageStruct)_other).image);
+        return this == _other;
     }
 
     public static boolean eq(BufferedImage _imgOne, BufferedImage _imgTwo) {

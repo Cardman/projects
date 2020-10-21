@@ -98,9 +98,6 @@ public final class GuiAliasParameters {
     private static final String CONFIRM_1_CONFIRM_MESSAGE_1="Confirm1ConfirmMessage1";
     private static final String CONFIRM_1_CONFIRM_MESSAGE_2="Confirm1ConfirmMessage2";
     private static final String CONFIRM_1_CONFIRM_MESSAGE_3="Confirm1ConfirmMessage3";
-    private static final String CONFIRM_0_TABBED_PANE_ADD_0="Confirm0TabbedPaneAdd0";
-    private static final String CONFIRM_0_WINDOW_SET_CONTAINS_0="Confirm0WindowSetContains0";
-    private static final String CONFIRM_0_TREE_NODE_REMOVE_0="Confirm0TreeNodeRemove0";
     private static final String WINDOW_SET_0_TABBED_PANE_ADD_0="WindowSet0TabbedPaneAdd0";
     private static final String WINDOW_SET_0_WINDOW_SET_CONTAINS_0="WindowSet0WindowSetContains0";
     private static final String WINDOW_SET_0_TREE_NODE_REMOVE_0="WindowSet0TreeNodeRemove0";
@@ -289,6 +286,8 @@ public final class GuiAliasParameters {
     private static final String IMAGE_0_IMAGE_FILL_OVAL_3="Image0ImageFillOval3";
     private static final String IMAGE_0_IMAGE_FILL_POLYGON_0="Image0ImageFillPolygon0";
     private static final String IMAGE_0_IMAGE_FILL_POLYGON_1="Image0ImageFillPolygon1";
+    private static final String IMAGE_0_IMAGE_EQ_0="Image0ImageEq0";
+    private static final String IMAGE_0_IMAGE_EQ_1="Image0ImageEq1";
     private static final String IMAGE_0_IMAGE_0="Image0Image0";
     private static final String IMAGE_0_IMAGE_1="Image0Image1";
     private static final String IMAGE_0_IMAGE_2="Image0Image2";
@@ -498,9 +497,6 @@ public final class GuiAliasParameters {
     private String aliasConfirm1ConfirmMessage1;
     private String aliasConfirm1ConfirmMessage2;
     private String aliasConfirm1ConfirmMessage3;
-    private String aliasConfirm0TabbedPaneAdd0;
-    private String aliasConfirm0WindowSetContains0;
-    private String aliasConfirm0TreeNodeRemove0;
     private String aliasWindowSet0TabbedPaneAdd0;
     private String aliasWindowSet0WindowSetContains0;
     private String aliasWindowSet0TreeNodeRemove0;
@@ -689,6 +685,8 @@ public final class GuiAliasParameters {
     private String aliasImage0ImageFillOval3;
     private String aliasImage0ImageFillPolygon0;
     private String aliasImage0ImageFillPolygon1;
+    private String aliasImage0ImageEq0;
+    private String aliasImage0ImageEq1;
     private String aliasImage0Image0;
     private String aliasImage0Image1;
     private String aliasImage0Image2;
@@ -897,9 +895,6 @@ public final class GuiAliasParameters {
         aliasConfirm1ConfirmMessage1=LgNamesContent.get(_util,_cust, CONFIRM_1_CONFIRM_MESSAGE_1);
         aliasConfirm1ConfirmMessage2=LgNamesContent.get(_util,_cust, CONFIRM_1_CONFIRM_MESSAGE_2);
         aliasConfirm1ConfirmMessage3=LgNamesContent.get(_util,_cust, CONFIRM_1_CONFIRM_MESSAGE_3);
-        aliasConfirm0TabbedPaneAdd0=LgNamesContent.get(_util,_cust, CONFIRM_0_TABBED_PANE_ADD_0);
-        aliasConfirm0WindowSetContains0=LgNamesContent.get(_util,_cust, CONFIRM_0_WINDOW_SET_CONTAINS_0);
-        aliasConfirm0TreeNodeRemove0=LgNamesContent.get(_util,_cust, CONFIRM_0_TREE_NODE_REMOVE_0);
         aliasWindowSet0TabbedPaneAdd0=LgNamesContent.get(_util,_cust, WINDOW_SET_0_TABBED_PANE_ADD_0);
         aliasWindowSet0WindowSetContains0=LgNamesContent.get(_util,_cust, WINDOW_SET_0_WINDOW_SET_CONTAINS_0);
         aliasWindowSet0TreeNodeRemove0=LgNamesContent.get(_util,_cust, WINDOW_SET_0_TREE_NODE_REMOVE_0);
@@ -1088,6 +1083,8 @@ public final class GuiAliasParameters {
         aliasImage0ImageFillOval3=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_FILL_OVAL_3);
         aliasImage0ImageFillPolygon0=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_FILL_POLYGON_0);
         aliasImage0ImageFillPolygon1=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_FILL_POLYGON_1);
+        aliasImage0ImageEq0=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_EQ_0);
+        aliasImage0ImageEq1=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_EQ_1);
         aliasImage0Image0=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_0);
         aliasImage0Image1=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_1);
         aliasImage0Image2=LgNamesContent.get(_util,_cust, IMAGE_0_IMAGE_2);
@@ -1248,9 +1245,6 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_1_CONFIRM_OK_0,aliasConfirm1ConfirmOk0),new KeyValueMemberName(CONFIRM_1_CONFIRM_OK_1,aliasConfirm1ConfirmOk1),new KeyValueMemberName(CONFIRM_1_CONFIRM_OK_2,aliasConfirm1ConfirmOk2),new KeyValueMemberName(CONFIRM_1_CONFIRM_OK_3,aliasConfirm1ConfirmOk3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_CONFIRM_MESSAGE_0,aliasConfirm0ConfirmMessage0),new KeyValueMemberName(CONFIRM_0_CONFIRM_MESSAGE_1,aliasConfirm0ConfirmMessage1),new KeyValueMemberName(CONFIRM_0_CONFIRM_MESSAGE_2,aliasConfirm0ConfirmMessage2),new KeyValueMemberName(CONFIRM_0_CONFIRM_MESSAGE_3,aliasConfirm0ConfirmMessage3),new KeyValueMemberName(CONFIRM_0_CONFIRM_MESSAGE_4,aliasConfirm0ConfirmMessage4)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_1_CONFIRM_MESSAGE_0,aliasConfirm1ConfirmMessage0),new KeyValueMemberName(CONFIRM_1_CONFIRM_MESSAGE_1,aliasConfirm1ConfirmMessage1),new KeyValueMemberName(CONFIRM_1_CONFIRM_MESSAGE_2,aliasConfirm1ConfirmMessage2),new KeyValueMemberName(CONFIRM_1_CONFIRM_MESSAGE_3,aliasConfirm1ConfirmMessage3)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_TABBED_PANE_ADD_0,aliasConfirm0TabbedPaneAdd0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_WINDOW_SET_CONTAINS_0,aliasConfirm0WindowSetContains0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_TREE_NODE_REMOVE_0,aliasConfirm0TreeNodeRemove0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_SET_0_TABBED_PANE_ADD_0,aliasWindowSet0TabbedPaneAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_SET_0_WINDOW_SET_CONTAINS_0,aliasWindowSet0WindowSetContains0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_SET_0_TREE_NODE_REMOVE_0,aliasWindowSet0TreeNodeRemove0)));
@@ -1364,6 +1358,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(IMAGE_0_IMAGE_FILL_RECT_0,aliasImage0ImageFillRect0),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_RECT_1,aliasImage0ImageFillRect1),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_RECT_2,aliasImage0ImageFillRect2),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_RECT_3,aliasImage0ImageFillRect3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(IMAGE_0_IMAGE_FILL_OVAL_0,aliasImage0ImageFillOval0),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_OVAL_1,aliasImage0ImageFillOval1),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_OVAL_2,aliasImage0ImageFillOval2),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_OVAL_3,aliasImage0ImageFillOval3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(IMAGE_0_IMAGE_FILL_POLYGON_0,aliasImage0ImageFillPolygon0),new KeyValueMemberName(IMAGE_0_IMAGE_FILL_POLYGON_1,aliasImage0ImageFillPolygon1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(IMAGE_0_IMAGE_EQ_0,aliasImage0ImageEq0),new KeyValueMemberName(IMAGE_0_IMAGE_EQ_1,aliasImage0ImageEq1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(IMAGE_0_IMAGE_0,aliasImage0Image0),new KeyValueMemberName(IMAGE_0_IMAGE_1,aliasImage0Image1),new KeyValueMemberName(IMAGE_0_IMAGE_2,aliasImage0Image2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RENDER_0_RENDER_SET_HEIGHT_0,aliasRender0RenderSetHeight0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RENDER_0_RENDER_SET_WIDTH_0,aliasRender0RenderSetWidth0)));
@@ -2565,6 +2560,14 @@ public final class GuiAliasParameters {
 
     public String getAliasImage0ImageFillPolygon1() {
         return aliasImage0ImageFillPolygon1;
+    }
+
+    public String getAliasImage0ImageEq0() {
+        return aliasImage0ImageEq0;
+    }
+
+    public String getAliasImage0ImageEq1() {
+        return aliasImage0ImageEq1;
     }
 
     public String getAliasImage0Image0() {

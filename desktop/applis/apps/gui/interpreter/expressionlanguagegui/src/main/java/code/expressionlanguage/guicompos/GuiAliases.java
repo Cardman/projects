@@ -220,6 +220,7 @@ public final class GuiAliases {
     private static final String IMAGE_DRAW_RECT = "ImageDrawRect";
     private static final String COMPONENT_SET_VISIBLE = "ComponentSetVisible";
     private static final String COMPONENT_SET_SIZE = "ComponentSetSize";
+    private static final String IMAGE_EQ = "ImageEq";
     private static final String IMAGE_GET_COLOR = "ImageGetColor";
     private static final String IMAGE_DRAW_OVAL = "ImageDrawOval";
     private static final String COMPONENT_INVOKE_LATER = "ComponentInvokeLater";
@@ -621,6 +622,7 @@ public final class GuiAliases {
     private String aliasImageGet;
     private String aliasImageSet;
     private String aliasImageIsWithAlpha;
+    private String aliasImageEq;
     private String aliasImageGetColor;
     private String aliasImageSetColor;
     private String aliasImageGetFont;
@@ -1999,6 +2001,9 @@ public final class GuiAliases {
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasImageSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeSetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject1(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject2()));
+        methods_.add( method_);
+        params_ = new StringList(aliasImage,aliasImage);
+        method_ = new StandardMethod(aliasImageEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC, new StringList(guiAliasParameters.getAliasImage0ImageEq0(),guiAliasParameters.getAliasImage0ImageEq1()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasImageGetColor, params_, aliasColor, false, MethodModifier.FINAL);
@@ -4136,6 +4141,12 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_,aliasImage)) {
+            if (StringUtil.quickEq(name_, aliasImageEq)) {
+                ImageStruct first_ = (ImageStruct) _args[0];
+                ImageStruct second_ = (ImageStruct) _args[1];
+                res_.setResult(BooleanStruct.of(ImageStruct.eq(first_.getImage(),second_.getImage())));
+                return res_;
+            }
             ImageStruct image_ = (ImageStruct) _instance;
             if (StringUtil.quickEq(name_, aliasImageGetHeight)) {
                 res_.setResult(image_.getHeight());
@@ -5157,6 +5168,7 @@ public final class GuiAliases {
         setAliasImageDrawRect(LgNamesContent.get(_util, _cust, IMAGE_DRAW_RECT));
         setAliasComponentSetVisible(LgNamesContent.get(_util, _cust, COMPONENT_SET_VISIBLE));
         setAliasComponentSetSize(LgNamesContent.get(_util, _cust, COMPONENT_SET_SIZE));
+        setAliasImageEq(LgNamesContent.get(_util, _cust, IMAGE_EQ));
         setAliasImageGetColor(LgNamesContent.get(_util, _cust, IMAGE_GET_COLOR));
         setAliasImageDrawOval(LgNamesContent.get(_util, _cust, IMAGE_DRAW_OVAL));
         setAliasComponentInvokeLater(LgNamesContent.get(_util, _cust, COMPONENT_INVOKE_LATER));
@@ -5468,6 +5480,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(IMAGE_FILL_RECT,getAliasImageFillRect()),
                 new KeyValueMemberName(IMAGE_GET,getAliasImageGet()),
                 new KeyValueMemberName(IMAGE_SET,getAliasImageSet()),
+                new KeyValueMemberName(IMAGE_EQ,getAliasImageEq()),
                 new KeyValueMemberName(IMAGE_GET_COLOR,getAliasImageGetColor()),
                 new KeyValueMemberName(IMAGE_SET_COLOR,getAliasImageSetColor()),
                 new KeyValueMemberName(IMAGE_GET_FONT,getAliasImageGetFont()),
@@ -6950,6 +6963,14 @@ public final class GuiAliases {
 
     public void setAliasImageIsWithAlpha(String _v) {
         this.aliasImageIsWithAlpha = _v;
+    }
+
+    public String getAliasImageEq() {
+        return aliasImageEq;
+    }
+
+    public void setAliasImageEq(String _v) {
+        this.aliasImageEq = _v;
     }
 
     public String getAliasImageGetColor() {
