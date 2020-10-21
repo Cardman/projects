@@ -292,180 +292,45 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 return(BooleanStruct.of(false));
             }
-            return(NumParsers.convertToBoolean(_args[0]));
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, charType_)) {
-            return(_args[0]);
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, byteType_)) {
             if (StringUtil.quickEq(list_.first(), stringType_)) {
                 return parseByte(list_,_args,true);
             }
-            byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-            return(new ByteStruct(one_));
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, shortType_)) {
             if (StringUtil.quickEq(list_.first(), stringType_)) {
                 return parseShort(list_,_args,true);
             }
-            short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-            return(new ShortStruct(one_));
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, intType_)) {
             if (StringUtil.quickEq(list_.first(), stringType_)) {
                 return parseInt(list_,_args,true);
             }
-            int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-            return(new IntStruct(one_));
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, longType_)) {
             if (StringUtil.quickEq(list_.first(), stringType_)) {
                 return parseLong(list_,_args,true);
             }
-            long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-            return(new LongStruct(one_));
+            return _args[0];
         }
         if (StringUtil.quickEq(type_, floatType_)) {
             if (StringUtil.quickEq(list_.first(), stringType_)) {
                 return parseFloat(_args[0],true);
             }
-            float one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-            return (new FloatStruct(one_));
+            return _args[0];
         }
         if (StringUtil.quickEq(list_.first(), stringType_)) {
             return parseDouble(_args[0],true);
         }
-        double one_ = (NumParsers.convertToNumber(_args[0])).doubleStruct();
-        return(new DoubleStruct(one_));
-    }
-
-    private static Struct parseDouble(Struct _arg, boolean _exception) {
-        if (!(_arg instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-        DoubleInfo v_ = NumParsers.splitDouble(one_);
-        if (!v_.isValid()) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new DoubleStruct(v_.getValue()));
-        }
-    }
-
-    private static Struct parseFloat(Struct _arg, boolean _exception) {
-        if (!(_arg instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-        boolean valid_ = true;
-        DoubleInfo v_ = NumParsers.splitDouble(one_);
-        double d_ = 0.0;
-        if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
-            valid_ = false;
-        } else {
-            d_ = v_.getValue();
-        }
-        if (!valid_) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new FloatStruct((float) d_));
-        }
-    }
-
-    private static Struct parseLong(StringList _list, Struct[] _args, boolean _exception) {
-        if (!(_args[0] instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-        LongInfo lg_;
-        int radix_ = NumParsers.getRadix(_list, _args);
-        lg_ = NumParsers.parseLong(one_, radix_);
-        if (!lg_.isValid()) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new LongStruct(lg_.getValue()));
-        }
-    }
-
-    private static Struct parseInt(StringList _list, Struct[] _args, boolean _exception) {
-        if (!(_args[0] instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-        LongInfo lg_;
-        int radix_ = NumParsers.getRadix(_list, _args);
-        lg_ = NumParsers.parseLong(one_, radix_);
-        if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new IntStruct((int) lg_.getValue()));
-        }
-    }
-
-    private static Struct parseShort(StringList _list, Struct[] _args, boolean _exception) {
-        if (!(_args[0] instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-        LongInfo lg_;
-        int radix_ = NumParsers.getRadix(_list, _args);
-        lg_ = NumParsers.parseLong(one_, radix_);
-        if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new ShortStruct((short) lg_.getValue()));
-        }
-    }
-
-    private static Struct parseByte(StringList _list, Struct[] _args, boolean _exception) {
-        if (!(_args[0] instanceof CharSequenceStruct)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        }
-        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
-        LongInfo lg_;
-        int radix_ = NumParsers.getRadix(_list, _args);
-        lg_ = NumParsers.parseLong(one_, radix_);
-        if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
-            if (!_exception) {
-                return(NullStruct.NULL_VALUE);
-            }
-            return null;
-        } else {
-            return(new ByteStruct((byte)lg_.getValue()));
-        }
+        return _args[0];
     }
 
     private static Struct calculateNumber(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
@@ -829,6 +694,135 @@ public final class AnaApplyCoreMethodUtil {
                     .getDisplayedString(_page));
         }
         return null;
+    }
+
+    private static Struct parseDouble(Struct _arg, boolean _exception) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
+        if (!v_.isValid()) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new DoubleStruct(v_.getValue()));
+        }
+    }
+
+    private static Struct parseFloat(Struct _arg, boolean _exception) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
+        boolean valid_ = true;
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
+        double d_ = 0.0;
+        if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
+            valid_ = false;
+        } else {
+            d_ = v_.getValue();
+        }
+        if (!valid_) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new FloatStruct((float) d_));
+        }
+    }
+
+    private static Struct parseLong(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = NumParsers.getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (!lg_.isValid()) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new LongStruct(lg_.getValue()));
+        }
+    }
+
+    private static Struct parseInt(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = NumParsers.getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new IntStruct((int) lg_.getValue()));
+        }
+    }
+
+    private static Struct parseShort(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = NumParsers.getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new ShortStruct((short) lg_.getValue()));
+        }
+    }
+
+    private static Struct parseByte(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = NumParsers.getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new ByteStruct((byte)lg_.getValue()));
+        }
     }
 
     public static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {

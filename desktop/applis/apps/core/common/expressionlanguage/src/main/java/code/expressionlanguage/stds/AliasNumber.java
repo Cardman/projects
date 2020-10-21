@@ -112,8 +112,7 @@ public final class AliasNumber {
               parseByte(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
-          byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-          _res.setResult(new ByteStruct(one_));
+          _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(type_, shortType_)) {
@@ -121,8 +120,7 @@ public final class AliasNumber {
               parseShort(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
-          short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-          _res.setResult(new ShortStruct(one_));
+          _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(type_, intType_)) {
@@ -130,8 +128,7 @@ public final class AliasNumber {
               parseInt(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
-          int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-          _res.setResult(new IntStruct(one_));
+          _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(type_, longType_)) {
@@ -139,8 +136,7 @@ public final class AliasNumber {
               parseLong(_res,list_,lgNames_,_args,true, _cont);
               return;
           }
-          long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-          _res.setResult(new LongStruct(one_));
+          _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(type_, floatType_)) {
@@ -148,16 +144,14 @@ public final class AliasNumber {
               parseFloat(_res,lgNames_,_args[0],true, _cont);
               return;
           }
-          float one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-          _res.setResult(new FloatStruct(one_));
+          _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(list_.first(), stringType_)) {
           parseDouble(_res,lgNames_,_args[0],true, _cont);
           return;
       }
-        double one_ = (NumParsers.convertToNumber(_args[0])).doubleStruct();
-      _res.setResult(new DoubleStruct(one_));
+      _res.setResult(_args[0]);
   }
 
     public static void processNumber(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
