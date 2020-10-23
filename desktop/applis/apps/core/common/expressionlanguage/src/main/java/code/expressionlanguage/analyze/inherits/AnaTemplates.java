@@ -467,7 +467,7 @@ public final class AnaTemplates {
         while (arr_) {
             while (j_ >= 0) {
                 char locChar_ = _type.charAt(j_);
-                if (Character.isWhitespace(locChar_)) {
+                if (StringUtil.isWhitespace(locChar_)) {
                     j_--;
                     continue;
                 }
@@ -480,7 +480,7 @@ public final class AnaTemplates {
                 j_--;
                 while (j_ >= 0) {
                     char locChar_ = _type.charAt(j_);
-                    if (Character.isWhitespace(locChar_)) {
+                    if (StringUtil.isWhitespace(locChar_)) {
                         j_--;
                         continue;
                     }

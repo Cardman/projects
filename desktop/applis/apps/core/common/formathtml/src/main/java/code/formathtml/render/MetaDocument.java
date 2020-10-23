@@ -169,11 +169,11 @@ public final class MetaDocument {
                     while (i_ < len_) {
                         char currentChar_ = text_.charAt(i_);
                         i_++;
-                        if (Character.isWhitespace(currentChar_)) {
+                        if (StringUtil.isWhitespace(currentChar_)) {
                             adjustedText_.append(SPACE);
                             while (i_ < len_) {
                                 currentChar_ = text_.charAt(i_);
-                                if (!Character.isWhitespace(currentChar_)) {
+                                if (!StringUtil.isWhitespace(currentChar_)) {
                                     break;
                                 }
                                 i_++;

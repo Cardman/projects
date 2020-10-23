@@ -459,24 +459,24 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new IntStruct(Character.digit(one_, two_)));
+                int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
+                _res.setResult(new IntStruct(StringUtil.digit(one_, two_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasForDigit())) {
-                Integer one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new CharStruct(Character.forDigit(one_, two_)));
+                int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+                int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
+                _res.setResult(new CharStruct(StringUtil.forDigit(one_, two_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetDirectionality())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new ByteStruct(Character.getDirectionality(one_)));
+                _res.setResult(new ByteStruct(StringUtil.getDirectionality(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new IntStruct(Character.getType(one_)));
+                _res.setResult(new IntStruct(StringUtil.getType(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsDigit())) {
@@ -486,32 +486,32 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isLetter(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isLetter(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isLetterOrDigit(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isLetterOrDigit(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLowerCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isLowerCase(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isLowerCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsUpperCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isUpperCase(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isUpperCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsSpace())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isWhitespace(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWhitespace())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(Character.isWhitespace(one_)));
+                _res.setResult(BooleanStruct.of(StringUtil.isWhitespace(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWordChar())) {
@@ -521,27 +521,27 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToLowerCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(Character.toLowerCase(one_)));
+                _res.setResult(new CharStruct(StringUtil.toLowerCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToUpperCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(Character.toUpperCase(one_)));
+                _res.setResult(new CharStruct(StringUtil.toUpperCase(one_)));
                 return;
             }
             char one_ = NumParsers.convertToChar(_args[0]).getChar();
             _res.setResult(new StringStruct(Character.toString(one_)));
             return;
         }
-        CharStruct ch_ = NumParsers.convertToChar(_struct);
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCharValue())) {
-            _res.setResult(new CharStruct(ch_.getChar()));
+            _res.setResult(_struct);
             return;
         }
         if (!(_args[0] instanceof CharStruct)) {
             _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
         }
+        CharStruct ch_ = NumParsers.convertToChar(_struct);
         char one_ = ch_.getChar();
         char two_ = ((CharStruct) _args[0]).getChar();
         _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
@@ -918,7 +918,7 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetDirectionality0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetType0()));
+        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetType0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
         method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsDigit0()));

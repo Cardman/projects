@@ -146,7 +146,7 @@ public final class ElResolver {
         boolean beginOrEnd_ = false;
         boolean ctorCall_ = false;
         while (i_ < len_) {
-            if (!Character.isWhitespace(_string.charAt(i_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
             i_++;
@@ -428,7 +428,7 @@ public final class ElResolver {
             if (next_ < 0) {
                 break;
             }
-            if (!Character.isWhitespace(curChar_)) {
+            if (!StringUtil.isWhitespace(curChar_)) {
                 prevOp_ = curChar_;
             }
             from_ = next_;
@@ -481,7 +481,7 @@ public final class ElResolver {
             boolean foundLeft_ = false;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
                         l_++;
@@ -503,7 +503,7 @@ public final class ElResolver {
             boolean found_ = false;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_RIGHT) {
                         l_++;
                         j_++;
@@ -519,7 +519,7 @@ public final class ElResolver {
             }
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     break;
                 }
                 l_++;
@@ -639,7 +639,7 @@ public final class ElResolver {
                     }
                     continue;
                 }
-                if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
+                if (nbOpened_ == 0 && !StringUtil.isWhitespace(curLoc_)) {
                     break;
                 }
                 next_++;
@@ -650,7 +650,7 @@ public final class ElResolver {
             if (curLoc_ == ARR_LEFT) {
                 while (next_ < _len) {
                     curLoc_ = _string.charAt(next_);
-                    if (Character.isWhitespace(curLoc_)) {
+                    if (StringUtil.isWhitespace(curLoc_)) {
                         next_++;
                         continue;
                     }
@@ -986,7 +986,7 @@ public final class ElResolver {
     private static int getBackPrintChar(String _string, int _i) {
         int bk_ = _i - 1;
         while (bk_ > 0) {
-            if (!Character.isWhitespace(_string.charAt(bk_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(bk_))) {
                 break;
             }
             bk_--;
@@ -1144,7 +1144,7 @@ public final class ElResolver {
             boolean foundLeft_ = false;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
                         l_++;
@@ -1167,7 +1167,7 @@ public final class ElResolver {
             boolean found_ = false;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_RIGHT) {
                         l_++;
                         j_++;
@@ -1184,7 +1184,7 @@ public final class ElResolver {
             }
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (!Character.isWhitespace(curLoc_)) {
+                if (!StringUtil.isWhitespace(curLoc_)) {
                     break;
                 }
                 l_++;
@@ -1290,7 +1290,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterStatic_))) {
                     _d.setBadOffset(afterStatic_);
                     return;
                 }
@@ -1316,7 +1316,7 @@ public final class ElResolver {
                 return;
             }
             while (afterStatic_ < len_) {
-                if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterStatic_))) {
                     if (_string.charAt(afterStatic_) == DOT_VAR) {
                         indexes_.add(i_);
                         indexes_.add(afterStatic_);
@@ -1347,7 +1347,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
                     if (_string.charAt(afterSuper_) != PAR_LEFT) {
                         if (_string.charAt(afterSuper_) == ARR_LEFT) {
                             _d.getDelAccessIndexers().add(i_);
@@ -1376,7 +1376,7 @@ public final class ElResolver {
             }
             afterSuper_++;
             while (afterSuper_ < len_) {
-                if (Character.isWhitespace(_string.charAt(afterSuper_))) {
+                if (StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
                     afterSuper_++;
                     continue;
                 }
@@ -1408,7 +1408,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
                     _d.setBadOffset(afterClassChoice_);
                     return;
                 }
@@ -1435,7 +1435,7 @@ public final class ElResolver {
             afterClassChoice_++;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!Character.isWhitespace(loc_)) {
+                if (!StringUtil.isWhitespace(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1490,7 +1490,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
                     _d.setBadOffset(afterClassChoice_);
                     return;
                 }
@@ -1517,7 +1517,7 @@ public final class ElResolver {
             afterClassChoice_++;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!Character.isWhitespace(loc_)) {
+                if (!StringUtil.isWhitespace(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1572,7 +1572,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
                     _d.setBadOffset(afterClassChoice_);
                     return;
                 }
@@ -1599,7 +1599,7 @@ public final class ElResolver {
             afterClassChoice_++;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!Character.isWhitespace(loc_)) {
+                if (!StringUtil.isWhitespace(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1620,7 +1620,7 @@ public final class ElResolver {
             }
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!Character.isWhitespace(loc_)) {
+                if (!StringUtil.isWhitespace(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1653,7 +1653,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
                     _d.setBadOffset(afterClassChoice_);
                     return;
                 }
@@ -1680,7 +1680,7 @@ public final class ElResolver {
             afterClassChoice_++;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!Character.isWhitespace(loc_)) {
+                if (!StringUtil.isWhitespace(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1710,7 +1710,7 @@ public final class ElResolver {
                     foundHat_ = true;
                     break;
                 }
-                if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                if (!StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
                     //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
                     break;
                 }
@@ -1733,7 +1733,7 @@ public final class ElResolver {
             }
             afterSuper_++;
             while (afterSuper_ < len_) {
-                if (Character.isWhitespace(_string.charAt(afterSuper_))) {
+                if (StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
                     afterSuper_++;
                     continue;
                 }
@@ -1811,7 +1811,7 @@ public final class ElResolver {
                 int afterSuper_ = i_ + s.length();
                 while (afterSuper_ < len_) {
                     char ch_ = _string.charAt(afterSuper_);
-                    if (!Character.isWhitespace(ch_)) {
+                    if (!StringUtil.isWhitespace(ch_)) {
                         if (ch_ == PAR_LEFT) {
                             _d.getCallings().add(afterSuper_);
                         }
@@ -1861,7 +1861,7 @@ public final class ElResolver {
                 next_++;
                 continue;
             }
-            if (Character.isWhitespace(curLoc_)) {
+            if (StringUtil.isWhitespace(curLoc_)) {
                 next_++;
                 continue;
             }
@@ -1876,7 +1876,7 @@ public final class ElResolver {
     private static int nextAfterWhite(int _i, String _string,int _len) {
         int afterSuper_ = _i;
         while (afterSuper_ < _len) {
-            if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
                 //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
                 break;
             }
@@ -2037,7 +2037,7 @@ public final class ElResolver {
                     j_++;
                     continue;
                 }
-                if (Character.isWhitespace(locChar_)) {
+                if (StringUtil.isWhitespace(locChar_)) {
                     j_++;
                     continue;
                 }
@@ -2389,7 +2389,7 @@ public final class ElResolver {
             }
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
-                if (Character.isWhitespace(curLoc_)) {
+                if (StringUtil.isWhitespace(curLoc_)) {
                     j_++;
                     continue;
                 }
@@ -2731,7 +2731,7 @@ public final class ElResolver {
             if (startChar_ == '.') {
                 nbInfos_.setError(true);
             }
-            if (Character.isWhitespace(startChar_)) {
+            if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
             }
         } else {
@@ -2931,7 +2931,7 @@ public final class ElResolver {
     }
 
     private static boolean isWhite(int _current, int _max, String _str) {
-        return _current < _max && Character.isWhitespace(_str.charAt(_current));
+        return _current < _max && StringUtil.isWhitespace(_str.charAt(_current));
     }
 
     private static void append(boolean _seenDot, StringBuilder _intPart, StringBuilder _decPart, char _current) {
@@ -3053,7 +3053,7 @@ public final class ElResolver {
                         _output.setNextIndex(j_);
                         return;
                     }
-                    if (!Character.isWhitespace(_string.charAt(j_))) {
+                    if (!StringUtil.isWhitespace(_string.charAt(j_))) {
                         _output.setNextIndex(j_);
                         return;
                     }
@@ -3077,7 +3077,7 @@ public final class ElResolver {
             _output.setNextIndex(n_);
             return;
         }
-        if (j_ < _max && Character.isLetter(_string.charAt(j_))) {
+        if (j_ < _max && StringUtil.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ != null) {
                 char suf_ = _key.getSuffixes().getVal(keyWord_);
@@ -3113,7 +3113,7 @@ public final class ElResolver {
 
     private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
         boolean space_ = false;
-        if (Character.isWhitespace(_string.charAt(_j)) ) {
+        if (StringUtil.isWhitespace(_string.charAt(_j)) ) {
             int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
             if (n_ > -1 && StringUtil.isDollarWordChar(_string.charAt(n_))) {
                 if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
@@ -3182,7 +3182,7 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
-            if (!Character.isWhitespace(_string.charAt(i_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
             i_++;
@@ -3203,7 +3203,7 @@ public final class ElResolver {
         String keyWordTrue_ = keyWords_.getKeyWordTrue();
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
-        while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
+        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         int strLen_ = _string.length();

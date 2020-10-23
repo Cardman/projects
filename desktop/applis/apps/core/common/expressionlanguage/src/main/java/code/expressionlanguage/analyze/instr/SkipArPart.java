@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.util.core.StringUtil;
+
 public final class SkipArPart {
     private int index;
     private boolean skip;
@@ -9,7 +11,7 @@ public final class SkipArPart {
         int len_ = _string.length();
         while (index < len_) {
             char nextChar_ = _string.charAt(index);
-            if (Character.isWhitespace(nextChar_)) {
+            if (StringUtil.isWhitespace(nextChar_)) {
                 index++;
                 continue;
             }

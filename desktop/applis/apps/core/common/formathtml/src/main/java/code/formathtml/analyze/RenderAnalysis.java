@@ -254,7 +254,7 @@ public final class RenderAnalysis {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
-            if (!Character.isWhitespace(_string.charAt(i_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
             i_++;
@@ -263,7 +263,7 @@ public final class RenderAnalysis {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordIntern_ = keyWords_.getKeyWordIntern();
             int lastPrintChar_ = len_ - 1;
-            while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
+            while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
                 lastPrintChar_--;
             }
             len_ = lastPrintChar_+1;

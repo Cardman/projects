@@ -1340,7 +1340,7 @@ public final class DocumentBuilder {
                     if (curChar_ == SLASH) {
                         break;
                     }
-                    if (Character.isWhitespace(curChar_)) {
+                    if (StringUtil.isWhitespace(curChar_)) {
                         break;
                     }
                     tagName_.append(curChar_);
@@ -1391,11 +1391,11 @@ public final class DocumentBuilder {
                     i_++;
                     continue;
                 }
-                if (Character.isWhitespace(curChar_)) {
+                if (StringUtil.isWhitespace(curChar_)) {
                     int nextPrintable_ = i_;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1435,7 +1435,7 @@ public final class DocumentBuilder {
                 if (curChar_ == SLASH) {
                     break;
                 }
-                if (!Character.isWhitespace(curChar_) && curChar_ != EQUALS) {
+                if (!StringUtil.isWhitespace(curChar_) && curChar_ != EQUALS) {
                     attributeName_.append(curChar_);
                     i_++;
                     continue;
@@ -1445,7 +1445,7 @@ public final class DocumentBuilder {
                     int nextPrintable_ = i_;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1463,13 +1463,13 @@ public final class DocumentBuilder {
                 }
                 char nextEq_ = input_.charAt(i_ + 1);
                 if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
-                    if (!Character.isWhitespace(nextEq_)) {
+                    if (!StringUtil.isWhitespace(nextEq_)) {
                         break;
                     }
                     int nextPrintable_ = i_ + 1;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1522,7 +1522,7 @@ public final class DocumentBuilder {
                 int nextPrintable_ = i_ + 1;
                 while (nextPrintable_ < len_) {
                     char next_ = input_.charAt(nextPrintable_);
-                    if (!Character.isWhitespace(next_)) {
+                    if (!StringUtil.isWhitespace(next_)) {
                         break;
                     }
                     nextPrintable_++;
@@ -1745,7 +1745,7 @@ public final class DocumentBuilder {
                     if (curChar_ == SLASH) {
                         break;
                     }
-                    if (Character.isWhitespace(curChar_)) {
+                    if (StringUtil.isWhitespace(curChar_)) {
                         break;
                     }
                     tagName_.append(curChar_);
@@ -1796,11 +1796,11 @@ public final class DocumentBuilder {
                     i_++;
                     continue;
                 }
-                if (Character.isWhitespace(curChar_)) {
+                if (StringUtil.isWhitespace(curChar_)) {
                     int nextPrintable_ = i_;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1840,7 +1840,7 @@ public final class DocumentBuilder {
                 if (curChar_ == SLASH) {
                     break;
                 }
-                if (!Character.isWhitespace(curChar_) && curChar_ != EQUALS) {
+                if (!StringUtil.isWhitespace(curChar_) && curChar_ != EQUALS) {
                     attributeName_.append(curChar_);
                     i_++;
                     continue;
@@ -1850,7 +1850,7 @@ public final class DocumentBuilder {
                     int nextPrintable_ = i_;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1868,13 +1868,13 @@ public final class DocumentBuilder {
                 }
                 char nextEq_ = input_.charAt(i_ + 1);
                 if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
-                    if (!Character.isWhitespace(nextEq_)) {
+                    if (!StringUtil.isWhitespace(nextEq_)) {
                         break;
                     }
                     int nextPrintable_ = i_ + 1;
                     while (nextPrintable_ < len_) {
                         char next_ = input_.charAt(nextPrintable_);
-                        if (!Character.isWhitespace(next_)) {
+                        if (!StringUtil.isWhitespace(next_)) {
                             break;
                         }
                         nextPrintable_++;
@@ -1927,7 +1927,7 @@ public final class DocumentBuilder {
                 int nextPrintable_ = i_ + 1;
                 while (nextPrintable_ < len_) {
                     char next_ = input_.charAt(nextPrintable_);
-                    if (!Character.isWhitespace(next_)) {
+                    if (!StringUtil.isWhitespace(next_)) {
                         break;
                     }
                     nextPrintable_++;
@@ -2327,7 +2327,7 @@ public final class DocumentBuilder {
                         delimiter_ = ch_;
                     }
                     if (delimiter_ == -1) {
-                        if (!Character.isWhitespace(ch_) && ch_ != EQUALS) {
+                        if (!StringUtil.isWhitespace(ch_) && ch_ != EQUALS) {
                             str_.append(ch_);
                         }
                     } else {
@@ -2507,7 +2507,7 @@ public final class DocumentBuilder {
                 }
             }
             if (delimiter_ == -1) {
-                if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
+                if (StringUtil.isWhitespace(ch_) || ch_ == EQUALS) {
                     continue;
                 }
                 str_.append(ch_);
@@ -2539,7 +2539,7 @@ public final class DocumentBuilder {
                 found_ = _xml.indexOf(StringUtil.concat(String.valueOf(LT),nodeName_), index_) + 1;
                 boolean isTag_ = true;
                 int j_ = found_ + nodeName_.length();
-                if (!Character.isWhitespace(_xml.charAt(j_))) {
+                if (!StringUtil.isWhitespace(_xml.charAt(j_))) {
                     if (_xml.charAt(j_) != GT) {
                         if (_xml.charAt(j_) != SLASH) {
                             isTag_ = false;
@@ -2555,7 +2555,7 @@ public final class DocumentBuilder {
                 return found_;
             }
             int firstIndex_ = found_ + nodeName_.length();
-            while (Character.isWhitespace(_xml.charAt(firstIndex_))) {
+            while (StringUtil.isWhitespace(_xml.charAt(firstIndex_))) {
                 firstIndex_++;
             }
             int lastIndex_ = _xml.indexOf(GT, firstIndex_);
@@ -2575,14 +2575,14 @@ public final class DocumentBuilder {
                     if (ch_ == delimiter_) {
                         delimiter_ = -1;
                         beginToken_ = i + 1;
-                        while (Character.isWhitespace(_xml.charAt(beginToken_))) {
+                        while (StringUtil.isWhitespace(_xml.charAt(beginToken_))) {
                             beginToken_++;
                         }
                         continue;
                     }
                 }
                 if (delimiter_ == -1) {
-                    if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
+                    if (StringUtil.isWhitespace(ch_) || ch_ == EQUALS) {
                         if (StringUtil.quickEq(str_.toString(), _attribute)) {
                             foundAttr_ = beginToken_;
                             break;

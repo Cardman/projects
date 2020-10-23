@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.files;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ParsedImportedTypes {
     private static final char BEGIN_BLOCK = '[';
@@ -45,7 +46,7 @@ public final class ParsedImportedTypes {
                 offsetsImports.add(indexImport_+_offset);
                 str_.delete(0, str_.length());
             } else {
-                if (!Character.isWhitespace(currentChar_)) {
+                if (!StringUtil.isWhitespace(currentChar_)) {
                     if (str_.length() == 0) {
                         indexImport_ = nextIndex;
                     }

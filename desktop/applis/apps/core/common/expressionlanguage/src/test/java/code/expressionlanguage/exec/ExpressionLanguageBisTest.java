@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -1660,7 +1661,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(Character.getDirectionality('1'), getNumber(ret_));
+        assertEq(StringUtil.getDirectionality('1'), getNumber(ret_));
     }
 
     @Test
@@ -1679,7 +1680,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(Character.getType('1'), getNumber(ret_));
+        assertEq(StringUtil.getType('1'), getNumber(ret_));
     }
 
     @Test

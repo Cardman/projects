@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.files;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ParsedAnnotations {
 
@@ -112,7 +113,7 @@ public final class ParsedAnnotations {
                         index++;
                         j_++;
                         while (j_ < lenInst_) {
-                            if (!Character.isWhitespace(instruction.charAt(j_))) {
+                            if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
                                 break;
                             }
                             index++;
@@ -133,7 +134,7 @@ public final class ParsedAnnotations {
                     index++;
                     j_++;
                     while (j_ < lenInst_) {
-                        if (!Character.isWhitespace(instruction.charAt(j_))) {
+                        if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
                             break;
                         }
                         index++;

@@ -759,7 +759,7 @@ public final class StringExpUtil {
         int len_ = Math.min(_len,_string.length());
         while (j_ < len_) {
             char ch_ = _string.charAt(j_);
-            if (!Character.isWhitespace(ch_)) {
+            if (!StringUtil.isWhitespace(ch_)) {
                 break;
             }
             j_++;
@@ -1008,7 +1008,7 @@ public final class StringExpUtil {
         boolean arr_ = true;
         while (true) {
             char locChar_ = _string.charAt(j_);
-            if (Character.isWhitespace(locChar_)) {
+            if (StringUtil.isWhitespace(locChar_)) {
                 j_--;
                 continue;
             }
@@ -1021,7 +1021,7 @@ public final class StringExpUtil {
             j_--;
             while (j_ >= 0) {
                 char locChar_ = _string.charAt(j_);
-                if (Character.isWhitespace(locChar_)) {
+                if (StringUtil.isWhitespace(locChar_)) {
                     j_--;
                     continue;
                 }

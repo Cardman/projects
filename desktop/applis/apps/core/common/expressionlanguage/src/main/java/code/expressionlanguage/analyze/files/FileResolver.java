@@ -138,7 +138,7 @@ public final class FileResolver {
                 offsetsImports_.add(indexImport_);
                 str_.delete(0, str_.length());
             } else {
-                if (!Character.isWhitespace(currentChar_)) {
+                if (!StringUtil.isWhitespace(currentChar_)) {
                     indexImport_ = setInstLocation(str_, indexImport_, i_);
                     str_.append(currentChar_);
                 } else {
@@ -823,7 +823,7 @@ public final class FileResolver {
         }
         while (indexTrAfterType_ < lenTrAfterType_) {
             char cur_ = trAfterType_.charAt(indexTrAfterType_);
-            if (!Character.isWhitespace(cur_)) {
+            if (!StringUtil.isWhitespace(cur_)) {
                 break;
             }
             indexTrAfterType_++;
@@ -1240,7 +1240,7 @@ public final class FileResolver {
                     }
                     while (indexMod_ < lenAfterModifiers_) {
                         char cur_ = found_.charAt(indexMod_);
-                        if (!Character.isWhitespace(cur_)) {
+                        if (!StringUtil.isWhitespace(cur_)) {
                             break;
                         }
                         indexMod_++;
@@ -1862,7 +1862,7 @@ public final class FileResolver {
             }
             while (indexMod_ < lenAfterModifiers_) {
                 char cur_ = infoModifiers_.charAt(indexMod_);
-                if (!Character.isWhitespace(cur_)) {
+                if (!StringUtil.isWhitespace(cur_)) {
                     break;
                 }
                 indexMod_++;
@@ -3001,7 +3001,7 @@ public final class FileResolver {
             if (skip_) {
                 continue;
             }
-            if (Character.isWhitespace(cur_)) {
+            if (StringUtil.isWhitespace(cur_)) {
                 i_++;
                 continue;
             }

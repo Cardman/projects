@@ -63,7 +63,7 @@ public final class MathResolver {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
-            if (!Character.isWhitespace(_string.charAt(i_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
             i_++;
@@ -238,7 +238,7 @@ public final class MathResolver {
                 }
                 while (j_ < len_) {
                     char curLoc_ = _string.charAt(j_);
-                    if (Character.isWhitespace(curLoc_)) {
+                    if (StringUtil.isWhitespace(curLoc_)) {
                         j_++;
                         continue;
                     }
@@ -341,7 +341,7 @@ public final class MathResolver {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
-            if (!Character.isWhitespace(_string.charAt(i_))) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
             i_++;
@@ -355,7 +355,7 @@ public final class MathResolver {
         }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
-        while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
+        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         len_ = lastPrintChar_+1;
@@ -550,7 +550,7 @@ public final class MathResolver {
             if (ch_ != MINUS_CHAR) {
                 if (ch_ != PLUS_CHAR) {
                     if (ch_ != NEG_BOOL_CHAR) {
-                        if (!Character.isWhitespace(ch_)) {
+                        if (!StringUtil.isWhitespace(ch_)) {
                             break;
                         }
                     }

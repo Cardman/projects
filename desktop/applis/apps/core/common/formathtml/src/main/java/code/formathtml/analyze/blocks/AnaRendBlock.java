@@ -401,7 +401,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                 }
             }
             if (delimiter_ == -1) {
-                if (Character.isWhitespace(ch_) || ch_ == EQUALS) {
+                if (StringUtil.isWhitespace(ch_) || ch_ == EQUALS) {
                     continue;
                 }
                 str_.append(ch_);

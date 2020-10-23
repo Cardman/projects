@@ -3,6 +3,7 @@ package code.expressionlanguage.options;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class CommentsUtil {
     private CommentsUtil() {
@@ -77,7 +78,7 @@ public final class CommentsUtil {
     private static boolean containsSpace(String _begin) {
         boolean spaces_ = false;
         for (char d: _begin.toCharArray()) {
-            if (Character.isWhitespace(d)) {
+            if (StringUtil.isWhitespace(d)) {
                 spaces_ = true;
                 break;
             }

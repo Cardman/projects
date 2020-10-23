@@ -110,7 +110,7 @@ public final class FullFieldRetriever implements FieldRetriever {
                 j_++;
                 continue;
             }
-            if (Character.isWhitespace(locChar_)) {
+            if (StringUtil.isWhitespace(locChar_)) {
                 part_.append(locChar_);
                 j_++;
                 continue;
@@ -143,7 +143,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             int index_ = -1;
             while (f_ < l_) {
                 char loc_ = p.charAt(f_);
-                if (Character.isWhitespace(loc_)) {
+                if (StringUtil.isWhitespace(loc_)) {
                     index_ = f_;
                     break;
                 }

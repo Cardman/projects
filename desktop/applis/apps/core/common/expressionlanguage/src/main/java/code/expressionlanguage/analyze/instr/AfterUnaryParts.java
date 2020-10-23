@@ -611,7 +611,7 @@ final class AfterUnaryParts {
                 if (ch_ != NEG_BOOL) {
                     if (ch_ != PLUS_CHAR) {
                         if (ch_ != NEG_BOOL_CHAR) {
-                            if (!Character.isWhitespace(ch_)) {
+                            if (!StringUtil.isWhitespace(ch_)) {
                                 int sum_ = _offset + j_;
                                 int indexCast_ = _d.getDelCast().indexOfObj(sum_);
                                 if (indexCast_ > -1) {

@@ -13,6 +13,7 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -4212,13 +4213,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl826Test() {
         Argument arg_ = directCalculate("Character.getDirectionality('1')");
-        assertEq(Character.getDirectionality('1'), getNumber(arg_));
+        assertEq(StringUtil.getDirectionality('1'), getNumber(arg_));
     }
 
     @Test
     public void processEl827Test() {
         Argument arg_ = directCalculate("Character.getType('1')");
-        assertEq(Character.getType('1'), getNumber(arg_));
+        assertEq(StringUtil.getType('1'), getNumber(arg_));
     }
 
     @Test
