@@ -3133,16 +3133,12 @@ public final class StringUtil {
                 if (toUpperCase(_ch) != _ch) {
                     return 1;
                 }
+                return 3;
             }
             if (isUpperCase(_ch)) {
                 if (toLowerCase(_ch) != _ch) {
                     return 2;
                 }
-            }
-            if (isLowerCaseInsitiveLetter(_ch)) {
-                return 3;
-            }
-            if (isUpperCaseInsitiveLetter(_ch)) {
                 return 4;
             }
             if (_ch == 453 || _ch == 456 || _ch == 459 || _ch == 498) {
@@ -7017,24 +7013,6 @@ public final class StringUtil {
         return 8;
     }
 
-    private static boolean isUpperCaseInsitiveLetter(char _string) {
-        if (_string == 660) {
-            return false;
-        }
-        if (isOtherPonctuation(_string)) {
-            return false;
-        }
-        return isUpperCase(_string);
-    }
-    private static boolean isLowerCaseInsitiveLetter(char _string) {
-        if (_string == 660) {
-            return false;
-        }
-        if (isOtherPonctuation(_string)) {
-            return false;
-        }
-        return isLowerCase(_string);
-    }
     private static boolean isOtherMathSymbol(char _string) {
         if (_string < 128) {
             return false;
