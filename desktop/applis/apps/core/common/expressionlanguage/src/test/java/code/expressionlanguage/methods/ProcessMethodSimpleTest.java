@@ -3220,6 +3220,26 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(ret_.isFalse());
     }
     @Test
+    public void calculateArgument133Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $int res = -1;\n");
+        xml_.append("  $iter ($char c = Character.MIN_VALUE;Character.MAX_VALUE;;1c){\n");
+        xml_.append("   res = c;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex2", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = calculateNormal("pkgtwo.ExClass", id_, args_, cont_);
+        assertEq(65535,getNumber(ret_));
+    }
+    @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

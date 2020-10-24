@@ -1661,7 +1661,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(StringUtil.getDirectionality('1'), getNumber(ret_));
+        assertEq(3, getNumber(ret_));
     }
 
     @Test
@@ -1680,7 +1680,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(StringUtil.getType('1'), getNumber(ret_));
+        assertEq(9, getNumber(ret_));
     }
 
     @Test

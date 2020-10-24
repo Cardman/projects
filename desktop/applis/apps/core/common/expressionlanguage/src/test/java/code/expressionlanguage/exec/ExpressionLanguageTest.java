@@ -4213,13 +4213,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl826Test() {
         Argument arg_ = directCalculate("Character.getDirectionality('1')");
-        assertEq(StringUtil.getDirectionality('1'), getNumber(arg_));
+        assertEq(3, getNumber(arg_));
     }
 
     @Test
     public void processEl827Test() {
         Argument arg_ = directCalculate("Character.getType('1')");
-        assertEq(StringUtil.getType('1'), getNumber(arg_));
+        assertEq(9, getNumber(arg_));
     }
 
     @Test
