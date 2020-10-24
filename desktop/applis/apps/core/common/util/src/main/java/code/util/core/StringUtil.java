@@ -3128,33 +3128,54 @@ public final class StringUtil {
     }
 
     public static int getCustomType(char _ch) {
-        if (isSensibleOtherLetter(_ch)) {
-            return 13;
-        }
-        if (isRomanDigits(_ch)) {
-            return 14;
-        }
-        if (_ch == 837) {
-            return 31;
-        }
-        if (isLowerCase(_ch)) {
-            if (toUpperCase(_ch) != _ch) {
-                return 1;
+        if (isLetter(_ch)) {
+            if (isLowerCase(_ch)) {
+                if (toUpperCase(_ch) != _ch) {
+                    return 1;
+                }
             }
-        }
-        if (isUpperCase(_ch)) {
-            if (toLowerCase(_ch) != _ch) {
-                return 2;
+            if (isUpperCase(_ch)) {
+                if (toLowerCase(_ch) != _ch) {
+                    return 2;
+                }
             }
-        }
-        if (isLowerCaseInsitiveLetter(_ch)) {
-            return 3;
-        }
-        if (isUpperCaseInsitiveLetter(_ch)) {
-            return 4;
-        }
-        if (_ch == 453 || _ch == 456 || _ch == 459 || _ch == 498) {
-            return 5;
+            if (isLowerCaseInsitiveLetter(_ch)) {
+                return 3;
+            }
+            if (isUpperCaseInsitiveLetter(_ch)) {
+                return 4;
+            }
+            if (_ch == 453 || _ch == 456 || _ch == 459 || _ch == 498) {
+                return 5;
+            }
+            if (_ch == 6103) {
+                return 6;
+            }
+            if (_ch == 43259) {
+                return 6;
+            }
+            if (_ch >= 1488 && _ch<=2220) {
+                return 8;
+            }
+            if (_ch >= 64285 && _ch<=65276) {
+                return 8;
+            }
+            if (_ch >= 699 && _ch<=703) {
+                return 6;
+            }
+            if (_ch >= 697 && _ch<=719) {
+                return 7;
+            }
+            if (_ch == 11823 || _ch == 884|| _ch == 748) {
+                return 7;
+            }
+            if (_ch >= 42656 && _ch<=42725) {
+                return 6;
+            }
+            if (_ch >= 42623 && _ch<=42888) {
+                return 7;
+            }
+            return 6;
         }
         if (isDigit(_ch)) {
             return 9;
@@ -3167,6 +3188,12 @@ public final class StringUtil {
                 return 11;
             }
             return 12;
+        }
+        if (isSensibleOtherLetter(_ch)) {
+            return 13;
+        }
+        if (isRomanDigits(_ch)) {
+            return 14;
         }
         if (_ch == '(' || _ch == '[' || _ch == '{') {
             return 15;
@@ -3218,12 +3245,6 @@ public final class StringUtil {
             }
             return 24;
         }
-        if (_ch == 6103) {
-            return 6;
-        }
-        if (_ch == 43259) {
-            return 6;
-        }
         if (isOtherPonctuation(_ch)) {
             if (isConnector(_ch)) {
                 return 25;
@@ -3251,34 +3272,10 @@ public final class StringUtil {
         if (isOtherSpace(_ch)) {
             return 30;
         }
-        if (isOther(_ch)) {
+        if (!isUnassigned(_ch)) {
             return 31;
         }
-        if (isUnassigned(_ch)) {
-            return 32;
-        }
-        if (_ch >= 1488 && _ch<=2220) {
-            return 8;
-        }
-        if (_ch >= 64285 && _ch<=65276) {
-            return 8;
-        }
-        if (_ch >= 699 && _ch<=703) {
-            return 6;
-        }
-        if (_ch >= 697 && _ch<=719) {
-            return 7;
-        }
-        if (_ch == 11823 || _ch == 884|| _ch == 748) {
-            return 7;
-        }
-        if (_ch >= 42656 && _ch<=42725) {
-            return 6;
-        }
-        if (_ch >= 42623 && _ch<=42888) {
-            return 7;
-        }
-        return 6;
+        return 32;
     }
 
     private static int generalDir(char _ch, int _type) {
@@ -4751,9 +4748,6 @@ public final class StringUtil {
                 return false;
             }
         }
-        if (_ch >= 9720&& _ch <= 9727) {
-            return false;
-        }
         if (_ch >= 12246&& _ch <= 12271) {
             return false;
         }
@@ -6000,660 +5994,6 @@ public final class StringUtil {
         }
         return _ch >= 65534;
     }
-    private static boolean isOther(char _ch) {
-        if (isUnassigned(_ch)) {
-            return false;
-        }
-        if (_ch >= 768 && _ch <= 879) {
-            return true;
-        }
-        if (_ch >= 1155 && _ch <= 1161) {
-            return true;
-        }
-        if (_ch >= 1425 && _ch <= 1469) {
-            return true;
-        }
-        if (_ch == 1471) {
-            return true;
-        }
-        if (_ch >= 1473 && _ch <= 1474) {
-            return true;
-        }
-        if (_ch >= 1476 && _ch <= 1477) {
-            return true;
-        }
-        if (_ch == 1479) {
-            return true;
-        }
-        if (_ch >= 1536 && _ch <= 1540) {
-            return true;
-        }
-        if (_ch >= 1552 && _ch <= 1562) {
-            return true;
-        }
-        if (_ch >= 1611 && _ch <= 1631) {
-            return true;
-        }
-        if (_ch == 1648) {
-            return true;
-        }
-        if (_ch >= 1750 && _ch <= 1757) {
-            return true;
-        }
-        if (_ch >= 1759 && _ch <= 1764) {
-            return true;
-        }
-        if (_ch >= 1767 && _ch <= 1768) {
-            return true;
-        }
-        if (_ch >= 1770 && _ch <= 1773) {
-            return true;
-        }
-        if (_ch == 1807) {
-            return true;
-        }
-        if (_ch == 1809) {
-            return true;
-        }
-        if (_ch >= 1840 && _ch <= 1866) {
-            return true;
-        }
-        if (_ch >= 1958 && _ch <= 1968) {
-            return true;
-        }
-        if (_ch >= 2027 && _ch <= 2035) {
-            return true;
-        }
-        if (_ch >= 2070 && _ch <= 2073) {
-            return true;
-        }
-        if (_ch >= 2075 && _ch <= 2083) {
-            return true;
-        }
-        if (_ch >= 2085 && _ch <= 2087) {
-            return true;
-        }
-        if (_ch >= 2089 && _ch <= 2093) {
-            return true;
-        }
-        if (_ch >= 2137 && _ch <= 2139) {
-            return true;
-        }
-        if (_ch >= 2276 && _ch <= 2302) {
-            return true;
-        }
-        if (_ch >= 2304 && _ch <= 2307) {
-            return true;
-        }
-        if (_ch >= 2362 && _ch <= 2364) {
-            return true;
-        }
-        if (_ch >= 2366 && _ch <= 2383) {
-            return true;
-        }
-        if (_ch >= 2385 && _ch <= 2391) {
-            return true;
-        }
-        if (_ch >= 2402 && _ch <= 2403) {
-            return true;
-        }
-        if (_ch >= 2433 && _ch <= 2435) {
-            return true;
-        }
-        if (_ch == 2492) {
-            return true;
-        }
-        if (_ch >= 2494 && _ch <= 2500) {
-            return true;
-        }
-        if (_ch >= 2503 && _ch <= 2504) {
-            return true;
-        }
-        if (_ch >= 2507 && _ch <= 2509) {
-            return true;
-        }
-        if (_ch == 2519) {
-            return true;
-        }
-        if (_ch >= 2530 && _ch <= 2531) {
-            return true;
-        }
-        if (_ch >= 2548 && _ch <= 2553) {
-            return true;
-        }
-        if (_ch >= 2561 && _ch <= 2563) {
-            return true;
-        }
-        if (_ch == 2620) {
-            return true;
-        }
-        if (_ch >= 2622 && _ch <= 2626) {
-            return true;
-        }
-        if (_ch >= 2631 && _ch <= 2632) {
-            return true;
-        }
-        if (_ch >= 2635 && _ch <= 2637) {
-            return true;
-        }
-        if (_ch == 2641) {
-            return true;
-        }
-        if (_ch >= 2672 && _ch <= 2673) {
-            return true;
-        }
-        if (_ch == 2677) {
-            return true;
-        }
-        if (_ch >= 2689 && _ch <= 2691) {
-            return true;
-        }
-        if (_ch == 2748) {
-            return true;
-        }
-        if (_ch >= 2750 && _ch <= 2757) {
-            return true;
-        }
-        if (_ch >= 2759 && _ch <= 2761) {
-            return true;
-        }
-        if (_ch >= 2763 && _ch <= 2765) {
-            return true;
-        }
-        if (_ch >= 2786 && _ch <= 2787) {
-            return true;
-        }
-        if (_ch >= 2817 && _ch <= 2819) {
-            return true;
-        }
-        if (_ch == 2876) {
-            return true;
-        }
-        if (_ch >= 2878 && _ch <= 2884) {
-            return true;
-        }
-        if (_ch >= 2887 && _ch <= 2888) {
-            return true;
-        }
-        if (_ch >= 2891 && _ch <= 2893) {
-            return true;
-        }
-        if (_ch >= 2902 && _ch <= 2903) {
-            return true;
-        }
-        if (_ch >= 2914 && _ch <= 2915) {
-            return true;
-        }
-        if (_ch >= 2930 && _ch <= 2935) {
-            return true;
-        }
-        if (_ch == 2946) {
-            return true;
-        }
-        if (_ch >= 3006 && _ch <= 3010) {
-            return true;
-        }
-        if (_ch >= 3014 && _ch <= 3016) {
-            return true;
-        }
-        if (_ch >= 3018 && _ch <= 3021) {
-            return true;
-        }
-        if (_ch == 3031) {
-            return true;
-        }
-        if (_ch >= 3056 && _ch <= 3058) {
-            return true;
-        }
-        if (_ch >= 3073 && _ch <= 3075) {
-            return true;
-        }
-        if (_ch >= 3134 && _ch <= 3140) {
-            return true;
-        }
-        if (_ch >= 3142 && _ch <= 3144) {
-            return true;
-        }
-        if (_ch >= 3146 && _ch <= 3149) {
-            return true;
-        }
-        if (_ch >= 3157 && _ch <= 3158) {
-            return true;
-        }
-        if (_ch >= 3170 && _ch <= 3171) {
-            return true;
-        }
-        if (_ch >= 3192 && _ch <= 3198) {
-            return true;
-        }
-        if (_ch >= 3202 && _ch <= 3203) {
-            return true;
-        }
-        if (_ch == 3260) {
-            return true;
-        }
-        if (_ch >= 3262 && _ch <= 3268) {
-            return true;
-        }
-        if (_ch >= 3270 && _ch <= 3272) {
-            return true;
-        }
-        if (_ch >= 3274 && _ch <= 3277) {
-            return true;
-        }
-        if (_ch >= 3285 && _ch <= 3286) {
-            return true;
-        }
-        if (_ch >= 3298 && _ch <= 3299) {
-            return true;
-        }
-        if (_ch >= 3330 && _ch <= 3331) {
-            return true;
-        }
-        if (_ch >= 3390 && _ch <= 3396) {
-            return true;
-        }
-        if (_ch >= 3398 && _ch <= 3400) {
-            return true;
-        }
-        if (_ch >= 3402 && _ch <= 3405) {
-            return true;
-        }
-        if (_ch == 3415) {
-            return true;
-        }
-        if (_ch >= 3426 && _ch <= 3427) {
-            return true;
-        }
-        if (_ch >= 3440 && _ch <= 3445) {
-            return true;
-        }
-        if (_ch >= 3458 && _ch <= 3459) {
-            return true;
-        }
-        if (_ch == 3530) {
-            return true;
-        }
-        if (_ch >= 3535 && _ch <= 3540) {
-            return true;
-        }
-        if (_ch == 3542) {
-            return true;
-        }
-        if (_ch >= 3544 && _ch <= 3551) {
-            return true;
-        }
-        if (_ch >= 3570 && _ch <= 3571) {
-            return true;
-        }
-        if (_ch == 3633) {
-            return true;
-        }
-        if (_ch >= 3636 && _ch <= 3642) {
-            return true;
-        }
-        if (_ch >= 3655 && _ch <= 3662) {
-            return true;
-        }
-        if (_ch == 3761) {
-            return true;
-        }
-        if (_ch >= 3764 && _ch <= 3769) {
-            return true;
-        }
-        if (_ch >= 3771 && _ch <= 3772) {
-            return true;
-        }
-        if (_ch >= 3784 && _ch <= 3789) {
-            return true;
-        }
-        if (_ch >= 3864 && _ch <= 3865) {
-            return true;
-        }
-        if (_ch >= 3882 && _ch <= 3891) {
-            return true;
-        }
-        if (_ch == 3893) {
-            return true;
-        }
-        if (_ch == 3895) {
-            return true;
-        }
-        if (_ch == 3897) {
-            return true;
-        }
-        if (_ch >= 3902 && _ch <= 3903) {
-            return true;
-        }
-        if (_ch >= 3953 && _ch <= 3972) {
-            return true;
-        }
-        if (_ch >= 3974 && _ch <= 3975) {
-            return true;
-        }
-        if (_ch >= 3981 && _ch <= 3991) {
-            return true;
-        }
-        if (_ch >= 3993 && _ch <= 4028) {
-            return true;
-        }
-        if (_ch == 4038) {
-            return true;
-        }
-        if (_ch >= 4139 && _ch <= 4158) {
-            return true;
-        }
-        if (_ch >= 4182 && _ch <= 4185) {
-            return true;
-        }
-        if (_ch >= 4190 && _ch <= 4192) {
-            return true;
-        }
-        if (_ch >= 4194 && _ch <= 4196) {
-            return true;
-        }
-        if (_ch >= 4199 && _ch <= 4205) {
-            return true;
-        }
-        if (_ch >= 4209 && _ch <= 4212) {
-            return true;
-        }
-        if (_ch >= 4226 && _ch <= 4237) {
-            return true;
-        }
-        if (_ch == 4239) {
-            return true;
-        }
-        if (_ch >= 4250 && _ch <= 4253) {
-            return true;
-        }
-        if (_ch >= 4957 && _ch <= 4959) {
-            return true;
-        }
-        if (_ch >= 4969 && _ch <= 4988) {
-            return true;
-        }
-        if (_ch >= 5870 && _ch <= 5872) {
-            return true;
-        }
-        if (_ch >= 5906 && _ch <= 5908) {
-            return true;
-        }
-        if (_ch >= 5938 && _ch <= 5940) {
-            return true;
-        }
-        if (_ch >= 5970 && _ch <= 5971) {
-            return true;
-        }
-        if (_ch >= 6002 && _ch <= 6003) {
-            return true;
-        }
-        if (_ch >= 6068 && _ch <= 6099) {
-            return true;
-        }
-        if (_ch == 6109) {
-            return true;
-        }
-        if (_ch >= 6128 && _ch <= 6137) {
-            return true;
-        }
-        if (_ch >= 6155 && _ch <= 6157) {
-            return true;
-        }
-        if (_ch == 6313) {
-            return true;
-        }
-        if (_ch >= 6432 && _ch <= 6443) {
-            return true;
-        }
-        if (_ch >= 6448 && _ch <= 6459) {
-            return true;
-        }
-        if (_ch >= 6576 && _ch <= 6592) {
-            return true;
-        }
-        if (_ch >= 6600 && _ch <= 6601) {
-            return true;
-        }
-        if (_ch == 6618) {
-            return true;
-        }
-        if (_ch >= 6679 && _ch <= 6683) {
-            return true;
-        }
-        if (_ch >= 6741 && _ch <= 6750) {
-            return true;
-        }
-        if (_ch >= 6752 && _ch <= 6780) {
-            return true;
-        }
-        if (_ch == 6783) {
-            return true;
-        }
-        if (_ch >= 6912 && _ch <= 6916) {
-            return true;
-        }
-        if (_ch >= 6964 && _ch <= 6980) {
-            return true;
-        }
-        if (_ch >= 7019 && _ch <= 7027) {
-            return true;
-        }
-        if (_ch >= 7040 && _ch <= 7042) {
-            return true;
-        }
-        if (_ch >= 7073 && _ch <= 7085) {
-            return true;
-        }
-        if (_ch >= 7142 && _ch <= 7155) {
-            return true;
-        }
-        if (_ch >= 7204 && _ch <= 7223) {
-            return true;
-        }
-        if (_ch >= 7376 && _ch <= 7378) {
-            return true;
-        }
-        if (_ch >= 7380 && _ch <= 7400) {
-            return true;
-        }
-        if (_ch == 7405) {
-            return true;
-        }
-        if (_ch >= 7410 && _ch <= 7412) {
-            return true;
-        }
-        if (_ch >= 7616 && _ch <= 7654) {
-            return true;
-        }
-        if (_ch >= 7676 && _ch <= 7679) {
-            return true;
-        }
-        if (_ch >= 8203 && _ch <= 8207) {
-            return true;
-        }
-        if (_ch >= 8232 && _ch <= 8238) {
-            return true;
-        }
-        if (_ch >= 8288 && _ch <= 8292) {
-            return true;
-        }
-        if (_ch >= 8298 && _ch <= 8304) {
-            return true;
-        }
-        if (_ch >= 8308 && _ch <= 8313) {
-            return true;
-        }
-        if (_ch >= 8320 && _ch <= 8329) {
-            return true;
-        }
-        if (_ch >= 8400 && _ch <= 8432) {
-            return true;
-        }
-        if (_ch >= 8528 && _ch <= 8543) {
-            return true;
-        }
-        if (_ch >= 8576 && _ch <= 8578) {
-            return true;
-        }
-        if (_ch >= 8581 && _ch <= 8585) {
-            return true;
-        }
-        if (_ch >= 9312 && _ch <= 9371) {
-            return true;
-        }
-        if (_ch >= 9450 && _ch <= 9471) {
-            return true;
-        }
-        if (_ch >= 10102 && _ch <= 10131) {
-            return true;
-        }
-        if (_ch >= 11503 && _ch <= 11505) {
-            return true;
-        }
-        if (_ch == 11517) {
-            return true;
-        }
-        if (_ch == 11647) {
-            return true;
-        }
-        if (_ch >= 11744 && _ch <= 11775) {
-            return true;
-        }
-        if (_ch == 12295) {
-            return true;
-        }
-        if (_ch >= 12321 && _ch <= 12335) {
-            return true;
-        }
-        if (_ch >= 12344 && _ch <= 12346) {
-            return true;
-        }
-        if (_ch >= 12441 && _ch <= 12442) {
-            return true;
-        }
-        if (_ch >= 12690 && _ch <= 12693) {
-            return true;
-        }
-        if (_ch >= 12832 && _ch <= 12841) {
-            return true;
-        }
-        if (_ch >= 12872 && _ch <= 12879) {
-            return true;
-        }
-        if (_ch >= 12881 && _ch <= 12895) {
-            return true;
-        }
-        if (_ch >= 12928 && _ch <= 12937) {
-            return true;
-        }
-        if (_ch >= 12977 && _ch <= 12991) {
-            return true;
-        }
-        if (_ch >= 42607 && _ch <= 42610) {
-            return true;
-        }
-        if (_ch >= 42612 && _ch <= 42621) {
-            return true;
-        }
-        if (_ch == 42655) {
-            return true;
-        }
-        if (_ch >= 42726 && _ch <= 42737) {
-            return true;
-        }
-        if (_ch == 43010) {
-            return true;
-        }
-        if (_ch == 43014) {
-            return true;
-        }
-        if (_ch == 43019) {
-            return true;
-        }
-        if (_ch >= 43043 && _ch <= 43047) {
-            return true;
-        }
-        if (_ch >= 43056 && _ch <= 43061) {
-            return true;
-        }
-        if (_ch >= 43136 && _ch <= 43137) {
-            return true;
-        }
-        if (_ch >= 43188 && _ch <= 43204) {
-            return true;
-        }
-        if (_ch >= 43232 && _ch <= 43249) {
-            return true;
-        }
-        if (_ch >= 43302 && _ch <= 43309) {
-            return true;
-        }
-        if (_ch >= 43335 && _ch <= 43347) {
-            return true;
-        }
-        if (_ch >= 43392 && _ch <= 43395) {
-            return true;
-        }
-        if (_ch >= 43443 && _ch <= 43456) {
-            return true;
-        }
-        if (_ch >= 43561 && _ch <= 43574) {
-            return true;
-        }
-        if (_ch == 43587) {
-            return true;
-        }
-        if (_ch >= 43596 && _ch <= 43597) {
-            return true;
-        }
-        if (_ch == 43643) {
-            return true;
-        }
-        if (_ch == 43696) {
-            return true;
-        }
-        if (_ch >= 43698 && _ch <= 43700) {
-            return true;
-        }
-        if (_ch >= 43703 && _ch <= 43704) {
-            return true;
-        }
-        if (_ch >= 43710 && _ch <= 43711) {
-            return true;
-        }
-        if (_ch == 43713) {
-            return true;
-        }
-        if (_ch >= 43755 && _ch <= 43759) {
-            return true;
-        }
-        if (_ch >= 43765 && _ch <= 43766) {
-            return true;
-        }
-        if (_ch >= 44003 && _ch <= 44010) {
-            return true;
-        }
-        if (_ch >= 44012 && _ch <= 44013) {
-            return true;
-        }
-        if (_ch >= 55296 && _ch <= 63743) {
-            return true;
-        }
-        if (_ch == 64286) {
-            return true;
-        }
-        if (_ch >= 65024 && _ch <= 65039) {
-            return true;
-        }
-        if (_ch >= 65056 && _ch <= 65062) {
-            return true;
-        }
-        if (_ch == 65279) {
-            return true;
-        }
-        return _ch >= 65529;
-    }
 
     private static boolean isRomanDigits(char _ch) {
         return _ch >= 8544 && _ch <= 8575;
@@ -7684,15 +7024,6 @@ public final class StringUtil {
         if (isOtherPonctuation(_string)) {
             return false;
         }
-        if (isOtherSymbol(_string)) {
-            return false;
-        }
-        if (isUnassigned(_string)) {
-            return false;
-        }
-        if (isOtherSpace(_string)) {
-            return false;
-        }
         return isUpperCase(_string);
     }
     private static boolean isLowerCaseInsitiveLetter(char _string) {
@@ -7700,15 +7031,6 @@ public final class StringUtil {
             return false;
         }
         if (isOtherPonctuation(_string)) {
-            return false;
-        }
-        if (isOtherSymbol(_string)) {
-            return false;
-        }
-        if (isUnassigned(_string)) {
-            return false;
-        }
-        if (isOtherSpace(_string)) {
             return false;
         }
         return isLowerCase(_string);
