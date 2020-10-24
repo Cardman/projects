@@ -1996,10 +1996,10 @@ public class FightHelpBean extends CommonBean {
         int i_ = 0;
         while (i_ < len_) {
             char cur_ = catchingFormulaCopy_.charAt(i_);
-            if (StringUtil.isWordChar(cur_)) {
+            if (StringUtil.isKeyWordChar(cur_)) {
                 boolean dig_ = cur_ >= '0' && cur_ <= '9';
                 int j_ = i_;
-                while (StringUtil.isWordChar(cur_)) {
+                while (StringUtil.isKeyWordChar(cur_)) {
                     j_++;
                     cur_ = catchingFormulaCopy_.charAt(j_);
                 }

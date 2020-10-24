@@ -23381,6 +23381,119 @@ public class StringListTest {
         assertTrue(!StringUtil.isLetter('1'));
     }
     @Test
+    public void isLetter3() {
+        assertTrue(StringUtil.isLetter((char)65500));
+    }
+
+    @Test
+    public void isLetter4() {
+        assertTrue(!StringUtil.isLetter((char)65501));
+    }
+
+    @Test
+    public void isLetter5() {
+        assertTrue(!StringUtil.isLetter((char)215));
+    }
+
+    @Test
+    public void isLetter6() {
+        assertTrue(!StringUtil.isLetter((char)191));
+    }
+
+    @Test
+    public void isLetter7() {
+        assertTrue(!StringUtil.isLetter((char)128));
+    }
+
+    @Test
+    public void isLetter8() {
+        assertTrue(!StringUtil.isLetter('_'));
+    }
+
+    @Test
+    public void isLetter9() {
+        assertTrue(StringUtil.isLetter('A'));
+    }
+    @Test
+    public void isLetterOrDigit1() {
+        assertTrue(StringUtil.isLetterOrDigit((char)65500));
+    }
+
+    @Test
+    public void isLetterOrDigit2() {
+        assertTrue(!StringUtil.isLetterOrDigit((char)65501));
+    }
+
+    @Test
+    public void isLetterOrDigit3() {
+        assertTrue(!StringUtil.isLetterOrDigit((char)247));
+    }
+
+    @Test
+    public void isLetterOrDigit4() {
+        assertTrue(StringUtil.isLetterOrDigit((char)192));
+    }
+
+    @Test
+    public void isLetterOrDigit5() {
+        assertTrue(!StringUtil.isLetterOrDigit((char)191));
+    }
+
+    @Test
+    public void isLetterOrDigit6() {
+        assertTrue(!StringUtil.isLetterOrDigit((char)128));
+    }
+
+    @Test
+    public void isLetterOrDigit7() {
+        assertTrue(!StringUtil.isLetterOrDigit('_'));
+    }
+
+    @Test
+    public void isLetterOrDigit8() {
+        assertTrue(StringUtil.isLetterOrDigit('A'));
+    }
+
+    @Test
+    public void isKeyWordChar1() {
+        assertTrue(!StringUtil.isKeyWordChar((char)127));
+    }
+
+    @Test
+    public void isKeyWordChar2() {
+        assertTrue(StringUtil.isKeyWordChar('_'));
+    }
+
+    @Test
+    public void isKeyWordChar3() {
+        assertTrue(!StringUtil.isKeyWordChar('!'));
+    }
+
+    @Test
+    public void isKeyWordChar4() {
+        assertTrue(StringUtil.isKeyWordChar('0'));
+    }
+
+    @Test
+    public void isKeyWordChar5() {
+        assertTrue(StringUtil.isKeyWordChar('a'));
+    }
+
+    @Test
+    public void isKeyWordChar6() {
+        assertTrue(StringUtil.isKeyWordChar('A'));
+    }
+
+    @Test
+    public void isKeyWordChar7() {
+        assertTrue(!StringUtil.isKeyWordChar(':'));
+    }
+
+    @Test
+    public void isKeyWordChar8() {
+        assertTrue(!StringUtil.isKeyWordChar('\\'));
+    }
+    @Test
     public void type() {
         int max_ = -1;
         int maxType_ = -1;

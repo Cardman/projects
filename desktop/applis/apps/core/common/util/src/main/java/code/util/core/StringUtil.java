@@ -1601,7 +1601,7 @@ public final class StringUtil {
                 ret_.add(_str);
                 return ret_;
             }
-            if (isWordChar(_str.charAt(i_))) {
+            if (isKeyWordChar(_str.charAt(i_))) {
                 str_.append(_str, IndexConstants.FIRST_INDEX, i_);
                 break;
             }
@@ -1613,7 +1613,7 @@ public final class StringUtil {
                 break;
             }
             char char_ = _str.charAt(i_);
-            if (isWordChar(char_)) {
+            if (isKeyWordChar(char_)) {
                 if (!wasWordChar_) {
                     ret_.add(str_.toString());
                     str_ = new StringBuilder();
@@ -1802,7 +1802,7 @@ public final class StringUtil {
             return false;
         }
         for (char c : _string.toCharArray()) {
-            if (!isWordChar(c)) {
+            if (!isKeyWordChar(c)) {
                 return false;
             }
         }
@@ -1826,6 +1826,28 @@ public final class StringUtil {
             return true;
         }
         return isWordChar(_char);
+    }
+
+    public static boolean isKeyWordChar(char _ch) {
+        if (_ch == CHAR_WORD_OTHER) {
+            return true;
+        }
+        if (_ch < '0') {
+            return false;
+        }
+        if (_ch <= '9') {
+            return true;
+        }
+        if (_ch < 'A') {
+            return false;
+        }
+        if (_ch <= 'Z') {
+            return true;
+        }
+        if (_ch < 'a') {
+            return false;
+        }
+        return _ch <= 'z';
     }
 
     public static boolean isWordChar(char _char) {
@@ -1902,11 +1924,65 @@ public final class StringUtil {
         return (char)('a'+_digit-10);
     }
     public static boolean isLetterOrDigit(char _ch) {
+        if (_ch < '0') {
+            return false;
+        }
+        if (_ch <= '9') {
+            return true;
+        }
+        if (_ch < 'A') {
+            return false;
+        }
+        if (_ch <= 'Z') {
+            return true;
+        }
+        if (_ch < 'a') {
+            return false;
+        }
+        if (_ch <= 'z') {
+            return true;
+        }
+        if (_ch < 170) {
+            return false;
+        }
+        if (_ch < 256) {
+            if (_ch >= 192) {
+                return isSupplLetter(_ch);
+            }
+        }
         return getCustomType(_ch) <= 10;
     }
     public static boolean isLetter(char _ch) {
+        if (_ch < 'A') {
+            return false;
+        }
+        if (_ch <= 'Z') {
+            return true;
+        }
+        if (_ch < 'a') {
+            return false;
+        }
+        if (_ch <= 'z') {
+            return true;
+        }
+        if (_ch < 170) {
+            return false;
+        }
+        if (_ch < 256) {
+            if (_ch >= 192) {
+                return isSupplLetter(_ch);
+            }
+        }
         return getCustomType(_ch) <= 8;
     }
+
+    private static boolean isSupplLetter(char _ch) {
+        if (_ch == 215) {
+            return false;
+        }
+        return _ch != 247;
+    }
+
     public static boolean isLowerCase(char _string) {
         if (isUnassigned(_string)) {
             return false;

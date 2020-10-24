@@ -43,7 +43,7 @@ public final class Format {
     public static String keepOnlyWordCharsDot(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (!StringUtil.isWordChar(c)) {
+            if (!StringUtil.isKeyWordChar(c)) {
                 if (c != DOT_CHAR) {
                     continue;
                 }

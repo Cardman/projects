@@ -2542,12 +2542,12 @@ public class DataBase {
                 boolean dig_ = StringUtil.isDigit(cur_);
                 int j_ = i_;
                 int delta_ = 0;
-                if (!StringUtil.isWordChar(cur_)) {
+                if (!StringUtil.isKeyWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                     delta_++;
                 }
-                while (StringUtil.isWordChar(cur_)) {
+                while (StringUtil.isKeyWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                 }
@@ -2585,10 +2585,10 @@ public class DataBase {
                 }
                 continue;
             }
-            if (StringUtil.isWordChar(cur_)) {
+            if (StringUtil.isKeyWordChar(cur_)) {
                 boolean dig_ = StringUtil.isDigit(cur_);
                 int j_ = i_;
-                while (StringUtil.isWordChar(cur_)) {
+                while (StringUtil.isKeyWordChar(cur_)) {
                     j_++;
                     if (j_ >= _litt.length()) {
                         break;

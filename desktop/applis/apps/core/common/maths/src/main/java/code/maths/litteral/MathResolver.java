@@ -132,7 +132,7 @@ public final class MathResolver {
                 _error.setString(_string);
                 return d_;
             }
-            if (StringUtil.isWordChar(curChar_)) {
+            if (StringUtil.isKeyWordChar(curChar_)) {
                 if (StringUtil.isDigit(curChar_)) {
                     i_ = addNumberInfo(d_,i_,i_,_string);
                     continue;
@@ -142,7 +142,7 @@ public final class MathResolver {
                 StringBuilder name_ = new StringBuilder();
                 while (i_ < len_) {
                     char last_ = _string.charAt(i_);
-                    if (!StringUtil.isWordChar(last_)) {
+                    if (!StringUtil.isKeyWordChar(last_)) {
                         break;
                     }
                     name_.append(last_);
