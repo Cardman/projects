@@ -23499,6 +23499,10 @@ public class StringListTest {
         int maxType_ = -1;
         int min_ = 100;
         int minType_ = 100;
+        int maxLetter_ = -1;
+        int minLetter_ = -1;
+        int maxLetterDigit_ = -1;
+        int minLetterDigit_ = -1;
         for (int i = 0; i < 256*256;i++) {
             int dir_ = StringUtil.getDirectionality((char) i);
             int type_ = StringUtil.getType((char) i);
@@ -23506,11 +23510,27 @@ public class StringListTest {
             min_ = Math.min(dir_,min_);
             maxType_ = Math.max(type_,maxType_);
             minType_ = Math.min(type_,minType_);
+            if (StringUtil.isLetter((char) i)) {
+                if (minLetter_ == -1) {
+                    minLetter_ = i;
+                }
+                maxLetter_ = i;
+            }
+            if (StringUtil.isLetterOrDigit((char) i)) {
+                if (minLetterDigit_ == -1) {
+                    minLetterDigit_ = i;
+                }
+                maxLetterDigit_ = i;
+            }
         }
         assertEq(-1,min_);
         assertEq(18,max_);
         assertEq(0,minType_);
         assertEq(30,maxType_);
+        assertEq('A',minLetter_);
+        assertEq(65500,maxLetter_);
+        assertEq('0',minLetterDigit_);
+        assertEq(65500,maxLetterDigit_);
     }
 
 }
