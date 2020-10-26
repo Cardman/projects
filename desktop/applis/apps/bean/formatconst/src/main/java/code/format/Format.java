@@ -43,7 +43,7 @@ public final class Format {
     public static String keepOnlyWordCharsDot(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (!StringUtil.isKeyWordChar(c)) {
+            if (!isWordChar(c)) {
                 if (c != DOT_CHAR) {
                     continue;
                 }
@@ -51,5 +51,29 @@ public final class Format {
             str_.append(c);
         }
         return str_.toString();
+    }
+    private static boolean isWordChar(char _char) {
+        if (_char == '_') {
+            return true;
+        }
+        if (_char < '0') {
+            return false;
+        }
+        if (_char <= '9') {
+            return true;
+        }
+        if (_char < 'A') {
+            return false;
+        }
+        if (_char <= 'Z') {
+            return true;
+        }
+        if (_char < 'a') {
+            return false;
+        }
+        if (_char <= 'z') {
+            return true;
+        }
+        return _char >= 160;
     }
 }

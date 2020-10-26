@@ -202,7 +202,7 @@ public final class KeyWords {
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
@@ -244,7 +244,7 @@ public final class KeyWords {
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_, Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_STRING_WORD);
@@ -328,14 +328,14 @@ public final class KeyWords {
                     err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                     _page.addStdError(err_);
                 }
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                     _page.addStdError(err_);
                 }
             }
-            if (!StringUtil.isLetter(keyWordValue_.charAt(0))) {
+            if (!StringExpUtil.isLetter(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -395,7 +395,7 @@ public final class KeyWords {
             return;
         }
         for (char c: keyWordNbHexEnd.toCharArray()) {
-            if (!StringUtil.isDollarWordChar(c)) {
+            if (!StringExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -409,7 +409,7 @@ public final class KeyWords {
             }
         }
         char firstChar_ = keyWordNbHexEnd.charAt(0);
-        if (!StringUtil.isLetter(firstChar_)) {
+        if (!StringExpUtil.isLetter(firstChar_)) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -438,7 +438,7 @@ public final class KeyWords {
             return;
         }
         for (char c: _sep.toCharArray()) {
-            if (!StringUtil.isDollarWordChar(c)) {
+            if (!StringExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -457,7 +457,7 @@ public final class KeyWords {
                 _page.addStdError(err_);
             }
         }
-        if (!StringUtil.isLetter(_sep.charAt(0))) {
+        if (!StringExpUtil.isLetter(_sep.charAt(0))) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),_sep,Character.toString(_sep.charAt(0))));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -480,7 +480,7 @@ public final class KeyWords {
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _page.addStdError(err_);
             }
-            if (!StringUtil.isDollarWordChar(c)) {
+            if (!StringExpUtil.isDollarWordChar(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -494,7 +494,7 @@ public final class KeyWords {
             }
         }
         char firstExpBin_ = keyWordNbExpBin.charAt(0);
-        if (!StringUtil.isLetter(firstExpBin_)) {
+        if (!StringExpUtil.isLetter(firstExpBin_)) {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             err_.setErrCat(ErrorCat.WRITE_NB_WORD);

@@ -777,12 +777,12 @@ public final class FileResolver {
         }
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
-        StringList wordsSep_ = StringUtil.getDollarWordSeparators(trimmedAfterAccess_);
+        StringList wordsSep_ = StringExpUtil.getDollarWordSeparators(trimmedAfterAccess_);
         int i_ = 0;
         int len_ = wordsSep_.size();
         while (i_ < len_) {
             String ws_ = wordsSep_.get(i_);
-            if (!StringUtil.isDollarWord(ws_)) {
+            if (!StringExpUtil.isDollarWord(ws_)) {
                 i_++;
                 continue;
             }

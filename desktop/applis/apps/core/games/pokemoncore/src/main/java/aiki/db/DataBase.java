@@ -70,13 +70,14 @@ import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.TypeStatistic;
+import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
-import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedBooleanString;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.litteral.EvolvedNumString;
+import code.maths.litteral.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -1220,7 +1221,7 @@ public class DataBase {
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y
+                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));
                 }
             }
@@ -2035,7 +2036,7 @@ public class DataBase {
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y
+                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));
                 }
             }
@@ -2539,15 +2540,15 @@ public class DataBase {
         while (i_ < len_) {
             char cur_ = _litt.charAt(i_);
             if (br_) {
-                boolean dig_ = StringUtil.isDigit(cur_);
+                boolean dig_ = MathExpUtil.isDigit(cur_);
                 int j_ = i_;
                 int delta_ = 0;
-                if (!StringUtil.isKeyWordChar(cur_)) {
+                if (!MathExpUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                     delta_++;
                 }
-                while (StringUtil.isKeyWordChar(cur_)) {
+                while (MathExpUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = _litt.charAt(j_);
                 }
@@ -2585,10 +2586,10 @@ public class DataBase {
                 }
                 continue;
             }
-            if (StringUtil.isKeyWordChar(cur_)) {
-                boolean dig_ = StringUtil.isDigit(cur_);
+            if (MathExpUtil.isWordChar(cur_)) {
+                boolean dig_ = MathExpUtil.isDigit(cur_);
                 int j_ = i_;
-                while (StringUtil.isKeyWordChar(cur_)) {
+                while (MathExpUtil.isWordChar(cur_)) {
                     j_++;
                     if (j_ >= _litt.length()) {
                         break;
@@ -2631,7 +2632,7 @@ public class DataBase {
     }
 
     private static StringList getVariableWords(String _str) {
-        StringList list_ = StringUtil.getWordsSeparators(_str);
+        StringList list_ = MathExpUtil.getWordsSeparators(_str);
         StringList newList_ = new StringList();
         int i_ = IndexConstants.FIRST_INDEX;
         for (String t : list_) {
@@ -2660,7 +2661,7 @@ public class DataBase {
             String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
 
-        StringList tokens_ = StringUtil.getWordsSeparatorsPrefix(_litt,
+        StringList tokens_ = MathExpUtil.getWordsSeparatorsPrefix(_litt,
                 VAR_PREFIX);
         NatStringTreeMap< String> desc_ = new NatStringTreeMap< String>();
         int len_ = tokens_.size();
@@ -2737,9 +2738,9 @@ public class DataBase {
             }
             String insideSet_ = s.substring(IndexConstants.SECOND_INDEX,
                     s.length() - 1);
-            StringList words_ = StringUtil.getWordsSeparators(insideSet_);
+            StringList words_ = MathExpUtil.getWordsSeparators(insideSet_);
             for (String w : words_) {
-                if (!StringUtil.isWord(w)) {
+                if (!MathExpUtil.isWord(w)) {
                     if (w.isEmpty()) {
                         continue;
                     }

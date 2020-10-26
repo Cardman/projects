@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 
+import code.maths.litteral.MathExpUtil;
 import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public final class NetCreate {
             return _defaultPort;
         }
         content_ = StringUtil.removeStrings(content_, LINE_RETURN_R, LINE_RETURN_N);
-        if (!StringUtil.isPositiveNumber(content_)) {
+        if (!MathExpUtil.isPositiveNumber(content_)) {
             return _defaultPort;
         }
         int port_ = NumberUtil.parseInt(content_);

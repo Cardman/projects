@@ -1,4 +1,5 @@
 package code.maths;
+import code.maths.litteral.MathExpUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -9,7 +10,6 @@ import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
-import code.util.core.StringUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -117,7 +117,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
         }
         if (_entierL == Long.MIN_VALUE) {
-            grDigits.setLast(grDigits.last()+1);
+            grDigits.set(grDigits.getLastIndex(),grDigits.last()+1);
         }
         signum = (_entierL >= 0) == SIGNE_POSITIF;
     }
@@ -240,14 +240,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         if (i_ >= _input.length()) {
             return false;
         }
-        if (!StringUtil.isDigit(_input.charAt(i_))) {
+        if (!MathExpUtil.isDigit(_input.charAt(i_))) {
             return false;
         }
         while (true) {
             if (i_ >= _input.length()) {
                 break;
             }
-            if (!StringUtil.isDigit(_input.charAt(i_))) {
+            if (!MathExpUtil.isDigit(_input.charAt(i_))) {
                 return false;
             }
             i_++;

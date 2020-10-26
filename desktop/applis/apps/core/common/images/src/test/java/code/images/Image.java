@@ -8,7 +8,7 @@ import code.util.ints.Displayable;
 
 public final class Image implements Displayable {
 
-    public static final char SEPARATOR_CHAR = ';';
+    static final char SEPARATOR_CHAR = ';';
 
     private static final String RETURN_LINE2 = "\r";
 
@@ -62,7 +62,7 @@ public final class Image implements Displayable {
         }
         int nb_ = 0;
         for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringUtil.isNumber(s)) {
+            if (!isNumber(s)) {
                 return false;
             }
             nb_++;
@@ -90,7 +90,7 @@ public final class Image implements Displayable {
         int nb_ = 0;
         int w_ = -1;
         for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringUtil.isNumber(s)) {
+            if (!isNumber(s)) {
                 return false;
             }
             int int_ = NumberUtil.parseInt(s);
@@ -122,7 +122,7 @@ public final class Image implements Displayable {
         }
         int nb_ = 0;
         for (String s: StringUtil.splitChars(_img, SEPARATOR_CHAR)) {
-            if (!StringUtil.isNumber(s)) {
+            if (!isNumber(s)) {
                 return false;
             }
             nb_++;
@@ -144,22 +144,6 @@ public final class Image implements Displayable {
         int width_ = NumberUtil.parseInt(w_);
         int heigth_ = nb_ / width_;
         return new IntPoint(width_/_sideLength, heigth_/_sideLength);
-    }
-
-    public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {
-        int xp_ = Math.min(_x+_w, _image[0].length);
-        int yp_ = Math.min(_y+_h, _image.length);
-        int rw_ = xp_ - _x;
-        int rh_ = yp_ - _y;
-        int xMax_ = _x + rw_;
-        int yMax_ = _y + rh_;
-        int[][] subImg_ = new int[rh_][rw_];
-        for (int i = _y; i < yMax_; i++) {
-            for (int j = _x; j < xMax_; j++) {
-                subImg_[i-_y][j-_x] = _image[i][j];
-            }
-        }
-        return subImg_;
     }
 
     public static String clip(String _image,int _x,int _y,int _w,int _h) {
@@ -228,7 +212,29 @@ public final class Image implements Displayable {
         return pixels;
     }
 
-    
+    static boolean isNumber(String _string) {
+        if (_string.isEmpty()) {
+            return false;
+        }
+        int i_ = IndexConstants.FIRST_INDEX;
+        if (_string.charAt(i_) == MINUS) {
+            if (_string.length() == IndexConstants.ONE_ELEMENT) {
+                return false;
+            }
+            i_++;
+        }
+        int len_ = _string.length();
+        while (i_ < len_) {
+            if (!isDigit(_string.charAt(i_))) {
+                return false;
+            }
+            i_++;
+        }
+        return true;
+    }
+    static boolean isDigit(char _ch) {
+        return _ch >= '0' && _ch <= '9';
+    }
     @Override
     public String display() {
         StringBuilder return_ = new StringBuilder(String.valueOf(width));

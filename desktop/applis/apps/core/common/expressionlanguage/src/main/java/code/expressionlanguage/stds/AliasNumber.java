@@ -11,6 +11,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
+import code.maths.litteral.MathExpUtil;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -460,23 +461,23 @@ public final class AliasNumber {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new IntStruct(StringUtil.digit(one_, two_)));
+                _res.setResult(new IntStruct(StringExpUtil.digit(one_, two_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasForDigit())) {
                 int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new CharStruct(StringUtil.forDigit(one_, two_)));
+                _res.setResult(new CharStruct(StringExpUtil.forDigit(one_, two_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetDirectionality())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new ByteStruct(StringUtil.getDirectionality(one_)));
+                _res.setResult(new ByteStruct(StringExpUtil.getDirectionality(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new IntStruct(StringUtil.getType(one_)));
+                _res.setResult(new IntStruct(StringExpUtil.getType(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsDigit())) {
@@ -486,22 +487,22 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isLetter(one_)));
+                _res.setResult(BooleanStruct.of(StringExpUtil.isLetter(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isLetterOrDigit(one_)));
+                _res.setResult(BooleanStruct.of(StringExpUtil.isLetterOrDigit(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLowerCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isLowerCase(one_)));
+                _res.setResult(BooleanStruct.of(StringExpUtil.isLowerCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsUpperCase())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isUpperCase(one_)));
+                _res.setResult(BooleanStruct.of(StringExpUtil.isUpperCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsSpace())) {
@@ -516,17 +517,17 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWordChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isWordChar(one_)));
+                _res.setResult(BooleanStruct.of(MathExpUtil.isWordChar(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToLowerCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(StringUtil.toLowerCase(one_)));
+                _res.setResult(new CharStruct(StringExpUtil.toLowerCase(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToUpperCaseChar())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(StringUtil.toUpperCase(one_)));
+                _res.setResult(new CharStruct(StringExpUtil.toUpperCase(one_)));
                 return;
             }
             char one_ = NumParsers.convertToChar(_args[0]).getChar();

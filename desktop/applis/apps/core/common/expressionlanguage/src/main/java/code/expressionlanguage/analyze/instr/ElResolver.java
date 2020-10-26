@@ -3077,7 +3077,7 @@ public final class ElResolver {
             _output.setNextIndex(n_);
             return;
         }
-        if (j_ < _max && StringUtil.isLetter(_string.charAt(j_))) {
+        if (j_ < _max && StringExpUtil.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ != null) {
                 char suf_ = _key.getSuffixes().getVal(keyWord_);
@@ -3108,14 +3108,14 @@ public final class ElResolver {
     }
 
     private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
-        return hasSpaceByWordChar(_key,_max, _string, _j)|| StringUtil.isDollarWordChar(_string.charAt(_j));
+        return hasSpaceByWordChar(_key,_max, _string, _j)|| StringExpUtil.isDollarWordChar(_string.charAt(_j));
     }
 
     private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
         boolean space_ = false;
         if (StringUtil.isWhitespace(_string.charAt(_j)) ) {
             int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
-            if (n_ > -1 && StringUtil.isDollarWordChar(_string.charAt(n_))) {
+            if (n_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(n_))) {
                 if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
                     space_ = true;
                 }

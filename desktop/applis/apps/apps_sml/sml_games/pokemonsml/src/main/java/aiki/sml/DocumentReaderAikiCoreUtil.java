@@ -191,9 +191,9 @@ import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.images.BaseSixtyFourUtil;
-import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.litteral.MathExpUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -1059,7 +1059,7 @@ public final class DocumentReaderAikiCoreUtil {
         for (String f : listRelativePaths_) {
             StringBuilder str_ = new StringBuilder();
             for (char c : f.toCharArray()) {
-                if (!StringUtil.isWordChar(c)) {
+                if (!MathExpUtil.isWordChar(c)) {
                     break;
                 }
                 str_.append(c);
@@ -2809,7 +2809,7 @@ public final class DocumentReaderAikiCoreUtil {
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
                     ScreenCoords sc_ = new ScreenCoords(x, y);
-                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y
+                    tiles_.put(sc_, BaseSixtyFourUtil.clipSixtyFour(img_, x * side_, y
                             * side_, side_, side_));
                 }
             }
@@ -2907,7 +2907,7 @@ public final class DocumentReaderAikiCoreUtil {
                 continue;
             }
             char next_ = l.charAt(_prefixWord.length());
-            if (!StringUtil.isWordChar(next_)) {
+            if (!MathExpUtil.isWordChar(next_)) {
                 elts_.add(l);
             }
         }

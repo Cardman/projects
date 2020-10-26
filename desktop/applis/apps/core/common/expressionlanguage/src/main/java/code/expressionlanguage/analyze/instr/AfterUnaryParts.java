@@ -121,7 +121,7 @@ final class AfterUnaryParts {
         }
         int indexTwoDots_ = _string.indexOf(':',firstPrintChar_);
         if (indexTwoDots_ > -1) {
-            if (StringUtil.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
+            if (StringExpUtil.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
                 prio = ElResolver.NAME_PRIO;
             }
         }

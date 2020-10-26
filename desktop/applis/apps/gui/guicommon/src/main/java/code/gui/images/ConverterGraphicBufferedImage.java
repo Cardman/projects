@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import code.gui.CustGraphics;
-import code.images.Image;
 import code.images.IntPoint;
-import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class ConverterGraphicBufferedImage {
 
@@ -17,6 +14,8 @@ public final class ConverterGraphicBufferedImage {
 
     private static final int THREE_BYTES = 256 * 256 * 256;
 
+    private ConverterGraphicBufferedImage(){
+    }
     public static boolean eq(BufferedImage _imgOne, BufferedImage _imgTwo) {
         if (_imgOne.getWidth() != _imgTwo.getWidth()) {
             return false;
@@ -85,58 +84,6 @@ public final class ConverterGraphicBufferedImage {
             }
         }
         return image_;
-    }
-
-    public static BufferedImage toRenderedImage(String _txt) {
-        return toRenderedImage(new Image(_txt));
-    }
-    public static BufferedImage toRenderedImage(Image _image) {
-        int w_ = _image.getWidth();
-        int h_ = _image.getHeight();
-        BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
-                image_.setRGB(j, i, _image.getPixel(j,i));
-            }
-        }
-        return image_;
-    }
-    public static BufferedImage toRenderedImageQuick(String _txt) {
-        StringList lines_ = StringUtil.splitChars(_txt, Image.SEPARATOR_CHAR);
-        int w_ = NumberUtil.parseInt(lines_.first());
-        int h_;
-        if (w_ == 0) {
-            h_ = 0;
-        } else {
-            h_ = (lines_.size() - 1) / w_;
-        }
-        BufferedImage image_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
-                int index_ = j + w_ * i + 1;
-                int int_ = NumberUtil.parseInt(lines_.get(index_));
-                if (int_ == -1) {
-                    image_.setRGB(j, i, getTransparentWhite().getRGB());
-                } else {
-                    image_.setRGB(j, i, int_);
-                }
-            }
-        }
-        return image_;
-    }
-
-
-    public static String toString(BufferedImage _image) {
-        int w_ = _image.getWidth();
-        int h_ = _image.getHeight();
-        StringBuilder builder_ = new StringBuilder(String.valueOf(w_));
-        for (int i = IndexConstants.FIRST_INDEX; i<h_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j<w_; j++) {
-                builder_.append(Image.SEPARATOR_CHAR);
-                builder_.append(_image.getRGB(j, i));
-            }
-        }
-        return builder_.toString();
     }
 
 

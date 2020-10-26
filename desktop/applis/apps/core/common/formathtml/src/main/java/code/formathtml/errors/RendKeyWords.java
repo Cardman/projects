@@ -504,7 +504,7 @@ public final class RendKeyWords {
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
@@ -548,7 +548,7 @@ public final class RendKeyWords {
                 _page.addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)&&c!='-') {
+                if (!StringExpUtil.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
@@ -587,7 +587,7 @@ public final class RendKeyWords {
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);

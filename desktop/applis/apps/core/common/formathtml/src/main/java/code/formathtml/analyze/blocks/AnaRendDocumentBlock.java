@@ -166,7 +166,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             String label_ = ((AnaRendLocBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringUtil.isDollarWordChar(c)) {
+                if (StringExpUtil.isDollarWordChar(c)) {
                     continue;
                 }
                 wc_ = false;

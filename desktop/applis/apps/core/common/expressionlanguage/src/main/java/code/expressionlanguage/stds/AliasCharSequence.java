@@ -165,10 +165,10 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasToLowerCase())) {
-            _res.setResult(new StringStruct(StringUtil.toLowerCase(one_)));
+            _res.setResult(new StringStruct(StringExpUtil.toLowerCase(one_)));
             return;
         }
-        _res.setResult(new StringStruct(StringUtil.toUpperCase(one_)));
+        _res.setResult(new StringStruct(StringExpUtil.toUpperCase(one_)));
     }
 
     private static void compareToString(StringStruct _str, Struct _anotherString, LgNames _stds, ResultErrorStd _res, ContextEl _context) {

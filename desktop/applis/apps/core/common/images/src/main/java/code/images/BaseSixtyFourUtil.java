@@ -188,4 +188,24 @@ public final class BaseSixtyFourUtil {
         }
         return '/';
     }
+
+    public static int[][] clipSixtyFour(int[][] _image,int _x,int _y,int _w,int _h) {
+        int xp_ = Math.min(_x+_w, _image[0].length);
+        int yp_ = Math.min(_y+_h, _image.length);
+        int rw_ = xp_ - _x;
+        int rh_ = yp_ - _y;
+        int xMax_ = _x + rw_;
+        int yMax_ = _y + rh_;
+        int[][] subImg_ = new int[rh_][rw_];
+        for (int i = _y; i < yMax_; i++) {
+            for (int j = _x; j < xMax_; j++) {
+                fwd(_image, _x, _y, subImg_, i, j);
+            }
+        }
+        return subImg_;
+    }
+
+    private static void fwd(int[][] _image, int _x, int _y, int[][] _subImg, int _i, int _j) {
+        _subImg[_i -_y][_j -_x] = _image[_i][_j];
+    }
 }

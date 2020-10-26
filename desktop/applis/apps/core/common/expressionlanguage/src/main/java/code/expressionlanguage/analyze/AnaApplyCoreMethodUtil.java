@@ -10,6 +10,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.maths.litteral.MathExpUtil;
 import code.util.Replacement;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -393,20 +394,20 @@ public final class AnaApplyCoreMethodUtil {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasDigit())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                    return(new IntStruct(StringUtil.digit(one_, two_)));
+                    return(new IntStruct(StringExpUtil.digit(one_, two_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasForDigit())) {
                     int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                     int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                    return(new CharStruct(StringUtil.forDigit(one_, two_)));
+                    return(new CharStruct(StringExpUtil.forDigit(one_, two_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasGetDirectionality())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new ByteStruct(StringUtil.getDirectionality(one_)));
+                    return(new ByteStruct(StringExpUtil.getDirectionality(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasGetCharType())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new IntStruct(StringUtil.getType(one_)));
+                    return(new IntStruct(StringExpUtil.getType(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsDigit())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
@@ -414,19 +415,19 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetter())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isLetter(one_)));
+                    return(BooleanStruct.of(StringExpUtil.isLetter(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetterOrDigit())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isLetterOrDigit(one_)));
+                    return(BooleanStruct.of(StringExpUtil.isLetterOrDigit(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLowerCase())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isLowerCase(one_)));
+                    return(BooleanStruct.of(StringExpUtil.isLowerCase(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsUpperCase())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isUpperCase(one_)));
+                    return(BooleanStruct.of(StringExpUtil.isUpperCase(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsSpace())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
@@ -438,15 +439,15 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsWordChar())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isWordChar(one_)));
+                    return(BooleanStruct.of(MathExpUtil.isWordChar(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToLowerCaseChar())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new CharStruct(StringUtil.toLowerCase(one_)));
+                    return(new CharStruct(StringExpUtil.toLowerCase(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToUpperCaseChar())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new CharStruct(StringUtil.toUpperCase(one_)));
+                    return(new CharStruct(StringExpUtil.toUpperCase(one_)));
                 }
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 return(new StringStruct(Character.toString(one_)));
@@ -912,9 +913,9 @@ public final class AnaApplyCoreMethodUtil {
             return BooleanStruct.of(one_.equalsIgnoreCase(t_.getInstance()));
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasToLowerCase())) {
-            return new StringStruct(StringUtil.toLowerCase(one_));
+            return new StringStruct(StringExpUtil.toLowerCase(one_));
         }
-        return new StringStruct(StringUtil.toUpperCase(one_));
+        return new StringStruct(StringExpUtil.toUpperCase(one_));
     }
 
     private static Struct compareToString(StringStruct _str, Struct _anotherString) {

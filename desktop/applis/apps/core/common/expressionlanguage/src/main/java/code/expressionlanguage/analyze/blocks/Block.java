@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -56,7 +57,7 @@ public abstract class Block implements AnalyzedBlock {
             String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringUtil.isDollarWordChar(c)) {
+                if (StringExpUtil.isDollarWordChar(c)) {
                     continue;
                 }
                 wc_ = false;

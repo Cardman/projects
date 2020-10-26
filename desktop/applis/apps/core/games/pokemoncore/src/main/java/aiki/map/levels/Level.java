@@ -18,7 +18,7 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
+import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -93,7 +93,7 @@ public abstract class Level {
             short h_ = bl_.getHeight();
             for (short x = IndexConstants.FIRST_INDEX; x < w_; x++) {
                 for (short y = IndexConstants.FIRST_INDEX; y < h_; y++) {
-                    int[][] img_ = Image.clipSixtyFour(image_, x * sideLen_, y
+                    int[][] img_ = BaseSixtyFourUtil.clipSixtyFour(image_, x * sideLen_, y
                             * sideLen_, sideLen_, sideLen_);
                     tiles_.put(
                             new Point((short) (x + p.getx()), (short) (y + p

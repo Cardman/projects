@@ -47,6 +47,7 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
+import code.maths.litteral.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumList;
@@ -235,12 +236,12 @@ public class FightHelpBean extends CommonBean {
         rateFormula = data_.getRateBoost();
         replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
 //        rateFormula = rateFormula.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormula = StringUtil.replaceWordsJoin(rateFormula, replace_);
+        rateFormula = MathExpUtil.replaceWordsJoin(rateFormula, replace_);
         replace_ = new StringMap<String>();
         rateFormulaCh = data_.getRateBoostCriticalHit();
         replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), VAR_BOOST);
 //        rateFormulaCh = rateFormulaCh.replaceAll(StringList.BOUNDS+DataBase.VAR_PREFIX+Fight.BOOST+StringList.BOUNDS, VAR_BOOST);
-        rateFormulaCh = StringUtil.replaceWordsJoin(rateFormulaCh, replace_);
+        rateFormulaCh = MathExpUtil.replaceWordsJoin(rateFormulaCh, replace_);
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
@@ -1996,10 +1997,10 @@ public class FightHelpBean extends CommonBean {
         int i_ = 0;
         while (i_ < len_) {
             char cur_ = catchingFormulaCopy_.charAt(i_);
-            if (StringUtil.isKeyWordChar(cur_)) {
+            if (MathExpUtil.isWordChar(cur_)) {
                 boolean dig_ = cur_ >= '0' && cur_ <= '9';
                 int j_ = i_;
-                while (StringUtil.isKeyWordChar(cur_)) {
+                while (MathExpUtil.isWordChar(cur_)) {
                     j_++;
                     cur_ = catchingFormulaCopy_.charAt(j_);
                 }
@@ -2091,7 +2092,7 @@ public class FightHelpBean extends CommonBean {
         String str_ = data_.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
         replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), st_.getPower().toNumberString());
-        str_ = StringUtil.replaceWordsJoin(str_, replace_);
+        str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }
 

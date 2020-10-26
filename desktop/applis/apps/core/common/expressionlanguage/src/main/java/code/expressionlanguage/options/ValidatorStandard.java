@@ -40,7 +40,7 @@ public final class ValidatorStandard {
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
@@ -105,7 +105,7 @@ public final class ValidatorStandard {
                     _page.addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
-                    if (!StringUtil.isDollarWordChar(c)) {
+                    if (!StringExpUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
@@ -207,7 +207,7 @@ public final class ValidatorStandard {
                 _page.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
-                if (!StringUtil.isDollarWordChar(c)) {
+                if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
@@ -296,7 +296,7 @@ public final class ValidatorStandard {
                     _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
-                    if (!StringUtil.isDollarWordChar(c)) {
+                    if (!StringExpUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
@@ -359,7 +359,7 @@ public final class ValidatorStandard {
                     _page.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
-                    if (!StringUtil.isDollarWordChar(c)) {
+                    if (!StringExpUtil.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);

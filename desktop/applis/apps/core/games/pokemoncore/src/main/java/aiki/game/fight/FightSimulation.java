@@ -37,6 +37,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.Coords;
 import code.maths.Rate;
+import code.maths.litteral.MathExpUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -570,7 +571,7 @@ public class FightSimulation {
     private static StringList getNextEvos(StringList _evos) {
         StringList list_ = new StringList();
         for (String e : _evos) {
-            StringList sep_ = StringUtil.getWordsSeparators(e);
+            StringList sep_ = MathExpUtil.getWordsSeparators(e);
             if (sep_.size() != 4) {
                 continue;
             }

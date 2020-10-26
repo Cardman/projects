@@ -334,7 +334,8 @@ public abstract class RendBlock {
         }
         Struct currentField_ = arg_.getStruct();
         if (found_ == -1) {
-            long currentInput_ = _cont.getFormParts().getInputs().last();
+            Longs inputs_ = _cont.getFormParts().getInputs();
+            long currentInput_ = inputs_.last();
             NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setIdFieldClass(_f.getIdClass());
             nodeCont_.setIdFieldName(_f.getIdName());
@@ -366,7 +367,7 @@ public abstract class RendBlock {
             stack_.last().put(currentInput_, nodeCont_);
             _cont.getFormParts().getIndexes().setNb(currentInput_);
             currentInput_++;
-            _cont.getFormParts().getInputs().setLast(currentInput_);
+            inputs_.set(inputs_.getLastIndex(),currentInput_);
         } else {
             _cont.getFormParts().getIndexes().setNb(found_);
         }

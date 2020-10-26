@@ -534,7 +534,7 @@ public final class MetaDocument {
                     bl_.setStyle(styleLoc_);
                     nb_.setStyle(styleLoc_);
                     line_.appendChild(nb_);
-                    lis.setLast(lis.last()+1);
+                    lis.set(lis.getLastIndex(),lis.last()+1);
                     bl_.appendChild(line_);
                     list_.appendChild(bl_);
                     currentParent = line_;

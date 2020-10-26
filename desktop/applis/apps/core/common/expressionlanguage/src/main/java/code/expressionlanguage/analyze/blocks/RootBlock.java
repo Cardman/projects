@@ -1451,7 +1451,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (skip_) {
                 continue;
             }
-            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 StringList retClasses_ = new StringList();
                 for (MethodInfo s: e.getMethodInfos()) {
                     retClasses_.add(s.getReturnType());
@@ -1486,7 +1486,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     fClasses_.add(s);
                 }
             }
-            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {
@@ -1529,7 +1529,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 retClasses_.add(s.getReturnType());
             }
-            if (!StringUtil.isDollarWord(cst_.getClassMethodId().getName())) {
+            if (!StringExpUtil.isDollarWord(cst_.getClassMethodId().getName())) {
                 continue;
             }
             if (fClasses_.size() == 1) {

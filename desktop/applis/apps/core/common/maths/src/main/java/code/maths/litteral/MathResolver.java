@@ -132,8 +132,8 @@ public final class MathResolver {
                 _error.setString(_string);
                 return d_;
             }
-            if (StringUtil.isKeyWordChar(curChar_)) {
-                if (StringUtil.isDigit(curChar_)) {
+            if (MathExpUtil.isWordChar(curChar_)) {
+                if (MathExpUtil.isDigit(curChar_)) {
                     i_ = addNumberInfo(d_,i_,i_,_string);
                     continue;
                 }
@@ -142,7 +142,7 @@ public final class MathResolver {
                 StringBuilder name_ = new StringBuilder();
                 while (i_ < len_) {
                     char last_ = _string.charAt(i_);
-                    if (!StringUtil.isKeyWordChar(last_)) {
+                    if (!MathExpUtil.isWordChar(last_)) {
                         break;
                     }
                     name_.append(last_);
@@ -292,7 +292,7 @@ public final class MathResolver {
         boolean stop_ = false;
         while (i_ < len_) {
             char cur_ = _string.charAt(i_);
-            if (StringUtil.isDigit(cur_)) {
+            if (MathExpUtil.isDigit(cur_)) {
                 nbInfo_.append(cur_);
                 i_++;
                 continue;
@@ -318,7 +318,7 @@ public final class MathResolver {
         }
         while (i_ < len_) {
             char cur_ = _string.charAt(i_);
-            if (StringUtil.isDigit(cur_)) {
+            if (MathExpUtil.isDigit(cur_)) {
                 nbInfo_.append(cur_);
                 i_++;
                 continue;

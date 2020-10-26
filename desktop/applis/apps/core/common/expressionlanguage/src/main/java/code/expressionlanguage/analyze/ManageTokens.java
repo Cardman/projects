@@ -72,7 +72,7 @@ public final class ManageTokens {
     }
 
     public TokenErrorMessage checkToken(String _id, AnalyzedPageEl _analyzing) {
-        if (!StringUtil.isDollarWord(_id)) {
+        if (!StringExpUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
         if (AnaTypeUtil.isPrimitive(_id, _analyzing)) {

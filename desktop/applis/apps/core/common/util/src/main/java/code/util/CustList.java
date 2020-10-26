@@ -71,9 +71,6 @@ public class CustList<T> implements Listable<T> {
     public final T last() {
         return get(getLastIndex());
     }
-    public final void setLast(T _element) {
-        set(getLastIndex(), _element);
-    }
 
     public final int getLastIndex() {
         int last_ = size();

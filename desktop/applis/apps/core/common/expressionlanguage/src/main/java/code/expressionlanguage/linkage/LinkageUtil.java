@@ -3893,7 +3893,7 @@ public final class LinkageUtil {
         }
         String tag_;
         if (_id instanceof MethodId) {
-            if (!StringUtil.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
+            if (!StringExpUtil.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
                 tag_ = "<a"+name(_name)+"title=\""+ merge(_title,_id.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             } else {
                 tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";

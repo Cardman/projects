@@ -2,6 +2,7 @@ package aiki.map;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import aiki.game.fight.Image;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.core.StringUtil;
 import org.junit.Before;
@@ -24,7 +25,6 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringList;

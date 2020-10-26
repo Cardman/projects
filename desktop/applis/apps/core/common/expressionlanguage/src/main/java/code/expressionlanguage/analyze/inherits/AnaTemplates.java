@@ -522,7 +522,7 @@ public final class AnaTemplates {
             if (p.isEmpty()) {
                 continue;
             }
-            if (StringUtil.isDollarWord(p.trim())) {
+            if (StringExpUtil.isDollarWord(p.trim())) {
                 continue;
             }
             return null;

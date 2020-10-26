@@ -50,7 +50,6 @@ import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.*;
