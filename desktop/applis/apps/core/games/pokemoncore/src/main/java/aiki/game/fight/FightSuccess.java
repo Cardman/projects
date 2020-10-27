@@ -28,12 +28,7 @@ import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.maths.montecarlo.IntMonteCarlo;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
+import code.maths.montecarlo.*;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.SortableCustList;
@@ -1344,7 +1339,7 @@ final class FightSuccess {
 
     static boolean tirage(DataBase _db, Rate _probaActif){
         LgInt maxRd_ = _db.getMaxRd();
-        return AbMonteCarlo.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator());
+        return MonteCarloUtil.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator());
     }
     static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law) {
         LgInt maxRd_ = _db.getMaxRd();

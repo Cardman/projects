@@ -6,8 +6,8 @@ import cards.consts.Suit;
 import cards.tarot.comparators.CharactersTarotGreaterPointsComparator;
 import cards.tarot.comparators.GameStrengthCardTarotComparator;
 import cards.tarot.enumerations.CardTarot;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -198,7 +198,7 @@ public final class HandTarot implements Iterable<CardTarot> {
     @return la carte aleatoire choisie*/
     CardTarot tirerUneCarteAleatoire(AbstractGenerator _gene) {
 //        return jouer((int)Math.floor(total()*MonteCarlo.randomDouble()));
-        return jouer((int) AbMonteCarlo.randomLong(total(),_gene));
+        return jouer((int) MonteCarloUtil.randomLong(total(),_gene));
         //0<=total()*Math.random()<total()
         //Donc 0<=Math.floor(total()*Math.random())<Math.floor(total())=total()
     }

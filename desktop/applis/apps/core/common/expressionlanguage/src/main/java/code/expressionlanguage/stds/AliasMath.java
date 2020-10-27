@@ -17,8 +17,8 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -565,7 +565,7 @@ public final class AliasMath {
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        _result.setResult(new LongStruct(AbMonteCarlo.randomLong(NumParsers.convertToNumber(_args[0]).longStruct(),generator_)));
+        _result.setResult(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_args[0]).longStruct(),generator_)));
         return _result;
     }
 

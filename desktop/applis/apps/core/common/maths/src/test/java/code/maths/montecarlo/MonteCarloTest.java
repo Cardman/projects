@@ -79,7 +79,7 @@ public class MonteCarloTest {
     @Test
     public void booleanLaw1Test() {
         Rate rate_ = new Rate("-1");
-        MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
+        MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
         assertTrue(law_.getLaw().contains(false));
     }
@@ -87,7 +87,7 @@ public class MonteCarloTest {
     @Test
     public void booleanLaw2Test() {
         Rate rate_ = new Rate("0");
-        MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
+        MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
         assertTrue(law_.getLaw().contains(false));
     }
@@ -95,7 +95,7 @@ public class MonteCarloTest {
     @Test
     public void booleanLaw3Test() {
         Rate rate_ = new Rate("2");
-        MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
+        MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
         assertTrue(law_.getLaw().contains(true));
     }
@@ -103,7 +103,7 @@ public class MonteCarloTest {
     @Test
     public void booleanLaw4Test() {
         Rate rate_ = new Rate("1/4");
-        MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(rate_);
+        MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(2,law_.events().size());
         assertTrue(law_.getLaw().contains(true));
         assertTrue(law_.getLaw().contains(false));
@@ -118,7 +118,7 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
-        assertEq(LgInt.zero(), AbMonteCarlo.randomNumberSe(list_, new LgInt(8)));
+        assertEq(LgInt.zero(), MonteCarloUtil.randomNumberSe(list_, new LgInt(8)));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.one());
         list_.add(LgInt.zero());
-        assertEq(new LgInt(1024), AbMonteCarlo.randomNumberSe(list_, new LgInt(1024)));
+        assertEq(new LgInt(1024), MonteCarloUtil.randomNumberSe(list_, new LgInt(1024)));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(int_);
-        assertEq(int_, AbMonteCarlo.randomNumberSe(list_, new LgInt(8)));
+        assertEq(int_, MonteCarloUtil.randomNumberSe(list_, new LgInt(8)));
     }
 
     @Test

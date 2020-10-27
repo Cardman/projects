@@ -8,8 +8,8 @@ import cards.belote.enumerations.*;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -103,7 +103,7 @@ public final class HandBelote implements Iterable<CardBelote> {
     @return la carte aleatoire choisie*/
     CardBelote tirerUneCarteAleatoire(AbstractGenerator _gene) {
         //      return jouer((int)Math.floor(total()*MonteCarlo.randomDouble()));
-        return jouer((int) AbMonteCarlo.randomLong(total(),_gene));
+        return jouer((int) MonteCarloUtil.randomLong(total(),_gene));
         //0<=total()*Math.random()<total()
         //Donc 0<=Math.floor(total()*Math.random())<Math.floor(total())=total()
     }

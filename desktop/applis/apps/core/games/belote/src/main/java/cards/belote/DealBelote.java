@@ -5,8 +5,8 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 import cards.consts.Suit;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
@@ -56,7 +56,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     public void setRandomDealer(int _nbJoueurs, AbstractGenerator _gene) {
         //On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer=(byte)(_nbJoueurs*MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_nbJoueurs,_gene);
+        dealer = (byte)MonteCarloUtil.randomLong(_nbJoueurs,_gene);
     }
     /**Apres une partie la joueur apres le donneur actuel devient le nouveau donneur*/
     public void donneurSuivant(byte _nouveauDonneur,int _nbJoueurs) {

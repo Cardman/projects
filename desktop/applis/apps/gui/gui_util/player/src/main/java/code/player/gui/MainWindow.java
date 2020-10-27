@@ -9,8 +9,8 @@ import javax.swing.WindowConstants;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
 import code.resources.ClipStream;
 import code.sml.Document;
@@ -369,7 +369,7 @@ public class MainWindow extends GroupFrame {
         }
         while (!indexes_.isEmpty()) {
             long len_ = indexes_.size();
-            int rem_ = (int) AbMonteCarlo.randomLong(len_,_gene);
+            int rem_ = (int) MonteCarloUtil.randomLong(len_,_gene);
             //rem_ >= 0 && rem_ < len_
             indexesEdited_.add(indexes_.get(rem_));
             indexes_.remove(rem_);

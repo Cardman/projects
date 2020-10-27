@@ -41,7 +41,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         if (sommeDen_.isZero()) {
             return Rate.zero();
         }
-        LgInt plusGdNbAlea_=maxNumber(_max);
+        LgInt plusGdNbAlea_= MonteCarloUtil.maxNumber(_max);
         plusGdNbAlea_.increment();
         LgInt quotient_ = LgInt.divide(plusGdNbAlea_, sommeDen_);
         LgInt remain_ = LgInt.remain(plusGdNbAlea_, sommeDen_);

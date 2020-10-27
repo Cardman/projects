@@ -22,7 +22,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
-import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -294,7 +294,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)AbMonteCarlo.randomLong(nombreDeJoueurs_,getMain().getGenerator());
+            donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getMain().getGenerator());
         }
         DealTarot donne_=new DealTarot(mains_,donneur_);
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());

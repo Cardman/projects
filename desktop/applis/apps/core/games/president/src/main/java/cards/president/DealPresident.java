@@ -2,8 +2,8 @@ package cards.president;
 import java.util.Iterator;
 
 import cards.consts.MixCardsChoice;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -60,7 +60,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getNbPlayers() * MonteCarlo
 //                .randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_regles.getNbPlayers(),_gene);
+        dealer = (byte)MonteCarloUtil.randomLong(_regles.getNbPlayers(),_gene);
     }
 
     /**

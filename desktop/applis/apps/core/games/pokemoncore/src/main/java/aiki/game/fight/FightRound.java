@@ -42,9 +42,9 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.EqList;
 import code.util.*;
 import code.util.Ints;
@@ -997,7 +997,7 @@ final class FightRound {
         boolean randomReturn_ = false;
         _fight.setSuccessfulUse(true);
         if (!precisionMaxCible_&&!sansEchec_) {
-            MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(precision_);
+            MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(precision_);
             boolean success_;
             if (FightSuccess.isBadSimulation(_fight, law_)) {
                 if(NumberUtil.eq(_target.getTeam(),Fight.FOE)){

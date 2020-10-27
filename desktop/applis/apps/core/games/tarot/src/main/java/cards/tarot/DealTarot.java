@@ -7,8 +7,8 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.maths.LgInt;
-import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.MonteCarloUtil;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
@@ -65,7 +65,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     public void setRandomDealer(RulesTarot _regles, AbstractGenerator _gene) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getRepartition().getNombreJoueurs() * MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_regles.getRepartition().getNombreJoueurs(),_gene);
+        dealer = (byte) MonteCarloUtil.randomLong(_regles.getRepartition().getNombreJoueurs(),_gene);
     }
 
     /**
@@ -139,7 +139,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                 new LgInt(nbCards_ - evenement_),
                                 new LgInt(56)))));
             }
-            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
+            alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
@@ -210,7 +210,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                         new LgInt(nbCards_ - evenement_
                                                 - 1), new LgInt(56)))));
             }
-            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
+            alea_ = MonteCarloUtil.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
             for (int i = IndexConstants.FIRST_INDEX; i <= nbPlayers_; i++) {
