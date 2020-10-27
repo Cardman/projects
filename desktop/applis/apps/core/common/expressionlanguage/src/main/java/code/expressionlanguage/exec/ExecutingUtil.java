@@ -466,7 +466,8 @@ public final class ExecutingUtil {
                 ExecConstructorBlock method_ = (ExecConstructorBlock) b;
                 ConstructorId id_ = method_.getGenericId(_type.getGenericString());
                 String ret_ = method_.getImportedReturnType();
-                String formCl_ = _type.getFullName();
+                String idType_ = _type.getFullName();
+                String formCl_ = tryFormatType(idType_, _name, _context);
                 ConstructorId fid_ = tryFormatId(_name, _context, id_);
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
                 met_.setAnnotableBlock(method_);

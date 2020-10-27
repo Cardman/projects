@@ -102,7 +102,7 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
-    public static Struct[] getObjects(Argument... _args) {
+    private static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
@@ -111,7 +111,7 @@ public final class AnaApplyCoreMethodUtil {
         return classes_;
     }
 
-    public static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
+    private static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
         if (_value instanceof NumberStruct) {
             return (AnaDisplayableStruct) _value;
         }
@@ -274,7 +274,7 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
-    public static Struct instantiateNumber(ConstructorId _method, AnalyzedPageEl _page, Struct... _args) {
+    private static Struct instantiateNumber(ConstructorId _method, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
@@ -826,7 +826,7 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    public static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
+    private static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
         String stringType_ = _page.getCharSeq().getAliasString();
@@ -836,7 +836,7 @@ public final class AnaApplyCoreMethodUtil {
         return calculateCharSeq(_method, _struct, _page, args_);
     }
 
-    public static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
+    private static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             StringStruct str_ = NumParsers.getString(_struct);
             return calculateLocString(str_, _method, _page, _args);
@@ -977,7 +977,7 @@ public final class AnaApplyCoreMethodUtil {
         return new StringStruct(StringUtil.replaceMult(_st.getInstance(), seps_));
     }
 
-    public static Struct calculateCharSeq(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
+    private static Struct calculateCharSeq(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             return calculateLocCharSeq(NumParsers.getCharSeq(_struct), _method, _page, _args);
         }

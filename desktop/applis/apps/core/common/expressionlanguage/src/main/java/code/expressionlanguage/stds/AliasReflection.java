@@ -635,8 +635,6 @@ public final class AliasReflection {
     }
 
     private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
-        CustList<MethodMetaInfo> candidates_;
-        candidates_ = new CustList<MethodMetaInfo>();
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
@@ -662,6 +660,8 @@ public final class AliasReflection {
             met_.setFileName(f.getFile().getFileName());
             methods_.add(met_);
         }
+        CustList<MethodMetaInfo> candidates_;
+        candidates_ = new CustList<MethodMetaInfo>();
         if (_args.length == 0) {
             for (MethodMetaInfo e: methods_) {
                 candidates_.add(e);
