@@ -1,6 +1,7 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -20566,6 +20567,10 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
         assertEq(65500,maxLetter_);
         assertEq('0',minLetterDigit_);
         assertEq(65500,maxLetterDigit_);
+        assertTrue(ClassMetaInfo.isNotVariable(null,""));
+        assertTrue(ClassMetaInfo.isNotVariable(null,"#"));
+        assertTrue(ClassMetaInfo.isNotVariable(0,""));
+        assertTrue(!ClassMetaInfo.isNotVariable(0,"#"));
     }
     @Test
     public void toLowerCaseTest() {

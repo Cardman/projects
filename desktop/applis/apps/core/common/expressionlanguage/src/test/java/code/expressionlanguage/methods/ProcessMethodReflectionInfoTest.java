@@ -8812,4 +8812,48 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("pkg.ExTwo..ExTwo*1",getString(out_));
     }
+    @Test
+    public void calculate248Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $class(ExParam<Number,ExParamTwo<Number>[]>).getTypeParameters()[1].getBounds()[0].getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<S,T:ExParamTwo<S>> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParamTwo<U> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParamTwo<java.lang.Number>",getString(out_));
+    }
+    @Test
+    public void calculate249Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $class(ExParamTwo<Number>[]).getBounds().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<S,T:ExParamTwo<S>> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParamTwo<U> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq(0,getNumber(out_));
+    }
 }

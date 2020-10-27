@@ -2081,11 +2081,6 @@ public final class AliasReflection {
             int len_ = list_.size();
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             String clName_ = cl_.getVariableOwner();
-            if (clName_.isEmpty()) {
-                ArrayStruct arr_ = new ArrayStruct(0, className_);
-                result_.setResult(arr_);
-                return result_;
-            }
             ArrayStruct arr_ = new ArrayStruct(len_, className_);
             if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                 for (int i = 0; i < len_; i++) {
@@ -2407,7 +2402,7 @@ public final class AliasReflection {
         return result_;
     }
 
-    public static void filterMethods(ContextEl _cont, Struct[] _args, String _declaringClass, CustList<MethodMetaInfo> _candidates, CustList<MethodMetaInfo> _methods) {
+    private static void filterMethods(ContextEl _cont, Struct[] _args, String _declaringClass, CustList<MethodMetaInfo> _candidates, CustList<MethodMetaInfo> _methods) {
         if (ExecTemplates.correctNbParameters(_declaringClass,_cont)) {
             for (MethodMetaInfo e: _methods) {
                 MethodId id_ = e.getRealId();
