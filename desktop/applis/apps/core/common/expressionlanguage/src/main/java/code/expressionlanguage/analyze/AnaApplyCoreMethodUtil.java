@@ -491,7 +491,7 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-                    return (new StringStruct(Integer.toString(one_)));
+                    return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseByte());
                 return parseByte(list_, _args, exc_);
@@ -518,7 +518,7 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-                    return (new StringStruct(Integer.toString(one_)));
+                    return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseShort());
                 return parseShort(list_, _args, exc_);
@@ -545,7 +545,7 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                    return (new StringStruct(Integer.toString(one_)));
+                    return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseInt());
                 return parseInt(list_, _args, exc_);
@@ -902,7 +902,7 @@ public final class AnaApplyCoreMethodUtil {
                 return null;
             }
             StringStruct t_ = (StringStruct) two_;
-            return new IntStruct(one_.compareToIgnoreCase(t_.getInstance()));
+            return new IntStruct(NumParsers.compareToIgnoreCase(one_,t_.getInstance()));
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasEqualsIgnoreCase())) {
             Struct two_ = _args[0];
@@ -910,7 +910,7 @@ public final class AnaApplyCoreMethodUtil {
                 return BooleanStruct.of(false);
             }
             StringStruct t_ = (StringStruct) two_;
-            return BooleanStruct.of(one_.equalsIgnoreCase(t_.getInstance()));
+            return BooleanStruct.of(NumParsers.equalsIgnoreCase(one_,t_.getInstance()));
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasToLowerCase())) {
             return new StringStruct(StringExpUtil.toLowerCase(one_));
@@ -923,7 +923,7 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         StringStruct st_ = (StringStruct)_anotherString;
-        return new IntStruct(_str.getInstance().compareTo(st_.getInstance()));
+        return new IntStruct(StringUtil.compareStrings(_str.getInstance(),st_.getInstance()));
     }
 
     private static Struct regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
@@ -936,7 +936,7 @@ public final class AnaApplyCoreMethodUtil {
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        return BooleanStruct.of(_str.getInstance().regionMatches(case_,to_, other_.getInstance(), po_, comLen_));
+        return BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_));
     }
 
     private static Struct replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar) {
@@ -1073,7 +1073,7 @@ public final class AnaApplyCoreMethodUtil {
             return null;
         }
         CharSequenceStruct st_ = NumParsers.getCharSeq(_anotherString);
-        return new IntStruct(_charSequence.toStringInstance().compareTo(st_.toStringInstance()));
+        return new IntStruct(StringUtil.compareStrings(_charSequence.toStringInstance(),st_.toStringInstance()));
     }
 
     private static Struct regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
@@ -1085,7 +1085,7 @@ public final class AnaApplyCoreMethodUtil {
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        return BooleanStruct.of(_charSequence.toStringInstance().regionMatches(to_, other_.toStringInstance(), po_, comLen_));
+        return BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_));
     }
 
     private static Struct startsWith(CharSequenceStruct _charSequence, Struct _prefix) {

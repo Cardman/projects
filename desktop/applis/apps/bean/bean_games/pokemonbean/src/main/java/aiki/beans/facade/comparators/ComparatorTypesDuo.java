@@ -3,6 +3,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.util.TypesDuo;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
@@ -30,17 +31,17 @@ public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
     public int compare(TypesDuo _o1, TypesDuo _o2) {
         if (translate) {
             if (reverse) {
-                int cmp_ = _o1.getPokemonType().compareTo(_o2.getPokemonType());
+                int cmp_ = StringUtil.compareStrings(_o1.getPokemonType(),_o2.getPokemonType());
                 if (cmp_ != 0) {
                     return cmp_;
                 }
-                return _o1.getDamageType().compareTo(_o2.getDamageType());
+                return StringUtil.compareStrings(_o1.getDamageType(),_o2.getDamageType());
             }
-            int cmp_ = _o1.getDamageType().compareTo(_o2.getDamageType());
+            int cmp_ = StringUtil.compareStrings(_o1.getDamageType(),_o2.getDamageType());
             if (cmp_ != 0) {
                 return cmp_;
             }
-            return _o1.getPokemonType().compareTo(_o2.getPokemonType());
+            return StringUtil.compareStrings(_o1.getPokemonType(),_o2.getPokemonType());
         }
         if (reverse) {
             StringMap<String> translatedTypesCmp_ = data.getTranslatedTypes().getVal(language);

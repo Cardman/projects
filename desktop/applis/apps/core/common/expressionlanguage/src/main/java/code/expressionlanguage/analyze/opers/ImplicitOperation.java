@@ -44,8 +44,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                    Integer.toString(3),
-                    Integer.toString(types_.size())
+                    Long.toString(3),
+                    Long.toString(types_.size())
             );
             _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());

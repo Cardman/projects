@@ -33,7 +33,7 @@ public class EggLabel extends SelectableLabel {
         miniImagePk = ConverterGraphicBufferedImage.decodeToImage(miniPk_);
         sideLength = _facade.getMap().getSideLength();
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
-        xRemainSteps = getFontMetrics(getFont()).stringWidth(Integer.toString(remainSteps));
+        xRemainSteps = getFontMetrics(getFont()).stringWidth(Long.toString(remainSteps));
     }
 
     public SortingEgg getEgg() {
@@ -54,8 +54,8 @@ public class EggLabel extends SelectableLabel {
         int h_ = getFont().getSize();
         _g.drawImage(miniImagePk, 0, 0);
         _g.drawString(egg.getName(), sideLength, h_);
-        _g.drawString(Integer.toString(egg.getSteps()), xName + sideLength, h_);
-        _g.drawString(Integer.toString(remainSteps), xName + xSteps + sideLength, h_);
+        _g.drawString(Long.toString(egg.getSteps()), xName + sideLength, h_);
+        _g.drawString(Long.toString(remainSteps), xName + xSteps + sideLength, h_);
         super.paintComponent(_g);
     }
 }

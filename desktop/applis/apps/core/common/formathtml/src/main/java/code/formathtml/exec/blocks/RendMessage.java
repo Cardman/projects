@@ -71,8 +71,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
         preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
         CustList<Document> docs_ = new CustList<Document>();
         docs_.add(locDoc.getVal(_cont.getCurrentLanguage()));
-        String lt_ = String.valueOf(LT_BEGIN_TAG);
-        String gt_ = String.valueOf(GT_TAG);
+        String lt_ = Character.toString(LT_BEGIN_TAG);
+        String gt_ = Character.toString(GT_TAG);
         String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();

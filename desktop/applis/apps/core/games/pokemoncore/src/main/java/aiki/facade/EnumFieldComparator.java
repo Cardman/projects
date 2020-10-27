@@ -2,6 +2,7 @@ package aiki.facade;
 import code.util.AbsMap;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 
 public final class EnumFieldComparator<E> {
 
@@ -13,10 +14,10 @@ public final class EnumFieldComparator<E> {
 
     public int compare(E _o1, E _o2) {
         if (increasing == SelectedBoolean.YES) {
-            return translations.getVal(_o1).compareTo(translations.getVal(_o2));
+            return StringUtil.compareStrings(translations.getVal(_o1),translations.getVal(_o2));
         }
         if (increasing == SelectedBoolean.NO) {
-            return translations.getVal(_o2).compareTo(translations.getVal(_o1));
+            return StringUtil.compareStrings(translations.getVal(_o2),translations.getVal(_o1));
         }
         return SortConstants.EQ_CMP;
     }

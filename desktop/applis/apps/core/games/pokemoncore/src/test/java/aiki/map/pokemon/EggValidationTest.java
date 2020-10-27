@@ -12,7 +12,7 @@ import aiki.game.fight.InitializationDataBase;
 
 public class EggValidationTest extends InitializationDataBase {
 
-    private static final String SEPARATOR = String.valueOf(Egg.SEPARATOR);
+    private static final String SEPARATOR = Character.toString(Egg.SEPARATOR);
 
     private DataBase data;
     @Before

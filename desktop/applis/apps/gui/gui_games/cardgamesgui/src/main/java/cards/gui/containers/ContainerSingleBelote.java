@@ -233,7 +233,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_);
             label_.setEnabledLabel(_partie.getContrat().getPoints() < p_);
-            label_.setToolTipText(Integer.toString(p_));
+            label_.setToolTipText(Long.toString(p_));
             label_.addMouseListener(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_);

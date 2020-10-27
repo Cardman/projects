@@ -247,7 +247,7 @@ public final class Navigation {
         Document doc_ = session.getDocument();
         String actionCommand_;
         //retrieving form that is submitted
-        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), String.valueOf(lg_));
+        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), Long.toString(lg_));
         if (formElement_ == null) {
             _ctx.setCallingState(NullStruct.NULL_VALUE);
             return;

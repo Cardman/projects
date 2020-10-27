@@ -48,13 +48,13 @@ public final class DialogHelpPresident extends Dialog {
         for (CardPresident c: _playedCards.getKeys()) {
             CardChar char_ = c.getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
-                panelCards_.add(new TextLabel(Byte.toString(c.valeur())));
+                panelCards_.add(new TextLabel(Long.toString(c.valeur())));
             } else {
                 panelCards_.add(new TextLabel(Games.toString(char_,_lg)));
             }
             byte pl_ = _playedCards.getVal(c);
-            panelCards_.add(new TextLabel(Byte.toString(pl_)));
-            panelCards_.add(new TextLabel(Integer.toString(count_ - pl_)));
+            panelCards_.add(new TextLabel(Long.toString(pl_)));
+            panelCards_.add(new TextLabel(Long.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
         String message_ = _dialog.messages.getVal(REVERSED);

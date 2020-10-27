@@ -1517,13 +1517,13 @@ public final class NumParsers {
     private static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
-        return BooleanStruct.of(first_.compareTo(second_) < 0);
+        return BooleanStruct.of(StringUtil.compareStrings(first_,second_) < 0);
     }
 
     private static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
         String first_ = getCharSeq(_a).toStringInstance();
         String second_ = getCharSeq(_b).toStringInstance();
-        return BooleanStruct.of(first_.compareTo(second_) > 0);
+        return BooleanStruct.of(StringUtil.compareStrings(first_,second_) > 0);
     }
 
     public static NumberStruct idNumber(NumberStruct _a, byte _cast) {
@@ -2026,4 +2026,70 @@ public final class NumParsers {
     public static boolean isIncorrectSub(int _begin, int _end, CharSequenceStruct _inst) {
         return _begin < 0 || _end > _inst.length() || _begin > _end;
     }
+    public static int compareToIgnoreCase(String _instance, String _other) {
+        int min_ = Math.min(_instance.length(), _other.length());
+        for (int i = 0; i < min_; i++) {
+            char cFirst_ = _instance.charAt(i);
+            char cSecond_ = _other.charAt(i);
+            cFirst_ = StringExpUtil.toLowerCase(cFirst_);
+            cSecond_ = StringExpUtil.toLowerCase(cSecond_);
+            if (cFirst_ != cSecond_) {
+                return NumberUtil.compareLg(cFirst_, cSecond_);
+            }
+        }
+        return NumberUtil.compareLg(_instance.length(), _other.length());
+    }
+    public static boolean equalsIgnoreCase(String _instance,String _other) {
+        return _other.length() == _instance.length()
+                && regionMatches(_instance,true, 0, _other, 0, _instance.length());
+    }
+    public static boolean regionMatches(String _instance,int _toffset,
+                                        String _other, int _ooffset,
+                                 int _len) {
+        int to_ = _toffset;
+        int po_ = _ooffset;
+        int len_ = _len;
+        if (outOfBounds(_instance, _toffset, _other, _ooffset, len_)) {
+            return false;
+        }
+        while (len_ > 0) {
+            if (_instance.charAt(to_) != _other.charAt(po_)) {
+                return false;
+            }
+            len_--;
+            to_++;
+            po_++;
+        }
+        return true;
+    }
+
+    public static boolean regionMatches(String _instance,
+                                        boolean _ignoreCase, int _toffset,
+                                 String _other, int _ooffset, int _len) {
+        if (!_ignoreCase) {
+            return regionMatches(_instance,_toffset,_other,_ooffset,_len);
+        }
+        int len_ = _len;
+        int to_ = _toffset;
+        int po_ = _ooffset;
+        if (outOfBounds(_instance, to_, _other, po_, len_)) {
+            return false;
+        }
+        while (len_ > 0) {
+            if (StringExpUtil.toLowerCase(_instance.charAt(to_)) != StringExpUtil.toLowerCase(_other.charAt(po_))) {
+                return false;
+            }
+            len_--;
+            to_++;
+            po_++;
+        }
+        return true;
+    }
+
+    private static boolean outOfBounds(String _instance, int _toffset, String _other, int _ooffset, int _len) {
+        return _ooffset < 0 || _toffset < 0
+                || _toffset > (long)_instance.length() - _len
+                || _ooffset > (long)_other.length() - _len;
+    }
+
 }

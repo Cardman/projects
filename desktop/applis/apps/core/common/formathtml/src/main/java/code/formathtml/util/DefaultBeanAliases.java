@@ -126,7 +126,7 @@ public final class DefaultBeanAliases {
         String null_ = _keyWords.getKeyWordNull();
         String new_ = _keyWords.getKeyWordNew();
         String int_ = _content.getPrimTypes().getAliasPrimInteger();
-        String endLine_ = String.valueOf(';');
+        String endLine_ = Character.toString(';');
         String suffixParam_ = "";
         StringBuilder file_ = new StringBuilder();
         file_.append(public_).append(" ").append(class_).append(" ").append(getAliasBean()).append("{");

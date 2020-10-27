@@ -10,7 +10,7 @@ public class LabelPoints extends LabelButton {
     private int pts;
 
     public LabelPoints(int _pts) {
-        super(Integer.toString(_pts), true);
+        super(Long.toString(_pts), true);
         pts = _pts;
     }
 

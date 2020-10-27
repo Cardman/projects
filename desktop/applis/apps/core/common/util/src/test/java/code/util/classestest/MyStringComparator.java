@@ -1,4 +1,5 @@
 package code.util.classestest;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 
@@ -15,7 +16,7 @@ public final class MyStringComparator implements Comparing<String> {
 
     @Override
     public int compare(String _one, String _two) {
-        return mult * _one.compareTo(_two);
+        return mult * StringUtil.compareStrings(_one,_two);
     }
 
     public int getMult() {

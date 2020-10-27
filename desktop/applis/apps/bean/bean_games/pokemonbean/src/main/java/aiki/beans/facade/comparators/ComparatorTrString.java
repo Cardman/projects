@@ -1,9 +1,8 @@
 package aiki.beans.facade.comparators;
 
 import aiki.db.DataBase;
-import aiki.facade.enums.SelectedBoolean;
-import code.util.EnumMap;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTrString implements Comparing<String> {
@@ -32,6 +31,6 @@ public final class ComparatorTrString implements Comparing<String> {
         } else {
             trTwo_ = DataBase.EMPTY_STRING;
         }
-        return trOne_.compareTo(trTwo_);
+        return StringUtil.compareStrings(trOne_,trTwo_);
     }
 }

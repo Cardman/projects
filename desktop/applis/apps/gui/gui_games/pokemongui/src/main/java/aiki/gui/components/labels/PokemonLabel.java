@@ -71,7 +71,7 @@ public class PokemonLabel extends SelectableLabel {
 
     public int getThirdColumnWidth() {
         Ints widths_ = new Ints();
-        widths_.add(getFontMetrics(getFont()).stringWidth(StringUtil.concat(Integer.toString(pokemon.getLevel()),SPACE)));
+        widths_.add(getFontMetrics(getFont()).stringWidth(StringUtil.concat(Long.toString(pokemon.getLevel()),SPACE)));
         widths_.add(getFontMetrics(getFont()).stringWidth(StringUtil.concat(gender,SPACE)));
         return (int)widths_.getMaximum(1);
     }
@@ -83,7 +83,7 @@ public class PokemonLabel extends SelectableLabel {
         _g.setColor(Color.BLACK);
         _g.drawImage(miniImagePk, 0, 0);
         _g.drawString(pokemon.getName(), sideLength, FIRST_LINE);
-        _g.drawString(Integer.toString(pokemon.getLevel()), xName + sideLength, FIRST_LINE);
+        _g.drawString(Long.toString(pokemon.getLevel()), xName + sideLength, FIRST_LINE);
         _g.drawString(pokemon.getAbility(), sideLength, SECOND_LINE);
         _g.drawString(gender, xName + sideLength, SECOND_LINE);
         //_g.drawString(pokemon.getItem(), xItem, h_);

@@ -26,8 +26,8 @@ public final class BadTernaryOperation extends MethodOperation {
         badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //=> move to BadTernaryOperation (underline key word)
         badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
-                Integer.toString(BOOLEAN_ARGS),
-                Integer.toString(chidren_.size()),
+                Long.toString(BOOLEAN_ARGS),
+                Long.toString(chidren_.size()),
                 _page.getKeyWords().getKeyWordBool()
         );
         _page.getLocalizer().addError(badNb_);

@@ -62,7 +62,7 @@ public final class ExecTemplates {
                     int off_ = _filter.get(j_);
                     _cont.setOffset(off_);
                 }
-                return new ErrorStruct(_cont, StringUtil.concat(Integer.toString(s),"<0"),size_);
+                return new ErrorStruct(_cont, StringUtil.concat(Long.toString(s),"<0"),size_);
             }
             dims_.add(s);
             j_++;

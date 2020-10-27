@@ -2283,7 +2283,7 @@ public final class DocumentBuilder {
         Ints tabs_ = new Ints();
         int index_ = _previous.getNextElt();
         String nodeName_ = _node.getTagName();
-        int found_ = _xml.indexOf(StringUtil.concat(String.valueOf(LT),nodeName_), index_);
+        int found_ = _xml.indexOf(StringUtil.concat(Character.toString(LT),nodeName_), index_);
         int nbLineReturns_ = 0;
         int minLine_ = _previous.getNextCol().getRow();
         int indexLoc_ = _previous.getNextCol().getCol();
@@ -2536,7 +2536,7 @@ public final class DocumentBuilder {
             int nb_ = nbSameNamedNodes_ + 1;
             int found_ = IndexConstants.INDEX_NOT_FOUND_ELT;
             while (count_ < nb_) {
-                found_ = _xml.indexOf(StringUtil.concat(String.valueOf(LT),nodeName_), index_) + 1;
+                found_ = _xml.indexOf(StringUtil.concat(Character.toString(LT),nodeName_), index_) + 1;
                 boolean isTag_ = true;
                 int j_ = found_ + nodeName_.length();
                 if (!StringUtil.isWhitespace(_xml.charAt(j_))) {

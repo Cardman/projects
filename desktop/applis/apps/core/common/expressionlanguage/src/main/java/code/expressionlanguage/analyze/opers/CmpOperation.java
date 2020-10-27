@@ -47,8 +47,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             badNb_.setIndexFile(index_);
             //first oper
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
-                    Integer.toString(2),
-                    Integer.toString(chidren_.size()),
+                    Long.toString(2),
+                    Long.toString(chidren_.size()),
                     operatorContent.getOper()
             );
             _page.getLocalizer().addError(badNb_);

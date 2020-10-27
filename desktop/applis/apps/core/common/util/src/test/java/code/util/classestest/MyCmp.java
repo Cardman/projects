@@ -29,6 +29,6 @@ public final class MyCmp implements Cmp<MyCmp> {
     }
 
     public String display() {
-        return Integer.toString(info);
+        return Long.toString(info);
     }
 }

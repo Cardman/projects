@@ -1,6 +1,7 @@
 package aiki.facade;
 
 import aiki.facade.enums.SelectedBoolean;
+import code.util.core.StringUtil;
 
 
 public final class StringFieldComparator {
@@ -11,10 +12,10 @@ public final class StringFieldComparator {
 
     public int compare(String _o1, String _o2) {
         if (increasing == SelectedBoolean.YES) {
-            return _o1.compareTo(_o2);
+            return StringUtil.compareStrings(_o1,_o2);
         }
         if (increasing == SelectedBoolean.NO) {
-            return _o2.compareTo(_o1);
+            return StringUtil.compareStrings(_o2,_o1);
         }
         return 0;
     }

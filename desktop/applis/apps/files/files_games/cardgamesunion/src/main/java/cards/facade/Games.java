@@ -247,10 +247,10 @@ public final class Games {
             return EMPTY;
         }
         if(_hand.total()>nbTrumps_) {
-            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Integer.toString(_hand.total()-nbTrumps_));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_TOO_MANY_TRUMPS, Long.toString(_hand.total()-nbTrumps_));
         }
         if(_hand.total()<nbTrumps_) {
-            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Integer.toString(nbTrumps_-_hand.total()));
+            return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_NOT_ENOUGH_TRUMPS, Long.toString(nbTrumps_-_hand.total()));
         }
         return formatter(FOLDER, TAROT_FILE_NAME, _loc, TAROT_HANDFUL_EXCUSE);
     }
@@ -421,20 +421,20 @@ public final class Games {
         if (_c.getNomFigure() != CardChar.UNDEFINED) {
             return getSymbol(_c.getNomFigure(),_loc);
         }
-        return String.valueOf(_c.getForce());
+        return Long.toString(_c.getForce());
     }
 
     public static String getSymbol(CardBelote _c, String _loc) {
         if (_c.getNomFigure() != CardChar.UNDEFINED) {
             return getSymbol(_c.getNomFigure(),_loc);
         }
-        return String.valueOf(_c.valeur());
+        return Long.toString(_c.valeur());
     }
     public static String getSymbol(CardPresident _c, String _loc) {
         if (_c.getNomFigure() != CardChar.UNDEFINED) {
             return getSymbol(_c.getNomFigure(),_loc);
         }
-        return String.valueOf(_c.valeur());
+        return Long.toString(_c.valeur());
     }
     public static String getSymbol(CardChar _c,String _loc) {
         String folderName_ = CoreResourcesAccess.NOM_DOSSIER;

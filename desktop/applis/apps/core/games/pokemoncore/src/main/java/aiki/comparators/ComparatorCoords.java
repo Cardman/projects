@@ -4,6 +4,7 @@ import aiki.map.places.Place;
 import aiki.util.Coords;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorCoords implements Comparing<Coords> {
@@ -18,7 +19,7 @@ public final class ComparatorCoords implements Comparing<Coords> {
     public int compare(Coords _o1, Coords _o2) {
         Place plOne_ = data.getMap().getPlace(_o1.getNumberPlace());
         Place plTwo_ = data.getMap().getPlace(_o2.getNumberPlace());
-        int res_ = plOne_.getName().compareTo(plTwo_.getName());
+        int res_ = StringUtil.compareStrings(plOne_.getName(),plTwo_.getName());
         if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }

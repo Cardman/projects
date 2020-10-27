@@ -2617,7 +2617,7 @@ public final class ElResolver {
                 unicode_++;
             } else {
                 char[] unicodes_ = infos_.getStringInfo().getBuiltUnicode();
-                char builtChar_ = NumParsers.parseCharSixteen(new String(unicodes_));
+                char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
                 infos_.getStringInfo().getChars().add(builtChar_);
                 unicode_ = 0;
                 nbChars_++;
@@ -3466,7 +3466,7 @@ public final class ElResolver {
                 op_.setOperators(new IntTreeMap< String>());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
-                op_.setValue(new String(str_), firstPrintChar_);
+                op_.setValue(String.valueOf(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -3476,7 +3476,7 @@ public final class ElResolver {
                 op_.setOperators(new IntTreeMap< String>());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
-                op_.setValue(new String(str_), firstPrintChar_);
+                op_.setValue(String.valueOf(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -3485,7 +3485,7 @@ public final class ElResolver {
             op_.setOperators(new IntTreeMap< String>());
             op_.setStrInfo(info_);
             info_.setFound(_string);
-            op_.setValue(new String(str_), firstPrintChar_);
+            op_.setValue(String.valueOf(str_), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

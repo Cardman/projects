@@ -1,6 +1,7 @@
 package aiki.comparators;
 import aiki.db.DataBase;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTrStrings implements Comparing<String> {
@@ -29,6 +30,6 @@ public final class ComparatorTrStrings implements Comparing<String> {
         } else {
             trTwo_ = DataBase.EMPTY_STRING;
         }
-        return trOne_.compareTo(trTwo_);
+        return StringUtil.compareStrings(trOne_,trTwo_);
     }
 }

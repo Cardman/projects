@@ -170,7 +170,7 @@ public final class BaseSixtyFourUtil {
                     ((adjNextNext_/SIXTY_FOUR_BITS)%FOUR_BITS));
         ptr_++;
         buf_[ptr_] = encode(adjNextNext_%SIXTY_FOUR_BITS);
-        return new String(buf_);
+        return String.valueOf(buf_);
     }
 
     private static char encode(int _i) {

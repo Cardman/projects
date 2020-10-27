@@ -1353,7 +1353,7 @@ final class InitializationMap {
                     key_ = new ImageHeroKey(e, d, s);
                     StringList herosTop_ = new StringList("2");
                     for (int i = 0; i < 2; i++) {
-                        herosTop_.add(String.valueOf(iHeros_));
+                        herosTop_.add(Long.toString(iHeros_));
                     }
                     herosTop_.addAllElts(herosBottom_);
                     _data.getOverWorldHeros().addEntry(key_, getImageByString(StringUtil.join(herosTop_, ";")));
@@ -1365,7 +1365,7 @@ final class InitializationMap {
                 key_ = new ImageHeroKey(e, s);
                 StringList herosTop_ = new StringList("2");
                 for (int i = 0; i < 2; i++) {
-                    herosTop_.add(String.valueOf(iHerosBis_));
+                    herosTop_.add(Long.toString(iHerosBis_));
                     iHerosBis_++;
                 }
                 herosTop_.addAllElts(herosBottom_);

@@ -39,8 +39,8 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setIndexFile(i_);
                 //first comma
                 un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Integer.toString(1),
-                        Integer.toString(children_.size()));
+                        Long.toString(1),
+                        Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
@@ -61,8 +61,8 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setIndexFile(i_);
                 //first comma
                 un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Integer.toString(1),
-                        Integer.toString(children_.size()));
+                        Long.toString(1),
+                        Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
@@ -86,8 +86,8 @@ public final class IdOperation extends AbstractUnaryOperation {
                     un_.setIndexFile(i_);
                     //i comma
                     un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                            Integer.toString(1),
-                            Integer.toString(children_.size()));
+                            Long.toString(1),
+                            Long.toString(children_.size()));
                     _page.getLocalizer().addError(un_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
@@ -123,8 +123,8 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setIndexFile(i_);
                 //i comma
                 un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                        Integer.toString(1),
-                        Integer.toString(children_.size()));
+                        Long.toString(1),
+                        Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
                 getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                 getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
@@ -141,8 +141,8 @@ public final class IdOperation extends AbstractUnaryOperation {
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //left par
             un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
-                    Integer.toString(1),
-                    Integer.toString(0));
+                    Long.toString(1),
+                    Long.toString(0));
             _page.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));

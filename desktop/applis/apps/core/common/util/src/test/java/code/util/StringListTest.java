@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
+import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -2521,6 +2522,34 @@ public class StringListTest {
     public void displayTest(){
         StringList s_ = new StringList();
         assertEq("[]", s_.display());
+    }
+    @Test
+    public void compareStrings1(){
+        assertEq(SortConstants.EQ_CMP, StringUtil.compareStrings("a","a"));
+    }
+    @Test
+    public void compareStrings2(){
+        assertEq(SortConstants.NO_SWAP_SORT, StringUtil.compareStrings("a","b"));
+    }
+    @Test
+    public void compareStrings3(){
+        assertEq(SortConstants.SWAP_SORT, StringUtil.compareStrings("b","a"));
+    }
+    @Test
+    public void compareStrings4(){
+        assertEq(SortConstants.NO_SWAP_SORT, StringUtil.compareStrings("a","aa"));
+    }
+    @Test
+    public void compareStrings5(){
+        assertEq(SortConstants.SWAP_SORT, StringUtil.compareStrings("aa","a"));
+    }
+    @Test
+    public void compareStrings6(){
+        assertEq(SortConstants.NO_SWAP_SORT, StringUtil.compareStrings("aa","ab"));
+    }
+    @Test
+    public void compareStrings7(){
+        assertEq(SortConstants.SWAP_SORT, StringUtil.compareStrings("ab","aa"));
     }
     static String replaceFinalFile(String _str) {
         int lastIndexDot_ = _str.lastIndexOf('.');

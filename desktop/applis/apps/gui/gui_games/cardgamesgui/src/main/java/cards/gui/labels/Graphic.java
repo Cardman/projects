@@ -66,10 +66,10 @@ public class Graphic extends PaintableLabel {
         if(_horizontal) {
             int nombre_=getHeight()/2;
             int nombre2_=getWidth()/2;
-            _g2.drawString(Integer.toString(0),0,0);
+            _g2.drawString(Long.toString(0),0,0);
             for(int ordonnee_=1;ordonnee_<nombre_;ordonnee_++) {
-                _g2.drawString(Integer.toString(ordonnee_*rapport2_),0,-ordonnee_*rapport2_);
-                _g2.drawString(Integer.toString(-ordonnee_*rapport2_),0,ordonnee_*rapport2_);
+                _g2.drawString(Long.toString(ordonnee_*rapport2_),0,-ordonnee_*rapport2_);
+                _g2.drawString(Long.toString(-ordonnee_*rapport2_),0,ordonnee_*rapport2_);
                 for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
                     _g2.drawLine(2*abscisse_*rapport2_,ordonnee_*rapport2_,(2*abscisse_+1)*rapport2_,ordonnee_*rapport2_);
                 }
@@ -82,7 +82,7 @@ public class Graphic extends PaintableLabel {
             int nombre_=getHeight()/2;
             int nombre2_=scores.size();
             for (int abscisse_ = IndexConstants.FIRST_INDEX; abscisse_<nombre2_; abscisse_++) {
-                _g2.drawString(Integer.toString(abscisse_+1),(abscisse_+1)*rapport_,0);
+                _g2.drawString(Long.toString(abscisse_+1),(abscisse_+1)*rapport_,0);
                 for(int ordonnee_=1;ordonnee_<nombre_;ordonnee_++) {
                     _g2.drawLine((abscisse_+1)*rapport_,2*ordonnee_*rapport2_,(abscisse_+1)*rapport_,(2*ordonnee_+1)*rapport2_);
                 }

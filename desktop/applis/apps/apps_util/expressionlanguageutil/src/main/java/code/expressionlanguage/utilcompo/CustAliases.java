@@ -745,7 +745,7 @@ public final class CustAliases {
         String iter_ = _keyWords.getKeyWordIter();
         String value_ = _keyWords.getKeyWordValue();
         String abstract_ = _keyWords.getKeyWordAbstract();
-        String endLine_ = String.valueOf(';');
+        String endLine_ = Character.toString(';');
         String suffixLocal_ = "";
         String suffixParam_ = "";
         String suffixLoop_ = "";
@@ -2450,24 +2450,24 @@ public final class CustAliases {
         String strMinute_ = lpadZero(mi_);
         String strSecond_ = lpadZero(s_);
         String strMs_ = lpadZeroMillis(ms_);
-        return StringUtil.concat(String.valueOf(y_),_separatorDate,strMonth_,
+        return StringUtil.concat(Long.toString(y_),_separatorDate,strMonth_,
                 _separatorDate,strDay_,_sep,strHour_,
                 _separatorTime,strMinute_,_separatorTime,strSecond_,_separatorTime,strMs_);
     }
     private static String lpadZero(int _nb) {
         if (_nb < 10) {
-            return StringUtil.concat("0",Integer.toString(_nb));
+            return StringUtil.concat("0",Long.toString(_nb));
         }
-        return Integer.toString(_nb);
+        return Long.toString(_nb);
     }
     private static String lpadZeroMillis(int _millis) {
         if (_millis < 10) {
-            return StringUtil.concat("00",Integer.toString(_millis));
+            return StringUtil.concat("00",Long.toString(_millis));
         }
         if (_millis < 100) {
-            return StringUtil.concat("0",Integer.toString(_millis));
+            return StringUtil.concat("0",Long.toString(_millis));
         }
-        return Integer.toString(_millis);
+        return Long.toString(_millis);
     }
 
     public CustList<CommentDelimiters> defComments() {

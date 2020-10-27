@@ -53,7 +53,7 @@ public class TargetLabel {
         int maxValueStatis_ = _facade.getData().getMaxBoost();
         int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
         for (int i = minValueStatis_; i < maxValueStatis_; i++) {
-            String var_ = Integer.toString(i);
+            String var_ = Long.toString(i);
             int widthVar_ = fMet_.stringWidth(var_);
             if (widthVar_ > maxWidthValue_) {
                 maxWidthValue_ = widthVar_;
@@ -103,7 +103,7 @@ public class TargetLabel {
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(Short.toString(level));
+            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(Long.toString(level));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
@@ -210,7 +210,7 @@ public class TargetLabel {
                 //h_ += img_.getHeight();
             }
             h_ += heightString_;
-            g_.drawString(Short.toString(level), 0, h_);
+            g_.drawString(Long.toString(level), 0, h_);
             h_ += heightString_;
             g_.setColor(Color.BLUE);
             g_.drawString(percentExp.toNumberString(), 0, h_);

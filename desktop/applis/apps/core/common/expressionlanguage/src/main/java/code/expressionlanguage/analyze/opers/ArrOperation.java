@@ -201,8 +201,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //second separator char
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
-                    Integer.toString(1),
-                    Integer.toString(chidren_.size()),
+                    Long.toString(1),
+                    Long.toString(chidren_.size()),
                     "[]"
             );
             _page.getLocalizer().addError(badNb_);

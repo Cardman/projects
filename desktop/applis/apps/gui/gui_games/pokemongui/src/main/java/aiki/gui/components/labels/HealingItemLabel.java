@@ -105,7 +105,7 @@ public class HealingItemLabel extends SelectableLabel {
         _g.drawString(item.getItemClass(), sideLength, SECOND_LINE);
         _g.drawString(getThirdLineInfos(), sideLength, THIRD_LINE);
         _g.drawString(item.getNumber().toNumberString(), sideLength + fourthColumn, FIRST_LINE);
-        _g.drawString(Integer.toString(item.getPrice()), sideLength + fourthColumn + fifthColumn, FIRST_LINE);
+        _g.drawString(Long.toString(item.getPrice()), sideLength + fourthColumn + fifthColumn, FIRST_LINE);
         super.paintComponent(_g);
     }
 

@@ -24,7 +24,7 @@ public final class DualSlider extends DualInput implements IntSlider {
 
     @Override
     public String getValue() {
-        return Integer.toString(field.getValue());
+        return Long.toString(field.getValue());
     }
 
 }

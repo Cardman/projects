@@ -32,7 +32,7 @@ public final class OperationsSequence {
             values.put((int) IndexConstants.FIRST_INDEX, _string);
             return;
         }
-        if (priority == MathResolver.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), String.valueOf(NEG_BOOL_CHAR))) {
+        if (priority == MathResolver.EQ_PRIO && StringUtil.quickEq(operators.firstValue(), Character.toString(NEG_BOOL_CHAR))) {
             priority = MathResolver.BAD_PRIO;
             return;
         }

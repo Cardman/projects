@@ -23,7 +23,7 @@ public final class DualSpinner extends DualInput implements IntSpinner {
 
     @Override
     public String getValue() {
-        return Integer.toString(field.getValue());
+        return Long.toString(field.getValue());
     }
 
 }

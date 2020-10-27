@@ -5,13 +5,14 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public class OperatorCmp implements Comparing<MethodMetaInfo> {
 
     @Override
     public int compare(MethodMetaInfo _one, MethodMetaInfo _two) {
-        int res_ = _one.getName().compareTo(_two.getName());
+        int res_ = StringUtil.compareStrings(_one.getName(),_two.getName());
         if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }
@@ -23,7 +24,7 @@ public class OperatorCmp implements Comparing<MethodMetaInfo> {
         }
         int i_ = IndexConstants.FIRST_INDEX;
         while (true) {
-            res_ = pOne_.get(i_).compareTo(pTwo_.get(i_));
+            res_ = StringUtil.compareStrings(pOne_.get(i_),pTwo_.get(i_));
             if (res_ != SortConstants.EQ_CMP) {
                 return res_;
             }

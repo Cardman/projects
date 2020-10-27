@@ -83,7 +83,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             d_.setFileName(fileName);
             StringList badCharsStr_ = new StringList();
             for (int i: badChars_) {
-                badCharsStr_.add(Integer.toString(i));
+                badCharsStr_.add(Long.toString(i));
             }
             //first bad character
             d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),

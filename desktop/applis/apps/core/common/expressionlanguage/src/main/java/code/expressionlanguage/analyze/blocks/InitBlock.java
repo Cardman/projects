@@ -17,7 +17,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
         return getId().getSignature(_page);
     }
     public MethodId getId() {
-        String name_ = Integer.toString(getNumber());
+        String name_ = Long.toString(getNumber());
         StringList pTypes_ = new StringList();
         return new MethodId(getStaticContext(), name_, pTypes_);
     }

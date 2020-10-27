@@ -1444,7 +1444,7 @@ public final class StringExpUtil {
     }
     private static String toSingleChar(int _i) {
         if (_i < 10) {
-            return Integer.toString(_i);
+            return Long.toString(_i);
         }
         return Character.toString((char)(_i+'a'-10));
     }

@@ -329,7 +329,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().addString(StringUtil.concat(getMessages().getVal(STEPS),SPACES), side_+maxPixName_);
         int maxPixSteps_ = getHeader().width(StringUtil.concat(getMessages().getVal(STEPS),SPACES));
         for (EggLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(Integer.toString(l.getEgg().getSteps()),SPACES));
+            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(Long.toString(l.getEgg().getSteps()),SPACES));
             if (value_ > maxPixSteps_) {
                 maxPixSteps_ = value_;
             }
@@ -352,7 +352,7 @@ public final class PaginatorEgg extends Paginator {
         for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
-        getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));
+        getEnd().setTextAndSize(Long.toString(nbPages_ - 1));
         setAdding(false);
     }
     private void changeNav() {

@@ -54,11 +54,11 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
         StringBuilder str_ = new StringBuilder();
         str_.append(fileName);
         str_.append(":");
-        str_.append(Integer.toString(row));
+        str_.append(Long.toString(row));
         str_.append(",");
-        str_.append(Integer.toString(col));
+        str_.append(Long.toString(col));
         str_.append(":");
-        str_.append(Integer.toString(indexFileType));
+        str_.append(Long.toString(indexFileType));
         str_.append("\n");
         str_.append(currentClassName);
         str_.append(".");

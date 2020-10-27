@@ -88,7 +88,7 @@ final class AfterUnaryParts {
         }
         if (preIncr_) {
             prio = ElResolver.UNARY_PRIO;
-            String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
+            String ch_ = Character.toString(_string.charAt(firstPrintChar_));
             operators.put(firstPrintChar_, StringUtil.concat(EMPTY_STRING,ch_,ch_));
             index = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
             return;
@@ -96,7 +96,7 @@ final class AfterUnaryParts {
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR
                 || _string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
             prio = ElResolver.UNARY_PRIO;
-            operators.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
+            operators.put(firstPrintChar_, Character.toString(_string.charAt(firstPrintChar_)));
             index = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
             return;
         }
@@ -168,7 +168,7 @@ final class AfterUnaryParts {
                 if (enPars) {
                     leftParFirstOperator = true;
                     fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
-                    operators.put(index, String.valueOf(PAR_LEFT));
+                    operators.put(index, Character.toString(PAR_LEFT));
                 } else if (enabledId) {
                     instance = false;
                     instanceStrict = false;
@@ -190,7 +190,7 @@ final class AfterUnaryParts {
                 instanceStrict = false;
                 enabledId = false;
                 enPars = false;
-                operators.put(index, String.valueOf(SEP_ARG));
+                operators.put(index, Character.toString(SEP_ARG));
                 prio = ElResolver.DECL_PRIO;
             } else if (parsBrackets.size() == 1 && prio == ElResolver.FCT_OPER_PRIO && enPars){
                 addCommaOperIfNotEmpty(operators, index,PAR_LEFT,ARR_LEFT,ANN_ARR_LEFT);
@@ -311,7 +311,7 @@ final class AfterUnaryParts {
                 if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                     operators.clear();
                     leftParFirstOperator = false;
-                    operators.put(index, String.valueOf(curChar_));
+                    operators.put(index, Character.toString(curChar_));
                 }
                 parsBrackets.put(index, curChar_);
                 index++;
@@ -336,7 +336,7 @@ final class AfterUnaryParts {
         if (curChar_ == END_TERNARY&&!parsBrackets.isEmpty()&&parsBrackets.lastValue() == BEGIN_TERNARY) {
             parsBrackets.removeKey(parsBrackets.lastKey());
             if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
-                operators.put(index, String.valueOf(curChar_));
+                operators.put(index, Character.toString(curChar_));
                 enPars = false;
                 enabledId = true;
                 prio = ElResolver.TERNARY_PRIO;
@@ -350,7 +350,7 @@ final class AfterUnaryParts {
         }
         if (prio == ElResolver.NAME_PRIO) {
             if (operators.isEmpty()) {
-                operators.put(index, String.valueOf(curChar_));
+                operators.put(index, Character.toString(curChar_));
             }
             enPars = false;
             enabledId = false;
@@ -647,7 +647,7 @@ final class AfterUnaryParts {
         int len_ = oper_.length();
         for (char c: _open) {
             if (StringExpUtil.nextCharIs(oper_,0, len_,c)) {
-                _operators.put(_i, String.valueOf(SEP_ARG));
+                _operators.put(_i, Character.toString(SEP_ARG));
                 break;
             }
         }
@@ -657,7 +657,7 @@ final class AfterUnaryParts {
     private static void addOperIfNotEmpty(IntTreeMap< String> _operators, int _i, char _open, char _op) {
         String oper_ = _operators.firstValue();
         if (StringExpUtil.nextCharIs(oper_,0, oper_.length(),_open)) {
-            _operators.put(_i, String.valueOf(_op));
+            _operators.put(_i, Character.toString(_op));
         }
     }
 

@@ -109,7 +109,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 //    }
 
     public void setPerCent(int _perCent) {
-        perCent = String.valueOf(_perCent);
+        perCent = Long.toString(_perCent);
         if (bar == null) {
             return;
         }

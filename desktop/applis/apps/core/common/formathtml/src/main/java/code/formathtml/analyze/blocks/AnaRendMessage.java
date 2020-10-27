@@ -67,8 +67,8 @@ public final class AnaRendMessage extends AnaRendParentBlock {
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()).isEmpty()) {
-            String lt_ = String.valueOf(LT_BEGIN_TAG);
-            String gt_ = String.valueOf(GT_TAG);
+            String lt_ = Character.toString(LT_BEGIN_TAG);
+            String gt_ = Character.toString(GT_TAG);
             int l_ = roots.size();
             StringList formArg_ = new StringList();
             StringList varNames_ = new StringList();

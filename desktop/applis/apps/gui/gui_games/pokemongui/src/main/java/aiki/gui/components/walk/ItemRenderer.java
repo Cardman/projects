@@ -59,7 +59,7 @@ public class ItemRenderer extends CustCellRender {
         _g.setColor(Color.BLACK);
         _g.drawString(displayName, sideLength, getHeight());
         _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+sideLength, getHeight());
-        _g.drawString(Integer.toString(price), maxWordWidth+sideLength * 2, getHeight());
+        _g.drawString(Long.toString(price), maxWordWidth+sideLength * 2, getHeight());
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);

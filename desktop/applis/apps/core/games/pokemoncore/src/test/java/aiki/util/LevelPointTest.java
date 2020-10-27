@@ -9,7 +9,7 @@ public class LevelPointTest {
 
     @Test
     public void new_LevelPoint_String_1Test() {
-        LevelPoint lpt_ = new LevelPoint(StringUtil.concat("2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"));
+        LevelPoint lpt_ = new LevelPoint(StringUtil.concat("2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"));
         assertEq(2, lpt_.getLevelIndex());
         assertEq(3, lpt_.getPoint().getx());
         assertEq(1, lpt_.getPoint().gety());
@@ -17,7 +17,7 @@ public class LevelPointTest {
 
     @Test
     public void new_LevelPoint_String_2Test() {
-        LevelPoint lpt_ = LevelPoint.newLevelPoint(StringUtil.concat("2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"));
+        LevelPoint lpt_ = LevelPoint.newLevelPoint(StringUtil.concat("2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"));
         assertEq(2, lpt_.getLevelIndex());
         assertEq(3, lpt_.getPoint().getx());
         assertEq(1, lpt_.getPoint().gety());
@@ -31,6 +31,6 @@ public class LevelPointTest {
         LevelPoint lpt_ = new LevelPoint();
         lpt_.setPoint(pt_);
         lpt_.setLevelIndex((byte) 2);
-        assertEq(StringUtil.concat("2",String.valueOf(LevelPoint.SEPARATOR),"3",String.valueOf(Point.SEPARATOR),"1"), lpt_.display());
+        assertEq(StringUtil.concat("2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"), lpt_.display());
     }
 }

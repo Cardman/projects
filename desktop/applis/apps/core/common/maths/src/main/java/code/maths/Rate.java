@@ -39,21 +39,21 @@ public final class Rate implements Cmp<Rate>, Displayable {
     public Rate(String _chaine) {
         String tauxPris_ = _chaine;
         // Ajout de 0 devant le . si ce n'est pas fait
-        if (tauxPris_.startsWith(String.valueOf(SEP_INT_DEC))) {
-            tauxPris_ = StringUtil.concat(String.valueOf(ZERO), tauxPris_);
+        if (tauxPris_.startsWith(Character.toString(SEP_INT_DEC))) {
+            tauxPris_ = StringUtil.concat(Character.toString(ZERO), tauxPris_);
         }
         // Ajout de 0 devant le . et derriere le - si ce n'est pas fait
-        if (tauxPris_.startsWith(StringUtil.concat(MINUS,String.valueOf(SEP_INT_DEC)))) {
-            tauxPris_ = StringUtil.concat(MINUS, String.valueOf(ZERO), tauxPris_.substring(1));
+        if (tauxPris_.startsWith(StringUtil.concat(MINUS,Character.toString(SEP_INT_DEC)))) {
+            tauxPris_ = StringUtil.concat(MINUS, Character.toString(ZERO), tauxPris_.substring(1));
         }
-        if (tauxPris_.endsWith(String.valueOf(SEP_INT_DEC))) {
-            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
+        if (tauxPris_.endsWith(Character.toString(SEP_INT_DEC))) {
+            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, Character.toString(SEP_INT_DEC)));
             denominateur = LgInt.one();
-        } else if (tauxPris_.contains(String.valueOf(SEP_INT_DEC))) {
+        } else if (tauxPris_.contains(Character.toString(SEP_INT_DEC))) {
             // Un caractere au moins precede le .
             int nbChiffresApresVirgule_ = tauxPris_.length() - 1 - tauxPris_.indexOf(SEP_INT_DEC);
             // Pour calculer nbChiffresApresVirgule_, il faut enlever les chiffres avant la virgule et la virgule
-            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, String.valueOf(SEP_INT_DEC)));
+            numerateur = new LgInt(StringUtil.removeStrings(tauxPris_, Character.toString(SEP_INT_DEC)));
             denominateur = LgInt.powNb(new LgInt(LgInt.BASE_NUMER), new LgInt(nbChiffresApresVirgule_));
             simplifier();
         } else if (tauxPris_.indexOf(SEP_NUM_DEN_CHAR) > -1) {
@@ -367,7 +367,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
 
     public String evaluatePoint(int _numberDec) {
         if (isZero()) {
-            return String.valueOf(ZERO);
+            return Character.toString(ZERO);
         }
         if (_numberDec < 0) {
             return EMPTY_STRING;
@@ -412,7 +412,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
         if (intPart_.isZero()) {
             zero_ = true;
         }
-        return_ = StringUtil.concat(return_, String.valueOf(SEP_INT_DEC));
+        return_ = StringUtil.concat(return_, Character.toString(SEP_INT_DEC));
         StringBuilder str_ = new StringBuilder();
         for (int i = IndexConstants.FIRST_INDEX; i < nbZeros_; i++) {
             str_.append(ZERO);
@@ -436,7 +436,7 @@ public final class Rate implements Cmp<Rate>, Displayable {
 
     public String evaluate(int _numberMeaningDigits) {
         if (isZero()) {
-            return String.valueOf(ZERO);
+            return Character.toString(ZERO);
         }
         if (_numberMeaningDigits == 0) {
             return toLgInt().toNumberString();

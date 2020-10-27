@@ -101,8 +101,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                    Integer.toString(2),
-                    Integer.toString(args_.size())
+                    Long.toString(2),
+                    Long.toString(args_.size())
             );
             _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());

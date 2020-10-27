@@ -34,7 +34,7 @@ public class TransformationsTest {
     }
     @Test
     public void transformSpecialChars1Test() {
-        assertEq(new String(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&eacute;"));
+        assertEq(String.valueOf(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&eacute;"));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TransformationsTest {
 
     @Test
     public void transformSpecialChars5Test() {
-        assertEq(new String(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&#233;"));
+        assertEq(String.valueOf(CharList.wrapCharArray((char)233)), DocumentBuilder.transformSpecialChars("&#233;"));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class TransformationsTest {
 
     @Test
     public void encodeToHtml2Test() {
-        assertEq("&#233;", DocumentBuilder.encodeToHtml(new String(CharList.wrapCharArray((char)233))));
+        assertEq("&#233;", DocumentBuilder.encodeToHtml(String.valueOf(CharList.wrapCharArray((char)233))));
     }
 
     @Test

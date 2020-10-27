@@ -14,7 +14,7 @@ public final class MetaNumberedLabel extends MetaLabel {
     }
     static String convert(int _number, MetaNumberBase _base) {
         if (_base == MetaNumberBase.NUMBER) {
-            return Integer.toString(_number);
+            return Long.toString(_number);
         }
         if (_base == MetaNumberBase.LETTER || _base == MetaNumberBase.MAJ_LETTER) {
             char firstLetter_;

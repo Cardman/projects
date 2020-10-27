@@ -79,8 +79,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //last parenthesis
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
-                    Integer.toString(2),
-                    Integer.toString(len_)
+                    Long.toString(2),
+                    Long.toString(len_)
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
@@ -252,8 +252,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                        Integer.toString(2),
-                        Integer.toString(argsRes_.getParametersTypes().size())
+                        Long.toString(2),
+                        Long.toString(argsRes_.getParametersTypes().size())
                 );
                 _page.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
@@ -266,8 +266,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
-                        Integer.toString(1),
-                        Integer.toString(argsRes_.getParametersTypes().size())
+                        Long.toString(1),
+                        Long.toString(argsRes_.getParametersTypes().size())
                 );
                 _page.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
@@ -1159,8 +1159,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
-                    Integer.toString(3),
-                    Integer.toString(_len)
+                    Long.toString(3),
+                    Long.toString(_len)
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -1771,8 +1771,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
-                    Integer.toString(3),
-                    Integer.toString(_len)
+                    Long.toString(3),
+                    Long.toString(_len)
             );
             _page.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());

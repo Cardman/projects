@@ -267,7 +267,7 @@ public final class ClassesUtil {
                     AnonymousFunctionBlock block_ = e.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     parentType_.setCountsAnonFct(parentType_.getCountsAnonFct()+1);
-                    block_.setIntenName(Integer.toString(parentType_.getCountsAnonFct()));
+                    block_.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
                 }
             }
             if (!contained_) {
@@ -1339,7 +1339,7 @@ public final class ClassesUtil {
                         undef_.setIndexFile(0);
                         //original type len
                         undef_.buildError(_page.getAnalysisMessages().getDuplicateSuper(),
-                                c,e.getKey(),Integer.toString(e.getValue()));
+                                c,e.getKey(),Long.toString(e.getValue()));
                         _page.addLocError(undef_);
                         r.addNameErrors(undef_);
                         hasDuplicates_ = true;
@@ -1384,8 +1384,8 @@ public final class ClassesUtil {
                             enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeAsInn(),
                                     c,
                                     k_,
-                                    Integer.toString(subSise_-1),
-                                    Integer.toString(supSise_-1));
+                                    Long.toString(subSise_-1),
+                                    Long.toString(supSise_-1));
                             _page.addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
@@ -1429,7 +1429,7 @@ public final class ClassesUtil {
                     enum_.setIndexFile(r.getIdRowCol());
                     //second super class
                     enum_.buildError(_page.getAnalysisMessages().getSuperClass(),
-                            c,Integer.toString(nbDirectSuperClass_));
+                            c,Long.toString(nbDirectSuperClass_));
                     _page.addLocError(enum_);
                     r.addNameErrors(enum_);
                 }
@@ -1616,7 +1616,7 @@ public final class ClassesUtil {
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
                             inh_.buildError(_page.getAnalysisMessages().getAbsMapping(),
-                                    Integer.toString(nbAbs_));
+                                    Long.toString(nbAbs_));
                             _page.addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;
@@ -1629,7 +1629,7 @@ public final class ClassesUtil {
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
                             inh_.buildError(_page.getAnalysisMessages().getFinalMapping(),
-                                    Integer.toString(nbFinal_));
+                                    Long.toString(nbFinal_));
                             _page.addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;

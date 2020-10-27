@@ -348,7 +348,7 @@ public class MainWindow extends GroupFrame {
         Document list_ = DocumentBuilder.newXmlDocument();
         Element mainDoc_ = list_.createElement("smil");
         Element pause_ = list_.createElement(KEY_PAUSE);
-        pause_.setAttribute(ATTR_VALUE,Integer.toString(noSong));
+        pause_.setAttribute(ATTR_VALUE,Long.toString(noSong));
         mainDoc_.appendChild(pause_);
         for (String s: songsList) {
             Element elt_ = list_.createElement(MEDIA);

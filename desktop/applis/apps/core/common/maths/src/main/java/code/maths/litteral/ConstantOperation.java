@@ -20,7 +20,7 @@ public final class ConstantOperation extends OperationNode {
             String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
 
             for (EntryCust<String,String> v: _conf.entryList()) {
-                if (StringUtil.quickEq(str_, StringUtil.concat(String.valueOf(DELIMITER_STRING_BEGIN),v.getKey(),String.valueOf(DELIMITER_STRING_END)))) {
+                if (StringUtil.quickEq(str_, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
                     MathList m_ = new MathList();
                     for (String e: StringUtil.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
                         if (e.isEmpty()) {
@@ -42,7 +42,7 @@ public final class ConstantOperation extends OperationNode {
                 setResultClass(MathType.RATE);
                 return;
             }
-            if (value_.startsWith(String.valueOf(DELIMITER_STRING_BEGIN))) {
+            if (value_.startsWith(Character.toString(DELIMITER_STRING_BEGIN))) {
                 setResultClass(MathType.SET);
                 return;
             }

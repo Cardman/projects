@@ -45,6 +45,6 @@ public final class ComparatorLanguageString implements Comparing<LanguageElement
         } else {
             trTwo_ = DataBase.EMPTY_STRING;
         }
-        return trOne_.compareTo(trTwo_);
+        return StringUtil.compareStrings(trOne_,trTwo_);
     }
 }

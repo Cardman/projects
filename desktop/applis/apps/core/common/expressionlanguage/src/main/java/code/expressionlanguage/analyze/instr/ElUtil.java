@@ -162,7 +162,7 @@ public final class ElUtil {
             //badOffset char
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
-                    Integer.toString(badOffset_),
+                    Long.toString(badOffset_),
                     _el);
             _page.addLocError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();

@@ -411,7 +411,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(StringUtil.concat(String.valueOf(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
+            return _html.indexOf(StringUtil.concat(Character.toString(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
         int indexText_ = _html.indexOf(GT_TAG, _from);
         while (_html.charAt(indexText_ + 1) == LT_BEGIN_TAG) {
@@ -448,7 +448,7 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
-                        Integer.toString(index_),
+                        Long.toString(index_),
                         cont_);
                 AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 return new StringMap<String>();
@@ -471,10 +471,10 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
     }
     protected static String escapeParam(String _arg) {
         StringMap<String> rep_ = new StringMap<String>();
-        String quote_ = String.valueOf(QUOTE);
-        rep_.put(String.valueOf(LEFT_EL), StringUtil.concat(quote_,String.valueOf(LEFT_EL),quote_));
-        rep_.put(String.valueOf(RIGHT_EL), StringUtil.concat(quote_,String.valueOf(RIGHT_EL),quote_));
-        rep_.put(String.valueOf(QUOTE), StringUtil.concat(quote_,quote_));
+        String quote_ = Character.toString(QUOTE);
+        rep_.put(Character.toString(LEFT_EL), StringUtil.concat(quote_,Character.toString(LEFT_EL),quote_));
+        rep_.put(Character.toString(RIGHT_EL), StringUtil.concat(quote_,Character.toString(RIGHT_EL),quote_));
+        rep_.put(Character.toString(QUOTE), StringUtil.concat(quote_,quote_));
         return StringUtil.replaceMultiple(_arg, rep_);
     }
 

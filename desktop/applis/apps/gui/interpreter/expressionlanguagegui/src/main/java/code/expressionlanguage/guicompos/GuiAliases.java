@@ -844,7 +844,7 @@ public final class GuiAliases {
         String true_ = _keyWords.getKeyWordTrue();
         String false_ = _keyWords.getKeyWordFalse();
         String is_ = _keyWords.getKeyWordInstanceof();
-        String endLine_ = String.valueOf(';');
+        String endLine_ = Character.toString(';');
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -999,7 +999,7 @@ public final class GuiAliases {
         _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         _predefinedInterfacesInitOrder.add(aliasListSelection);
-        String suffix_ = String.valueOf(':');
+        String suffix_ = Character.toString(':');
         String suffixLocal_ = "";
         String suffixParam_ = "";
         String suffixLoop_ = "";

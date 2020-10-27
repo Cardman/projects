@@ -2,6 +2,7 @@ package aiki.game.fight.comparators;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.StatisticsDamageMove;
 import code.maths.Rate;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorLaws implements Comparing<StatisticsDamageMove> {
@@ -25,7 +26,7 @@ public final class ComparatorLaws implements Comparing<StatisticsDamageMove> {
         if (!resLoc_.isZero()) {
             return (int) -resLoc_.signumToLong();
         }
-        return _o2.getName().compareTo(_o1.getName());
+        return StringUtil.compareStrings(_o2.getName(),_o1.getName());
     }
 
 }

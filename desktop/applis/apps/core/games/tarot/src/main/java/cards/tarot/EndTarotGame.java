@@ -347,9 +347,9 @@ public final class EndTarotGame {
             return "0";
         }
         if (_status.get(p_) == Status.DEFENDER) {
-            return StringUtil.concat("(-",Integer.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
+            return StringUtil.concat("(-",Long.toString(BonusTarot.SMALL_BOUND.getPoints()),")");
         }
-        return Integer.toString(BonusTarot.SMALL_BOUND.getPoints());
+        return Long.toString(BonusTarot.SMALL_BOUND.getPoints());
     }
 
     String joueurPetitAuBout(StringList _nicknames) {

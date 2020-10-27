@@ -647,7 +647,7 @@ public final class PaginatorMove extends Paginator {
         for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
-        getEnd().setTextAndSize(Integer.toString(nbPages_ - 1));
+        getEnd().setTextAndSize(Long.toString(nbPages_ - 1));
         setAdding(false);
     }
     private void changeNav() {

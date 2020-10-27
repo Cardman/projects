@@ -2,6 +2,7 @@ package aiki.beans.facade.comparators;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.EnumMap;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorStatisticTr implements Comparing<Statistic> {
@@ -18,7 +19,7 @@ public final class ComparatorStatisticTr implements Comparing<Statistic> {
     @Override
     public int compare(Statistic _arg0, Statistic _arg1) {
         EnumMap<Statistic,String> translatedStatistics_ = data.getTranslatedStatistics().getVal(language);
-        return translatedStatistics_.getVal(_arg0).compareTo(translatedStatistics_.getVal(_arg1));
+        return StringUtil.compareStrings(translatedStatistics_.getVal(_arg0),translatedStatistics_.getVal(_arg1));
     }
 
 }

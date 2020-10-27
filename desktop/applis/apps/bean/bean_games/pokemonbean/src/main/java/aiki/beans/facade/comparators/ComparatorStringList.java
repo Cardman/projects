@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorStringList implements Comparing<StringList> {
@@ -25,7 +26,7 @@ public final class ComparatorStringList implements Comparing<StringList> {
         if (translate) {
             int min_ = Math.min(_o1.size(), _o2.size());
             for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-                int res_ = _o1.get(i).compareTo(_o2.get(i));
+                int res_ = StringUtil.compareStrings(_o1.get(i),_o2.get(i));
                 if (res_ != 0) {
                     return res_;
                 }

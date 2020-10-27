@@ -17,7 +17,7 @@ public abstract class ExecInitBlock extends ExecMemberCallingsBlock implements E
         return getId().getSignature(_ana);
     }
     public MethodId getId() {
-        String name_ = Integer.toString(getNumber());
+        String name_ = Long.toString(getNumber());
         StringList pTypes_ = new StringList();
         return new MethodId(getStaticContext(), name_, pTypes_);
     }

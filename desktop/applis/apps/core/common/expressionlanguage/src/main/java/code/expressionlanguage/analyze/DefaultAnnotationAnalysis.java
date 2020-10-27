@@ -30,6 +30,6 @@ public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalys
             return false;
         }
         String op_ = _seq.getOperators().firstValue();
-        return StringUtil.quickEq(op_, String.valueOf('{'));
+        return StringUtil.quickEq(op_, Character.toString('{'));
     }
 }

@@ -484,7 +484,7 @@ public class Battle extends ChildFrame {
             placesLabels.clear();
             byte mult_ = facade.getFight().getMult();
             for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
-                PlaceLabel plLabel_ = new PlaceLabel(Byte.toString(p), p);
+                PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p);
                 plLabel_.addMouseListener(new SelectPlaceEvent(this, p));
                 panelPlaces.add(plLabel_);
                 placesLabels.add(plLabel_);

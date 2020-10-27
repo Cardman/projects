@@ -48,9 +48,9 @@ public class Clock {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int mi_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return StringUtil.concat(String.valueOf(y_),_separatorDate,String.valueOf(m_),
-                _separatorDate,String.valueOf(d_),_sep,String.valueOf(h_),
-                _separatorTime,String.valueOf(mi_),_separatorTime,String.valueOf(s_));
+        return StringUtil.concat(Long.toString(y_),_separatorDate,Long.toString(m_),
+                _separatorDate,Long.toString(d_),_sep,Long.toString(h_),
+                _separatorTime,Long.toString(mi_),_separatorTime,Long.toString(s_));
     }
 
     public static String getDateTimeText() {
@@ -58,7 +58,7 @@ public class Clock {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        String date_ = StringUtil.concat(String.valueOf(d_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(y_));
+        String date_ = StringUtil.concat(Long.toString(d_),SEPARATOR_DATE,Long.toString(m_),SEPARATOR_DATE,Long.toString(y_));
         return StringUtil.concat(date_,SEPARATOR_DATE_TIME,getTimeText());
     }
 
@@ -67,7 +67,7 @@ public class Clock {
         int h_ = now_.get(Calendar.HOUR_OF_DAY);
         int m_ = now_.get(Calendar.MINUTE);
         int s_ = now_.get(Calendar.SECOND);
-        return StringUtil.concat(String.valueOf(h_),SEPARATOR,String.valueOf(m_),SEPARATOR,String.valueOf(s_));
+        return StringUtil.concat(Long.toString(h_),SEPARATOR,Long.toString(m_),SEPARATOR,Long.toString(s_));
     }
 
     public static String getDateText() {
@@ -75,7 +75,7 @@ public class Clock {
         int y_ = now_.get(Calendar.YEAR);
         int m_ = now_.get(Calendar.MONTH) + 1;
         int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        return StringUtil.concat(String.valueOf(y_),SEPARATOR_DATE,String.valueOf(m_),SEPARATOR_DATE,String.valueOf(d_));
+        return StringUtil.concat(Long.toString(y_),SEPARATOR_DATE,Long.toString(m_),SEPARATOR_DATE,Long.toString(d_));
     }
 
     public CustComponent getComponent() {

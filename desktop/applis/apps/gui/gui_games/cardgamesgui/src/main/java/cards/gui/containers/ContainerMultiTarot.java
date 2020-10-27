@@ -215,7 +215,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public void updatePlaces(ChoosenPlace _choosePlace) {
         playersPlacesForGame = _choosePlace.getPlacesPlayers();
-        playersPlaces.get(_choosePlace.getIndex()).setText(String.valueOf(_choosePlace.getPlace()));
+        playersPlaces.get(_choosePlace.getIndex()).setText(Long.toString(_choosePlace.getPlace()));
     }
     @Override
     public void updateReady(Ready _readyPlayer) {

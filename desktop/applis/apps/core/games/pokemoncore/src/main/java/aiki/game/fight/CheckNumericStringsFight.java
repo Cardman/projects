@@ -149,7 +149,7 @@ public final class CheckNumericStringsFight {
                 DataBase.defRateProduct().toNumberString());
         varLocs_.put(
                 StringUtil.concat(DataBase.VAR_PREFIX, Fight.LANCEUR_NIVEAU),
-                Integer.toString(_data.getMinLevel()));
+                Long.toString(_data.getMinLevel()));
         varLocs_.put(StringUtil.concat(DataBase.VAR_PREFIX, Fight.POWER),
                 DataBase.getDefaultPower().toNumberString());
         num_ = _data.createNumericableString(numericExp_, varLocs_);
@@ -670,7 +670,7 @@ public final class CheckNumericStringsFight {
         long maxLevel_ = _data.getMaxLevel();
         Rate min_ = Rate.zero();
         for (long l = minLevel_; l <= maxLevel_; l++) {
-            vars_.put(varName_, String.valueOf(l));
+            vars_.put(varName_, Long.toString(l));
             EvolvedNumString chNum_;
             chNum_ = _data.createNumericableString(_formula, vars_);
             chNum_.evaluateExp(false);

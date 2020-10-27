@@ -1253,7 +1253,7 @@ final class FightSuccess {
     static Rate rateCriticalHit(Fight _fight, TeamPosition _thrower,byte _boost,DataBase _import) {
         Rate rate_;
         StringMap<String> vars_ = new StringMap<String>();
-        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Byte.toString(_boost));
+        vars_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(_boost));
         String rateBoos_ = _import.getRateBoostCriticalHit();
         rate_ = _import.evaluatePositiveExp(rateBoos_, vars_, Rate.one());
         Fighter fighter_ = _fight.getFighter(_thrower);

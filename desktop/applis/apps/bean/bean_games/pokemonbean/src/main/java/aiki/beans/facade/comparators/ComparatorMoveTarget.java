@@ -1,13 +1,14 @@
 package aiki.beans.facade.comparators;
 import aiki.game.fight.util.MoveTarget;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorMoveTarget implements Comparing<MoveTarget> {
 
     @Override
     public int compare(MoveTarget _o1, MoveTarget _o2) {
-        int res_ = _o1.getMove().compareTo(_o2.getMove());
+        int res_ = StringUtil.compareStrings(_o1.getMove(),_o2.getMove());
         if (res_ != 0) {
             return res_;
         }

@@ -130,7 +130,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         for (int p_: points_) {
             LabelPoints label_ = new LabelPoints(p_);
             label_.setEnabledLabel(_pts < p_);
-            label_.setToolTipText(Integer.toString(p_));
+            label_.setToolTipText(Long.toString(p_));
             label_.addMouseListener(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_);
@@ -323,7 +323,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void updatePlaces(ChoosenPlace _choosePlace) {
         playersPlacesForGame = _choosePlace.getPlacesPlayers();
         playersPlaces.get(_choosePlace.getIndex()).setText(
-                String.valueOf(_choosePlace.getPlace()));
+                Long.toString(_choosePlace.getPlace()));
     }
 
     @Override

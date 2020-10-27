@@ -76,13 +76,13 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         if (_nbBids % _nbPlayers != 0) {
             return;
         }
-        String event_ = StringUtil.concat(Integer.toString(_nbBids),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(Long.toString(_nbBids),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 
     @Override
     public void secRound(byte _nbPlayers) {
-        String event_ = StringUtil.concat(Integer.toString(_nbPlayers),ContainerGame.RETURN_LINE);
+        String event_ = StringUtil.concat(Long.toString(_nbPlayers),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
     }
 

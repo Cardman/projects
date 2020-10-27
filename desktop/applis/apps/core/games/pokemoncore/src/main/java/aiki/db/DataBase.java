@@ -2727,13 +2727,13 @@ public class DataBase {
             return;
         }
         String emptySet_ = StringUtil.concat(DataBase.EMPTY_STRING,
-                String.valueOf(StringUtil.LEFT_BRACE),
-                String.valueOf(StringUtil.RIGHT_BRACE));
+                Character.toString(StringUtil.LEFT_BRACE),
+                Character.toString(StringUtil.RIGHT_BRACE));
         StringList sets_ = StringUtil.getTokensSets(StringUtil.removeStrings(
                 _string, emptySet_));
         for (String s : sets_) {
             if (!s.startsWith(StringUtil.concat(DataBase.EMPTY_STRING,
-                    String.valueOf(StringUtil.LEFT_BRACE)))) {
+                    Character.toString(StringUtil.LEFT_BRACE)))) {
                 continue;
             }
             String insideSet_ = s.substring(IndexConstants.SECOND_INDEX,
@@ -2745,7 +2745,7 @@ public class DataBase {
                         continue;
                     }
                     if (StringUtil.quickEq(w,
-                            String.valueOf(getSepartorSetChar()))) {
+                            Character.toString(getSepartorSetChar()))) {
                         continue;
                     }
                     setError(true);

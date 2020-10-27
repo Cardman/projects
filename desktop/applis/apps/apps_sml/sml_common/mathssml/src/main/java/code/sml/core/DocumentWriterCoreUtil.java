@@ -31,21 +31,21 @@ public final class DocumentWriterCoreUtil {
     public static Element setByte(byte _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("java.lang.Byte");
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Byte.toString(_object));
+        elt_.setAttribute("value", Long.toString(_object));
         return elt_;
     }
 
     public static Element setShort(short _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("java.lang.Short");
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Short.toString(_object));
+        elt_.setAttribute("value", Long.toString(_object));
         return elt_;
     }
 
     public static Element setInteger(int _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("java.lang.Integer");
         setFieldName(elt_, _fieldName);
-        elt_.setAttribute("value", Integer.toString(_object));
+        elt_.setAttribute("value", Long.toString(_object));
         return elt_;
     }
 

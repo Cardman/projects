@@ -768,7 +768,7 @@ public class FrontBattle extends PaintableLabel {
             for (InfosAnimationStatistic t: statis_.getInfos()) {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
                 BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
-                String var_ = Byte.toString(t.getVariation());
+                String var_ = Long.toString(t.getVariation());
                 int widthVar_ = fMet_.stringWidth(var_);
                 if (widthVar_ < statSide_) {
                     widthVar_ = statSide_;

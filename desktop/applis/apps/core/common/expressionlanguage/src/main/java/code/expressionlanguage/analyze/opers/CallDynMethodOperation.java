@@ -42,8 +42,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
-                        Integer.toString(0),
-                        Integer.toString(chidren_.size()),
+                        Long.toString(0),
+                        Long.toString(chidren_.size()),
                         _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
@@ -59,8 +59,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
-                        Integer.toString(0),
-                        Integer.toString(chidren_.size()),
+                        Long.toString(0),
+                        Long.toString(chidren_.size()),
                         _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
@@ -100,8 +100,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
-                        Integer.toString(param_.size()),
-                        Integer.toString(firstArgs_.size()),
+                        Long.toString(param_.size()),
+                        Long.toString(firstArgs_.size()),
                         _page.getAliasFct());
                 _page.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
@@ -114,8 +114,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //unexpected coma or right parenthese
             undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
-                    Integer.toString(param_.size()),
-                    Integer.toString(firstArgs_.size()),
+                    Long.toString(param_.size()),
+                    Long.toString(firstArgs_.size()),
                     _page.getAliasFct());
             _page.getLocalizer().addError(undefined_);
             sepErr = undefined_.getBuiltError();

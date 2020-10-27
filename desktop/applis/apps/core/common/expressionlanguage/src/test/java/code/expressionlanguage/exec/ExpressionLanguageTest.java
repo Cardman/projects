@@ -6098,6 +6098,41 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("((Double)1D).compareTo(1D)");
         assertEq(0, getNumber(arg_));
     }
+    @Test
+    public void processEl103091Test() {
+        Argument arg_ = directCalculate("\"hello_word\".equalsIgnoreCase(\"hello word\")");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103092Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches(-1,\"\",0,0)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103093Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches($true,0,\"\",-1,0)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103094Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches(11,\"ab\",0,0)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103095Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches($true,0,\"ab\",3,0)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103096Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches(0,\"ab\",0,1)");
+        assertTrue(arg_.isFalse());
+    }
+    @Test
+    public void processEl103097Test() {
+        Argument arg_ = directCalculate("\"hello word\".regionMatches(0,\"hab\",0,2)");
+        assertTrue(arg_.isFalse());
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

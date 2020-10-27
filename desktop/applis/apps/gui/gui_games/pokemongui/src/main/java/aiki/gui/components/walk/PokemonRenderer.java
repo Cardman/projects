@@ -112,7 +112,7 @@ public class PokemonRenderer extends CustCellRender {
             int h_ = 10;
             _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(pk_.getName()), sideLength, h_);
-            _g.drawString(Integer.toString(pk_.getLevel()), coords + sideLength, h_);
+            _g.drawString(Long.toString(pk_.getLevel()), coords + sideLength, h_);
             _g.drawString(facade.translateAbility(pk_.getAbility()), sideLength, h_ * 2);
             _g.drawString(gender, coords + sideLength , h_ * 2);
             _g.drawString(remainHp, sideLength, h_ * 3);
@@ -137,8 +137,8 @@ public class PokemonRenderer extends CustCellRender {
             _g.setColor(Color.BLACK);
             _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(egg_.getName()), sideLength, h_);
-            _g.drawString(Integer.toString(egg_.getSteps()), coords + sideLength, h_);
-            _g.drawString(Integer.toString(remainSteps), coords + sideLength * 2, h_);
+            _g.drawString(Long.toString(egg_.getSteps()), coords + sideLength, h_);
+            _g.drawString(Long.toString(remainSteps), coords + sideLength * 2, h_);
         }
         if (selected) {
             _g.setColor(Color.RED);

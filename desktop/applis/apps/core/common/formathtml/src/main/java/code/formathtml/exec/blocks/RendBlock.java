@@ -159,7 +159,7 @@ public abstract class RendBlock {
                 && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
             long currentAnchor_ = _cont.getFormParts().getIndexes().getAnchor();
-            _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), String.valueOf(currentAnchor_));
+            _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(currentAnchor_));
             currentAnchor_++;
             _cont.getFormParts().getIndexes().setAnchor(currentAnchor_);
         }
@@ -371,7 +371,7 @@ public abstract class RendBlock {
         } else {
             _cont.getFormParts().getIndexes().setNb(found_);
         }
-        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), String.valueOf(_cont.getFormParts().getIndexes().getNb()));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(_cont.getFormParts().getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringUtil.concat(_cont.getLastPage().getBeanName(),DOT,name_));
         return arg_;
@@ -454,10 +454,10 @@ public abstract class RendBlock {
             return str_;
         }
         StringMap<String> rep_ = new StringMap<String>();
-        String quote_ = String.valueOf(QUOTE);
-        rep_.put(String.valueOf(LEFT_EL), StringUtil.concat(quote_,String.valueOf(LEFT_EL),quote_));
-        rep_.put(String.valueOf(RIGHT_EL), StringUtil.concat(quote_,String.valueOf(RIGHT_EL),quote_));
-        rep_.put(String.valueOf(QUOTE), StringUtil.concat(quote_,quote_));
+        String quote_ = Character.toString(QUOTE);
+        rep_.put(Character.toString(LEFT_EL), StringUtil.concat(quote_,Character.toString(LEFT_EL),quote_));
+        rep_.put(Character.toString(RIGHT_EL), StringUtil.concat(quote_,Character.toString(RIGHT_EL),quote_));
+        rep_.put(Character.toString(QUOTE), StringUtil.concat(quote_,quote_));
         return StringUtil.replaceMultiple(str_, rep_);
     }
 

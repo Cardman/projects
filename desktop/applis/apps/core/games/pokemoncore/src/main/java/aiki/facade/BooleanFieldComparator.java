@@ -1,6 +1,7 @@
 package aiki.facade;
 
 import aiki.facade.enums.SelectedBoolean;
+import code.util.comparators.ComparatorBoolean;
 
 
 public final class BooleanFieldComparator {
@@ -11,10 +12,10 @@ public final class BooleanFieldComparator {
 
     public int compare(Boolean _o1, Boolean _o2) {
         if (increasing == SelectedBoolean.YES) {
-            return _o1.compareTo(_o2);
+            return ComparatorBoolean.cmp(_o1,_o2);
         }
         if (increasing == SelectedBoolean.NO) {
-            return _o2.compareTo(_o1);
+            return ComparatorBoolean.cmp(_o2,_o1);
         }
         return 0;
     }

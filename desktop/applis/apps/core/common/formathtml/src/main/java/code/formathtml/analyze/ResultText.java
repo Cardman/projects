@@ -78,7 +78,7 @@ public final class ResultText {
                     badEl_.setIndexFile(_off);
                     badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                             Character.toString(RIGHT_EL),
-                            Integer.toString(i_),
+                            Long.toString(i_),
                             _expression);
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     return;
@@ -95,7 +95,7 @@ public final class ResultText {
                 badEl_.setIndexFile(_off);
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         Character.toString(RIGHT_EL),
-                        Integer.toString(i_),
+                        Long.toString(i_),
                         _expression);
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;
@@ -138,7 +138,7 @@ public final class ResultText {
                 badEl_.setIndexFile(_begin);
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         Character.toString(cur_),
-                        Integer.toString(i_),
+                        Long.toString(i_),
                         _expression);
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;
@@ -159,7 +159,7 @@ public final class ResultText {
                     badEl_.setIndexFile(_begin);
                     badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                             " ",
-                            Integer.toString(i_),
+                            Long.toString(i_),
                             _expression);
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                     return;
@@ -178,7 +178,7 @@ public final class ResultText {
                 badEl_.setIndexFile(_begin);
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
-                        Integer.toString(i_),
+                        Long.toString(i_),
                         _expression);
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 return;

@@ -83,7 +83,7 @@ public final class AnalyzingDoc {
     }
 
     public String getLocationFile(String _fileName, int _sum) {
-        return StringUtil.concat(Integer.toString(_sum));
+        return StringUtil.concat(Long.toString(_sum));
     }
 
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {

@@ -188,7 +188,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void updatePlaces(ChoosenPlace _choosePlace) {
         playersPlacesForGame = _choosePlace.getPlacesPlayers();
         playersPlaces.get(_choosePlace.getIndex()).setText(
-                String.valueOf(_choosePlace.getPlace()));
+                Long.toString(_choosePlace.getPlace()));
     }
 
     @Override

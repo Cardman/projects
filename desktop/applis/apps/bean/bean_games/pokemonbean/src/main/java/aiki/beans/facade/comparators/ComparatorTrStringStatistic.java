@@ -2,6 +2,7 @@ package aiki.beans.facade.comparators;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import code.util.EnumMap;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorTrStringStatistic implements Comparing<Statistic> {
@@ -30,6 +31,6 @@ public final class ComparatorTrStringStatistic implements Comparing<Statistic> {
         } else {
             trTwo_ = DataBase.EMPTY_STRING;
         }
-        return trOne_.compareTo(trTwo_);
+        return StringUtil.compareStrings(trOne_,trTwo_);
     }
 }

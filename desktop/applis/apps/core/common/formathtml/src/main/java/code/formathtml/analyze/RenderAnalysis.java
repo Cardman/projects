@@ -33,7 +33,7 @@ public final class RenderAnalysis {
             badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
-                    Integer.toString(badOffset_),
+                    Long.toString(badOffset_),
                     _el);
             AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
@@ -65,7 +65,7 @@ public final class RenderAnalysis {
             badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
-                    Integer.toString(badOffset_),
+                    Long.toString(badOffset_),
                     _el);
             AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();

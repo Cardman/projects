@@ -971,7 +971,7 @@ public final class AnalyzedPageEl {
         FileMetrics metrics_ = file_.getMetrics(_analyzing.getTabWidth());
         int r_ = metrics_.getRowFile(_sum);
         int c_ = metrics_.getColFile(_sum,r_);
-        return StringUtil.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
+        return StringUtil.concat( Long.toString(r_),",",Long.toString(c_),",",Long.toString(_sum));
     }
 
     public void addError(FoundErrorInterpret _error) {

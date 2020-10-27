@@ -6,6 +6,7 @@ import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import code.util.ints.Cmp;
 import code.util.ints.Displayable;
 
@@ -76,7 +77,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
 
     @Override
     public boolean eq(KeyHypothesis _g) {
-        int res_ = playerPokemon.compareTo(_g.getPlayerPokemon());
+        int res_ = StringUtil.compareStrings(playerPokemon,_g.getPlayerPokemon());
         if (res_ != 0) {
             return false;
         }
@@ -84,11 +85,11 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return false;
         }
-        res_ = move.compareTo(_g.getMove());
+        res_ = StringUtil.compareStrings(move,_g.getMove());
         if (res_ != 0) {
             return false;
         }
-        res_ = targetPokemon.compareTo(_g.getTargetPokemon());
+        res_ = StringUtil.compareStrings(targetPokemon,_g.getTargetPokemon());
         if (res_ != 0) {
             return false;
         }
@@ -103,7 +104,7 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
 
     @Override
     public int cmp(KeyHypothesis _o) {
-        int res_ = playerPokemon.compareTo(_o.getPlayerPokemon());
+        int res_ = StringUtil.compareStrings(playerPokemon,_o.getPlayerPokemon());
         if (res_ != 0) {
             return res_;
         }
@@ -111,11 +112,11 @@ public final class KeyHypothesis implements Cmp<KeyHypothesis>, Displayable {
         if (res_ != 0) {
             return res_;
         }
-        res_ = move.compareTo(_o.getMove());
+        res_ = StringUtil.compareStrings(move,_o.getMove());
         if (res_ != 0) {
             return res_;
         }
-        res_ = targetPokemon.compareTo(_o.getTargetPokemon());
+        res_ = StringUtil.compareStrings(targetPokemon,_o.getTargetPokemon());
         if (res_ != 0) {
             return res_;
         }

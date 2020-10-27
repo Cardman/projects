@@ -417,15 +417,15 @@ public final class MathResolver {
         String fctName_ = EMPTY_STRING;
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
+            operators_.put(firstPrintChar_, Character.toString(MINUS_CHAR));
             i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == PLUS_CHAR) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, String.valueOf(PLUS_CHAR));
+            operators_.put(firstPrintChar_, Character.toString(PLUS_CHAR));
             i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
+            operators_.put(firstPrintChar_, Character.toString(NEG_BOOL_CHAR));
             i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         }
         while (i_ < len_) {
@@ -440,17 +440,17 @@ public final class MathResolver {
                     useFct_ = true;
                     fctName_ = _string.substring(IndexConstants.FIRST_INDEX, i_);
                     operators_.clear();
-                    operators_.put(i_, String.valueOf(PAR_LEFT));
+                    operators_.put(i_, Character.toString(PAR_LEFT));
                 }
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
-                operators_.put(i_, String.valueOf(SEP_ARG));
+                operators_.put(i_, Character.toString(SEP_ARG));
             }
             if (curChar_ == PAR_RIGHT) {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    operators_.put(i_, String.valueOf(PAR_RIGHT));
+                    operators_.put(i_, Character.toString(PAR_RIGHT));
                 }
                 i_++;
                 continue;

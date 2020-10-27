@@ -41,9 +41,9 @@ public class TaskPaintingLabel implements ActionListener {
 //        }
         time += DELTA;
         if (dialog.getPercent().isEmpty()) {
-            dialog.setTitle(StringUtil.concat(Integer.toString(time/SECOND_MILLIS),UNIT));
+            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
         } else {
-            dialog.setTitle(StringUtil.concat(Integer.toString(time/SECOND_MILLIS),UNIT,SEPARATOR,dialog.getPercent(),PERCENT));
+            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT,SEPARATOR,dialog.getPercent(),PERCENT));
         }
 //        painting = new PaintingLabel(label);
 //        painting.start();

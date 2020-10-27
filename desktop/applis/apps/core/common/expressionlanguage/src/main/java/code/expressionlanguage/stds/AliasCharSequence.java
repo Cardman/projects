@@ -150,7 +150,7 @@ public final class AliasCharSequence {
                 _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             } else {
                 StringStruct t_ = (StringStruct) two_;
-                _res.setResult(new IntStruct(one_.compareToIgnoreCase(t_.getInstance())));
+                _res.setResult(new IntStruct(NumParsers.compareToIgnoreCase(one_,t_.getInstance())));
             }
             return;
         }
@@ -160,7 +160,7 @@ public final class AliasCharSequence {
                 _res.setResult(BooleanStruct.of(false));
             } else {
                 StringStruct t_ = (StringStruct) two_;
-                _res.setResult(BooleanStruct.of(one_.equalsIgnoreCase(t_.getInstance())));
+                _res.setResult(BooleanStruct.of(NumParsers.equalsIgnoreCase(one_,t_.getInstance())));
             }
             return;
         }
@@ -178,7 +178,7 @@ public final class AliasCharSequence {
             return;
         }
         StringStruct st_ = (StringStruct)_anotherString;
-        _res.setResult(new IntStruct(_str.getInstance().compareTo(st_.getInstance())));
+        _res.setResult(new IntStruct(StringUtil.compareStrings(_str.getInstance(),st_.getInstance())));
     }
 
     private static void regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
@@ -193,7 +193,7 @@ public final class AliasCharSequence {
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        _res.setResult(BooleanStruct.of(_str.getInstance().regionMatches(case_,to_, other_.getInstance(), po_, comLen_)));
+        _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_)));
     }
 
     private static void replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
@@ -278,7 +278,7 @@ public final class AliasCharSequence {
         for (int i = 0; i < len_; i++) {
             arr_[i] = NumParsers.convertToChar(chArr_.get(i)).getChar();
         }
-        _res.setResult(new StringStruct(new String(arr_)));
+        _res.setResult(new StringStruct(String.valueOf(arr_)));
     }
 
     private static void newStringStructByCharArray(Struct _arg, Struct _one, Struct _two, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -289,23 +289,24 @@ public final class AliasCharSequence {
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
         int len_ = chArr_.getLength();
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(chArr_.get(i)).getChar();
-        }
         int one_ = NumParsers.convertToNumber(_one).intStruct();
         int two_ = NumParsers.convertToNumber(_two).intStruct();
-        if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
+        if (one_ < 0 || two_ < 0 || one_ > len_ - two_) {
             if (one_ < 0) {
                 _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(Long.toString(one_),"<0"), _stds.getContent().getCoreNames().getAliasBadIndex()));
             } else if (two_ < 0) {
                 _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(Long.toString(two_),"<0"), _stds.getContent().getCoreNames().getAliasBadIndex()));
             } else {
-                _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(Long.toString((long)one_ + two_),">", Long.toString(arr_.length)), _stds.getContent().getCoreNames().getAliasBadIndex()));
+                _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(Long.toString((long)one_ + two_),">", Long.toString(len_)), _stds.getContent().getCoreNames().getAliasBadIndex()));
             }
             return;
         }
-        _res.setResult(new StringStruct(new String(arr_, one_, two_)));
+        char[] arr_ = new char[two_];
+        int until_ = one_ + two_;
+        for (int i = one_; i < until_; i++) {
+            arr_[i-one_] = NumParsers.convertToChar(chArr_.get(i)).getChar();
+        }
+        _res.setResult(new StringStruct(String.valueOf(arr_)));
     }
 
     private static void newStringStructByByteArray(Struct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
@@ -323,7 +324,7 @@ public final class AliasCharSequence {
         String chars_ = StringUtil.decode(arr_);
         if (chars_ == null) {
             int index_ = StringUtil.badDecode(arr_, 0, len_);
-            _context.setCallingState(new ErrorStruct(_context,Integer.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex()));
+            _context.setCallingState(new ErrorStruct(_context,Long.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex()));
             return;
         }
         _res.setResult(new StringStruct(chars_));
@@ -356,7 +357,7 @@ public final class AliasCharSequence {
         String chars_ = StringUtil.decode(arr_, one_, two_);
         if (chars_ == null) {
             int index_ = StringUtil.badDecode(arr_, one_, two_);
-            _context.setCallingState(new ErrorStruct(_context,Integer.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex()));
+            _context.setCallingState(new ErrorStruct(_context,Long.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex()));
             return;
         }
         _res.setResult(new StringStruct(chars_));
@@ -404,13 +405,13 @@ public final class AliasCharSequence {
     private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
         int one_ = _arg.intStruct();
         if (one_ < 0) {
-            _context.setCallingState(new ErrorStruct(_context,Integer.toString(one_), _stds.getContent().getCoreNames().getAliasBadIndex()));
+            _context.setCallingState(new ErrorStruct(_context,Long.toString(one_), _stds.getContent().getCoreNames().getAliasBadIndex()));
             return;
         }
         _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
     }
 
-    public static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
@@ -494,9 +495,8 @@ public final class AliasCharSequence {
     }
 
     private static void ensureCapacity(StringBuilderStruct _instance, NumberStruct _minimumCapacity, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
         _instance.getInstance().ensureCapacity(_minimumCapacity.intStruct());
@@ -504,9 +504,8 @@ public final class AliasCharSequence {
     }
 
     private static void trimToSize(StringBuilderStruct _instance, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
         _instance.getInstance().trimToSize();
@@ -514,12 +513,11 @@ public final class AliasCharSequence {
     }
 
     private static void setLength(StringBuilderStruct _instance, NumberStruct _newLength, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int newLength_ = _newLength.intStruct();
         if (newLength_ < 0) {
             _an.setCallingState(new ErrorStruct(_an, StringUtil.concat(Long.toString(newLength_),"<0"), lgNames_.getContent().getCoreNames().getAliasBadIndex()));
@@ -530,12 +528,11 @@ public final class AliasCharSequence {
     }
 
     private static void append(StringBuilderStruct _instance, DisplayableStruct _s, NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
@@ -554,12 +551,11 @@ public final class AliasCharSequence {
     }
 
     private static void appendChars(StringBuilderStruct _instance, Struct _str, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
             _an.setCallingState(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
@@ -574,12 +570,11 @@ public final class AliasCharSequence {
     }
 
     private static void appendChars(StringBuilderStruct _instance, Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
             _an.setCallingState(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe()));
             return;
@@ -606,9 +601,8 @@ public final class AliasCharSequence {
     }
 
     private static void append(StringBuilderStruct _instance, StringStruct _b, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
         _instance.getInstance().append(_b.getInstance());
@@ -616,12 +610,11 @@ public final class AliasCharSequence {
     }
 
     private static void delete(StringBuilderStruct _instance, NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
@@ -639,12 +632,11 @@ public final class AliasCharSequence {
     }
 
     private static void deleteCharAt(StringBuilderStruct _instance, NumberStruct _index, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= _instance.getInstance().length()) {
             if (index_ < 0) {
@@ -659,12 +651,11 @@ public final class AliasCharSequence {
     }
 
     private static void replace(StringBuilderStruct _instance, NumberStruct _start, NumberStruct _end, Struct _str, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
@@ -687,12 +678,11 @@ public final class AliasCharSequence {
     }
 
     private static void insertChars(StringBuilderStruct _instance, NumberStruct _index, Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
@@ -728,12 +718,11 @@ public final class AliasCharSequence {
     }
 
     private static void insertChars(StringBuilderStruct _instance, NumberStruct _offset, Struct _str, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int index_ = _offset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
@@ -757,12 +746,11 @@ public final class AliasCharSequence {
     }
 
     private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, StringStruct _s, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
@@ -778,12 +766,11 @@ public final class AliasCharSequence {
 
     private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, DisplayableStruct _s, NumberStruct _start,
                                NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
@@ -813,9 +800,8 @@ public final class AliasCharSequence {
     }
 
     private static void clear(StringBuilderStruct _instance, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
         _instance.getInstance().delete(0, _instance.getInstance().length());
@@ -823,9 +809,8 @@ public final class AliasCharSequence {
     }
 
     private static void reverse(StringBuilderStruct _instance, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
         _instance.getInstance().reverse();
@@ -833,12 +818,11 @@ public final class AliasCharSequence {
     }
 
     private static void setCharAt(StringBuilderStruct _instance, NumberStruct _index, CharStruct _ch, ContextEl _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an;
-        if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            cont_.getInitializingTypeInfos().failInitEnums();
+        if (_an.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = cont_.getStandards();
+        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= _instance.getInstance().length()) {
             if (index_ < 0) {
@@ -856,7 +840,7 @@ public final class AliasCharSequence {
         _out.setResult(new IntStruct(_instance.getInstance().capacity()));
     }
 
-    public static void calculateCharSeq(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    private static void calculateCharSeq(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             calculateLocCharSeq(NumParsers.getCharSeq(_struct), _cont, _res, _method, _args);
             return;
@@ -1038,7 +1022,7 @@ public final class AliasCharSequence {
             return;
         }
         CharSequenceStruct st_ = NumParsers.getCharSeq(_anotherString);
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().compareTo(st_.toStringInstance())));
+        _res.setResult(new IntStruct(StringUtil.compareStrings(_charSequence.toStringInstance(),st_.toStringInstance())));
     }
 
     private static void regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
@@ -1052,7 +1036,7 @@ public final class AliasCharSequence {
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
-        _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().regionMatches(to_, other_.toStringInstance(), po_, comLen_)));
+        _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_)));
     }
 
     private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, LgNames _stds, ResultErrorStd _res, ContextEl _context) {

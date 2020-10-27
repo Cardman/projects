@@ -27,9 +27,9 @@ public final class FileComparator implements Comparing<File> {
     public int compare(File _o1, File _o2) {
         if (indexOfSorted == FileTable.NAME_INDEX) {
             if (increasing) {
-                return _o1.getName().compareTo(_o2.getName());
+                return StringUtil.compareStrings(_o1.getName(),_o2.getName());
             }
-            return _o2.getName().compareTo(_o1.getName());
+            return StringUtil.compareStrings(_o2.getName(),_o1.getName());
         }
         if (indexOfSorted == FileTable.DATE_INDEX) {
             if (increasing) {
@@ -83,7 +83,7 @@ public final class FileComparator implements Comparing<File> {
                 StringList pathTwo_ = StringUtil.splitStrings(returnTwo_, StreamTextFile.SEPARATEUR);
                 int min_ = Math.min(pathOne_.size(), pathTwo_.size());
                 for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-                    int res_ = pathOne_.get(i).compareTo(pathTwo_.get(i));
+                    int res_ = StringUtil.compareStrings(pathOne_.get(i),pathTwo_.get(i));
                     if (res_ != SortConstants.EQ_CMP) {
                         return res_;
                     }
@@ -100,7 +100,7 @@ public final class FileComparator implements Comparing<File> {
             StringList pathTwo_ = StringUtil.splitStrings(returnTwo_,StreamTextFile.SEPARATEUR);
             int min_ = Math.min(pathOne_.size(), pathTwo_.size());
             for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-                int res_ = pathTwo_.get(i).compareTo(pathOne_.get(i));
+                int res_ = StringUtil.compareStrings(pathTwo_.get(i),pathOne_.get(i));
                 if (res_ != SortConstants.EQ_CMP) {
                     return res_;
                 }

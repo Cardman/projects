@@ -76,7 +76,7 @@ public final class RendDimensionArrayInstancing extends
                     int off_ = _filter.get(j_);
                     _cont.setOpOffset(off_);
                 }
-                return new ErrorStruct(_context, StringUtil.concat(Integer.toString(s),"<0"),size_);
+                return new ErrorStruct(_context, StringUtil.concat(Long.toString(s),"<0"),size_);
             }
             dims_.add(s);
             j_++;

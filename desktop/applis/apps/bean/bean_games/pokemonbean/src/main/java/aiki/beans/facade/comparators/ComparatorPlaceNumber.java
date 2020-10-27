@@ -3,6 +3,7 @@ import aiki.map.DataMap;
 import aiki.map.places.Place;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
 public final class ComparatorPlaceNumber implements Comparing<Short> {
@@ -17,7 +18,7 @@ public final class ComparatorPlaceNumber implements Comparing<Short> {
     public int compare(Short _o1, Short _o2) {
         Place plOne_ = dataMap.getPlace(_o1);
         Place plTwo_ = dataMap.getPlace(_o2);
-        int res_ = plOne_.getName().compareTo(plTwo_.getName());
+        int res_ = StringUtil.compareStrings(plOne_.getName(),plTwo_.getName());
         if (res_ != SortConstants.EQ_CMP) {
             return res_;
         }

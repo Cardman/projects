@@ -325,7 +325,7 @@ public final class StringUtil {
                 String subString_ = _pattern.substring(i_, Math.min(j_ + i_ + 1, _pattern.length()));
                 boolean exist_ = false;
                 for (String s: list_) {
-                    if (s.contains(concat(subString_, String.valueOf(_pattern.charAt(j_ + i_ + 1))))) {
+                    if (s.contains(concat(subString_, Character.toString(_pattern.charAt(j_ + i_ + 1))))) {
                         exist_ = true;
                         break;
                     }
@@ -718,7 +718,7 @@ public final class StringUtil {
             StringList list_ = new StringList();
             list_.add(_new);
             for (char c: _string.toCharArray()) {
-                list_.add(String.valueOf(c));
+                list_.add(Character.toString(c));
                 list_.add(_new);
             }
             return join(list_, EMPTY_STRING);
@@ -852,7 +852,7 @@ public final class StringUtil {
             indiceRDecalePt_=index_;
             //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
             //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
-            if(separators_.get(i_).contains(String.valueOf(SPACE_CHAR))){
+            if(separators_.get(i_).contains(Character.toString(SPACE_CHAR))){
                 if (words_.isValidIndex(i_+1)) {
                     indiceNext_=_string.indexOf(e,indiceRDecalePt_);
                     if(indiceNext_ == IndexConstants.INDEX_NOT_FOUND_ELT){
@@ -877,7 +877,7 @@ public final class StringUtil {
         if(index_==_string.length()){
             return true;
         }
-        return separators_.get(i_).contains(String.valueOf(SPACE_CHAR));
+        return separators_.get(i_).contains(Character.toString(SPACE_CHAR));
     }
 
     public static boolean match(String _string, String _filter){
@@ -906,7 +906,7 @@ public final class StringUtil {
                 return true;
             }
             if(index_<_string.length()){
-                if(lastSep_.contains(String.valueOf(STRING))){
+                if(lastSep_.contains(Character.toString(STRING))){
                     return true;
                 }
                 return _string.length() <= index_ + nbZeroOne_;
@@ -935,7 +935,7 @@ public final class StringUtil {
             }
             int indiceRDecalePt_ = index_ + nbPts_;
             int indiceNext_;
-            if(separators_.get(i_).contains(String.valueOf(STRING))){
+            if(separators_.get(i_).contains(Character.toString(STRING))){
                 //indiceNext_=_string.indexOf(e,indiceRDecalePt_);
                 //indiceNext_ = greatestIndex(_string, e, indiceRDecalePt_);
                 if (words_.isValidIndex(i_+1)) {
@@ -978,7 +978,7 @@ public final class StringUtil {
             return true;
         }
         if(index_<_string.length()){
-            if(lastSep_.contains(String.valueOf(STRING))){
+            if(lastSep_.contains(Character.toString(STRING))){
                 return true;
             }
             return _string.length() <= index_ + nbZeroOne_;
@@ -1279,7 +1279,7 @@ public final class StringUtil {
             j_++;
             i_++;
         }
-        return new String(newArray_, IndexConstants.FIRST_INDEX,newLength_);
+        return extract(newArray_, newLength_);
     }
 
     public static String escapeSpace(String _input) {
@@ -1309,7 +1309,20 @@ public final class StringUtil {
             j_++;
             i_++;
         }
-        return new String(newArray_, IndexConstants.FIRST_INDEX,newLength_);
+        return extract(newArray_, newLength_);
+    }
+
+    private static String extract(char[] _arr, int _len) {
+        int min_ = Math.min(_arr.length,_len);
+        char[] ext_ = new char[min_];
+        for (int i = 0; i < min_; i++) {
+            set(_arr, ext_, i);
+        }
+        return String.valueOf(ext_);
+    }
+
+    private static void set(char[] _arr, char[] _ext, int _i) {
+        _ext[_i] = _arr[_i];
     }
 
     public static String getFirstToken(String _string, char _separator) {
@@ -1527,10 +1540,10 @@ public final class StringUtil {
     /**The returned String ends with a slash.*/
     public static String replaceBackSlashDot(String _path) {
         String path_ = replaceBackSlash(_path);
-        if (path_.endsWith(concat(String.valueOf(SLASH),String.valueOf(DOT)))) {
+        if (path_.endsWith(concat(Character.toString(SLASH),Character.toString(DOT)))) {
             path_ = path_.substring(0, path_.length() - 1);
-        } else if (!path_.endsWith(String.valueOf(SLASH))) {
-            path_ = concat(path_, String.valueOf(SLASH));
+        } else if (!path_.endsWith(Character.toString(SLASH))) {
+            path_ = concat(path_, Character.toString(SLASH));
         }
         return path_;
     }
@@ -1614,4 +1627,19 @@ public final class StringUtil {
     }
 
 
+    public static int compareStrings(String _first, String _second) {
+        int lenFirst_ = _first.length();
+        int lenSecond_ = _second.length();
+        int lim_ = Math.min(lenFirst_, lenSecond_);
+
+        int k = 0;
+        while (k < lim_) {
+            int diff_ = NumberUtil.compareLg(_first.charAt(k), _second.charAt(k));
+            if (diff_ != 0) {
+                return diff_;
+            }
+            k++;
+        }
+        return NumberUtil.compareLg(lenFirst_, lenSecond_);
+    }
 }
