@@ -11,11 +11,12 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 
-public final class FieldMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
+public final class FieldMetaInfo extends WithoutParentStruct implements AnnotatedMemberStruct {
 
     private static final String EMPTY_STRING = "";
     private final AccessEnum access;
     private final String declaringClass;
+    private final String formDeclaringClass;
     private final String name;
 
     private final String type;
@@ -35,12 +36,13 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
         access = AccessEnum.PRIVATE;
         staticField = false;
         finalField = false;
+        formDeclaringClass = "";
     }
     public FieldMetaInfo(String _declaringClass,
                          String _name,
                          String _returnType, boolean _static,
                          boolean _finalField,
-                         AccessEnum _access) {
+                         AccessEnum _access, String _formDeclaringClass) {
         invokable = true;
         declaringClass = _declaringClass;
         name = _name;
@@ -48,6 +50,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
         staticField = _static;
         finalField = _finalField;
         access = _access;
+        formDeclaringClass = _formDeclaringClass;
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -93,6 +96,11 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     public String getDeclaringClass() {
         return declaringClass;
     }
+
+    public String getFormDeclaringClass() {
+        return formDeclaringClass;
+    }
+
     public String getName() {
         return name;
     }

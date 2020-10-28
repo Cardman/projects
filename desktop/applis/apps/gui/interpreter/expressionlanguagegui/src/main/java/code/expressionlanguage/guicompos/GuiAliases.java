@@ -2924,9 +2924,9 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypes().size() == 1) {
-                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasButton));
+                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasScrollPane));
             } else {
-                r_.setResult(ScrollPaneStruct.newScroll(aliasButton));
+                r_.setResult(ScrollPaneStruct.newScroll(aliasScrollPane));
             }
             return r_;
         }

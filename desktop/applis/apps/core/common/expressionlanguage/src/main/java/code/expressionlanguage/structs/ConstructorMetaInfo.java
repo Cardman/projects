@@ -12,8 +12,8 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     private static final String EMPTY_STRING = "";
 
-    private final String className;
-    private final String formClassName;
+    private final String declaringClass;
+    private final String formDeclaringClass;
     private final ConstructorId realId;
     private final AccessEnum access;
     private final ConstructorId fid;
@@ -26,22 +26,22 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     public ConstructorMetaInfo(){
         invokable = false;
-        className = "";
-        formClassName = "";
+        declaringClass = "";
+        formDeclaringClass = "";
         realId = new ConstructorId("",new StringList(),false);
         fid = new ConstructorId("",new StringList(),false);
         access = AccessEnum.PRIVATE;
         returnType = "";
     }
-    public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId, String _returnType,
-                               ConstructorId _fid, String _formClassName) {
+    public ConstructorMetaInfo(String _declaringClass, AccessEnum _access, ConstructorId _realId, String _returnType,
+                               ConstructorId _fid, String _formDeclaringClass) {
         invokable = true;
-        className = _className;
+        declaringClass = _declaringClass;
         access = _access;
         realId = _realId;
         returnType = _returnType;
         fid = _fid;
-        formClassName = _formClassName;
+        formDeclaringClass = _formDeclaringClass;
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -80,9 +80,6 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     public void setFileName(String _fileName) {
         fileName = _fileName;
     }
-    public String getClassName() {
-        return className;
-    }
 
     public ConstructorId getRealId() {
         return realId;
@@ -106,12 +103,12 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         return access == AccessEnum.PRIVATE;
     }
     
-    public String getFormClassName() {
-        return formClassName;
+    public String getFormDeclaringClass() {
+        return formDeclaringClass;
     }
     
     public String getName() {
-        return formClassName;
+        return formDeclaringClass;
     }
 
     @Override
@@ -123,7 +120,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     }
     @Override
     public String getDeclaringClass() {
-        return getClassName();
+        return declaringClass;
     }
 
     public ConstructorId getFid() {
@@ -145,7 +142,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
             return false;
         }
         ConstructorMetaInfo info_ = (ConstructorMetaInfo) _other;
-        if (!StringUtil.quickEq(className, info_.className)) {
+        if (!StringUtil.quickEq(declaringClass, info_.declaringClass)) {
             return false;
         }
         return realId.eq(info_.realId);
@@ -153,7 +150,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringUtil.concat(className,";",realId.getSignature(_an)));
+        return new StringStruct(StringUtil.concat(declaringClass,";",realId.getSignature(_an)));
     }
 
     public StringList getParametersTypes() {

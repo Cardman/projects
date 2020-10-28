@@ -18,7 +18,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private static final String EMPTY_STRING = "";
     private final String declaringClass;
     private final String className;
-    private final String formClassName;
+    private final String formDeclaringClass;
 
     private final MethodId realId;
     private final MethodId fid;
@@ -41,7 +41,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         declaringClass = "";
         invokable = false;
         className = "";
-        formClassName = "";
+        formDeclaringClass = "";
         realId = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
         fid = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
         access = AccessEnum.PRIVATE;
@@ -49,7 +49,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         returnType = "";
     }
     public MethodMetaInfo(String _declaringClass,AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
-                          MethodId _fid, String _formClassName) {
+                          MethodId _fid, String _formDeclaringClass) {
         declaringClass = _declaringClass;
         invokable = true;
         access = _access;
@@ -58,7 +58,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         modifier = _modifier;
         returnType = _returnType;
         fid = _fid;
-        formClassName = _formClassName;
+        formDeclaringClass = _formDeclaringClass;
     }
 
     public String getDeclaringClass() {
@@ -128,8 +128,8 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     public String getClassName() {
         return className;
     }
-    public String getFormClassName() {
-        return formClassName;
+    public String getFormDeclaringClass() {
+        return formDeclaringClass;
     }
     public String getName() {
         return realId.getName();

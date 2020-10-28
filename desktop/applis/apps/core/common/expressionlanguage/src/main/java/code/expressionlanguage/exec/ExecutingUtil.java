@@ -348,8 +348,10 @@ public final class ExecutingUtil {
                 boolean staticElement_ = method_.isStaticField();
                 boolean finalElement_ = method_.isFinalField();
 
+                String idType_ = _type.getFullName();
+                String formCl_ = tryFormatType(idType_, _name, _context);
                 for (String f: method_.getFieldName()) {
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, method_.getAccess());
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, method_.getAccess(), formCl_);
                     met_.setFileName(fileName_);
                     met_.setAnnotableBlock(method_);
                     met_.setDeclaring(_type);
@@ -599,6 +601,12 @@ public final class ExecutingUtil {
         }
         return true;
     }
+    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, ClassMetaInfo _classOwner) {
+        return getExtendedClassMetaInfo(_context,_name,_classOwner.getVariableOwner());
+    }
+    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, AnnotatedMemberStruct _member) {
+        return getExtendedClassMetaInfo(_context,_name,_member.getFormDeclaringClass());
+    }
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, String _variableOwner) {
         if (StringUtil.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();
@@ -624,6 +632,13 @@ public final class ExecutingUtil {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, _variableOwner);
         }
         return getClassMetaInfo(_context,_name);
+    }
+    public static Struct getClassMetaInfo(ContextEl _context,AnnotatedMemberStruct _member) {
+        String formDeclaringClass_ = _member.getFormDeclaringClass();
+        if (formDeclaringClass_.isEmpty()) {
+            return NullStruct.NULL_VALUE;
+        }
+        return getClassMetaInfo(_context, formDeclaringClass_);
     }
     public static ClassMetaInfo getClassMetaInfo(ContextEl _context,String _name) {
         if (ExecClassArgumentMatching.isPrimitive(_name, _context)) {
@@ -666,8 +681,9 @@ public final class ExecutingUtil {
             String ret_ = f.getImportedClassName();
             boolean staticElement_ = f.isStaticField();
             boolean finalElement_ = f.isFinalField();
+            String decl_ = _type.getFullName();
             for (String g: f.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, AccessEnum.PUBLIC);
+                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, AccessEnum.PUBLIC, decl_);
                 infosFields_.put(g, met_);
             }
         }

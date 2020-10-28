@@ -5,7 +5,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -30,14 +29,6 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
             pTypes_.add(n_);
         }
         return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
-    }
-
-    public MethodModifier getModifier() {
-        return MethodModifier.STATIC;
-    }
-
-    public String getDeclaringType() {
-        return EMPTY_STRING;
     }
 
     @Override

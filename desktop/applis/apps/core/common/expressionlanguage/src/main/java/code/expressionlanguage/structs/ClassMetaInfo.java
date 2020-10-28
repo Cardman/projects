@@ -261,9 +261,9 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public StringList getUpperBounds() {
         return upperBounds;
     }
-    public CustList<ClassMetaInfo> getBounds(ContextEl _cont) {
-        CustList<ClassMetaInfo> list_;
-        list_ = new CustList<ClassMetaInfo>();
+    public StringList getBounds(ContextEl _cont) {
+        StringList list_;
+        list_ = new StringList();
         String id_ = StringExpUtil.getIdFromAllTypes(variableOwner);
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (isNotVariable(g_, name)) {
@@ -275,9 +275,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             if (!StringUtil.quickEq(b.getName(), varName_)) {
                 continue;
             }
-            for (String u: b.getConstraints()) {
-                list_.add(ExecutingUtil.getExtendedClassMetaInfo(_cont,u, variableOwner));
-            }
+            list_.addAllElts(b.getConstraints());
         }
         return list_;
     }

@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -42,13 +44,15 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
         String formatType_ = _conf.formatVarType(_returnFieldType);
-        return newLambda(_previous, ownerType_, _returnFieldType, _fieldId, _ancestor, _affField, _staticField, _finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_);
+        String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
+        String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);
+        return newLambda(_previous, ownerType_, _returnFieldType, _fieldId, _ancestor, _affField, _staticField, _finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_, formCl_);
     }
 
     public static Struct newLambda(Argument _previous, String _ownerType, String _returnFieldType, ClassField _fieldId, int _ancestor,
                                    boolean _affField, boolean _staticField, boolean _finalField, boolean _shiftArgument, boolean _safeInstance,
                                    String _clArg, String _fileName,
-                                   ExecRootBlock _rootBlock, ExecAnnotableBlock _infoBlock, String _formatType) {
+                                   ExecRootBlock _rootBlock, ExecAnnotableBlock _infoBlock, String _formatType, String _formCl) {
         LambdaFieldStruct l_ = new LambdaFieldStruct(_clArg,_ownerType, _fieldId, _shiftArgument, _ancestor, _affField, _formatType);
         l_.setInstanceCall(_previous);
         l_.setStaticField(_staticField);
@@ -56,7 +60,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         if (_fieldId != null) {
             String name_ = _fieldId.getFieldName();
             String clName_ = _fieldId.getClassName();
-            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, _returnFieldType, _staticField, _finalField, AccessEnum.PUBLIC);
+            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, _returnFieldType, _staticField, _finalField, AccessEnum.PUBLIC, _formCl);
             f_.setFileName(_fileName);
             f_.setAnnotableBlock(_infoBlock);
             f_.setDeclaring(_rootBlock);

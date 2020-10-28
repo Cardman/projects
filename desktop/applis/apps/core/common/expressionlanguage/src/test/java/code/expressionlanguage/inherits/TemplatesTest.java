@@ -811,7 +811,12 @@ public final class TemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         assertTrue(!correctNbParameters(cont_, "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>"));
     }
-
+    @Test
+    public void correctNbParameters2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertTrue(!correctNbParameters(cont_, ""));
+    }
 
     @Test
     public void isCorrectTemplate69Test() {

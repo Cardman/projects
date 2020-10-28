@@ -25,7 +25,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         ConstructorMetaInfo method_ = NumParsers.getCtor(getGlobalStruct());
-        String className_ = method_.getClassName();
+        String className_ = method_.getDeclaringClass();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         if (ExecutingUtil.isAbstractType(type_)) {
