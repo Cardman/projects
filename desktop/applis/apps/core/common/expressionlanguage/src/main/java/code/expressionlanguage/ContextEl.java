@@ -149,6 +149,13 @@ public abstract class ContextEl {
     }
 
 
+    public AbstractMethodCriteria getDefCriteria() {
+        return getExecutionInfos().getDefCriteria();
+    }
+
+    public AbstractMethodCriteria getStaticCriteria() {
+        return getExecutionInfos().getStaticCriteria();
+    }
     public Classes getClasses() {
         return getExecutionInfos().getClasses();
     }

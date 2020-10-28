@@ -1459,11 +1459,11 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            CustList<MethodMetaInfo> candidates_;
-            candidates_ = new CustList<MethodMetaInfo>();
+            AbstractMethodCriteria abs_ = _cont.getDefCriteria();
+            CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
             for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                 MethodId id_ = o.getId();
-                if (eq(id_,_args[0],NullStruct.NULL_VALUE,_args[1],_args[2])) {
+                if (eqStatic(id_, _args[0], NullStruct.NULL_VALUE, _args[1], _args[2], abs_)) {
                     String ret_ = o.getImportedReturnType();
                     AccessEnum acc_ = o.getAccess();
                     MethodId fid_;
@@ -1527,9 +1527,8 @@ public final class AliasReflection {
             CustList<ConstructorMetaInfo> candidates_;
             candidates_ = new CustList<ConstructorMetaInfo>();
             for (ConstructorMetaInfo e: ctors_) {
-                ConstructorId id_ = e.getRealId();
-                id_ = ExecutingUtil.tryFormatId(instClassName_,_cont,id_);
-                if (eq(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0],_args[1])) {
+                ConstructorId id_ = ExecutingUtil.tryFormatId(instClassName_,_cont,e.getRealId());
+                if (eq(id_, _args[0],_args[1])) {
                     candidates_.add(e);
                 }
             }
@@ -1612,7 +1611,8 @@ public final class AliasReflection {
             }
             if (cl_.isTypeArray()) {
                 MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
-                if (!eq(id_,_args[0],_args[1],_args[2],_args[3])) {
+                AbstractMethodCriteria abs_ = _cont.getDefCriteria();
+                if (!eqStatic(id_, _args[0], _args[1], _args[2], _args[3], abs_)) {
                     ArrayStruct str_ = new ArrayStruct(0, className_);
                     result_.setResult(str_);
                     return result_;
@@ -1644,28 +1644,21 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
-            if (_args.length == 0) {
-                CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
-                for (MethodMetaInfo e: methods_) {
-                    if (e.getKind() == MethodAccessKind.INSTANCE) {
-                        continue;
-                    }
-                    stMethods_.add(e);
+            CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
+            for (MethodMetaInfo e: methods_) {
+                if (e.getKind() == MethodAccessKind.INSTANCE) {
+                    continue;
                 }
+                stMethods_.add(e);
+            }
+            if (_args.length == 0) {
                 ArrayStruct str_ = getMethodsMeta(className_, stMethods_);
                 result_.setResult(str_);
                 return result_;
             }
-            CustList<MethodMetaInfo> candidates_;
-            candidates_ = new CustList<MethodMetaInfo>();
+            AbstractMethodCriteria abs_ = _cont.getStaticCriteria();
             String instClassName_ = cl_.getName();
-            for (MethodMetaInfo e : methods_) {
-                MethodId id_ = e.getRealId();
-                id_ = ExecutingUtil.tryFormatId(instClassName_,_cont,id_);
-                if (eqType(id_,_args[0],_args[1],_args[2],_args[3])) {
-                    candidates_.add(e);
-                }
-            }
+            CustList<MethodMetaInfo> candidates_ = filterMethods(_cont,stMethods_,instClassName_,_args[0], _args[1], _args[2], _args[3], abs_);
             ArrayStruct str_ = getMethodsMeta(className_, candidates_);
             result_.setResult(str_);
             return result_;
@@ -2003,12 +1996,15 @@ public final class AliasReflection {
     }
 
     private static CustList<MethodMetaInfo> filterMethods(ContextEl _cont, CustList<MethodMetaInfo> _methods, String _instClassName, Struct _name, Struct _static, Struct _vararg, Struct _params) {
-        CustList<MethodMetaInfo> candidates_;
-        candidates_ = new CustList<MethodMetaInfo>();
+        AbstractMethodCriteria abs_ = _cont.getDefCriteria();
+        return filterMethods(_cont, _methods, _instClassName, _name, _static, _vararg, _params, abs_);
+    }
+
+    private static CustList<MethodMetaInfo> filterMethods(ContextEl _cont, CustList<MethodMetaInfo> _methods, String _instClassName, Struct _name, Struct _static, Struct _vararg, Struct _params, AbstractMethodCriteria _abs) {
+        CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
         for (MethodMetaInfo e : _methods) {
-            MethodId id_ = e.getRealId();
-            id_ = ExecutingUtil.tryFormatId(_instClassName,_cont,id_);
-            if (eq(id_, _name, _static, _vararg, _params)) {
+            MethodId id_ = ExecutingUtil.tryFormatId(_instClassName,_cont,e.getRealId());
+            if (eqStatic(id_, _name, _static, _vararg, _params, _abs)) {
                 candidates_.add(e);
             }
         }
@@ -2180,16 +2176,13 @@ public final class AliasReflection {
         return ret_;
     }
 
-    private static boolean eq(Identifiable _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
-        BooleanStruct stMeth_ = BooleanStruct.of(_id.isStaticMethod());
-        return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
+    private static boolean eq(Identifiable _id, Struct _vararg, Struct _params) {
+        BooleanStruct stMeth_ = BooleanStruct.of(false);
+        return eqStatic(_id, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _vararg, _params, stMeth_);
     }
 
-    private static boolean eqType(MethodId _id, Struct _name, Struct _static, Struct _vararg, Struct _params) {
-        if (_id.getKind() == MethodAccessKind.INSTANCE) {
-            return false;
-        }
-        BooleanStruct stMeth_ = BooleanStruct.of(!_id.canAccessParamTypes());
+    private static boolean eqStatic(MethodId _id, Struct _name, Struct _static, Struct _vararg, Struct _params, AbstractMethodCriteria _abs) {
+        BooleanStruct stMeth_ = _abs.matches(_id);
         return eqStatic(_id, _name, _static, _vararg, _params, stMeth_);
     }
 
@@ -2213,8 +2206,7 @@ public final class AliasReflection {
         }
         if (_params instanceof ArrayStruct) {
             ArrayStruct params_ = (ArrayStruct) _params;
-            StringList parTypes_ = _id.getParametersTypes();
-            int parLen_ = parTypes_.size();
+            int parLen_ = _id.getParametersTypesLength();
             if (params_.getLength() != parLen_) {
                 return false;
             }
@@ -2222,7 +2214,7 @@ public final class AliasReflection {
                 Struct par_ = params_.get(i);
                 if (par_ instanceof ClassMetaInfo) {
                     ClassMetaInfo p_ = NumParsers.getClass(par_);
-                    if (!StringUtil.quickEq(p_.getName(), parTypes_.get(i))) {
+                    if (!StringUtil.quickEq(p_.getName(), _id.getParametersType(i))) {
                         return false;
                     }
                 }

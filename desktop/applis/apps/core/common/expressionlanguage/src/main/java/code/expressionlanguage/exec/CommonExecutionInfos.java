@@ -13,6 +13,8 @@ public final class CommonExecutionInfos {
     private final Coverage coverage;
     private final DefaultLockingClass locks;
     private final Initializer initializer;
+    private final AbstractMethodCriteria defCriteria = new DefaultMethodCriteria();
+    private final AbstractMethodCriteria staticCriteria = new StaticMethodCriteria();
 
     public CommonExecutionInfos(int _tabWidth, int _stackOverFlow,
                                 LgNames _standards, Classes _classes, Coverage _coverage,
@@ -52,5 +54,13 @@ public final class CommonExecutionInfos {
 
     public Initializer getInitializer() {
         return initializer;
+    }
+
+    public AbstractMethodCriteria getDefCriteria() {
+        return defCriteria;
+    }
+
+    public AbstractMethodCriteria getStaticCriteria() {
+        return staticCriteria;
     }
 }

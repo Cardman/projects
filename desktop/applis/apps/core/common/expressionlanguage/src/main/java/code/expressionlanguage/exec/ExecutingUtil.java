@@ -8,10 +8,7 @@ import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 
 import code.expressionlanguage.stds.*;
