@@ -37,7 +37,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         if (instancingAnnotContent.isArray()) {
             int nbCh_ = chidren_.size();
             Ints dims_;

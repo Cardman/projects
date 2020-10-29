@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -30,7 +31,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = root_;
         } else {
-            elt_ = ((ExecMethodOperation)root_).getChildrenNodes().last();
+            elt_ = ExecTemplates.getLastNode((ExecMethodOperation)root_);
         }
         return elt_;
     }
@@ -38,7 +39,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
         ExecMethodOperation elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = root_.getParent();
+            elt_ = ExecTemplates.getParentOrNull(root_);
         } else {
             elt_ = (ExecMethodOperation)root_;
         }
@@ -68,9 +69,8 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
                 return;
             }
         }
-        ExecOperationNode right_ = getChildrenNodes().last();
-        Argument rightArg_ = getArgument(_nodes, right_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
+        Argument rightArg_ = getLastArgument(_nodes, this);
+        setRelOffsetPossibleLastPage(opOffset,_conf);
         Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
     }

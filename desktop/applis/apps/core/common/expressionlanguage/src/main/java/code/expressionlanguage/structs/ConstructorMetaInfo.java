@@ -36,12 +36,12 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     public ConstructorMetaInfo(String _declaringClass, AccessEnum _access, ConstructorId _realId, String _returnType,
                                ConstructorId _fid, String _formDeclaringClass) {
         invokable = true;
-        declaringClass = _declaringClass;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
         access = _access;
         realId = _realId;
-        returnType = _returnType;
+        returnType = StringUtil.nullToEmpty(_returnType);
         fid = _fid;
-        formDeclaringClass = _formDeclaringClass;
+        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -78,7 +78,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     }
 
     public void setFileName(String _fileName) {
-        fileName = _fileName;
+        fileName = StringUtil.nullToEmpty(_fileName);
     }
 
     public ConstructorId getRealId() {

@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation {
 
     private String fctName;
     public RendCallDynMethodOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, String _fctName) {
@@ -32,12 +32,11 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
             setSimpleArgument(res_, _conf, _nodes, _context);
             return;
         }
-        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<Argument> arguments_ = getArguments(_all,this);
         return ExecInvokingOperation.prepareCallDyn(_previous, arguments_, _context);
     }

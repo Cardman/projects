@@ -44,13 +44,13 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
                          boolean _finalField,
                          AccessEnum _access, String _formDeclaringClass) {
         invokable = true;
-        declaringClass = _declaringClass;
-        name = _name;
-        type = _returnType;
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        name = StringUtil.nullToEmpty(_name);
+        type = StringUtil.nullToEmpty(_returnType);
         staticField = _static;
         finalField = _finalField;
         access = _access;
-        formDeclaringClass = _formDeclaringClass;
+        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -75,7 +75,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     }
 
     public void setFileName(String _fileName) {
-        fileName = _fileName;
+        fileName = StringUtil.nullToEmpty(_fileName);
     }
 
     public boolean isPublic() {

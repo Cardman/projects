@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -22,11 +21,8 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
 
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ExecOperationNode opOne_ = chidren_.first();
-        ExecOperationNode opTwo_ = chidren_.last();
-        Argument first_ = getArgument(_nodes,opOne_);
-        Argument second_ = getArgument(_nodes,opTwo_);
+        Argument first_ = getFirstArgument(_nodes,this);
+        Argument second_ = getLastArgument(_nodes,this);
         boolean complement_ = false;
         String op_ = oper.trim();
         if (StringUtil.quickEq(op_, DIFF)) {

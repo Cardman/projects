@@ -29,7 +29,7 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
+        setRelOffsetPossibleLastPage(getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
         ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, className, kind);

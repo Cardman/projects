@@ -27,7 +27,7 @@ public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(arg_, _conf, _nodes);
     }
     Argument getCommonArgument(Argument _argument, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _conf);
+        setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _conf);
         return ExecInvokingOperation.tryGetEnumValue(_conf.getExiting(), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM, _argument);
     }
 

@@ -25,7 +25,7 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
     }
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _conf);
+        setRelOffsetPossibleLastPage(namedContent.getOffset(), _conf);
         return _arguments.first();
     }
 

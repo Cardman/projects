@@ -12,7 +12,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation implements RendCallable {
+public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
 
     private ExecValuesContent valuesContent;
 
@@ -24,7 +24,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
@@ -33,8 +33,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
         return ExecInvokingOperation.tryGetEnumValue(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM,_argument);
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         return getCommonArgument(first_.first(),_conf, _context);

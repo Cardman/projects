@@ -37,7 +37,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         }
     }
     private Argument getCommonArgument(ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
+        setRelOffsetPossibleLastPage(variableContent.getOff(), _conf);
         PageEl ip_ = _conf.getLastPage();
         if (resultCanBeSet()) {
             return Argument.createVoid();
@@ -57,8 +57,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
+        Struct store_ = a_.getStruct();
         return getCommonCompoundSetting(_conf, store_, _op, _right,_cl, _cast);
     }
 
@@ -67,8 +66,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
+        Struct store_ = a_.getStruct();
         return getCommonSemiSetting(_conf, store_, _op, _post, _cast);
     }
 

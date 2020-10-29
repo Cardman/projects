@@ -21,7 +21,7 @@ public final class ExecArrayElementOperation extends
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         String me_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(me_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String cl_ = getClassName();
         String className_ = _conf.formatVarType(cl_);
 

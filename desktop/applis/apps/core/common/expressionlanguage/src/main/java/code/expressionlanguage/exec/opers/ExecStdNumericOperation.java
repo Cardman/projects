@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class ExecStdNumericOperation extends ExecNumericOperation {
@@ -18,16 +17,11 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ExecOperationNode o_ = chidren_.first();
-        Argument a_ = getArgument(_nodes,o_);
-        o_ = chidren_.last();
-        Argument c_ = getArgument(_nodes,o_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
-        Argument r_;
-        r_ = calculateOper(a_, oper, c_, _conf);
-        a_ = r_;
-        setSimpleArgument(a_, _conf, _nodes);
+        Argument a_ = getFirstArgument(_nodes,this);
+        Argument c_ = getLastArgument(_nodes,this);
+        setRelOffsetPossibleLastPage(getOpOffset(), _conf);
+        Argument r_ = calculateOper(a_, oper, c_, _conf);
+        setSimpleArgument(r_, _conf, _nodes);
     }
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
 

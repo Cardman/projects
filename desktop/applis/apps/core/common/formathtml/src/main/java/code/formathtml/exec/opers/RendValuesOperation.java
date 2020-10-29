@@ -11,7 +11,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation,RendCallable {
+public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation {
 
     private ExecValuesContent valuesContent;
 
@@ -22,7 +22,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getCommonArgument(_conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
@@ -31,8 +31,4 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
         return ExecInvokingOperation.tryGetEnumValues(_context.getExiting(), _context, valuesContent.getRootBlock(),ClassCategory.ENUM);
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return getCommonArgument(_conf, _context);
-    }
 }

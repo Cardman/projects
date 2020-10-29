@@ -19,7 +19,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation,RendCallable {
+public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
@@ -70,7 +70,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             chidren_.add(left_);
             chidren_.add(right_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null, _advStandards, _context);
+            res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _context);
                 if (conv_ == null) {
@@ -138,8 +138,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         return operatorContent.getOper();
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName());

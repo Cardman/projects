@@ -7,23 +7,23 @@ import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -1101,6 +1101,38 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/2),myAnnot2=@pkg.Annot(pkg.Annot/1)),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
         assertTrue(!ExecTemplates.hasNext(NullStruct.NULL_VALUE, 0));
+    }
+    @Test
+    public void getFirstArgument() {
+        assertEq("",ExecTemplates.getFirstArgument(new CustList<Argument>()).getStruct().getClassName(null));
+    }
+    @Test
+    public void getLastArgument() {
+        assertEq("",ExecTemplates.getLastArgument(new CustList<Argument>(Argument.createVoid())).getStruct().getClassName(null));
+    }
+    @Test
+    public void setArgumentExp() {
+        ExpressionLanguage ex_ = new ExpressionLanguage(new CustList<ExecOperationNode>());
+        ex_.setArgument(null,null);
+        assertEq(0,ex_.getIndex());
+    }
+    @Test
+    public void getParentOrNull() {
+        assertNull(ExecTemplates.getParentOrNull(null));
+    }
+    @Test
+    public void getFirstNode() {
+        assertNull(ExecTemplates.getFirstNode(null));
+    }
+    @Test
+    public void getArgumentPair() {
+        assertNotNull(ExecTemplates.getArgumentPair(new IdMap<ExecOperationNode, ArgumentsPair>(),null));
+    }
+    @Test
+    public void getGenericTypeNameOrObject() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl c_ = validated(files_);
+        assertNotNull(ExecTemplates.getGenericTypeNameOrObject(c_,""));
     }
     private static ArrayStruct defaultArray() {
         ArrayStruct array_ = new ArrayStruct(1, "[java.lang.Number");

@@ -33,6 +33,23 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument arg_ = RendDynOperationNode.processCall(getCommonArgument(previous_, _conf, _advStandards, _context), _context);
+        if (_context.callsOrException()) {
+            return;
+        }
+        boolean simple_ = false;
+        if (resultCanBeSet()) {
+            simple_ = true;
+        }
+        if (simple_) {
+            setQuickNoConvertSimpleArgument(arg_, _nodes, _context);
+        } else {
+            setSimpleArgument(arg_, _conf,_nodes, _context);
+        }
+    }
+
     Argument getCommonArgument(Argument _previous, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
         if (resultCanBeSet()) {
             return Argument.createVoid();
@@ -43,7 +60,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        return processCall(this, this, previous_,_nodes, _conf, _right, _advStandards, _context);
+        return RendDynOperationNode.processCall(getCommonSetting(previous_, _conf, _right, _advStandards, _context), _context);
     }
 
     @Override
@@ -124,14 +141,6 @@ public final class RendSettableFieldOperation extends
 
     public int getAnc() {
         return settableFieldContent.getAnc();
-    }
-
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        if (_right != null) {
-            return getCommonSetting(_previous,_conf,_right, _advStandards, _context);
-        }
-        return getCommonArgument(_previous,_conf, _advStandards, _context);
     }
 
     public ExecRootBlock getRootBlock() {

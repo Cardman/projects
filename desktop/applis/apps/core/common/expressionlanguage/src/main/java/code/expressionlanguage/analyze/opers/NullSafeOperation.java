@@ -1,19 +1,18 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class NullSafeOperation extends MethodOperation {
+
+    private int opOffset;
 
     public NullSafeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -31,6 +30,7 @@ public final class NullSafeOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
+        opOffset = opThree_.getIndexInEl();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
@@ -66,4 +66,7 @@ public final class NullSafeOperation extends MethodOperation {
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 
+    public int getOpOffset() {
+        return opOffset;
+    }
 }

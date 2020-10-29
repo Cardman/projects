@@ -27,7 +27,7 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
 
     Argument getArgument(Argument _previous, ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         return cloneArray(_previous, _conf);
     }
 

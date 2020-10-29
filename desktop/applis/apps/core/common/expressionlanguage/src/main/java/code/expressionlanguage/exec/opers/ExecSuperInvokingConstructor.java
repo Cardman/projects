@@ -28,7 +28,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = getOffsetOper();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
 
         String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);

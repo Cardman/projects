@@ -1622,6 +1622,12 @@ public final class StringUtil {
         return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
+    public static String nullToEmpty(String _value) {
+        if (_value == null) {
+            return "";
+        }
+        return _value;
+    }
     public static boolean isWhitespace(char _ch) {
         return _ch <= ' ';
     }

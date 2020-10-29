@@ -29,7 +29,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _conf);
+        setRelOffsetPossibleLastPage(explicitContent.getOffset(), _conf);
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (ExecOperationNode o: getChildrenNodes()) {
             if (ExecConstLeafOperation.isFilter(o)) {

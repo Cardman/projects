@@ -30,7 +30,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
 
     Argument getArgument(Argument _previous, ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         return getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _conf);
     }
 

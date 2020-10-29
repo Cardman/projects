@@ -3,7 +3,6 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -65,8 +64,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         constructorsInfos = new CustList<ConstructorMetaInfo>();
     }
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
-        name = _name;
-        variableOwner = _variableOwner;
+        name = StringUtil.nullToEmpty(_name);
+        variableOwner = StringUtil.nullToEmpty(_variableOwner);
         staticType = true;
         typeOwner = EMPTY_STRING;
         if (_cat == ClassCategory.ARRAY) {
@@ -120,14 +119,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         finalType = true;
     }
     public ClassMetaInfo(String _name, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         upperBounds.addAllElts(_upperBounds);
         lowerBounds.addAllElts(_lowerBounds);
         access = _access;
         abstractType = true;
         typeOwner = EMPTY_STRING;
         superClass = EMPTY_STRING;
-        variableOwner = _variableOwner;
+        variableOwner = StringUtil.nullToEmpty(_variableOwner);
         fieldsInfos = new StringMap<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();
         implicitsInfos = new CustList<MethodMetaInfo>();
@@ -157,9 +156,9 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             boolean _finalType, AccessEnum _access) {
         variableOwner = "";
         memberTypes.addAllElts(_memberTypes);
-        typeOwner = _typeOwner;
-        name = _name;
-        superClass = _superClass;
+        typeOwner = StringUtil.nullToEmpty(_typeOwner);
+        name = StringUtil.nullToEmpty(_name);
+        superClass = StringUtil.nullToEmpty(_superClass);
         superInterfaces.addAllElts(_superInterfaces);
         fieldsInfos = _fields;
         explicitsInfos = _exlicits;
@@ -186,9 +185,9 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
                          CustList<ConstructorMetaInfo> _constructors,
             ClassCategory _category, boolean _staticType, AccessEnum _access) {
         variableOwner = "";
-        typeOwner = _typeOwner;
+        typeOwner = StringUtil.nullToEmpty(_typeOwner);
         memberTypes.addAllElts(_memberTypes);
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         superInterfaces.addAllElts(_superInterfaces);
         superClass = EMPTY_STRING;
         fieldsInfos = _fields;
@@ -249,7 +248,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     }
 
     public void setFileName(String _fileName) {
-        fileName = _fileName;
+        fileName = StringUtil.nullToEmpty(_fileName);
     }
 
     public String getVariableOwner() {

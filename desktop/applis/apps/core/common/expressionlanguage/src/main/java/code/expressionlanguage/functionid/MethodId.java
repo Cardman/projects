@@ -34,19 +34,19 @@ public final class MethodId implements Identifiable {
     public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames, boolean _vararg) {
         kind = _staticMethod;
         vararg = _vararg;
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         classNames = new StringList();
         feedParamTypes(_classNames);
     }
 
-    public static FormattedMethodId to(MethodId _id) {
-        return new FormattedMethodId(_id.name, _id.classNames, _id.vararg);
-    }
-
     private void feedParamTypes(StringList _classNames) {
         for (String s: _classNames) {
-            classNames.add(s);
+            classNames.add(StringUtil.nullToEmpty(s));
         }
+    }
+
+    public static FormattedMethodId to(MethodId _id) {
+        return new FormattedMethodId(_id.name, _id.classNames, _id.vararg);
     }
 
     public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {

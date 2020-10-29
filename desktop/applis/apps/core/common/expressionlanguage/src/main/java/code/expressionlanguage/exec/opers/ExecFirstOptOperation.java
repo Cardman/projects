@@ -24,7 +24,7 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation {
     }
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
+        setRelOffsetPossibleLastPage(offset, _conf);
         return _arguments.first();
     }
 }

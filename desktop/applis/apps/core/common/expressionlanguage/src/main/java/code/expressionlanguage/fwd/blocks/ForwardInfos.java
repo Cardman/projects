@@ -925,7 +925,7 @@ public final class ForwardInfos {
         _coverage.putBlockOperation(_forwards, _currentBlock, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
-            if (exp_ instanceof ExecMethodOperation && op_ != null) {
+            if (hasToCreateExec(exp_, op_)) {
                 ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                 setImplicits(loc_, op_, _forwards);
                 _coverage.putBlockOperation(_forwards, _currentBlock, op_,loc_);
@@ -934,7 +934,7 @@ public final class ForwardInfos {
                 current_ = op_;
                 continue;
             }
-            while (true) {
+            while (current_ != null) {
                 if (exp_ instanceof ExecAffectationOperation) {
                     ((ExecAffectationOperation)exp_).setup();
                 }
@@ -946,11 +946,11 @@ public final class ForwardInfos {
                 }
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
-                if (op_ != null) {
+                ExecMethodOperation par_ = exp_.getParent();
+                if (hasToCreateExec(par_, op_)) {
                     ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                     setImplicits(loc_, op_, _forwards);
                     _coverage.putBlockOperation(_forwards, _currentBlock, op_,loc_);
-                    ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
                         exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
@@ -959,12 +959,11 @@ public final class ForwardInfos {
                     current_ = op_;
                     break;
                 }
-                op_ = current_.getParent();
-                if (op_ == null) {
+                if (par_ == null) {
                     current_ = null;
-                    break;
+                    continue;
                 }
-                ExecMethodOperation par_ = exp_.getParent();
+                op_ = current_.getParent();
                 if (op_ == _root) {
                     if (par_ instanceof ExecAffectationOperation) {
                         ((ExecAffectationOperation)par_).setup();
@@ -977,13 +976,17 @@ public final class ForwardInfos {
                     }
                     out_.add(par_);
                     current_ = null;
-                    break;
+                    continue;
                 }
                 current_ = op_;
                 exp_ = par_;
             }
         }
         return out_;
+    }
+
+    private static boolean hasToCreateExec(ExecOperationNode _exp, OperationNode _op) {
+        return _exp instanceof ExecMethodOperation && _op != null;
     }
 
     private static void setImplicits(ExecOperationNode _ex, OperationNode _ana, Forwards _forwards){
@@ -1436,15 +1439,15 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
-            return new ExecAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), fetchType(c_.getRootNumber(), _forwards), fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards));
+            return new ExecAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), fetchType(c_.getRootNumber(), _forwards), fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards),c_.getOpOffset());
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
-            return new ExecOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), fetchType(c_.getRootNumber(), _forwards), fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards));
+            return new ExecOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(c_.getClassMethodId()), fetchFunctionOp(c_.getRootNumber(), c_.getMemberNumber(), _forwards), fetchType(c_.getRootNumber(), _forwards), fetchImplicits(c_.getConverter(), c_.getRootNumberConv(), c_.getMemberNumberConv(), _forwards),c_.getOpOffset());
         }
         if (_anaNode instanceof NullSafeOperation) {
             NullSafeOperation c_ = (NullSafeOperation) _anaNode;
-            return new ExecNullSafeOperation(new ExecOperationContent(c_.getContent()));
+            return new ExecNullSafeOperation(new ExecOperationContent(c_.getContent()),c_.getOpOffset());
         }
         if (_anaNode instanceof AssocationOperation) {
             AssocationOperation c_ = (AssocationOperation) _anaNode;

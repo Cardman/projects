@@ -30,7 +30,7 @@ public final class ExecDimensionArrayInstancing extends
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(m_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String className_ = getClassName();
         className_ = _conf.formatVarType(className_);
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);

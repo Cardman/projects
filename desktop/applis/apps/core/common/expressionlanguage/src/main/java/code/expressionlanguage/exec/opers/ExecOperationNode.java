@@ -38,8 +38,6 @@ public abstract class ExecOperationNode {
 
     private ExecMethodOperation parent;
 
-    private ExecOperationNode nextSibling;
-
     private ExecOperationContent content;
 
     private ExecPossibleIntermediateDotted siblingSet;
@@ -69,6 +67,14 @@ public abstract class ExecOperationNode {
         parent = _parent;
     }
 
+    public final void setRelOffsetPossibleLastPage(int _offset, ContextEl _cont) {
+        _cont.setOffset(getIndexBegin()+getIndexInEl()+_offset);
+    }
+
+    public final void setRelativeOffsetPossibleLastPage(ContextEl _cont) {
+        _cont.setOffset(getIndexBegin()+getIndexInEl());
+    }
+
     public final void setRelativeOffsetPossibleLastPage(int _offset, ContextEl _cont) {
         _cont.setOffset(getIndexBegin()+_offset);
     }
@@ -80,10 +86,7 @@ public abstract class ExecOperationNode {
     public abstract ExecOperationNode getFirstChild();
 
     public final ExecOperationNode getNextSibling() {
-        return nextSibling;
-    }
-    final void setNextSibling(ExecOperationNode _nextSibling) {
-        nextSibling = _nextSibling;
+        return ExecTemplates.getNextNode(this);
     }
 
     protected Argument getPreviousArg(ExecPossibleIntermediateDotted _possible,IdMap<ExecOperationNode,ArgumentsPair> _nodes,  ContextEl _conf) {
@@ -103,13 +106,17 @@ public abstract class ExecOperationNode {
         return a_;
     }
     protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
+        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,_node).getArgument());
     }
-    protected static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return _nodes.getValue(_node.getOrder());
+    protected static Argument getFirstArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
+        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getFirstNode(_node)).getArgument());
+    }
+    protected static Argument getLastArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecMethodOperation _node) {
+        CustList<ExecOperationNode> childrenNodes_ = _node.getChildrenNodes();
+        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1)).getArgument());
     }
     protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
+        return Argument.getNullableValue(ExecTemplates.getArgumentPair(_nodes,_node).getPreviousArgument());
     }
 
     private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
@@ -117,20 +124,20 @@ public abstract class ExecOperationNode {
             return;
         }
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
-        Argument last_ = Argument.getNullableValue(_nodes.getValue(getOrder()).getArgument());
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        Argument last_ = Argument.getNullableValue(pair_.getArgument());
         if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (last_.isNull()) {
                 LgNames stds_ = _cont.getStandards();
-                String null_;
-                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
+                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                setRelativeOffsetPossibleLastPage(_cont);
                 _cont.setCallingState(new ErrorStruct(_cont,null_));
                 return;
             }
         }
         if (unwrapObjectNb_ > -1) {
             Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
-            _nodes.getValue(getOrder()).setArgument(arg_);
+            pair_.setArgument(arg_);
         }
     }
 
@@ -164,7 +171,7 @@ public abstract class ExecOperationNode {
         }
         if (par_ instanceof ExecSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
-                ExecOperationNode last_ = par_.getChildrenNodes().last();
+                ExecOperationNode last_ = ExecTemplates.getLastNode(par_);
                 boolean skip_ = true;
                 if (last_ instanceof ExecAbstractLambdaOperation) {
                     skip_ = false;
@@ -206,7 +213,7 @@ public abstract class ExecOperationNode {
             }
             if (index_ == 0) {
                 if (BooleanStruct.isFalse(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
+                    return ExecTemplates.getOrder(_operation.getNextSibling()) + 1;
                 }
             }
         }
@@ -253,7 +260,7 @@ public abstract class ExecOperationNode {
         if (_conf.callsOrException()) {
             return;
         }
-        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
         ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         Argument before_ = _argument;
@@ -326,9 +333,9 @@ public abstract class ExecOperationNode {
     private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _arg) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ instanceof ExecOperationNode) {
-            _nodes.getValue(((ExecOperationNode)n_).getOrder()).setPreviousArgument(_arg);
+            ExecTemplates.getArgumentPair(_nodes,(ExecOperationNode)n_).setPreviousArgument(_arg);
         }
-        ArgumentsPair pair_ = _nodes.getValue(getOrder());
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
         pair_.setArgument(_arg);
         _conf.getCoverage().passBlockOperation(_conf, this, !_possiblePartial, pair_);
     }

@@ -26,7 +26,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     }
 
     Argument getCommonArgument(ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ thisContent.getOff(), _conf);
+        setRelOffsetPossibleLastPage(thisContent.getOff(), _conf);
         PageEl ip_ = _conf.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {

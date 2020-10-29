@@ -30,6 +30,8 @@ public abstract class QuickOperation extends MethodOperation {
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
     private CustList<PartOffset> errSecond = new CustList<PartOffset>();
 
+    private int opOffset;
+
     public QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -46,6 +48,7 @@ public abstract class QuickOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
+        opOffset = right_.getIndexInEl();
         AnaClassArgumentMatching leftRes_ = left_.getResultClass();
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
@@ -165,5 +168,9 @@ public abstract class QuickOperation extends MethodOperation {
 
     public int getMemberNumberConv() {
         return memberNumberConv;
+    }
+
+    public int getOpOffset() {
+        return opOffset;
     }
 }

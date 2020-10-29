@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.Struct;
 
 public final class ExecAndOperation extends ExecQuickOperation {
 
-    public ExecAndOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
-        super(_opCont, _staticEltContent, _named, _rootBlock, _converter);
+    public ExecAndOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter, int _opOffset) {
+        super(_opCont, _staticEltContent, _named, _rootBlock, _converter,_opOffset);
     }
 
     @Override

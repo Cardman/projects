@@ -13,7 +13,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendExplicitOperatorOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendExplicitOperatorOperation extends RendInvokingOperation implements RendCalculableOperation {
 
     private ExecStaticFctContent staticFctContent;
     private ExecNamedFunctionBlock named;
@@ -30,12 +30,11 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
-        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, staticFctContent.getNaturalVararg(), staticFctContent.getLastType(), first_);

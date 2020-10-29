@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -30,11 +30,11 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaAnoContent.getMethod(), getReturnFieldType()));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), lambdaAnoContent.getMethod().getConstraints()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ClassMethodId _method, String _returnFieldType) {
-        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, _foundClass, _method, _returnFieldType, 0, false, false, false, false, isShiftArgument(), isSafeInstance(),
-                getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(),functionBlock,function, lambdaAnoContent.getDeclaring());
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, MethodId _constraints) {
+        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, _foundClass, _returnFieldType, isShiftArgument(), isSafeInstance(),
+                getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(),functionBlock,function, lambdaAnoContent.getDeclaring(), _constraints);
     }
 }

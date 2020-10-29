@@ -6,7 +6,6 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecStrCmpOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -20,12 +19,9 @@ public final class ExecStrCmpOperation extends ExecMethodOperation implements At
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ExecOperationNode opOne_ = chidren_.first();
-        ExecOperationNode opTwo_ = chidren_.last();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(), _conf);
-        Argument first_ = getArgument(_nodes,opOne_);
-        Argument second_ = getArgument(_nodes,opTwo_);
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _conf);
+        Argument first_ = getFirstArgument(_nodes,this);
+        Argument second_ = getLastArgument(_nodes,this);
         Argument arg_ = new Argument(NumParsers.compareStr(operatorContent.getOper(), first_.getStruct(), second_.getStruct()));
         setSimpleArgument(arg_, _conf, _nodes);
     }

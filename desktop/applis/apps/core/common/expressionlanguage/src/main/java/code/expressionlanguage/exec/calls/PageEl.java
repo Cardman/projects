@@ -28,7 +28,7 @@ public abstract class PageEl {
     }
 
     public void setGlobalArgument(Argument _globalArgument) {
-        globalArgument = _globalArgument;
+        globalArgument = Argument.getNullableValue(_globalArgument);
     }
 
     public StringMap<LocalVariable> getValueVars() {

@@ -30,7 +30,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = getOffsetOper();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
         checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
     }

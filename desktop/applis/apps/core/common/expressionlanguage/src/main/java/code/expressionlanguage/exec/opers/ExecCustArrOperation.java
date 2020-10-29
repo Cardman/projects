@@ -39,8 +39,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         if (resultCanBeSet()) {
-            Struct array_;
-            array_ = getPreviousArgument(_nodes,this).getStruct();
+            Struct array_ = getPreviousArgument(_nodes,this).getStruct();
             Argument a_ = new Argument(array_);
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
             return;
@@ -58,11 +57,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast);
         if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
@@ -73,11 +70,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         return getArgument(previous_,_nodes, _conf,res_);
     }
 
@@ -102,7 +97,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     private Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleLastPage(_conf);
         Struct argPrev_ = _previous.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getClassName(), argPrev_, _conf));
         if (_conf.callsOrException()) {

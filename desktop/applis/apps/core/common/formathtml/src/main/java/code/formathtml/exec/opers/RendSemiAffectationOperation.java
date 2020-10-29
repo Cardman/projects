@@ -19,7 +19,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendSemiAffectationOperation extends RendAbstractUnaryOperation implements RendCallable {
+public final class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private ExecStaticPostEltContent staticPostEltContent;
@@ -62,7 +62,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             chidren_.add(left_);
             Argument stored_ = getArgument(_nodes,left_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null, _advStandards, _context);
+            res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
             res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent, _advStandards, _context);
             setSimpleArgument(res_, _conf,_nodes, _context);
             return;
@@ -153,8 +153,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         return a_;
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticPostEltContent.getClassName());

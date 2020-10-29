@@ -10,7 +10,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation {
 
     private ExecStdFctContent stdFctContent;
 
@@ -22,7 +22,7 @@ public final class RendStdFctOperation extends RendInvokingOperation implements 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(_advStandards.getCommonFctArgument(this, previous_, _nodes, _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
@@ -46,8 +46,4 @@ public final class RendStdFctOperation extends RendInvokingOperation implements 
         return stdFctContent.isStaticMethod();
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return _advStandards.getCommonFctArgument(this,_previous,_all,_conf, _context);
-    }
 }

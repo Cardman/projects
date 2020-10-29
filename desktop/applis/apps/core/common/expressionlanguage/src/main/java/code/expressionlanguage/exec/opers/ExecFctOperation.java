@@ -46,7 +46,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
 
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String classNameFound_ = getClassName();
         Struct argPrev_ = _previous.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _conf));

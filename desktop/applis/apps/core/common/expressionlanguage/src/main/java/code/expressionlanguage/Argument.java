@@ -12,7 +12,7 @@ public final class Argument {
     }
 
     public Argument(Struct _object) {
-        object = _object;
+        object = getNull(_object);
     }
     public static Argument[] toArgArray(CustList<Argument> _args) {
         int len_ = _args.size();
@@ -60,7 +60,7 @@ public final class Argument {
     }
 
     public void setStruct(Struct _object) {
-        object = _object;
+        object = getNull(_object);
     }
 
     public static boolean isNotFalseValue(Argument _arg) {

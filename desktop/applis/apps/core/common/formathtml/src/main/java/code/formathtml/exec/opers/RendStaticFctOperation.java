@@ -14,7 +14,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendStaticFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendStaticFctOperation extends RendInvokingOperation implements RendCalculableOperation {
 
     private ExecStaticFctContent staticFctContent;
 
@@ -29,15 +29,10 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return getArgument(_all,_conf, _context);
-    }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());

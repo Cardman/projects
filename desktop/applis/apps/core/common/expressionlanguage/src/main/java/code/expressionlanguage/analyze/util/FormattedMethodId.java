@@ -12,14 +12,14 @@ public final class FormattedMethodId {
 
     public FormattedMethodId(String _name, StringList _classNames, boolean _vararg) {
         vararg = _vararg;
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         classNames = new StringList();
         feedParamTypes(_classNames);
     }
 
     private void feedParamTypes(StringList _classNames) {
         for (String s: _classNames) {
-            classNames.add(s);
+            classNames.add(StringUtil.nullToEmpty(s));
         }
     }
 

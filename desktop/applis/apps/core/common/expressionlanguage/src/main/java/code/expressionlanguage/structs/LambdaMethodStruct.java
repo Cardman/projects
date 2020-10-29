@@ -3,7 +3,6 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
@@ -11,8 +10,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     private final String className;
     private final String formClassName;
-
-    private final MethodId fid;
 
     private final boolean polymorph;
 
@@ -25,12 +22,13 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private boolean directCast;
     private boolean safeInstance;
     private boolean expCast;
+    private MethodAccessKind kind;
+    private String methodName = "";
     private Struct metaInfo = NullStruct.NULL_VALUE;
-    public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
-            boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
+    public LambdaMethodStruct(String _className, String _formClassName,
+                              boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
         className = _className;
         formClassName = _formClassName;
-        fid = _fid;
         polymorph = _polymorph;
         shiftInstance = _shiftInstance;
         ancestor = _ancestor;
@@ -57,8 +55,20 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return formClassName;
     }
 
-    public MethodId getFid() {
-        return fid;
+    public MethodAccessKind getKind() {
+        return kind;
+    }
+
+    public void setKind(MethodAccessKind _staticMethod) {
+        this.kind = _staticMethod;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String _methodName) {
+        methodName = _methodName;
     }
 
     public boolean isPolymorph() {
@@ -85,7 +95,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     }
 
     public boolean isStaticCall() {
-        return fid.getKind() == MethodAccessKind.STATIC_CALL || directCast || expCast;
+        return kind == MethodAccessKind.STATIC_CALL || directCast || expCast;
     }
     public boolean isDirectCast() {
         return directCast;

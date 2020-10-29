@@ -17,6 +17,7 @@ import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
+import code.util.core.StringUtil;
 
 public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
@@ -36,47 +37,49 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaMethodContent.getMethod(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph()));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints()));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ClassMethodId _method, String _returnFieldType, int _ancestor, boolean _directCast, boolean _polymorph) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, int _ancestor, boolean _directCast, boolean _polymorph, MethodId _constraints) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _method, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getFunctionBlock(), lambdaMethodContent.getFunction(), lambdaMethodContent.getDeclaring());
+        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getFunctionBlock(), lambdaMethodContent.getFunction(), lambdaMethodContent.getDeclaring(), _constraints);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, ClassMethodId _method, String _returnFieldType,
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,
                                    int _ancestor, boolean _directCast, boolean _polymorph, boolean _abstractMethod, boolean _expCast, boolean _shiftArgument, boolean _safeInstance,
-                                   String _clArg, String _fileName, ExecNamedFunctionBlock _functionBlock, ExecNamedFunctionBlock _function, ExecRootBlock _rootBlock) {
-        MethodId id_ = _method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, id_, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
+                                   String _clArg, String _fileName, ExecNamedFunctionBlock _functionBlock, ExecNamedFunctionBlock _function, ExecRootBlock _rootBlock, MethodId _constraints) {
+        LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
         l_.setInstanceCall(_previous);
         l_.setDirectCast(_directCast);
         l_.setExpCast(_expCast);
         l_.setSafeInstance(_safeInstance);
-        if (!(_ownerType.startsWith(StringExpUtil.ARR_CLASS) && id_.getName().startsWith("[]"))) {
-            MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _functionBlock, _function, _rootBlock, _ownerType, id_, l_);
+        l_.setMethodName(StringUtil.nullToEmpty(_constraints.getName()));
+        l_.setKind(_constraints.getKind());
+        if (!(_ownerType.startsWith(StringExpUtil.ARR_CLASS) && _constraints.getName().startsWith("[]"))) {
+            MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _functionBlock, _function, _rootBlock, _ownerType, _constraints, l_);
             l_.setMetaInfo(metaInfo_);
         }
         return l_;
     }
 
-    public static Struct newAnonymousLambda(Argument _previous, ContextEl _conf, String _foundClass, ClassMethodId _method, String _returnFieldType,
-                                   int _ancestor, boolean _directCast, boolean _polymorph, boolean _abstractMethod, boolean _expCast, boolean _shiftArgument, boolean _safeInstance,
-                                   String _name, AbstractPageEl _lastPage, String _fileName,ExecAnonymousFunctionBlock _functionBlock, ExecAnonymousFunctionBlock _function, ExecRootBlock _rootBlock) {
+    public static Struct newAnonymousLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType,
+                                     boolean _shiftArgument, boolean _safeInstance,
+                                     String _name, AbstractPageEl _lastPage, String _fileName, ExecAnonymousFunctionBlock _functionBlock, ExecAnonymousFunctionBlock _function, ExecRootBlock _rootBlock, MethodId _constraints) {
         String clArg_ = _name;
         String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        MethodId id_ = _method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
+        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, false, _shiftArgument, 0, false);
         l_.setInstanceCall(_previous);
-        l_.setDirectCast(_directCast);
-        l_.setExpCast(_expCast);
+        l_.setDirectCast(false);
+        l_.setExpCast(false);
         l_.setSafeInstance(_safeInstance);
-        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _functionBlock, _function, _rootBlock, ownerType_, id_, l_);
+        l_.setMethodName(StringUtil.nullToEmpty(_constraints.getName()));
+        l_.setKind(_constraints.getKind());
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, _fileName, _functionBlock, _function, _rootBlock, ownerType_, _constraints, l_);
         metaInfo_.setCache(new Cache(_lastPage));
         l_.setMetaInfo(metaInfo_);
         return l_;

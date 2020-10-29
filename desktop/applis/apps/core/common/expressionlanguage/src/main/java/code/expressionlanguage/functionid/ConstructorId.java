@@ -22,11 +22,11 @@ public final class ConstructorId implements Identifiable {
     private final boolean vararg;
 
     public ConstructorId(String _name, StringList _classNames, boolean _vararg) {
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         vararg = _vararg;
         classNames = new StringList();
         for (String s: _classNames) {
-            classNames.add(s);
+            classNames.add(StringUtil.nullToEmpty(s));
         }
     }
     

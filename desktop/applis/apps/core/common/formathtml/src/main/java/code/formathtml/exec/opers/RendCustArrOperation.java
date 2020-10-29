@@ -19,7 +19,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult,RendCallable {
+public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
 
     private ExecArrContent arrContent;
     private ExecInstFctContent instFctContent;
@@ -44,7 +44,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             setQuickNoConvertSimpleArgument(a_, _nodes, _context);
             return;
         }
-        processCalling(_nodes,_conf, null, _advStandards, _context);
+        processCalling(_nodes,_conf, null, _context);
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return processCalling(_nodes,_conf, _right, _advStandards, _context);
+        return processCalling(_nodes,_conf, _right, _context);
     }
 
     @Override
@@ -68,36 +68,36 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         if (_context.callsOrException()) {
             return res_;
         }
-        return processCalling(_nodes,_conf,res_, _advStandards, _context);
+        return processCalling(_nodes,_conf,res_, _context);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(_stored, _op, _cast);
-        Argument arg_ = processCalling(_nodes, _conf, res_, _advStandards, _context);
+        Argument arg_ = processCalling(_nodes, _conf, res_, _context);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,arg_);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return processCalling(_nodes, _conf, _right, _advStandards, _context);
+        return processCalling(_nodes, _conf, _right, _context);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        processCalling(_nodes, _conf, _right, _advStandards, _context);
+        processCalling(_nodes, _conf, _right, _context);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,_right);
     }
 
-    private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, ContextEl _context) {
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = processCall(this, this, previous_,_nodes,  _conf, _right, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _right, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
         return argres_;
     }
 
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, ContextEl _context) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         CustList<Argument> firstArgs_;

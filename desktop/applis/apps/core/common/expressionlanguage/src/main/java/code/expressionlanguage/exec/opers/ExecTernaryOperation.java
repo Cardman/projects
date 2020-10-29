@@ -26,7 +26,7 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument  getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
+        setRelOffsetPossibleLastPage(offsetLocal, _conf);
         Argument arg_;
         if (BooleanStruct.isTrue(_arguments.first().getStruct())) {
             arg_ = _arguments.get(IndexConstants.SECOND_INDEX);

@@ -2551,6 +2551,14 @@ public class StringListTest {
     public void compareStrings7(){
         assertEq(SortConstants.SWAP_SORT, StringUtil.compareStrings("ab","aa"));
     }
+    @Test
+    public void nullToEmpty1(){
+        assertEq("", StringUtil.nullToEmpty(null));
+    }
+    @Test
+    public void nullToEmpty2(){
+        assertEq("", StringUtil.nullToEmpty(""));
+    }
     static String replaceFinalFile(String _str) {
         int lastIndexDot_ = _str.lastIndexOf('.');
         if (lastIndexDot_ == IndexConstants.INDEX_NOT_FOUND_ELT) {

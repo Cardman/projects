@@ -28,7 +28,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
     }
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _conf);
+        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _conf);
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
             return new Argument(BooleanStruct.of(false));

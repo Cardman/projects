@@ -36,7 +36,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String classNameFound_ = getClassName();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {

@@ -27,7 +27,7 @@ public final class ExecDirectStandardInstancingOperation extends
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         CustList<Argument> firstArgs_ = getArgs(_nodes);
         return instancePrepareStd(_conf, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);
     }

@@ -5,7 +5,6 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation {
@@ -16,10 +15,9 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
 
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = getArgument(_nodes,chidren_.first());
+        Argument arg_ = getArgument(_nodes,getFirstChild());
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        setRelativeOffsetPossibleLastPage(_conf);
         Argument a_ = new Argument(o_.neg());
         setSimpleArgument(a_, _conf, _nodes);
     }

@@ -27,7 +27,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = getOffsetOper();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
 
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
         checkParametersCtors(_conf, _conf.getLastPage().getGlobalClass(), getRootBlock(),getCtor(), firstArgs_, InstancingStep.USING_THIS);

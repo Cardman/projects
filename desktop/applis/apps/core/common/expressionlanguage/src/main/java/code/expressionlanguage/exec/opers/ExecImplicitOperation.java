@@ -24,7 +24,7 @@ public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _conf);
+        setRelOffsetPossibleLastPage(explicitContent.getOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument argres_ =  ExecExplicitOperation.prepare(_conf.getExiting(),rootBlock,false,named,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf.getLastPage(),_conf);
         setSimpleArgument(argres_, _conf, _nodes);

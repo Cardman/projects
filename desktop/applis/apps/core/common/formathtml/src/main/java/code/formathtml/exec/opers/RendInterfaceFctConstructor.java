@@ -16,7 +16,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
+public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation {
     private String className;
 
     private ExecInvokingConstructorContent invokingConstructorContent;
@@ -50,12 +50,12 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
                 return;
             }
             _nodes.getValue(getParent().getFirstChild().getOrder()).setArgument(ref_);
-            Argument argres_ = processCall(this, this, ref_,_nodes, _conf, null, _advStandards, _context);
+            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, ref_, _conf, _context), _context);
             setSimpleArgument(argres_,_conf,_nodes, _context);
             return;
         }
         int order_ = getParent().getFirstChild().getOrder();
-        Argument argres_ = processCall(this, this, Argument.getNullableValue(_nodes.getValue(order_).getArgument()),_nodes, _conf, null, _advStandards, _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(_nodes.getValue(order_).getArgument()), _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, ContextEl _context) {
@@ -80,8 +80,4 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         return invokingConstructorContent.getNaturalVararg();
     }
 
-    @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return getArgument(_all,_previous,_conf, _context);
-    }
 }

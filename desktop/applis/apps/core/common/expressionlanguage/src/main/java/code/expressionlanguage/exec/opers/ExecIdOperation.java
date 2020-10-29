@@ -3,7 +3,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecIdOperation extends ExecAbstractUnaryOperation {
@@ -14,8 +13,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ExecOperationNode o_ = chidren_.first();
+        ExecOperationNode o_ = getFirstChild();
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof ExecSettableElResult) {

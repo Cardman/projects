@@ -9,6 +9,8 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
+import code.expressionlanguage.exec.opers.ExecMethodOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -16,6 +18,7 @@ import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.Identifiable;
@@ -200,7 +203,7 @@ public final class ExecTemplates {
             cl_ = StringExpUtil.getIdFromAllTypes(className_);
             g_ = _an.getClassBody(cl_);
         }
-        return current_;
+        return Argument.getNull(current_);
     }
 
     static boolean hasToLookForParent(ContextEl _an, String _id, GeneType _g) {
@@ -870,7 +873,7 @@ public final class ExecTemplates {
                 return null;
             }
 
-            varTypes_.put(t.getName(), arg_);
+            varTypes_.addEntry(t.getName(), arg_);
             i_++;
         }
         String formatted_ = StringExpUtil.getQuickFormattedType(pref_, varTypes_);
@@ -1615,5 +1618,74 @@ public final class ExecTemplates {
 
     public static boolean hasNext(Object _par, int _size) {
         return _par != null && _size != 0;
+    }
+    public static Argument getFirstArgument(CustList<Argument> _list) {
+        return getArgument(_list,0);
+    }
+    public static Argument getLastArgument(CustList<Argument> _list) {
+        return getArgument(_list,_list.size()-1);
+    }
+    public static Argument getArgument(CustList<Argument> _list, int _index) {
+        if (_list.isValidIndex(_index)) {
+            return Argument.getNullableValue(_list.get(_index));
+        }
+        return Argument.createVoid();
+    }
+    public static ExecMethodOperation getParentOrNull(ExecOperationNode _node) {
+        if (_node == null) {
+            return null;
+        }
+        return _node.getParent();
+    }
+    public static ExecOperationNode getMainNode(ExecOperationNode _node) {
+        ExecMethodOperation parent_ = _node.getParent();
+        return getFirstNode(parent_);
+    }
+
+    public static ExecOperationNode getFirstNode(ExecMethodOperation _parent) {
+        if (_parent == null) {
+            return null;
+        }
+        return getNode(_parent.getChildrenNodes(),0);
+    }
+
+    public static ExecOperationNode getLastNode(ExecMethodOperation _parent) {
+        CustList<ExecOperationNode> childrenNodes_ = _parent.getChildrenNodes();
+        return getNode(childrenNodes_,childrenNodes_.size()-1);
+    }
+    public static ExecOperationNode getNextNode(ExecOperationNode _node) {
+        ExecMethodOperation par_ = _node.getParent();
+        if (par_ == null) {
+            return null;
+        }
+        return getNode(par_.getChildrenNodes(),_node.getIndexChild()+1);
+    }
+    public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
+        int order_ = getOrder(_node);
+        if (!_nodes.isValidIndex(order_)) {
+            ArgumentsPair pair_ = new ArgumentsPair();
+            pair_.setArgument(Argument.createVoid());
+            return pair_;
+        }
+        return _nodes.getValue(order_);
+    }
+    public static int getOrder(ExecOperationNode _node) {
+        if (_node == null) {
+            return 0;
+        }
+        return _node.getOrder();
+    }
+    public static ExecOperationNode getNode(CustList<ExecOperationNode> _nodes, int _index) {
+        if (_nodes.isValidIndex(_index)) {
+            return _nodes.get(_index);
+        }
+        return null;
+    }
+    public static String getGenericTypeNameOrObject(ContextEl _ctx, String _id) {
+        GeneType classBody_ = _ctx.getClassBody(_id);
+        if (classBody_ != null) {
+            return classBody_.getGenericString();
+        }
+        return _ctx.getStandards().getCoreNames().getAliasObject();
     }
 }

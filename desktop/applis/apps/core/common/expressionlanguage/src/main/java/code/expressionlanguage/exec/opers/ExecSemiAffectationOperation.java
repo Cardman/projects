@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -49,7 +50,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
+                ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
                 pairBefore_.setEndCalculate(true);
                 pairBefore_.setIndexImplicitSemiFrom(-1);
                 pairBefore_.setIndexImplicitSemiTo(-1);
@@ -62,8 +63,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             }
         }
         if (named != null) {
-            CustList<ExecOperationNode> list_ = getChildrenNodes();
-            ExecOperationNode left_ = list_.first();
+            ExecOperationNode left_ = getFirstChild();
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add(left_);
             CustList<Argument> arguments_ = new CustList<Argument>();
@@ -73,22 +73,20 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock,named, firstArgs_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
             return;
         }
-        ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
+        ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = pairBefore_.getImplicitsSemiFrom();
         int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            CustList<ExecOperationNode> list_ = getChildrenNodes();
-            ExecOperationNode left_ = list_.first();
+            ExecOperationNode left_ = getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
-            Struct store_;
-            store_ = leftArg_.getStruct();
+            Struct store_ = leftArg_.getStruct();
             Argument l_ = new Argument(store_);
             pairBefore_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(), _conf);
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _conf);
         Argument arg_ = calculateSemiChSetting(_nodes, _conf);
-        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
     }
@@ -113,16 +111,14 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     @Override
     public void endCalculate(ContextEl _conf,
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ operatorContent.getOpOffset(), _conf);
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes,this);
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _conf);
         ImplicitMethods implicits_ = pair_.getImplicitsSemiFrom();
         int indexImplicit_ = pair_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            CustList<ExecOperationNode> list_ = getChildrenNodes();
-            ExecOperationNode left_ = list_.first();
+            ExecOperationNode left_ = getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
-            Struct store_;
-            store_ = leftArg_.getStruct();
+            Struct store_ = leftArg_.getStruct();
             Argument l_ = new Argument(store_);
             pair_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
@@ -160,20 +156,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     }
 
     private static Argument getNullArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecOperationNode _settable) {
-        Argument arg_ = null;
-        if (_settable instanceof ExecStdVariableOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof ExecSettableFieldOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof ExecCustArrOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        if (_settable instanceof ExecArrOperation) {
-            arg_ = getArgument(_nodes, _settable);
-        }
-        return Argument.getNullableValue(arg_);
+        return getArgument(_nodes, _settable);
     }
 
     private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, ExecStaticPostEltContent _staticPostEltContent) {

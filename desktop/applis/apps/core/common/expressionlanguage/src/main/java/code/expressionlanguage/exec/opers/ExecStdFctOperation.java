@@ -31,7 +31,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
 
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(stdFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         MethodId methodId_ = stdFctContent.getClassMethodId().getConstraints();
         String classNameFound_;
         Argument prev_;

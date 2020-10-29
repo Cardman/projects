@@ -35,7 +35,7 @@ public final class ExecAnonymousInstancingOperation extends
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String className_ = _conf.formatVarType(instancingCommonContent.getClassName());
         String base_ = StringExpUtil.getIdFromAllTypes(className_);
         if (_conf.getExiting().hasToExit(base_)) {

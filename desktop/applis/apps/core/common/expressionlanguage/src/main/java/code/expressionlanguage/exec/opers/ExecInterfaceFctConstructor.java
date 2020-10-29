@@ -22,8 +22,9 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        int order_ = getParent().getFirstChild().getOrder();
-        Argument mainArgument_ = Argument.getNullableValue(_nodes.getValue(order_).getArgument());
+        ExecOperationNode main_ = ExecTemplates.getMainNode(this);
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, main_);
+        Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
         if (getIndexChild() == 1) {
             //init and test
             Argument lda_ = new Argument(mainArgument_.getStruct());
@@ -38,7 +39,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
-            _nodes.getValue(order_).setArgument(ref_);
+            pair_.setArgument(ref_);
             Argument res_ = getArgument(_nodes,ref_, _conf);
             setSimpleArgument(res_, _conf, _nodes);
             return;
@@ -49,7 +50,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument, ContextEl _conf) {
         int off_ = getOffsetOper();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _conf);
         String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER);

@@ -57,14 +57,8 @@ public abstract class RendDynOperationNode {
     public void setParent(RendMethodOperation _parent) {
         parent = _parent;
     }
-    protected static Argument processCall(RendCallable _node, RendDynOperationNode _method,
-                                          Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
-                                          Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        Argument argres_ = _node.getArgument(_previous, _all, _conf, _right, _advStandards, _context);
-        return _method.processCall(argres_, _context);
-    }
 
-    private Argument processCall(Argument _res, ContextEl _context) {
+    protected static Argument processCall(Argument _res, ContextEl _context) {
         CallingState callingState_ = _context.getCallingState();
         Argument res_;
         if (callingState_ instanceof CustomFoundConstructor) {

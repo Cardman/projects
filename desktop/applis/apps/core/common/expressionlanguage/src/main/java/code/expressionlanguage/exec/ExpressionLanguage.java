@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -53,7 +54,7 @@ public final class ExpressionLanguage {
                     processCalling(_el, _context, pageEl_, o);
                     return;
                 }
-                fr_ = getNextIndex(_nodes,o);
+                fr_ = getNextIndex(_nodes,o, fr_ + 1);
                 continue;
             }
             if (pair_.getArgument() != null) {
@@ -62,7 +63,7 @@ public final class ExpressionLanguage {
                     processCalling(_el, _context, pageEl_, o);
                     return;
                 }
-                fr_ = getNextIndex(_nodes,o);
+                fr_ = getNextIndex(_nodes,o, fr_ + 1);
                 continue;
             }
             AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
@@ -71,7 +72,7 @@ public final class ExpressionLanguage {
                 processCalling(_el, _context, pageEl_, o);
                 return;
             }
-            fr_ = getNextIndex(_nodes,o);
+            fr_ = getNextIndex(_nodes,o, fr_ + 1);
         }
         pageEl_.setTranslatedOffset(0);
     }
@@ -101,13 +102,13 @@ public final class ExpressionLanguage {
                     break;
                 }
                 op_ = current_.getParent();
-                if (op_ == _root) {
-                    op_.setOrder(out_.size());
-                    out_.add(op_);
+                if (op_ == null) {
                     current_ = null;
                     break;
                 }
-                if (op_ == null) {
+                if (op_ == _root) {
+                    op_.setOrder(out_.size());
+                    out_.add(op_);
                     current_ = null;
                     break;
                 }
@@ -173,27 +174,32 @@ public final class ExpressionLanguage {
     }
 
     public void setArgument(Argument _arg, ContextEl _cont) {
-        if (currentOper instanceof CallExecSimpleOperation) {
-            ((CallExecSimpleOperation)currentOper).endCalculate(_cont, arguments, _arg);
+        ExecOperationNode currentOper_ = currentOper;
+        int least_ = index + 1;
+        if (currentOper_ == null) {
+            return;
+        }
+        if (currentOper_ instanceof CallExecSimpleOperation) {
+            ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg);
             if (_cont.callsOrException()) {
                 return;
             }
-            getNextIndex();
+            getNextIndex(currentOper_, least_);
             return;
         }
-        currentOper.setSimpleArgument(_arg, _cont, arguments);
+        currentOper_.setSimpleArgument(_arg, _cont, arguments);
         if (_cont.callsOrException()) {
             return;
         }
-        getNextIndex();
+        getNextIndex(currentOper_, least_);
     }
 
-    private void getNextIndex() {
-        index = getNextIndex(arguments,currentOper);
+    private void getNextIndex(ExecOperationNode _currentOper, int _least) {
+        index = getNextIndex(arguments, _currentOper, _least);
     }
 
-    private static int getNextIndex(IdMap<ExecOperationNode,ArgumentsPair> _args,ExecOperationNode _oper) {
-        ArgumentsPair value_ = _args.getValue(_oper.getOrder());
+    private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
+        ArgumentsPair value_ = ExecTemplates.getArgumentPair(_args,_oper);
         Argument res_ = Argument.getNullableValue(value_.getArgument());
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
@@ -214,7 +220,7 @@ public final class ExpressionLanguage {
                 }
             }
         }
-        return ExecOperationNode.getNextIndex(_oper, v_);
+        return Math.max(_least, ExecOperationNode.getNextIndex(_oper, v_));
     }
     public boolean isFinished() {
         return argument != null;
