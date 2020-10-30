@@ -1,4 +1,5 @@
 package code.expressionlanguage.exec.stacks;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.exec.blocks.ExecLoop;
 import code.expressionlanguage.structs.Struct;
@@ -36,7 +37,7 @@ public final class LoopBlockStack extends AbstractStask {
     }
 
     public void setStructIterator(Struct _structIterator) {
-        structIterator = _structIterator;
+        structIterator = Argument.getNull(_structIterator);
     }
 
     public boolean isFinished() {
@@ -108,6 +109,6 @@ public final class LoopBlockStack extends AbstractStask {
     }
 
     public void setContainer(Struct _container) {
-        this.container = _container;
+        this.container = Argument.getNull(_container);
     }
 }

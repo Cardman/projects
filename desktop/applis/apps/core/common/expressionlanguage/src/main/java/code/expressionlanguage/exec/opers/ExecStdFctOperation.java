@@ -33,10 +33,9 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(stdFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _conf);
         MethodId methodId_ = stdFctContent.getClassMethodId().getConstraints();
-        String classNameFound_;
+        String classNameFound_ = stdFctContent.getClassMethodId().getClassName();
         Argument prev_;
         if (!stdFctContent.isStaticMethod()) {
-            classNameFound_ = stdFctContent.getClassMethodId().getClassName();
             Struct argPrev_ = _previous.getStruct();
             prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, _conf));
             if (_conf.callsOrException()) {
@@ -45,7 +44,6 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         } else {
             prev_ = new Argument();
         }
-        classNameFound_ = stdFctContent.getClassMethodId().getClassName();
         CustList<Argument> firstArgs_ = getArgs(_nodes);
         return callStd(_conf.getExiting(),_conf, classNameFound_, methodId_, prev_, firstArgs_);
     }

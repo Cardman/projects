@@ -47,8 +47,9 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         _l.setEvaluatingKeepLoop(true);
         boolean hasNext_;
-        if (_l.getStructIterator() != null) {
-            ConditionReturn has_ = iteratorHasNext(_conf,_l);
+        ExecOperationNode el_ = opList.last();
+        if (!el_.getResultClass().isArray()) {
+            ConditionReturn has_ = iteratorHasNext(_conf, _l.getStructIterator());
             if (has_ == ConditionReturn.CALL_EX) {
                 return;
             }
@@ -56,13 +57,12 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         } else {
             hasNext_ = _l.hasNext();
         }
-        incrOrFinish(_conf, !hasNext_,_l);
+        incrOrFinish(_conf, !hasNext_,_l, _l.getStructIterator());
     }
 
-    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
-        Struct strIter_ = _l.getStructIterator();
+    private ConditionReturn iteratorHasNext(ContextEl _conf, Struct _structIterator) {
         String locName_ = getHasNextVar(_conf);
-        _conf.getLastPage().putInternVars(locName_, strIter_,_conf);
+        _conf.getLastPage().putInternVars(locName_, _structIterator,_conf);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
@@ -74,19 +74,18 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         return ConditionReturn.NO;
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l, Struct _structIterator) {
         _l.setIndex(_l.getIndex() + 1);
         AbstractPageEl abs_ = _conf.getLastPage();
 
         abs_.setGlobalOffset(variableNameOffset);
         abs_.setOffset(0);
-        Struct iterator_ = _l.getStructIterator();
         Struct element_ = NullStruct.NULL_VALUE;
         Argument arg_ = Argument.createVoid();
         ExecOperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
             String locName_ = getNextVar(_conf);
-            abs_.putInternVars(locName_, iterator_,_conf);
+            abs_.putInternVars(locName_, _structIterator,_conf);
             ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
             arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         } else {
@@ -239,11 +238,11 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
         ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,className_));
-        if (iterStr_ != null) {
-            iteratorHasNext(_cont,l_);
+        if (!el_.getResultClass().isArray()) {
+            iteratorHasNext(_cont, l_.getStructIterator());
             return;
         }
-        incrOrFinish(_cont, finished_,l_);
+        incrOrFinish(_cont, finished_,l_, l_.getStructIterator());
     }
 
     private int getLength(Struct _str,ContextEl _cont) {
@@ -254,7 +253,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         _cont.setCallingState(new ErrorStruct(_cont, npe_));
         return -1;
     }
-    private void incrOrFinish(ContextEl _cont, boolean _finished, LoopBlockStack _l) {
+    private void incrOrFinish(ContextEl _cont, boolean _finished, LoopBlockStack _l, Struct _structIterator) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (_finished) {
             ip_.clearCurrentEls();
@@ -264,7 +263,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             return;
         }
         _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
-        incrementLoop(_cont, _l);
+        incrementLoop(_cont, _l, _structIterator);
     }
 
 }

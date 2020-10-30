@@ -47,6 +47,40 @@ public final class ForwardInfos {
         }
         for (RootBlock r: _page.getAllFoundTypes()) {
             Members v_ = new Members();
+            FileBlock fileBlock_ = r.getFile();
+            ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
+            if (r instanceof AnonymousTypeBlock) {
+                ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+                _forwards.getMapAnonTypes().put((AnonymousTypeBlock)r, e_);
+            }
+            if (r instanceof ClassBlock) {
+                ExecClassBlock e_ = new ExecClassBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecClassContent(((ClassBlock) r).getClassContent()));
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+            }
+            if (r instanceof EnumBlock) {
+                ExecEnumBlock e_ = new ExecEnumBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+            }
+            if (r instanceof InterfaceBlock) {
+                ExecInterfaceBlock e_ = new ExecInterfaceBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), r.isStaticType());
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+            }
+            if (r instanceof AnnotationBlock) {
+                ExecAnnotationBlock e_ = new ExecAnnotationBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+            }
+            if (r instanceof InnerElementBlock) {
+                ExecInnerElementBlock e_ = new ExecInnerElementBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()));
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+                _forwards.getMapInnerEltTypes().put((InnerElementBlock) r, e_);
+            }
             _forwards.getMapMembers().put(r, v_);
         }
         Classes classes_ = _context.getClasses();
@@ -373,62 +407,34 @@ public final class ForwardInfos {
         if (parentType_ != null) {
             index_ = parentType_.getNumberAll();
         }
-        ExecRootBlock execParentType_ = null;
-        if (_forwards.getMapMembers().getKeys().isValidIndex(index_)) {
-            execParentType_ = _forwards.getMapMembers().getValue(index_).getRootBlock();
-        }
-        if (_root instanceof AnonymousTypeBlock) {
-            ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess());
+        ExecRootBlock execParentType_ = fetchType(index_,_forwards);
+        ExecRootBlock e_ = fetchType(_root.getNumberAll(),_forwards);
+        if (e_ instanceof ExecAnonymousTypeBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
-            _forwards.getMapAnonTypes().put((AnonymousTypeBlock)_root, e_);
             _classes.getClassesBodies().put(fullName_, e_);
         }
-        if (_root instanceof ClassBlock) {
-            ExecClassBlock e_ = new ExecClassBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess(), new ExecClassContent(((ClassBlock) _root).getClassContent()));
+        if (e_ instanceof ExecClassBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
             _classes.getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
-        if (_root instanceof EnumBlock) {
-            ExecEnumBlock e_ = new ExecEnumBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess());
+        if (e_ instanceof ExecEnumBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
             _classes.getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
-        if (_root instanceof InterfaceBlock) {
-            ExecInterfaceBlock e_ = new ExecInterfaceBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess(), _root.isStaticType());
+        if (e_ instanceof ExecInterfaceBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
             _classes.getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
-        if (_root instanceof AnnotationBlock) {
-            ExecAnnotationBlock e_ = new ExecAnnotationBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess());
+        if (e_ instanceof ExecAnnotationBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
             _classes.getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
-        if (_root instanceof InnerElementBlock) {
-            ExecInnerElementBlock e_ = new ExecInnerElementBlock(_root.getOffset().getOffsetTrim(), new ExecRootBlockContent(_root.getRootBlockContent()), _root.getAccess(), new ExecElementContent(((InnerElementBlock) _root).getElementContent()));
+        if (e_ instanceof ExecInnerElementBlock) {
             e_.setParentType(execParentType_);
-            e_.setFile(_exFile);
-            Members v_ = _forwards.getMapMembers().getValue(_root.getNumberAll());
-            v_.setRootBlock(e_);
-            _forwards.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
             _classes.getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
@@ -1044,15 +1050,15 @@ public final class ForwardInfos {
     }
 
     public static ExecRootBlock fetchType(int _nbRoot, Forwards _forwards) {
-        if (_forwards.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
+        if (_forwards.getMapMembers().isValidIndex(_nbRoot)) {
             return _forwards.getMapMembers().getValue(_nbRoot).getRootBlock();
         }
         return null;
     }
 
     public static ExecInfoBlock fetchField(int _rootNumber, int _memberNumber, Forwards _forwards) {
-        if (_forwards.getMapMembers().getKeys().isValidIndex(_rootNumber)) {
-            if (_forwards.getMapMembers().getValue(_rootNumber).getAllFields().getKeys().isValidIndex(_memberNumber)) {
+        if (_forwards.getMapMembers().isValidIndex(_rootNumber)) {
+            if (_forwards.getMapMembers().getValue(_rootNumber).getAllFields().isValidIndex(_memberNumber)) {
                 return _forwards.getMapMembers().getValue(_rootNumber).getAllFields().getValue(_memberNumber);
             }
         }
@@ -1078,13 +1084,13 @@ public final class ForwardInfos {
     }
 
     public static ExecNamedFunctionBlock fetchFunction(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
-        if (_forwards.getMapMembers().getKeys().isValidIndex(_rootNumber)) {
-            if (_forwards.getMapMembers().getValue(_rootNumber).getAllNamed().getKeys().isValidIndex(_memberNumber)) {
+        if (_forwards.getMapMembers().isValidIndex(_rootNumber)) {
+            if (_forwards.getMapMembers().getValue(_rootNumber).getAllNamed().isValidIndex(_memberNumber)) {
                 return _forwards.getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
             }
             return null;
         }
-        if (_forwards.getMapOperators().getKeys().isValidIndex(_operatorNumber)) {
+        if (_forwards.getMapOperators().isValidIndex(_operatorNumber)) {
             return _forwards.getMapOperators().getValue(_operatorNumber);
         }
         return null;
@@ -1095,8 +1101,8 @@ public final class ForwardInfos {
     }
 
     public static ExecNamedFunctionBlock fetchFunction(int _nbRoot, int _nbMember, Forwards _forwards) {
-        if (_forwards.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
-            if (_forwards.getMapMembers().getValue(_nbRoot).getAllNamed().getKeys().isValidIndex(_nbMember)) {
+        if (_forwards.getMapMembers().isValidIndex(_nbRoot)) {
+            if (_forwards.getMapMembers().getValue(_nbRoot).getAllNamed().isValidIndex(_nbMember)) {
                 return _forwards.getMapMembers().getValue(_nbRoot).getAllNamed().getValue(_nbMember);
             }
         }

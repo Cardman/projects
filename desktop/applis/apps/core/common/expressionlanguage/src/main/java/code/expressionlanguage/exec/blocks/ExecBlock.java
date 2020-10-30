@@ -148,9 +148,9 @@ public abstract class ExecBlock {
                     rw_.setBlock(par_);
                     AbruptCallingFinally call_ = ((TryBlockStack)lastStack_).getCalling();
                     if (call_ != null) {
-                        Object callingFinally_ = call_.getCallingFinally();
-                        if (callingFinally_ instanceof MethodCallingFinally) {
-                            ((MethodCallingFinally)callingFinally_).removeBlockFinally(_conf);
+                        MethodCallingFinally callingFinally_ = call_.getCallingFinally();
+                        if (callingFinally_ != null) {
+                            callingFinally_.removeBlockFinally(_conf);
                         } else {
                             Struct exception_ = ((TryBlockStack)lastStack_).getException();
                             _conf.setCallingState(exception_);

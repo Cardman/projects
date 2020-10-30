@@ -261,15 +261,19 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return upperBounds;
     }
     public StringList getBounds(ContextEl _cont) {
-        StringList list_;
-        list_ = new StringList();
+        StringList list_ = new StringList();
         String id_ = StringExpUtil.getIdFromAllTypes(variableOwner);
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
-        if (isNotVariable(g_, name)) {
+        String varName_ = "";
+        if (!name.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            g_ = null;
+        } else {
+            varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
+        }
+        if (g_ == null) {
             return list_;
         }
         CustList<ExecTypeVar> vars_ = g_.getParamTypesMapValues();
-        String varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
         for (ExecTypeVar b: vars_) {
             if (!StringUtil.quickEq(b.getName(), varName_)) {
                 continue;
@@ -277,10 +281,6 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             list_.addAllElts(b.getConstraints());
         }
         return list_;
-    }
-
-    public static boolean isNotVariable(Object _g, String _name) {
-        return _g == null || !_name.startsWith(Templates.PREFIX_VAR_TYPE);
     }
 
     public CustList<ClassMetaInfo> getTypeParameters(ContextEl _cont) {

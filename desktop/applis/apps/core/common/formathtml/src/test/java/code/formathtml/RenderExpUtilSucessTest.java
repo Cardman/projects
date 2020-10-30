@@ -2960,7 +2960,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setIndex(5);
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setVars(context_.getLastPage(), localVars_);
+        context_.getLastPage().getVars().addAllEntries(localVars_);
         Argument argument_ = calc("([arg])", context_);
         assertEq(5,getNumber(argument_));
     }

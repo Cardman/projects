@@ -1,5 +1,7 @@
 package code.expressionlanguage.exec.variables;
 
+import code.util.core.StringUtil;
+
 public final class LoopVariable {
 
     private long index;
@@ -19,6 +21,6 @@ public final class LoopVariable {
     }
 
     public void setIndexClassName(String _indexClassName) {
-        indexClassName = _indexClassName;
+        indexClassName = StringUtil.nullToEmpty(_indexClassName);
     }
 }

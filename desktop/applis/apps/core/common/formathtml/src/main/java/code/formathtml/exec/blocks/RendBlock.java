@@ -586,9 +586,9 @@ public abstract class RendBlock {
                     rw_.setRead(par_);
                     RendAbruptCallingFinally call_ = ((RendTryBlockStack)lastStack_).getCalling();
                     if (call_ != null) {
-                        Object callingFinally_ = call_.getCallingFinally();
-                        if (callingFinally_ instanceof RendMethodCallingFinally) {
-                            ((RendMethodCallingFinally)callingFinally_).removeBlockFinally(_conf,_advStandards,_ctx);
+                        RendMethodCallingFinally callingFinally_ = call_.getCallingFinally();
+                        if (callingFinally_ != null) {
+                            callingFinally_.removeBlockFinally(_conf,_advStandards,_ctx);
                         } else {
                             Struct exception_ = ((RendTryBlockStack)lastStack_).getException();
                             _ctx.setCallingState(exception_);

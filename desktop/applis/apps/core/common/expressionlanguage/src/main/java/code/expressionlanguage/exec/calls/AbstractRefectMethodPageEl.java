@@ -55,15 +55,13 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (!method_.isWideStatic()) {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                    String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                     _context.setCallingState(new ErrorStruct(_context,null_));
                     return false;
                 }
             }
             if (isAbstract(_context)) {
-                String null_;
-                null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
+                String null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                 _context.setCallingState(new ErrorStruct(_context,method_.getDisplayedString(_context).getInstance(),null_));
                 return false;
             }
@@ -92,8 +90,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             }
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
-                String null_;
-                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setCallingState(new ErrorStruct(_context,null_));
                 return false;
             }

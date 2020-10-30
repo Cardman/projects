@@ -11,7 +11,7 @@ public final class ClassMethodId {
     private final MethodId constraints;
 
     public ClassMethodId(String _className, MethodId _constraints) {
-        className = _className;
+        className = StringUtil.nullToEmpty(_className);
         constraints = _constraints;
     }
 

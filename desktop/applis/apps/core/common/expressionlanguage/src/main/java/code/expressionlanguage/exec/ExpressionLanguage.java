@@ -36,7 +36,7 @@ public final class ExpressionLanguage {
             return _right.getArgument();
         }
         _right.finish();
-        return _right.getArgument();
+        return Argument.getNullableValue(_right.getArgument());
     }
 
     private static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {

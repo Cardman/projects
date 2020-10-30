@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 
 public final class MethodPageEl extends AbstractMethodPageEl {
 

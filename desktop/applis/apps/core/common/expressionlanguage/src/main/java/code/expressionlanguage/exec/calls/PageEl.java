@@ -10,12 +10,9 @@ public abstract class PageEl {
 
     private Argument globalArgument = Argument.createVoid();
 
-    private StringMap<LoopVariable> vars;
-    private StringMap<LocalVariable> valueVars = new StringMap<LocalVariable>();
+    private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private final StringMap<LocalVariable> valueVars = new StringMap<LocalVariable>();
     private Cache cache;
-    protected PageEl() {
-        setVars(new StringMap<LoopVariable>());
-    }
 
     public Struct getGlobalStruct() {
         return getGlobalArgument().getStruct();
@@ -40,10 +37,6 @@ public abstract class PageEl {
     }
     public StringMap<LoopVariable> getVars() {
         return vars;
-    }
-
-    public void setVars(StringMap<LoopVariable> _vars) {
-        vars = _vars;
     }
 
     public void putLocalVar(String _key, LocalVariable _var) {

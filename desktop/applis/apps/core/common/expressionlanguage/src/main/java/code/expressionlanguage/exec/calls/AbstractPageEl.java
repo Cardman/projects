@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public abstract class AbstractPageEl extends PageEl {
 
@@ -166,7 +167,7 @@ public abstract class AbstractPageEl extends PageEl {
         }
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, Object _call, Struct _ex) {
+    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, MethodCallingFinally _call, Struct _ex) {
         if (!(_vars instanceof TryBlockStack)) {
             _ip.removeLastBlock();
             return false;
@@ -280,7 +281,7 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public void setGlobalClass(String _globalClass) {
-        globalClass = _globalClass;
+        globalClass = StringUtil.nullToEmpty(_globalClass);
     }
     public ExecRootBlock getBlockRootType() {
         return blockRootType;

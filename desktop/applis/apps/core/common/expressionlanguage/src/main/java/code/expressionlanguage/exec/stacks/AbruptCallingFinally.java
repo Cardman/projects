@@ -1,14 +1,16 @@
 package code.expressionlanguage.exec.stacks;
 
 
-public class AbruptCallingFinally {
-    private final Object callingFinally;
+import code.expressionlanguage.exec.blocks.MethodCallingFinally;
 
-    public AbruptCallingFinally(Object _callingFinally) {
+public class AbruptCallingFinally {
+    private final MethodCallingFinally callingFinally;
+
+    public AbruptCallingFinally(MethodCallingFinally _callingFinally) {
         callingFinally = _callingFinally;
     }
 
-    public Object getCallingFinally() {
+    public MethodCallingFinally getCallingFinally() {
         return callingFinally;
     }
 }

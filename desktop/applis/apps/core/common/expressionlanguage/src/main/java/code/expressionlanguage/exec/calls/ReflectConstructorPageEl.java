@@ -53,7 +53,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         if (!calledMethod) {
             calledMethod = true;
             ConstructorId mid_ = method_.getRealId();
-            CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
@@ -61,6 +60,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 _context.setCallingState(new ErrorStruct(_context,null_));
                 return false;
             }
+            CustList<Argument> args_ = new CustList<Argument>();
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
                 Argument a_ = new Argument(a);
                 args_.add(a_);
@@ -68,16 +68,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             Argument previous_;
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                     _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }
                 previous_ = Argument.createVoid();
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                    String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                     _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),1 + mid_.getParametersTypes().size()).toString(),null_));
                     return false;
                 }

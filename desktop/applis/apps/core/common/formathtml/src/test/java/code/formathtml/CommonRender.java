@@ -80,10 +80,6 @@ public abstract class CommonRender {
         }
     }
 
-    protected static void setVars(ImportingPage _importingPage, StringMap<LoopVariable> _vars) {
-        _importingPage.getPageEl().setVars(_vars);
-    }
-
     protected static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
         _importingPage.getPageEl().getValueVars().putAllMap(_localVars);
     }

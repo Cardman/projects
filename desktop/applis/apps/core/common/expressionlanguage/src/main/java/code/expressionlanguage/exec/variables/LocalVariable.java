@@ -1,7 +1,9 @@
 package code.expressionlanguage.exec.variables;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.StringUtil;
 
 public final class LocalVariable {
 
@@ -24,7 +26,7 @@ public final class LocalVariable {
     }
 
     public void setStruct(Struct _element) {
-        element = _element;
+        element = Argument.getNull(_element);
     }
 
     public String getClassName() {
@@ -32,7 +34,7 @@ public final class LocalVariable {
     }
 
     public void setClassName(String _className) {
-        className = _className;
+        className = StringUtil.nullToEmpty(_className);
     }
 
 }

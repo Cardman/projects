@@ -1,13 +1,15 @@
 package code.formathtml.stacks;
 
-public final class RendAbruptCallingFinally {
-    private final Object callingFinally;
+import code.formathtml.exec.blocks.RendMethodCallingFinally;
 
-    public RendAbruptCallingFinally(Object _callingFinally) {
+public final class RendAbruptCallingFinally {
+    private final RendMethodCallingFinally callingFinally;
+
+    public RendAbruptCallingFinally(RendMethodCallingFinally _callingFinally) {
         callingFinally = _callingFinally;
     }
 
-    public Object getCallingFinally() {
+    public RendMethodCallingFinally getCallingFinally() {
         return callingFinally;
     }
 }

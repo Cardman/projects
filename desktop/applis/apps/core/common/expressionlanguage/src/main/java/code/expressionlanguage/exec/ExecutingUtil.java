@@ -94,6 +94,7 @@ public final class ExecutingUtil {
         ReadWrite rw_ = new ReadWrite();
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
+        page_.setBlockRootType(_rootBlock);
         page_.setBlockRoot(_rootBlock);
         while (firstChild_ != null) {
             if (firstChild_ instanceof ExecStaticBlock) {
