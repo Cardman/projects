@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
@@ -53,7 +54,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setRelOffsetPossibleLastPage(off_, _conf);
         String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
-        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER);
+        checkParameters(_conf, superClass_, getRootBlock(), getCtor(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 

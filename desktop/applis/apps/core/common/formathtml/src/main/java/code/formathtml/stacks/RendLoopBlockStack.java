@@ -1,4 +1,6 @@
 package code.formathtml.stacks;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.RendLoop;
 import code.formathtml.exec.blocks.RendParentBlock;
@@ -11,7 +13,7 @@ public final class RendLoopBlockStack extends RendAbstractStask {
 
     private boolean finished;
 
-    private Struct structIterator;
+    private Struct structIterator = NullStruct.NULL_VALUE;
 
     private long index;
 
@@ -19,7 +21,7 @@ public final class RendLoopBlockStack extends RendAbstractStask {
 
     private long step;
 
-    private Struct container;
+    private Struct container = NullStruct.NULL_VALUE;
 
     public boolean hasNext() {
         return index + 1 < maxIteration;
@@ -98,6 +100,6 @@ public final class RendLoopBlockStack extends RendAbstractStask {
     }
 
     public void setContainer(Struct _container) {
-        this.container = _container;
+        this.container = Argument.getNull(_container);
     }
 }

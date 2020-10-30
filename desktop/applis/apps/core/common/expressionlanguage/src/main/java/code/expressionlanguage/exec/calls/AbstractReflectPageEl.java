@@ -6,12 +6,15 @@ import code.util.CustList;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    private CustList<Argument> arguments;
+    private final CustList<Argument> arguments;
 
     private boolean wrapException;
 
     private boolean lambda;
 
+    protected AbstractReflectPageEl(CustList<Argument> _arguments) {
+        arguments = _arguments;
+    }
     @Override
     public void tryProcessEl(ContextEl _context) {
         setNullReadWrite();
@@ -30,10 +33,6 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     public CustList<Argument> getArguments() {
         return arguments;
-    }
-
-    public void setArguments(CustList<Argument> _arguments) {
-        arguments = _arguments;
     }
 
     public boolean isWrapException() {

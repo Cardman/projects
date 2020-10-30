@@ -45,6 +45,6 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
         classNameFound_ = staticFctContent.getClassName();
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_,rootBlock, prev_, firstArgs_, null,named, staticFctContent.getKind(), "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, rootBlock, prev_,null, firstArgs_, null, named, staticFctContent.getKind(), "");
     }
 }

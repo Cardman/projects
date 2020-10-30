@@ -12,7 +12,8 @@ public final class LocalVariable {
     private String className;
 
     public static LocalVariable newLocalVariable(Struct _struct, ContextEl _cont) {
-        return newLocalVariable(_struct, _struct.getClassName(_cont));
+        Struct struct_ = Argument.getNull(_struct);
+        return newLocalVariable(struct_, struct_.getClassName(_cont));
     }
 
     public static LocalVariable newLocalVariable(Struct _struct, String _type) {

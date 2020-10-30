@@ -9,6 +9,10 @@ import code.util.CustList;
 
 public final class DirectCloneRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
+    public DirectCloneRefectMethodPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     boolean initType(ContextEl _cont) {
         return false;

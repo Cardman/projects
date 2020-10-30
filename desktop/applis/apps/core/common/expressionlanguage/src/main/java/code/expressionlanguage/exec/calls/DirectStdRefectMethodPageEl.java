@@ -8,6 +8,10 @@ import code.util.CustList;
 
 public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
+    public DirectStdRefectMethodPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     boolean initType(ContextEl _cont) {
         return false;

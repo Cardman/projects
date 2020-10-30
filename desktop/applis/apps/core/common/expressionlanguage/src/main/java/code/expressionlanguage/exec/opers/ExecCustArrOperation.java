@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -115,7 +114,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock dest_ = polymorph_.getRootBlock();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(),_conf, classNameFound_,dest_, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, dest_, prev_,null, firstArgs_, _right, fct_, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

@@ -59,7 +59,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
         ExecRootBlock type_ = polymorph_.getRootBlock();
         classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(),_conf, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, type_, prev_,null, firstArgs_, null, fct_, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

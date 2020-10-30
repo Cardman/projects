@@ -44,7 +44,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
             return new Argument();
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, prev_.getStruct());
-        return callPrepare(_conf.getExiting(),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, rootBlock, prev_,null, firstArgs_, null, getNamed(), MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

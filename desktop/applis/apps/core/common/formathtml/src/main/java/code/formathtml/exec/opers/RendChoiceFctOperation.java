@@ -56,7 +56,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(),_context, classNameFound_,rootBlock, prev_, firstArgs_, null,named,MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, rootBlock, prev_,null, firstArgs_, null, named, MethodAccessKind.INSTANCE, "");
     }
 
 }

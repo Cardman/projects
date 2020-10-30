@@ -143,22 +143,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(res_.getResult());
     }
 
-    public static Argument instancePrepare(ContextEl _conf, String _className, ExecRootBlock _root,ExecNamedFunctionBlock _constId,
-                                           Argument _previous, CustList<Argument> _arguments) {
-        return instancePrepareCust(_conf, _className,_root, _constId, _previous, _arguments, "", -1);
-    }
     public static Argument instancePrepareFormatted(ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor,
                                                     Argument _previous, CustList<Argument> _arguments, String _fieldName,
                                                     int _blockIndex) {
         String className_ = _conf.formatVarType(_className);
-        return instancePrepareFormat(_conf, className_, _rootBlock, _ctor, _previous, _arguments, _fieldName, _blockIndex);
+        return instancePrepareCust(_conf, className_, _rootBlock, _ctor, _previous, _arguments, _fieldName, _blockIndex);
     }
 
-    public static Argument instancePrepareFormat(ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
-        return instancePrepareCust(_conf,_className, _rootBlock,_ctor,_previous,_arguments,_fieldName,_blockIndex);
-    }
-
-    private static Argument instancePrepareCust(ContextEl _conf, String _className, ExecRootBlock _root,ExecNamedFunctionBlock _constId,
+    public static Argument instancePrepareCust(ContextEl _conf, String _className, ExecRootBlock _root,ExecNamedFunctionBlock _constId,
                                             Argument _previous, CustList<Argument> _arguments, String _fieldName,
                                             int _blockIndex) {
         LgNames stds_ = _conf.getStandards();
@@ -222,7 +214,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new ExecOverrideInfo(_root.getGenericString(),_root, _named);
     }
     public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs) {
-        checkParameters(_cont, _classNameFound, _methodId, _previous, _firstArgs);
+        ExecTemplates.checkParams(_cont, _classNameFound, _methodId, _previous, _firstArgs);
         if (_cont.callsOrException()) {
             return Argument.createVoid();
         }
@@ -249,9 +241,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return getEnumValue(_exit,enumName_,_r, _clArg, _cont);
     }
 
-    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
-        return callPrepare(_exit,_cont,_classNameFound,_rootBlock, _previous,null,_firstArgs,_right,_named, _kind, _name);
-    }
     public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, Cache _cache, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
         if (!(_named instanceof ExecOverridableBlock)&&!(_named instanceof ExecAnonymousFunctionBlock)) {
             if (_named instanceof ExecOperatorBlock) {
@@ -321,24 +310,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         checkParameters(_conf, _classNameFound,_rootBlock, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, null);
     }
 
-    private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                        Argument _previous, CustList<Argument> _firstArgs) {
-        ExecTemplates.checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs);
-    }
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
                                             ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,
                                             CustList<Argument> _firstArgs,
                                             InstancingStep _kindCall) {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        checkParametersCtors(_conf,_classNameFound,_rootBlock,_named,arg_,_firstArgs,_kindCall);
+        checkParameters(_conf, _classNameFound, _rootBlock, _named, arg_,null, _firstArgs,CallPrepareState.CTOR, _kindCall,null);
     }
-    public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
-                                            ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,
-                                            Argument _previous, CustList<Argument> _firstArgs,
-                                            InstancingStep _kindCall) {
-        checkParameters(_conf,_classNameFound,_rootBlock,_named,_previous,null,_firstArgs,CallPrepareState.CTOR,_kindCall,null);
-    }
-    private static FormattedParameters checkParameters(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
+
+    public static FormattedParameters checkParameters(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
                                           Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
                                           CallPrepareState _state,
                                           InstancingStep _kindCall, Argument _right) {

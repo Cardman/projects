@@ -180,9 +180,7 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         NewAnnotationPageEl page_;
         ExecFileBlock file_ = _type.getFile();
-        page_ = new NewAnnotationPageEl();
-        page_.setArgs(_args);
-        page_.setNames(_id);
+        page_ = new NewAnnotationPageEl(_id,_args);
         Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -267,38 +265,37 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
-            pageLoc_ = new PolymorphRefectMethodPageEl();
+            pageLoc_ = new PolymorphRefectMethodPageEl(_args);
         } else if (_reflect == ReflectingType.DIRECT) {
-            pageLoc_ = new DirectRefectMethodPageEl();
+            pageLoc_ = new DirectRefectMethodPageEl(_args);
         } else if (_reflect == ReflectingType.STATIC_CALL) {
-            pageLoc_ = new StaticCallMethodPageEl();
+            pageLoc_ = new StaticCallMethodPageEl(_args);
         } else if (_reflect == ReflectingType.CAST) {
-            pageLoc_ = new CastRefectMethodPageEl(false);
+            pageLoc_ = new CastRefectMethodPageEl(false, _args);
         } else if (_reflect == ReflectingType.CAST_DIRECT) {
-            pageLoc_ = new CastRefectMethodPageEl(true);
+            pageLoc_ = new CastRefectMethodPageEl(true, _args);
         } else if (_reflect == ReflectingType.STD_FCT) {
-            pageLoc_ = new DirectStdRefectMethodPageEl();
+            pageLoc_ = new DirectStdRefectMethodPageEl(_args);
         } else if (_reflect == ReflectingType.CLONE_FCT) {
-            pageLoc_ = new DirectCloneRefectMethodPageEl();
+            pageLoc_ = new DirectCloneRefectMethodPageEl(_args);
         } else if (_reflect == ReflectingType.ENUM_METHODS) {
-            pageLoc_ = new DirectEnumMethods();
+            pageLoc_ = new DirectEnumMethods(_args);
         } else if (_reflect == ReflectingType.ANNOT_FCT) {
-            pageLoc_ = new DirectAnnotationRefectMethodPageEl();
+            pageLoc_ = new DirectAnnotationRefectMethodPageEl(_args);
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {
-            pageLoc_ = new ReflectConstructorPageEl();
+            pageLoc_ = new ReflectConstructorPageEl(_args);
         } else if (_reflect == ReflectingType.GET_FIELD) {
-            pageLoc_ = new ReflectGetFieldPageEl();
+            pageLoc_ = new ReflectGetFieldPageEl(_args);
         } else if (_reflect == ReflectingType.SET_FIELD) {
-            pageLoc_ = new ReflectSetFieldPageEl();
+            pageLoc_ = new ReflectSetFieldPageEl(_args);
         } else if (_reflect == ReflectingType.DEFAULT_VALUE) {
-            pageLoc_ = new ReflectGetDefaultValuePageEl();
+            pageLoc_ = new ReflectGetDefaultValuePageEl(_args);
         } else {
-            pageLoc_ = new ReflectAnnotationPageEl();
+            pageLoc_ = new ReflectAnnotationPageEl(_args);
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
         }
         pageLoc_.setLambda(_lambda);
         pageLoc_.setGlobalArgument(_gl);
-        pageLoc_.setArguments(_args);
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;

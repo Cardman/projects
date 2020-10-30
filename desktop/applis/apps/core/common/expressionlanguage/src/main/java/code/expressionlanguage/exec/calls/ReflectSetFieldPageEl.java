@@ -8,10 +8,15 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
+import code.util.CustList;
 
 public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
+
+    public ReflectSetFieldPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
 
     @Override
     public boolean checkCondition(ContextEl _context) {

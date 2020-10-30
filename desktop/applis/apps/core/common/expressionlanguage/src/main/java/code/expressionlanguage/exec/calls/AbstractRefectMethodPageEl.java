@@ -22,7 +22,7 @@ import code.util.core.StringUtil;
 public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
-    private String className;
+    private String className = "";
     private ExecNamedFunctionBlock methodToCallBody;
     private ExecRootBlock methodToCallType;
     private boolean calledMethod;
@@ -32,6 +32,10 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private Argument rightArg;
     private MethodAccessKind accessKind;
     private String methodName = "";
+
+    public AbstractRefectMethodPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
 
     protected boolean initDefault(ContextEl _cont) {
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());

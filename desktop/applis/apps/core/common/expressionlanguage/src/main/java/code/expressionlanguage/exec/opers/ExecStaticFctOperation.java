@@ -40,7 +40,7 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
             return Argument.createVoid();
         }
         Argument prev_ = new Argument();
-        return callPrepare(_conf.getExiting(),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), staticFctContent.getKind(), "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, rootBlock, prev_,null, firstArgs_, null, getNamed(), staticFctContent.getKind(), "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {

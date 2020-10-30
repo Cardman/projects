@@ -14,7 +14,8 @@ import code.util.CustList;
 public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     private boolean direct;
-    public CastRefectMethodPageEl(boolean _direct) {
+    public CastRefectMethodPageEl(boolean _direct, CustList<Argument> _arguments) {
+        super(_arguments);
         direct = _direct;
     }
 

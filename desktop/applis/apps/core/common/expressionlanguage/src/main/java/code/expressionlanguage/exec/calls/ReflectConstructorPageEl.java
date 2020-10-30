@@ -21,6 +21,11 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     
     private boolean initClass;
     private boolean calledMethod;
+
+    public ReflectConstructorPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
@@ -85,7 +90,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             Argument arg_;
             ExecRootBlock execSuperClass_ = method_.getDeclaring();
             if (execSuperClass_ != null) {
-                arg_ = ExecInvokingOperation.instancePrepare(_context, res_, execSuperClass_,method_.getCallee(), previous_, args_);
+                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, execSuperClass_, method_.getCallee(), previous_, args_, "", -1);
             } else {
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);
             }

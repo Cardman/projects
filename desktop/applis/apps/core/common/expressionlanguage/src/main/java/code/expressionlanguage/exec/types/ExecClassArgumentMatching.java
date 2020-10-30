@@ -13,8 +13,6 @@ import code.util.core.StringUtil;
 
 public final class ExecClassArgumentMatching {
 
-    private static final String ARR_CLASS = "[";
-
     private final StringList className = new StringList();
 
     private final byte unwrapObjectNb;
@@ -126,14 +124,6 @@ public final class ExecClassArgumentMatching {
 
     public String getSingleNameOrEmpty() {
         return NumParsers.getSingleNameOrEmpty(className);
-    }
-    public boolean isArray() {
-        for (String b: className) {
-            if (b.startsWith(ARR_CLASS)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean matchClass(String _class) {

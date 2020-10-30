@@ -12,12 +12,16 @@ import code.util.StringMap;
 
 public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
-    private StringMap<AnnotationTypeInfo> names;
-    private CustList<Argument> args;
+    private final StringMap<AnnotationTypeInfo> names;
+    private final CustList<Argument> args;
+    public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names,CustList<Argument> _args) {
+        names = _names;
+        args = _args;
+    }
     @Override
     public void tryProcessEl(ContextEl _context) {
         //set fields for annotation after calculating default one
-        int len_ = names.size();
+        int len_ = Math.min(names.size(),args.size());
         Struct str_ = getGlobalStruct();
         String className_ = str_.getClassName(_context);
         for (int i = 0; i <len_; i++) {
@@ -42,11 +46,4 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         setNullReadWrite();
     }
 
-    public void setNames(StringMap<AnnotationTypeInfo> _names) {
-        names = _names;
-    }
-
-    public void setArgs(CustList<Argument> _args) {
-        args = _args;
-    }
 }

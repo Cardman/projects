@@ -1,0 +1,72 @@
+package code.expressionlanguage.exec.blocks;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.structs.*;
+import code.util.CustList;
+import code.util.core.IndexConstants;
+
+public final class ExecForEachArray extends ExecAbstractForEachLoop {
+    public ExecForEachArray(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset, int _expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
+        super(_label, _importedClassName, _importedClassIndexName, _variableName, _variableNameOffset, _expressionOffset, _opList, _offsetTrim);
+    }
+
+    @Override
+    protected void checkIfNext(ContextEl _cont, LoopBlockStack _l) {
+        incrOrFinish(_cont, hasNext(_cont,_l),_l);
+    }
+
+    @Override
+    protected LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its) {
+        boolean finished_ = false;
+        int length_ = getLength(_its, _cont);
+        if (length_ == IndexConstants.SIZE_EMPTY) {
+            finished_ = true;
+        }
+        if (_cont.callsOrException()) {
+            return null;
+        }
+        LoopBlockStack l_ = new LoopBlockStack();
+        l_.setLabel(_label);
+        l_.setIndex(-1);
+        l_.setFinished(finished_);
+        l_.setExecBlock(this);
+        l_.setExecLoop(this);
+        l_.setCurrentVisitedBlock(this);
+        l_.setMaxIteration(length_);
+        l_.setContainer(_its);
+        return l_;
+    }
+    private static int getLength(Struct _str, ContextEl _cont) {
+        if (_str instanceof ArrayStruct) {
+            return ((ArrayStruct)_str).getLength();
+        }
+        String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
+        _cont.setCallingState(new ErrorStruct(_cont, npe_));
+        return -1;
+    }
+    @Override
+    protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l) {
+        Struct container_ = _l.getContainer();
+        LongStruct lg_ = new LongStruct(_l.getIndex());
+        return new Argument(ExecTemplates.getElement(container_, lg_, _conf));
+    }
+
+    @Override
+    protected ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l) {
+        if (_l.hasNext()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
+    }
+
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
+        return getEl();
+    }
+}

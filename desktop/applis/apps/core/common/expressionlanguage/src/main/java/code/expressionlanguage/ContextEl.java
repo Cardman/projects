@@ -35,7 +35,7 @@ public abstract class ContextEl {
     private InitializingTypeInfos initializingTypeInfos;
     private AbstractFullStack fullStack;
     private Struct seed;
-    private AbstractExiting exiting;
+    private AbstractExiting exiting = new NoExiting();
 
     protected ContextEl(CommonExecutionInfos _executionInfos, InitPhase _readOnlyOthers) {
         executionInfos = _executionInfos;

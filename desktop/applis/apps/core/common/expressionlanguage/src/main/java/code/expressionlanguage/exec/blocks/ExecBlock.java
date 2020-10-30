@@ -80,10 +80,15 @@ public abstract class ExecBlock {
                     rw_.setBlock(par_);
                     ((ExecDoBlock)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
                 }
-                if (par_ instanceof ExecForEachLoop) {
+                if (par_ instanceof ExecForEachArray) {
                     par_.removeLocalVars(ip_);
                     rw_.setBlock(par_);
-                    ((ExecForEachLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForEachArray)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                }
+                if (par_ instanceof ExecForEachIterable) {
+                    par_.removeLocalVars(ip_);
+                    rw_.setBlock(par_);
+                    ((ExecForEachIterable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
                 }
                 if (par_ instanceof ExecForIterativeLoop) {
                     par_.removeLocalVars(ip_);

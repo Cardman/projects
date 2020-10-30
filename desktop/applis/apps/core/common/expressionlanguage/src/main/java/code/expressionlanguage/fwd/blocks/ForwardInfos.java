@@ -776,8 +776,14 @@ public final class ForwardInfos {
             } else if (en_ instanceof ForEachLoop) {
                 _coverage.putBlockOperationsLoops(en_);
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachLoop)en_).getRoot(), _coverage, _forwards, en_);
-                ExecForEachLoop exec_ = new ExecForEachLoop(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
-                        ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                ExecAbstractForEachLoop exec_;
+                if (((ForEachLoop)en_).getRoot().getResultClass().isArray()) {
+                    exec_ = new ExecForEachArray(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
+                            ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                } else {
+                    exec_ = new ExecForEachIterable(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
+                            ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                }
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(exec_,en_);

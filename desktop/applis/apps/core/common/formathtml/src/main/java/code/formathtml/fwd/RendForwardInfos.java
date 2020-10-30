@@ -84,7 +84,11 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendForEachLoop){
             AnaRendForEachLoop f_ = (AnaRendForEachLoop) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendForEachLoop(f_.getImportedClassName(),f_.getVariableName(),
+            if (f_.getRoot().getResultClass().isArray()) {
+                return new RendForEachArray(f_.getImportedClassName(),f_.getVariableName(),
+                        f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+            }
+            return new RendForEachIterable(f_.getImportedClassName(),f_.getVariableName(),
                     f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
         }
         if (_current instanceof AnaRendForEachTable){

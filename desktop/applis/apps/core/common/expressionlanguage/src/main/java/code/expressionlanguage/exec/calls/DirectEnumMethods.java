@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodId;
@@ -10,6 +9,10 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
 public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
+    public DirectEnumMethods(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     boolean initType(ContextEl _context) {
         return initDefault(_context);

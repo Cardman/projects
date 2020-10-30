@@ -18,6 +18,10 @@ import code.util.CustList;
 
 public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
+    public StaticCallMethodPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     boolean initType(ContextEl _cont) {
         return initDefault(_cont);

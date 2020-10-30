@@ -15,7 +15,11 @@ import code.util.CustList;
 public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     private boolean init;
-    private CustList<ExecOperationNode> ops;
+    private CustList<ExecOperationNode> ops = new CustList<ExecOperationNode>();
+
+    public ReflectGetDefaultValuePageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
 
     @Override
     public boolean checkCondition(ContextEl _context) {

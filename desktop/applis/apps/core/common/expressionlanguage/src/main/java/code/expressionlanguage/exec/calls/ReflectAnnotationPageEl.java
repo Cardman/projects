@@ -22,6 +22,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private CustList<CustList<ExecOperationNode>> annotations = new CustList<CustList<ExecOperationNode>>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
+    public ReflectAnnotationPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();

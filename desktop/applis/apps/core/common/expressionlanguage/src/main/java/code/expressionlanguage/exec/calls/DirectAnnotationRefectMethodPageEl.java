@@ -9,6 +9,10 @@ import code.util.CustList;
 
 public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
+    public DirectAnnotationRefectMethodPageEl(CustList<Argument> _arguments) {
+        super(_arguments);
+    }
+
     @Override
     boolean initType(ContextEl _cont) {
         return false;

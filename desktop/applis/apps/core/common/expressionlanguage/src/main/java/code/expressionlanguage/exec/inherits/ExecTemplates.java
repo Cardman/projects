@@ -1524,25 +1524,22 @@ public final class ExecTemplates {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = _previous.getStruct();
         String argClassName_ = previous_.getClassName(_conf);
-        String cast_;
-        cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         if (!(previous_ instanceof FieldableStruct)) {
             if (previous_ == NullStruct.NULL_VALUE) {
-                String npe_;
-                npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _conf.setCallingState(new ErrorStruct(_conf,npe_));
                 return Argument.createVoid();
             }
             _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE,_className, RETURN_LINE),cast_));
             return Argument.createVoid();
         }
-        String classNameFound_ = _className;
         ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
-            _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE,classNameFound_, RETURN_LINE),cast_));
+            _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE,_className, RETURN_LINE),cast_));
             return Argument.createVoid();
         }
-        classNameFound_ = getSuperGeneric(argClassName_, classNameFound_, _conf);
+        String classNameFound_ = getSuperGeneric(argClassName_, _className, _conf);
         String fieldType_ = quickFormat(_rootBlock,classNameFound_, _returnType);
         if (!checkQuick(fieldType_, _right, _conf)) {
             return Argument.createVoid();
