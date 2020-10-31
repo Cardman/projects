@@ -21,16 +21,18 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     
     private boolean initClass;
     private boolean calledMethod;
+    private ConstructorMetaInfo metaInfo;
 
-    public ReflectConstructorPageEl(CustList<Argument> _arguments) {
+    public ReflectConstructorPageEl(CustList<Argument> _arguments, ConstructorMetaInfo _metaInfo) {
         super(_arguments);
+        metaInfo = _metaInfo;
+        setGlobalArgumentStruct(_metaInfo);
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        ConstructorMetaInfo method_ = NumParsers.getCtor(getGlobalStruct());
-        String className_ = method_.getDeclaringClass();
+        String className_ = metaInfo.getDeclaringClass();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         if (ExecutingUtil.isAbstractType(type_)) {
@@ -57,7 +59,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            ConstructorId mid_ = method_.getRealId();
+            ConstructorId mid_ = metaInfo.getRealId();
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
@@ -88,9 +90,9 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 args_ = args_.mid(1);
             }
             Argument arg_;
-            ExecRootBlock execSuperClass_ = method_.getDeclaring();
+            ExecRootBlock execSuperClass_ = metaInfo.getDeclaring();
             if (execSuperClass_ != null) {
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, execSuperClass_, method_.getCallee(), previous_, args_, "", -1);
+                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, execSuperClass_, metaInfo.getCallee(), previous_, args_, "", -1);
             } else {
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);
             }

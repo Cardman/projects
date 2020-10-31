@@ -14,14 +14,14 @@ import code.util.CustList;
 public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     private boolean direct;
-    public CastRefectMethodPageEl(boolean _direct, CustList<Argument> _arguments) {
-        super(_arguments);
+    public CastRefectMethodPageEl(boolean _direct, CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
         direct = _direct;
     }
 
     @Override
     boolean initType(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
+        MethodMetaInfo method_ = getMetaInfo();
         if (direct) {
             return false;
         }

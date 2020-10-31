@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
+import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
 
@@ -48,9 +48,9 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
     public static void callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {
         RunnableStruct.setupThread(_localThread);
         ExecInvokingOperation.prepareCallDyn(new Argument(_functional), _arguments, _localThread);
-        if (_localThread.getCallingState() instanceof CustomReflectMethod) {
-            CustomReflectMethod ref_ = (CustomReflectMethod) _localThread.getCallingState();
-            RunnableStruct.reflect(ref_.getGl(), ref_.getArguments(),_localThread, ref_.getReflect(), ref_.isLambda());
+        if (_localThread.getCallingState() instanceof AbstractReflectElement) {
+            AbstractReflectElement ref_ = (AbstractReflectElement) _localThread.getCallingState();
+            RunnableStruct.reflect(_localThread, ref_);
         } else {
             _localThread.getCustInit().prExc(_localThread);
         }

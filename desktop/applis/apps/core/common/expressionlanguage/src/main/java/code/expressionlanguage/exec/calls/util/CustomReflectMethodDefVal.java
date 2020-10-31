@@ -5,17 +5,15 @@ import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
-public final class CustomReflectMethod extends CustomAbstractReflectMethod {
+public final class CustomReflectMethodDefVal extends CustomAbstractReflectMethod {
 
-    private final ReflectingType reflect;
-
-    public CustomReflectMethod(ReflectingType _reflect, MethodMetaInfo _gl,
-            CustList<Argument> _arguments, boolean _lambda) {
+    public CustomReflectMethodDefVal(MethodMetaInfo _gl,
+                                     CustList<Argument> _arguments, boolean _lambda) {
         super(_gl,_arguments,_lambda);
-        reflect = _reflect;
     }
 
+    @Override
     public ReflectingType getReflect() {
-        return reflect;
+        return ReflectingType.DEFAULT_VALUE;
     }
 }

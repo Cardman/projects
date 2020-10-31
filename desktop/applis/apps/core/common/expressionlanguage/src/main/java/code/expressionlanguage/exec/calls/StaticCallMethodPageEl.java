@@ -18,8 +18,8 @@ import code.util.CustList;
 
 public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public StaticCallMethodPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
+    public StaticCallMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override
@@ -46,7 +46,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setCallingState(new ErrorStruct(_context,_className,null_));
             return Argument.createVoid();
         }
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
+        MethodMetaInfo method_ = getMetaInfo();
         return prepareStaticCall(getMethodToCallType(),getMethodToCallBody(),method_.getCache(),_args,res_, _context);
     }
     private static Argument prepareStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,

@@ -32,21 +32,22 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private Argument rightArg;
     private MethodAccessKind accessKind;
     private String methodName = "";
+    private MethodMetaInfo metaInfo;
 
-    public AbstractRefectMethodPageEl(CustList<Argument> _arguments) {
+    public AbstractRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
         super(_arguments);
+        setGlobalArgumentStruct(_metaInfo);
+        metaInfo = _metaInfo;
     }
 
     protected boolean initDefault(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
-        return method_.isWideStatic()&&_cont.getExiting().hasToExit(method_.getClassName());
+        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(metaInfo.getClassName());
 //        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {
@@ -56,7 +57,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         setWrapException(false);
         if (methodToCallBody == null) {
-            if (!method_.isWideStatic()) {
+            if (!metaInfo.isWideStatic()) {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -66,28 +67,28 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             }
             if (isAbstract(_context)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                _context.setCallingState(new ErrorStruct(_context,method_.getDisplayedString(_context).getInstance(),null_));
+                _context.setCallingState(new ErrorStruct(_context,metaInfo.getDisplayedString(_context).getInstance(),null_));
                 return false;
             }
-            String className_ = method_.getClassName();
+            String className_ = metaInfo.getClassName();
             if (isPolymorph(_context)) {
                 Struct instance_ = getArguments().first().getStruct();
-                ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, method_.getDeclaring(), method_.getCalleeInv());
+                ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getDeclaring(), metaInfo.getCalleeInv());
                 className = polymorph_.getClassName();
                 methodToCallBody = polymorph_.getOverridableBlock();
                 methodToCallType = polymorph_.getRootBlock();
             } else {
                 className = className_;
-                methodToCallBody = method_.getCalleeInv();
-                methodToCallType = method_.getDeclaring();
+                methodToCallBody = metaInfo.getCalleeInv();
+                methodToCallType = metaInfo.getDeclaring();
             }
         }
         if (!calledMethod) {
             calledMethod = true;
-            MethodId mid_ = method_.getRealId();
+            MethodId mid_ = metaInfo.getRealId();
             methodName = mid_.getName();
             accessKind = mid_.getKind();
-            if (method_.isWideStatic()) {
+            if (metaInfo.isWideStatic()) {
                 instance = new Argument();
             } else {
                 instance = getArguments().first();
@@ -102,7 +103,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 Argument a_ = new Argument(a);
                 args.add(a_);
             }
-            if (method_.isExpCast()) {
+            if (metaInfo.isExpCast()) {
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -129,7 +130,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         if (!calledAfter) {
             setWrapException(false);
-            MethodId mid_ = method_.getRealId();
+            MethodId mid_ = metaInfo.getRealId();
             Argument arg_ = prepare(_context, className, mid_, instance, args, rightArg);
             if (_context.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
@@ -146,8 +147,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,methodToCallType, _instance,method_.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,methodToCallType, _instance,metaInfo.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
+    }
+
+    MethodMetaInfo getMetaInfo() {
+        return metaInfo;
     }
 
     MethodAccessKind getAccessKind() {

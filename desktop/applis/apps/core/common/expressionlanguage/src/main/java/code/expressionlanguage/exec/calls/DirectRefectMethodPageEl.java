@@ -8,8 +8,8 @@ import code.util.CustList;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectRefectMethodPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
+    public DirectRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override
@@ -19,7 +19,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     boolean isAbstract(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
+        MethodMetaInfo method_ = getMetaInfo();
         return method_.isAbstract();
     }
 

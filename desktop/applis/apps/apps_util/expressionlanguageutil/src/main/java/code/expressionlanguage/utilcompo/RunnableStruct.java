@@ -7,6 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -106,8 +107,8 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }
-    public static Argument reflect(Argument _global, CustList<Argument> _args, RunnableContextEl _cont, ReflectingType _reflect, boolean _lambda) {
-        Argument arg_ = ProcessMethod.reflectArgument(_global, _args,_cont,_reflect, _lambda);
+    public static Argument reflect(RunnableContextEl _cont, AbstractReflectElement _ref) {
+        Argument arg_ = ProcessMethod.reflectArgument(_cont,_ref);
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

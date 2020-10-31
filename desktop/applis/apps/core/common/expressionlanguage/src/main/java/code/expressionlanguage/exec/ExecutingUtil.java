@@ -63,8 +63,8 @@ public final class ExecutingUtil {
         if (_context.getCallingState() instanceof CustomFoundCast) {
             return createCallingCast(_context,(CustomFoundCast)_context.getCallingState());
         }
-        if (_context.getCallingState() instanceof CustomReflectMethod) {
-            return createReflectMethod(_context,(CustomReflectMethod)_context.getCallingState());
+        if (_context.getCallingState() instanceof AbstractReflectElement) {
+            return createReflectMethod(_context,(AbstractReflectElement)_context.getCallingState());
         }
         if (_context.getCallingState() instanceof NotInitializedClass) {
             return createInstancingClass(_context,(NotInitializedClass)_context.getCallingState());
@@ -255,48 +255,59 @@ public final class ExecutingUtil {
         page_.setFile(file_);
         return page_;
     }
-    private static AbstractReflectPageEl createReflectMethod(ContextEl _context,CustomReflectMethod _e) {
-        ReflectingType r_ = _e.getReflect();
-        CustList<Argument> args_ = _e.getArguments();
-        Argument gl_ = _e.getGl();
-        boolean l_ = _e.isLambda();
-        return createReflectMethod(_context,gl_, args_, r_, l_);
-    }
-    public static AbstractReflectPageEl createReflectMethod(ContextEl _context,Argument _gl, CustList<Argument> _args, ReflectingType _reflect, boolean _lambda) {
+
+    public static AbstractReflectPageEl createReflectMethod(ContextEl _context, AbstractReflectElement _ref) {
         _context.setCallingState(null);
         AbstractReflectPageEl pageLoc_;
-        if (_reflect == ReflectingType.METHOD) {
-            pageLoc_ = new PolymorphRefectMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.DIRECT) {
-            pageLoc_ = new DirectRefectMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.STATIC_CALL) {
-            pageLoc_ = new StaticCallMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.CAST) {
-            pageLoc_ = new CastRefectMethodPageEl(false, _args);
-        } else if (_reflect == ReflectingType.CAST_DIRECT) {
-            pageLoc_ = new CastRefectMethodPageEl(true, _args);
-        } else if (_reflect == ReflectingType.STD_FCT) {
-            pageLoc_ = new DirectStdRefectMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.CLONE_FCT) {
-            pageLoc_ = new DirectCloneRefectMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.ENUM_METHODS) {
-            pageLoc_ = new DirectEnumMethods(_args);
-        } else if (_reflect == ReflectingType.ANNOT_FCT) {
-            pageLoc_ = new DirectAnnotationRefectMethodPageEl(_args);
-        } else if (_reflect == ReflectingType.CONSTRUCTOR) {
-            pageLoc_ = new ReflectConstructorPageEl(_args);
-        } else if (_reflect == ReflectingType.GET_FIELD) {
-            pageLoc_ = new ReflectGetFieldPageEl(_args);
-        } else if (_reflect == ReflectingType.SET_FIELD) {
-            pageLoc_ = new ReflectSetFieldPageEl(_args);
-        } else if (_reflect == ReflectingType.DEFAULT_VALUE) {
-            pageLoc_ = new ReflectGetDefaultValuePageEl(_args);
+        CustList<Argument> args_ = _ref.getArguments();
+        ReflectingType reflect_ = _ref.getReflect();
+        if (_ref instanceof CustomReflectConstructor) {
+            CustomReflectConstructor c_ = (CustomReflectConstructor) _ref;
+            ConstructorMetaInfo metaInfo_ = c_.getGl();
+            pageLoc_ = new ReflectConstructorPageEl(args_, metaInfo_);
+        } else if (_ref instanceof CustomReflectField) {
+            CustomReflectField c_ = (CustomReflectField) _ref;
+            FieldMetaInfo metaInfo_ = c_.getGl();
+            if (reflect_ == ReflectingType.GET_FIELD) {
+                pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_);
+            } else {
+                pageLoc_ = new ReflectSetFieldPageEl(args_, metaInfo_);
+            }
+        } else if (_ref instanceof CustomReflectMethodDefVal) {
+            CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
+            MethodMetaInfo metaInfo_ = c_.getGl();
+            pageLoc_ = new ReflectGetDefaultValuePageEl(args_, metaInfo_);
+        } else if (_ref instanceof CustomReflectMethod) {
+            CustomReflectMethod c_ = (CustomReflectMethod) _ref;
+            MethodMetaInfo metaInfo_ = c_.getGl();
+            AbstractRefectMethodPageEl refMet_;
+            if (reflect_ == ReflectingType.METHOD) {
+                refMet_ = new PolymorphRefectMethodPageEl(args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.DIRECT) {
+                refMet_ = new DirectRefectMethodPageEl(args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.STATIC_CALL) {
+                refMet_ = new StaticCallMethodPageEl(args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CAST) {
+                refMet_ = new CastRefectMethodPageEl(false, args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CAST_DIRECT) {
+                refMet_ = new CastRefectMethodPageEl(true, args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.STD_FCT) {
+                refMet_ = new DirectStdRefectMethodPageEl(args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CLONE_FCT) {
+                refMet_ = new DirectCloneRefectMethodPageEl(args_, metaInfo_);
+            } else if (reflect_ == ReflectingType.ENUM_METHODS) {
+                refMet_ = new DirectEnumMethods(args_, metaInfo_);
+            } else {
+                refMet_ = new DirectAnnotationRefectMethodPageEl(args_, metaInfo_);
+            }
+            pageLoc_ = refMet_;
         } else {
-            pageLoc_ = new ReflectAnnotationPageEl(_args);
-            ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
+            CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
+            pageLoc_ = new ReflectAnnotationPageEl(args_);
+            ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
+            pageLoc_.setGlobalArgument(c_.getGl());
         }
-        pageLoc_.setLambda(_lambda);
-        pageLoc_.setGlobalArgument(_gl);
+        pageLoc_.setLambda(_ref.isLambda());
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;

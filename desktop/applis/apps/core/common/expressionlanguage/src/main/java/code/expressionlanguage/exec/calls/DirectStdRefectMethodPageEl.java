@@ -4,12 +4,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
 public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectStdRefectMethodPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
+    public DirectStdRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override

@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
 public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
-    public DirectEnumMethods(CustList<Argument> _arguments) {
-        super(_arguments);
+    public DirectEnumMethods(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
+        MethodMetaInfo method_ = getMetaInfo();
         return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getDeclaring(), _instance,method_.getCache(), _args, _right,null, getAccessKind(),getMethodName());
     }
 }

@@ -8,8 +8,8 @@ import code.util.CustList;
 
 public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public PolymorphRefectMethodPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
+    public PolymorphRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override
@@ -24,7 +24,7 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
 
     @Override
     boolean isPolymorph(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
+        MethodMetaInfo method_ = getMetaInfo();
         return !method_.isWideStatic();
     }
 }

@@ -5,12 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCloneOperation;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
 public final class DirectCloneRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectCloneRefectMethodPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
+    public DirectCloneRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
+        super(_arguments, _metaInfo);
     }
 
     @Override

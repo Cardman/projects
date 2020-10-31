@@ -13,19 +13,21 @@ import code.util.CustList;
 public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
+    private FieldMetaInfo metaInfo;
 
-    public ReflectGetFieldPageEl(CustList<Argument> _arguments) {
+    public ReflectGetFieldPageEl(CustList<Argument> _arguments, FieldMetaInfo _metaInfo) {
         super(_arguments);
+        setGlobalArgumentStruct(_metaInfo);
+        metaInfo = _metaInfo;
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        FieldMetaInfo method_ = NumParsers.getField(getGlobalStruct());
         if (!initClass) {
             initClass = true;
-            if (method_.isStaticField()) {
-                String baseClass_ = method_.getDeclaringClass();
+            if (metaInfo.isStaticField()) {
+                String baseClass_ = metaInfo.getDeclaringClass();
                 baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
                 if (_context.getExiting().hasToExit(baseClass_)) {
                     setWrapException(true);
@@ -33,16 +35,16 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
                 }
             }
         }
-        String baseClass_ = method_.getDeclaringClass();
+        String baseClass_ = metaInfo.getDeclaringClass();
         if (stds_.getStandards().contains(baseClass_)) {
-            String name_ =method_.getName();
+            String name_ =metaInfo.getName();
             ClassField id_ = new ClassField(baseClass_, name_);
             Argument arg_ = new Argument(stds_.getSimpleResult(id_));
             setReturnedArgument(arg_);
             return true;
         }
         Argument instance_ = getArguments().first();
-        Argument arg_ = ExecTemplates.getField(method_, instance_, _context);
+        Argument arg_ = ExecTemplates.getField(metaInfo, instance_, _context);
         if (_context.callsOrException()) {
             return false;
         }

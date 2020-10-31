@@ -4,10 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.util.CustList;
 
 public final class ProcessMethod {
     private static final String EMPTY_STRING = "";
@@ -42,9 +42,8 @@ public final class ProcessMethod {
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();
     }
-
-    public static Argument reflectArgument(Argument _global, CustList<Argument> _args, ContextEl _cont, ReflectingType _reflect, boolean _lambda) {
-        AbstractPageEl page_ = ExecutingUtil.createReflectMethod(_cont,_global, _args, _reflect, _lambda);
+    public static Argument reflectArgument(ContextEl _cont, AbstractReflectElement _ref) {
+        AbstractPageEl page_ = ExecutingUtil.createReflectMethod(_cont,_ref);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

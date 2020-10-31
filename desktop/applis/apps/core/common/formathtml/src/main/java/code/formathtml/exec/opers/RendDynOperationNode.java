@@ -4,11 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.CustomFoundCast;
-import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
+import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -22,7 +18,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -67,9 +62,9 @@ public abstract class RendDynOperationNode {
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
             res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _context);
-        } else if (callingState_ instanceof CustomReflectMethod) {
-            CustomReflectMethod ref_ = (CustomReflectMethod) callingState_;
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _context, ref_.getReflect(), ref_.isLambda());
+        } else if (callingState_ instanceof AbstractReflectElement) {
+            AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
+            res_ = ProcessMethod.reflectArgument(_context,ref_);
         } else if (callingState_ instanceof CustomFoundCast) {
             CustomFoundCast cast_ = (CustomFoundCast) callingState_;
             res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getRootBlock(),cast_.getId(), cast_.getArguments(), _context);

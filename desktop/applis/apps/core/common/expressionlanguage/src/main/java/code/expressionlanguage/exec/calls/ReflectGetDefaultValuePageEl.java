@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -16,15 +15,17 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     private boolean init;
     private CustList<ExecOperationNode> ops = new CustList<ExecOperationNode>();
+    private MethodMetaInfo metaInfo;
 
-    public ReflectGetDefaultValuePageEl(CustList<Argument> _arguments) {
+    public ReflectGetDefaultValuePageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
         super(_arguments);
+        setGlobalArgumentStruct(_metaInfo);
+        metaInfo = _metaInfo;
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        MethodMetaInfo instance_ = NumParsers.getMethod(getGlobalStruct());
-        ExecAnnotableBlock annotableBlock_ = instance_.getAnnotableBlock();
+        ExecAnnotableBlock annotableBlock_ = metaInfo.getAnnotableBlock();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {
             setReturnedArgument(new Argument());
             return true;

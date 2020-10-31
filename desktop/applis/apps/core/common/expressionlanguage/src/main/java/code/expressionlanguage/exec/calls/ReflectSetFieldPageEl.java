@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
@@ -13,19 +12,21 @@ import code.util.CustList;
 public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
+    private FieldMetaInfo metaInfo;
 
-    public ReflectSetFieldPageEl(CustList<Argument> _arguments) {
+    public ReflectSetFieldPageEl(CustList<Argument> _arguments, FieldMetaInfo _metaInfo) {
         super(_arguments);
+        setGlobalArgumentStruct(_metaInfo);
+        metaInfo = _metaInfo;
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        FieldMetaInfo method_ = NumParsers.getField(getGlobalStruct());
         if (!initClass) {
             initClass = true;
-            if (method_.isStaticField()) {
-                String baseClass_ = method_.getDeclaringClass();
+            if (metaInfo.isStaticField()) {
+                String baseClass_ = metaInfo.getDeclaringClass();
                 baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
                 if (_context.getExiting().hasToExit(baseClass_)) {
                     setWrapException(true);
@@ -34,7 +35,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             }
         }
         setWrapException(false);
-        String baseClass_ = method_.getDeclaringClass();
+        String baseClass_ = metaInfo.getDeclaringClass();
         if (stds_.getStandards().contains(baseClass_)) {
             String ill_;
             ill_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
@@ -43,7 +44,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         }
         Argument instance_ = getArguments().first();
         Argument right_ = getArguments().last();
-        Argument arg_ = ExecTemplates.setField(method_, instance_, right_, _context);
+        Argument arg_ = ExecTemplates.setField(metaInfo, instance_, right_, _context);
         if (_context.callsOrException()) {
             return false;
         }
