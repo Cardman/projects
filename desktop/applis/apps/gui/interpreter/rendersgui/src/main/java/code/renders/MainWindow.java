@@ -89,7 +89,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void load() {
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath(),"jre");
         String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = "";

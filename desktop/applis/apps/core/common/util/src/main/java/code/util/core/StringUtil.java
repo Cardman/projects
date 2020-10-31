@@ -1549,7 +1549,7 @@ public final class StringUtil {
     }
 
     public static String replaceBackSlash(String _fileName) {
-        return _fileName.replace(BACK_SLASH_CHAR, SLASH);
+        return nullToEmpty(_fileName).replace(BACK_SLASH_CHAR, SLASH);
     }
 
     public static String replaceExtension(String _file, String _oldExt, String _newExt) {

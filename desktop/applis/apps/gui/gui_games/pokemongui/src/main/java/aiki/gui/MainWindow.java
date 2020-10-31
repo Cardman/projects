@@ -1265,7 +1265,7 @@ public final class MainWindow extends NetGroupFrame {
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath(), Resources.EXCLUDED);
         } else {
             FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, getFrames().getHomePath(), Resources.EXCLUDED);
         }
@@ -1287,14 +1287,14 @@ public final class MainWindow extends NetGroupFrame {
     private String fileDialogLoad(String _ext, boolean _zipFile) {
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath(), Resources.EXCLUDED);
             } else {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(), Resources.EXCLUDED);
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath(), Resources.EXCLUDED);
             } else {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING, Resources.EXCLUDED);
             }

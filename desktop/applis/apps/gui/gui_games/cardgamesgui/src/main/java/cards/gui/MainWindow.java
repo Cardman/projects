@@ -1823,7 +1823,7 @@ public final class MainWindow extends NetGroupFrame {
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
         if (isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, getFrames().getHomePath(), getFrames().getHomePath(), FileConst.EXCLUDED);
         } else {
             FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING, getFrames().getHomePath(), FileConst.EXCLUDED);
         }
@@ -1836,7 +1836,7 @@ public final class MainWindow extends NetGroupFrame {
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierChargement() {
         if (isSaveHomeFolder()) {
-            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath());
+            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, getFrames().getHomePath(), FileConst.EXCLUDED);
         } else {
             FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }

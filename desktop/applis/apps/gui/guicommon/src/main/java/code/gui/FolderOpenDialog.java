@@ -33,7 +33,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     private void initFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
         messages = getMessages(_w, GuiConstants.FOLDER_MESSAGES_GUI);
-        initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING);
+        initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING,"jre");
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
