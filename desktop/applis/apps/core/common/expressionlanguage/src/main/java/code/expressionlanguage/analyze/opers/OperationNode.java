@@ -786,9 +786,7 @@ public abstract class OperationNode {
             }
             signatures_.add(mloc_);
         }
-        StringMap<StringList> map_;
-        AnalyzedPageEl page_ = _page;
-        map_ = page_.getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (cInfo_ == null) {
@@ -800,12 +798,12 @@ public abstract class OperationNode {
                 classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
             }
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                    new ConstructorId(clCurName_, classesNames_, false).getSignature(page_));
-            page_.getLocalizer().addError(undefined_);
+                    new ConstructorId(clCurName_, classesNames_, false).getSignature(_page));
+            _page.getLocalizer().addError(undefined_);
             _oper.getErrs().add(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
@@ -1737,7 +1735,15 @@ public abstract class OperationNode {
         return varargOnly_;
     }
 
-    private static boolean uniq(Object _cl, int _varargOnly) {
+    private static boolean uniq(ClassMethodId _cl, int _varargOnly) {
+        boolean uniq_ = false;
+        if (_cl != null) {
+            uniq_ = isUniqCtor(_varargOnly);
+        }
+        return uniq_;
+    }
+
+    private static boolean uniq(ClassMethodIdAncestor _cl, int _varargOnly) {
         boolean uniq_ = false;
         if (_cl != null) {
             uniq_ = isUniqCtor(_varargOnly);

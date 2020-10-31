@@ -79,23 +79,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return getInitEl();
+            return new ExpressionLanguage(opInit);
         }
         if (_indexProcess == 1) {
-            return getExpressionEl();
+            return new ExpressionLanguage(opExp);
         }
-        return getStepEl();
-    }
-
-    public ExpressionLanguage getInitEl() {
-        return new ExpressionLanguage(opInit);
-    }
-
-    public ExpressionLanguage getExpressionEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
-    public ExpressionLanguage getStepEl() {
         return new ExpressionLanguage(opStep);
     }
 
@@ -128,7 +116,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return;
         }
         _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
-        ip_.getReadWrite().setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
     private LoopBlockStack processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();

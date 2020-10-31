@@ -18,10 +18,9 @@ public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implemen
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
         ExecTemplates.setVisited(ip_,this);
     }
 

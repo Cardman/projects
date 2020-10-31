@@ -23,10 +23,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         opExp = _opExp;
     }
 
-    public ExpressionLanguage getRightEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
     public CustList<ExecOperationNode> getExp() {
         return opExp;
     }
@@ -42,7 +38,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getRightEl();
+        return new ExpressionLanguage(opExp);
     }
 
     @Override
@@ -64,7 +60,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         }
         if (ip_ instanceof AbstractCallingInstancingPageEl&&(isCallSuper() || isCallInts())) {
             AbstractCallingInstancingPageEl inst_ = (AbstractCallingInstancingPageEl)ip_;
-            String curClass_ = inst_.getGlobalClass();
 
             boolean initFields_ = false;
             ExecBlock bl_ = getNextSibling();
@@ -80,6 +75,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
             if (!inst_.isFirstField() && initFields_) {
                 inst_.setFirstField(true);
                 Argument global_ = inst_.getGlobalArgument();
+                String curClass_ = inst_.getGlobalClass();
                 _cont.setCallingState(new NotInitializedFields(curClass_,inst_.getBlockRootType(), global_));
                 return;
             }

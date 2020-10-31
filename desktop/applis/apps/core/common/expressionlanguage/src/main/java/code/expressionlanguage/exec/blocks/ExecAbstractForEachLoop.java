@@ -138,7 +138,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
             return;
         }
         _l.setEvaluatingKeepLoop(false);
-        abs_.getReadWrite().setBlock(getFirstChild());
+        abs_.setBlock(getFirstChild());
     }
 
     protected abstract void checkIfNext(ContextEl _cont, LoopBlockStack _l);
@@ -149,7 +149,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l);
 
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opList);
+    protected CustList<ExecOperationNode> getOpList() {
+        return opList;
     }
 }

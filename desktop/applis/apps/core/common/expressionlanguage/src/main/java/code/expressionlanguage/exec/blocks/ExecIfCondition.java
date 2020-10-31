@@ -20,7 +20,6 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         if (ip_.matchStatement(this)) {
             processBlockAndRemove(_cont);
             return;
@@ -42,11 +41,11 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
         if (assert_ == ConditionReturn.YES) {
             ip_.addBlock(if_);
             if_.setEntered(true);
-            rw_.setBlock(getFirstChild());
+            ip_.setBlock(getFirstChild());
         } else {
             ip_.addBlock(if_);
             if (if_.getLastBlock() != this) {
-                rw_.setBlock(getNextSibling());
+                ip_.setBlock(getNextSibling());
                 ip_.setLastIf(if_);
             }
         }

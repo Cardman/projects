@@ -238,8 +238,7 @@ public final class Coverage {
             return;
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
-        ReadWrite rw_ = lastPage_.getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
+        ExecBlock en_ = lastPage_.getBlock();
         Block bl_ = mappingBlocks.getVal(en_);
         IdMap<OperationNode, AbstractCoverageResult> instr_ = covers.getVal(bl_);
         if (instr_ == null) {

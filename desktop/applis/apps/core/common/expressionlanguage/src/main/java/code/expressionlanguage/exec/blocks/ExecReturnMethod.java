@@ -40,7 +40,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getElRet();
+        return new ExpressionLanguage(opRet);
     }
 
     @Override
@@ -75,10 +75,6 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
 
     public boolean isEmpty() {
         return empty;
-    }
-
-    public ExpressionLanguage getElRet() {
-        return new ExpressionLanguage(opRet);
     }
 
 }

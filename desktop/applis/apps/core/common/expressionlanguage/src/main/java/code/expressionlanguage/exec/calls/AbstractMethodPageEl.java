@@ -28,8 +28,7 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
     @Override
     public void tryProcessEl(ContextEl _context) {
         //method walk through
-        ReadWrite rw_ = getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
+        ExecBlock en_ = getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;

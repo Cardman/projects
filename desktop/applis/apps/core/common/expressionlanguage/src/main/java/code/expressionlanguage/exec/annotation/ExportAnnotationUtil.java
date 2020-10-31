@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.annotation;
 
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -80,7 +79,10 @@ public final class ExportAnnotationUtil {
                                             CustList<CustList<StackObject>> _elts,
                                             StringBuilder _out) {
         ParentAnnotPart par_ = _current.getParent();
-        if (!ExecTemplates.hasNext(par_, _elts.size())) {
+        if (_elts.isEmpty()) {
+            par_ = null;
+        }
+        if (par_ == null) {
             return null;
         }
         CustList<StackObject> lastStack_ = _elts.last();

@@ -75,7 +75,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return getEl();
+            return new ExpressionLanguage(opList);
         }
         Classes cls_ = _context.getClasses();
         if (_indexProcess == 1) {
@@ -225,7 +225,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return;
         }
         call_.clearCurrentEls();
-        call_.getReadWrite().setBlock(getFirstChild());
+        call_.setBlock(getFirstChild());
         _l.setEvaluatingKeepLoop(false);
     }
     private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
@@ -241,10 +241,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;
-    }
-
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opList);
     }
 
 }

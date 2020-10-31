@@ -14,10 +14,9 @@ public final class ExecDefaultCondition extends ExecBracedBlock implements
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         ip_.setGlobalOffset(getOffsetTrim());
         ip_.setOffset(0);
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
         ExecTemplates.setVisited(ip_,this);
     }
 }

@@ -25,7 +25,7 @@ public final class ExecTryEval extends ExecBracedBlock implements StackableBlock
         tryStack_.setCurrentVisitedBlock(this);
         tryStack_.setExecBlock(this);
         ip_.addBlock(tryStack_);
-        ip_.getReadWrite().setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
 
 }

@@ -50,10 +50,6 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
     @Override
     public ExpressionLanguage getEl(ContextEl _context,
                                     int _indexProcess) {
-        return getElCondition();
-    }
-
-    public final ExpressionLanguage getElCondition() {
         return new ExpressionLanguage(opCondition);
     }
 

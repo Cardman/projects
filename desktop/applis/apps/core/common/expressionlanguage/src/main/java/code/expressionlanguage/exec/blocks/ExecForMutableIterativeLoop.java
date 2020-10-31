@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
@@ -89,12 +88,12 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return getInitEl();
+            return new ExpressionLanguage(opInit);
         }
         if (_indexProcess == 1) {
-            return getExpressionEl();
+            return new ExpressionLanguage(opExp);
         }
-        return getStepEl();
+        return new ExpressionLanguage(opStep);
     }
 
     @Override
@@ -116,7 +115,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
             ip_.processVisitedLoop(c_,this,this,_cont);
@@ -156,7 +154,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             processBlockAndRemove(_cont);
             return;
         }
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
 
     @Override
@@ -190,18 +188,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;
-    }
-
-    private ExpressionLanguage getInitEl() {
-        return new ExpressionLanguage(opInit);
-    }
-
-    private ExpressionLanguage getExpressionEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
-    private ExpressionLanguage getStepEl() {
-        return new ExpressionLanguage(opStep);
     }
 
 }

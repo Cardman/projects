@@ -31,7 +31,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
             _cont.setCallingState(new ErrorStruct(_cont, npe_));
             return null;
         }
-        String locName_ = getIteratorVar(_cont);
+        String locName_ = _cont.getClasses().getIteratorVarCust();
         AbstractPageEl ip_ = _cont.getLastPage();
         ip_.putInternVars(locName_, _its,_cont);
         ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
@@ -55,7 +55,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l) {
-        String locName_ = getNextVar(_conf);
+        String locName_ = _conf.getClasses().getNextVarCust();
         AbstractPageEl abs_ = _conf.getLastPage();
         abs_.putInternVars(locName_, _l.getStructIterator(),_conf);
         ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
@@ -70,18 +70,18 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
-            return getEl();
+            return new ExpressionLanguage(getOpList());
         }
         if (_indexProcess == 1) {
-            return getEqIterator(_context);
+            return new ExpressionLanguage(_context.getClasses().getExpsIteratorCust());
         }
         if (_indexProcess == 2) {
-            return getEqHasNext(_context);
+            return new ExpressionLanguage(_context.getClasses().getExpsHasNextCust());
         }
-        return getEqNext(_context);
+        return new ExpressionLanguage(_context.getClasses().getExpsNextCust());
     }
     private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
-        String locName_ = getHasNextVar(_conf);
+        String locName_ = _conf.getClasses().getHasNextVarCust();
         _conf.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
@@ -92,28 +92,6 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;
-    }
-
-    public String getIteratorVar(ContextEl _an) {
-        return _an.getClasses().getIteratorVarCust();
-    }
-
-    public String getHasNextVar(ContextEl _an) {
-        return _an.getClasses().getHasNextVarCust();
-    }
-
-    public String getNextVar(ContextEl _an) {
-        return _an.getClasses().getNextVarCust();
-    }
-    public ExpressionLanguage getEqIterator(ContextEl _an) {
-        return new ExpressionLanguage(_an.getClasses().getExpsIteratorCust());
-    }
-
-    public ExpressionLanguage getEqHasNext(ContextEl _an) {
-        return new ExpressionLanguage(_an.getClasses().getExpsHasNextCust());
-    }
-    public ExpressionLanguage getEqNext(ContextEl _an) {
-        return new ExpressionLanguage(_an.getClasses().getExpsNextCust());
     }
 
 }

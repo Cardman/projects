@@ -23,7 +23,7 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getEl();
+        return new ExpressionLanguage(opThrow);
     }
 
     @Override
@@ -45,10 +45,6 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
         _cont.setCallingState(o_);
-    }
-
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opThrow);
     }
 
 }

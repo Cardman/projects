@@ -2,7 +2,6 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.BeanStruct;
-import code.bean.RealInstanceStruct;
 import code.bean.nat.NativeContextEl;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
@@ -14,12 +13,10 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -54,7 +51,6 @@ import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Element;
 import code.util.*;
 import code.util.core.StringUtil;
-import code.util.ints.Displayable;
 
 public abstract class BeanTestNatLgNames extends BeanLgNames {
     public static final String TYPE_LIST = "ls";
@@ -271,11 +267,6 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     }
 
 
-    private StringMapObject storeForms(Struct _bean) {
-        return ((BeanStruct)_bean).getBean().getForms();
-    }
-
-
     private static void setStoredForms(BeanStruct _bean, StringMapObject _storedForms) {
         _bean.getBean().setForms(_storedForms);
     }
@@ -397,11 +388,10 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx) {
         ImportingPage ip_ = new ImportingPage();
         _conf.addPage(ip_);
-        StringMapObject stringMapObject_ = storeForms(_bean);
+        StringMapObject stringMapObject_ = beansStructs.getVal(_beanName).getBean().getForms();
         _conf.setCurrentUrl(_dest);
-        String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        String currentBeanName_ = rendDocumentBlock_.getBeanName();
         BeanStruct bean_ = getBeanOrNull(currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
         _conf.clearPages();

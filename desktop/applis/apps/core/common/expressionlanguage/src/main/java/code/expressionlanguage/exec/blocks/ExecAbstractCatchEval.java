@@ -13,9 +13,8 @@ public abstract class ExecAbstractCatchEval extends ExecBracedBlock implements S
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         if (isNextTryParts(getNextSibling())) {
-            rw_.setBlock(getNextSibling());
+            ip_.setBlock(getNextSibling());
         } else {
             processBlockAndRemove(_cont);
         }

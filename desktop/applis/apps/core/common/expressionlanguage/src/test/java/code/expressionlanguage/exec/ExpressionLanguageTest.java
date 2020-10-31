@@ -6218,7 +6218,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
-        ExpressionLanguage el_ = f_.getValueEl();
+        CustList<ExecOperationNode> list_ = f_.getOpValue();
+        ExpressionLanguage el_ = new ExpressionLanguage(list_);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
         if (!_exc) {
             assertNull(getException(_context));

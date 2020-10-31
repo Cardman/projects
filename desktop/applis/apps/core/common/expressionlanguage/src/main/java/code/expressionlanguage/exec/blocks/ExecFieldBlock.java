@@ -70,7 +70,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getValueEl();
+        return new ExpressionLanguage(opValue);
     }
 
     @Override
@@ -111,10 +111,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     public void setOpValue(CustList<ExecOperationNode> _opValue) {
         this.opValue = _opValue;
-    }
-
-    public ExpressionLanguage getValueEl() {
-        return new ExpressionLanguage(opValue);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

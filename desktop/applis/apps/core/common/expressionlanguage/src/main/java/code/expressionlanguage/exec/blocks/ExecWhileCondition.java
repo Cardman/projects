@@ -32,7 +32,6 @@ public final class ExecWhileCondition extends ExecCondition implements ExecLoop 
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
             ip_.processVisitedLoop(c_,this,this,_cont);
@@ -54,7 +53,7 @@ public final class ExecWhileCondition extends ExecCondition implements ExecLoop 
             processBlockAndRemove(_cont);
             return;
         }
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
 
 

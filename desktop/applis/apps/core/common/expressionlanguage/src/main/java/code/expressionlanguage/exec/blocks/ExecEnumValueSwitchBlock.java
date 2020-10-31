@@ -17,7 +17,6 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
     @Override
     protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         ExecBlock n_ = getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -47,7 +46,7 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
             _if.setCurrentVisitedBlock(this);
         } else {
             _cont.getCoverage().passSwitch(_cont, this, found_, _arg);
-            rw_.setBlock(found_);
+            ip_.setBlock(found_);
             _if.setCurrentVisitedBlock(found_);
         }
         ip_.addBlock(_if);

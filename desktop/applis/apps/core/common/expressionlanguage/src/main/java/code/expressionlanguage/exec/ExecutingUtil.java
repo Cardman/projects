@@ -15,6 +15,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -35,12 +36,12 @@ public final class ExecutingUtil {
         }
     }
 
-    static void processTagsBase(ContextEl _context, ReadWrite _readWrite) {
+    static void processTagsBase(ContextEl _context) {
         AbstractPageEl ip_ = _context.getLastPage();
         if (!ip_.checkCondition(_context)) {
             return;
         }
-        ExecBlock en_ = _readWrite.getBlock();
+        ExecBlock en_ = ip_.getBlock();
         if (en_ != null) {
             ip_.setGlobalOffset(en_.getOffsetTrim());
             ip_.setOffset(0);
@@ -98,7 +99,7 @@ public final class ExecutingUtil {
         page_.setBlockRoot(_rootBlock);
         while (firstChild_ != null) {
             if (firstChild_ instanceof ExecStaticBlock) {
-                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, false);
+                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
             }
             firstChild_ = firstChild_.getNextSibling();
         }
@@ -230,7 +231,7 @@ public final class ExecutingUtil {
         rw_.setBlock(firstChild_);
         while (firstChild_ != null) {
             if (firstChild_ instanceof ExecInstanceBlock) {
-                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, false);
+                page_.getProcessedBlocks().put((ExecInitBlock) firstChild_, BoolVal.FALSE);
             }
             firstChild_ = firstChild_.getNextSibling();
         }

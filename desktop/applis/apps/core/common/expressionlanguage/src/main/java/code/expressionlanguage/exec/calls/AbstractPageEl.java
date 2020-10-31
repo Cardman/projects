@@ -23,18 +23,19 @@ public abstract class AbstractPageEl extends PageEl {
     private ExecRootBlock blockRootType;
 
     private ReadWrite readWrite;
+    private ExecBlock execBlock;
     private ExecBlock blockRoot;
 
-    private CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
+    private final CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
-    private CustList<ExpressionLanguage> currentEls = new CustList<ExpressionLanguage>();
+    private final CustList<ExpressionLanguage> currentEls = new CustList<ExpressionLanguage>();
 
     private int globalOffset;
 
     private int translatedOffset;
 
     private int offset;
-    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
+    private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private ExecFileBlock file;
 
     private Argument returnedArgument = Argument.createVoid();
@@ -69,7 +70,7 @@ public abstract class AbstractPageEl extends PageEl {
             _next.processBlockAndRemove(_context);
             return;
         }
-        getReadWrite().setBlock(_l.getBlock().getFirstChild());
+        setBlock(_l.getBlock().getFirstChild());
     }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -180,7 +181,7 @@ public abstract class AbstractPageEl extends PageEl {
         ExecBracedBlock br_ = try_.getLastBlock();
         if (br_ instanceof ExecFinallyEval) {
             _ip.setLastTry(try_);
-            _ip.getReadWrite().setBlock(br_);
+            _ip.setBlock(br_);
             try_.setException(_ex);
             try_.setCalling(new AbruptCallingFinally(_call));
             return true;
@@ -198,6 +199,9 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public Argument getValue(int _index){
+        if (_index >= currentEls.size()) {
+            return Argument.createVoid();
+        }
         return currentEls.get(_index).getArgument();
     }
 
@@ -206,6 +210,14 @@ public abstract class AbstractPageEl extends PageEl {
     }
     private ExpressionLanguage getLastEl() {
         return currentEls.last();
+    }
+
+    public ExecBlock getBlock() {
+        return execBlock;
+    }
+
+    public void setBlock(ExecBlock _block) {
+        execBlock = _block;
     }
 
     public ReadWrite getReadWrite() {
@@ -217,6 +229,7 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void setReadWrite(ReadWrite _readWrite) {
         readWrite = _readWrite;
+        execBlock = _readWrite.getBlock();
     }
 
     public abstract void tryProcessEl(ContextEl _context);
@@ -233,7 +246,7 @@ public abstract class AbstractPageEl extends PageEl {
         return internVars;
     }
     public void putInternVars(String _key, Struct _struct, ContextEl _context) {
-        internVars.put(_key,LocalVariable.newLocalVariable(_struct,_context));
+        internVars.put(StringUtil.nullToEmpty(_key),LocalVariable.newLocalVariable(_struct,_context));
     }
 
     public ExecFileBlock getFile() {
@@ -249,7 +262,7 @@ public abstract class AbstractPageEl extends PageEl {
     }
 
     public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = _returnedArgument;
+        returnedArgument = Argument.getNullableValue(_returnedArgument);
     }
 
     public LoopBlockStack getLastLoop() {

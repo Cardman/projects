@@ -13,7 +13,6 @@ public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements W
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         if (ip_.matchStatement(this)) {
             processBlockAndRemove(_cont);
             return;
@@ -25,6 +24,6 @@ public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements W
         if_.setCurrentVisitedBlock(this);
         ip_.addBlock(if_);
         if_.setEntered(true);
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
 }

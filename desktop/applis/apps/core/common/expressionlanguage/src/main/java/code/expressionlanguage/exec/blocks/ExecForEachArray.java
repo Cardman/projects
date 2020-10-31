@@ -67,6 +67,6 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getEl();
+        return new ExpressionLanguage(getOpList());
     }
 }

@@ -30,8 +30,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     @Override
     public void tryProcessEl(ContextEl _context) {
         //constructor walk through (class, enum, interface)
-        ReadWrite rw_ = getReadWrite();
-        ExecBlock en_ = rw_.getBlock();
+        ExecBlock en_ = getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;
@@ -50,7 +49,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             implicitConstr_ = true;
         }
         if (implicitConstr_) {
-            String curClass_ = getGlobalClass();
             if (getBlockRootType() instanceof ExecUniqueRootedBlock) {
                 //class or enum (included inner enum)
                 ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) getBlockRootType();
@@ -81,6 +79,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             if (!firstField && initFields_) {
                 firstField = true;
                 Argument global_ = getGlobalArgument();
+                String curClass_ = getGlobalClass();
                 _context.setCallingState(new NotInitializedFields(curClass_, getBlockRootType(), global_));
                 return false;
             }

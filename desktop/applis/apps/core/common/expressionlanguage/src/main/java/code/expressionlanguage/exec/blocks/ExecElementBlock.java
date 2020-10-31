@@ -86,11 +86,9 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getValueEl();
-    }
-    public ExpressionLanguage getValueEl() {
         return new ExpressionLanguage(opValue);
     }
+
     @Override
     public void reduce(ContextEl _context) {
         CustList<CustList<ExecOperationNode>> annotationsOps_;

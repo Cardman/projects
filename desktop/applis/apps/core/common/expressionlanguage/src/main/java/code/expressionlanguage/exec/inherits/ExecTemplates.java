@@ -973,12 +973,11 @@ public final class ExecTemplates {
             _ip.setNullReadWrite();
             return false;
         }
-        ReadWrite rw_ = _ip.getReadWrite();
         AbstractStask bl_ = _ip.getLastStack();
         if (_label.isEmpty()) {
             if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
                 ExecBlock forLoopLoc_ = bl_.getLastBlock();
-                rw_.setBlock(forLoopLoc_);
+                _ip.setBlock(forLoopLoc_);
                 if (bl_ instanceof LoopBlockStack) {
                     _ip.setLastLoop((LoopBlockStack) bl_);
                     ((LoopBlockStack)bl_).setFinished(true);
@@ -988,7 +987,7 @@ public final class ExecTemplates {
         } else {
             if (StringUtil.quickEq(_label, bl_.getLabel())){
                 ExecBlock forLoopLoc_ = bl_.getLastBlock();
-                rw_.setBlock(forLoopLoc_);
+                _ip.setBlock(forLoopLoc_);
                 if (bl_ instanceof LoopBlockStack) {
                     _ip.setLastLoop((LoopBlockStack) bl_);
                     ((LoopBlockStack)bl_).setFinished(true);
@@ -1018,7 +1017,7 @@ public final class ExecTemplates {
                 br_.removeLocalVars(_ip);
                 ExecLoop loop_;
                 loop_ = ((LoopBlockStack) bl_).getExecLoop();
-                _ip.getReadWrite().setBlock(br_);
+                _ip.setBlock(br_);
                 loop_.processLastElementLoop(_conf,lSt_);
                 return false;
             }
@@ -1028,7 +1027,7 @@ public final class ExecTemplates {
                 br_.removeLocalVars(_ip);
                 ExecLoop loop_;
                 loop_ = ((LoopBlockStack) bl_).getExecLoop();
-                _ip.getReadWrite().setBlock(br_);
+                _ip.setBlock(br_);
                 loop_.processLastElementLoop(_conf,lSt_);
                 return false;
             }
@@ -1055,11 +1054,10 @@ public final class ExecTemplates {
             return;
         }
         ts_.setVisitedFinally(true);
-        ip_.getReadWrite().setBlock(_block.getFirstChild());
+        ip_.setBlock(_block.getFirstChild());
     }
     public static void processElseIf(ContextEl _cont,ExecCondition _cond) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = ip_.getLastIf();
         if (if_ == null) {
             ip_.setNullReadWrite();
@@ -1073,12 +1071,12 @@ public final class ExecTemplates {
             }
             if (assert_ == ConditionReturn.YES) {
                 if_.setEntered(true);
-                rw_.setBlock(_cond.getFirstChild());
+                ip_.setBlock(_cond.getFirstChild());
                 return;
             }
         }
         if (ExecBracedBlock.isNextIfParts(_cond.getNextSibling())) {
-            rw_.setBlock(_cond.getNextSibling());
+            ip_.setBlock(_cond.getNextSibling());
             return;
         }
         _cond.processBlockAndRemove(_cont);
@@ -1093,14 +1091,13 @@ public final class ExecTemplates {
         if_.setCurrentVisitedBlock(_cond);
         if (!if_.isEntered()) {
             if_.setEntered(true);
-            ip_.getReadWrite().setBlock(_cond.getFirstChild());
+            ip_.setBlock(_cond.getFirstChild());
             return;
         }
         _cond.processBlockAndRemove(_cont);
     }
     public static void processDo(ContextEl _cont,ExecCondition _cond) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack l_ = ip_.getLastLoop();
         if (l_ == null) {
             ip_.setNullReadWrite();
@@ -1115,7 +1112,7 @@ public final class ExecTemplates {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);
-        rw_.setBlock(_cond.getPreviousSibling());
+        ip_.setBlock(_cond.getPreviousSibling());
     }
     public static void processBlockAndRemove(ContextEl _context,ExecBlock _bl) {
         AbstractPageEl ip_ = _context.getLastPage();
@@ -1173,7 +1170,6 @@ public final class ExecTemplates {
     }
 
     public static Argument getValue(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
-        LgNames stds_ = _context.getStandards();
         Cache cache_ = _lastPage.getCache();
         if (cache_ != null) {
             LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
@@ -1181,8 +1177,14 @@ public final class ExecTemplates {
                 return new Argument(loopVar_.getStruct());
             }
         }
-        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        StringMap<LocalVariable> valueVars_ = _lastPage.getValueVars();
+        return getValueVar(_val, valueVars_, _context);
+    }
+
+    public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context) {
+        LocalVariable locVar_ = _valueVars.getVal(_val);
         if (locVar_ == null) {
+            LgNames stds_ = _context.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setCallingState(new ErrorStruct(_context,npe_));
             return new Argument();
@@ -1613,9 +1615,6 @@ public final class ExecTemplates {
         return classes_;
     }
 
-    public static boolean hasNext(Object _par, int _size) {
-        return _par != null && _size != 0;
-    }
     public static Argument getFirstArgument(CustList<Argument> _list) {
         return getArgument(_list,0);
     }

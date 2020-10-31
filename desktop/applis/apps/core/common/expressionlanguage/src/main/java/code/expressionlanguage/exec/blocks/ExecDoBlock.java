@@ -16,15 +16,13 @@ public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(getNextSibling());
+        ip_.setBlock(getNextSibling());
         ip_.setLastLoop(_l);
     }
 
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
             ip_.processVisitedLoop(c_,this,getNextSibling(),_cont);
@@ -36,6 +34,6 @@ public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);
-        rw_.setBlock(getFirstChild());
+        ip_.setBlock(getFirstChild());
     }
 }

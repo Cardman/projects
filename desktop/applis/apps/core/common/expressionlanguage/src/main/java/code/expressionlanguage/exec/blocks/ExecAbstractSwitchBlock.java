@@ -25,10 +25,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getEl();
-    }
-
-    public ExpressionLanguage getEl() {
         return new ExpressionLanguage(opValue);
     }
 
