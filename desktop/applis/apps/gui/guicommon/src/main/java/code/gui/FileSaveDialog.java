@@ -98,10 +98,14 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (sel_ instanceof DefaultMutableTreeNode) {
             StringBuilder str_ = buildPath((DefaultMutableTreeNode) sel_);
             str_.append(typedString.getText());
-            new File(str_.toString()).mkdirs();
+            if (!new File(str_.toString()).mkdirs()) {
+                return;
+            }
             applyTreeChangeSelected();
         } else {
-            new File(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs();
+            if (!new File(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs()) {
+                return;
+            }
             applyTreeChange();
         }
     }
