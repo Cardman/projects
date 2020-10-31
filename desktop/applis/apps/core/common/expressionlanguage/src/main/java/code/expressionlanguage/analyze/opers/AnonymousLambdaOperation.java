@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -290,32 +289,18 @@ public final class AnonymousLambdaOperation extends
         MethodInfo mloc_ = new MethodInfo();
         lambdaCommonContent.setReturnFieldType(importedReturnType_);
         mloc_.setOriginalReturnType(importedReturnType_);
-        mloc_.setClassName(lambdaCommonContent.getFoundClass());
-        mloc_.setConstraints(idC_);
+        String found_ = lambdaCommonContent.getFoundClass();
+        mloc_.setClassName(found_);
         mloc_.setParameters(p_);
-        mloc_.setReturnType(importedReturnType_);
+        mloc_.setConstraints(idC_);
         mloc_.format(idC_.getKind() == MethodAccessKind.STATIC, _page);
-        MethodId constraints_ = mloc_.getConstraints();
-        String baseClassName_ = mloc_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = mloc_.getFoundFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(mloc_.getReturnType());
-        res_.setOriginalReturnType(mloc_.getOriginalReturnType());
-        res_.setFileName(mloc_.getFileName());
-        res_.setAncestor(mloc_.getAncestor());
-        res_.setAbstractMethod(mloc_.isAbstractMethod());
-        res_.setStaticMethod(block.isStaticMethod());
-        String foundClass_ = res_.getRealClass();
-        MethodId idCt_ = res_.getRealId();
-        if (idCt_.getKind() != MethodAccessKind.STATIC_CALL) {
+        String foundClass_ = found_;
+        if (idC_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
-        lambdaCommonContent.setFoundClass(res_.getId().getClassName());
-        lambdaAnoContent.setMethod(new ClassMethodId(foundClass_, idCt_));
-        String fct_ = LambdaOperation.formatReturn(lambdaCommonContent.getFoundClass(), res_, false, _page);
+        lambdaAnoContent.setMethod(new ClassMethodId(foundClass_, idC_));
+        String fct_ = LambdaOperation.formatReturn(_page, importedReturnType_, found_, idC_, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 

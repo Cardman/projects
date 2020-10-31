@@ -24,8 +24,6 @@ public final class MethodInfo implements Parametrable {
     private int memberNumber = -1;
     private StringList formattedParams;
 
-    private MethodAccessKind staticMethod;
-
     private boolean finalMethod;
 
     private int ancestor;
@@ -88,18 +86,6 @@ public final class MethodInfo implements Parametrable {
 
     public void setClassName(String _className) {
         className = _className;
-    }
-
-    public boolean isStatic() {
-        return staticMethod == MethodAccessKind.STATIC;
-    }
-
-    public void setStaticMethod(MethodAccessKind _staticMethod) {
-        staticMethod = _staticMethod;
-    }
-
-    public void setStatic(boolean _staticMethod) {
-        staticMethod = MethodId.getKind(_staticMethod);
     }
 
     @Override

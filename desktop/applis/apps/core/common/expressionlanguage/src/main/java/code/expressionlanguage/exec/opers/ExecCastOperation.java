@@ -82,7 +82,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String geneFor_ = ExecTemplates.quickFormat(r_,_className,gene_);
                         String ret_ = clRealId_.getOverridableBlock().getImportedReturnType();
                         ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
-                        String fctParam_ = formatReturn(EMPTY_STRING,_conf, false, ret_, idMeth_, realId_.isStaticMethod());
+                        String fctParam_ = formatReturn(_conf, ret_, idMeth_);
                         fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
@@ -99,11 +99,11 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             }
         }
     }
-    public static String formatReturn(String _foundClass, ContextEl _an, boolean _demand, String _returnType, MethodId _shortId, boolean _staticMethod) {
+    private static String formatReturn(ContextEl _an, String _returnType, MethodId _shortId) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getContent().getReflect().getAliasFct();
         StringList paramsReturn_ = new StringList();
-        IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, _shortId, _staticMethod);
+        IdentifiableUtil.appendLeftPart(paramsReturn_, _shortId);
         paramsReturn_.add(_returnType);
         return StringUtil.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }

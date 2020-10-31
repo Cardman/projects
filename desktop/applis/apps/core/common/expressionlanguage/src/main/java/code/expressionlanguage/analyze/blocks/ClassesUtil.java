@@ -147,7 +147,6 @@ public final class ClassesUtil {
         res_.setRootNumber(m_.getRootNumber());
         res_.setMemberNumber(m_.getMemberNumber());
         res_.setAbstractMethod(m_.isAbstractMethod());
-        res_.setStaticMethod(m_.isStatic());
         return res_;
     }
 
@@ -221,7 +220,6 @@ public final class ClassesUtil {
         mloc_.setRootNumber(_m.getNumberRoot());
         mloc_.setMemberNumber(_m.getNumberAll());
         mloc_.setClassName(_formattedClass);
-        mloc_.setStaticMethod(id_.getKind());
         mloc_.setAbstractMethod(_m.isAbstractMethod());
         mloc_.setFinalMethod(_m.isFinalMethod());
         mloc_.setConstraints(id_);

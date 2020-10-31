@@ -63,7 +63,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
 
     @Override
     public MethodAccessKind getStaticContext() {
-        if (staticMethod) {
+        if (isStaticMethod()) {
             return MethodAccessKind.STATIC;
         }
         if (staticCallMethod) {

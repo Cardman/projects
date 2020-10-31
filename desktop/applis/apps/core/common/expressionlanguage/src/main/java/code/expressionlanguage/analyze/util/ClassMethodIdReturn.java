@@ -14,7 +14,6 @@ public final class ClassMethodIdReturn {
 
     private String returnType;
     private String originalReturnType = "";
-    private boolean staticMethod;
 
     private boolean abstractMethod;
 
@@ -79,14 +78,6 @@ public final class ClassMethodIdReturn {
 
     public void setFileName(String _fileName) {
         this.fileName = _fileName;
-    }
-
-    public boolean isStaticMethod() {
-        return staticMethod;
-    }
-
-    public void setStaticMethod(boolean _staticMethod) {
-        staticMethod = _staticMethod;
     }
 
     public boolean isAbstractMethod() {

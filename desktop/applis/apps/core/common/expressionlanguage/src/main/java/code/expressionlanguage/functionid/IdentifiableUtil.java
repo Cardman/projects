@@ -9,11 +9,9 @@ public final class IdentifiableUtil {
 
     private IdentifiableUtil() {
     }
-    public static void appendLeftPart(String _foundClass, boolean _demand, StringList _paramsReturn, MethodId _id, boolean _staticMethod) {
+
+    public static void appendLeftPart(StringList _paramsReturn, MethodId _id) {
         StringList params_ = _id.getParametersTypes();
-        if (!_staticMethod && _demand) {
-            _paramsReturn.add(_foundClass);
-        }
         if (_id.isVararg()) {
             for (String p: params_.left(params_.size() - 1)) {
                 _paramsReturn.add(p);
@@ -26,6 +24,7 @@ public final class IdentifiableUtil {
             }
         }
     }
+
     public static boolean eqPartial(Identifiable _this,Identifiable _other) {
         if (_this.isVararg() != _other.isVararg()) {
             return false;

@@ -130,6 +130,36 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument22_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $staticCall(Ex).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  $Fct<$int[],$int> g = $lambda(Ex,exmethtwo,$int...);\n");
+        xml_.append("  $return $($int) g.call($new $int[]{5i,13i});\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmethtwo($int... p){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $foreach($int i:p){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(27, getNumber(ret_));
+    }
+
+    @Test
     public void calculateArgument23Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

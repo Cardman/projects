@@ -5,12 +5,14 @@ import code.expressionlanguage.functionid.MethodId;
 
 public final class MethodHeaderInfo {
     private final MethodId id;
+    private final int rootNumber;
     private final int nameNumber;
     private final String importedReturnType;
     private final AccessEnum access;
 
-    public MethodHeaderInfo(MethodId _id, int _nameNumber, String _importedReturnType, AccessEnum _access) {
+    public MethodHeaderInfo(MethodId _id, int _rootNumber, int _nameNumber, String _importedReturnType, AccessEnum _access) {
         this.id = _id;
+        this.rootNumber = _rootNumber;
         this.nameNumber = _nameNumber;
         this.importedReturnType = _importedReturnType;
         this.access = _access;
@@ -18,6 +20,10 @@ public final class MethodHeaderInfo {
 
     public MethodId getId() {
         return id;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
     }
 
     public int getNameNumber() {
