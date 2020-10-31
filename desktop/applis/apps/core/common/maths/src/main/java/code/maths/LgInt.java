@@ -1008,7 +1008,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         QuotMod quotientReste_ = new QuotMod();
         if (plusPetitQue(_autre)) {
             quotientReste_.setQuot(new Longs());
-            quotientReste_.getQuot().add(0l);
+            quotientReste_.getQuot().add(0L);
+            quotientReste_.setMod(new Longs(grDigits));
+            return quotientReste_;
+        }
+        long first_ = _autre.grDigits.first();
+        if (first_ <= 0) {
+            quotientReste_.setQuot(new Longs());
+            quotientReste_.getQuot().add(0L);
             quotientReste_.setMod(new Longs(grDigits));
             return quotientReste_;
         }
@@ -1020,8 +1027,8 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         reste_.grDigits.clear();
         Longs chiffresQuotient_ = new Longs();
         int indiceChiffre_;
-        if (grDigits.first() >= _autre.grDigits.first()) {
-            chiffreMax_ = grDigits.first() / _autre.grDigits.first();
+        if (grDigits.first() >= first_) {
+            chiffreMax_ = grDigits.first() / first_;
             /*
             chiffreMax_>=1 car grChiffres.first()>=_autre.grChiffres.first() et le quotient entier entre un dividende plus
             grand que le diviseur est >= 1 de plus chiffreMax_<=grChiffres.first()<_base_
@@ -1032,7 +1039,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             indiceChiffre_ = tailleBis_;
         } else {
-            chiffreMax_ = (grDigits.first() * BASE + grDigits.get(IndexConstants.SECOND_INDEX)) / _autre.grDigits.first();
+            chiffreMax_ = (grDigits.first() * BASE + grDigits.get(IndexConstants.SECOND_INDEX)) / first_;
             /*
             _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. grChiffres.first()>=1, car
             this>=_autre et _autre>0 => this>0 => grChiffres.first()>=1 donc
@@ -1056,17 +1063,17 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             reste_.grDigits.add(grDigits.get(indiceChiffre_));
             reste_.removeBeginningZeros();
             if (reste_.plusPetitQue(_autre)) {
-                chiffresQuotient_.add(0l);
+                chiffresQuotient_.add(0L);
             } else {
-                if (reste_.grDigits.first() >= _autre.grDigits.first()) {
-                    chiffreMax_ = reste_.grDigits.first() / _autre.grDigits.first();
+                if (reste_.grDigits.first() >= first_) {
+                    chiffreMax_ = reste_.grDigits.first() / first_;
                     /*
                     chiffreMax_>=1 car reste_.grChiffres.first()>=_autre.grChiffres.first() et le quotient entier entre un
                     dividende plus grand que le diviseur est >= 1
                     */
                 } else {
                     chiffreMax_ = reste_.grDigits.first() * BASE + reste_.grDigits.get(IndexConstants.SECOND_INDEX);
-                    chiffreMax_ /= _autre.grDigits.first();
+                    chiffreMax_ /= first_;
                     /*
                     _base_>=_autre.grChiffres.first(), car _base_ est la _base_ de numerotation. reste_.grChiffres.first()>=1,
                     car reste_>=_autre et _autre>0 => reste_>0 => grChiffres.first()>=1 donc

@@ -519,6 +519,10 @@ public class NumbersTest {
         assertEq(1, NumberUtil.quot(Long.MIN_VALUE,Long.MIN_VALUE));
     }
     @Test
+    public void quot50Test() {
+        assertEq(0, NumberUtil.quot(0,0));
+    }
+    @Test
     public void mod14Test() {
         assertEq(0, NumberUtil.mod(0L,1));
     }

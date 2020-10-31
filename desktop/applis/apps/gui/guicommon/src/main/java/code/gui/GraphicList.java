@@ -219,8 +219,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         selectedIndexes.removeDuplicates();
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = list.toArray();
-        for (Object v: array_) {
+        for (T v: list) {
             PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
@@ -232,8 +231,7 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         selectedIndexes.removeDuplicates();
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = list.toArray();
-        for (Object v: array_) {
+        for (T v: new CustList<T>(list)) {
             PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
@@ -243,15 +241,15 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
     public void clearSelection() {
         CustCellRender r_ = getRender();
         int index_ = 0;
-        Object[] array_ = list.toArray();
-        for (Object v: array_) {
+        CustList<T> copy_ = new CustList<T>(list);
+        for (T v: copy_) {
             PreparedLabel c_;
             c_ = r_.getListCellRendererComponent(this, v, index_, false, false);
             r_.paintComponent(c_);
             index_++;
         }
         setFirstIndex(0);
-        setLastIndex(array_.length);
+        setLastIndex(copy_.size());
         clearRange();
         setFirstIndex(-1);
         setLastIndex(-1);

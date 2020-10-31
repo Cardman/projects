@@ -2021,6 +2021,10 @@ public class RateTest {
         assertEq(new LgInt("33"),new Rate("1/3").percent());
     }
     @Test
+    public void percent4(){
+        assertEq(new LgInt("0"),new Rate("0").percent());
+    }
+    @Test
     public void inRange1(){
         assertTrue(new Rate(2).inRange(new Rate(1),new Rate(3)));
     }

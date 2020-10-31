@@ -75,6 +75,9 @@ public final class NumberUtil {
     }
 
     public static long quot(long _one, long _two) {
+        if (_two == 0) {
+            return 0;
+        }
         if (_two == Long.MIN_VALUE) {
             if (_one >= 0) {
                 return 0;

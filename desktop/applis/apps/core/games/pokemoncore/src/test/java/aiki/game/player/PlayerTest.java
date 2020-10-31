@@ -5749,9 +5749,9 @@ public class PlayerTest extends InitializationDataBase {
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         player_.recevoirPokemon(pokemonDonne_, diff_, data);
-        Object first_ = player_.getTeam().get(0);
-        Object second_ = player_.getTeam().get(2);
-        Object third_ = player_.getTeam().get(4);
+        UsablePokemon first_ = player_.getTeam().get(0);
+        UsablePokemon second_ = player_.getTeam().get(2);
+        UsablePokemon third_ = player_.getTeam().get(4);
         player_.reindexAfterStoringToHost((short) 1,(short) 3);
         assertEq(3, player_.getTeam().size());
         assertSame(first_, player_.getTeam().get(0));
@@ -5788,9 +5788,9 @@ public class PlayerTest extends InitializationDataBase {
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         player_.recevoirPokemon(pokemonDonne_, diff_, data);
-        Object first_ = player_.getTeam().get(0);
-        Object second_ = player_.getTeam().get(2);
-        Object third_ = player_.getTeam().get(4);
+        UsablePokemon first_ = player_.getTeam().get(0);
+        UsablePokemon second_ = player_.getTeam().get(2);
+        UsablePokemon third_ = player_.getTeam().get(4);
         player_.reindexAfterStoringToHost((short) 3,(short) 1);
         assertEq(3, player_.getTeam().size());
         assertSame(first_, player_.getTeam().get(0));

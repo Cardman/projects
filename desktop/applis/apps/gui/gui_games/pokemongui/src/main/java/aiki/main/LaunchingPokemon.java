@@ -116,7 +116,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     @Override
     public Object getObject(String _fileName) {
         String file_ = StreamTextFile.contentsOfFile(_fileName);
-        Object o_ = DocumentReaderAikiCoreUtil.getGame(file_);
+        Game o_ = DocumentReaderAikiCoreUtil.getGame(file_);
         if (o_ != null) {
             return o_;
         }

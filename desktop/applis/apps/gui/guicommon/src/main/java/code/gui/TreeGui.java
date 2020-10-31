@@ -33,7 +33,7 @@ public final class TreeGui extends CustComponent {
 
     public void select(DefaultMutableTreeNode _node) {
         TreeNode treeNode_ = _node.getParent();
-        CustList<Object> nodes_ = new CustList<Object>();
+        CustList<TreeNode> nodes_ = new CustList<TreeNode>();
         nodes_.add(_node);
         while (treeNode_ != null) {
             nodes_.add(0, treeNode_);

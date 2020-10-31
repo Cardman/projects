@@ -1542,6 +1542,14 @@ public class LgIntTest {
         assertEq(new LgInt("1000000000000000000"), intTwo_);
     }
     @Test
+    public void divide0Test(){
+        LgInt intOne_ = new LgInt("0");
+        LgInt intTwo_ = new LgInt("0");
+        assertEq(new LgInt("0"), LgInt.divide(intOne_, intTwo_));
+        assertEq(new LgInt("0"), intOne_);
+        assertEq(new LgInt("0"), intTwo_);
+    }
+    @Test
     public void divide1Test(){
         LgInt intOne_ = new LgInt("0");
         LgInt intTwo_ = new LgInt("20");

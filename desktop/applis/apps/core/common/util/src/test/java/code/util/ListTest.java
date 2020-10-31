@@ -1,6 +1,7 @@
 package code.util;
 import code.util.classestest.IntegerComparator;
 import code.util.classestest.MyEnum;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import static code.util.EquallableExUtil.assertEq;
@@ -337,6 +338,17 @@ public class ListTest {
         integers_.retainAllElements(integersTwo_);
         assertEq(1, integers_.size());
         assertSame(MyEnum.THREE, integers_.get(0));
+    }
+    @Test
+    public void retain2Test() {
+        IdList<BoolVal> integers_ = new IdList<BoolVal>();
+        integers_.add(BoolVal.TRUE);
+        integers_.add(BoolVal.FALSE);
+        IdList<BoolVal> integersTwo_ = new IdList<BoolVal>();
+        integersTwo_.add(BoolVal.TRUE);
+        integers_.retainAllElements(integersTwo_);
+        assertEq(1, integers_.size());
+        assertSame(BoolVal.TRUE, integers_.get(0));
     }
     @Test
     public void getPrevTest() {
