@@ -22,7 +22,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl,RendReducableOperations {
+public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl {
 
     private String label;
 

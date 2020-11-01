@@ -20,6 +20,7 @@ public final class HealingPp extends HealingItem {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateHealingItem(_data);
         if (healedMovePp > 0) {
             if (healingAllMovesFullpp > 0) {
                 _data.setError(true);
@@ -56,10 +57,7 @@ public final class HealingPp extends HealingItem {
         if (getHealingMoveFullpp()) {
             return true;
         }
-        if (getHealedMovePp() > 0) {
-            return true;
-        }
-        return false;
+        return getHealedMovePp() > 0;
     }
 
     public long getHealedMovePp() {

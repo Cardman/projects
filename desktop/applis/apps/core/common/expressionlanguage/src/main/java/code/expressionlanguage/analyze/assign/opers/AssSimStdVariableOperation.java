@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssSimForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
 
-public final class AssSimStdVariableOperation extends AssLeafOperation implements AssSettableElResult {
+public final class AssSimStdVariableOperation extends AssLeafOperation {
 
     private String variableName;
     private boolean declare;

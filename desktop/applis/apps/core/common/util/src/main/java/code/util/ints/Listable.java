@@ -1,8 +1,7 @@
 package code.util.ints;
 import code.util.CustList;
-import code.util.*;
 
-public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable, SimpleList {
+public interface Listable<T> extends Iterable<T>,SimpleIterable , Countable {
 
     Iterable<T> getList();
     CustList<T> getReverse();

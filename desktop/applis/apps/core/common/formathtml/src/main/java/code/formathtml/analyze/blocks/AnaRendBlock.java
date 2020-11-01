@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -16,7 +15,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class AnaRendBlock implements AnalyzedBlock {
+public abstract class AnaRendBlock {
     public static final String COMMA = ",";
     public static final String AND_ERR = "&";
     public static final String LEFT_PAR = "(";
@@ -622,6 +621,9 @@ public abstract class AnaRendBlock implements AnalyzedBlock {
             child_ = child_.getNextSibling();
         }
         return l_;
+    }
+    protected static boolean isPossibleEmpty(AnaRendBlock _bl) {
+        return _bl instanceof AnaRendEmptyInstruction || _bl instanceof AnaRendEmptyText;
     }
     public int getAttributeDelimiter(String _type) {
         AttributePart del_ = getAttributeDelimiters().getVal(_type);

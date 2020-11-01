@@ -538,13 +538,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
-        page_.setCurrentAnaBlock(field_);
         RootBlock rTwo_ = getAnaClassBody(conf_, "pkg.Composite");
         page_.setCurrentBlock(rTwo_.getFirstChild());
-        page_.setCurrentAnaBlock(rTwo_.getFirstChild());
         Block b_ = field_.getNextSibling().getFirstChild();
         page_.setCurrentBlock(b_);
-        page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -1942,10 +1939,8 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
-        page_.setCurrentAnaBlock(field_);
         Block b_ = field_.getNextSibling().getFirstChild();
         page_.setCurrentBlock(b_);
-        page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3274,7 +3269,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);
@@ -3319,7 +3313,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);
@@ -3363,7 +3356,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);
@@ -3409,7 +3401,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);
@@ -3463,7 +3454,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);
@@ -3509,7 +3499,6 @@ public final class ElResolverTest extends ProcessMethodCommon {
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(r_);
         conf_.getAnalyzing().setImportingTypes(r_);

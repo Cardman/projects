@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -92,7 +92,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
+        Block cur_ = _page.getCurrentBlock();
         if (apply_ && cur_ instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
         }

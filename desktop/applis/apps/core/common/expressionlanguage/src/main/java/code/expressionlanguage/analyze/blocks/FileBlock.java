@@ -93,7 +93,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 d_.setIndexFile(i);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);
                 g_.setLength(1);
-                errorsFiles.add(g_);
+                errorsFiles.getLi().add(g_);
             }
         }
     }

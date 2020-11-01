@@ -2,7 +2,7 @@ package aiki.game.fight;
 import aiki.comments.Comment;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -2282,7 +2282,7 @@ public final class Fighter {
         if(!fCapac_.enabledSending()){
             return false;
         }
-        EffectWhileSending effetEnvoi_=fCapac_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
         return effetEnvoi_.getDisableWeather();
     }
 

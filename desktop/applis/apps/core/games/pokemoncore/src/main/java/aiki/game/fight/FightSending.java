@@ -1,7 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
@@ -65,7 +64,7 @@ final class FightSending {
 //                FightAbilities.enableAbility(_fight, e, _import);
                 continue;
             }
-            EffectWhileSending effetEnvoi_=fCapac_.getEffectSending().first();
+            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
             FightSending.effectWhileSendingAbility(_fight,e,effetEnvoi_,_diff,_import);
         }
     }
@@ -98,7 +97,7 @@ final class FightSending {
         }
         AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
         if(fCapac_.enabledSending()){
-            EffectWhileSending effetEnvoi_=fCapac_.getEffectSending().first();
+            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
             effectWhileSendingBegin(_fight,_cbtEnvoye,effetEnvoi_,_import);
         }
 
@@ -108,7 +107,7 @@ final class FightSending {
         FightEffects.disableStatus(_fight, _cbtEnvoye, _import);
     }
 
-    static void effectWhileSendingBegin(Fight _fight,TeamPosition _cbtEnvoye,EffectWhileSending _effet,DataBase _import){
+    static void effectWhileSendingBegin(Fight _fight,TeamPosition _cbtEnvoye,EffectWhileSendingWithStatistic _effet,DataBase _import){
         String climat_=_effet.getEnabledWeather();
         if(!climat_.isEmpty()){
             _fight.getStillEnabledMoves().put(climat_,true);
@@ -170,7 +169,7 @@ final class FightSending {
         }
         Item objet_=creatureCbt_.ficheObjet(_import);
         ItemForBattle objetAttachableCombat_=(ItemForBattle)objet_;
-        EffectWhileSending effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
         effectWhileSendingBegin(_fight,_cbtEnvoye,effetEnvoi_,_import);
     }
 
@@ -423,7 +422,7 @@ final class FightSending {
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
         AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
         if(fCapac_.enabledSending()){
-            EffectWhileSending effetEnvoi_=fCapac_.getEffectSending().first();
+            EffectWhileSendingWithStatistic effetEnvoi_=fCapac_.getEffectSending().first();
             effectWhileSending(_fight,_cbtEnvoye,effetEnvoi_,_diff,_import);
         }
 
@@ -460,7 +459,7 @@ final class FightSending {
         }
     }
 
-    static void effectWhileSending(Fight _fight, TeamPosition _cbtEnvoye,EffectWhileSending _effet,Difficulty _diff,DataBase _import){
+    static void effectWhileSending(Fight _fight, TeamPosition _cbtEnvoye,EffectWhileSendingWithStatistic _effet,Difficulty _diff,DataBase _import){
         effectWhileSendingBegin(_fight,_cbtEnvoye, _effet, _import);
 //        if(!entres){
 //            return;
@@ -468,9 +467,9 @@ final class FightSending {
         effectWhileSendingAbility(_fight,_cbtEnvoye,_effet,_diff,_import);
     }
 
-    static void effectWhileSendingAbility(Fight _fight, TeamPosition _cbtEnvoye,EffectWhileSending _effect,Difficulty _diff,DataBase _import){
+    static void effectWhileSendingAbility(Fight _fight, TeamPosition _cbtEnvoye,EffectWhileSendingWithStatistic _effect,Difficulty _diff,DataBase _import){
         Fighter creatureCbt_=_fight.getFighter(_cbtEnvoye);
-        EffectWhileSending effect_ = _effect;
+        EffectWhileSendingWithStatistic effect_ = _effect;
         if(effect_.getCopyingAbility()){
             EqList<TeamPosition> foes_ = FightOrder.closestFoeFighter(_fight,_cbtEnvoye);
             if (foes_.isEmpty()) {
@@ -485,21 +484,15 @@ final class FightSending {
                 return;
             }
             AbilityData fCapac_=creatureCbt_.ficheCapaciteActuelle(_import);
-            if(fCapac_.enabledSending()){
-                EffectWhileSending effetEnvoi_=fCapac_.getEffectSending().first();
-                if(effetEnvoi_ instanceof EffectWhileSendingWithStatistic){
-                    effect_ = effetEnvoi_;
-                } else {
-                    return;
-                }
-            } else {
+            if (!fCapac_.enabledSending()) {
                 return;
             }
+            effect_ = fCapac_.getEffectSending().first();
         }
-        if(!(effect_ instanceof EffectWhileSendingWithStatistic)){
+        EffectStatistic effetStatis_ = effect_.getEffect();
+        if (effetStatis_ == null) {
             return;
         }
-        EffectStatistic effetStatis_ = ((EffectWhileSendingWithStatistic)effect_).getEffect();
         for(TeamPosition c:FightOrder.targetsEffect(_fight,_cbtEnvoye,effetStatis_,_diff,_import)){
             EnumList<Statistic> statistiques_=FightSuccess.successfulChangedStatistics(_fight,_cbtEnvoye,c,effetStatis_,_import);
             if(statistiques_.isEmpty()){
@@ -526,7 +519,7 @@ final class FightSending {
         if(!objetAttachableCombat_.enabledSending()){
             return;
         }
-        EffectWhileSending effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effetEnvoi_=objetAttachableCombat_.getEffectSending().first();
         effectWhileSending(_fight,_cbtEnvoye,effetEnvoi_,_diff,_import);
     }
 

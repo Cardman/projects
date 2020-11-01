@@ -13,7 +13,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class RendTextArea extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();

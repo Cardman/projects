@@ -17,7 +17,7 @@ public final class AnaRendNullCatchEval extends AnaRendAbstractCatchEval {
         AnaRendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AnaRendAbstractCatchEval)) {
             if (!(pBlock_ instanceof AnaRendTryEval)) {
-                if (!(pBlock_ instanceof AnaRendPossibleEmpty)) {
+                if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());

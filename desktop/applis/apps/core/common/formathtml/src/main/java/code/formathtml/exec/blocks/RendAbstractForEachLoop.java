@@ -17,7 +17,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 
-public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendLoop, RendReducableOperations {
+public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendLoop {
 
     private String label;
 

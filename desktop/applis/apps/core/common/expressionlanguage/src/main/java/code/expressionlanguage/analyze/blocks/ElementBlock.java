@@ -117,7 +117,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _page.setGlobalOffset(tempClassOffset);
         _page.setOffset(0);
         _page.setCurrentBlock(this);
-        _page.setCurrentAnaBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
         String fullName_ = parentEnum.getFullName();

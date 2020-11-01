@@ -27,7 +27,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
         return castTo(root_);
     }
     private static AssOperationNode castTo(AssOperationNode _op) {
-        if (_op instanceof AssSettableElResult) {
+        if (_op instanceof AssSimStdVariableOperation) {
             return _op;
         }
         return null;

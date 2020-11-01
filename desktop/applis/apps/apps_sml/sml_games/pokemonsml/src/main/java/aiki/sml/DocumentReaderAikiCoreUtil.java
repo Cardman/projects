@@ -7,8 +7,6 @@ import aiki.facade.FacadeGame;
 import aiki.facade.enums.SearchingMode;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -3275,12 +3273,12 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static EffectWhileSending getEffectWhileSending(Element _element) {
+    private static EffectWhileSendingWithStatistic getEffectWhileSending(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_,TYPE_EFFECT_WHILE_SENDING_SIMPLE)) {
-            EffectWhileSendingSimple object_ = Instances.newEffectWhileSendingSimple();
+            EffectWhileSendingWithStatistic object_ = Instances.newEffectWhileSendingSimple();
             for (Element c: childElements_) {
                 getEffectWhileSending(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -3296,7 +3294,7 @@ public final class DocumentReaderAikiCoreUtil {
         return Instances.newEffectWhileSendingSimple();
     }
 
-    private static void getEffectWhileSending(EffectWhileSending _object, String _fieldName, Element _element) {
+    private static void getEffectWhileSending(EffectWhileSendingWithStatistic _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_DISABLE_WEATHER)) {
             _object.setDisableWeather(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -7699,11 +7697,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static CustList<EffectWhileSending> getListEffectWhileSending(Element _elt) {
+    private static CustList<EffectWhileSendingWithStatistic> getListEffectWhileSending(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        CustList<EffectWhileSending> list_ = new CustList<EffectWhileSending>(cap_);
+        CustList<EffectWhileSendingWithStatistic> list_ = new CustList<EffectWhileSendingWithStatistic>(cap_);
         for (Element c: childElements_) {
             list_.add(getEffectWhileSending(c));
         }

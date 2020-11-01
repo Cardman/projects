@@ -13,7 +13,7 @@ import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
 
-public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public final class RendImport extends RendParentBlock implements RendWithEl {
     private Element elt;
 
     private ExecTextPart textPart;

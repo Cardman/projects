@@ -17,7 +17,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
         AnaRendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AnaRendIfCondition)) {
             if (!(pBlock_ instanceof AnaRendElseIfCondition)) {
-                if (!(pBlock_ instanceof AnaRendPossibleEmpty)) {
+                if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());

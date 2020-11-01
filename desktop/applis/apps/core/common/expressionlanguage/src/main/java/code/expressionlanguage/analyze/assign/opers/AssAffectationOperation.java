@@ -31,7 +31,7 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
         return elt_;
     }
     private static AssOperationNode castTo(AssOperationNode _op) {
-        if (_op instanceof AssSettableElResult) {
+        if (_op instanceof AssSettableFieldOperation || _op instanceof AssStdVariableOperation) {
             return _op;
         }
         return null;

@@ -14,6 +14,10 @@ public abstract class TrainerOneFight extends Trainer {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateTrainerOneFight(_data);
+    }
+
+    protected final void validateTrainerOneFight(DataBase _data) {
         for (PkTrainer p : team) {
             p.validateAsNpc(_data);
         }

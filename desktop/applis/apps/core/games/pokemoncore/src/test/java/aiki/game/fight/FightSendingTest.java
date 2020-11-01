@@ -3,13 +3,13 @@ import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Before;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
@@ -88,7 +88,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, data);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         Item obj_ = fighter_.ficheObjet(data);
-        EffectWhileSending effect_ = ((ItemForBattle)obj_).getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = ((ItemForBattle)obj_).getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertEq(new Rate("3/2"), fighter_.getWeight());
     }
@@ -136,7 +136,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.enableGlobalMove(ZENITH);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(!StringUtil.contains(FightMoves.climatsActifs(fight_, data), ZENITH));
@@ -185,7 +185,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, data);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
@@ -235,7 +235,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.enableGlobalMove(TEMPETESABLE);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(fight_.getEnabledMoves().getVal(ORAGE).isEnabled());
@@ -286,7 +286,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightInitialization.initFight(fight_, data);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
@@ -338,7 +338,7 @@ public class FightSendingTest extends InitializationDataBase {
         fighter_.affecterStatut(PEUR);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
@@ -393,7 +393,7 @@ public class FightSendingTest extends InitializationDataBase {
         fighter_.affecterStatut(PEUR);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         AbilityData obj_ = fighter_.ficheCapaciteActuelle(data);
-        EffectWhileSending effect_ = obj_.getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = obj_.getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(fight_.getStillEnabledMoves().getVal(ZENITH));
         assertTrue(fight_.getEnabledMoves().getVal(ZENITH).isEnabled());
@@ -446,7 +446,7 @@ public class FightSendingTest extends InitializationDataBase {
         fight_.enableGlobalMove(GRAVITE);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE);
         Item obj_ = fighter_.ficheObjet(data);
-        EffectWhileSending effect_ = ((ItemForBattle)obj_).getEffectSending().first();
+        EffectWhileSendingWithStatistic effect_ = ((ItemForBattle)obj_).getEffectSending().first();
         FightSending.effectWhileSendingBegin(fight_,POKEMON_PLAYER_FIGHTER_ONE, effect_, data);
         assertTrue(!fight_.getEnabledMoves().getVal(GRAVITE).isEnabled());
     }

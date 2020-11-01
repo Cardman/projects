@@ -688,7 +688,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage(),-1);
+        ExecTemplates.getIndexLoop(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -703,7 +703,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage(),0);
+        ExecTemplates.getIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -724,7 +724,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.setClassLoopValue(-1,"");
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", cont_.getLastPage(),0);
+        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNull(getException(cont_));
         assertEq(2,getNumber(myvar_));
     }
@@ -738,7 +738,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getValue(cont_,"", cont_.getLastPage(),-1);
+        ExecTemplates.getValue(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -753,7 +753,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getValue(cont_,"", cont_.getLastPage(),0);
+        ExecTemplates.getValue(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -771,7 +771,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.setClassLocalValue(-1,"");
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", cont_.getLastPage(),0);
+        Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNull(getException(cont_));
         assertEq(2,getNumber(myvar_));
     }
@@ -785,7 +785,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null,-1);
+        ExecTemplates.setValue(cont_,"", null,-1, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -800,7 +800,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null,0);
+        ExecTemplates.setValue(cont_,"", null,0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -817,7 +817,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", cont_.getLastPage(), new Argument(new IntStruct(4)),0);
+        Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", new Argument(new IntStruct(4)),0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
         assertNull(getException(cont_));
         assertEq(4,getNumber(myvar_));
         assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar",0))));
@@ -832,7 +832,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage(), 0);
+        ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -847,7 +847,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage(), 0);
+        ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNotNull(getException(cont_));
     }
     @Test
@@ -867,7 +867,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.addLoop("myvar", loop_);
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage(), 0);
+        ExecTemplates.incrIndexLoop(cont_,"myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
         assertNull(getException(cont_));
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
     }

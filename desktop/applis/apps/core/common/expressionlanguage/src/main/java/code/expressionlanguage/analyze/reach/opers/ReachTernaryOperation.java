@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.custom.DeadCodeTernary;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -44,7 +44,7 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
 
     private static void checkDeadCode(ReachOperationNode _opOne, AnalyzedPageEl _page) {
         if (_opOne.getArgument() != null) {
-            DeadCodeTernary d_ = new DeadCodeTernary();
+            FoundWarningInterpret d_ = new FoundWarningInterpret();
             d_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             d_.setFileName(_page.getLocalizer().getCurrentFileName());
             _page.getLocalizer().addWarning(d_);

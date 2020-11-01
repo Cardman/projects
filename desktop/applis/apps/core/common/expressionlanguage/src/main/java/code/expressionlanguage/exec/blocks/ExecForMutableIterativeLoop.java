@@ -72,7 +72,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
         if (ip_.sizeEl() <= index_) {
             for (String v : variableNames) {
-                ExecTemplates.incrIndexLoop(_conf,v,ip_, -1);
+                ExecTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars());
             }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_);

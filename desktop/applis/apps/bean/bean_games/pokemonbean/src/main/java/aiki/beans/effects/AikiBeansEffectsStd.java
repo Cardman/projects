@@ -2,7 +2,7 @@ package aiki.beans.effects;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -351,7 +351,7 @@ public final class AikiBeansEffectsStd {
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EFFECT)) {
-            instance_.setEffect((EffectWhileSending) _value);
+            instance_.setEffect((EffectWhileSendingWithStatistic) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

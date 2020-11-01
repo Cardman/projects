@@ -14,6 +14,7 @@ public final class TempTrainer extends TrainerOneFight {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateTrainerOneFight(_data);
         setMultiplicityFight((byte) 2);
     }
 

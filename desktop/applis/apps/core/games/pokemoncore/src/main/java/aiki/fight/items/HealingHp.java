@@ -18,6 +18,7 @@ public final class HealingHp extends HealingItem {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateHealingItem(_data);
         if (hp.isZero()) {
             _data.setError(true);
         }

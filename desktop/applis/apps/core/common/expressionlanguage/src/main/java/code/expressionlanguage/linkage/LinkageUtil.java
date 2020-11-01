@@ -158,7 +158,7 @@ public final class LinkageUtil {
         vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
         vars_.setCurrentFileName(_fileExp);
-        if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().isEmpty()) {
+        if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().getLi().isEmpty()) {
             processFileBlockError(_ex,list_);
             return list_;
         }
@@ -171,7 +171,7 @@ public final class LinkageUtil {
             if (child_ instanceof RootBlock || child_ instanceof OperatorBlock) {
                 processGlobalRootBlockError((BracedBlock) child_, list_);
                 if (child_.getParent() instanceof FileBlock) {
-                    if (!((BracedBlock) child_).getGlobalErrorsPars().isEmpty()) {
+                    if (!((BracedBlock) child_).getGlobalErrorsPars().getLi().isEmpty()) {
                         child_ = nextSkip(child_, _ex);
                         continue;
                     }
@@ -328,14 +328,14 @@ public final class LinkageUtil {
         }
     }
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
-        for (GraphicErrorInterpret g: _cond.getErrorsFiles()) {
+        for (GraphicErrorInterpret g: _cond.getErrorsFiles().getLi()) {
             int index_ = g.getIndexFile();
             _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
             _parts.add(new PartOffset("</a>", index_+ g.getLength()));
         }
     }
     private static void processGlobalRootBlockError(BracedBlock _cond, CustList<PartOffset> _parts) {
-        for (GraphicErrorInterpret g: _cond.getGlobalErrorsPars()) {
+        for (GraphicErrorInterpret g: _cond.getGlobalErrorsPars().getLi()) {
             int index_ = g.getIndexFile();
             _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
             _parts.add(new PartOffset("</a>", index_+ g.getLength()));

@@ -3,8 +3,6 @@ package aiki.instances;
 import aiki.db.DataBase;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -246,7 +244,7 @@ public final class Instances {
         object_.setHealHpByTypeIfWeather(new ObjectMap<WeatherType,Rate>(cap_));
         object_.setImmuMoveTypesByWeather(new StringMap<StringList>(cap_));
         object_.setEffectEndRound(new CustList<EffectEndRound>(cap_));
-        object_.setEffectSending(new CustList<EffectWhileSending>(cap_));
+        object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>(cap_));
         object_.setChangingBoostTypes(new StringMap<TypeDamageBoost>(cap_));
         object_.setImmuAllyFromMoves(new StringList(cap_));
         object_.setImmuStatusTypes(new StringMap<StringList>(cap_));
@@ -257,8 +255,8 @@ public final class Instances {
         return object_;
     }
 
-    public static EffectWhileSendingSimple newEffectWhileSendingSimple() {
-        EffectWhileSendingSimple object_ = new EffectWhileSendingSimple();
+    public static EffectWhileSendingWithStatistic newEffectWhileSendingSimple() {
+        EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
         object_.setEnabledWeather(DataBase.EMPTY_STRING);
         object_.setMultWeight(Rate.zero());
         return object_;
@@ -390,7 +388,7 @@ public final class Instances {
         object_.setBoostStatisSuperEff(new EnumMap<Statistic,Byte>(cap_));
         object_.setBoostStatisTypes(new StringMap<EnumMap<Statistic,Byte>>(cap_));
         object_.setEffectEndRound(new CustList<EffectEndRound>(cap_));
-        object_.setEffectSending(new CustList<EffectWhileSending>(cap_));
+        object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>(cap_));
         return object_;
     }
 

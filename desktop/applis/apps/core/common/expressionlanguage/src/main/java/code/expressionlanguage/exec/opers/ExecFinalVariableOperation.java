@@ -27,7 +27,7 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
     Argument getCommonArgument(ContextEl _conf) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _conf);
         PageEl ip_ = _conf.getLastPage();
-        return ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), ip_, variableContent.getDeep());
+        return ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getVars());
     }
 
 }

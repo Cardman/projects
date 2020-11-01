@@ -14,6 +14,7 @@ public final class LevelCave extends LevelWithWildPokemon {
     @Override
     public void validate(DataBase _data, LevelArea _level) {
         super.validate(_data, _level);
+        validateLevelWithWildPokemon(_data, _level);
         for (EntryCust<Point, Link> e : linksOtherLevels.entryList()) {
             if (!_level.isValid(e.getKey(), true)) {
                 _data.setError(true);

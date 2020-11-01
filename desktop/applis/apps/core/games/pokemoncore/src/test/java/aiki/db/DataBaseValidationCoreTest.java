@@ -1,7 +1,7 @@
 package aiki.db;
 
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSendingSimple;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.*;
 import aiki.fight.moves.MoveData;
@@ -685,7 +685,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         AbilityData abilityData_ = Instances.newAbilityData();
-        EffectWhileSendingSimple effectWhileSendingSimple_ = Instances.newEffectWhileSendingSimple();
+        EffectWhileSendingWithStatistic effectWhileSendingSimple_ = Instances.newEffectWhileSendingSimple();
         effectWhileSendingSimple_.setMultWeight(Rate.newRate("-1"));
         effectWhileSendingSimple_.setEnabledWeather(ELECTRICK);
         abilityData_.getEffectSending().add(effectWhileSendingSimple_);

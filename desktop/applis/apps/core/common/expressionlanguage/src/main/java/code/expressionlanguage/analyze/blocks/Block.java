@@ -7,7 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class Block implements AnalyzedBlock {
+public abstract class Block {
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
     public static final String OR_LOG_EQ = "||=";

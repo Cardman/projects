@@ -105,18 +105,17 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
-        if (m_ == null && cur_ instanceof ReturnMethod) {
+        if (m_ == null && _page.getCurrentBlock() instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
-        } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
-            ImportForEachLoop i_ = (ImportForEachLoop) cur_;
+        } else if (m_ == null && _page.getCurrentAnaBlockForEachLoop() != null) {
+            ImportForEachLoop i_ = _page.getCurrentAnaBlockForEachLoop();
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 String iter_ = _page.getAliasIterable();
                 typeAff_ = StringUtil.concat(iter_,Templates.TEMPLATE_BEGIN,typeAff_,Templates.TEMPLATE_END);
             }
-        } else if (m_ == null && cur_ instanceof ImportForEachTable) {
-            ImportForEachTable i_ = (ImportForEachTable) cur_;
+        } else if (m_ == null && _page.getCurrentAnaBlockForEachTable() != null) {
+            ImportForEachTable i_ = _page.getCurrentAnaBlockForEachTable();
             String typeAffOne_ = i_.getImportedClassNameFirst();
             String typeAffTwo_ = i_.getImportedClassNameSecond();
             if (!typeAffOne_.isEmpty() && !typeAffTwo_.isEmpty()) {

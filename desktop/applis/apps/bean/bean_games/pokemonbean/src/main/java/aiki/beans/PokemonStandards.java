@@ -193,7 +193,7 @@ import aiki.beans.validators.PositiveRateValidator;
 import aiki.beans.validators.RateValidator;
 import aiki.beans.validators.ShortValidator;
 import aiki.beans.validators.UnselectedRadio;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.BoostHpRate;
@@ -250,7 +250,7 @@ import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleList;
+import code.util.ints.SimpleIterable;
 
 public final class PokemonStandards extends BeanNatLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
@@ -2750,7 +2750,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_struct instanceof Place) {
             return PokemonStandards.TYPE_PLACE;
         }
-        if (_struct instanceof EffectWhileSending) {
+        if (_struct instanceof EffectWhileSendingWithStatistic) {
             return PokemonStandards.TYPE_EFFECT_WHILE_SENDING;
         }
         if (_struct instanceof TrainerOneFight) {
@@ -2765,7 +2765,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_struct instanceof Bean) {
             return ((Bean)_struct).getClassName();
         }
-        if (_struct instanceof SimpleList) {
+        if (_struct instanceof SimpleIterable) {
             return TYPE_LIST;
         }
         if (_struct instanceof SimpleEntries) {

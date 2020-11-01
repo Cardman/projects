@@ -1,7 +1,7 @@
 package aiki.fight.abilities;
 
 import aiki.db.DataBase;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
@@ -106,7 +106,7 @@ public final class AbilityData {
     private StringMap<StringList> immuMoveTypesByWeather;
 
     private CustList<EffectEndRound> effectEndRound;
-    private CustList<EffectWhileSending> effectSending;
+    private CustList<EffectWhileSendingWithStatistic> effectSending;
 
     private StringMap<TypeDamageBoost> changingBoostTypes;
 
@@ -1027,11 +1027,11 @@ public final class AbilityData {
         effectEndRound = _effectEndRound;
     }
 
-    public CustList<EffectWhileSending> getEffectSending() {
+    public CustList<EffectWhileSendingWithStatistic> getEffectSending() {
         return effectSending;
     }
 
-    public void setEffectSending(CustList<EffectWhileSending> _effectSending) {
+    public void setEffectSending(CustList<EffectWhileSendingWithStatistic> _effectSending) {
         effectSending = _effectSending;
     }
 

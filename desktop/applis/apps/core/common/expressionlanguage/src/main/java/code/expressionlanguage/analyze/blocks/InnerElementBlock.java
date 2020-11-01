@@ -160,7 +160,6 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _page.setGlobalOffset(tempClassOffset);
         _page.setOffset(0);
         _page.setCurrentBlock(this);
-        _page.setCurrentAnaBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
         String fullName_ = parentEnum.getFullName();

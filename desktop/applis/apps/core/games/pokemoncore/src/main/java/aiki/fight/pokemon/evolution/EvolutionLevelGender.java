@@ -12,7 +12,7 @@ public final class EvolutionLevelGender extends EvolutionLevel implements
 
     @Override
     public void validate(DataBase _dataBase, PokemonData _fPk) {
-        super.validate(_dataBase, _fPk);
+        validateEvolutionLevel(_dataBase);
         if (!_fPk.getGenderRep().getPossibleGenders().containsObj(gender)) {
             _dataBase.setError(true);
         }

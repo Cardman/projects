@@ -1,10 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
-import code.expressionlanguage.analyze.blocks.FunctionBlock;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -276,7 +273,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             _methodInfos.set(i, newList_);
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
+        Block cur_ = _page.getCurrentBlock();
         if (_apply && cur_ instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
         }

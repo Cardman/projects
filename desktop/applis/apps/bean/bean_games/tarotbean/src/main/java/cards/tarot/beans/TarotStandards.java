@@ -24,7 +24,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
-import code.util.ints.SimpleList;
+import code.util.ints.SimpleIterable;
 
 public final class TarotStandards extends BeanNatLgNames {
     private static final String DISCARD_AFTER_CALL = "discardAfterCall";
@@ -778,7 +778,7 @@ public final class TarotStandards extends BeanNatLgNames {
         if (_struct instanceof Bean) {
             return ((Bean)_struct).getClassName();
         }
-        if (_struct instanceof SimpleList) {
+        if (_struct instanceof SimpleIterable) {
             return TYPE_LIST;
         }
         if (_struct instanceof SimpleEntries) {

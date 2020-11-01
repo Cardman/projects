@@ -7,7 +7,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 
-public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPossibleEmpty {
+public final class RendEmptyText extends RendPossibleEmpty {
 
     private final String expression;
 

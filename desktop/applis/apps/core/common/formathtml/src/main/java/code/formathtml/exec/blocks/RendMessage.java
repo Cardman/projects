@@ -12,7 +12,7 @@ import code.sml.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public final class RendMessage extends RendParentBlock implements RendWithEl {
 
     private Element elt;
     private CustList<CustList<RendDynOperationNode>> opExp;

@@ -220,7 +220,7 @@ public final class Configuration {
         getLastPage().setOpOffset(_offset);
     }
 
-    public PageEl getPageEl() {
+    public SimplePageEl getPageEl() {
         return importing.last().getPageEl();
     }
 

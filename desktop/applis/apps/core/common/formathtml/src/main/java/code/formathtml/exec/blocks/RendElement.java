@@ -10,7 +10,7 @@ import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public abstract class RendElement extends RendParentBlock implements RendWithEl {
     private Element read;
     private StringMap<ExecTextPart> execAttributes;
     private StringMap<ExecTextPart> execAttributesText;

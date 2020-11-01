@@ -15,7 +15,9 @@ public abstract class StatusBeginRound extends Status {
 
     @Override
     public void validate(DataBase _data) {
-        super.validate(_data);
+        validateStatus(_data);
+    }
+    protected final void validateStatusBeginRound(DataBase _data) {
         if (!lawForUsingAMove.checkEvents()) {
             _data.setError(true);
         }

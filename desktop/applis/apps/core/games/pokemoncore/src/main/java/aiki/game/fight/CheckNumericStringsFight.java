@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -236,7 +235,7 @@ public final class CheckNumericStringsFight {
                     checkBoolStrings(_data, _varsSame, _boolVarsNotSending,
                             e.getFailEndRound());
                 }
-                for (EffectWhileSending e : o_.getEffectSending()) {
+                for (EffectWhileSendingWithStatistic e : o_.getEffectSending()) {
                     processWhenSend(_data, _diff, _fight, _userFighter, _foeFighter, _varsDiff, _varsSame, _boolVarsNotSending, _boolVarsDiffNotSending, e);
                 }
             }
@@ -247,20 +246,20 @@ public final class CheckNumericStringsFight {
                                         Fight _fight, TeamPosition _userFighter,
                                         TeamPosition _foeFighter, StringMap<String> _varsDiff, StringMap<String> _varsSame,
                                         StringMap<String> _boolVarsNotSending, StringMap<String> _boolVarsDiffNotSending,
-                                        EffectWhileSending _e) {
-        if (_e instanceof EffectWhileSendingWithStatistic) {
-            EffectWhileSendingWithStatistic eff_ = (EffectWhileSendingWithStatistic) _e;
-            StringList fails_ = new StringList();
-            EffectStatistic e_ = eff_.getEffect();
-            fails_.addAllElts(e_.getLocalFailStatis().values());
-            fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
-                    .values());
-            EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder
-                    .targetsEffect(_fight, _userFighter, e_, _diff,
-                            _data),_foeFighter);
-            checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
-            checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
+                                        EffectWhileSendingWithStatistic _e) {
+        StringList fails_ = new StringList();
+        EffectStatistic e_ = _e.getEffect();
+        if (e_ == null) {
+            return;
         }
+        fails_.addAllElts(e_.getLocalFailStatis().values());
+        fails_.addAllElts(e_.getLocalFailSwapBoostStatis()
+                .values());
+        EqList<TeamPosition> listFighters_ = addIfEmpty(FightOrder
+                .targetsEffect(_fight, _userFighter, e_, _diff,
+                        _data),_foeFighter);
+        checkFailsWhenFighter(_data, _foeFighter, _varsDiff, _boolVarsDiffNotSending, fails_, listFighters_);
+        checkFailsWhenFighter(_data, _userFighter, _varsSame, _boolVarsNotSending, fails_, listFighters_);
     }
 
     private static StringMap<String> getVariablesStatis(DataBase _data, Fight _fight, TeamPosition _userFighter, StringMap<String> _varsDiff, StringMap<String> _varsFighter, Statistic _s) {
@@ -350,7 +349,7 @@ public final class CheckNumericStringsFight {
                 checkBoolStrings(_data, _varsSame, _boolVarsNotSending,
                         e.getFailEndRound());
             }
-            for (EffectWhileSending e : a.getEffectSending()) {
+            for (EffectWhileSendingWithStatistic e : a.getEffectSending()) {
                 processWhenSend(_data, _diff, _fight, _userFighter, _foeFighter, _varsDiff, _varsSame, _boolVarsNotSending, _boolVarsDiffNotSending, e);
             }
         }

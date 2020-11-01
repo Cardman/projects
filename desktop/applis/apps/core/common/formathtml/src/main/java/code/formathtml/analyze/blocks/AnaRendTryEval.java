@@ -22,7 +22,7 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
         AnaRendBlock nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AnaRendAbstractCatchEval)) {
             if (!(nBlock_ instanceof AnaRendFinallyEval)) {
-                if (!(nBlock_ instanceof AnaRendPossibleEmpty)) {
+                if (!isPossibleEmpty(nBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());

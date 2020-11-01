@@ -52,11 +52,10 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
-        if (m_ == null && cur_ instanceof ReturnMethod) {
+        if (m_ == null && _page.getCurrentBlock() instanceof ReturnMethod) {
             typeAff_ = tryGetRetType(_page);
-        } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
-            ImportForEachLoop i_ = (ImportForEachLoop) cur_;
+        } else if (m_ == null && _page.getCurrentAnaBlockForEachLoop() != null) {
+            ImportForEachLoop i_ = _page.getCurrentAnaBlockForEachLoop();
             typeAff_ = i_.getImportedClassName();
             if (!typeAff_.isEmpty()) {
                 typeAff_ = StringExpUtil.getPrettyArrayType(typeAff_);

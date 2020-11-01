@@ -10,7 +10,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AssStdVariableOperation extends AssLeafOperation implements AssSettableElResult {
+public final class AssStdVariableOperation extends AssLeafOperation {
 
     private String variableName;
     private boolean declare;

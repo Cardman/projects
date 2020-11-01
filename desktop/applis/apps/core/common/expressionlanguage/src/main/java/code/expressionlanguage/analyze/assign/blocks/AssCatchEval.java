@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class AssCatchEval extends AssBracedStack implements AssEval,AssBreakableBlock {
+public final class AssCatchEval extends AssBracedStack implements AssBreakableBlock {
     private String label;
     AssCatchEval(boolean _completeNormally, boolean _completeNormallyGroup, String _a) {
         super(_completeNormally,_completeNormallyGroup);
@@ -56,13 +56,13 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
         CustList<AssBlock> prev_ = new CustList<AssBlock>();
         prev_.add(this);
         while (!(pBlock_ instanceof AssTryEval)) {
-            if (!(pBlock_ instanceof AssEval)) {
+            if (!isTryBlock(pBlock_)) {
                 break;
             }
             prev_.add(pBlock_);
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        if (pBlock_ instanceof AssEval) {
+        if (isTryBlock(pBlock_)) {
             prev_.add(pBlock_);
         }
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
@@ -78,7 +78,15 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
 
     private boolean canBeIncrementedCurGroup() {
         AssBlock next_ = getNextSibling();
-        return next_ instanceof AssCatchEval || next_ instanceof AssFinallyEval;
+        return isSecondBlock(next_);
+    }
+
+    static boolean isTryBlock(AssBlock _elt) {
+        return _elt instanceof AssTryEval || isSecondBlock(_elt);
+    }
+
+    private static boolean isSecondBlock(AssBlock _elt) {
+        return _elt instanceof AssCatchEval || _elt instanceof AssFinallyEval;
     }
 
     @Override

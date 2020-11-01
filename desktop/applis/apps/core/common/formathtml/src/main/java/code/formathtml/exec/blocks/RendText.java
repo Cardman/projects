@@ -7,7 +7,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 
-public final class RendText extends RendLeaf implements RendWithEl, RendReducableOperations {
+public final class RendText extends RendLeaf implements RendWithEl {
 
     private int expressionOffset;
 

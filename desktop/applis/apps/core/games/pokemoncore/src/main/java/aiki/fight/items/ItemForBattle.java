@@ -1,7 +1,7 @@
 package aiki.fight.items;
 
 import aiki.db.DataBase;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
@@ -60,7 +60,7 @@ public final class ItemForBattle extends Item {
     private StringMap<EnumMap<Statistic, Byte>> boostStatisTypes;
 
     private CustList<EffectEndRound> effectEndRound;
-    private CustList<EffectWhileSending> effectSending;
+    private CustList<EffectWhileSendingWithStatistic> effectSending;
 
     @Override
     public String getItemType() {
@@ -526,11 +526,11 @@ public final class ItemForBattle extends Item {
         effectEndRound = _effectEndRound;
     }
 
-    public CustList<EffectWhileSending> getEffectSending() {
+    public CustList<EffectWhileSendingWithStatistic> getEffectSending() {
         return effectSending;
     }
 
-    public void setEffectSending(CustList<EffectWhileSending> _effectSending) {
+    public void setEffectSending(CustList<EffectWhileSendingWithStatistic> _effectSending) {
         effectSending = _effectSending;
     }
 }

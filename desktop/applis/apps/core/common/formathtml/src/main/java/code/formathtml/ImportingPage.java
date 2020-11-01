@@ -15,7 +15,7 @@ public final class ImportingPage {
 
     private static final String EMPTY_STRING = "";
 
-    private final PageEl pageEl = new SimplePageEl();
+    private final SimplePageEl pageEl = new SimplePageEl();
     private Struct internGlobal;
 
     private String processingAttribute = EMPTY_STRING;
@@ -91,7 +91,7 @@ public final class ImportingPage {
         file = _file;
     }
 
-    public PageEl getPageEl() {
+    public SimplePageEl getPageEl() {
         return pageEl;
     }
 

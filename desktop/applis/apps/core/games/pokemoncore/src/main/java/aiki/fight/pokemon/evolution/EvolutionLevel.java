@@ -8,8 +8,7 @@ public abstract class EvolutionLevel extends Evolution {
 
     private short level;
 
-    @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
+    protected final void validateEvolutionLevel(DataBase _dataBase) {
         if (level <= 0) {
             _dataBase.setError(true);
         }

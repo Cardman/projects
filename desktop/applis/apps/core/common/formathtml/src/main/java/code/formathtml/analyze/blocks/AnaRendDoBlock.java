@@ -29,7 +29,7 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
                     _page.getKeyWords().getKeyWordWhile());
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else if (!(pBlock_ instanceof AnaRendDoWhileCondition)) {
-            if (!(pBlock_ instanceof AnaRendPossibleEmpty)) {
+            if (!isPossibleEmpty(pBlock_)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());

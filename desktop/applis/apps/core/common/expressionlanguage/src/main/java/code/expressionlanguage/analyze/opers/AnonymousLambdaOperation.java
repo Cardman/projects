@@ -64,7 +64,7 @@ public final class AnonymousLambdaOperation extends
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        AnalyzedBlock cur_ = _page.getCurrentAnaBlock();
+        Block cur_ = _page.getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = InvokingOperation.tryGetRetType(_page);
         } else {

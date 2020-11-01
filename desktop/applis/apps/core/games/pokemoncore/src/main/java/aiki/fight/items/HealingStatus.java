@@ -16,9 +16,8 @@ public abstract class HealingStatus extends HealingItem {
         return ITEM;
     }
 
-    @Override
-    public void validate(DataBase _data) {
-        super.validate(_data);
+    protected final void validateHealingStatus(DataBase _data) {
+        validateHealingItem(_data);
         if (!_data.getStatus().containsAllAsKeys(status)) {
             _data.setError(true);
         }

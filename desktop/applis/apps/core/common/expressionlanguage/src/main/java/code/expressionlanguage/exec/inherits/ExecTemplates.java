@@ -5,7 +5,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
@@ -1123,11 +1122,10 @@ public final class ExecTemplates {
         ip_.removeLastBlock();
         _bl.processBlock(_context);
     }
-    public static Argument getIndexLoop(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
+    public static Argument getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars) {
         LgNames stds_ = _context.getStandards();
-        Cache cache_ = _lastPage.getCache();
-        if (cache_ != null) {
-            LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
+        if (_cache != null) {
+            LoopVariable loopVar_ = _cache.getLoopVar(_val,_deep);
             if (loopVar_ != null) {
                 byte cast_ = ClassArgumentMatching.getPrimitiveCast(loopVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
                 LongStruct str_ = new LongStruct(loopVar_.getIndex());
@@ -1135,7 +1133,7 @@ public final class ExecTemplates {
                 return new Argument(value_);
             }
         }
-        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
+        LoopVariable locVar_ = _vars.getVal(_val);
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
@@ -1147,19 +1145,18 @@ public final class ExecTemplates {
         return new Argument(value_);
     }
 
-    public static void incrIndexLoop(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
+    public static void incrIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars) {
         if (_context.callsOrException()) {
             return;
         }
-        Cache cache_ = _lastPage.getCache();
-        if (cache_ != null) {
-            LoopVariable loopVar_ = cache_.getLoopVar(_val, _deep);
+        if (_cache != null) {
+            LoopVariable loopVar_ = _cache.getLoopVar(_val, _deep);
             if (loopVar_ != null) {
                 loopVar_.setIndex(loopVar_.getIndex() + 1);
                 return;
             }
         }
-        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
+        LoopVariable locVar_ = _vars.getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -1169,16 +1166,14 @@ public final class ExecTemplates {
         locVar_.setIndex(locVar_.getIndex() + 1);
     }
 
-    public static Argument getValue(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
-        Cache cache_ = _lastPage.getCache();
-        if (cache_ != null) {
-            LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
+    public static Argument getValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
+        if (_cache != null) {
+            LocalVariable loopVar_ = _cache.getLocalVar(_val,_deep);
             if (loopVar_ != null) {
                 return new Argument(loopVar_.getStruct());
             }
         }
-        StringMap<LocalVariable> valueVars_ = _lastPage.getValueVars();
-        return getValueVar(_val, valueVars_, _context);
+        return getValueVar(_val, _valueVars, _context);
     }
 
     public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context) {
@@ -1192,19 +1187,18 @@ public final class ExecTemplates {
         return new Argument(locVar_.getStruct());
     }
 
-    public static Argument setValue(ContextEl _context, String _val, PageEl _lastPage, Argument _value, int _deep) {
+    public static Argument setValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
         if (_context.callsOrException()) {
             return new Argument();
         }
         LgNames stds_ = _context.getStandards();
-        Cache cache_ = _lastPage.getCache();
-        if (cache_ != null) {
-            LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
+        if (_cache != null) {
+            LocalVariable loopVar_ = _cache.getLocalVar(_val,_deep);
             if (loopVar_ != null) {
                 return checkSet(_context,loopVar_,_value);
             }
         }
-        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        LocalVariable locVar_ = _valueVars.getVal(_val);
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));

@@ -27,7 +27,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
 
     Argument getCommonArgument(Configuration _conf, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
-        return ExecTemplates.getIndexLoop(_context, variableContent.getVariableName(), _conf.getPageEl(), variableContent.getDeep());
+        return ExecTemplates.getIndexLoop(_context, variableContent.getVariableName(), variableContent.getDeep(), _conf.getPageEl().getCache(), _conf.getPageEl().getVars());
     }
 
 }

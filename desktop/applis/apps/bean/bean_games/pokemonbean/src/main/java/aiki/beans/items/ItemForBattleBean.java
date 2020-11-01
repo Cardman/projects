@@ -3,7 +3,7 @@ import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
 import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.effects.Effect;
@@ -83,11 +83,7 @@ public class ItemForBattleBean extends ItemBean {
             reasonsEndRound = new StringList();
             mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
-        if (!item_.getEffectSending().isEmpty()) {
-            sending = true;
-        } else {
-            sending = false;
-        }
+        sending = !item_.getEffectSending().isEmpty();
         cancelImmuType = item_.getCancelImmuType();
         againstEvo = item_.getAgainstEvo();
         attackLast = item_.getAttackLast();
@@ -472,7 +468,7 @@ public class ItemForBattleBean extends ItemBean {
         return lawForAttackFirst.events().size() == DataBase.ONE_POSSIBLE_CHOICE;
     }
 
-    public EffectWhileSending getEffectSending() {
+    public EffectWhileSendingWithStatistic getEffectSending() {
         return ((ItemForBattle)getItem()).getEffectSending().first();
     }
 

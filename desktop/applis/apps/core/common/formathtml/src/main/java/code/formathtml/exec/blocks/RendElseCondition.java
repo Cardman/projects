@@ -6,7 +6,7 @@ import code.formathtml.ImportingPage;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendElseCondition extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public final class RendElseCondition extends RendParentBlock implements RendWithEl {
 
     public RendElseCondition(int _offsetTrim) {
         super(_offsetTrim);

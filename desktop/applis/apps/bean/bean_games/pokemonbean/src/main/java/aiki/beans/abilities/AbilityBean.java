@@ -9,7 +9,7 @@ import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -552,7 +552,7 @@ public class AbilityBean extends CommonBean {
 //        return StringList.replace(_formula, loc_);
 //    }
 
-    public EffectWhileSending getEffectSending() {
+    public EffectWhileSendingWithStatistic getEffectSending() {
         return getAbility().getEffectSending().first();
     }
     public boolean decreaseNecStepsHatchInt() {

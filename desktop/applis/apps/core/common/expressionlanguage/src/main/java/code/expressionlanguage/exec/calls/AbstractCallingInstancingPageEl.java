@@ -26,17 +26,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     public void setFirstField(boolean _firstField) {
         firstField = _firstField;
     }
-
-    @Override
-    public void tryProcessEl(ContextEl _context) {
-        //constructor walk through (class, enum, interface)
-        ExecBlock en_ = getBlock();
-        if (en_ instanceof WithEl) {
-            ((WithEl)en_).processEl(_context);
-            return;
-        }
-        setNullReadWrite();
-    }
     @Override
     public final boolean checkCondition(ContextEl _context) {
         boolean implicitConstr_ = false;

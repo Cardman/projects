@@ -23,7 +23,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class RendForIterativeLoop extends RendParentBlock implements RendLoop, RendReducableOperations {
+public final class RendForIterativeLoop extends RendParentBlock implements RendLoop {
 
     private String label;
 

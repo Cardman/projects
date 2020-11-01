@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.errors.custom;
 
-public abstract class FoundWarningInterpret {
+public final class FoundWarningInterpret {
 
-    protected static final String SEP_INFO = "\n";
+    private static final String SEP_INFO = "\n";
 
-    protected static final String SEP_KEY_VAL = ":";
+    private static final String SEP_KEY_VAL = ":";
 
     private static final String FILE = "file";
 

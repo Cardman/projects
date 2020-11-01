@@ -6,7 +6,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.IntTreeMap;
 import code.util.StringMap;
 
-public final class AnaRendEmptyInstruction extends AnaRendLeaf implements AnaRendPossibleEmpty {
+public final class AnaRendEmptyInstruction extends AnaRendLeaf {
     AnaRendEmptyInstruction(OffsetsBlock _offset) {
         super(_offset);
         setEscapedChars(new StringMap<IntTreeMap<Integer>>());

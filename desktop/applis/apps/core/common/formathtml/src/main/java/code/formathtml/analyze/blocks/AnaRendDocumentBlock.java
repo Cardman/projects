@@ -1,10 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.AccessibleBlock;
-import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
@@ -58,7 +55,16 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _anaDoc.setCurrentDoc(this);
         while (true) {
             _anaDoc.setCurrentBlock(en_);
-            _page.setCurrentAnaBlock(en_);
+            if (en_ instanceof ImportForEachLoop) {
+                _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) en_);
+            } else {
+                _page.setCurrentAnaBlockForEachLoop(null);
+            }
+            if (en_ instanceof ImportForEachTable) {
+                _page.setCurrentAnaBlockForEachTable((ImportForEachTable) en_);
+            } else {
+                _page.setCurrentAnaBlockForEachTable(null);
+            }
             if (en_ instanceof AnaRendStdElement) {
                 if (StringUtil.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_anaDoc.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);

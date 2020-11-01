@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class AssFinallyEval extends AssBracedStack implements AssEval,AssBreakableBlock {
+public final class AssFinallyEval extends AssBracedStack implements AssBreakableBlock {
     private String label;
     AssFinallyEval(boolean _completeNormally, boolean _completeNormallyGroup, String _f) {
         super(_completeNormally,_completeNormallyGroup);
@@ -20,13 +20,13 @@ public final class AssFinallyEval extends AssBracedStack implements AssEval,AssB
         AssBlock pBlock_ = getPreviousSibling();
         CustList<AssBlock> prev_ = new CustList<AssBlock>();
         while (!(pBlock_ instanceof AssTryEval)) {
-            if (!(pBlock_ instanceof AssEval)) {
+            if (!AssCatchEval.isTryBlock(pBlock_)) {
                 break;
             }
             prev_.add(pBlock_);
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        if (pBlock_ instanceof AssEval) {
+        if (AssCatchEval.isTryBlock(pBlock_)) {
             prev_.add(pBlock_);
         }
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();

@@ -3,8 +3,6 @@ import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -1692,23 +1690,17 @@ public final class DocumentWriterAikiCoreUtil {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isGiveItemToAllyHavingUsed(),FIELD_GIVE_ITEM_TO_ALLY_HAVING_USED,_document));
     }
 
-    private static Element setEffectWhileSending(EffectWhileSending _object, String _fieldName, Document _document) {
-        if (_object instanceof EffectWhileSendingSimple) {
-            Element element_ = _document.createElement(TYPE_EFFECT_WHILE_SENDING_SIMPLE);
-            DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectWhileSending(_object,element_,_document);
-            return element_;
-        }
+    private static Element setEffectWhileSending(EffectWhileSendingWithStatistic _object, String _fieldName, Document _document) {
         if (_object instanceof EffectWhileSendingWithStatistic) {
             Element element_ = _document.createElement(TYPE_EFFECT_WHILE_SENDING_WITH_STATISTIC);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setEffectWhileSendingWithStatistic((EffectWhileSendingWithStatistic)_object,element_,_document);
+            setEffectWhileSendingWithStatistic(_object,element_,_document);
             return element_;
         }
         return _document.createElement(TYPE_EFFECT_WHILE_SENDING);
     }
 
-    private static void setEffectWhileSending(EffectWhileSending _object, Element _element, Document _document) {
+    private static void setEffectWhileSending(EffectWhileSendingWithStatistic _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getDisableWeather(),FIELD_DISABLE_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getEnabledWeather(),FIELD_ENABLED_WEATHER,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.getCopyingAbility(),FIELD_COPYING_ABILITY,_document));
@@ -1716,7 +1708,9 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static void setEffectWhileSendingWithStatistic(EffectWhileSendingWithStatistic _object, Element _element, Document _document) {
-        _element.appendChild(setEffectStatistic(_object.getEffect(),FIELD_EFFECT,_document));
+        if (_object.getEffect() != null) {
+            _element.appendChild(setEffectStatistic(_object.getEffect(), FIELD_EFFECT, _document));
+        }
         setEffectWhileSending(_object, _element, _document);
     }
 
@@ -4125,10 +4119,10 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setListEffectWhileSending(CustList<EffectWhileSending> _object, String _fieldName, Document _document) {
+    private static Element setListEffectWhileSending(CustList<EffectWhileSendingWithStatistic> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EffectWhileSending s: _object) {
+        for (EffectWhileSendingWithStatistic s: _object) {
             elt_.appendChild(setEffectWhileSending(s,EMPTY_STRING,_document));
         }
         return elt_;

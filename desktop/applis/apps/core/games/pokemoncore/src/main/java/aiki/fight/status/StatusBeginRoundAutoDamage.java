@@ -16,6 +16,7 @@ public final class StatusBeginRoundAutoDamage extends StatusBeginRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateStatusBeginRound(_data);
         if (!power.isZeroOrGt()) {
             _data.setError(true);
         }

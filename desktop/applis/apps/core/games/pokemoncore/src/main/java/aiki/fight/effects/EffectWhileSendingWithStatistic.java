@@ -10,7 +10,9 @@ public final class EffectWhileSendingWithStatistic extends EffectWhileSending {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        effect.validate(_data);
+        if (effect != null) {
+            effect.validate(_data);
+        }
     }
 
     public EffectStatistic getEffect() {

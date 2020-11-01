@@ -8,7 +8,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class RendLine extends RendLeaf implements RendWithEl, RendReducableOperations {
+public final class RendLine extends RendLeaf implements RendWithEl {
 
     private int expressionOffset;
 

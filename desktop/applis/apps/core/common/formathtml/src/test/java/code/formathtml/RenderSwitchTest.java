@@ -13,6 +13,13 @@ import static org.junit.Assert.assertTrue;
 
 public final class RenderSwitchTest extends CommonRender {
     @Test
+    public void process0Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='10'/></body></html>";
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
     public void process1Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";

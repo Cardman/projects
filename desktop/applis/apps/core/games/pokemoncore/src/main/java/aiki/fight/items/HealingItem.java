@@ -16,9 +16,7 @@ public abstract class HealingItem extends Item {
         return ITEM;
     }
 
-    @Override
-    public void validate(DataBase _data) {
-        super.validate(_data);
+    protected final void validateHealingItem(DataBase _data) {
         for (String k : happiness.getKeys()) {
             if (happiness.getVal(k) < 0) {
                 _data.setError(true);

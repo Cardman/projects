@@ -2,7 +2,7 @@ package aiki.beans;
 
 import aiki.beans.effects.ComboDto;
 import aiki.beans.facade.dto.MoveLine;
-import aiki.fight.effects.EffectWhileSending;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
@@ -85,7 +85,7 @@ public final class DefaultStruct extends WithoutParentIdStruct implements RealIn
     public static DefaultStruct newInstance(ComboDto _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
-    public static DefaultStruct newInstance(EffectWhileSending _instance, String _className) {
+    public static DefaultStruct newInstance(EffectWhileSendingWithStatistic _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
     public static DefaultStruct newInstance(EffectPartnerStatus _instance, String _className) {

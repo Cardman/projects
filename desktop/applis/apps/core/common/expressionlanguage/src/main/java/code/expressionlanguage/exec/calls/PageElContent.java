@@ -1,52 +1,58 @@
 package code.expressionlanguage.exec.calls;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
-public abstract class PageEl {
+public final class PageElContent {
 
-    private final PageElContent content = new PageElContent();
+    private Argument globalArgument = Argument.createVoid();
+
+    private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private final StringMap<LocalVariable> valueVars = new StringMap<LocalVariable>();
+    private Cache cache;
+
     public Struct getGlobalStruct() {
-        return content.getGlobalStruct();
+        return getGlobalArgument().getStruct();
     }
     public Argument getGlobalArgument() {
-        return content.getGlobalArgument();
+        return globalArgument;
     }
     public void setGlobalArgumentStruct(Struct _obj) {
-        content.setGlobalArgumentStruct(_obj);
+        globalArgument = new Argument(_obj);
     }
 
     public void setGlobalArgument(Argument _globalArgument) {
-        content.setGlobalArgument(_globalArgument);
+        globalArgument = Argument.getNullableValue(_globalArgument);
     }
 
     public StringMap<LocalVariable> getValueVars() {
-        return content.getValueVars();
+        return valueVars;
     }
 
     public void putValueVar(String _key, LocalVariable _var) {
-        content.putValueVar(_key, _var);
+        valueVars.put(_key, _var);
     }
     public StringMap<LoopVariable> getVars() {
-        return content.getVars();
+        return vars;
     }
 
     public void putLocalVar(String _key, LocalVariable _var) {
-        content.putLocalVar(_key, _var);
+        valueVars.put(_key, _var);
     }
 
     public void removeLocalVar(String _key) {
-        content.removeLocalVar(_key);
+        getValueVars().removeKey(_key);
     }
 
     public Cache getCache() {
-        return content.getCache();
+        return cache;
     }
 
     public void setCache(Cache _cache) {
-        this.content.setCache(_cache);
+        this.cache = _cache;
     }
 }

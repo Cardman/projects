@@ -244,7 +244,6 @@ public final class AnaTypeUtil {
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
             _page.setCurrentBlock(c);
-            _page.setCurrentAnaBlock(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setGlobalType(c);
             _page.setGlobalDirType(null);
@@ -266,7 +265,6 @@ public final class AnaTypeUtil {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 _page.setCurrentBlock(c);
-                _page.setCurrentAnaBlock(c);
                 _page.setGlobalOffset(offset_);
                 _page.setOffset(0);
                 _page.getMappingLocal().clear();
@@ -295,7 +293,6 @@ public final class AnaTypeUtil {
                 String sup_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
-                _page.setCurrentAnaBlock(c);
                 _page.setGlobalClass(c.getGenericString());
                 _page.setGlobalType(c);
                 _page.setGlobalDirType(null);
@@ -311,7 +308,6 @@ public final class AnaTypeUtil {
                     String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
                     _page.setCurrentBlock(c);
-                    _page.setCurrentAnaBlock(c);
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
                     _page.setGlobalDirType(null);

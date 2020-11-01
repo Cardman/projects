@@ -1,8 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.effects.EffectWhileSendingSimple;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRound;
@@ -316,7 +314,7 @@ final class InitializationAbilities {
     }
     static void initAllAbilities(DataBase _data) {
         EffectEndRoundIndividual effectEndRoundIndividual_;
-        EffectWhileSending effectWhileSending_;
+        EffectWhileSendingWithStatistic effectWhileSending_;
         AbilityData ficheCapacite_;
         EffectEndRoundTeam effectEndRoundTeam_;
         EffectStatistic effetStatistique_;
@@ -850,8 +848,8 @@ final class InitializationAbilities {
         return object_;
     }
 
-    private static EffectWhileSending defaultEffectWhileSending() {
-        EffectWhileSending object_ = new EffectWhileSendingSimple();
+    private static EffectWhileSendingWithStatistic defaultEffectWhileSending() {
+        EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
         return object_;
@@ -909,7 +907,7 @@ final class InitializationAbilities {
         object_.setImmuAllyFromMoves(new StringList());
         object_.setImmuMoveTypesByWeather(new StringMap<StringList>());
         object_.setEffectEndRound(new CustList<EffectEndRound>());
-        object_.setEffectSending(new CustList<EffectWhileSending>());
+        object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>());
         object_.setFailStatus(new StringMap<String>());
         object_.setHealHpWhileUsingBerry(Rate.zero());
         object_.setMultPowerMovesTypesGlobal(new StringMap<Rate>());

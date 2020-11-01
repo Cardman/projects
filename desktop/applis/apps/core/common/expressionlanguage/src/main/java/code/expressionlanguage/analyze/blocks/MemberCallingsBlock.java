@@ -60,7 +60,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
         while (true) {
             _page.setCurrentBlock(en_);
-            _page.setCurrentAnaBlock(en_);
             anEl_.putLabel(this);
             addPossibleEmpty(en_);
             if (en_ != this) {
@@ -88,7 +87,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 BracedBlock par_;
                 par_ = en_.getParent();
                 _page.setCurrentBlock(par_);
-                _page.setCurrentAnaBlock(par_);
                 if (par_ == this) {
                     par_.removeAllVars(_page);
                     _page.getInfosVars().clear();

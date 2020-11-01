@@ -167,7 +167,7 @@ public final class FileResolver {
                 _page.addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
-                _block.getErrorsFiles().add(g_);
+                _block.getErrorsFiles().getLi().add(g_);
             }
             return;
         }
@@ -184,7 +184,7 @@ public final class FileResolver {
                 _page.addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
-                _block.getErrorsFiles().add(g_);
+                _block.getErrorsFiles().getLi().add(g_);
             }
             Block block_ = res_.getBlock();
             if (block_ != null) {

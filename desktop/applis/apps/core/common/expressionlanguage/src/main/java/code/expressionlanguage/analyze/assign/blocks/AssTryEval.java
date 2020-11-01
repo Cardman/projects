@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class AssTryEval extends AssBracedStack implements AssEval,AssBreakableBlock {
+public final class AssTryEval extends AssBracedStack implements AssBreakableBlock {
     private String label;
     AssTryEval(boolean _completeNormally, boolean _completeNormallyGroup, String _t) {
         super(_completeNormally,_completeNormallyGroup);

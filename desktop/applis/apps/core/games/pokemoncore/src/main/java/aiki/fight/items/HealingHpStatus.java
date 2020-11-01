@@ -18,6 +18,7 @@ public final class HealingHpStatus extends HealingStatus {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateHealingStatus(_data);
         if (healedHpRate.isZero()) {
             _data.setError(true);
         }

@@ -206,8 +206,8 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return;
         }
         if (call_.sizeEl() < 4) {
-            ExecTemplates.setValue(_conf,variableNameFirst,_conf.getLastPage(),arg_,-1);
-            ExecTemplates.incrIndexLoop(_conf, variableNameFirst, _conf.getLastPage(), -1);
+            ExecTemplates.setValue(_conf,variableNameFirst, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+            ExecTemplates.incrIndexLoop(_conf, variableNameFirst, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
             if (_conf.callsOrException()) {
                 return;
             }
@@ -220,8 +220,8 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        ExecTemplates.setValue(_conf,variableNameSecond,_conf.getLastPage(),arg_,-1);
-        ExecTemplates.incrIndexLoop(_conf, variableNameSecond, _conf.getLastPage(), -1);
+        ExecTemplates.setValue(_conf,variableNameSecond, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+        ExecTemplates.incrIndexLoop(_conf, variableNameSecond, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
         if (_conf.callsOrException()) {
             return;
         }

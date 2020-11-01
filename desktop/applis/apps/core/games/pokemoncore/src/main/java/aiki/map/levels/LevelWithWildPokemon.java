@@ -29,9 +29,7 @@ public abstract class LevelWithWildPokemon extends Level {
 
     private ObjectMap<Point, Short> hm;
 
-    @Override
-    public void validate(DataBase _data, LevelArea _level) {
-        super.validate(_data, _level);
+    protected final void validateLevelWithWildPokemon(DataBase _data, LevelArea _level) {
         int index_ = 0;
         for (AreaApparition a : wildPokemonAreas) {
             a.validate(_data);

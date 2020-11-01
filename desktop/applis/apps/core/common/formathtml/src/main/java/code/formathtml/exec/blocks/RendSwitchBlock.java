@@ -16,7 +16,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public final class RendSwitchBlock extends RendParentBlock implements RendReducableOperations,RendWithEl {
+public final class RendSwitchBlock extends RendParentBlock implements RendWithEl {
 
     private String label;
 

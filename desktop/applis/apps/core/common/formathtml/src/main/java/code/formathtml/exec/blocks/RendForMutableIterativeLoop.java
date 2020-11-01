@@ -18,7 +18,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl,RendReducableOperations {
+public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl {
 
 
     private String label;

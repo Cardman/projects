@@ -13,7 +13,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AssSettableFieldOperation extends AssLeafOperation implements AssSettableElResult {
+public final class AssSettableFieldOperation extends AssLeafOperation {
     private FieldInfo fieldMetaInfo;
     private boolean declare;
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {

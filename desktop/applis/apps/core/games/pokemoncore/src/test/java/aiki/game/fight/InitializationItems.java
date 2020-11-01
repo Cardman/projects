@@ -1,7 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
-import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.effects.EffectWhileSendingSimple;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
@@ -188,7 +187,7 @@ final class InitializationItems {
         Repel repousse_;
         Boost boost_;
         Fossil fossile_;
-        EffectWhileSending effectWhileSending_;
+        EffectWhileSendingWithStatistic effectWhileSending_;
         repousse_ = defaultRepousse();
         repousse_.setSteps(100);
         repousse_.setPrice(300);
@@ -752,7 +751,7 @@ final class InitializationItems {
         object_.setBoostStatisSuperEff(new EnumMap<Statistic,Byte>());
         //object_.setSansEffetCapacite(new StringList());
         object_.setEffectEndRound(new CustList<EffectEndRound>());
-        object_.setEffectSending(new CustList<EffectWhileSending>());
+        object_.setEffectSending(new CustList<EffectWhileSendingWithStatistic>());
         return object_;
     }
 
@@ -832,8 +831,8 @@ final class InitializationItems {
         return object_;
     }
 
-    private static EffectWhileSending defaultEffectWhileSending() {
-        EffectWhileSending object_ = new EffectWhileSendingSimple();
+    private static EffectWhileSendingWithStatistic defaultEffectWhileSending() {
+        EffectWhileSendingWithStatistic object_ = new EffectWhileSendingWithStatistic();
         object_.setEnabledWeather(NULL_REF);
         object_.setMultWeight(Rate.zero());
         return object_;

@@ -54,7 +54,8 @@ public final class AnalyzedPageEl {
     private StringMap<StringMap<Struct>> staticFields;
 
     private Block currentBlock;
-    private AnalyzedBlock currentAnaBlock;
+    private ImportForEachLoop currentAnaBlockForEachLoop;
+    private ImportForEachTable currentAnaBlockForEachTable;
 
     private String globalClass = "";
     private RootBlock globalType;
@@ -410,6 +411,16 @@ public final class AnalyzedPageEl {
 
     public void setCurrentBlock(Block _currentBlock) {
         currentBlock = _currentBlock;
+        if (_currentBlock instanceof ImportForEachTable) {
+            setCurrentAnaBlockForEachTable((ImportForEachTable) _currentBlock);
+        } else {
+            setCurrentAnaBlockForEachTable(null);
+        }
+        if (_currentBlock instanceof ImportForEachLoop) {
+            setCurrentAnaBlockForEachLoop((ImportForEachLoop) _currentBlock);
+        } else {
+            setCurrentAnaBlockForEachLoop(null);
+        }
     }
 
     public String getGlobalClass() {
@@ -774,12 +785,20 @@ public final class AnalyzedPageEl {
         this.processKeyWord = _processKeyWord;
     }
 
-    public AnalyzedBlock getCurrentAnaBlock() {
-        return currentAnaBlock;
+    public ImportForEachLoop getCurrentAnaBlockForEachLoop() {
+        return currentAnaBlockForEachLoop;
     }
 
-    public void setCurrentAnaBlock(AnalyzedBlock _currentAnaBlock) {
-        this.currentAnaBlock = _currentAnaBlock;
+    public void setCurrentAnaBlockForEachLoop(ImportForEachLoop _currentAnaBlockForEachLoop) {
+        this.currentAnaBlockForEachLoop = _currentAnaBlockForEachLoop;
+    }
+
+    public ImportForEachTable getCurrentAnaBlockForEachTable() {
+        return currentAnaBlockForEachTable;
+    }
+
+    public void setCurrentAnaBlockForEachTable(ImportForEachTable _currentAnaBlockForEachTable) {
+        this.currentAnaBlockForEachTable = _currentAnaBlockForEachTable;
     }
 
     public AbstractHiddenTypes getHiddenTypes() {

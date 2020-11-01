@@ -68,7 +68,6 @@ public final class ClassesUtil {
             _page.getMappingLocal().putAllMap(e.getMappings());
             for (Block b: getDirectChildren(e)) {
                 if (b instanceof OverridableBlock) {
-                    _page.setCurrentAnaBlock(e);
                     _page.setCurrentBlock(e);
                     ((OverridableBlock)b).buildTypes(e, _page);
                 }
@@ -413,7 +412,6 @@ public final class ClassesUtil {
             ok_ = false;
         }
         _page.setCurrentBlock(_root);
-        _page.setCurrentAnaBlock(_root);
         String packageName_;
         packageName_ = _root.getPackageName();
         if (packageName_.trim().isEmpty()) {
@@ -1069,22 +1067,19 @@ public final class ClassesUtil {
     }
 
     public static void validateInheritingClasses(AnalyzedPageEl _page) {
-        AnalyzedPageEl page_ = _page;
-        String objectClassName_ = page_.getAliasObject();
-        page_.getListTypesNames().clear();
+        String objectClassName_ = _page.getAliasObject();
+        _page.getListTypesNames().clear();
         validateInheritingClassesId(_page);
-        CustList<RootBlock> listTypes_ = page_.getListTypesNames();
+        CustList<RootBlock> listTypes_ = _page.getListTypesNames();
         for (RootBlock s: listTypes_) {
-            page_.setCurrentBlock(s);
-            page_.setCurrentAnaBlock(s);
+            _page.setCurrentBlock(s);
             s.buildDirectGenericSuperTypes(_page);
         }
-        for (RootBlock c: page_.getFoundTypes()) {
-            page_.setCurrentBlock(c);
-            page_.setCurrentAnaBlock(c);
+        for (RootBlock c: _page.getFoundTypes()) {
+            _page.setCurrentBlock(c);
             c.buildMapParamType(_page);
         }
-        for (RootBlock c: page_.getFoundTypes()) {
+        for (RootBlock c: _page.getFoundTypes()) {
             if (c.isStaticType()) {
                 continue;
             }
@@ -1748,7 +1743,6 @@ public final class ClassesUtil {
             _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
-                    _page.setCurrentAnaBlock(c);
                     _page.setCurrentBlock(c);
                     ((InternOverrideBlock)b).buildTypes(c, _page);
                 }
@@ -1910,7 +1904,7 @@ public final class ClassesUtil {
                 _page.addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
-                c.getGlobalErrorsPars().add(g_);
+                c.getGlobalErrorsPars().getLi().add(g_);
             }
         }
         for (RootBlock c: _page.getFoundTypes()) {
@@ -1952,7 +1946,6 @@ public final class ClassesUtil {
                     _page.setCurrentFct(null);
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     _page.setCurrentBlock(b);
-                    _page.setCurrentAnaBlock(b);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
@@ -1967,7 +1960,6 @@ public final class ClassesUtil {
                         continue;
                     }
                     _page.setCurrentBlock(b);
-                    _page.setCurrentAnaBlock(b);
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
@@ -2024,7 +2016,6 @@ public final class ClassesUtil {
                     _page.setGlobalDirType(c);
                     FieldBlock method_ = (FieldBlock) b;
                     _page.setCurrentBlock(b);
-                    _page.setCurrentAnaBlock(b);
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
@@ -2139,7 +2130,6 @@ public final class ClassesUtil {
             _page.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
                 _page.setCurrentBlock(b);
-                _page.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
                     _page.setGlobalDirType(c);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
@@ -2168,7 +2158,6 @@ public final class ClassesUtil {
             _page.setImportingAcces(new OperatorAccessor());
             _page.setImportingTypes(o);
             _page.setCurrentBlock(o);
-            _page.setCurrentAnaBlock(o);
             _page.getMappingLocal().clear();
             o.buildAnnotations(_page);
             o.buildAnnotationsParameters(_page);
@@ -2773,7 +2762,6 @@ public final class ClassesUtil {
                 _page.setGlobalType(c);
                 _page.setGlobalDirType(c);
                 _page.setCurrentBlock(f_);
-                _page.setCurrentAnaBlock(f_);
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getMappings());
                 _page.setCurrentFct(null);

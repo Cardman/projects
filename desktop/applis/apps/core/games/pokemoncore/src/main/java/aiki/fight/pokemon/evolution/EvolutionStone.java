@@ -9,8 +9,7 @@ public abstract class EvolutionStone extends Evolution {
 
     private String stone;
 
-    @Override
-    public void validate(DataBase _dataBase, PokemonData _fPk) {
+    protected final void validateEvolutionStone(DataBase _dataBase) {
         if (_dataBase.getItem(stone) instanceof EvolvingStone) {
             return;
         }

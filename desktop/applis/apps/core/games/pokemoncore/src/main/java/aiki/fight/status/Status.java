@@ -23,7 +23,9 @@ public abstract class Status {
     private EnumMap<Statistic, Rate> multStat;
     private String fail;
 
-    public void validate(DataBase _data) {
+    public abstract void validate(DataBase _data);
+
+    protected final void validateStatus(DataBase _data) {
         if (!Statistic.getStatisticsWithBoost().containsAllObj(
                 multStat.getKeys())) {
             _data.setError(true);

@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 
-public final class AnaRendEmptyText extends AnaRendLeaf implements AnaRendPossibleEmpty {
+public final class AnaRendEmptyText extends AnaRendLeaf {
 
     private final String expression;
 

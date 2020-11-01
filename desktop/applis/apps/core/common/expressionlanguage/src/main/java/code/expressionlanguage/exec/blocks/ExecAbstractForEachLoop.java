@@ -132,8 +132,8 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
             return;
         }
         abs_.clearCurrentEls();
-        ExecTemplates.setValue(_conf, variableName,abs_,arg_,-1);
-        ExecTemplates.incrIndexLoop(_conf, variableName, abs_, -1);
+        ExecTemplates.setValue(_conf, variableName, arg_,-1, abs_.getCache(), abs_.getValueVars());
+        ExecTemplates.incrIndexLoop(_conf, variableName, -1, abs_.getCache(), abs_.getVars());
         if (_conf.callsOrException()) {
             return;
         }

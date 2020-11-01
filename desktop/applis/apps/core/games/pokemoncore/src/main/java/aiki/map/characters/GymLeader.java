@@ -13,6 +13,7 @@ public final class GymLeader extends TrainerOneFight {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        validateTrainerOneFight(_data);
         if (!_data.getTm().contains(tm)) {
             _data.setError(true);
         }

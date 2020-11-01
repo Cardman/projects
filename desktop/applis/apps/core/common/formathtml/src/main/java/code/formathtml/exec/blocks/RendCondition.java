@@ -11,7 +11,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public abstract class RendCondition extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public abstract class RendCondition extends RendParentBlock implements RendWithEl {
 
 
     private int conditionOffset;

@@ -15,7 +15,7 @@ import code.sml.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class RendSelect extends RendParentBlock implements RendWithEl, RendReducableOperations {
+public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();

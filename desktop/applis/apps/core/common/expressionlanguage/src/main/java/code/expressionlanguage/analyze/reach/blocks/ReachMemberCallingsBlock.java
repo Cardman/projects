@@ -64,7 +64,6 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         }
         while (true) {
             _page.setCurrentBlock(en_.getInfo());
-            _page.setCurrentAnaBlock(en_.getInfo());
             _anEl.putLabel(this);
             if (en_ == this) {
                 _anEl.reach(this);
@@ -95,7 +94,6 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
                 ReachBracedBlock par_;
                 par_ = en_.getParent();
                 _page.setCurrentBlock(par_.getInfo());
-                _page.setCurrentAnaBlock(par_.getInfo());
                 par_.abrupt(_anEl);
                 par_.abruptGroup(_anEl);
                 if (par_ == this) {

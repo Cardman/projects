@@ -90,7 +90,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 first_ = first_.getNextSibling();
                 continue;
             }
-            if (elt_ instanceof  AnaRendPossibleEmpty) {
+            if (isPossibleEmpty(elt_)) {
                 first_ = first_.getNextSibling();
                 continue;
             }
