@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -69,7 +70,7 @@ public final class RendLocalThrowing {
             }
             _conf.removeLastPage();
         }
-        _ctx.setCallingState(_str);
+        _ctx.setCallingState(new CustomFoundExc(_str));
     }
 
 }

@@ -1,7 +1,10 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.common.AnnotationTypeInfo;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -22,7 +25,10 @@ public final class CustomFoundAnnotation implements CallingState {
         id = _id;
         arguments = _arguments;
     }
-
+    @Override
+    public AbstractPageEl processAfterOperation(ContextEl _context) {
+        return ExecutingUtil.createAnnotation(_context,getClassName(),getType(), getId(), getArguments());
+    }
     public String getClassName() {
         return className;
     }

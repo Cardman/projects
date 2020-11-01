@@ -2,9 +2,9 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -61,13 +61,13 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                    _context.setCallingState(new ErrorStruct(_context,null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                     return false;
                 }
             }
             if (isAbstract(_context)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-                _context.setCallingState(new ErrorStruct(_context,metaInfo.getDisplayedString(_context).getInstance(),null_));
+                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, metaInfo.getDisplayedString(_context).getInstance(), null_)));
                 return false;
             }
             String className_ = metaInfo.getClassName();
@@ -96,7 +96,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setCallingState(new ErrorStruct(_context,null_));
+                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return false;
             }
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
@@ -107,21 +107,21 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size() + 1,mid_.getParametersTypes().size()).toString(),null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypes().size()).toString(), null_)));
                     return false;
                 }
             } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
                 if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size(),mid_.getParametersTypes().size()).toString(),null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size()).toString(), null_)));
                     return false;
                 }
             } else {
                 if (args.size() != mid_.getParametersTypes().size() + 1) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args.size(),mid_.getParametersTypes().size() + 1).toString(),null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size() + 1).toString(), null_)));
                     return false;
                 }
                 rightArg = args.last();

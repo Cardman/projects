@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
@@ -134,7 +135,10 @@ public abstract class CommonRender {
 
     protected static Struct getException(AnalyzedTestConfiguration _cont) {
         CallingState str_ = _cont.getContext().getCallingState();
-        return (Struct) str_;
+        if (str_ instanceof CustomFoundExc) {
+            return ((CustomFoundExc) str_).getStruct();
+        }
+        return null;
     }
 
     private static void setFiles(StringMap<String> _filesThree, AnalyzedTestConfiguration _conf) {

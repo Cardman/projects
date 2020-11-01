@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
@@ -145,7 +146,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateDiv(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setCallingState(new ErrorStruct(_an,div_));
+            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_)));
         }
         return res_;
     }
@@ -156,7 +157,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateMod(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setCallingState(new ErrorStruct(_an,div_));
+            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_)));
         }
         return res_;
     }

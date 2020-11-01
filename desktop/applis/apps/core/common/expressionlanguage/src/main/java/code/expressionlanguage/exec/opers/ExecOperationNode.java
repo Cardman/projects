@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -131,7 +132,7 @@ public abstract class ExecOperationNode {
                 LgNames stds_ = _cont.getStandards();
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(_cont);
-                _cont.setCallingState(new ErrorStruct(_cont,null_));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, null_)));
                 return;
             }
         }

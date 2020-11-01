@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.structs.NullStruct;
@@ -69,7 +70,7 @@ public final class LocalThrowing {
             custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_, bkIp_);
             _conf.removeLastPage();
         }
-        _conf.setCallingState(custCause_);
+        _conf.setCallingState(new CustomFoundExc(custCause_));
     }
 
 

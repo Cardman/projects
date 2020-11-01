@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -111,7 +112,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         Struct ito_ = arg_.getStruct();
         if (ito_ == NullStruct.NULL_VALUE) {
             String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _ctx.setCallingState(new ErrorStruct(_ctx, npe_));
+            _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_)));
         }
         return ito_;
 

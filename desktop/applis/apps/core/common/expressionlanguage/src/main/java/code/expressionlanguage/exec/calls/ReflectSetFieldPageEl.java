@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -39,7 +40,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
         if (stds_.getStandards().contains(baseClass_)) {
             String ill_;
             ill_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _context.setCallingState(new ErrorStruct(_context,ill_));
+            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ill_)));
             return false;
         }
         Argument instance_ = getArguments().first();

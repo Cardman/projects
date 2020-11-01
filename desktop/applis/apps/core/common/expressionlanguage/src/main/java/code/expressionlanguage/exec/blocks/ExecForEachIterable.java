@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -28,7 +29,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     protected LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its) {
         if (_its == NullStruct.NULL_VALUE) {
             String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _cont.setCallingState(new ErrorStruct(_cont, npe_));
+            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_)));
             return null;
         }
         String locName_ = _cont.getClasses().getIteratorVarCust();

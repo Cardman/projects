@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
@@ -137,7 +138,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return null;
         }
         if (argFrom_.isNull()) {
-            _conf.setCallingState(new ErrorStruct(_conf,null_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
             return null;
         }
         ip_.setGlobalOffset(expressionOffset);
@@ -148,7 +149,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return null;
         }
         if (argTo_.isNull()) {
-            _conf.setCallingState(new ErrorStruct(_conf,null_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
             return null;
         }
         ip_.setGlobalOffset(stepOffset);
@@ -159,7 +160,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return null;
         }
         if (argStep_.isNull()) {
-            _conf.setCallingState(new ErrorStruct(_conf,null_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
             return null;
         }
         ip_.clearCurrentEls();

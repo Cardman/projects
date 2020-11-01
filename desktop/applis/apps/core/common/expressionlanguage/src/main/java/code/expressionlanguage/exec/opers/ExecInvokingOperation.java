@@ -182,14 +182,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_previous.isNull()) {
             String npe_;
             npe_ = _stds.getContent().getCoreNames().getAliasNullPe();
-            _conf.setCallingState(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
             return;
         }
         String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
             cast_ = _stds.getContent().getCoreNames().getAliasCastType();
-            _conf.setCallingState(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE,param_, RETURN_LINE),cast_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE, param_, RETURN_LINE), cast_)));
         }
     }
 
@@ -259,7 +259,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument arg_ = _firstArgs.first();
             Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont);
             if (ex_ != null) {
-                _cont.setCallingState(ex_);
+                _cont.setCallingState(new CustomFoundExc(ex_));
                 return Argument.createVoid();
             }
             return tryGetEnumValue(_exit,_cont,_rootBlock, ClassCategory.ENUM, arg_);
@@ -350,7 +350,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setCallingState(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
         return Argument.createVoid();
     }
     public static Argument getMetaInfo(Argument _previous, ContextEl _conf) {
@@ -361,7 +361,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setCallingState(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
         return Argument.createVoid();
     }
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ContextEl _conf) {
@@ -378,7 +378,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int valuesSize_ = values_.size();
             if (valuesSize_ != paramsFct_.size()) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasBadArgNumber();
-                _conf.setCallingState(new ErrorStruct(_conf,ExecTemplates.countDiff(valuesSize_,paramsFct_.size()).toString(),null_));
+                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, ExecTemplates.countDiff(valuesSize_, paramsFct_.size()).toString(), null_)));
                 return new Argument();
             }
             for (int i = 0; i < valuesSize_; i++) {
@@ -401,7 +401,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 String c_ = forId_.substring(ARR.length());
                 Struct res_ = ExecTemplates.newCustomArrayOrExc(c_, dims_, _conf);
                 if (res_ instanceof ErrorStruct) {
-                    _conf.setCallingState(res_);
+                    _conf.setCallingState(new CustomFoundExc(res_));
                     return new Argument();
                 }
                 return new Argument(res_);
@@ -550,7 +550,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        _conf.setCallingState(new ErrorStruct(_conf,null_));
+        _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
         return Argument.createVoid();
     }
 

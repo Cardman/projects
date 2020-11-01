@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.functionid.MethodId;
@@ -157,7 +157,7 @@ public abstract class ExecBlock {
                             callingFinally_.removeBlockFinally(_conf);
                         } else {
                             Struct exception_ = ((TryBlockStack)lastStack_).getException();
-                            _conf.setCallingState(exception_);
+                            _conf.setCallingState(new CustomFoundExc(exception_));
                             ExecutingUtil.processGeneException(_conf);
                         }
                     }

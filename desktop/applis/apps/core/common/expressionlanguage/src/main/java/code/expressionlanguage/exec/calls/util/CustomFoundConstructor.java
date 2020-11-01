@@ -1,7 +1,10 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 
 public final class CustomFoundConstructor implements CallingState {
@@ -32,6 +35,11 @@ public final class CustomFoundConstructor implements CallingState {
         currentObject = _currentObject;
         arguments = _arguments;
         instanceStep = _instance;
+    }
+
+    @Override
+    public AbstractPageEl processAfterOperation(ContextEl _context) {
+        return ExecutingUtil.createInstancing(_context,this);
     }
 
     public int getChildIndex() {

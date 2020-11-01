@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.Struct;
 
 public final class NativeContextEl extends ContextEl {
@@ -14,6 +15,6 @@ public final class NativeContextEl extends ContextEl {
 
     @Override
     public boolean callsOrException() {
-        return getCallingState() instanceof Struct;
+        return getCallingState() instanceof CustomFoundExc;
     }
 }

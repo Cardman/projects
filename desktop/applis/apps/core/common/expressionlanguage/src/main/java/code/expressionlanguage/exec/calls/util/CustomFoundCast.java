@@ -1,6 +1,9 @@
 package code.expressionlanguage.exec.calls.util;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 
 public final class CustomFoundCast implements CallingState {
@@ -17,7 +20,10 @@ public final class CustomFoundCast implements CallingState {
         id = _id;
         arguments = _arguments;
     }
-
+    @Override
+    public AbstractPageEl processAfterOperation(ContextEl _context) {
+        return ExecutingUtil.createCallingCast(_context,this);
+    }
     public String getClassName() {
         return className;
     }

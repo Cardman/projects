@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -46,7 +47,7 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
             return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _ctx.setCallingState(new ErrorStruct(_ctx, npe_));
+        _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_)));
         return -1;
     }
     @Override

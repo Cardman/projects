@@ -3,6 +3,7 @@ package code.gui.document;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
@@ -31,9 +32,9 @@ public final class ThreadRefresh implements Runnable {
     private void afterAction() {
         ContextEl context_ = page.getContext();
         CallingState exc_ = context_.getCallingState();
-        if (exc_ instanceof Struct) {
+        if (exc_ instanceof CustomFoundExc) {
             if (page.getArea() != null) {
-                Struct exception_ = (Struct) exc_;
+                Struct exception_ = ((CustomFoundExc) exc_).getStruct();
                 if (exception_ instanceof ErroneousStruct) {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(context_, fullStack_));

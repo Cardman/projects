@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -32,7 +33,7 @@ public final class RendThrowing extends RendLeaf implements RendWithEl, RendRedu
             return;
         }
         Struct o_ = argument_.getStruct();
-        _ctx.setCallingState(o_);
+        _ctx.setCallingState(new CustomFoundExc(o_));
     }
 
 }

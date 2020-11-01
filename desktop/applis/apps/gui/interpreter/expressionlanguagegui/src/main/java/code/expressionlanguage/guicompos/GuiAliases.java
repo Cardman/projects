@@ -7,6 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -2937,24 +2938,24 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[1] instanceof CustComponentStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[2] instanceof CustComponentStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             CustComponentStruct first_ = (CustComponentStruct) _args[1];
             CustComponentStruct second_ = (CustComponentStruct) _args[2];
             if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg())));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg())));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3073,7 +3074,7 @@ public final class GuiAliases {
                 return r_;
             }
             if (!(_args[0] instanceof TreeNodeStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
                 return r_;
             }
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
@@ -3388,7 +3389,7 @@ public final class GuiAliases {
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
                 ins_.add(_args[0],true);
                 if (!(_args[0] instanceof WindowStruct)) {
-                    _cont.setCallingState(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe()));
+                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }

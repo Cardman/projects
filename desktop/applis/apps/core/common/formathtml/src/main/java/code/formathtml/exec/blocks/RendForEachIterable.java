@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -24,7 +25,7 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (_its == NullStruct.NULL_VALUE) {
             String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _cont.setCallingState(new ErrorStruct(_cont, npe_));
+            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_)));
             return null;
         }
         Argument arg_ = iterator(_its,_conf, _stds, _cont);

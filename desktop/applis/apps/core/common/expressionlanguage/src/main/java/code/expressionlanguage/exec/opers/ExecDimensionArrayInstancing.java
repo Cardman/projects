@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -55,7 +56,7 @@ public final class ExecDimensionArrayInstancing extends
         }
         Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf);
         if (res_ instanceof ErrorStruct) {
-            _conf.setCallingState(res_);
+            _conf.setCallingState(new CustomFoundExc(res_));
             return new Argument();
         }
         return new Argument(res_);

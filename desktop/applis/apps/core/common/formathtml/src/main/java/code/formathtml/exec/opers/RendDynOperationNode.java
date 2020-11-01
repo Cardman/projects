@@ -100,7 +100,7 @@ public abstract class RendDynOperationNode {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _context.setCallingState(new ErrorStruct(_context,null_));
+                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return;
             }
         }

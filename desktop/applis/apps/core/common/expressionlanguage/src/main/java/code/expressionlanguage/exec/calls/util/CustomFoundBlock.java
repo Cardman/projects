@@ -1,7 +1,10 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecInitBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class CustomFoundBlock implements CallingState {
 
@@ -20,6 +23,10 @@ public final class CustomFoundBlock implements CallingState {
         block = _block;
     }
 
+    @Override
+    public AbstractPageEl processAfterOperation(ContextEl _context) {
+        return ExecutingUtil.createBlockPageEl(_context,getClassName(), getCurrentObject(),getRootBlock(), getBlock());
+    }
     public String getClassName() {
         return className;
     }

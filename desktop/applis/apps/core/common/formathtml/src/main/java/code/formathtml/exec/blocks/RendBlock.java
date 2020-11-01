@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -596,7 +597,7 @@ public abstract class RendBlock {
                             callingFinally_.removeBlockFinally(_conf,_advStandards,_ctx);
                         } else {
                             Struct exception_ = ((RendTryBlockStack)lastStack_).getException();
-                            _ctx.setCallingState(exception_);
+                            _ctx.setCallingState(new CustomFoundExc(exception_));
                             processGeneException(_conf,_ctx);
                         }
                     }
@@ -794,8 +795,9 @@ public abstract class RendBlock {
 
     private static void processGeneException(Configuration _conf, ContextEl _context) {
         CallingState callingState_ = _context.getCallingState();
-        if (callingState_ instanceof Struct) {
-            RendLocalThrowing.removeBlockFinally(_conf, _context, (Struct) callingState_);
+        if (callingState_ instanceof CustomFoundExc) {
+            Struct exc_ = ((CustomFoundExc) callingState_).getStruct();
+            RendLocalThrowing.removeBlockFinally(_conf, _context,exc_);
         }
     }
 }

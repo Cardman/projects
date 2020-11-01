@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
@@ -29,7 +29,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (res_.isEmpty()) {
             String null_;
             null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _cont.setCallingState(new ErrorStruct(_cont,method_.getClassName(),null_));
+            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, method_.getClassName(), null_)));
             return true;
         }
         if (!StringExpUtil.customCast(res_)) {
@@ -55,7 +55,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _context.setCallingState(new ErrorStruct(_context,_className,null_));
+            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_)));
             return Argument.createVoid();
         }
         return ExecExplicitOperation.prepare(_context.getExiting(),getMethodToCallType(),direct,getMethodToCallBody(),_args,res_,res_,this,_context);

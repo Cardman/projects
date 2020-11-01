@@ -8,6 +8,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
@@ -45,8 +46,8 @@ public class CustInitializer extends DefaultInitializer {
 	}
     public void prExc(RunnableContextEl _cont) {
         CallingState exc_ = _cont.getCallingState();
-    	if (exc_ instanceof Struct) {
-            Struct exception_ = (Struct) exc_;
+        if (exc_ instanceof CustomFoundExc) {
+            Struct exception_ = ((CustomFoundExc) exc_).getStruct();
             if (exception_ instanceof DisplayableStruct) {
                 String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
                 log(_cont,text_);

@@ -6,12 +6,11 @@ public final class ThreadUtil {
     }
 
     public static boolean start(Thread _thread) {
-        try {
-            _thread.start();
-            return true;
-        } catch (RuntimeException e) {
+        if (_thread.isAlive()) {
             return false;
         }
+        _thread.start();
+        return true;
     }
 
     public static boolean setPriority(Thread _thread, int _prio) {
@@ -21,9 +20,13 @@ public final class ThreadUtil {
         _thread.setPriority(_prio);
         return true;
     }
-    public static void join(Thread _thread) {
-        while (_thread.isAlive()) {
-            sleep(0);
+    public static ThState join(Thread _thread) {
+        boolean alive_ = _thread.isAlive();
+        try {
+            _thread.join();
+            return ThState.ofNormal(alive_);
+        } catch (Exception e) {
+            return ThState.INTERRUPTED;
         }
     }
     public static boolean sleep(long _time) {

@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -1438,8 +1439,8 @@ public final class NativeTest {
 
     private static Struct getException(NativeAnalyzedTestConfiguration _cont) {
         CallingState str_ = _cont.getContext().getCallingState();
-        if (str_ instanceof Struct) {
-            return (Struct) str_;
+        if (str_ instanceof CustomFoundExc) {
+            return ((CustomFoundExc) str_).getStruct();
         }
         return null;
     }

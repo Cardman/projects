@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -108,7 +109,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argFrom_.isNull()) {
-            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_)));
             return;
         }
         ip_.setOffset(expressionOffset);
@@ -118,7 +119,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argTo_.isNull()) {
-            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_)));
             return;
         }
         ip_.setOffset(stepOffset);
@@ -128,7 +129,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argStep_.isNull()) {
-            _ctx.setCallingState(new ErrorStruct(_ctx,null_));
+            _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_)));
             return;
         }
         fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();

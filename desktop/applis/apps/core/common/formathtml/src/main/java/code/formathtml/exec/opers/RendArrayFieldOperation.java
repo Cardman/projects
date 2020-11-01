@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -41,7 +42,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         }
         String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        _ctx.setCallingState(new ErrorStruct(_ctx,npe_));
+        _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_)));
         return new Argument();
     }
 }

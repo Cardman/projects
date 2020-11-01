@@ -3,10 +3,10 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -38,7 +38,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         if (ExecutingUtil.isAbstractType(type_)) {
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
-            _context.setCallingState(new ErrorStruct(_context,className_,null_));
+            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_)));
             return false;
         }
         boolean static_ = type_.isStaticType();
@@ -46,7 +46,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         if (res_.isEmpty()) {
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
-            _context.setCallingState(new ErrorStruct(_context,className_,null_));
+            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_)));
             return false;
         }
         if (!initClass) {
@@ -64,7 +64,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setCallingState(new ErrorStruct(_context,null_));
+                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return false;
             }
             CustList<Argument> args_ = new CustList<Argument>();
@@ -76,14 +76,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),mid_.getParametersTypes().size()).toString(),null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypes().size()).toString(), null_)));
                     return false;
                 }
                 previous_ = Argument.createVoid();
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new ErrorStruct(_context,ExecTemplates.countDiff(args_.size(),1 + mid_.getParametersTypes().size()).toString(),null_));
+                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypes().size()).toString(), null_)));
                     return false;
                 }
                 previous_ = args_.first();

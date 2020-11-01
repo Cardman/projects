@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
@@ -47,7 +48,7 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
             return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _cont.setCallingState(new ErrorStruct(_cont, npe_));
+        _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_)));
         return -1;
     }
     @Override

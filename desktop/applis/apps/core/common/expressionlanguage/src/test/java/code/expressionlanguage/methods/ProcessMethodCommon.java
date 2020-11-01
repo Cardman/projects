@@ -14,6 +14,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -612,7 +613,10 @@ public abstract class ProcessMethodCommon {
 
     protected static Struct getException(ContextEl _cont) {
         CallingState str_ = _cont.getCallingState();
-        return (Struct) str_;
+        if (str_ instanceof CustomFoundExc) {
+            return ((CustomFoundExc) str_).getStruct();
+        }
+        return null;
     }
 
     protected static ContextEl cov(StringMap<String> _files) {

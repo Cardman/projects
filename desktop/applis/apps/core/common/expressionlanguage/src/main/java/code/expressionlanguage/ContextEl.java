@@ -231,7 +231,7 @@ public abstract class ContextEl {
     }
 
     public boolean calls() {
-        return !(getCallingState() instanceof Struct);
+        return !(getCallingState() instanceof CustomFoundExc);
     }
 
     public boolean isFailInit() {

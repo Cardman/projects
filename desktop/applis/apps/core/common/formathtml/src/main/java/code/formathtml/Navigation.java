@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -249,7 +250,7 @@ public final class Navigation {
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), Long.toString(lg_));
         if (formElement_ == null) {
-            _ctx.setCallingState(NullStruct.NULL_VALUE);
+            _ctx.setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
             return;
         }
         htmlPage_.setForm(true);

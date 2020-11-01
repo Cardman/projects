@@ -1,7 +1,10 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.util.CustList;
 
@@ -25,6 +28,10 @@ public final class CustomFoundMethod implements CallingState {
         arguments = _arguments;
     }
 
+    @Override
+    public AbstractPageEl processAfterOperation(ContextEl _context) {
+        return ExecutingUtil.createCallingMethod(_context,this);
+    }
     public Argument getGl() {
         return gl;
     }

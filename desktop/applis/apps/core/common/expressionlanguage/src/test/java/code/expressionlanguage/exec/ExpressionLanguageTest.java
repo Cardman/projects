@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.MethodPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.*;
@@ -6143,7 +6144,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
         calculatePrepareStaticResult(c_, true);
-        return (Struct)c_.getCallingState();
+        return ((CustomFoundExc)c_.getCallingState()).getStruct();
     }
 
     private static ContextEl analyze(String _el) {
@@ -6231,8 +6232,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     protected static Struct getException(ContextEl _cont) {
         CallingState str_ = _cont.getCallingState();
-        if (str_ instanceof Struct) {
-            return (Struct) str_;
+        if (str_ instanceof CustomFoundExc) {
+            return ((CustomFoundExc) str_).getStruct();
         }
         return null;
     }

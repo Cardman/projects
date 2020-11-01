@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -35,7 +36,7 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
         Struct argPrev_ = _previous.getStruct();
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof ArrayStruct)) {
-            _conf.setCallingState(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
             return new Argument();
         }
         //clone object

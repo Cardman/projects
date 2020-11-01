@@ -6,6 +6,7 @@ import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -161,11 +162,11 @@ public final class AliasNumber {
         StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             if (!(_args[0] instanceof NumberStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
                 return;
             }
             if (!(_args[1] instanceof  NumberStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
@@ -174,7 +175,7 @@ public final class AliasNumber {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             if (!(_args[0] instanceof  NumberStruct)) {
-                _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
@@ -539,7 +540,7 @@ public final class AliasNumber {
             return;
         }
         if (!(_args[0] instanceof CharStruct)) {
-            _cont.setCallingState(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe()));
+            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
             return;
         }
         CharStruct ch_ = NumParsers.convertToChar(_struct);
@@ -605,7 +606,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -615,7 +616,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, one_, _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new DoubleStruct(v_.getValue()));
       }
@@ -627,7 +628,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -637,7 +638,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context,one_, _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, one_, _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new FloatStruct((float) v_.getValue()));
       }
@@ -649,7 +650,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -661,7 +662,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, StringUtil.concat(one_, ",", Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new LongStruct(lg_.getValue()));
       }
@@ -673,7 +674,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -685,7 +686,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, StringUtil.concat(one_, ",", Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new IntStruct((int) lg_.getValue()));
       }
@@ -697,7 +698,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -709,7 +710,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, StringUtil.concat(one_, ",", Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new ShortStruct((short) lg_.getValue()));
       }
@@ -721,7 +722,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _stds.getContent().getCoreNames().getAliasNullPe())));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -733,7 +734,7 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new ErrorStruct(_context, StringUtil.concat(one_,",",Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat()));
+          _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, StringUtil.concat(one_, ",", Long.toString(radix_)), _stds.getContent().getCoreNames().getAliasNbFormat())));
       } else {
           _res.setResult(new ByteStruct((byte)lg_.getValue()));
       }

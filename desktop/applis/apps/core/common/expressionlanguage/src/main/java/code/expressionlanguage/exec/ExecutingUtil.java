@@ -31,8 +31,9 @@ public final class ExecutingUtil {
 
     public static void processGeneException(ContextEl _context) {
         CallingState callingState_ = _context.getCallingState();
-        if (callingState_ instanceof Struct) {
-           LocalThrowing.removeBlockFinally(_context, (Struct) callingState_);
+        if (callingState_ instanceof CustomFoundExc) {
+            Struct exc_ = ((CustomFoundExc)callingState_).getStruct();
+            LocalThrowing.removeBlockFinally(_context, exc_);
         }
     }
 
@@ -50,38 +51,15 @@ public final class ExecutingUtil {
     }
 
     static AbstractPageEl processAfterOperation(ContextEl _context) {
-        if (_context.getCallingState() instanceof CustomFoundConstructor) {
-            return createInstancing(_context,(CustomFoundConstructor)_context.getCallingState());
-        }
-        if (_context.getCallingState() instanceof CustomFoundAnnotation) {
-            CustomFoundAnnotation c_ = (CustomFoundAnnotation) _context.getCallingState();
-            return createAnnotation(_context,c_.getClassName(),c_.getType(), c_.getId(), c_.getArguments());
-        }
-        if (_context.getCallingState() instanceof CustomFoundMethod) {
-            return createCallingMethod(_context,(CustomFoundMethod)_context.getCallingState());
-        }
-        if (_context.getCallingState() instanceof CustomFoundCast) {
-            return createCallingCast(_context,(CustomFoundCast)_context.getCallingState());
-        }
-        if (_context.getCallingState() instanceof AbstractReflectElement) {
-            return createReflectMethod(_context,(AbstractReflectElement)_context.getCallingState());
-        }
-        if (_context.getCallingState() instanceof NotInitializedClass) {
-            return createInstancingClass(_context,(NotInitializedClass)_context.getCallingState());
-        }
-        if (_context.getCallingState() instanceof NotInitializedFields) {
-            NotInitializedFields i_ = (NotInitializedFields) _context.getCallingState();
-            return createInitFields(_context,i_.getRootBlock(),i_.getClassName(), i_.getCurrentObject());
-        }
-        if (_context.getCallingState() instanceof CustomFoundBlock) {
-            CustomFoundBlock b_ = (CustomFoundBlock) _context.getCallingState();
-            return createBlockPageEl(_context,b_.getClassName(), b_.getCurrentObject(),b_.getRootBlock(), b_.getBlock());
+        CallingState callingState_ = _context.getCallingState();
+        if (callingState_ != null) {
+            return callingState_.processAfterOperation(_context);
         }
         return null;
     }
 
 
-    private static AbstractPageEl createInstancingClass(ContextEl _context,NotInitializedClass _e) {
+    public static AbstractPageEl createInstancingClass(ContextEl _context,NotInitializedClass _e) {
         return createInstancingClass(_context,_e.getRootBlock(),_e.getClassName(),_e.getArgument());
     }
     public static AbstractPageEl createInstancingClass(ContextEl _context,ExecRootBlock _rootBlock,String _class,Argument _fwd) {
@@ -107,7 +85,7 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    private static AbstractPageEl createCallingMethod(ContextEl _context,CustomFoundMethod _e) {
+    public static AbstractPageEl createCallingMethod(ContextEl _context,CustomFoundMethod _e) {
         String cl_ = _e.getClassName();
         ExecNamedFunctionBlock id_ = _e.getId();
         Parameters args_ = _e.getArguments();
@@ -122,7 +100,7 @@ public final class ExecutingUtil {
         return pageLoc_;
     }
 
-    private static AbstractPageEl createCallingCast(ContextEl _context,CustomFoundCast _e) {
+    public static AbstractPageEl createCallingCast(ContextEl _context,CustomFoundCast _e) {
         String cl_ = _e.getClassName();
         ExecNamedFunctionBlock id_ = _e.getId();
         Parameters args_ = _e.getArguments();
@@ -148,7 +126,7 @@ public final class ExecutingUtil {
         _page.setBlockRoot(_block);
         _page.setFile(_block.getFile());
     }
-    private static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
+    public static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
             return createNewInstancing(_context,_e);
@@ -220,7 +198,7 @@ public final class ExecutingUtil {
         _page.setBlockRoot(ctor_);
         _page.setFile(file_);
     }
-    private static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {
+    public static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {
         _context.setCallingState(null);
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setGlobalClass(_class);
@@ -240,7 +218,7 @@ public final class ExecutingUtil {
         page_.setFile(_type.getFile());
         return page_;
     }
-    private static BlockPageEl createBlockPageEl(ContextEl _context,String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
+    public static BlockPageEl createBlockPageEl(ContextEl _context,String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
         _context.setCallingState(null);
         ExecFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl();
@@ -776,7 +754,7 @@ public final class ExecutingUtil {
         LgNames stds_ = _cont.getStandards();
         String sof_ = stds_.getContent().getCoreNames().getAliasSof();
         if (_cont.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
-            _cont.setCallingState( new ErrorStruct(_cont,sof_));
+            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, sof_)));
         } else {
             _cont.addInternPage(_page);
         }
@@ -808,7 +786,7 @@ public final class ExecutingUtil {
             }
             if (res_ == InitClassState.ERROR) {
                 CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont);
-                _cont.setCallingState(causing_);
+                _cont.setCallingState(new CustomFoundExc(causing_));
                 return true;
             }
         }

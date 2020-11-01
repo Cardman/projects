@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -331,7 +332,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.mod(num_, den_)));
@@ -340,7 +341,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.mod(num_, den_)));
@@ -351,7 +352,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.quot(num_, den_)));
@@ -360,7 +361,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.quot(num_, den_)));
@@ -395,7 +396,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                 return result_;
             }
             result_.setResult(arg_);
@@ -405,7 +406,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new ErrorStruct(_cont,divZero_));
+                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
                 return result_;
             }
             result_.setResult(arg_);

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -26,7 +27,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         }
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(_conf);
-        _conf.setCallingState(new ErrorStruct(_conf, npe_));
+        _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
         return new Argument();
     }
 

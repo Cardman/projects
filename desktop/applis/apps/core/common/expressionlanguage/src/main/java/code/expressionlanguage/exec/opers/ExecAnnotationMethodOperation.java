@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
@@ -38,7 +39,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
         Struct argPrev_ = _previous.getStruct();
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof AnnotationStruct)) {
-            _conf.setCallingState(new ErrorStruct(_conf,npe_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
             return new Argument();
         }
         String clName_ = argPrev_.getClassName(_conf);

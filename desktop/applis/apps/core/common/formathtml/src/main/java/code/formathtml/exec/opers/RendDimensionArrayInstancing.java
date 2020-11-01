@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -56,7 +57,7 @@ public final class RendDimensionArrayInstancing extends
         }
         Struct res_ = newCustomArrayOrExc(offs_,className_, dims_, _conf, _ctx);
         if (res_ instanceof ErrorStruct) {
-            _ctx.setCallingState(res_);
+            _ctx.setCallingState(new CustomFoundExc(res_));
             return new Argument();
         }
         return new Argument(res_);

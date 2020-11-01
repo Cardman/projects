@@ -2,11 +2,11 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.Cache;
@@ -43,7 +43,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _context.setCallingState(new ErrorStruct(_context,_className,null_));
+            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_)));
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = getMetaInfo();
@@ -55,7 +55,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             LgNames stds_ = _conf.getStandards();
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
-            _conf.setCallingState(new ErrorStruct(_conf,_className,null_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, _className, null_)));
             return Argument.createVoid();
         }
         return checkStaticCall(_rootBlock,_castOpId,_cache, _arguments, _className, _conf);

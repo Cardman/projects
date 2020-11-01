@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
@@ -164,7 +165,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         Struct ito_ = arg_.getStruct();
         if (ito_== NullStruct.NULL_VALUE) {
             String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _conf.setCallingState(new ErrorStruct(_conf, npe_));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
         }
         return ito_;
 
