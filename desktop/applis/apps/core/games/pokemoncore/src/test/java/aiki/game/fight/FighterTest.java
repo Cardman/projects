@@ -2627,7 +2627,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         fighter_.setSubstituteForMove((byte) 1);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
     }
 
     @Test
@@ -2707,7 +2707,7 @@ public class FighterTest extends InitializationDataBase {
         Fighter fighter_ = new Fighter(pokemonUser_, data, (byte) 0);
         fighter_.cancelActions();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
     }
 
     @Test
@@ -2790,7 +2790,7 @@ public class FighterTest extends InitializationDataBase {
         fighter_.setSubstitute((byte) 1);
         fighter_.cancelSubstituing();
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
     }
 
     @Test
@@ -6996,4 +6996,9 @@ public class FighterTest extends InitializationDataBase {
         }
         return i_;
     }
+
+    private static boolean noAction(AbstractAction _action) {
+        return _action == null;
+    }
+
 }

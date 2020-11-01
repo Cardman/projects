@@ -108,7 +108,6 @@ import aiki.game.fight.StacksOfUses;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
-import aiki.game.fight.actions.Action;
 import aiki.game.fight.actions.ActionHealMove;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSimpleHeal;
@@ -1200,7 +1199,7 @@ public final class Instances {
         object_.setCopiedMoves(new StringMap<CopiedMove>(cap_));
         object_.setNbRepeatingSuccessfulMoves(LgInt.zero());
         object_.setPrivateMoves(new ObjectMap<MoveTeamPosition,StringList>(cap_));
-        object_.setAction(new Action());
+        object_.setAction(null);
         object_.setMovesToBeLearnt(new StringList(cap_));
         object_.setMovesAbilitiesEvos(new StringMap<MovesAbilities>(cap_));
         return object_;
@@ -1220,11 +1219,6 @@ public final class Instances {
         object_.setMembers(new ByteMap<Fighter>(cap_));
         object_.setPlayerFightersAgainstFoe(new ByteMap<Bytes>(cap_));
         object_.setSuccessfulMovesRound(new StringList(cap_));
-        return object_;
-    }
-
-    public static Action newAction() {
-        Action object_ = new Action();
         return object_;
     }
 

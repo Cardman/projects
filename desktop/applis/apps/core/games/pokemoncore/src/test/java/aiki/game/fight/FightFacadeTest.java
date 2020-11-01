@@ -1952,7 +1952,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 0, PISTOLET_A_O, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(2, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(!fight_.getChosableFoeTargets().last());
@@ -1990,7 +1990,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 0, RISQUE, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(2, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(!fight_.getChosableFoeTargets().last());
@@ -2036,7 +2036,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 0, SIPHON, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -2089,7 +2089,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 0, SIPHON, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -2173,7 +2173,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 0, ACUPRESSION, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -2258,7 +2258,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.initChosableTargets(fight_, (byte) 2, SIPHON, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(!fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -3607,7 +3607,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_, (byte) 1);
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -3659,7 +3659,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setSubstituteSwitch(fight_, (byte) 1);
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5212,7 +5212,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setFirstChosenMove(fight_, (byte) 2, SEISME);
         Fighter fighter_ = fight_.getFighter(userOne_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5385,7 +5385,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemFront(fight_, BAIE_MEPO, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5443,7 +5443,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemFront(fight_, HUILE, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5501,7 +5501,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemFront(fight_, HUILE_MAX, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5619,7 +5619,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemFront(fight_, BAIE_ORAN, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5834,7 +5834,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemBack(fight_, HUILE, data);
         Fighter fighter_ = fight_.getFighter(user_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5887,7 +5887,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemBack(fight_, BAIE_MEPO, data);
         Fighter fighter_ = fight_.getFighter(user_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5940,7 +5940,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemBack(fight_, HUILE_MAX, data);
         Fighter fighter_ = fight_.getFighter(user_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -5994,7 +5994,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItemBack(fight_, HUILE_MAX, data);
         Fighter fighter_ = fight_.getFighter(user_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -6165,7 +6165,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItem(fight_, HUILE, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -6248,7 +6248,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.setChosenHealingItem(fight_, HUILE, data);
         Fighter fighter_ = fight_.getFighter(user_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -6561,7 +6561,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, PISTOLET_A_O, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(2, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(!fight_.getChosableFoeTargets().last());
@@ -6653,7 +6653,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, SIPHON, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -6707,7 +6707,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, SIPHON, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -6802,7 +6802,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, ACUPRESSION, diff_, data);
         AbstractAction action_;
         action_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(3, fight_.getChosableFoeTargets().size());
         assertTrue(fight_.getChosableFoeTargets().first());
         assertTrue(fight_.getChosableFoeTargets().get(1));
@@ -6985,7 +6985,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, ECUME, diff_, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -7045,7 +7045,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.chooseMove(fight_, ECUME, diff_, data);
         Fighter fighter_ = fight_.getFighter(userTwo_);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -7585,7 +7585,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction() instanceof Action);
+        assertTrue(noAction(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction()));
     }
 
     @Test
@@ -7705,7 +7705,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction() instanceof Action);
+        assertTrue(noAction(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction()));
     }
 
     @Test
@@ -7770,7 +7770,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).getFinalChosenMove());
         assertEq(NULL_REF, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction() instanceof Action);
+        assertTrue(noAction(fight_.getFighter(POKEMON_PLAYER_FIGHTER_FOUR).getAction()));
     }
 
     @Test
@@ -9922,7 +9922,7 @@ public class FightFacadeTest extends InitializationDataBase {
         FightFacade.frontFighterChoiceFleeingCatching(fight_);
         Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(noAction(action_));
         assertEq(NULL_REF,fighter_.getFirstChosenMove());
         assertEq(NULL_REF, fighter_.getFinalChosenMove());
         EqList<TargetCoords> targets_ = fighter_.getChosenTargets();
@@ -13968,7 +13968,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = initTypeEnv(player_, PIKACHU, (short) 1, diff_);
         FightFacade.initTypeEnv(fight_, data.getMap().getBegin(), diff_, data);
         assertEq(EnvironmentType.ROAD, fight_.getEnvType());
-        assertTrue(fight_.wildPokemon().getAction() instanceof Action);
+        assertTrue(noAction(fight_.wildPokemon().getAction()));
     }
 
     @Test
@@ -14200,7 +14200,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
         assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
-        assertTrue(playerPk_.getAction() instanceof Action);
+        assertTrue(noAction(playerPk_.getAction()));
         assertTrue(loadedFight_.getAcceptableChoices());
     }
 
@@ -14360,7 +14360,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
         assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
-        assertTrue(playerPk_.getAction() instanceof Action);
+        assertTrue(noAction(playerPk_.getAction()));
         assertEq(NULL_REF,wildPk_.getUsedBallCatching());
         assertTrue(loadedFight_.getAcceptableChoices());
     }
@@ -14430,7 +14430,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
         assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
-        assertTrue(playerBackPk_.getAction() instanceof Action);
+        assertTrue(noAction(playerBackPk_.getAction()));
         assertTrue(playerPk_.getAction() instanceof ActionMove);
         assertEq(DEMI_TOUR,playerPk_.getFirstChosenMove());
         assertEq(1, playerPk_.getChosenTargets().size());
@@ -14559,7 +14559,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
         assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
-        assertTrue(playerPk_.getAction() instanceof Action);
+        assertTrue(noAction(playerPk_.getAction()));
         assertTrue(loadedFight_.getAcceptableChoices());
     }
 
@@ -14610,7 +14610,7 @@ public class FightFacadeTest extends InitializationDataBase {
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(15, wildPk_.getIv().getVal(Statistic.SPEED));
         assertEq(15, wildPk_.getIv().getVal(Statistic.HP));
-        assertTrue(playerPk_.getAction() instanceof Action);
+        assertTrue(noAction(playerPk_.getAction()));
         assertTrue(loadedFight_.getAcceptableChoices());
     }
 
@@ -14761,5 +14761,8 @@ public class FightFacadeTest extends InitializationDataBase {
         savedFighter_.setMovesToBeLearnt(_currentFighter.getMovesToBeLearnt());
         savedFighter_.setMovesAbilitiesEvos(_currentFighter.getMovesAbilitiesEvos());
         return savedFighter_;
+    }
+    private static boolean noAction(AbstractAction _action) {
+        return _action == null;
     }
 }

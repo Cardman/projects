@@ -121,7 +121,6 @@ import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.Action;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.actions.ActionHealMove;
 import aiki.game.fight.actions.ActionMove;
@@ -6285,11 +6284,7 @@ public final class DocumentReaderAikiCoreUtil {
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_,TYPE_ACTION)) {
-            Action object_ = Instances.newAction();
-            for (Element c: childElements_) {
-                getAbstractAction(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
+            return null;
         }
         if (StringUtil.quickEq(tagName_,TYPE_ACTION_HEAL_MOVE)) {
             ActionHealMove object_ = Instances.newActionHealMove();
@@ -6319,7 +6314,7 @@ public final class DocumentReaderAikiCoreUtil {
             }
             return object_;
         }
-        return Instances.newAction();
+        return null;
     }
 
     private static void getAbstractAction(AbstractAction _object, String _fieldName, Element _element) {

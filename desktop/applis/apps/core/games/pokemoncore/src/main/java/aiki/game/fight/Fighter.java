@@ -30,7 +30,6 @@ import aiki.fight.util.StatBaseEv;
 import aiki.fight.util.TypesDuo;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.Action;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.actions.ActionHealMove;
 import aiki.game.fight.actions.ActionMove;
@@ -466,7 +465,7 @@ public final class Fighter {
         nbPrepaRound=0;
         disappeared=false;
         needingToRecharge=false;
-        action = new Action();
+        action = null;
         damageSufferedCateg = new StringMap<Rate>();
         damageSufferedCategRound = new StringMap<Rate>();
         for(String e:_import.getCategories()){
@@ -1482,7 +1481,7 @@ public final class Fighter {
 
     void cancelSubstituing(){
         if (action instanceof ActionSwitch) {
-            action = new Action();
+            action = null;
         }
     }
 
@@ -2209,7 +2208,7 @@ public final class Fighter {
     }
 
     void cancelActions(){
-        action = new Action();
+        action = null;
     }
 
     void setLastUsedMove(){

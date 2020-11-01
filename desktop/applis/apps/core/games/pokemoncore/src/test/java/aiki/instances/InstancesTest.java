@@ -21,7 +21,6 @@ public class InstancesTest {
         assertNotNull(Instances.newActionHealMove());
         assertNotNull(Instances.newActionSimpleHeal());
         assertNotNull(Instances.newActionSwitch());
-        assertNotNull(Instances.newAction());
         assertNotNull(Instances.newMovesAbilities());
         assertNotNull(Instances.newCombos());
         assertNotNull(Instances.newHealingSimpleItem());

@@ -117,7 +117,6 @@ import aiki.game.fight.TargetCoords;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.Action;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.actions.ActionHealMove;
 import aiki.game.fight.actions.ActionMove;
@@ -3286,7 +3285,7 @@ public final class DocumentWriterAikiCoreUtil {
     }
 
     private static Element setAbstractAction(AbstractAction _object, String _fieldName, Document _document) {
-        if (_object instanceof Action) {
+        if (_object == null) {
             Element element_ = _document.createElement(TYPE_ACTION);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setAbstractAction(_object,element_,_document);

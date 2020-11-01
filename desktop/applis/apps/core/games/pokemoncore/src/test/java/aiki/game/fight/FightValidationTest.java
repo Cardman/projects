@@ -2,7 +2,6 @@ package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
-import aiki.game.fight.actions.Action;
 import code.util.core.IndexConstants;
 import org.junit.Before;
 import org.junit.Test;
@@ -5774,7 +5773,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data, false);
         //invalid data
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(new Action());
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(null);
         assertTrue(!FightFacade.validate(fight_, data, player_, diff_));
     }
     @Test
@@ -5799,7 +5798,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setFirstChosenMoveFoeTarget((byte) 0);
         game_.roundAllThrowers(data, false);
         //invalid data
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(new Action());
+        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setAction(null);
         assertTrue(!FightFacade.validate(fight_, data, player_, diff_));
     }
     @Test

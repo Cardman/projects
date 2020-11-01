@@ -1,7 +1,6 @@
 package aiki.game;
 import static aiki.db.EquallablePkUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
@@ -288,7 +287,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.chooseFrontFighter((byte) 0, data);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertNull(action_);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(0, game_.getFight().getChosenIndexFront());
         assertEq(0, game_.getFight().getChosableFoeTargets().size());
@@ -416,7 +415,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.changeAction(ActionType.SWITCH, data);
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertNull(action_);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(0, game_.getFight().getChosenIndexFront());
         assertEq(ActionType.SWITCH, game_.getFight().getSelectedActionCurFighter());
@@ -476,7 +475,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertTrue(action_ == null);
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
         assertEq(Fighter.BACK, game_.getFight().getChosenIndexFront());
         assertEq(ActionType.NOTHING, game_.getFight().getSelectedActionCurFighter());

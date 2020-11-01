@@ -1,9 +1,9 @@
 package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
-import aiki.game.fight.actions.Action;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Before;
@@ -8933,7 +8933,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);
         AbstractAction action_ = fighter_.getAction();
-        assertTrue(action_ instanceof Action);
+        assertNull(action_);
     }
 
     private Fight roundUser(

@@ -2826,7 +2826,7 @@ public final class PokemonStandards extends BeanNatLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Struct arg_ = Argument.getNull(_instance);
+        Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance),_cont)));
         res_.setResult(arg_);
         return res_;
     }

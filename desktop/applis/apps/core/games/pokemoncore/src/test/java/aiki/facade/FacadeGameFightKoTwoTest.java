@@ -5,7 +5,6 @@ import aiki.game.Game;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.actions.AbstractAction;
-import aiki.game.fight.actions.Action;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
@@ -21,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
@@ -106,7 +106,7 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         facadeGame.changeAction(ActionType.SWITCH);
         AbstractAction action_;
         action_ = facadeGame.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertTrue(action_ instanceof Action);
+        assertNull(action_);
         assertEq(Fighter.BACK, facadeGame.getFight().getChosenIndexBack());
         assertEq(0, facadeGame.getFight().getChosenIndexFront());
         assertEq(ActionType.SWITCH, facadeGame.getFight().getSelectedActionCurFighter());
