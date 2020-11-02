@@ -19,6 +19,7 @@ import cards.network.common.before.NewPlayer;
 import cards.network.common.before.PlayerActionBeforeGame;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
+import cards.network.common.displaying.Pause;
 import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
@@ -36,10 +37,7 @@ import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
-import cards.network.tarot.unlock.AllowBiddingTarot;
-import cards.network.tarot.unlock.AllowPlayingTarot;
-import cards.network.tarot.unlock.CallableCards;
-import cards.network.tarot.unlock.CallableCardsDiscard;
+import cards.network.tarot.unlock.*;
 import cards.president.ResultsPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.tarot.ResultsTarot;
@@ -149,6 +147,10 @@ public final class DocumentReaderCardsMultiUtil {
     private static final String TYPE_DEALT = "Dealt";
     private static final String TYPE_DELEGATE_SERVER = "DelegateServer";
     private static final String TYPE_OK = "Ok";
+    private static final String TYPE_TAKE_CARD = "TakeCard";
+    private static final String TYPE_DISPLAY_SLAM_BUTTON = "DisplaySlamButton";
+    private static final String TYPE_PLAY_GAME = "PlayGame";
+    private static final String TYPE_PAUSE = "Pause";
     private static final String TYPE_QUIT = "Quit";
     private static final String TYPE_CHOOSEN_PLACE = "ChoosenPlace";
     private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
@@ -260,6 +262,18 @@ public final class DocumentReaderCardsMultiUtil {
         }
         if (StringUtil.quickEq(tagName_, TYPE_OK)) {
             return getPlayerActionGame(elt_);
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_TAKE_CARD)) {
+            return TakeCard.INSTANCE;
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_DISPLAY_SLAM_BUTTON)) {
+            return DisplaySlamButton.INSTANCE;
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_PLAY_GAME)) {
+            return PlayGame.INSTANCE;
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_PAUSE)) {
+            return Pause.INSTANCE;
         }
         if (StringUtil.quickEq(tagName_, TYPE_QUIT)) {
             return getPlayerActionGame(elt_);

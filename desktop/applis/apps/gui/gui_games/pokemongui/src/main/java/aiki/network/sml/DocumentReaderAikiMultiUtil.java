@@ -1,15 +1,6 @@
 package aiki.network.sml;
 import aiki.db.ExchangedData;
-import aiki.network.stream.Bye;
-import aiki.network.stream.CheckCompatibility;
-import aiki.network.stream.IndexOfArriving;
-import aiki.network.stream.NetPokemon;
-import aiki.network.stream.NewPlayer;
-import aiki.network.stream.PlayerActionBeforeGame;
-import aiki.network.stream.PlayerActionGame;
-import aiki.network.stream.Quit;
-import aiki.network.stream.Ready;
-import aiki.network.stream.SentPokemon;
+import aiki.network.stream.*;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -45,6 +36,8 @@ public final class DocumentReaderAikiMultiUtil {
     private static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
     private static final String TYPE_EXCHANGED_DATA = "ExchangedData";
     private static final String TYPE_BYE = "Bye";
+    private static final String TYPE_OK = "Ok";
+    private static final String TYPE_INIT_TRADING = "InitTrading";
     private static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
     private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     private static final String TYPE_NET_POKEMON = "NetPokemon";
@@ -66,6 +59,12 @@ public final class DocumentReaderAikiMultiUtil {
         }
         if (StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA)) {
             return getExchangedData(elt_);
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_OK)) {
+            return Ok.INSTANCE;
+        }
+        if (StringUtil.quickEq(tagName_, TYPE_INIT_TRADING)) {
+            return InitTrading.INSTANCE;
         }
         if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
             return getBye(elt_);

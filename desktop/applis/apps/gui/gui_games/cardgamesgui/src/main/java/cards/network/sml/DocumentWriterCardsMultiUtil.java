@@ -20,6 +20,7 @@ import cards.network.common.before.NewPlayer;
 import cards.network.common.before.PlayerActionBeforeGame;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
+import cards.network.common.displaying.Pause;
 import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
@@ -37,10 +38,7 @@ import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.displaying.players.*;
-import cards.network.tarot.unlock.AllowBiddingTarot;
-import cards.network.tarot.unlock.AllowPlayingTarot;
-import cards.network.tarot.unlock.CallableCards;
-import cards.network.tarot.unlock.CallableCardsDiscard;
+import cards.network.tarot.unlock.*;
 import cards.president.ResultsPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
@@ -169,6 +167,10 @@ public final class DocumentWriterCardsMultiUtil {
     private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     private static final String TYPE_NEW_PLAYER = "NewPlayer";
     private static final String TYPE_OK = "Ok";
+    private static final String TYPE_TAKE_CARD = "TakeCard";
+    private static final String TYPE_DISPLAY_SLAM_BUTTON = "DisplaySlamButton";
+    private static final String TYPE_PLAY_GAME = "PlayGame";
+    private static final String TYPE_PAUSE = "Pause";
     private static final String TYPE_PLAYERS_NAME_PRESENT = "PlayersNamePresent";
     private static final String TYPE_PLAYING_CARD_BELOTE = "PlayingCardBelote";
     private static final String TYPE_PLAYING_CARD_PRESIDENT = "PlayingCardPresident";
@@ -198,6 +200,26 @@ public final class DocumentWriterCardsMultiUtil {
     private static final String TYPE_RESULTS_TAROT = "ResultsTarot";
     public static String setObject(Object _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
+        if (_object == TakeCard.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_TAKE_CARD);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
+        if (_object == DisplaySlamButton.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_DISPLAY_SLAM_BUTTON);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
+        if (_object == PlayGame.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_PLAY_GAME);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
+        if (_object == Pause.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_PAUSE);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
         if (_object instanceof ResultsBelote) {
             Element element_ = doc_.createElement(TYPE_RESULTS_BELOTE);
             DocumentWriterBeloteUtil.setResultsBelote((ResultsBelote)_object,element_,doc_);

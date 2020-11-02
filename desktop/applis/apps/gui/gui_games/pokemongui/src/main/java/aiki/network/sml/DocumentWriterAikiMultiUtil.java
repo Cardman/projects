@@ -1,16 +1,7 @@
 package aiki.network.sml;
 import aiki.db.ExchangedData;
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.network.stream.Bye;
-import aiki.network.stream.CheckCompatibility;
-import aiki.network.stream.IndexOfArriving;
-import aiki.network.stream.NetPokemon;
-import aiki.network.stream.NewPlayer;
-import aiki.network.stream.PlayerActionBeforeGame;
-import aiki.network.stream.PlayerActionGame;
-import aiki.network.stream.Quit;
-import aiki.network.stream.Ready;
-import aiki.network.stream.SentPokemon;
+import aiki.network.stream.*;
 import aiki.sml.DocumentWriterAikiCoreUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -41,6 +32,8 @@ public final class DocumentWriterAikiMultiUtil {
     private static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
     private static final String TYPE_EXCHANGED_DATA = "ExchangedData";
     private static final String TYPE_BYE = "Bye";
+    private static final String TYPE_OK = "Ok";
+    private static final String TYPE_INIT_TRADING = "InitTrading";
     private static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
     private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     private static final String TYPE_NET_POKEMON = "NetPokemon";
@@ -54,6 +47,16 @@ public final class DocumentWriterAikiMultiUtil {
 
     public static String setObject(Object _object) {
         Document doc_ = DocumentBuilder.newXmlDocument();
+        if (_object == Ok.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_OK);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
+        if (_object == InitTrading.INSTANCE) {
+            Element element_ = doc_.createElement(TYPE_INIT_TRADING);
+            doc_.appendChild(element_);
+            return doc_.export();
+        }
         if (_object instanceof PokemonPlayer) {
             doc_.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer((PokemonPlayer)_object, "", doc_));
             return doc_.export();
@@ -88,14 +91,6 @@ public final class DocumentWriterAikiMultiUtil {
         }
         if (_object instanceof PlayerActionGame) {
             doc_.appendChild(setPlayerActionGame((PlayerActionGame)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Quit) {
-            doc_.appendChild(setPlayerActionGame((Quit)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Ready) {
-            doc_.appendChild(setPlayerActionBeforeGame((Ready)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof SentPokemon) {
