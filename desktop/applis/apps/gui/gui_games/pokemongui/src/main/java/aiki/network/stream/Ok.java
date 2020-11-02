@@ -1,6 +1,6 @@
 package aiki.network.stream;
 
 
-public final class Ok {
-
+public enum Ok {
+    INSTANCE
 }

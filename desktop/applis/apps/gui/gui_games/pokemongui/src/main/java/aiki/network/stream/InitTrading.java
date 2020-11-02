@@ -1,5 +1,5 @@
 package aiki.network.stream;
 
-public final class InitTrading {
-
+public enum InitTrading {
+    INSTANCE
 }

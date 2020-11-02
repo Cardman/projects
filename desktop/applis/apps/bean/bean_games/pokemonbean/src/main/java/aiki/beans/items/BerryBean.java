@@ -30,7 +30,7 @@ public class BerryBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         Berry item_ = (Berry) getItem();
         healHpBySuperEffMove = item_.getHealHpBySuperEffMove();

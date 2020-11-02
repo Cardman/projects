@@ -5,16 +5,12 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.comboboxes.ComboBoxMixCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
 import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
-import code.gui.CustCheckBox;
-import code.gui.Panel;
-import code.gui.Spinner;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -46,7 +42,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private RulesPresident reglesPresident=new RulesPresident();
     private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
-    private ComboBoxMixCards listeChoix;
+    private ComboBox<MixCardsChoice> listeChoix;
 
     private ComboBoxEnumCards<EqualtyPlaying> equality;
     private TextLabel stopAllPlayedCards;
@@ -75,7 +71,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBoxMixCards();
+        listeChoix=new ComboBox<MixCardsChoice>();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
         EnumMap<MixCardsChoice, String> trMix_;

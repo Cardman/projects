@@ -15,11 +15,7 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.comboboxes.ComboBoxMixCards;
-import code.gui.CustCheckBox;
-import code.gui.Panel;
-import code.gui.Spinner;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -46,7 +42,7 @@ public abstract class DialogBelote extends DialogCards {
     private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
-    private ComboBoxMixCards listeChoix;
+    private ComboBox<MixCardsChoice> listeChoix;
     private CustCheckBox dealAll;
 
     private Panel bidding;
@@ -70,7 +66,7 @@ public abstract class DialogBelote extends DialogCards {
         Panel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBoxMixCards();
+        listeChoix=new ComboBox<MixCardsChoice>();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
         EnumMap<MixCardsChoice, String> trMix_;

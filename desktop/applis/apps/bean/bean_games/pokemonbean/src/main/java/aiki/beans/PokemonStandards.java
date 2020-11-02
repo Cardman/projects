@@ -2066,7 +2066,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(name_,AikiBeansItemsStd.TYPE_ITEM_BEAN)) {
-            ItemBean bean_ = new ItemBean();
+            ItemBean bean_ = new SellingItemBean();
             bean_.setClassName(AikiBeansItemsStd.TYPE_ITEM_BEAN);
             res_.setResult(new BeanStruct(bean_));
             return res_;

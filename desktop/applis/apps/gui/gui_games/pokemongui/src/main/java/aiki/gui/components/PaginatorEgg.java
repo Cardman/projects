@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationEgg;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -37,7 +38,7 @@ public final class PaginatorEgg extends Paginator {
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBoxSearchingMode modeName;
+    private ComboBox<SearchingMode> modeName;
 
     private TextField minSteps = new TextField(16);
 
@@ -45,11 +46,11 @@ public final class PaginatorEgg extends Paginator {
 
     private Panel results = Panel.newGrid(0,1);
 
-    private ComboBoxSelectedBool cmpNameSorting;
+    private ComboBox<SelectedBoolean> cmpNameSorting;
 
     private NumComboBox cmpNamePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpStepsSorting;
+    private ComboBox<SelectedBoolean> cmpStepsSorting;
 
     private NumComboBox cmpStepsPrio = new NumComboBox();
 
@@ -63,13 +64,13 @@ public final class PaginatorEgg extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBoxSearchingMode();
+        modeName = new ComboBox<SearchingMode>();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBoxSelectedBool();
+        cmpNameSorting = new ComboBox<SelectedBoolean>();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpStepsSorting = new ComboBoxSelectedBool();
+        cmpStepsSorting = new ComboBox<SelectedBoolean>();
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;

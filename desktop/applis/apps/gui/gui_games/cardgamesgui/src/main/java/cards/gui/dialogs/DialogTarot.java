@@ -4,7 +4,6 @@ import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
-import cards.gui.comboboxes.ComboBoxMixCards;
 import cards.gui.dialogs.events.ListenerDealing;
 import cards.gui.dialogs.events.ListenerHandful;
 import cards.gui.dialogs.events.ListenerHandfulName;
@@ -48,7 +47,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 
     private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
-    private ComboBoxMixCards listeChoix;
+    private ComboBox<MixCardsChoice> listeChoix;
     private Panel bidding;
     private CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
     private Panel declaringMiseres;
@@ -78,7 +77,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         Panel dealing_=Panel.newGrid(0,2);
         //Panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
-        listeChoix=new ComboBoxMixCards();
+        listeChoix=new ComboBox<MixCardsChoice>();
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
         EnumMap<MixCardsChoice, String> trMix_;

@@ -6,7 +6,7 @@ public class RepelBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         Repel item_ = (Repel) getItem();
         steps = item_.getSteps();
     }

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationHealingItem;
+import aiki.fight.enums.Statistic;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -63,7 +64,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private CustCheckBox relativeHpCheck;
 
-//    private ComboBoxSelectedBool relativeHp;
+//    private ComboBox<SelectedBoolean> relativeHp;
 
     private TextField minHp = new TextField(16);
 
@@ -73,17 +74,17 @@ public final class PaginatorHealingItem extends Paginator {
 
     private TextField maxHpRate = new TextField(16);
 
-    private ComboBoxSelectedBool relativePp;
+    private ComboBox<SelectedBoolean> relativePp;
 
     private TextField minPp = new TextField(16);
 
     private TextField maxPp = new TextField(16);
 
-    private ComboBoxSelectedBool healMove;
+    private ComboBox<SelectedBoolean> healMove;
 
-    private ComboBoxStatistic statis;
+    private ComboBox<Statistic> statis;
 
-    private ComboBoxSelectedBool healFromKo;
+    private ComboBox<SelectedBoolean> healFromKo;
 
     private TextField minPrice = new TextField(16);
 
@@ -96,51 +97,51 @@ public final class PaginatorHealingItem extends Paginator {
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBoxSearchingMode modeName;
+    private ComboBox<SearchingMode> modeName;
 
-    private ComboBoxSearchingMode modeDescription;
+    private ComboBox<SearchingMode> modeDescription;
 
-    private ComboBoxSearchingMode modeStatus;
+    private ComboBox<SearchingMode> modeStatus;
 
     private Panel results = Panel.newGrid(0,1);
 
-    private ComboBoxSelectedBool cmpNameSorting;
+    private ComboBox<SelectedBoolean> cmpNameSorting;
 
     private NumComboBox cmpNamePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpDescriptionSorting;
+    private ComboBox<SelectedBoolean> cmpDescriptionSorting;
 
     private NumComboBox cmpDescriptionPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPriceSorting;
+    private ComboBox<SelectedBoolean> cmpPriceSorting;
 
     private NumComboBox cmpPricePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpNumberSorting;
+    private ComboBox<SelectedBoolean> cmpNumberSorting;
 
     private NumComboBox cmpNumberPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPpSorting;
+    private ComboBox<SelectedBoolean> cmpPpSorting;
 
     private NumComboBox cmpPpPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpRelativePpSorting;
+    private ComboBox<SelectedBoolean> cmpRelativePpSorting;
 
     private NumComboBox cmpRelativePpPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpHpSorting;
+    private ComboBox<SelectedBoolean> cmpHpSorting;
 
     private NumComboBox cmpHpPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpRelativeHpSorting;
+    private ComboBox<SelectedBoolean> cmpRelativeHpSorting;
 
     private NumComboBox cmpRelativeHpPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpNbStatisticsSorting;
+    private ComboBox<SelectedBoolean> cmpNbStatisticsSorting;
 
     private NumComboBox cmpNbStatisticsPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpNbStatusSorting;
+    private ComboBox<SelectedBoolean> cmpNbStatusSorting;
 
     private NumComboBox cmpNbStatusPrio = new NumComboBox();
 
@@ -154,61 +155,61 @@ public final class PaginatorHealingItem extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBoxSearchingMode();
+        modeName = new ComboBox<SearchingMode>();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBoxSearchingMode();
+        modeDescription = new ComboBox<SearchingMode>();
         modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
-        modeStatus = new ComboBoxSearchingMode();
+        modeStatus = new ComboBox<SearchingMode>();
         modeStatus.setWithDefaultValue(false);
         modeStatus.refresh(order, getMessagesSearchMode());
         relativeHpCheck = new CustCheckBox();
         relativeHpCheck.setText(getMessages().getVal(RELATIVE_HP));
-//        relativeHp = new ComboBoxSelectedBool();
+//        relativeHp = new ComboBox<SelectedBoolean>();
 //        relativeHp.setWithDefaultValue(false);
 //        relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
-        relativePp = new ComboBoxSelectedBool();
+        relativePp = new ComboBox<SelectedBoolean>();
         relativePp.setWithDefaultValue(false);
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        healMove = new ComboBoxSelectedBool();
+        healMove = new ComboBox<SelectedBoolean>();
         healMove.setWithDefaultValue(false);
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        healFromKo = new ComboBoxSelectedBool();
+        healFromKo = new ComboBox<SelectedBoolean>();
         healFromKo.setWithDefaultValue(false);
         healFromKo.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        statis = new ComboBoxStatistic();
+        statis = new ComboBox<Statistic>();
         statis.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
         statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
-        cmpNameSorting = new ComboBoxSelectedBool();
+        cmpNameSorting = new ComboBox<SelectedBoolean>();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBoxSelectedBool();
+        cmpDescriptionSorting = new ComboBox<SelectedBoolean>();
         cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBoxSelectedBool();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>();
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBoxSelectedBool();
+        cmpNumberSorting = new ComboBox<SelectedBoolean>();
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPpSorting = new ComboBoxSelectedBool();
+        cmpPpSorting = new ComboBox<SelectedBoolean>();
         cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpRelativePpSorting = new ComboBoxSelectedBool();
+        cmpRelativePpSorting = new ComboBox<SelectedBoolean>();
         cmpRelativePpSorting.setWithDefaultValue(false);
         cmpRelativePpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpHpSorting = new ComboBoxSelectedBool();
+        cmpHpSorting = new ComboBox<SelectedBoolean>();
         cmpHpSorting.setWithDefaultValue(false);
         cmpHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpRelativeHpSorting = new ComboBoxSelectedBool();
+        cmpRelativeHpSorting = new ComboBox<SelectedBoolean>();
         cmpRelativeHpSorting.setWithDefaultValue(false);
         cmpRelativeHpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNbStatisticsSorting = new ComboBoxSelectedBool();
+        cmpNbStatisticsSorting = new ComboBox<SelectedBoolean>();
         cmpNbStatisticsSorting.setWithDefaultValue(false);
         cmpNbStatisticsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNbStatusSorting = new ComboBoxSelectedBool();
+        cmpNbStatusSorting = new ComboBox<SelectedBoolean>();
         cmpNbStatusSorting.setWithDefaultValue(false);
         cmpNbStatusSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationHealingItem.NB_COMPARATORS;

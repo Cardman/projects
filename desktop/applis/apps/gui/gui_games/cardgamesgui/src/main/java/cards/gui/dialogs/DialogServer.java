@@ -11,7 +11,6 @@ import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
-import code.network.ComboBoxIpType;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -28,7 +27,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
     private static final String NUMBER_PLAYERS = "numberPlayers";
     private static final String TITLE = "title";
     private TextField ipOrHostName;
-    private ComboBoxIpType ipType;
+    private ComboBox<IpType> ipType;
     private boolean create;
     private boolean join;
     private Spinner nbPlayers;
@@ -102,7 +101,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
-        ipType = new ComboBoxIpType();
+        ipType = new ComboBox<IpType>();
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);

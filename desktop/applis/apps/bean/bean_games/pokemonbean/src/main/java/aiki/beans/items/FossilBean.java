@@ -9,7 +9,7 @@ public class FossilBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         Fossil item_ = (Fossil) getItem();
         pokemon = item_.getPokemon();
         level = item_.getLevel();

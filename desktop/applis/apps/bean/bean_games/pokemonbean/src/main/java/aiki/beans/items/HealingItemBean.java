@@ -12,7 +12,7 @@ public class HealingItemBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         HealingItem item_ = (HealingItem) getItem();
         healingTeam = item_.getHealingTeam();

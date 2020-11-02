@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationItem;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -47,25 +48,25 @@ public final class PaginatorItem extends Paginator {
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBoxSearchingMode modeName;
+    private ComboBox<SearchingMode> modeName;
 
-    private ComboBoxSearchingMode modeDescription;
+    private ComboBox<SearchingMode> modeDescription;
 
     private Panel results = Panel.newGrid(0,1);
 
-    private ComboBoxSelectedBool cmpNameSorting;
+    private ComboBox<SelectedBoolean> cmpNameSorting;
 
     private NumComboBox cmpNamePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpDescriptionSorting;
+    private ComboBox<SelectedBoolean> cmpDescriptionSorting;
 
     private NumComboBox cmpDescriptionPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPriceSorting;
+    private ComboBox<SelectedBoolean> cmpPriceSorting;
 
     private NumComboBox cmpPricePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpNumberSorting;
+    private ComboBox<SelectedBoolean> cmpNumberSorting;
 
     private NumComboBox cmpNumberPrio = new NumComboBox();
 
@@ -82,22 +83,22 @@ public final class PaginatorItem extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBoxSearchingMode();
+        modeName = new ComboBox<SearchingMode>();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeDescription = new ComboBoxSearchingMode();
+        modeDescription = new ComboBox<SearchingMode>();
         modeDescription.setWithDefaultValue(false);
         modeDescription.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBoxSelectedBool();
+        cmpNameSorting = new ComboBox<SelectedBoolean>();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpDescriptionSorting = new ComboBoxSelectedBool();
+        cmpDescriptionSorting = new ComboBox<SelectedBoolean>();
         cmpDescriptionSorting.setWithDefaultValue(false);
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBoxSelectedBool();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>();
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpNumberSorting = new ComboBoxSelectedBool();
+        cmpNumberSorting = new ComboBox<SelectedBoolean>();
         cmpNumberSorting.setWithDefaultValue(false);
         cmpNumberSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationItem.NB_CMPARATORS;

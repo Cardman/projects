@@ -9,7 +9,7 @@ public class BallBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         Ball item_ = (Ball) getItem();
         catchingRate = data_.getFormula(item_.getCatchingRate(),getLanguage());

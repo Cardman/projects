@@ -13,7 +13,7 @@ public class EvolvingItemBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringList pokemon_;

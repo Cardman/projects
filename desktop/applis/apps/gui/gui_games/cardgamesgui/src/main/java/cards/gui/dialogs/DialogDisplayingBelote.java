@@ -9,7 +9,6 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
-import cards.gui.comboboxes.ComboBoxSuit;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -41,7 +40,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     private SuitsScrollableList orderedSuits;
     private CustCheckBox sortByDecreasing;
     private CustCheckBox sortByTrump;
-    private ComboBoxSuit listeChoix;
+    private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingBelote() {
         setAccessFile(DIALOG_ACCESS);
@@ -81,7 +80,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=Panel.newGrid(0,4);
-        listeChoix=new ComboBoxSuit();
+        listeChoix=new ComboBox<Suit>();
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -145,7 +144,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {
-                listeChoix.addItemLgKey(couleur_, lg_);
+                listeChoix.getElements().put(couleur_, Games.toString(couleur_, lg_));
+                listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
         } else {
             orderedSuits.toutSupprimer();

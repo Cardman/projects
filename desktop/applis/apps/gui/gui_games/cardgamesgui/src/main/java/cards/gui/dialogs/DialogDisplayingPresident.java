@@ -6,7 +6,6 @@ import javax.swing.*;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
-import cards.gui.comboboxes.ComboBoxSuit;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -39,7 +38,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private SuitsScrollableList orderedSuits;
     private CustCheckBox sortByDecreasing;
     private Spinner nbDealsDemo;
-    private ComboBoxSuit listeChoix;
+    private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingPresident() {
         setAccessFile(DIALOG_ACCESS);
@@ -83,7 +82,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
 //        }
-        listeChoix=new ComboBoxSuit();
+        listeChoix=new ComboBox<Suit>();
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -144,7 +143,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {
-                listeChoix.addItemLgKey(couleur_, lg_);
+                listeChoix.getElements().put(couleur_, Games.toString(couleur_, lg_));
+                listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
         } else {
             orderedSuits.toutSupprimer();

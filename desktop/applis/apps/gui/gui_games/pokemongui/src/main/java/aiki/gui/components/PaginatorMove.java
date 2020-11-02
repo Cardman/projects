@@ -6,6 +6,7 @@ import aiki.facade.FacadeGame;
 import aiki.facade.PaginationMove;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.enums.TargetChoice;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.TmLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -55,9 +56,9 @@ public final class PaginatorMove extends Paginator {
 
     private TextField maxPp = new TextField(16);
 
-    private ComboBoxSelectedBool damaging;
+    private ComboBox<SelectedBoolean> damaging;
 
-    private ComboBoxTargetChoice targets;
+    private ComboBox<TargetChoice> targets;
 
     private TextField minPrice = new TextField(16);
 
@@ -67,37 +68,37 @@ public final class PaginatorMove extends Paginator {
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBoxSearchingMode modeName;
+    private ComboBox<SearchingMode> modeName;
 
-    private ComboBoxSearchingMode modeTypes;
+    private ComboBox<SearchingMode> modeTypes;
 
     private Panel results = Panel.newGrid(0,1);
 
-    private ComboBoxSelectedBool cmpNameSorting;
+    private ComboBox<SelectedBoolean> cmpNameSorting;
 
     private NumComboBox cmpNamePrio = new NumComboBox();
 
-//    private ComboBoxSelectedBool cmpTypesSorting;
+//    private ComboBox<SelectedBoolean> cmpTypesSorting;
 //
 //    private NumComboBox cmpTypesPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpDamagingSorting;
+    private ComboBox<SelectedBoolean> cmpDamagingSorting;
 
     private NumComboBox cmpDamagingPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPpSorting;
+    private ComboBox<SelectedBoolean> cmpPpSorting;
 
     private NumComboBox cmpPpPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPriceSorting;
+    private ComboBox<SelectedBoolean> cmpPriceSorting;
 
     private NumComboBox cmpPricePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPrioSorting;
+    private ComboBox<SelectedBoolean> cmpPrioSorting;
 
     private NumComboBox cmpPrioPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpTargetsSorting;
+    private ComboBox<SelectedBoolean> cmpTargetsSorting;
 
     private NumComboBox cmpTargetsPrio = new NumComboBox();
 
@@ -114,38 +115,38 @@ public final class PaginatorMove extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBoxSearchingMode();
+        modeName = new ComboBox<SearchingMode>();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeTypes = new ComboBoxSearchingMode();
+        modeTypes = new ComboBox<SearchingMode>();
         modeTypes.setWithDefaultValue(false);
         modeTypes.refresh(order, getMessagesSearchMode());
-        damaging = new ComboBoxSelectedBool();
+        damaging = new ComboBox<SelectedBoolean>();
         damaging.setWithDefaultValue(false);
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        targets = new ComboBoxTargetChoice();
+        targets = new ComboBox<TargetChoice>();
         targets.setWithDefaultValue(true);
         String lg_ = getMain().getLanguageKey();
         targets.refresh(getFacade().getData().getTranslatedTargets().getVal(lg_));
-        cmpNameSorting = new ComboBoxSelectedBool();
+        cmpNameSorting = new ComboBox<SelectedBoolean>();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpTargetsSorting = new ComboBoxSelectedBool();
+        cmpTargetsSorting = new ComboBox<SelectedBoolean>();
         cmpTargetsSorting.setWithDefaultValue(false);
         cmpTargetsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-//        cmpTypesSorting = new ComboBoxSelectedBool();
+//        cmpTypesSorting = new ComboBox<SelectedBoolean>();
 //        cmpTypesSorting.setWithDefaultValue(false);
 //        cmpTypesSorting.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
-        cmpDamagingSorting = new ComboBoxSelectedBool();
+        cmpDamagingSorting = new ComboBox<SelectedBoolean>();
         cmpDamagingSorting.setWithDefaultValue(false);
         cmpDamagingSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPrioSorting = new ComboBoxSelectedBool();
+        cmpPrioSorting = new ComboBox<SelectedBoolean>();
         cmpPrioSorting.setWithDefaultValue(false);
         cmpPrioSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPpSorting = new ComboBoxSelectedBool();
+        cmpPpSorting = new ComboBox<SelectedBoolean>();
         cmpPpSorting.setWithDefaultValue(false);
         cmpPpSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPriceSorting = new ComboBoxSelectedBool();
+        cmpPriceSorting = new ComboBox<SelectedBoolean>();
         cmpPriceSorting.setWithDefaultValue(false);
         cmpPriceSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationMove.NB_CMPARATORS;

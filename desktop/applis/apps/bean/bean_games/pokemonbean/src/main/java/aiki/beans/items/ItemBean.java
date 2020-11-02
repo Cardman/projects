@@ -6,7 +6,7 @@ import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class ItemBean extends CommonBean {
+public abstract class ItemBean extends CommonBean {
     static final String ITEM_BEAN="web/html/items/item.html";
 
     private String name;
@@ -15,8 +15,7 @@ public class ItemBean extends CommonBean {
     private String description;
     private String itemImage;
 
-    @Override
-    public void beforeDisplaying() {
+    protected void beforeDisplayingItem() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsClasses_;
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
@@ -32,6 +31,7 @@ public class ItemBean extends CommonBean {
         price = item_.getPrice();
         description = translationsClasses_.getVal(item_.getItemType());
     }
+
     public String clickItems() {
         if (!getForms().contains(ITEMS_SET)) {
             getForms().put(ITEMS_SET, new StringList());

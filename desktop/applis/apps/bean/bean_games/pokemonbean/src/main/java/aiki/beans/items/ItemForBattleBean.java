@@ -68,7 +68,7 @@ public class ItemForBattleBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle item_ = (ItemForBattle)getItem();
         if (!item_.getEffectEndRound().isEmpty()) {

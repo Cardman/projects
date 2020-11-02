@@ -15,6 +15,6 @@ public class ValidateTradingEvent extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        window.sendObject(new Ok());
+        window.sendObject(Ok.INSTANCE);
     }
 }

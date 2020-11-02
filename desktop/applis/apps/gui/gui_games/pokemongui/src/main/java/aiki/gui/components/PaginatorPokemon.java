@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationPokemonPlayer;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.gui.MainWindow;
 import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -12,6 +13,7 @@ import aiki.gui.components.listeners.ChangedPageEvent;
 import aiki.gui.components.listeners.NewSearchEvent;
 import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
+import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.*;
 import code.util.*;
@@ -47,7 +49,7 @@ public final class PaginatorPokemon extends Paginator {
     private TextField item;
     private AutoCompleteDocument itemAuto;
 
-    private ComboBoxSelectedBool withItem;
+    private ComboBox<SelectedBoolean> withItem;
 
     private TextField moves;
     private AutoCompleteDocument movesAuto;
@@ -55,19 +57,19 @@ public final class PaginatorPokemon extends Paginator {
     private EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
-    private ComboBoxSearchingMode modeName;
+    private ComboBox<SearchingMode> modeName;
 
-    private ComboBoxSearchingMode modeAbility;
+    private ComboBox<SearchingMode> modeAbility;
 
-    private ComboBoxSearchingMode modeItem;
+    private ComboBox<SearchingMode> modeItem;
 
-    private ComboBoxSearchingMode modeMoves;
+    private ComboBox<SearchingMode> modeMoves;
 
     private TextField minLevel = new TextField(16);
 
     private TextField maxLevel = new TextField(16);
 
-    private ComboBoxGender gender;
+    private ComboBox<Gender> gender;
 
     private TextField minPossEvos = new TextField(16);
 
@@ -75,27 +77,27 @@ public final class PaginatorPokemon extends Paginator {
 
     private Panel results = Panel.newGrid(0,1);
 
-    private ComboBoxSelectedBool cmpNameSorting;
+    private ComboBox<SelectedBoolean> cmpNameSorting;
 
     private NumComboBox cmpNamePrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpAbilitySorting;
+    private ComboBox<SelectedBoolean> cmpAbilitySorting;
 
     private NumComboBox cmpAbilityPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpItemSorting;
+    private ComboBox<SelectedBoolean> cmpItemSorting;
 
     private NumComboBox cmpItemPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpLevelSorting;
+    private ComboBox<SelectedBoolean> cmpLevelSorting;
 
     private NumComboBox cmpLevelPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpGenderSorting;
+    private ComboBox<SelectedBoolean> cmpGenderSorting;
 
     private NumComboBox cmpGenderPrio = new NumComboBox();
 
-    private ComboBoxSelectedBool cmpPossEvosSorting;
+    private ComboBox<SelectedBoolean> cmpPossEvosSorting;
 
     private NumComboBox cmpPossEvosPrio = new NumComboBox();
 
@@ -109,40 +111,40 @@ public final class PaginatorPokemon extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBoxSearchingMode();
+        modeName = new ComboBox<SearchingMode>();
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeAbility = new ComboBoxSearchingMode();
+        modeAbility = new ComboBox<SearchingMode>();
         modeAbility.setWithDefaultValue(false);
         modeAbility.refresh(order, getMessagesSearchMode());
-        modeItem = new ComboBoxSearchingMode();
+        modeItem = new ComboBox<SearchingMode>();
         modeItem.setWithDefaultValue(false);
         modeItem.refresh(order, getMessagesSearchMode());
-        withItem = new ComboBoxSelectedBool();
+        withItem = new ComboBox<SelectedBoolean>();
         withItem.setWithDefaultValue(false);
         withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        modeMoves = new ComboBoxSearchingMode();
+        modeMoves = new ComboBox<SearchingMode>();
         modeMoves.setWithDefaultValue(false);
         modeMoves.refresh(order, getMessagesSearchMode());
-        gender = new ComboBoxGender();
+        gender = new ComboBox<Gender>();
         gender.setWithDefaultValue(true);
         gender.refresh(getFacade().getTranslatedGendersCurLanguage());
-        cmpNameSorting = new ComboBoxSelectedBool();
+        cmpNameSorting = new ComboBox<SelectedBoolean>();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpAbilitySorting = new ComboBoxSelectedBool();
+        cmpAbilitySorting = new ComboBox<SelectedBoolean>();
         cmpAbilitySorting.setWithDefaultValue(false);
         cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpItemSorting = new ComboBoxSelectedBool();
+        cmpItemSorting = new ComboBox<SelectedBoolean>();
         cmpItemSorting.setWithDefaultValue(false);
         cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpLevelSorting = new ComboBoxSelectedBool();
+        cmpLevelSorting = new ComboBox<SelectedBoolean>();
         cmpLevelSorting.setWithDefaultValue(false);
         cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpGenderSorting = new ComboBoxSelectedBool();
+        cmpGenderSorting = new ComboBox<SelectedBoolean>();
         cmpGenderSorting.setWithDefaultValue(false);
         cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPossEvosSorting = new ComboBoxSelectedBool();
+        cmpPossEvosSorting = new ComboBox<SelectedBoolean>();
         cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;

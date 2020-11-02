@@ -4,7 +4,7 @@ import code.util.comparators.ComparatorIndexes;
 import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 
-public abstract class ComboBox<T> extends GraphicCombo {
+public final class ComboBox<T> extends GraphicCombo {
 
     private static final String EMPTY_STRING = "";
 
@@ -14,7 +14,7 @@ public abstract class ComboBox<T> extends GraphicCombo {
 
     private boolean withDefaultValue;
 
-    protected TreeMap<T, String> getElements() {
+    public TreeMap<T, String> getElements() {
         return elements;
     }
 

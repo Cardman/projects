@@ -8,6 +8,7 @@ public class EffectEndRoundStatusRelationBean extends EffectEndRoundStatusBean {
     @Override
     public void beforeDisplaying() {
         super.beforeDisplaying();
+        beforeDisplayingEffectEndRoundStatus();
         EffectEndRoundStatusRelation effect_ = (EffectEndRoundStatusRelation) getEffect();
         thievedHpRateTargetToUser = effect_.getThievedHpRateTargetToUser();
     }

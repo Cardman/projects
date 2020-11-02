@@ -17,7 +17,7 @@ public class BoostBean extends ItemBean {
 
     @Override
     public void beforeDisplaying() {
-        super.beforeDisplaying();
+        beforeDisplayingItem();
         DataBase data_ = (DataBase) getDataBase();
         maxEv = data_.getMaxEv();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());

@@ -76,14 +76,12 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
-                InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets(_instance).getVal((int) IndexConstants.SECOND_INDEX),init_);
+                Net.sendObject(Net.getSockets(_instance).getVal((int) IndexConstants.SECOND_INDEX),InitTrading.INSTANCE);
                 return;
             }
             if (newPlayer_.getIndex() == IndexConstants.FIRST_INDEX) {
                 //init trading condition
-                InitTrading init_ = new InitTrading();
-                Net.sendObject(Net.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX),init_);
+                Net.sendObject(Net.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX),InitTrading.INSTANCE);
                 return;
             }
             return;
@@ -136,7 +134,7 @@ public final class SendReceiveServer extends BasicServer {
             Net.getReadyPlayers(_instance).put(noClient_, (( Ready)_readObject).isReady());
             return;
         }
-        if (_readObject instanceof Ok) {
+        if (_readObject == Ok.INSTANCE) {
             if (Net.allReady(_instance)) {
                 for(Socket so_:Net.getSockets(_instance).values()){
                     Net.sendText(so_,_input);

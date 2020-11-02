@@ -1184,7 +1184,7 @@ public final class MainWindow extends NetGroupFrame {
             Net.sendObject(_socket,p_);
             return;
         }
-        if (_readObject instanceof InitTrading) {
+        if (_readObject == InitTrading.INSTANCE) {
             if (indexInGame == IndexConstants.FIRST_INDEX) {
                 facade.initTrading();
                 CheckCompatibility ch_ = new CheckCompatibility();
@@ -1220,7 +1220,7 @@ public final class MainWindow extends NetGroupFrame {
             scenePanel.seeNetPokemonDetail();
             return;
         }
-        if (_readObject instanceof Ok) {
+        if (_readObject == Ok.INSTANCE) {
             facade.applyTrading();
             ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
             scenePanel.setTradableAfterTrading(tree_);

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
-import cards.gui.comboboxes.ComboBoxGameEnum;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
@@ -32,7 +31,7 @@ public final class DialogSoft extends DialogCards {
 
     private StringMap<String> messages;
     private SoftParams parametres=new SoftParams();
-    private ComboBoxGameEnum list;
+    private ComboBox<GameEnum> list;
     private CustCheckBox saveHomeFolder;
     private String menu;
     private CustCheckBox waitTrickClick;
@@ -68,7 +67,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu,MainWindow.LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
-            list = new ComboBoxGameEnum();
+            list = new ComboBox<GameEnum>();
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
             mess_ = new EnumMap<GameEnum,String>();

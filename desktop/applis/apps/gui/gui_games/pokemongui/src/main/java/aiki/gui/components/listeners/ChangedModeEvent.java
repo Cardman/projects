@@ -1,18 +1,18 @@
 package aiki.gui.components.listeners;
 
-import aiki.gui.components.ComboBoxSearchingMode;
 import code.gui.AutoCompleteDocument;
+import code.gui.ComboBox;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import aiki.facade.enums.SearchingMode;
 
 public class ChangedModeEvent implements ListSelection {
 
-    private ComboBoxSearchingMode mode;
+    private ComboBox<SearchingMode> mode;
 
     private AutoCompleteDocument field;
 
-    public ChangedModeEvent(ComboBoxSearchingMode _mode, AutoCompleteDocument _field) {
+    public ChangedModeEvent(ComboBox<SearchingMode> _mode, AutoCompleteDocument _field) {
         mode = _mode;
         field = _field;
     }

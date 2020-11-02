@@ -7,7 +7,6 @@ import javax.swing.WindowConstants;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
-import cards.gui.comboboxes.ComboBoxSuit;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -38,7 +37,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private CustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
     private CustCheckBox sortByDecreasing;
-    private ComboBoxSuit listeChoix;
+    private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingTarot() {
         setAccessFile(DIALOG_ACCESS);
@@ -78,7 +77,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         Panel sousPanneau_=Panel.newGrid(0,3);
-        listeChoix=new ComboBoxSuit();
+        listeChoix=new ComboBox<Suit>();
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());
@@ -139,7 +138,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for (Suit couleur_:couleurs_) {
-                listeChoix.addItemLgKey(couleur_, lg_);
+                listeChoix.getElements().put(couleur_, Games.toString(couleur_, lg_));
+                listeChoix.addItem(couleur_, Games.toString(couleur_, lg_));
             }
         } else {
             orderedSuits.toutSupprimer();

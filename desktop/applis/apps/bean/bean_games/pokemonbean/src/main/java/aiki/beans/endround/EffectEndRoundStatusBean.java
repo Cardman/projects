@@ -6,9 +6,7 @@ public class EffectEndRoundStatusBean extends EffectEndRoundBean{
     static final String END_ROUND_STATUS_HTML="web/html/endround/status.html";
     private Rate inflictedRateHpTarget;
 
-    @Override
-    public void beforeDisplaying() {
-        super.beforeDisplaying();
+    protected void beforeDisplayingEffectEndRoundStatus() {
         EffectEndRoundStatus effect_ = (EffectEndRoundStatus) getEffect();
         inflictedRateHpTarget = effect_.getInflictedRateHpTarget();
     }
