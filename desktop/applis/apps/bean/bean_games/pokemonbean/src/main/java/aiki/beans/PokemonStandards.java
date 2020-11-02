@@ -2850,12 +2850,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         return super.getStructToBeValidated(_values,_className,_context, _ctx);
     }
 
-    public boolean isConveritble(String _className) {
-        if (super.isConveritble(_className)) {
-            return true;
-        }
-        return StringUtil.quickEq(_className,TYPE_RATE);
-    }
     public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         ActivityOfMove instance_ = (ActivityOfMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();

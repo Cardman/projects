@@ -41,8 +41,8 @@ public final class AnalyzingDoc {
     private String messagesFolder = "";
     private StringMap<String> files = new StringMap<String>();
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
-    private BeanLgNames standards;
     private AbstractInputBuilder inputBuilder;
+    private AbstractConverterCheck converterCheck;
 
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
@@ -60,13 +60,12 @@ public final class AnalyzingDoc {
         return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
     }
 
-    public void setup(Configuration _conf, BeanLgNames _standards, DualConfigurationContext _dual) {
+    public void setup(Configuration _conf, DualConfigurationContext _dual) {
         rendKeyWords = _conf.getRendKeyWords();
         prefix = _conf.getPrefix();
         properties = _dual.getProperties();
         messagesFolder = _dual.getMessagesFolder();
         files = _conf.getFiles();
-        standards = _standards;
         beansInfosBefore = _conf.getBeansInfos();
     }
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
@@ -237,10 +236,6 @@ public final class AnalyzingDoc {
         return files;
     }
 
-    public BeanLgNames getStandards() {
-        return standards;
-    }
-
     public StringMap<BeanInfo> getBeansInfosBefore() {
         return beansInfosBefore;
     }
@@ -251,5 +246,13 @@ public final class AnalyzingDoc {
 
     public void setInputBuilder(AbstractInputBuilder _inputBuilder) {
         inputBuilder = _inputBuilder;
+    }
+
+    public AbstractConverterCheck getConverterCheck() {
+        return converterCheck;
+    }
+
+    public void setConverterCheck(AbstractConverterCheck _converterCheck) {
+        this.converterCheck = _converterCheck;
     }
 }

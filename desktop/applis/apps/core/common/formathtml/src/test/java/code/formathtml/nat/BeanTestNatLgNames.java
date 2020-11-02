@@ -3,6 +3,7 @@ package code.formathtml.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.nat.NativeContextEl;
+import code.bean.nat.NativeConverterCheck;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -229,17 +230,13 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new NatInputBuilder());
+        analyzingDoc_.setConverterCheck(new NativeConverterCheck());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeTestForEachFetch(this));
         _nav.initInstancesPattern(page_, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return page_.getMessages();
-    }
-
-    @Override
-    public boolean isConveritble(String _className) {
-        return true;
     }
 
     public void setBeanForms(Configuration _conf, Struct _mainBean,

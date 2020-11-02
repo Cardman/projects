@@ -1253,7 +1253,7 @@ public final class NativeTest {
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getAdv(), _conf.getDual());
+        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
         _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
@@ -1318,7 +1318,7 @@ public final class NativeTest {
         AnalyzedPageEl analyzing_ = _context.getAnalyzing();
         Configuration conf_ = _context.getConfiguration();
         conf_.setCurrentLanguage("en");
-        _analyzingDoc.setup(conf_, _context.getAdv(), _context.getDual());
+        _analyzingDoc.setup(conf_, _context.getDual());
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 

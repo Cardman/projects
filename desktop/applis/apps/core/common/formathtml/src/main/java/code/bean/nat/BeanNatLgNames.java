@@ -375,6 +375,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
+        analyzingDoc_.setConverterCheck(new NativeConverterCheck());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeForEachFetch(this));
         _nav.initInstancesPattern(page_, analyzingDoc_);

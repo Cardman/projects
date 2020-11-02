@@ -7,7 +7,6 @@ import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.exec.calls.PageEl;
 
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.errors.RendKeyWords;
@@ -74,10 +73,10 @@ public final class Configuration {
         _dual.getRenderFiles().add(firstUrl);
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, BeanLgNames _advStandards, DualConfigurationContext _dual) {
+    public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
         renders.clear();
         setFiles(_files);
-        _analyzingDoc.setup(this, _advStandards, _dual);
+        _analyzingDoc.setup(this, _dual);
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 

@@ -2010,12 +2010,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         }
         return super.getStructToBeValidated(_values,_className,_context, _ctx);
     }
-    public boolean isConveritble(String _className) {
-        if (super.isConveritble(_className)) {
-            return true;
-        }
-        return StringUtil.quickEq(_className, TYPE_RATE);
-    }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

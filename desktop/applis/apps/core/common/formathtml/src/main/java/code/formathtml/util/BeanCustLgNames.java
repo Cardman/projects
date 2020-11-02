@@ -17,6 +17,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.DefaultConverterCheck;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RenderExpUtil;
@@ -407,6 +408,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
+        analyzingDoc_.setConverterCheck(new DefaultConverterCheck(getContent().getPrimTypes().getPrimitiveTypes(), getContent().getCharSeq().getAliasString()));
         _nav.initInstancesPattern(page_, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         ReportedMessages messages_ = page_.getMessages();

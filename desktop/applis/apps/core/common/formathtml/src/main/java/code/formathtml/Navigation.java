@@ -124,7 +124,7 @@ public final class Navigation {
         _analyzingDoc.setRendAnalysisMessages(_dual.getAnalysisMessages());
         _analyzingDoc.setLanguages(languages);
         session.setCurrentLanguage(language);
-        return session.analyzedRenders(files, _analyzingDoc, _page, _stds, _dual);
+        return session.analyzedRenders(files, _analyzingDoc, _page, _dual);
     }
 
     public StringMap<String> getFiles() {

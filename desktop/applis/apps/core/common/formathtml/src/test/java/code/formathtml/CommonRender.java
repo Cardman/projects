@@ -100,7 +100,7 @@ public abstract class CommonRender {
     private static void setLocalFiles(AnalyzedTestConfiguration _context, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl analyzing_ = _context.getAnalyzing();
         Configuration conf_ = _context.getConfiguration();
-        _analyzingDoc.setup(conf_, _context.getAdvStandards(), _context.getDual());
+        _analyzingDoc.setup(conf_, _context.getDual());
         setInnerLocalFilesLg(_analyzingDoc, analyzing_, conf_);
     }
 
@@ -146,7 +146,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getAdvStandards(), _conf.getDual());
+        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
         setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
@@ -883,7 +883,7 @@ public abstract class CommonRender {
     protected static void analyze(AnalyzedTestConfiguration _cont,Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc anaDoc_ = _cont.getAnalyzingDoc();
-        anaDoc_.setup(_cont.getConfiguration(), _cont.getAdvStandards(), _cont.getDual());
+        anaDoc_.setup(_cont.getConfiguration(), _cont.getDual());
         setupAna(anaDoc_, _cont.getAnalyzing());
         _nav.initInstancesPattern(_cont.getAnalyzing(), anaDoc_);
         AnalyzedPageEl page_ = _cont.getAnalyzing();

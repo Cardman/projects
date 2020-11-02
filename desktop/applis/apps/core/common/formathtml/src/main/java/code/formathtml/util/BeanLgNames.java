@@ -2,7 +2,6 @@ package code.formathtml.util;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -164,13 +163,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         return new StringStruct(_element);
     }
-    public boolean isConveritble(String _className) {
-        if (StringUtil.quickEq(_className, getAliasString())) {
-            return true;
-        }
 
-        return AnaTypeUtil.isPrimitiveOrWrapper(_className, getPrimitiveTypes());
-    }
     public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual);
 
     public void setBeanForms(Configuration _conf, Struct _mainBean,

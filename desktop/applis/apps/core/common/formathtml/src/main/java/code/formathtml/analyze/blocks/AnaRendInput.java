@@ -77,7 +77,7 @@ public abstract class AnaRendInput extends AnaRendElement {
         } else {
             String clName_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
             if (!clName_.isEmpty()) {
-                if (!_anaDoc.getStandards().isConveritble(clName_)) {
+                if (!_anaDoc.getConverterCheck().isConveritble(clName_)) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -88,7 +88,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (rootRead != null) {
-                if (!_anaDoc.getStandards().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
+                if (!_anaDoc.getConverterCheck().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());

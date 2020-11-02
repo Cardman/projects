@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.NativeConverterCheck;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
@@ -28,6 +29,7 @@ class NativeAnalyzedTestConfiguration {
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
+        analyzingDoc.setConverterCheck(new NativeConverterCheck());
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();
     }

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.DefaultConverterCheck;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.BeanCustLgNames;
@@ -28,6 +29,7 @@ public final class AnalyzedTestConfiguration {
         adv= _standards;
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
+        analyzingDoc.setConverterCheck(new DefaultConverterCheck(adv.getContent().getPrimTypes().getPrimitiveTypes(), adv.getContent().getCharSeq().getAliasString()));
         context = _analyzing.getContext();
         dual = _analyzing.getDual();
         dual.setContext(context);
