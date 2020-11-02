@@ -1,6 +1,6 @@
 package cards.network.common;
 
 
-public final class PlayGame {
-
+public enum PlayGame {
+    INSTANCE
 }

@@ -1,8 +1,7 @@
 package cards.network.common.before;
-import cards.network.common.PlayerAction;
 
 
-public abstract class PlayerActionBeforeGame extends PlayerAction {
+public abstract class PlayerActionBeforeGame {
 
     private int index;
 

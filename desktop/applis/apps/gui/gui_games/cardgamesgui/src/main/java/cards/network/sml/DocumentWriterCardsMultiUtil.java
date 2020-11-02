@@ -5,7 +5,6 @@ import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import cards.network.belote.displaying.CompletedHand;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
@@ -14,53 +13,30 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.Bye;
-import cards.network.common.Dealt;
-import cards.network.common.DelegateServer;
-import cards.network.common.Ok;
-import cards.network.common.PlayerActionGame;
-import cards.network.common.Quit;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.IndexOfArriving;
 import cards.network.common.before.NewPlayer;
 import cards.network.common.before.PlayerActionBeforeGame;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DoneBidding;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
-import cards.network.common.select.SelectTeams;
-import cards.network.common.select.SelectTricksHands;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.DealtHandPresident;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.RefreshedHandPresident;
+import cards.network.president.displaying.*;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingSlamAfter;
-import cards.network.tarot.actions.BiddingTarot;
-import cards.network.tarot.actions.CalledCards;
-import cards.network.tarot.actions.DiscardedCard;
-import cards.network.tarot.actions.DiscardedTrumps;
-import cards.network.tarot.actions.PlayingCardTarot;
-import cards.network.tarot.actions.ValidateDog;
+import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
-import cards.network.tarot.displaying.players.CalledCardKnown;
-import cards.network.tarot.displaying.players.DoneDisplaySlam;
-import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.displaying.players.RefreshingDone;
-import cards.network.tarot.displaying.players.SeenDiscardedTrumps;
-import cards.network.tarot.displaying.players.ShowDog;
+import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -232,24 +208,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(DocumentWriterBeloteUtil.setTricksHandsBelote((TricksHandsBelote)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof BiddingBelote) {
-            doc_.appendChild(setPlayerActionGame((BiddingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayingCardBelote) {
-            doc_.appendChild(setPlayerActionGame((PlayingCardBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof CompletedHand) {
-            doc_.appendChild(setPlayerActionGame((CompletedHand)_object, "", doc_));
-            return doc_.export();
-        }
         if (_object instanceof DealtHandBelote) {
             doc_.appendChild(setDealtHandBelote((DealtHandBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshHandBelote) {
-            doc_.appendChild(setPlayerActionGame((RefreshHandBelote)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof ErrorBiddingBelote) {
@@ -258,14 +218,6 @@ public final class DocumentWriterCardsMultiUtil {
         }
         if (_object instanceof ErrorPlayingBelote) {
             doc_.appendChild(setErrorPlayingBelote((ErrorPlayingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshHandPlayingBelote) {
-            doc_.appendChild(setPlayerActionGame((RefreshHandPlayingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshingDoneBelote) {
-            doc_.appendChild(setPlayerActionGame((RefreshingDoneBelote)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof AllowBiddingBelote) {
@@ -280,20 +232,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setBye((Bye)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof Dealt) {
-            doc_.appendChild(setPlayerActionGame((Dealt)_object, "", doc_));
-            return doc_.export();
-        }
         if (_object instanceof DelegateServer) {
             doc_.appendChild(setDelegateServer((DelegateServer)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Ok) {
-            doc_.appendChild(setPlayerActionGame((Ok)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Quit) {
-            doc_.appendChild(setPlayerActionGame((Quit)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof ChoosenPlace) {
@@ -316,38 +256,6 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setPlayerActionBeforeGame((Ready)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof DoneBidding) {
-            doc_.appendChild(setPlayerActionGame((DoneBidding)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DonePause) {
-            doc_.appendChild(setPlayerActionGame((DonePause)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DonePlaying) {
-            doc_.appendChild(setPlayerActionGame((DonePlaying)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof SelectTeams) {
-            doc_.appendChild(setPlayerActionGame((SelectTeams)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof SelectTricksHands) {
-            doc_.appendChild(setPlayerActionGame((SelectTricksHands)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof TeamsPlayers) {
-            doc_.appendChild(setTeamsPlayers((TeamsPlayers)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DiscardedCards) {
-            doc_.appendChild(setPlayerActionGame((DiscardedCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayingCardPresident) {
-            doc_.appendChild(setPlayerActionGame((PlayingCardPresident)_object, "", doc_));
-            return doc_.export();
-        }
         if (_object instanceof DealtHandPresident) {
             doc_.appendChild(setDealtHandPresident((DealtHandPresident)_object, "", doc_));
             return doc_.export();
@@ -356,20 +264,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setReceivedGivenCards((ReceivedGivenCards)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof RefreshedHandPresident) {
-            doc_.appendChild(setPlayerActionGame((RefreshedHandPresident)_object, "", doc_));
-            return doc_.export();
-        }
         if (_object instanceof ErrorPlayingPresident) {
             doc_.appendChild(setErrorPlayingPresident((ErrorPlayingPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshHandPlayingPresident) {
-            doc_.appendChild(setPlayerActionGame((RefreshHandPlayingPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshingDonePresident) {
-            doc_.appendChild(setPlayerActionGame((RefreshingDonePresident)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof AllowDiscarding) {
@@ -384,32 +280,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setDog((Dog)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof BiddingSlamAfter) {
-            doc_.appendChild(setPlayerActionGame((BiddingSlamAfter)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof BiddingTarot) {
-            doc_.appendChild(setPlayerActionGame((BiddingTarot)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof CalledCards) {
-            doc_.appendChild(setPlayerActionGame((CalledCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DiscardedCard) {
-            doc_.appendChild(setPlayerActionGame((DiscardedCard)_object, "", doc_));
-            return doc_.export();
-        }
         if (_object instanceof DiscardedTrumps) {
             doc_.appendChild(setDiscardedTrumps((DiscardedTrumps)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayingCardTarot) {
-            doc_.appendChild(setPlayerActionGame((PlayingCardTarot)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ValidateDog) {
-            doc_.appendChild(setPlayerActionGame((ValidateDog)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof DealtHandTarot) {
@@ -432,28 +304,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setErrorPlaying((ErrorPlaying)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof CalledCardKnown) {
-            doc_.appendChild(setPlayerActionGame((CalledCardKnown)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DoneDisplaySlam) {
-            doc_.appendChild(setPlayerActionGame((DoneDisplaySlam)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshHand) {
-            doc_.appendChild(setPlayerActionGame((RefreshHand)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof RefreshingDone) {
-            doc_.appendChild(setPlayerActionGame((RefreshingDone)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof SeenDiscardedTrumps) {
-            doc_.appendChild(setPlayerActionGame((SeenDiscardedTrumps)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ShowDog) {
-            doc_.appendChild(setPlayerActionGame((ShowDog)_object, "", doc_));
+        if (_object instanceof PlayerActionGame) {
+            doc_.appendChild(setPlayerActionGame((PlayerActionGame)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof AllowBiddingTarot) {
@@ -625,6 +477,7 @@ public final class DocumentWriterCardsMultiUtil {
     }
 
     private static Element setPlayerActionGame(PlayerActionGame _object, String _fieldName, Document _document) {
+        PlayerActionGameType actionType_ = _object.getActionType();
         if (_object instanceof BiddingBelote) {
             Element element_ = _document.createElement(TYPE_BIDDING_BELOTE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
@@ -637,7 +490,7 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayingCardBelote((PlayingCardBelote)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof CompletedHand) {
+        if (actionType_ == PlayerActionGameType.COMPLETED_HAND) {
             Element element_ = _document.createElement(TYPE_COMPLETED_HAND);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
@@ -661,31 +514,31 @@ public final class DocumentWriterCardsMultiUtil {
             setRefreshHandBelote((RefreshHandBelote)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof Dealt) {
+        if (actionType_ == PlayerActionGameType.DEALT) {
             Element element_ = _document.createElement(TYPE_DEALT);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof DoneBidding) {
+        if (actionType_ == PlayerActionGameType.DONE_BIDDING) {
             Element element_ = _document.createElement(TYPE_DONE_BIDDING);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof DonePause) {
+        if (actionType_ == PlayerActionGameType.DONE_PAUSE) {
             Element element_ = _document.createElement(TYPE_DONE_PAUSE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof DonePlaying) {
+        if (actionType_ == PlayerActionGameType.DONE_PLAYING) {
             Element element_ = _document.createElement(TYPE_DONE_PLAYING);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof Ok) {
+        if (actionType_ == PlayerActionGameType.OK) {
             Element element_ = _document.createElement(TYPE_OK);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
@@ -697,13 +550,13 @@ public final class DocumentWriterCardsMultiUtil {
             setQuit((Quit)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof SelectTeams) {
+        if (actionType_ == PlayerActionGameType.SELECT_TEAMS) {
             Element element_ = _document.createElement(TYPE_SELECT_TEAMS);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof SelectTricksHands) {
+        if (actionType_ == PlayerActionGameType.SELECT_TRICKS_HANDS) {
             Element element_ = _document.createElement(TYPE_SELECT_TRICKS_HANDS);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
@@ -733,13 +586,13 @@ public final class DocumentWriterCardsMultiUtil {
             setRefreshingDonePresident((RefreshingDonePresident)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof RefreshedHandPresident) {
+        if (actionType_ == PlayerActionGameType.REFHESHED_HAND_PRESIDENT) {
             Element element_ = _document.createElement(TYPE_REFRESHED_HAND_PRESIDENT);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof BiddingSlamAfter) {
+        if (actionType_ == PlayerActionGameType.SLAM) {
             Element element_ = _document.createElement(TYPE_BIDDING_SLAM_AFTER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
@@ -769,19 +622,19 @@ public final class DocumentWriterCardsMultiUtil {
             setPlayingCardTarot((PlayingCardTarot)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof ValidateDog) {
+        if (actionType_ == PlayerActionGameType.VALIDATE_DOG) {
             Element element_ = _document.createElement(TYPE_VALIDATE_DOG);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof CalledCardKnown) {
+        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
             Element element_ = _document.createElement(TYPE_CALLED_CARD_KNOWN);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof DoneDisplaySlam) {
+        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
             Element element_ = _document.createElement(TYPE_DONE_DISPLAY_SLAM);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);
@@ -805,7 +658,7 @@ public final class DocumentWriterCardsMultiUtil {
             setSeenDiscardedTrumps((SeenDiscardedTrumps)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof ShowDog) {
+        if (actionType_ == PlayerActionGameType.SHOW_DOG) {
             Element element_ = _document.createElement(TYPE_SHOW_DOG);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionGame(_object,element_,_document);

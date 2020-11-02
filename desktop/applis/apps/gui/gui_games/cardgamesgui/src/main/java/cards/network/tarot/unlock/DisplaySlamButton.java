@@ -1,6 +1,6 @@
 package cards.network.tarot.unlock;
 
 
-public final class DisplaySlamButton {
-
+public enum DisplaySlamButton {
+    INSTANCE
 }

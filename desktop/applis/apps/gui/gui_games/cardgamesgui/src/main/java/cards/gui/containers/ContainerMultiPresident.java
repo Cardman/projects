@@ -24,20 +24,14 @@ import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
-import cards.network.common.Dealt;
-import cards.network.common.Ok;
-import cards.network.common.PlayGame;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
-import cards.network.common.select.SelectTricksHands;
+import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.DealtHandPresident;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.RefreshedHandPresident;
+import cards.network.president.displaying.*;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
@@ -237,7 +231,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //            addButtonsForCoinche(_hand.getPoints(), _hand.getAllowedBids());
 //        }
         pack();
-        Dealt dealt_ = new Dealt();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
         dealt_.setPlace(indexInGame);
         String lg_ = getOwner().getLanguageKey();
         dealt_.setLocale(lg_);
@@ -313,7 +307,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().setVisibleButton(true);
         pack();
         String lg_ = getOwner().getLanguageKey();
-        RefreshedHandPresident r_ = new RefreshedHandPresident();
+        PlayerActionGame r_ = new PlayerActionGame(PlayerActionGameType.REFHESHED_HAND_PRESIDENT);
         r_.setPlace(indexInGame);
         r_.setLocale(lg_);
         getOwner().sendObject(r_);
@@ -371,7 +365,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ajouterTexteDansZone(StringUtil.concat(pseudo_, INTRODUCTION_PTS, Games.toString(_card.getPlayedHand(),lg_), RETURN_LINE));
         //PackingWindowAfter.pack(this, true);
         pack();
-        DonePlaying dealt_ = new DonePlaying();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -426,7 +420,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
         //pack();
         String lg_ = getOwner().getLanguageKey();
-        DonePause d_ = new DonePause();
+        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(indexInGame);
         d_.setLocale(lg_);
         getOwner().sendObject(d_);
@@ -437,7 +431,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!isCanPlay()) {
             return;
         }
-        SelectTricksHands select_ = new SelectTricksHands();
+        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(indexInGame);
         String lg_ = getOwner().getLanguageKey();
         select_.setLocale(lg_);
@@ -673,7 +667,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setContentPane(container_);
         pack();
         //PackingWindowAfter.pack(this, true);
-        Ok ok_ = new Ok();
+        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
         ok_.setPlace(indexInGame);
         ok_.setLocale(lg_);
         getOwner().sendObject(ok_);
@@ -696,7 +690,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 
     @Override
@@ -766,6 +760,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
         deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(
                 GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 }

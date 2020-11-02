@@ -1,6 +1,6 @@
 package cards.network.common.displaying;
 
 
-public final class Pause {
-
+public enum Pause {
+    INSTANCE
 }

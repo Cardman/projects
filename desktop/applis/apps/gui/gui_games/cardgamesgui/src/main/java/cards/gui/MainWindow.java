@@ -71,6 +71,8 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.DelegateServer;
+import cards.network.common.PlayerActionGame;
+import cards.network.common.PlayerActionGameType;
 import cards.network.common.Quit;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.IndexOfArriving;
@@ -89,7 +91,6 @@ import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingSlamAfter;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.network.tarot.actions.CalledCards;
 import cards.network.tarot.actions.DiscardedCard;
@@ -828,7 +829,7 @@ public final class MainWindow extends NetGroupFrame {
             }
             return;
         }
-        if (_readObject instanceof Pause) {
+        if (_readObject == Pause.INSTANCE) {
             container_.pauseBetweenTrick();
             return;
         }
@@ -881,13 +882,15 @@ public final class MainWindow extends NetGroupFrame {
                 containerTarot_.errorDiscardingCard((ErrorDiscarding) _readObject);
                 return;
             }
-            if (_readObject instanceof DisplaySlamButton) {
+            if (_readObject == DisplaySlamButton.INSTANCE) {
                 containerTarot_.displaySlamButton();
                 return;
             }
-            if (_readObject instanceof BiddingSlamAfter) {
-                containerTarot_.displaySlam((BiddingSlamAfter) _readObject);
-                return;
+            if (_readObject instanceof PlayerActionGame) {
+                if (((PlayerActionGame) _readObject).getActionType() == PlayerActionGameType.SLAM) {
+                    containerTarot_.displaySlam((PlayerActionGame) _readObject);
+                    return;
+                }
             }
             if (_readObject instanceof DiscardedTrumps) {
                 containerTarot_.showDiscardedTrumps((DiscardedTrumps)_readObject);
@@ -924,7 +927,7 @@ public final class MainWindow extends NetGroupFrame {
 
         }
         if (containerGame instanceof ContainerMultiPresident) {
-            ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) container_;
+            ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) containerGame;
             if (_readObject instanceof ResultsPresident) {
                 containerPresident_.endGame((ResultsPresident) _readObject);
                 return;
@@ -968,7 +971,7 @@ public final class MainWindow extends NetGroupFrame {
             }
         }
         if (containerGame instanceof ContainerMultiBelote) {
-            ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) container_;
+            ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) containerGame;
             if (_readObject instanceof ResultsBelote) {
                 containerBelote_.endGame((ResultsBelote) _readObject);
                 return;

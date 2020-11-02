@@ -1,6 +1,6 @@
 package cards.network.tarot.actions;
 
 
-public final class TakeCard {
-
+public enum TakeCard {
+    INSTANCE
 }

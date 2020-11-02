@@ -4,7 +4,6 @@ import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import cards.network.belote.displaying.CompletedHand;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
@@ -13,53 +12,30 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.Bye;
-import cards.network.common.Dealt;
-import cards.network.common.DelegateServer;
-import cards.network.common.Ok;
-import cards.network.common.PlayerActionGame;
-import cards.network.common.Quit;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.IndexOfArriving;
 import cards.network.common.before.NewPlayer;
 import cards.network.common.before.PlayerActionBeforeGame;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DoneBidding;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
-import cards.network.common.select.SelectTeams;
-import cards.network.common.select.SelectTricksHands;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.DealtHandPresident;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.RefreshedHandPresident;
+import cards.network.president.displaying.*;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingSlamAfter;
-import cards.network.tarot.actions.BiddingTarot;
-import cards.network.tarot.actions.CalledCards;
-import cards.network.tarot.actions.DiscardedCard;
-import cards.network.tarot.actions.DiscardedTrumps;
-import cards.network.tarot.actions.PlayingCardTarot;
-import cards.network.tarot.actions.ValidateDog;
+import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
-import cards.network.tarot.displaying.players.CalledCardKnown;
-import cards.network.tarot.displaying.players.DoneDisplaySlam;
-import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.displaying.players.RefreshingDone;
-import cards.network.tarot.displaying.players.SeenDiscardedTrumps;
-import cards.network.tarot.displaying.players.ShowDog;
+import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -723,7 +699,7 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_COMPLETED_HAND)) {
-            CompletedHand object_ = new CompletedHand();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.COMPLETED_HAND);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -751,35 +727,35 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_DEALT)) {
-            Dealt object_ = new Dealt();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DEALT);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_DONE_BIDDING)) {
-            DoneBidding object_ = new DoneBidding();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_DONE_PAUSE)) {
-            DonePause object_ = new DonePause();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_DONE_PLAYING)) {
-            DonePlaying object_ = new DonePlaying();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_OK)) {
-            Ok object_ = new Ok();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.OK);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -793,14 +769,14 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_SELECT_TEAMS)) {
-            SelectTeams object_ = new SelectTeams();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_SELECT_TRICKS_HANDS)) {
-            SelectTricksHands object_ = new SelectTricksHands();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -835,14 +811,14 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_REFRESHED_HAND_PRESIDENT)) {
-            RefreshedHandPresident object_ = new RefreshedHandPresident();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.REFHESHED_HAND_PRESIDENT);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_BIDDING_SLAM_AFTER)) {
-            BiddingSlamAfter object_ = new BiddingSlamAfter();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SLAM);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -877,21 +853,21 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_VALIDATE_DOG)) {
-            ValidateDog object_ = new ValidateDog();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_CALLED_CARD_KNOWN)) {
-            CalledCardKnown object_ = new CalledCardKnown();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_DONE_DISPLAY_SLAM)) {
-            DoneDisplaySlam object_ = new DoneDisplaySlam();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -919,7 +895,7 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_SHOW_DOG)) {
-            ShowDog object_ = new ShowDog();
+            PlayerActionGame object_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
             for (Element c: childElements_) {
                 getPlayerActionGame(object_,c.getAttribute(ATTR_FIELD),c);
             }

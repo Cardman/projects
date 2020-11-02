@@ -40,7 +40,6 @@ public final class ProgramInfos implements AbstractProgramInfos {
         updateStyle_.update();
     }
     private static String initialize(String _homePath) {
-
         String init_ = StringUtil.replaceBackSlashDot(new File(DOT).getAbsolutePath());
 
         String javaPath_ = StringUtil.replaceBackSlash(System.getProperty("java.class.path"));

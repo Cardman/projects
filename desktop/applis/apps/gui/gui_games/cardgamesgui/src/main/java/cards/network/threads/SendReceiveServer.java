@@ -15,7 +15,6 @@ import cards.facade.Games;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import cards.network.belote.displaying.CompletedHand;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
@@ -24,52 +23,29 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.Bye;
-import cards.network.common.Dealt;
-import cards.network.common.Ok;
-import cards.network.common.PlayGame;
-import cards.network.common.Quit;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.NewPlayer;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DoneBidding;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
 import cards.network.common.displaying.Pause;
-import cards.network.common.select.SelectTeams;
-import cards.network.common.select.SelectTricksHands;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.DealtHandPresident;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.RefreshedHandPresident;
+import cards.network.president.displaying.*;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingSlamAfter;
-import cards.network.tarot.actions.BiddingTarot;
-import cards.network.tarot.actions.CalledCards;
-import cards.network.tarot.actions.DiscardedCard;
-import cards.network.tarot.actions.DiscardedTrumps;
-import cards.network.tarot.actions.PlayingCardTarot;
-import cards.network.tarot.actions.TakeCard;
-import cards.network.tarot.actions.ValidateDog;
+import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
 import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
-import cards.network.tarot.displaying.players.CalledCardKnown;
-import cards.network.tarot.displaying.players.DoneDisplaySlam;
-import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.displaying.players.RefreshingDone;
-import cards.network.tarot.displaying.players.SeenDiscardedTrumps;
-import cards.network.tarot.displaying.players.ShowDog;
+import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -239,7 +215,7 @@ public final class SendReceiveServer extends BasicServer {
             quitProcess(_readObject, _instance);
             return;
         }
-        if (_readObject instanceof PlayGame) {
+        if (_readObject == PlayGame.INSTANCE) {
             Net.initAllPresent(_instance);
             Net.initAllReceived(_instance);
             if (Net.getGames(_instance).enCoursDePartieBelote()) {
@@ -299,11 +275,12 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processGameTarot(String _input, Object _readObject, Net _instance) {
-        if (_readObject instanceof Dealt) {
+        PlayerActionGameType actionType_ = getActionType(_readObject);
+        if (actionType_ == PlayerActionGameType.DEALT) {
             processDealtTarot(_readObject, _instance);
             return;
         }
-        if (_readObject instanceof DoneBidding) {
+        if (actionType_ == PlayerActionGameType.DONE_BIDDING) {
             processBetweenBidsTarot(_readObject, _instance);
             return;
         }
@@ -349,8 +326,8 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendText(Net.getSocketByPlace(discarded_.getPlace(), _instance), _input);
             return;
         }
-        if (_readObject instanceof CalledCardKnown) {
-            Net.setReceivedForPlayer(((CalledCardKnown)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.CALLED_CARD_KNOWN) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
@@ -369,7 +346,7 @@ public final class SendReceiveServer extends BasicServer {
                     game_.slam();
                     if (game_.chelemAnnonce()) {
                         Net.initAllReceived(_instance);
-                        BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                        PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                         bid_.setPlace(game_.getPreneur());
                         bid_.setLocale(Constants.getDefaultLanguage());
                         for (byte p: Net.activePlayers(_instance)) {
@@ -387,11 +364,11 @@ public final class SendReceiveServer extends BasicServer {
             processDiscardingTrumps(_readObject, _instance);
             return;
         }
-        if (_readObject instanceof ShowDog) {
+        if (actionType_ == PlayerActionGameType.SHOW_DOG) {
             processShowDogTarot(_readObject, _instance);
             return;
         }
-        if (_readObject instanceof TakeCard) {
+        if (_readObject == TakeCard.INSTANCE) {
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             game_.ajouterCartesUtilisateur();
             if (!game_.getRegles().getDiscardAfterCall()) {
@@ -402,7 +379,7 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof ValidateDog) {
+        if (actionType_ == PlayerActionGameType.VALIDATE_DOG) {
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
                 game_.addCurTrick();
@@ -425,7 +402,7 @@ public final class SendReceiveServer extends BasicServer {
             playingTarotCard(_instance);
             return;
         }
-        if (_readObject instanceof BiddingSlamAfter) {
+        if (actionType_ == PlayerActionGameType.SLAM) {
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             if(!game_.chelemAnnonce()) {
                 game_.ajouterChelemUtilisateur();
@@ -449,8 +426,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DoneDisplaySlam) {
-            Net.setReceivedForPlayer(((DoneDisplaySlam)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_DISPLAY_SLAM) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
@@ -460,12 +437,12 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DonePlaying) {
+        if (actionType_ == PlayerActionGameType.DONE_PLAYING) {
             processBetweenPlayedCardsTarot(_readObject, _instance);
             return;
         }
-        if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_PAUSE) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameTarot game_ = Net.getGames(_instance).partieTarot();
@@ -496,8 +473,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.OK) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.setProgressingGame(false, _instance);
             }
@@ -506,8 +483,16 @@ public final class SendReceiveServer extends BasicServer {
         processShowTarot(_readObject, _instance);
     }
 
+    private static PlayerActionGameType getActionType(Object _readObject) {
+        PlayerActionGameType actionType_ = PlayerActionGameType.SIMPLE;
+        if (_readObject instanceof PlayerActionGame) {
+            actionType_ = ((PlayerActionGame)_readObject).getActionType();
+        }
+        return actionType_;
+    }
+
     private static void processBetweenBidsTarot(Object _readObject, Net _instance) {
-        Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace(), _instance);
+        Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
         if (Net.allReceived(_instance)) {
             Net.initAllReceived(_instance);
 
@@ -540,7 +525,7 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processBetweenPlayedCardsTarot(Object _readObject, Net _instance) {
-        Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+        Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
         if (Net.allReceived(_instance)) {
             Net.initAllReceived(_instance);
             GameTarot game_ = Net.getGames(_instance).partieTarot();
@@ -555,7 +540,7 @@ public final class SendReceiveServer extends BasicServer {
                 ThreadUtil.sleep(3000);
                 Net.initAllReceived(_instance);
                 for (byte p: Net.activePlayers(_instance)) {
-                    Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
+                    Net.sendObject(Net.getSocketByPlace(p, _instance), Pause.INSTANCE);
                 }
                 return;
             }
@@ -566,7 +551,7 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processDealtTarot(Object _readObject, Net _instance) {
-        Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+        Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
         if (Net.allReceived(_instance)) {
             Net.initAllReceived(_instance);
             if (!Net.getGames(_instance).partieTarot().avecContrat()) {
@@ -599,7 +584,7 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processShowDogTarot(Object _readObject, Net _instance) {
-        Net.setReceivedForPlayer(((ShowDog)_readObject).getPlace(), _instance);
+        Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
         if (Net.allReceived(_instance)) {
             Net.initAllReceived(_instance);
             GameTarot game_ = Net.getGames(_instance).partieTarot();
@@ -617,7 +602,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             if (game_.chelemAnnonce()) {
-                BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                 bid_.setPlace(game_.getPreneur());
                 bid_.setLocale(Constants.getDefaultLanguage());
                 for (byte p: Net.activePlayers(_instance)) {
@@ -690,11 +675,12 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processShowTarot(Object _readObject, Net _instance) {
-        if (_readObject instanceof SelectTricksHands) {
+        PlayerActionGameType actionType_ = getActionType(_readObject);
+        if (actionType_ == PlayerActionGameType.SELECT_TRICKS_HANDS) {
             if (!Net.isSameTeam(_instance)) {
                 return;
             }
-            byte place_ = ((SelectTricksHands)_readObject).getPlace();
+            byte place_ = ((PlayerActionGame)_readObject).getPlace();
             TricksHandsTarot tricksHands_ = new TricksHandsTarot();
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             tricksHands_.setDistributionCopy(game_.getDistribution());
@@ -703,11 +689,11 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(place_, _instance), tricksHands_);
             return;
         }
-        if (_readObject instanceof SelectTeams) {
+        if (actionType_ == PlayerActionGameType.SELECT_TEAMS) {
             if (!Net.isSameTeam(_instance)) {
                 return;
             }
-            byte place_ = ((SelectTeams)_readObject).getPlace();
+            byte place_ = ((PlayerActionGame)_readObject).getPlace();
             TeamsPlayers teams_ = new TeamsPlayers();
             GameTarot game_ = Net.getGames(_instance).partieTarot();
             teams_.setTeams(game_.getTeamsRelation().teams());
@@ -722,7 +708,7 @@ public final class SendReceiveServer extends BasicServer {
             if (Net.isHumanPlayer(game_.getPreneur(), _instance)) {
                 if (((SeenDiscardedTrumps)_readObject).isDeclaringSlam()) {
                     Net.initAllReceived(_instance);
-                    BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                     bid_.setLocale(Constants.getDefaultLanguage());
                     bid_.setPlace(game_.getPreneur());
                     for (byte p: Net.activePlayers(_instance)) {
@@ -740,7 +726,7 @@ public final class SendReceiveServer extends BasicServer {
                 return;
             }
             if (game_.chelemAnnonce()) {
-                BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                 bid_.setPlace(game_.getPreneur());
                 bid_.setLocale(Constants.getDefaultLanguage());
                 for (byte p: Net.activePlayers(_instance)) {
@@ -765,7 +751,7 @@ public final class SendReceiveServer extends BasicServer {
         game_.initConfianceAppeleUtilisateur(calledCards_.getCalledCards());
         if (!game_.getRegles().getDiscardAfterCall()) {
             if (!game_.getContrat().isFaireTousPlis()) {
-                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), new DisplaySlamButton());
+                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), DisplaySlamButton.INSTANCE);
             } else {
                 game_.setPliEnCours(true);
                 playingTarotCard(_instance);
@@ -783,7 +769,7 @@ public final class SendReceiveServer extends BasicServer {
         } else {
             game_.gererChienInconnu();
             if (!game_.getContrat().isFaireTousPlis()) {
-                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), new DisplaySlamButton());
+                Net.sendObject(Net.getSocketByPlace(game_.getPreneur(), _instance), DisplaySlamButton.INSTANCE);
             } else {
                 game_.setPliEnCours(true);
                 playingTarotCard(_instance);
@@ -830,7 +816,7 @@ public final class SendReceiveServer extends BasicServer {
                 }
                 _game.gererChienInconnu();
                 if (!_game.getContrat().isFaireTousPlis()) {
-                    Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _instance), new DisplaySlamButton());
+                    Net.sendObject(Net.getSocketByPlace(_game.getPreneur(), _instance), DisplaySlamButton.INSTANCE);
                 } else {
                     playingTarotCard(_instance);
                     return;
@@ -895,7 +881,7 @@ public final class SendReceiveServer extends BasicServer {
                 _game.slam();
                 if (_game.chelemAnnonce()) {
                     Net.initAllReceived(_instance);
-                    BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                     bid_.setLocale(Constants.getDefaultLanguage());
                     bid_.setPlace(_game.getPreneur());
                     for (byte p: Net.activePlayers(_instance)) {
@@ -928,8 +914,9 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processGameBelote(String _input, Object _readObject, Net _instance) {
-        if (_readObject instanceof Dealt) {
-            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+        PlayerActionGameType actionType_ = getActionType(_readObject);
+        if (actionType_ == PlayerActionGameType.DEALT) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 byte place_ = Net.getGames(_instance).partieBelote().playerHavingToBid();
@@ -955,8 +942,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DoneBidding) {
-            Net.setReceivedForPlayer(((DoneBidding)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_BIDDING) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1023,8 +1010,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof CompletedHand) {
-            Net.setReceivedForPlayer(((CompletedHand)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.COMPLETED_HAND) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1041,15 +1028,15 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.OK) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.setProgressingGame(false, _instance);
             }
             return;
         }
-        if (_readObject instanceof DonePlaying) {
-            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_PLAYING) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1064,7 +1051,7 @@ public final class SendReceiveServer extends BasicServer {
                     ThreadUtil.sleep(3000);
                     Net.initAllReceived(_instance);
                     for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), Pause.INSTANCE);
                     }
                     return;
                 }
@@ -1073,8 +1060,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_PAUSE) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GameBelote game_ = Net.getGames(_instance).partieBelote();
@@ -1147,11 +1134,11 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof SelectTricksHands) {
+        if (actionType_ == PlayerActionGameType.SELECT_TRICKS_HANDS) {
             if (!Net.isSameTeam(_instance)) {
                 return;
             }
-            byte place_ = ((SelectTricksHands)_readObject).getPlace();
+            byte place_ = ((PlayerActionGame)_readObject).getPlace();
             TricksHandsBelote tricksHands_ = new TricksHandsBelote();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
             tricksHands_.setRules(game_.getRegles());
@@ -1162,11 +1149,11 @@ public final class SendReceiveServer extends BasicServer {
             Net.sendObject(Net.getSocketByPlace(place_, _instance), tricksHands_);
             return;
         }
-        if (_readObject instanceof SelectTeams) {
+        if (actionType_ == PlayerActionGameType.SELECT_TEAMS) {
             if (!Net.isSameTeam(_instance)) {
                 return;
             }
-            byte place_ = ((SelectTeams)_readObject).getPlace();
+            byte place_ = ((PlayerActionGame)_readObject).getPlace();
             TeamsPlayers teams_ = new TeamsPlayers();
             GameBelote game_ = Net.getGames(_instance).partieBelote();
             teams_.setTeams(game_.playersBelongingToSameTeam());
@@ -1176,8 +1163,9 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     private static void processGamePresident(Object _readObject, Net _instance) {
-        if (_readObject instanceof Dealt) {
-            Net.setReceivedForPlayer(((Dealt)_readObject).getPlace(), _instance);
+        PlayerActionGameType actionType_ = getActionType(_readObject);
+        if (actionType_ == PlayerActionGameType.DEALT) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GamePresident g_ = Net.getGames(_instance).partiePresident();
@@ -1265,8 +1253,8 @@ public final class SendReceiveServer extends BasicServer {
             playingPresidentCard(_instance);
             return;
         }
-        if (_readObject instanceof RefreshedHandPresident) {
-            Net.setReceivedForPlayer(((RefreshedHandPresident)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.REFHESHED_HAND_PRESIDENT) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             Bytes pl_ = Net.activePlayers(_instance);
             GamePresident g_ = Net.getGames(_instance).partiePresident();
             if (Net.allReceivedAmong(g_.getLoosers(pl_), _instance)) {
@@ -1319,8 +1307,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DonePlaying) {
-            Net.setReceivedForPlayer(((DonePlaying)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_PLAYING) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 GamePresident game_ = Net.getGames(_instance).partiePresident();
@@ -1334,7 +1322,7 @@ public final class SendReceiveServer extends BasicServer {
                     ThreadUtil.sleep(3000);
                     Net.initAllReceived(_instance);
                     for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), new Pause());
+                        Net.sendObject(Net.getSocketByPlace(p, _instance), Pause.INSTANCE);
                     }
                     return;
                 }
@@ -1343,8 +1331,8 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof DonePause) {
-            Net.setReceivedForPlayer(((DonePause)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.DONE_PAUSE) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.initAllReceived(_instance);
                 playingPresidentCard(_instance);
@@ -1366,18 +1354,18 @@ public final class SendReceiveServer extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof Ok) {
-            Net.setReceivedForPlayer(((Ok)_readObject).getPlace(), _instance);
+        if (actionType_ == PlayerActionGameType.OK) {
+            Net.setReceivedForPlayer(((PlayerActionGame)_readObject).getPlace(), _instance);
             if (Net.allReceived(_instance)) {
                 Net.setProgressingGame(false, _instance);
             }
             return;
         }
-        if (_readObject instanceof SelectTricksHands) {
+        if (actionType_ == PlayerActionGameType.SELECT_TRICKS_HANDS) {
             if (!Net.isSameTeam(_instance)) {
                 return;
             }
-            byte place_ = ((SelectTricksHands)_readObject).getPlace();
+            byte place_ = ((PlayerActionGame)_readObject).getPlace();
             TricksHandsPresident tricksHands_ = new TricksHandsPresident();
             GamePresident game_ = Net.getGames(_instance).partiePresident();
             tricksHands_.setReversed(game_.isReversed());
@@ -1608,7 +1596,7 @@ public final class SendReceiveServer extends BasicServer {
                     return;
                 }
                 if (game_.chelemAnnonce()) {
-                    BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                     bid_.setPlace(game_.getPreneur());
                     bid_.setLocale(Constants.getDefaultLanguage());
                     for (byte p: Net.activePlayers(_instance)) {
@@ -1628,7 +1616,7 @@ public final class SendReceiveServer extends BasicServer {
                 game_.slam();
                 if (game_.chelemAnnonce()) {
                     Net.initAllReceived(_instance);
-                    BiddingSlamAfter bid_ = new BiddingSlamAfter();
+                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
                     bid_.setPlace(game_.getPreneur());
                     bid_.setLocale(Constants.getDefaultLanguage());
                     for (byte p: Net.activePlayers(_instance)) {

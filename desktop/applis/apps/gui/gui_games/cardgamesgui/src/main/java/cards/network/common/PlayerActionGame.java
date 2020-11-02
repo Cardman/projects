@@ -1,11 +1,25 @@
 package cards.network.common;
 
 
-public abstract class PlayerActionGame extends PlayerAction {
+public class PlayerActionGame {
+
+    private final PlayerActionGameType actionType;
 
     private byte place;
 
     private String locale;
+
+    public PlayerActionGame() {
+        actionType = PlayerActionGameType.SIMPLE;
+    }
+
+    public PlayerActionGame(PlayerActionGameType _actionType) {
+        actionType = _actionType;
+    }
+
+    public PlayerActionGameType getActionType() {
+        return actionType;
+    }
 
     public byte getPlace() {
         return place;

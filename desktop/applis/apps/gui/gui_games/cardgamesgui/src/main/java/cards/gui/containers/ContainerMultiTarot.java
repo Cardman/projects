@@ -36,38 +36,16 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.gui.labels.MiniTarotCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
-import cards.network.common.Dealt;
-import cards.network.common.Ok;
-import cards.network.common.PlayGame;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DoneBidding;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
-import cards.network.common.select.SelectTeams;
-import cards.network.common.select.SelectTricksHands;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.select.*;
 import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingSlamAfter;
-import cards.network.tarot.actions.BiddingTarot;
-import cards.network.tarot.actions.CalledCards;
-import cards.network.tarot.actions.DiscardedCard;
-import cards.network.tarot.actions.DiscardedTrumps;
-import cards.network.tarot.actions.PlayingCardTarot;
-import cards.network.tarot.actions.TakeCard;
-import cards.network.tarot.actions.ValidateDog;
+import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
-import cards.network.tarot.displaying.errors.ErrorHandful;
-import cards.network.tarot.displaying.errors.ErrorPlaying;
-import cards.network.tarot.displaying.players.CalledCardKnown;
-import cards.network.tarot.displaying.players.DoneDisplaySlam;
-import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.displaying.players.RefreshingDone;
-import cards.network.tarot.displaying.players.SeenDiscardedTrumps;
-import cards.network.tarot.displaying.players.ShowDog;
+import cards.network.tarot.displaying.errors.*;
+import cards.network.tarot.displaying.players.*;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
@@ -180,7 +158,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         //pack();
         getScrollCallableCards().setVisible(false);
-        ValidateDog v_ = new ValidateDog();
+        PlayerActionGame v_ = new PlayerActionGame(PlayerActionGameType.VALIDATE_DOG);
         v_.setPlace(indexInGame);
         String lg_ = getOwner().getLanguageKey();
         v_.setLocale(lg_);
@@ -348,7 +326,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
-        Dealt dealt_ = new Dealt();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -391,7 +369,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
-        DoneBidding dealt_ = new DoneBidding();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -430,7 +408,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         pack();
         //PackingWindowAfter.pack(this, true);
         if (!_dog.isHumanTaker()) {
-            ShowDog show_ = new ShowDog();
+            PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
             show_.setPlace(indexInGame);
             show_.setLocale(lg_);
             getOwner().sendObject(show_);
@@ -454,7 +432,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         pack();
         //PackingWindowAfter.pack(this, true);
         if (!_dog.isHumanTaker()) {
-            ShowDog show_ = new ShowDog();
+            PlayerActionGame show_ = new PlayerActionGame(PlayerActionGameType.SHOW_DOG);
             show_.setPlace(indexInGame);
             show_.setLocale(lg_);
             getOwner().sendObject(show_);
@@ -467,7 +445,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getMini().setStatus(Status.TAKER, relative_);
         getEvents().append(StringUtil.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,Games.toString(_call.getCalledCards(),lg_),RETURN_LINE));
 
-        CalledCardKnown dealt_ = new CalledCardKnown();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -519,13 +497,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         dis_.setLocale(lg_);
         getOwner().sendObject(dis_);
     }
-    public void displaySlam(BiddingSlamAfter _bidding) {
-        BiddingSlamAfter bid_ = _bidding;
-        byte relative_ = relative(bid_.getPlace());
+    public void displaySlam(PlayerActionGame _bidding) {
+        byte relative_ = relative(_bidding.getPlace());
         getMini().setStatus(Status.TAKER, relative_);
-        getEvents().append(StringUtil.concat(getPseudoByPlace(bid_.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
+        getEvents().append(StringUtil.concat(getPseudoByPlace(_bidding.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
 
-        DoneDisplaySlam dis_ = new DoneDisplaySlam();
+        PlayerActionGame dis_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
         String lg_ = getOwner().getLanguageKey();
         dis_.setLocale(lg_);
         dis_.setPlace(indexInGame);
@@ -628,7 +605,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         relative_ = relative(card_.getTakerIndex());
         getMini().setStatus(Status.TAKER, relative_);
         //pack();
-        DonePlaying dealt_ = new DonePlaying();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -689,7 +666,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         tapisTarot().setCartesTarotJeu(lg_,(byte) nbChoosenPlayers);
         pack();
         //PackingWindowAfter.pack(this, true);
-        DonePause d_ = new DonePause();
+        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(indexInGame);
         d_.setLocale(lg_);
         getOwner().sendObject(d_);
@@ -700,7 +677,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             return;
         }
         String lg_ = getOwner().getLanguageKey();
-        SelectTeams select_ = new SelectTeams();
+        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
         select_.setPlace(indexInGame);
         select_.setLocale(lg_);
         getOwner().sendObject(select_);
@@ -711,7 +688,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             return;
         }
         String lg_ = getOwner().getLanguageKey();
-        SelectTricksHands select_ = new SelectTricksHands();
+        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(indexInGame);
         select_.setLocale(lg_);
         getOwner().sendObject(select_);
@@ -876,7 +853,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         pack();
         //PackingWindowAfter.pack(this, true);
         String lg_ = getOwner().getLanguageKey();
-        BiddingSlamAfter bid_ = new BiddingSlamAfter();
+        PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
         bid_.setPlace(indexInGame);
         bid_.setLocale(lg_);
         getOwner().sendObject(bid_);
@@ -927,7 +904,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
-        getOwner().sendObject(new TakeCard());
+        getOwner().sendObject(TakeCard.INSTANCE);
     }
     private void addCardDog(CardTarot _ct) {
         takerCardsDog.jouer(_ct);
@@ -1124,7 +1101,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setContentPane(container_);
         pack();
         //PackingWindowAfter.pack(this, true);
-        Ok ok_ = new Ok();
+        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
         ok_.setPlace(indexInGame);
         ok_.setLocale(lg_);
         getOwner().sendObject(ok_);
@@ -1146,7 +1123,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 
     @Override
@@ -1208,7 +1185,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
         deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 }
 

@@ -50,7 +50,6 @@ import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import cards.network.belote.displaying.CompletedHand;
 import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
 import cards.network.belote.displaying.errors.ErrorBiddingBelote;
@@ -59,18 +58,11 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.Dealt;
-import cards.network.common.Ok;
-import cards.network.common.PlayGame;
+import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.DoneBidding;
-import cards.network.common.displaying.DonePause;
-import cards.network.common.displaying.DonePlaying;
-import cards.network.common.select.SelectTeams;
-import cards.network.common.select.SelectTricksHands;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.select.*;
 import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -381,7 +373,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         //PackingWindowAfter.pack(this, true);
         pack();
-        Dealt dealt_ = new Dealt();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DEALT);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -433,7 +425,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
-        DoneBidding dealt_ = new DoneBidding();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_BIDDING);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -523,7 +515,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getMini().setStatus(Status.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
-        DonePlaying dealt_ = new DonePlaying();
+        PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
         dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
@@ -574,7 +566,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         updateCardsInPanelBeloteMulti(getPanelHand(), playerHandBelote);
         pack();
         //PackingWindowAfter.pack(this, true);
-        CompletedHand completed_ = new CompletedHand();
+        PlayerActionGame completed_ = new PlayerActionGame(PlayerActionGameType.COMPLETED_HAND);
         completed_.setPlace(indexInGame);
         getOwner().sendObject(completed_);
     }
@@ -613,7 +605,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         tapisBelote().setCartesBeloteJeu((byte) nbChoosenPlayers, lg_);
         //pack();
-        DonePause d_ = new DonePause();
+        PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(indexInGame);
         d_.setLocale(lg_);
         getOwner().sendObject(d_);
@@ -625,7 +617,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         String lg_ = getOwner().getLanguageKey();
-        SelectTeams select_ = new SelectTeams();
+        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TEAMS);
         select_.setPlace(indexInGame);
         select_.setLocale(lg_);
         getOwner().sendObject(select_);
@@ -637,7 +629,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             return;
         }
         String lg_ = getOwner().getLanguageKey();
-        SelectTricksHands select_ = new SelectTricksHands();
+        PlayerActionGame select_ = new PlayerActionGame(PlayerActionGameType.SELECT_TRICKS_HANDS);
         select_.setPlace(indexInGame);
         select_.setLocale(lg_);
         getOwner().sendObject(select_);
@@ -871,7 +863,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setContentPane(container_);
         pack();
         //PackingWindowAfter.pack(this, true);
-        Ok ok_ = new Ok();
+        PlayerActionGame ok_ = new PlayerActionGame(PlayerActionGameType.OK);
         ok_.setPlace(indexInGame);
         ok_.setLocale(lg_);
         getOwner().sendObject(ok_);
@@ -893,7 +885,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
         deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 
     @Override
@@ -962,7 +954,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));
-        getOwner().sendObject(new PlayGame());
+        getOwner().sendObject(PlayGame.INSTANCE);
     }
 }
 
