@@ -1161,6 +1161,7 @@ public final class Fight {
 //        anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlace()));
         anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
+        anim_.setIndex(effects.size());
         effects.add(anim_);
     }
 
@@ -1183,6 +1184,7 @@ public final class Fight {
 //        }
         anim_.setToFighter(new TargetCoords(_to.getTeam(), to_.getGroundPlaceSubst()));
         anim_.setKoToFighter(to_.estKo());
+        anim_.setIndex(effects.size());
         effects.add(anim_);
     }
 
@@ -1196,6 +1198,7 @@ public final class Fight {
     void addEffectRecoil(TeamPosition _target) {
         AnimationAutoEffect anim_;
         anim_ = new AnimationAutoEffect(AutoEffectKind.RECOIL);
+        anim_.setIndex(effects.size());
         Fighter target_ = getFighter(_target);
 //        if (target_.estKo()) {
 //            anim_.setUser(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
@@ -1230,6 +1233,7 @@ public final class Fight {
         Fighter target_ = getFighter(_target);
 //        anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlace()));
 //        anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlace()));
+        anim_.setIndex(effects.size());
         anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
         effects.add(anim_);
@@ -1279,12 +1283,14 @@ public final class Fight {
         anim_.setToFighter(new TargetCoords(_user.getTeam(), target_.getGroundPlaceSubst()));
         anim_.setKoFromFighter(true);
         anim_.setKoToFighter(true);
+        anim_.setIndex(effects.size());
         effects.add(anim_);
     }
 
     void addAnimationKoFighter(TeamPosition _user) {
         AnimationAutoEffect animation_;
         animation_ = new AnimationAutoEffect(AutoEffectKind.KO);
+        animation_.setIndex(effects.size());
         Fighter user_ = getFighter(_user);
         animation_.setUser(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         animation_.setKoUser(true);
@@ -1298,6 +1304,7 @@ public final class Fight {
             Fighter fighter_ = getFighter(_fighter);
             AnimationHealing animationHeal_;
             animationHeal_ = new AnimationHealing();
+            animationHeal_.setIndex(getEffects().size());
 //            animationHeal_.setHealed(new TargetCoords(_fighter.getTeam(), fighter_.getGroundPlace()));
             animationHeal_.setHealed(new TargetCoords(_fighter.getTeam(), fighter_.getGroundPlaceSubst()));
             getEffects().add(animationHeal_);

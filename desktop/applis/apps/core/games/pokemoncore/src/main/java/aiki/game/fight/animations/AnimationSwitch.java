@@ -6,6 +6,8 @@ import code.util.core.NumberUtil;
 
 public class AnimationSwitch implements AnimationInt {
 
+    private int index;
+
     private TargetCoords substituted;
 
     private String substituteName;
@@ -20,6 +22,14 @@ public class AnimationSwitch implements AnimationInt {
 
     public boolean isPlayer() {
         return NumberUtil.eq(substituted.getTeam(), Fight.PLAYER);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int _index) {
+        index = _index+getIndex();
     }
 
     public TargetCoords getSubstituted() {

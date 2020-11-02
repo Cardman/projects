@@ -1153,6 +1153,7 @@ final class FightRound {
             //No real animation for healing a team
             AnimationHealing animationHeal_;
             animationHeal_ = new AnimationHealing();
+            animationHeal_.setIndex(_fight.getEffects().size());
             animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), Fighter.BACK));
             _fight.getEffects().add(animationHeal_);
             if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
@@ -1181,6 +1182,7 @@ final class FightRound {
                     _fight.setFullHealing(false);
                     AnimationSwitch animation_;
                     animation_ = new AnimationSwitch();
+                    animation_.setIndex(_fight.getEffects().size());
                     animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), pl_));
                     animation_.setSubstituteName(fighter_.getName());
                     animation_.setLevel(fighter_.getLevel());
@@ -1283,6 +1285,7 @@ final class FightRound {
         //the user may be back even if not ko then no real animation if back
         AnimationHealing animationHeal_;
         animationHeal_ = new AnimationHealing();
+        animationHeal_.setIndex(_fight.getEffects().size());
         animationHeal_.setHealed(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlace()));
         _fight.getEffects().add(animationHeal_);
     }
@@ -1295,6 +1298,7 @@ final class FightRound {
         byte placeTerrain_=creature_.getGroundPlace();
         AnimationSwitch animation_;
         animation_ = new AnimationSwitch();
+        animation_.setIndex(_fight.getEffects().size());
         animation_.setSubstituted(new TargetCoords(_lanceur.getTeam(), placeTerrain_));
         animation_.setSubstituteName(partenaire_.getName());
         animation_.setLevel(partenaire_.getLevel());

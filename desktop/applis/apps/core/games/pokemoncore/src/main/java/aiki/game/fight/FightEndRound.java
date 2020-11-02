@@ -984,6 +984,7 @@ final class FightEndRound {
                 Fighter creatureCible_=equipeCible_.refPartMembres(e);
                 AnimationEffect animation_;
                 animation_ = new AnimationEffect();
+                animation_.setIndex(_fight.getEffects().size());
                 animation_.setFromFighter(new TargetCoords(_combattant.getTeam(), c));
                 animation_.setToFighter(target_);
                 if(creatureCible_.getClone().isZero()){
@@ -1334,6 +1335,7 @@ final class FightEndRound {
             }
             AnimationEffect animation_;
             animation_ = new AnimationEffect(EffectKind.ABSORB);
+            animation_.setIndex(_fight.getEffects().size());
             animation_.setFromFighter(new TargetCoords(_cible.getTeam(), groundPlaceTarget_));
             animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlace()));
             if(tauxAbs_.isZeroOrGt()){

@@ -5,6 +5,8 @@ import code.util.core.NumberUtil;
 
 public class AnimationEffect implements AnimationInt {
 
+    private int index;
+
     private final EffectKind effectKind;
 
     private TargetCoords fromFighter;
@@ -21,6 +23,14 @@ public class AnimationEffect implements AnimationInt {
 
     public AnimationEffect(EffectKind _effectKind) {
         effectKind = _effectKind;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int _index) {
+        index = _index+getIndex();
     }
 
     public EffectKind getEffectKind() {

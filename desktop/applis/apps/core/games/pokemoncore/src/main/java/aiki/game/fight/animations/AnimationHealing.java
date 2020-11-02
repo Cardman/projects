@@ -6,7 +6,17 @@ import code.util.core.NumberUtil;
 
 public class AnimationHealing implements AnimationInt {
 
+    private int index;
+
     private TargetCoords healed;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int _index) {
+        index = _index+getIndex();
+    }
 
     public TargetCoords getHealed() {
         return healed;
