@@ -1,10 +1,14 @@
 package aiki.game.fight.actions;
 
 
-public final class ActionSwitch implements AbstractAction,ChosenReplacing{
+public final class ActionSwitch extends AbstractAction implements ChosenReplacing{
 
     /***/
     private byte substitute;
+
+    public ActionSwitch() {
+        super(KindAction.SWITCH);
+    }
 
     @Override
     public byte getSubstitute() {

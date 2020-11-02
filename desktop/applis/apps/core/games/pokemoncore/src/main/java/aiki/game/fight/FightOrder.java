@@ -11,9 +11,7 @@ import aiki.fight.moves.effects.EffectOrder;
 import aiki.fight.moves.effects.EffectSwitchPointView;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.game.fight.actions.ActionHeal;
-import aiki.game.fight.actions.ActionMove;
-import aiki.game.fight.actions.ActionSwitch;
+import aiki.game.fight.actions.*;
 import aiki.game.fight.comparators.SortedFighterEndRoundComparator;
 import aiki.game.fight.comparators.SortedFighterHealActsComparator;
 import aiki.game.fight.comparators.SortedFighterMoveActsComparator;
@@ -307,21 +305,16 @@ final class FightOrder {
             if(ComparatorBoolean.diff(_dernier, lastToUseMove(_fight,c,_import))){
                 continue;
             }
-            if (creature_.getAction() instanceof ActionMove) {
-                if(!creature_.estKo()){
-                    ls_.add(c);
-                }
+            AbstractAction action_ = creature_.getAction();
+            if (action_ == null) {
                 continue;
             }
-            if (creature_.getAction() instanceof ActionHeal) {
+            if (action_.getKindAction() == KindAction.HEAL) {
                 ls_.add(c);
                 continue;
             }
-            if (creature_.getAction() instanceof ActionSwitch) {
-                if(!creature_.estKo()){
-                    ls_.add(c);
-                }
-                continue;
+            if(!creature_.estKo()){
+                ls_.add(c);
             }
         }
         return ls_;

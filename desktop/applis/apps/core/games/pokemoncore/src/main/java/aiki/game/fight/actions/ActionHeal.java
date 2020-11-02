@@ -1,10 +1,14 @@
 package aiki.game.fight.actions;
 
 
-public abstract class ActionHeal implements AbstractAction,ChosenHealing {
+public abstract class ActionHeal extends AbstractAction implements ChosenHealing {
 
     /***/
     private boolean team;
+
+    protected ActionHeal() {
+        super(KindAction.HEAL);
+    }
 
     @Override
     public boolean isTeam() {

@@ -3,7 +3,7 @@ import aiki.game.fight.TargetCoords;
 import code.util.EqList;
 
 
-public final class ActionMove implements AbstractAction,ChosenMove,ChosenReplacing{
+public final class ActionMove extends AbstractAction implements ChosenMove,ChosenReplacing{
 
     /***/
     private String firstChosenMove;
@@ -16,6 +16,10 @@ public final class ActionMove implements AbstractAction,ChosenMove,ChosenReplaci
 
     /***/
     private byte substitute;
+
+    public ActionMove() {
+        super(KindAction.MOVE);
+    }
 
     @Override
     public String getFirstChosenMove() {
