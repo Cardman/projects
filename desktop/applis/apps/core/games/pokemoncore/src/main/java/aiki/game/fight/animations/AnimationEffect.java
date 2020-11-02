@@ -5,6 +5,8 @@ import code.util.core.NumberUtil;
 
 public class AnimationEffect implements AnimationInt {
 
+    private final EffectKind effectKind;
+
     private TargetCoords fromFighter;
 
     private TargetCoords toFighter;
@@ -12,6 +14,18 @@ public class AnimationEffect implements AnimationInt {
     private boolean koTarget;
 
     private boolean koUser;
+
+    public AnimationEffect() {
+        effectKind = EffectKind.SIMPLE;
+    }
+
+    public AnimationEffect(EffectKind _effectKind) {
+        effectKind = _effectKind;
+    }
+
+    public EffectKind getEffectKind() {
+        return effectKind;
+    }
 
     public TargetCoords getFromFighter() {
         return fromFighter;

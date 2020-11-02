@@ -9,17 +9,7 @@ import aiki.fight.moves.effects.EffectDamageRate;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.effects.EffectSwitchPosition;
-import aiki.game.fight.animations.AnimationAbsorb;
-import aiki.game.fight.animations.AnimationChangedPlace;
-import aiki.game.fight.animations.AnimationEffect;
-import aiki.game.fight.animations.AnimationEffectDamage;
-import aiki.game.fight.animations.AnimationEffectStatistic;
-import aiki.game.fight.animations.AnimationEffectStatus;
-import aiki.game.fight.animations.AnimationHealing;
-import aiki.game.fight.animations.AnimationInt;
-import aiki.game.fight.animations.AnimationKo;
-import aiki.game.fight.animations.AnimationRecoil;
-import aiki.game.fight.animations.InfosAnimationStatistic;
+import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
@@ -1176,7 +1166,7 @@ public final class Fight {
 
     void addEffectAbsorb(TeamPosition _from, TeamPosition _to) {
         AnimationEffect anim_;
-        anim_ = new AnimationAbsorb();
+        anim_ = new AnimationEffect(EffectKind.ABSORB);
         Fighter from_ = getFighter(_from);
         Fighter to_ = getFighter(_to);
 //        if (!from_.estKo()) {
@@ -1204,8 +1194,8 @@ public final class Fight {
     }
 
     void addEffectRecoil(TeamPosition _target) {
-        AnimationRecoil anim_;
-        anim_ = new AnimationRecoil();
+        AnimationAutoEffect anim_;
+        anim_ = new AnimationAutoEffect(AutoEffectKind.RECOIL);
         Fighter target_ = getFighter(_target);
 //        if (target_.estKo()) {
 //            anim_.setUser(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
@@ -1232,7 +1222,7 @@ public final class Fight {
         } else if (_effect instanceof EffectStatus) {
             anim_ = new AnimationEffectStatus();
         } else if (_effect instanceof EffectSwitchPosition) {
-            anim_ = new AnimationChangedPlace();
+            anim_ = new AnimationEffect(EffectKind.CHANGED_PLACE);
         } else {
             anim_ = new AnimationEffect();
         }
@@ -1293,8 +1283,8 @@ public final class Fight {
     }
 
     void addAnimationKoFighter(TeamPosition _user) {
-        AnimationKo animation_;
-        animation_ = new AnimationKo();
+        AnimationAutoEffect animation_;
+        animation_ = new AnimationAutoEffect(AutoEffectKind.KO);
         Fighter user_ = getFighter(_user);
         animation_.setUser(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         animation_.setKoUser(true);

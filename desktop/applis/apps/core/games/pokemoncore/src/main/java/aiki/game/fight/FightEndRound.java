@@ -24,8 +24,8 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusType;
-import aiki.game.fight.animations.AnimationAbsorb;
 import aiki.game.fight.animations.AnimationEffect;
+import aiki.game.fight.animations.EffectKind;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.params.Difficulty;
@@ -1332,8 +1332,8 @@ final class FightEndRound {
                 creature_.variationLeftHp(Rate.multiply(tauxAbs_.absNb(), creature_.pvMax()).opposNb());
                 _fight.addHpMessage(_cible, _import);
             }
-            AnimationAbsorb animation_;
-            animation_ = new AnimationAbsorb();
+            AnimationEffect animation_;
+            animation_ = new AnimationEffect(EffectKind.ABSORB);
             animation_.setFromFighter(new TargetCoords(_cible.getTeam(), groundPlaceTarget_));
             animation_.setToFighter(new TargetCoords(_lanceur.getTeam(), creatureLanceur_.getGroundPlace()));
             if(tauxAbs_.isZeroOrGt()){

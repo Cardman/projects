@@ -8,18 +8,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
-import aiki.game.fight.animations.AnimationAbsorb;
-import aiki.game.fight.animations.AnimationAutoEffect;
-import aiki.game.fight.animations.AnimationChangedPlace;
-import aiki.game.fight.animations.AnimationEffect;
-import aiki.game.fight.animations.AnimationEffectDamage;
-import aiki.game.fight.animations.AnimationEffectStatistic;
-import aiki.game.fight.animations.AnimationEffectStatus;
-import aiki.game.fight.animations.AnimationHealing;
-import aiki.game.fight.animations.AnimationInt;
-import aiki.game.fight.animations.AnimationRecoil;
-import aiki.game.fight.animations.AnimationSwitch;
-import aiki.game.fight.animations.InfosAnimationStatistic;
+import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
@@ -477,39 +466,40 @@ public class FrontBattle extends PaintableLabel {
         heal = false;
         recoil = false;
         damage = DataBase.EMPTY_STRING;
-        if (_animation instanceof AnimationChangedPlace) {
-            AnimationChangedPlace animation_ = (AnimationChangedPlace) _animation;
-            if (animation_.isPlayerFromFighter()) {
-                TargetLabel user_ = playerTargets.getVal((byte) animation_.getFromFighter().getPosition());
-                TargetLabel target_ = playerTargets.getVal((byte) animation_.getToFighter().getPosition());
-                String name_ = user_.getFighterName();
-                short level_ = user_.getLevel();
-                LgInt rateRemaingHp_ = user_.getPercentHp();
-                LgInt percentExp_ = user_.getPercentExp();
-                user_.setLevel(target_.getLevel());
-                user_.setPercentHp(target_.getPercentHp());
-                user_.setPercentExp(target_.getPercentExp());
-                user_.set(this, true, facade, target_.getFighterName());
-                target_.setLevel(level_);
-                target_.setPercentHp(rateRemaingHp_);
-                target_.setPercentExp(percentExp_);
-                target_.set(this, true, facade, name_);
-            } else {
-                TargetLabel user_ = foeTargets.getVal((byte) animation_.getFromFighter().getPosition());
-                TargetLabel target_ = foeTargets.getVal((byte) animation_.getToFighter().getPosition());
-                String name_ = user_.getFighterName();
-                short level_ = user_.getLevel();
-                LgInt rateRemaingHp_ = user_.getPercentHp();
-                LgInt percentExp_ = user_.getPercentExp();
-                user_.setLevel(target_.getLevel());
-                user_.setPercentHp(target_.getPercentHp());
-                user_.setPercentExp(target_.getPercentExp());
-                user_.set(this, false, facade, target_.getFighterName());
-                target_.setLevel(level_);
-                target_.setPercentHp(rateRemaingHp_);
-                target_.setPercentExp(percentExp_);
-                target_.set(this, false, facade, name_);
-            }
+        if (_animation instanceof AnimationEffect) {
+            AnimationEffect animation_ = (AnimationEffect) _animation;
+            if (animation_.getEffectKind() == EffectKind.CHANGED_PLACE) {
+                if (animation_.isPlayerFromFighter()) {
+                    TargetLabel user_ = playerTargets.getVal((byte) animation_.getFromFighter().getPosition());
+                    TargetLabel target_ = playerTargets.getVal((byte) animation_.getToFighter().getPosition());
+                    String name_ = user_.getFighterName();
+                    short level_ = user_.getLevel();
+                    LgInt rateRemaingHp_ = user_.getPercentHp();
+                    LgInt percentExp_ = user_.getPercentExp();
+                    user_.setLevel(target_.getLevel());
+                    user_.setPercentHp(target_.getPercentHp());
+                    user_.setPercentExp(target_.getPercentExp());
+                    user_.set(this, true, facade, target_.getFighterName());
+                    target_.setLevel(level_);
+                    target_.setPercentHp(rateRemaingHp_);
+                    target_.setPercentExp(percentExp_);
+                    target_.set(this, true, facade, name_);
+                } else {
+                    TargetLabel user_ = foeTargets.getVal((byte) animation_.getFromFighter().getPosition());
+                    TargetLabel target_ = foeTargets.getVal((byte) animation_.getToFighter().getPosition());
+                    String name_ = user_.getFighterName();
+                    short level_ = user_.getLevel();
+                    LgInt rateRemaingHp_ = user_.getPercentHp();
+                    LgInt percentExp_ = user_.getPercentExp();
+                    user_.setLevel(target_.getLevel());
+                    user_.setPercentHp(target_.getPercentHp());
+                    user_.setPercentExp(target_.getPercentExp());
+                    user_.set(this, false, facade, target_.getFighterName());
+                    target_.setLevel(level_);
+                    target_.setPercentHp(rateRemaingHp_);
+                    target_.setPercentExp(percentExp_);
+                    target_.set(this, false, facade, name_);
+                }
 //            if (!animation_.getSubstitute().isEmpty()) {
 //                TargetLabel label_;
 //                if (animation_.isPlayerFromFighter()) {
@@ -527,23 +517,23 @@ public class FrontBattle extends PaintableLabel {
 //                xIni_ = xCoordsFoe.getVal((byte) animation_.getUser().getPosition());
 //                yIni_ = yCoordsFoe.getVal((byte) animation_.getUser().getPosition());
 //            }
-            //refresh fighters
-            //setTargets(facade);
-            keepAnimation = false;
-        } else if (_animation instanceof AnimationEffect) {
-            AnimationEffect animation_ = (AnimationEffect) _animation;
-            if (animation_.isPlayerFromFighter()) {
-                TargetLabel tar_ = playerTargets.getVal((byte) animation_.getFromFighter().getPosition());
-                xIni = tar_.getxPoint();
-                yIni = tar_.getyPoint();
+                //refresh fighters
+                //setTargets(facade);
+                keepAnimation = false;
+            } else {
+                if (animation_.isPlayerFromFighter()) {
+                    TargetLabel tar_ = playerTargets.getVal((byte) animation_.getFromFighter().getPosition());
+                    xIni = tar_.getxPoint();
+                    yIni = tar_.getyPoint();
 //                xIni = xCoords.getVal((byte) animation_.getFromFighter().getPosition());
 //                yIni = yCoords.getVal((byte) animation_.getFromFighter().getPosition());
-            } else {
-                TargetLabel tar_ = foeTargets.getVal((byte) animation_.getFromFighter().getPosition());
-                xIni = tar_.getxPoint();
-                yIni = tar_.getyPoint();
+                } else {
+                    TargetLabel tar_ = foeTargets.getVal((byte) animation_.getFromFighter().getPosition());
+                    xIni = tar_.getxPoint();
+                    yIni = tar_.getyPoint();
 //                xIni = xCoordsFoe.getVal((byte) animation_.getFromFighter().getPosition());
 //                yIni = yCoordsFoe.getVal((byte) animation_.getFromFighter().getPosition());
+                }
             }
         } else if (_animation instanceof AnimationSwitch) {
             AnimationSwitch animation_ = (AnimationSwitch) _animation;
@@ -579,7 +569,7 @@ public class FrontBattle extends PaintableLabel {
 //                yIni = yCoordsFoe.getVal((byte) animation_.getHealed().getPosition());
             }
         } else if (_animation instanceof AnimationAutoEffect) {
-            recoil = _animation instanceof AnimationRecoil;
+            recoil = ((AnimationAutoEffect) _animation).getAutoEffectKind() == AutoEffectKind.RECOIL;
             AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
             if (animation_.isPlayer()) {
                 TargetLabel tar_ = playerTargets.getVal((byte) animation_.getUser().getPosition());
@@ -852,27 +842,29 @@ public class FrontBattle extends PaintableLabel {
             } else {
                 paintDefaultEffect = true;
             }
-        } else if (_animation instanceof AnimationAbsorb) {
-            int[][] stTxt_ = facade.getData().getAnimAbsorb();
-            image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
         } else if (_animation instanceof AnimationEffect) {
             AnimationEffect e_ = (AnimationEffect) _animation;
-            if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
-                drawBlueRect = true;
-                playerUser = e_.isPlayerFromFighter();
-                groundPlace = e_.getFromFighter().getPosition();
-                drawImage = false;
-                imageNumber++;
-                imageNumber++;
-                imageNumber++;
+            if (e_.getEffectKind() == EffectKind.ABSORB) {
+                int[][] stTxt_ = facade.getData().getAnimAbsorb();
+                image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
             } else {
-                paintDefaultEffect = true;
-            }
+                if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
+                    drawBlueRect = true;
+                    playerUser = e_.isPlayerFromFighter();
+                    groundPlace = e_.getFromFighter().getPosition();
+                    drawImage = false;
+                    imageNumber++;
+                    imageNumber++;
+                    imageNumber++;
+                } else {
+                    paintDefaultEffect = true;
+                }
 //            image = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
 //            image.getGraphics().setColor(Color.WHITE);
 //            image.getGraphics().fillRect(0, 0, 20, 20);
 //            image.getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
 //            image.getGraphics().drawRect(0, 0, 20, 20);
+            }
         } else if (_animation instanceof AnimationAutoEffect) {
             AnimationAutoEffect animation_ = (AnimationAutoEffect) _animation;
             if (animation_.isKoUser()) {
