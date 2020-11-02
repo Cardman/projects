@@ -25,6 +25,7 @@ class NativeOtherAnalyzedTestConfiguration {
         adv= _standards;
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
+        analyzingDoc.setInputBuilder(new NatInputBuilder());
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();
     }

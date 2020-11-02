@@ -5,12 +5,14 @@ import code.bean.BeanStruct;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -21,7 +23,10 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 
     private static final String STRINGS = "strings";
     private static final String TREE = "tree";
+    private static final String TYPED_STRING = "typedString";
+    private static final String TYPED_STRINGS = "typedStrings";
     private static final String TYPE_BEAN_ONE = "simple.BeanOne";
+    private static final String TYPE_INPUT = "simple.Input";
 
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
@@ -55,8 +60,34 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
                     res_.setResult(((SimpleOne) bean_).getList(_cont));
                     return res_;
                 }
+                if (StringUtil.quickEq(name_, TYPED_STRINGS)) {
+                    res_.setResult(((SimpleOne) bean_).getTypedStrings(_cont));
+                    return res_;
+                }
                 if (StringUtil.quickEq(name_, TREE)) {
                     res_.setResult(((SimpleOne) bean_).getTree(_cont));
+                    return res_;
+                }
+                if (StringUtil.quickEq(name_, TYPED_STRING)) {
+                    if (_method.getConstraints().getParametersTypesLength() == 1) {
+                        ((SimpleOne) bean_).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
+                        res_.setResult(NullStruct.NULL_VALUE);
+                        return res_;
+                    } else {
+                        res_.setResult(new StringStruct(((SimpleOne) bean_).getTypedString()));
+                        return res_;
+                    }
+                }
+            }
+        }
+        if (_instance instanceof SampleInputStruct) {
+            if (StringUtil.quickEq(name_, TYPED_STRING)) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
+                    ((SampleInputStruct) _instance).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                } else {
+                    res_.setResult(new StringStruct(((SampleInputStruct) _instance).getTypedString()));
                     return res_;
                 }
             }
@@ -92,8 +123,28 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         method_ = new StandardMethod(STRINGS,params_, TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
+        method_ = new StandardMethod(TYPED_STRINGS,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList();
         method_ = new StandardMethod(TREE,params_, TYPE_MAP, false, MethodModifier.NORMAL);
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         getStandards().addEntry(TYPE_BEAN_ONE, cl_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<StandardField>();
+        methods_ = new CustList<StandardMethod>();
+        cl_ = new StandardClass(TYPE_INPUT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        getStandards().addEntry(TYPE_INPUT, cl_);
     }
 }

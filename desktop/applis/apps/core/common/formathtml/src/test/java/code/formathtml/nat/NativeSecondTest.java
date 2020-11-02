@@ -19,6 +19,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableExUtil;
+import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -29,14 +30,10 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualConfigurationContext;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -80,6 +77,203 @@ public final class NativeSecondTest {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         SimpleOne bean_ = BeanTestNatLgNamesImpl.newBeanOne();
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, bean_));
+    }
+    @Test
+    public void process4Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString()\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
+        basicStandards(lgNames_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
+                "\t<sm field='navigation'/>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='simple.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='validators'/>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
+        Navigation n_ = new Navigation();
+        NativeTestConfigurationLoader nat_ = new NativeTestConfigurationLoader(lgNames_);
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+    }
+    @Test
+    public void process5Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"page1.html\"><input type='text' name=\"typedString\" c:varValue=\"typedString()\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
+        basicStandards(lgNames_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
+                "\t<sm field='navigation'/>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='simple.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='validators'/>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
+        Navigation n_ = new Navigation();
+        NativeTestConfigurationLoader nat_ = new NativeTestConfigurationLoader(lgNames_);
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds());
+        HtmlPage htmlPage_ = n_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE_TWO");
+        ni_.setValue(values_);
+        n_.getHtmlPage().setUrl(0);
+        n_.processRendFormRequest(lgNames_, du_.getContext().getContext());
+        assertEq("page1.html", n_.getCurrentUrl());
+        assertEq("bean_one", n_.getCurrentBeanName());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"ONE_TWO\"/></form></body></html>", n_.getHtmlText());
+        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
+        StringMapObject map_ = beanTwo_.getForms();
+        assertEq(0, map_.size());
+        assertEq("ONE_TWO", beanTwo_.getTypedString());
+    }
+    @Test
+    public void process6Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"page1.html\"><c:for className='simple.Input' var='e' list='typedStrings()'><input type='text' name=\"e.typedString\" c:varValue=\"e.typedString()\"/></c:for></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
+        basicStandards(lgNames_);
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        String xmlConf_ = "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
+                "\t<sm field='navigation'/>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='simple.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='validators'/>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
+        Navigation n_ = new Navigation();
+        NativeTestConfigurationLoader nat_ = new NativeTestConfigurationLoader(lgNames_);
+        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO\"/></form></body></html>", n_.getHtmlText());
+        HtmlPage htmlPage_ = n_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE_");
+        ni_.setValue(values_);
+        nc_ = containers_.getVal(1L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("TWO_");
+        ni_.setValue(values_);
+        n_.getHtmlPage().setUrl(0);
+        n_.processRendFormRequest(lgNames_, du_.getContext().getContext());
+        assertEq("page1.html", n_.getCurrentUrl());
+        assertEq("bean_one", n_.getCurrentBeanName());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE_\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO_\"/></form></body></html>", n_.getHtmlText());
+        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
+        StringMapObject map_ = beanTwo_.getForms();
+        assertEq(0, map_.size());
+        assertEq("ONE_", beanTwo_.getTypedStrings().first().getTypedString());
+        assertEq("TWO_", beanTwo_.getTypedStrings().last().getTypedString());
     }
     private String getNatRes(String _folder, String _relative, String _html, SimpleOne _bean) {
         NativeOtherAnalyzedTestConfiguration conf_ = contextElSec();

@@ -37,6 +37,9 @@ public final class RenderExpUtil {
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
+            if (o instanceof RendPossibleIntermediateDotted&&!((RendPossibleIntermediateDotted)o).isIntermediateDottedOperation()) {
+                a_.setPreviousArgument(_context.getLastPage().getGlobalArgument());
+            }
             a_.setImplicits(o.getImplicits());
             a_.setImplicitsTest(o.getImplicitsTest());
             arguments_.addEntry(o, a_);

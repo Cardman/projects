@@ -25,6 +25,7 @@ import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.blocks.RendImportForm;
 import code.formathtml.exec.opers.*;
+import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -405,6 +406,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
+        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
         _nav.initInstancesPattern(page_, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         ReportedMessages messages_ = page_.getMessages();

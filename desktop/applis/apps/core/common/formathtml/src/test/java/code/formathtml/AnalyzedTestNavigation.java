@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.BeanCustLgNames;
 import code.util.StringMap;
 
@@ -28,6 +29,7 @@ public final class AnalyzedTestNavigation {
         forwards = _analyzing.getForwards();
         adv= _analyzing.getAdvStandards();
         analyzingDoc.setContent(adv);
+        analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         context = _analyzing.getContext();
         this.analyzing = _analyzing.getAnalyzing();
     }

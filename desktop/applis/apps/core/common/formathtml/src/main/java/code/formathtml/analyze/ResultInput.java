@@ -28,116 +28,12 @@ public final class ResultInput {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private SettableElResult settable;
+    private OperationNode settable;
 
     public void build(AnaRendBlock _bl, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsReadRoot = RenderAnalysis.getRootAnalyzedOperations(name_, 0, _anaDoc, _page);
-            OperationNode res_;
-            if (opsReadRoot instanceof IdOperation) {
-                res_ = AffectationOperation.getFirstToBeAnalyzed((MethodOperation) opsReadRoot);
-            } else {
-                res_ = opsReadRoot;
-            }
-            SettableElResult settable_ = AffectationOperation.castDottedTo(res_);
-            settable = settable_;
-            if (settable_ != null) {
-                className = NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames());
-            }
-            if (settable_ instanceof SettableAbstractFieldOperation) {
-                FieldInfo infoField_ = ((SettableAbstractFieldOperation) settable_).getFieldMetaInfo();
-                if (infoField_ != null) {
-                    ClassField clField_ = infoField_.getClassField();
-                    if (infoField_.isStaticField()) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_anaDoc.getFileName());
-                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
-                        badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
-                                clField_.getFieldName());
-                        AnalyzingDoc.addError(badEl_, _anaDoc, _page);
-                    }
-                    if (infoField_.isFinalField()) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_anaDoc.getFileName());
-                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
-                        badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                clField_.getFieldName());
-                        AnalyzingDoc.addError(badEl_, _anaDoc, _page);
-                    }
-                    idClass = clField_.getClassName();
-                    idName = clField_.getFieldName();
-                }
-                id = StringUtil.concat(idClass,".",idName);
-                result = settable_.getResultClass();
-                AnaClassArgumentMatching pr_;
-                if (((SettableAbstractFieldOperation) settable_).isIntermediateDottedOperation()) {
-                    pr_ = ((SettableAbstractFieldOperation) settable_).getPreviousResultClass();
-                } else {
-                    pr_ = new AnaClassArgumentMatching(_page.getGlobalClass());
-                }
-                previousResult = pr_;
-                StringList varNames_ = new StringList();
-                String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varPrevLoc_);
-                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
-                varNames = varNames_;
-                varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_);
-            } else if (settable_ instanceof ArrOperation) {
-                result = settable_.getResultClass();
-                ClassMethodId classMethodId_ = ((ArrOperation) settable_).getCallFctContent().getClassMethodId();
-                AnaClassArgumentMatching pr_ = ((ArrOperation) settable_).getPreviousResultClass();
-                previousResult = pr_;
-                if (classMethodId_ == null) {
-                    CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
-                    StringList varNames_ = new StringList();
-                    String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                    varNames_.add(varPrevLoc_);
-                    idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
-                    StringList varParamNames_ = new StringList();
-                    StringList typeNames_ = new StringList();
-                    int s_ = childrenNodes_.size();
-                    for (int i = 0; i < s_; i++) {
-                        String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
-                        varNames_.add(varParam_);
-                        varParamNames_.add(varParam_);
-                        typeNames_.add(_page.getAliasPrimInteger());
-                    }
-                    idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
-                    id = StringUtil.concat(idClass,".",idName);
-                    String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                    varNames_.add(varLoc_);
-                    varNames = varNames_;
-                    varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
-                } else {
-                    CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
-                    StringList varNames_ = new StringList();
-                    String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                    varNames_.add(varPrevLoc_);
-                    idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
-                    StringList varParamNames_ = new StringList();
-                    int s_ = childrenNodes_.size();
-                    for (int i = 0; i < s_; i++) {
-                        String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
-                        varNames_.add(varParam_);
-                        varParamNames_.add(varParam_);
-                    }
-                    String sgn_ = classMethodId_.getConstraints().getSignature(_page);
-                    idName = StringUtil.concat("[]", sgn_);
-                    id = StringUtil.concat(idClass,".",idName);
-                    String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                    varNames_.add(varLoc_);
-                    varNames = varNames_;
-                    varName = StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_);
-                }
-            } else {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
-                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
-            }
+            _anaDoc.getInputBuilder().tryBuildInputResult(name_, this,_bl, _anaDoc, _page);
         } else {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
             if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
@@ -154,8 +50,121 @@ public final class ResultInput {
         }
     }
 
+    public void tryBuildInputResult(String _name, AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page));
+        OperationNode res_;
+        if (opsReadRoot instanceof IdOperation) {
+            res_ = AffectationOperation.getFirstToBeAnalyzed((MethodOperation) opsReadRoot);
+        } else {
+            res_ = opsReadRoot;
+        }
+        SettableElResult settable_ = AffectationOperation.castDottedTo(res_);
+        if (settable_ != null) {
+            setClassName(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
+        }
+        if (settable_ instanceof SettableAbstractFieldOperation) {
+            setSettable((OperationNode) settable_);
+            FieldInfo infoField_ = ((SettableAbstractFieldOperation) settable_).getFieldMetaInfo();
+            if (infoField_ != null) {
+                ClassField clField_ = infoField_.getClassField();
+                if (infoField_.isStaticField()) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
+                            clField_.getFieldName());
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                }
+                if (infoField_.isFinalField()) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+                    badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
+                            clField_.getFieldName());
+                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                }
+                idClass = clField_.getClassName();
+                idName = clField_.getFieldName();
+            }
+            id = StringUtil.concat(idClass,".",idName);
+            setResult(settable_.getResultClass());
+            AnaClassArgumentMatching pr_;
+            if (((SettableAbstractFieldOperation) settable_).isIntermediateDottedOperation()) {
+                pr_ = ((SettableAbstractFieldOperation) settable_).getPreviousResultClass();
+            } else {
+                pr_ = new AnaClassArgumentMatching(_page.getGlobalClass());
+            }
+            setPreviousResult(pr_);
+            StringList varNames_ = new StringList();
+            String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+            varNames_.add(varPrevLoc_);
+            String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+            varNames_.add(varLoc_);
+            setVarNames(varNames_);
+            setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_));
+        } else if (settable_ instanceof ArrOperation) {
+            setSettable((OperationNode) settable_);
+            result = settable_.getResultClass();
+            ClassMethodId classMethodId_ = ((ArrOperation) settable_).getCallFctContent().getClassMethodId();
+            AnaClassArgumentMatching pr_ = ((ArrOperation) settable_).getPreviousResultClass();
+            setPreviousResult(pr_);
+            if (classMethodId_ == null) {
+                CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
+                StringList varNames_ = new StringList();
+                String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+                varNames_.add(varPrevLoc_);
+                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+                StringList varParamNames_ = new StringList();
+                StringList typeNames_ = new StringList();
+                int s_ = childrenNodes_.size();
+                for (int i = 0; i < s_; i++) {
+                    String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
+                    varNames_.add(varParam_);
+                    varParamNames_.add(varParam_);
+                    typeNames_.add(_page.getAliasPrimInteger());
+                }
+                idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
+                id = StringUtil.concat(idClass,".",idName);
+                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+                varNames_.add(varLoc_);
+                setVarNames(varNames_);
+                setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_));
+            } else {
+                CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
+                StringList varNames_ = new StringList();
+                String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+                varNames_.add(varPrevLoc_);
+                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+                StringList varParamNames_ = new StringList();
+                int s_ = childrenNodes_.size();
+                for (int i = 0; i < s_; i++) {
+                    String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
+                    varNames_.add(varParam_);
+                    varParamNames_.add(varParam_);
+                }
+                String sgn_ = classMethodId_.getConstraints().getSignature(_page);
+                idName = StringUtil.concat("[]", sgn_);
+                id = StringUtil.concat(idClass,".",idName);
+                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
+                varNames_.add(varLoc_);
+                setVarNames(varNames_);
+                setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_));
+            }
+        } else {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(_anaDoc.getFileName());
+            badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
+            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+        }
+    }
+
     public String getVarName() {
         return varName;
+    }
+
+    public void setVarName(String _varName) {
+        this.varName = _varName;
     }
 
     public String getId() {
@@ -174,27 +183,51 @@ public final class ResultInput {
         return className;
     }
 
+    public void setClassName(String _className) {
+        className = _className;
+    }
+
     public OperationNode getOpsReadRoot() {
         return opsReadRoot;
+    }
+
+    public void setOpsReadRoot(OperationNode _opsReadRoot) {
+        opsReadRoot = _opsReadRoot;
     }
 
     public OperationNode getOpsValueRoot() {
         return opsValueRoot;
     }
 
-    public SettableElResult getSettable() {
+    public OperationNode getSettable() {
         return settable;
+    }
+
+    public void setSettable(OperationNode _settable) {
+        settable = _settable;
     }
 
     public AnaClassArgumentMatching getResult() {
         return result;
     }
 
+    public void setResult(AnaClassArgumentMatching _result) {
+        this.result = _result;
+    }
+
     public AnaClassArgumentMatching getPreviousResult() {
         return previousResult;
     }
 
+    public void setPreviousResult(AnaClassArgumentMatching _previousResult) {
+        previousResult = _previousResult;
+    }
+
     public StringList getVarNames() {
         return varNames;
+    }
+
+    public void setVarNames(StringList _varNames) {
+        varNames = _varNames;
     }
 }

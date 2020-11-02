@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 
@@ -26,6 +27,7 @@ class NativeAnalyzedTestConfiguration {
         adv= _standards;
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
+        analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();
     }

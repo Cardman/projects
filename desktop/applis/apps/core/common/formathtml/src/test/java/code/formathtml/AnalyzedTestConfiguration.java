@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
@@ -26,6 +27,7 @@ public final class AnalyzedTestConfiguration {
         forwards = _forwards;
         adv= _standards;
         analyzingDoc.setContent(adv);
+        analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         context = _analyzing.getContext();
         dual = _analyzing.getDual();
         dual.setContext(context);

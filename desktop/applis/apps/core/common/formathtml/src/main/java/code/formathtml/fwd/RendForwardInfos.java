@@ -33,11 +33,12 @@ public final class RendForwardInfos {
     private RendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
+        AbstractInputBuilder inputBuilder_ = _anaDoc.getInputBuilder();
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getOffset().getOffsetTrim(), _ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendParentBlock curPar_ = rendDoc_;
         AnaRendBlock en_ = _ana;
         while (en_ != null) {
-            RendBlock loc_ = newRendBlock(en_, _forwards);
+            RendBlock loc_ = newRendBlock(en_, _forwards, inputBuilder_);
             if (loc_ != null) {
                 if (loc_ instanceof RendStdElement) {
                     if (StringUtil.quickEq(((RendStdElement) loc_).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
@@ -72,7 +73,7 @@ public final class RendForwardInfos {
         }
         return rendDoc_;
     }
-    private static RendBlock newRendBlock(AnaRendBlock _current, Forwards _forwards) {
+    private static RendBlock newRendBlock(AnaRendBlock _current, Forwards _forwards, AbstractInputBuilder _inputBuilder) {
         if (_current instanceof AnaRendEmptyText){
             return new RendEmptyText(_current.getOffset().getOffsetTrim(),((AnaRendEmptyText)_current).getExpression(),((AnaRendEmptyText)_current).isAdd());
         }
@@ -280,7 +281,7 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendSelect){
             AnaRendSelect f_ = (AnaRendSelect) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opsWrite_ = _inputBuilder.buildWritePart(resultInput_, _forwards);
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
             CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
             CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
@@ -297,7 +298,7 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendRadio){
             AnaRendRadio f_ = (AnaRendRadio) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opsWrite_ = _inputBuilder.buildWritePart(resultInput_, _forwards);
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
             CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
             CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
@@ -312,7 +313,7 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendStdInput){
             AnaRendStdInput f_ = (AnaRendStdInput) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opsWrite_ = _inputBuilder.buildWritePart(resultInput_, _forwards);
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
             CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
             CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
@@ -325,7 +326,7 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendTextArea){
             AnaRendTextArea f_ = (AnaRendTextArea) _current;
             ResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = buildWritePart(resultInput_, _forwards);
+            CustList<RendDynOperationNode> opsWrite_ = _inputBuilder.buildWritePart(resultInput_, _forwards);
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
             CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
             CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
@@ -363,8 +364,8 @@ public final class RendForwardInfos {
         return null;
     }
 
-    private static CustList<RendDynOperationNode> buildWritePart(ResultInput _resultInput, Forwards _forwards) {
-        SettableElResult settable_ = _resultInput.getSettable();
+    static CustList<RendDynOperationNode> buildWritePart(ResultInput _resultInput, Forwards _forwards) {
+        OperationNode settable_ = _resultInput.getSettable();
         CustList<RendDynOperationNode> l_ = new CustList<RendDynOperationNode>();
         if (settable_ instanceof SettableAbstractFieldOperation) {
             l_ = buildWritePartField(_resultInput, (SettableAbstractFieldOperation) settable_, _forwards);

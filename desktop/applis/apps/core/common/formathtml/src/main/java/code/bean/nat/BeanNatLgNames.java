@@ -24,6 +24,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendInvokingOperation;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
+import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -373,6 +374,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
+        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeForEachFetch(this));
         _nav.initInstancesPattern(page_, analyzingDoc_);

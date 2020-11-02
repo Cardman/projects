@@ -228,6 +228,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
+        analyzingDoc_.setInputBuilder(new NatInputBuilder());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeTestForEachFetch(this));
         _nav.initInstancesPattern(page_, analyzingDoc_);
@@ -235,6 +236,12 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return page_.getMessages();
     }
+
+    @Override
+    public boolean isConveritble(String _className) {
+        return true;
+    }
+
     public void setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx) {
         if (!(_mainBean instanceof BeanStruct)) {
@@ -401,7 +408,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         return getBean(_currentBeanName);
     }
 
-    private BeanStruct getBean(String _beanName) {
+    BeanStruct getBean(String _beanName) {
         return beansStructs.getVal(_beanName);
     }
     public abstract BeanStruct getOtherResultBean(ContextEl _cont,
