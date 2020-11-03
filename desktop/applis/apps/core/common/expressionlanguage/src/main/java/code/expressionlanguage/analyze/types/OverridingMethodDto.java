@@ -6,7 +6,7 @@ import code.util.CustList;
 public final class OverridingMethodDto {
     private final FormattedMethodId formattedMethodId;
 
-    private CustList<GeneStringOverridable> methodIds = new CustList<GeneStringOverridable>();
+    private final CustList<GeneStringOverridable> methodIds = new CustList<GeneStringOverridable>();
 
     public OverridingMethodDto(FormattedMethodId _formattedMethodId) {
         this.formattedMethodId = _formattedMethodId;

@@ -133,15 +133,16 @@ public final class ExecTemplates {
             DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
             int dCurrent_ = dimCurrent_.getDim();
             int dReq_ = dimReq_.getDim();
-            if (StringUtil.quickEq(dimReq_.getComponent(), _an.getStandards().getContent().getCoreNames().getAliasObject())) {
+            String componentDim_ = dimReq_.getComponent();
+            if (StringUtil.quickEq(componentDim_, _an.getStandards().getContent().getCoreNames().getAliasObject())) {
                 if (dReq_ > dCurrent_) {
-                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE, _required, RETURN_LINE), cast_)));
+                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
             }
             if (dReq_ != dCurrent_) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE, _required, RETURN_LINE), cast_)));
+                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
                 return NullStruct.NULL_VALUE;
             }
             String dComp_ = dimCurrent_.getComponent();
@@ -162,8 +163,8 @@ public final class ExecTemplates {
                 }
             }
             if (in_ != null) {
-                if (!in_.isSubTypeOf(dimReq_.getComponent(),_an)) {
-                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE, _required, RETURN_LINE), cast_)));
+                if (!in_.isSubTypeOf(componentDim_,_an)) {
+                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
@@ -187,12 +188,12 @@ public final class ExecTemplates {
         GeneType g_ = _an.getClassBody(cl_);
         while (hasToLookForParent(_an, id_, g_)) {
             if (StringUtil.contains(list_, cl_)) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE, _required, RETURN_LINE), cast_)));
+                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
                 break;
             }
             list_.add(cl_);
             if (!(current_ instanceof WithParentStruct)) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, StringUtil.concat(className_, RETURN_LINE, _required, RETURN_LINE), cast_)));
+                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
                 break;
             }
             Struct par_ = current_.getParent();
@@ -265,23 +266,25 @@ public final class ExecTemplates {
                     break;
                 }
                 for (Matching n: m_.getPairsArgParam()) {
+                    String param_ = n.getParam();
+                    String arg_ = n.getArg();
                     if (n.getMatchEq() == MatchingEnum.EQ) {
-                        if (!StringUtil.quickEq(n.getParam(), n.getArg())) {
+                        if (!StringUtil.quickEq(param_, arg_)) {
                             okTree_ = false;
                             break;
                         }
                         continue;
                     }
-                    if (StringUtil.quickEq(n.getParam(), n.getArg())) {
+                    if (StringUtil.quickEq(param_, arg_)) {
                         continue;
                     }
                     Matching n_ = new Matching();
                     if (n.getMatchEq() == MatchingEnum.SUB) {
-                        n_.setArg(n.getArg());
-                        n_.setParam(n.getParam());
+                        n_.setArg(arg_);
+                        n_.setParam(param_);
                     } else {
-                        n_.setArg(n.getParam());
-                        n_.setParam(n.getArg());
+                        n_.setArg(param_);
+                        n_.setParam(arg_);
                     }
                     new_.add(n_);
                 }
@@ -355,7 +358,7 @@ public final class ExecTemplates {
         ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            return new ErrorStruct(_context, StringUtil.concat(_arg.getStruct().getClassName(_context), RETURN_LINE,_param, RETURN_LINE),cast_);
+            return new ErrorStruct(_context, getBadCastMessage(_param, _arg.getStruct().getClassName(_context)),cast_);
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -384,7 +387,7 @@ public final class ExecTemplates {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(className_, RETURN_LINE, _classNameFound, RETURN_LINE), cast_)));
+                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_)));
                 return "";
             }
         }
@@ -392,6 +395,10 @@ public final class ExecTemplates {
             return "";
         }
         return classFormat_;
+    }
+
+    private static String getBadCastMessage(String _classNameFound, String _className) {
+        return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
 
     public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
@@ -405,7 +412,7 @@ public final class ExecTemplates {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(className_, RETURN_LINE, _classNameFound, RETURN_LINE), cast_)));
+                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_)));
                 return f_;
             }
         }
@@ -615,14 +622,8 @@ public final class ExecTemplates {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             return new ErrorStruct(_conf,npe_);
         } else {
-            String arrType_ = _arr.getClassName();
-            String param_ = StringExpUtil.getQuickComponentType(arrType_);
-            String arg_ = _s.getClassName(_conf);
             String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-            StringBuilder mess_ = new StringBuilder();
-            mess_.append(arg_);
-            mess_.append("!=");
-            mess_.append(param_);
+            StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
             return new ErrorStruct(_conf,mess_.toString(),cast_);
         }
     }
@@ -691,16 +692,7 @@ public final class ExecTemplates {
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
-            int index_ = NumParsers.convertToNumber(_index).intStruct();
-            StringBuilder mess_ = new StringBuilder();
-            if (index_ < 0) {
-                mess_.append(index_);
-                mess_.append("<0");
-            } else {
-                mess_.append(index_);
-                mess_.append(">=");
-                mess_.append(arr_.getLength());
-            }
+            StringBuilder mess_ = getIndexMessage(_index, arr_);
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
             return;
         }
@@ -710,17 +702,23 @@ public final class ExecTemplates {
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_)));
             return;
         }
+        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
         ArrayStruct arr_ = (ArrayStruct) _array;
-        String arrType_ = arr_.getClassName();
+        StringBuilder mess_ = buildStoreError(_value, _context, arr_);
+        _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
+    }
+
+    private static StringBuilder buildStoreError(Struct _value, ContextEl _context, ArrayStruct _arr) {
+        String arrType_ = _arr.getClassName();
         String param_ = StringExpUtil.getQuickComponentType(arrType_);
         String arg_ = _value.getClassName(_context);
-        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);
         mess_.append("!=");
         mess_.append(param_);
-        _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
+        return mess_;
     }
+
     public static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
         if (_array == NullStruct.NULL_VALUE) {
             return ErrorType.NPE;
@@ -786,16 +784,7 @@ public final class ExecTemplates {
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
-            int index_ = NumParsers.convertToNumber(_index).intStruct();
-            StringBuilder mess_ = new StringBuilder();
-            if (index_ < 0) {
-                mess_.append(index_);
-                mess_.append("<0");
-            } else {
-                mess_.append(index_);
-                mess_.append(">=");
-                mess_.append(arr_.getLength());
-            }
+            StringBuilder mess_ = getIndexMessage(_index, arr_);
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
             return NullStruct.NULL_VALUE;
         }
@@ -804,6 +793,21 @@ public final class ExecTemplates {
         _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_)));
         return NullStruct.NULL_VALUE;
     }
+
+    private static StringBuilder getIndexMessage(Struct _index, ArrayStruct _arr) {
+        int index_ = NumParsers.convertToNumber(_index).intStruct();
+        StringBuilder mess_ = new StringBuilder();
+        if (index_ < 0) {
+            mess_.append(index_);
+            mess_.append("<0");
+        } else {
+            mess_.append(index_);
+            mess_.append(">=");
+            mess_.append(_arr.getLength());
+        }
+        return mess_;
+    }
+
     public static ErrorType getErrorWhenIndex(Struct _array, Struct _index) {
         if (_array == NullStruct.NULL_VALUE) {
             return ErrorType.NPE;
@@ -1279,13 +1283,13 @@ public final class ExecTemplates {
     }
 
     private static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
-        String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof ExecAnnotationBlock) {
             if (StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
                 return StringExpUtil.getPrettyArrayType(param_,_dim);
             }
         }
+        String generic_ = "";
         if (_subType instanceof ExecRootBlock) {
             for (ExecFormattedRootBlock e: ((ExecRootBlock)_subType).getAllGenericSuperTypes()) {
                 String g = e.getFormatted();
@@ -1468,12 +1472,12 @@ public final class ExecTemplates {
                 _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
                 return Argument.createVoid();
             }
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE, _className, RETURN_LINE), cast_)));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
             return _previous;
         }
         ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE, _className, RETURN_LINE), cast_)));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
             return _previous;
         }
         Struct struct_ = entry_.getStruct();
@@ -1527,12 +1531,12 @@ public final class ExecTemplates {
                 _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
                 return Argument.createVoid();
             }
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE, _className, RETURN_LINE), cast_)));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
             return Argument.createVoid();
         }
         ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(argClassName_, RETURN_LINE, _className, RETURN_LINE), cast_)));
+            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
             return Argument.createVoid();
         }
         String classNameFound_ = getSuperGeneric(argClassName_, _className, _conf);
@@ -1564,11 +1568,12 @@ public final class ExecTemplates {
         if (!checkQuick(_returnType, _right, _conf)) {
             return Argument.createVoid();
         }
-        if (_conf.getInitializingTypeInfos().isSensibleField(_conf,fieldId_.getClassName())) {
+        String className_ = fieldId_.getClassName();
+        if (_conf.getInitializingTypeInfos().isSensibleField(_conf, className_)) {
             _conf.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
-        Classes.getStaticFieldMap(fieldId_.getClassName(), classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
+        Classes.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
         return _right;
     }
 

@@ -1151,15 +1151,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 results.add(s_);
             }
             i_++;
-            String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
+            String result_ = s_.getResult();
+            String base_ = StringExpUtil.getIdFromAllTypes(result_);
             RootBlock r_ = _page.getAnaClassBody(base_);
             if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {
-                importedDirectSuperInterfaces.add(s_.getResult());
+                importedDirectSuperInterfaces.add(result_);
             } else {
-                importedDirectSuperClass = s_.getResult();
+                importedDirectSuperClass = result_;
             }
             if (r_ != null) {
-                importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, s_.getResult()));
+                importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, result_));
             }
         }
         if (importedDirectSuperClass.isEmpty()) {
@@ -1878,7 +1879,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return allSuperTypes;
     }
 
-    public String getGenericString() {
+    public final String getGenericString() {
         String pkg_ = getPackageName();
         StringBuilder generic_ = new StringBuilder();
         RootBlock.addPkgIfNotEmpty(pkg_, generic_);

@@ -46,8 +46,7 @@ public final class AnaTypeUtil {
                     &&!StringUtil.quickEq(key_.getName(),"[]=")) {
                 for (Block b: ClassesUtil.getDirectChildren(_type)) {
                     if (b instanceof InternOverrideBlock) {
-                        CustList<OverridingMethodDto> overrides_ = ((InternOverrideBlock) b).getOverrides();
-                        for (OverridingMethodDto o: overrides_) {
+                        for (OverridingMethodDto o: ((InternOverrideBlock) b).getOverrides()) {
                             if (o.getFormattedMethodId().eq(key_)) {
                                 e.getMethodIds().clear();
                                 e.getMethodIds().addAllElts(o.getMethodIds());
@@ -180,6 +179,22 @@ public final class AnaTypeUtil {
         }
     }
 
+    private static void addClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, GeneStringOverridable _class) {
+        boolean found_ = false;
+        for (OverridingMethodDto o: _map) {
+            if (o.getFormattedMethodId().eq(_key)) {
+                o.getMethodIds().add(_class);
+                found_ = true;
+                break;
+            }
+        }
+        if (!found_) {
+            OverridingMethodDto o_ = new OverridingMethodDto(_key);
+            o_.getMethodIds().add(_class);
+            _map.add(o_);
+        }
+    }
+
     private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r) {
         CustList<OverridingMethodDto> map_;
         map_ = new CustList<OverridingMethodDto>();
@@ -203,23 +218,6 @@ public final class AnaTypeUtil {
         }
         return map_;
     }
-
-    private static void addClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, GeneStringOverridable _class) {
-        boolean found_ = false;
-        for (OverridingMethodDto o: _map) {
-            if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(_class);
-                found_ = true;
-                break;
-            }
-        }
-        if (!found_) {
-            OverridingMethodDto o_ = new OverridingMethodDto(_key);
-            o_.getMethodIds().add(_class);
-            _map.add(o_);
-        }
-    }
-
 
     private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, RootBlock _r,OverridableBlock _ov, String _str) {
         boolean found_ = false;

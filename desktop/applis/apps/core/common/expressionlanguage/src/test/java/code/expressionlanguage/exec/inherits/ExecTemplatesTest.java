@@ -877,7 +877,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
         ExecTemplates.trySet(str_,-1,NullStruct.NULL_VALUE);
-        assertNull(str_.get(0));
+        assertNotNull(str_.get(0));
     }
     @Test
     public void trySet2() {
@@ -885,7 +885,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
         ExecTemplates.trySet(str_,1,NullStruct.NULL_VALUE);
-        assertNull(str_.get(0));
+        assertNotNull(str_.get(0));
     }
     @Test
     public void trySet3() {
