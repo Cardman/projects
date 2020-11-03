@@ -1078,8 +1078,8 @@ public final class StringExpUtil {
                 if (last_ < 0) {
                     return ArrayResult.ERROR;
                 }
-                _values.put((int) IndexConstants.FIRST_INDEX, str_);
-                _operators.put(last_, _string.substring(j_));
+                _values.addEntry((int) IndexConstants.FIRST_INDEX, str_);
+                _operators.addEntry(last_, _string.substring(j_));
                 return ArrayResult.OK;
             }
             return ArrayResult.ERROR;

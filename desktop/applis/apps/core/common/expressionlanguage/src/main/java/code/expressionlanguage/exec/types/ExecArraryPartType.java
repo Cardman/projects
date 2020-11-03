@@ -7,8 +7,8 @@ import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 final class ExecArraryPartType extends ExecParentPartType {
-    ExecArraryPartType(ExecParentPartType _parent, int _index) {
-        super(_parent, _index);
+    ExecArraryPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
     }
 
     @Override
@@ -32,7 +32,7 @@ final class ExecArraryPartType extends ExecParentPartType {
 
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        String ch_ = getFirstChild().getAnalyzedType();
+        String ch_ = getChildren().first().getAnalyzedType();
         ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
         return true;

@@ -3,13 +3,12 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.core.StringUtil;
 
-class ExecInnerPartType extends ExecBinaryType {
+final class ExecInnerPartType extends ExecBinaryType {
 
     private CustList<String> operators;
-    ExecInnerPartType(ExecParentPartType _parent, int _index, CustList<String> _operators) {
-        super(_parent, _index);
+    ExecInnerPartType(ExecParentPartType _parent, int _index, CustList<String> _operators, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
         operators = _operators;
     }
 
@@ -23,19 +22,6 @@ class ExecInnerPartType extends ExecBinaryType {
     }
 
     @Override
-    String getSeparator(int _index) {
-        return operators.get(_index);
-    }
-
-    @Override
-    String getSingleSeparator(int _index) {
-        if (StringUtil.quickEq(operators.get(_index),"..")) {
-            return ".";
-        }
-        return "..";
-    }
-
-    @Override
     String getPrettyEnd() {
         return EMPTY_STRING;
     }
@@ -46,12 +32,7 @@ class ExecInnerPartType extends ExecBinaryType {
 
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        CustList<ExecPartType> ch_ = new CustList<ExecPartType>();
-        ExecPartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
+        CustList<ExecPartType> ch_ = getChildren();
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);
         return true;

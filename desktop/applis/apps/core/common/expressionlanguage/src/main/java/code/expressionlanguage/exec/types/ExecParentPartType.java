@@ -5,12 +5,14 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 
 abstract class ExecParentPartType extends ExecPartType {
+    private final CustList<ExecPartType> children = new CustList<ExecPartType>();
 
     private ExecPartType firstChild;
-    ExecParentPartType(ExecParentPartType _parent, int _index) {
-        super(_parent, _index);
+    ExecParentPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
     }
     void appendChild(ExecPartType _child) {
+        children.add(_child);
         if (firstChild == null) {
             firstChild = _child;
             return;
@@ -33,4 +35,7 @@ abstract class ExecParentPartType extends ExecPartType {
 
     abstract boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels);
 
+    CustList<ExecPartType> getChildren() {
+        return children;
+    }
 }

@@ -5,8 +5,8 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 
 final class ExecEmptyPartType extends ExecLeafPartType {
-    ExecEmptyPartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator) {
-        super(_parent, _index, _type, _previousSeparator);
+    ExecEmptyPartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator, String _previousOperator) {
+        super(_parent, _index, _type, _previousSeparator, _previousOperator);
     }
 
     @Override

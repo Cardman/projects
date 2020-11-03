@@ -22,14 +22,13 @@ public final class ExecPartTypeUtil {
     public static boolean processAnalyzeConstraintsExec(ExecResultPartType _root, ContextEl _context) {
         ExecPartType root_ = _root.getPartType();
         ExecPartType current_ = root_;
-        while (true) {
+        while (current_ != null) {
             ExecPartType child_ = current_.getFirstChild();
             if (child_ != null) {
                 current_ = child_;
                 continue;
             }
-            boolean stop_ = false;
-            while (true) {
+            while (current_ != null) {
                 if (koTmp(_context, current_)) {
                     return false;
                 }
@@ -43,17 +42,14 @@ public final class ExecPartTypeUtil {
                     if (koTmp(_context, par_)) {
                         return false;
                     }
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 if (par_ == null) {
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 current_ = par_;
-            }
-            if (stop_) {
-                break;
             }
         }
         return true;
@@ -66,14 +62,13 @@ public final class ExecPartTypeUtil {
     public static boolean checkParametersCount(ExecResultPartType _root, ContextEl _context) {
         ExecPartType root_ = _root.getPartType();
         ExecPartType current_ = root_;
-        while (true) {
+        while (current_ != null) {
             ExecPartType child_ = current_.getFirstChild();
             if (child_ != null) {
                 current_ = child_;
                 continue;
             }
-            boolean stop_ = false;
-            while (true) {
+            while (current_ != null) {
                 if (isNotCorrectParam(_context, current_)) {
                     return false;
                 }
@@ -87,17 +82,14 @@ public final class ExecPartTypeUtil {
                     if (isNotCorrectParam(_context, par_)) {
                         return false;
                     }
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 if (par_ == null) {
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 current_ = par_;
-            }
-            if (stop_) {
-                break;
             }
         }
         return true;
@@ -128,19 +120,18 @@ public final class ExecPartTypeUtil {
     }
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = getIndexesExec(_input);
-        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
+        ExecAnalyzingType loc_ = analyzeLocalExec(_input);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
-        while (true) {
+        while (current_ != null) {
             if (current_ instanceof ExecLeafPartType) {
                 String t_ = ((ExecLeafPartType)current_).getTypeName();
                 out_.append(t_);
             }
-            ExecParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            ExecParentChildType parChild_ = createFirstChildExec(current_, dels_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
                 out_.append(parChild_.getParentPartType().getPrettyBegin());
@@ -148,50 +139,45 @@ public final class ExecPartTypeUtil {
                 current_ = child_;
                 continue;
             }
-            boolean stop_ = false;
-            while (true) {
-                ExecPartType next_ = createNextSiblingExec(current_, loc_, dels_);
+            while (current_ != null) {
+                ExecPartType next_ = createNextSiblingExec(current_, dels_);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(((ExecBinaryType) par_).getSeparator(current_.getIndex()));
+                    out_.append(next_.getPreviousOperator());
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
                 }
                 if (par_ == root_) {
                     out_.append(par_.getPrettyEnd());
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 if (par_ == null) {
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 out_.append(par_.getPrettyEnd());
                 dels_.removeLast();
                 current_ = par_;
-            }
-            if (stop_) {
-                break;
             }
         }
         return out_.toString();
     }
     public static String processPrettySingleType(String _input) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = getIndexesExec(_input);
-        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
+        ExecAnalyzingType loc_ = analyzeLocalExec(_input);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
-        while (true) {
+        while (current_ != null) {
             if (current_ instanceof ExecLeafPartType) {
                 String t_ = ((ExecLeafPartType)current_).getTypeName();
                 out_.append(t_);
             }
-            ExecParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            ExecParentChildType parChild_ = createFirstChildExec(current_, dels_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
                 out_.append(parChild_.getParentPartType().getPrettyBegin());
@@ -199,48 +185,43 @@ public final class ExecPartTypeUtil {
                 current_ = child_;
                 continue;
             }
-            boolean stop_ = false;
-            while (true) {
-                ExecPartType next_ = createNextSiblingExec(current_, loc_, dels_);
+            while (current_ != null) {
+                ExecPartType next_ = createNextSiblingExec(current_, dels_);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(((ExecBinaryType) par_).getSingleSeparator(current_.getIndex()));
+                    out_.append(next_.getPreviousOperatorSingle());
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
                 }
                 if (par_ == root_) {
                     out_.append(par_.getPrettyEnd());
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 if (par_ == null) {
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 out_.append(par_.getPrettyEnd());
                 dels_.removeLast();
                 current_ = par_;
-            }
-            if (stop_) {
-                break;
             }
         }
         return out_.toString();
     }
     public static ExecResultPartType processExec(String _input,ContextEl _an) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = getIndexesExec(_input);
-        if (indexes_ == null) {
+        if (!okDoubleDotIndexes(_input)) {
             return new ExecResultPartType("",null);
         }
-        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
+        ExecAnalyzingType loc_ = analyzeLocalExec(_input);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
-        while (true) {
+        while (current_ != null) {
             if (current_ instanceof ExecLeafPartType) {
                 ((ExecLeafPartType)current_).checkDynExistence(_an, dels_);
                 String t_ = ((ExecLeafPartType)current_).exportHeader();
@@ -249,7 +230,7 @@ public final class ExecPartTypeUtil {
                 }
                 out_.append(t_);
             }
-            ExecParentChildType parChild_ = createFirstChildExec(current_, loc_, dels_);
+            ExecParentChildType parChild_ = createFirstChildExec(current_, dels_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
                 out_.append(parChild_.getParentPartType().getBegin());
@@ -257,17 +238,16 @@ public final class ExecPartTypeUtil {
                 current_ = child_;
                 continue;
             }
-            boolean stop_ = false;
-            while (true) {
+            while (current_ != null) {
                 if (current_ instanceof ExecParentPartType) {
                     if (!((ExecParentPartType)current_).analyzeTree(_an, dels_)) {
                         return new ExecResultPartType("",null);
                     }
                 }
-                ExecPartType next_ = createNextSiblingExec(current_, loc_, dels_);
+                ExecPartType next_ = createNextSiblingExec(current_, dels_);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(((ExecBinaryType) par_).getSeparator(current_.getIndex()));
+                    out_.append(next_.getPreviousOperator());
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
@@ -277,47 +257,34 @@ public final class ExecPartTypeUtil {
                         return new ExecResultPartType("",null);
                     }
                     out_.append(par_.getEnd());
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 if (par_ == null) {
-                    stop_ = true;
-                    break;
+                    current_ = null;
+                    continue;
                 }
                 out_.append(par_.getEnd());
                 dels_.removeLast();
                 current_ = par_;
             }
-            if (stop_) {
-                break;
-            }
         }
         return new ExecResultPartType(out_.toString(), root_);
     }
-    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, ExecAnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ExecParentPartType)) {
             return new ExecParentChildType(null,null);
         }
         ExecParentPartType par_ = (ExecParentPartType) _parent;
-        int indexPar_ = 0;
-        int off_ = 0;
-        ExecPartType g_ = par_;
-        for (int i = _dels.size()-1; i >= 0; i--) {
-            IntTreeMap< String> befLast_;
-            befLast_ = _dels.get(i);
-            off_ += befLast_.getKey(indexPar_);
-            indexPar_ = g_.getIndex();
-            g_ = g_.getParent();
-        }
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
-        ExecAnalyzingType an_ = analyzeLocalExec(off_, v_, _analyze.getIndexes());
+        ExecAnalyzingType an_ = analyzeLocalExec(v_);
         ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, last_);
         addValues(p_, _dels, an_);
         return new ExecParentChildType(par_,p_);
     }
 
-    private static ExecPartType createNextSiblingExec(ExecPartType _parent, ExecAnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static ExecPartType createNextSiblingExec(ExecPartType _parent, CustList<IntTreeMap<String>> _dels) {
         ExecParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof ExecBinaryType)) {
             return null;
@@ -329,18 +296,8 @@ public final class ExecPartTypeUtil {
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = indexNext_;
-        int off_ = 0;
-        ExecPartType g_ = par_;
-        for (int i = _dels.size()-1; i >= 0; i--) {
-            IntTreeMap< String> befLast_;
-            befLast_ = _dels.get(i);
-            off_ += befLast_.getKey(indexPar_);
-            indexPar_ = g_.getIndex();
-            g_ = g_.getParent();
-        }
         String v_ = last_.getValue(indexNext_);
-        ExecAnalyzingType an_ = analyzeLocalExec(off_, v_, _analyze.getIndexes());
+        ExecAnalyzingType an_ = analyzeLocalExec(v_);
         ExecPartType p_ = ExecPartType.createPartTypeExec(b_,indexNext_, an_, last_);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
@@ -353,24 +310,19 @@ public final class ExecPartTypeUtil {
         if (_p instanceof ExecTemplatePartType) {
             IntTreeMap<String> values_;
             values_ = new IntTreeMap< String>();
-            values_.putAllMap(_an.getValues());
+            values_.addAllEntries(_an.getValues());
             values_.removeKey(values_.lastKey());
-            _dels.add(values_);
-        } else if (_p instanceof ExecInnerPartType) {
-            IntTreeMap<String> values_;
-            values_ = new IntTreeMap< String>();
-            values_.putAllMap(_an.getValues());
             _dels.add(values_);
         } else {
             _dels.add(_an.getValues());
         }
     }
 
-    private static ExecAnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
+    private static ExecAnalyzingType analyzeLocalExec(String _string) {
         ExecAnalyzingType a_ = new ExecAnalyzingType();
-        a_.getIndexes().addAllElts(_indexes);
+        IntTreeMap<String> values_ = a_.getValues();
         if (_string.trim().isEmpty()) {
-            a_.getValues().put((int)IndexConstants.FIRST_INDEX, _string);
+            values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
             a_.setError(true);
             return a_;
         }
@@ -386,7 +338,7 @@ public final class ExecPartTypeUtil {
         }
         if (_string.trim().startsWith(Templates.SUB_TYPE)) {
             a_.setPrio(WILD_CARD_PRIO);
-            a_.setupWildCardValues(Templates.SUB_TYPE, _string);
+            a_.setupUnaryValuesExec(_string, Templates.SUB_TYPE);
             return a_;
         }
         if (_string.trim().startsWith(Templates.SUP_TYPE)) {
@@ -394,13 +346,14 @@ public final class ExecPartTypeUtil {
                 a_.setError(true);
             }
             a_.setPrio(WILD_CARD_PRIO);
-            a_.setupWildCardValues(Templates.SUP_TYPE, _string);
+            a_.setupUnaryValuesExec(_string, Templates.SUP_TYPE);
             return a_;
         }
-        ArrayResult res_ = StringExpUtil.tryGetArray(_string, a_.getValues(), a_.getOperators());
+        IntTreeMap<String> operators_ = a_.getOperators();
+        ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_, operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                a_.getValues().put((int) IndexConstants.FIRST_INDEX, _string);
+                values_.addEntry((int) IndexConstants.FIRST_INDEX, _string);
                 a_.setError(true);
             } else {
                 a_.setPrio(ARR_PRIO);
@@ -409,99 +362,74 @@ public final class ExecPartTypeUtil {
         }
         if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
             a_.setPrio(ARR_PRIO);
-            a_.setupArrayValuesExec(_string);
+            a_.setupUnaryValuesExec(_string, Templates.ARR_BEG_STRING);
             return a_;
         }
         int count_ = 0;
         int len_ = _string.length();
         int i_ = 0;
         int prio_ = TMP_PRIO;
-        IntTreeMap<String> operators_;
-        operators_ = new IntTreeMap<String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (!_indexes.containsObj((long)i_+_offset)) {
-                i_++;
-                continue;
-            }
             if (curChar_ == Templates.LT) {
                 if (count_== 0 && prio_ == TMP_PRIO) {
                     operators_.clear();
-                    operators_.put(i_,Templates.TEMPLATE_BEGIN);
+                    operators_.addEntry(i_,Templates.TEMPLATE_BEGIN);
                 }
                 count_++;
             }
             if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.put(i_, Templates.TEMPLATE_SEP);
+                operators_.addEntry(i_, Templates.TEMPLATE_SEP);
             }
             if (curChar_ == Templates.GT) {
                 count_--;
                 if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.put(i_,Templates.TEMPLATE_END);
+                    operators_.addEntry(i_,Templates.TEMPLATE_END);
                 }
             }
             if (count_ == 0) {
-                if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
+                if (_string.startsWith(Templates.INNER_TYPE,i_) || curChar_ == '-') {
                     if (prio_ > INT_PRIO) {
                         operators_.clear();
                         prio_ = INT_PRIO;
                     }
                     if (curChar_ == Templates.SEP_CLASS_CHAR){
-                        operators_.put(i_,Templates.INNER_TYPE);
+                        operators_.addEntry(i_,Templates.INNER_TYPE);
+                        i_++;
                     } else {
-                        operators_.put(i_,"-");
+                        operators_.addEntry(i_,"-");
                     }
                 }
             }
             i_++;
         }
-        a_.getOperators().putAllMap(operators_);
         a_.setPrio(prio_);
         a_.setupValuesExec(_string);
         return a_;
     }
 
-    private static Ints getIndexesExec(String _input) {
-        return getDoubleDotIndexes(_input);
-    }
-
-    private static Ints getDoubleDotIndexes(String _input) {
+    private static boolean okDoubleDotIndexes(String _input) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
-        Ints indexes_ = new Ints();
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
             if (curChar_ == Templates.LT) {
-                indexes_.add(i_);
                 count_++;
             }
             if (curChar_ == Templates.GT) {
                 if (count_ == 0) {
-                    return null;
+                    return false;
                 }
-                indexes_.add(i_);
                 count_--;
             }
             if (curChar_ == Templates.COMMA) {
                 if (count_ == 0) {
-                    return null;
+                    return false;
                 }
-                indexes_.add(i_);
-            }
-            if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                if (StringExpUtil.nextCharIs(_input, i_ + 1, len_, Templates.SEP_CLASS_CHAR)) {
-                    indexes_.add(i_);
-                    i_++;
-                }
-            } else if (curChar_ == '-') {
-                indexes_.add(i_);
             }
             i_++;
         }
-        if (count_ > 0) {
-            return null;
-        }
-        return indexes_;
+        return count_ <= 0;
     }
 }

@@ -7,8 +7,8 @@ import code.util.core.StringUtil;
 
 final class ExecWildCardPartType extends ExecParentPartType {
     private String prefix;
-    ExecWildCardPartType(ExecParentPartType _parent, int _index, String _prefix) {
-        super(_parent, _index);
+    ExecWildCardPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
         prefix = _prefix;
     }
 
@@ -36,12 +36,12 @@ final class ExecWildCardPartType extends ExecParentPartType {
         if (!(getParent() instanceof ExecTemplatePartType)) {
             return false;
         }
-        ExecPartType prev_ = getParent().getFirstChild();
+        ExecPartType prev_ = getParent().getChildren().first();
         String base_ = ((ExecNamePartType)prev_).getTypeName();
         if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct())) {
             return false;
         }
-        String ch_ = getFirstChild().getAnalyzedType();
+        String ch_ = getChildren().first().getAnalyzedType();
         ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
         return true;

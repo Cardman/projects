@@ -6,8 +6,8 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 
 final class ExecEmptyWildCardPart extends ExecLeafPartType {
-    ExecEmptyWildCardPart(ExecParentPartType _parent, int _index, String _type, String _previousSeparator) {
-        super(_parent, _index, _type, _previousSeparator);
+    ExecEmptyWildCardPart(ExecParentPartType _parent, int _index, String _type, String _previousSeparator, String _previousOperator) {
+        super(_parent, _index, _type, _previousSeparator, _previousOperator);
     }
 
     @Override

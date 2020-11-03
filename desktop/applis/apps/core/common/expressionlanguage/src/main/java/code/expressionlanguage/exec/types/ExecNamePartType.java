@@ -6,9 +6,9 @@ import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
-class ExecNamePartType extends ExecLeafPartType {
-    ExecNamePartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator) {
-        super(_parent, _index, _type, _previousSeparator);
+final class ExecNamePartType extends ExecLeafPartType {
+    ExecNamePartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator, String _previousOperator) {
+        super(_parent, _index, _type, _previousSeparator, _previousOperator);
     }
 
     @Override
@@ -16,9 +16,9 @@ class ExecNamePartType extends ExecLeafPartType {
         ExecPartType part_ = getPreviousPartType();
         String typeName_ = getTypeName();
         typeName_ = StringExpUtil.removeDottedSpaces(typeName_);
-        String prevSep_ = getPreviousSeparator();
         String concat_;
         if (part_ != null) {
+            String prevSep_ = getPreviousSeparator();
             concat_ = StringUtil.concat(part_.getAnalyzedType(),prevSep_,typeName_);
         } else {
             concat_ = typeName_;

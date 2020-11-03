@@ -113,8 +113,9 @@ public final class ParserType {
     }
 
     private static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
+        IntTreeMap<String> values_ = _a.getValues();
         if (_string.trim().isEmpty()) {
-            _a.getValues().put((int)IndexConstants.FIRST_INDEX, _string);
+            values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
             _a.setError(true);
             return _a;
         }
@@ -136,10 +137,11 @@ public final class ParserType {
             _a.setupWildCardValues(Templates.SUP_TYPE, _string);
             return _a;
         }
-        ArrayResult res_ = StringExpUtil.tryGetArray(_string, _a.getValues(), _a.getOperators());
+        IntTreeMap<String> operators_ = _a.getOperators();
+        ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_,operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
-                _a.getValues().put((int) IndexConstants.FIRST_INDEX, _string);
+                values_.addEntry((int) IndexConstants.FIRST_INDEX, _string);
                 _a.setError(true);
             } else {
                 _a.setPrio(ARR_PRIO);
@@ -150,8 +152,6 @@ public final class ParserType {
         int len_ = _string.length();
         int i_ = 0;
         int prio_ = TMP_PRIO;
-        IntTreeMap<String> operators_;
-        operators_ = new IntTreeMap<String>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (!_indexes.containsObj((long)i_+_offset)) {
@@ -161,17 +161,17 @@ public final class ParserType {
             if (curChar_ == Templates.LT) {
                 if (count_== 0 && prio_ == TMP_PRIO) {
                     operators_.clear();
-                    operators_.put(i_,Templates.TEMPLATE_BEGIN);
+                    operators_.addEntry(i_,Templates.TEMPLATE_BEGIN);
                 }
                 count_++;
             }
             if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.put(i_, Templates.TEMPLATE_SEP);
+                operators_.addEntry(i_, Templates.TEMPLATE_SEP);
             }
             if (curChar_ == Templates.GT) {
                 count_--;
                 if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.put(i_,Templates.TEMPLATE_END);
+                    operators_.addEntry(i_,Templates.TEMPLATE_END);
                 }
             }
             if (count_ == 0) {
@@ -181,9 +181,9 @@ public final class ParserType {
                         prio_ = INT_PRIO;
                     }
                     if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, Templates.SEP_CLASS_CHAR)) {
-                        operators_.put(i_,"..");
+                        operators_.addEntry(i_,"..");
                     } else {
-                        operators_.put(i_,".");
+                        operators_.addEntry(i_,".");
                     }
                 }
             }
@@ -196,7 +196,6 @@ public final class ParserType {
                 return _a;
             }
         }
-        _a.getOperators().putAllMap(operators_);
         _a.setPrio(prio_);
         _a.setupValues(_string);
         return _a;

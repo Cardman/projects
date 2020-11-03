@@ -9,8 +9,8 @@ abstract class ExecLeafPartType extends ExecPartType {
     private String typeName;
     private String importedTypeName = EMPTY_STRING;
     private String previousSeparator;
-    ExecLeafPartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator) {
-        super(_parent, _index);
+    ExecLeafPartType(ExecParentPartType _parent, int _index, String _type, String _previousSeparator, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
         typeName = _type;
         previousSeparator = _previousSeparator;
     }
@@ -30,7 +30,7 @@ abstract class ExecLeafPartType extends ExecPartType {
         return null;
     }
 
-    public String getPreviousSeparator() {
+    String getPreviousSeparator() {
         return previousSeparator;
     }
 

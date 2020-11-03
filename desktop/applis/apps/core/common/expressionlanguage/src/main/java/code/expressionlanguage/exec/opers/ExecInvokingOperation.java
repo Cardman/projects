@@ -136,7 +136,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static Argument instancePrepareStd(ContextEl _conf, String _className, ConstructorId _constId,
                                               CustList<Argument> _arguments) {
-        if (!ExecTemplates.okArgs(_constId, _className,_arguments, _conf)) {
+        if (ExecTemplates.okArgsSet(_constId, _className, _arguments, _conf) != null) {
             return new Argument();
         }
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf, _constId, Argument.toArgArray(_arguments));
@@ -158,7 +158,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        Parameters parameters_ = ExecTemplates.okArgs(_root, _constId, false, _className, _arguments, _conf, null);
+        Parameters parameters_ = ExecTemplates.okArgsSet(_root, _constId, false, _className, null, _arguments, _conf, null);
         if (parameters_.getError() != null) {
             return new Argument();
         }

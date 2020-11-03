@@ -1,7 +1,9 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.types.KindPartType;
+import code.util.CustList;
 import code.util.IntTreeMap;
+import code.util.core.StringUtil;
 
 abstract class ExecPartType {
     protected static final String EMPTY_STRING = "";
@@ -10,37 +12,75 @@ abstract class ExecPartType {
     private ExecPartType nextSibling;
     private int index;
     private String analyzedType = EMPTY_STRING;
-
-    ExecPartType(ExecParentPartType _parent, int _index) {
+    private String previousOperator;
+    private String previousOperatorSingle;
+    ExecPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
         parent = _parent;
         index = _index;
+        previousOperator = _previousOperator;
+        previousOperatorSingle = trOp(_previousOperator);
     }
 
     static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, IntTreeMap<String> _dels) {
+        String previousOperator_ = EMPTY_STRING;
+        if (_parent instanceof ExecInnerPartType) {
+            CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
+            if (ops_.isValidIndex(_index - 1)) {
+                previousOperator_ = ops_.get(_index - 1);
+            }
+        }
+        if (_parent instanceof ExecTemplatePartType) {
+            if (_index > 0) {
+                if (_index == 1) {
+                    previousOperator_ = "<";
+                } else {
+                    previousOperator_ = ",";
+                }
+            }
+        }
         if (_analyze.isError()) {
-            return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"");
+            return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"", previousOperator_);
         }
         IntTreeMap<String> operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = "..";
-            if (_parent instanceof ExecInnerPartType && _index > 0) {
-                str_ = ((ExecInnerPartType) _parent).getOperators().get(_index - 1);
+            if (_parent instanceof ExecInnerPartType) {
+                CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
+                if (ops_.isValidIndex(_index - 1)) {
+                    str_ = ops_.get(_index - 1);
+                }
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new ExecEmptyWildCardPart(_parent, _index, _dels.getValue(_index),str_);
+                return new ExecEmptyWildCardPart(_parent, _index, _dels.getValue(_index),str_, previousOperator_);
             }
-            return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_);
+            return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_, previousOperator_);
         }
         if (_analyze.getPrio() == ExecPartTypeUtil.TMP_PRIO) {
-            return new ExecTemplatePartType(_parent, _index);
+            return new ExecTemplatePartType(_parent, _index, previousOperator_);
         }
         if (_analyze.getPrio() == ExecPartTypeUtil.INT_PRIO) {
-            return new ExecInnerPartType(_parent, _index, operators_.values());
+            return new ExecInnerPartType(_parent, _index, operators_.values(), previousOperator_);
         }
         if (_analyze.getPrio() == ExecPartTypeUtil.ARR_PRIO) {
-            return new ExecArraryPartType(_parent, _index);
+            return new ExecArraryPartType(_parent, _index, previousOperator_);
         }
-        return new ExecWildCardPartType(_parent, _index, operators_.firstValue());
+        return new ExecWildCardPartType(_parent, _index, operators_.firstValue(), previousOperator_);
+    }
+
+    protected static String trOp(String _op) {
+        if (_op.isEmpty()) {
+            return "";
+        }
+        if (StringUtil.quickEq(_op,",")) {
+            return ",";
+        }
+        if (StringUtil.quickEq(_op,"<")) {
+            return "<";
+        }
+        if (StringUtil.quickEq(_op,"..")) {
+            return ".";
+        }
+        return "..";
     }
 
     int getIndex() {
@@ -70,4 +110,11 @@ abstract class ExecPartType {
         analyzedType = _analyzedType;
     }
 
+    String getPreviousOperator() {
+        return previousOperator;
+    }
+
+    String getPreviousOperatorSingle() {
+        return previousOperatorSingle;
+    }
 }

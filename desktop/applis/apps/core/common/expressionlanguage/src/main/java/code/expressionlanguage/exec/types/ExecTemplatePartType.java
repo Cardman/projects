@@ -15,8 +15,8 @@ import code.util.core.StringUtil;
 
 final class ExecTemplatePartType extends ExecBinaryType {
 
-    ExecTemplatePartType(ExecParentPartType _parent, int _index) {
-        super(_parent, _index);
+    ExecTemplatePartType(ExecParentPartType _parent, int _index, String _previousOperator) {
+        super(_parent, _index, _previousOperator);
     }
 
     @Override
@@ -28,16 +28,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
         return EMPTY_STRING;
     }
 
-    @Override
-    String getSeparator(int _index) {
-        if (_index == 0) {
-            return Templates.TEMPLATE_BEGIN;
-        }
-        return Templates.TEMPLATE_SEP;
-    }
-
-    @Override
-    String getSingleSeparator(int _index) {
+    private static String getSeparator(int _index) {
         if (_index == 0) {
             return Templates.TEMPLATE_BEGIN;
         }
@@ -61,15 +52,16 @@ final class ExecTemplatePartType extends ExecBinaryType {
     }
 
     boolean okTmp(ContextEl _an) {
-        ExecPartType f_ = getFirstChild();
-        String tempCl_ = f_.getAnalyzedType();
+        CustList<ExecPartType> ch_ = getChildren();
+        String tempCl_ = ch_.first().getAnalyzedType();
         String tempClFull_ = fetchTemplate();
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
-        for (StringList t: boundsAll_) {
-            f_ = f_.getNextSibling();
-            String arg_ = f_.getAnalyzedType();
+        int len_ = Math.min(ch_.size()-1,boundsAll_.size());
+        for (int i = 0; i < len_; i++) {
+            StringList t_ = boundsAll_.get(i);
+            String arg_ = ch_.get(i+1).getAnalyzedType();
             if (StringUtil.quickEq(arg_, Templates.SUB_TYPE)) {
                 continue;
             }
@@ -82,9 +74,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
             String comp_ = arg_;
             DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
-            StringList bounds_ = new StringList();
-            bounds_.add(comp_);
-            for (String e: t) {
+            for (String e: t_) {
                 String param_ = ExecTemplates.format(tempClFull_, e, _an);
                 if (!ExecTemplates.isCorrectExecute(comp_, param_, _an)) {
                     return false;
@@ -95,12 +85,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
     }
 
     private String fetchTemplate() {
-        ExecPartType f_ = getFirstChild();
-        CustList<ExecPartType> ch_ = new CustList<ExecPartType>();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
+        CustList<ExecPartType> ch_ = getChildren();
         String t_ = getBegin();
         int len_ = ch_.size() - 1;
         for (int i = 0; i < len_; i++) {
