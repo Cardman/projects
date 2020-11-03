@@ -653,42 +653,43 @@ public final class StringExpUtil {
         }
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         int argCall_ = len_ - 1;
-        for (int i = IndexConstants.SECOND_INDEX; i < argCall_; i++) {
+        for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             String arg_ = _args.get(i);
             String param_ = _params.get(i);
-            if (StringUtil.quickEq(arg_, SUB_TYPE)) {
+            if (i < argCall_) {
+                if (StringUtil.quickEq(arg_, SUB_TYPE)) {
+                    if (StringUtil.quickEq(param_, SUB_TYPE)) {
+                        continue;
+                    }
+                    return null;
+                }
                 if (StringUtil.quickEq(param_, SUB_TYPE)) {
                     continue;
                 }
-                return null;
-            }
-            if (StringUtil.quickEq(param_, SUB_TYPE)) {
+                Matching match_ = new Matching();
+                match_.setArg(arg_);
+                match_.setParam(param_);
+                match_.setMatchEq(MatchingEnum.SUP);
+                pairsArgParam_.add(match_);
                 continue;
             }
-            Matching match_ = new Matching();
-            match_.setArg(arg_);
-            match_.setParam(param_);
-            match_.setMatchEq(MatchingEnum.SUP);
-            pairsArgParam_.add(match_);
-        }
-        String a_ = _args.last();
-        String p_ = _params.last();
-        boolean add_ = true;
-        if (StringUtil.quickEq(a_, SUB_TYPE)) {
-            if (!StringUtil.quickEq(p_, SUB_TYPE)) {
-                return null;
+            boolean add_ = true;
+            if (StringUtil.quickEq(arg_, SUB_TYPE)) {
+                if (!StringUtil.quickEq(param_, SUB_TYPE)) {
+                    return null;
+                }
+                add_ = false;
             }
-            add_ = false;
-        }
-        if (StringUtil.quickEq(p_, SUB_TYPE)) {
-            add_ = false;
-        }
-        if (!StringUtil.quickEq(p_, _objectType) && add_) {
-            Matching match_ = new Matching();
-            match_.setArg(a_);
-            match_.setParam(p_);
-            match_.setMatchEq(MatchingEnum.SUB);
-            pairsArgParam_.add(match_);
+            if (StringUtil.quickEq(param_, SUB_TYPE)) {
+                add_ = false;
+            }
+            if (!StringUtil.quickEq(param_, _objectType) && add_) {
+                Matching match_ = new Matching();
+                match_.setArg(arg_);
+                match_.setParam(param_);
+                match_.setMatchEq(MatchingEnum.SUB);
+                pairsArgParam_.add(match_);
+            }
         }
         MappingPairs m_ = new MappingPairs();
         m_.setPairsArgParam(pairsArgParam_);

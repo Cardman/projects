@@ -1898,19 +1898,18 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
     static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
         StringList paramsReturn_ = new StringList();
-        IdentifiableUtil.appendLeftPart(paramsReturn_, _constraints);
-        return finish(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_);
+        return appendParts(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_);
     }
     private static String formatReturn(String _foundClass, AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
         StringList paramsReturn_ = new StringList();
         if (!_realId.isStaticMethod()) {
             paramsReturn_.add(_foundClass);
         }
-        IdentifiableUtil.appendLeftPart(paramsReturn_, _constraints);
-        return finish(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_);
+        return appendParts(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_);
     }
 
-    private static String finish(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, StringList _paramsReturn) {
+    private static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, StringList _paramsReturn) {
+        IdentifiableUtil.appendLeftPart(_paramsReturn, _constraints);
         appendRightPart(_paramsReturn, _constraints, _page, _realClass, _realId);
         _paramsReturn.add(_returnType);
         String fctBase_ = _page.getAliasFct();

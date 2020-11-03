@@ -21,19 +21,21 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private ArrayStruct array;
     private CustList<CustList<ExecOperationNode>> annotations = new CustList<CustList<ExecOperationNode>>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private final AnnotatedStruct annotated;
 
-    public ReflectAnnotationPageEl(CustList<Argument> _arguments) {
+    public ReflectAnnotationPageEl(CustList<Argument> _arguments, AnnotatedStruct _annotated) {
         super(_arguments);
+        annotated = _annotated;
+        setGlobalArgumentStruct(_annotated);
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        Struct structBlock_ = getGlobalStruct();
         if (!retrievedAnnot) {
             if (onParameters) {
-                if (structBlock_ instanceof AnnotatedParamStruct){
-                    AnnotatedParamStruct a_ = (AnnotatedParamStruct) structBlock_;
+                if (annotated instanceof AnnotatedParamStruct){
+                    AnnotatedParamStruct a_ = (AnnotatedParamStruct) annotated;
                     ExecNamedFunctionBlock annotableBlockParam_ = a_.getAnnotableBlockParam();
                     if (annotableBlockParam_ != null) {
                         annotationsParams = annotableBlockParam_.getAnnotationsOpsParams();
@@ -42,8 +44,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                 }
             } else {
-                AnnotatedStruct annotated_ = NumParsers.getAnnotated(structBlock_);
-                ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
+                ExecAnnotableBlock annotableBlock_ = annotated.getAnnotableBlock();
                 if (annotableBlock_ != null) {
                     annotations = annotableBlock_.getAnnotationsOps();
                 }

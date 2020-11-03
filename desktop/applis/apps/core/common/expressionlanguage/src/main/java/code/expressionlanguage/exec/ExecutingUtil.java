@@ -281,9 +281,8 @@ public final class ExecutingUtil {
             pageLoc_ = refMet_;
         } else {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
-            pageLoc_ = new ReflectAnnotationPageEl(args_);
+            pageLoc_ = new ReflectAnnotationPageEl(args_, c_.getGl());
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
-            pageLoc_.setGlobalArgument(c_.getGl());
         }
         pageLoc_.setLambda(_ref.isLambda());
         ReadWrite rwLoc_ = new ReadWrite();
@@ -410,7 +409,6 @@ public final class ExecutingUtil {
                 ExecInitBlock method_ = (ExecInitBlock) b;
                 MethodId id_ = method_.getId();
                 String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
-                MethodId fid_ = tryFormatId(_name, _context, id_);
                 String idType_ = _type.getFullName();
                 String formCl_ = tryFormatType(idType_, _name, _context);
                 String idCl_ = _type.getFullName();
@@ -420,14 +418,12 @@ public final class ExecutingUtil {
                 } else {
                     mod_ = MethodModifier.STATIC;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PRIVATE, idCl_, id_,mod_, ret_, fid_, formCl_);
-                met_.setInvokable(false);
+                MethodMetaInfo met_ = new MethodMetaInfo(_name,idCl_, id_,mod_, ret_, formCl_);
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
                 infos_.add(met_);
-                met_ = new MethodMetaInfo(_name,AccessEnum.PRIVATE, idCl_, id_,mod_, ret_, fid_, formCl_);
-                met_.setInvokable(false);
+                met_ = new MethodMetaInfo(_name,idCl_, id_,mod_, ret_, formCl_);
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);

@@ -29,7 +29,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private final String returnType;
     private String fileName = EMPTY_STRING;
     private boolean expCast;
-    private boolean invokable;
+    private final boolean invokable;
     private ExecNamedFunctionBlock annotableBlock;
     private ExecMemberCallingsBlock callee;
     private ExecNamedFunctionBlock calleeInv;
@@ -60,13 +60,21 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         fid = _fid;
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
     }
+    public MethodMetaInfo(String _declaringClass, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
+                          String _formDeclaringClass) {
+        declaringClass = StringUtil.nullToEmpty(_declaringClass);
+        invokable = false;
+        access = AccessEnum.PRIVATE;
+        className = StringUtil.nullToEmpty(_className);
+        realId = _realId;
+        modifier = _modifier;
+        returnType = StringUtil.nullToEmpty(_returnType);
+        fid = _realId;
+        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+    }
 
     public String getDeclaringClass() {
         return declaringClass;
-    }
-
-    public void setInvokable(boolean _invokable) {
-        this.invokable = _invokable;
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
