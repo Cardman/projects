@@ -729,17 +729,8 @@ public final class AnaPartTypeUtil {
             return null;
         }
         AnaParentPartType par_ = (AnaParentPartType) _parent;
-        int indexPar_ = 0;
-        int off_ = 0;
-        AnaPartType g_ = par_;
-        for (int i = _dels.size()-1; i >= 0; i--) {
-            IntTreeMap< String> befLast_;
-            befLast_ = _dels.get(i);
-            off_ += befLast_.getKey(indexPar_);
-            indexPar_ = g_.getIndex();
-            g_ = g_.getParent();
-        }
         IntTreeMap< String> last_ = _dels.last();
+        int off_ = par_.getIndexInType() + last_.firstKey();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(par_, 0, off_, an_, last_);
@@ -790,16 +781,7 @@ public final class AnaPartTypeUtil {
         if (last_.size() <= indexNext_) {
             return null;
         }
-        int indexPar_ = indexNext_;
-        int off_ = 0;
-        AnaPartType g_ = par_;
-        for (int i = _dels.size()-1; i >= 0; i--) {
-            IntTreeMap< String> befLast_;
-            befLast_ = _dels.get(i);
-            off_ += befLast_.getKey(indexPar_);
-            indexPar_ = g_.getIndex();
-            g_ = g_.getParent();
-        }
+        int off_ = par_.getIndexInType() + last_.getKey(indexNext_);
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(b_,indexNext_, off_, an_, last_);
@@ -862,11 +844,6 @@ public final class AnaPartTypeUtil {
             values_ = new IntTreeMap< String>();
             values_.addAllEntries(_an.getValues());
             values_.removeKey(values_.lastKey());
-            _dels.add(values_);
-        } else if (_p instanceof AnaInnerPartType) {
-            IntTreeMap<String> values_;
-            values_ = new IntTreeMap< String>();
-            values_.addAllEntries(_an.getValues());
             _dels.add(values_);
         } else {
             _dels.add(_an.getValues());
