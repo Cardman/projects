@@ -5555,10 +5555,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         assertTrue(_context.isEmptyErrors());
         Classes.forwardAndClear(_context.getContext(), page_, _context.getForwards());
-        for (ClassMetaInfo c: _context.getContext().getClasses().getClassMetaInfos()) {
-            String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context.getContext(), name_), c);
-        }
+        Classes.forwardClassesMetaInfos(_context.getContext());
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(_context, out_);
         assertNull(getException(_context));

@@ -433,10 +433,8 @@ public final class ExecutingUtil {
                 ExecAnnotationMethodBlock method_ = (ExecAnnotationMethodBlock) b;
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
-                MethodId fid_;
                 String formCl_ = _type.getFullName();
-                fid_ = id_;
-                MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, id_, formCl_);
                 met_.setAnnotableBlock(method_);
                 met_.setCallee(method_);
                 met_.setCalleeInv(method_);
@@ -463,10 +461,8 @@ public final class ExecutingUtil {
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             AccessEnum acc_ = _type.getAccess();
-            ConstructorId fid_;
             String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
-            fid_ = id_;
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, _name);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
             infosConst_.add(met_);
@@ -477,17 +473,14 @@ public final class ExecutingUtil {
             String string_ = _context.getStandards().getContent().getCharSeq().getAliasString();
             MethodId id_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
             String ret_ = _type.getWildCardString();
-            MethodId fid_;
-            fid_ = id_;
             String decl_ = _type.getFullName();
-            MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
+            MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
             infos_.add(met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = StringExpUtil.getPrettyArrayType(ret_);
-            fid_ = id_;
-            met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
+            met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
             infos_.add(met_);
@@ -686,10 +679,8 @@ public final class ExecutingUtil {
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
-            ConstructorId fid_;
             String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
-            fid_ = id_;
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, fid_, _name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, id_, _name);
             infosConst_.add(met_);
         }
         boolean st_ = _type.isStaticType();

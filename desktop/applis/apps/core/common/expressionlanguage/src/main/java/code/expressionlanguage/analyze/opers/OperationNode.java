@@ -962,18 +962,17 @@ public abstract class OperationNode {
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        AnalyzedPageEl page_ = _page;
-        undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
-        undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(_staticContext, _name, classesNames_).getSignature(page_));
-        page_.getLocalizer().addError(undefined_);
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
         _op.getErrs().add(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
-        return_.setReturnType(page_.getAliasObject());
+        return_.setReturnType(_page.getAliasObject());
         return return_;
     }
 
@@ -990,18 +989,17 @@ public abstract class OperationNode {
             classesNames_.add(StringUtil.join(c.getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        AnalyzedPageEl page_ = _page;
-        undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
-        undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(_staticContext, _name, classesNames_).getSignature(page_));
-        page_.getLocalizer().addError(undefined_);
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
         _op.getErrs().add(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
-        return_.setReturnType(page_.getAliasObject());
+        return_.setReturnType(_page.getAliasObject());
         return return_;
     }
     static ClassMethodIdReturn getDeclaredCustMethodLambda(OperationNode _op, int _varargOnly,

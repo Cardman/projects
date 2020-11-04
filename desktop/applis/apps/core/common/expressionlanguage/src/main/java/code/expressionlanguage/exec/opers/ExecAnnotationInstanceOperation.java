@@ -38,12 +38,12 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _conf);
-        if (instancingAnnotContent.isArray()) {
+        if (rootBlock == null) {
             int nbCh_ = chidren_.size();
             Ints dims_;
             dims_ = new Ints();
             dims_.add(nbCh_);
-            String className_ = StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName());
+            String className_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName()));
             Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
             ExecTemplates.setCheckedElements(_arguments,str_,_conf);
             return new Argument(str_);

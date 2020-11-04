@@ -27,16 +27,17 @@ public final class ExpressionLanguage {
     }
 
     public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset) {
-        if (_right.isFinished()) {
-            return _right.getArgument();
+        Argument argument_ = _right.argument;
+        if (argument_ != null) {
+            return argument_;
         }
         IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset);
         if (_conf.callsOrException()) {
-            return _right.getArgument();
+            return Argument.getNullableValue(_right.argument);
         }
-        _right.finish();
-        return Argument.getNullableValue(_right.getArgument());
+        _right.argument = Argument.getNullableValue(_right.arguments.lastValue().getArgument());
+        return _right.argument;
     }
 
     private static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
@@ -170,7 +171,7 @@ public final class ExpressionLanguage {
     }
 
     public Argument getArgument() {
-        return argument;
+        return Argument.getNullableValue(argument);
     }
 
     public void setArgument(Argument _arg, ContextEl _cont) {
@@ -221,13 +222,6 @@ public final class ExpressionLanguage {
             }
         }
         return Math.max(_least, ExecOperationNode.getNextIndex(_oper, v_));
-    }
-    public boolean isFinished() {
-        return argument != null;
-    }
-
-    public void finish() {
-        argument = arguments.lastValue().getArgument();
     }
 
     public IdMap<ExecOperationNode, ArgumentsPair> getArguments() {

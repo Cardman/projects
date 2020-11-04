@@ -69,7 +69,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         staticType = true;
         typeOwner = EMPTY_STRING;
         if (_cat == ClassCategory.ARRAY) {
-            String id_ = StringExpUtil.getIdFromAllTypes(_name);
+            String id_ = StringExpUtil.getIdFromAllTypes(name);
             String comp_ = StringExpUtil.getQuickComponentBaseType(id_).getComponent();
             if (ExecClassArgumentMatching.isPrimitive(comp_, _context)) {
                 abstractType = true;

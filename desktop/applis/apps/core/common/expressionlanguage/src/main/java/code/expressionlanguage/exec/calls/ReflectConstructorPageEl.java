@@ -36,8 +36,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         if (ExecutingUtil.isAbstractType(type_)) {
-            String null_;
-            null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
+            String null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_)));
             return false;
         }

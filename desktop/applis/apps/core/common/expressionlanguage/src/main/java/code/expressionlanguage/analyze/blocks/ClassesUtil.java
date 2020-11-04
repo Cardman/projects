@@ -2776,16 +2776,14 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
-                Struct value_ = Classes.getStaticField(k_, _page.getStaticFields());
-                if (value_ != null) {
+                if (Classes.getStaticField(k_, _page.getStaticFields()) != null) {
                     continue;
                 }
                 ClassFieldBlock cf_ = e.getValue();
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ReachOperationUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
-                value_ = Classes.getStaticField(k_, _page.getStaticFields());
-                if (value_ != null) {
+                if (Classes.getStaticField(k_, _page.getStaticFields()) != null) {
                     calculatedValue_ = true;
                     break;
                 }

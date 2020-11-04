@@ -10,7 +10,7 @@ import code.util.IdMap;
 public final class ExecStaticInfoOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation {
 
-    private String className;
+    private final String className;
 
     public ExecStaticInfoOperation(ExecOperationContent _opCont, String _className) {
         super(_opCont);

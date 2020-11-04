@@ -3,13 +3,14 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
+import code.util.core.StringUtil;
 
 public final class StringStruct extends CharSequenceStruct implements AnaDisplayableStruct {
 
     private final String instance;
 
     public StringStruct(String _instance) {
-        instance = _instance;
+        instance = StringUtil.nullToEmpty(_instance);
     }
 
     public boolean sameReference(Struct _other) {

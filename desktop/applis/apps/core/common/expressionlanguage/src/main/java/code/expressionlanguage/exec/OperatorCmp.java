@@ -8,7 +8,7 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
-public class OperatorCmp implements Comparing<MethodMetaInfo> {
+public final class OperatorCmp implements Comparing<MethodMetaInfo> {
 
     @Override
     public int compare(MethodMetaInfo _one, MethodMetaInfo _two) {

@@ -64,7 +64,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
                 typeInfer = infer_;
-                setClassName(StringExpUtil.getQuickComponentType(infer_));
+                setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(infer_)));
             }
         }
         if (call_ instanceof RetrieveConstructor) {
@@ -87,7 +87,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
                 typeInfer = infer_;
-                setClassName(StringExpUtil.getQuickComponentType(infer_));
+                setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(infer_)));
             }
         }
     }

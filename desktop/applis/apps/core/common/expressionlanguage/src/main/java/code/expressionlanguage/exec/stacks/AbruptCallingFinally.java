@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.stacks;
 
 import code.expressionlanguage.exec.blocks.MethodCallingFinally;
 
-public class AbruptCallingFinally {
+public final class AbruptCallingFinally {
     private final MethodCallingFinally callingFinally;
 
     public AbruptCallingFinally(MethodCallingFinally _callingFinally) {

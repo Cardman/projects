@@ -744,7 +744,7 @@ public final class ExecTemplates {
             return ErrorType.BAD_INDEX;
         }
         String arrType_ = arr_.getClassName();
-        String param_ = StringExpUtil.getQuickComponentType(arrType_);
+        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         LgNames stds_ = _context.getStandards();
         if (primitiveTypeNullObject(param_, _value, stds_)) {
             return ErrorType.NPE;
@@ -806,7 +806,7 @@ public final class ExecTemplates {
     }
     private static StringBuilder buildStoreError(Struct _value, ContextEl _context, ArrayStruct _arr) {
         String arrType_ = _arr.getClassName();
-        String param_ = StringExpUtil.getQuickComponentType(arrType_);
+        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         String arg_ = _value.getClassName(_context);
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);

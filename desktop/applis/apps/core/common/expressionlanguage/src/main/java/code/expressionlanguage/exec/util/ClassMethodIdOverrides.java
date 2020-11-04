@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.util.CustList;
 
-public class ClassMethodIdOverrides {
-    private CustList<ClassMethodIdOverride> overrides = new CustList<ClassMethodIdOverride>();
+public final class ClassMethodIdOverrides {
+    private final CustList<ClassMethodIdOverride> overrides = new CustList<ClassMethodIdOverride>();
     public void add(ClassMethodIdOverride _override) {
         overrides.add(_override);
     }

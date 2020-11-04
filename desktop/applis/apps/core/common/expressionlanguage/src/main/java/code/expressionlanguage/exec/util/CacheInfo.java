@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.util;
 
 import code.util.CustList;
 
-public class CacheInfo {
+public final class CacheInfo {
     private final CustList<NameAndType> cacheLocalNames = new CustList<NameAndType>();
     private final CustList<NameAndType> cacheLoopNames = new CustList<NameAndType>();
 

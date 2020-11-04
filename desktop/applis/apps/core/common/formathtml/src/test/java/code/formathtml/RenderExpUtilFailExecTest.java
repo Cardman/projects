@@ -2289,10 +2289,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertTrue(_conf.isEmptyErrors());
         ContextEl context_ = _conf.getContext();
         Classes.forwardAndClear(context_, page_, _conf.getForwards());
-        for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
-            String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
-        }
+        Classes.forwardClassesMetaInfos(context_);
         out_ = CommonRender.getReducedNodes(out_.last());
         _conf.getContext().setExiting(new NoExiting());
         calculateReuse(_conf,out_);

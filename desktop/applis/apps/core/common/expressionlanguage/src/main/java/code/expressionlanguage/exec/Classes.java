@@ -100,10 +100,7 @@ public final class Classes {
 
     public static void tryInitStaticlyTypes(ContextEl _context, Options _options) {
         Classes cl_ = _context.getClasses();
-        for (ClassMetaInfo c: cl_.getClassMetaInfos()) {
-            String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
-        }
+        forwardClassesMetaInfos(_context);
         DefaultLockingClass dl_ = _context.getLocks();
         dl_.init(_context);
         for (ExecRootBlock c: cl_.getClassBodies()) {
@@ -161,6 +158,13 @@ public final class Classes {
         _context.getInitializingTypeInfos().resetInitEnums(_context);
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
         _context.setExiting(new NoExiting());
+    }
+
+    public static void forwardClassesMetaInfos(ContextEl _context) {
+        for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
+        }
     }
 
     private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
