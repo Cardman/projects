@@ -188,10 +188,10 @@ public final class AliasCharSequence {
             return;
         }
         boolean case_ = BooleanStruct.isTrue(_case);
-        StringStruct other_ = (StringStruct) _other;
-        int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
+        StringStruct other_ = (StringStruct) _other;
         int po_ = _ooffset.intStruct();
+        int comLen_ = _len.intStruct();
         _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_)));
     }
 
@@ -258,10 +258,10 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(list_.last(), bytePrimType_)) {
-            newStringStructByByteArray(_args[2], _args[0], _args[1], _res, _context);
+            newStringStructByByteArray(_args[0], _args[1], _args[2], _res, _context);
             return;
         }
-        newStringStructByCharArray(_args[2], _args[0], _args[1], _res, _context);
+        newStringStructByCharArray(_args[0], _args[1], _args[2], _res, _context);
     }
 
     private static void newStringStructByCharArray(Struct _arg, ResultErrorStd _res, ContextEl _context) {
@@ -278,12 +278,12 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(String.valueOf(arr_)));
     }
 
-    private static void newStringStructByCharArray(Struct _arg, Struct _one, Struct _two, ResultErrorStd _res, ContextEl _context) {
-        if (!(_arg instanceof ArrayStruct)) {
+    private static void newStringStructByCharArray(Struct _one, Struct _two, Struct _array, ResultErrorStd _res, ContextEl _context) {
+        if (!(_array instanceof ArrayStruct)) {
             _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
-        ArrayStruct chArr_ = (ArrayStruct) _arg;
+        ArrayStruct chArr_ = (ArrayStruct) _array;
         int len_ = chArr_.getLength();
         int one_ = NumParsers.convertToNumber(_one).intStruct();
         int two_ = NumParsers.convertToNumber(_two).intStruct();
@@ -325,12 +325,12 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(chars_));
     }
 
-    private static void newStringStructByByteArray(Struct _arg, Struct _one, Struct _two, ResultErrorStd _res, ContextEl _context) {
-        if (!(_arg instanceof ArrayStruct)) {
+    private static void newStringStructByByteArray(Struct _one, Struct _two, Struct _array, ResultErrorStd _res, ContextEl _context) {
+        if (!(_array instanceof ArrayStruct)) {
             _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
-        ArrayStruct chArr_ = (ArrayStruct) _arg;
+        ArrayStruct chArr_ = (ArrayStruct) _array;
         int len_ = chArr_.getLength();
         byte[] arr_ = new byte[len_];
         for (int i = 0; i < len_; i++) {
@@ -545,7 +545,6 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
             _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
@@ -564,7 +563,6 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
             _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
@@ -1011,10 +1009,10 @@ public final class AliasCharSequence {
             _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
-        CharSequenceStruct other_ = NumParsers.getCharSeq(_other);
-        int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
+        CharSequenceStruct other_ = NumParsers.getCharSeq(_other);
         int po_ = _ooffset.intStruct();
+        int comLen_ = _len.intStruct();
         _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_)));
     }
 
