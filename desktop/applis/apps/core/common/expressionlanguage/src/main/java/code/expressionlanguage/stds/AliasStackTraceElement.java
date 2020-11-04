@@ -1,11 +1,11 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -59,7 +59,7 @@ public final class AliasStackTraceElement {
             result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_cont));
             return result_;
         }
-        result_.setResult(StackTraceElementStruct.getStack(_struct).getDisplayedString(_cont));
+        result_.setResult(NumParsers.getStack(_struct).getDisplayedString(_cont));
         return result_;
     }
     public String getAliasStackTraceElement() {

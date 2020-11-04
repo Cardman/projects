@@ -1,9 +1,9 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 final class ExecArraryPartType extends ExecParentPartType {
@@ -31,7 +31,7 @@ final class ExecArraryPartType extends ExecParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+    boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels) {
         String ch_ = getChildren().first().getAnalyzedType();
         ch_ = StringUtil.concat(getBegin(),ch_);
         setAnalyzedType(ch_);

@@ -48,7 +48,7 @@ public final class Navigation {
 
     private String referenceScroll;
 
-    private String currentUrl;
+    private String currentUrl = "";
 
     private String language = "";
     private StringList languages = new StringList();

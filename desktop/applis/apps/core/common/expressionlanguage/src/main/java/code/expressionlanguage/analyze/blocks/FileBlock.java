@@ -26,7 +26,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private Ints importsOffset = new Ints();
 
-    private String fileName;
+    private final String fileName;
 
     private boolean predefined;
 
@@ -38,10 +38,11 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private int length;
     private int numberFile;
 
-    public FileBlock(OffsetsBlock _offset, boolean _predefined) {
+    public FileBlock(OffsetsBlock _offset, boolean _predefined, String _fileName) {
         super(_offset);
         metricsCore = new FileMetricsCore(new Ints(),new Ints());
         predefined = _predefined;
+        fileName = _fileName;
     }
 
     public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
@@ -151,10 +152,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        fileName = _fileName;
     }
 
     public String getRenderFileName() {

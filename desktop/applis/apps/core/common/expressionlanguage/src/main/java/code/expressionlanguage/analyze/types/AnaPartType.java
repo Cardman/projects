@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -35,11 +36,11 @@ abstract class AnaPartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static AnaPartType createPartType(boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels, AnalyzedPageEl _page) {
+    static AnaPartType createPartType(boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, StrTypes _dels, AnalyzedPageEl _page) {
         if (_analyze.isError()) {
             return new AnaEmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
         }
-        IntTreeMap<String> operators_ = _analyze.getOperators();
+        StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = ".";
             if (_parent instanceof AnaInnerPartType && _index > 0) {
@@ -73,11 +74,11 @@ abstract class AnaPartType {
         }
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
-    static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
+    static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, StrTypes _dels) {
         if (_analyze.isError()) {
             return new AnaEmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
         }
-        IntTreeMap<String> operators_ = _analyze.getOperators();
+        StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = ".";
             if (_parent instanceof AnaInnerPartType && _index > 0) {
@@ -101,10 +102,10 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
 
-    abstract void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
-    abstract void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
 
-    abstract void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page);
 
     int getIndex() {
         return index;

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -20,7 +21,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
     private PartOffset lastPartBegin = new PartOffset("",0);
     private PartOffset lastPartEnd = new PartOffset("",0);
 
-    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
+    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
         super(_parent, _index, _indexInType,_operators);
     }
 
@@ -39,17 +40,17 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return Templates.TEMPLATE_END;
     }
     @Override
-    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeLine(null,_dels,_local,_rooted, null);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 
     @Override
-    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 

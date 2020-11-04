@@ -574,8 +574,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
-        fileBlock_.setFileName(_fileName);
+        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, _fileName);
         _page.putFileBlock(_fileName, fileBlock_);
         ContextEl ctx_ = _context.getContext();
         ctx_.getCoverage().putFile(fileBlock_);

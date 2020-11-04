@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.types;
 
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -21,7 +22,7 @@ abstract class ExecPartType {
         previousOperatorSingle = trOp(_previousOperator);
     }
 
-    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, IntTreeMap<String> _dels) {
+    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, StrTypes _dels) {
         String previousOperator_ = EMPTY_STRING;
         if (_parent instanceof ExecInnerPartType) {
             CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
@@ -41,7 +42,7 @@ abstract class ExecPartType {
         if (_analyze.isError()) {
             return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"", previousOperator_);
         }
-        IntTreeMap<String> operators_ = _analyze.getOperators();
+        StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = "..";
             if (_parent instanceof ExecInnerPartType) {

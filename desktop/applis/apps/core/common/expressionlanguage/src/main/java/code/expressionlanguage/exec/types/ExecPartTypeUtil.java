@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ArrayResult;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
@@ -121,8 +122,8 @@ public final class ExecPartTypeUtil {
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
@@ -167,8 +168,8 @@ public final class ExecPartTypeUtil {
     public static String processPrettySingleType(String _input) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
@@ -216,8 +217,8 @@ public final class ExecPartTypeUtil {
             return new ExecResultPartType("",null);
         }
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         ExecPartType current_ = root_;
@@ -271,12 +272,12 @@ public final class ExecPartTypeUtil {
         }
         return new ExecResultPartType(out_.toString(), root_);
     }
-    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, CustList<IntTreeMap<String>> _dels) {
+    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, CustList<StrTypes> _dels) {
         if (!(_parent instanceof ExecParentPartType)) {
             return new ExecParentChildType(null,null);
         }
         ExecParentPartType par_ = (ExecParentPartType) _parent;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         String v_ = last_.firstValue();
         ExecAnalyzingType an_ = analyzeLocalExec(v_);
         ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, last_);
@@ -284,7 +285,7 @@ public final class ExecPartTypeUtil {
         return new ExecParentChildType(par_,p_);
     }
 
-    private static ExecPartType createNextSiblingExec(ExecPartType _parent, CustList<IntTreeMap<String>> _dels) {
+    private static ExecPartType createNextSiblingExec(ExecPartType _parent, CustList<StrTypes> _dels) {
         ExecParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof ExecBinaryType)) {
             return null;
@@ -292,7 +293,7 @@ public final class ExecPartTypeUtil {
         ExecBinaryType b_ = (ExecBinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -303,15 +304,14 @@ public final class ExecPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static void addValues(ExecPartType _p, CustList<IntTreeMap< String>> _dels, ExecAnalyzingType _an) {
+    private static void addValues(ExecPartType _p, CustList<StrTypes> _dels, ExecAnalyzingType _an) {
         if (!(_p instanceof ExecParentPartType)) {
             return;
         }
         if (_p instanceof ExecTemplatePartType) {
-            IntTreeMap<String> values_;
-            values_ = new IntTreeMap< String>();
-            values_.addAllEntries(_an.getValues());
-            values_.removeKey(values_.lastKey());
+            StrTypes values_;
+            values_ = _an.getValues();
+            values_.removeLast();
             _dels.add(values_);
         } else {
             _dels.add(_an.getValues());
@@ -320,7 +320,7 @@ public final class ExecPartTypeUtil {
 
     private static ExecAnalyzingType analyzeLocalExec(String _string) {
         ExecAnalyzingType a_ = new ExecAnalyzingType();
-        IntTreeMap<String> values_ = a_.getValues();
+        StrTypes values_ = a_.getValues();
         if (_string.trim().isEmpty()) {
             values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
             a_.setError(true);
@@ -349,7 +349,7 @@ public final class ExecPartTypeUtil {
             a_.setupUnaryValuesExec(_string, Templates.SUP_TYPE);
             return a_;
         }
-        IntTreeMap<String> operators_ = a_.getOperators();
+        StrTypes operators_ = a_.getOperators();
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_, operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {

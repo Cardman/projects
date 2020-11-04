@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.util.core.StringUtil;
 
 public final class LambdaFieldStruct extends WithoutParentIdStruct implements LambdaStruct {
 
@@ -24,13 +25,13 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public LambdaFieldStruct(String _className, String _ownerType,ClassField _fid,
                              boolean _shiftInstance, int _ancestor, boolean _affect, String _returnFieldType) {
-        className = _className;
-        ownerType = _ownerType;
+        className = StringUtil.nullToEmpty(_className);
+        ownerType = StringUtil.nullToEmpty(_ownerType);
         fid = _fid;
         shiftInstance = _shiftInstance;
         ancestor = _ancestor;
         affect = _affect;
-        returnFieldType = _returnFieldType;
+        returnFieldType = StringUtil.nullToEmpty(_returnFieldType);
     }
 
     public Argument getInstanceCall() {

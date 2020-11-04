@@ -1043,7 +1043,7 @@ public final class StringExpUtil {
         return true;
     }
 
-    public static ArrayResult tryGetArray(String _string, IntTreeMap<String> _values, IntTreeMap<String> _operators) {
+    public static ArrayResult tryGetArray(String _string, StrTypes _values, StrTypes _operators) {
         int j_ = _string.length()-1;
         boolean arr_ = true;
         while (true) {

@@ -690,8 +690,7 @@ public final class ClassesUtil {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
-            FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
-            fileBlock_.setFileName(file_);
+            FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined, file_);
             fileBlock_.setNumberFile(_page.getFilesBodies().size());
             _page.putFileBlock(file_, fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);

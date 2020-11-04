@@ -1,9 +1,9 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 final class ExecNamePartType extends ExecLeafPartType {
@@ -12,7 +12,7 @@ final class ExecNamePartType extends ExecLeafPartType {
     }
 
     @Override
-    void checkDynExistence(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+    void checkDynExistence(ContextEl _an, CustList<StrTypes> _dels) {
         ExecPartType part_ = getPreviousPartType();
         String typeName_ = getTypeName();
         typeName_ = StringExpUtil.removeDottedSpaces(typeName_);

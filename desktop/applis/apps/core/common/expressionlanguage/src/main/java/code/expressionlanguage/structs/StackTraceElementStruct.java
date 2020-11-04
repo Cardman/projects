@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -29,7 +30,7 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
 
     @Override
     public boolean sameReference(Struct _other) {
-        StackTraceElementStruct other_ = getStack(_other);
+        StackTraceElementStruct other_ = NumParsers.getStack(_other);
         if (!(_other instanceof StackTraceElementStruct)) {
             return false;
         }
@@ -39,12 +40,6 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
         return NumberUtil.eq(indexFileType, other_.indexFileType);
     }
 
-    public static StackTraceElementStruct getStack(Struct _str) {
-        if (_str instanceof StackTraceElementStruct) {
-            return (StackTraceElementStruct) _str;
-        }
-        return new StackTraceElementStruct("",-1,-1,-1,"","");
-    }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(getStringRep());

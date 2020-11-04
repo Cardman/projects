@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.util.core.StringUtil;
 
 public final class LambdaConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
@@ -16,8 +17,8 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
 
     public LambdaConstructorStruct(String _className, String _formClassName,
                                    boolean _shiftInstance) {
-        className = _className;
-        formClassName = _formClassName;
+        className = StringUtil.nullToEmpty(_className);
+        formClassName = StringUtil.nullToEmpty(_formClassName);
         shiftInstance = _shiftInstance;
     }
 

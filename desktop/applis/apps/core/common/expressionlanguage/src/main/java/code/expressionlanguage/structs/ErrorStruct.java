@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.util.CollCapacity;
 import code.util.StringList;
@@ -45,7 +46,7 @@ public final class ErrorStruct extends WithoutParentIdStruct implements Erroneou
         str_.add(className);
         str_.add(message);
         for (Struct s: _arrInst.list()) {
-            str_.add(StackTraceElementStruct.getStack(s).getStringRep());
+            str_.add(NumParsers.getStack(s).getStringRep());
         }
         return StringUtil.join(str_, "\n");
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ArrayResult;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.types.KindPartType;
@@ -113,7 +114,7 @@ public final class ParserType {
     }
 
     private static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
-        IntTreeMap<String> values_ = _a.getValues();
+        StrTypes values_ = _a.getValues();
         if (_string.trim().isEmpty()) {
             values_.addEntry((int)IndexConstants.FIRST_INDEX, _string);
             _a.setError(true);
@@ -137,7 +138,7 @@ public final class ParserType {
             _a.setupWildCardValues(Templates.SUP_TYPE, _string);
             return _a;
         }
-        IntTreeMap<String> operators_ = _a.getOperators();
+        StrTypes operators_ = _a.getOperators();
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_,operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {

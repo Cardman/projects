@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -22,8 +23,8 @@ public final class AnaPartTypeUtil {
             return false;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         AnaPartType root_ = AnaPartType.createPartType(null, 0, 0, loc_, loc_.getValues());
         addValues(root_, dels_, loc_);
         AnaPartType current_ = root_;
@@ -136,8 +137,8 @@ public final class AnaPartTypeUtil {
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input.trim(), indexes_);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, loc_.getValues(), _page);
         root_.setLength(_input.trim().length());
         addValues(root_, dels_, loc_);
@@ -429,8 +430,8 @@ public final class AnaPartTypeUtil {
             return null;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input.trim(), indexes_);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, loc_.getValues(), _page);
         root_.setLength(_input.trim().length());
         addIfLeaf(root_, _leaves);
@@ -526,8 +527,8 @@ public final class AnaPartTypeUtil {
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocalId(0, _input.trim(), indexes_);
-        CustList<IntTreeMap< String>> dels_;
-        dels_ = new CustList<IntTreeMap< String>>();
+        CustList<StrTypes> dels_;
+        dels_ = new CustList<StrTypes>();
         AnaPartType root_ = AnaPartType.createPartType(false, null, 0, 0, loc_, loc_.getValues(), _page);
         root_.setLength(_input.trim().length());
         CustList<AnaLeafPartType> l_ = new CustList<AnaLeafPartType>();
@@ -724,12 +725,12 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static AnaPartType createFirstChild(AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static AnaPartType createFirstChild(AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels) {
         if (!(_parent instanceof AnaParentPartType)) {
             return null;
         }
         AnaParentPartType par_ = (AnaParentPartType) _parent;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         int off_ = par_.getIndexInType() + last_.firstKey();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes());
@@ -738,12 +739,12 @@ public final class AnaPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static AnaPartType createFirstChild(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private static AnaPartType createFirstChild(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         if (!(_parent instanceof AnaParentPartType)) {
             return null;
         }
         AnaParentPartType par_ = (AnaParentPartType) _parent;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         int off_ = par_.getIndexInType() + last_.firstKey();
         String v_ = last_.firstValue();
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
@@ -753,12 +754,12 @@ public final class AnaPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static AnaPartType createFirstChildId(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private static AnaPartType createFirstChildId(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         if (!(_parent instanceof AnaParentPartType)) {
             return null;
         }
         AnaParentPartType par_ = (AnaParentPartType) _parent;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         int off_ = par_.getIndexInType() + last_.firstKey();
         String v_ = last_.firstValue();
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
@@ -769,7 +770,7 @@ public final class AnaPartTypeUtil {
         return p_;
     }
 
-    private static AnaPartType createNextSibling(AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static AnaPartType createNextSibling(AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels) {
         AnaParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof AnaBinaryType)) {
             return null;
@@ -777,7 +778,7 @@ public final class AnaPartTypeUtil {
         AnaBinaryType b_ = (AnaBinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -790,7 +791,7 @@ public final class AnaPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static AnaPartType createNextSibling(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private static AnaPartType createNextSibling(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         AnaParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof AnaBinaryType)) {
             return null;
@@ -798,7 +799,7 @@ public final class AnaPartTypeUtil {
         AnaBinaryType b_ = (AnaBinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -812,7 +813,7 @@ public final class AnaPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static AnaPartType createNextSiblingId(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private static AnaPartType createNextSiblingId(boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         AnaParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof AnaBinaryType)) {
             return null;
@@ -820,7 +821,7 @@ public final class AnaPartTypeUtil {
         AnaBinaryType b_ = (AnaBinaryType) par_;
         int indexCur_ = _parent.getIndex();
         int indexNext_ = indexCur_ + 1;
-        IntTreeMap< String> last_ = _dels.last();
+        StrTypes last_ = _dels.last();
         if (last_.size() <= indexNext_) {
             return null;
         }
@@ -835,15 +836,14 @@ public final class AnaPartTypeUtil {
         return p_;
     }
 
-    private static void addValues(AnaPartType _p, CustList<IntTreeMap< String>> _dels, AnalyzingType _an) {
+    private static void addValues(AnaPartType _p, CustList<StrTypes> _dels, AnalyzingType _an) {
         if (!(_p instanceof AnaParentPartType)) {
             return;
         }
         if (_p instanceof AnaTemplatePartType) {
-            IntTreeMap<String> values_;
-            values_ = new IntTreeMap< String>();
-            values_.addAllEntries(_an.getValues());
-            values_.removeKey(values_.lastKey());
+            StrTypes values_;
+            values_ = _an.getValues();
+            values_.removeLast();
             _dels.add(values_);
         } else {
             _dels.add(_an.getValues());

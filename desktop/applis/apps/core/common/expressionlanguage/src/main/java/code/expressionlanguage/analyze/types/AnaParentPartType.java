@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.common.StrTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -11,8 +12,8 @@ abstract class AnaParentPartType extends AnaPartType {
     private CustList<PartOffset> endOps = new CustList<PartOffset>();
     private CustList<StringList> errsList = new CustList<StringList>();
     private AnaPartType firstChild;
-    private IntTreeMap<String> operators;
-    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
+    private StrTypes operators;
+    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
         super(_parent, _index, _indexInType);
         operators = _operators;
     }
@@ -43,7 +44,7 @@ abstract class AnaParentPartType extends AnaPartType {
         return firstChild;
     }
 
-    IntTreeMap<String> getOperators() {
+    StrTypes getOperators() {
         return operators;
     }
 

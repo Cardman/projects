@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 final class ExecWildCardPartType extends ExecParentPartType {
@@ -32,7 +32,7 @@ final class ExecWildCardPartType extends ExecParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+    boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels) {
         if (!(getParent() instanceof ExecTemplatePartType)) {
             return false;
         }

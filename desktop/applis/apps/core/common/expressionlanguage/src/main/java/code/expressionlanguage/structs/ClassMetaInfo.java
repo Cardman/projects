@@ -53,7 +53,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private ExecAnnotableBlock annotableBlock;
     private ExecRootBlock rootBlock;
     public ClassMetaInfo(String _name) {
-        name = _name;
+        name = StringUtil.nullToEmpty(_name);
         variableOwner = "";
         fieldsInfos = new CustList<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();

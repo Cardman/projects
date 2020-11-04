@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -13,12 +14,12 @@ final class AnaEmptyWildCardPart extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeLine(null,_dels,_local,_rooted, null);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaTemplatePartType)) {
             return;
         }
@@ -26,7 +27,7 @@ final class AnaEmptyWildCardPart extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaTemplatePartType)) {
             return;
         }

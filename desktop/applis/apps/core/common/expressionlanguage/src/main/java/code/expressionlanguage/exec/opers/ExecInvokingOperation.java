@@ -519,7 +519,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 nList_.add(new Argument(arr_));
                 return redirect(_conf, l_, nList_, method_);
             }
-            if (FunctionIdUtil.isOperatorName(StringUtil.nullToEmpty(l_.getMethodName()))) {
+            if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
                 ArrayStruct arr_ = feedInserted(values_, instanceStruct_, obj_);
                 CustList<Argument> nList_ = new CustList<Argument>();
                 nList_.add(new Argument(arr_));
@@ -566,7 +566,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, CustList<Argument> _nList, MethodMetaInfo _method) {
-        String name_ = StringUtil.nullToEmpty(_l.getMethodName());
+        String name_ = _l.getMethodName();
         if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && name_.startsWith("[]")) {
             Struct arr_ = ExecTemplates.getFirstArgument(_nList).getStruct();
             ArrayStruct argArr_ = ExecArrayFieldOperation.getArray(ExecTemplates.getArgument(_nList,1).getStruct(),_conf);

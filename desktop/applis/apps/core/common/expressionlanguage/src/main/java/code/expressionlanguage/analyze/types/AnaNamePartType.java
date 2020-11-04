@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -25,14 +26,14 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         if (skipGenericInners(_dels, _page)) {
             return;
         }
         tryAnalyzeInnerParts(_local,_rooted, _page);
     }
 
-    private boolean skipGenericInners(CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private boolean skipGenericInners(CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -67,14 +68,14 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         if (skipInners(_ready,_dels, _page)) {
             return;
         }
         tryAnalyzeInnerPartsLine(_ready,_local,_rooted, _page);
     }
 
-    private boolean skipInners(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private boolean skipInners(ReadyTypes _ready, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -85,7 +86,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         return analyzeFull(_dels, type_, _page);
     }
 
-    private boolean analyzeFull(CustList<IntTreeMap<String>> _dels, String _type, AnalyzedPageEl _page) {
+    private boolean analyzeFull(CustList<StrTypes> _dels, String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         RootBlock root_ = _page.getAnaClassBody(id_);
         if (root_ != null) {
@@ -127,7 +128,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
     }
 
-    private boolean processFctVoid(CustList<IntTreeMap<String>> _dels, AnalyzedPageEl _page) {
+    private boolean processFctVoid(CustList<StrTypes> _dels, AnalyzedPageEl _page) {
         AnaParentPartType par_ = getParent();
         if (!(par_ instanceof AnaTemplatePartType)) {
             return false;
@@ -319,7 +320,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);

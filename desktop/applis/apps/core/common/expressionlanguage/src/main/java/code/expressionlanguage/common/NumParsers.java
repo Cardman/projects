@@ -1213,6 +1213,13 @@ public final class NumParsers {
         return old_;
     }
 
+    public static StackTraceElementStruct getStack(Struct _str) {
+        if (_str instanceof StackTraceElementStruct) {
+            return (StackTraceElementStruct) _str;
+        }
+        return new StackTraceElementStruct("",-1,-1,-1,"","");
+    }
+
     public static AnnotatedStruct getAnnotated(Struct _struct) {
         if (_struct instanceof MethodMetaInfo) {
             return (MethodMetaInfo) _struct;

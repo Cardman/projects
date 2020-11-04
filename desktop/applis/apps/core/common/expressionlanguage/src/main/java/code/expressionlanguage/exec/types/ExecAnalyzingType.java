@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.types;
 
+import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.IntTreeMap;
 import code.util.core.IndexConstants;
@@ -7,15 +8,15 @@ import code.util.core.StringUtil;
 
 public final class ExecAnalyzingType {
 
-    private IntTreeMap< String> operators = new IntTreeMap< String>();
-    private IntTreeMap< String> values = new IntTreeMap< String>();
+    private StrTypes operators = new StrTypes();
+    private StrTypes values = new StrTypes();
     private boolean error;
     private KindPartType kind = KindPartType.NOTHING;
     private int prio;
 
     public void setupValueExec(String _string) {
-        values = new IntTreeMap<String>();
-        values.put((int)IndexConstants.FIRST_INDEX, _string);
+        values = new StrTypes();
+        values.addEntry((int)IndexConstants.FIRST_INDEX, _string);
     }
 
     public void setupUnaryValuesExec(String _string, String _operator) {
@@ -29,14 +30,14 @@ public final class ExecAnalyzingType {
             error = true;
         }
         String str_ = _string.substring(first_);
-        values = new IntTreeMap<String>();
-        values.put(first_, str_);
-        operators = new IntTreeMap<String>();
-        operators.put(arr_, _operator);
+        values = new StrTypes();
+        values.addEntry(first_, str_);
+        operators = new StrTypes();
+        operators.addEntry(arr_, _operator);
     }
 
     public void setupValuesExec(String _string) {
-        values = new IntTreeMap<String>();
+        values = new StrTypes();
         if (operators.isEmpty()) {
             values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
             error = true;
@@ -58,7 +59,7 @@ public final class ExecAnalyzingType {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty() && prio == ExecPartTypeUtil.TMP_PRIO) {
-            values = new IntTreeMap<String>();
+            values = new StrTypes();
             values.addEntry((int) IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
@@ -72,10 +73,10 @@ public final class ExecAnalyzingType {
         kind = _kind;
     }
 
-    public IntTreeMap< String> getOperators() {
+    public StrTypes getOperators() {
         return operators;
     }
-    public IntTreeMap< String> getValues() {
+    public StrTypes getValues() {
         return values;
     }
     public boolean isError() {

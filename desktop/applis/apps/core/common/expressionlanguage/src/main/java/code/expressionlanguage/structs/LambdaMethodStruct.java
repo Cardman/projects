@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.util.core.StringUtil;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
@@ -27,8 +28,8 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private Struct metaInfo = NullStruct.NULL_VALUE;
     public LambdaMethodStruct(String _className, String _formClassName,
                               boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
-        className = _className;
-        formClassName = _formClassName;
+        className = StringUtil.nullToEmpty(_className);
+        formClassName = StringUtil.nullToEmpty(_formClassName);
         polymorph = _polymorph;
         shiftInstance = _shiftInstance;
         ancestor = _ancestor;
@@ -68,7 +69,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     }
 
     public void setMethodName(String _methodName) {
-        methodName = _methodName;
+        methodName = StringUtil.nullToEmpty(_methodName);
     }
 
     public boolean isPolymorph() {

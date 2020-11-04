@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 
 abstract class ExecParentPartType extends ExecPartType {
     private final CustList<ExecPartType> children = new CustList<ExecPartType>();
@@ -33,7 +33,7 @@ abstract class ExecParentPartType extends ExecPartType {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels);
+    abstract boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels);
 
     CustList<ExecPartType> getChildren() {
         return children;

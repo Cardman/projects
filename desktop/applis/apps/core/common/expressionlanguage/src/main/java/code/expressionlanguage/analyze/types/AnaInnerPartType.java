@@ -2,27 +2,27 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.common.StrTypes;
 import code.util.CustList;
-import code.util.IntTreeMap;
 
 final class AnaInnerPartType extends AnaBinaryType {
 
-    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
+    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
         super(_parent, _index, _indexInType,_operators);
     }
 
     @Override
-    void analyze(CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
     @Override
-    void analyzeAccessibleId(CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
         analyzeType();
     }
 
