@@ -1601,7 +1601,7 @@ public final class ExecTemplates {
 
     public static CustList<Argument> getArgs(Struct... _args) {
         int len_ = _args.length;
-        CustList<Argument> classes_ = new CustList<Argument>();
+        CustList<Argument> classes_ = new CustList<Argument>(new CollCapacity(len_));
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             classes_.add(new Argument(_args[i]));
         }

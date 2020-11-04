@@ -1239,7 +1239,7 @@ public final class AliasReflection {
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
                 return result_;
             }
-            String baseWildCard_ = prefixWildCard(nameCl_, nameCl_, nameCl_.substring(Templates.SUB_TYPE.length()), nameCl_.substring(Templates.SUP_TYPE.length()));
+            String baseWildCard_ = extractName(nameCl_);
             if (BooleanStruct.isTrue(isUpper_)) {
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUB_TYPE,baseWildCard_), instanceClass_));
             } else {
@@ -1845,19 +1845,25 @@ public final class AliasReflection {
 
     private static ResultErrorStd buildClassInfo(ContextEl _cont, ResultErrorStd _result, ClassMetaInfo _cl, String _typeName) {
         String clName_ = _cl.getName();
-        String pref_ = prefixWildCard(clName_, "", Templates.SUB_TYPE, Templates.SUP_TYPE);
+        String pre_ = "";
+        if (clName_.startsWith(Templates.SUB_TYPE)) {
+            pre_ = Templates.SUB_TYPE;
+        } else if (clName_.startsWith(Templates.SUP_TYPE)) {
+            pre_ = Templates.SUP_TYPE;
+        }
+        String pref_ = pre_;
         String owner_ = _cl.getVariableOwner();
         String fName_ = StringUtil.concat(pref_, _typeName);
         _result.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,fName_, owner_));
         return _result;
     }
 
-    private static String prefixWildCard(String _clName, String _default, String _subType, String _supType) {
-        String pre_ = _default;
-        if (_clName.startsWith(Templates.SUB_TYPE)) {
-            pre_ = _subType;
-        } else if (_clName.startsWith(Templates.SUP_TYPE)) {
-            pre_ = _supType;
+    private static String extractName(String _nameCl) {
+        String pre_ = _nameCl;
+        if (_nameCl.startsWith(Templates.SUB_TYPE)) {
+            pre_ = _nameCl.substring(Templates.SUB_TYPE.length());
+        } else if (_nameCl.startsWith(Templates.SUP_TYPE)) {
+            pre_ = _nameCl.substring(Templates.SUP_TYPE.length());
         }
         return pre_;
     }

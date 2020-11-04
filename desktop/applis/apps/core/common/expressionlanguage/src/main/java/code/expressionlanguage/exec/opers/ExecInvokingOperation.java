@@ -585,17 +585,20 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Struct ind_ = argArr_.get(lastIndex_);
                 return new Argument(ExecTemplates.getElement(arr_,ind_,_conf));
             }
-            int beforeLastIndex_ = Math.max(0, lastIndex_ - 1);
-            for (int i = 0; i < beforeLastIndex_; i++) {
+            int beforeLastIndex_ = lastIndex_ - 1;
+            for (int i = 0; i < lastIndex_; i++) {
                 Struct ind_ = argArr_.get(i);
-                arr_ = ExecTemplates.getElement(arr_,ind_,_conf);
+                if (i < beforeLastIndex_) {
+                    arr_ = ExecTemplates.getElement(arr_, ind_, _conf);
+                } else {
+                    Struct right_ = argArr_.get(lastIndex_);
+                    ExecTemplates.setElement(arr_,ind_, right_,_conf);
+                }
                 if (_conf.callsOrException()) {
                     return new Argument();
                 }
             }
-            Struct ind_ = argArr_.get(beforeLastIndex_);
             Struct right_ = argArr_.get(lastIndex_);
-            ExecTemplates.setElement(arr_,ind_, right_,_conf);
             return new Argument(right_);
         }
         if (_method.isDirectCast()) {
