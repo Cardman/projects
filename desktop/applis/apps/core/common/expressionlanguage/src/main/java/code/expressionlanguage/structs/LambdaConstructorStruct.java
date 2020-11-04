@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 
 public final class LambdaConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall;
+    private Argument instanceCall = Argument.createVoid();
 
     private final String className;
     private final String formClassName;

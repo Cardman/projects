@@ -52,7 +52,7 @@ public final class InitializingTypeInfos {
         if (!getSensibleFields().containsObj(_array)) {
             return;
         }
-        for (Struct s: _cloned.getInstance()) {
+        for (Struct s: _cloned.list()) {
             if (!isPossibleSensible(s)) {
                 continue;
             }

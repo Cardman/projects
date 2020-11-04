@@ -44,12 +44,12 @@ public class GraphicListStruct extends InputStruct {
         super(_className);
         selectedIndexes = new Ints();
         if (_selectedIndexes instanceof ArrayStruct) {
-            for (Struct s : ((ArrayStruct)_selectedIndexes).getInstance()) {
+            for (Struct s : ((ArrayStruct)_selectedIndexes).list()) {
                 selectedIndexes.add(((NumberStruct) s).intStruct());
             }
         }
         if (_objects instanceof ArrayStruct) {
-            list = new CustList<Struct>(((ArrayStruct)_objects).getInstance());
+            list = ((ArrayStruct)_objects).list();
         } else {
             list = new CustList<Struct>();
         }
@@ -128,7 +128,7 @@ public class GraphicListStruct extends InputStruct {
     public void setSelectedIndexes(Struct _selectedIndexes) {
         Ints selectedIndexes_ = new Ints();
         if (_selectedIndexes instanceof ArrayStruct) {
-            for (Struct s : ((ArrayStruct)_selectedIndexes).getInstance()) {
+            for (Struct s : ((ArrayStruct)_selectedIndexes).list()) {
                 selectedIndexes_.add(((NumberStruct) s).intStruct());
             }
             selectedIndexes = selectedIndexes_;

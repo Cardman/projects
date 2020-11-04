@@ -97,10 +97,8 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
                     firstArgs_.add(a_);
                 }
             }
-            int len_ = optArgs_.size();
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = new ArrayStruct(len_,clArr_);
-            NumParsers.setElements(str_, optArgs_);
+            ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;

@@ -30,7 +30,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final StringList lowerBounds = new StringList();
     private String typeOwner = EMPTY_STRING;
 
-    private final StringMap<FieldMetaInfo> fieldsInfos;
+    private final CustList<FieldMetaInfo> fieldsInfos;
     private final CustList<MethodMetaInfo> explicitsInfos;
     private final CustList<MethodMetaInfo> implicitsInfos;
     private final CustList<MethodMetaInfo> truesInfos;
@@ -55,7 +55,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public ClassMetaInfo(String _name) {
         name = _name;
         variableOwner = "";
-        fieldsInfos = new StringMap<FieldMetaInfo>();
+        fieldsInfos = new CustList<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();
         implicitsInfos = new CustList< MethodMetaInfo>();
         truesInfos = new CustList<MethodMetaInfo>();
@@ -90,7 +90,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             superClass = EMPTY_STRING;
             access = AccessEnum.PUBLIC;
         }
-        fieldsInfos = new StringMap<FieldMetaInfo>();
+        fieldsInfos = new CustList<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();
         implicitsInfos = new CustList<MethodMetaInfo>();
         truesInfos = new CustList<MethodMetaInfo>();
@@ -108,7 +108,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         abstractType = true;
         superClass = EMPTY_STRING;
         access = AccessEnum.PUBLIC;
-        fieldsInfos = new StringMap<FieldMetaInfo>();
+        fieldsInfos = new CustList<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();
         implicitsInfos = new CustList<MethodMetaInfo>();
         truesInfos = new CustList<MethodMetaInfo>();
@@ -127,7 +127,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         typeOwner = EMPTY_STRING;
         superClass = EMPTY_STRING;
         variableOwner = StringUtil.nullToEmpty(_variableOwner);
-        fieldsInfos = new StringMap<FieldMetaInfo>();
+        fieldsInfos = new CustList<FieldMetaInfo>();
         explicitsInfos = new CustList<MethodMetaInfo>();
         implicitsInfos = new CustList<MethodMetaInfo>();
         truesInfos = new CustList<MethodMetaInfo>();
@@ -143,7 +143,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             StringList _superInterfaces,
             String _typeOwner,
             StringList _memberTypes,
-            StringMap<FieldMetaInfo> _fields,
+                         CustList<FieldMetaInfo> _fields,
                          CustList<MethodMetaInfo> _exlicits,
                          CustList<MethodMetaInfo> _imlicits,
                          CustList<MethodMetaInfo> _trues,
@@ -176,7 +176,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     public ClassMetaInfo(String _name,
             StringList _superInterfaces,String _typeOwner,
-            StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
+            StringList _memberTypes,CustList<FieldMetaInfo> _fields,
                          CustList<MethodMetaInfo> _exlicits,
                          CustList<MethodMetaInfo> _imlicits,
                          CustList<MethodMetaInfo> _trues,
@@ -213,7 +213,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         _dest.superInterfaces.addAllElts(_src.superInterfaces);
         _dest.memberTypes.addAllElts(_src.memberTypes);
         _dest.typeOwner = _src.typeOwner;
-        _dest.fieldsInfos.putAllMap(_src.fieldsInfos);
+        _dest.fieldsInfos.addAllElts(_src.fieldsInfos);
         _dest.methodsInfos.addAllElts(_src.methodsInfos);
         _dest.constructorsInfos.addAllElts(_src.constructorsInfos);
         _dest.falsesInfos.addAllElts(_src.falsesInfos);
@@ -382,7 +382,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return typeOwner;
     }
 
-    public StringMap<FieldMetaInfo> getFieldsInfos() {
+    public CustList<FieldMetaInfo> getFieldsInfos() {
         return fieldsInfos;
     }
 

@@ -110,10 +110,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     firstArgs_.add(a_);
                 }
             }
-            int len_ = optArgs_.size();
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-            ArrayStruct str_ = new ArrayStruct(len_,clArr_);
-            NumParsers.setElements(str_, optArgs_);
+            ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
             Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
@@ -529,12 +527,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             int len_ = Math.max(0, values_.size() - 1);
-            ArrayStruct arr_ = new ArrayStruct(len_,obj_);
-            int i_ = 0;
-            for (Argument v: values_.leftMinusOne(len_)) {
-                arr_.set(i_, v.getStruct());
-                i_++;
-            }
+            ArrayStruct arr_ = ExecTemplates.getArray(values_.leftMinusOne(len_),obj_);
             CustList<Argument> nList_ = new CustList<Argument>();
             Struct value_ = ExecTemplates.getFirstArgument(values_).getStruct();
             Argument firstValue_ = new Argument(ExecTemplates.getParent(nbAncestors_, id_, value_, _conf));
@@ -605,7 +598,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             ExecTemplates.setElement(arr_,ind_, right_,_conf);
             return new Argument(right_);
         }
-        if (_l.isDirectCast()) {
+        if (_method.isDirectCast()) {
             _conf.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _method, _nList, true));
             return new Argument();
         }
@@ -627,7 +620,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         if (_method.getCalleeInv() != null) {
-            if (_l.isExpCast()) {
+            if (_method.isExpCast()) {
                 _conf.setCallingState(new CustomReflectMethod(ReflectingType.CAST, _method, _nList, true));
                 return new Argument();
             }

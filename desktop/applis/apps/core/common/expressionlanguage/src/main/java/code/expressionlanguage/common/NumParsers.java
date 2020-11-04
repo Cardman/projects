@@ -1997,11 +1997,13 @@ public final class NumParsers {
         return new LongStruct(toLong(bitsLeft_));
     }
 
-    public static void setElements(ArrayStruct _arr,CustList<Struct> _args) {
+    public static ArrayStruct setElements(CustList<Struct> _args, String _cl) {
         int len_ = _args.size();
+        ArrayStruct arr_ = new ArrayStruct(len_,_cl);
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            _arr.set(i,_args.get(i));
+            arr_.set(i,_args.get(i));
         }
+        return arr_;
     }
 
     public static Replacement getReplacement(Struct[] _args) {

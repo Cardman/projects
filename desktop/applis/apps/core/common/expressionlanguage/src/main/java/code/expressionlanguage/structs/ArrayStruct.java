@@ -2,6 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.util.CollCapacity;
+import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
@@ -40,10 +42,26 @@ public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
         return Argument.getNull(instance[_i]);
     }
     public void set(int _i, Struct _str) {
-        instance[_i]=Argument.getNull(_str);
+        instance[_i]=_str;
     }
     public Struct[] getInstance() {
         return instance;
     }
 
+    public CustList<Argument> listArgs() {
+        CustList<Argument> args_ = new CustList<Argument>(new CollCapacity(instance.length));
+        for (Struct a: instance) {
+            Argument a_ = new Argument(a);
+            args_.add(a_);
+        }
+        return args_;
+    }
+
+    public CustList<Struct> list() {
+        CustList<Struct> args_ = new CustList<Struct>(new CollCapacity(instance.length));
+        for (Struct a: instance) {
+            args_.add(Argument.getNull(a));
+        }
+        return args_;
+    }
 }

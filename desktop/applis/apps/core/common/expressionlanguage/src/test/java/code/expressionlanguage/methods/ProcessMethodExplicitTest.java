@@ -17,7 +17,6 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -88,7 +87,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate5Test() {
@@ -104,7 +103,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate6Test() {
@@ -346,7 +345,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate10Test() {
@@ -857,7 +856,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate20Test() {
@@ -881,7 +880,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate21Test() {
@@ -1367,7 +1366,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate31Test() {
@@ -1504,7 +1503,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate31___Test() {
@@ -1528,7 +1527,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32Test() {
@@ -1552,7 +1551,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32_Test() {
@@ -1579,7 +1578,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32__Test() {
@@ -1606,7 +1605,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate33Test() {
@@ -1640,7 +1639,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -1692,7 +1691,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -1738,7 +1737,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -1789,7 +1788,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate41Test() {
@@ -1841,7 +1840,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -1852,6 +1851,23 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         xml_.append(" public static String method(){\n");
         xml_.append("  Fct<CharSequence,String> fct = $lambda(String,explicit,CharSequence);\n");
         xml_.append("  return fct.call(\"5\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("5", getString(ret_));
+    }
+    @Test
+    public void calculate43_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  Fct<CharSequence,String> fct = $lambda(String,explicit,CharSequence);\n");
+        xml_.append("  return (String)((Method)fct.metaInfo()).invoke(null,\"5\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -1883,7 +1899,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate45Test() {
@@ -1937,7 +1953,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -1964,7 +1980,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate48Test() {
@@ -2087,7 +2103,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateEx2Test() {
@@ -2111,7 +2127,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate1FailTest() {

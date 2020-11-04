@@ -26,7 +26,7 @@ final class ArrayAnnotPart extends ParentAnnotPart {
     @Override
     CustList<StackObject> getStack() {
         CustList<StackObject> elts_ = new CustList<StackObject>();
-        for (Struct s: array.getInstance()) {
+        for (Struct s: array.list()) {
             StackArray st_ = new StackArray();
             st_.setValue(s);
             elts_.add(st_);

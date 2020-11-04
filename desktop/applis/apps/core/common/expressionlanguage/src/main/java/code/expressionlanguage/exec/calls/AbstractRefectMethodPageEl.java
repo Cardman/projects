@@ -57,8 +57,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         setWrapException(false);
         if (methodToCallBody == null) {
-            if (!metaInfo.isWideStatic()) {
-                Argument instance_ = getArguments().first();
+            if (metaInfo.isInstanceMethod()) {
+                Argument instance_ = ExecTemplates.getFirstArgument(getArguments());
                 if (instance_.isNull()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                     _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
@@ -72,7 +72,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             }
             String className_ = metaInfo.getClassName();
             if (isPolymorph(_context)) {
-                Struct instance_ = getArguments().first().getStruct();
+                Struct instance_ = ExecTemplates.getFirstArgument(getArguments()).getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getDeclaring(), metaInfo.getCalleeInv());
                 className = polymorph_.getClassName();
                 methodToCallBody = polymorph_.getOverridableBlock();
@@ -91,18 +91,15 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (metaInfo.isWideStatic()) {
                 instance = new Argument();
             } else {
-                instance = getArguments().first();
+                instance = ExecTemplates.getFirstArgument(getArguments());
             }
-            Struct struct_ = getArguments().last().getStruct();
+            Struct struct_ = ExecTemplates.getLastArgument(getArguments()).getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return false;
             }
-            for (Struct a: ((ArrayStruct)struct_).getInstance()) {
-                Argument a_ = new Argument(a);
-                args.add(a_);
-            }
+            args.addAllElts(((ArrayStruct)struct_).listArgs());
             if (metaInfo.isExpCast()) {
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;

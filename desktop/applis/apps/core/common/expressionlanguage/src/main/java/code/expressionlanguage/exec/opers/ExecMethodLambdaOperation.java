@@ -59,7 +59,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         l_.setMethodName(StringUtil.nullToEmpty(_constraints.getName()));
         l_.setKind(_constraints.getKind());
         if (!(_ownerType.startsWith(StringExpUtil.ARR_CLASS) && _constraints.getName().startsWith("[]"))) {
-            MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _functionBlock, _function, _rootBlock, _ownerType, _constraints, l_);
+            MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _directCast, _expCast, _fileName, _functionBlock, _function, _rootBlock, _ownerType, _constraints, l_);
             l_.setMetaInfo(metaInfo_);
         }
         return l_;
@@ -79,13 +79,13 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(StringUtil.nullToEmpty(_constraints.getName()));
         l_.setKind(_constraints.getKind());
-        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, _fileName, _functionBlock, _function, _rootBlock, ownerType_, _constraints, l_);
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, false, _fileName, _functionBlock, _function, _rootBlock, ownerType_, _constraints, l_);
         metaInfo_.setCache(new Cache(_lastPage));
         l_.setMetaInfo(metaInfo_);
         return l_;
     }
 
-    private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, boolean _expCast, String _fileName, ExecNamedFunctionBlock _functionBlock, ExecNamedFunctionBlock _function, ExecRootBlock _rootBlock, String _ownerType, MethodId _id, LambdaMethodStruct _l) {
+    private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, boolean _directCast, boolean _expCast, String _fileName, ExecNamedFunctionBlock _functionBlock, ExecNamedFunctionBlock _function, ExecRootBlock _rootBlock, String _ownerType, MethodId _id, LambdaMethodStruct _l) {
         MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _id);
         String className_;
         if (_l.isStaticCall()) {
@@ -110,6 +110,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             met_ = MethodModifier.NORMAL;
         }
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _id, met_, _returnFieldType, fid_, formCl_);
+        metaInfo_.setDirectCast(_directCast);
         metaInfo_.setExpCast(_expCast);
         metaInfo_.setFileName(_fileName);
         metaInfo_.setAnnotableBlock(_functionBlock);

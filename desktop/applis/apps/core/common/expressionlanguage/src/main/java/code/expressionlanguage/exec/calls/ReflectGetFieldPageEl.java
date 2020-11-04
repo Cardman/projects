@@ -43,7 +43,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
             setReturnedArgument(arg_);
             return true;
         }
-        Argument instance_ = getArguments().first();
+        Argument instance_ = ExecTemplates.getFirstArgument(getArguments());
         Argument arg_ = ExecTemplates.getField(metaInfo, instance_, _context);
         if (_context.callsOrException()) {
             return false;

@@ -28,6 +28,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     private final String returnType;
     private String fileName = EMPTY_STRING;
+    private boolean directCast;
     private boolean expCast;
     private final boolean invokable;
     private ExecNamedFunctionBlock annotableBlock;
@@ -133,6 +134,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         this.expCast = _expCast;
     }
 
+    public void setDirectCast(boolean _directCast) {
+        directCast = _directCast;
+    }
+
     public String getClassName() {
         return className;
     }
@@ -235,6 +240,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public boolean isInvokable() {
         return invokable;
+    }
+
+    public boolean isDirectCast() {
+        return directCast;
     }
 
     public boolean isExpCast() {

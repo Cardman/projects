@@ -99,7 +99,7 @@ public class CustInitializer extends DefaultInitializer {
 
     /**This method must be called only before exit, by one (main) thread only*/
     void joinOthers(RunnableContextEl _ctx) {
-        for (Struct s: threadSet.toSnapshotArray(_ctx).getInstance()) {
+        for (Struct s: threadSet.toSnapshotArray(_ctx).list()) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }
@@ -111,7 +111,7 @@ public class CustInitializer extends DefaultInitializer {
         }
     }
     public void launchHooks(RunnableContextEl _ctx) {
-        Struct[] inst_ = hooks.toSnapshotArray(_ctx).getInstance();
+        CustList<Struct> inst_ = hooks.toSnapshotArray(_ctx).list();
         for (Struct s: inst_) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
@@ -128,7 +128,7 @@ public class CustInitializer extends DefaultInitializer {
         }
     }
     public void joinHooks(RunnableContextEl _ctx) {
-        for (Struct s: hooks.toSnapshotArray(_ctx).getInstance()) {
+        for (Struct s: hooks.toSnapshotArray(_ctx).list()) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }

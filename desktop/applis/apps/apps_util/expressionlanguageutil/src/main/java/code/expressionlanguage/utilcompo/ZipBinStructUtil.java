@@ -80,7 +80,9 @@ public final class ZipBinStructUtil {
     public static byte[] getZipBinFileAsArray(Struct _files) {
         if (_files instanceof ArrayStruct) {
             StringMap<byte[]> files_ = new StringMap<byte[]>();
-            for (Struct s: ((ArrayStruct)_files).getInstance()) {
+            int fileLength_ = ((ArrayStruct) _files).getLength();
+            for (int j = 0; j < fileLength_; j++) {
+                Struct s = ((ArrayStruct) _files).get(j);
                 if (!(s instanceof EntryBinaryStruct)) {
                     continue;
                 }

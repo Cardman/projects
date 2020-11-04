@@ -60,7 +60,7 @@ public final class InvokeTargetErrorStruct extends WithoutParentIdStruct impleme
         StringList str_ = new StringList(new CollCapacity(_arrInst.getLength()+2));
         str_.add(getClassName(_an));
         str_.add(message);
-        for (Struct s: _arrInst.getInstance()) {
+        for (Struct s: _arrInst.list()) {
             str_.add(StackTraceElementStruct.getStack(s).getStringRep());
         }
         return StringUtil.join(str_, "\n");

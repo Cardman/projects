@@ -210,12 +210,12 @@ public final class MainWindow extends GroupFrame {
             String aliasSuccess_ = _evolved.getCustAliases().getAliasResultSuccess();
             String aliasFailMessage_ = _evolved.getCustAliases().getAliasResultFailMessage();
             String aliasParams_ = _evolved.getCustAliases().getAliasResultParams();
-            int i =0;
-            resultsTable.setRowCount(((ArrayStruct)array_).getLength());
-            for (Struct t: ((ArrayStruct)array_).getInstance()) {
+            int testLen_ = ((ArrayStruct) array_).getLength();
+            resultsTable.setRowCount(testLen_);
+            for (int i =0; i < testLen_; i++) {
+                Struct t = ((ArrayStruct) array_).get(i);
                 Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getStruct();
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
-                i++;
                 resultsTable.setValueAt(Long.toString(i),i-1,0);
                 results.append(Long.toString(i)+"\n");
                 String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getSignature(_ctx) + "\n";
@@ -235,7 +235,6 @@ public final class MainWindow extends GroupFrame {
                 results.append(((StringStruct)failMessage_).getInstance()+"\n");
                 results.append(((StringStruct)params_).getInstance()+"\n");
                 results.append("\n");
-
             }
         }
     }

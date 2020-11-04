@@ -33,7 +33,7 @@ public final class GraphicComboStruct extends InputStruct {
             return new StringList();
         }
         StringList l_ = new StringList();
-        for (Struct s: ((ArrayStruct)_s).getInstance()) {
+        for (Struct s: ((ArrayStruct)_s).list()) {
             if (!(s instanceof StringStruct)) {
                 continue;
             }

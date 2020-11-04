@@ -12,7 +12,6 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
@@ -1080,7 +1079,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void test33() {
@@ -2997,7 +2996,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadIndex(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate31___Test() {
@@ -3021,7 +3020,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32Test() {
@@ -3045,7 +3044,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32_Test() {
@@ -3072,7 +3071,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32__Test() {
@@ -3099,7 +3098,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasBadArgNumber(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate40Test() {
@@ -3123,7 +3122,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate41Test() {
@@ -3205,7 +3204,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -3232,7 +3231,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateExTest() {
@@ -3261,7 +3260,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateEx2Test() {
@@ -3285,7 +3284,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate26Test() {
@@ -3591,7 +3590,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -3643,7 +3642,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -3668,7 +3667,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -3693,7 +3692,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
 
     }
     @Test
@@ -3735,7 +3734,31 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
+    }
+    @Test
+    public void calculate44__Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  return (ExClass<int>)((Method)$lambda(ExClass<int>,$,$id).metaInfo()).invoke(null,5);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<T>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate45_Test() {
@@ -4012,7 +4035,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate11Test() {
@@ -4288,7 +4311,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate20Test() {
@@ -4312,7 +4335,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertNotNull(cont_.getStandards().getCoreNames().getAliasNullPe(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasCastType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate22Test() {

@@ -6,7 +6,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private Argument instanceCall;
+    private Argument instanceCall = Argument.createVoid();
 
     private final String className;
     private final String formClassName;
@@ -97,16 +97,13 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     public boolean isStaticCall() {
         return kind == MethodAccessKind.STATIC_CALL || directCast || expCast;
     }
-    public boolean isDirectCast() {
-        return directCast;
-    }
 
     public void setDirectCast(boolean _directCast) {
         directCast = _directCast;
     }
 
     public void setExpCast(boolean _expCast) {
-        this.expCast = _expCast;
+        expCast = _expCast;
     }
 
     @Override
@@ -114,7 +111,4 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return className;
     }
 
-    public boolean isExpCast() {
-        return expCast;
-    }
 }

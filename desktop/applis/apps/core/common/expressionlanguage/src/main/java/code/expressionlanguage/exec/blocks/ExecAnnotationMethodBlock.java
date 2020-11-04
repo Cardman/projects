@@ -7,6 +7,7 @@ import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -101,7 +102,8 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         }
         AbstractPageEl ip_ = _cont.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
-        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, _arg, _cont);
+        Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());
+        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, arg_, _cont);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

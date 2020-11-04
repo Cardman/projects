@@ -122,10 +122,7 @@ public final class ApplyCoreMethodUtil {
                 return res_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
-            CustList<Argument> ar_ = new CustList<Argument>();
-            for (Struct str_ : arr_.getInstance()) {
-                ar_.add(new Argument(str_));
-            }
+            CustList<Argument> ar_ = arr_.listArgs();
             res_.setResult(ExecInvokingOperation.prepareCallDyn(new Argument(_struct), ar_, _cont).getStruct());
             return res_;
         }

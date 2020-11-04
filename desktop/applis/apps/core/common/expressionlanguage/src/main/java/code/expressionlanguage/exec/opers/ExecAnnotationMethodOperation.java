@@ -44,12 +44,16 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
         }
         String clName_ = argPrev_.getClassName(_conf);
         Struct ret_ = ExecTemplates.getInstanceField(clName_, _name,_previous,_conf).getStruct();
+        return swallowCopy(ret_);
+    }
+
+    public static Argument swallowCopy(Struct _ret) {
         Argument a_;
-        if (ret_ instanceof ArrayStruct) {
-            ArrayStruct orig_ = (ArrayStruct) ret_;
+        if (_ret instanceof ArrayStruct) {
+            ArrayStruct orig_ = (ArrayStruct) _ret;
             a_ = new Argument(orig_.swallowCopy());
         } else {
-            a_ = new Argument(ret_);
+            a_ = new Argument(_ret);
         }
         return a_;
     }

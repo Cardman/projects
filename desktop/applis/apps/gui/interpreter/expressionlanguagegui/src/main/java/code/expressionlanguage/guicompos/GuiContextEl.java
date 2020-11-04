@@ -23,7 +23,7 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     public void disposeAll(GuiExecutingBlocks _guiExecutingBlocks) {
-        for (Struct s: getGuiInit().getWindows().toSnapshotArray(this).getInstance()) {
+        for (Struct s: getGuiInit().getWindows().toSnapshotArray(this).list()) {
             if (!(s instanceof WindowStruct)) {
                 continue;
             }

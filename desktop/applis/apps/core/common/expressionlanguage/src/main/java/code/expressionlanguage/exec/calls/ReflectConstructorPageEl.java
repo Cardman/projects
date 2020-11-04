@@ -60,18 +60,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         if (!calledMethod) {
             calledMethod = true;
             ConstructorId mid_ = metaInfo.getRealId();
-            Struct struct_ = getArguments().last().getStruct();
+            Struct struct_ = ExecTemplates.getLastArgument(getArguments()).getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return false;
             }
-            CustList<Argument> args_ = new CustList<Argument>();
-            for (Struct a: ((ArrayStruct)struct_).getInstance()) {
-                Argument a_ = new Argument(a);
-                args_.add(a_);
-            }
+            CustList<Argument> args_ = ((ArrayStruct)struct_).listArgs();
             Argument previous_;
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {

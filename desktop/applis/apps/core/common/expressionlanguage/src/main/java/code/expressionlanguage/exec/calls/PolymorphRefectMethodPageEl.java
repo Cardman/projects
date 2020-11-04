@@ -25,6 +25,6 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     @Override
     boolean isPolymorph(ContextEl _cont) {
         MethodMetaInfo method_ = getMetaInfo();
-        return !method_.isWideStatic();
+        return method_.isInstanceMethod();
     }
 }

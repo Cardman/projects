@@ -314,8 +314,8 @@ public final class ExecutingUtil {
         infosImplicits_ = new CustList<MethodMetaInfo>();
         infosTrues_ = new CustList<MethodMetaInfo>();
         infosFalses_ = new CustList<MethodMetaInfo>();
-        StringMap<FieldMetaInfo> infosFields_;
-        infosFields_ = new StringMap<FieldMetaInfo>();
+        CustList<FieldMetaInfo> infosFields_;
+        infosFields_ = new CustList<FieldMetaInfo>();
         CustList<ConstructorMetaInfo> infosConst_;
         infosConst_ = new CustList<ConstructorMetaInfo>();
         CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_type);
@@ -339,7 +339,7 @@ public final class ExecutingUtil {
                     met_.setFileName(fileName_);
                     met_.setAnnotableBlock(method_);
                     met_.setDeclaring(_type);
-                    infosFields_.put(f, met_);
+                    infosFields_.add(met_);
                 }
             }
             if (b instanceof ExecOverridableBlock) {
@@ -644,8 +644,8 @@ public final class ExecutingUtil {
         String k_ = _type.getFullName();
         CustList<MethodMetaInfo> infos_;
         infos_ = new CustList<MethodMetaInfo>();
-        StringMap<FieldMetaInfo> infosFields_;
-        infosFields_ = new StringMap<FieldMetaInfo>();
+        CustList<FieldMetaInfo> infosFields_;
+        infosFields_ = new CustList<FieldMetaInfo>();
         CustList<ConstructorMetaInfo> infosConst_;
         infosConst_ = new CustList<ConstructorMetaInfo>();
         StringList inners_ = new StringList();
@@ -665,7 +665,7 @@ public final class ExecutingUtil {
             String decl_ = _type.getFullName();
             for (String g: f.getFieldName()) {
                 FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, AccessEnum.PUBLIC, decl_);
-                infosFields_.put(g, met_);
+                infosFields_.add(met_);
             }
         }
         for (StandardMethod m: _type.getMethods()) {

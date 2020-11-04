@@ -770,6 +770,10 @@ public final class AliasReflection {
         boolean invokeDirect_ = StringUtil.quickEq(aliasInvokeDirect_, name_);
         if (invoke_ || invokeDirect_) {
             if (method_.isInvokable()) {
+                if (method_.isDirectCast()) {
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, ExecTemplates.getArgs(_args), false));
+                    return result_;
+                }
                 if (method_.getStdCallee() != null) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, ExecTemplates.getArgs(_args), false));
                     return result_;
@@ -1566,20 +1570,26 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredFields)) {
-            StringMap<FieldMetaInfo> fields_ = instanceClass_.getFieldsInfos();
+            CustList<FieldMetaInfo> fields_ = instanceClass_.getFieldsInfos();
             String className_= StringExpUtil.getPrettyArrayType(aliasField_);
             if (_args.length == 0 || !(_args[0] instanceof StringStruct)) {
                 ArrayStruct str_ = new ArrayStruct(fields_.size(), className_);
                 int index_ = 0;
-                for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
-                    str_.set(index_, e.getValue());
+                for (FieldMetaInfo e: fields_) {
+                    str_.set(index_, e);
                     index_++;
                 }
                 result_.setResult(str_);
                 return result_;
             }
             String fieldName_ = ((StringStruct) _args[0]).getInstance();
-            FieldMetaInfo meta_ = fields_.getVal(fieldName_);
+            FieldMetaInfo meta_ = null;
+            for (FieldMetaInfo e: fields_) {
+                if (StringUtil.quickEq(fieldName_, e.getName())) {
+                    meta_ = e;
+                    break;
+                }
+            }
             ArrayStruct str_;
             if (meta_ != null) {
                 str_ = new ArrayStruct(1, className_);
@@ -1689,7 +1699,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            for (Struct s: ((ArrayStruct)_args[0]).getInstance()) {
+            for (Struct s: ((ArrayStruct)_args[0]).list()) {
                 if (!(s instanceof ClassMetaInfo)) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -1728,7 +1738,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
                 return result_;
             }
-            for (Struct s: ((ArrayStruct)inst_).getInstance()) {
+            for (Struct s: ((ArrayStruct)inst_).list()) {
                 int dim_ = NumParsers.convertToNumber(s).intStruct();
                 dims_.add(dim_);
             }

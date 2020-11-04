@@ -43,8 +43,8 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ill_)));
             return false;
         }
-        Argument instance_ = getArguments().first();
-        Argument right_ = getArguments().last();
+        Argument instance_ = ExecTemplates.getFirstArgument(getArguments());
+        Argument right_ = ExecTemplates.getLastArgument(getArguments());
         Argument arg_ = ExecTemplates.setField(metaInfo, instance_, right_, _context);
         if (_context.callsOrException()) {
             return false;

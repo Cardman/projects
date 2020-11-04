@@ -2296,7 +2296,7 @@ public final class CustAliases {
                 CustList<EntryBinaryStruct> bins_ = new CustList<EntryBinaryStruct>();
                 if (_args[1] instanceof ArrayStruct) {
                     ArrayStruct arr_ = (ArrayStruct) _args[1];
-                    for (Struct s: arr_.getInstance()) {
+                    for (Struct s: arr_.list()) {
                         if (s instanceof EntryTextStruct) {
                             EntryTextStruct cont_ = (EntryTextStruct)s;
                             byte[] encoded_ = StringUtil.encode(cont_.getText().getInstance());

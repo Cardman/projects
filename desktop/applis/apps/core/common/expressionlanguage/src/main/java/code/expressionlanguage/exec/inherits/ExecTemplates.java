@@ -482,7 +482,7 @@ public final class ExecTemplates {
             Struct str_ = _firstArgs.last().getStruct();
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
-                for (Struct s: arr_.getInstance()) {
+                for (Struct s: arr_.list()) {
                     ErrorType state_ = checkElement(arr_, s, _conf);
                     if (state_ != ErrorType.NOTHING) {
                         return processError(_conf, arr_, s, state_);
@@ -550,7 +550,7 @@ public final class ExecTemplates {
             Struct str_ = _firstArgs.last().getStruct();
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
-                for (Struct s: arr_.getInstance()) {
+                for (Struct s: arr_.list()) {
                     ErrorType state_ = checkElement(arr_, s, _conf);
                     if (state_ != ErrorType.NOTHING) {
                         Struct struct_ = processError(_conf, arr_, s, state_);
@@ -1586,6 +1586,15 @@ public final class ExecTemplates {
         Struct[] classes_ = new Struct[len_];
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             classes_[i] = _args[i].getStruct();
+        }
+        return classes_;
+    }
+
+    public static ArrayStruct getArray(CustList<Argument> _args, String _cl) {
+        int len_ = _args.size();
+        ArrayStruct classes_ = new ArrayStruct(len_,_cl);
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            classes_.set(i, _args.get(i).getStruct());
         }
         return classes_;
     }
