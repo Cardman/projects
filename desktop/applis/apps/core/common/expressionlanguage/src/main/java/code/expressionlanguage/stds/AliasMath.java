@@ -301,7 +301,6 @@ public final class AliasMath {
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
-        String divZero_ = lgNames_.getContent().getCoreNames().getAliasDivisionZero();
         String aliasPrimLong_ = lgNames_.getContent().getPrimTypes().getAliasPrimLong();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasAbs())) {
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
@@ -332,7 +331,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                    _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.mod(num_, den_)));
@@ -341,7 +340,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.mod(num_, den_)));
@@ -352,7 +351,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                    _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.quot(num_, den_)));
@@ -361,7 +360,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.quot(num_, den_)));
@@ -396,7 +395,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                 return result_;
             }
             result_.setResult(arg_);
@@ -406,7 +405,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, divZero_)));
+                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
                 return result_;
             }
             result_.setResult(arg_);
@@ -499,6 +498,10 @@ public final class AliasMath {
             return random(_cont, result_);
         }
         return randomParam(_cont, result_, args_);
+    }
+
+    private static ErrorStruct getDivideZero(ContextEl _cont) {
+        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero());
     }
 
     private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result) {

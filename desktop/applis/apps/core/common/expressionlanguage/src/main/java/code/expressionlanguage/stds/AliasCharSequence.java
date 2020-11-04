@@ -78,11 +78,11 @@ public final class AliasCharSequence {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasStringCompare())) {
             Struct arg_ = _args[0];
             if (!(arg_ instanceof StringStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
                 return;
             }
             StringStruct first_ = (StringStruct) arg_;
-            compareToString(first_,_args[1], lgNames_, _res, _cont);
+            compareToString(first_,_args[1], _res, _cont);
             return;
         }
         Struct arg_ = NumParsers.getArg(list_, _args);
@@ -91,13 +91,13 @@ public final class AliasCharSequence {
             return;
         }
         if (!(arg_ instanceof ArrayStruct)) {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
             return;
         }
-        tryGetCharArray(_res, list_, lgNames_, (ArrayStruct) arg_, _args, _cont);
+        tryGetCharArray(_res, list_, (ArrayStruct) arg_, _args, _cont);
     }
 
-    private static void tryGetCharArray(ResultErrorStd _res, StringList _list, LgNames _lgNames, ArrayStruct _arg, Struct[] _args, ContextEl _context) {
+    private static void tryGetCharArray(ResultErrorStd _res, StringList _list, ArrayStruct _arg, Struct[] _args, ContextEl _context) {
         int len_ = _arg.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
@@ -111,11 +111,11 @@ public final class AliasCharSequence {
         int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
         if (NumParsers.koArray(arr_, one_, two_)) {
             if (one_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(one_), _lgNames.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(one_))));
             } else if (two_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(two_), _lgNames.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(two_))));
             } else {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginEndMessage(arr_.length, one_, two_), _lgNames.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginEndMessage(arr_.length, one_, two_))));
             }
             return;
         }
@@ -129,7 +129,7 @@ public final class AliasCharSequence {
         String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasRegionMatches())) {
             regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
-                    NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]), lgNames_, _res, _cont);
+                    NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]), _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceString())) {
@@ -141,14 +141,14 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceMultiple())) {
-            replaceMultiple(_str,_args[0], lgNames_, _res, _cont);
+            replaceMultiple(_str,_args[0], _res, _cont);
             return;
         }
         String one_ = _str.getInstance();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCompareToIgnoreCase())) {
             Struct two_ = _args[0];
             if (!(two_ instanceof StringStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
             } else {
                 StringStruct t_ = (StringStruct) two_;
                 _res.setResult(new IntStruct(NumParsers.compareToIgnoreCase(one_,t_.getInstance())));
@@ -172,10 +172,9 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(StringExpUtil.toUpperCase(one_)));
     }
 
-    private static void compareToString(StringStruct _str, Struct _anotherString, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void compareToString(StringStruct _str, Struct _anotherString, ResultErrorStd _res, ContextEl _context) {
         if (!(_anotherString instanceof StringStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         StringStruct st_ = (StringStruct)_anotherString;
@@ -183,10 +182,9 @@ public final class AliasCharSequence {
     }
 
     private static void regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                      NumberStruct _len, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+                                      NumberStruct _len, ResultErrorStd _res, ContextEl _context) {
         if (!(_other instanceof StringStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         boolean case_ = BooleanStruct.isTrue(_case);
@@ -212,10 +210,9 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(out_));
     }
 
-    private static void replaceMultiple(StringStruct _st, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void replaceMultiple(StringStruct _st, Struct _seps, ResultErrorStd _res, ContextEl _context) {
         if (!(_seps instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -224,16 +221,16 @@ public final class AliasCharSequence {
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof ReplacementStruct)) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+                _context.setCallingState(new CustomFoundExc(getNpe(_context)));
                 return;
             }
             seps_[i] = NumParsers.getReplacement(curSep_).getInstance();
             if (seps_[i].getNewString() == null) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+                _context.setCallingState(new CustomFoundExc(getNpe(_context)));
                 return;
             }
             if (seps_[i].getOldString() == null) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+                _context.setCallingState(new CustomFoundExc(getNpe(_context)));
                 return;
             }
         }
@@ -250,27 +247,26 @@ public final class AliasCharSequence {
         }
         if (list_.size() == 1) {
             if (StringUtil.quickEq(list_.first(), bytePrimType_)) {
-                newStringStructByByteArray(_args[0], _stds, _res, _context);
+                newStringStructByByteArray(_args[0], _res, _context);
                 return;
             }
             if (StringUtil.quickEq(list_.first(), charPrimType_)) {
-                newStringStructByCharArray(_args[0], _stds, _res, _context);
+                newStringStructByCharArray(_args[0], _res, _context);
                 return;
             }
-            newStringBuilderStruct(_args[0], _stds, _res, _context);
+            newStringBuilderStruct(_args[0], _res, _context);
             return;
         }
         if (StringUtil.quickEq(list_.last(), bytePrimType_)) {
-            newStringStructByByteArray(_args[2], _args[0], _args[1], _stds, _res, _context);
+            newStringStructByByteArray(_args[2], _args[0], _args[1], _res, _context);
             return;
         }
-        newStringStructByCharArray(_args[2], _args[0], _args[1], _stds, _res, _context);
+        newStringStructByCharArray(_args[2], _args[0], _args[1], _res, _context);
     }
 
-    private static void newStringStructByCharArray(Struct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringStructByCharArray(Struct _arg, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
@@ -282,10 +278,9 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(String.valueOf(arr_)));
     }
 
-    private static void newStringStructByCharArray(Struct _arg, Struct _one, Struct _two, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringStructByCharArray(Struct _arg, Struct _one, Struct _two, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
@@ -294,11 +289,11 @@ public final class AliasCharSequence {
         int two_ = NumParsers.convertToNumber(_two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > len_ - two_) {
             if (one_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(one_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(one_))));
             } else if (two_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(two_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(two_))));
             } else {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginEndMessage(len_, one_, two_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginEndMessage(len_, one_, two_))));
             }
             return;
         }
@@ -310,10 +305,9 @@ public final class AliasCharSequence {
         _res.setResult(new StringStruct(String.valueOf(arr_)));
     }
 
-    private static void newStringStructByByteArray(Struct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringStructByByteArray(Struct _arg, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
@@ -325,16 +319,15 @@ public final class AliasCharSequence {
         String chars_ = StringUtil.decode(arr_);
         if (chars_ == null) {
             int index_ = StringUtil.badDecode(arr_, 0, len_);
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, Long.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+            _context.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(index_))));
             return;
         }
         _res.setResult(new StringStruct(chars_));
     }
 
-    private static void newStringStructByByteArray(Struct _arg, Struct _one, Struct _two, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringStructByByteArray(Struct _arg, Struct _one, Struct _two, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct chArr_ = (ArrayStruct) _arg;
@@ -347,27 +340,26 @@ public final class AliasCharSequence {
         int two_ = NumParsers.convertToNumber(_two).intStruct();
         if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
             if (one_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(one_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(one_))));
             } else if (two_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(two_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(two_))));
             } else {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginEndMessage(arr_.length, one_, two_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginEndMessage(arr_.length, one_, two_))));
             }
             return;
         }
         String chars_ = StringUtil.decode(arr_, one_, two_);
         if (chars_ == null) {
             int index_ = StringUtil.badDecode(arr_, one_, two_);
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, Long.toString(index_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+            _context.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(index_))));
             return;
         }
         _res.setResult(new StringStruct(chars_));
     }
 
-    private static void newStringBuilderStruct(Struct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringBuilderStruct(Struct _arg, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof StringBuilderStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         StringBuilderStruct arg_ = NumParsers.getStrBuilder(_arg);
@@ -383,30 +375,29 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(list_.first(), intPrimType_)) {
-            newStringBuilderStructByNumber(NumParsers.convertToNumber(_args[0]), lgNames_, _res, _cont);
+            newStringBuilderStructByNumber(NumParsers.convertToNumber(_args[0]), _res, _cont);
             return;
         }
-        newStringBuilderStructByString(_args[0], lgNames_, _res, _cont);
+        newStringBuilderStructByString(_args[0], _res, _cont);
     }
 
     private static void newStringBuilderStruct(ResultErrorStd _res) {
         _res.setResult(new StringBuilderStruct(new StringBuilder()));
     }
 
-    private static void newStringBuilderStructByString(Struct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void newStringBuilderStructByString(Struct _arg, ResultErrorStd _res, ContextEl _context) {
         if (!(_arg instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct arg_ = NumParsers.getCharSeq(_arg);
         _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
     }
 
-    private static void newStringBuilderStructByNumber(NumberStruct _arg, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
+    private static void newStringBuilderStructByNumber(NumberStruct _arg, ResultErrorStd _res, ContextEl _context) {
         int one_ = _arg.intStruct();
         if (one_ < 0) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, Long.toString(one_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+            _context.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(one_))));
             return;
         }
         _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
@@ -518,10 +509,9 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int newLength_ = _newLength.intStruct();
         if (newLength_ < 0) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(newLength_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+            _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(newLength_))));
             return;
         }
         _instance.getInstance().setLength(newLength_);
@@ -533,17 +523,16 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > end_ || end_ > toApp_.length()) {
             if (start_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(start_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_))));
             } else if (start_ > end_){
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", end_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(end_, ">", toApp_.length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(end_, ">", toApp_.length()))));
             }
             return;
         }
@@ -558,7 +547,7 @@ public final class AliasCharSequence {
         }
         LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
         }
         int len_ =  ((ArrayStruct)_str).getLength();
@@ -577,7 +566,7 @@ public final class AliasCharSequence {
         }
         LgNames lgNames_ = _an.getStandards();
         if (!(_str instanceof ArrayStruct)) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
         }
         int offset_ = _offset.intStruct();
@@ -585,11 +574,11 @@ public final class AliasCharSequence {
         int lenChar_ = ((ArrayStruct)_str).getLength();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
             if (offset_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(offset_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(offset_))));
             } else if (len_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(len_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(len_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginEndMessage(lenChar_, offset_, len_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginEndMessage(lenChar_, offset_, len_))));
             }
             return;
         }
@@ -615,16 +604,15 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
             if (start_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(start_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_))));
             } else if (start_ > _instance.getInstance().length()) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", _instance.getInstance().length()))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", end_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_))));
             }
             return;
         }
@@ -637,13 +625,12 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">=", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">=", _instance.getInstance().length()))));
             }
             return;
         }
@@ -656,21 +643,20 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
             if (start_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(start_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_))));
             } else if (start_ > _instance.getInstance().length()) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", _instance.getInstance().length()))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", end_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_))));
             }
             return;
         }
         if (!(_str instanceof CharSequenceStruct)) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
         }
         CharSequenceStruct ch_ = NumParsers.getCharSeq(_str);
@@ -683,18 +669,17 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()))));
             }
             return;
         }
         if (!(_str instanceof ArrayStruct)) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
         }
         int lenArr_ = ((ArrayStruct)_str).getLength();
@@ -706,11 +691,11 @@ public final class AliasCharSequence {
         int len_ = _len.intStruct();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > chars_.length) {
             if (offset_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(offset_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(offset_))));
             } else if (len_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(len_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(len_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginEndMessage(chars_.length, offset_, len_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginEndMessage(chars_.length, offset_, len_))));
             }
             return;
         }
@@ -723,18 +708,17 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int index_ = _offset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()))));
             }
             return;
         }
         if (!(_str instanceof ArrayStruct)) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+            _an.setCallingState(new CustomFoundExc(getNpe(_an)));
             return;
         }
         int len_ = ((ArrayStruct) _str).getLength();
@@ -751,13 +735,12 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()))));
             }
             return;
         }
@@ -771,14 +754,13 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         String toApp_= _s.getDisplayedString(_an).getInstance();
         int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()))));
             }
             return;
         }
@@ -786,13 +768,13 @@ public final class AliasCharSequence {
         int end_ = _end.intStruct();
         if (start_ < 0 || end_ < 0 || start_ > end_ || end_ > toApp_.length()) {
             if (start_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(start_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_))));
             } else if (end_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(end_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(end_))));
             } else if (start_ > end_) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(start_, ">", end_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(end_, ">", toApp_.length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(end_, ">", toApp_.length()))));
             }
             return;
         }
@@ -823,13 +805,12 @@ public final class AliasCharSequence {
             _an.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        LgNames lgNames_ = _an.getStandards();
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= _instance.getInstance().length()) {
             if (index_ < 0) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBeginMessage(index_), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_))));
             } else {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getEndMessage(index_, ">=", _instance.getInstance().length()), lgNames_.getContent().getCoreNames().getAliasBadIndex())));
+                _an.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">=", _instance.getInstance().length()))));
             }
             return;
         }
@@ -866,7 +847,7 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCharAt())) {
-            charAt(_charSequence, _args[0], lgNames_, _res, _cont);
+            charAt(_charSequence, _args[0], _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasGetBytes())) {
@@ -874,56 +855,56 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCharSequenceCompareTo())) {
-            compareTo(_charSequence, _args[0], lgNames_, _res, _cont);
+            compareTo(_charSequence, _args[0], _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasRegionMatches())) {
-            regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), lgNames_, _res, _cont);
+            regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasStartsWith())) {
             if (list_.size() == 1) {
-                startsWith(_charSequence, _args[0], lgNames_, _res, _cont);
+                startsWith(_charSequence, _args[0], _res, _cont);
                 return;
             }
-            startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), lgNames_, _res, _cont);
+            startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasEndsWith())) {
-            endsWith(_charSequence, _args[0], lgNames_, _res, _cont);
+            endsWith(_charSequence, _args[0], _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIndexOf())) {
             if (list_.size() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
-                    indexOfString(_charSequence, _args[0], lgNames_, _res, _cont);
+                    indexOfString(_charSequence, _args[0], _res, _cont);
                     return;
                 }
                 indexOf(_charSequence, _args[0], _res);
                 return;
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), lgNames_, _res, _cont);
+                indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont);
                 return;
             }
             indexOf(_charSequence, _args[0], _args[1], _res);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasContains())) {
-            contains(_charSequence, _args[0], lgNames_, _res, _cont);
+            contains(_charSequence, _args[0], _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLastIndexOf())) {
             if (list_.size() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
-                    lastIndexOfString(_charSequence, _args[0], lgNames_, _res, _cont);
+                    lastIndexOfString(_charSequence, _args[0], _res, _cont);
                     return;
                 }
                 lastIndexOf(_charSequence, _args[0], _res);
                 return;
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                lastIndexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), lgNames_, _res, _cont);
+                lastIndexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont);
                 return;
             }
             lastIndexOf(_charSequence, _args[0], _args[1], _res);
@@ -931,10 +912,10 @@ public final class AliasCharSequence {
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubstring()) || StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubSequence())) {
             if (list_.size() == 1) {
-                substring(_charSequence, NumParsers.convertToNumber(_args[0]), lgNames_, _res, _cont);
+                substring(_charSequence, NumParsers.convertToNumber(_args[0]), _res, _cont);
                 return;
             }
-            substring(_charSequence, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]), lgNames_, _res, _cont);
+            substring(_charSequence, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]), _res, _cont);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplit())) {
@@ -974,7 +955,7 @@ public final class AliasCharSequence {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasFormat())) {
-            format(_charSequence, _args[0], lgNames_, _res, _cont);
+            format(_charSequence, _args[0], _res, _cont);
             return;
         }
         _res.setResult(_charSequence.getDisplayedString(_cont));
@@ -988,15 +969,14 @@ public final class AliasCharSequence {
         _res.setResult(NumParsers.isEmpty(_charSequence));
     }
 
-    private static void charAt(CharSequenceStruct _charSequence, Struct _index, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
+    private static void charAt(CharSequenceStruct _charSequence, Struct _index, ResultErrorStd _res, ContextEl _context) {
         NumberStruct nb_ = NumParsers.convertToNumber(_index);
         int ind_ = nb_.intStruct();
-        String badIndex_ = _stds.getContent().getCoreNames().getAliasBadIndex();
         if (NumParsers.isInvalidIndex(ind_, _charSequence)) {
             if (ind_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(ind_), badIndex_)));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(ind_))));
             } else {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getEndMessage(ind_, ">=", _charSequence.length()), badIndex_)));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(ind_, ">=", _charSequence.length()))));
             }
             return;
         }
@@ -1016,10 +996,9 @@ public final class AliasCharSequence {
         _res.setResult(result_);
     }
 
-    private static void compareTo(CharSequenceStruct _charSequence, Struct _anotherString, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void compareTo(CharSequenceStruct _charSequence, Struct _anotherString, ResultErrorStd _res, ContextEl _context) {
         if (!(_anotherString instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct st_ = NumParsers.getCharSeq(_anotherString);
@@ -1027,10 +1006,9 @@ public final class AliasCharSequence {
     }
 
     private static void regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                      NumberStruct _len, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+                                      NumberStruct _len, ResultErrorStd _res, ContextEl _context) {
         if (!(_other instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct other_ = NumParsers.getCharSeq(_other);
@@ -1040,24 +1018,22 @@ public final class AliasCharSequence {
         _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_)));
     }
 
-    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        startsWith(_charSequence, _prefix,new IntStruct(0), _stds, _res, _context);
+    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, ResultErrorStd _res, ContextEl _context) {
+        startsWith(_charSequence, _prefix,new IntStruct(0), _res, _context);
     }
 
-    private static void endsWith(CharSequenceStruct _charSequence, Struct _suffix, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void endsWith(CharSequenceStruct _charSequence, Struct _suffix, ResultErrorStd _res, ContextEl _context) {
         if (!(_suffix instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct suffix_ = NumParsers.getCharSeq(_suffix);
         _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().endsWith(suffix_.toStringInstance())));
     }
 
-    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset, ResultErrorStd _res, ContextEl _context) {
         if (!(_prefix instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct pref_ = NumParsers.getCharSeq(_prefix);
@@ -1077,31 +1053,28 @@ public final class AliasCharSequence {
         _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_)));
     }
 
-    private static void contains(CharSequenceStruct _charSequence, Struct _str, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void contains(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context) {
         if (!(_str instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct arg_ = NumParsers.getCharSeq(_str);
         _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().contains(arg_.toStringInstance())));
     }
 
-    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context) {
         if (!(_str instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
         _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(str_.toStringInstance())));
     }
 
-    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
+    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, ResultErrorStd _res, ContextEl _context) {
         int from_ = _fromIndex.intStruct();
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
         if (!(_str instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
@@ -1120,14 +1093,13 @@ public final class AliasCharSequence {
         _res.setResult(new IntStruct(_charSequence.toStringInstance().lastIndexOf(int_, from_)));
     }
 
-    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        lastIndexOfString(_charSequence, _str,new IntStruct(_charSequence.length()), _stds, _res, _context);
+    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context) {
+        lastIndexOfString(_charSequence, _str,new IntStruct(_charSequence.length()), _res, _context);
     }
 
-    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, ResultErrorStd _res, ContextEl _context) {
         if (!(_str instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
@@ -1135,20 +1107,20 @@ public final class AliasCharSequence {
         _res.setResult(new IntStruct(_charSequence.toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
     }
 
-    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        substring(_charSequence, _beginIndex, new IntStruct(_charSequence.length()), _stds, _res, _context);
+    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, ResultErrorStd _res, ContextEl _context) {
+        substring(_charSequence, _beginIndex, new IntStruct(_charSequence.length()), _res, _context);
     }
 
-    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, NumberStruct _endIndex, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
+    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, NumberStruct _endIndex, ResultErrorStd _res, ContextEl _context) {
         int begin_ = _beginIndex.intStruct();
         int end_ = _endIndex.intStruct();
         if (NumParsers.isIncorrectSub(begin_, end_, _charSequence)) {
             if (begin_ < 0) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getBeginMessage(begin_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(begin_))));
             } else if (end_ > _charSequence.length()) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getEndMessage(end_, ">", _charSequence.length()), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(end_, ">", _charSequence.length()))));
             } else {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, getEndMessage(begin_, ">", end_), _stds.getContent().getCoreNames().getAliasBadIndex())));
+                _context.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(begin_, ">", end_))));
             }
             return;
         }
@@ -1180,9 +1152,8 @@ public final class AliasCharSequence {
     }
 
     private static void splitChars(CharSequenceStruct _charSequence, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
         if (!(_seps instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -1212,9 +1183,8 @@ public final class AliasCharSequence {
     }
 
     private static void splitStrings(CharSequenceStruct _charSequence, NumberStruct _lim, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
         if (!(_seps instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -1223,7 +1193,7 @@ public final class AliasCharSequence {
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+                _context.setCallingState(new CustomFoundExc(getNpe(_context)));
                 return;
             }
             seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
@@ -1247,9 +1217,8 @@ public final class AliasCharSequence {
     }
 
     private static void splitSingleString(CharSequenceStruct _charSequence, Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
         if (!(_sep instanceof CharSequenceStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         int lim_ = _lim.intStruct();
@@ -1286,10 +1255,9 @@ public final class AliasCharSequence {
         _res.setResult(arr_);
     }
 
-    private static void format(CharSequenceStruct _charSequence, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context) {
-        String nullPe_ = _stds.getContent().getCoreNames().getAliasNullPe();
+    private static void format(CharSequenceStruct _charSequence, Struct _seps, ResultErrorStd _res, ContextEl _context) {
         if (!(_seps instanceof ArrayStruct)) {
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+            _context.setCallingState(new CustomFoundExc(getNpe(_context)));
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -1298,12 +1266,20 @@ public final class AliasCharSequence {
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, nullPe_)));
+                _context.setCallingState(new CustomFoundExc(getNpe(_context)));
                 return;
             }
             seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
         }
         _res.setResult(new StringStruct(StringUtil.simpleStringsFormat(_charSequence.toStringInstance(), seps_)));
+    }
+
+    private static ErrorStruct getBadIndex(ContextEl _context, String _message) {
+        return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex());
+    }
+
+    private static ErrorStruct getNpe(ContextEl _context) {
+        return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe());
     }
 
     public static void instantiate(ResultErrorStd _res, Struct... _args) {

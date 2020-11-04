@@ -118,7 +118,7 @@ public final class ApplyCoreMethodUtil {
             Argument instance_ = new Argument(args_[0]);
             Struct inst_ = instance_.getStruct();
             if (!(inst_ instanceof ArrayStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
                 return res_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
@@ -192,7 +192,7 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new StringStruct(en_.getName()));
@@ -200,7 +200,7 @@ public final class ApplyCoreMethodUtil {
         } else {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, lgNames_.getContent().getCoreNames().getAliasNullPe())));
+                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new IntStruct(en_.getOrdinal()));
@@ -208,6 +208,11 @@ public final class ApplyCoreMethodUtil {
         }
         return result_;
     }
+
+    private static ErrorStruct getNpe(ContextEl _cont) {
+        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe());
+    }
+
     public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] _args) {
         LgNames stds_ = _conf.getStandards();
         String aliasField_ = stds_.getContent().getReflect().getAliasField();
@@ -316,6 +321,14 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
+    private static ErroneousStruct getError(Struct _err, ContextEl _cont) {
+        if (_err instanceof ErroneousStruct) {
+            return (ErroneousStruct) _err;
+        }
+        String null_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
+        return new ErrorStruct(_cont,null_);
+    }
+
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
         LgNames lgNames_ = _cont.getStandards();
         return lgNames_.instance(_cont,_method,_args);
@@ -348,14 +361,6 @@ public final class ApplyCoreMethodUtil {
             return NumParsers.getReplacement(previous_);
         }
         return stds_.defaultInstance(_conf,_id).getStruct();
-    }
-
-    private static ErroneousStruct getError(Struct _err, ContextEl _cont) {
-        if (_err instanceof ErroneousStruct) {
-            return (ErroneousStruct) _err;
-        }
-        String null_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-        return new ErrorStruct(_cont,null_);
     }
 
     public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {
