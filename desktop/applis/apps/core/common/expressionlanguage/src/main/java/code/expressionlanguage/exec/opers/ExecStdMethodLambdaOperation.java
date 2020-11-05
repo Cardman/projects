@@ -16,7 +16,6 @@ import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperation {
 

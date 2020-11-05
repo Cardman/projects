@@ -23,13 +23,4 @@ public abstract class ExecAbstractArrayInstancingOperation extends ExecInvokingO
     public final String getClassName() {
         return arrayInstancingContent.getClassName();
     }
-
-    @Override
-    public final void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
-    }
-    abstract Argument getArgument(CustList<Argument> _arguments,
-                                  ContextEl _conf);
 }

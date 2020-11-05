@@ -17,7 +17,6 @@ import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation {
 

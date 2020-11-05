@@ -19,9 +19,9 @@ public final class ExecMultOperation extends ExecStdNumericOperation {
                     NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
         }
         if (StringUtil.quickEq(_op.trim(), DIV)) {
-            return calculateDivEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());
+            return new Argument(calculateDivEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, getResultClass().getUnwrapObjectNb()));
         }
-        return calculateModEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());
+        return new Argument(calculateModEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, getResultClass().getUnwrapObjectNb()));
     }
 
 }

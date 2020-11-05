@@ -30,8 +30,22 @@ public final class ExecSettableFieldOperation extends
     public boolean resultCanBeSet() {
         return settableFieldContent.isVariable();
     }
-
     @Override
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+        Argument arg_ = getCommonArgument(previous_, _conf);
+        boolean simple_ = false;
+        if (resultCanBeSet()) {
+            simple_ = true;
+        }
+        if (simple_) {
+            setQuickNoConvertSimpleArgument(arg_, _conf, _nodes);
+        } else {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
+    }
+
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
         int off_ = getOff();
         ClassField fieldId_ = settableFieldContent.getClassField();

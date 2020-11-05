@@ -20,9 +20,9 @@ public final class RendMultOperation extends RendStdNumericOperation {
                     NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
         }
         if (StringUtil.quickEq(_op.trim(), DIV)) {
-            return ExecNumericOperation.calculateDivEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());
+            return new Argument(ExecNumericOperation.calculateDivEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, getResultClass().getUnwrapObjectNb()));
         }
-        return ExecNumericOperation.calculateModEx(_a, _cont, _b, getResultClass().getUnwrapObjectNb());
+        return new Argument(ExecNumericOperation.calculateModEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, getResultClass().getUnwrapObjectNb()));
     }
 
 }

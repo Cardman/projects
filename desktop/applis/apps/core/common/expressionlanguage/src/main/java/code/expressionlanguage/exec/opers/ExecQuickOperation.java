@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -16,11 +15,11 @@ import code.util.IdMap;
 
 public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,CallExecSimpleOperation {
 
-    private ExecStaticEltContent staticEltContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
-    private ImplicitMethods converter;
-    private int opOffset;
+    private final ExecStaticEltContent staticEltContent;
+    private final ExecNamedFunctionBlock named;
+    private final ExecRootBlock rootBlock;
+    private final ImplicitMethods converter;
+    private final int opOffset;
     protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter, int _opOffset) {
         super(_opCont);
         staticEltContent = _staticEltContent;

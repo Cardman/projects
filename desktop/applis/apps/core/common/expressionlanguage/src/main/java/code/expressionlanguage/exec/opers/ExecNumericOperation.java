@@ -45,15 +45,6 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return o_;
     }
 
-    public static Argument calculateDivEx(Argument _a, ContextEl _cont, Argument _b, byte _cast) {
-        Struct res_ = calculateDivEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, _cast);
-        return new Argument(res_);
-    }
-    public static Argument calculateModEx(Argument _a, ContextEl _cont, Argument _b, byte _cast) {
-        Struct res_ = calculateModEx(NumParsers.convertToNumber(_a.getStruct()), NumParsers.convertToNumber(_b.getStruct()), _cont, _cast);
-        return new Argument(res_);
-    }
-
     public static void calculateOperator(ContextEl _cont, ResultErrorStd _res,
                                          String _op, boolean _catString,
                                          Struct _first, Struct _second, byte _cast) {
@@ -138,7 +129,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
       _res.setResult(arg_.getStruct());
   }
 
-    private static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
+    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
@@ -149,7 +140,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return res_;
     }
 
-    private static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
+    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();

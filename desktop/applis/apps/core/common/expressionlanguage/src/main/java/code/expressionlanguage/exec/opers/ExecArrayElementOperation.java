@@ -3,10 +3,12 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
@@ -18,6 +20,12 @@ public final class ExecArrayElementOperation extends
     }
 
     @Override
+    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+        CustList<Argument> arguments_ = getArguments(_nodes, this);
+        Argument res_ = getArgument(arguments_, _conf);
+        setSimpleArgument(res_, _conf, _nodes);
+    }
+
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         String me_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(me_);

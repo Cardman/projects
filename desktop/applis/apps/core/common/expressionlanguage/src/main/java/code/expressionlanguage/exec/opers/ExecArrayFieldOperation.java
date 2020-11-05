@@ -4,20 +4,28 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.IdMap;
 
 public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
 
     public ExecArrayFieldOperation(ExecOperationContent _opCont, ExecFieldOperationContent _fieldCont) {
         super(_opCont, _fieldCont);
     }
-
     @Override
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+        Argument arg_ = getCommonArgument(previous_, _conf);
+        setSimpleArgument(arg_, _conf, _nodes);
+    }
+
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
         setRelOffsetPossibleLastPage(getOff(), _conf);
         Struct inst_ = _previous.getStruct();

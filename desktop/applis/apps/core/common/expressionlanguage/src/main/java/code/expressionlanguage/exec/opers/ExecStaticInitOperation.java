@@ -18,12 +18,11 @@ public final class ExecStaticInitOperation extends ExecLeafOperation implements 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
             String className_ = getResultClass().getSingleNameOrEmpty();
             _conf.getExiting().hasToExit(className_);
         }
-        setSimpleArgument(arg_, _conf, _nodes);
+        setSimpleArgument(Argument.createVoid(), _conf, _nodes);
     }
 
 }
