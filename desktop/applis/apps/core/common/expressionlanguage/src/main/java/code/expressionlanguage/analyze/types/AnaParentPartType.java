@@ -11,6 +11,7 @@ abstract class AnaParentPartType extends AnaPartType {
     private CustList<PartOffset> beginOps = new CustList<PartOffset>();
     private CustList<PartOffset> endOps = new CustList<PartOffset>();
     private CustList<StringList> errsList = new CustList<StringList>();
+    private final StrTypes strTypes = new StrTypes();
     private AnaPartType firstChild;
     private StrTypes operators;
     AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
@@ -46,6 +47,10 @@ abstract class AnaParentPartType extends AnaPartType {
 
     StrTypes getOperators() {
         return operators;
+    }
+
+    StrTypes getStrTypes() {
+        return strTypes;
     }
 
     CustList<StringList> getErrsList() {

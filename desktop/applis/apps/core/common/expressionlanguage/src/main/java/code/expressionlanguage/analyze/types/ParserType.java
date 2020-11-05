@@ -93,7 +93,6 @@ public final class ParserType {
 
     public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
-        a_.getIndexes().addAllElts(_indexes);
         if (StringExpUtil.isTypeLeafPart(_string.trim())) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);
@@ -104,7 +103,6 @@ public final class ParserType {
 
     public static AnalyzingType analyzeLocalId(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
-        a_.getIndexes().addAllElts(_indexes);
         if (StringExpUtil.isTypeLeafPartExec(_string.trim())) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);

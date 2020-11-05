@@ -1,9 +1,7 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.util.CustList;
 import code.util.core.StringUtil;
 
 final class ExecNamePartType extends ExecLeafPartType {
@@ -12,7 +10,7 @@ final class ExecNamePartType extends ExecLeafPartType {
     }
 
     @Override
-    void checkDynExistence(ContextEl _an, CustList<StrTypes> _dels) {
+    void checkDynExistence(ContextEl _an) {
         ExecPartType part_ = getPreviousPartType();
         String typeName_ = getTypeName();
         typeName_ = StringExpUtil.removeDottedSpaces(typeName_);
@@ -38,7 +36,7 @@ final class ExecNamePartType extends ExecLeafPartType {
             ExecPartType prev_ = getParent().getFirstChild();
             String base_ = ((ExecNamePartType)prev_).exportHeader();
             if (StringUtil.quickEq(getTypeName().trim(), _an.getStandards().getContent().getCoreNames().getAliasVoid())) {
-                if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
                     setImportedTypeName(getTypeName().trim());
                     setAnalyzedType(getTypeName().trim());
                 }

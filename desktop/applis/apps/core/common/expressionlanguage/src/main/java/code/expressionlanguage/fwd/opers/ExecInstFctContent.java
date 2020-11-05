@@ -1,7 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInstFctContent {
 
@@ -18,7 +18,7 @@ public final class ExecInstFctContent {
     private final boolean staticChoiceMethod;
     public ExecInstFctContent(AnaCallFctContent _cont, int _anc, boolean _staticChoiceMethod) {
         methodName = _cont.getMethodName();
-        className = ForwardInfos.getType(_cont.getClassMethodId());
+        className = FetchMemberUtil.getType(_cont.getClassMethodId());
         lastType = _cont.getLastType();
         naturalVararg = _cont.getNaturalVararg();
         anc = _anc;
@@ -26,7 +26,7 @@ public final class ExecInstFctContent {
     }
     public ExecInstFctContent(ClassMethodId _cl) {
         methodName = _cl.getConstraints().getName();
-        className = ForwardInfos.getType(_cl);
+        className = FetchMemberUtil.getType(_cl);
         lastType = "";
         naturalVararg = -1;
         anc = 0;

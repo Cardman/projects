@@ -4,7 +4,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecLambdaFieldContent {
     private final ClassField classField;
@@ -18,8 +18,8 @@ public final class ExecLambdaFieldContent {
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
         affField = _field.isAffField();
-        rootBlock = ForwardInfos.fetchType(_cont.getRootNumber(), _forwards);
-        infoBlock = ForwardInfos.fetchField(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
+        rootBlock = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
+        infoBlock = FetchMemberUtil.fetchField(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
     }
 
     public ClassField getClassField() {

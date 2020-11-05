@@ -4,7 +4,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecLambdaMethodContent {
     private final ClassMethodId method;
@@ -22,9 +22,9 @@ public final class ExecLambdaMethodContent {
         abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
-        functionBlock = ForwardInfos.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
-        function = ForwardInfos.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
-        declaring = ForwardInfos.fetchType(_cont.getRootNumber(), _forwards);
+        functionBlock = FetchMemberUtil.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
+        function = FetchMemberUtil.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
+        declaring = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
     }
 
     public ClassMethodId getMethod() {

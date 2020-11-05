@@ -2,7 +2,7 @@ package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecOperationContent {
     private final int indexInEl;
@@ -14,7 +14,7 @@ public final class ExecOperationContent {
     public ExecOperationContent(AnaOperationContent _cont) {
         indexInEl = _cont.getIndexInEl();
         indexChild = _cont.getIndexChild();
-        resultClass = ForwardInfos.toExec(_cont.getResultClass());
+        resultClass = FetchMemberUtil.toExec(_cont.getResultClass());
         indexBegin = _cont.getIndexBegin();
         argument = _cont.getArgument();
         order = _cont.getOrder();

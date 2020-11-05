@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.util.CustList;
 import code.util.core.StringUtil;
 
 final class AnaWildCardPartType extends AnaParentPartType {
@@ -19,17 +18,17 @@ final class AnaWildCardPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null,_dels,_local,_rooted, _page);
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        analyzeLine(null, _local,_rooted, _page);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaWild(_page);
     }
 
     @Override
-    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaWild(_page);
     }
 

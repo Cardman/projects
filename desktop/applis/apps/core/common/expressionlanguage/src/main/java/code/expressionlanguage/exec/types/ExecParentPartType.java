@@ -6,6 +6,7 @@ import code.util.CustList;
 
 abstract class ExecParentPartType extends ExecPartType {
     private final CustList<ExecPartType> children = new CustList<ExecPartType>();
+    private final StrTypes strTypes = new StrTypes();
 
     private ExecPartType firstChild;
     ExecParentPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
@@ -33,7 +34,11 @@ abstract class ExecParentPartType extends ExecPartType {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels);
+    abstract boolean analyzeTree(ContextEl _an);
+
+    StrTypes getStrTypes() {
+        return strTypes;
+    }
 
     CustList<ExecPartType> getChildren() {
         return children;

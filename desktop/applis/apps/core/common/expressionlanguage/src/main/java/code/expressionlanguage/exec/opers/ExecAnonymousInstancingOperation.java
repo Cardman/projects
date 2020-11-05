@@ -42,7 +42,7 @@ public final class ExecAnonymousInstancingOperation extends
             return Argument.createVoid();
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareFormatted(_conf, className_,rootBlock,ctor, _previous, firstArgs_, "", -1);
+        return instancePrepareCust(_conf, className_, rootBlock, ctor, _previous, firstArgs_, "", -1);
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {

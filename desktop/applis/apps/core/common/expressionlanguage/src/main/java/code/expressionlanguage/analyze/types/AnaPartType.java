@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -102,10 +101,10 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
 
-    abstract void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
-    abstract void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
 
-    abstract void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page);
 
     int getIndex() {
         return index;

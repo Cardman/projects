@@ -56,7 +56,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, false, _shiftArgument, 0, false);
         l_.setInstanceCall(_previous);
         l_.setSafeInstance(_safeInstance);
-        l_.setMethodName(StringUtil.nullToEmpty(_constraints.getName()));
+        l_.setMethodName(_constraints.getName());
         l_.setKind(_constraints.getKind());
         MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _constraints);
         String className_;

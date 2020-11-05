@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StrTypes;
 import code.util.CustList;
 
 final class ExecInnerPartType extends ExecBinaryType {
@@ -31,7 +30,7 @@ final class ExecInnerPartType extends ExecBinaryType {
     }
 
     @Override
-    boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels) {
+    boolean analyzeTree(ContextEl _an) {
         CustList<ExecPartType> ch_ = getChildren();
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);

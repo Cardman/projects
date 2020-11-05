@@ -33,7 +33,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediateDottedOperation;
     }
 
-    public ExecInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
+    protected ExecInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
                                  boolean _intermediate) {
         super(_indexChild,_res,_order);
         intermediate = _intermediate;
@@ -141,13 +141,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(res_.getResult());
     }
 
-    public static Argument instancePrepareFormatted(ContextEl _conf, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor,
-                                                    Argument _previous, CustList<Argument> _arguments, String _fieldName,
-                                                    int _blockIndex) {
-        String className_ = _conf.formatVarType(_className);
-        return instancePrepareCust(_conf, className_, _rootBlock, _ctor, _previous, _arguments, _fieldName, _blockIndex);
-    }
-
     public static Argument instancePrepareCust(ContextEl _conf, String _className, ExecRootBlock _root,ExecNamedFunctionBlock _constId,
                                             Argument _previous, CustList<Argument> _arguments, String _fieldName,
                                             int _blockIndex) {
@@ -189,11 +182,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             cast_ = _stds.getContent().getCoreNames().getAliasCastType();
             _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE, param_, RETURN_LINE), cast_)));
         }
-    }
-
-    public static Argument instancePrepareAnnotation(ContextEl _conf, String _className, ExecRootBlock _root, StringMap<AnnotationTypeInfo> _fieldNames, CustList<Argument> _arguments) {
-        _conf.setCallingState(new CustomFoundAnnotation(_className,_root, _fieldNames, _arguments));
-        return Argument.createVoid();
     }
 
     public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, String _className, ExecRootBlock _root, ExecNamedFunctionBlock _named) {

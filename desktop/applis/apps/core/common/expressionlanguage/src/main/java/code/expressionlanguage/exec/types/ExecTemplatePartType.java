@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 
@@ -45,7 +44,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
     }
 
     @Override
-    boolean analyzeTree(ContextEl _an, CustList<StrTypes> _dels) {
+    boolean analyzeTree(ContextEl _an) {
         String tempClFull_ = fetchTemplate();
         setAnalyzedType(tempClFull_);
         return true;

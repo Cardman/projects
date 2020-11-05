@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.util.CustList;
 import code.util.core.StringUtil;
 
 final class AnaVariablePartType extends AnaLeafPartType {
@@ -17,12 +15,12 @@ final class AnaVariablePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null,_dels,_local,_rooted, null);
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        analyzeLine(null, _local,_rooted, null);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
         t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
@@ -30,7 +28,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
         t_ = StringUtil.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);

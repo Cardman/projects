@@ -49,6 +49,9 @@ public final class StrTypes {
         }
         return s_;
     }
+    public void addAllEntries(StrTypes _m) {
+        values.addAllElts(_m.values);
+    }
     public void addEntry(int _k, String _v) {
         values.add(new IndexStrPart(_k, _v));
     }

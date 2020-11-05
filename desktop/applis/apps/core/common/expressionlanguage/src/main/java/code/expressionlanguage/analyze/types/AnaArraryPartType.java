@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StrTypes;
-import code.util.CustList;
 import code.util.core.StringUtil;
 
 final class AnaArraryPartType extends AnaParentPartType {
@@ -17,17 +16,17 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 
     @Override
-    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaArray();
     }
 

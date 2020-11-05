@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundAnnotation;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingAnnotContent;
@@ -52,7 +53,8 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         if (_conf.getExiting().hasToExit(base_)) {
             return Argument.createVoid();
         }
-        return instancePrepareAnnotation(_conf, instancingAnnotContent.getClassName(),rootBlock, instancingAnnotContent.getFieldNames(), _arguments);
+        _conf.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getClassName(), rootBlock, instancingAnnotContent.getFieldNames(), _arguments));
+        return Argument.createVoid();
     }
 
 }

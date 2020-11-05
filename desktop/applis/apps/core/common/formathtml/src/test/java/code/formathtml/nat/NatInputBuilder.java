@@ -9,7 +9,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
@@ -52,7 +52,7 @@ public final class NatInputBuilder implements AbstractInputBuilder {
         FctOperation settable_ = (FctOperation) _resultInput.getSettable();
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
         String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
-        ExecClassArgumentMatching pr_ = ForwardInfos.toExec(_resultInput.getPreviousResult());
+        ExecClassArgumentMatching pr_ = FetchMemberUtil.toExec(_resultInput.getPreviousResult());
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         OperationNode root_ = _resultInput.getOpsReadRoot();
         if (settable_ == root_) {

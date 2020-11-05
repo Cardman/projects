@@ -1,9 +1,6 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StrTypes;
-import code.util.CustList;
-import code.util.IntTreeMap;
 
 abstract class ExecLeafPartType extends ExecPartType {
 
@@ -15,7 +12,7 @@ abstract class ExecLeafPartType extends ExecPartType {
         typeName = _type;
         previousSeparator = _previousSeparator;
     }
-    abstract void checkDynExistence(ContextEl _an, CustList<StrTypes> _dels);
+    abstract void checkDynExistence(ContextEl _an);
     final String exportHeader() {
         return importedTypeName;
     }

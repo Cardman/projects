@@ -2,14 +2,11 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.types.KindPartType;
-import code.util.IntTreeMap;
-import code.util.Ints;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class AnalyzingType {
 
-    private Ints indexes = new Ints();
     private StrTypes operators = new StrTypes();
     private StrTypes values = new StrTypes();
     private boolean error;
@@ -77,9 +74,6 @@ public final class AnalyzingType {
         kind = _kind;
     }
 
-    public Ints getIndexes() {
-        return indexes;
-    }
     public StrTypes getOperators() {
         return operators;
     }

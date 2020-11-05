@@ -40,17 +40,17 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return Templates.TEMPLATE_END;
     }
     @Override
-    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeLine(null,_dels,_local,_rooted, null);
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        analyzeLine(null, _local,_rooted, null);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 
     @Override
-    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         anaTmp();
     }
 

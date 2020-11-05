@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -26,14 +25,14 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(CustList<StrTypes> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        if (skipGenericInners(_dels, _page)) {
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        if (skipGenericInners(_page)) {
             return;
         }
         tryAnalyzeInnerParts(_local,_rooted, _page);
     }
 
-    private boolean skipGenericInners(CustList<StrTypes> _dels, AnalyzedPageEl _page) {
+    private boolean skipGenericInners(AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -41,7 +40,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             analyzeGenericOnwer(part_, type_, _page);
             return true;
         }
-        return analyzeFull(_dels, type_, _page);
+        return analyzeFull(type_, _page);
     }
     private void analyzeGenericOnwer(AnaPartType _part, String _type, AnalyzedPageEl _page) {
         String owner_ = _part.getAnalyzedType();
@@ -68,14 +67,14 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, CustList<StrTypes> _dels, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        if (skipInners(_ready,_dels, _page)) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+        if (skipInners(_ready, _page)) {
             return;
         }
         tryAnalyzeInnerPartsLine(_ready,_local,_rooted, _page);
     }
 
-    private boolean skipInners(ReadyTypes _ready, CustList<StrTypes> _dels, AnalyzedPageEl _page) {
+    private boolean skipInners(ReadyTypes _ready, AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -83,10 +82,10 @@ final class AnaNamePartType extends AnaLeafPartType {
             analyzeOnwer(_ready, part_, type_, _page);
             return true;
         }
-        return analyzeFull(_dels, type_, _page);
+        return analyzeFull(type_, _page);
     }
 
-    private boolean analyzeFull(CustList<StrTypes> _dels, String _type, AnalyzedPageEl _page) {
+    private boolean analyzeFull(String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         RootBlock root_ = _page.getAnaClassBody(id_);
         if (root_ != null) {
@@ -101,7 +100,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             setAnalyzedType(_type);
             return true;
         }
-        return processFctVoid(_dels, _page);
+        return processFctVoid(_page);
     }
 
     private void analyzeOnwer(ReadyTypes _ready, AnaPartType _part, String _type, AnalyzedPageEl _page) {
@@ -128,7 +127,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
     }
 
-    private boolean processFctVoid(CustList<StrTypes> _dels, AnalyzedPageEl _page) {
+    private boolean processFctVoid(AnalyzedPageEl _page) {
         AnaParentPartType par_ = getParent();
         if (!(par_ instanceof AnaTemplatePartType)) {
             return false;
@@ -137,7 +136,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
             base_ = StringExpUtil.getIdFromAllTypes(base_);
-            if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+            if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && par_.getStrTypes().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
             }
             return true;
@@ -320,7 +319,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(CustList<StrTypes> _dels, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -354,7 +353,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
                 String base_ = prev_.getAnalyzedType();
                 base_ = StringExpUtil.getIdFromAllTypes(base_);
-                if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
                 return;
