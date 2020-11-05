@@ -41,7 +41,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     }
 
     public void setInstanceCall(Argument _instanceCall) {
-        instanceCall = _instanceCall;
+        instanceCall = Argument.getNullableValue(_instanceCall);
     }
 
     public Struct getMetaInfo() {

@@ -644,7 +644,7 @@ public final class ExecTemplates {
     }
     private static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
         String arrType_ = _arr.getClassName();
-        String param_ = StringExpUtil.getQuickComponentType(arrType_);
+        String param_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arrType_));
         LgNames stds_ = _context.getStandards();
         if (primitiveTypeNullObject(param_, _value, stds_)) {
             return ErrorType.NPE;
@@ -661,17 +661,18 @@ public final class ExecTemplates {
     public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         Struct str_ = _arg.getStruct();
+        String param_ = StringUtil.nullToEmpty(_param);
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = str_.getClassName(_context);
-            String param_ = toWrapper(_param, stds_);
+            param_ = toWrapper(param_, stds_);
             if (!isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
             }
         }
-        if (_param.isEmpty()) {
+        if (param_.isEmpty()) {
             return ErrorType.CAST;
         }
-        if (primitiveTypeNullObject(_param, str_, _context)) {
+        if (primitiveTypeNullObject(param_, str_, _context)) {
             return ErrorType.NPE;
         }
         return ErrorType.NOTHING;

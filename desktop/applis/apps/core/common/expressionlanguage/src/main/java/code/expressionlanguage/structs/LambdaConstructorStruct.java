@@ -30,7 +30,7 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     }
 
     public void setInstanceCall(Argument _instanceCall) {
-        instanceCall = _instanceCall;
+        instanceCall = Argument.getNullableValue(_instanceCall);
     }
 
     public Struct getMetaInfo() {

@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -27,7 +28,7 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _conf);
-        return _arguments.first();
+        return ExecTemplates.getFirstArgument(_arguments);
     }
 
     int getIndex() {

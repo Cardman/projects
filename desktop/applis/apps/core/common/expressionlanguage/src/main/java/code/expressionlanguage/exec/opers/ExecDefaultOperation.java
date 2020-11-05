@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -26,6 +27,6 @@ public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelOffsetPossibleLastPage(offset, _conf);
-        return new Argument(ExecClassArgumentMatching.convertFormattedWide(_arguments.first().getStruct(), _conf, getResultClass().getNames()));
+        return new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecTemplates.getFirstArgument(_arguments).getStruct(), _conf, getResultClass().getNames()));
     }
 }

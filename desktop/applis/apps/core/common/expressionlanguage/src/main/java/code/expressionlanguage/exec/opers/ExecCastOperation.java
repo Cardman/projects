@@ -40,7 +40,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _conf);
-        Argument objArg_ = new Argument(_arguments.first().getStruct());
+        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
         String paramName_ = _conf.formatVarType(typeCheckContent.getClassName());
         wrapFct(paramName_,false, _conf, objArg_);
         ExecTemplates.checkObject(paramName_, objArg_, _conf);

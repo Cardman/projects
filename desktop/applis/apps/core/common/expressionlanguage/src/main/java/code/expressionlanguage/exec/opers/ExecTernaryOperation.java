@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -25,13 +26,17 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument  getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelOffsetPossibleLastPage(offsetLocal, _conf);
+        return getArgument(_arguments);
+    }
+
+    public static Argument getArgument(CustList<Argument> _arguments) {
         Argument arg_;
-        if (BooleanStruct.isTrue(_arguments.first().getStruct())) {
-            arg_ = _arguments.get(IndexConstants.SECOND_INDEX);
+        if (BooleanStruct.isTrue(ExecTemplates.getFirstArgument(_arguments).getStruct())) {
+            arg_ = ExecTemplates.getArgument(_arguments,IndexConstants.SECOND_INDEX);
         } else {
-            arg_ = _arguments.last();
+            arg_ = ExecTemplates.getLastArgument(_arguments);
         }
         return arg_;
     }

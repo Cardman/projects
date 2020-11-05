@@ -55,7 +55,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     }
 
     public void setInstanceCall(Argument _instanceCall) {
-        instanceCall = _instanceCall;
+        instanceCall =  Argument.getNullableValue(_instanceCall);
     }
 
     public Struct getMetaInfo() {

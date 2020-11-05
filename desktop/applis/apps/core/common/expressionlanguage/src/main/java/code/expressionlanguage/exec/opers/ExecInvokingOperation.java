@@ -393,7 +393,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument(res_);
             }
             Struct metaInfo_ = l_.getMetaInfo();
-            Argument instance_ = Argument.getNullableValue(l_.getInstanceCall());
+            Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
@@ -419,7 +419,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             boolean aff_ = l_.isAffect();
             ClassField idField_ = l_.getFid();
             if (idField_ == null) {
-                Argument instance_ = Argument.getNullableValue(l_.getInstanceCall());
+                Argument instance_ = l_.getInstanceCall();
                 Argument realInstance_;
                 if (!l_.isShiftInstance()) {
                     realInstance_ = instance_;
@@ -443,7 +443,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             } else {
                 type_ = ReflectingType.GET_FIELD;
             }
-            Argument instance_ = Argument.getNullableValue(l_.getInstanceCall());
+            Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
@@ -483,7 +483,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             boolean static_ = l_.getKind() != MethodAccessKind.INSTANCE;
             Struct metaInfo_ = l_.getMetaInfo();
-            Struct instanceStruct_ = Argument.getNullableValue(l_.getInstanceCall()).getStruct();
+            Struct instanceStruct_ = l_.getInstanceCall().getStruct();
             if (l_.isSafeInstance()&&instanceStruct_ == NullStruct.NULL_VALUE) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));

@@ -9,7 +9,7 @@ import code.expressionlanguage.fwd.opers.ExecParentInstanceContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public class ExecParentInstanceOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
+public final class ExecParentInstanceOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
     private ExecParentInstanceContent parentInstanceContent;
 

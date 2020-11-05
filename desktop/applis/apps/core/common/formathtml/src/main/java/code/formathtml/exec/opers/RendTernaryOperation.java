@@ -2,14 +2,13 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.opers.ExecTernaryOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.IndexConstants;
 
 public final class RendTernaryOperation extends RendMethodOperation implements RendCalculableOperation {
 
@@ -29,12 +28,6 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
 
     Argument  getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        Argument arg_;
-        if (BooleanStruct.isTrue(_arguments.first().getStruct())) {
-            arg_ = _arguments.get(IndexConstants.SECOND_INDEX);
-        } else {
-            arg_ = _arguments.last();
-        }
-        return arg_;
+        return ExecTernaryOperation.getArgument(_arguments);
     }
 }

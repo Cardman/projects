@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -26,7 +27,7 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelOffsetPossibleLastPage(namedContent.getOffset(), _conf);
-        return _arguments.first();
+        return ExecTemplates.getFirstArgument(_arguments);
     }
 
     public int getIndex() {

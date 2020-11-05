@@ -30,7 +30,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _conf);
-        Argument objArg_ = _arguments.first();
+        Argument objArg_ = ExecTemplates.getFirstArgument(_arguments);
         if (objArg_.isNull()) {
             return new Argument(BooleanStruct.of(false));
         }
