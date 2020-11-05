@@ -14,7 +14,7 @@ import code.util.IdMap;
 public final class ExecStdVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation,ExecSettableElResult {
 
-    private ExecVariableContent variableContent;
+    private final ExecVariableContent variableContent;
 
     public ExecStdVariableOperation(ExecOperationContent _opCont, ExecVariableContent _variableContent) {
         super(_opCont);

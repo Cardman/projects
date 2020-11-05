@@ -46,7 +46,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         return elt_;
     }
 
-    public static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
+    private static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
         ExecOperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof ExecIdOperation) {
             root_ = root_.getFirstChild();

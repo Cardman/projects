@@ -309,7 +309,7 @@ public abstract class RendDynOperationNode {
     }
 
     static Argument tryConvert(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _c, String _owner, Argument _argument, ContextEl _context) {
-        CustList<Argument> args_ = new CustList<Argument>(_argument);
+        CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException()) {
             parameters_ = ExecTemplates.okArgsSet(_rootBlock, _c, true, _owner,null, args_, _context, null);

@@ -8,8 +8,8 @@ public final class ClassField {
     private final String fieldName;
 
     public ClassField(String _className, String _fieldName) {
-        className = _className;
-        fieldName = _fieldName;
+        className = StringUtil.nullToEmpty(_className);
+        fieldName = StringUtil.nullToEmpty(_fieldName);
     }
 
     public boolean eq(ClassField _obj) {

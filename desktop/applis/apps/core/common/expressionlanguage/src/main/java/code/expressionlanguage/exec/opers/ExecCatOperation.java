@@ -38,7 +38,7 @@ public final class ExecCatOperation extends ExecNumericOperation {
         return getDisplayable(_value,_cont).getInstance();
     }
     public static StringStruct getDisplayable(Argument _value,ContextEl _cont) {
-        Struct a_ = _value.getStruct();
+        Struct a_ = Argument.getNullableValue(_value).getStruct();
         if (a_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)a_).getDisplayedString(_cont);
         }

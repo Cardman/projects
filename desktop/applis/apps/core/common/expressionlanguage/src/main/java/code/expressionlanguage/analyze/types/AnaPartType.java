@@ -35,9 +35,9 @@ abstract class AnaPartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static AnaPartType createPartType(boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, StrTypes _dels, AnalyzedPageEl _page) {
+    static AnaPartType createPartType(boolean _rootName, AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, AnalyzedPageEl _page, String _value) {
         if (_analyze.isError()) {
-            return new AnaEmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
+            return new AnaEmptyPartType(_parent, _index, _indexInType, _value,"");
         }
         StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
@@ -46,9 +46,9 @@ abstract class AnaPartType {
                 str_ = _parent.getOperators().getValue(_index - 1);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _value.trim(),str_);
             }
-            String type_ = _dels.getValue(_index);
+            String type_ = _value;
             type_ = StringExpUtil.removeDottedSpaces(type_);
             boolean okVarType_ = false;
             if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType) {
@@ -73,9 +73,9 @@ abstract class AnaPartType {
         }
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
-    static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, StrTypes _dels) {
+    static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, String _value) {
         if (_analyze.isError()) {
-            return new AnaEmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
+            return new AnaEmptyPartType(_parent, _index, _indexInType, _value,"");
         }
         StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
@@ -84,10 +84,9 @@ abstract class AnaPartType {
                 str_ = _parent.getOperators().getValue(_index - 1);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _value.trim(),str_);
             }
-            String type_ = _dels.getValue(_index);
-            return new AnaNamePartType(_parent, _index, _indexInType, type_.trim(),str_);
+            return new AnaNamePartType(_parent, _index, _indexInType, _value.trim(),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);

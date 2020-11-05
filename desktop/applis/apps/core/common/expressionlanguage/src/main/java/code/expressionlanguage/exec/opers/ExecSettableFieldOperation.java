@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.DefaultSetOffset;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -18,9 +17,9 @@ import code.util.IdMap;
 public final class ExecSettableFieldOperation extends
         ExecAbstractFieldOperation implements ExecSettableElResult {
 
-    private ExecSettableOperationContent settableFieldContent;
+    private final ExecSettableOperationContent settableFieldContent;
 
-    private ExecRootBlock rootBlock;
+    private final ExecRootBlock rootBlock;
 
     public ExecSettableFieldOperation(ExecRootBlock _rootBlock, ExecOperationContent _opCont, ExecFieldOperationContent _fieldCont, ExecSettableOperationContent _setFieldCont) {
         super(_opCont, _fieldCont);

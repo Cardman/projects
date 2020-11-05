@@ -23,7 +23,7 @@ public final class AnaPartTypeUtil {
             return false;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);
-        AnaPartType root_ = AnaPartType.createPartType(null, 0, 0, loc_, loc_.getValues());
+        AnaPartType root_ = AnaPartType.createPartType(null, 0, 0, loc_, loc_.getValues().getValue(0));
         addValues(root_, loc_);
         AnaPartType current_ = root_;
         while (true) {
@@ -134,7 +134,7 @@ public final class AnaPartTypeUtil {
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input.trim(), indexes_);
-        AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, loc_.getValues(), _page);
+        AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, _page, loc_.getValues().getValue(0));
         root_.setLength(_input.trim().length());
         addValues(root_, loc_);
         AnaPartType current_ = root_;
@@ -424,7 +424,7 @@ public final class AnaPartTypeUtil {
             return null;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input.trim(), indexes_);
-        AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, loc_.getValues(), _page);
+        AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, _page, loc_.getValues().getValue(0));
         root_.setLength(_input.trim().length());
         addIfLeaf(root_, _leaves);
         addValues(root_, loc_);
@@ -518,7 +518,7 @@ public final class AnaPartTypeUtil {
             return new AnaResultPartType("",null);
         }
         AnalyzingType loc_ = ParserType.analyzeLocalId(0, _input.trim(), indexes_);
-        AnaPartType root_ = AnaPartType.createPartType(false, null, 0, 0, loc_, loc_.getValues(), _page);
+        AnaPartType root_ = AnaPartType.createPartType(false, null, 0, 0, loc_, _page, loc_.getValues().getValue(0));
         root_.setLength(_input.trim().length());
         CustList<AnaLeafPartType> l_ = new CustList<AnaLeafPartType>();
         addIfLeaf(root_,l_);
@@ -722,7 +722,7 @@ public final class AnaPartTypeUtil {
         int off_ = par_.getIndexInType() + last_.firstKey();
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(par_, 0, off_, an_, last_);
+        AnaPartType p_ = AnaPartType.createPartType(par_, 0, off_, an_, last_.getValue(0));
         p_.setLength(v_.length());
         addValues(p_, an_);
         return p_;
@@ -737,7 +737,7 @@ public final class AnaPartTypeUtil {
         String v_ = last_.firstValue();
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_.trim(), _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, last_, _page);
+        AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, _page, v_);
         p_.setLength(v_.trim().length());
         addValues(p_, an_);
         return p_;
@@ -752,7 +752,7 @@ public final class AnaPartTypeUtil {
         String v_ = last_.firstValue();
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, last_, _page);
+        AnaPartType p_ = AnaPartType.createPartType(_rootName, par_, 0, off_, an_, _page, v_);
         p_.setLength(v_.trim().length());
         addValues(p_, an_);
         return p_;
@@ -773,7 +773,7 @@ public final class AnaPartTypeUtil {
         int off_ = par_.getIndexInType() + last_.getKey(indexNext_);
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(b_,indexNext_, off_, an_, last_);
+        AnaPartType p_ = AnaPartType.createPartType(b_,indexNext_, off_, an_, last_.getValue(indexNext_));
         p_.setPreviousSibling(_parent);
         p_.setLength(v_.length());
         addValues(p_, an_);
@@ -795,7 +795,7 @@ public final class AnaPartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_.trim(), _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, last_, _page);
+        AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, _page, v_);
         p_.setPreviousSibling(_parent);
         p_.setLength(v_.trim().length());
         addValues(p_, an_);
@@ -817,7 +817,7 @@ public final class AnaPartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         off_ += StringUtil.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _indexes);
-        AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, last_, _page);
+        AnaPartType p_ = AnaPartType.createPartType(_rootName,b_,indexNext_, off_, an_, _page, v_);
         p_.setPreviousSibling(_parent);
         p_.setLength(v_.trim().length());
         addValues(p_, an_);

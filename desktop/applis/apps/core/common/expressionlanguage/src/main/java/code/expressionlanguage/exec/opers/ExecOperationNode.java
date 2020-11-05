@@ -57,7 +57,7 @@ public abstract class ExecOperationNode {
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit) {
         ExecNamedFunctionBlock c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
-        CustList<Argument> args_ = new CustList<Argument>(_right);
+        CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_right));
         if (ExecExplicitOperation.checkFormattedCustomOper(ex_,_implicits.getRootBlock(), c, args_, _implicits.getOwnerClass(), _conf,_right)) {
             return _indexImplicit;
         }

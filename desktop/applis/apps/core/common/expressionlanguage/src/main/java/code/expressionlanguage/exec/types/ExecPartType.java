@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.common.StrTypes;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
-import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 abstract class ExecPartType {
@@ -22,7 +21,7 @@ abstract class ExecPartType {
         previousOperatorSingle = trOp(_previousOperator);
     }
 
-    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, StrTypes _dels) {
+    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, String _value) {
         String previousOperator_ = EMPTY_STRING;
         if (_parent instanceof ExecInnerPartType) {
             CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
@@ -40,7 +39,7 @@ abstract class ExecPartType {
             }
         }
         if (_analyze.isError()) {
-            return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"", previousOperator_);
+            return new ExecEmptyPartType(_parent, _index, _value,"", previousOperator_);
         }
         StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
@@ -52,9 +51,9 @@ abstract class ExecPartType {
                 }
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new ExecEmptyWildCardPart(_parent, _index, _dels.getValue(_index),str_, previousOperator_);
+                return new ExecEmptyWildCardPart(_parent, _index, _value,str_, previousOperator_);
             }
-            return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_, previousOperator_);
+            return new ExecNamePartType(_parent, _index, _value,str_, previousOperator_);
         }
         if (_analyze.getPrio() == ExecPartTypeUtil.TMP_PRIO) {
             return new ExecTemplatePartType(_parent, _index, previousOperator_);

@@ -119,17 +119,15 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             return;
         }
         if (StringUtil.quickEq(op_, "&&")) {
-            BooleanStruct b_ = NumParsers.convertToBoolean(_first);
-            if (BooleanStruct.isFalse(b_)) {
-                _res.setResult(b_);
+            if (BooleanStruct.isFalse(_first)) {
+                _res.setResult(NumParsers.convertToBoolean(_first));
                 return;
             }
             _res.setResult(NumParsers.convertToBoolean(_second));
             return;
         }
-        BooleanStruct b_ = NumParsers.convertToBoolean(_first);
-        if (BooleanStruct.isTrue(b_)) {
-            _res.setResult(b_);
+        if (BooleanStruct.isTrue(_first)) {
+            _res.setResult(NumParsers.convertToBoolean(_first));
             return;
         }
         _res.setResult(NumParsers.convertToBoolean(_second));

@@ -121,7 +121,7 @@ public final class ExecPartTypeUtil {
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
+        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
         addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
@@ -164,7 +164,7 @@ public final class ExecPartTypeUtil {
     public static String processPrettySingleType(String _input) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
+        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
         addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
@@ -210,7 +210,7 @@ public final class ExecPartTypeUtil {
             return new ExecResultPartType("",null);
         }
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
+        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
         addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
@@ -270,7 +270,7 @@ public final class ExecPartTypeUtil {
         StrTypes last_ = par_.getStrTypes();
         String v_ = last_.firstValue();
         ExecAnalyzingType an_ = analyzeLocalExec(v_);
-        ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, last_);
+        ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, v_);
         addValues(p_, an_);
         return new ExecParentChildType(par_,p_);
     }
@@ -289,7 +289,7 @@ public final class ExecPartTypeUtil {
         }
         String v_ = last_.getValue(indexNext_);
         ExecAnalyzingType an_ = analyzeLocalExec(v_);
-        ExecPartType p_ = ExecPartType.createPartTypeExec(b_,indexNext_, an_, last_);
+        ExecPartType p_ = ExecPartType.createPartTypeExec(b_,indexNext_, an_, v_);
         p_.setPreviousSibling(_parent);
         addValues(p_, an_);
         return p_;
