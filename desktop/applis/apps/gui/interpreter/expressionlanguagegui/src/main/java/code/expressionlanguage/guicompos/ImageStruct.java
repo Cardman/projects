@@ -9,7 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public final class ImageStruct extends WithoutParentStruct implements Struct {
+public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     private BufferedImage image;
     private boolean withAlpha;
     private Graphics graphics;
@@ -184,11 +184,6 @@ public final class ImageStruct extends WithoutParentStruct implements Struct {
     @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasImage();
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     public static boolean eq(BufferedImage _imgOne, BufferedImage _imgTwo) {

@@ -2,56 +2,73 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
+import code.util.core.StringUtil;
 
 import java.awt.*;
 
 public final class FontStruct extends WithoutParentStruct implements Struct {
-    private Font font;
+    private String family;
+    private boolean bold;
+    private boolean italic;
+    private int size;
     public FontStruct() {
-        font = newFont(NullStruct.NULL_VALUE,false,false,12);
+        family = getFontFamily(NullStruct.NULL_VALUE);
+        size = 12;
     }
     public FontStruct(int _size) {
-        font = newFont(NullStruct.NULL_VALUE,false,false,_size);
+        family = getFontFamily(NullStruct.NULL_VALUE);
+        size = _size;
     }
     public FontStruct(Struct _family, boolean _bold,boolean _italic, int _size) {
-        font = newFont(_family,_bold,_italic,_size);
+        family = getFontFamily(_family);
+        bold = _bold;
+        italic = _italic;
+        size = _size;
     }
     public FontStruct(Font _action) {
-        font = _action;
+        family = _action.getName();
+        bold = _action.isBold();
+        italic = _action.isItalic();
+        size = _action.getSize();
     }
-    private static Font newFont(Struct _family, boolean _bold,boolean _italic, int _size) {
+
+    private Font newFont() {
+        if (bold) {
+            if (italic) {
+                return new Font(family,Font.BOLD+Font.ITALIC,size);
+            }
+            return new Font(family,Font.BOLD,size);
+        }
+        if (italic) {
+            return new Font(family,Font.ITALIC,size);
+        }
+        return new Font(family,Font.PLAIN,size);
+    }
+
+    private static String getFontFamily(Struct _family) {
         String fontFamily_;
         if (!(_family instanceof StringStruct)) {
             fontFamily_ = "Default";
         } else {
             fontFamily_ = ((StringStruct)_family).getInstance();
         }
-        if (_bold) {
-            if (_italic) {
-                return new Font(fontFamily_,Font.BOLD+Font.ITALIC,_size);
-            }
-            return new Font(fontFamily_,Font.BOLD,_size);
-        }
-        if (_italic) {
-            return new Font(fontFamily_,Font.ITALIC,_size);
-        }
-        return new Font(fontFamily_,Font.PLAIN,_size);
+        return fontFamily_;
     }
 
     public StringStruct getName() {
-        return new StringStruct(font.getName());
+        return new StringStruct(family);
     }
 
     public IntStruct getSize() {
-        return new IntStruct(font.getSize());
+        return new IntStruct(size);
     }
 
     public BooleanStruct isItalic() {
-        return BooleanStruct.of(font.isItalic());
+        return BooleanStruct.of(italic);
     }
 
     public BooleanStruct isBold() {
-        return BooleanStruct.of(font.isBold());
+        return BooleanStruct.of(bold);
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
@@ -59,7 +76,7 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
     }
 
     public Font getFont() {
-        return font;
+        return newFont();
     }
 
     @Override
@@ -67,6 +84,15 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
         if (!(_other instanceof FontStruct)) {
             return false;
         }
-        return font.equals(((FontStruct)_other).font);
+        if (size != ((FontStruct)_other).size) {
+            return false;
+        }
+        if (bold != ((FontStruct)_other).bold) {
+            return false;
+        }
+        if (italic != ((FontStruct)_other).italic) {
+            return false;
+        }
+        return StringUtil.quickEq(family,((FontStruct)_other).family);
     }
 }

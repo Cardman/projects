@@ -13,8 +13,8 @@ public final class ThreadSetStruct extends WithoutParentIdStruct implements Stru
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
         CustList<Struct> instantKeys_ = new CustList<Struct>();
-        for (Thread s: elementSet.keySet()) {
-            instantKeys_.add(new ThreadStruct(s));
+        for (Struct s: elementSet.values()) {
+            instantKeys_.add(s);
         }
         String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
         int len_ = instantKeys_.size();
@@ -30,7 +30,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct implements Stru
         if (!(_key instanceof ThreadStruct)) {
             return;
         }
-        elementSet.put(((ThreadStruct) _key).getThread(),NullStruct.NULL_VALUE);
+        elementSet.put(((ThreadStruct) _key).getThread(),_key);
     }
     public void remove(Struct _key) {
         if (!(_key instanceof ThreadStruct)) {

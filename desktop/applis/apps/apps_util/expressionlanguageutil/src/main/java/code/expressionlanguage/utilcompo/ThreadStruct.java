@@ -2,11 +2,11 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithoutParentStruct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class ThreadStruct extends WithoutParentStruct implements Struct {
+public final class ThreadStruct extends WithoutParentIdStruct implements Struct {
 
     private Thread thread;
 
@@ -33,11 +33,4 @@ public final class ThreadStruct extends WithoutParentStruct implements Struct {
         return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        if (!(_other instanceof ThreadStruct)) {
-            return false;
-        }
-        return thread == ((ThreadStruct)_other).thread;
-    }
 }
