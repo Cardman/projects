@@ -1259,6 +1259,9 @@ public final class FileResolver {
                                 new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
                         field_.getAnnotations().addAllElts(annotations_);
                         field_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                        int fieldNb_ = ((RootBlock)currentParent_).getCountField();
+                        field_.setFieldNumber(fieldNb_);
+                        ((RootBlock)currentParent_).setCountField(fieldNb_+1);
                         br_ = field_;
                     } else {
                         found_ = realFound_;
@@ -1293,6 +1296,12 @@ public final class FileResolver {
                         }
                         annMeth_.getAnnotations().addAllElts(annotations_);
                         annMeth_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                        int fctNb_ = ((RootBlock)currentParent_).getCountFct();
+                        annMeth_.setNumberFct(fctNb_);
+                        ((RootBlock)currentParent_).setCountFct(fctNb_+1);
+                        int nameNb_ = ((RootBlock)currentParent_).getCountName();
+                        annMeth_.setNameNumber(nameNb_);
+                        ((RootBlock)currentParent_).setCountName(nameNb_+1);
                         br_ = annMeth_;
                     }
                     currentParent_.appendChild(br_);
@@ -1301,6 +1310,9 @@ public final class FileResolver {
                 //implicit static block
                 if (_currentChar != END_BLOCK) {
                     br_ = new StaticBlock(new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                    int initNb_ = ((RootBlock)currentParent_).getCountInit();
+                    ((InitBlock) br_).setNumber(initNb_);
+                    ((RootBlock)currentParent_).setCountInit(initNb_+1);
                     currentParent_.appendChild(br_);
                 }
             }
@@ -1389,6 +1401,9 @@ public final class FileResolver {
                     elt_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                     br_ = elt_;
                 }
+                int fieldNb_ = ((RootBlock)currentParent_).getCountField();
+                ((InfoBlock)br_).setFieldNumber(fieldNb_);
+                ((RootBlock)currentParent_).setCountField(fieldNb_+1);
                 if (!ok_) {
                     br_.getBadIndexes().add(indexBeginCalling_ + 1+_offset);
                 }
@@ -1995,6 +2010,15 @@ public final class FileResolver {
                         new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
                 ov_.setKind(kind_);
                 _currentParent.getOverridableBlocks().add(ov_);
+                int countFct_ = _currentParent.getCountFct();
+                ov_.setNumberFct(countFct_);
+                _currentParent.setCountFct(countFct_+1);
+                int countName_ = _currentParent.getCountName();
+                ov_.setNameNumber(countName_);
+                _currentParent.setCountName(countName_+1);
+                int countOv_ = _currentParent.getCountOv();
+                ov_.setNameOverrideNumber(countOv_);
+                _currentParent.setCountOv(countOv_+1);
                 br_ = ov_;
             } else if (meth_) {
                 String retType_ = declaringType_.trim();
@@ -2063,6 +2087,15 @@ public final class FileResolver {
                 }
                 ov_.setKind(kind_);
                 _currentParent.getOverridableBlocks().add(ov_);
+                int countFct_ = _currentParent.getCountFct();
+                ov_.setNumberFct(countFct_);
+                _currentParent.setCountFct(countFct_+1);
+                int countName_ = _currentParent.getCountName();
+                ov_.setNameNumber(countName_);
+                _currentParent.setCountName(countName_+1);
+                int countOv_ = _currentParent.getCountOv();
+                ov_.setNameOverrideNumber(countOv_);
+                _currentParent.setCountOv(countOv_+1);
                 br_ = ov_;
             } else {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
@@ -2070,6 +2103,12 @@ public final class FileResolver {
                         new OffsetStringInfo(accessOffest_+_offset, EMPTY_STRING), parametersType_, offestsTypes_,
                         parametersName_, offestsParams_,leftPar_+_offset, new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
                 ((ConstructorBlock)br_).setCtorName(ctorName_);
+                int countFct_ = _currentParent.getCountFct();
+                ((ConstructorBlock)br_).setNumberFct(countFct_);
+                _currentParent.setCountFct(countFct_+1);
+                int countName_ = _currentParent.getCountName();
+                ((ConstructorBlock)br_).setNameNumber(countName_);
+                _currentParent.setCountName(countName_+1);
                 if (parametersType_.isEmpty()) {
                     _currentParent.setEmptyCtor((ConstructorBlock) br_);
                 }
@@ -2121,6 +2160,9 @@ public final class FileResolver {
                     new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
             ((FieldBlock)br_).getAnnotations().addAllElts(annotations_);
             ((FieldBlock)br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+            int fieldNb_ = _currentParent.getCountField();
+            ((FieldBlock)br_).setFieldNumber(fieldNb_);
+            _currentParent.setCountField(fieldNb_+1);
             _currentParent.appendChild(br_);
         }
         return br_;
@@ -2804,6 +2846,11 @@ public final class FileResolver {
         if (StringUtil.quickEq(_trimmedInstruction, keyWordStatic_)) {
             br_ = new StaticBlock(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
             _currentParent.appendChild(br_);
+            if (_currentParent instanceof RootBlock) {
+                int initNb_ = ((RootBlock)_currentParent).getCountInit();
+                ((InitBlock) br_).setNumber(initNb_);
+                ((RootBlock)_currentParent).setCountInit(initNb_+1);
+            }
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordStatic_.length());
             return br_;
@@ -2811,6 +2858,9 @@ public final class FileResolver {
         if (_trimmedInstruction.isEmpty()) {
             if (_currentParent instanceof RootBlock) {
                 br_ = new InstanceBlock(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
+                int initNb_ = ((RootBlock)_currentParent).getCountInit();
+                ((InitBlock) br_).setNumber(initNb_);
+                ((RootBlock)_currentParent).setCountInit(initNb_+1);
             } else {
                 br_ = new UnclassedBracedBlock(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
             }

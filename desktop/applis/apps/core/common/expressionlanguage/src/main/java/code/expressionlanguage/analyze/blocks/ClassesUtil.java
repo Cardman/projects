@@ -346,7 +346,6 @@ public final class ClassesUtil {
                     r.getMappings().putAllMap(outerFuntion_.getMappings());
                 }
             }
-            innerFetchExec(_page);
             validateInheritingClasses(_page);
             validateIds(_page);
             validateOverridingInherit(_page);
@@ -654,38 +653,6 @@ public final class ClassesUtil {
         return namesFromParent_;
     }
 
-    private static void innerFetchExec(AnalyzedPageEl _page) {
-        for (RootBlock r: _page.getFoundTypes()) {
-            int countFct_ = 0;
-            int countField_ = 0;
-            int countInit_ = 0;
-            int countName_ = 0;
-            int countOv_ = 0;
-            for (Block b: getDirectChildren(r)) {
-                if (b instanceof MemberCallingsBlock) {
-                    ((MemberCallingsBlock)b).setNumberFct(countFct_);
-                    countFct_++;
-                }
-                if (b instanceof InfoBlock) {
-                    ((InfoBlock) b).setFieldNumber(countField_);
-                    countField_++;
-                }
-                if (b instanceof InitBlock) {
-                    ((InitBlock) b).setNumber(countInit_);
-                    countInit_++;
-                }
-                if (b instanceof NamedFunctionBlock) {
-                    ((NamedFunctionBlock)b).setNameNumber(countName_);
-                    countName_++;
-                }
-                if (b instanceof OverridableBlock) {
-                    ((OverridableBlock)b).setNameOverrideNumber(countOv_);
-                    countOv_++;
-                }
-            }
-        }
-    }
-
     public static void buildFilesBodies(StringMap<String> _files, boolean _predefined, AnalyzedPageEl _page) {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
@@ -736,7 +703,6 @@ public final class ClassesUtil {
                 r.getMappings().putAllMap(outerFuntion_.getMappings());
             }
         }
-        innerFetchExec(_page);
     }
 
     public static void fetchByFile(StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, AnalyzedPageEl _page) {
@@ -1987,7 +1953,6 @@ public final class ClassesUtil {
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
-            String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {

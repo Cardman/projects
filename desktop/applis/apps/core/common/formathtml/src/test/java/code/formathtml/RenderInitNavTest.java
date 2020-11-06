@@ -1,10 +1,20 @@
 package code.formathtml;
 
-import code.formathtml.errors.RendAnalysisMessages;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.util.*;
+import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
@@ -32,7 +42,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -73,7 +83,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -111,7 +121,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -148,7 +158,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -239,10 +249,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t</sm>\n" +
                 "</cfg>";
         Navigation n_ = new Navigation();
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
+        assertTrue(setupRendClassesInit(n_, lgNames_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
@@ -327,10 +336,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
+        assertTrue(setupRendClassesInit(n_, lgNames_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -420,10 +428,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        RendAnalysisMessages rend_ = new RendAnalysisMessages();
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_, lgNames_, rend_, page_));
+        assertTrue(setupRendClassesInit(n_, lgNames_, page_));
         n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -454,7 +461,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfiguration a_ = build(conf_);
+        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -474,15 +481,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
-    private static boolean setupRendClassesInitStdMess(AnalyzedTestConfiguration _a, Navigation _n) {
-        DualConfigurationContext d_ = _a.getDual();
-        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getAnalyzing(),_a.getAdvStandards(),d_);
-        return setupRendClassesInit(_n, _a.getAdvStandards(), new RendAnalysisMessages(), dual_);
-    }
 
-    private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, RendAnalysisMessages _rend, DualAnalyzedContext _dual) {
-        return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _dual).isAllEmptyErrors();
-    }
     @Test
     public void process1FailTest() {
         String locale_ = "en";
@@ -1084,4 +1083,72 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getDisplayedStrings().setExponent("E");
     }
 
+    private static AnalyzedTestConfigurationBis buildNav(Configuration _conf) {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
+        lgNames_.getBeanAliases().setAliasMapKeys("keys");
+        lgNames_.getBeanAliases().setAliasMapValues("values");
+        lgNames_.getBeanAliases().setAliasMapIndexOfEntry("indexOfEntry");
+        lgNames_.getBeanAliases().setAliasMapAddEntry("addEntry");
+        lgNames_.getBeanAliases().setAliasMapGetValue("getValue");
+        lgNames_.getBeanAliases().setAliasMapFirstValue("firstValue");
+        lgNames_.getBeanAliases().setAliasMapLastValue("lastValue");
+        lgNames_.getBeanAliases().setAliasMapSetValue("setValue");
+        lgNames_.getBeanAliases().setAliasMapPut("put");
+        lgNames_.getBeanAliases().setAliasMapPutAll("putAll");
+        lgNames_.getBeanAliases().setAliasMapContains("contains");
+        lgNames_.getBeanAliases().setAliasMapGetVal("getVal");
+        lgNames_.getBeanAliases().setAliasMapRemoveKey("removeKey");
+        lgNames_.getBeanAliases().setAliasMapGetKey("getKey");
+        lgNames_.getBeanAliases().setAliasMapFirstKey("firstKey");
+        lgNames_.getBeanAliases().setAliasMapLastKey("lastKey");
+        lgNames_.getBeanAliases().setAliasMapSetKey("setKey");
+        lgNames_.getBeanAliases().setAliasMapSize("size");
+        lgNames_.getBeanAliases().setAliasMapIsEmpty("isEmpty");
+        lgNames_.getBeanAliases().setAliasMapClear("clear");
+        lgNames_.getBeanAliases().setAliasValidator("code.bean.Validator");
+        lgNames_.getBeanAliases().setAliasValidate("validate");
+        lgNames_.getBeanAliases().setAliasBean("code.bean.Bean");
+        lgNames_.getBeanAliases().setAliasStringMapObject("code.util.StringMapObject");
+        lgNames_.getBeanAliases().setAliasForms("forms");
+        lgNames_.getBeanAliases().setAliasGetForms("getForms");
+        lgNames_.getBeanAliases().setAliasSetForms("setForms");
+        lgNames_.getBeanAliases().setAliasLanguage("language");
+        lgNames_.getBeanAliases().setAliasGetLanguage("getLanguage");
+        lgNames_.getBeanAliases().setAliasSetLanguage("setLanguage");
+        lgNames_.getBeanAliases().setAliasScope("scope");
+        lgNames_.getBeanAliases().setAliasGetScope("getScope");
+        lgNames_.getBeanAliases().setAliasSetScope("setScope");
+        lgNames_.getBeanAliases().setAliasDataBaseField("dataBase");
+        lgNames_.getBeanAliases().setAliasGetDataBase("getDataBase");
+        lgNames_.getBeanAliases().setAliasSetDataBase("setDataBase");
+        lgNames_.getBeanAliases().setAliasBeforeDisplaying("beforeDisplaying");
+        lgNames_.getBeanAliases().setAliasMessage("code.bean.Message");
+        lgNames_.getBeanAliases().setAliasNewMessage("newStandardMessage");
+        lgNames_.getBeanAliases().setAliasMessageFormat("format");
+        lgNames_.getBeanAliases().setAliasMessageGetArgs("getArgs");
+        lgNames_.getBeanAliases().setAliasMessageSetArgs("setArgs");
+        InitializationLgNames.basicStandards(lgNames_);
+        lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, opt_, lgNames_, tabWidth_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), opt_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
+        lgNames_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return new AnalyzedTestConfigurationBis(_conf, lgNames_, contextEl_, new DualConfigurationContext(), page_);
+    }
+    private static boolean setupRendClassesInitStdMess(AnalyzedTestConfigurationBis _a, Navigation _n) {
+        DualConfigurationContext d_ = _a.getDual();
+        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getAnalyzing(),_a.getAdvStandards(),d_);
+        return _a.getAdvStandards().setupAll(_n, _n.getSession(), _n.getFiles(), dual_).isAllEmptyErrors();
+    }
+
+    private static boolean setupRendClassesInit(Navigation _nav, BeanLgNames _stds, DualAnalyzedContext _dual) {
+        return _stds.setupAll(_nav, _nav.getSession(), _nav.getFiles(), _dual).isAllEmptyErrors();
+    }
 }

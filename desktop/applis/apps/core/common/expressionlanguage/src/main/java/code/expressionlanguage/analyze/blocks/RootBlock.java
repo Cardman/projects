@@ -91,7 +91,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
     private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
     private CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
-
+    private int countFct;
+    private int countField;
+    private int countInit;
+    private int countName;
+    private int countOv;
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
               IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
@@ -1986,5 +1990,45 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<OverridableBlock> getOverridableBlocks() {
         return overridableBlocks;
+    }
+
+    public int getCountFct() {
+        return countFct;
+    }
+
+    public void setCountFct(int _countFct) {
+        this.countFct = _countFct;
+    }
+
+    public int getCountField() {
+        return countField;
+    }
+
+    public void setCountField(int _countField) {
+        this.countField = _countField;
+    }
+
+    public int getCountInit() {
+        return countInit;
+    }
+
+    public void setCountInit(int _countInit) {
+        this.countInit = _countInit;
+    }
+
+    public int getCountName() {
+        return countName;
+    }
+
+    public void setCountName(int _countName) {
+        this.countName = _countName;
+    }
+
+    public int getCountOv() {
+        return countOv;
+    }
+
+    public void setCountOv(int _countOv) {
+        this.countOv = _countOv;
     }
 }

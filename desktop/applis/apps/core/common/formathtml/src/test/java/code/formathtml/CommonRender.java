@@ -145,13 +145,17 @@ public abstract class CommonRender {
         _conf.getConfiguration().setFiles(_filesThree);
     }
 
-    protected static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
+    protected static CustList<OperationNode> getQuickAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
         setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        return getSuccessList(_el, _index, _conf);
+        Delimiters d_ = checkSyntax(_conf, _el, _index);
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
+        OperationNode op_ = rendOp(_index, _conf, opTwo_);
+        return getSortedDescNodes(_conf, op_);
     }
 
     protected static CustList<RendDynOperationNode> getSuccessList(String _el, int _index, AnalyzedTestConfiguration _conf) {
@@ -466,6 +470,10 @@ public abstract class CommonRender {
     }
 
     protected static void setFirst(AnalyzedTestConfiguration _conf, String _firstUrl) {
+        _conf.getConfiguration().setFirstUrl(_firstUrl);
+    }
+
+    protected static void setFirst(AnalyzedTestConfigurationBis _conf, String _firstUrl) {
         _conf.getConfiguration().setFirstUrl(_firstUrl);
     }
 

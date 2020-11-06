@@ -50,7 +50,7 @@ public final class ForwardInfos {
                 ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
-                _forwards.getMapAnonTypes().put((AnonymousTypeBlock)r, e_);
+                _forwards.getMapAnonTypes().addEntry((AnonymousTypeBlock)r, e_);
             }
             if (r instanceof ClassBlock) {
                 ExecClassBlock e_ = new ExecClassBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecClassContent(((ClassBlock) r).getClassContent()));
@@ -76,29 +76,39 @@ public final class ForwardInfos {
                 ExecInnerElementBlock e_ = new ExecInnerElementBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()));
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
-                _forwards.getMapInnerEltTypes().put((InnerElementBlock) r, e_);
+                _forwards.getMapInnerEltTypes().addEntry((InnerElementBlock) r, e_);
             }
-            _forwards.getMapMembers().put(r, v_);
+            coverage_.putType(r);
+            _forwards.getMapMembers().addEntry(r, v_);
         }
+        innerFetchExecEnd(_forwards);
         Classes classes_ = _context.getClasses();
+        for (RootBlock e: _page.getSorted().values()) {
+            ExecRootBlock e_ = _forwards.getMapMembers().getValue(e.getNumberAll()).getRootBlock();
+            String fullName_ = e.getFullName();
+            classes_.getClassesBodies().put(fullName_, e_);
+        }
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();
             ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            processExecFile(fileBlock_,exFile_, coverage_, classes_, _forwards);
+            for (Block b: ClassesUtil.getDirectChildren(fileBlock_)) {
+                if (b instanceof OperatorBlock) {
+                    OperatorBlock r_ = (OperatorBlock) b;
+                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim());
+                    e_.setFile(exFile_);
+                    _forwards.getMapOperators().put(r_,e_);
+                    coverage_.putOperator(r_);
+                }
+            }
         }
-        for (AnonymousInstancingOperation e: _page.getAnonymousList()) {
-            AnonymousTypeBlock block_ = e.getBlock();
-            FileBlock fileBlock_ = block_.getFile();
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+            classes_.getOperators().add(e.getValue());
+        }
+        for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
+            FileBlock fileBlock_ = e.getValue();
             ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            processExecType(exFile_, block_, coverage_, classes_, _forwards);
+            processExecFile(fileBlock_,exFile_, _forwards);
         }
-        for (AnonymousLambdaOperation f: _page.getAllAnonymousLambda()) {
-            AnonymousFunctionBlock e = f.getBlock();
-            FileBlock fileBlock_ = e.getFile();
-            ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
-            processExecType(exFile_, e, coverage_, classes_, _forwards);
-        }
-        innerFetchExecEnd(_forwards);
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
@@ -155,6 +165,17 @@ public final class ForwardInfos {
             e.getValue().getRootBlock().getStaticInitImportedInterfaces().addAllElts(e.getKey().getStaticInitImportedInterfaces());
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+            RootBlock root_ = e.getKey();
+            RootBlock parentType_ = root_.getParentType();
+            int index_ = -1;
+            if (parentType_ != null) {
+                index_ = parentType_.getNumberAll();
+            }
+            ExecRootBlock execParentType_ = FetchMemberUtil.fetchType(index_,_forwards);
+            ExecRootBlock e_ = e.getValue().getRootBlock();
+            e_.setParentType(execParentType_);
+        }
+        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             updateExec(e.getValue().getRootBlock(), e.getKey());
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
@@ -177,8 +198,7 @@ public final class ForwardInfos {
             e.getValue().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
-            IdMap<RootBlock, Members> mapMembers_ = _forwards.getMapMembers();
-            validateIds(e.getKey(), mapMembers_);
+            validateIds(e.getValue());
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
@@ -198,13 +218,11 @@ public final class ForwardInfos {
                 ConstructorBlock method_ = f.getKey();
                 coverage_.putCalls(fullName_,method_);
                 _forwards.getAllFct().addEntry(method_,f.getValue());
-                mem_.getAllAnnotables().addEntry(method_,f.getValue());
                 fwdInstancingStep(method_, f.getValue());
             }
             for (EntryCust<OverridableBlock, ExecOverridableBlock> f: mem_.getAllMethods().entryList()) {
                 OverridableBlock method_ =  f.getKey();
                 coverage_.putCalls(fullName_,method_);
-                mem_.getAllAnnotables().addEntry(method_,f.getValue());
                 _forwards.getAllFct().addEntry(method_,f.getValue());
             }
         }
@@ -228,37 +246,26 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            mem_.getAllAnnotables().addEntry(c,mem_.getRootBlock());
-            mem_.getAllAnnotablesRoots().addEntry(c,mem_.getRootBlock());
             for (Block b: ClassesUtil.getDirectChildren(c)) {
                 if (b instanceof RootBlock) {
                     ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
                     _forwards.getMapMembers().getValue(c.getNumberAll()).getRootBlock().getChildrenTypes().add(val_);
-                    mem_.getAllAnnotables().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
-                    mem_.getAllAnnotablesRoots().addEntry((RootBlock) b, _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock());
                 }
             }
             for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
-                mem_.getAllAnnotables().addEntry(f.getKey(),f.getValue());
                 mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
             }
             for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
-                InnerElementBlock method_ = f.getKey();
                 ExecInnerElementBlock val_ = f.getValue();
                 mem_.getRootBlock().getEnumElements().add(val_);
-                mem_.getAllAnnotables().addEntry(method_,val_);
-                mem_.getAllAnnotablesRoots().addEntry(method_,val_);
             }
             for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
-                ElementBlock method_ = f.getKey();
                 ExecElementBlock val_ = f.getValue();
                 mem_.getRootBlock().getEnumElements().add(val_);
-                mem_.getAllAnnotables().addEntry(method_,val_);
             }
             for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
                 FieldBlock method_ = f.getKey();
                 ExecFieldBlock exp_ = f.getValue();
-                mem_.getAllAnnotables().addEntry(method_,exp_);
                 if (!method_.isStaticField()) {
                     mem_.getRootBlock().getInstanceFields().add(exp_);
                 }
@@ -291,48 +298,51 @@ public final class ForwardInfos {
                 annotated_.add(c);
             }
             annotated_.addAllElts(ClassesUtil.getDirectChildren(c));
-            coverage_.putBlockOperations(_forwards.getMapMembers().getVal(c).getRootBlock(),c);
-            for (Block b:annotated_) {
-                if (b instanceof AnnotationMethodBlock) {
-                    _forwards.setAnnotAnalysisField(true);
-                    fwd((AnnotationMethodBlock)b,mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)), coverage_, _forwards);
-                    coverage_.putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
-                    _forwards.setAnnotAnalysisField(false);
-                }
-                if (b instanceof RootBlock) {
-                    _forwards.setAnnotAnalysisField(false);
-                    coverage_.putBlockOperationsField(_forwards, b);
-                    ExecRootBlock val_ = mem_.getAllAnnotablesRoots().getVal((RootBlock) b);
-                    fwdAnnotations((RootBlock)b, val_, coverage_, _forwards);
-                }
-                if (b instanceof NamedFunctionBlock) {
-                    _forwards.setAnnotAnalysisField(false);
-                    coverage_.putBlockOperationsField(_forwards, b);
-                    ExecNamedFunctionBlock val_ = mem_.getAllNamed().getVal((NamedFunctionBlock) b);
-                    fwdAnnotations(((NamedFunctionBlock)b), val_, coverage_, _forwards);
-                    fwdAnnotationsParameters(((NamedFunctionBlock)b), val_, coverage_, _forwards);
-                }
-                if (b instanceof InnerElementBlock) {
-                    _forwards.setAnnotAnalysisField(false);
-                    coverage_.putBlockOperationsField(_forwards, b);
-                    coverage_.putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
-                    ExecInnerElementBlock val_ = mem_.getAllInnerElementFields().getVal((InnerElementBlock) b);
-                    fwdAnnotations(((InnerElementBlock)b), val_, coverage_, _forwards);
-                }
-                if (b instanceof ElementBlock) {
-                    _forwards.setAnnotAnalysisField(false);
-                    coverage_.putBlockOperationsField(_forwards, b);
-                    coverage_.putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
-                    ExecElementBlock val_ = mem_.getAllSimpleElementFields().getVal((ElementBlock) b);
-                    fwdAnnotations((ElementBlock)b, val_, coverage_, _forwards);
-                }
-                if (b instanceof FieldBlock) {
-                    _forwards.setAnnotAnalysisField(false);
-                    coverage_.putBlockOperationsField(_forwards, b);
-                    coverage_.putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
-                    ExecFieldBlock val_ = mem_.getAllExplicitFields().getVal((FieldBlock) b);
-                    fwdAnnotations((FieldBlock)b, val_, coverage_, _forwards);
-                }
+            coverage_.putBlockOperations(mem_.getRootBlock(),c);
+            for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
+                _forwards.setAnnotAnalysisField(true);
+                AnnotationMethodBlock b = a.getKey();
+                ExecAnnotationMethodBlock d = a.getValue();
+                fwd(b,d, coverage_, _forwards);
+                coverage_.putBlockOperations(d,b);
+            }
+            for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getAllNamed().entryList()) {
+                _forwards.setAnnotAnalysisField(false);
+                NamedFunctionBlock b = a.getKey();
+                ExecNamedFunctionBlock d = a.getValue();
+                coverage_.putBlockOperationsField(_forwards, b);
+                fwdAnnotations(b, d, coverage_, _forwards);
+                fwdAnnotationsParameters(b, d, coverage_, _forwards);
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> a: mem_.getAllExplicitFields().entryList()) {
+                _forwards.setAnnotAnalysisField(false);
+                FieldBlock b = a.getKey();
+                ExecFieldBlock d = a.getValue();
+                coverage_.putBlockOperationsField(_forwards, b);
+                coverage_.putBlockOperations(d,b);
+                fwdAnnotations(b, d, coverage_, _forwards);
+            }
+            for (EntryCust<ElementBlock, ExecElementBlock> a: mem_.getAllSimpleElementFields().entryList()) {
+                _forwards.setAnnotAnalysisField(false);
+                ElementBlock b = a.getKey();
+                ExecElementBlock d = a.getValue();
+                coverage_.putBlockOperationsField(_forwards, b);
+                coverage_.putBlockOperations(d,b);
+                fwdAnnotations(b, d, coverage_, _forwards);
+            }
+            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> a: mem_.getAllInnerElementFields().entryList()) {
+                _forwards.setAnnotAnalysisField(false);
+                InnerElementBlock b = a.getKey();
+                ExecInnerElementBlock d = a.getValue();
+                coverage_.putBlockOperationsField(_forwards, b);
+                coverage_.putBlockOperations(d,b);
+                fwdAnnotations(b, d, coverage_, _forwards);
+            }
+            if (!(mem_.getRootBlock() instanceof ExecInnerElementBlock)) {
+                _forwards.setAnnotAnalysisField(false);
+                ExecRootBlock d = mem_.getRootBlock();
+                coverage_.putBlockOperationsField(_forwards, c);
+                fwdAnnotations(c, d, coverage_, _forwards);
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
@@ -396,51 +406,9 @@ public final class ForwardInfos {
         }
     }
 
-    private static void processAppend(ExecFileBlock _exFile, Block _outer, RootBlock _root, Coverage _coverage, Classes _classes, Forwards _forwards) {
-        _coverage.putType(_root);
-        String fullName_ = _root.getFullName();
-        RootBlock parentType_ = _root.getParentType();
-        int index_ = -1;
-        if (parentType_ != null) {
-            index_ = parentType_.getNumberAll();
-        }
-        ExecRootBlock execParentType_ = FetchMemberUtil.fetchType(index_,_forwards);
-        ExecRootBlock e_ = FetchMemberUtil.fetchType(_root.getNumberAll(),_forwards);
-        if (e_ instanceof ExecAnonymousTypeBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-        }
-        if (e_ instanceof ExecClassBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-            appendType(_exFile, _outer, _root, e_);
-        }
-        if (e_ instanceof ExecEnumBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-            appendType(_exFile, _outer, _root, e_);
-        }
-        if (e_ instanceof ExecInterfaceBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-            appendType(_exFile, _outer, _root, e_);
-        }
-        if (e_ instanceof ExecAnnotationBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-            appendType(_exFile, _outer, _root, e_);
-        }
-        if (e_ instanceof ExecInnerElementBlock) {
-            e_.setParentType(execParentType_);
-            _classes.getClassesBodies().put(fullName_, e_);
-            appendType(_exFile, _outer, _root, e_);
-        }
-    }
-
-    private static void appendType(ExecFileBlock _exFile, Block _outer, RootBlock _root, ExecRootBlock _e) {
-        if (_outer == _root) {
-            _exFile.appendChild(_e);
-        }
+    private static void processAppend(ExecFileBlock _exFile, RootBlock _root, Forwards _forwards) {
+        ExecRootBlock e_ = _forwards.getMapMembers().getValue(_root.getNumberAll()).getRootBlock();
+        _exFile.appendChild(e_);
     }
 
     private static void innerFetchExecEnd(Forwards _forwards) {
@@ -541,60 +509,17 @@ public final class ForwardInfos {
         }
         return ExecMethodKind.STD_METHOD;
     }
-    private static void processExecFile(FileBlock _anaFile, ExecFileBlock _exeFile, Coverage _coverage, Classes _classes, Forwards _forwards) {
+    private static void processExecFile(FileBlock _anaFile, ExecFileBlock _exeFile, Forwards _forwards) {
         for (Block b: ClassesUtil.getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
-                processExecType(_exeFile,r_, _coverage, _classes, _forwards);
+                processAppend(_exeFile, r_, _forwards);
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
-                ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim());
+                ExecOperatorBlock e_ = _forwards.getMapOperators().getValue(r_.getNameNumber());
                 _exeFile.appendChild(e_);
-                e_.setFile(_exeFile);
-                _classes.getOperators().add(e_);
-                _forwards.getMapOperators().put(r_,e_);
-                _coverage.putOperator(r_);
             }
-        }
-    }
-
-    private static void processExecType(ExecFileBlock _exeFile, Block _r, Coverage _coverage, Classes _classes, Forwards _forwards) {
-        Block c_ = _r;
-        if (c_.getFirstChild() != null) {
-            while (true) {
-                tryProcessAppend(_exeFile, _r, _coverage, _classes, _forwards, c_);
-                Block fc_ = c_.getFirstChild();
-                if (fc_ != null) {
-                    c_ = fc_;
-                    continue;
-                }
-                boolean end_ = false;
-                while (true) {
-                    Block n_ = c_.getNextSibling();
-                    if (n_ != null) {
-                        c_ = n_;
-                        break;
-                    }
-                    BracedBlock p_ = c_.getParent();
-                    if (p_ == _r) {
-                        end_ = true;
-                        break;
-                    }
-                    c_ = p_;
-                }
-                if (end_) {
-                    break;
-                }
-            }
-        } else {
-            tryProcessAppend(_exeFile, _r, _coverage, _classes, _forwards, _r);
-        }
-    }
-
-    private static void tryProcessAppend(ExecFileBlock _exeFile, Block _r, Coverage _coverage, Classes _classes, Forwards _forwards, Block _c) {
-        if (_c instanceof RootBlock) {
-            processAppend(_exeFile,_r,(RootBlock) _c, _coverage, _classes, _forwards);
         }
     }
 
@@ -1406,30 +1331,29 @@ public final class ForwardInfos {
         _exec.setOpValue(ops_);
     }
 
-    private static void validateIds(RootBlock _key, IdMap<RootBlock, Members> _mapMembers) {
-        Members mem_ = _mapMembers.getVal(_key);
-        for (EntryCust<OverridableBlock,ExecOverridableBlock> e: mem_.getAllMethods().entryList()) {
+    private static void validateIds(Members _mem) {
+        for (EntryCust<OverridableBlock,ExecOverridableBlock> e: _mem.getAllMethods().entryList()) {
             e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
             String returnTypeGet_ = e.getKey().getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {
                 e.getValue().setImportedReturnType(returnTypeGet_);
             }
         }
-        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: mem_.getAllCtors().entryList()) {
+        for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getAllCtors().entryList()) {
             e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
         }
-        for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: mem_.getAllAnnotMethods().entryList()) {
+        for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: _mem.getAllAnnotMethods().entryList()) {
             AnnotationMethodBlock key1_ = e.getKey();
             e.getValue().setImportedReturnType(key1_.getImportedReturnType());
             e.getValue().getImportedParametersTypes().addAllElts(key1_.getImportedParametersTypes());
         }
-        for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: mem_.getAllInnerElementFields().entryList()) {
+        for (EntryCust<InnerElementBlock, ExecInnerElementBlock> e: _mem.getAllInnerElementFields().entryList()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
-        for (EntryCust<ElementBlock, ExecElementBlock> e: mem_.getAllSimpleElementFields().entryList()) {
+        for (EntryCust<ElementBlock, ExecElementBlock> e: _mem.getAllSimpleElementFields().entryList()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
-        for (EntryCust<FieldBlock, ExecFieldBlock> e: mem_.getAllExplicitFields().entryList()) {
+        for (EntryCust<FieldBlock, ExecFieldBlock> e: _mem.getAllExplicitFields().entryList()) {
             buildImportedTypes(e.getValue(),e.getKey());
         }
     }

@@ -12,7 +12,6 @@ import code.util.core.IndexConstants;
 import org.junit.Assert;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -26,7 +25,6 @@ public final class InitializationLgNames {
 
     public static AnalyzedTestContext buildStdThree(Options _opt) {
         BeanCustLgNames lgNames_ = getBeanCustLgNames();
-        DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
