@@ -38,10 +38,10 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             implicitConstr_ = true;
         }
         if (implicitConstr_) {
-            if (getBlockRootType() instanceof ExecUniqueRootedBlock) {
+            ExecRootBlock blockRootType_ = getBlockRootType();
+            if (blockRootType_ instanceof ExecUniqueRootedBlock) {
                 //class or enum (included inner enum)
-                ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) getBlockRootType();
-                String id_ = root_.getImportedDirectGenericSuperClass();
+                String id_ = blockRootType_.getImportedDirectGenericSuperClass();
                 if (!calledImplicitConstructor && blockRootSuperType != null) {
                     calledImplicitConstructor = true;
                     Argument global_ = getGlobalArgument();
@@ -69,7 +69,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                 firstField = true;
                 Argument global_ = getGlobalArgument();
                 String curClass_ = getGlobalClass();
-                _context.setCallingState(new NotInitializedFields(curClass_, getBlockRootType(), global_));
+                _context.setCallingState(new NotInitializedFields(curClass_, blockRootType_, global_));
                 return false;
             }
             //fields of the current class are initialized if there is no interface constructors to call

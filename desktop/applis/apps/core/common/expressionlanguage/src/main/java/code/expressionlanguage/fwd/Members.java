@@ -13,6 +13,7 @@ public final class Members {
     private IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
     private IdMap<FieldBlock,ExecFieldBlock> allExplicitFields = new IdMap<FieldBlock,ExecFieldBlock>();
     private IdMap<InnerElementBlock,ExecInnerElementBlock> allInnerElementFields = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
+    private IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
     private IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
     private IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
     private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
@@ -47,6 +48,10 @@ public final class Members {
 
     public IdMap<InnerElementBlock, ExecInnerElementBlock> getAllInnerElementFields() {
         return allInnerElementFields;
+    }
+
+    public IdMap<InnerTypeOrElement, ExecInnerTypeOrElement> getAllElementFields() {
+        return allElementFields;
     }
 
     public IdMap<NamedFunctionBlock, ExecNamedFunctionBlock> getAllNamed() {

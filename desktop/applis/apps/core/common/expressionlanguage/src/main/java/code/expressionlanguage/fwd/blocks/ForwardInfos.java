@@ -255,12 +255,8 @@ public final class ForwardInfos {
             for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
                 mem_.getRootBlock().getAnnotationsFields().add(f.getValue());
             }
-            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
-                ExecInnerElementBlock val_ = f.getValue();
-                mem_.getRootBlock().getEnumElements().add(val_);
-            }
-            for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
-                ExecElementBlock val_ = f.getValue();
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
+                ExecInnerTypeOrElement val_ = f.getValue();
                 mem_.getRootBlock().getEnumElements().add(val_);
             }
             for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
@@ -422,6 +418,7 @@ public final class ForwardInfos {
                     current_.appendChild(val_);
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllInnerElementFields().addEntry((InnerElementBlock) b,val_);
+                    mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
                 }
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()));
@@ -429,6 +426,7 @@ public final class ForwardInfos {
                     val_.setFile(current_.getFile());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllSimpleElementFields().addEntry((ElementBlock) b,val_);
+                    mem_.getAllElementFields().addEntry((ElementBlock) b,val_);
                 }
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock(b.getOffset().getOffsetTrim(), ((FieldBlock) b).getFieldContent());
