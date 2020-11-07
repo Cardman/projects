@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -34,9 +33,9 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
             return;
         }
         ClassField fieldId_ = fieldMetaInfo.getClassField();
-        StringMap<Struct> map_ = Classes.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
+        StringMap<Struct> map_ = NumParsers.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
         StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
-        Struct str_ = Classes.getStaticField(fieldId_, staticFields_);
+        Struct str_ = NumParsers.getStaticField(fieldId_, staticFields_);
         if (map_.isEmpty()) {
             Argument arg_ = new Argument(_page.getCalculator().getInnerSimpleResult(fieldId_));
             setSimpleArgumentAna(arg_);

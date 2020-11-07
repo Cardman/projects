@@ -14,9 +14,9 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
-    private ExecRootBlockContent rootBlockContent;
+    private final ExecRootBlockContent rootBlockContent;
 
-    private AccessEnum access;
+    private final AccessEnum access;
 
     private final ClassMethodIdOverrides redirections = new ClassMethodIdOverrides();
 
@@ -29,12 +29,16 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final StringList allSuperTypes = new StringList();
     private ExecRootBlock parentType;
     private final CustList<ExecRootBlock> childrenTypes = new CustList<ExecRootBlock>();
+    private final CustList<ExecBlock> childrenOthers = new CustList<ExecBlock>();
     private final CustList<ExecFieldBlock> instanceFields = new CustList<ExecFieldBlock>();
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
     private ExecNamedFunctionBlock emptyCtor;
     private CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private boolean withInstanceElements;
+    private final CustList<ExecInfoBlock> allFields = new CustList<ExecInfoBlock>();
+    private final CustList<ExecMemberCallingsBlock> allFct = new CustList<ExecMemberCallingsBlock>();
 
     ExecRootBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
         super(_offsetTrim);
@@ -166,6 +170,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return childrenTypes;
     }
 
+    public CustList<ExecBlock> getChildrenOthers() {
+        return childrenOthers;
+    }
+
     public CustList<ExecFieldBlock> getInstanceFields() {
         return instanceFields;
     }
@@ -204,5 +212,21 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public ExecRootBlockContent getRootBlockContent() {
         return rootBlockContent;
+    }
+
+    public boolean isWithInstanceElements() {
+        return withInstanceElements;
+    }
+
+    public void setWithInstanceElements(boolean _withInstanceElements) {
+        withInstanceElements = _withInstanceElements;
+    }
+
+    public CustList<ExecInfoBlock> getAllFields() {
+        return allFields;
+    }
+
+    public CustList<ExecMemberCallingsBlock> getAllFct() {
+        return allFct;
     }
 }

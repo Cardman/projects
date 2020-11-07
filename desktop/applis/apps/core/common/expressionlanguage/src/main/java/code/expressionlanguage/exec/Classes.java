@@ -16,7 +16,6 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public final class Classes {
 
@@ -68,7 +67,7 @@ public final class Classes {
         }
         forwardAndClear(_context, _page, _forwards);
         Options options_ = _page.getOptions();
-        tryInitStaticlyTypes(_context, options_);
+        ExecClassesUtil.tryInitStaticlyTypes(_context, options_);
         return messages_;
     }
 
@@ -98,86 +97,6 @@ public final class Classes {
         }
     }
 
-    public static void tryInitStaticlyTypes(ContextEl _context, Options _options) {
-        Classes cl_ = _context.getClasses();
-        forwardClassesMetaInfos(_context);
-        DefaultLockingClass dl_ = _context.getLocks();
-        dl_.init(_context);
-        for (ExecRootBlock c: cl_.getClassBodies()) {
-            c.reduce(_context);
-            for (ExecBlock d:ExecBlock.getDirectChildrenNotType(c)) {
-                for (ExecBlock b: ClassesUtil.getSortedDescNodes(d)) {
-                    if (b instanceof ReducableOperations) {
-                        ((ReducableOperations)b).reduce(_context);
-                    }
-                }
-            }
-        }
-        for (ExecOperatorBlock o: cl_.getOperators()) {
-            o.reduce(_context);
-            for (ExecBlock d:ExecBlock.getDirectChildrenNotType(o)) {
-                for (ExecBlock b: ClassesUtil.getSortedDescNodes(d)) {
-                    if (b instanceof ReducableOperations) {
-                        ((ReducableOperations)b).reduce(_context);
-                    }
-                }
-            }
-        }
-        CustList<String> all_ = cl_.classesBodies.getKeys();
-        _context.setExiting(new DefaultExiting(_context));
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
-        while (true) {
-            StringList new_ = new StringList();
-            for (String c: all_) {
-                _context.getInitializingTypeInfos().resetInitEnums(_context);
-                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.common.getStaticFields());
-                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context);
-                if (_context.isFailInit()) {
-                    cl_.common.setStaticFields(bk_);
-                } else {
-                    new_.add(c);
-                }
-            }
-            StringUtil.removeAllElements(all_, new_);
-            if (new_.isEmpty()) {
-                break;
-            }
-        }
-        _context.getInitializingTypeInfos().resetInitEnums(_context);
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
-        dl_.initAlwaysSuccess();
-        for (String t: _options.getTypesInit()) {
-            String res_ = StringExpUtil.removeDottedSpaces(t);
-            ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
-            if (classBody_ == null) {
-                continue;
-            }
-            _context.getInitializingTypeInfos().resetInitEnums(_context);
-            ProcessMethod.initializeClass(res_,classBody_,_context);
-        }
-        _context.getInitializingTypeInfos().resetInitEnums(_context);
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        _context.setExiting(new NoExiting());
-    }
-
-    public static void forwardClassesMetaInfos(ContextEl _context) {
-        for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
-            String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
-        }
-    }
-
-    private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
-        StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
-        for (EntryCust<String, StringMap<Struct>> e: _infos.entryList()) {
-            StringMap<Struct> b_ = new StringMap<Struct>();
-            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                b_.addEntry(f.getKey(), f.getValue());
-            }
-            bkSt_.addEntry(e.getKey(), b_);
-        }
-        return bkSt_;
-    }
     public CustList<ExecOperatorBlock> getOperators() {
         return operators;
     }
@@ -194,27 +113,11 @@ public final class Classes {
 
     public Struct getStaticField(ClassField _clField, String _returnType, ContextEl _context) {
         StringMap<StringMap<Struct>> staticFields_ = getStaticFields();
-        Struct strInit_ = getStaticField(_clField, staticFields_);
+        Struct strInit_ = NumParsers.getStaticField(_clField, staticFields_);
         if (strInit_ != null) {
             return strInit_;
         }
         return ExecClassArgumentMatching.defaultValue(_returnType, _context);
-    }
-
-    public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> _staticFields) {
-        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), _staticFields);
-        if (map_.isEmpty()) {
-            return null;
-        }
-        return map_.getVal(_clField.getFieldName());
-    }
-
-    public static StringMap<Struct> getStaticFieldMap(String _clField, StringMap<StringMap<Struct>> _map) {
-        StringMap<Struct> map_ = _map.getVal(_clField);
-        if (map_ == null) {
-            map_ = new StringMap<Struct>();
-        }
-        return map_;
     }
 
     public StringMap<StringMap<Struct>> getStaticFields() {

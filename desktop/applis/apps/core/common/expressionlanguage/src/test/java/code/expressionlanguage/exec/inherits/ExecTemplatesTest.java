@@ -6,11 +6,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -612,7 +612,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecBlock.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -626,7 +626,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecBlock.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -912,7 +912,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
-        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
+        ExecNamedFunctionBlock first_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
         ExecTemplates.wrapAndCall(first_,classBody_,"pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
         assertNotNull(getException(cont_));
     }

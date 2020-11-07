@@ -1192,7 +1192,7 @@ public final class AliasReflection {
                     }
                     String fieldName_ = i_.getUniqueFieldName();
                     StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
-                    Struct staticField_ = Classes.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
+                    Struct staticField_ = NumParsers.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
                     parent_ = Argument.getNull(staticField_);
                     start_ = 1;
                 }

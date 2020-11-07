@@ -318,30 +318,28 @@ public final class ExecutingUtil {
         infosFields_ = new CustList<FieldMetaInfo>();
         CustList<ConstructorMetaInfo> infosConst_;
         infosConst_ = new CustList<ConstructorMetaInfo>();
-        CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_type);
         String fileName_ = _type.getFile().getFileName();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
         for (ExecRootBlock b: _type.getChildrenTypes()) {
             inners_.add(b.getFullName());
         }
-        for (ExecBlock b: bl_) {
-            if (b instanceof ExecInfoBlock) {
-                ExecInfoBlock method_ = (ExecInfoBlock) b;
-                String ret_ = method_.getImportedClassName();
-                boolean staticElement_ = method_.isStaticField();
-                boolean finalElement_ = method_.isFinalField();
+        for (ExecInfoBlock b: _type.getAllFields()) {
+            String ret_ = b.getImportedClassName();
+            boolean staticElement_ = b.isStaticField();
+            boolean finalElement_ = b.isFinalField();
 
-                String idType_ = _type.getFullName();
-                String formCl_ = tryFormatType(idType_, _name, _context);
-                for (String f: method_.getFieldName()) {
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, method_.getAccess(), formCl_);
-                    met_.setFileName(fileName_);
-                    met_.setAnnotableBlock(method_);
-                    met_.setDeclaring(_type);
-                    infosFields_.add(met_);
-                }
+            String idType_ = _type.getFullName();
+            String formCl_ = tryFormatType(idType_, _name, _context);
+            for (String f: b.getFieldName()) {
+                FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, b.getAccess(), formCl_);
+                met_.setFileName(fileName_);
+                met_.setAnnotableBlock(b);
+                met_.setDeclaring(_type);
+                infosFields_.add(met_);
             }
+        }
+        for (ExecBlock b: _type.getAllFct()) {
             if (b instanceof ExecOverridableBlock) {
                 ExecOverridableBlock method_ = (ExecOverridableBlock) b;
                 MethodId id_ = method_.getId();

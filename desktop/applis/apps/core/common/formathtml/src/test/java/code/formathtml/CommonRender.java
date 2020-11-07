@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -116,7 +117,7 @@ public abstract class CommonRender {
 
     protected static void tryInitStaticlyTypes(AnalyzedTestConfiguration _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        Classes.tryInitStaticlyTypes(_context.getContext(), page_.getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(), page_.getOptions());
         addInnerPage(_context.getConfiguration());
     }
 

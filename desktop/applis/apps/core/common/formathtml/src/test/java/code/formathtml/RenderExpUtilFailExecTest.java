@@ -2,12 +2,11 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.NoExiting;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -2205,8 +2204,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
         assertTrue(_cont.isEmptyErrors());
         out_ = CommonRender.getReducedNodes(out_.last());
-        Classes.forwardClassesMetaInfos(_cont.getContext());
-        Classes.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
+        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());
@@ -2220,8 +2219,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
         assertTrue(_cont.isEmptyErrors());
         out_ = CommonRender.getReducedNodes(out_.last());
-        Classes.forwardClassesMetaInfos(_cont.getContext());
-        Classes.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
+        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());
@@ -2312,7 +2311,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
         assertTrue(_cont.isEmptyErrors());
         out_ = CommonRender.getReducedNodes(out_.last());
-        Classes.tryInitStaticlyTypes(_cont.getContext(), _cont.getAnalyzing().getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getAnalyzing().getOptions());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());

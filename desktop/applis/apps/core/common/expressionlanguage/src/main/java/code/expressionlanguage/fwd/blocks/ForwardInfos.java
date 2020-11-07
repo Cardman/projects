@@ -20,10 +20,7 @@ import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ForwardInfos {
     private ForwardInfos() {
@@ -145,6 +142,7 @@ public final class ForwardInfos {
             if (!root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
                 allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
+                boolean instEltCount_ = false;
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
@@ -157,7 +155,22 @@ public final class ForwardInfos {
                             }
                         }
                     }
+                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
+                        if ((b instanceof FieldBlock)) {
+                            if (((FieldBlock)b).isStaticField()) {
+                                continue;
+                            }
+                            instEltCount_ = true;
+                        }
+                        if (b instanceof InstanceBlock) {
+                            instEltCount_ = true;
+                        }
+                        if (b instanceof ConstructorBlock) {
+                            instEltCount_ = true;
+                        }
+                    }
                 }
+                e.getValue().getRootBlock().setWithInstanceElements(instEltCount_);
             }
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
@@ -249,7 +262,16 @@ public final class ForwardInfos {
             for (Block b: ClassesUtil.getDirectChildren(c)) {
                 if (b instanceof RootBlock) {
                     ExecRootBlock val_ = _forwards.getMapMembers().getValue(((RootBlock) b).getNumberAll()).getRootBlock();
-                    _forwards.getMapMembers().getValue(c.getNumberAll()).getRootBlock().getChildrenTypes().add(val_);
+                    mem_.getRootBlock().getChildrenTypes().add(val_);
+                } else {
+                    if (b instanceof InfoBlock) {
+                        ExecInfoBlock elt_ = mem_.getAllFields().getValue(((InfoBlock) b).getFieldNumber());
+                        mem_.getRootBlock().getChildrenOthers().add((ExecBlock) elt_);
+                    }
+                    if (b instanceof MemberCallingsBlock) {
+                        ExecMemberCallingsBlock elt_ = mem_.getAllFct().getValue(((MemberCallingsBlock) b).getNumberFct());
+                        mem_.getRootBlock().getChildrenOthers().add(elt_);
+                    }
                 }
             }
             for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> f: mem_.getAllAnnotMethods().entryList()) {
@@ -258,6 +280,14 @@ public final class ForwardInfos {
             for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
                 ExecInnerTypeOrElement val_ = f.getValue();
                 mem_.getRootBlock().getEnumElements().add(val_);
+            }
+            for (EntryCust<InfoBlock, ExecInfoBlock> f: mem_.getAllFields().entryList()) {
+                ExecInfoBlock val_ = f.getValue();
+                mem_.getRootBlock().getAllFields().add(val_);
+            }
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFct().entryList()) {
+                ExecMemberCallingsBlock val_ = f.getValue();
+                mem_.getRootBlock().getAllFct().add(val_);
             }
             for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
                 FieldBlock method_ = f.getKey();

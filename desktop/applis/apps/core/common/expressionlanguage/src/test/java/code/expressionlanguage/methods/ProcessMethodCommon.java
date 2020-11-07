@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -54,7 +55,7 @@ public abstract class ProcessMethodCommon {
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(classBody_, fct_).first();
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, fct_).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
@@ -66,7 +67,7 @@ public abstract class ProcessMethodCommon {
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(classBody_, fct_).first();
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, fct_).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
@@ -130,7 +131,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static ExecConstructorBlock tryGet(ExecRootBlock _root, ConstructorId _id) {
-        CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_root);
+        CustList<ExecBlock> bl_ = ExecClassesUtil.getDirectChildren(_root);
         for (ExecBlock b: bl_) {
             if (!(b instanceof ExecConstructorBlock)) {
                 continue;
@@ -501,7 +502,7 @@ public abstract class ProcessMethodCommon {
 
     protected static Struct getStaticField(ContextEl _ctx, ClassField _id) {
         StringMap<StringMap<Struct>> staticFields_ = _ctx.getClasses().getStaticFields();
-        return Classes.getStaticField(_id, staticFields_);
+        return NumParsers.getStaticField(_id, staticFields_);
     }
 
     private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
@@ -690,7 +691,7 @@ public abstract class ProcessMethodCommon {
 
     private static CustList<ExecOverridableBlock> getDeepMethodExecBlocks(ExecRootBlock _element) {
         CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
+        for (ExecBlock b: ExecClassesUtil.getDirectChildren(_element)) {
             if (b instanceof ExecOverridableBlock) {
                 methods_.add((ExecOverridableBlock) b);
             }

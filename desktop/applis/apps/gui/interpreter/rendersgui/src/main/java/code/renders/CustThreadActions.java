@@ -5,8 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -92,34 +92,36 @@ public final class CustThreadActions extends AbstractThreadActions {
                 String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
                 MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                 ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
-                CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
-                if (!methods_.isEmpty()) {
-                    ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
-                    if (ctx_.callsOrException()) {
-                        afterActionWithoutRemove(ctx_);
-                        return;
+                if (classBody_ != null) {
+                    CustList<ExecNamedFunctionBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
+                    if (!methods_.isEmpty()) {
+                        ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
+                        if (ctx_.callsOrException()) {
+                            afterActionWithoutRemove(ctx_);
+                            return;
+                        }
+                        Argument arg_ = new Argument();
+                        CustList<Argument> args_ = new CustList<Argument>();
+                        int len_ = fileNames.size();
+                        ArrayStruct arrNames_ = new ArrayStruct(len_,arrStr_);
+                        for (int i = 0; i < len_; i++) {
+                            arrNames_.set(i, new StringStruct(fileNames.getKey(i)));
+                        }
+                        ArrayStruct arrContents_ = new ArrayStruct(len_,arrStr_);
+                        for (int i = 0; i < len_; i++) {
+                            arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
+                        }
+                        args_.add(new Argument(arrNames_));
+                        args_.add(new Argument(arrContents_));
+                        ExecNamedFunctionBlock method_ = methods_.first();
+                        Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
+                        if (ctx_.callsOrException()) {
+                            afterActionWithoutRemove(ctx_);
+                            return;
+                        }
+                        getPage().getNavigation().setDataBaseStruct(out_.getStruct());
                     }
-                    Argument arg_ = new Argument();
-                    CustList<Argument> args_ = new CustList<Argument>();
-                    int len_ = fileNames.size();
-                    ArrayStruct arrNames_ = new ArrayStruct(len_,arrStr_);
-                    for (int i = 0; i < len_; i++) {
-                        arrNames_.set(i, new StringStruct(fileNames.getKey(i)));
-                    }
-                    ArrayStruct arrContents_ = new ArrayStruct(len_,arrStr_);
-                    for (int i = 0; i < len_; i++) {
-                        arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
-                    }
-                    args_.add(new Argument(arrNames_));
-                    args_.add(new Argument(arrContents_));
-                    ExecNamedFunctionBlock method_ = methods_.first();
-                    Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
-                    Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
-                    if (ctx_.callsOrException()) {
-                        afterActionWithoutRemove(ctx_);
-                        return;
-                    }
-                    getPage().getNavigation().setDataBaseStruct(out_.getStruct());
                 }
             }
             getPage().getNavigation().initializeRendSession(ctx_, du_.getStds());

@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -368,8 +368,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
-        CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
-        ExecNamedFunctionBlock fct_ = list_.first();
+        ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         RendFctOperation f_ = new RendFctOperation(fct_, classBody_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id), true);
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
@@ -419,7 +418,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Options options_ = page_.getOptions();
         ContextEl context_ = _dual.getContext().getContext();
         context_.setFullStack(new DefaultFullStack(context_));
-        Classes.tryInitStaticlyTypes(context_, options_);
+        ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
         return messages_;
     }
 

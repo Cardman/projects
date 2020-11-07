@@ -53,27 +53,8 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                 String id_ = StringExpUtil.getIdFromAllTypes(_className);
                 ExecRootBlock r_ = _conf.getClasses().getClassBody(id_);
                 if (r_ instanceof ExecInterfaceBlock && r_.isStaticType()) {
-                    int instEltCount_ = 0;
-                    StringList superType_ = new StringList(id_);
-                    superType_.addAllElts(r_.getAllSuperTypes());
-                    for (String i: superType_) {
-                        for (ExecBlock b: ExecBlock.getDirectChildren(_conf.getClasses().getClassBody(i))) {
-                            if ((b instanceof ExecFieldBlock)) {
-                                if (((ExecFieldBlock)b).isStaticField()) {
-                                    continue;
-                                }
-                                instEltCount_++;
-                            }
-                            if (b instanceof ExecInstanceBlock) {
-                                instEltCount_++;
-                            }
-                            if (b instanceof ExecConstructorBlock) {
-                                instEltCount_++;
-                            }
-                        }
-                    }
                     CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
-                    if ((instEltCount_ == 0 || _full)&& functional_.size() == 1) {
+                    if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();
                         MethodId realId_ = clRealId_.getOverridableBlock().getId();
                         String geneStr_ = r_.getGenericString();

@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardFieldOperation;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.Struct;
 
 public final class ReachAffectationOperation extends ReachMethodOperation implements ReachCalculable {
@@ -30,7 +30,7 @@ public final class ReachAffectationOperation extends ReachMethodOperation implem
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldIdReadOnly();
         Struct str_ = value_.getStruct();
-        Classes.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), str_);
+        NumParsers.getStaticFieldMap(id_.getClassName(), _page.getStaticFields()).set(id_.getFieldName(), str_);
         setSimpleArgument(value_);
     }
 }

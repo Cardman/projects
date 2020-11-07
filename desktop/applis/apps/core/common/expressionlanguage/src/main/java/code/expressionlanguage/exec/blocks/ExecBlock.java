@@ -1,15 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.*;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public abstract class ExecBlock {
 
@@ -40,28 +37,7 @@ public abstract class ExecBlock {
     public final void processBlockAndRemove(ContextEl _conf) {
         ExecTemplates.processBlockAndRemove(_conf,this);
     }
-    public static CustList<ExecBlock> getDirectChildrenNotType(ExecBlock _element) {
-        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
-        for (ExecBlock e: getDirectChildren(_element)) {
-            if (e instanceof ExecRootBlock) {
-                continue;
-            }
-            list_.add(e);
-        }
-        return list_;
-    }
-    public static CustList<ExecBlock> getDirectChildren(ExecBlock _element) {
-        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
-        if (_element == null) {
-            return list_;
-        }
-        ExecBlock elt_ = _element.getFirstChild();
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
-    }
+
     public final void processBlock(ContextEl _conf) {
         ExecBlock n_ = getNextSibling();
         AbstractPageEl ip_ = _conf.getLastPage();
@@ -196,34 +172,6 @@ public abstract class ExecBlock {
         file = _file;
     }
 
-    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ExecRootBlock _genericClassName, MethodId _id) {
-        return filter(getMethodBodies(_genericClassName),_id);
-    }
-
-    private static CustList<ExecNamedFunctionBlock> getMethodBodies(ExecRootBlock _genericClassName) {
-        return getMethodExecBlocks(_genericClassName);
-    }
-
-
-    private static CustList<ExecNamedFunctionBlock> getMethodExecBlocks(ExecRootBlock _element) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        for (ExecBlock b: getDirectChildren(_element)) {
-            if (b instanceof ExecOverridableBlock) {
-                methods_.add((ExecNamedFunctionBlock) b);
-            }
-        }
-        return methods_;
-    }
-
-    private static CustList<ExecNamedFunctionBlock> filter(CustList<ExecNamedFunctionBlock> _methods,MethodId _id) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        for (ExecNamedFunctionBlock m: _methods) {
-            if (((GeneMethod)m).getId().eq(_id)) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
-    }
 
     public final ExecBlock getPreviousSibling() {
         return previousSibling;

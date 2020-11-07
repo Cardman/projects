@@ -24,8 +24,6 @@ import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
@@ -981,41 +979,6 @@ public final class ClassesUtil {
             }
         }
         return list_;
-    }
-
-    public static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {
-        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
-        ExecBlock c_ = _root;
-        ExecBlock f_ = c_.getFirstChild();
-        list_.add(c_);
-        if (f_ == null) {
-            return list_;
-        }
-        c_ = f_;
-        while (c_ != null) {
-            list_.add(c_);
-            c_ = getNext(c_, _root);
-        }
-        return list_;
-    }
-
-    public static ExecBlock getNext(ExecBlock _current, ExecBlock _root) {
-        ExecBlock n_ = _current.getFirstChild();
-        if (n_ != null) {
-            return n_;
-        }
-        ExecBlock current_ = _current;
-        while (true) {
-            n_ = current_.getNextSibling();
-            if (n_ != null) {
-                return n_;
-            }
-            n_ = current_.getParent();
-            if (n_ == _root) {
-                return null;
-            }
-            current_ = n_;
-        }
     }
 
     public static CustList<Block> getDirectChildren(Block _element) {
@@ -2671,7 +2634,7 @@ public final class ClassesUtil {
     }
 
     private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
-        if (Classes.getStaticFieldMap(_clName, _page.getStaticFields()).getVal(_field) == null) {
+        if (NumParsers.getStaticFieldMap(_clName, _page.getStaticFields()).getVal(_field) == null) {
             if (!_cl.isStaticType()) {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -2741,14 +2704,14 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
-                if (Classes.getStaticField(k_, _page.getStaticFields()) != null) {
+                if (NumParsers.getStaticField(k_, _page.getStaticFields()) != null) {
                     continue;
                 }
                 ClassFieldBlock cf_ = e.getValue();
                 FieldBlock f_ = cf_.getFieldName();
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ReachOperationUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
-                if (Classes.getStaticField(k_, _page.getStaticFields()) != null) {
+                if (NumParsers.getStaticField(k_, _page.getStaticFields()) != null) {
                     calculatedValue_ = true;
                     break;
                 }

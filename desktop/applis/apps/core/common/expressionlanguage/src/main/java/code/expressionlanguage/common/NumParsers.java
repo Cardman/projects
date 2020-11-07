@@ -5,6 +5,7 @@ import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.Replacement;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
@@ -2101,4 +2102,19 @@ public final class NumParsers {
                 || _ooffset > (long)_other.length() - _len;
     }
 
+    public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> _staticFields) {
+        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), _staticFields);
+        if (map_.isEmpty()) {
+            return null;
+        }
+        return map_.getVal(_clField.getFieldName());
+    }
+
+    public static StringMap<Struct> getStaticFieldMap(String _clField, StringMap<StringMap<Struct>> _map) {
+        StringMap<Struct> map_ = _map.getVal(_clField);
+        if (map_ == null) {
+            map_ = new StringMap<Struct>();
+        }
+        return map_;
+    }
 }

@@ -1,10 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.util.CustList;
 
 public abstract class ExecBracedBlock extends ExecBlock {
 
     private ExecBlock firstChild;
+    private final CustList<ExecDeclareVariable> declares = new CustList<ExecDeclareVariable>();
 
     ExecBracedBlock(int _offsetTrim) {
         super(_offsetTrim);
@@ -18,6 +20,9 @@ public abstract class ExecBracedBlock extends ExecBlock {
     }
     public final void appendChild(ExecBlock _child) {
         _child.setParent(this);
+        if (_child instanceof ExecDeclareVariable) {
+            declares.add((ExecDeclareVariable) _child);
+        }
         if (firstChild == null) {
             firstChild = _child;
             return;
@@ -35,11 +40,9 @@ public abstract class ExecBracedBlock extends ExecBlock {
     }
 
     public final void removeLocalVars(AbstractPageEl _ip) {
-        for (ExecBlock s: getDirectChildren(this)) {
-            if (s instanceof ExecDeclareVariable) {
-                for (String v: ((ExecDeclareVariable)s).getVariableNames()) {
-                    _ip.removeLocalVar(v);
-                }
+        for (ExecDeclareVariable s: declares) {
+            for (String v: s.getVariableNames()) {
+                _ip.removeLocalVar(v);
             }
         }
     }

@@ -3,7 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -123,7 +123,12 @@ public final class GuiProcess implements Runnable {
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
         ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
-        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
+        if (classBody_ == null) {
+            context.getCustInit().removeThreadFromList(context);
+            lastThread();
+            return;
+        }
+        CustList<ExecNamedFunctionBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
         if (!methods_.isEmpty()) {
             ProcessMethod.initializeClass(clName, classBody_,context);
             if (context.callsOrException()) {
@@ -137,6 +142,10 @@ public final class GuiProcess implements Runnable {
         } else {
             context.getCustInit().removeThreadFromList(context);
         }
+        lastThread();
+    }
+
+    private void lastThread() {
         if (!isVisible()) {
             context.getGuiInit().launchHooks(context);
             window.setNullCurrent();

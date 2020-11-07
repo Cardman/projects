@@ -1569,7 +1569,7 @@ public final class ExecTemplates {
             _conf.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
-        Classes.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
+        NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
         return _right;
     }
 

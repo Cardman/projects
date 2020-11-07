@@ -1,7 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -24,12 +24,12 @@ public final class ExecutingBlocks {
         String infoTest_ = _aliases.getAliasInfoTest();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
                 _aliases.getAliasExecuteTests(),new StringList(infoTest_));
-        executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
+        executeMethod = ExecClassesUtil.getMethodBodiesById(executeType,fct_).first();
         formatType = _classes.getClassBody(_aliases.getAliasFormatType());
-        formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(),new StringList(_content.getCoreNames().getAliasObject()))).first();
-        formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(),new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject()),true)).first();
+        formatObject = ExecClassesUtil.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(),new StringList(_content.getCoreNames().getAliasObject()))).first();
+        formatObjectTwo = ExecClassesUtil.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, _aliases.getAliasPrint(),new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject()),true)).first();
         runnableType = _classes.getClassBody(_aliases.getAliasRunnable());
-        runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, _aliases.getAliasRun(),new StringList())).first();
+        runMethod = ExecClassesUtil.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, _aliases.getAliasRun(),new StringList())).first();
     }
 
     public ExecRootBlock getRunnableType() {
