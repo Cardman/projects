@@ -461,7 +461,7 @@ public class MapTest {
         ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
-        map_.add(new KeyExample(0, 0), 2);
+        map_.tryAdd(new KeyExample(0, 0), 2);
         assertEq(2,map_.size());
         assertTrue(map_.contains(new KeyExample(0, 0)));
         assertTrue(map_.contains(new KeyExample(0, 1)));
@@ -474,7 +474,7 @@ public class MapTest {
         ObjectMap<KeyExample,Integer> map_ = new ObjectMap<KeyExample,Integer>();
         map_.put(new KeyExample(0, 0), 0);
         map_.put(new KeyExample(0, 1), 1);
-        map_.add(new KeyExample(0, 2), 2);
+        map_.tryAdd(new KeyExample(0, 2), 2);
         assertEq(3,map_.size());
         assertTrue(map_.contains(new KeyExample(0, 0)));
         assertTrue(map_.contains(new KeyExample(0, 1)));

@@ -85,7 +85,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         list.get(_i).setValue(_object);
     }
 
-    public void add(K _key,V _v) {
+    public void tryAdd(K _key, V _v) {
         int index_ = indexOfEntry(_key);
         if (index_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
             return;
