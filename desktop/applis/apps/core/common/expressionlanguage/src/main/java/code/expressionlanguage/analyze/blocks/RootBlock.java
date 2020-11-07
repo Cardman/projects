@@ -91,6 +91,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
     private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
     private CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
+    private CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
     private int countFct;
     private int countField;
     private int countInit;
@@ -1401,7 +1402,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (concreteClass_) {
-            for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(this)) {
+            for (OverridableBlock b: overridableBlocks) {
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
@@ -1990,6 +1991,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<OverridableBlock> getOverridableBlocks() {
         return overridableBlocks;
+    }
+
+    public CustList<AnnotationMethodBlock> getAnnotationsMethodsBlocks() {
+        return annotationsMethodsBlocks;
     }
 
     public int getCountFct() {

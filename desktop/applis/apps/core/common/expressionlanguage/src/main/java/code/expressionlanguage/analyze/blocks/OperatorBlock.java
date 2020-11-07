@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -12,7 +11,7 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,GeneMethod,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -31,7 +30,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
         return getId().getSignature(_page);
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

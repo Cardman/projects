@@ -43,7 +43,6 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         return MethodModifier.NORMAL;
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

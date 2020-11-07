@@ -64,7 +64,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     private static Argument checkStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments,
                                             String _className, ContextEl _conf) {
         String paramName_ = _conf.formatVarType(_className);
-        Parameters parameters_ = ExecTemplates.okArgsSet(_rootBlock, _castOpId, true, paramName_, _cache, _arguments, _conf, null);
+        Parameters parameters_ = ExecTemplates.okArgsSet(_rootBlock, _castOpId, paramName_, _cache, _arguments, _conf, null, true);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }

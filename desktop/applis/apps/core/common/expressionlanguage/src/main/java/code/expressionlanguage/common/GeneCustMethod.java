@@ -1,6 +1,8 @@
 package code.expressionlanguage.common;
 
 
-public interface GeneCustMethod extends GeneMethod {
+import code.expressionlanguage.functionid.MethodId;
 
+public interface GeneCustMethod {
+    MethodId getId();
 }

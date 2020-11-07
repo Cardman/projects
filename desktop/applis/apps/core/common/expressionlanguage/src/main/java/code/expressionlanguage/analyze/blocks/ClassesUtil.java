@@ -93,7 +93,7 @@ public final class ClassesUtil {
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
                     RootBlock superBl_ = s.getRootBlock();
-                    for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
+                    for (OverridableBlock m: superBl_.getOverridableBlocks()) {
                         if (m.isAbstractMethod()) {
                             GeneStringOverridable inf_ = anaRed_.getVal(m).getVal(r.getFullName());
                             if (inf_ == null) {
@@ -2733,27 +2733,14 @@ public final class ClassesUtil {
         return methods_;
     }
 
-    public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(Block _r, String _id) {
+    public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(RootBlock _r, String _id) {
         CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
-        for (Block b: getDirectChildren(_r)) {
-            if (!(b instanceof AnnotationMethodBlock)) {
-                continue;
-            }
-            AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-            if (StringUtil.quickEq(a_.getName(), _id)) {
-                methods_.add(a_);
+        for (AnnotationMethodBlock b: _r.getAnnotationsMethodsBlocks()) {
+            if (StringUtil.quickEq(b.getName(), _id)) {
+                methods_.add(b);
             }
         }
         return methods_;
     }
 
-    public static CustList<OverridableBlock> getMethodExecBlocks(RootBlock _element) {
-        CustList<OverridableBlock> methods_ = new CustList<OverridableBlock>();
-        for (Block b: getDirectChildren(_element)) {
-            if (b instanceof OverridableBlock) {
-                methods_.add((OverridableBlock) b);
-            }
-        }
-        return methods_;
-    }
 }

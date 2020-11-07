@@ -612,7 +612,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, args_, cont_, null, true);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -626,7 +626,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), false, "pkg.Ex<$int>", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, args_, cont_, null, true);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -639,7 +639,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, false, "pkg.Ex<$int>", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, args_, cont_, null, true);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -651,7 +651,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, false, "pkg.Ex", null, args_, cont_, null);
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, args_, cont_, null,true);
         assertNotNull(getException(cont_));
     }
     @Test

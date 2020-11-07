@@ -8,6 +8,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -93,7 +94,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                 MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                 ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
                 if (classBody_ != null) {
-                    CustList<ExecNamedFunctionBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
+                    CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
                     if (!methods_.isEmpty()) {
                         ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
                         if (ctx_.callsOrException()) {

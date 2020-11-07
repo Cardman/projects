@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -69,7 +70,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        ExecInvokingOperation.checkParameters(_context, superClass_, rootBlock, ctor, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null);
+        ExecInvokingOperation.checkParameters(_context, superClass_, rootBlock, ctor, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

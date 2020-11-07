@@ -66,7 +66,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
@@ -54,7 +55,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setRelOffsetPossibleLastPage(off_, _conf);
         String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
-        checkParameters(_conf, superClass_, getRootBlock(), getCtor(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null);
+        checkParameters(_conf, superClass_, getRootBlock(), getCtor(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

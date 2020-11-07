@@ -3926,7 +3926,6 @@ public final class LinkageUtil {
         return " class=\"e\"";
     }
     private static String getRelativize(CustList<RootBlock> _refFoundTypes, CustList<OperatorBlock> _refOperators, String _currentFileName, String _className, Identifiable _id) {
-        String rel_;
         String cl_ = StringExpUtil.getIdFromAllTypes(_className);
         AnaGeneType type_ = VariablesOffsets.getClassBody(cl_,_refFoundTypes);
         if (!ContextUtil.isFromCustFile(type_)) {
@@ -3935,29 +3934,25 @@ public final class LinkageUtil {
                 if (!opers_.isEmpty()) {
                     NamedFunctionBlock operator_ = opers_.first();
                     String file_ = operator_.getFile().getRenderFileName();
-                    rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
-                    return rel_;
+                    return relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
                 }
             }
             return "";
         }
         if (_id instanceof MethodId){
-            NamedFunctionBlock method_;
-            CustList<NamedFunctionBlock> methods_ = getMethodBodiesById(_refFoundTypes,_className, (MethodId) _id);
+            CustList<NamedFunctionBlock> methods_ = getMethodBodiesById((MethodId) _id, (RootBlock)type_);
             if (methods_.isEmpty()) {
                 return "";
             }
-            method_ = methods_.first();
-            rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
-            return rel_;
+            NamedFunctionBlock method_ = methods_.first();
+            return relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
         }
         CustList<ConstructorBlock> ctors_ = getConstructorBodiesById(_refFoundTypes,_className, (ConstructorId) _id);
         if (ctors_.isEmpty()) {
             return "";
         }
         ConstructorBlock ctor_ = ctors_.first();
-        rel_ = relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
-        return rel_;
+        return relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
     }
 
     private static AbstractCoverageResult getCovers(Block _block, OperationNode _oper, Coverage _cov) {
@@ -4123,44 +4118,28 @@ public final class LinkageUtil {
         return _op instanceof QuickOperation;
     }
 
-    private static CustList<NamedFunctionBlock> getMethodBodiesById(CustList<RootBlock> _refFoundTypes, String _genericClassName, MethodId _id) {
-        return filter(getMethodBodies(_refFoundTypes,_genericClassName),_id);
-    }
-    private static CustList<NamedFunctionBlock> getMethodBodies(CustList<RootBlock> _refFoundTypes, String _genericClassName) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
-        RootBlock r_ = VariablesOffsets.getClassBody(base_,_refFoundTypes);
-        return getMethodExecBlocks(r_);
-    }
-
-
-    private static CustList<NamedFunctionBlock> getMethodExecBlocks(RootBlock _element) {
+    private static CustList<NamedFunctionBlock> getMethodBodiesById(MethodId _id, RootBlock _root) {
         CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
-        for (Block b: ClassesUtil.getDirectChildren(_element)) {
-            if (b instanceof OverridableBlock) {
-                methods_.add((NamedFunctionBlock) b);
+        for (OverridableBlock b: _root.getOverridableBlocks()) {
+            if (b.getId().eq(_id)) {
+                methods_.add(b);
+                break;
             }
-            if (b instanceof AnnotationMethodBlock) {
-                methods_.add((AnnotationMethodBlock) b);
+        }
+        for (AnnotationMethodBlock b: _root.getAnnotationsMethodsBlocks()) {
+            if (b.getId().eq(_id)) {
+                methods_.add(b);
+                break;
             }
         }
         return methods_;
     }
+
 
     private static CustList<NamedFunctionBlock> getOperatorsBodiesById(CustList<OperatorBlock> _operators, MethodId _id) {
-        return filter(getOperatorsBodies(_operators),_id);
-    }
-    private static CustList<NamedFunctionBlock> getOperatorsBodies(CustList<OperatorBlock> _operators) {
         CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
         for (OperatorBlock m: _operators) {
-            methods_.add(m);
-        }
-        return methods_;
-    }
-
-    private static CustList<NamedFunctionBlock> filter(CustList<NamedFunctionBlock> _methods,MethodId _id) {
-        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
-        for (NamedFunctionBlock m: _methods) {
-            if (((GeneMethod)m).getId().eq(_id)) {
+            if (m.getId().eq(_id)) {
                 methods_.add(m);
                 break;
             }

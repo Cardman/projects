@@ -52,7 +52,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return getId().getSignature(_page);
     }
 
-    @Override
     public MethodId getId() {
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }

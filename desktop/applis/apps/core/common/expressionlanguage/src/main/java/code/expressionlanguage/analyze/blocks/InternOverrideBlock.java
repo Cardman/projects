@@ -112,15 +112,14 @@ public final class InternOverrideBlock extends Leaf {
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
-                RootBlock root_ = _page.getAnaClassBody(cl_);
-                CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(root_);
+                CustList<OverridableBlock> methods_ = formattedType_.getOverridableBlocks();
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
                 int rc_ = _page.getTraceIndex();
                 ClassMethodId id_ = null;
                 for (OverridableBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {
                         id_ = new ClassMethodId(cl_,m.getId());
-                        GeneStringOverridable g_ = new GeneStringOverridable(formatted_,root_,m);
+                        GeneStringOverridable g_ = new GeneStringOverridable(formatted_,formattedType_,m);
                         list_.add(g_);
                         break;
                     }

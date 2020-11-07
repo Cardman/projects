@@ -38,7 +38,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, staticFctContent.getNaturalVararg(), staticFctContent.getLastType(), first_);
-        ExecInvokingOperation.checkParametersOperators(_context.getExiting(),_context, rootBlock,named, firstArgs_, staticFctContent.getClassName());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, rootBlock,named, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
         return Argument.createVoid();
     }
 }

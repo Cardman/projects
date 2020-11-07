@@ -21,6 +21,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.Identifiable;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.stds.LgNames;
@@ -403,12 +404,12 @@ public final class ExecTemplates {
 
     public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
                                                   Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
-                                                  Argument _right) {
+                                                  Argument _right, MethodAccessKind _kind) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
         FormattedParameters f_ = new FormattedParameters();
-        if (!(_methodId instanceof GeneMethod) || !((GeneMethod)_methodId).getId().isStaticMethod()) {
+        if (_kind == MethodAccessKind.INSTANCE) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
@@ -416,7 +417,7 @@ public final class ExecTemplates {
                 return f_;
             }
         }
-        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, false, classFormat_, _cache, _firstArgs, _conf, _right);
+        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _right, _kind != MethodAccessKind.STATIC);
         if (parameters_.getError() != null) {
             return f_;
         }
@@ -433,8 +434,8 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Parameters ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound,_cache, _firstArgs, _conf, _right);
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
+        Parameters ex_ = okArgsEx(_rootBlock,_id, _classNameFound,_cache, _firstArgs, _conf, _right, _hasFormat);
         if (ex_.getError() != null) {
             _conf.setCallingState(new CustomFoundExc(ex_.getError()));
         }
@@ -492,15 +493,9 @@ public final class ExecTemplates {
         }
         return null;
     }
-    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        boolean hasFormat_;
-        if (_id instanceof GeneMethod) {
-            hasFormat_ = ((GeneMethod)_id).getId().canAccessParamTypes() || _format;
-        } else {
-            hasFormat_ = true;
-        }
+    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
         Parameters p_ = new Parameters();
-        if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
+        if (_hasFormat && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
             p_.setError(new ErrorStruct(_conf,_classNameFound,npe_));
@@ -525,7 +520,7 @@ public final class ExecTemplates {
             }
             return p_;
         }
-        StringList params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, hasFormat_);
+        StringList params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, _hasFormat);
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -560,19 +555,17 @@ public final class ExecTemplates {
                 }
             }
         }
-        if (_id instanceof GeneMethod) {
-            if (_right != null) {
-                String type_ = _id.getImportedReturnType();
-                type_ = quickFormat(_rootBlock,_classNameFound, type_);
-                Struct ex_ = checkObjectEx(type_, _right, _conf);
-                if (ex_ != null) {
-                    p_.setError(ex_);
-                    return p_;
-                }
-                p_.setRight(_right);
-                LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
-                p_.getParameters().addEntry(_conf.getClasses().getKeyWordValue(),lv_);
+        if (_right != null) {
+            String type_ = _id.getImportedReturnType();
+            type_ = quickFormat(_rootBlock,_classNameFound, type_);
+            Struct ex_ = checkObjectEx(type_, _right, _conf);
+            if (ex_ != null) {
+                p_.setError(ex_);
+                return p_;
             }
+            p_.setRight(_right);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
+            p_.getParameters().addEntry(_conf.getClasses().getKeyWordValue(),lv_);
         }
         return p_;
     }

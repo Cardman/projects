@@ -102,7 +102,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     public boolean hiddenInstance() {
         return staticCallMethod || staticMethod;
     }
-    @Override
+
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
@@ -210,7 +210,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
-            CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(formattedDestType_);
+            CustList<OverridableBlock> methods_ = formattedDestType_.getOverridableBlocks();
             String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _page);
             if (!getId().quickOverrideFormat(_root,formattedDeclaring_).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_)))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);

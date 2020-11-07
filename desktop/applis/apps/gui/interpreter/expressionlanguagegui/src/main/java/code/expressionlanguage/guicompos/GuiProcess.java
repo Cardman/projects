@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -128,7 +129,7 @@ public final class GuiProcess implements Runnable {
             lastThread();
             return;
         }
-        CustList<ExecNamedFunctionBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
+        CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
         if (!methods_.isEmpty()) {
             ProcessMethod.initializeClass(clName, classBody_,context);
             if (context.callsOrException()) {

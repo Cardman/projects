@@ -3,7 +3,6 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.NoExiting;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecDotOperation;
@@ -196,19 +195,19 @@ public final class ExecClassesUtil {
         return bkSt_;
     }
 
-    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ExecRootBlock _genericClassName, MethodId _id) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
+    public static CustList<ExecOverridableBlock> getMethodBodiesById(ExecRootBlock _genericClassName, MethodId _id) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
         for (ExecBlock m: _genericClassName.getChildrenOthers()) {
             if (m instanceof ExecOverridableBlock) {
-                if (((GeneMethod)m).getId().eq(_id)) {
-                    methods_.add((ExecNamedFunctionBlock) m);
+                if (((ExecOverridableBlock)m).getId().eq(_id)) {
+                    methods_.add((ExecOverridableBlock) m);
                 }
             }
         }
         return methods_;
     }
 
-    public static CustList<ExecBlock> getDirectChildren(ExecBlock _element) {
+    private static CustList<ExecBlock> getDirectChildren(ExecBlock _element) {
         CustList<ExecBlock> list_ = new CustList<ExecBlock>();
         ExecBlock elt_ = _element.getFirstChild();
         while (elt_ != null) {

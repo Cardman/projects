@@ -312,7 +312,7 @@ public abstract class RendDynOperationNode {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException()) {
-            parameters_ = ExecTemplates.okArgsSet(_rootBlock, _c, true, _owner,null, args_, _context, null);
+            parameters_ = ExecTemplates.okArgsSet(_rootBlock, _c, _owner,null, args_, _context, null, true);
         }
         if (_context.callsOrException()) {
             return null;

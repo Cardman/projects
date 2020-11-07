@@ -8,11 +8,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -131,8 +128,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static ExecConstructorBlock tryGet(ExecRootBlock _root, ConstructorId _id) {
-        CustList<ExecBlock> bl_ = ExecClassesUtil.getDirectChildren(_root);
-        for (ExecBlock b: bl_) {
+        for (ExecBlock b: _root.getChildrenOthers()) {
             if (!(b instanceof ExecConstructorBlock)) {
                 continue;
             }
@@ -676,36 +672,10 @@ public abstract class ProcessMethodCommon {
         return ((CharStruct)_arg.getStruct()).getChar();
     }
     protected static CustList<ExecOverridableBlock> getDeepMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
-        return filterDeep(getDeepMethodBodies(_context,_genericClassName),_id);
-    }
-    private static CustList<ExecOverridableBlock> getDeepMethodBodies(ContextEl _context,String _genericClassName) {
-        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(base_);
-        for (ExecOverridableBlock m: getDeepMethodExecBlocks(r_)) {
-            methods_.add(m);
-        }
-        return methods_;
-    }
-
-    private static CustList<ExecOverridableBlock> getDeepMethodExecBlocks(ExecRootBlock _element) {
-        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
-        for (ExecBlock b: ExecClassesUtil.getDirectChildren(_element)) {
-            if (b instanceof ExecOverridableBlock) {
-                methods_.add((ExecOverridableBlock) b);
-            }
-        }
-        return methods_;
-    }
-    private static CustList<ExecOverridableBlock> filterDeep(CustList<ExecOverridableBlock> _methods,MethodId _id) {
-        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
-        for (ExecOverridableBlock m: _methods) {
-            if (((GeneMethod)m).getId().eq(_id)) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
+        return ExecClassesUtil.getMethodBodiesById(r_,_id);
     }
 
     protected static ContextEl checkWarn(StringMap<String> _files) {

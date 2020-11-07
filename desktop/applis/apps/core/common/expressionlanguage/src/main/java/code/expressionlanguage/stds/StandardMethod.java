@@ -20,7 +20,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneC
         modifier = _modifier;
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         return new MethodId(MethodId.getKind(modifier), name_, getImportedParametersTypes(), isVarargs());

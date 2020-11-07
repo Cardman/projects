@@ -1289,6 +1289,7 @@ public final class FileResolver {
                                 new OffsetStringInfo(fieldOffest_+_offset, fieldName_.trim()),
                                 new OffsetStringInfo(expressionOffest_+_offset, expression_.trim()),
                                 new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset),rightPar_);
+                        ((RootBlock)currentParent_).getAnnotationsMethodsBlocks().add(annMeth_);
                         if (rightPar_ < indexBeginCalling_) {
                             annMeth_.setKo();
                         } else if (!found_.substring(indexBeginCalling_+1,rightPar_).trim().isEmpty()){
