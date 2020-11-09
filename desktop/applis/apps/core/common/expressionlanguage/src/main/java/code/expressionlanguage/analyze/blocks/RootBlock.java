@@ -227,11 +227,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     protected void checkAccess(AnalyzedPageEl _page) {
         useSuperTypesOverrides(_page);
-        AnalyzedPageEl page_ = _page;
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allGenericSuperTypes) {
             String base_ = StringExpUtil.getIdFromAllTypes(s);
-            if (page_.getAnaClassBody(base_) instanceof ClassBlock) {
+            if (_page.getAnaClassBody(base_) instanceof ClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -270,9 +269,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //key word access or method name
                         err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
                                 name_,
-                                id_.getSignature(page_),
+                                id_.getSignature(_page),
                                 nameCl_,
-                                idCl_.getSignature(page_));
+                                idCl_.getSignature(_page));
                         _page.addLocError(err_);
                         supCl_.addNameErrors(err_);
                     }
@@ -289,10 +288,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             //sub return type len
                             err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    id_.getSignature(page_),
+                                    id_.getSignature(_page),
                                     name_,
                                     formattedRetDer_,
-                                    idCl_.getSignature(page_),
+                                    idCl_.getSignature(_page),
                                     nameCl_);
                             _page.addLocError(err_);
                             supCl_.addNameErrors(err_);
@@ -307,10 +306,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //sub return type len
                         err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                idCl_.getSignature(page_),
+                                idCl_.getSignature(_page),
                                 nameCl_,
                                 formattedRetBase_,
-                                id_.getSignature(page_),
+                                id_.getSignature(_page),
                                 name_);
                         _page.addLocError(err_);
                         supCl_.addNameErrors(err_);
@@ -597,12 +596,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               || StringUtil.quickEq(m_.getName(),"!=")) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
-                                        binaryAll_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                        binaryAll_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     } else {
-                                        binaryFirst_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                        binaryFirst_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     }
                                 } else if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
-                                    binarySecond_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                    binarySecond_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
@@ -614,7 +613,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               || StringUtil.quickEq(m_.getName(),"--")
                               || StringUtil.quickEq(m_.getName(),"~")) {
                                 if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                                    unary_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                    unary_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
@@ -675,9 +674,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         m_.addNameErrors(badMeth_);
                     } else {
                         if (m_.getKind() == MethodKind.TRUE_OPERATOR) {
-                            true_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                            true_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                         } else {
-                            false_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                            false_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                         }
                     }
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
@@ -725,19 +724,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else {
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                             if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                explicitId_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicitId_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                explicit_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicit_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                explicitFrom_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                explicitFrom_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         } else {
                             if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                implicitId_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicitId_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())){
-                                implicit_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicit_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                implicitFrom_.add(new MethodHeaderInfo(m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
+                                implicitFrom_.add(new MethodHeaderInfo(this, m_.getId(), getNumberAll(), method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         }
                     }

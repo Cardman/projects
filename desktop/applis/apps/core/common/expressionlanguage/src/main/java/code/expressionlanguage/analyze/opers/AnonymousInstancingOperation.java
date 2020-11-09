@@ -10,7 +10,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
@@ -23,6 +22,7 @@ public final class AnonymousInstancingOperation extends
     private AnaInstancingAnonContent instancingAnonContent;
     private String glClass;
     private String base;
+    private String type="";
     private int index;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
@@ -43,18 +43,12 @@ public final class AnonymousInstancingOperation extends
         if (j_ > -1) {
             setNewBefore(false);
         }
-    }
-
-    @Override
-    public void analyze(AnalyzedPageEl _page) {
         tryAnalyze(_page);
         index = _page.getLocalizer().getCurrentLocationIndex();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
-        KeyWords keyWords_ = _page.getKeyWords();
-        String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
-        int j_ = realClassName_.indexOf("}");
+        j_ = realClassName_.indexOf("}");
         if (j_ > -1) {
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
@@ -79,8 +73,9 @@ public final class AnonymousInstancingOperation extends
                 realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }
+            type = realClassName_;
             checkInstancingType(realClassName_, isStaticAccess(), getErrs(), _page);
-            analyzeCtor(realClassName_, _page);
+            preAnalyzeCtor(realClassName_, _page);
             return;
         }
         FoundErrorInterpret static_ = new FoundErrorInterpret();
@@ -93,7 +88,7 @@ public final class AnonymousInstancingOperation extends
         getErrs().add(static_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
-    private void analyzeCtor(String _realClassName, AnalyzedPageEl _page) {
+    private void preAnalyzeCtor(String _realClassName, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
         AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (!(g_ instanceof ImmutableNameRootBlock)) {
@@ -104,15 +99,8 @@ public final class AnonymousInstancingOperation extends
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             _page.getLocalizer().addError(call_);
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             getErrs().add(call_.getBuiltError());
             return;
-        }
-        OperationNode possibleInit_ = getFirstChild();
-        if (possibleInit_ instanceof StaticInitOperation) {
-            StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
-            boolean staticType_ = g_.isStaticType();
-            st_.setInit(base_,staticType_, _page);
         }
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -150,8 +138,38 @@ public final class AnonymousInstancingOperation extends
         }
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
-        setResultClass(new AnaClassArgumentMatching(_realClassName));
         glClass = _page.getGlobalClass();
+    }
+    @Override
+    public void analyze(AnalyzedPageEl _page) {
+        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
+        setClassName(_page.getAliasObject());
+        KeyWords keyWords_ = _page.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
+        int j_ = realClassName_.indexOf("}");
+        if (j_ > -1) {
+            off_ += j_+1;
+        }
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        if (!isIntermediateDottedOperation()) {
+            analyzeCtor(_page);
+        }
+    }
+    private void analyzeCtor(AnalyzedPageEl _page) {
+        String base_ = StringExpUtil.getIdFromAllTypes(type);
+        AnaGeneType g_ = _page.getAnaGeneType(base_);
+        if (!(g_ instanceof ImmutableNameRootBlock)) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        OperationNode possibleInit_ = getFirstChild();
+        if (possibleInit_ instanceof StaticInitOperation) {
+            StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
+            boolean staticType_ = g_.isStaticType();
+            st_.setInit(base_,staticType_, _page);
+        }
+        setResultClass(new AnaClassArgumentMatching(type));
     }
 
     public void postAnalyze(AnalyzedPageEl _page) {
