@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -32,8 +31,7 @@ public final class Coverage {
     private IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>> covers = new IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>>();
     private IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
     private StringMap<IdMap<NamedFunctionBlock,Boolean>> calls = new StringMap<IdMap<NamedFunctionBlock,Boolean>>();
-    private IdMap<Block,IdMap<Block,StandardCoverageResult>> coverSwitchs = new IdMap<Block,IdMap<Block,StandardCoverageResult>>();
-    private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
+    private IdMap<Block,SwitchCoverageResult> coverSwitchs = new IdMap<Block,SwitchCoverageResult>();
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
@@ -70,51 +68,50 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        coverLoops.put(_block,new BooleanCoverageResult());
+        coverLoops.addEntry(_block,new BooleanCoverageResult());
     }
     public void putBlockOperationsConditions(Block _block) {
         if (!isCovering()) {
             return;
         }
-        coversConditions.put(_block,new BooleanCoverageResult());
+        coversConditions.addEntry(_block,new BooleanCoverageResult());
     }
-    public void putBlockOperationsSwitchs(Block _block, boolean _def) {
+    public void putBlockOperationsSwitchs(Block _block) {
         if (!isCovering()) {
             return;
         }
-        coverSwitchs.put(_block, new IdMap<Block, StandardCoverageResult>());
-        if (!_def) {
-            coverNoDefSwitchs.put(_block,new StandardCoverageResult());
-        }
+        SwitchCoverageResult swRes_ = new SwitchCoverageResult();
+        coverSwitchs.addEntry(_block, swRes_);
     }
     public void putBlockOperationsSwitchs(Block _block, Block _child) {
         if (!isCovering()) {
             return;
         }
-        coverSwitchs.getVal(_block).put(_child, new StandardCoverageResult());
+        SwitchCoverageResult swRes_ = coverSwitchs.getVal(_block);
+        swRes_.getChildren().addEntry(_child, new StandardCoverageResult());
     }
     public void putBlockOperations(Block _block) {
         if (!isCovering()) {
             return;
         }
-        covers.put(_block, new IdMap<OperationNode, AbstractCoverageResult>());
-        getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
+        covers.addEntry(_block, new IdMap<OperationNode, AbstractCoverageResult>());
+        mapping.addEntry(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperations(ExecBlock _exec, Block _block) {
         if (!isCovering()) {
             return;
         }
-        getMappingBlocks().put(_exec,_block);
+        mappingBlocks.addEntry(_exec,_block);
     }
     public void putBlockOperationsField(Forwards _analyzing, Block _block) {
         if (!isCovering()) {
             return;
         }
         if (_analyzing.isAnnotAnalysisField()) {
-            mappingAnnot.put(_block,new IdMap<ExecOperationNode, OperationNode>());
+            mappingAnnot.addEntry(_block,new IdMap<ExecOperationNode, OperationNode>());
             return;
         }
-        mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
+        mappingAnnotMembers.addEntry(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperation(Forwards _fwd, Block _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
@@ -123,20 +120,20 @@ public final class Coverage {
         if (_fwd.isAnnotAnalysis()) {
             if (_fwd.isAnnotAnalysisField()) {
                 IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
-                mapping_.put(_exec,_op);
+                mapping_.addEntry(_exec,_op);
                 return;
             }
             IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnotMembers.getVal(_block);
-            mapping_.put(_exec,_op);
+            mapping_.addEntry(_exec,_op);
             return;
         }
         IdMap<OperationNode,AbstractCoverageResult> instr_;
         instr_ = covers.getVal(_block);
-        IdMap<ExecOperationNode, OperationNode> mapping_ = getMapping().getVal(_block);
-        mapping_.put(_exec,_op);
+        IdMap<ExecOperationNode, OperationNode> mapping_ = mapping.getVal(_block);
+        mapping_.addEntry(_exec,_op);
         if (_op.getParent() instanceof SafeDotOperation) {
             if (_op.getParent().getFirstChild() == _op) {
-                instr_.put(_op, new NullCoverageResult());
+                instr_.addEntry(_op, new NullCoverageResult());
                 return;
             }
         }
@@ -145,12 +142,12 @@ public final class Coverage {
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_op.getArgument() == null) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.put(_op, new NullBooleanCoverageResult());
+                    instr_.addEntry(_op, new NullBooleanCoverageResult());
                 } else {
-                    instr_.put(_op, new NullCoverageResult());
+                    instr_.addEntry(_op, new NullCoverageResult());
                 }
             } else {
-                instr_.put(_op,new StandardCoverageResult());
+                instr_.addEntry(_op,new StandardCoverageResult());
             }
             return;
         }
@@ -158,36 +155,36 @@ public final class Coverage {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
             if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ)) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.put(_op, new NullBooleanCoverageResult());
+                    instr_.addEntry(_op, new NullBooleanCoverageResult());
                 } else {
-                    instr_.put(_op, new NullCoverageResult());
+                    instr_.addEntry(_op, new NullCoverageResult());
                 }
                 return;
             }
         }
         if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
-            instr_.put(_op,new BooleanCoverageResult());
+            instr_.addEntry(_op,new BooleanCoverageResult());
         } else {
-            instr_.put(_op,new StandardCoverageResult());
+            instr_.addEntry(_op,new StandardCoverageResult());
         }
     }
     public void putCalls(String _type) {
         if (!isCovering()) {
             return;
         }
-        calls.put(_type,new IdMap<NamedFunctionBlock,Boolean>());
+        calls.addEntry(_type,new IdMap<NamedFunctionBlock,Boolean>());
     }
     public void putCalls(String _type, NamedFunctionBlock _block) {
         if (!isCovering()) {
             return;
         }
-        calls.getVal(_type).put(_block,false);
+        calls.getVal(_type).addEntry(_block,false);
     }
     public void putCatches(Block _block) {
         if (!isCovering()) {
             return;
         }
-        catches.put(_block,false);
+        catches.addEntry(_block,false);
     }
 
     public void putToStringOwner(String _owner) {
@@ -221,7 +218,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(_parent)).getVal(mappingBlocks.getVal(_child));
+        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(_parent)).getChildren().getVal(mappingBlocks.getVal(_child));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
@@ -229,7 +226,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(mappingBlocks.getVal(_parent));
+        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(_parent)).getResultNoDef();
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
@@ -309,31 +306,19 @@ public final class Coverage {
         return coverLoops;
     }
 
-    public IdMap<Block, IdMap<ExecOperationNode, OperationNode>> getMapping() {
-        return mapping;
-    }
-
-    public IdMap<ExecBlock, Block> getMappingBlocks() {
-        return mappingBlocks;
-    }
-
     public StandardCoverageResult getCoverSwitchs(Block _sw, Block _child) {
-        return coverSwitchs.getVal(_sw).getVal(_child);
+        return coverSwitchs.getVal(_sw).getChildren().getVal(_child);
     }
     public  IdMap<Block, StandardCoverageResult> getCoverSwitchs(Block _sw) {
-        return coverSwitchs.getVal(_sw);
+        return coverSwitchs.getVal(_sw).getChildren();
     }
 
-    public IdMap<Block, IdMap<Block, StandardCoverageResult>> getCoverSwitchs() {
+    public IdMap<Block, SwitchCoverageResult> getCoverSwitchs() {
         return coverSwitchs;
     }
 
     public StandardCoverageResult getCoverNoDefSwitchs(Block _sw) {
-        return coverNoDefSwitchs.getVal(_sw);
-    }
-
-    public IdMap<Block, StandardCoverageResult> getCoverNoDefSwitchs() {
-        return coverNoDefSwitchs;
+        return coverSwitchs.getVal(_sw).noDefault();
     }
 
     public StringMap<IdMap<NamedFunctionBlock, Boolean>> getCalls() {

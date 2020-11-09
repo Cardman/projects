@@ -346,7 +346,6 @@ public final class ForwardInfos {
                 FieldBlock b = a.getKey();
                 ExecFieldBlock d = a.getValue();
                 coverage_.putBlockOperationsField(_forwards, b);
-                coverage_.putBlockOperations(d,b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             for (EntryCust<ElementBlock, ExecElementBlock> a: mem_.getAllSimpleElementFields().entryList()) {
@@ -354,7 +353,6 @@ public final class ForwardInfos {
                 ElementBlock b = a.getKey();
                 ExecElementBlock d = a.getValue();
                 coverage_.putBlockOperationsField(_forwards, b);
-                coverage_.putBlockOperations(d,b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             for (EntryCust<InnerElementBlock, ExecInnerElementBlock> a: mem_.getAllInnerElementFields().entryList()) {
@@ -362,7 +360,6 @@ public final class ForwardInfos {
                 InnerElementBlock b = a.getKey();
                 ExecInnerElementBlock d = a.getValue();
                 coverage_.putBlockOperationsField(_forwards, b);
-                coverage_.putBlockOperations(d,b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             if (!(mem_.getRootBlock() instanceof ExecInnerElementBlock)) {
@@ -816,14 +813,7 @@ public final class ForwardInfos {
             } else if (en_ instanceof SwitchBlock) {
                 Block first_ = en_.getFirstChild();
                 boolean emp_ = first_ == null;
-                boolean def_ = false;
-                while (first_ != null) {
-                    if (first_ instanceof DefaultCondition) {
-                        def_ = true;
-                    }
-                    first_ = first_.getNextSibling();
-                }
-                _coverage.putBlockOperationsSwitchs(en_,def_);
+                _coverage.putBlockOperationsSwitchs(en_);
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((SwitchBlock)en_).getRoot(), _coverage, _forwards, en_);
                 ExecBracedBlock exec_;
                 if (!((SwitchBlock) en_).getInstanceTest().isEmpty()) {
@@ -1412,9 +1402,9 @@ public final class ForwardInfos {
         _exec.setOpValue(getExecutableNodes(_ana.getRoot(), _coverage, _forwards, _ana));
     }
 
-    private static void fwdExpressionLanguageReadOnly(ElementBlock _ana, ExecInnerTypeOrElement _exec, Coverage _coverage, Forwards _forwards) {
+    private static void fwdExpressionLanguageReadOnly(ElementBlock _ana, ExecElementBlock _exec, Coverage _coverage, Forwards _forwards) {
         _exec.setTrOffset(_ana.getTrOffset());
-        _coverage.putBlockOperations((ExecBlock) _exec, _ana);
+        _coverage.putBlockOperations(_exec, _ana);
         _coverage.putBlockOperations(_ana);
         _exec.setOpValue(getExecutableNodes(_ana.getRoot(), _coverage, _forwards, _ana));
     }

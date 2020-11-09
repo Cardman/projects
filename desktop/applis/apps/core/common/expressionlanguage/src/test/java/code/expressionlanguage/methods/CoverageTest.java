@@ -279,14 +279,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        assertEq(1, cont_.getCoverage().getCoverNoDefSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue();
+        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(!value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverNoDefSwitchs().firstValue();
+        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().getResultNoDef();
         assertTrue(!value_.isFullCovered());
     }
 
@@ -312,14 +311,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        assertEq(1, cont_.getCoverage().getCoverNoDefSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue();
+        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverNoDefSwitchs().firstValue();
+        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().noDefault();
         assertTrue(!value_.isFullCovered());
     }
 
@@ -345,14 +343,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        assertEq(1, cont_.getCoverage().getCoverNoDefSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue();
+        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(!value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverNoDefSwitchs().firstValue();
+        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().noDefault();
         assertTrue(value_.isFullCovered());
     }
 
@@ -380,8 +377,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        assertEq(0, cont_.getCoverage().getCoverNoDefSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue();
+        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
         assertEq(3, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
@@ -415,8 +411,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        assertEq(0, cont_.getCoverage().getCoverNoDefSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue();
+        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
         assertEq(3, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
