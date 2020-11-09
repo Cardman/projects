@@ -173,9 +173,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
         if (StringUtil.quickEq(_lg, "en")) {
-            messages(_mess,_lg,mess_);
+            custAliases.messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
-            keyWord(_kw,_lg,kw_);
+            custAliases.keyWord(_kw,_lg,kw_);
             otherAlias(_lg,al_);
             otherTags(_rkw,_lg,tags_);
             otherAttrs(_rkw,_lg,attrs_);
@@ -184,9 +184,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             otherStyleValues(_rkw,_lg,styleValues_);
             otherStyleUnits(_rkw,_lg,styleUnits_);
         } else if (StringUtil.quickEq(_lg, "fr")) {
-            messages(_mess,_lg,mess_);
+            custAliases.messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
-            keyWord(_kw,_lg,kw_);
+            custAliases.keyWord(_kw,_lg,kw_);
             otherAlias(_lg,al_);
             otherTags(_rkw,_lg,tags_);
             otherAttrs(_rkw,_lg,attrs_);
@@ -195,9 +195,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             otherStyleValues(_rkw,_lg,styleValues_);
             otherStyleUnits(_rkw,_lg,styleUnits_);
         } else {
-            messages(_mess,mess_,new StringMap<String>());
+            custAliases.messages(_mess,mess_,new StringMap<String>());
             rendMessages(_rMess,rendMess_,new StringMap<String>());
-            keyWord(_kw,kw_,new StringMap<String>());
+            custAliases.keyWord(_kw,kw_,new StringMap<String>());
             allAlias(al_, new StringMap<String>());
             allTags(_rkw,tags_, new StringMap<String>());
             allAttrs(_rkw,attrs_, new StringMap<String>());
@@ -301,25 +301,12 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         String content_ = infos.getReader().read(fileName_);
         StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
         getBeanAliases().build(util_, _cust);
-        fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");
-        content_ = infos.getReader().read(fileName_);
-        util_ = DocumentBuilder.getMessagesFromContent(content_);
-        getContent().build(util_, _cust);
-        custAliases.build(util_,_cust);
+        custAliases.otherAlias(getContent(),_lang,_cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
         getContent().build(_util, _cust);
         getBeanAliases().build(_util, _cust);
         custAliases.build(_util,_cust);
-    }
-    private void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");
-        String content_ = infos.getReader().read(fileName_);
-        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
-        keyWord(_kw,util_,_cust);
-    }
-    private void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
-        _kw.build(_util, _cust);
     }
 
 
@@ -331,15 +318,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
     private void rendMessages(RendAnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
         _mess.rendMessages(_util, _cust);
-    }
-    private void messages(AnalysisMessages _mess, String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"messages");
-        String content_ = infos.getReader().read(fileName_);
-        StringMap<String> util_ = DocumentBuilder.getMessagesFromContent(content_);
-        messages(_mess,util_,_cust);
-    }
-    private void messages(AnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
-        _mess.build(_util, _cust);
     }
 
     public ExecutingOptions getExecutingOptions() {
