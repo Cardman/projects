@@ -31,7 +31,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(leftPar_,cl_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
-        if (!(_page.getAnaClassBody(cl_) instanceof InterfaceBlock)) {
+        RootBlock candidate_ = _page.getAnaClassBody(cl_);
+        if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -80,6 +81,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             getErrs().add(call_.getBuiltError());
             return null;
         }
+        setType(candidate_);
         return new AnaClassArgumentMatching(superClass_);
     }
 

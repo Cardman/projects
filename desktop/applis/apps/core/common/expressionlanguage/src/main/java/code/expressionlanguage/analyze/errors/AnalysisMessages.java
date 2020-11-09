@@ -84,6 +84,7 @@ public final class AnalysisMessages {
     private static final String CALL_CTOR_INT_AFTER_SUPER_THIS="CallCtorIntAfterSuperThis";
     private static final String CALL_CTOR_INT_INHERITS="CallCtorIntInherits";
     private static final String CALL_CTOR_SUPER_CLASS_ENUM_SINGLETON="CallCtorSuperClassEnumSingleton";
+    private static final String CALL_CTOR_NO_SUPER_CLASS_ENUM="CallCtorNoSuperClassEnum";
     private static final String ANNOT_FIELD_NOT_UNIQ="AnnotFieldNotUniq";
     private static final String ANNOT_FIELD_MUST="AnnotFieldMust";
     private static final String DUP_SUPPLIED_ANNOT_FIELD="DupSuppliedAnnotField";
@@ -315,6 +316,7 @@ public final class AnalysisMessages {
     private String callCtorIntAfterSuperThis="A call of a constructor of interface must be applied only after a call of a constructor using implicitly the instance.";
     private String callCtorIntInherits="The call of a constructor of the interface {0} cannot be applied before calling the constructor of the interface {1}.";
     private String callCtorSuperClassEnumSingleton="The super constructor can be called only from a class or an enum (singleton or normal).";
+    private String callCtorNoSuperClassEnum="There is no super custom type to be called from this class or an enum (singleton or normal).";
     private String annotFieldNotUniq="The field of the annotatation could not be found uniquely.";
     private String annotFieldMust="The field {0} of the annotatation is compulsory.";
     private String dupSuppliedAnnotField="The field {0} of the annotatation is supplied by duplicate.";
@@ -548,6 +550,7 @@ public final class AnalysisMessages {
         setCallCtorIntAfterSuperThis(LgNamesContent.get(_util, _cust, CALL_CTOR_INT_AFTER_SUPER_THIS));
         setCallCtorIntInherits(LgNamesContent.get(_util, _cust, CALL_CTOR_INT_INHERITS));
         setCallCtorSuperClassEnumSingleton(LgNamesContent.get(_util, _cust, CALL_CTOR_SUPER_CLASS_ENUM_SINGLETON));
+        setCallCtorNoSuperClassEnum(LgNamesContent.get(_util, _cust, CALL_CTOR_NO_SUPER_CLASS_ENUM));
         setAnnotFieldNotUniq(LgNamesContent.get(_util, _cust, ANNOT_FIELD_NOT_UNIQ));
         setAnnotFieldMust(LgNamesContent.get(_util, _cust, ANNOT_FIELD_MUST));
         setDupSuppliedAnnotField(LgNamesContent.get(_util, _cust, DUP_SUPPLIED_ANNOT_FIELD));
@@ -773,6 +776,7 @@ public final class AnalysisMessages {
         mess_.addEntry(CALL_CTOR_INT_AFTER_SUPER_THIS,getCallCtorIntAfterSuperThis());
         mess_.addEntry(CALL_CTOR_INT_INHERITS,getCallCtorIntInherits());
         mess_.addEntry(CALL_CTOR_SUPER_CLASS_ENUM_SINGLETON,getCallCtorSuperClassEnumSingleton());
+        mess_.addEntry(CALL_CTOR_NO_SUPER_CLASS_ENUM,getCallCtorNoSuperClassEnum());
         mess_.addEntry(ANNOT_FIELD_NOT_UNIQ,getAnnotFieldNotUniq());
         mess_.addEntry(ANNOT_FIELD_MUST,getAnnotFieldMust());
         mess_.addEntry(DUP_SUPPLIED_ANNOT_FIELD,getDupSuppliedAnnotField());
@@ -1486,6 +1490,14 @@ public final class AnalysisMessages {
 
     public void setCallCtorSuperClassEnumSingleton(String _v) {
         this.callCtorSuperClassEnumSingleton =_v;
+    }
+
+    public String getCallCtorNoSuperClassEnum() {
+        return callCtorNoSuperClassEnum;
+    }
+
+    public void setCallCtorNoSuperClassEnum(String _v) {
+        this.callCtorNoSuperClassEnum = _v;
     }
 
     public String getAnnotFieldNotUniq() {

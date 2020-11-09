@@ -30,6 +30,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private int rootNumber = -1;
     private int memberNumber = -1;
+    private RootBlock type;
     public AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -50,6 +51,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         if (from == null) {
             return;
         }
+        if (type == null) {
+            return;
+        }
         String clCurName_ = from.getName();
         tryGetCtors(clCurName_,ctors, _page);
     }
@@ -67,6 +71,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             checkPositionBasis(_page);
             return;
         }
+        if (type == null) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            checkPositionBasis(_page);
+            return;
+        }
         ConstructorId feed_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
@@ -78,14 +87,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         String clCurName_ = from.getName();
         invokingConstructorContent.setClassFromName(clCurName_);
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        RootBlock type_ = _page.getAnaClassBody(id_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, from,id_,type_, feed_, varargParam_, name_, _page);
+        ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, from,id_,type, feed_, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);
@@ -178,5 +186,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     public int getMemberNumber() {
         return memberNumber;
+    }
+
+    public RootBlock getType() {
+        return type;
+    }
+
+    public void setType(RootBlock _type) {
+        type = _type;
     }
 }

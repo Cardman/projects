@@ -6991,7 +6991,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " <a name=\"m27\">MyCl(</a>){\n" +
-                "  <a title=\"The constructor java.lang.Object($int) is undefined.\" class=\"e\">$super</a>(0);\n" +
+                "  <a title=\"There is no super custom type to be called from this class or an enum (singleton or normal).\" class=\"e\">$super</a>(0);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

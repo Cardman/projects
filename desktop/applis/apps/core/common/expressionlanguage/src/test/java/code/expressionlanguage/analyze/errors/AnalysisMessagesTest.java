@@ -94,6 +94,7 @@ public final class AnalysisMessagesTest {
         def_.setCallCtorIntAfterSuperThis("");
         def_.setCallCtorIntInherits("");
         def_.setCallCtorSuperClassEnumSingleton("");
+        def_.setCallCtorNoSuperClassEnum("");
         def_.setAnnotFieldNotUniq("");
         def_.setAnnotFieldMust("");
         def_.setDupSuppliedAnnotField("");

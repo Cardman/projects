@@ -5,9 +5,11 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.util.CustList;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
 
@@ -33,6 +35,19 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
         String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass());
+        CustList<AnaFormattedRootBlock> genericClasses_ = clBody_.getAllGenericClassesInfo();
+        if (genericClasses_.size() > 1) {
+            setType(genericClasses_.get(1).getRootBlock());
+        }
+        if (getType() == null) {
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            call_.buildError(_page.getAnalysisMessages().getCallCtorNoSuperClassEnum());
+            _page.getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
+        }
         return new AnaClassArgumentMatching(superClass_);
     }
 

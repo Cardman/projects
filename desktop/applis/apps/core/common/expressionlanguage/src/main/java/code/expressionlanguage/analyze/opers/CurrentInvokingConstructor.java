@@ -14,6 +14,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         String clCurName_ = _page.getGlobalClass();
+        setType(_page.getGlobalType());
         return new AnaClassArgumentMatching(clCurName_);
     }
 
