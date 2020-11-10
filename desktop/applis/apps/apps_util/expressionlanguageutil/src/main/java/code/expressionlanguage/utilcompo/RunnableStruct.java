@@ -99,7 +99,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
             return;
         }
         Argument arg_ = new Argument(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getRootBlock(), mId_.getOverridableBlock(), _args, _r);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getPair().getType(), mId_.getPair().getFct(), _args, _r);
     }
     public static Argument invoke(Argument _global, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_method, _rootBlock, _class, _global, _args, _cont);

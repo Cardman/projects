@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
@@ -9,13 +8,11 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
 
     private ExecInvokingConstructorContent invokingConstructorContent;
 
-    private ExecRootBlock rootBlock;
-    private ExecNamedFunctionBlock ctor;
-    protected ExecAbstractInvokingConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+    private ExecTypeFunction pair;
+    protected ExecAbstractInvokingConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
         super(_opCont, _intermediateDottedOperation);
         invokingConstructorContent = _invokingConstructorContent;
-        rootBlock = _rootBlock;
-        ctor = _ctor;
+        pair = _pair;
     }
 
     public int getOffsetOper() {
@@ -34,11 +31,8 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
         return invokingConstructorContent.getClassFromName();
     }
 
-    public ExecRootBlock getRootBlock() {
-        return rootBlock;
+    public ExecTypeFunction getPair() {
+        return pair;
     }
 
-    public ExecNamedFunctionBlock getCtor() {
-        return ctor;
-    }
 }

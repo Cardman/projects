@@ -1,3 +1,4 @@
+
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
@@ -7,6 +8,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
@@ -34,6 +36,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private ExecNamedFunctionBlock annotableBlock;
     private ExecMemberCallingsBlock callee;
     private ExecNamedFunctionBlock calleeInv;
+    private ExecTypeFunction pair;
     private StandardMethod stdCallee;
     private ExecRootBlock declaring;
     private Cache cache;
@@ -48,6 +51,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         access = AccessEnum.PRIVATE;
         modifier = MethodModifier.NORMAL;
         returnType = "";
+        pair = new ExecTypeFunction(null,null);
     }
     public MethodMetaInfo(String _declaringClass,AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formDeclaringClass) {
@@ -60,6 +64,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         returnType = StringUtil.nullToEmpty(_returnType);
         fid = _fid;
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        pair = new ExecTypeFunction(null,null);
     }
     public MethodMetaInfo(String _declaringClass, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           String _formDeclaringClass) {
@@ -72,6 +77,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         returnType = StringUtil.nullToEmpty(_returnType);
         fid = _realId;
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        pair = new ExecTypeFunction(null,null);
     }
 
     public String getDeclaringClass() {
@@ -103,6 +109,14 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public void setCalleeInv(ExecNamedFunctionBlock _calleeInv) {
         this.calleeInv = _calleeInv;
+    }
+
+    public ExecTypeFunction getPair() {
+        return pair;
+    }
+
+    public void setPair(ExecTypeFunction _pair) {
+        pair = _pair;
     }
 
     public StandardMethod getStdCallee() {

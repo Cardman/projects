@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -19,14 +20,16 @@ public final class ExecStandardInstancingOperation extends
     private ExecInstancingCommonContent instancingCommonContent;
     private ExecInstancingStdContent instancingStdContent;
 
+    private ExecTypeFunction pair;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public ExecStandardInstancingOperation(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+    public ExecStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_opCont, _intermediateDottedOperation);
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
-        rootBlock = _rootBlock;
-        ctor = _ctor;
+        pair = _pair;
+        rootBlock = pair.getType();
+        ctor = pair.getFct();
     }
 
     @Override
@@ -52,7 +55,7 @@ public final class ExecStandardInstancingOperation extends
             }
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareCust(_conf, className_, rootBlock, getCtor(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return instancePrepareCust(_conf, className_, pair, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {

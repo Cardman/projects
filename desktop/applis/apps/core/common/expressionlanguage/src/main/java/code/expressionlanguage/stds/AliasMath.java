@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -508,7 +509,7 @@ public final class AliasMath {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        ExecNamedFunctionBlock named_ = null;
+        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         ExecRootBlock type_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
@@ -516,15 +517,15 @@ public final class AliasMath {
                 && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick());
-            named_ = polymorphMeth_.getOverridableBlock();
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, new ExecTypeFunction(classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick()));
+            p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            type_ = polymorphMeth_.getRootBlock();
+            type_ = p_.getType();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
         }
-        if (named_ instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)named_;
+        if (p_.getFct() instanceof ExecOverridableBlock) {
+            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
@@ -542,24 +543,24 @@ public final class AliasMath {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
+        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         ExecRootBlock type_ = null;
-        ExecNamedFunctionBlock named_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
                 && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGenerator(), classes_.getSeedPick());
-            named_ = polymorphMeth_.getOverridableBlock();
-            type_ = polymorphMeth_.getRootBlock();
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, new ExecTypeFunction(classes_.getSeedGenerator(), classes_.getSeedPick()));
+            p_ = polymorphMeth_.getPair();
+            type_ = p_.getType();
             String className_ = polymorphMeth_.getClassName();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             argsToPass_.add(new Argument(_args[0]));
         }
-        if (named_ instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)named_;
+        if (p_.getFct() instanceof ExecOverridableBlock) {
+            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());

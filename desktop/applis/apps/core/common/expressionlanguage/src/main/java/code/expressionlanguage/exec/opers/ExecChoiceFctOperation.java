@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
@@ -18,14 +19,12 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
     private ExecInstFctContent instFctContent;
 
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
+    private ExecTypeFunction pair;
 
-    public ExecChoiceFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+    public ExecChoiceFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
         super(_opCont, _intermediateDottedOperation);
         instFctContent = _instFctContent;
-        named = _named;
-        rootBlock = _rootBloc;
+        pair = _pair;
     }
 
     @Override
@@ -44,15 +43,15 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
             return new Argument();
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, prev_.getStruct());
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, rootBlock, prev_,null, firstArgs_, null, getNamed(), MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes, _conf, _pr, getClassName(), rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
+        return fetchFormattedArgs(_nodes, _conf, _pr, getClassName(), pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
     public ExecNamedFunctionBlock getNamed() {
-        return named;
+        return pair.getFct();
     }
 
     public String getClassName() {

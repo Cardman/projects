@@ -1,28 +1,22 @@
 package code.expressionlanguage.exec.util;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class ExecOverrideInfo {
     private final String className;
-    private final ExecRootBlock rootBlock;
-    private final ExecNamedFunctionBlock overridableBlock;
+    private final ExecTypeFunction pair;
 
-    public ExecOverrideInfo(String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _overridableBlock) {
+    public ExecOverrideInfo(String _className, ExecTypeFunction _pair) {
         this.className = _className;
-        this.rootBlock = _rootBlock;
-        this.overridableBlock = _overridableBlock;
+        this.pair = _pair;
     }
 
     public String getClassName() {
         return className;
     }
 
-    public ExecRootBlock getRootBlock() {
-        return rootBlock;
+    public ExecTypeFunction getPair() {
+        return pair;
     }
 
-    public ExecNamedFunctionBlock getOverridableBlock() {
-        return overridableBlock;
-    }
 }

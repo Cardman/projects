@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
@@ -16,8 +17,8 @@ import code.util.IdMap;
 
 public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConstructor {
     private String className;
-    public ExecInterfaceFctConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, String _className) {
-        super(_opCont, _intermediateDottedOperation, _invokingConstructorContent, _rootBlock, _ctor);
+    public ExecInterfaceFctConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, String _className, ExecTypeFunction _pair) {
+        super(_opCont, _intermediateDottedOperation, _invokingConstructorContent, _pair);
         className = _className;
     }
 
@@ -55,12 +56,12 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setRelOffsetPossibleLastPage(off_, _conf);
         String superClass_ = _conf.formatVarType(getClassFromName());
         CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
-        checkParameters(_conf, superClass_, getRootBlock(), getCtor(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
+        checkParameters(_conf, superClass_, getPair(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
-        String lastType_ = ExecTemplates.quickFormat(getRootBlock(),_superClass, getLastType());
+        String lastType_ = ExecTemplates.quickFormat(getPair().getType(),_superClass, getLastType());
         return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }
 }

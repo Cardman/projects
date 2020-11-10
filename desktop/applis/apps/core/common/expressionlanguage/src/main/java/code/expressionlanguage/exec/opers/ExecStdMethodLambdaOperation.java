@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -67,6 +68,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _constraints, met_, _returnFieldType, fid_, formCl_);
         metaInfo_.setStdCallee(_function);
         l_.setMetaInfo(metaInfo_);
+        metaInfo_.setPair(new ExecTypeFunction(null,null));
         return l_;
     }
 

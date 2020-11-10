@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
@@ -18,13 +19,11 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
 
     private ExecStaticFctContent staticFctContent;
 
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
-    public RendStaticFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
+    private ExecTypeFunction pair;
+    public RendStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
         super(_content, _intermediateDottedOperation);
         staticFctContent = _staticFctContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = _pair;
     }
 
     @Override
@@ -45,6 +44,6 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
         classNameFound_ = staticFctContent.getClassName();
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, rootBlock, prev_,null, firstArgs_, null, named, staticFctContent.getKind(), "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, firstArgs_, null, staticFctContent.getKind(), "");
     }
 }

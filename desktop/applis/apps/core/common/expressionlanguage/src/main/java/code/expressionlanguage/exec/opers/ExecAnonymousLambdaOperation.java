@@ -2,9 +2,9 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -13,13 +13,12 @@ import code.util.IdMap;
 
 public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperation {
     private final ExecLambdaAnoContent lambdaAnoContent;
-    private final ExecAnonymousFunctionBlock functionBlock;
-    private final ExecAnonymousFunctionBlock function;
-    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecAnonymousFunctionBlock _r, ExecLambdaAnoContent _lambdaAnoContent) {
+    private final ExecTypeFunction pair;
+
+    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaAnoContent _lambdaAnoContent, ExecTypeFunction _pair) {
         super(_opCont, _lamCont);
+        pair = _pair;
         lambdaAnoContent = _lambdaAnoContent;
-        function = _r;
-        functionBlock = _r;
     }
 
     @Override
@@ -34,7 +33,7 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, MethodId _constraints) {
-        return ExecMethodLambdaOperation.newAnonymousLambda(_previous, _conf, _foundClass, _returnFieldType, isShiftArgument(), isSafeInstance(),
-                getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(),functionBlock,function, lambdaAnoContent.getDeclaring(), _constraints);
+        return ExecCustMethodLambdaOperation.newAnonymousLambda(_previous, _conf, _foundClass, _returnFieldType, isShiftArgument(), isSafeInstance(),
+                getResultClass().getSingleNameOrEmpty(), _conf.getLastPage(), getFileName(), _constraints, pair);
     }
 }

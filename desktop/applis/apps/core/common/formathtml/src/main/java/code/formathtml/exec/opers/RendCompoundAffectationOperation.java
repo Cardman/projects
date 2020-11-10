@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
@@ -21,20 +22,18 @@ import code.util.StringList;
 
 public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
+    private final ExecTypeFunction pair;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private ExecOperatorContent operatorContent;
     private ExecStaticEltContent staticEltContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
     public RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
         super(_content);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converter = _converter;
     }
 
@@ -65,14 +64,14 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
         }
-        if (named != null) {
+        if (pair.getFct() != null) {
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
             chidren_.add(left_);
             chidren_.add(right_);
             Argument res_;
             res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
             if (converter != null) {
-                Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _context);
+                Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context);
                 if (conv_ == null) {
                     return;
                 }
@@ -83,11 +82,11 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (converter != null) {
-            String tres_ = converter.get(0).getImportedParametersTypes().get(0);
+            String tres_ = converter.get(0).getFct().getImportedParametersTypes().get(0);
             StringList argType_ = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, operatorContent.getOper(), false, argType_, cast_, _context);
-            Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _context);
+            Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context);
             if (conv_ == null) {
                 return;
             }
@@ -141,7 +140,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

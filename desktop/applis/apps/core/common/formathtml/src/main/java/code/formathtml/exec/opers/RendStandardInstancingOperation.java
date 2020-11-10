@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendArgumentList;
@@ -20,21 +21,19 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     private ExecInstancingCommonContent instancingCommonContent;
     private ExecInstancingStdContent instancingStdContent;
 
-    private ExecRootBlock rootBlock;
-    private ExecNamedFunctionBlock ctor;
-    public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+    private ExecTypeFunction pair;
+    public RendStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_content, _intermediateDottedOperation);
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
-        rootBlock = _rootBlock;
-        ctor = _ctor;
+        pair = _pair;
     }
 
     public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_content,false);
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,null);
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
@@ -50,12 +49,12 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
         className_ = instancingCommonContent.getClassName();
-        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, instancingCommonContent.getLastType());
+        String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
         RendArgumentList args_ = listNamedArguments(_all, chidren_);
         CustList<Argument> first_ = args_.getArguments();
         CustList<RendDynOperationNode> filter_ = args_.getFilter();
         CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), lastType_, first_);
-        return ExecInvokingOperation.instancePrepareCust(_context, className_, rootBlock, ctor, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -28,7 +29,7 @@ public final class ProcessMethod {
         _cont.getInit().loopCalling(_cont);
     }
 
-    public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ExecNamedFunctionBlock _id, Parameters _args, ContextEl _cont) {
+    public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ExecMemberCallingsBlock _id, Parameters _args, ContextEl _cont) {
         CustomFoundConstructor found_ = new CustomFoundConstructor(_class,_root,EMPTY_STRING,-1,_id,_global,_args,InstancingStep.NEWING);
         AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_);
         ExecutingUtil.addPage(_cont,page_);

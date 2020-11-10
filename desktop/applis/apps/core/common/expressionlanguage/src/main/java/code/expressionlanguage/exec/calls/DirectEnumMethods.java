@@ -30,6 +30,6 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
         MethodMetaInfo method_ = getMetaInfo();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getDeclaring(), _instance,method_.getCache(), _args, _right,null, getAccessKind(),getMethodName());
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), _args, _right, getAccessKind(),getMethodName());
     }
 }

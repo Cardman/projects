@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
@@ -23,8 +24,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private ExecMethodOperation settableParent;
     private ExecOperatorContent operatorContent;
     private ExecStaticEltContent staticEltContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
+    private final ExecTypeFunction pair;
     private ImplicitMethods converter;
 
 
@@ -32,8 +32,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         super(_opCont);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converter = _converter;
     }
 
@@ -69,7 +68,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (named != null) {
+        if (pair.getFct() != null) {
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add(getFirstChild());
             chidren_.add(ExecTemplates.getLastNode(this));
@@ -77,14 +76,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = pairBefore_.getImplicitsCompound();
         int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
+            String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             StringList arg_ = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg_, cast_);

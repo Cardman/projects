@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.Struct;
@@ -17,15 +18,13 @@ import code.util.IdMap;
 
 public abstract class RendQuickOperation extends RendMethodOperation implements RendCalculableOperation {
 
+    private final ExecTypeFunction pair;
     private ExecStaticEltContent staticEltContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
     public RendQuickOperation(ExecOperationContent _content, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter) {
         super(_content);
         staticEltContent = _staticEltContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converter = _converter;
     }
 
@@ -34,7 +33,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         RendDynOperationNode first_ = chidren_.first();
-        if (named != null) {
+        if (pair.getFct() != null) {
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
             if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes, first_);
@@ -44,7 +43,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
             if (converter != null) {
-                Argument res_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), argres_, _context);
+                Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _context);
                 if (res_ == null) {
                     return;
                 }
@@ -66,7 +65,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, rootBlock,named, first_, staticEltContent.getClassName(), staticEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, first_, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

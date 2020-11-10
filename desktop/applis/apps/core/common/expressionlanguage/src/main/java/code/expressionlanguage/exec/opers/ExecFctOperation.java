@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
@@ -19,14 +20,12 @@ import code.util.core.StringUtil;
 public final class ExecFctOperation extends ExecInvokingOperation {
 
     private ExecInstFctContent instFctContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
+    private ExecTypeFunction pair;
 
-    public ExecFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+    public ExecFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
         super(_opCont, _intermediateDottedOperation);
         instFctContent = _instFctContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = _pair;
     }
 
     public ExecFctOperation(ExecClassArgumentMatching _res,
@@ -34,8 +33,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_child,_res,_order,true);
         instFctContent = new ExecInstFctContent(_classMethodId);
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
     }
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
@@ -55,19 +53,18 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         }
         Struct pr_ = prev_.getStruct();
         CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_,classNameFound_,rootBlock,getNamed());
-        ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
-        ExecRootBlock type_ = polymorph_.getRootBlock();
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_,classNameFound_,pair);
+        ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, type_, prev_,null, firstArgs_, null, fct_, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes,_conf,_pr,getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
+        return fetchFormattedArgs(_nodes,_conf,_pr,getClassName(),pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
     public ExecNamedFunctionBlock getNamed() {
-        return named;
+        return pair.getFct();
     }
 
     public String getClassName() {

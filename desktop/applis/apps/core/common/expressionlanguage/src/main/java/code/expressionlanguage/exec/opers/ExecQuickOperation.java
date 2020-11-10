@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.Struct;
@@ -16,15 +17,14 @@ import code.util.IdMap;
 public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,CallExecSimpleOperation {
 
     private final ExecStaticEltContent staticEltContent;
-    private final ExecNamedFunctionBlock named;
-    private final ExecRootBlock rootBlock;
     private final ImplicitMethods converter;
     private final int opOffset;
+    private final ExecTypeFunction pair;
+
     protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converter, int _opOffset) {
         super(_opCont);
         staticEltContent = _staticEltContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converter = _converter;
         opOffset = _opOffset;
     }
@@ -32,7 +32,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
         ExecOperationNode first_ = getFirstChild();
-        if (named != null) {
+        if (pair.getFct() != null) {
             ArgumentsPair argumentPair_ = ExecTemplates.getArgumentPair(_nodes, first_);
             if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes,first_);
@@ -43,7 +43,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<ExecOperationNode> chidren_ = getChildrenNodes();
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock, named, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

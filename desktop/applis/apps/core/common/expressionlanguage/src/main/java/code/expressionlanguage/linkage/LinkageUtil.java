@@ -109,6 +109,61 @@ public final class LinkageUtil {
                     "</head>";
             files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
         }
+        IdMap<RootBlock,String> types_ = new IdMap<RootBlock,String>();
+        for (RootBlock t: refFoundTypes_) {
+            if (t.getFile().isPredefined()) {
+                continue;
+            }
+            int countCall_ = 0;
+            int count_ = 0;
+            for (Block b: ClassesUtil.getDirectChildren(t)) {
+                if (b instanceof AnnotationMethodBlock) {
+                    countCall_++;
+                    count_++;
+                    continue;
+                }
+                if (b instanceof MemberCallingsBlock) {
+                    if (cov_.getFctRes((MemberCallingsBlock) b).isCalled()) {
+                        countCall_++;
+                    }
+                    count_++;
+                }
+            }
+            types_.addEntry(t,countCall_+"/"+count_);
+        }
+        int calledOps_ = 0;
+        for (OperatorBlock b: operators_) {
+            if (cov_.getFctRes(b).isCalled()) {
+                calledOps_++;
+            }
+        }
+        String callTable_ = "calls.html";
+        StringBuilder table_ = new StringBuilder("<html>");
+        table_.append("<body>");
+        table_.append("<table>");
+        table_.append("<tr>");
+        table_.append("<td>");
+        table_.append("</td>");
+        table_.append("<td>");
+        table_.append(calledOps_);
+        table_.append("/");
+        table_.append(operators_.size());
+        table_.append("</td>");
+        table_.append("</tr>");
+        for (EntryCust<RootBlock,String> e: types_.entryList()) {
+            table_.append("<tr>");
+            table_.append("<td>");
+            table_.append(e.getKey().getFullName());
+            table_.append("</td>");
+            table_.append("<td>");
+            table_.append(e.getValue());
+            table_.append("</td>");
+            table_.append("</tr>");
+        }
+        table_.append("</table>");
+        table_.append("</body>");
+        table_.append("</html>");
+        files_.addEntry(callTable_,table_.toString());
         String cssContent_ = ".f{background-color:green;}\n";
         cssContent_ += ".g{background-color:lightgreen;}\n";
         cssContent_ += ".p{background-color:yellow;}\n";
@@ -3956,16 +4011,7 @@ public final class LinkageUtil {
     }
 
     private static AbstractCoverageResult getCovers(Block _block, OperationNode _oper, Coverage _cov) {
-        IdMap<OperationNode, AbstractCoverageResult> map_ = _cov.getCovers().getVal(_block);
-        if (map_ == null) {
-            map_ = new IdMap<OperationNode, AbstractCoverageResult>();
-        }
-        AbstractCoverageResult res_ = map_.getVal(_oper);
-        if (res_ == null) {
-            res_ = new StandardCoverageResult();
-            res_.fullCover();
-        }
-        return res_;
+        return _cov.getCovers(_block,_oper);
     }
 
     private static void updateFieldAnchor(CustList<RootBlock> _refFoundTypes, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {

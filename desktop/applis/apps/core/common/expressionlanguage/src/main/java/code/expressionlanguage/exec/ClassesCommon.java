@@ -1,13 +1,13 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.exec.util.PolymorphMethod;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public final class ClassesCommon {
     private final StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
-    private final StringMap<PolymorphMethod> toStringMethodsToCallBodies = new StringMap<PolymorphMethod>();
+    private final StringMap<ExecTypeFunction> toStringMethodsToCallBodies = new StringMap<ExecTypeFunction>();
 
     public ClassesCommon(){
         resources = new StringMap<String>();
@@ -18,7 +18,7 @@ public final class ClassesCommon {
         return resources;
     }
 
-    public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
+    public StringMap<ExecTypeFunction> getToStringMethodsToCallBodies() {
         return toStringMethodsToCallBodies;
     }
 

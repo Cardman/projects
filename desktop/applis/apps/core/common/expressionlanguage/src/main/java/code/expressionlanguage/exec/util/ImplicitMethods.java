@@ -1,15 +1,13 @@
 package code.expressionlanguage.exec.util;
 
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 
 public final class ImplicitMethods {
-    private final CustList<ExecNamedFunctionBlock> converter = new CustList<ExecNamedFunctionBlock>();
+    private final CustList<ExecTypeFunction> converter = new CustList<ExecTypeFunction>();
     private String ownerClass="";
-    private ExecRootBlock rootBlock;
 
-    public CustList<ExecNamedFunctionBlock> getConverter() {
+    public CustList<ExecTypeFunction> getConverter() {
         return converter;
     }
 
@@ -21,19 +19,11 @@ public final class ImplicitMethods {
         this.ownerClass = _ownerClass;
     }
 
-    public ExecRootBlock getRootBlock() {
-        return rootBlock;
-    }
-
-    public void setRootBlock(ExecRootBlock _rootBlock) {
-        this.rootBlock = _rootBlock;
-    }
-
     public boolean isValidIndex(int _indexImplicit) {
         return converter.isValidIndex(_indexImplicit);
     }
 
-    public ExecNamedFunctionBlock get(int _indexImplicit) {
+    public ExecTypeFunction get(int _indexImplicit) {
         return converter.get(_indexImplicit);
     }
 

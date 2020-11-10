@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.util.CustList;
@@ -16,13 +17,11 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
 
     private ExecStaticFctContent staticFctContent;
 
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
-    public ExecStaticFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
+    private ExecTypeFunction pair;
+    public ExecStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
         super(_opCont, _intermediateDottedOperation);
         staticFctContent = _staticFctContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = _pair;
     }
 
     @Override
@@ -40,16 +39,16 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
             return Argument.createVoid();
         }
         Argument prev_ = new Argument();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, rootBlock, prev_,null, firstArgs_, null, getNamed(), staticFctContent.getKind(), "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, firstArgs_, null, staticFctContent.getKind(), "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {
-        String lastType_ = ClassMethodId.formatType(rootBlock,_classNameFound, staticFctContent.getLastType(), staticFctContent.getKind());
+        String lastType_ = ClassMethodId.formatType(pair.getType(),_classNameFound, staticFctContent.getLastType(), staticFctContent.getKind());
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }
 
     public ExecNamedFunctionBlock getNamed() {
-        return named;
+        return pair.getFct();
     }
 
     public String getClassName() {

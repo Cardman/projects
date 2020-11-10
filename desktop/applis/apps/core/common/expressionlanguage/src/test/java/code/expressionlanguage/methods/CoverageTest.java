@@ -4,11 +4,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
-import code.expressionlanguage.exec.coverage.BooleanCoverageResult;
-import code.expressionlanguage.exec.coverage.StandardCoverageResult;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 import org.junit.Test;
@@ -38,15 +38,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, cont_.getCoverage().getCovers().size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(4).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(5).size());
-        assertEq(3, cont_.getCoverage().getCovers().getValue(6).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(7).size());
-        assertEq(10, cont_.getCoverage().getCovers().getValue(8).size());
-        assertTrue(cont_.getCoverage().getCovers().getValue(8).getValue(2).isFullCovered());
-        assertTrue(cont_.getCoverage().getCovers().getValue(8).getValue(2).isPartialCovered());
-        AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(8).getValue(3);
+        assertEq(6, getCovers(cont_).size());
+        assertEq(0, getCovers(cont_).getValue(0).size());
+        assertEq(0, getCovers(cont_).getValue(1).size());
+        assertEq(3, getCovers(cont_).getValue(2).size());
+        assertEq(0, getCovers(cont_).getValue(3).size());
+        assertEq(10, getCovers(cont_).getValue(4).size());
+        assertTrue(getCovers(cont_).getValue(4).getValue(2).isFullCovered());
+        assertTrue(getCovers(cont_).getValue(4).getValue(2).isPartialCovered());
+        AbstractCoverageResult value_ = getCovers(cont_).getValue(4).getValue(3);
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -69,15 +69,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, cont_.getCoverage().getCovers().size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(4).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(5).size());
-        assertEq(3, cont_.getCoverage().getCovers().getValue(6).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(7).size());
-        assertEq(10, cont_.getCoverage().getCovers().getValue(8).size());
-        assertTrue(cont_.getCoverage().getCovers().getValue(8).getValue(2).isFullCovered());
-        assertTrue(cont_.getCoverage().getCovers().getValue(8).getValue(2).isPartialCovered());
-        AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(8).getValue(3);
+        assertEq(6, getCovers(cont_).size());
+        assertEq(0, getCovers(cont_).getValue(0).size());
+        assertEq(0, getCovers(cont_).getValue(1).size());
+        assertEq(3, getCovers(cont_).getValue(2).size());
+        assertEq(0, getCovers(cont_).getValue(3).size());
+        assertEq(10, getCovers(cont_).getValue(4).size());
+        assertTrue(getCovers(cont_).getValue(4).getValue(2).isFullCovered());
+        assertTrue(getCovers(cont_).getValue(4).getValue(2).isPartialCovered());
+        AbstractCoverageResult value_ = getCovers(cont_).getValue(4).getValue(3);
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -104,15 +104,15 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, cont_.getCoverage().getCovers().size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(4).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(5).size());
-        assertEq(3, cont_.getCoverage().getCovers().getValue(6).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(7).size());
-        assertEq(10, cont_.getCoverage().getCovers().getValue(11).size());
-        assertTrue(cont_.getCoverage().getCovers().getValue(11).getValue(2).isFullCovered());
-        assertTrue(cont_.getCoverage().getCovers().getValue(11).getValue(2).isPartialCovered());
-        AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(11).getValue(3);
+        assertEq(10, getCovers(cont_).size());
+        assertEq(0, getCovers(cont_).getValue(0).size());
+        assertEq(0, getCovers(cont_).getValue(1).size());
+        assertEq(3, getCovers(cont_).getValue(2).size());
+        assertEq(0, getCovers(cont_).getValue(3).size());
+        assertEq(10, getCovers(cont_).getValue(7).size());
+        assertTrue(getCovers(cont_).getValue(7).getValue(2).isFullCovered());
+        assertTrue(getCovers(cont_).getValue(7).getValue(2).isPartialCovered());
+        AbstractCoverageResult value_ = getCovers(cont_).getValue(7).getValue(3);
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -139,8 +139,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -167,8 +167,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -194,8 +194,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -221,13 +221,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, cont_.getCoverage().getCovers().size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(4).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(5).size());
-        assertEq(3, cont_.getCoverage().getCovers().getValue(6).size());
-        assertEq(0, cont_.getCoverage().getCovers().getValue(7).size());
-        assertEq(10, cont_.getCoverage().getCovers().getValue(11).size());
-        AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(9).firstValue();
+        assertEq(10, getCovers(cont_).size());
+        assertEq(0, getCovers(cont_).getValue(0).size());
+        assertEq(0, getCovers(cont_).getValue(1).size());
+        assertEq(3, getCovers(cont_).getValue(2).size());
+        assertEq(0, getCovers(cont_).getValue(3).size());
+        assertEq(10, getCovers(cont_).getValue(7).size());
+        AbstractCoverageResult value_ = getCovers(cont_).getValue(5).firstValue();
         assertTrue(value_ instanceof StandardCoverageResult);
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
@@ -252,7 +252,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        AbstractCoverageResult value_ = cont_.getCoverage().getCovers().getValue(11).getValue(0);
+        AbstractCoverageResult value_ = getCovers(cont_).getValue(7).getValue(0);
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
     }
@@ -278,14 +278,14 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
+        assertEq(1, getCoverSwitchs(cont_).size());
+        IdMap<Block, StandardCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(!value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().getResultNoDef();
+        value_ = getCoverSwitchs(cont_).firstValue().getResultNoDef();
         assertTrue(!value_.isFullCovered());
     }
 
@@ -310,14 +310,14 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
+        assertEq(1, getCoverSwitchs(cont_).size());
+        IdMap<Block, StandardCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().noDefault();
+        value_ = getCoverSwitchs(cont_).firstValue().noDefault();
         assertTrue(!value_.isFullCovered());
     }
 
@@ -342,14 +342,14 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
+        assertEq(1, getCoverSwitchs(cont_).size());
+        IdMap<Block, StandardCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
         value_ = map_.lastValue();
         assertTrue(!value_.isFullCovered());
-        value_ = cont_.getCoverage().getCoverSwitchs().firstValue().noDefault();
+        value_ = getCoverSwitchs(cont_).firstValue().noDefault();
         assertTrue(value_.isFullCovered());
     }
 
@@ -376,8 +376,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
+        assertEq(1, getCoverSwitchs(cont_).size());
+        IdMap<Block, StandardCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(3, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
@@ -410,8 +410,8 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverSwitchs().size());
-        IdMap<Block, StandardCoverageResult> map_ = cont_.getCoverage().getCoverSwitchs().firstValue().getChildren();
+        assertEq(1, getCoverSwitchs(cont_).size());
+        IdMap<Block, StandardCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(3, map_.size());
         StandardCoverageResult value_ = map_.firstValue();
         assertTrue(!value_.isFullCovered());
@@ -447,9 +447,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isCoverTrue());
         assertTrue(value_.isCoverFalse());
@@ -481,9 +481,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -512,9 +512,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -546,9 +546,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -583,9 +583,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachTable);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isCoverTrue());
         assertTrue(value_.isCoverFalse());
@@ -621,9 +621,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachTable);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -656,9 +656,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachTable);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -694,9 +694,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForEachTable);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForEachTable);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -722,9 +722,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -751,9 +751,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(value_.isCoverTrue());
@@ -779,9 +779,9 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
@@ -810,14 +810,57 @@ public final class CoverageTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, cont_.getCoverage().getCoverLoops().size());
-        assertTrue(cont_.getCoverage().getCoverLoops().firstKey() instanceof ForIterativeLoop);
-        BooleanCoverageResult value_ = cont_.getCoverage().getCoverLoops().firstValue();
+        assertEq(1, getCoverLoops(cont_).size());
+        assertTrue(getCoverLoops(cont_).firstKey() instanceof ForIterativeLoop);
+        BooleanCoverageResult value_ = getCoverLoops(cont_).firstValue();
         assertTrue(!value_.isFullCovered());
         assertTrue(!value_.isPartialCovered());
         assertTrue(!value_.isCoverTrue());
         assertTrue(!value_.isCoverFalse());
     }
+
+    private static IdMap<Block, SwitchCoverageResult> getCoverSwitchs(ContextEl _cont) {
+        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
+        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
+            if (e.getKey().getFile().isPredefined()) {
+                continue;
+            }
+            c_.addEntry(e.getKey(),e.getValue());
+        }
+        return c_.firstValue().getFunctions().firstValue().getCoverSwitchs();
+    }
+
+    private static IdMap<Block, BooleanCoverageResult> getCoverLoops(ContextEl _cont) {
+
+        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
+        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
+            if (e.getKey().getFile().isPredefined()) {
+                continue;
+            }
+            c_.addEntry(e.getKey(),e.getValue());
+        }
+        return c_.firstValue().getFunctions().firstValue().getCoverLoops();
+    }
+
+    private static IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> getCovers(ContextEl _cont) {
+        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
+        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
+            if (e.getKey().getFile().isPredefined()) {
+                continue;
+            }
+            c_.addEntry(e.getKey(),e.getValue());
+        }
+        IdMap<Block, BlockCoverageResult> blocks_ = c_.firstValue().getFunctions().firstValue().getBlocks();
+        IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> m_ = new IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>>();
+        for (EntryCust<Block, BlockCoverageResult> e: blocks_.entryList()) {
+            m_.addEntry(e.getKey(),e.getValue().getCovers());
+        }
+        return m_;
+    }
+
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

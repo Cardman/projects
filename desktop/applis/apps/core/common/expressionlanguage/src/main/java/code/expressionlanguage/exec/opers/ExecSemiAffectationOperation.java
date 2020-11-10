@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
@@ -19,12 +20,11 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
+    private final ExecTypeFunction pair;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private ExecOperatorContent operatorContent;
     private ExecStaticPostEltContent staticPostEltContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
     private ImplicitMethods converterFrom;
     private ImplicitMethods converterTo;
 
@@ -32,8 +32,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         super(_opCont);
         staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }
@@ -62,7 +61,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 return;
             }
         }
-        if (named != null) {
+        if (pair.getFct() != null) {
             ExecOperationNode left_ = getFirstChild();
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add(left_);
@@ -70,7 +69,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             arguments_.add(leftArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, rootBlock,named, firstArgs_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
@@ -126,7 +125,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         implicits_ = pair_.getImplicitsSemiTo();
         indexImplicit_ = pair_.getIndexImplicitSemiTo();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
+            String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(_right, operatorContent.getOper(), cast_);

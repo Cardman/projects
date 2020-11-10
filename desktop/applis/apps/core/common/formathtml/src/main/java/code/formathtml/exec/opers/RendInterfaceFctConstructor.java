@@ -3,14 +3,13 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -23,14 +22,12 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
 
     private ExecInvokingConstructorContent invokingConstructorContent;
 
-    private ExecRootBlock rootBlock;
-    private ExecNamedFunctionBlock ctor;
-    public RendInterfaceFctConstructor(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, String _className, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+    private ExecTypeFunction pair;
+    public RendInterfaceFctConstructor(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, String _className, ExecTypeFunction _pair) {
         super(_content, _intermediateDottedOperation);
         invokingConstructorContent = _invokingConstructorContent;
         className = _className;
-        rootBlock = _rootBlock;
-        ctor = _ctor;
+        pair = _pair;
 
     }
 
@@ -66,11 +63,11 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         CustList<Argument> firstArgs_;
         String superClass_ = invokingConstructorContent.getClassFromName();
         String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(rootBlock,superClass_, lastType_);
+        lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        ExecInvokingOperation.checkParameters(_context, superClass_, rootBlock, ctor, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
+        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

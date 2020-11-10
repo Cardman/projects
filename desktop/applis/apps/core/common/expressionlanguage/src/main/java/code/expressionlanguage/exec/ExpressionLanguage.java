@@ -36,7 +36,7 @@ public final class ExpressionLanguage {
         if (_conf.callsOrException()) {
             return Argument.getNullableValue(_right.argument);
         }
-        _right.argument = Argument.getNullableValue(_right.arguments.lastValue().getArgument());
+        _right.argument = Argument.getNullableValue(ExecTemplates.getArgumentPair(_right.arguments,_right.arguments.size()-1).getArgument());
         return _right.argument;
     }
 

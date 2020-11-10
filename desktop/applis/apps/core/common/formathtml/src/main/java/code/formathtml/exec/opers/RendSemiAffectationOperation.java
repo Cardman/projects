@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
@@ -20,12 +21,11 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
+    private final ExecTypeFunction pair;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private ExecStaticPostEltContent staticPostEltContent;
     private ExecOperatorContent operatorContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
     private ImplicitMethods converterFrom;
     private ImplicitMethods converterTo;
 
@@ -33,8 +33,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         super(_content);
         staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = new ExecTypeFunction(_rootBlock,_named);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }
@@ -55,7 +54,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
                 return;
             }
         }
-        if (named != null) {
+        if (pair.getFct() != null) {
             CustList<RendDynOperationNode> list_ = getChildrenNodes();
             RendDynOperationNode left_ = list_.first();
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
@@ -73,15 +72,15 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument stored_ = getNullArgument(_nodes, settable);
         Argument before_ = stored_;
         if (converterFrom != null) {
-            Argument conv_ = tryConvert(converterFrom.getRootBlock(),converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _context);
+            Argument conv_ = tryConvert(converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _context);
             stored_ = Argument.getNullableValue(conv_);
         }
         if (converterTo != null) {
-            String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
+            String tres_ = converterTo.get(0).getFct().getImportedParametersTypes().get(0);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(stored_, operatorContent.getOper(), cast_);
-            Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _context);
+            Argument conv_ = tryConvert(converterTo.get(0),converterTo.getOwnerClass(), res_, _context);
             if (conv_ == null) {
                 return;
             }
@@ -156,7 +155,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, rootBlock,named, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
         return Argument.createVoid();
     }
 }

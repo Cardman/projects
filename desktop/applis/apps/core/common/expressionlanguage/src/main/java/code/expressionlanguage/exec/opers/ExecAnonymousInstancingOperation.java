@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
@@ -15,15 +16,13 @@ import code.util.core.StringUtil;
 public final class ExecAnonymousInstancingOperation extends
         ExecInvokingOperation {
 
-    private final ExecRootBlock rootBlock;
-    private final ExecNamedFunctionBlock ctor;
+    private final ExecTypeFunction pair;
     private final ExecInstancingCommonContent instancingCommonContent;
 
-    public ExecAnonymousInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
+    public ExecAnonymousInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecTypeFunction _pair) {
         super(_opCont, _intermediateDottedOperation);
         instancingCommonContent = _instancingCommonContent;
-        rootBlock = _rootBlock;
-        ctor = _ctor;
+        pair = _pair;
     }
 
     @Override
@@ -42,11 +41,11 @@ public final class ExecAnonymousInstancingOperation extends
             return Argument.createVoid();
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareCust(_conf, className_, rootBlock, ctor, _previous, firstArgs_, "", -1);
+        return instancePrepareCust(_conf, className_, pair, _previous, firstArgs_, "", -1);
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
-        return fectchInstFormattedArgs(_nodes, _className, rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
+        return fectchInstFormattedArgs(_nodes, _className, pair.getType(), instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
     }
 
 }

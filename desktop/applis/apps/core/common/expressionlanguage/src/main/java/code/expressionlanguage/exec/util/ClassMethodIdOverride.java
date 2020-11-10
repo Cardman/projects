@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.StringMap;
 
 public final class ClassMethodIdOverride {
@@ -20,7 +21,7 @@ public final class ClassMethodIdOverride {
         return redirections.getVal(_cl);
     }
 
-    public void put(String _cl, String _geneString, ExecRootBlock _root, ExecNamedFunctionBlock _named) {
-        redirections.put(_cl, new ExecOverrideInfo(_geneString, _root, _named));
+    public void put(String _cl, String _geneString, ExecTypeFunction _pair) {
+        redirections.put(_cl, new ExecOverrideInfo(_geneString, _pair));
     }
 }

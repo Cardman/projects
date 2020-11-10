@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -21,8 +22,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
     private ExecNamedFunctionBlock annotableBlock;
-    private ExecNamedFunctionBlock callee;
-    private ExecRootBlock declaring;
+    private ExecTypeFunction pair;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -32,6 +32,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         fid = new ConstructorId("",new StringList(),false);
         access = AccessEnum.PRIVATE;
         returnType = "";
+        pair = new ExecTypeFunction(null,null);
     }
     public ConstructorMetaInfo(String _declaringClass, AccessEnum _access, ConstructorId _realId, String _returnType,
                                ConstructorId _fid, String _formDeclaringClass) {
@@ -42,6 +43,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         returnType = StringUtil.nullToEmpty(_returnType);
         fid = _fid;
         formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        pair = new ExecTypeFunction(null,null);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -56,20 +58,12 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         this.annotableBlock = _annotableBlock;
     }
 
-    public ExecNamedFunctionBlock getCallee() {
-        return callee;
+    public ExecTypeFunction getPair() {
+        return pair;
     }
 
-    public void setCallee(ExecNamedFunctionBlock _callee) {
-        this.callee = _callee;
-    }
-
-    public ExecRootBlock getDeclaring() {
-        return declaring;
-    }
-
-    public void setDeclaring(ExecRootBlock _declaring) {
-        this.declaring = _declaring;
+    public void setPair(ExecTypeFunction _pair) {
+        pair = _pair;
     }
 
     @Override
@@ -113,8 +107,9 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
 
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
-        if (callee != null) {
-            return callee.getAnonymousLambda();
+        ExecNamedFunctionBlock fct_ = pair.getFct();
+        if (fct_ != null) {
+            return fct_.getAnonymousLambda();
         }
         return new CustList<ExecAnonymousFunctionBlock>();
     }

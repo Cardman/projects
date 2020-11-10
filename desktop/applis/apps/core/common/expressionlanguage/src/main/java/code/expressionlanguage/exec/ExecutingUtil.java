@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.Templates;
 
 import code.expressionlanguage.stds.*;
@@ -114,8 +115,7 @@ public final class ExecutingUtil {
         return pageLoc_;
     }
     private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _block, Parameters _args) {
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_page.getGlobalClass());
-        _context.getCoverage().passCalls(idCl_,_block);
+        _context.getCoverage().passCalls(_rootBlock,_block);
         _page.setBlockRootType(_rootBlock);
         _page.initReturnType(_args.getRight());
         _page.getValueVars().putAllMap(_args.getParameters());
@@ -186,10 +186,9 @@ public final class ExecutingUtil {
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
         _page.setBlockRootTypes(type_);
-        ExecNamedFunctionBlock ctor_ = _e.getId();
+        ExecMemberCallingsBlock ctor_ = _e.getId();
         if (ctor_ != null) {
-            String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-            _context.getCoverage().passCalls(idCl_,ctor_);
+            _context.getCoverage().passCalls(type_,ctor_);
             _page.getValueVars().putAllMap(_args.getParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);
@@ -230,6 +229,7 @@ public final class ExecutingUtil {
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
         page_.setBlockRoot(_block);
+        _context.getCoverage().passCalls(_rootBlock,_block);
         page_.setFile(file_);
         return page_;
     }
@@ -357,6 +357,7 @@ public final class ExecutingUtil {
                 met_.setAnnotableBlock(method_);
                 met_.setCallee(method_);
                 met_.setCalleeInv(method_);
+                met_.setPair(new ExecTypeFunction(_type,method_));
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
@@ -367,6 +368,7 @@ public final class ExecutingUtil {
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
                     met_.setCalleeInv(method_);
+                    met_.setPair(new ExecTypeFunction(_type,method_));
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
@@ -377,6 +379,7 @@ public final class ExecutingUtil {
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
                     met_.setCalleeInv(method_);
+                    met_.setPair(new ExecTypeFunction(_type,method_));
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
@@ -387,6 +390,7 @@ public final class ExecutingUtil {
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
                     met_.setCalleeInv(method_);
+                    met_.setPair(new ExecTypeFunction(_type,method_));
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
@@ -397,6 +401,7 @@ public final class ExecutingUtil {
                     met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
                     met_.setCalleeInv(method_);
+                    met_.setPair(new ExecTypeFunction(_type,method_));
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
@@ -420,11 +425,13 @@ public final class ExecutingUtil {
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
+                met_.setPair(new ExecTypeFunction(_type,null));
                 infos_.add(met_);
                 met_ = new MethodMetaInfo(_name,idCl_, id_,mod_, ret_, formCl_);
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
+                met_.setPair(new ExecTypeFunction(_type,null));
                 infosBlock_.add(met_);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
@@ -436,6 +443,7 @@ public final class ExecutingUtil {
                 met_.setAnnotableBlock(method_);
                 met_.setCallee(method_);
                 met_.setCalleeInv(method_);
+                met_.setPair(new ExecTypeFunction(_type,method_));
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
                 infos_.add(met_);
@@ -450,8 +458,7 @@ public final class ExecutingUtil {
                 ConstructorId fid_ = tryFormatId(_name, _context, id_);
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
                 met_.setAnnotableBlock(method_);
-                met_.setCallee(method_);
-                met_.setDeclaring(_type);
+                met_.setPair(new ExecTypeFunction(_type,method_));
                 met_.setFileName(fileName_);
                 infosConst_.add(met_);
             }
@@ -462,7 +469,7 @@ public final class ExecutingUtil {
             String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, _name);
             met_.setFileName(fileName_);
-            met_.setDeclaring(_type);
+            met_.setPair(new ExecTypeFunction(_type,null));
             infosConst_.add(met_);
         }
         if (_type instanceof ExecEnumBlock) {
@@ -475,12 +482,14 @@ public final class ExecutingUtil {
             MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
+            met_.setPair(new ExecTypeFunction(_type,null));
             infos_.add(met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = StringExpUtil.getPrettyArrayType(ret_);
             met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
+            met_.setPair(new ExecTypeFunction(_type,null));
             infos_.add(met_);
         }
         ExecRootBlock par_ = _type.getParentType();

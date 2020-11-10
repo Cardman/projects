@@ -10,9 +10,9 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -237,7 +237,7 @@ public final class Classes {
         expsSecondCust = _expsSecondCust;
     }
 
-    public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
+    public StringMap<ExecTypeFunction> getToStringMethodsToCallBodies() {
         return getCommon().getToStringMethodsToCallBodies();
     }
 

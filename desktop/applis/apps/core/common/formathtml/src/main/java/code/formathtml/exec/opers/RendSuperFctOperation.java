@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -20,13 +21,11 @@ import code.util.core.StringUtil;
 public final class RendSuperFctOperation extends RendInvokingOperation implements RendCalculableOperation {
 
     private ExecInstFctContent instFctContent;
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
-    public RendSuperFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
+    private ExecTypeFunction pair;
+    public RendSuperFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
         super(_content, _intermediateDottedOperation);
         instFctContent = _instFctContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair = _pair;
     }
 
     @Override
@@ -52,9 +51,9 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         String argClassName_ = prev_.getStruct().getClassName(_context);
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
-        lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
+        lastType_ = ExecTemplates.quickFormat(pair.getType(),fullClassNameFound_, lastType_);
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, rootBlock, prev_,null, firstArgs_, null, named, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
     }
 }

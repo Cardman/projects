@@ -5,14 +5,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.exec.util.PolymorphMethod;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.stds.LgNames;
@@ -55,10 +54,10 @@ public abstract class ExecOperationNode {
     }
 
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit) {
-        ExecNamedFunctionBlock c = _implicits.get(_indexImplicit);
+        ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,_implicits.getRootBlock(), c, args_, _implicits.getOwnerClass(), _conf,_right)) {
+        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,c, args_, _implicits.getOwnerClass(), _conf,_right)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;
@@ -344,25 +343,23 @@ public abstract class ExecOperationNode {
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();
         String argClassName_ = struct_.getClassName(_conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        PolymorphMethod valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
+        ExecTypeFunction valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
         String clCall_ = "";
-        ExecNamedFunctionBlock methodCallBody_ = null;
-        ExecRootBlock type_ = null;
+        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         if (valBody_ != null) {
-            ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_.getRootBlock(), valBody_.getNamed());
-            methodCallBody_ = polymorphMethod_.getOverridableBlock();
+            ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
+            p_ = polymorphMethod_.getPair();
             clCall_ = polymorphMethod_.getClassName();
-            type_ = polymorphMethod_.getRootBlock();
         } else {
             argClassName_ = " ";
         }
         clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
-        if (methodCallBody_ == null) {
+        if (p_.getFct() == null) {
             return new Argument(ExecCatOperation.getDisplayable(_argument,_conf));
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);
-        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,type_,methodCallBody_,parameters_));
+        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,p_.getType(),p_.getFct(),parameters_));
         return out_;
     }
 

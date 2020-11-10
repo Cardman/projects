@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -369,7 +370,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        RendFctOperation f_ = new RendFctOperation(fct_, classBody_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id), true);
+        ExecTypeFunction p_ = new ExecTypeFunction(classBody_,fct_);
+        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id), true);
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
             RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());

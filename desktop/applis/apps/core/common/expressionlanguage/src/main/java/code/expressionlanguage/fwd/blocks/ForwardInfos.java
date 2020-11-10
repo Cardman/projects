@@ -106,18 +106,17 @@ public final class ForwardInfos {
             ExecFileBlock exFile_ = files_.getValue(fileBlock_.getNumberFile());
             processExecFile(fileBlock_,exFile_, _forwards);
         }
-        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
+        StringMap<ExecTypeFunction> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(resDyn_.getRootNumber(), _forwards);
-            ExecNamedFunctionBlock fct_ = FetchMemberUtil.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _forwards);
             String fullName_ = e.getKey().getFullName();
-            toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
+            toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchTypeFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _forwards));
             coverage_.putToStringOwner(fullName_);
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock root_ = e.getKey();
-            ClassMethodIdOverrides redirections_ = e.getValue().getRootBlock().getRedirections();
+            Members mem_ = e.getValue();
+            ClassMethodIdOverrides redirections_ = mem_.getRootBlock().getRedirections();
             for (OverridableBlock o: root_.getOverridableBlocks()) {
                 if (o.hiddenInstance()) {
                     continue;
@@ -128,11 +127,11 @@ public final class ForwardInfos {
                 MethodId id_ = o.getId();
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _page);
                 map_.putAllMap(o.getOverrides());
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(FetchMemberUtil.fetchFunction(root_.getNumberAll(), o.getNameNumber(), _forwards));
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(FetchMemberUtil.fetchFunction(mem_, o.getNameNumber()));
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     GeneStringOverridable value_ = g.getValue();
                     int numberAll_ = value_.getType().getNumberAll();
-                    override_.put(g.getKey(), value_.getGeneString(), FetchMemberUtil.fetchType(numberAll_, _forwards), FetchMemberUtil.fetchFunction(numberAll_, value_.getBlock().getNameNumber(), _forwards));
+                    override_.put(g.getKey(), value_.getGeneString(), FetchMemberUtil.fetchTypeFunction(numberAll_, value_.getBlock().getNameNumber(), _forwards));
                 }
                 redirections_.add(override_);
             }
@@ -149,10 +148,11 @@ public final class ForwardInfos {
                         if (b instanceof OverridableBlock) {
                             OverridableBlock m =(OverridableBlock)b;
                             if (m.isAbstractMethod()) {
-                                ExecRootBlock ex_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll()).getRootBlock();
-                                ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _forwards), root_.getFullName());
+                                Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
+                                ExecRootBlock ex_ = mem_.getRootBlock();
+                                ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(mem_,m.getNameNumber()), root_.getFullName());
                                 if (val_ == null) {
-                                    ExecOverridableBlock value_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll()).getAllMethods().getValue(m.getNameOverrideNumber());
+                                    ExecOverridableBlock value_ = mem_.getAllMethods().getValue(m.getNameOverrideNumber());
                                     e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                                 }
                             }
@@ -195,12 +195,13 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock i = e.getKey();
             CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClassesInfo();
+            Members mem_ = e.getValue();
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-                e.getValue().getRootBlock().setUniqueType(FetchMemberUtil.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _forwards));
+                mem_.getRootBlock().setUniqueType(FetchMemberUtil.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _forwards));
             }
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             if (emptyCtor_ != null) {
-                e.getValue().getRootBlock().setEmptyCtor(FetchMemberUtil.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _forwards));
+                mem_.getRootBlock().setEmptyCtor(FetchMemberUtil.fetchFunction(mem_,emptyCtor_.getNameNumber()));
             }
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
@@ -222,35 +223,32 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            String fullName_ = c.getFullName();
-            coverage_.putCalls(fullName_);
             for (EntryCust<InitBlock, ExecInitBlock> f: mem_.getAllInits().entryList()) {
                 InitBlock method_ = f.getKey();
+                coverage_.putCalls(c,method_);
                 _forwards.getAllFct().addEntry(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getAllCtors().entryList()) {
                 ConstructorBlock method_ = f.getKey();
-                coverage_.putCalls(fullName_,method_);
+                coverage_.putCalls(c,method_);
                 _forwards.getAllFct().addEntry(method_,f.getValue());
                 fwdInstancingStep(method_, f.getValue());
             }
             for (EntryCust<OverridableBlock, ExecOverridableBlock> f: mem_.getAllMethods().entryList()) {
                 OverridableBlock method_ =  f.getKey();
-                coverage_.putCalls(fullName_,method_);
+                coverage_.putCalls(c,method_);
                 _forwards.getAllFct().addEntry(method_,f.getValue());
             }
         }
-        coverage_.putCalls("");
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
-            coverage_.putCalls("",o);
             _forwards.getAllFct().addEntry(o,value_);
         }
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
             AnonymousFunctionBlock method_ = e.getBlock();
             RootBlock c_ = method_.getParentType();
-            coverage_.putCalls(c_.getFullName(),method_);
+            coverage_.putCallsAnon(method_);
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
             _forwards.getAllFct().addEntry(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
@@ -300,79 +298,77 @@ public final class ForwardInfos {
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             Members mem_ = e.getValue();
-            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> f: mem_.getAllInnerElementFields().entryList()) {
-                InnerElementBlock method_ = f.getKey();
-                ExecInnerElementBlock val_ = f.getValue();
-                fwdExpressionLanguageReadOnly(method_, val_, coverage_, _forwards);
-            }
-            for (EntryCust<ElementBlock, ExecElementBlock> f: mem_.getAllSimpleElementFields().entryList()) {
-                ElementBlock method_ = f.getKey();
-                ExecElementBlock val_ = f.getValue();
-                fwdExpressionLanguageReadOnly(method_, val_, coverage_, _forwards);
-            }
-            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
-                FieldBlock method_ = f.getKey();
-                ExecFieldBlock exp_ = f.getValue();
-                fwdExpressionLanguageReadOnly(method_, exp_, coverage_, _forwards);
+            for (EntryCust<InfoBlock, ExecInfoBlock> f: mem_.getAllFields().entryList()) {
+                CustList<ExecOperationNode> exNodes_ = new CustList<ExecOperationNode>();
+                int trOffset_ = 0;
+                if (f.getKey() instanceof InnerElementBlock) {
+                    InnerElementBlock method_ = (InnerElementBlock)f.getKey();
+                    trOffset_ = method_.getTrOffset();
+                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
+                }
+                if (f.getKey() instanceof ElementBlock) {
+                    ElementBlock method_ = (ElementBlock)f.getKey();
+                    trOffset_ = method_.getTrOffset();
+                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
+                }
+                if (f.getKey() instanceof FieldBlock) {
+                    FieldBlock method_ = (FieldBlock)f.getKey();
+                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
+                }
+                if (f.getValue() instanceof ExecInnerElementBlock) {
+                    ExecInnerElementBlock val_ = (ExecInnerElementBlock) f.getValue();
+                    val_.setTrOffset(trOffset_);
+                    val_.setOpValue(exNodes_);
+                }
+                if (f.getValue() instanceof ExecElementBlock) {
+                    ExecElementBlock val_ = (ExecElementBlock) f.getValue();
+                    val_.setTrOffset(trOffset_);
+                    val_.setOpValue(exNodes_);
+                }
+                if (f.getValue() instanceof ExecFieldBlock) {
+                    ExecFieldBlock val_ = (ExecFieldBlock) f.getValue();
+                    val_.setOpValue(exNodes_);
+                }
             }
         }
         _forwards.setAnnotAnalysis(true);
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            CustList<Block> annotated_ = new CustList<Block>();
-            if (!(c instanceof InnerElementBlock)) {
-                annotated_.add(c);
-            }
-            annotated_.addAllElts(ClassesUtil.getDirectChildren(c));
-            coverage_.putBlockOperations(mem_.getRootBlock(),c);
+            coverage_.putBlockOperationsType(mem_.getRootBlock(),c);
             for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
-                _forwards.setAnnotAnalysisField(true);
                 AnnotationMethodBlock b = a.getKey();
                 ExecAnnotationMethodBlock d = a.getValue();
                 fwd(b,d, coverage_, _forwards);
-                coverage_.putBlockOperations(d,b);
             }
             for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getAllNamed().entryList()) {
-                _forwards.setAnnotAnalysisField(false);
                 NamedFunctionBlock b = a.getKey();
                 ExecNamedFunctionBlock d = a.getValue();
-                coverage_.putBlockOperationsField(_forwards, b);
                 fwdAnnotations(b, d, coverage_, _forwards);
                 fwdAnnotationsParameters(b, d, coverage_, _forwards);
             }
             for (EntryCust<FieldBlock, ExecFieldBlock> a: mem_.getAllExplicitFields().entryList()) {
-                _forwards.setAnnotAnalysisField(false);
                 FieldBlock b = a.getKey();
                 ExecFieldBlock d = a.getValue();
-                coverage_.putBlockOperationsField(_forwards, b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             for (EntryCust<ElementBlock, ExecElementBlock> a: mem_.getAllSimpleElementFields().entryList()) {
-                _forwards.setAnnotAnalysisField(false);
                 ElementBlock b = a.getKey();
                 ExecElementBlock d = a.getValue();
-                coverage_.putBlockOperationsField(_forwards, b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             for (EntryCust<InnerElementBlock, ExecInnerElementBlock> a: mem_.getAllInnerElementFields().entryList()) {
-                _forwards.setAnnotAnalysisField(false);
                 InnerElementBlock b = a.getKey();
                 ExecInnerElementBlock d = a.getValue();
-                coverage_.putBlockOperationsField(_forwards, b);
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             if (!(mem_.getRootBlock() instanceof ExecInnerElementBlock)) {
-                _forwards.setAnnotAnalysisField(false);
                 ExecRootBlock d = mem_.getRootBlock();
-                coverage_.putBlockOperationsField(_forwards, c);
                 fwdAnnotations(c, d, coverage_, _forwards);
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
-            _forwards.setAnnotAnalysisField(false);
-            coverage_.putBlockOperationsField(_forwards, o);
             ExecOperatorBlock value_ = e.getValue();
             fwdAnnotations(o, value_, coverage_, _forwards);
             fwdAnnotationsParameters(o, value_, coverage_, _forwards);
@@ -565,35 +561,35 @@ public final class ForwardInfos {
         ExecFileBlock fileDest_ = _dest.getFile();
         Block firstChild_ = _from.getFirstChild();
         ExecDeclareVariable decl_ = null;
-        _coverage.putBlockOperations(_dest,_from);
+        _coverage.putBlockOperations(_from,_dest,_from);
         Block en_ = _from;
         if (firstChild_ == null) {
             return;
         }
         while (true) {
-            _coverage.putBlockOperations(en_);
+            _coverage.putBlockOperations(_from,en_);
             Block n_ = en_.getFirstChild();
             boolean visit_ = true;
             if (en_ instanceof BreakBlock) {
                 ExecBreakBlock exec_ = new ExecBreakBlock(((BreakBlock) en_).getLabel(), en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof CaseCondition) {
                 ExecBracedBlock exec_;
                 BracedBlock par_ = en_.getParent();
-                _coverage.putBlockOperationsSwitchs(par_,en_);
+                _coverage.putBlockOperationsSwitchs(_from,par_,en_);
                 if (!((CaseCondition) en_).getInstanceTest().isEmpty()) {
                     if (((CaseCondition) en_).getImportedType().isEmpty()) {
                         exec_ = new ExecNullInstanceCaseCondition(((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
                         exec_.setFile(fileDest_);
                         blockToWrite_.appendChild(exec_);
-                        _coverage.putBlockOperations(exec_,en_);
+                        _coverage.putBlockOperations(_from,exec_,en_);
                     } else {
                         exec_ = new ExecInstanceCaseCondition(((CaseCondition)en_).getVariableName(), ((CaseCondition) en_).getImportedType(), ((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
                         exec_.setFile(fileDest_);
                         blockToWrite_.appendChild(exec_);
-                        _coverage.putBlockOperations(exec_,en_);
+                        _coverage.putBlockOperations(_from,exec_,en_);
                     }
                 } else {
                     getExecutableNodes(((CaseCondition)en_).getRoot(), _coverage, _forwards, en_);
@@ -602,12 +598,12 @@ public final class ForwardInfos {
                             exec_ = new ExecNullCaseCondition(((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
                             exec_.setFile(fileDest_);
                             blockToWrite_.appendChild(exec_);
-                            _coverage.putBlockOperations(exec_,en_);
+                            _coverage.putBlockOperations(_from,exec_,en_);
                         } else {
                             exec_ = new ExecEnumCaseCondition(((CaseCondition) en_).getValue(), ((CaseCondition) en_).getValueOffset(), en_.getOffset().getOffsetTrim());
                             exec_.setFile(fileDest_);
                             blockToWrite_.appendChild(exec_);
-                            _coverage.putBlockOperations(exec_, en_);
+                            _coverage.putBlockOperations(_from,exec_, en_);
                         }
                     } else {
                         Argument argument_ = Argument.getNullableValue(((CaseCondition) en_).getArgument());
@@ -618,87 +614,87 @@ public final class ForwardInfos {
                         }
                         exec_.setFile(fileDest_);
                         blockToWrite_.appendChild(exec_);
-                        _coverage.putBlockOperations(exec_, en_);
+                        _coverage.putBlockOperations(_from,exec_, en_);
                     }
                 }
                 blockToWrite_ = exec_;
             } else if (en_ instanceof CatchEval) {
-                _coverage.putCatches(en_);
+                _coverage.putCatches(_from,en_);
                 ExecCatchEval exec_ = new ExecCatchEval(((CatchEval)en_).getVariableName(), ((CatchEval)en_).getImportedClassName(), en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof IfCondition) {
                 CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
                 ExecCondition exec_ = new ExecIfCondition(((Condition) en_).getConditionOffset(), ((IfCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(en_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperationsConditions(_from,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ElseIfCondition) {
                 CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
                 ExecCondition exec_ = new ExecElseIfCondition(((Condition) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(en_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperationsConditions(_from,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof WhileCondition) {
                 CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
                 ExecCondition exec_ = new ExecWhileCondition(((Condition) en_).getConditionOffset(), ((WhileCondition) en_).getLabel(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(en_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperationsConditions(_from,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof DoWhileCondition) {
                 CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((Condition)en_).getRoot(), _coverage, _forwards, en_);
                 ExecCondition exec_ = new ExecDoWhileCondition(((Condition) en_).getConditionOffset(), opCondition_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperationsConditions(en_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperationsConditions(_from,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DoBlock) {
                 ExecDoBlock exec_ = new ExecDoBlock(((DoBlock)en_).getLabel(), en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ContinueBlock) {
                 ExecContinueBlock exec_ = new ExecContinueBlock(((ContinueBlock) en_).getLabel(), en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DeclareVariable) {
                 ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames(), en_.getOffset().getOffsetTrim());
                 decl_ = exec_;
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DefaultCondition) {
                 BracedBlock b_ = en_.getParent();
                 ExecBracedBlock exec_;
-                _coverage.putBlockOperationsSwitchs(b_,en_);
+                _coverage.putBlockOperationsSwitchs(_from,b_,en_);
                 String instanceTest_ = ((DefaultCondition)en_).getInstanceTest();
                 if (instanceTest_.isEmpty()) {
                     exec_ = new ExecDefaultCondition(en_.getOffset().getOffsetTrim());
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(exec_,en_);
+                    _coverage.putBlockOperations(_from,exec_,en_);
                 } else {
                     exec_ = new ExecInstanceDefaultCondition(((DefaultCondition)en_).getVariableName(), instanceTest_, ((DefaultCondition)en_).getVariableOffset(), en_.getOffset().getOffsetTrim());
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(exec_, en_);
+                    _coverage.putBlockOperations(_from,exec_, en_);
                 }
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ElseCondition) {
                 ExecElseCondition exec_ = new ExecElseCondition(en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof Line) {
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((Line)en_).getRoot(), _coverage, _forwards, en_);
@@ -709,20 +705,20 @@ public final class ForwardInfos {
                 ExecLine exec_ = new ExecLine(((Line) en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof EmptyInstruction) {
                 ExecEmptyInstruction exec_ = new ExecEmptyInstruction(en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof FinallyEval) {
                 ExecFinallyEval exec_ = new ExecFinallyEval(en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ForEachLoop) {
-                _coverage.putBlockOperationsLoops(en_);
+                _coverage.putBlockOperationsLoops(_from,en_);
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachLoop)en_).getRoot(), _coverage, _forwards, en_);
                 ExecAbstractForEachLoop exec_;
                 if (((ForEachLoop)en_).getRoot().getResultClass().isArray()) {
@@ -734,10 +730,10 @@ public final class ForwardInfos {
                 }
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ForEachTable) {
-                _coverage.putBlockOperationsLoops(en_);
+                _coverage.putBlockOperationsLoops(_from,en_);
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachTable)en_).getRoot(), _coverage, _forwards, en_);
                 ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) en_).getLabel(), ((ForEachTable)en_).getImportedClassNameFirst(),
                         ((ForEachTable)en_).getImportedClassNameSecond(),
@@ -745,10 +741,10 @@ public final class ForwardInfos {
                         ((ForEachTable)en_).getVariableNameSecond(), ((ForEachTable)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ForIterativeLoop) {
-                _coverage.putBlockOperationsLoops(en_);
+                _coverage.putBlockOperationsLoops(_from,en_);
                 CustList<ExecOperationNode> init_ = getExecutableNodes(((ForIterativeLoop)en_).getRootInit(), _coverage, _forwards, en_);
                 CustList<ExecOperationNode> exp_ = getExecutableNodes(((ForIterativeLoop)en_).getRootExp(), _coverage, _forwards, en_);
                 CustList<ExecOperationNode> step_ = getExecutableNodes(((ForIterativeLoop)en_).getRootStep(), _coverage, _forwards, en_);
@@ -757,7 +753,7 @@ public final class ForwardInfos {
                         ((ForIterativeLoop)en_).getExpressionOffset(), ((ForIterativeLoop)en_).getStepOffset(), ((ForIterativeLoop)en_).isEq(),init_,exp_,step_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ForMutableIterativeLoop) {
                 CustList<ExecOperationNode> init_;
@@ -774,7 +770,7 @@ public final class ForwardInfos {
                 } else {
                     exp_ = getExecutableNodes(rExp_, _coverage, _forwards, en_);
                 }
-                _coverage.putBlockOperationsConditions(en_);
+                _coverage.putBlockOperationsConditions(_from,en_);
                 OperationNode rStep_ = ((ForMutableIterativeLoop) en_).getRootStep();
                 CustList<ExecOperationNode> step_;
                 if (rStep_ == null) {
@@ -787,14 +783,14 @@ public final class ForwardInfos {
                         init_,exp_,step_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof NullCatchEval) {
-                _coverage.putCatches(en_);
+                _coverage.putCatches(_from,en_);
                 ExecNullCatchEval exec_ = new ExecNullCatchEval(en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof ReturnMethod) {
                 OperationNode r_ = ((ReturnMethod) en_).getRoot();
@@ -802,18 +798,18 @@ public final class ForwardInfos {
                     ExecReturnMethod exec_ = new ExecReturnMethod(true, ((ReturnMethod) en_).getExpressionOffset(),null, ((ReturnMethod) en_).getReturnType(), en_.getOffset().getOffsetTrim());
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(exec_,en_);
+                    _coverage.putBlockOperations(_from,exec_,en_);
                 } else {
                     CustList<ExecOperationNode> op_ = getExecutableNodes(r_, _coverage, _forwards, en_);
                     ExecReturnMethod exec_ = new ExecReturnMethod(false, ((ReturnMethod) en_).getExpressionOffset(),op_, ((ReturnMethod) en_).getReturnType(), en_.getOffset().getOffsetTrim());
                     exec_.setFile(fileDest_);
                     blockToWrite_.appendChild(exec_);
-                    _coverage.putBlockOperations(exec_,en_);
+                    _coverage.putBlockOperations(_from,exec_,en_);
                 }
             } else if (en_ instanceof SwitchBlock) {
                 Block first_ = en_.getFirstChild();
                 boolean emp_ = first_ == null;
-                _coverage.putBlockOperationsSwitchs(en_);
+                _coverage.putBlockOperationsSwitchs(_from,en_);
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((SwitchBlock)en_).getRoot(), _coverage, _forwards, en_);
                 ExecBracedBlock exec_;
                 if (!((SwitchBlock) en_).getInstanceTest().isEmpty()) {
@@ -825,7 +821,7 @@ public final class ForwardInfos {
                 }
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 if (!emp_) {
                     blockToWrite_ = exec_;
                 }
@@ -833,19 +829,19 @@ public final class ForwardInfos {
                 ExecTryEval exec_ = new ExecTryEval(((TryEval) en_).getLabel(), en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ instanceof Throwing) {
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((Throwing) en_).getRoot(), _coverage, _forwards, en_);
                 ExecThrowing exec_ = new ExecThrowing(((Throwing)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof UnclassedBracedBlock) {
                 ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(en_.getOffset().getOffsetTrim());
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(exec_,en_);
+                _coverage.putBlockOperations(_from,exec_,en_);
                 blockToWrite_ = exec_;
             } else if (en_ != _from) {
                 visit_ = false;
@@ -975,34 +971,35 @@ public final class ForwardInfos {
                 return new ExecStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
             }
             ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getRootNumber(), _forwards);
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchTypeFunction(a_.getRootNumber(), a_.getMemberNumber(), _forwards);
+            pair_ = FetchMemberUtil.defPair(ex_, pair_);
             if (ex_ instanceof ExecAnnotationBlock) {
                 return new ExecAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
             }
             if (a_.isTrueFalse()) {
                 return new ExecExplicitOperation(
-                        FetchMemberUtil.fetchFunction(a_, _forwards),
-                        FetchMemberUtil.fetchType(a_.getRootNumber(), _forwards), new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
+                        pair_,
+                        new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent()));
             }
             if (a_.isStaticMethod()) {
-                ExecNamedFunctionBlock fct_ = FetchMemberUtil.fetchFunction(a_, _forwards);
-                return new ExecStaticFctOperation(fct_,ex_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent()));
+                return new ExecStaticFctOperation(pair_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent()));
             }
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
-            return new ExecInterfaceFctConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), FetchMemberUtil.fetchFunction(n_.getRootNumber(), n_.getMemberNumber(), _forwards), n_.getClassName());
+            return new ExecInterfaceFctConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), n_.getClassName(), FetchMemberUtil.fetchTypeCtor(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof InterfaceInvokingConstructor) {
             InterfaceInvokingConstructor n_ = (InterfaceInvokingConstructor) _anaNode;
-            return new ExecInterfaceInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), FetchMemberUtil.fetchFunction(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
+            return new ExecInterfaceInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchTypeCtor(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof CurrentInvokingConstructor) {
             CurrentInvokingConstructor n_ = (CurrentInvokingConstructor) _anaNode;
-            return new ExecCurrentInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), FetchMemberUtil.fetchFunction(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
+            return new ExecCurrentInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchTypeCtor(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof SuperInvokingConstructor) {
             SuperInvokingConstructor n_ = (SuperInvokingConstructor) _anaNode;
-            return new ExecSuperInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), FetchMemberUtil.fetchFunction(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
+            return new ExecSuperInvokingConstructor(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(n_.getInvokingConstructorContent()), FetchMemberUtil.fetchTypeCtor(n_.getRootNumber(), n_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
@@ -1022,24 +1019,22 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = FetchMemberUtil.fetchFunction(s_.getRootNumber(), s_.getMemberNumber(), _forwards);
-            ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(s_.getRootNumber(), _forwards);
-            if (rootBlock_ != null) {
-                return new ExecStandardInstancingOperation(rootBlock_,ctor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), new ExecInstancingStdContent(s_.getInstancingStdContent()));
+            ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchTypeCtor(s_.getRootNumber(), s_.getMemberNumber(), _forwards);
+            if (typeCtor_ != null) {
+                return new ExecStandardInstancingOperation(typeCtor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), new ExecInstancingStdContent(s_.getInstancingStdContent()));
             }
             return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()));
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
-            return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), _forwards.getMapMembers().getValue(s_.getBlock().getNumberAll()).getRootBlock(), FetchMemberUtil.fetchFunction(s_.getRootNumber(), s_.getMemberNumber(), _forwards));
+            return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), FetchMemberUtil.fetchTypeCtor(s_.getRootNumber(), s_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getRootNumber(), _forwards);
-            ExecNamedFunctionBlock get_ = FetchMemberUtil.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _forwards);
-            ExecNamedFunctionBlock set_ = FetchMemberUtil.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _forwards);
+            ExecTypeFunction get_ = FetchMemberUtil.fetchTypeFunction(a_.getRootNumber(), a_.getMemberNumber(), _forwards);
+            ExecTypeFunction set_ = FetchMemberUtil.fetchTypeFunction(a_.getRootNumberSet(), a_.getMemberNumberSet(), _forwards);
             if (a_.getCallFctContent().getClassMethodId() != null) {
-                return new ExecCustArrOperation(get_,set_,ex_, new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod()));
+                return new ExecCustArrOperation(get_,set_, new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod()));
             }
             return new ExecArrOperation(new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()));
         }
@@ -1064,21 +1059,18 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(c_.getRootNumber(), _forwards);
-            ExecNamedFunctionBlock fct_ = FetchMemberUtil.fetchFunction(c_, _forwards);
-            return new ExecChoiceFctOperation(fct_,ex_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true));
+            ExecTypeFunction p_ = FetchMemberUtil.fetchTypeFunction(c_.getRootNumber(),c_.getMemberNumber(), _forwards);
+            return new ExecChoiceFctOperation(p_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true));
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(s_.getRootNumber(), _forwards);
-            ExecNamedFunctionBlock fct_ = FetchMemberUtil.fetchFunction(s_, _forwards);
-            return new ExecSuperFctOperation(fct_,ex_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true));
+            ExecTypeFunction p_ = FetchMemberUtil.fetchTypeFunction(s_.getRootNumber(),s_.getMemberNumber(), _forwards);
+            return new ExecSuperFctOperation(p_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = FetchMemberUtil.fetchFunction(f_, _forwards);
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(f_.getRootNumber(), _forwards);
-            return new ExecFctOperation(fct_,ex_, new ExecOperationContent(f_.getContent()), f_.isIntermediateDottedOperation(), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod()));
+            ExecTypeFunction p_ = FetchMemberUtil.fetchTypeFunction(f_.getRootNumber(),f_.getMemberNumber(), _forwards);
+            return new ExecFctOperation(p_, new ExecOperationContent(f_.getContent()), f_.isIntermediateDottedOperation(), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod()));
         }
         if (_anaNode instanceof NamedArgumentOperation) {
             NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
@@ -1117,7 +1109,7 @@ public final class ForwardInfos {
 
             AnonymousFunctionBlock method_ = s_.getBlock();
             ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
-            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), r_, new ExecLambdaAnoContent(s_.getLambdaAnoContent(), _forwards));
+            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), new ExecLambdaAnoContent(s_.getLambdaAnoContent()), new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(),r_));
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
@@ -1128,9 +1120,17 @@ public final class ForwardInfos {
                 return new ExecFieldLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaFieldContent(f_.getFieldId(), f_.getLambdaFieldContent(), f_.getLambdaMemberNumberContent(), _forwards));
             }
             if (f_.getMethod() == null) {
-                return new ExecConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaConstructorContent(f_.getRealId(),f_.getLambdaMemberNumberContent(), _forwards));
+                ExecLambdaConstructorContent lambdaConstructorContent_ = new ExecLambdaConstructorContent(f_.getRealId(), f_.getLambdaMemberNumberContent(), _forwards);
+                if (lambdaConstructorContent_.getPair() != null) {
+                    return new ExecTypeConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaConstructorContent_);
+                }
+                return new ExecConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaConstructorContent_.getRealId());
             }
-            return new ExecMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), f_.getLambdaMemberNumberContent(), _forwards));
+            ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), f_.getLambdaMemberNumberContent(), _forwards);
+            if (lambdaMethodContent_.getPair() != null) {
+                return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
+            }
+            return new ExecMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
@@ -1212,14 +1212,13 @@ public final class ForwardInfos {
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new ExecExplicitOperation(
-                    FetchMemberUtil.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _forwards),
-                    FetchMemberUtil.fetchType(m_.getRootNumber(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+                    FetchMemberUtil.fetchTypeFunction(m_.getRootNumber(),m_.getMemberNumber(),_forwards),
+                    new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
             return new ExecImplicitOperation(
-                    FetchMemberUtil.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _forwards),
-                    FetchMemberUtil.fetchType(m_.getRootNumber(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+                    new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()), FetchMemberUtil.fetchTypeFunction(m_.getRootNumber(),m_.getMemberNumber(), _forwards));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
@@ -1345,7 +1344,6 @@ public final class ForwardInfos {
             _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
-        _coverage.putBlockOperationsField(_forwards, _ana);
         CustList<ExecOperationNode> ops_ = getExecutableNodes(root_, _coverage, _forwards, _ana);
         _exec.setOpValue(ops_);
     }
@@ -1394,21 +1392,6 @@ public final class ForwardInfos {
     private static void fwdInstancingStep(ConstructorBlock _ana, ExecConstructorBlock _exec) {
         _exec.setImplicitCallSuper(_ana.implicitConstr());
     }
-
-    private static void fwdExpressionLanguageReadOnly(InnerElementBlock _ana, ExecInnerElementBlock _exec, Coverage _coverage, Forwards _forwards) {
-        _exec.setTrOffset(_ana.getTrOffset());
-        _coverage.putBlockOperations(_exec, _ana);
-        _coverage.putBlockOperations(_ana);
-        _exec.setOpValue(getExecutableNodes(_ana.getRoot(), _coverage, _forwards, _ana));
-    }
-
-    private static void fwdExpressionLanguageReadOnly(ElementBlock _ana, ExecElementBlock _exec, Coverage _coverage, Forwards _forwards) {
-        _exec.setTrOffset(_ana.getTrOffset());
-        _coverage.putBlockOperations(_exec, _ana);
-        _coverage.putBlockOperations(_ana);
-        _exec.setOpValue(getExecutableNodes(_ana.getRoot(), _coverage, _forwards, _ana));
-    }
-
     private static void fwdAnnotationsParameters(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
         for (CustList<OperationNode> l: _ana.getRootsList()) {
@@ -1438,16 +1421,11 @@ public final class ForwardInfos {
         _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
-    private static void fwdExpressionLanguageReadOnly(FieldBlock _ana, ExecFieldBlock _exec, Coverage _coverage, Forwards _forwards) {
-        processPutCoverage(_ana, _exec, _coverage);
-        _exec.setOpValue(getExecutableNodes(_ana.getRoot(), _coverage, _forwards, _ana));
+    private static CustList<ExecOperationNode> processField(Block _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
+        _coverage.putBlockOperationsField(_ana);
+        _coverage.putBlockOperationsField(_exec, _ana);
+        return getExecutableNodes(_root, _coverage, _forwards, _ana);
     }
-
-    private static void processPutCoverage(FieldBlock _ana, ExecFieldBlock _exec, Coverage _coverage) {
-        _coverage.putBlockOperations(_exec, _ana);
-        _coverage.putBlockOperations(_ana);
-    }
-
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         for (OperationNode r: _ana.getRoots()) {

@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -47,9 +48,9 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = getMetaInfo();
-        return prepareStaticCall(getMethodToCallType(),getMethodToCallBody(),method_.getCache(),_args,res_, _context);
+        return prepareStaticCall(getPair(),method_.getCache(),_args,res_, _context);
     }
-    private static Argument prepareStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,
+    private static Argument prepareStaticCall(ExecTypeFunction _pair, Cache _cache, CustList<Argument> _arguments, String _className,
                                               ContextEl _conf) {
         if (!StringExpUtil.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
@@ -58,17 +59,19 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, _className, null_)));
             return Argument.createVoid();
         }
-        return checkStaticCall(_rootBlock,_castOpId,_cache, _arguments, _className, _conf);
+        return checkStaticCall(_pair,_cache, _arguments, _className, _conf);
     }
 
-    private static Argument checkStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments,
+    private static Argument checkStaticCall(ExecTypeFunction _pair, Cache _cache, CustList<Argument> _arguments,
                                             String _className, ContextEl _conf) {
         String paramName_ = _conf.formatVarType(_className);
-        Parameters parameters_ = ExecTemplates.okArgsSet(_rootBlock, _castOpId, paramName_, _cache, _arguments, _conf, null, true);
+        ExecRootBlock type_ = _pair.getType();
+        ExecNamedFunctionBlock fct_ = _pair.getFct();
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, paramName_, _cache, _arguments, _conf, null, true);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }
-        _conf.setCallingState(new CustomFoundCast(paramName_,_rootBlock,_castOpId,parameters_));
+        _conf.setCallingState(new CustomFoundCast(paramName_,type_,fct_,parameters_));
         return Argument.createVoid();
 
     }

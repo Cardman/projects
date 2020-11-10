@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -15,7 +16,7 @@ public final class CustomFoundConstructor implements CallingState {
     private final String fieldName;
     private final int childIndex;
 
-    private final ExecNamedFunctionBlock id;
+    private final ExecMemberCallingsBlock id;
 
     private final Argument currentObject;
 
@@ -26,7 +27,7 @@ public final class CustomFoundConstructor implements CallingState {
     public CustomFoundConstructor(String _className,
                                   ExecRootBlock _type,
                                   String _fieldName, int _childIndex,
-                                  ExecNamedFunctionBlock _id, Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
+                                  ExecMemberCallingsBlock _id, Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
         className = _className;
         type = _type;
         fieldName = _fieldName;
@@ -58,7 +59,7 @@ public final class CustomFoundConstructor implements CallingState {
         return className;
     }
 
-    public ExecNamedFunctionBlock getId() {
+    public ExecMemberCallingsBlock getId() {
         return id;
     }
 

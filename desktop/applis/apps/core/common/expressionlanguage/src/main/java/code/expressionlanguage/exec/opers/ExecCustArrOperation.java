@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -22,17 +23,15 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     private final ExecInstFctContent instFctContent;
 
-    private final ExecNamedFunctionBlock get;
-    private final ExecNamedFunctionBlock set;
-    private final ExecRootBlock rootBlock;
+    private final ExecTypeFunction get;
+    private final ExecTypeFunction set;
 
-    public ExecCustArrOperation(ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrContent _arrContent, ExecInstFctContent _instFctContent) {
+    public ExecCustArrOperation(ExecTypeFunction _get, ExecTypeFunction _set, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrContent _arrContent, ExecInstFctContent _instFctContent) {
         super(_opCont, _intermediateDottedOperation);
         arrContent = _arrContent;
         instFctContent = _instFctContent;
         get = _get;
         set = _set;
-        rootBlock = _rootBlock;
     }
 
     @Override
@@ -102,23 +101,22 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        ExecNamedFunctionBlock fct_;
+        ExecTypeFunction fct_;
         if (_right != null) {
             fct_ = set;
         } else {
             fct_ = get;
         }
         Struct pr_ = prev_.getStruct();
-        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_, instFctContent.getClassName(),rootBlock,fct_);
-        fct_ = polymorph_.getOverridableBlock();
-        ExecRootBlock dest_ = polymorph_.getRootBlock();
+        CustList<Argument> firstArgs_ = getArgs(fct_,_nodes, _conf, pr_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_, instFctContent.getClassName(),fct_);
+        fct_ = polymorph_.getPair();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, dest_, prev_,null, firstArgs_, _right, fct_, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, firstArgs_, _right, MethodAccessKind.INSTANCE, "");
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes,_conf,_pr, instFctContent.getClassName(),rootBlock, instFctContent.getLastType(), instFctContent.getNaturalVararg());
+    private CustList<Argument> getArgs(ExecTypeFunction _pair,IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
+        return fetchFormattedArgs(_nodes,_conf,_pr, instFctContent.getClassName(),_pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
 }

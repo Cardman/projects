@@ -1683,7 +1683,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             MethodId idCt_ = id_.getRealId();
             method = new ClassMethodId(foundClass_, idCt_);
             lambdaCommonContent.setAncestor(id_.getAncestor());
-            lambdaMethodContent.setAbstractMethod(id_.isAbstractMethod());
             lambdaCommonContent.setReturnFieldType(id_.getReturnType());
             String fct_ = formatReturnOperator(false, id_, _page);
             setResultClass(new AnaClassArgumentMatching(fct_));
@@ -1716,7 +1715,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         lambdaCommonContent.setFoundClass(id_.getId().getClassName());
-        lambdaMethodContent.setAbstractMethod(id_.isAbstractMethod());
         MethodId idCt_ = id_.getRealId();
         method = new ClassMethodId(foundClass_, idCt_);
         lambdaCommonContent.setAncestor(id_.getAncestor());

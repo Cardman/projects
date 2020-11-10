@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -249,7 +250,7 @@ public abstract class RendDynOperationNode {
         Argument out_ = _argument;
         ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
         if (!implicitsTest_.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest_.getRootBlock(),implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context);
+            Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context);
             if (res_ == null) {
                 return;
             }
@@ -284,8 +285,8 @@ public abstract class RendDynOperationNode {
         }
         int s_ = implicits_.size();
         for (int i = 0; i < s_; i++) {
-            ExecNamedFunctionBlock c = implicits_.get(i);
-            Argument res_ = tryConvert(implicits_.getRootBlock(),c, implicits_.getOwnerClass(), out_, _context);
+            ExecTypeFunction c = implicits_.get(i);
+            Argument res_ = tryConvert(c, implicits_.getOwnerClass(), out_, _context);
             if (res_ == null) {
                 return;
             }
@@ -308,16 +309,16 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(_out);
     }
 
-    static Argument tryConvert(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _c, String _owner, Argument _argument, ContextEl _context) {
+    static Argument tryConvert(ExecTypeFunction _c, String _owner, Argument _argument, ContextEl _context) {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException()) {
-            parameters_ = ExecTemplates.okArgsSet(_rootBlock, _c, _owner,null, args_, _context, null, true);
+            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, args_, _context, null, true);
         }
         if (_context.callsOrException()) {
             return null;
         }
-        Argument out_ = ProcessMethod.castArgument(_owner,_rootBlock,_c, parameters_, _context);
+        Argument out_ = ProcessMethod.castArgument(_owner,_c.getType(), _c.getFct(), parameters_, _context);
         if (_context.callsOrException()) {
             return null;
         }

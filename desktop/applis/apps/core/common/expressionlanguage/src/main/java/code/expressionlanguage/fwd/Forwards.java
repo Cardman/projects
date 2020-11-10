@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.util.IdMap;
 
 public final class Forwards {
-    private boolean annotAnalysisField;
     private boolean annotAnalysis;
     private String aliasPrimBoolean="";
     private String aliasBoolean="";
@@ -46,14 +45,6 @@ public final class Forwards {
 
     public void setAnnotAnalysis(boolean _annotAnalysis) {
         this.annotAnalysis = _annotAnalysis;
-    }
-
-    public boolean isAnnotAnalysisField() {
-        return annotAnalysisField;
-    }
-
-    public void setAnnotAnalysisField(boolean _annotAnalysisField) {
-        this.annotAnalysisField = _annotAnalysisField;
     }
 
     public String getAliasBoolean() {

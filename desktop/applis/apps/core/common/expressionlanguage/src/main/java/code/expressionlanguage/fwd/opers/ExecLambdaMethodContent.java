@@ -4,6 +4,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecLambdaMethodContent {
@@ -12,9 +13,9 @@ public final class ExecLambdaMethodContent {
     private final boolean abstractMethod;
     private final boolean directCast;
     private final boolean expCast;
-    private final ExecNamedFunctionBlock functionBlock;
     private final ExecNamedFunctionBlock function;
     private final ExecRootBlock declaring;
+    private final ExecTypeFunction pair;
 
     public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth, AnaLambdaMemberNumberContent _cont, Forwards _forwards) {
         method = _method;
@@ -22,9 +23,13 @@ public final class ExecLambdaMethodContent {
         abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
-        functionBlock = FetchMemberUtil.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
-        function = FetchMemberUtil.fetchFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
+        pair = FetchMemberUtil.fetchTypeFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
+        function = FetchMemberUtil.fetchFunctionOrOp(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
         declaring = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
+    }
+
+    public ExecTypeFunction getPair() {
+        return pair;
     }
 
     public ClassMethodId getMethod() {
@@ -45,10 +50,6 @@ public final class ExecLambdaMethodContent {
 
     public boolean isPolymorph() {
         return polymorph;
-    }
-
-    public ExecNamedFunctionBlock getFunctionBlock() {
-        return functionBlock;
     }
 
     public ExecNamedFunctionBlock getFunction() {

@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.Configuration;
@@ -52,11 +53,19 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
                     lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField(), lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(),lambdaFieldContent.getRootBlock(),lambdaFieldContent.getInfoBlock(), lambdaCommonContent.getReturnFieldType(), formCl_));
         }
         if (methodId_ == null) {
+            if (lambdaConstructorContent.getPair() != null) {
+                return new Argument(ExecConstructorLambdaOperation.newLambda(_previous, _context, ownerType_, lambdaConstructorContent.getRealId(), lambdaCommonContent.getReturnFieldType(),
+                        lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), lambdaConstructorContent.getPair()));
+            }
             return new Argument(ExecConstructorLambdaOperation.newLambda(_previous, _context, ownerType_, lambdaConstructorContent.getRealId(), lambdaCommonContent.getReturnFieldType(),
-                    lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), lambdaConstructorContent.getFunctionBlock(),lambdaConstructorContent.getRootBlock(), lambdaConstructorContent.getFunction()));
+                    lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), new ExecTypeFunction(null,null)));
+        }
+        if (lambdaMethodContent.getPair() != null) {
+            return new Argument(ExecCustMethodLambdaOperation.newLambda(_previous, _context, ownerType_, lambdaCommonContent.getReturnFieldType(), lambdaCommonContent.getAncestor(),
+                    lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), methodId_.getConstraints(),lambdaMethodContent.getPair()));
         }
         return new Argument(ExecMethodLambdaOperation.newLambda(_previous, _context, ownerType_, lambdaCommonContent.getReturnFieldType(), lambdaCommonContent.getAncestor(),
-                lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), lambdaMethodContent.getFunctionBlock(), lambdaMethodContent.getFunction(), lambdaMethodContent.getDeclaring(), methodId_.getConstraints()));
+                lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), methodId_.getConstraints(), new ExecTypeFunction(lambdaMethodContent.getDeclaring(), lambdaMethodContent.getFunction())));
     }
 
     @Override

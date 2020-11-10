@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -657,6 +658,7 @@ public final class AliasReflection {
             met_.setCallee(f);
             met_.setCalleeInv(f);
             met_.setDeclaring(type_);
+            met_.setPair(new ExecTypeFunction(type_,f));
             met_.setFileName(f.getFile().getFileName());
             methods_.add(met_);
         }
@@ -1812,6 +1814,7 @@ public final class AliasReflection {
         met_.setAnnotableBlock(_operator);
         met_.setCallee(_operator);
         met_.setCalleeInv(_operator);
+        met_.setPair(new ExecTypeFunction(null,_operator));
         return met_;
     }
 
@@ -1996,7 +1999,7 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
             StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = ctor_.getCallee();
+            ExecMemberCallingsBlock callee_ = ctor_.getPair().getFct();
             fetchAnonymous(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             ArrayStruct str_ = getTypes(_cont, methods_, className_);
@@ -2005,7 +2008,7 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
             StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = ctor_.getCallee();
+            ExecMemberCallingsBlock callee_ = ctor_.getPair().getFct();
             fetchLocalTypes(methods_, callee_);
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
             ArrayStruct str_ = getTypes(_cont, methods_, className_);

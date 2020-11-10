@@ -1645,13 +1645,18 @@ public final class ExecTemplates {
     }
     public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
         int order_ = getOrder(_node);
-        if (!_nodes.isValidIndex(order_)) {
+        return getArgumentPair(_nodes, order_);
+    }
+
+    public static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes, int _order) {
+        if (!_nodes.isValidIndex(_order)) {
             ArgumentsPair pair_ = new ArgumentsPair();
             pair_.setArgument(Argument.createVoid());
             return pair_;
         }
-        return _nodes.getValue(order_);
+        return _nodes.getValue(_order);
     }
+
     public static int getOrder(ExecOperationNode _node) {
         if (_node == null) {
             return 0;

@@ -5,20 +5,26 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation {
+public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
     private ExecLambdaMethodContent lambdaMethodContent;
 
-    public ExecMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
+    public ExecCustMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
         super(_opCont, _lamCont);
         lambdaMethodContent = _lambdaMethodContent;
     }
@@ -40,12 +46,12 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, new ExecTypeFunction(lambdaMethodContent.getDeclaring(), lambdaMethodContent.getFunction()));
+        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, lambdaMethodContent.getPair());
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,
-                                   int _ancestor, boolean _directCast, boolean _polymorph, boolean _abstractMethod, boolean _expCast, boolean _shiftArgument, boolean _safeInstance,
-                                   String _clArg, String _fileName, MethodId _constraints, ExecTypeFunction _pair) {
+                                    int _ancestor, boolean _directCast, boolean _polymorph, boolean _abstractMethod, boolean _expCast, boolean _shiftArgument, boolean _safeInstance,
+                                    String _clArg, String _fileName, MethodId _constraints, ExecTypeFunction _pair) {
         LambdaMethodStruct l_ = new LambdaMethodStruct(_clArg, _ownerType, _polymorph, _shiftArgument, _ancestor, _abstractMethod);
         l_.setInstanceCall(_previous);
         l_.setDirectCast(_directCast);
@@ -53,10 +59,28 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(_constraints.getName());
         l_.setKind(_constraints.getKind());
-        if (!(_ownerType.startsWith(StringExpUtil.ARR_CLASS) && _constraints.getName().startsWith("[]"))) {
-            MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _directCast, _expCast, _fileName, _ownerType, _constraints, l_, _pair);
-            l_.setMetaInfo(metaInfo_);
-        }
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _directCast, _expCast, _fileName, _ownerType, _constraints, l_, _pair);
+        l_.setMetaInfo(metaInfo_);
+        return l_;
+    }
+
+    public static Struct newAnonymousLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType,
+                                            boolean _shiftArgument, boolean _safeInstance,
+                                            String _name, AbstractPageEl _lastPage, String _fileName, MethodId _constraints, ExecTypeFunction _pair) {
+        String clArg_ = _name;
+        String ownerType_ = _foundClass;
+        ownerType_ = _conf.formatVarType(ownerType_);
+        clArg_ = _conf.formatVarType(clArg_);
+        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, false, _shiftArgument, 0, false);
+        l_.setInstanceCall(_previous);
+        l_.setDirectCast(false);
+        l_.setExpCast(false);
+        l_.setSafeInstance(_safeInstance);
+        l_.setMethodName(_constraints.getName());
+        l_.setKind(_constraints.getKind());
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, false, _fileName, ownerType_, _constraints, l_, _pair);
+        metaInfo_.setCache(new Cache(_lastPage));
+        l_.setMetaInfo(metaInfo_);
         return l_;
     }
 
@@ -69,14 +93,15 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         }
         String from_ = className_;
-        if (className_.startsWith("[")) {
-            from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
-        }
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         String formCl_ = ExecutingUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_;
-        if (fid_.getKind() == MethodAccessKind.STATIC) {
+        if (_l.isAbstractMethod()) {
+            met_ = MethodModifier.ABSTRACT;
+        } else if (fid_.getKind() == MethodAccessKind.STATIC) {
             met_ = MethodModifier.STATIC;
+        } else if (fid_.getKind() == MethodAccessKind.STATIC_CALL) {
+            met_ = MethodModifier.STATIC_CALL;
         } else {
             met_ = MethodModifier.NORMAL;
         }

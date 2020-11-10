@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
@@ -22,13 +23,11 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
 
     private ExecInstFctContent instFctContent;
 
-    private ExecNamedFunctionBlock named;
-    private ExecRootBlock rootBlock;
-    public RendFctOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstFctContent _instFctContent, boolean _intermediateDottedOperation) {
+    private ExecTypeFunction pair;
+    public RendFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, ExecInstFctContent _instFctContent, boolean _intermediateDottedOperation) {
         super(_content, _intermediateDottedOperation);
         instFctContent = _instFctContent;
-        named = _named;
-        rootBlock = _rootBlock;
+        pair= _pair;
     }
 
     @Override
@@ -56,13 +55,12 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         Struct pr_ = prev_.getStruct();
         String cl_ = pr_.getClassName(_context);
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
-        lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
+        lastType_ = ExecTemplates.quickFormat(pair.getType(), clGen_, lastType_);
         firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
-        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context,pr_,classNameFound_,rootBlock,named);
-        ExecNamedFunctionBlock fct_ = polymorph_.getOverridableBlock();
-        ExecRootBlock type_ = polymorph_.getRootBlock();
+        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context,pr_,classNameFound_,pair);
+        ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, type_, prev_,null, firstArgs_, null, fct_, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
     }
 
     public int getNaturalVararg() {

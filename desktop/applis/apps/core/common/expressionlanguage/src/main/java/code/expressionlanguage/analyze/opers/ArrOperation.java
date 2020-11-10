@@ -34,6 +34,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private int rootNumber = -1;
+    private int rootNumberSet = -1;
     private int memberNumber = -1;
     private int memberNumberSet = -1;
 
@@ -154,9 +155,17 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
                 bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
                 varargParam_, name_, _page);
-        if (clMeth_.isFoundMethod()) {
+        boolean found_ = true;
+        if (!clMeth_.isFoundMethod()) {
+            found_ = false;
+        }
+        if (!clMethSet_.isFoundMethod()) {
+            found_ = false;
+        }
+        if (found_) {
             rootNumber = clMeth_.getRootNumber();
             memberNumber = clMeth_.getMemberNumber();
+            rootNumberSet = clMethSet_.getRootNumber();
             memberNumberSet = clMethSet_.getMemberNumber();
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
@@ -323,6 +332,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public int getMemberNumber() {
         return memberNumber;
+    }
+
+    public int getRootNumberSet() {
+        return rootNumberSet;
     }
 
     public int getMemberNumberSet() {

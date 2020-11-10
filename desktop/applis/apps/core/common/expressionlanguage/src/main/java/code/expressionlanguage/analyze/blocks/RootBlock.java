@@ -227,20 +227,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     protected void checkAccess(AnalyzedPageEl _page) {
         useSuperTypesOverrides(_page);
-        StringList allGenericSuperClasses_ = new StringList();
-        for (String s: allGenericSuperTypes) {
-            String base_ = StringExpUtil.getIdFromAllTypes(s);
-            if (_page.getAnaClassBody(base_) instanceof ClassBlock) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        String gene_ = getGenericString();
-        StringList classes_ = new StringList(gene_);
-        classes_.addAllElts(allGenericSuperClasses_);
         for (OverridingMethodDto e: allOverridingMethods) {
             CustList<GeneStringOverridable> locGeneInt_ = new CustList<GeneStringOverridable>();
             CustList<GeneStringOverridable> locGeneCl_ = new CustList<GeneStringOverridable>();
