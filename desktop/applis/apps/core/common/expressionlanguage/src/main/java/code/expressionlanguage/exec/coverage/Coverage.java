@@ -296,6 +296,15 @@ public final class Coverage {
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
+
+    public void passCatches(AbstractPageEl _page,ExecBlock _block) {
+        if (!isCovering()) {
+            return;
+        }
+        FunctionCoverageResult fctRes_ = getFctRes(_page.getBlockRootType(), (ExecMemberCallingsBlock) _page.getBlockRoot());
+        fctRes_.getCatches().set(fctRes_.getMappingBlocks().getVal(_block),true);
+    }
+
     public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, boolean _full, ArgumentsPair _pair) {
         if (!isCovering()) {
             return;
@@ -375,20 +384,6 @@ public final class Coverage {
         TypeCoverageResult value_ = types.getValue(((RootBlock) t_).getNumberAll());
         return getFctRes((MemberCallingsBlock) value_.getMappingBlocks().getVal(_block));
     }
-
-    public void passCatches(AbstractPageEl _page,ExecBlock _block) {
-        if (!isCovering()) {
-            return;
-        }
-        FunctionCoverageResult fctRes_ = getFctRes(_page.getBlockRootType(), (ExecMemberCallingsBlock) _page.getBlockRoot());
-        fctRes_.getCatches().set(fctRes_.getMappingBlocks().getVal(_block),true);
-    }
-
-    public AbstractCoverageResult getCoversConditions(Block _exec) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_exec);
-        FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoversConditions().getVal(_exec);
-    }
     public CustList<FileBlock> getFiles() {
         return files;
     }
@@ -406,6 +401,12 @@ public final class Coverage {
         MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_block);
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getBlocks().getVal(_block).getCovers().getVal(_oper);
+    }
+
+    public AbstractCoverageResult getCoversConditions(Block _exec) {
+        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_exec);
+        FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
+        return fctRes_.getCoversConditions().getVal(_exec);
     }
 
     public StandardCoverageResult getCoverSwitchs(Block _sw, Block _child) {

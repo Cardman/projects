@@ -473,14 +473,14 @@ public final class FileResolver {
             }
             if (currentChar_ == END_CALLING) {
                 if (parentheses_.isEmpty()) {
-                    addBadIndex(_input,out_,currentParent_, i_);
+                    addBadIndex(_input, currentParent_, i_);
                     break;
                 }
                 parentheses_.removeQuicklyLast();
             }
             if (currentChar_ == END_ARRAY) {
                 if (parentheses_.isEmpty()) {
-                    addBadIndex(_input,out_,currentParent_, i_);
+                    addBadIndex(_input, currentParent_, i_);
                     break;
                 }
                 parentheses_.removeQuicklyLast();
@@ -502,7 +502,7 @@ public final class FileResolver {
             if (endInstruction_) {
                 after_ = processInstruction(out_,_input, packageName_, currentChar_, currentParent_,
                         instructionLocation_,
-                        instruction_, _file, declType_, i_,_offset, enableByEndLine_, _page);
+                        instruction_, declType_, i_,_offset, enableByEndLine_, _page);
                 enableByEndLine_ = after_.isEnabledEnumHeader();
                 currentParent_ = after_.getParent();
                 i_ = after_.getIndex();
@@ -521,7 +521,7 @@ public final class FileResolver {
 
             i_ = i_ + 1;
         } else {
-            addBadIndex(_input,out_,currentParent_, len_);
+            addBadIndex(_input, currentParent_, len_);
         }
         out_.setNextIndex(i_);
         return out_;
@@ -534,10 +534,10 @@ public final class FileResolver {
         return _instructionLocation;
     }
 
-    private static void addBadIndex(InputTypeCreation _input, ResultCreation _out,BracedBlock _currentParent, int _index) {
+    private static void addBadIndex(InputTypeCreation _input, BracedBlock _currentParent, int _index) {
         if (_currentParent != null) {
             _currentParent.getBadIndexes().add(_index);
-        } else if (_out.getBlock() == null) {
+        } else {
             _input.getBadIndexes().add(_index);
         }
     }
@@ -842,7 +842,7 @@ public final class FileResolver {
 
     private static AfterBuiltInstruction processInstruction(ResultCreation _out, InputTypeCreation _input, String _pkgName, char _currentChar,
                                                             BracedBlock _currentParent,
-                                                            int _instructionLocation, StringBuilder _instruction, String _file, boolean _declType, int _i, int _offset, boolean _enabledEnum, AnalyzedPageEl _page) {
+                                                            int _instructionLocation, StringBuilder _instruction, boolean _declType, int _i, int _offset, boolean _enabledEnum, AnalyzedPageEl _page) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         BracedBlock currentParent_ = _currentParent;
         FileBlock file_ = _input.getFile();
@@ -853,8 +853,6 @@ public final class FileResolver {
         int instructionRealLocation_ = instructionLocation_;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
-        String keyWordCase_ = keyWords_.getKeyWordCase();
-        String keyWordDefault_ = keyWords_.getKeyWordDefault();
         if (!trimmedInstruction_.isEmpty()) {
             instructionLocation_ += StringUtil.getFirstPrintableCharIndex(found_);
         }
@@ -1497,33 +1495,7 @@ public final class FileResolver {
             } else {
                 br_ = bl_;
             }
-            boolean emptySwitchPart_ = false;
-            if (br_ instanceof SwitchPartBlock && _currentChar == ':') {
-                int c_ = afterComments(_file, _i + 1, _page);
-                if (c_ < 0) {
-                    br_.getBadIndexes().add(_file.length()+_offset);
-                    _instruction.delete(0, _instruction.length());
-                    after_.setIndex(_i);
-                    after_.setEnabledEnumHeader(enableByEndLine_);
-                    return after_;
-                }
-                if (StringExpUtil.startsWithKeyWord(_file,c_, keyWordCase_)) {
-                    emptySwitchPart_ = true;
-                }
-                if (StringExpUtil.startsWithKeyWord(_file,c_, keyWordDefault_)) {
-                    int n_ = StringExpUtil.nextPrintChar(c_ + keyWordDefault_.length(), _file.length(), _file);
-                    if (n_ > -1) {
-                        int end_ = _file.indexOf(':', n_);
-                        if (end_ > -1) {
-                            String trim_ = _file.substring(n_, end_).trim();
-                            if (trim_.isEmpty() || StringExpUtil.isTypeLeafPart(trim_)) {
-                                emptySwitchPart_ = true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (!emptySwitchPart_ && br_ instanceof BracedBlock && _currentChar != END_LINE) {
+            if (br_ instanceof BracedBlock && _currentChar != END_LINE) {
                 currentParent_ = (BracedBlock) br_;
             }
         } else {
@@ -3028,44 +3000,6 @@ public final class FileResolver {
                 localCallings_--;
             }
             indexInstr_++;
-        }
-        return -1;
-    }
-
-    private static int afterComments(String _file, int _from, AnalyzedPageEl _page) {
-        int i_ = _from;
-        int len_ = _file.length();
-        CommentDelimiters current_ = null;
-        while (i_ < len_) {
-            char cur_ = _file.charAt(i_);
-            if (current_ != null) {
-                String endCom_ = getEndCom(_file,i_,current_);
-                int length_ = endCom_.length();
-                if (length_ > 0) {
-                    i_ += length_;
-                    current_ = null;
-                    continue;
-                }
-                i_++;
-                continue;
-            }
-            boolean skip_= false;
-            for (CommentDelimiters c: _page.getComments()) {
-                if (_file.startsWith(c.getBegin(),i_)) {
-                    current_ = c;
-                    i_ += c.getBegin().length();
-                    skip_ = true;
-                    break;
-                }
-            }
-            if (skip_) {
-                continue;
-            }
-            if (StringUtil.isWhitespace(cur_)) {
-                i_++;
-                continue;
-            }
-            return i_;
         }
         return -1;
     }
