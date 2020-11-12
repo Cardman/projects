@@ -146,6 +146,15 @@ public final class ContextUtil {
         }
         return isEnumType(_type) || _type instanceof AnnotationBlock;
     }
+    public static boolean isHyperAbstract(AnaGeneType _type) {
+        if (_type instanceof StandardClass) {
+            return ((StandardClass)_type).isHyperAbstractType();
+        }
+        if (_type instanceof ClassBlock) {
+            return ((ClassBlock)_type).isAbstractType() && ((ClassBlock)_type).isFinalType();
+        }
+        return false;
+    }
 
     public static boolean isAbstractType(AnaGeneType _type) {
         if (_type instanceof StandardClass) {

@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.structs.*;
 import code.maths.litteral.MathExpUtil;
 import code.util.*;
@@ -906,7 +907,7 @@ public final class AliasNumber {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        std_ = new StandardClass(aliasNumber, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        std_ = new StandardClass(aliasNumber, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         numbersAbsMethods(_lgNames,methods_, aliasNumber);
         standards_.addEntry(aliasNumber, std_);
         methods_ = new CustList<StandardMethod>();

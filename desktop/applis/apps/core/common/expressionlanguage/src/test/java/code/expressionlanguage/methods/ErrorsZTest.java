@@ -2961,5 +2961,32 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void report734Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  ExAbsFinal v = $null;\n");
+        xml_.append("  $switch (v){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $final $class pkg.ExAbsFinal {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  <a title=\"pkg.ExAbsFinal\" href=\"#m145\">ExAbsFinal</a> <a name=\"m65\">v</a> = $null;\n" +
+                "  <a title=\"The type pkg.ExAbsFinal is unexpected.\" class=\"e\">$switch</a> (<a href=\"#m65\">v</a>){\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $abstract $final $class <a name=\"m145\">pkg.ExAbsFinal</a> {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

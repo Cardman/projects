@@ -809,6 +809,18 @@ public final class RenderSwitchTest extends CommonRender {
         String html_ = "<html><body><c:switch value='10' label=','><c:case value='8'/></c:switch></body></html>";
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
+    @Test
+    public void process21FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='($math)$null'><c:case value='$null'>Text</c:case></c:switch><c:case value='$null'>Text</c:case></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExCl{");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertTrue(hasErr(html_, files_));
+    }
     private boolean hasErr(String _html, StringMap<String> _files) {
         return hasCommErr(_html, _files);
     }

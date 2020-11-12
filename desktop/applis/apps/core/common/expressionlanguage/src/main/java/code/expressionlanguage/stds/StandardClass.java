@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.common.GeneClass;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.functionid.StdClassModifier;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -18,6 +19,17 @@ public final class StandardClass extends StandardType implements GeneClass {
 
     private final boolean finalType;
     private final boolean abstractType;
+    private final boolean hyperAbstractType;
+    public StandardClass(String _name,CustList<StandardField> _fields,
+            CustList<StandardConstructor> _constructors,
+                         CustList<StandardMethod> _methods,
+            String _superClass, StdClassModifier _modifier) {
+        super(_name, _fields, _constructors, _methods);
+        superClass = _superClass;
+        finalType = false;
+        abstractType = _modifier == StdClassModifier.ABSTRACT;
+        hyperAbstractType = _modifier == StdClassModifier.HYPER_ABSTRACT;
+    }
     public StandardClass(String _name,CustList<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
                          CustList<StandardMethod> _methods,
@@ -25,7 +37,8 @@ public final class StandardClass extends StandardType implements GeneClass {
         super(_name, _fields, _constructors, _methods);
         superClass = _superClass;
         finalType = _modifier == MethodModifier.FINAL;
-        abstractType = _modifier == MethodModifier.ABSTRACT;
+        abstractType = false;
+        hyperAbstractType = false;
     }
     public String getSuperClass() {
         return superClass;
@@ -37,6 +50,10 @@ public final class StandardClass extends StandardType implements GeneClass {
 
     public boolean isFinalStdType() {
         return finalType;
+    }
+
+    public boolean isHyperAbstractType() {
+        return hyperAbstractType;
     }
 
     public boolean isAbstractStdType() {

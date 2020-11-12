@@ -11714,7 +11714,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  StringBuilder v = $null;\n");
+        xml_.append("  $math v = $null;\n");
         xml_.append("  $switch (v){\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
@@ -11725,8 +11725,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  StringBuilder <a name=\"m68\">v</a> = $null;\n" +
-                "  <a title=\"The type java.lang.StringBuilder is unexpected.\" class=\"e\">$switch</a> (<a href=\"#m68\">v</a>){\n" +
+                "  $math <a name=\"m60\">v</a> = $null;\n" +
+                "  <a title=\"The type java.lang.$math is unexpected.\" class=\"e\">$switch</a> (<a href=\"#m60\">v</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +

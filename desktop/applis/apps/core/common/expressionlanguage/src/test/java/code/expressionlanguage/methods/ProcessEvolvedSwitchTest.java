@@ -889,4 +889,88 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq("10 default", getString(ret_));
     }
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  ExAbs t;\n");
+        xml_.append("  t=$new ExOne();\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ExOne v:\n");
+        xml_.append("    o+=(v.fieldOne+5)+\" int\";\n");
+        xml_.append("   $case ExAbs v:\n");
+        xml_.append("    o+=v.field+\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  t=$new ExTwo();\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ExTwo v:\n");
+        xml_.append("    o+=(v.fieldSec+10)+\" int\";\n");
+        xml_.append("   $case ExAbs v:\n");
+        xml_.append("    o+=v.field+\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExOne:ExAbs {\n");
+        xml_.append(" $int fieldOne=10;\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExTwo:ExAbs {\n");
+        xml_.append(" $int fieldSec=15;\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $int field=20;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("15 int25 int", getString(ret_));
+    }
+    @Test
+    public void calculateArgument32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  ExAbs t;\n");
+        xml_.append("  t=$new ExOne();\n");
+        xml_.append("  String o=\"\";\n");
+        xml_.append("  $switch((ExOne)t){\n");
+        xml_.append("   $case ExOne v:\n");
+        xml_.append("    o+=(v.fieldOne+5)+\" int\";\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("    o+=\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  t=$new ExTwo();\n");
+        xml_.append("  $switch((ExTwo)t){\n");
+        xml_.append("   $case ExTwo v:\n");
+        xml_.append("    o+=(v.fieldSec+10)+\" int\";\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("    o+=\" ?\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExOne:ExAbs {\n");
+        xml_.append(" $int fieldOne=10;\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkg.ExTwo:ExAbs {\n");
+        xml_.append(" $int fieldSec=15;\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $int field=20;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("15 int25 int", getString(ret_));
+    }
 }
