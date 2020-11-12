@@ -68,7 +68,6 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _constraints, met_, _returnFieldType, fid_, formCl_);
         metaInfo_.setStdCallee(_function);
         l_.setMetaInfo(metaInfo_);
-        metaInfo_.setPair(new ExecTypeFunction(null,null));
         return l_;
     }
 

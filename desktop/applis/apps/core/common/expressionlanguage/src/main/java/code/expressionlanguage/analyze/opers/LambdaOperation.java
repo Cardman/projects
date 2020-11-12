@@ -30,6 +30,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -53,6 +54,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
     private StandardMethod standardMethod;
+    private StandardType standardType;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -501,6 +503,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
+                lambdaMethodContent.setClonedMethod(true);
                 String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
                 MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
                 method = new ClassMethodId(foundClass_, id_);
@@ -775,6 +778,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
+            lambdaMethodContent.setClonedMethod(true);
             String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, name_, new StringList());
             method = new ClassMethodId(foundClass_, id_);
@@ -979,6 +983,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
+            standardType = ctorRes_.getStandardType();
             lambdaCommonContent.setFileName(ctorRes_.getFileName());
             lambdaMemberNumberContent.setRootNumber(ctorRes_.getRootNumber());
             lambdaMemberNumberContent.setMemberNumber(ctorRes_.getMemberNumber());
@@ -1123,6 +1128,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        standardType = ctorRes_.getStandardType();
         lambdaCommonContent.setFileName(ctorRes_.getFileName());
         lambdaMemberNumberContent.setRootNumber(ctorRes_.getRootNumber());
         lambdaMemberNumberContent.setMemberNumber(ctorRes_.getMemberNumber());
@@ -2040,5 +2046,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public StandardMethod getStandardMethod() {
         return standardMethod;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
     }
 }

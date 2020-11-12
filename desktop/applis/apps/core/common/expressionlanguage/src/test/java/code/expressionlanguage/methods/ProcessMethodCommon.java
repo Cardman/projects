@@ -22,6 +22,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.Options;
@@ -56,7 +57,7 @@ public abstract class ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
-        ProcessMethod.calculateArgument(argGlLoc_, _class, classBody_, method_, p_, _cont);
+        ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
         Struct exc_ = getException(_cont);
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -68,7 +69,7 @@ public abstract class ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, classBody_, method_, p_, _cont);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
         assertNull(getException(_cont));
         return arg_;
     }
@@ -84,7 +85,7 @@ public abstract class ProcessMethodCommon {
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecConstructorBlock ctor_ = tryGet(type_, id_);
         Parameters p_ = getParameters(_args, _cont, ctor_);
-        ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
+        ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
         Struct exc_ = getException(_cont);
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -95,7 +96,7 @@ public abstract class ProcessMethodCommon {
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecConstructorBlock ctor_ = tryGet(type_, id_);
         Parameters p_ = getParameters(_args, _cont, ctor_);
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
         assertNull(getException(_cont));
         return arg_;
     }

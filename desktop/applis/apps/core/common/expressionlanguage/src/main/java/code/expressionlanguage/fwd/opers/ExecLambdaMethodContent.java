@@ -13,6 +13,7 @@ public final class ExecLambdaMethodContent {
     private final boolean abstractMethod;
     private final boolean directCast;
     private final boolean expCast;
+    private final boolean clonedMethod;
     private final ExecNamedFunctionBlock function;
     private final ExecRootBlock declaring;
     private final ExecTypeFunction pair;
@@ -23,6 +24,7 @@ public final class ExecLambdaMethodContent {
         abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
+        clonedMethod = _meth.isClonedMethod();
         pair = FetchMemberUtil.fetchTypeFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
         function = FetchMemberUtil.fetchFunctionOrOp(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
         declaring = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
@@ -50,6 +52,10 @@ public final class ExecLambdaMethodContent {
 
     public boolean isPolymorph() {
         return polymorph;
+    }
+
+    public boolean isClonedMethod() {
+        return clonedMethod;
     }
 
     public ExecNamedFunctionBlock getFunction() {

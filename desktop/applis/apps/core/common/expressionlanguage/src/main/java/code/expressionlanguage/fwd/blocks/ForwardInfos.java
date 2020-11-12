@@ -70,7 +70,7 @@ public final class ForwardInfos {
                 v_.setRootBlock(e_);
             }
             if (r instanceof InnerElementBlock) {
-                ExecInnerElementBlock e_ = new ExecInnerElementBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()));
+                ExecInnerElementBlock e_ = new ExecInnerElementBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess(), new ExecElementContent(((InnerElementBlock) r).getElementContent()), ((InnerElementBlock) r).getTrOffset());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
                 _forwards.getMapInnerEltTypes().addEntry((InnerElementBlock) r, e_);
@@ -247,7 +247,6 @@ public final class ForwardInfos {
         }
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
             AnonymousFunctionBlock method_ = e.getBlock();
-            RootBlock c_ = method_.getParentType();
             coverage_.putCallsAnon(method_);
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
             _forwards.getAllFct().addEntry(method_, function_);
@@ -298,37 +297,15 @@ public final class ForwardInfos {
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             Members mem_ = e.getValue();
-            for (EntryCust<InfoBlock, ExecInfoBlock> f: mem_.getAllFields().entryList()) {
-                CustList<ExecOperationNode> exNodes_ = new CustList<ExecOperationNode>();
-                int trOffset_ = 0;
-                if (f.getKey() instanceof InnerElementBlock) {
-                    InnerElementBlock method_ = (InnerElementBlock)f.getKey();
-                    trOffset_ = method_.getTrOffset();
-                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
-                }
-                if (f.getKey() instanceof ElementBlock) {
-                    ElementBlock method_ = (ElementBlock)f.getKey();
-                    trOffset_ = method_.getTrOffset();
-                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
-                }
-                if (f.getKey() instanceof FieldBlock) {
-                    FieldBlock method_ = (FieldBlock)f.getKey();
-                    exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
-                }
-                if (f.getValue() instanceof ExecInnerElementBlock) {
-                    ExecInnerElementBlock val_ = (ExecInnerElementBlock) f.getValue();
-                    val_.setTrOffset(trOffset_);
-                    val_.setOpValue(exNodes_);
-                }
-                if (f.getValue() instanceof ExecElementBlock) {
-                    ExecElementBlock val_ = (ExecElementBlock) f.getValue();
-                    val_.setTrOffset(trOffset_);
-                    val_.setOpValue(exNodes_);
-                }
-                if (f.getValue() instanceof ExecFieldBlock) {
-                    ExecFieldBlock val_ = (ExecFieldBlock) f.getValue();
-                    val_.setOpValue(exNodes_);
-                }
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
+                InnerTypeOrElement method_ = f.getKey();
+                CustList<ExecOperationNode> exNodes_ = processField((Block)method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
+                f.getValue().setOpValue(exNodes_);
+            }
+            for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
+                FieldBlock method_ = f.getKey();
+                CustList<ExecOperationNode> exNodes_ = processField(method_, f.getValue(), coverage_, _forwards, method_.getRoot());
+                f.getValue().setOpValue(exNodes_);
             }
         }
         _forwards.setAnnotAnalysis(true);
@@ -445,7 +422,7 @@ public final class ForwardInfos {
                     mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
                 }
                 if (b instanceof ElementBlock) {
-                    ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()));
+                    ExecElementBlock val_ = new ExecElementBlock(b.getOffset().getOffsetTrim(), new ExecElementContent(((ElementBlock) b).getElementContent()), ((ElementBlock) b).getTrOffset());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
@@ -1033,7 +1010,14 @@ public final class ForwardInfos {
             ArrOperation a_ = (ArrOperation) _anaNode;
             ExecTypeFunction get_ = FetchMemberUtil.fetchTypeFunction(a_.getRootNumber(), a_.getMemberNumber(), _forwards);
             ExecTypeFunction set_ = FetchMemberUtil.fetchTypeFunction(a_.getRootNumberSet(), a_.getMemberNumberSet(), _forwards);
-            if (a_.getCallFctContent().getClassMethodId() != null) {
+            boolean cust_ = true;
+            if (get_ == null) {
+                cust_ = false;
+            }
+            if (set_ == null) {
+                cust_ = false;
+            }
+            if (cust_) {
                 return new ExecCustArrOperation(get_,set_, new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod()));
             }
             return new ExecArrOperation(new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()));
@@ -1109,26 +1093,45 @@ public final class ForwardInfos {
 
             AnonymousFunctionBlock method_ = s_.getBlock();
             ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
-            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), new ExecLambdaAnoContent(s_.getLambdaAnoContent()), new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(),r_));
+            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
+            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), new ExecLambdaAnoContent(s_.getLambdaAnoContent()), pair_);
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
             if (f_.getStandardMethod() != null) {
                 return new ExecStdMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), f_.getMethod(), f_.getStandardMethod());
             }
+            if (f_.getStandardType() != null) {
+                return new ExecStdConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), f_.getRealId(), f_.getStandardType());
+            }
             if (f_.getMethod() == null && f_.getRealId() == null) {
                 return new ExecFieldLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaFieldContent(f_.getFieldId(), f_.getLambdaFieldContent(), f_.getLambdaMemberNumberContent(), _forwards));
             }
             if (f_.getMethod() == null) {
                 ExecLambdaConstructorContent lambdaConstructorContent_ = new ExecLambdaConstructorContent(f_.getRealId(), f_.getLambdaMemberNumberContent(), _forwards);
-                if (lambdaConstructorContent_.getPair() != null) {
-                    return new ExecTypeConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaConstructorContent_);
+                ExecTypeFunction pair_ = lambdaConstructorContent_.getPair();
+                if (pair_ != null) {
+                    return new ExecTypeConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaConstructorContent_, pair_);
                 }
-                return new ExecConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaConstructorContent_.getRealId());
+                return new ExecConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()));
             }
             ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), f_.getLambdaMemberNumberContent(), _forwards);
-            if (lambdaMethodContent_.getPair() != null) {
-                return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
+            ExecTypeFunction pair_ = lambdaMethodContent_.getPair();
+            if (pair_ != null) {
+                return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_, pair_);
+            }
+            ExecRootBlock declaring_ = lambdaMethodContent_.getDeclaring();
+            if (declaring_ != null) {
+                return new ExecEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_, declaring_);
+            }
+            if (lambdaMethodContent_.getFunction() != null) {
+                return new ExecOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
+            }
+            if (lambdaMethodContent_.isDirectCast()) {
+                return new ExecCastMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
+            }
+            if (lambdaMethodContent_.isClonedMethod()) {
+                return new ExecCloneMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
             }
             return new ExecMethodLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), lambdaMethodContent_);
         }

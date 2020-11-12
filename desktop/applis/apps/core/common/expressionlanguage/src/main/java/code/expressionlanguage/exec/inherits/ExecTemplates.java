@@ -23,6 +23,7 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
@@ -620,7 +621,7 @@ public final class ExecTemplates {
             p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
             i_++;
         }
-        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted,_root,_id,p_));
+        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted, new ExecTypeFunction(_root,_id), p_));
         return p_;
     }
 

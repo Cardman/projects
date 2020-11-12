@@ -654,11 +654,8 @@ public final class AliasReflection {
             }
             MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
             met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-            met_.setAnnotableBlock(f);
             met_.setCallee(f);
-            met_.setCalleeInv(f);
-            met_.setDeclaring(type_);
-            met_.setPair(new ExecTypeFunction(type_,f));
+            met_.pair(type_,f);
             met_.setFileName(f.getFile().getFileName());
             methods_.add(met_);
         }
@@ -778,7 +775,7 @@ public final class AliasReflection {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, ExecTemplates.getArgs(_args), false));
                     return result_;
                 }
-                ExecRootBlock e_ = method_.getDeclaring();
+                ExecRootBlock e_ = method_.getPair().getType();
                 if (e_ instanceof ExecAnnotationBlock) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, method_, ExecTemplates.getArgs(_args), false));
                     return result_;
@@ -790,7 +787,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(getNonInvokableError(_cont, method_)));
                 return result_;
             }
-            if (method_.getCalleeInv() != null) {
+            if (method_.getPair().getFct() != null) {
                 if (method_.isExpCast()) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, method_, ExecTemplates.getArgs(_args), false));
                     return result_;
@@ -808,7 +805,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(getNonInvokableError(_cont, method_)));
                 return result_;
             }
-            if (method_.getCalleeInv() != null) {
+            if (method_.getPair().getFct() != null) {
                 if (method_.isExpCast()) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, ExecTemplates.getArgs(_args), false));
                     return result_;
@@ -1811,10 +1808,8 @@ public final class AliasReflection {
         AccessEnum acc_ = _operator.getAccess();
         MethodMetaInfo met_ = new MethodMetaInfo("",acc_, "", id_, MethodModifier.STATIC, ret_, id_, "");
         met_.setFileName(_operator.getFile().getFileName());
-        met_.setAnnotableBlock(_operator);
         met_.setCallee(_operator);
-        met_.setCalleeInv(_operator);
-        met_.setPair(new ExecTypeFunction(null,_operator));
+        met_.pair(null,_operator);
         return met_;
     }
 

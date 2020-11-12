@@ -23,10 +23,12 @@ import code.util.IdMap;
 public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
     private ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecTypeFunction pair;
 
-    public ExecCustMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
+    public ExecCustMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent, ExecTypeFunction _pair) {
         super(_opCont, _lamCont);
         lambdaMethodContent = _lambdaMethodContent;
+        pair = _pair;
     }
 
     @Override
@@ -46,7 +48,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, lambdaMethodContent.getPair());
+        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, pair);
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,
@@ -59,7 +61,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(_constraints.getName());
         l_.setKind(_constraints.getKind());
-        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _directCast, _expCast, _fileName, _ownerType, _constraints, l_, _pair);
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _expCast, _fileName, _ownerType, _constraints, l_, _pair);
         l_.setMetaInfo(metaInfo_);
         return l_;
     }
@@ -73,18 +75,16 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         clArg_ = _conf.formatVarType(clArg_);
         LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, false, _shiftArgument, 0, false);
         l_.setInstanceCall(_previous);
-        l_.setDirectCast(false);
-        l_.setExpCast(false);
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(_constraints.getName());
         l_.setKind(_constraints.getKind());
-        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, false, _fileName, ownerType_, _constraints, l_, _pair);
+        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, false, _fileName, ownerType_, _constraints, l_, _pair);
         metaInfo_.setCache(new Cache(_lastPage));
         l_.setMetaInfo(metaInfo_);
         return l_;
     }
 
-    private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, boolean _directCast, boolean _expCast, String _fileName, String _ownerType, MethodId _id, LambdaMethodStruct _l, ExecTypeFunction _pair) {
+    private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, boolean _expCast, String _fileName, String _ownerType, MethodId _id, LambdaMethodStruct _l, ExecTypeFunction _pair) {
         MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _id);
         String className_;
         if (_l.isStaticCall()) {
@@ -106,13 +106,9 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
             met_ = MethodModifier.NORMAL;
         }
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _id, met_, _returnFieldType, fid_, formCl_);
-        metaInfo_.setDirectCast(_directCast);
         metaInfo_.setExpCast(_expCast);
         metaInfo_.setFileName(_fileName);
-        metaInfo_.setAnnotableBlock(_pair.getFct());
         metaInfo_.setCallee(_pair.getFct());
-        metaInfo_.setCalleeInv(_pair.getFct());
-        metaInfo_.setDeclaring(_pair.getType());
         metaInfo_.setPair(_pair);
         return metaInfo_;
     }

@@ -19,14 +19,15 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
 
     private CustList<ExecOperationNode> opValue;
 
-    private int trOffset;
+    private final int trOffset;
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    public ExecElementBlock(int _offsetTrim, ExecElementContent _elementContent) {
+    public ExecElementBlock(int _offsetTrim, ExecElementContent _elementContent, int _trOffset) {
         super(_offsetTrim);
         elementContent = _elementContent;
+        trOffset = _trOffset;
 
     }
 
@@ -42,11 +43,6 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     @Override
     public String getUniqueFieldName() {
         return elementContent.getFieldName();
-    }
-
-    @Override
-    public void setTrOffset(int _trOffset) {
-        this.trOffset = _trOffset;
     }
 
     @Override

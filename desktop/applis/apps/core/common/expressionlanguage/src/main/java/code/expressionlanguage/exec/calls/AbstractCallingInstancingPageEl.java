@@ -6,9 +6,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -46,7 +46,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                     calledImplicitConstructor = true;
                     Argument global_ = getGlobalArgument();
                     ExecNamedFunctionBlock e_ = blockRootSuperType.getEmptyCtor();
-                    _context.setCallingState(new CustomFoundConstructor(_context.formatVarType(id_), blockRootSuperType,EMPTY_STRING, -1, e_, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
+                    _context.setCallingState(new CustomFoundConstructor(_context.formatVarType(id_), new ExecTypeFunction(blockRootSuperType,e_), EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here

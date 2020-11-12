@@ -2,21 +2,17 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class CustomFoundConstructor implements CallingState {
 
     private final String className;
-    private final ExecRootBlock type;
+    private final ExecTypeFunction pair;
 
     private final String fieldName;
     private final int childIndex;
-
-    private final ExecMemberCallingsBlock id;
 
     private final Argument currentObject;
 
@@ -25,14 +21,13 @@ public final class CustomFoundConstructor implements CallingState {
     private final InstancingStep instanceStep;
 
     public CustomFoundConstructor(String _className,
-                                  ExecRootBlock _type,
+                                  ExecTypeFunction _pair,
                                   String _fieldName, int _childIndex,
-                                  ExecMemberCallingsBlock _id, Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
+                                  Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
         className = _className;
-        type = _type;
+        pair = _pair;
         fieldName = _fieldName;
         childIndex = _childIndex;
-        id = _id;
         currentObject = _currentObject;
         arguments = _arguments;
         instanceStep = _instance;
@@ -51,16 +46,12 @@ public final class CustomFoundConstructor implements CallingState {
         return fieldName;
     }
 
-    public ExecRootBlock getType() {
-        return type;
+    public ExecTypeFunction getPair() {
+        return pair;
     }
 
     public String getClassName() {
         return className;
-    }
-
-    public ExecMemberCallingsBlock getId() {
-        return id;
     }
 
     public Argument getCurrentObject() {

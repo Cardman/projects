@@ -7,5 +7,4 @@ public interface ExecInnerTypeOrElement extends ExecInfoBlock {
     String getUniqueFieldName();
 
     void setOpValue(CustList<ExecOperationNode> _op);
-    void setTrOffset(int _off);
 }

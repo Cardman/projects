@@ -21,22 +21,18 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
 
     private CustList<ExecOperationNode> opValue;
 
-    private int trOffset;
+    private final int trOffset;
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent) {
+    public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent, int _trOffset) {
         super(_offsetTrim, _rootBlockContent, _access);
         elementContent = _elementContent;
+        trOffset = _trOffset;
     }
 
     @Override
     public String getUniqueFieldName() {
         return elementContent.getFieldName();
-    }
-
-    @Override
-    public void setTrOffset(int _off) {
-        this.trOffset = _off;
     }
 
     public void setOpValue(CustList<ExecOperationNode> _op) {

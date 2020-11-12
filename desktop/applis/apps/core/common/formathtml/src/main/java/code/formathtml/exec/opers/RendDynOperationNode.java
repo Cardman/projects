@@ -59,16 +59,16 @@ public abstract class RendDynOperationNode {
         Argument res_;
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getType(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _context);
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context);
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _context);
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context);
         } else if (callingState_ instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
             res_ = ProcessMethod.reflectArgument(_context,ref_);
         } else if (callingState_ instanceof CustomFoundCast) {
             CustomFoundCast cast_ = (CustomFoundCast) callingState_;
-            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getRootBlock(),cast_.getId(), cast_.getArguments(), _context);
+            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getPair(), cast_.getArguments(), _context);
         } else {
             res_ = _res;
         }
@@ -318,7 +318,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException()) {
             return null;
         }
-        Argument out_ = ProcessMethod.castArgument(_owner,_c.getType(), _c.getFct(), parameters_, _context);
+        Argument out_ = ProcessMethod.castArgument(_owner,_c, parameters_, _context);
         if (_context.callsOrException()) {
             return null;
         }
@@ -331,7 +331,7 @@ public abstract class RendDynOperationNode {
         boolean convert_ = false;
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _context);
+            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context);
             convert_ = true;
         }
         if (_context.callsOrException()) {

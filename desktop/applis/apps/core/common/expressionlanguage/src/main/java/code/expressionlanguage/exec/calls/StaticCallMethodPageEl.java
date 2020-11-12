@@ -71,7 +71,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }
-        _conf.setCallingState(new CustomFoundCast(paramName_,type_,fct_,parameters_));
+        _conf.setCallingState(new CustomFoundCast(paramName_, _pair, parameters_));
         return Argument.createVoid();
 
     }

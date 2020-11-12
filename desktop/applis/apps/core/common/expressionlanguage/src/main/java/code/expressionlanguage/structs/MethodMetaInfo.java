@@ -33,12 +33,9 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private boolean directCast;
     private boolean expCast;
     private final boolean invokable;
-    private ExecNamedFunctionBlock annotableBlock;
     private ExecMemberCallingsBlock callee;
-    private ExecNamedFunctionBlock calleeInv;
     private ExecTypeFunction pair;
     private StandardMethod stdCallee;
-    private ExecRootBlock declaring;
     private Cache cache;
 
     public MethodMetaInfo() {
@@ -89,10 +86,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     }
 
     public ExecNamedFunctionBlock getAnnotableBlockParam() {
-        return annotableBlock;
-    }
-    public void setAnnotableBlock(ExecNamedFunctionBlock _annotableBlock) {
-        this.annotableBlock = _annotableBlock;
+        if (callee instanceof ExecNamedFunctionBlock) {
+            return (ExecNamedFunctionBlock)callee;
+        }
+        return null;
     }
 
     public ExecMemberCallingsBlock getCallee() {
@@ -103,16 +100,12 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         this.callee = _callee;
     }
 
-    public ExecNamedFunctionBlock getCalleeInv() {
-        return calleeInv;
-    }
-
-    public void setCalleeInv(ExecNamedFunctionBlock _calleeInv) {
-        this.calleeInv = _calleeInv;
-    }
-
     public ExecTypeFunction getPair() {
         return pair;
+    }
+
+    public void pair(ExecRootBlock _type, ExecNamedFunctionBlock _fct) {
+        pair = new ExecTypeFunction(_type, _fct);
     }
 
     public void setPair(ExecTypeFunction _pair) {
@@ -125,14 +118,6 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public void setStdCallee(StandardMethod _stdCallee) {
         this.stdCallee = _stdCallee;
-    }
-
-    public ExecRootBlock getDeclaring() {
-        return declaring;
-    }
-
-    public void setDeclaring(ExecRootBlock _declaring) {
-        this.declaring = _declaring;
     }
 
     @Override

@@ -1,12 +1,15 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.stds.StandardType;
 
 public final class ConstrustorIdVarArg {
 
     private ConstructorId realId;
 
     private ConstructorId constId;
+
+    private StandardType standardType;
 
     private boolean varArgToCall;
     private String fileName;
@@ -26,6 +29,14 @@ public final class ConstrustorIdVarArg {
 
     public void setConstId(ConstructorId _constId) {
         constId = _constId;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
+    }
+
+    public void setStandardType(StandardType _standardType) {
+        standardType = _standardType;
     }
 
     public boolean isVarArgToCall() {

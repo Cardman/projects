@@ -130,12 +130,9 @@ public final class ExecClassesUtil {
             }
         }
         for (ExecOperatorBlock o: cl_.getOperators()) {
-            o.reduce(_context);
-            for (ExecBlock d: getDirectChildren(o)) {
-                for (ExecBlock b: getSortedDescNodes(d)) {
-                    if (b instanceof ReducableOperations) {
-                        ((ReducableOperations)b).reduce(_context);
-                    }
+            for (ExecBlock b: getSortedDescNodes(o)) {
+                if (b instanceof ReducableOperations) {
+                    ((ReducableOperations)b).reduce(_context);
                 }
             }
         }
@@ -205,16 +202,6 @@ public final class ExecClassesUtil {
             }
         }
         return methods_;
-    }
-
-    private static CustList<ExecBlock> getDirectChildren(ExecBlock _element) {
-        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
-        ExecBlock elt_ = _element.getFirstChild();
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
     }
 
     private static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {

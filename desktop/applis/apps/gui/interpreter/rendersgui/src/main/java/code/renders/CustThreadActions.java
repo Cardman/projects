@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -116,7 +117,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                         args_.add(new Argument(arrContents_));
                         ExecNamedFunctionBlock method_ = methods_.first();
                         Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,new ExecTypeFunction(classBody_, method_), parameters_, ctx_);
                         if (ctx_.callsOrException()) {
                             afterActionWithoutRemove(ctx_);
                             return;

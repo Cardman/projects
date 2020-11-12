@@ -6,7 +6,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -68,7 +67,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (parameters_.getError() != null) {
             return true;
         }
-        _conf.setCallingState(new CustomFoundCast(_paramNameOwner,type_,fct_,parameters_));
+        _conf.setCallingState(new CustomFoundCast(_paramNameOwner, _rootBlock, parameters_));
         return false;
     }
 

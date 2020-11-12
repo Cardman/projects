@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -510,7 +509,6 @@ public final class AliasMath {
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
-        ExecRootBlock type_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -520,7 +518,6 @@ public final class AliasMath {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, new ExecTypeFunction(classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick()));
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
-            type_ = p_.getType();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
         }
@@ -531,7 +528,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,new Parameters()));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

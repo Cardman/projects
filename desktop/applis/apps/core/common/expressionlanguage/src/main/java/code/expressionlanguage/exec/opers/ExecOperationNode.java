@@ -359,7 +359,7 @@ public abstract class ExecOperationNode {
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);
-        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,p_.getType(),p_.getFct(),parameters_));
+        _conf.setCallingState(new CustomFoundMethod(out_,clCall_, p_, parameters_));
         return out_;
     }
 

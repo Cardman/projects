@@ -88,43 +88,41 @@ public final class ExecutingUtil {
 
     public static AbstractPageEl createCallingMethod(ContextEl _context,CustomFoundMethod _e) {
         String cl_ = _e.getClassName();
-        ExecNamedFunctionBlock id_ = _e.getId();
         Parameters args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        ExecRootBlock rootBlock_ = _e.getRootBlock();
-        return createCallingMethod(_context,gl_, cl_,rootBlock_, id_, args_);
+        return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_);
     }
-    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, Parameters _args) {
+    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args) {
         _context.setCallingState(null);
         MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
-        setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
+        setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
 
     public static AbstractPageEl createCallingCast(ContextEl _context,CustomFoundCast _e) {
         String cl_ = _e.getClassName();
-        ExecNamedFunctionBlock id_ = _e.getId();
         Parameters args_ = _e.getArguments();
-        ExecRootBlock rootBlock_ = _e.getRootBlock();
-        return createCallingCast(_context,cl_,rootBlock_, id_, args_);
+        return createCallingCast(_context,cl_,_e.getPair(), args_);
     }
-    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, Parameters _args) {
+    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args) {
         _context.setCallingState(null);
         CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
-        setMethodInfos(_context, pageLoc_, _rootBlock, _method, _args);
+        setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
-    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _block, Parameters _args) {
-        _context.getCoverage().passCalls(_rootBlock,_block);
-        _page.setBlockRootType(_rootBlock);
+    private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
+        ExecNamedFunctionBlock fct_ = _block.getFct();
+        ExecRootBlock type_ = _block.getType();
+        _context.getCoverage().passCalls(type_,fct_);
+        _page.setBlockRootType(type_);
         _page.initReturnType(_args.getRight());
         _page.getValueVars().putAllMap(_args.getParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
-        rwLoc_.setBlock(_block.getFirstChild());
+        rwLoc_.setBlock(fct_.getFirstChild());
         _page.setReadWrite(rwLoc_);
-        _page.setBlockRoot(_block);
-        _page.setFile(_block.getFile());
+        _page.setBlockRoot(fct_);
+        _page.setFile(fct_.getFile());
     }
     public static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
         InstancingStep in_ = _e.getInstanceStep();
@@ -135,7 +133,7 @@ public final class ExecutingUtil {
     }
     public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
-        ExecRootBlock type_ = _e.getType();
+        ExecRootBlock type_ = _e.getPair().getType();
         Parameters args_ = _e.getArguments();
         _context.setCallingState(null);
         CallConstructorPageEl page_;
@@ -149,7 +147,7 @@ public final class ExecutingUtil {
         int ordinal_ = _e.getChildIndex();
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
-        setInstanciationInfos(_context,page_,cl_, args_, _e);
+        setInstanciationInfos(_context,page_,cl_, args_, _e.getPair());
         return page_;
     }
 
@@ -176,17 +174,17 @@ public final class ExecutingUtil {
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
         page_.setGlobalArgument(global_);
-        setInstanciationInfos(_context,page_,cl_, args_, _e);
+        setInstanciationInfos(_context,page_,cl_, args_, _e.getPair());
         return page_;
     }
 
-    private static void setInstanciationInfos(ContextEl _context, AbstractCallingInstancingPageEl _page, String _class, Parameters _args, CustomFoundConstructor _e) {
-        ExecRootBlock type_ = _e.getType();
+    private static void setInstanciationInfos(ContextEl _context, AbstractCallingInstancingPageEl _page, String _class, Parameters _args, ExecTypeFunction _pair) {
+        ExecRootBlock type_ = _pair.getType();
         ExecFileBlock file_ = type_.getFile();
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
         _page.setBlockRootTypes(type_);
-        ExecMemberCallingsBlock ctor_ = _e.getId();
+        ExecMemberCallingsBlock ctor_ = _pair.getFct();
         if (ctor_ != null) {
             _context.getCoverage().passCalls(type_,ctor_);
             _page.getValueVars().putAllMap(_args.getParameters());
@@ -354,55 +352,40 @@ public final class ExecutingUtil {
                     idCl_ = _name;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                met_.setAnnotableBlock(method_);
                 met_.setCallee(method_);
-                met_.setCalleeInv(method_);
-                met_.setPair(new ExecTypeFunction(_type,method_));
-                met_.setDeclaring(_type);
+                met_.pair(_type,method_);
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
                         || method_.getKind() == ExecMethodKind.TRUE_OPERATOR  || method_.getKind() == ExecMethodKind.FALSE_OPERATOR);
                 infos_.add(met_);
                 if (method_.getKind() == ExecMethodKind.EXPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
-                    met_.setCalleeInv(method_);
-                    met_.setPair(new ExecTypeFunction(_type,method_));
-                    met_.setDeclaring(_type);
+                    met_.pair(_type,method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosExplicits_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.IMPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
-                    met_.setCalleeInv(method_);
-                    met_.setPair(new ExecTypeFunction(_type,method_));
-                    met_.setDeclaring(_type);
+                    met_.pair(_type,method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosImplicits_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.TRUE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
-                    met_.setCalleeInv(method_);
-                    met_.setPair(new ExecTypeFunction(_type,method_));
-                    met_.setDeclaring(_type);
+                    met_.pair(_type,method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosTrues_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.FALSE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setAnnotableBlock(method_);
                     met_.setCallee(method_);
-                    met_.setCalleeInv(method_);
-                    met_.setPair(new ExecTypeFunction(_type,method_));
-                    met_.setDeclaring(_type);
+                    met_.pair(_type,method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosFalses_.add(met_);
@@ -423,15 +406,13 @@ public final class ExecutingUtil {
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(_name,idCl_, id_,mod_, ret_, formCl_);
                 met_.setCallee(method_);
-                met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                met_.setPair(new ExecTypeFunction(_type,null));
+                met_.pair(_type,null);
                 infos_.add(met_);
                 met_ = new MethodMetaInfo(_name,idCl_, id_,mod_, ret_, formCl_);
                 met_.setCallee(method_);
-                met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                met_.setPair(new ExecTypeFunction(_type,null));
+                met_.pair(_type,null);
                 infosBlock_.add(met_);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
@@ -440,11 +421,8 @@ public final class ExecutingUtil {
                 String ret_ = method_.getImportedReturnType();
                 String formCl_ = _type.getFullName();
                 MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, id_, formCl_);
-                met_.setAnnotableBlock(method_);
                 met_.setCallee(method_);
-                met_.setCalleeInv(method_);
-                met_.setPair(new ExecTypeFunction(_type,method_));
-                met_.setDeclaring(_type);
+                met_.pair(_type,method_);
                 met_.setFileName(fileName_);
                 infos_.add(met_);
             }
@@ -457,8 +435,7 @@ public final class ExecutingUtil {
                 String formCl_ = tryFormatType(idType_, _name, _context);
                 ConstructorId fid_ = tryFormatId(_name, _context, id_);
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
-                met_.setAnnotableBlock(method_);
-                met_.setPair(new ExecTypeFunction(_type,method_));
+                met_.pair(_type,method_);
                 met_.setFileName(fileName_);
                 infosConst_.add(met_);
             }
@@ -469,7 +446,7 @@ public final class ExecutingUtil {
             String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, _name);
             met_.setFileName(fileName_);
-            met_.setPair(new ExecTypeFunction(_type,null));
+            met_.pair(_type,null);
             infosConst_.add(met_);
         }
         if (_type instanceof ExecEnumBlock) {
@@ -481,15 +458,13 @@ public final class ExecutingUtil {
             String decl_ = _type.getFullName();
             MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
-            met_.setDeclaring(_type);
-            met_.setPair(new ExecTypeFunction(_type,null));
+            met_.pair(_type,null);
             infos_.add(met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = StringExpUtil.getPrettyArrayType(ret_);
             met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, id_, decl_);
             met_.setFileName(fileName_);
-            met_.setDeclaring(_type);
-            met_.setPair(new ExecTypeFunction(_type,null));
+            met_.pair(_type,null);
             infos_.add(met_);
         }
         ExecRootBlock par_ = _type.getParentType();
@@ -510,7 +485,6 @@ public final class ExecutingUtil {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setAnnotableBlock(_type);
             cl_.setRootBlock(_type);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
@@ -519,7 +493,6 @@ public final class ExecutingUtil {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setAnnotableBlock(_type);
             cl_.setRootBlock(_type);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
@@ -539,7 +512,6 @@ public final class ExecutingUtil {
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
-        cl_.setAnnotableBlock(_type);
         cl_.setRootBlock(_type);
         cl_.getBlocsInfos().addAllElts(infosBlock_);
         return cl_;
@@ -682,12 +654,14 @@ public final class ExecutingUtil {
             String decl_ = _type.getFullName();
             String ret_ = d.getImportedReturnType();
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, id_, decl_);
+            met_.setStandardType(_type);
             infosConst_.add(met_);
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
             String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, id_, _name);
+            met_.setStandardType(_type);
             infosConst_.add(met_);
         }
         boolean st_ = _type.isStaticType();

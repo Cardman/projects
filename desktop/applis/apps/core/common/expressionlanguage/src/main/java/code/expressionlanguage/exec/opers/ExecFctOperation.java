@@ -20,7 +20,7 @@ import code.util.core.StringUtil;
 public final class ExecFctOperation extends ExecInvokingOperation {
 
     private ExecInstFctContent instFctContent;
-    private ExecTypeFunction pair;
+    private final ExecTypeFunction pair;
 
     public ExecFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
         super(_opCont, _intermediateDottedOperation);

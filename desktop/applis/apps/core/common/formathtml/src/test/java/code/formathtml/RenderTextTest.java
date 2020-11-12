@@ -1583,6 +1583,131 @@ public final class RenderTextTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+    @Test
+    public void process58Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int[]' value='i=$lambda($int[],$new,$int).call(4)'/>{i.length}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static Inner method($int v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.count = v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process59Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int[]' value='i=$lambda($int[],clone).call($new $int[]{4})'/>{i[0]}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static Inner method($int v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.count = v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process60Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Integer' value='i=$lambda(Integer,$,Integer).call(4)'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static Inner method($int v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.count = v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process61Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Inner' value='i=$lambda($operator,+,Inner,Inner).call($new Inner(),$new Inner())'/>{i.count}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$operator+ pkg.BeanOne.Inner(pkg.BeanOne.Inner a, pkg.BeanOne.Inner b){");
+        file_.append(" pkg.BeanOne.Inner c = $new pkg.BeanOne.Inner();");
+        file_.append(" c.count = a.count + b.count;");
+        file_.append(" $return c;");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static Inner method($int v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.count = v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>20</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process62Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Inner' value='i=$static().$lambda(Inner,valueOf,String).call(&quot;ONE&quot;)'/>{i.$name()}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $enum Inner{");
+        file_.append("  ONE;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>ONE</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

@@ -85,12 +85,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_;
+            Argument arg_ = Argument.createVoid();
             ExecTypeFunction pair_ = metaInfo.getPair();
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
                 arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, args_, "", -1);
-            } else {
+            }
+            if (metaInfo.getStandardType() != null) {
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);
             }
             if (_context.callsOrException()) {

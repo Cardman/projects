@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
@@ -103,7 +104,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static Argument invoke(Argument _global, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_method, _rootBlock, _class, _global, _args, _cont);
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class,_rootBlock, _method, parameters_, _cont);
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class,new ExecTypeFunction(_rootBlock, _method), parameters_, _cont);
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

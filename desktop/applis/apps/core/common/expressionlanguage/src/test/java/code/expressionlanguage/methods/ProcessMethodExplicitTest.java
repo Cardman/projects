@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -2070,7 +2071,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getParameters().addEntry(method_.getParametersNames().first(),lv_);
-        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", classBody_, method_,p_,cont_);
+        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_);
 
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));

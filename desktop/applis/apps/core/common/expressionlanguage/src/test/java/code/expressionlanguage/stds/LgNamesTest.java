@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -2310,7 +2311,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", classBody_, method_, new Parameters(), ctx_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_);
         assertNull(getException(ctx_));
         assertEq(2, getNumber(ret_));
     }
@@ -2345,7 +2346,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", classBody_, method_, new Parameters(), ctx_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_);
         assertNull(getException(ctx_));
         assertEq(2, getNumber(ret_));
     }

@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -21,19 +20,19 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     private ExecInstancingCommonContent instancingCommonContent;
     private ExecInstancingStdContent instancingStdContent;
 
-    private ExecTypeFunction pair;
+    private final ExecTypeFunction pair;
     public RendStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_content, _intermediateDottedOperation);
+        pair = _pair;
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
-        pair = _pair;
     }
 
     public RendStandardInstancingOperation(ExecRootBlock _rootBlock, ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_content,false);
+        pair = new ExecTypeFunction(_rootBlock,null);
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
-        pair = new ExecTypeFunction(_rootBlock,null);
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {

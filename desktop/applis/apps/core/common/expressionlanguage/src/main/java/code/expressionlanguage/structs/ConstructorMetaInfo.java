@@ -5,6 +5,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -21,8 +22,8 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private final String returnType;
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
-    private ExecNamedFunctionBlock annotableBlock;
     private ExecTypeFunction pair;
+    private StandardType standardType;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -51,19 +52,27 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     }
 
     public ExecNamedFunctionBlock getAnnotableBlockParam() {
-        return annotableBlock;
-    }
-
-    public void setAnnotableBlock(ExecNamedFunctionBlock _annotableBlock) {
-        this.annotableBlock = _annotableBlock;
+        return pair.getFct();
     }
 
     public ExecTypeFunction getPair() {
         return pair;
     }
 
+    public void pair(ExecRootBlock _type, ExecNamedFunctionBlock _fct) {
+        pair = new ExecTypeFunction(_type, _fct);
+    }
+
     public void setPair(ExecTypeFunction _pair) {
         pair = _pair;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
+    }
+
+    public void setStandardType(StandardType _standardType) {
+        standardType = _standardType;
     }
 
     @Override

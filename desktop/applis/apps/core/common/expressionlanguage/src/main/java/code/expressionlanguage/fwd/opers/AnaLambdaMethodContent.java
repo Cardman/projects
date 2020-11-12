@@ -5,6 +5,7 @@ public final class AnaLambdaMethodContent {
     private boolean abstractMethod;
     private boolean directCast;
     private boolean expCast;
+    private boolean clonedMethod;
 
     public boolean isPolymorph() {
         return polymorph;
@@ -36,5 +37,13 @@ public final class AnaLambdaMethodContent {
 
     public void setExpCast(boolean _expCast) {
         this.expCast = _expCast;
+    }
+
+    public boolean isClonedMethod() {
+        return clonedMethod;
+    }
+
+    public void setClonedMethod(boolean _clonedMethod) {
+        clonedMethod = _clonedMethod;
     }
 }

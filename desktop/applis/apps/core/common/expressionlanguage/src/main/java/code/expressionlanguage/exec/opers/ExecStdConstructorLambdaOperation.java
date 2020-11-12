@@ -7,24 +7,23 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
-import code.expressionlanguage.fwd.opers.ExecLambdaConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambdaOperation {
+public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ExecLambdaConstructorContent lambdaConstructorContent;
-    private final ExecTypeFunction pair;
+    private ConstructorId realId;
+    private StandardType standardType;
 
-    public ExecTypeConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaConstructorContent _lambdaConstructorContent, ExecTypeFunction _pair) {
+    public ExecStdConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ConstructorId _realId, StandardType _standardType) {
         super(_opCont, _lamCont);
-        lambdaConstructorContent = _lambdaConstructorContent;
-        pair = _pair;
+        realId = _realId;
+        standardType = _standardType;
     }
 
     @Override
@@ -36,7 +35,7 @@ public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambda
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), lambdaConstructorContent.getRealId(), getReturnFieldType()));
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), realId, getReturnFieldType()));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, ConstructorId _realId, String _returnFieldType) {
@@ -44,13 +43,12 @@ public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambda
         String ownerType_ = _foundClass;
         ownerType_ = _conf.formatVarType(ownerType_);
         clArg_ = _conf.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _realId, _returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), pair);
+        return newLambda(_previous, _conf, ownerType_, _realId, _returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), standardType);
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, ConstructorId _realId, String _returnFieldType,
-                                    boolean _shiftArgument, boolean _safeInstance,
-                                    String _clArg, String _fileName,
-                                    ExecTypeFunction _pair) {
+                                   boolean _shiftArgument, boolean _safeInstance,
+                                   String _clArg, String _fileName, StandardType _standardType) {
         LambdaConstructorStruct l_ = new LambdaConstructorStruct(_clArg, _ownerType, _shiftArgument);
         l_.setInstanceCall(_previous);
         l_.setSafeInstance(_safeInstance);
@@ -58,7 +56,7 @@ public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambda
         ConstructorId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _realId);
         ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _returnFieldType, fid_, className_);
         met_.setFileName(_fileName);
-        met_.setPair(_pair);
+        met_.setStandardType(_standardType);
         l_.setMetaInfo(met_);
         return l_;
     }

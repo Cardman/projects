@@ -914,6 +914,9 @@ public abstract class OperationNode {
             _out.setFileName(((Block)_type).getFile().getFileName());
             _out.setRootNumber(((RootBlock)_type).getNumberAll());
         }
+        if (_type instanceof StandardType) {
+            _out.setStandardType((StandardType)_type);
+        }
     }
 
     private static boolean isUniqCtor(int _varargOnly) {

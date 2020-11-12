@@ -13,7 +13,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ClassCategory;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct,AnaDisplayableStruct {
@@ -50,7 +49,6 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final String variableOwner;
     private AccessEnum access;
     private String fileName = EMPTY_STRING;
-    private ExecAnnotableBlock annotableBlock;
     private ExecRootBlock rootBlock;
     public ClassMetaInfo(String _name) {
         name = StringUtil.nullToEmpty(_name);
@@ -221,17 +219,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         _dest.implicitsInfos.addAllElts(_src.implicitsInfos);
         _dest.explicitsInfos.addAllElts(_src.explicitsInfos);
         _dest.fileName = _src.fileName;
-        _dest.annotableBlock = _src.annotableBlock;
         _dest.rootBlock = _src.rootBlock;
         _dest.blocsInfos.addAllElts(_src.blocsInfos);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
-        return annotableBlock;
-    }
-
-    public void setAnnotableBlock(ExecAnnotableBlock _annotableBlock) {
-        this.annotableBlock = _annotableBlock;
+        return rootBlock;
     }
 
     public ExecRootBlock getRootBlock() {
