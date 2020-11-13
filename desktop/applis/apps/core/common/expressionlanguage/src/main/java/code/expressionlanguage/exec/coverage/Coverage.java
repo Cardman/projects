@@ -360,8 +360,10 @@ public final class Coverage {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             if (annotRet_.isOnParameters()) {
                 indexAnnotGroup_ = annotRet_.getIndexAnnotationParam();
+                indexAnnot_ = annotRet_.getAnnotationsParamsIndexes().get(indexAnnotGroup_).get(annotRet_.getIndexAnnotation());
+            } else {
+                indexAnnot_ = annotRet_.getAnnotationsIndexes().get(annotRet_.getIndexAnnotation());
             }
-            indexAnnot_ = annotRet_.getIndexAnnotation();
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
             ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
             if (annotated_ instanceof FieldMetaInfo) {
