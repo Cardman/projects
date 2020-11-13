@@ -278,7 +278,6 @@ public final class FileResolver {
 
         int i_ = _input.getNextIndex();
         boolean okType_ = false;
-        boolean enableByEndLine_ = false;
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         after_.setIndex(i_);
         after_.setParent(null);
@@ -425,23 +424,21 @@ public final class FileResolver {
                 }
                 if (currentChar_ == ':') {
                     String str_ = instruction_.toString().trim();
-                    if (StringExpUtil.startsWithKeyWord(str_, keyWordCase_)
-                            || StringUtil.quickEq(str_, keyWordDefault_)
-                            || startsWithDefVar(str_,keyWordDefault_)) {
+                    if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
                         endInstruction_ = true;
                     }
                     if (endInstruction_ && currentParent_ instanceof SwitchPartBlock) {
                         currentParent_ = currentParent_.getParent();
                     }
                 }
-                if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {
+                if (currentChar_ == SEP_ENUM_CONST && canHaveElements(currentParent_)) {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == END_BLOCK) {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    EndInstruction end_ = endInstruction(currentParent_, instruction_, enableByEndLine_, _page);
+                    EndInstruction end_ = endInstruction(currentParent_, instruction_, _page);
                     if (end_ != EndInstruction.NONE) {
                         endInstruction_ = true;
                         if (end_ == EndInstruction.DECLARE_TYPE) {
@@ -449,15 +446,13 @@ public final class FileResolver {
                         }
                     }
                 }
-                if (enableByEndLine_) {
-                    if (currentChar_ == BEGIN_TEMPLATE) {
-                        //increment to last greater
-                        instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
-                        ParsedTemplatedType par_ = new ParsedTemplatedType(instruction_,i_);
-                        par_.parse(_file,comments_,beginComments_,endComments_);
-                        i_ = par_.getCurrent();
-                        continue;
-                    }
+                if (currentChar_ == BEGIN_TEMPLATE && canHaveElements(currentParent_)) {
+                    //increment to last greater
+                    instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
+                    ParsedTemplatedType par_ = new ParsedTemplatedType(instruction_,i_);
+                    par_.parse(_file,comments_,beginComments_,endComments_);
+                    i_ = par_.getCurrent();
+                    continue;
                 }
                 //End line
             }
@@ -502,8 +497,7 @@ public final class FileResolver {
             if (endInstruction_) {
                 after_ = processInstruction(out_,_input, packageName_, currentChar_, currentParent_,
                         instructionLocation_,
-                        instruction_, declType_, i_,_offset, enableByEndLine_, _page);
-                enableByEndLine_ = after_.isEnabledEnumHeader();
+                        instruction_, declType_, i_,_offset, _page);
                 currentParent_ = after_.getParent();
                 i_ = after_.getIndex();
                 packageName_ = after_.getPackageName();
@@ -525,6 +519,12 @@ public final class FileResolver {
         }
         out_.setNextIndex(i_);
         return out_;
+    }
+
+    private static boolean isCaseDefault(String _str, String _keyWordCase, String _keyWordDefault) {
+        return StringExpUtil.startsWithKeyWord(_str, _keyWordCase)
+                || StringUtil.quickEq(_str, _keyWordDefault)
+                || startsWithDefVar(_str, _keyWordDefault);
     }
 
     private static int setInstLocation(StringBuilder _instruction, int _instructionLocation, int _i) {
@@ -550,7 +550,7 @@ public final class FileResolver {
     }
 
     private static EndInstruction endInstruction(BracedBlock _parent, StringBuilder _instruction,
-                                                 boolean _enableByEndLine, AnalyzedPageEl _page) {
+                                                 AnalyzedPageEl _page) {
         String tr_ = _instruction.toString().trim();
         KeyWords keyWords_ = _page.getKeyWords();
         if (_parent == null) {
@@ -611,7 +611,7 @@ public final class FileResolver {
         if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordIntern())) {
             return EndInstruction.NONE;
         }
-        if (_enableByEndLine) {
+        if (canHaveElements(_parent)) {
             return EndInstruction.NO_DECLARE_TYPE;
         }
         String trTmp_ = tr_;
@@ -724,6 +724,9 @@ public final class FileResolver {
             return EndInstruction.NONE;
         }
         if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordContinue())) {
+            return EndInstruction.NONE;
+        }
+        if (isCaseDefault(trTmp_,keyWords_.getKeyWordCase(),keyWords_.getKeyWordDefault())) {
             return EndInstruction.NONE;
         }
         char lastCh_ = trTmp_.charAt(trTmp_.length() - 1);
@@ -842,7 +845,7 @@ public final class FileResolver {
 
     private static AfterBuiltInstruction processInstruction(ResultCreation _out, InputTypeCreation _input, String _pkgName, char _currentChar,
                                                             BracedBlock _currentParent,
-                                                            int _instructionLocation, StringBuilder _instruction, boolean _declType, int _i, int _offset, boolean _enabledEnum, AnalyzedPageEl _page) {
+                                                            int _instructionLocation, StringBuilder _instruction, boolean _declType, int _i, int _offset, AnalyzedPageEl _page) {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         BracedBlock currentParent_ = _currentParent;
         FileBlock file_ = _input.getFile();
@@ -856,7 +859,6 @@ public final class FileResolver {
         if (!trimmedInstruction_.isEmpty()) {
             instructionLocation_ += StringUtil.getFirstPrintableCharIndex(found_);
         }
-        boolean enableByEndLine_ = _enabledEnum;
         String packageName_ = _pkgName;
         if (currentParent_ == null) {
             if (_out.getBlock() != null) {
@@ -913,7 +915,6 @@ public final class FileResolver {
                 }
                 nextIndex_ += deltaType_;
                 String keyWordOperator_ = keyWords_.getKeyWordOperator();
-                enableByEndLine_ = false;
                 if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordOperator_)) {
                     nextIndex_ += keyWordOperator_.length();
                     String afterOper_ = afterAccessType_.substring(keyWordOperator_.length());
@@ -1122,7 +1123,6 @@ public final class FileResolver {
                     }
                     RootBlock typeBlock_;
                     if (StringUtil.quickEq(type_, keyWordEnum_)) {
-                        enableByEndLine_ = true;
                         typeBlock_ = new EnumBlock(beginDefinition_+_offset, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_+_offset,beginType_+_offset));
                     } else if (StringUtil.quickEq(type_, keyWordClass_)) {
@@ -1185,9 +1185,6 @@ public final class FileResolver {
                             AccessEnum.PUBLIC, _page);
                     currentParent_.appendChild(built_);
                     built_.setParentType((AnnotationBlock)currentParent_);
-                    if (built_ instanceof EnumBlock) {
-                        enableByEndLine_ = true;
-                    }
                     br_ = built_;
                 } else {
                     String fieldName_;
@@ -1340,7 +1337,7 @@ public final class FileResolver {
                     currentParent_ = (BracedBlock) br_;
                 }
             }
-        } else if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
+        } else if (canHaveElements(currentParent_)) {
             if (!trimmedInstruction_.isEmpty()) {
                 String fieldName_;
                 int fieldOffest_ = instructionLocation_;
@@ -1389,7 +1386,6 @@ public final class FileResolver {
                     templateOffset_ += fieldName_.length() - StringUtil.getLastPrintableCharIndex(fieldName_) - 1;
                 }
                 if (_currentChar == BEGIN_BLOCK) {
-                    enableByEndLine_ = false;
                     InnerElementBlock elt_ = new InnerElementBlock((EnumBlock) currentParent_, _pkgName, new OffsetStringInfo(fieldOffest_+_offset, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_+_offset, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_+_offset, expression_.trim()), new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
@@ -1417,11 +1413,11 @@ public final class FileResolver {
                     currentParent_ = (BracedBlock) br_;
                 }
             }
+            if (_currentChar == END_LINE || _currentChar == END_BLOCK) {
+                ((EnumBlock)currentParent_).setCanHaveElements(false);
+            }
             if (_currentChar == END_BLOCK) {
                 currentParent_ = currentParent_.getParent();
-            }
-            if (_currentChar == END_LINE || _currentChar == END_BLOCK) {
-                enableByEndLine_ = false;
             }
         } else if (_currentChar != END_BLOCK) {
             Block bl_ = processInstructionBlock(_offset, instructionLocation_, instructionRealLocation_, _i, currentParent_, trimmedInstruction_, _page);
@@ -1442,9 +1438,6 @@ public final class FileResolver {
                             AccessEnum.PACKAGE, _page);
                     built_.setParentType(currentParent_.retrieveParentType());
                     currentParent_.appendChild(built_);
-                    if (built_ instanceof EnumBlock) {
-                        enableByEndLine_ = true;
-                    }
                     br_ = built_;
                 } else if (currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
@@ -1518,15 +1511,11 @@ public final class FileResolver {
             if (currentParent_ instanceof SwitchPartBlock) {
                 currentParent_ = currentParent_.getParent();
             }
-            if (currentParent_ instanceof InnerTypeOrElement) {
-                enableByEndLine_ = true;
-            }
             currentParent_ = currentParent_.getParent();
         }
         _instruction.delete(0, _instruction.length());
         after_.setIndex(_i);
         after_.setParent(currentParent_);
-        after_.setEnabledEnumHeader(enableByEndLine_);
         after_.setPackageName(packageName_);
         return after_;
     }
@@ -3031,5 +3020,11 @@ public final class FileResolver {
             }
         }
         return endCom_;
+    }
+    private static boolean canHaveElements(Block _bl) {
+        if (!(_bl instanceof EnumBlock)) {
+            return false;
+        }
+        return ((EnumBlock)_bl).isCanHaveElements();
     }
 }

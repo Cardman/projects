@@ -11,8 +11,6 @@ public final class AfterBuiltInstruction {
 
     private String packageName = "";
 
-    private boolean enabledEnumHeader;
-
     public int getIndex() {
         return index;
     }
@@ -27,14 +25,6 @@ public final class AfterBuiltInstruction {
 
     public void setParent(BracedBlock _parent) {
         parent = _parent;
-    }
-
-    public boolean isEnabledEnumHeader() {
-        return enabledEnumHeader;
-    }
-
-    public void setEnabledEnumHeader(boolean _enabledEnumHeader) {
-        enabledEnumHeader = _enabledEnumHeader;
     }
 
     public String getPackageName() {

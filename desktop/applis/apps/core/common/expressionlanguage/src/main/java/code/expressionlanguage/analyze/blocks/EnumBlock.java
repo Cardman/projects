@@ -7,7 +7,7 @@ import code.util.*;
 
 public final class EnumBlock extends ImmutableNameRootBlock implements UniqueRootedBlock {
 
-
+    private boolean canHaveElements = true;
     public EnumBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
                      String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
@@ -32,4 +32,11 @@ public final class EnumBlock extends ImmutableNameRootBlock implements UniqueRoo
         return false;
     }
 
+    public boolean isCanHaveElements() {
+        return canHaveElements;
+    }
+
+    public void setCanHaveElements(boolean _canHaveElements) {
+        canHaveElements = _canHaveElements;
+    }
 }
