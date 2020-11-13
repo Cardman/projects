@@ -216,21 +216,21 @@ public final class MainWindow extends GroupFrame {
                 Struct t = ((ArrayStruct) array_).get(i);
                 Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getStruct();
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
-                resultsTable.setValueAt(Long.toString(i),i-1,0);
+                resultsTable.setValueAt(Long.toString(i),i,0);
                 results.append(Long.toString(i)+"\n");
                 String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getSignature(_ctx) + "\n";
-                resultsTable.setValueAt(methodInfo_,i-1,1);
+                resultsTable.setValueAt(methodInfo_,i,1);
                 results.append(methodInfo_);
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();
-                resultsTable.setValueAt(((StringStruct)params_).getInstance(),i-1,2);
+                resultsTable.setValueAt(((StringStruct)params_).getInstance(),i,2);
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getStruct();
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getStruct();
                 if (BooleanStruct.isTrue(success_)) {
                     results.append(messages.getVal("success")+"\n");
-                    resultsTable.setValueAt("x",i-1,3);
+                    resultsTable.setValueAt("x",i,3);
                 } else {
                     results.append(messages.getVal("fail")+"\n");
-                    resultsTable.setValueAt("",i-1,3);
+                    resultsTable.setValueAt("",i,3);
                 }
                 results.append(((StringStruct)failMessage_).getInstance()+"\n");
                 results.append(((StringStruct)params_).getInstance()+"\n");
