@@ -325,7 +325,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
                 "$public $class <a name=\"m60\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m119\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m60\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -371,9 +371,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">infoInt</a>()1i;\n" +
+                " $int <a name=\"m40\">infoInt</a>()<span class=\"f2\">1i</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(2i)\n" +
+                "<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"n2\">2i</span>)</span>\n" +
                 "$public $class <a name=\"m83\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m114\">catching</a>(){\n" +
                 "  java.lang.Object <span class=\"f\"><span class=\"f\"><a name=\"m145\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>.<span class=\"f\">getDefaultValue()</span></span></span>;\n" +
@@ -2535,7 +2535,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
                 "$public $class <a name=\"m60\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m119\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m60\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -7428,8 +7428,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
-                "@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a>\n" +
+                "<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                "<span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span>\n" +
                 "$public $class <a name=\"m111\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m142\">catching</a>(){\n" +
                 "  $return <span class=\"f\">0i</span>;\n" +
@@ -7467,7 +7467,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m121\">catching</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.$static catching($int)\" href=\"#m182\">catching</a>(<span class=\"f\">0i</span>)</span>;\n" +
                 " }\n" +
-                " $public $static $int <a name=\"m182\">catching</a>(@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a> $int <a name=\"m216\">p</a>){\n" +
+                " $public $static $int <a name=\"m182\">catching</a>(<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span><span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span> $int <a name=\"m216\">p</a>){\n" +
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -7503,7 +7503,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m121\">catching</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.$static catching($int,$int)\" href=\"#m185\">catching</a>(<span class=\"f\">0i</span>,<span class=\"f\">1i</span>)</span>;\n" +
                 " }\n" +
-                " $public $static $int <a name=\"m185\">catching</a>(@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> $int <a name=\"m208\">p</a>,@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a> $int <a name=\"m227\">q</a>){\n" +
+                " $public $static $int <a name=\"m185\">catching</a>(<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span> $int <a name=\"m208\">p</a>,<span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span> $int <a name=\"m227\">q</a>){\n" +
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -7538,7 +7538,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m121\">catching</a>(){\n" +
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
-                " <a name=\"m150\">$public Ex(</a>@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> $int <a name=\"m175\">p</a>,@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a> $int <a name=\"m194\">q</a>){\n" +
+                " <a name=\"m150\">$public Ex(</a><span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span> $int <a name=\"m175\">p</a>,<span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span> $int <a name=\"m194\">q</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -7574,7 +7574,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "$operator<a name=\"m160\">+</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>(@<a title=\"pkg.MyAnnot\" href=\"#m20\">pkg.MyAnnot</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m189\">p</a>,@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">pkg.MyAnnotTwo</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m214\">q</a>){\n" +
+                "$operator<a name=\"m160\">+</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>(<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">pkg.MyAnnot</a></span> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m189\">p</a>,<span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">pkg.MyAnnotTwo</a></span> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m214\">q</a>){\n" +
                 " $return <span class=\"n\">$new <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>()</span>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -7600,9 +7600,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
                 "$public $class <a name=\"m77\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m108\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m130\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m77\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -7642,9 +7642,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "public enum <a name=\"m83\">pkg.ExEnum</a>&lt;<a name=\"m94\">T</a>,<a name=\"m96\">S</a>&gt; {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a></span>\n" +
                 " <a name=\"m112\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>&gt;,\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a></span>\n" +
                 " <a name=\"m141\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m172\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m198\">Ex</a>&gt;{}\n" +
                 "}\n" +
                 "public class <a name=\"m172\">pkg.ExTwo</a> {}\n" +
@@ -7682,8 +7682,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "public class <a name=\"m84\">pkg.Ex</a> {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a>\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a></span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a></span>\n" +
                 " public static int <span class=\"g\"><a name=\"m135\">field</a></span>;\n" +
                 " public static int <a name=\"m161\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">7</span>;\n" +
@@ -7717,8 +7717,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "public class <a name=\"m84\">pkg.Ex</a> {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a>\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a></span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a></span>\n" +
                 " public static int <a name=\"m135\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
@@ -7753,8 +7753,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "public class <a name=\"m84\">pkg.Ex</a> {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a>\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m18\">MyAnnot</a></span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m52\">MyAnnotTwo</a></span>\n" +
                 " <a name=\"m117\">public Ex(</a>){\n" +
                 " }\n" +
                 " public static int <a name=\"m152\">exmeth</a>(){\n" +
@@ -7796,8 +7796,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">pkg.MyAnnot</a>\n" +
-                "@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">pkg.MyAnnotTwo</a>\n" +
+                "<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">pkg.MyAnnot</a></span>\n" +
+                "<span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">pkg.MyAnnotTwo</a></span>\n" +
                 "$operator<a name=\"m189\">+</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m205\">p</a>, <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m215\">q</a>){\n" +
                 " $return <span class=\"n\">$new <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>()</span>;\n" +
                 "}\n" +
@@ -7832,8 +7832,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m95\">pkg.MyAnnotThree</a> {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span>\n" +
                 " $int <a name=\"m143\">method</a>();\n" +
                 "}\n" +
                 "$public $class <a name=\"m170\">pkg.Ex</a> {\n" +
@@ -7968,7 +7968,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " <a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a> <a name=\"m46\">method</a>() @<a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a>;\n" +
+                " <a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a> <a name=\"m46\">method</a>() <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a></span>;\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m90\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -8096,9 +8096,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m87\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m118\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m140\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m87\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8128,9 +8128,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"> <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m88\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m119\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m88\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8161,10 +8161,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
-                " $int <a name=\"m57\">method2</a>()3;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
+                " $int <a name=\"m57\">method2</a>()<span class=\"f2\">3</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2,<a title=\"pkg.MyAnnot.method2()\" href=\"#m57\">method2</a>=4)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=<span class=\"f2\">2</span></span>,<span class=\"f2\"><a title=\"pkg.MyAnnot.method2()\" href=\"#m57\">method2</a>=<span class=\"f2\">4</span></span>)</span>\n" +
                 "$public $class <a name=\"m115\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m146\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m168\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m115\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8194,9 +8194,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\">2</span>)</span>\n" +
                 "$public $class <a name=\"m80\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m111\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m133\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m80\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8228,9 +8228,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <span class=\"g\"><span class=\"g\"><a name=\"m40\">method</a> </span>=<span class=\"g\"> 5</span></span>;\n" +
-                " $int <a name=\"m58\">method</a>()1;\n" +
+                " $int <a name=\"m58\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m58\">method</a>=2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m58\">method</a>=<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m105\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m136\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m158\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m105\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8260,9 +8260,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m87\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m118\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m140\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m87\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8292,9 +8292,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m87\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m118\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m140\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m87\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -8378,9 +8378,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " String <a name=\"m42\">method</a>()<span class=\"s\">\"1\"</span>;\n" +
+                " String <a name=\"m42\">method</a>()<span class=\"f2\"><span class=\"s\">\"1\"</span></span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m42\">method</a>=<span class=\"s\">\"2\"</span>)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m42\">method</a>=<span class=\"f2\"><span class=\"s\">\"2\"</span></span></span>)</span>\n" +
                 "$public $class <a name=\"m93\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\"m126\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m148\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m93\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -11699,7 +11699,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\">@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a></span>)</span>\n" +
                 "$public $class <a name=\"m138\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m169\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m197\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m138\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -11753,7 +11753,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>=@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>=<span class=\"f2\">@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a></span></span>)</span>\n" +
                 "$public $class <a name=\"m140\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m171\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m199\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m140\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -11807,7 +11807,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"> @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a></span>)</span>\n" +
                 "$public $class <a name=\"m139\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m170\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m198\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m139\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -11861,7 +11861,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>= @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>=<span class=\"f2\"> @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a></span></span>)</span>\n" +
                 "$public $class <a name=\"m141\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m172\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m200\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m141\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
@@ -11900,9 +11900,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m88\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m119\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m88\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -11932,9 +11932,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
-                " $int <a name=\"m40\">method</a>()1;\n" +
+                " $int <a name=\"m40\">method</a>()<span class=\"f2\">1</span>;\n" +
                 "}\n" +
-                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
+                "<span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<span class=\"f2\"> <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =<span class=\"f2\">2</span></span>)</span>\n" +
                 "$public $class <a name=\"m89\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m120\">catching</a>(){\n" +
                 "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m142\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m89\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
@@ -15465,14 +15465,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
-                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                " int <a name=\"m57\">infoIntOne</a>()<span class=\"n2\">2i</span>;\n" +
                 "}\n" +
                 "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
-                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()<span class=\"n2\">4i</span>;\n" +
                 "}\n" +
                 "public class <a name=\"m146\">pkg.Ex</a> {\n" +
                 "\n" +
-                " public static int <a name=\"m175\">method</a>( @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i)@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m237\">p</a>){\n" +
+                " public static int <a name=\"m175\">method</a>( <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<span class=\"n2\"><a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=<span class=\"n2\">1i</span></span>)</span><span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<span class=\"n2\"><a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=<span class=\"n2\">3i</span></span>)</span> int <a name=\"m237\">p</a>){\n" +
                 "  return <span class=\"n\">0i</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m276\">catching</a>(){\n" +
@@ -15509,14 +15509,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
-                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                " int <a name=\"m57\">infoIntOne</a>()<span class=\"n2\">2i</span>;\n" +
                 "}\n" +
                 "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
-                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()<span class=\"n2\">4i</span>;\n" +
                 "}\n" +
                 "public class <a name=\"m146\">pkg.Ex</a> {\n" +
                 "\n" +
-                " public static int <a name=\"m175\">method</a>(@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i) @<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m237\">p</a>){\n" +
+                " public static int <a name=\"m175\">method</a>(<span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<span class=\"n2\"><a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=<span class=\"n2\">1i</span></span>)</span> <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<span class=\"n2\"><a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=<span class=\"n2\">3i</span></span>)</span> int <a name=\"m237\">p</a>){\n" +
                 "  return <span class=\"n\">0i</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m276\">catching</a>(){\n" +
@@ -15553,14 +15553,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
-                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                " int <a name=\"m57\">infoIntOne</a>()<span class=\"n2\">2i</span>;\n" +
                 "}\n" +
                 "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
-                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()<span class=\"n2\">4i</span>;\n" +
                 "}\n" +
                 "public class <a name=\"m146\">pkg.Ex</a> {\n" +
                 "\n" +
-                " public static int <a name=\"m175\">method</a>( @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i) @<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m238\">p</a>){\n" +
+                " public static int <a name=\"m175\">method</a>( <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<span class=\"n2\"><a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=<span class=\"n2\">1i</span></span>)</span> <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<span class=\"n2\"><a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=<span class=\"n2\">3i</span></span>)</span> int <a name=\"m238\">p</a>){\n" +
                 "  return <span class=\"n\">0i</span>;\n" +
                 " }\n" +
                 " public static int <a name=\"m277\">catching</a>(){\n" +
@@ -15598,8 +15598,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m95\">pkg.MyAnnotThree</a> {\n" +
-                " @<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
-                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a></span>\n" +
                 " $int <span class=\"g\"><a name=\"m143\">method</a></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m168\">pkg.Ex</a> {\n" +
@@ -15641,7 +15641,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
                 " void <a name=\"m37\">m</a>(){\n" +
-                "  @<a title=\"pkg.MyAnnot\" href=\"#m236\">MyAnnot</a>\n" +
+                "  <span class=\"n2\">@<a title=\"pkg.MyAnnot\" href=\"#m236\">MyAnnot</a></span>\n" +
                 "  class <a name=\"m61\">Loc</a>{\n" +
                 "   int <span class=\"f\"><a name=\"m73\">field</a></span>;\n" +
                 "  }\n" +

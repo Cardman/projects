@@ -150,4 +150,20 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     public void setOnParameters(boolean _onParameters) {
         onParameters = _onParameters;
     }
+
+    public AnnotatedStruct getAnnotated() {
+        return annotated;
+    }
+
+    public int getIndexAnnotation() {
+        return indexAnnotation;
+    }
+
+    public int getIndexAnnotationParam() {
+        return indexAnnotationParam;
+    }
+
+    public boolean isOnParameters() {
+        return onParameters;
+    }
 }

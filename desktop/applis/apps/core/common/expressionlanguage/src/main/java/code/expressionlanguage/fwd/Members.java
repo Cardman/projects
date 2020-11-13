@@ -6,17 +6,18 @@ import code.util.IdMap;
 
 public final class Members {
     private ExecRootBlock rootBlock;
-    private IdMap<OverridableBlock,ExecOverridableBlock> allMethods = new IdMap<OverridableBlock,ExecOverridableBlock>();
-    private IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock> allAnnotMethods = new IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock>();
-    private IdMap<ConstructorBlock,ExecConstructorBlock> allCtors = new IdMap<ConstructorBlock,ExecConstructorBlock>();
-    private IdMap<InitBlock,ExecInitBlock> allInits = new IdMap<InitBlock,ExecInitBlock>();
-    private IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
-    private IdMap<FieldBlock,ExecFieldBlock> allExplicitFields = new IdMap<FieldBlock,ExecFieldBlock>();
-    private IdMap<InnerElementBlock,ExecInnerElementBlock> allInnerElementFields = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
-    private IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
-    private IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
-    private IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
-    private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+    private final IdMap<OverridableBlock,ExecOverridableBlock> allMethods = new IdMap<OverridableBlock,ExecOverridableBlock>();
+    private final IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock> allAnnotMethods = new IdMap<AnnotationMethodBlock,ExecAnnotationMethodBlock>();
+    private final IdMap<ConstructorBlock,ExecConstructorBlock> allCtors = new IdMap<ConstructorBlock,ExecConstructorBlock>();
+    private final IdMap<InitBlock,ExecInitBlock> allInits = new IdMap<InitBlock,ExecInitBlock>();
+    private final IdMap<InfoBlock,ExecInfoBlock> allFields = new IdMap<InfoBlock,ExecInfoBlock>();
+    private final IdMap<FieldBlock,ExecFieldBlock> allExplicitFields = new IdMap<FieldBlock,ExecFieldBlock>();
+    private final IdMap<InnerElementBlock,ExecInnerElementBlock> allInnerElementFields = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
+    private final IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
+    private final IdMap<ElementBlock,ExecElementBlock> allSimpleElementFields = new IdMap<ElementBlock,ExecElementBlock>();
+    private final IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
+    private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+    private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     public IdMap<AnnotationMethodBlock, ExecAnnotationMethodBlock> getAllAnnotMethods() {
         return allAnnotMethods;
@@ -60,6 +61,10 @@ public final class Members {
 
     public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
         return allFct;
+    }
+
+    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFctBodies() {
+        return allFctBodies;
     }
 
     public ExecRootBlock getRootBlock() {

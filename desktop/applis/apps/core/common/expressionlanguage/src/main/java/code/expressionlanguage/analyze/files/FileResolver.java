@@ -1315,6 +1315,9 @@ public final class FileResolver {
                     int fctNb_ = ((RootBlock)currentParent_).getCountFct();
                     ((InitBlock) br_).setNumberFct(fctNb_);
                     ((RootBlock)currentParent_).setCountFct(fctNb_+1);
+                    int bodyFctNb_ = ((RootBlock)currentParent_).getCountBodyFct();
+                    ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
+                    ((RootBlock)currentParent_).setCountBodyFct(bodyFctNb_+1);
                     currentParent_.appendChild(br_);
                 }
             }
@@ -1989,6 +1992,9 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
+                int bodyFctNb_ = _currentParent.getCountBodyFct();
+                ov_.setNumberBodyFct(bodyFctNb_);
+                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countName_ = _currentParent.getCountName();
                 ov_.setNameNumber(countName_);
                 _currentParent.setCountName(countName_+1);
@@ -2066,6 +2072,9 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ov_.setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
+                int bodyFctNb_ = _currentParent.getCountBodyFct();
+                ov_.setNumberBodyFct(bodyFctNb_);
+                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countName_ = _currentParent.getCountName();
                 ov_.setNameNumber(countName_);
                 _currentParent.setCountName(countName_+1);
@@ -2082,6 +2091,9 @@ public final class FileResolver {
                 int countFct_ = _currentParent.getCountFct();
                 ((ConstructorBlock)br_).setNumberFct(countFct_);
                 _currentParent.setCountFct(countFct_+1);
+                int bodyFctNb_ = _currentParent.getCountBodyFct();
+                ((ConstructorBlock)br_).setNumberBodyFct(bodyFctNb_);
+                _currentParent.setCountBodyFct(bodyFctNb_+1);
                 int countName_ = _currentParent.getCountName();
                 ((ConstructorBlock)br_).setNameNumber(countName_);
                 _currentParent.setCountName(countName_+1);
@@ -2829,6 +2841,9 @@ public final class FileResolver {
                 int fctNb_ = ((RootBlock)_currentParent).getCountFct();
                 ((InitBlock) br_).setNumberFct(fctNb_);
                 ((RootBlock)_currentParent).setCountFct(fctNb_+1);
+                int bodyFctNb_ = ((RootBlock)_currentParent).getCountBodyFct();
+                ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
+                ((RootBlock)_currentParent).setCountBodyFct(bodyFctNb_+1);
             }
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordStatic_.length());
@@ -2843,6 +2858,9 @@ public final class FileResolver {
                 int fctNb_ = ((RootBlock)_currentParent).getCountFct();
                 ((InitBlock) br_).setNumberFct(fctNb_);
                 ((RootBlock)_currentParent).setCountFct(fctNb_+1);
+                int bodyFctNb_ = ((RootBlock)_currentParent).getCountBodyFct();
+                ((InitBlock) br_).setNumberBodyFct(bodyFctNb_);
+                ((RootBlock)_currentParent).setCountBodyFct(bodyFctNb_+1);
             } else {
                 br_ = new UnclassedBracedBlock(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
             }

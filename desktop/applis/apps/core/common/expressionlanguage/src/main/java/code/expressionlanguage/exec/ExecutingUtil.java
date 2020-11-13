@@ -113,15 +113,15 @@ public final class ExecutingUtil {
     private static void setMethodInfos(ContextEl _context, AbstractMethodPageEl _page, ExecTypeFunction _block, Parameters _args) {
         ExecNamedFunctionBlock fct_ = _block.getFct();
         ExecRootBlock type_ = _block.getType();
-        _context.getCoverage().passCalls(type_,fct_);
         _page.setBlockRootType(type_);
+        _page.setBlockRoot(fct_);
+        _context.getCoverage().passCalls(_page);
         _page.initReturnType(_args.getRight());
         _page.getValueVars().putAllMap(_args.getParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
         rwLoc_.setBlock(fct_.getFirstChild());
         _page.setReadWrite(rwLoc_);
-        _page.setBlockRoot(fct_);
         _page.setFile(fct_.getFile());
     }
     public static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
@@ -185,14 +185,14 @@ public final class ExecutingUtil {
         ReadWrite rw_ = new ReadWrite();
         _page.setBlockRootTypes(type_);
         ExecMemberCallingsBlock ctor_ = _pair.getFct();
+        _page.setBlockRoot(ctor_);
         if (ctor_ != null) {
-            _context.getCoverage().passCalls(type_,ctor_);
+            _context.getCoverage().passCalls(_page);
             _page.getValueVars().putAllMap(_args.getParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);
         }
         _page.setReadWrite(rw_);
-        _page.setBlockRoot(ctor_);
         _page.setFile(file_);
     }
     public static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {
@@ -227,7 +227,7 @@ public final class ExecutingUtil {
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
         page_.setBlockRoot(_block);
-        _context.getCoverage().passCalls(_rootBlock,_block);
+        _context.getCoverage().passCalls(page_);
         page_.setFile(file_);
         return page_;
     }

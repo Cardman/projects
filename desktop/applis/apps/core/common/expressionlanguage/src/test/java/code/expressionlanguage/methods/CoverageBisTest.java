@@ -12,6 +12,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -287,7 +288,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCatches(cont_).size());
-        assertTrue(getCatches(cont_).firstValue());
+        assertSame(BoolVal.TRUE, getCatches(cont_).firstValue());
     }
     @Test
     public void coverage24Test() {
@@ -314,7 +315,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCatches(cont_).size());
-        assertTrue(!getCatches(cont_).firstValue());
+        assertSame(BoolVal.FALSE, getCatches(cont_).firstValue());
     }
 
     private static StringMap<IdMap<NamedFunctionBlock, Boolean>> getCalls(ContextEl _cont) {
@@ -340,7 +341,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         return ret_;
     }
 
-    private static IdMap<Block, Boolean> getCatches(ContextEl _cont) {
+    private static IdMap<Block, BoolVal> getCatches(ContextEl _cont) {
         IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
         IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
         for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {

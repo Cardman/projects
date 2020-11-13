@@ -19,6 +19,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
     private int numberFct;
+    private int numberBodyFct;
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -147,5 +148,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public void setNumberFct(int _numberFct) {
         this.numberFct = _numberFct;
+    }
+
+    public int getNumberBodyFct() {
+        return numberBodyFct;
+    }
+
+    public void setNumberBodyFct(int _numberBodyFct) {
+        numberBodyFct = _numberBodyFct;
     }
 }

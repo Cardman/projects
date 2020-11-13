@@ -223,33 +223,32 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
-            for (EntryCust<InitBlock, ExecInitBlock> f: mem_.getAllInits().entryList()) {
-                InitBlock method_ = f.getKey();
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFctBodies().entryList()) {
+                MemberCallingsBlock method_ =  f.getKey();
                 coverage_.putCalls(c,method_);
+                _forwards.getAllFctBodies().addEntry(method_,f.getValue());
+            }
+            for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> f: mem_.getAllFct().entryList()) {
+                MemberCallingsBlock method_ =  f.getKey();
                 _forwards.getAllFct().addEntry(method_,f.getValue());
             }
             for (EntryCust<ConstructorBlock, ExecConstructorBlock> f: mem_.getAllCtors().entryList()) {
                 ConstructorBlock method_ = f.getKey();
-                coverage_.putCalls(c,method_);
-                _forwards.getAllFct().addEntry(method_,f.getValue());
                 fwdInstancingStep(method_, f.getValue());
-            }
-            for (EntryCust<OverridableBlock, ExecOverridableBlock> f: mem_.getAllMethods().entryList()) {
-                OverridableBlock method_ =  f.getKey();
-                coverage_.putCalls(c,method_);
-                _forwards.getAllFct().addEntry(method_,f.getValue());
             }
         }
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
             _forwards.getAllFct().addEntry(o,value_);
+            _forwards.getAllFctBodies().addEntry(o,value_);
         }
         for (AnonymousLambdaOperation e: _page.getAllAnonymousLambda()) {
             AnonymousFunctionBlock method_ = e.getBlock();
             coverage_.putCallsAnon(method_);
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
             _forwards.getAllFct().addEntry(method_, function_);
+            _forwards.getAllFctBodies().addEntry(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
             ExecFileBlock value_ = files_.getValue(numberFile_);
             function_.setFile(value_);
@@ -299,7 +298,7 @@ public final class ForwardInfos {
             Members mem_ = e.getValue();
             for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> f: mem_.getAllElementFields().entryList()) {
                 InnerTypeOrElement method_ = f.getKey();
-                CustList<ExecOperationNode> exNodes_ = processField((Block)method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
+                CustList<ExecOperationNode> exNodes_ = processField(method_, (ExecBlock) f.getValue(), coverage_, _forwards, method_.getRoot());
                 f.getValue().setOpValue(exNodes_);
             }
             for (EntryCust<FieldBlock, ExecFieldBlock> f: mem_.getAllExplicitFields().entryList()) {
@@ -308,7 +307,9 @@ public final class ForwardInfos {
                 f.getValue().setOpValue(exNodes_);
             }
         }
-        _forwards.setAnnotAnalysis(true);
+        for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _forwards.getAllFctBodies().entryList()) {
+            buildExec(e.getKey(),e.getValue(), coverage_, _forwards);
+        }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
@@ -316,27 +317,29 @@ public final class ForwardInfos {
             for (EntryCust<AnnotationMethodBlock, ExecAnnotationMethodBlock> a: mem_.getAllAnnotMethods().entryList()) {
                 AnnotationMethodBlock b = a.getKey();
                 ExecAnnotationMethodBlock d = a.getValue();
+                coverage_.putBlockOperationsField(d, b);
+                coverage_.putBlockOperationsAnnotMethodField(b);
                 fwd(b,d, coverage_, _forwards);
             }
+        }
+        _forwards.setAnnotAnalysis(true);
+        for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
+            RootBlock c = e.getKey();
+            Members mem_ = e.getValue();
             for (EntryCust<NamedFunctionBlock, ExecNamedFunctionBlock> a: mem_.getAllNamed().entryList()) {
                 NamedFunctionBlock b = a.getKey();
                 ExecNamedFunctionBlock d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
                 fwdAnnotationsParameters(b, d, coverage_, _forwards);
             }
+            for (EntryCust<InnerTypeOrElement, ExecInnerTypeOrElement> a: mem_.getAllElementFields().entryList()) {
+                InnerTypeOrElement b = a.getKey();
+                ExecInnerTypeOrElement d = a.getValue();
+                fwdAnnotations(b, d, coverage_, _forwards);
+            }
             for (EntryCust<FieldBlock, ExecFieldBlock> a: mem_.getAllExplicitFields().entryList()) {
                 FieldBlock b = a.getKey();
                 ExecFieldBlock d = a.getValue();
-                fwdAnnotations(b, d, coverage_, _forwards);
-            }
-            for (EntryCust<ElementBlock, ExecElementBlock> a: mem_.getAllSimpleElementFields().entryList()) {
-                ElementBlock b = a.getKey();
-                ExecElementBlock d = a.getValue();
-                fwdAnnotations(b, d, coverage_, _forwards);
-            }
-            for (EntryCust<InnerElementBlock, ExecInnerElementBlock> a: mem_.getAllInnerElementFields().entryList()) {
-                InnerElementBlock b = a.getKey();
-                ExecInnerElementBlock d = a.getValue();
                 fwdAnnotations(b, d, coverage_, _forwards);
             }
             if (!(mem_.getRootBlock() instanceof ExecInnerElementBlock)) {
@@ -351,10 +354,6 @@ public final class ForwardInfos {
             fwdAnnotationsParameters(o, value_, coverage_, _forwards);
         }
         _forwards.setAnnotAnalysis(false);
-        for (EntryCust<MemberCallingsBlock, ExecMemberCallingsBlock> e: _forwards.getAllFct().entryList()) {
-            buildExec(e.getKey(),e.getValue(), coverage_, _forwards);
-        }
-
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();
@@ -443,6 +442,7 @@ public final class ForwardInfos {
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
+                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof OverridableBlock) {
                     MethodKind kind_ = ((OverridableBlock) b).getKind();
@@ -452,6 +452,7 @@ public final class ForwardInfos {
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
                     mem_.getAllNamed().addEntry((OverridableBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
+                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof AnnotationMethodBlock) {
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock(((AnnotationMethodBlock)b).getName(), ((AnnotationMethodBlock)b).isVarargs(), ((AnnotationMethodBlock)b).getAccess(), ((AnnotationMethodBlock)b).getParametersNames(), ((AnnotationMethodBlock)b).getDefaultValueOffset(), b.getOffset().getOffsetTrim());
@@ -468,6 +469,7 @@ public final class ForwardInfos {
                     val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
+                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof StaticBlock) {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset().getOffsetTrim());
@@ -476,6 +478,7 @@ public final class ForwardInfos {
                     val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
                     mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
+                    mem_.getAllFctBodies().addEntry((MemberCallingsBlock)b,val_);
                 }
             }
         }
@@ -844,17 +847,20 @@ public final class ForwardInfos {
     }
 
     private static CustList<ExecOperationNode> getExecutableNodes(OperationNode _root, Coverage _coverage, Forwards _forwards, Block _currentBlock) {
+        return getExecutableNodes(-1,-1,_root,_coverage,_forwards,_currentBlock);
+    }
+    private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot,OperationNode _root, Coverage _coverage, Forwards _forwards, Block _currentBlock) {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode current_ = _root;
         ExecOperationNode exp_ = createExecOperationNode(current_, _forwards);
         setImplicits(exp_, current_, _forwards);
-        _coverage.putBlockOperation(_forwards, _currentBlock, current_,exp_);
+        _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (hasToCreateExec(exp_, op_)) {
                 ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                 setImplicits(loc_, op_, _forwards);
-                _coverage.putBlockOperation(_forwards, _currentBlock, op_,loc_);
+                _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -876,7 +882,7 @@ public final class ForwardInfos {
                 if (hasToCreateExec(par_, op_)) {
                     ExecOperationNode loc_ = createExecOperationNode(op_, _forwards);
                     setImplicits(loc_, op_, _forwards);
-                    _coverage.putBlockOperation(_forwards, _currentBlock, op_,loc_);
+                    _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _forwards, _currentBlock, op_,loc_);
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
                         exp_.setSiblingSet((ExecPossibleIntermediateDotted) loc_);
@@ -1347,7 +1353,7 @@ public final class ForwardInfos {
             _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
-        CustList<ExecOperationNode> ops_ = getExecutableNodes(root_, _coverage, _forwards, _ana);
+        CustList<ExecOperationNode> ops_ = getExecutableNodes(0,0,root_, _coverage, _forwards, _ana);
         _exec.setOpValue(ops_);
     }
 
@@ -1397,50 +1403,68 @@ public final class ForwardInfos {
     }
     private static void fwdAnnotationsParameters(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        int i_ = 0;
         for (CustList<OperationNode> l: _ana.getRootsList()) {
             CustList<CustList<ExecOperationNode>> annotation_;
             annotation_ = new CustList<CustList<ExecOperationNode>>();
+            _coverage.putBlockOperationsAnnotMethodParam(_ana);
+            int j_ = 0;
             for (OperationNode r: l) {
-                annotation_.add(getExecutableNodes(r, _coverage, _forwards, _ana));
+                _coverage.putBlockOperationsAnnotMethod(_ana,i_);
+                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana));
+                j_++;
             }
             ops_.add(annotation_);
+            i_++;
         }
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
 
-    private static void fwdAnnotations(ElementBlock _ana, ExecElementBlock _ann, Coverage _coverage, Forwards _forwards) {
+    private static void fwdAnnotations(InnerTypeOrElement _ana, ExecInnerTypeOrElement _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
-            ops_.add(getExecutableNodes(r, _coverage, _forwards, _ana));
+            _coverage.putBlockOperationsAnnotField(_ana);
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, (Block)_ana));
+            i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     private static void fwdAnnotations(FieldBlock _ana, ExecFieldBlock _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
-            ops_.add(getExecutableNodes(r, _coverage, _forwards, _ana));
+            _coverage.putBlockOperationsAnnotField(_ana);
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
-    private static CustList<ExecOperationNode> processField(Block _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
-        _coverage.putBlockOperationsField(_ana);
-        _coverage.putBlockOperationsField(_exec, _ana);
-        return getExecutableNodes(_root, _coverage, _forwards, _ana);
+    private static CustList<ExecOperationNode> processField(InfoBlock _ana, ExecBlock _exec, Coverage _coverage, Forwards _forwards, OperationNode _root) {
+        _coverage.putBlockOperationsField((Block)_ana);
+        _coverage.putBlockOperationsField(_exec, (Block)_ana);
+        return getExecutableNodes(0,-1,_root, _coverage, _forwards, (Block)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
-            ops_.add(getExecutableNodes(r, _coverage, _forwards, _ana));
+            _coverage.putBlockOperationsAnnotMethod(_ana);
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
 
     private static void fwdAnnotations(RootBlock _ana, ExecRootBlock _ann, Coverage _coverage, Forwards _forwards) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
-            ops_.add(getExecutableNodes(r, _coverage, _forwards, _ana));
+            _coverage.putBlockOperationsAnnotType(_ana);
+            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            i_++;
         }
         _ann.getAnnotationsOps().clear();
         _ann.getAnnotationsOps().addAllElts(ops_);

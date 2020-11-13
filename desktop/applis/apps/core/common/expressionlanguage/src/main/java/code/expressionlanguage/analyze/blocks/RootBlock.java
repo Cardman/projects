@@ -93,6 +93,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
     private CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
     private int countFct;
+    private int countBodyFct;
     private int countField;
     private int countInit;
     private int countName;
@@ -1992,6 +1993,14 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setCountFct(int _countFct) {
         this.countFct = _countFct;
+    }
+
+    public int getCountBodyFct() {
+        return countBodyFct;
+    }
+
+    public void setCountBodyFct(int _countBodyFct) {
+        countBodyFct = _countBodyFct;
     }
 
     public int getCountField() {

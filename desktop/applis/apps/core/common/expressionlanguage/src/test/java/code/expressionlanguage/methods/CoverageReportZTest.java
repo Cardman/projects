@@ -1818,7 +1818,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " static int <span class=\"g\"><a name=\"m145\">extField</a></span>;\n" +
                 " static int <a name=\"m167\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -1858,7 +1858,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " <a name=\"m133\">ONE</a>;\n" +
                 " static int <a name=\"m150\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -1898,7 +1898,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m89\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " <a name=\"m133\">ONE</a>{};\n" +
                 " static int <a name=\"m152\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -1935,7 +1935,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
                 "}\n" +
                 "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " int <a name=\"m106\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m122\">pkg.Ext</a> {\n" +
@@ -1975,8 +1975,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
                 "}\n" +
                 "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>\n" +
-                " int <a name=\"m81\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a></span>\n" +
+                " int <a name=\"m81\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m114\">pkg.Ext</a> {\n" +
                 " <a name=\"m125\">ONE</a>{};\n" +
@@ -2015,8 +2015,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
                 "}\n" +
                 "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " int <a name=\"m106\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " int <a name=\"m106\">field</a>()<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;\n" +
                 "}\n" +
                 "enum <a name=\"m139\">pkg.Ext</a> {\n" +
                 " <a name=\"m150\">ONE</a>{};\n" +
@@ -2059,8 +2059,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m148\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m148\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " static int <span class=\"g\"><a name=\"m170\">extField</a></span>;\n" +
                 " static int <a name=\"m192\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2101,8 +2101,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " static int <span class=\"g\"><a name=\"m170\">extField</a></span>;\n" +
                 " static int <a name=\"m192\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2143,8 +2143,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m156\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m156\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " static int <span class=\"g\"><a name=\"m178\">extField</a></span>;\n" +
                 " static int <a name=\"m200\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2184,7 +2184,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " <a name=\"m134\">Ext(</a>){};\n" +
                 " static int <a name=\"m155\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2224,8 +2224,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <a name=\"m134\">Ext(</a><span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m174\">p</a>){};\n" +
                 " static int <a name=\"m192\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2264,8 +2264,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m191\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m205\">p</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <a name=\"m134\">Ext(</a><span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span><span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m191\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m205\">p</a>){};\n" +
                 " static int <a name=\"m223\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2304,8 +2304,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m199\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m213\">q</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " <a name=\"m134\">Ext(</a><span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m174\">p</a>, <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m199\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m213\">q</a>){};\n" +
                 " static int <a name=\"m231\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2344,7 +2344,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 " static void <a name=\"m146\">l</a>(){};\n" +
                 " static int <a name=\"m165\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2384,8 +2384,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " static void <a name=\"m146\">l</a>(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m184\">p</a>){};\n" +
                 " static int <a name=\"m202\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2424,8 +2424,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m201\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m215\">p</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " static void <a name=\"m146\">l</a>(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span><span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m201\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m215\">p</a>){};\n" +
                 " static int <a name=\"m233\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2464,8 +2464,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m223\">q</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " static void <a name=\"m146\">l</a>(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m184\">p</a>, <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m223\">q</a>){};\n" +
                 " static int <a name=\"m241\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2506,10 +2506,10 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " void <a name=\"m139\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m166\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m180\">p</a>){};\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " int <a name=\"m224\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m251\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m265\">p</a>){return <span class=\"n\">0</span>;};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " void <a name=\"m139\">this</a>(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m166\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m180\">p</a>){};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " int <a name=\"m224\">this</a>(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m251\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m265\">p</a>){return <span class=\"n\">0</span>;};\n" +
                 " static int <a name=\"m292\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2548,8 +2548,8 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
-                " operator<a name=\"m142\">+</a> int(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){return <span class=\"n\">0</span>;};\n" +
+                " <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
+                " operator<a name=\"m142\">+</a> int(<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span> int <a name=\"m184\">p</a>){return <span class=\"n\">0</span>;};\n" +
                 " static int <a name=\"m211\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -2586,7 +2586,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
-                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m106\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                "<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m106\">{</a>}</span></span>.<span class=\"n2\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span></span>)</span>\n" +
                 "class <a name=\"m122\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m144\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2624,7 +2624,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
-                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"t\">(:int)<a name=\"m103\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span>.<b>call</b>())\n" +
+                "<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\"><span class=\"t\">(:int)<a name=\"m103\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span></span>.<span class=\"n2\"><b>call</b>()</span></span></span>)</span>\n" +
                 "class <a name=\"m139\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m161\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -2663,7 +2663,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <a name=\"m73\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m90\">pkg.Ext</a> {\n" +
-                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"t\">(:int)<a name=\"m119\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span>.<b>call</b>())\n" +
+                "<span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"n2\"><span class=\"n2\"><span class=\"t\">(:int)<a name=\"m119\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span></span>.<span class=\"n2\"><b>call</b>()</span></span></span>)</span>\n" +
                 " static int <a name=\"m161\">m</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -3344,6 +3344,254 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " }\n" +
                 " static int <a name=\"m84\">m</a>(int <a name=\"m90\">a</a>,int <a name=\"m96\">b</a>,int <a name=\"m102\">c</a>){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m90\">a</a></span>*<span class=\"f\"><a href=\"#m96\">b</a></span></span>+<span class=\"f\"><a href=\"#m102\">c</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage478Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int field;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredFields()[0].getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+                "}\n" +
+                "$public $class <a name=\"m51\">pkg.Ex</a> {\n" +
+                " <span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " $public $static $int <span class=\"g\"><a name=\"m92\">field</a></span>;\n" +
+                " $public $static $int <a name=\"m121\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m149\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m51\">Ex</a>)</span>.<span class=\"f\">getDeclaredFields()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m149\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m149\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m149\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage479Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $int field()1;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(MyAnnot).getDeclaredMethods()[0].getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+                " <span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " $int <a name=\"m50\">field</a>()<span class=\"f2\">1</span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m77\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m108\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m136\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m136\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m136\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m136\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage480Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int field()1;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getDeclaredMethods()[0].getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+                " $int <a name=\"m40\">field</a>()<span class=\"f2\">1</span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m67\">pkg.Ex</a> {\n" +
+                " <span class=\"f2\">@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>\n" +
+                " $public $static $int <a name=\"m108\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m136\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m67\">Ex</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m136\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m136\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m136\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage481Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnotOne {\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotThree {\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotFour {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void catching(@MyAnnotOne@MyAnnotTwo $int a,@MyAnnotThree@MyAnnotFour $int b){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[][] arr = $class(Ex).getDeclaredMethods()[0].getAnnotationsParameters();\n");
+        xml_.append("  $if (arr.length != 2i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (arr[0].length != 2i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (arr[1].length != 2i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0]) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0][0]) != $class(MyAnnotOne)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0][1]) != $class(MyAnnotTwo)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[1]) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[1][0]) != $class(MyAnnotThree)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[1][1]) != $class(MyAnnotFour)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnotOne</a> {\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m59\">pkg.MyAnnotTwo</a> {\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m98\">pkg.MyAnnotThree</a> {\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m139\">pkg.MyAnnotFour</a> {\n" +
+                "}\n" +
+                "$public $class <a name=\"m174\">pkg.Ex</a> {\n" +
+                " $public $static $void <a name=\"m206\">catching</a>(<span class=\"f2\">@<a title=\"pkg.MyAnnotOne\" href=\"#m20\">MyAnnotOne</a></span><span class=\"f2\">@<a title=\"pkg.MyAnnotTwo\" href=\"#m59\">MyAnnotTwo</a></span> $int <a name=\"m243\">a</a>,<span class=\"f2\">@<a title=\"pkg.MyAnnotThree\" href=\"#m98\">MyAnnotThree</a></span><span class=\"f2\">@<a title=\"pkg.MyAnnotFour\" href=\"#m139\">MyAnnotFour</a></span> $int <a name=\"m276\">b</a>){\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m305\">catching</a>(){\n" +
+                "  $Annotation[][] <span class=\"f\"><span class=\"f\"><a name=\"m335\">arr</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m174\">Ex</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotationsParameters()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 2i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 2i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 2i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnotOne\" href=\"#m20\">MyAnnotOne</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnotTwo\" href=\"#m59\">MyAnnotTwo</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnotThree\" href=\"#m98\">MyAnnotThree</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m335\">arr</a></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span><span class=\"f\">[<span class=\"f\">1</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnotFour\" href=\"#m139\">MyAnnotFour</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

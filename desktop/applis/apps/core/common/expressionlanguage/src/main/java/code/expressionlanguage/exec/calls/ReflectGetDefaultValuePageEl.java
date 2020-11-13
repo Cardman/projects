@@ -57,4 +57,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         basicReceive(_argument,_context);
     }
 
+    public MethodMetaInfo getMetaInfo() {
+        return metaInfo;
+    }
 }

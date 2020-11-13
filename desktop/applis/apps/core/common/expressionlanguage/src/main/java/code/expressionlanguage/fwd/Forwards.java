@@ -14,6 +14,7 @@ public final class Forwards {
     private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
     private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+    private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     public IdMap<AnonymousTypeBlock, ExecAnonymousTypeBlock> getMapAnonTypes() {
         return mapAnonTypes;
@@ -21,6 +22,10 @@ public final class Forwards {
 
     public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
         return allFct;
+    }
+
+    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFctBodies() {
+        return allFctBodies;
     }
 
     public IdMap<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
