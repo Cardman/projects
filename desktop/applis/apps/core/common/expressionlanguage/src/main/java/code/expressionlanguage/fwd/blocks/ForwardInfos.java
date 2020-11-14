@@ -750,7 +750,7 @@ public final class ForwardInfos {
                 } else {
                     exp_ = getExecutableNodes(rExp_, _coverage, _forwards, en_);
                 }
-                _coverage.putBlockOperationsConditions(_from,en_);
+                _coverage.putBlockOperationsConditionsForMutable(_from,en_);
                 OperationNode rStep_ = ((ForMutableIterativeLoop) en_).getRootStep();
                 CustList<ExecOperationNode> step_;
                 if (rStep_ == null) {

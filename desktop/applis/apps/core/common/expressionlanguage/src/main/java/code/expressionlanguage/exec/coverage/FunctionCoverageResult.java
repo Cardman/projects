@@ -8,6 +8,7 @@ import code.util.core.BoolVal;
 
 public final class FunctionCoverageResult {
     private final IdMap<Block,BooleanCoverageResult> coversConditions = new IdMap<Block,BooleanCoverageResult>();
+    private final IdMap<Block,BooleanCoverageResult> coversConditionsForMutable = new IdMap<Block,BooleanCoverageResult>();
     private final IdMap<Block,BlockCoverageResult> blocks = new IdMap<Block,BlockCoverageResult>();
     private final IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
     private final IdMap<Block,SwitchCoverageResult> coverSwitchs = new IdMap<Block,SwitchCoverageResult>();
@@ -19,6 +20,10 @@ public final class FunctionCoverageResult {
 
     public IdMap<Block, BooleanCoverageResult> getCoversConditions() {
         return coversConditions;
+    }
+
+    public IdMap<Block, BooleanCoverageResult> getCoversConditionsForMutable() {
+        return coversConditionsForMutable;
     }
 
     public IdMap<Block, BlockCoverageResult> getBlocks() {

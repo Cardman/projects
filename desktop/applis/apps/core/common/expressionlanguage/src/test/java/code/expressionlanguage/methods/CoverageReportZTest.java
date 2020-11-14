@@ -4309,6 +4309,106 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage492Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  for (int i = 0; true ; i++){\n");
+        xml_.append("   if (!(i % 2 == 0)){\n");
+        xml_.append("    break;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  var toStr = \"\";\n");
+        xml_.append("  toStr = toStr + new ExTwo();\n");
+        xml_.append("  toStr = new ExTwo() + toStr;\n");
+        xml_.append("  return 6;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public String $toString() {\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><a name=\"m62\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"f\">true</span> ; <span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a></span>++</span>){\n" +
+                "   <span class=\"f\">if</span> (<span class=\"f\">!<span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a> </span>%<span class=\"f\"> 2 </span></span>==<span class=\"f\"> 0</span></span>)</span></span>){\n" +
+                "    break;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m131\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m144\">toStr</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m144\">toStr</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m144\">toStr</a> </span><i>+</i><span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m248\">ExTwo</a>()</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m144\">toStr</a> </span>=<span class=\"f\"><span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m248\">ExTwo</a>() </span><i>+</i><span class=\"f\"> <a href=\"#m144\">toStr</a></span></span></span>;\n" +
+                "  return <span class=\"f\">6</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m248\">pkg.ExTwo</a> {\n" +
+                " public String <a name=\"m275\">$toString</a>() {\n" +
+                "  return <span class=\"f\">null</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage493Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  for (int i = 0; ; i++){\n");
+        xml_.append("   if (!(i % 2 == 0)){\n");
+        xml_.append("    break;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  var toStr = \"\";\n");
+        xml_.append("  toStr = toStr + new ExTwo();\n");
+        xml_.append("  toStr = new ExTwo() + toStr;\n");
+        xml_.append("  return 6;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public String $toString() {\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  for (int <span class=\"f\"><span class=\"f\"><a name=\"m62\">i</a> </span>=<span class=\"f\"> 0</span></span>; ; <span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a></span>++</span>){\n" +
+                "   <span class=\"f\">if</span> (<span class=\"f\">!<span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a> </span>%<span class=\"f\"> 2 </span></span>==<span class=\"f\"> 0</span></span>)</span></span>){\n" +
+                "    break;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m126\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m139\">toStr</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m139\">toStr</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m139\">toStr</a> </span><i>+</i><span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m243\">ExTwo</a>()</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m139\">toStr</a> </span>=<span class=\"f\"><span class=\"f\"> new <a title=\"pkg.ExTwo\" href=\"#m243\">ExTwo</a>() </span><i>+</i><span class=\"f\"> <a href=\"#m139\">toStr</a></span></span></span>;\n" +
+                "  return <span class=\"f\">6</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m243\">pkg.ExTwo</a> {\n" +
+                " public String <a name=\"m270\">$toString</a>() {\n" +
+                "  return <span class=\"f\">null</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

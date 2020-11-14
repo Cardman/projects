@@ -646,7 +646,7 @@ public final class LinkageUtil {
         OperationNode rootExp_ = _cond.getRootExp();
         if (_vars.getStack().last().getCurrent() == null) {
             if (rootExp_ != null) {
-                AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
+                AbstractCoverageResult result_ = _cov.getCoversConditionsForMutable(_cond);
                 String tag_;
                 if (result_.isFullCovered()) {
                     tag_ = "<span class=\"f\">";

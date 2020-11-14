@@ -91,6 +91,14 @@ public final class Coverage {
         fctRes_.getCoversConditions().addEntry(_block,new BooleanCoverageResult());
     }
 
+    public void putBlockOperationsConditionsForMutable(MemberCallingsBlock _mem,Block _block) {
+        if (!isCovering()) {
+            return;
+        }
+        FunctionCoverageResult fctRes_ = getFctRes(_mem);
+        fctRes_.getCoversConditionsForMutable().addEntry(_block,new BooleanCoverageResult());
+    }
+
     public void putBlockOperationsSwitchs(MemberCallingsBlock _mem,Block _block) {
         if (!isCovering()) {
             return;
@@ -317,6 +325,20 @@ public final class Coverage {
             covTwo_.cover(_value);
         }
     }
+    public void passConditionsForMutable(ContextEl _context, ExecBlock _condition, Argument _value, ExecOperationNode _exec) {
+        if (!isCovering()) {
+            return;
+        }
+        AbstractPageEl lastPage_ = _context.getLastPage();
+        FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+        BooleanCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(fctRes_.getMappingBlocks().getVal(_condition));
+        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        if (_exec.getArgument() != null) {
+            covTwo_.fullCover();
+        } else {
+            covTwo_.cover(_value);
+        }
+    }
     public void passSwitch(ContextEl _context, ExecBlock _parent, ExecBlock _child, Argument _value) {
         if (!isCovering()) {
             return;
@@ -352,18 +374,17 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         ExecBlock en_ = lastPage_.getBlock();
-        IdMap<OperationNode, AbstractCoverageResult> instr_;
         Block matchBl_;
-        OperationNode ana_;
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
+            int indexAnnotation_ = annotRet_.getIndexAnnotation();
             if (annotRet_.isOnParameters()) {
                 indexAnnotGroup_ = annotRet_.getIndexAnnotationParam();
-                indexAnnot_ = annotRet_.getAnnotationsParamsIndexes().get(indexAnnotGroup_).get(annotRet_.getIndexAnnotation());
+                indexAnnot_ = annotRet_.getAnnotationsParamsIndexes().get(indexAnnotGroup_).get(indexAnnotation_);
             } else {
-                indexAnnot_ = annotRet_.getAnnotationsIndexes().get(annotRet_.getIndexAnnotation());
+                indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
             ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
@@ -398,8 +419,8 @@ public final class Coverage {
             matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
         }
         BlockCoverageResult blRes_ = getResultBlock(matchBl_, lastPage_ instanceof ReflectAnnotationPageEl, indexAnnotGroup_, indexAnnot_);
-        ana_ = blRes_.getMapping().getVal(_exec);
-        instr_ = blRes_.getCovers();
+        OperationNode ana_ = blRes_.getMapping().getVal(_exec);
+        IdMap<OperationNode, AbstractCoverageResult> instr_ = blRes_.getCovers();
         AbstractCoverageResult result_ = instr_.getVal(ana_);
         if (result_ == null) {
             return;
@@ -507,6 +528,11 @@ public final class Coverage {
         return fctRes_.getCoversConditions().getVal(_exec);
     }
 
+    public AbstractCoverageResult getCoversConditionsForMutable(Block _exec) {
+        MemberCallingsBlock outerFuntion_ = _exec.getOuterFct();
+        FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
+        return fctRes_.getCoversConditionsForMutable().getVal(_exec);
+    }
     public StandardCoverageResult getCoverSwitchs(Block _sw, Block _child) {
         MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);

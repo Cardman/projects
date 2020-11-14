@@ -183,7 +183,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        _context.getCoverage().passConditions(_context, this, arg_,opExp.last());
+        _context.getCoverage().passConditionsForMutable(_context, this, arg_,opExp.last());
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
