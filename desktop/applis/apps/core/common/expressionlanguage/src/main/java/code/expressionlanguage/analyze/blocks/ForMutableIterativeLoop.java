@@ -23,7 +23,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class ForMutableIterativeLoop extends BracedBlock implements
-        ForLoop {
+        Loop {
 
     private String label;
     private int labelOffset;
@@ -63,6 +63,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
 
+    private int conditionNb;
     public ForMutableIterativeLoop(OffsetBooleanInfo _final,
                                    OffsetStringInfo _className,
                                    OffsetStringInfo _from,
@@ -341,5 +342,13 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public void setAlwaysTrue(boolean _alwaysTrue) {
         this.alwaysTrue = _alwaysTrue;
+    }
+
+    public int getConditionNb() {
+        return conditionNb;
+    }
+
+    public void setConditionNb(int _conditionNb) {
+        conditionNb = _conditionNb;
     }
 }

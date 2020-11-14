@@ -42,6 +42,7 @@ public abstract class Block {
     private boolean reachableError;
     private StringList errorsBlock = new StringList();
     private StringList errorsLabels = new StringList();
+    private int blockNb;
 
     Block(OffsetsBlock _offset) {
         offset = _offset;
@@ -226,5 +227,13 @@ public abstract class Block {
 
     public void setOuterFct(MemberCallingsBlock _outerFct) {
         outerFct = _outerFct;
+    }
+
+    public int getBlockNb() {
+        return blockNb;
+    }
+
+    public void setBlockNb(int _blockNb) {
+        this.blockNb = _blockNb;
     }
 }

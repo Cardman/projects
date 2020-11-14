@@ -8,6 +8,8 @@ import code.util.core.StringUtil;
 
 public abstract class AbstractCatchEval extends BracedBlock implements Eval {
 
+    private int conditionNb;
+
     protected AbstractCatchEval(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -57,5 +59,11 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
         }
     }
 
+    public int getConditionNb() {
+        return conditionNb;
+    }
 
+    public void setConditionNb(int _conditionNb) {
+        conditionNb = _conditionNb;
+    }
 }

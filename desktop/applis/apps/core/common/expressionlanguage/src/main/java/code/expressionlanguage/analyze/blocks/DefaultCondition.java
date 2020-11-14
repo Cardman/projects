@@ -47,6 +47,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             getErrorsBlock().add(un_.getBuiltError());
         } else {
             SwitchBlock s_ = (SwitchBlock) b_;
+            setSwitchParent(s_);
             String instanceTest_ = s_.getInstanceTest();
             if (instanceTest_.isEmpty()) {
                 Block first_ = b_.getFirstChild();

@@ -28,6 +28,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private ClassMethodId test;
 
+    private int conditionNb;
+
     public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_offset);
         condition = _condition.getInfo();
@@ -114,5 +116,13 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     public void setTestOffset(int _testOffset) {
         testOffset = _testOffset;
+    }
+
+    public int getConditionNb() {
+        return conditionNb;
+    }
+
+    public void setConditionNb(int _conditionNb) {
+        conditionNb = _conditionNb;
     }
 }

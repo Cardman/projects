@@ -6,11 +6,11 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class BlockCoverageResult {
-    private final IdMap<OperationNode,AbstractCoverageResult> covers = new IdMap<OperationNode, AbstractCoverageResult>();
+    private final CustList<AbstractCoverageResult> covers = new CustList<AbstractCoverageResult>();
     private final IdMap<ExecOperationNode,OperationNode> mapping = new IdMap<ExecOperationNode,OperationNode>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
 
-    public IdMap<OperationNode, AbstractCoverageResult> getCovers() {
+    public CustList<AbstractCoverageResult> getCovers() {
         return covers;
     }
 

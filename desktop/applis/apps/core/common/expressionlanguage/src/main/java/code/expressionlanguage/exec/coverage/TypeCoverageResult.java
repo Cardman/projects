@@ -1,23 +1,24 @@
 package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class TypeCoverageResult {
-    private final IdMap<Block,FunctionCoverageResult> functions = new IdMap<Block,FunctionCoverageResult>();
-    private final IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
+    private final CustList<FunctionCoverageResult> functions = new CustList<FunctionCoverageResult>();
+    private final IdMap<ExecBlock,MemberCallingsBlock> mappingBlocks = new IdMap<ExecBlock,MemberCallingsBlock>();
     private final IdMap<ExecBlock,Block> mappingFields = new IdMap<ExecBlock,Block>();
-    private final IdMap<Block,BlockCoverageResult> fields = new IdMap<Block,BlockCoverageResult>();
-    private final IdMap<Block,BlockCoverageResult> annotationsFields = new IdMap<Block,BlockCoverageResult>();
+    private final CustList<BlockCoverageResult> fields = new CustList<BlockCoverageResult>();
+    private final CustList<BlockCoverageResult> annotationsFields = new CustList<BlockCoverageResult>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
 
-    public IdMap<Block, FunctionCoverageResult> getFunctions() {
+    public CustList<FunctionCoverageResult> getFunctions() {
         return functions;
     }
 
-    public IdMap<ExecBlock, Block> getMappingBlocks() {
+    public IdMap<ExecBlock, MemberCallingsBlock> getMappingBlocks() {
         return mappingBlocks;
     }
 
@@ -25,11 +26,11 @@ public final class TypeCoverageResult {
         return mappingFields;
     }
 
-    public IdMap<Block, BlockCoverageResult> getFields() {
+    public CustList<BlockCoverageResult> getFields() {
         return fields;
     }
 
-    public IdMap<Block, BlockCoverageResult> getAnnotationsFields() {
+    public CustList<BlockCoverageResult> getAnnotationsFields() {
         return annotationsFields;
     }
 

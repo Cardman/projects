@@ -59,34 +59,6 @@ public final class LinkageUtil {
         return files_;
     }
 
-    private static StringBuilder build(FileBlock _fileBlock, String _value, CustList<PartOffset> _listStr) {
-        String value_ = _value;
-        if (_value.isEmpty()) {
-            value_ = " ";
-        }
-        StringBuilder xml_ = new StringBuilder(value_.length());
-        int i_ = value_.length() - 1;
-        for (PartOffset t:_listStr.getReverse()) {
-            String part_ = t.getPart();
-            if (part_.isEmpty()) {
-                continue;
-            }
-            int off_ = t.getOffset();
-            while (i_ >= off_) {
-                char ch_ = value_.charAt(i_);
-                insertTr(_fileBlock,xml_, ch_,i_);
-                i_--;
-            }
-            xml_.insert(0, part_);
-        }
-        while (i_ >= 0) {
-            char ch_ = value_.charAt(i_);
-            insertTr(_fileBlock,xml_, ch_,i_);
-            i_--;
-        }
-        return xml_;
-    }
-
     public static StringMap<String> export(ContextEl _cont) {
         StringMap<String> files_ = new StringMap<String>();
         Coverage cov_ = _cont.getCoverage();
@@ -180,6 +152,34 @@ public final class LinkageUtil {
         cssContent_ += ".n2{background-color:silver;}\n";
         files_.addEntry("css/style.css",cssContent_);
         return files_;
+    }
+
+    private static StringBuilder build(FileBlock _fileBlock, String _value, CustList<PartOffset> _listStr) {
+        String value_ = _value;
+        if (_value.isEmpty()) {
+            value_ = " ";
+        }
+        StringBuilder xml_ = new StringBuilder(value_.length());
+        int i_ = value_.length() - 1;
+        for (PartOffset t:_listStr.getReverse()) {
+            String part_ = t.getPart();
+            if (part_.isEmpty()) {
+                continue;
+            }
+            int off_ = t.getOffset();
+            while (i_ >= off_) {
+                char ch_ = value_.charAt(i_);
+                insertTr(_fileBlock,xml_, ch_,i_);
+                i_--;
+            }
+            xml_.insert(0, part_);
+        }
+        while (i_ >= 0) {
+            char ch_ = value_.charAt(i_);
+            insertTr(_fileBlock,xml_, ch_,i_);
+            i_--;
+        }
+        return xml_;
     }
 
     private static void insertTr(FileBlock _ex,StringBuilder _xml, char _ch, int _index) {
@@ -813,7 +813,7 @@ public final class LinkageUtil {
         refLabelError(_vars, _cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        BracedBlock parent_ = _cond.getParent();
+        SwitchBlock parent_ = _cond.getSwitchParent();
         AbstractCoverageResult result_ = _cov.getCoverSwitchs(parent_,_cond);
         int off_ = _cond.getValueOffset();
         String tag_ = getCaseDefaultTag(result_);
@@ -893,7 +893,7 @@ public final class LinkageUtil {
     }
 
     private static void processDefaultConditionReport(VariablesOffsets _vars, DefaultCondition _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        BracedBlock parent_ = _cond.getParent();
+        SwitchBlock parent_ = _cond.getSwitchParent();
         AbstractCoverageResult result_ = _cov.getCoverSwitchs(parent_,_cond);
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset().getOffsetTrim();

@@ -1,23 +1,25 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.DefaultCondition;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.util.IdMap;
 
 public final class SwitchCoverageResult {
-    private final IdMap<Block,StandardCoverageResult> children = new IdMap<Block, StandardCoverageResult>();
+    private final IdMap<ExecBlock,StandardCoverageResult> children = new IdMap<ExecBlock, StandardCoverageResult>();
     private final StandardCoverageResult resultNoDef = new StandardCoverageResult();
+    private boolean defCase;
     public StandardCoverageResult noDefault() {
-        for (Block b: children.getKeys()) {
-            if (b instanceof DefaultCondition) {
-                return null;
-            }
+        if (defCase) {
+            return null;
         }
         return resultNoDef;
     }
 
-    public IdMap<Block, StandardCoverageResult> getChildren() {
+    public IdMap<ExecBlock, StandardCoverageResult> getChildren() {
         return children;
+    }
+
+    public void setDefCase(boolean _defCase) {
+        defCase = _defCase;
     }
 
     public StandardCoverageResult getResultNoDef() {

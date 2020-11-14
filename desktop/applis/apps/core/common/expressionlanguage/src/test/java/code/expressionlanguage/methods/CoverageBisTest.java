@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -36,12 +36,12 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(5, getCovers(cont_).size());
-        assertEq(0, getCovers(cont_).getValue(0).size());
-        assertEq(0, getCovers(cont_).getValue(1).size());
-        assertEq(1, getCovers(cont_).getValue(2).size());
-        assertEq(3, getCovers(cont_).getValue(3).size());
-        assertTrue(getCovers(cont_).getValue(3).firstValue().isFullCovered());
-        assertEq(4, getCovers(cont_).getValue(4).size());
+        assertEq(0, getCovers(cont_).get(0).size());
+        assertEq(0, getCovers(cont_).get(1).size());
+        assertEq(1, getCovers(cont_).get(2).size());
+        assertEq(3, getCovers(cont_).get(3).size());
+        assertTrue(getCovers(cont_).get(3).first().isFullCovered());
+        assertEq(4, getCovers(cont_).get(4).size());
     }
 
     @Test
@@ -118,11 +118,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        Coverage coverage_ = cont_.getCoverage();
-        Block firstChild_ = coverage_.getFiles().last().getFirstChild().getFirstChild();
         assertEq(1, getFieldCovers(cont_).size());
-        assertEq(3, getFieldCovers(cont_).getVal(firstChild_).size());
-        assertTrue(getFieldCovers(cont_).getVal(firstChild_).firstValue().isFullCovered());
+        assertEq(3, getFieldCovers(cont_).first().size());
+        assertTrue(getFieldCovers(cont_).first().first().isFullCovered());
     }
     @Test
     public void coverage13Test() {
@@ -147,8 +145,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(9, getCovers(cont_).size());
-        assertEq(3, getCovers(cont_).getValue(4).size());
-        AbstractCoverageResult value_ = getCovers(cont_).getValue(4).firstValue();
+        assertEq(3, getCovers(cont_).get(4).size());
+        AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(!((BooleanCoverageResult)value_).isCoverTrue());
@@ -177,8 +175,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(9, getCovers(cont_).size());
-        assertEq(3, getCovers(cont_).getValue(4).size());
-        AbstractCoverageResult value_ = getCovers(cont_).getValue(4).firstValue();
+        assertEq(3, getCovers(cont_).get(4).size());
+        AbstractCoverageResult value_ = getCovers(cont_).get(4).first();
         assertTrue(value_ instanceof BooleanCoverageResult);
         assertTrue(!value_.isFullCovered());
         assertTrue(((BooleanCoverageResult)value_).isCoverTrue());
@@ -202,8 +200,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getCovers(cont_).size());
-        assertEq(1, getCovers(cont_).getValue(1).size());
-        assertTrue(getCovers(cont_).getValue(1).firstValue().isFullCovered());
+        assertEq(1, getCovers(cont_).get(1).size());
+        assertTrue(getCovers(cont_).get(1).first().isFullCovered());
     }
     @Test
     public void coverage21Test() {
@@ -223,8 +221,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getCalls(cont_).getVal("pkg.Ex").size());
-        assertTrue(getCalls(cont_).getVal("pkg.Ex").firstValue());
-        assertTrue(!getCalls(cont_).getVal("pkg.Ex").lastValue());
+        assertTrue(getCalls(cont_).getVal("pkg.Ex").first());
+        assertTrue(!getCalls(cont_).getVal("pkg.Ex").last());
     }
     @Test
     public void coverage22Test() {
@@ -260,8 +258,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(out_));
         assertEq(2, getCallsTwo(cont_).getVal("").size());
-        assertTrue(getCallsTwo(cont_).getVal("").firstValue());
-        assertTrue(!getCallsTwo(cont_).getVal("").lastValue());
+        assertTrue(getCallsTwo(cont_).getVal("").first());
+        assertTrue(!getCallsTwo(cont_).getVal("").last());
     }
     @Test
     public void coverage23Test() {
@@ -318,87 +316,57 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertSame(BoolVal.FALSE, getCatches(cont_).firstValue());
     }
 
-    private static StringMap<IdMap<NamedFunctionBlock, Boolean>> getCalls(ContextEl _cont) {
-        StringMap<IdMap<NamedFunctionBlock, Boolean>> ret_ = new StringMap<IdMap<NamedFunctionBlock, Boolean>>();
-        for (EntryCust<Block, TypeCoverageResult> e: _cont.getCoverage().getTypes().entryList()) {
-            IdMap<NamedFunctionBlock, Boolean> v_ = new IdMap<NamedFunctionBlock, Boolean>();
-            for (EntryCust<Block, FunctionCoverageResult> f: e.getValue().getFunctions().entryList()) {
-                v_.addEntry((NamedFunctionBlock) f.getKey(),f.getValue().isCalled());
-            }
-            ret_.addEntry(((RootBlock)e.getKey()).getFullName(), v_);
+    private static StringMap<CustList<Boolean>> getCalls(ContextEl _cont) {
+        StringMap<CustList<Boolean>> ret_ = new StringMap<CustList<Boolean>>();
+        CustList<Boolean> v_ = new CustList<Boolean>();
+        for (FunctionCoverageResult f: _cont.getCoverage().getTypes().last().getFunctions()) {
+            v_.add(f.isCalled());
         }
+        ret_.addEntry("pkg.Ex", v_);
         return ret_;
     }
 
 
-    private static StringMap<IdMap<NamedFunctionBlock, Boolean>> getCallsTwo(ContextEl _cont) {
-        StringMap<IdMap<NamedFunctionBlock, Boolean>> ret_ = new StringMap<IdMap<NamedFunctionBlock, Boolean>>();
-        IdMap<NamedFunctionBlock, Boolean> v_ = new IdMap<NamedFunctionBlock, Boolean>();
-        for (EntryCust<Block, FunctionCoverageResult> e: _cont.getCoverage().getOperators().entryList()) {
-            v_.addEntry((NamedFunctionBlock) e.getKey(),e.getValue().isCalled());
+    private static StringMap<CustList<Boolean>> getCallsTwo(ContextEl _cont) {
+        StringMap<CustList<Boolean>> ret_ = new StringMap<CustList<Boolean>>();
+        CustList<Boolean> v_ = new CustList<Boolean>();
+        for (FunctionCoverageResult e: _cont.getCoverage().getOperators()) {
+            v_.add(e.isCalled());
         }
         ret_.addEntry("", v_);
         return ret_;
     }
 
-    private static IdMap<Block, BoolVal> getCatches(ContextEl _cont) {
-        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
-        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
-            if (e.getKey().getFile().isPredefined()) {
-                continue;
-            }
-            c_.addEntry(e.getKey(),e.getValue());
-        }
-        return c_.firstValue().getFunctions().firstValue().getCatches();
+    private static IdMap<ExecBlock, BoolVal> getCatches(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        return types_.last().getFunctions().first().getCatches();
     }
 
-    private static IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> getCovers(ContextEl _cont) {
-        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
-        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
-            if (e.getKey().getFile().isPredefined()) {
-                continue;
-            }
-            c_.addEntry(e.getKey(),e.getValue());
-        }
-        IdMap<Block, BlockCoverageResult> blocks_ = c_.firstValue().getFunctions().firstValue().getBlocks();
-        IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> m_ = new IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>>();
-        for (EntryCust<Block, BlockCoverageResult> e: blocks_.entryList()) {
-            m_.addEntry(e.getKey(),e.getValue().getCovers());
+    private static CustList<CustList<AbstractCoverageResult>> getCovers(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
+        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
+        for (BlockCoverageResult e: blocks_) {
+            m_.add(e.getCovers());
         }
         return m_;
     }
 
-    private static IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> getFieldCovers(ContextEl _cont) {
-        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
-        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
-            if (e.getKey().getFile().isPredefined()) {
-                continue;
-            }
-            c_.addEntry(e.getKey(),e.getValue());
-        }
-        IdMap<Block, BlockCoverageResult> blocks_ = c_.firstValue().getFields();
-        IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> m_ = new IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>>();
-        for (EntryCust<Block, BlockCoverageResult> e: blocks_.entryList()) {
-            m_.addEntry(e.getKey(),e.getValue().getCovers());
+    private static CustList<CustList<AbstractCoverageResult>> getFieldCovers(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        CustList<BlockCoverageResult> blocks_ = types_.last().getFields();
+        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
+        for (BlockCoverageResult e: blocks_) {
+            m_.add(e.getCovers());
         }
         return m_;
     }
-    private static IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> getSecCovers(ContextEl _cont) {
-        IdMap<Block, TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        IdMap<Block, TypeCoverageResult> c_ = new IdMap<Block, TypeCoverageResult>();
-        for (EntryCust<Block, TypeCoverageResult> e: types_.entryList()) {
-            if (e.getKey().getFile().isPredefined()) {
-                continue;
-            }
-            c_.addEntry(e.getKey(),e.getValue());
-        }
-        IdMap<Block, BlockCoverageResult> blocks_ = c_.getValue(1).getFunctions().firstValue().getBlocks();
-        IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>> m_ = new IdMap<Block, IdMap<OperationNode, AbstractCoverageResult>>();
-        for (EntryCust<Block, BlockCoverageResult> e: blocks_.entryList()) {
-            m_.addEntry(e.getKey(),e.getValue().getCovers());
+    private static CustList<CustList<AbstractCoverageResult>> getSecCovers(ContextEl _cont) {
+        CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
+        CustList<BlockCoverageResult> blocks_ = types_.last().getFunctions().first().getBlocks();
+        CustList<CustList<AbstractCoverageResult>> m_ = new CustList<CustList<AbstractCoverageResult>>();
+        for (BlockCoverageResult e: blocks_) {
+            m_.add(e.getCovers());
         }
         return m_;
     }

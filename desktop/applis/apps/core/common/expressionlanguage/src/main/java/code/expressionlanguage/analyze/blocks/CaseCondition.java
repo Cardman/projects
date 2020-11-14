@@ -88,6 +88,7 @@ public final class CaseCondition extends SwitchPartBlock {
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
+        setSwitchParent(sw_);
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         String instanceTest_ = sw_.getInstanceTest();

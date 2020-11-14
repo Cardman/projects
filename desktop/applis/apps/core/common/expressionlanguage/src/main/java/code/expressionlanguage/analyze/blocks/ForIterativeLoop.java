@@ -23,7 +23,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class ForIterativeLoop extends BracedBlock implements ForLoop {
+public final class ForIterativeLoop extends AbstractForLoop implements Loop {
 
     private String label;
     private int labelOffset;

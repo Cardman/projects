@@ -78,6 +78,7 @@ public abstract class OperationNode {
 
     private StringList errs = new StringList();
 
+    private int indexInExp = -1;
 //    private int indexInEl;
 
 //    private int order = CustList.INDEX_NOT_FOUND_ELT;
@@ -3514,4 +3515,11 @@ public abstract class OperationNode {
         return errs;
     }
 
+    public int getIndexInExp() {
+        return indexInExp;
+    }
+
+    public void setIndexInExp(int _indexInExp) {
+        indexInExp = _indexInExp;
+    }
 }

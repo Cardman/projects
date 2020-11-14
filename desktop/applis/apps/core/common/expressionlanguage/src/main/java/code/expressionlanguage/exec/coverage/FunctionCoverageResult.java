@@ -7,38 +7,38 @@ import code.util.IdMap;
 import code.util.core.BoolVal;
 
 public final class FunctionCoverageResult {
-    private final IdMap<Block,BooleanCoverageResult> coversConditions = new IdMap<Block,BooleanCoverageResult>();
-    private final IdMap<Block,BooleanCoverageResult> coversConditionsForMutable = new IdMap<Block,BooleanCoverageResult>();
-    private final IdMap<Block,BlockCoverageResult> blocks = new IdMap<Block,BlockCoverageResult>();
-    private final IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
-    private final IdMap<Block,SwitchCoverageResult> coverSwitchs = new IdMap<Block,SwitchCoverageResult>();
-    private final IdMap<Block,BoolVal> catches = new IdMap<Block,BoolVal>();
+    private final IdMap<ExecBlock,BooleanCoverageResult> coversConditions = new IdMap<ExecBlock,BooleanCoverageResult>();
+    private final IdMap<ExecBlock,BooleanCoverageResult> coversConditionsForMutable = new IdMap<ExecBlock,BooleanCoverageResult>();
+    private final CustList<BlockCoverageResult> blocks = new CustList<BlockCoverageResult>();
+    private final IdMap<ExecBlock,BooleanCoverageResult> coverLoops = new IdMap<ExecBlock,BooleanCoverageResult>();
+    private final IdMap<ExecBlock,SwitchCoverageResult> coverSwitchs = new IdMap<ExecBlock,SwitchCoverageResult>();
+    private final IdMap<ExecBlock,BoolVal> catches = new IdMap<ExecBlock,BoolVal>();
     private final IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
     private final CustList<CustList<BlockCoverageResult>> annotationsParams = new CustList<CustList<BlockCoverageResult>>();
     private boolean called;
 
-    public IdMap<Block, BooleanCoverageResult> getCoversConditions() {
+    public IdMap<ExecBlock, BooleanCoverageResult> getCoversConditions() {
         return coversConditions;
     }
 
-    public IdMap<Block, BooleanCoverageResult> getCoversConditionsForMutable() {
+    public IdMap<ExecBlock, BooleanCoverageResult> getCoversConditionsForMutable() {
         return coversConditionsForMutable;
     }
 
-    public IdMap<Block, BlockCoverageResult> getBlocks() {
+    public CustList<BlockCoverageResult> getBlocks() {
         return blocks;
     }
 
-    public IdMap<Block, BooleanCoverageResult> getCoverLoops() {
+    public IdMap<ExecBlock, BooleanCoverageResult> getCoverLoops() {
         return coverLoops;
     }
 
-    public IdMap<Block, SwitchCoverageResult> getCoverSwitchs() {
+    public IdMap<ExecBlock, SwitchCoverageResult> getCoverSwitchs() {
         return coverSwitchs;
     }
 
-    public IdMap<Block, BoolVal> getCatches() {
+    public IdMap<ExecBlock, BoolVal> getCatches() {
         return catches;
     }
 

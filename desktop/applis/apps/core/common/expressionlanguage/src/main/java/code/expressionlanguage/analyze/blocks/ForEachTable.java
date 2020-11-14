@@ -26,7 +26,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class ForEachTable extends BracedBlock implements Loop,ImportForEachTable {
+public final class ForEachTable extends AbstractForLoop implements Loop,ImportForEachTable {
 
     private String label;
     private int labelOffset;

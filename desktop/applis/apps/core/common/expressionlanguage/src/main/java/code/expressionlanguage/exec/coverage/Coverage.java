@@ -28,12 +28,12 @@ public final class Coverage {
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> refOperators = new CustList<OperatorBlock>();
     private final StringList toStringOwners = new StringList();
-    private final IdMap<Block,TypeCoverageResult> types = new IdMap<Block, TypeCoverageResult>();
-    private final IdMap<Block,FunctionCoverageResult> lambdas = new IdMap<Block,FunctionCoverageResult>();
-    private final IdMap<Block,FunctionCoverageResult> operators = new IdMap<Block,FunctionCoverageResult>();
-    private final IdMap<ExecBlock,Block> mappingOperators = new IdMap<ExecBlock,Block>();
-    private final IdMap<ExecBlock,Block> mappingLambdas = new IdMap<ExecBlock,Block>();
-    private final IdMap<ExecBlock,Block> mappingTypes = new IdMap<ExecBlock,Block>();
+    private final CustList<TypeCoverageResult> types = new CustList<TypeCoverageResult>();
+    private final CustList<FunctionCoverageResult> lambdas = new CustList<FunctionCoverageResult>();
+    private final CustList<FunctionCoverageResult> operators = new CustList<FunctionCoverageResult>();
+    private final IdMap<ExecBlock,MemberCallingsBlock> mappingOperators = new IdMap<ExecBlock,MemberCallingsBlock>();
+    private final IdMap<ExecBlock,MemberCallingsBlock> mappingLambdas = new IdMap<ExecBlock,MemberCallingsBlock>();
+    private final IdMap<ExecBlock,RootBlock> mappingTypes = new IdMap<ExecBlock,RootBlock>();
     private KeyWords keyWords;
     private final boolean covering;
 
@@ -53,7 +53,7 @@ public final class Coverage {
             return;
         }
         refFoundTypes.add(_type);
-        types.addEntry(_type,new TypeCoverageResult());
+        types.add(new TypeCoverageResult());
     }
 
     public void putOperator(OperatorBlock _type) {
@@ -61,66 +61,75 @@ public final class Coverage {
             return;
         }
         refOperators.add(_type);
-        operators.addEntry(_type,new FunctionCoverageResult());
+        operators.add(new FunctionCoverageResult());
     }
-    public void putCalls(RootBlock _type, MemberCallingsBlock _block) {
+    public void putCalls(RootBlock _type) {
         if (!isCovering()) {
             return;
         }
-        types.getValue(_type.getNumberAll()).getFunctions().addEntry(_block, new FunctionCoverageResult());
+        types.get(_type.getNumberAll()).getFunctions().add(new FunctionCoverageResult());
     }
-    public void putCallsAnon(MemberCallingsBlock _block) {
+    public void putCallsAnon() {
         if (!isCovering()) {
             return;
         }
-        lambdas.addEntry(_block, new FunctionCoverageResult());
+        lambdas.add(new FunctionCoverageResult());
     }
-    public void putBlockOperationsLoops(MemberCallingsBlock _mem,Block _block) {
+    public void putBlockOperationsLoops(MemberCallingsBlock _mem, AbstractForLoop _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getCoverLoops().addEntry(_block,new BooleanCoverageResult());
+        _block.setConditionNb(fctRes_.getCoverLoops().size());
+        fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult());
     }
 
-    public void putBlockOperationsConditions(MemberCallingsBlock _mem,Block _block) {
+    public void putBlockOperationsConditions(MemberCallingsBlock _mem, Condition _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getCoversConditions().addEntry(_block,new BooleanCoverageResult());
+        _block.setConditionNb(fctRes_.getCoversConditions().size());
+        fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult());
     }
 
-    public void putBlockOperationsConditionsForMutable(MemberCallingsBlock _mem,Block _block) {
+    public void putBlockOperationsConditionsForMutable(MemberCallingsBlock _mem, ForMutableIterativeLoop _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getCoversConditionsForMutable().addEntry(_block,new BooleanCoverageResult());
+        _block.setConditionNb(fctRes_.getCoversConditionsForMutable().size());
+        fctRes_.getCoversConditionsForMutable().addEntry(_exec,new BooleanCoverageResult());
     }
 
-    public void putBlockOperationsSwitchs(MemberCallingsBlock _mem,Block _block) {
+    public void putBlockOperationsSwitchs(MemberCallingsBlock _mem, SwitchBlock _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getCoverSwitchs().addEntry(_block,new SwitchCoverageResult());
+        _block.setConditionNb(fctRes_.getCoverSwitchs().size());
+        fctRes_.getCoverSwitchs().addEntry(_exec,new SwitchCoverageResult());
     }
 
-    public void putBlockOperationsSwitchs(MemberCallingsBlock _mem,Block _block, Block _child) {
+    public void putBlockOperationsSwitchsPart(MemberCallingsBlock _mem, SwitchBlock _block, SwitchPartBlock _child, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        SwitchCoverageResult swRes_ = fctRes_.getCoverSwitchs().getVal(_block);
-        swRes_.getChildren().addEntry(_child, new StandardCoverageResult());
+        SwitchCoverageResult swRes_ = fctRes_.getCoverSwitchs().getValue(_block.getConditionNb());
+        _child.setConditionNb(swRes_.getChildren().size());
+        if (_child instanceof DefaultCondition) {
+            swRes_.setDefCase(true);
+        }
+        swRes_.getChildren().addEntry(_exec, new StandardCoverageResult());
     }
-    public void putCatches(MemberCallingsBlock _mem,Block _block) {
+    public void putCatches(MemberCallingsBlock _mem, AbstractCatchEval _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getCatches().addEntry(_block,BoolVal.FALSE);
+        _block.setConditionNb(fctRes_.getCatches().size());
+        fctRes_.getCatches().addEntry(_exec,BoolVal.FALSE);
     }
     public void putBlockOperations(MemberCallingsBlock _mem,Block _block) {
         if (!isCovering()) {
@@ -128,7 +137,8 @@ public final class Coverage {
         }
         _block.setOuterFct(_mem);
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
-        fctRes_.getBlocks().addEntry(_block, new BlockCoverageResult());
+        _block.setBlockNb(fctRes_.getBlocks().size());
+        fctRes_.getBlocks().add(new BlockCoverageResult());
     }
 
     public void putBlockOperations(MemberCallingsBlock _mem,ExecBlock _exec, Block _block) {
@@ -136,22 +146,22 @@ public final class Coverage {
             return;
         }
         if (_block instanceof OperatorBlock) {
-            mappingOperators.addEntry(_exec,_block);
+            mappingOperators.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
         if (_block instanceof AnonymousFunctionBlock) {
-            mappingLambdas.addEntry(_exec,_block);
+            mappingLambdas.addEntry(_exec,(MemberCallingsBlock)_block);
             return;
         }
         if (_block instanceof MemberCallingsBlock) {
-            types.getValue(((RootBlock)_mem.getParent()).getNumberAll()).getMappingBlocks().addEntry(_exec, _block);
+            types.get(((RootBlock)_mem.getParent()).getNumberAll()).getMappingBlocks().addEntry(_exec, (MemberCallingsBlock)_block);
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
         fctRes_.getMappingBlocks().addEntry(_exec, _block);
     }
 
-    public void putBlockOperationsType(ExecBlock _exec, Block _block) {
+    public void putBlockOperationsType(ExecBlock _exec, RootBlock _block) {
         if (!isCovering()) {
             return;
         }
@@ -161,34 +171,34 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        IdMap<Block, BlockCoverageResult> fctRes_ = getTypeRes(_block);
-        fctRes_.addEntry(_block, new BlockCoverageResult());
+        CustList<BlockCoverageResult> fctRes_ = getTypeRes(_block);
+        fctRes_.add(new BlockCoverageResult());
     }
 
     public void putBlockOperationsField(ExecBlock _exec, Block _block) {
         if (!isCovering()) {
             return;
         }
-        types.getValue(((RootBlock)_block.getParent()).getNumberAll()).getMappingFields().addEntry(_exec, _block);
+        types.get(((RootBlock)_block.getParent()).getNumberAll()).getMappingFields().addEntry(_exec, _block);
     }
     public void putBlockOperationsAnnotMethodField(Block _block) {
         if (!isCovering()) {
             return;
         }
-        types.getValue(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().addEntry(_block, new BlockCoverageResult());
+        types.get(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().add(new BlockCoverageResult());
     }
     public void putBlockOperationsAnnotField(InfoBlock _block) {
         if (!isCovering()) {
             return;
         }
-        IdMap<Block, BlockCoverageResult> fctRes_ = getTypeRes((Block)_block);
-        fctRes_.getValue(_block.getFieldNumber()).getAnnotations().add(new BlockCoverageResult());
+        CustList<BlockCoverageResult> fctRes_ = getTypeRes((Block)_block);
+        fctRes_.get(_block.getFieldNumber()).getAnnotations().add(new BlockCoverageResult());
     }
     public void putBlockOperationsAnnotType(RootBlock _block) {
         if (!isCovering()) {
             return;
         }
-        TypeCoverageResult fctRes_ = types.getValue(_block.getNumberAll());
+        TypeCoverageResult fctRes_ = types.get(_block.getNumberAll());
         fctRes_.getAnnotations().add(new BlockCoverageResult());
     }
     public void putBlockOperationsAnnotMethod(MemberCallingsBlock _block) {
@@ -197,7 +207,7 @@ public final class Coverage {
         }
         if (_block instanceof AnnotationMethodBlock) {
             AnnotationMethodBlock mem_ = (AnnotationMethodBlock) _block;
-            BlockCoverageResult fctRes_ = types.getValue(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().getValue(mem_.getNameNumber());
+            BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
             fctRes_.getAnnotations().add(new BlockCoverageResult());
             return;
         }
@@ -221,28 +231,28 @@ public final class Coverage {
     public FunctionCoverageResult getFctRes(MemberCallingsBlock _mem) {
         FunctionCoverageResult fctRes_;
         if (_mem instanceof OperatorBlock) {
-            fctRes_ = operators.getValue(((OperatorBlock) _mem).getNameNumber());
+            fctRes_ = operators.get(((OperatorBlock) _mem).getNameNumber());
         } else if (_mem instanceof AnonymousFunctionBlock){
-            fctRes_ = lambdas.getValue(((AnonymousFunctionBlock)_mem).getNumberLambda());
+            fctRes_ = lambdas.get(((AnonymousFunctionBlock)_mem).getNumberLambda());
         } else {
-            fctRes_ = types.getValue(((RootBlock)_mem.getParent()).getNumberAll()).getFunctions().getValue(_mem.getNumberBodyFct());
+            fctRes_ = types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFunctions().get(_mem.getNumberBodyFct());
         }
         return fctRes_;
     }
 
-    private IdMap<Block, BlockCoverageResult> getTypeRes(Block _mem) {
-        return types.getValue(((RootBlock)_mem.getParent()).getNumberAll()).getFields();
+    private CustList<BlockCoverageResult> getTypeRes(Block _mem) {
+        return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields();
     }
 
     private BlockCoverageResult getFieldRes(Block _mem) {
-        return types.getValue(((RootBlock)_mem.getParent()).getNumberAll()).getFields().getValue(((InfoBlock)_mem).getFieldNumber());
+        return types.get(((RootBlock)_mem.getParent()).getNumberAll()).getFields().get(((InfoBlock)_mem).getFieldNumber());
     }
 
-    public IdMap<Block, FunctionCoverageResult> getOperators() {
+    public CustList<FunctionCoverageResult> getOperators() {
         return operators;
     }
 
-    public IdMap<Block, TypeCoverageResult> getTypes() {
+    public CustList<TypeCoverageResult> getTypes() {
         return types;
     }
 
@@ -250,15 +260,16 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
-        IdMap<OperationNode,AbstractCoverageResult> instr_;
+        CustList<AbstractCoverageResult> instr_;
         IdMap<ExecOperationNode, OperationNode> mapping_;
         BlockCoverageResult blr_ =  getResultBlock(_block,_fwd.isAnnotAnalysis(),_indexAnnotGroup,_indexAnnot);
         mapping_ = blr_.getMapping();
         instr_ = blr_.getCovers();
+        _op.setIndexInExp(instr_.size());
         mapping_.addEntry(_exec, _op);
         if (_op.getParent() instanceof SafeDotOperation) {
             if (_op.getParent().getFirstChild() == _op) {
-                instr_.addEntry(_op, new NullCoverageResult());
+                instr_.add(new NullCoverageResult());
                 return;
             }
         }
@@ -267,12 +278,12 @@ public final class Coverage {
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_op.getArgument() == null) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.addEntry(_op, new NullBooleanCoverageResult());
+                    instr_.add(new NullBooleanCoverageResult());
                 } else {
-                    instr_.addEntry(_op, new NullCoverageResult());
+                    instr_.add(new NullCoverageResult());
                 }
             } else {
-                instr_.addEntry(_op,new StandardCoverageResult());
+                instr_.add(new StandardCoverageResult());
             }
             return;
         }
@@ -280,17 +291,17 @@ public final class Coverage {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
             if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ)) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
-                    instr_.addEntry(_op, new NullBooleanCoverageResult());
+                    instr_.add(new NullBooleanCoverageResult());
                 } else {
-                    instr_.addEntry(_op, new NullCoverageResult());
+                    instr_.add(new NullCoverageResult());
                 }
                 return;
             }
         }
         if ((_op.getResultClass().matchClass(prim_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
-            instr_.addEntry(_op,new BooleanCoverageResult());
+            instr_.add(new BooleanCoverageResult());
         } else {
-            instr_.addEntry(_op,new StandardCoverageResult());
+            instr_.add(new StandardCoverageResult());
         }
     }
 
@@ -307,7 +318,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-        BooleanCoverageResult covTwo_ = fctRes_.getCoverLoops().getVal(fctRes_.getMappingBlocks().getVal(_loop));
+        BooleanCoverageResult covTwo_ = fctRes_.getCoverLoops().getVal(_loop);
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
@@ -317,7 +328,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-        BooleanCoverageResult covTwo_ = fctRes_.getCoversConditions().getVal(fctRes_.getMappingBlocks().getVal(_condition));
+        BooleanCoverageResult covTwo_ = fctRes_.getCoversConditions().getVal(_condition);
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             covTwo_.fullCover();
@@ -331,7 +342,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-        BooleanCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(fctRes_.getMappingBlocks().getVal(_condition));
+        BooleanCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(_condition);
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             covTwo_.fullCover();
@@ -345,7 +356,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-        StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(fctRes_.getMappingBlocks().getVal(_parent)).getChildren().getVal(fctRes_.getMappingBlocks().getVal(_child));
+        StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getChildren().getVal(_child);
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
@@ -355,7 +366,7 @@ public final class Coverage {
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-        StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(fctRes_.getMappingBlocks().getVal(_parent)).getResultNoDef();
+        StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getResultNoDef();
         covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
@@ -365,7 +376,7 @@ public final class Coverage {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_page);
-        fctRes_.getCatches().set(fctRes_.getMappingBlocks().getVal(_block),BoolVal.TRUE);
+        fctRes_.getCatches().set(_block,BoolVal.TRUE);
     }
 
     public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, boolean _full, ArgumentsPair _pair) {
@@ -377,6 +388,7 @@ public final class Coverage {
         Block matchBl_;
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
+        ExecRootBlock type_;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             int indexAnnotation_ = annotRet_.getIndexAnnotation();
@@ -387,44 +399,57 @@ public final class Coverage {
                 indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
             if (annotated_ instanceof FieldMetaInfo) {
-                ExecRootBlock type_ = ((FieldMetaInfo)annotated_).getDeclaring();
-                TypeCoverageResult val_ = types.getVal(mappingTypes.getVal(type_));
-                matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
+                type_ = ((FieldMetaInfo)annotated_).getDeclaring();
             } else if (annotated_ instanceof AnnotatedParamStruct){
-                ExecRootBlock type_ = ((AnnotatedParamStruct) annotated_).getPair().getType();
-                if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
-                    matchBl_ = types.getVal(mappingTypes.getVal(type_)).getMappingFields().getVal((ExecBlock) annotableBlock_);
-                } else {
-                    matchBl_ = getFctBlock(type_, ((AnnotatedParamStruct) annotated_).getAnnotableBlockParam());
-                }
+                type_ = ((AnnotatedParamStruct) annotated_).getPair().getType();
             } else {
-                ExecRootBlock type_ = ((ClassMetaInfo) annotated_).getRootBlock();
-                matchBl_ = mappingTypes.getVal(type_);
+                type_ = ((ClassMetaInfo) annotated_).getRootBlock();
             }
         } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
             ExecTypeFunction pair_ = annotRet_.getMetaInfo().getPair();
-            ExecRootBlock type_ = pair_.getType();
-            ExecAnnotationMethodBlock annotMeth_ = (ExecAnnotationMethodBlock) pair_.getFct();
-            matchBl_ = types.getVal(mappingTypes.getVal(type_)).getMappingFields().getVal(annotMeth_);
-        } else if (en_ instanceof ExecInfoBlock) {
-            TypeCoverageResult val_ = types.getVal(mappingTypes.getVal(lastPage_.getBlockRootType()));
-            matchBl_ = val_.getMappingFields().getVal(en_);
-        } else if (en_ instanceof ExecAnnotationMethodBlock) {
-            matchBl_ = types.getVal(mappingTypes.getVal(lastPage_.getBlockRootType())).getMappingFields().getVal(en_);
+            type_ = pair_.getType();
         } else {
-            FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
-            matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
+            type_ = lastPage_.getBlockRootType();
+        }
+        RootBlock typeAna_ = mappingTypes.getVal(type_);
+        if (lastPage_ instanceof ReflectAnnotationPageEl) {
+            ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
+            AnnotatedStruct annotated_ = annotRet_.getAnnotated();
+            ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
+            if (annotated_ instanceof FieldMetaInfo) {
+                TypeCoverageResult val_ = types.get(typeAna_.getNumberAll());
+                matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
+            } else if (annotated_ instanceof AnnotatedParamStruct){
+                if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
+                    matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal((ExecBlock) annotableBlock_);
+                } else {
+                    matchBl_ = getFctBlock(((AnnotatedParamStruct) annotated_).getAnnotableBlockParam(), typeAna_);
+                }
+            } else {
+                matchBl_ = typeAna_;
+            }
+        } else if (lastPage_ instanceof ReflectGetDefaultValuePageEl) {
+            ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)lastPage_;
+            ExecTypeFunction pair_ = annotRet_.getMetaInfo().getPair();
+            ExecAnnotationMethodBlock annotMeth_ = (ExecAnnotationMethodBlock) pair_.getFct();
+            matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(annotMeth_);
+        } else {
+            if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
+                matchBl_ = types.get(typeAna_.getNumberAll()).getMappingFields().getVal(en_);
+            } else {
+                FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
+                matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
+            }
         }
         BlockCoverageResult blRes_ = getResultBlock(matchBl_, lastPage_ instanceof ReflectAnnotationPageEl, indexAnnotGroup_, indexAnnot_);
         OperationNode ana_ = blRes_.getMapping().getVal(_exec);
-        IdMap<OperationNode, AbstractCoverageResult> instr_ = blRes_.getCovers();
-        AbstractCoverageResult result_ = instr_.getVal(ana_);
-        if (result_ == null) {
+        CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
+        if (ana_ == null) {
             return;
         }
+        AbstractCoverageResult result_ = instr_.get(ana_.getIndexInExp());
         result_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_full) {
             result_.fullCover();
@@ -468,18 +493,17 @@ public final class Coverage {
         return getFctRes(_page.getBlockRootType(), (ExecMemberCallingsBlock) _page.getBlockRoot());
     }
     private FunctionCoverageResult getFctRes(ExecRootBlock _type, ExecMemberCallingsBlock _block) {
-        return getFctRes((MemberCallingsBlock) getFctBlock(_type, _block));
+        return getFctRes(getFctBlock(_block, mappingTypes.getVal(_type)));
     }
-    private Block getFctBlock(ExecRootBlock _type, ExecMemberCallingsBlock _block) {
-        Block valLambda_ = mappingLambdas.getVal(_block);
+    private MemberCallingsBlock getFctBlock(ExecMemberCallingsBlock _block, RootBlock _type) {
+        MemberCallingsBlock valLambda_ = mappingLambdas.getVal(_block);
         if (valLambda_ instanceof AnonymousFunctionBlock) {
             return valLambda_;
         }
-        Block t_ = mappingTypes.getVal(_type);
-        if (!(t_ instanceof RootBlock)) {
+        if (_type == null) {
             return mappingOperators.getVal(_block);
         }
-        TypeCoverageResult value_ = types.getValue(((RootBlock) t_).getNumberAll());
+        TypeCoverageResult value_ = types.get(_type.getNumberAll());
         return value_.getMappingBlocks().getVal(_block);
     }
     public CustList<FileBlock> getFiles() {
@@ -487,7 +511,7 @@ public final class Coverage {
     }
 
     public AbstractCoverageResult getCovers(Block _block, OperationNode _oper, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
-        return getResultBlock(_block, _annot, _indexAnnotGroup, _indexAnnot).getCovers().getVal(_oper);
+        return getResultBlock(_block, _annot, _indexAnnotGroup, _indexAnnot).getCovers().get(_oper.getIndexInExp());
     }
     private BlockCoverageResult getResultBlock(Block _block, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (_annot) {
@@ -497,7 +521,7 @@ public final class Coverage {
             }
             if (_block instanceof AnnotationMethodBlock) {
                 AnnotationMethodBlock mem_ = (AnnotationMethodBlock) _block;
-                BlockCoverageResult fctRes_ = types.getValue(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().getValue(mem_.getNameNumber());
+                BlockCoverageResult fctRes_ = types.get(((RootBlock)mem_.getParent()).getNumberAll()).getAnnotationsFields().get(mem_.getNameNumber());
                 return fctRes_.getAnnotations().get(_indexAnnot);
             }
             if (_block instanceof NamedFunctionBlock) {
@@ -508,58 +532,58 @@ public final class Coverage {
                 }
                 return fctRes_.getAnnotationsParams().get(_indexAnnotGroup).get(_indexAnnot);
             }
-            TypeCoverageResult fctRes_ = types.getValue(((RootBlock)_block).getNumberAll());
+            TypeCoverageResult fctRes_ = types.get(((RootBlock)_block).getNumberAll());
             return fctRes_.getAnnotations().get(_indexAnnot);
         }
         if (_block instanceof AnnotationMethodBlock) {
-            return types.getValue(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().getValue(((AnnotationMethodBlock)_block).getNameNumber());
+            return types.get(((RootBlock)_block.getParent()).getNumberAll()).getAnnotationsFields().get(((AnnotationMethodBlock)_block).getNameNumber());
         }
         if (_block instanceof InfoBlock) {
             return getFieldRes(_block);
         }
         MemberCallingsBlock outerFuntion_ = _block.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getBlocks().getVal(_block);
+        return fctRes_.getBlocks().get(_block.getBlockNb());
     }
 
-    public AbstractCoverageResult getCoversConditions(Block _exec) {
+    public AbstractCoverageResult getCoversConditions(Condition _exec) {
         MemberCallingsBlock outerFuntion_ = _exec.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoversConditions().getVal(_exec);
+        return fctRes_.getCoversConditions().getValue(_exec.getConditionNb());
     }
 
-    public AbstractCoverageResult getCoversConditionsForMutable(Block _exec) {
+    public AbstractCoverageResult getCoversConditionsForMutable(ForMutableIterativeLoop _exec) {
         MemberCallingsBlock outerFuntion_ = _exec.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoversConditionsForMutable().getVal(_exec);
+        return fctRes_.getCoversConditionsForMutable().getValue(_exec.getConditionNb());
     }
-    public StandardCoverageResult getCoverSwitchs(Block _sw, Block _child) {
+    public StandardCoverageResult getCoverSwitchs(SwitchBlock _sw, SwitchPartBlock _child) {
         MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoverSwitchs().getVal(_sw).getChildren().getVal(_child);
+        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).getChildren().getValue(_child.getConditionNb());
     }
-    public  IdMap<Block, StandardCoverageResult> getCoverSwitchs(Block _sw) {
+    public  IdMap<ExecBlock, StandardCoverageResult> getCoverSwitchs(SwitchBlock _sw) {
         MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoverSwitchs().getVal(_sw).getChildren();
+        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).getChildren();
     }
 
-    public StandardCoverageResult getCoverNoDefSwitchs(Block _sw) {
+    public StandardCoverageResult getCoverNoDefSwitchs(SwitchBlock _sw) {
         MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoverSwitchs().getVal(_sw).noDefault();
+        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).noDefault();
     }
 
-    public boolean getCatches(Block _catch) {
+    public boolean getCatches(AbstractCatchEval _catch) {
         MemberCallingsBlock outerFuntion_ = _catch.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCatches().getVal(_catch) == BoolVal.TRUE;
+        return fctRes_.getCatches().getValue(_catch.getConditionNb()) == BoolVal.TRUE;
     }
 
-    public AbstractCoverageResult getCoverLoops(Block _bl) {
+    public AbstractCoverageResult getCoverLoops(AbstractForLoop _bl) {
         MemberCallingsBlock outerFuntion_ = _bl.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
-        return fctRes_.getCoverLoops().getVal(_bl);
+        return fctRes_.getCoverLoops().getValue(_bl.getConditionNb());
     }
 
     public CustList<RootBlock> getRefFoundTypes() {

@@ -32,6 +32,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     private String err = "";
 
+    private int conditionNb;
+
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
         value = _value.getInfo();
@@ -169,5 +171,13 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     public boolean isEnumTest() {
         return enumTest;
+    }
+
+    public int getConditionNb() {
+        return conditionNb;
+    }
+
+    public void setConditionNb(int _conditionNb) {
+        conditionNb = _conditionNb;
     }
 }
