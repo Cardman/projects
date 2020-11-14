@@ -40,7 +40,7 @@ public final class LinkageUtil {
             if (f.isPredefined()) {
                 continue;
             }
-            String value_ = _analyzing.getResources().getVal(f.getFileName());
+            String value_ = f.getContent();
             String fileExp_ = f.getFileName() + ".html";
             CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, keyWords_, displayedStrings_);
             StringBuilder xml_ = build(f, value_, listStr_);
@@ -52,7 +52,7 @@ public final class LinkageUtil {
         }
         String cssContent_ = ".e{background-color:red;}\n";
         cssContent_ += ".s{color:blue;}\n";
-        cssContent_ += ".c{color:grey;}\n";
+        cssContent_ += ".c{color:grey;background-color:white;}\n";
         cssContent_ += ".i{color:red;}\n";
         cssContent_ += ".t{background-color:white;}\n";
         files_.addEntry("css/style.css",cssContent_);
@@ -99,7 +99,7 @@ public final class LinkageUtil {
             if (f.isPredefined()) {
                 continue;
             }
-            String value_ = _cont.getClasses().getResources().getVal(f.getFileName());
+            String value_ = f.getContent();
             String fileExp_ = f.getFileName() + ".html";
             CustList<PartOffset> listStr_ = processReport(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
@@ -197,6 +197,15 @@ public final class LinkageUtil {
         _xml.insert(0, tr_);
     }
     private static String transformText(char _ch) {
+        if (_ch < ' ') {
+            if (_ch == '\n') {
+                return "\n";
+            }
+            if (_ch == '\t') {
+                return "\t";
+            }
+            return " ";
+        }
         if (_ch == '<') {
             return("&lt;");
         }

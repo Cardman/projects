@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.ContextEl;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -22,7 +21,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", "\b");
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"The characters ascii 8 are illegal.\" class=\"e\">\b</a></span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"The characters ascii 8 are illegal.\" class=\"e\"> </a></span></pre></body></html>", filesExp_.firstValue());
     }
 
 
