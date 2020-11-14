@@ -68,7 +68,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
-    private StringList staticInitImportedInterfaces = new StringList();
+    private final StringList staticInitImportedInterfaces = new StringList();
     private CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
     private StringList annotations = new StringList();

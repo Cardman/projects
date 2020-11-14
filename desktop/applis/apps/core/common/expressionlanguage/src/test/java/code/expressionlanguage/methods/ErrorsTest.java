@@ -1972,7 +1972,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $try{}\n" +
-                "  $catch($int <a name=\"m76\" title=\"The variable name #i is not valid. It must be a word.\" class=\"e\"\">#i</a>){}\n" +
+                "  $catch($int <a name=\"m76\" title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2028,7 +2028,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\"\">#v</a>, $int <a name=\"m114\">k</a>:<a href=\"#m81\">it</a>){}\n" +
+                "  $for($int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>, $int <a name=\"m114\">k</a>:<a href=\"#m81\">it</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2048,7 +2048,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">v</a>, $int <a title=\"The variable name #k is not valid. It must be a word.\" class=\"e\"\">#k</a>:<a href=\"#m81\">it</a>){}\n" +
+                "  $for($int <a name=\"m105\">v</a>, $int <a title=\"The variable name #k is not valid. It must be a word.\" class=\"e\">#k</a>:<a href=\"#m81\">it</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -8097,7 +8097,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name a is not valid. It must not be the name of an other variable of the scope.\" class=\"e\"\">a</a>:<a href=\"#m81\">it</a>){}\n" +
+                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name a is not valid. It must not be the name of an other variable of the scope.\" class=\"e\">a</a>:<a href=\"#m81\">it</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -8117,7 +8117,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name #b is not valid. It must be a word.\" class=\"e\"\">#b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m105\">a</a>;}\n" +
+                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name #b is not valid. It must be a word.\" class=\"e\">#b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m105\">a</a>;}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -8137,7 +8137,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a title=\"The variable name #a is not valid. It must be a word.\" class=\"e\"\">#a</a>, $int <a name=\"m114\">b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m114\">b</a>;}\n" +
+                "  $for($int <a title=\"The variable name #a is not valid. It must be a word.\" class=\"e\">#a</a>, $int <a name=\"m114\">b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m114\">b</a>;}\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -11414,7 +11414,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case CharSequence <a name=\"m109\" title=\"The variable name #v is not valid. It must be a word.\" class=\"e\"\">#v</a>:\n" +
+                "   $case CharSequence <a name=\"m109\" title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11468,7 +11468,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $default <a name=\"m99\" title=\"The variable name #w is not valid. It must be a word.\" class=\"e\"\">#w</a>:\n" +
+                "   $default <a name=\"m99\" title=\"The variable name #w is not valid. It must be a word.\" class=\"e\">#w</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11701,7 +11701,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a name=\"m99\" title=\"The variable name v is not valid. It must not be the name of an other variable of the scope.\" class=\"e\"\">v</a>:\n" +
+                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a name=\"m99\" title=\"The variable name v is not valid. It must not be the name of an other variable of the scope.\" class=\"e\">v</a>:\n" +
                 "   $case $null:\n" +
                 "  }\n" +
                 "  $return 1;\n" +

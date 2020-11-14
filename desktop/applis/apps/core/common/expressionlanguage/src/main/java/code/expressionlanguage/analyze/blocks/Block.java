@@ -26,6 +26,7 @@ public abstract class Block {
 
     private BracedBlock parent;
     private FileBlock file;
+    private MemberCallingsBlock outerFct;
 
     private Block nextSibling;
 
@@ -217,5 +218,13 @@ public abstract class Block {
 
     public void setLengthHeader(int _lengthHeader) {
         this.lengthHeader = _lengthHeader;
+    }
+
+    public MemberCallingsBlock getOuterFct() {
+        return outerFct;
+    }
+
+    public void setOuterFct(MemberCallingsBlock _outerFct) {
+        outerFct = _outerFct;
     }
 }

@@ -857,7 +857,7 @@ public final class LinkageUtil {
                 StringList errs_ = _cond.getNameErrors();
                 if (!errs_.isEmpty()) {
                     String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                    String tag_ = "<a name=\"m"+variableOffset_ +"\" title=\""+err_+"\" class=\"e\"\">";
+                    String tag_ = "<a name=\"m"+variableOffset_ +"\" title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_, variableOffset_));
                     tag_ = "</a>";
                     _parts.add(new PartOffset(tag_, variableOffset_ + variableName_.trim().length()));
@@ -906,7 +906,7 @@ public final class LinkageUtil {
             if (!errs_.isEmpty()) {
                 String err_ = transform(StringUtil.join(errs_,"\n\n"));
                 int off_ = _cond.getVariableOffset();
-                String tag_ = "<a name=\"m"+off_ +"\" title=\""+err_+"\" class=\"e\"\">";
+                String tag_ = "<a name=\"m"+off_ +"\" title=\""+err_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, off_));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, off_ + _cond.getVariableName().trim().length()));
@@ -965,7 +965,7 @@ public final class LinkageUtil {
         StringList errs_ = _cond.getNameErrors();
         if (!errs_.isEmpty()) {
             String err_ = transform(StringUtil.join(errs_,"\n\n"));
-            String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\" title=\""+err_+"\" class=\"e\"\">";
+            String tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\" title=\""+err_+"\" class=\"e\">";
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
@@ -1365,7 +1365,7 @@ public final class LinkageUtil {
             if (!errs_.isEmpty()) {
                 String err_ = transform(StringUtil.join(errs_, "\n\n"));
                 String tagVar_;
-                tagVar_ = "<a title=\"" + err_ + "\" class=\"e\"\">";
+                tagVar_ = "<a title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst()));
                 tagVar_ = "</a>";
                 _parts.add(new PartOffset(tagVar_, _cond.getVariableNameOffsetFirst() + _cond.getVariableNameFirst().length()));
@@ -1381,7 +1381,7 @@ public final class LinkageUtil {
             if (!errs_.isEmpty()) {
                 String err_ = transform(StringUtil.join(errs_, "\n\n"));
                 String tag_;
-                tag_ = "<a title=\"" + err_ + "\" class=\"e\"\">";
+                tag_ = "<a title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
@@ -2291,8 +2291,6 @@ public final class LinkageUtil {
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();
         boolean addCover_ = !(_block instanceof CaseCondition);
-        // && !(_block instanceof AnnotationMethodBlock) && !_annotation;
-//        boolean addCover_ = !(_block instanceof CaseCondition) && !(_block instanceof AnnotationMethodBlock) && !_annotation;
         OperationNode val_ = _from;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {

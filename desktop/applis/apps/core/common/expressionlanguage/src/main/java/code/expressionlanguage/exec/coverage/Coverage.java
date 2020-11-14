@@ -118,6 +118,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
+        _block.setOuterFct(_mem);
         FunctionCoverageResult fctRes_ = getFctRes(_mem);
         fctRes_.getBlocks().addEntry(_block, new BlockCoverageResult());
     }
@@ -495,42 +496,42 @@ public final class Coverage {
         if (_block instanceof InfoBlock) {
             return getFieldRes(_block);
         }
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_block);
+        MemberCallingsBlock outerFuntion_ = _block.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getBlocks().getVal(_block);
     }
 
     public AbstractCoverageResult getCoversConditions(Block _exec) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_exec);
+        MemberCallingsBlock outerFuntion_ = _exec.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoversConditions().getVal(_exec);
     }
 
     public StandardCoverageResult getCoverSwitchs(Block _sw, Block _child) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_sw);
+        MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoverSwitchs().getVal(_sw).getChildren().getVal(_child);
     }
     public  IdMap<Block, StandardCoverageResult> getCoverSwitchs(Block _sw) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_sw);
+        MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoverSwitchs().getVal(_sw).getChildren();
     }
 
     public StandardCoverageResult getCoverNoDefSwitchs(Block _sw) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_sw);
+        MemberCallingsBlock outerFuntion_ = _sw.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoverSwitchs().getVal(_sw).noDefault();
     }
 
     public boolean getCatches(Block _catch) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_catch);
+        MemberCallingsBlock outerFuntion_ = _catch.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCatches().getVal(_catch) == BoolVal.TRUE;
     }
 
     public AbstractCoverageResult getCoverLoops(Block _bl) {
-        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntion(_bl);
+        MemberCallingsBlock outerFuntion_ = _bl.getOuterFct();
         FunctionCoverageResult fctRes_ = getFctRes(outerFuntion_);
         return fctRes_.getCoverLoops().getVal(_bl);
     }

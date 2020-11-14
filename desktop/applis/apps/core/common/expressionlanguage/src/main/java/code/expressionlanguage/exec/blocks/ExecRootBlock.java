@@ -20,7 +20,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private final ClassMethodIdOverrides redirections = new ClassMethodIdOverrides();
 
-    private StringList staticInitImportedInterfaces = new StringList();
+    private final StringList staticInitImportedInterfaces = new StringList();
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();

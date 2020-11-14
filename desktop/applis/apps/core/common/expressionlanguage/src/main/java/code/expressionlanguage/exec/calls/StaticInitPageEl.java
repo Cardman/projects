@@ -17,21 +17,18 @@ public final class StaticInitPageEl extends AbstractPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
 
-        ExecBlock blockRoot_ = getBlockRoot();
+        ExecRootBlock blockRoot_ = getBlockRootType();
         //Super interfaces have no super classes
-        if (blockRoot_ instanceof ExecUniqueRootedBlock) {
-            ExecUniqueRootedBlock exUniq_ = (ExecUniqueRootedBlock)blockRoot_;
-            String gene_ = exUniq_.getImportedDirectGenericSuperClass();
-            String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
-            //initialize the super class first
-            if (_context.getExiting().hasToExit(superClass_)) {
+        String gene_ = blockRoot_.getImportedDirectGenericSuperClass();
+        String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
+        //initialize the super class first
+        if (_context.getExiting().hasToExit(superClass_)) {
+            return false;
+        }
+        for (String i: blockRoot_.getStaticInitImportedInterfaces()) {
+            //then initialize the additional super interfaces (not provided by the super class)
+            if (_context.getExiting().hasToExit(i)) {
                 return false;
-            }
-            for (String i: exUniq_.getStaticInitImportedInterfaces()) {
-                //then initialize the additional super interfaces (not provided by the super class)
-                if (_context.getExiting().hasToExit(i)) {
-                    return false;
-                }
             }
         }
         return true;
