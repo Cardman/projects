@@ -177,7 +177,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }

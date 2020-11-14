@@ -102,11 +102,33 @@ public final class ParsedAnnotations {
             if (cur_ == BEGIN_CALLING) {
                 nbPars_++;
             }
-            if (StringExpUtil.isTypeLeafChar(cur_) && nbPars_ == 0) {
-                String after_ = instruction.substring(j_+1);
-                if (after_.isEmpty() || !isPart(after_.charAt(0))) {
-                    String afterTrim_ = after_.trim();
-                    if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && afterTrim_.charAt(0) != ANNOT  && afterTrim_.charAt(0) != BEGIN_CALLING) {
+            if (nbPars_ == 0) {
+                if (StringExpUtil.isTypeLeafChar(cur_)) {
+                    String after_ = instruction.substring(j_+1);
+                    if (after_.isEmpty() || !isPart(after_.charAt(0))) {
+                        String afterTrim_ = after_.trim();
+                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && afterTrim_.charAt(0) != ANNOT  && afterTrim_.charAt(0) != BEGIN_CALLING) {
+                            annotation_.append(cur_);
+                            annotations.add(annotation_.toString());
+                            index = j_ + instructionLocation;
+                            index++;
+                            j_++;
+                            while (j_ < lenInst_) {
+                                if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
+                                    break;
+                                }
+                                index++;
+                                j_++;
+                            }
+                            endLoop_ = false;
+                            after = instruction.substring(j_);
+                            break;
+                        }
+                    }
+                }
+                if (cur_ == END_CALLING) {
+                    String after_ = instruction.substring(j_+1).trim();
+                    if (after_.isEmpty() || after_.charAt(0) != ANNOT) {
                         annotation_.append(cur_);
                         annotations.add(annotation_.toString());
                         index = j_ + instructionLocation;
@@ -124,36 +146,15 @@ public final class ParsedAnnotations {
                         break;
                     }
                 }
-            }
-            if (cur_ == END_CALLING && nbPars_ == 0) {
-                String after_ = instruction.substring(j_+1).trim();
-                if (after_.isEmpty() || after_.charAt(0) != ANNOT) {
-                    annotation_.append(cur_);
-                    annotations.add(annotation_.toString());
-                    index = j_ + instructionLocation;
-                    index++;
-                    j_++;
-                    while (j_ < lenInst_) {
-                        if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
-                            break;
-                        }
-                        index++;
-                        j_++;
+                if (cur_ == ANNOT) {
+                    //Add annotation
+                    if (!annotation_.toString().trim().isEmpty()) {
+                        annotations.add(annotation_.toString());
                     }
-                    endLoop_ = false;
-                    after = instruction.substring(j_);
-                    break;
+                    annotation_.delete(0, annotation_.length());
+
+                    annotationsIndexes.add(j_ + instructionLocation);
                 }
-            }
-            if (nbPars_ == 0 && cur_ == ANNOT) {
-                //Add annotation
-                if (!annotation_.toString().trim().isEmpty()) {
-                    annotations.add(annotation_.toString());
-                }
-                annotation_.delete(0, annotation_.length());
-            }
-            if (nbPars_ == 0 && cur_ == ANNOT) {
-                annotationsIndexes.add(j_ + instructionLocation);
             }
             annotation_.append(cur_);
             j_++;

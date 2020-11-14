@@ -2304,7 +2304,7 @@ public final class LinkageUtil {
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 AbstractCoverageResult result_ = getCovers(_block, val_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
-                getBeginOpReport(_block, _parts, _fieldName, _from, val_, sum_, addCover_, val_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
+                getBeginOpReport(_block, _parts, _fieldName, _from, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
                 leftReport(_vars, _block,sum_,val_, result_,_parts, currentFileName_);
                 OperationNode firstChildOp_ = val_.getFirstChild();
                 if (firstChildOp_ != null) {
@@ -2487,10 +2487,10 @@ public final class LinkageUtil {
         }
         return stopOp_;
     }
-    private static void getBeginOpReport(Block _block, CustList<PartOffset> _parts, String _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, OperationNode _val, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void getBeginOpReport(Block _block, CustList<PartOffset> _parts, String _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (_curOp != _root || _fieldName.isEmpty()) {
-            String tag_ = getBeginReport(_block, _root, _addCover, _val, _result, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-            _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()));
+            String tag_ = getBeginReport(_block, _root, _addCover, _curOp, _result, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            _parts.add(new PartOffset(tag_,_sum + _curOp.getIndexInEl()));
         }
     }
 
