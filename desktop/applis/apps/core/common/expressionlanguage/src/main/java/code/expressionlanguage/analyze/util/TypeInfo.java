@@ -1,14 +1,24 @@
 package code.expressionlanguage.analyze.util;
 
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
 
 public final class TypeInfo {
     private String type;
+    private AnaGeneType root;
     private MethodAccessKind scope;
     private int ancestor;
     private boolean base;
     private StringList superTypes = new StringList();
+
+    public AnaGeneType getRoot() {
+        return root;
+    }
+
+    public void setRoot(AnaGeneType _root) {
+        root = _root;
+    }
 
     public String getType() {
         return type;

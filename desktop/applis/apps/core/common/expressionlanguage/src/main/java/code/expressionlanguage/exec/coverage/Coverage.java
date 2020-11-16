@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.PutCoveragePhase;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.*;
@@ -256,15 +257,17 @@ public final class Coverage {
         return types;
     }
 
-    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, Forwards _fwd, Block _block, OperationNode _op, ExecOperationNode _exec) {
+    public void putBlockOperation(int _indexAnnotGroup, int _indexAnnot, PutCoveragePhase _phase, Forwards _fwd, Block _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
-        CustList<AbstractCoverageResult> instr_;
-        IdMap<ExecOperationNode, OperationNode> mapping_;
-        BlockCoverageResult blr_ =  getResultBlock(_block,_fwd.isAnnotAnalysis(),_indexAnnotGroup,_indexAnnot);
-        mapping_ = blr_.getMapping();
-        instr_ = blr_.getCovers();
+        BlockCoverageResult blr_ =  getResultBlock(_block,_phase == PutCoveragePhase.ANNOTATION,_indexAnnotGroup,_indexAnnot);
+        putBlockOperation(_fwd, blr_, _op, _exec);
+    }
+
+    private static void putBlockOperation(Forwards _fwd, BlockCoverageResult _blr, OperationNode _op, ExecOperationNode _exec) {
+        IdMap<ExecOperationNode, OperationNode> mapping_ = _blr.getMapping();
+        CustList<AbstractCoverageResult> instr_ = _blr.getCovers();
         _op.setIndexInExp(instr_.size());
         mapping_.addEntry(_exec, _op);
         if (_op.getParent() instanceof SafeDotOperation) {

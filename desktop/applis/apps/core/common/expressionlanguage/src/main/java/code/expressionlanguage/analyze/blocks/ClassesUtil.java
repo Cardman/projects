@@ -814,7 +814,7 @@ public final class ClassesUtil {
                     String s_ = cur_.getName();
                     MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntionInType();
                     cur_.getAllReservedInners().addAllElts(allReservedInnersRoot_);
-                    if (!(c_ instanceof AnonymousTypeBlock) && possibleParent_ != null) {
+                    if (!(cur_ instanceof AnonymousTypeBlock) && possibleParent_ != null) {
                         cur_.getAllReservedInners().addAllElts(possibleParent_.getAllReservedInners());
                         if (StringUtil.contains(allReservedInnersRoot_, s_)) {
                             FoundErrorInterpret d_ = new FoundErrorInterpret();

@@ -608,8 +608,7 @@ public abstract class OperationNode {
             feedTypes(g, baseTypes_, superTypesBaseAncBis_);
             for (TypeInfo t: g) {
                 String f_ = t.getType();
-                String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-                AnaGeneType root_ = _page.getAnaGeneType(cl_);
+                AnaGeneType root_ = t.getRoot();
                 fetchFieldsType(!_baseClass,_superClass,t.getAncestor(),t.getScope() == MethodAccessKind.STATIC,_aff,_name,glClass_,ancestors_,f_,root_,baseTypes_,superTypesBaseAncBis_, _page);
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
@@ -2062,7 +2061,7 @@ public abstract class OperationNode {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-                AnaGeneType root_ = _page.getAnaGeneType(cl_);
+                AnaGeneType root_ = t.getRoot();
                 fetchParamClassMethods(_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_, _page);
             }
             _methods.add(methods_);
@@ -2071,7 +2070,7 @@ public abstract class OperationNode {
 
     public static CustList<CustList<TypeInfo>> typeLists(StringList _fromClasses, MethodAccessKind _staticContext, AnalyzedPageEl _page) {
         CustList<TypeInfo> typeInfos_ = new CustList<TypeInfo>();
-        IntTreeMap<CustList<TypeInfo>> typeInfosMap_ = new IntTreeMap<CustList<TypeInfo>>();
+        CustList<CustList<TypeInfo>> typeInfosMap_ = new CustList<CustList<TypeInfo>>();
         for (String s: _fromClasses) {
             String baseCurName_ = StringExpUtil.getIdFromAllTypes(s);
             AnaGeneType root_ = _page.getAnaGeneType(baseCurName_);
@@ -2094,27 +2093,23 @@ public abstract class OperationNode {
             }
 
         }
-        typeInfosMap_.put(0,typeInfos_);
+        typeInfosMap_.add(typeInfos_);
+        int max_ = 0;
         for (TypeInfo t: typeInfos_) {
-            String f_ = t.getType();
-            String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-            AnaGeneType root_ = _page.getAnaGeneType(cl_);
+            AnaGeneType root_ = t.getRoot();
             if (!(root_ instanceof RootBlock)) {
                 continue;
             }
             RootBlock r_ = (RootBlock) root_;
-            int anc_ = 1;
             CustList<RootBlock> pars_ = r_.getAllParentTypes();
-            int len_ = pars_.size();
-            for (int i = 0; i < len_; i++) {
-                typeInfosMap_.put(anc_,new CustList<TypeInfo>());
-                anc_++;
-            }
+            max_ = Math.max(max_,pars_.size());
+        }
+        for (int i = 1; i <= max_; i++) {
+            typeInfosMap_.add(new CustList<TypeInfo>());
         }
         for (TypeInfo t: typeInfos_) {
             String f_ = t.getType();
-            String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-            AnaGeneType root_ = _page.getAnaGeneType(cl_);
+            AnaGeneType root_ = t.getRoot();
             if (!(root_ instanceof RootBlock)) {
                 continue;
             }
@@ -2123,13 +2118,13 @@ public abstract class OperationNode {
             int anc_ = 1;
             MethodAccessKind scope_ = _staticContext;
             for (RootBlock p: r_.getAllParentTypes()) {
-                CustList<TypeInfo> typeInfosInt_ = typeInfosMap_.getVal(anc_);
+                CustList<TypeInfo> typeInfosInt_ = typeInfosMap_.get(anc_);
                 if (!add_) {
                     scope_ = MethodAccessKind.STATIC;
                 }
                 String gene_ = p.getGenericString();
-                addToList(typeInfosInt_,scope_,root_,f_,root_,gene_,anc_,true, _page);
-                for (AnaFormattedRootBlock m: r_.getAllGenericSuperTypesInfo()) {
+                addToList(typeInfosInt_,scope_,root_,f_,p,gene_,anc_,true, _page);
+                for (AnaFormattedRootBlock m: p.getAllGenericSuperTypesInfo()) {
                     RootBlock rootBlock_ = m.getRootBlock();
                     String formatted_ = m.getFormatted();
                     addToList(typeInfosInt_,scope_,root_,f_,rootBlock_,formatted_,anc_,false, _page);
@@ -2140,10 +2135,10 @@ public abstract class OperationNode {
                 anc_++;
             }
         }
-        return typeInfosMap_.values();
+        return typeInfosMap_;
     }
     private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, boolean _base, AnalyzedPageEl _page) {
-        TypeInfo t_ = newTypeInfo(_k, _firstType,_first, _second, _anc, _page);
+        TypeInfo t_ = newTypeInfo(_k, _firstType,_first, _secondType, _second, _anc, _page);
         String f_ = t_.getType();
         for (TypeInfo t: _list) {
             if (StringUtil.quickEq(t.getType(), f_)) {
@@ -2155,7 +2150,7 @@ public abstract class OperationNode {
         _list.add(t_);
     }
 
-    private static TypeInfo newTypeInfo(MethodAccessKind _k, AnaGeneType _firstType, String _first, String _second, int _anc, AnalyzedPageEl _page) {
+    private static TypeInfo newTypeInfo(MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, AnalyzedPageEl _page) {
         MethodAccessKind k_ = _k;
         String type_ = _second;
         if (AnaTemplates.correctNbParameters(_firstType,_first, _page)) {
@@ -2165,6 +2160,7 @@ public abstract class OperationNode {
         }
         TypeInfo t_ = new TypeInfo();
         t_.setType(type_);
+        t_.setRoot(_secondType);
         t_.setAncestor(_anc);
         t_.setScope(k_);
         return t_;

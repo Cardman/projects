@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.util.IdMap;
 
 public final class Forwards {
-    private boolean annotAnalysis;
     private String aliasPrimBoolean="";
     private String aliasBoolean="";
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
@@ -42,14 +41,6 @@ public final class Forwards {
 
     public IdMap<RootBlock, Members> getMapMembers() {
         return mapMembers;
-    }
-
-    public boolean isAnnotAnalysis() {
-        return annotAnalysis;
-    }
-
-    public void setAnnotAnalysis(boolean _annotAnalysis) {
-        this.annotAnalysis = _annotAnalysis;
     }
 
     public String getAliasBoolean() {
