@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.AnaCache;
-import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -11,7 +10,7 @@ import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class AnonymousFunctionBlock extends NamedFunctionBlock implements GeneCustStaticMethod,ReturnableWithSignature {
+public final class AnonymousFunctionBlock extends NamedCalledFunctionBlock implements ReturnableWithSignature {
     private RootBlock parentType;
     private int indexEnd;
     private StringList allReservedInners = new StringList();
@@ -26,11 +25,6 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         MethodAccessKind stCtx_ = _page.getStaticContext();
         staticMethod = stCtx_ == MethodAccessKind.STATIC;
         staticCallMethod = stCtx_ == MethodAccessKind.STATIC_CALL;
-    }
-
-    @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
     }
 
     public MethodModifier getModifier() {
@@ -55,7 +49,6 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
         return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
     }
 
-    @Override
     public boolean isStaticMethod() {
         return staticMethod;
     }

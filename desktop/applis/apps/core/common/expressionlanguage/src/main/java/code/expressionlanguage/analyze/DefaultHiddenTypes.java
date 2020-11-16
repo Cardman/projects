@@ -13,7 +13,7 @@ public final class DefaultHiddenTypes implements AbstractHiddenTypes {
 
     @Override
     public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
-        Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentFullName(), _type.getFullName(), _type.getOuterFullName());
+        Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentType(), _type);
         return _global.isTypeHidden(a_, context);
     }
 }

@@ -1,11 +1,10 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
 
-public final class StandardMethod extends StandardNamedFunction implements GeneCustStaticMethod {
+public final class StandardMethod extends StandardNamedFunction {
 
     private final MethodModifier modifier;
 
@@ -25,7 +24,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneC
         return new MethodId(MethodId.getKind(modifier), name_, getImportedParametersTypes(), isVarargs());
     }
 
-    @Override
     public boolean isStaticMethod() {
         return modifier == MethodModifier.STATIC;
     }

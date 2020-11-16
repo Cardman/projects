@@ -284,14 +284,11 @@ public final class AnonymousLambdaOperation extends
             ((RootBlock)currentBlock_).getAnonymousRootFct().add(block);
         }
         String importedReturnType_ = block.getImportedReturnType();
-        ParametersGroup p_ = new ParametersGroup();
         MethodId idC_ = block.getId();
-        MethodInfo mloc_ = new MethodInfo();
         lambdaCommonContent.setReturnFieldType(importedReturnType_);
-        mloc_.setOriginalReturnType(importedReturnType_);
         String found_ = lambdaCommonContent.getFoundClass();
+        MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(found_);
-        mloc_.setParameters(p_);
         mloc_.setConstraints(idC_);
         mloc_.format(idC_.getKind() == MethodAccessKind.STATIC, _page);
         MethodId id_ = mloc_.getFoundFormatted();

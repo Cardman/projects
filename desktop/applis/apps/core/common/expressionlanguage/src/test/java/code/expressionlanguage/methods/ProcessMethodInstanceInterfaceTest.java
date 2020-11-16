@@ -6602,4 +6602,49 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Int3", xml_.toString());
         assertTrue(hasErr(files_));
     }
+    @Test
+    public void instanceArgument20FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class $interfaces(pkg.Int3,pkg.Int4) pkg.Ex :pkg.Int2{\n");
+        xml_.append("\n");
+        xml_.append(" $public(){\n");
+        xml_.append("  $interfaces(pkg.Int3)();\n");
+        xml_.append("  $interfaces(pkg.Int3)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkg.Ex inst=$new pkg.Ex();\n");
+        xml_.append(" $public pkg.Ex ance=$new pkg.Ex();\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int :pkg.Int2{}\n");
+        files_.put("pkg/Int", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface $interfaces(pkg.Int3) pkg.Int2 :pkg.Int3:Int4{}\n");
+        files_.put("pkg/Int2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int3 {\n");
+        xml_.append(" $public $static $int nb=1i;\n");
+        xml_.append(" {\n");
+        xml_.append("  nb++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int4 {\n");
+        xml_.append(" $public $static $int nb=6i;\n");
+        xml_.append(" {\n");
+        xml_.append("  nb++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Int3", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
 }

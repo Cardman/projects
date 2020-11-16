@@ -20,8 +20,7 @@ import code.util.core.StringUtil;
 public final class ContextUtil {
     private ContextUtil() {
     }
-
-    public static boolean canAccess(String _className, AccessibleBlock _block, AnalyzedPageEl _page) {
+    public static boolean canAccess(String _className, Accessed _block, AnalyzedPageEl _page) {
         CodeAccess code_ = processBegin(_className, _block, _page);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
@@ -32,54 +31,57 @@ public final class ContextUtil {
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _page);
         }
-        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
+        RootBlock outer_ = code_.getOuter();
+        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
 
-    private static boolean processNormalProtected(AccessibleBlock _block, RootBlock _root, String _belongPkg, String _rootPkg, AnalyzedPageEl _analyzing) {
-        if (_root.isSubTypeOf(_block.getFullName(), _analyzing)) {
+    private static boolean processNormalProtected(Accessed _block, RootBlock _root, String _belongPkg, String _rootPkg, AnalyzedPageEl _analyzing) {
+        if (_root.isSubTypeOf(_block.getType())) {
             return true;
         }
         return StringUtil.quickEq(_belongPkg, _rootPkg);
     }
 
-    public static boolean canAccessType(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
+    public static boolean canAccessType(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
         CodeAccess code_ = processBegin(_className, _block, _analyzing);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
         }
         String belongPkg_ = _block.getPackageName();
-        String parName_ = _block.getParentFullName();
+        RootBlock parName_ = _block.getParent();
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (!parName_.isEmpty()) {
-                if (root_.isSubTypeOf(parName_, _analyzing)) {
+            if (parName_ != null) {
+                if (root_.isSubTypeOf(parName_)) {
                     return true;
                 }
             }
             return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _analyzing);
         }
-        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
+        RootBlock outer_ = code_.getOuter();
+        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
-    private static CodeAccess processBegin(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
+    private static CodeAccess processBegin(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
+        RootBlock outer_ = _block.outerParent();
         if (_block.getAccess() == AccessEnum.PUBLIC) {
-            return new CodeAccess(2,null);
+            return new CodeAccess(2,outer_,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
         RootBlock root_ = _analyzing.getAnaClassBody(baseClass_);
         if (root_ == null) {
-            return new CodeAccess(0,null);
+            return new CodeAccess(0,outer_,null);
         }
-        return new CodeAccess(1,root_);
+        return new CodeAccess(1,outer_,root_);
     }
     private static boolean access(int _code) {
         return _code == 2;
     }
-    private static boolean processPackagePrivate(AccessibleBlock _block, RootBlock _root, String _belongPkg, String _rootPkg) {
+    private static boolean processPackagePrivate(Accessed _block, RootBlock _root, String _belongPkg, String _rootPkg, RootBlock _outer) {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
             return StringUtil.quickEq(_belongPkg, _rootPkg);
         }
-        return StringUtil.quickEq(_block.getOuterFullName(), _root.getOuterFullName());
+        return _outer == _root.getOuterParent();
     }
 
     public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
@@ -87,26 +89,6 @@ public final class ContextUtil {
         for (Block b: ClassesUtil.getDirectChildren(_element)) {
             if (b instanceof InfoBlock) {
                 methods_.add((InfoBlock) b);
-            }
-        }
-        return methods_;
-    }
-
-    public static CustList<GeneConstructor> getConstructorBodies(AnaInheritedType _type) {
-        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        if (_type instanceof StandardType) {
-            for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
-                methods_.add(s);
-            }
-        }
-        if (_type instanceof Block){
-            CustList<Block> bl_ = ClassesUtil.getDirectChildren((Block) _type);
-            for (Block b: bl_) {
-                if (!(b instanceof ConstructorBlock)) {
-                    continue;
-                }
-                ConstructorBlock method_ = (ConstructorBlock) b;
-                methods_.add(method_);
             }
         }
         return methods_;
@@ -311,7 +293,7 @@ public final class ContextUtil {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, r_.getOuterFullName());
+                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(), r_);
                 FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.setMemberNumber(i_.getFieldNumber());
@@ -328,7 +310,7 @@ public final class ContextUtil {
                 String type_ = f.getImportedClassName();
                 boolean final_ = f.isFinalField();
                 boolean static_ = f.isStaticField();
-                Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
+                Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
                 return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_,-1);
             }
         }

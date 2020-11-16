@@ -14,10 +14,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 
@@ -57,14 +54,10 @@ public final class AnaTypeUtil {
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
             CustList<GeneStringOverridable> allMethods_ = e.getMethodIds();
             for (GeneStringOverridable c: allMethods_) {
-                String templClass_ = c.getGeneString();
-                String typeName_ = StringExpUtil.getIdFromAllTypes(templClass_);
-                StringList allSuperTypes_ = c.getType().getAllSuperTypes();
+                IdList<AnaGeneType> allSuperTypes_ = c.getType().getAllSuperTypesInfo();
                 for (GeneStringOverridable s: allMethods_) {
-                    String super_ = s.getGeneString();
-                    String isSuper_ = StringExpUtil.getIdFromAllTypes(super_);
-                    if (!StringUtil.quickEq(typeName_,isSuper_)) {
-                        if (!StringUtil.contains(allSuperTypes_,isSuper_)) {
+                    if (c.getType() != s.getType()) {
+                        if (!allSuperTypes_.containsObj(s.getType())) {
                             continue;
                         }
                     }
@@ -80,8 +73,8 @@ public final class AnaTypeUtil {
             for (OverridingRelation l: pairs_) {
                 GeneStringOverridable subId_ = l.getSubMethod();
                 GeneStringOverridable supId_ = l.getSupMethod();
-                Accessed subAcc_ = new Accessed(subId_.getBlock().getAccess(), l.getSub().getPackageName(), l.getSub().getFullName(), l.getSub().getOuterFullName());
-                Accessed supAcc_ = new Accessed(supId_.getBlock().getAccess(), l.getSup().getPackageName(), l.getSup().getFullName(), l.getSup().getOuterFullName());
+                Accessed subAcc_ = new Accessed(subId_.getBlock().getAccess(), l.getSub().getPackageName(), l.getSub());
+                Accessed supAcc_ = new Accessed(supId_.getBlock().getAccess(), l.getSup().getPackageName(), l.getSup());
                 ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
                 ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
                 if (cSup_.eq(cSub_)) {
@@ -315,7 +308,7 @@ public final class AnaTypeUtil {
                     if (rs_ == null) {
                         continue;
                     }
-                    if (rsSup_.isSubTypeOf(sub_, _page)) {
+                    if (rsSup_.isSubTypeOf(rs_)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(d_);
@@ -557,8 +550,8 @@ public final class AnaTypeUtil {
     }
 
     public static int cmpTypes(String _one, String _two, AnalyzedPageEl _page) {
-        AnaInheritedType one_ = _page.getAnaGeneType(_one);
-        AnaInheritedType two_ = _page.getAnaGeneType(_two);
+        AnaGeneType one_ = _page.getAnaGeneType(_one);
+        AnaGeneType two_ = _page.getAnaGeneType(_two);
         if (two_.isSubTypeOf(_one, _page)) {
             return SortConstants.SWAP_SORT;
         }

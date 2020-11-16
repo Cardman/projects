@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ExtractedParts;
-import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -27,7 +26,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class OverridableBlock extends NamedFunctionBlock implements GeneCustStaticMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedCalledFunctionBlock implements ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -74,11 +73,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         this.definitionOffset = _definitionOffset;
     }
 
-    @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
-    }
-
     public int getModifierOffset() {
         return modifierOffset;
     }
@@ -119,7 +113,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
     }
 
-    @Override
     public boolean isStaticMethod() {
         return staticMethod;
     }
@@ -173,7 +166,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;
             }
-            if (!root_.isSubTypeOf(_root.getFullName(), _page)) {
+            if (!root_.isSubTypeOf(_root)) {
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
                 continue;

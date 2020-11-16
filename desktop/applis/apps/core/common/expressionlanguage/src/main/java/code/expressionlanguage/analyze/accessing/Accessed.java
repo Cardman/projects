@@ -1,53 +1,49 @@
 package code.expressionlanguage.analyze.accessing;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.blocks.AccessibleBlock;
 
-public final class Accessed implements AccessibleBlock {
+public final class Accessed {
     private final AccessEnum access;
+    private final RootBlock type;
     private final String packageName;
-    private final String parentFullName;
-    private final String fullName;
-    private final String outerFullName;
+    private final RootBlock parent;
 
-    public Accessed(AccessEnum _access, String _packageName, String _parentFullName, String _fullName, String _outerFullName) {
+    public Accessed(AccessEnum _access, String _packageName, RootBlock _parent, RootBlock _type) {
+        type = _type;
         this.access = _access;
         this.packageName = _packageName;
-        this.parentFullName = _parentFullName;
-        this.fullName = _fullName;
-        this.outerFullName = _outerFullName;
+        parent = _parent;
     }
 
-    public Accessed(AccessEnum _access, String _packageName, String _fullName, String _outerFullName) {
+    public Accessed(AccessEnum _access, String _packageName, RootBlock _type) {
+        type = _type;
         this.access = _access;
         this.packageName = _packageName;
-        this.parentFullName = "";
-        this.fullName = _fullName;
-        this.outerFullName = _outerFullName;
+        parent = null;
     }
 
-    @Override
-    public String getParentFullName() {
-        return parentFullName;
+    public RootBlock getParent() {
+        return parent;
     }
 
-    @Override
+    public RootBlock outerParent() {
+        if (type == null) {
+            return null;
+        }
+        return type.getOuterParent();
+    }
+
+    public RootBlock getType() {
+        return type;
+    }
+
     public AccessEnum getAccess() {
         return access;
     }
 
-    @Override
     public String getPackageName() {
         return packageName;
     }
 
-    @Override
-    public String getFullName() {
-        return fullName;
-    }
-
-    @Override
-    public String getOuterFullName() {
-        return outerFullName;
-    }
 }

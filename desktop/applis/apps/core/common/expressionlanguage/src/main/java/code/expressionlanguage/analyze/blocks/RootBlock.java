@@ -31,7 +31,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final StringList nameErrors = new StringList();
 
-    private AnaRootBlockContent rootBlockContent = new AnaRootBlockContent();
+    private final AnaRootBlockContent rootBlockContent = new AnaRootBlockContent();
 
     private final AccessEnum access;
 
@@ -39,59 +39,61 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final String templateDef;
 
-    private StringList imports = new StringList();
+    private final StringList imports = new StringList();
 
-    private Ints importsOffset = new Ints();
+    private final Ints importsOffset = new Ints();
 
-    private CustList<OverridingMethodDto> allOverridingMethods;
+    private final CustList<OverridingMethodDto> allOverridingMethods;
 
     private final CustList<AnaResultPartType> results = new CustList<AnaResultPartType>();
 
     private final StringList directSuperTypes = new StringList();
     private final IntMap<String> importedDirectBaseSuperTypes = new IntMap<String>();
 
-    private IntMap< String> rowColDirectSuperTypes;
-    private IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
+    private final IntMap< String> rowColDirectSuperTypes;
+    private final IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
 
-    private StringList staticInitInterfaces = new StringList();
+    private final StringList staticInitInterfaces = new StringList();
     private int templateDefOffset;
     private int nameLength;
 
-    private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
-    private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
-    private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
+    private final CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
+    private final CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
+    private final CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
 
 
-    private Ints staticInitInterfacesOffset = new Ints();
-    private CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
+    private final Ints staticInitInterfacesOffset = new Ints();
+    private final CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
 
 
     private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
+    private final StringList importedDirectSuperInterfaces = new StringList();
     private final StringList staticInitImportedInterfaces = new StringList();
-    private CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
+    private final CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
-    private StringList annotations = new StringList();
+    private final StringList annotations = new StringList();
 
-    private Ints annotationsIndexes = new Ints();
+    private final Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
     private final StringList allGenericClasses = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
-    private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private final CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
     private int numberAll = -1;
-    private StringList allSuperTypes = new StringList();
-    private StringList allReservedInners = new StringList();
-    private StringMap<Integer> counts = new StringMap<Integer>();
-    private StringMap<Integer> countsAnon = new StringMap<Integer>();
+    private final StringList allSuperTypes = new StringList();
+    private final IdList<AnaGeneType> allSuperTypesInfo = new IdList<AnaGeneType>();
+    private final StringList allReservedInners = new StringList();
+    private final StringMap<Integer> counts = new StringMap<Integer>();
+    private final StringMap<Integer> countsAnon = new StringMap<Integer>();
     private int countsAnonFct;
-    private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
+    private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private ConstructorBlock emptyCtor;
-    private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
-    private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
-    private CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
-    private CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
+    private final CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
+    private final CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
+    private final CustList<OverridableBlock> overridableBlocks = new CustList<OverridableBlock>();
+    private final CustList<AnnotationMethodBlock> annotationsMethodsBlocks = new CustList<AnnotationMethodBlock>();
+    private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
     private int countFct;
     private int countBodyFct;
     private int countField;
@@ -171,7 +173,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void buildAnnotations(AnalyzedPageEl _page) {
         int len_ = annotationsIndexes.size();
-        roots = new CustList<OperationNode>();
+        roots.clear();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             _page.setGlobalOffset(begin_);
@@ -1727,7 +1729,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             return true;
         }
         for (ConstructorBlock c: ctors_) {
-            Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_.getFullName(), clMeta_.getOuterFullName());
+            Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_);
             if (!ContextUtil.canAccess(getFullName(), a_, _page)) {
                 continue;
             }
@@ -1800,13 +1802,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return o;
     }
-    public final String getParentFullName() {
-        RootBlock par_ = getParentType();
-        if (par_ == null) {
-            return "";
-        }
-        return par_.getFullName();
-    }
     public String getWildCardElement() {
         StringList allElements_ = new StringList();
         for (Block e: ClassesUtil.getDirectChildren(this)) {
@@ -1855,12 +1850,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public final CustList<RootBlock> getAllParentTypesReverse() {
         return getAllParentTypes().getReverse();
     }
-    public String getOuterFullName() {
-        return getOuterParent().getFullName();
-    }
 
     public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
         return isSubTypeOf(_fullName);
+    }
+
+    public boolean isSubTypeOf(AnaGeneType _fullName) {
+        if (this == _fullName) {
+            return true;
+        }
+        return allSuperTypesInfo.containsObj(_fullName);
     }
 
     private boolean isSubTypeOf(String _parName) {
@@ -1872,6 +1871,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public StringList getAllSuperTypes(){
         return allSuperTypes;
+    }
+
+    public IdList<AnaGeneType> getAllSuperTypesInfo() {
+        return allSuperTypesInfo;
     }
 
     public final String getGenericString() {
@@ -1985,6 +1988,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnnotationMethodBlock> getAnnotationsMethodsBlocks() {
         return annotationsMethodsBlocks;
+    }
+
+    public CustList<ConstructorBlock> getConstructorBlocks() {
+        return constructorBlocks;
     }
 
     public int getCountFct() {

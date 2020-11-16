@@ -55,7 +55,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             return;
         }
         String clCurName_ = from.getName();
-        tryGetCtors(clCurName_,ctors, _page);
+        tryGetCtors(clCurName_,ctors, _page, type);
     }
 
     @Override

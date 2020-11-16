@@ -2086,6 +2086,7 @@ public final class FileResolver {
                 int countName_ = _currentParent.getCountName();
                 ((ConstructorBlock)br_).setNameNumber(countName_);
                 _currentParent.setCountName(countName_+1);
+                _currentParent.getConstructorBlocks().add((ConstructorBlock)br_);
                 if (parametersType_.isEmpty()) {
                     _currentParent.setEmptyCtor((ConstructorBlock) br_);
                 }

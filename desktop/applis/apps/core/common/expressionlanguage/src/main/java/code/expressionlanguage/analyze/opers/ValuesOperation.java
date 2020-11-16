@@ -56,7 +56,7 @@ public final class ValuesOperation extends LeafOperation {
         }
         valuesContent.setNumberEnum(r_.getNumberAll());
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-        Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
+        Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentType(), r_);
         if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

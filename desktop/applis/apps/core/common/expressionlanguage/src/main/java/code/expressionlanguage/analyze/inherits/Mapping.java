@@ -5,7 +5,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class Mapping {
+public final class Mapping {
 
     private AnaClassArgumentMatching arg;
     private AnaClassArgumentMatching param;

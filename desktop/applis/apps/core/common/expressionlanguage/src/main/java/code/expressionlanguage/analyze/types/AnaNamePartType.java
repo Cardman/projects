@@ -309,7 +309,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
-        Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentFullName(), found_.getFullName(), found_.getOuterFullName());
+        Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentType(), found_);
         if (new TypeAccessor(idOwner_).isTypeHidden(a_, _page)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
@@ -379,7 +379,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
             String rel_ = LinkageUtil.relativize(curr_,ref_);
             int id_ = ((RootBlock) g_).getIdRowCol();
-            setTitleRef(g_.getFullName());
+            setTitleRef(idCl_);
             setHref(rel_+"#m"+id_);
         }
     }

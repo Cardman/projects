@@ -560,44 +560,45 @@ public final class ResolvingImportTypes {
     private static void fetchImportStaticMethods(String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _page.getAnaGeneType(s);
-            String outer_ = "";
             if (super_ instanceof RootBlock) {
-                outer_ = ((RootBlock)super_).getOuterFullName();
-            }
-            for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(super_)) {
-                if (!e.isStaticMethod()) {
-                    continue;
-                }
-                if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
-                    continue;
-                }
-                if (e instanceof OverridableBlock) {
-                    OverridableBlock c = (OverridableBlock) e;
+                RootBlock t_ = (RootBlock) super_;
+                for (OverridableBlock e: t_.getOverridableBlocks()) {
+                    if (!e.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
+                        continue;
+                    }
                     String pkg_ = super_.getPackageName();
-                    Accessed a_ = new Accessed(c.getAccess(), pkg_, s, outer_);
+                    Accessed a_ = new Accessed(e.getAccess(), pkg_, t_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _page)) {
                         continue;
                     }
                     if (!ContextUtil.canAccess(_glClass, a_, _page)) {
                         continue;
                     }
+                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                    ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
+                    value_.setFileName(e.getFile().getFileName());
+                    value_.setMemberNumber(e.getNameNumber());
+                    value_.setCustMethod(e);
+                    value_.setRootNumber(t_.getNumberAll());
+                    addImportMethod(_methods, value_);
                 }
-                ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
-                if (e instanceof Block) {
-                    value_.setFileName(((Block)e).getFile().getFileName());
+            }
+            if (super_ instanceof StandardType) {
+                for (StandardMethod e: ((StandardType) super_).getMethods()) {
+                    if (!e.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!StringUtil.quickEq(_method.trim(), e.getId().getName())) {
+                        continue;
+                    }
+                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                    ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
+                    value_.setStandardMethod(e);
+                    addImportMethod(_methods, value_);
                 }
-                if (e instanceof NamedFunctionBlock) {
-                    value_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
-                    value_.setCustMethod((NamedFunctionBlock)e);
-                }
-                if (super_ instanceof RootBlock) {
-                    value_.setRootNumber(((RootBlock)super_).getNumberAll());
-                }
-                if (e instanceof StandardMethod) {
-                    value_.setStandardMethod((StandardMethod)e);
-                }
-                addImportMethod(_methods, value_);
             }
         }
     }
@@ -713,14 +714,13 @@ public final class ResolvingImportTypes {
                     if (ind_ < 0) {
                         continue;
                     }
-                    Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
+                    Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
                     addImport(_methods,s, new ImportedField(_import,a_,m.getImportedClassName(),m.isFinalField(),-1));
                 }
             }
             if (super_ instanceof RootBlock){
                 RootBlock cust_ = (RootBlock) super_;
                 String pkg_ = cust_.getPackageName();
-                String outerFullName_ = cust_.getOuterFullName();
                 for (InfoBlock e: ClassesUtil.getFieldBlocks(cust_)) {
                     int ind_ = notMatch(_method, e);
                     if (ind_ < 0) {
@@ -733,7 +733,7 @@ public final class ResolvingImportTypes {
                     if (e instanceof InnerTypeOrElement) {
                         v_ = e.getFieldNameOffset();
                     }
-                    Accessed a_ = new Accessed(e.getAccess(),pkg_,s,outerFullName_);
+                    Accessed a_ = new Accessed(e.getAccess(),pkg_, cust_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _page)) {
                         continue;
                     }

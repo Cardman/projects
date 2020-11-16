@@ -26,6 +26,7 @@ import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
@@ -501,9 +502,9 @@ public abstract class OperationNode {
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
         Accessed a_;
         if (r_ != null) {
-            a_ = new Accessed(r_.getAccess(), r_.getPackageName(), _classStr, r_.getOuterFullName());
+            a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_);
         } else {
-            a_ = new Accessed(AccessEnum.PUBLIC,"", "","");
+            a_ = new Accessed(AccessEnum.PUBLIC,"", null);
         }
         if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
@@ -747,14 +748,9 @@ public abstract class OperationNode {
                                                           String _id, AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
         String clCurName_ = _class.getName();
-        int varargOnly_ = _varargOnly;
-        boolean uniq_ = false;
-        if (_uniqueId != null) {
-            uniq_ = isUniqCtor(varargOnly_);
-            varargOnly_ = -1;
-        }
-        CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(_type);
-        if (constructors_.isEmpty()) {
+        int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
+        boolean uniq_ = isUniqCtor(_uniqueId, _varargOnly);
+        if (noCtor(_type)) {
             if (_filter.isEmptyArg()) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
@@ -765,30 +761,82 @@ public abstract class OperationNode {
             }
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
-        for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId().copy(_id);
-            if (exclude(_type, _uniqueId,varargOnly_, e, _page)) {
-                continue;
+        if (_type instanceof StandardType) {
+            for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
+                ConstructorId ctor_ = s.getId().copy(_id);
+                if (exclude(_uniqueId,varargOnly_, s, _page)) {
+                    continue;
+                }
+                ParametersGroup pg_ = new ParametersGroup();
+                ConstructorInfo mloc_ = new ConstructorInfo();
+                mloc_.setStandardType((StandardType)_type);
+                mloc_.setParametersNames(s.getParametersNames());
+                mloc_.setConstraints(ctor_);
+                mloc_.setParameters(pg_);
+                mloc_.setClassName(clCurName_);
+                mloc_.format(_page);
+                if (!isPossibleMethod(uniq_, varargOnly_, mloc_, _param,_filter, _page)) {
+                    continue;
+                }
+                signatures_.add(mloc_);
             }
-            ParametersGroup pg_ = new ParametersGroup();
-            ConstructorInfo mloc_ = new ConstructorInfo();
-            if (e instanceof NamedFunctionBlock) {
-                mloc_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
-                mloc_.setCustomCtor((NamedFunctionBlock)e);
-            }
-            mloc_.setParametersNames(e.getParametersNames());
-            mloc_.setConstraints(ctor_);
-            mloc_.setParameters(pg_);
-            mloc_.setClassName(clCurName_);
-            mloc_.format(_page);
-            if (!isPossibleMethod(uniq_, varargOnly_, mloc_, _param,_filter, _page)) {
-                continue;
-            }
-            signatures_.add(mloc_);
         }
+        if (_type instanceof RootBlock){
+            for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
+                ConstructorId ctor_ = b.getId().copy(_id);
+                if (excludeCust(_type, _uniqueId,varargOnly_, b, _page)) {
+                    continue;
+                }
+                ParametersGroup pg_ = new ParametersGroup();
+                ConstructorInfo mloc_ = new ConstructorInfo();
+                mloc_.setMemberNumber(b.getNameNumber());
+                mloc_.setCustomCtor(b);
+                mloc_.setFileName(((Block)_type).getFile().getFileName());
+                mloc_.setRootNumber(((RootBlock)_type).getNumberAll());
+                mloc_.setParametersNames(b.getParametersNames());
+                mloc_.setConstraints(ctor_);
+                mloc_.setParameters(pg_);
+                mloc_.setClassName(clCurName_);
+                mloc_.format(_page);
+                if (!isPossibleMethod(uniq_, varargOnly_, mloc_, _param,_filter, _page)) {
+                    continue;
+                }
+                signatures_.add(mloc_);
+            }
+        }
+        return getConstrustorId(_oper, _filter, _page, clCurName_, signatures_);
+    }
+
+    private static boolean noCtor(AnaGeneType _type) {
+        boolean empty_ = false;
+        if (_type instanceof StandardType) {
+            empty_ = ((StandardType)_type).getConstructors().isEmpty();
+        }
+        if (_type instanceof RootBlock){
+            empty_ = ((RootBlock)_type).getConstructorBlocks().isEmpty();
+        }
+        return empty_;
+    }
+    private static boolean isUniqCtor(ConstructorId _uniqueId, int _varargOnly) {
+        boolean uniq_ = false;
+        if (_uniqueId != null) {
+            uniq_ = isUniqCtor(_varargOnly);
+        }
+        return uniq_;
+    }
+
+    private static int ctorVarArgOnly(int _varargOnly, ConstructorId _uniqueId) {
+        int varargOnly_ = _varargOnly;
+        if (_uniqueId != null) {
+            varargOnly_ = -1;
+        }
+        return varargOnly_;
+    }
+
+    private static ConstrustorIdVarArg getConstrustorId(OperationNode _oper, NameParametersFilter _filter, AnalyzedPageEl _page, String _clCurName, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
+        ConstructorInfo cInfo_ = sortCtors(_signatures, gr_);
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
             for (OperationNode c: _filter.getPositional()) {
@@ -802,7 +850,7 @@ public abstract class OperationNode {
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                    new ConstructorId(clCurName_, classesNames_, false).getSignature(_page));
+                    new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
             _oper.getErrs().add(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
@@ -835,7 +883,9 @@ public abstract class OperationNode {
         }
         out_.setRealId(ctor_);
         out_.setConstId(cInfo_.getFormatted());
-        setupContainer(_type, out_);
+        out_.setFileName(cInfo_.getFileName());
+        out_.setStandardType(cInfo_.getStandardType());
+        out_.setRootNumber(cInfo_.getRootNumber());
         out_.setMemberNumber(cInfo_.getMemberNumber());
         return out_;
     }
@@ -844,12 +894,8 @@ public abstract class OperationNode {
                                                                 String _id, AnaGeneType _type,
                                                                 ConstructorId _uniqueId, AnalyzedPageEl _page, AnaClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
-        int varargOnly_ = _varargOnly;
-        if (_uniqueId != null) {
-            varargOnly_ = -1;
-        }
-        CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(_type);
-        if (constructors_.isEmpty()) {
+        int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
+        if (noCtor(_type)) {
             if (_args.length == 0) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
@@ -860,28 +906,56 @@ public abstract class OperationNode {
             }
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
-        for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId().copy(_id);
-            if (exclude(_type, _uniqueId,varargOnly_, e, _page)) {
-                continue;
+        if (_type instanceof StandardType) {
+            for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
+                ConstructorId ctor_ = s.getId().copy(_id);
+                if (exclude(_uniqueId,varargOnly_, s, _page)) {
+                    continue;
+                }
+                ParametersGroup pg_ = new ParametersGroup();
+                ConstructorInfo mloc_ = new ConstructorInfo();
+                mloc_.setStandardType((StandardType)_type);
+                mloc_.setParametersNames(s.getParametersNames());
+                mloc_.setConstraints(ctor_);
+                mloc_.setParameters(pg_);
+                mloc_.setClassName(clCurName_);
+                mloc_.format(_page);
+                if (!isPossibleMethodLambda(mloc_, _page, _args)) {
+                    continue;
+                }
+                signatures_.add(mloc_);
             }
-            ParametersGroup pg_ = new ParametersGroup();
-            ConstructorInfo mloc_ = new ConstructorInfo();
-            mloc_.setConstraints(ctor_);
-            if (e instanceof NamedFunctionBlock) {
-                mloc_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
-            }
-            mloc_.setParameters(pg_);
-            mloc_.setClassName(clCurName_);
-            mloc_.format(_page);
-            if (!isPossibleMethodLambda(mloc_, _page, _args)) {
-                continue;
-            }
-            signatures_.add(mloc_);
         }
+        if (_type instanceof RootBlock){
+            for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
+                ConstructorId ctor_ = b.getId().copy(_id);
+                if (excludeCust(_type, _uniqueId,varargOnly_, b, _page)) {
+                    continue;
+                }
+                ParametersGroup pg_ = new ParametersGroup();
+                ConstructorInfo mloc_ = new ConstructorInfo();
+                mloc_.setMemberNumber(b.getNameNumber());
+                mloc_.setCustomCtor(b);
+                mloc_.setFileName(((Block)_type).getFile().getFileName());
+                mloc_.setRootNumber(((RootBlock)_type).getNumberAll());
+                mloc_.setParametersNames(b.getParametersNames());
+                mloc_.setConstraints(ctor_);
+                mloc_.setParameters(pg_);
+                mloc_.setClassName(clCurName_);
+                mloc_.format(_page);
+                if (!isPossibleMethodLambda(mloc_, _page, _args)) {
+                    continue;
+                }
+                signatures_.add(mloc_);
+            }
+        }
+        return getConstrustorIdLambda(_op, _page, clCurName_, signatures_, _args);
+    }
+
+    private static ConstrustorIdVarArg getConstrustorIdLambda(OperationNode _op, AnalyzedPageEl _page, String _clCurName, CustList<ConstructorInfo> _signatures, AnaClassArgumentMatching[] _args) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
+        ConstructorInfo cInfo_ = sortCtors(_signatures, gr_);
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
             for (AnaClassArgumentMatching c: _args) {
@@ -892,7 +966,7 @@ public abstract class OperationNode {
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                    new ConstructorId(clCurName_, classesNames_, false).getSignature(_page));
+                    new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
             _op.getErrs().add(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
@@ -904,7 +978,9 @@ public abstract class OperationNode {
         out_ = new ConstrustorIdVarArg();
         out_.setRealId(ctor_);
         out_.setConstId(cInfo_.getFormatted());
-        setupContainer(_type, out_);
+        out_.setFileName(cInfo_.getFileName());
+        out_.setStandardType(cInfo_.getStandardType());
+        out_.setRootNumber(cInfo_.getRootNumber());
         out_.setMemberNumber(cInfo_.getMemberNumber());
         return out_;
     }
@@ -923,30 +999,37 @@ public abstract class OperationNode {
         return _varargOnly > -1;
     }
 
-    protected static boolean exclude(AnaGeneType _g, ConstructorId _uniqueId, int _varargOnly, GeneConstructor _e, AnalyzedPageEl _page) {
-        String glClass_ = _page.getGlobalClass();
+    protected static boolean exclude(ConstructorId _uniqueId, int _varargOnly, StandardConstructor _e, AnalyzedPageEl _page) {
         ConstructorId ctor_ = _e.getId();
         boolean varArg_ = ctor_.isVararg();
+        return excludeBytFilter(_uniqueId, _varargOnly, ctor_, varArg_);
+    }
+
+    protected static boolean excludeCust(AnaGeneType _g, ConstructorId _uniqueId, int _varargOnly, GeneConstructor _e, AnalyzedPageEl _page) {
+        ConstructorId ctor_ = _e.getId();
+        boolean varArg_ = ctor_.isVararg();
+        if (excludeBytFilter(_uniqueId, _varargOnly, ctor_, varArg_)) {
+            return true;
+        }
+        return excludeQuick((RootBlock)_g,(ConstructorBlock)_e,_page);
+    }
+
+    private static boolean excludeBytFilter(ConstructorId _uniqueId, int _varargOnly, ConstructorId _ctor, boolean _varArg) {
         if (_varargOnly > -1) {
-            if (!varArg_) {
+            if (!_varArg) {
                 return true;
             }
         }
         if (_uniqueId != null) {
-            if (!_uniqueId.eq(ctor_)) {
-                return true;
-            }
-        }
-        String outer_ ="";
-        if (_g instanceof RootBlock) {
-            outer_ = ((RootBlock)_g).getOuterFullName();
-        }
-        if (_e instanceof ConstructorBlock) {
-            ConstructorBlock c = (ConstructorBlock) _e;
-            Accessed a_ = new Accessed(c.getAccess(), _g.getPackageName(), _g.getFullName(), outer_);
-            return !ContextUtil.canAccess(glClass_, a_, _page);
+            return !_uniqueId.eq(_ctor);
         }
         return false;
+    }
+
+    protected static boolean excludeQuick(RootBlock _g, ConstructorBlock _e, AnalyzedPageEl _page) {
+        String glClass_ = _page.getGlobalClass();
+        Accessed a_ = new Accessed(_e.getAccess(), _g.getPackageName(), _g);
+        return !ContextUtil.canAccess(glClass_, a_, _page);
     }
 
     static ClassMethodIdReturn getDeclaredCustMethod(OperationNode _op, int _varargOnly,
@@ -1456,10 +1539,10 @@ public abstract class OperationNode {
         }
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         if (StringUtil.quickEq(_op,"+")
-            || StringUtil.quickEq(_op,"-")
-            || StringUtil.quickEq(_op,"*")
-            || StringUtil.quickEq(_op,"/")
-            || StringUtil.quickEq(_op,"%")) {
+                || StringUtil.quickEq(_op,"-")
+                || StringUtil.quickEq(_op,"*")
+                || StringUtil.quickEq(_op,"/")
+                || StringUtil.quickEq(_op,"%")) {
             CustList<ParamReturn> group_ = new CustList<ParamReturn>();
             group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
             group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
@@ -2114,7 +2197,7 @@ public abstract class OperationNode {
                 continue;
             }
             RootBlock r_ = (RootBlock) root_;
-            boolean add_ = !root_.isStaticType();
+            boolean add_ = !r_.isStaticType();
             int anc_ = 1;
             MethodAccessKind scope_ = _staticContext;
             for (RootBlock p: r_.getAllParentTypes()) {
@@ -2197,29 +2280,40 @@ public abstract class OperationNode {
                                                ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
                                                String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
         String genericString_ = _g.getGenericString();
-        for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(_g)) {
-            MethodId id_ = e.getId();
-            MethodAccessKind k_ = id_.getKind();
-            if (_kind == MethodAccessKind.STATIC) {
-                if (k_ != MethodAccessKind.STATIC) {
+        if (_g instanceof RootBlock) {
+            CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
+            for (OverridableBlock b: ((RootBlock) _g).getOverridableBlocks()) {
+                methods_.add(b);
+            }
+            for (AnnotationMethodBlock b: ((RootBlock) _g).getAnnotationsMethodsBlocks()) {
+                methods_.add(b);
+            }
+            for (NamedCalledFunctionBlock e: methods_) {
+                MethodId id_ = e.getId();
+                MethodAccessKind k_ = id_.getKind();
+                if (filter(_accessFromSuper, _superClass, _kind, _superTypesBase, _fullName, k_)) {
                     continue;
                 }
-            }
-            if (_kind == MethodAccessKind.STATIC_CALL) {
-                if (k_ != MethodAccessKind.STATIC) {
-                    if (k_ != MethodAccessKind.STATIC_CALL) {
-                        continue;
-                    }
+                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap, _page, e.getId(), e.getImportedReturnType());
+                if (stMeth_ == null) {
+                    continue;
                 }
+                _methods.add(stMeth_);
             }
-            if (filterMember(_accessFromSuper,_superClass,_superTypesBase, _fullName)) {
-                continue;
+        }
+        if (_g instanceof StandardType) {
+            for (StandardMethod e: ((StandardType) _g).getMethods()) {
+                MethodId id_ = e.getId();
+                MethodAccessKind k_ = id_.getKind();
+                if (filter(_accessFromSuper, _superClass, _kind, _superTypesBase, _fullName, k_)) {
+                    continue;
+                }
+                MethodInfo stMeth_ = fetchedParamMethod(e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId, _anc, _cl, _page, e.getId(), e.getImportedReturnType());
+                if (stMeth_ == null) {
+                    continue;
+                }
+                _methods.add(stMeth_);
             }
-            MethodInfo stMeth_ = fetchedParamMethod(_g,e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap, _page);
-            if (stMeth_ == null) {
-                continue;
-            }
-            _methods.add(stMeth_);
         }
         for (MethodInfo e: getPredefineStaticEnumMethods(genericString_,_anc, _page)) {
             MethodId id_ = e.getConstraints();
@@ -2229,6 +2323,23 @@ public abstract class OperationNode {
             _methods.add(e);
         }
     }
+
+    private static boolean filter(boolean _accessFromSuper, boolean _superClass, MethodAccessKind _kind, StringList _superTypesBase, String _fullName, MethodAccessKind _k) {
+        if (_kind == MethodAccessKind.STATIC) {
+            if (_k != MethodAccessKind.STATIC) {
+                return true;
+            }
+        }
+        if (_kind == MethodAccessKind.STATIC_CALL) {
+            if (_k != MethodAccessKind.STATIC) {
+                if (_k != MethodAccessKind.STATIC_CALL) {
+                    return true;
+                }
+            }
+        }
+        return filterMember(_accessFromSuper, _superClass, _superTypesBase, _fullName);
+    }
+
     private static boolean filterMember(boolean _accessFromSuper, boolean _superClass,StringList _superTypesBase, String _fullName) {
         if (_accessFromSuper) {
             if (StringUtil.contains(_superTypesBase, _fullName)) {
@@ -2241,32 +2352,43 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(AnaGeneType _r, GeneCustStaticMethod _m, String _s, boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(StandardMethod _m, String _s, boolean _keepParams,
                                                  ClassMethodIdAncestor _uniqueId,
-                                                 String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
+                                                 int _anc, String _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
-        MethodId id_ = _m.getId();
-        if (isCandidateMethod(_uniqueId,_anc, base_, id_)) {
+        if (isCandidateMethod(_uniqueId,_anc, base_, _id)) {
             return null;
         }
-        String formattedClass_;
-        if (!id_.canAccessParamTypes() || StringUtil.quickEq(base_, _page.getAliasFct())) {
-            formattedClass_ = _s;
-        } else {
-            formattedClass_ = _f;
+        String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
+        return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType);
+    }
+
+    private static MethodInfo fetchedParamMethodCust(RootBlock _r, NamedFunctionBlock _m, String _s, boolean _keepParams,
+                                                     ClassMethodIdAncestor _uniqueId,
+                                                     String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        String base_ = StringExpUtil.getIdFromAllTypes(_s);
+        if (isCandidateMethod(_uniqueId,_anc, base_, _id)) {
+            return null;
         }
-        String outer_ = "";
-        if (_r instanceof RootBlock) {
-            outer_ = ((RootBlock)_r).getOuterFullName();
-        }
+        String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
         if (_m instanceof OverridableBlock) {
             OverridableBlock c = (OverridableBlock) _m;
-            Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r.getFullName(), outer_);
+            Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r);
             if (cannotAccess(base_,a_,_glClass,_superTypesBaseMap, _page)) {
                 return null;
             }
         }
-        return buildMethodInfo(_r,_m, _keepParams, _anc, formattedClass_, _page);
+        return buildMethodInfoCust(_r,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType);
+    }
+
+    private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base, MethodId _id) {
+        String formattedClass_;
+        if (!_id.canAccessParamTypes() || StringUtil.quickEq(_base, _page.getAliasFct())) {
+            formattedClass_ = _s;
+        } else {
+            formattedClass_ = _f;
+        }
+        return formattedClass_;
     }
 
     private static MethodInfo fetchedParamCastMethod(MethodHeaderInfo _m, String _returnType, String _s,
@@ -2278,7 +2400,7 @@ public abstract class OperationNode {
             return null;
         }
         RootBlock root_ = _m.getRoot();
-        Accessed a_ = new Accessed(_m.getAccess(), root_.getPackageName(), root_.getFullName(), root_.getOuterFullName());
+        Accessed a_ = new Accessed(_m.getAccess(), root_.getPackageName(), root_);
         if (cannotAccess(base_, a_,_glClass,_superTypesBaseMap, _page)) {
             return null;
         }
@@ -2289,7 +2411,7 @@ public abstract class OperationNode {
         return buildImproveOperatorInfo(_m, _s, _page);
     }
 
-    private static boolean cannotAccess(String _base, AccessibleBlock _acc,
+    private static boolean cannotAccess(String _base, Accessed _acc,
                                         String _glClass, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
         String subType_ = _superTypesBaseMap.getVal(_base);
         if (!ContextUtil.canAccess(subType_,_acc, _page)) {
@@ -2298,35 +2420,42 @@ public abstract class OperationNode {
         return !ContextUtil.canAccess(_glClass,_acc, _page);
     }
 
-    private static MethodInfo buildMethodInfo(AnaGeneType _r, GeneCustStaticMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page) {
-        String importedReturnType_ = _m.getImportedReturnType();
-        String ret_ = importedReturnType_;
+    private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        String ret_ = _importedReturnType;
         ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
         ParametersGroup p_ = new ParametersGroup();
-        MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setOriginalReturnType(importedReturnType_);
-        if (_m instanceof NamedFunctionBlock) {
-            mloc_.setFileName(((Block)_m).getFile().getFileName());
-            mloc_.setMemberNumber(((NamedFunctionBlock)_m).getNameNumber());
-            if (((NamedFunctionBlock)_m).isMatchParamNames()) {
-                mloc_.setParametersNames(_m.getParametersNames());
-            }
-            mloc_.setCustMethod((NamedFunctionBlock) _m);
-        }
-        if (_m instanceof StandardMethod) {
-            mloc_.setStandardMethod((StandardMethod)_m);
+        mloc_.setOriginalReturnType(_importedReturnType);
+        mloc_.setFileName(_m.getFile().getFileName());
+        mloc_.setMemberNumber(_m.getNameNumber());
+        if (_m.isMatchParamNames()) {
             mloc_.setParametersNames(_m.getParametersNames());
         }
-        if (_r instanceof RootBlock) {
-            mloc_.setRootNumber(((RootBlock)_r).getNumberAll());
-        }
+        mloc_.setCustMethod(_m);
+        mloc_.setRootNumber(_r.getNumberAll());
         mloc_.setClassName(_formattedClass);
         if (_m instanceof OverridableBlock) {
             mloc_.setAbstractMethod(((OverridableBlock)_m).isAbstractMethod());
             mloc_.setFinalMethod(((OverridableBlock)_m).isFinalMethod());
         }
-        mloc_.setConstraints(id_);
+        mloc_.setConstraints(_id);
+        mloc_.setParameters(p_);
+        mloc_.setReturnType(ret_);
+        mloc_.setAncestor(_anc);
+        mloc_.format(_keepParams, _page);
+        return mloc_;
+    }
+
+    private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        String ret_ = _importedReturnType;
+        ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        ParametersGroup p_ = new ParametersGroup();
+        MethodInfo mloc_ = new MethodInfo();
+        mloc_.setOriginalReturnType(_importedReturnType);
+        mloc_.setStandardMethod(_m);
+        mloc_.setParametersNames(_m.getParametersNames());
+        mloc_.setClassName(_formattedClass);
+        mloc_.setConstraints(_id);
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(_anc);
@@ -3294,8 +3423,8 @@ public abstract class OperationNode {
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String wcOne_ = idOne_.getParametersType(i);
             String wcTwo_ = idTwo_.getParametersType(i);
-			wcOne_ = wrap(i,len_,idOne_.isVararg(),wcOne_);
-			wcTwo_ = wrap(i,len_,idTwo_.isVararg(),wcTwo_);
+            wcOne_ = wrap(i,len_,idOne_.isVararg(),wcOne_);
+            wcTwo_ = wrap(i,len_,idTwo_.isVararg(),wcTwo_);
             if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == SortConstants.SWAP_SORT) {
                 all_ = false;
                 break;
@@ -3375,13 +3504,13 @@ public abstract class OperationNode {
     }
 
     private static String wrap(int _i, int _len, boolean _vararg, String _type){
-		if (_type.isEmpty()){
-			return _type;
-		}
-		if (_i + 1 == _len && _vararg) {
-			return StringExpUtil.getPrettyArrayType(_type);
-		}
-		return _type;
+        if (_type.isEmpty()){
+            return _type;
+        }
+        if (_i + 1 == _len && _vararg) {
+            return StringExpUtil.getPrettyArrayType(_type);
+        }
+        return _type;
     }
     private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getGeneFormatted().getParametersTypesLength();

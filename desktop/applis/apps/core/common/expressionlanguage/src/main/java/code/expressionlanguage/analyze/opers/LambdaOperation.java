@@ -219,20 +219,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = AnaTemplates.wildCardFormatParam(type_, s, _page);
                     if (format_.isEmpty()) {
-                        ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
                         MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                        idDef_.setId(new ClassMethodId(type_, idCast_));
-                        idDef_.setRealId(idCast_);
-                        idDef_.setRealClass(type_);
-                        idDef_.setReturnType(type_);
                         lambdaCommonContent.setFoundClass(type_);
                         MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
                         method = new ClassMethodId(type_, idCt_);
-                        lambdaCommonContent.setAncestor(idDef_.getAncestor());
-                        lambdaMethodContent.setAbstractMethod(idDef_.isAbstractMethod());
+                        lambdaCommonContent.setAncestor(0);
+                        lambdaMethodContent.setAbstractMethod(false);
                         lambdaCommonContent.setShiftArgument(false);
                         lambdaMethodContent.setDirectCast(true);
-                        String fct_ = formatReturn(_page, idDef_.getReturnType(), idDef_.getRealClass(), idDef_.getRealId(), idDef_.getId().getConstraints());
+                        String fct_ = formatReturn(_page, type_, type_, idCast_, idCast_);
                         setResultClass(new AnaClassArgumentMatching(fct_));
                         return;
                     }
@@ -276,20 +271,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             if (!StringExpUtil.customCast(type_)) {
-                ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
                 MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                idDef_.setId(new ClassMethodId(type_, idCast_));
-                idDef_.setRealId(idCast_);
-                idDef_.setRealClass(type_);
-                idDef_.setReturnType(type_);
                 lambdaCommonContent.setFoundClass(type_);
                 MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
                 method = new ClassMethodId(type_, idCt_);
-                lambdaCommonContent.setAncestor(idDef_.getAncestor());
-                lambdaMethodContent.setAbstractMethod(idDef_.isAbstractMethod());
+                lambdaCommonContent.setAncestor(0);
+                lambdaMethodContent.setAbstractMethod(false);
                 lambdaCommonContent.setShiftArgument(false);
                 lambdaMethodContent.setDirectCast(true);
-                String fct_ = formatReturn(_page, idDef_.getReturnType(), idDef_.getRealClass(), idDef_.getRealId(), idDef_.getId().getConstraints());
+                String fct_ = formatReturn(_page, type_, type_, idCast_, idCast_);
                 setResultClass(new AnaClassArgumentMatching(fct_));
                 return;
             }
@@ -303,25 +293,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 id_ = tryGetDeclaredImplicitCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page);
             }
             if (!id_.isFoundMethod()) {
-                ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
                 MethodId idCast_;
                 if (argsRes_.getParametersTypes().isEmpty()) {
                     idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
                 } else {
                     idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(argsRes_.getParametersTypes()));
                 }
-                idDef_.setId(new ClassMethodId(type_, idCast_));
-                idDef_.setRealId(idCast_);
-                idDef_.setRealClass(type_);
-                idDef_.setReturnType(type_);
                 lambdaCommonContent.setFoundClass(type_);
                 MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
                 method = new ClassMethodId(type_, idCt_);
-                lambdaCommonContent.setAncestor(idDef_.getAncestor());
-                lambdaMethodContent.setAbstractMethod(idDef_.isAbstractMethod());
+                lambdaCommonContent.setAncestor(0);
+                lambdaMethodContent.setAbstractMethod(false);
                 lambdaCommonContent.setShiftArgument(false);
                 lambdaMethodContent.setDirectCast(true);
-                String fct_ = formatReturn(_page, idDef_.getReturnType(), idDef_.getRealClass(), idDef_.getRealId(), idDef_.getId().getConstraints());
+                String fct_ = formatReturn(_page, type_, type_, idCast_, idCast_);
                 setResultClass(new AnaClassArgumentMatching(fct_));
                 return;
             }

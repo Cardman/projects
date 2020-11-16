@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -153,7 +154,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public boolean isTypeHidden(AccessibleBlock _class, AnalyzedPageEl _analyzable) {
+    public boolean isTypeHidden(Accessed _class, AnalyzedPageEl _analyzable) {
         return _class.getAccess() != AccessEnum.PUBLIC;
     }
 

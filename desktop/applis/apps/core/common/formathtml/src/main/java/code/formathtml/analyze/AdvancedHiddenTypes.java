@@ -18,7 +18,7 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
         if (_global == null) {
             return false;
         }
-        Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentFullName(), _type.getFullName(), _type.getOuterFullName());
+        Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentType(), _type);
         return _global.isTypeHidden(a_, configuration);
     }
 }

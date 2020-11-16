@@ -35,21 +35,21 @@ public final class OverridesTypeUtil {
             }
             CustList<GeneStringOverridable> finalMethods_ = new CustList<GeneStringOverridable>();
             CustList<GeneStringOverridable> methods_ = new CustList<GeneStringOverridable>();
-            StringList all_ = new StringList();
-            all_.add(name_);
-            all_.addAllElts(c.getAllSuperTypes());
-            for (String s: all_) {
-                RootBlock r_ = _page.getAnaClassBody(s);
-                if (!(r_ instanceof InterfaceBlock)) {
+            CustList<AnaGeneType> all_ = new CustList<AnaGeneType>();
+            all_.add(c);
+            all_.addAllElts(c.getAllSuperTypesInfo());
+            for (AnaGeneType s: all_) {
+                if (!(s instanceof InterfaceBlock)) {
                     continue;
                 }
-                String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, baseClassFound_, _page);
+                InterfaceBlock i_ = (InterfaceBlock) s;
+                String v_ = AnaTemplates.getOverridingFullTypeByBases(i_, baseClassFound_, _page);
                 if (v_.isEmpty()) {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
                 FormattedMethodId l_ = _realId.quickOverrideFormat(_type,v_);
-                CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
+                CustList<OverridingMethodDto> ov_ = i_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
                 boolean found_ = false;
@@ -61,7 +61,7 @@ public final class OverridesTypeUtil {
                     if (StringUtil.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!t.getType().isSubTypeOf(baseClassFound_, _page)) {
+                    if (!t.getType().isSubTypeOf(_type)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);

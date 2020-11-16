@@ -21,8 +21,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneCustStaticMethod {
+public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
 
     private String defaultValue;
     private OperationNode root;
@@ -45,11 +44,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     @Override
     public MethodAccessKind getStaticContext() {
         return MethodAccessKind.INSTANCE;
-    }
-
-    @Override
-    public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
     }
 
     public MethodId getId() {
@@ -99,23 +93,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     public int getDefaultValueOffset() {
         return defaultValueOffset;
-    }
-
-    @Override
-    public boolean isStaticMethod() {
-        return false;
-    }
-
-    public boolean isFinalMethod() {
-        return false;
-    }
-
-    public boolean isAbstractMethod() {
-        return true;
-    }
-
-    public boolean isNormalMethod() {
-        return false;
     }
 
     public void buildExpressionLanguage(AnalyzedPageEl _page) {

@@ -30,7 +30,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
@@ -624,7 +623,7 @@ public final class ClassesUtil {
     }
 
     private static StringList getParamVarFromParent(RootBlock _root) {
-        if (_root.isStaticType()) {
+        if (_root.withoutInstance()) {
             return new StringList();
         }
         return getParamVarFromAnyParent(_root);
@@ -644,7 +643,7 @@ public final class ClassesUtil {
                     namesFromParent_.add(t.getName());
                 }
             }
-            if (r_.isStaticType()) {
+            if (r_.withoutInstance()) {
                 add_ = false;
             }
         }
@@ -1008,7 +1007,7 @@ public final class ClassesUtil {
             c.buildMapParamType(_page);
         }
         for (RootBlock c: _page.getFoundTypes()) {
-            if (c.isStaticType()) {
+            if (c.withoutInstance()) {
                 continue;
             }
             StringList allPossibleDirectSuperTypes_ = new StringList();
@@ -1030,7 +1029,7 @@ public final class ClassesUtil {
                 if (s_ == null) {
                     continue;
                 }
-                if (s_.isStaticType()) {
+                if (s_.withoutInstance()) {
                     continue;
                 }
                 allDirectSuperTypes_.add(s_.getFullName());
@@ -1241,8 +1240,10 @@ public final class ClassesUtil {
                     continue;
                 }
                 CustList<String> dup_ = new CustList<String>();
+                CustList<AnaGeneType> dupTypes_ = new CustList<AnaGeneType>();
                 for (FoundSuperType f: types_) {
                     dup_.add(f.getName());
+                    dupTypes_.add(f.getType());
                 }
                 StringMap<Integer> counts_ = new StringMap<Integer>();
                 for (String s: dup_) {
@@ -1280,8 +1281,8 @@ public final class ClassesUtil {
                     if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
                     }
-                    if (r.isStaticType()) {
-                        if (!s_.isStaticType()) {
+                    if (r.withoutInstance()) {
+                        if (!s_.withoutInstance()) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
                             enum_.setFileName(r.getFile().getFileName());
@@ -1355,11 +1356,13 @@ public final class ClassesUtil {
                     r.addNameErrors(enum_);
                 }
                 r.getAllSuperTypes().addAllElts(dup_);
+                r.getAllSuperTypesInfo().addAllElts(dupTypes_);
 //                exec_.getAllSuperTypes().addAllElts(dup_);
                 for (FoundSuperType f: types_) {
                     RootBlock s_ = f.getType();
 //                    exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                     r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
+                    r.getAllSuperTypesInfo().addAllElts(s_.getAllSuperTypesInfo());
                 }
                 r.getAllSuperTypes().add(objectClassName_);
 //                exec_.getAllSuperTypes().add(objectClassName_);
@@ -1772,34 +1775,8 @@ public final class ClassesUtil {
         }
         return inners_;
     }
-    public static CustList<GeneCustStaticMethod> getMethodBlocks(AnaGeneType _element) {
-        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
-        if (_element instanceof RootBlock) {
-            for (GeneCustStaticMethod m:getMethodAnaBlocks((RootBlock) _element)) {
-                methods_.add(m);
-            }
-        }
-        if (_element instanceof StandardType) {
-            for (StandardMethod m : ((StandardType) _element).getMethods()) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
-    }
 
 
-    public static CustList<GeneCustStaticMethod> getMethodAnaBlocks(RootBlock _element) {
-        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
-        for (Block b: getDirectChildren(_element)) {
-            if (b instanceof OverridableBlock) {
-                methods_.add((GeneCustStaticMethod) b);
-            }
-            if (b instanceof AnnotationMethodBlock) {
-                methods_.add((GeneCustStaticMethod) b);
-            }
-        }
-        return methods_;
-    }
     public static CustList<RootBlock> accessedInnerElements(RootBlock _clOwner) {
         CustList<RootBlock> inners_ = new CustList<RootBlock>();
         for (Block b: getDirectChildren(_clOwner)) {

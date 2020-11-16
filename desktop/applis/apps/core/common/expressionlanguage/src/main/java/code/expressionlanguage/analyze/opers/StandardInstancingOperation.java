@@ -12,7 +12,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
@@ -49,10 +48,11 @@ public final class StandardInstancingOperation extends
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         tryAnalyze(_page);
-        if (getTypeInfer().isEmpty()) {
+        AnaGeneType anaGeneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(getTypeInfer()));
+        if (anaGeneType_ == null) {
             return;
         }
-        tryGetCtors(getTypeInfer(), ctors,_page);
+        tryGetCtors(getTypeInfer(), ctors,_page, anaGeneType_);
     }
 
 

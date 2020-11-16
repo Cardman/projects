@@ -148,22 +148,7 @@ public final class ExecTemplates {
                 return NullStruct.NULL_VALUE;
             }
             String dComp_ = dimCurrent_.getComponent();
-            PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dComp_);
-            GeneType g_ = _an.getClassBody(dComp_);
-            InheritedType in_ = null;
-            boolean without_;
-            if (g_ != null) {
-                without_ = g_.withoutInstance();
-            } else {
-                without_ = false;
-            }
-            if (pr_ != null) {
-                in_ = pr_;
-            } else {
-                if (cl_.startsWith(Templates.ARR_BEG_STRING) || without_) {
-                    in_ = g_;
-                }
-            }
+            InheritedType in_ = getInheritedType(_an, cl_, dComp_);
             if (in_ != null) {
                 if (!in_.isSubTypeOf(componentDim_,_an)) {
                     _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
@@ -206,6 +191,33 @@ public final class ExecTemplates {
             g_ = _an.getClassBody(cl_);
         }
         return Argument.getNull(current_);
+    }
+
+    private static InheritedType getInheritedType(ContextEl _an, String _cl, String _dComp) {
+        PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(_dComp);
+        GeneType g_ = _an.getClassBody(_dComp);
+        return getInheritedType(_cl, pr_, g_);
+    }
+
+    private static InheritedType getInheritedType(String _cl, PrimitiveType _pr, GeneType _g) {
+        boolean without_ = withoutInstance(_g);
+        return getInheritedType(_cl, _pr, _g, without_);
+    }
+
+    private static InheritedType getInheritedType(String _cl, PrimitiveType _pr, GeneType _g, boolean _without) {
+        InheritedType in_ = null;
+        if (_pr != null) {
+            in_ = _pr;
+        } else {
+            if (_cl.startsWith(Templates.ARR_BEG_STRING) || _without) {
+                in_ = _g;
+            }
+        }
+        return in_;
+    }
+
+    private static boolean withoutInstance(GeneType _g) {
+        return _g != null && _g.withoutInstance();
     }
 
     static boolean hasToLookForParent(ContextEl _an, String _id, GeneType _g) {

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -22,6 +23,10 @@ public final class ConstructorInfo implements Parametrable {
     private boolean varArgWrap;
     private InvocationMethod invocation;
     private int memberNumber=-1;
+    private int rootNumber = -1;
+
+    private StandardType standardType;
+    private String fileName = "";
     private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
     private StringList parametersNames = new StringList();
     private NamedFunctionBlock customCtor;
@@ -123,6 +128,30 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setMemberNumber(int _memberNumber) {
         this.memberNumber = _memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int _rootNumber) {
+        this.rootNumber = _rootNumber;
+    }
+
+    public StandardType getStandardType() {
+        return standardType;
+    }
+
+    public void setStandardType(StandardType _standardType) {
+        standardType = _standardType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        fileName = _fileName;
     }
 
     public StringList getParametersNames() {
