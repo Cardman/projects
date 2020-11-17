@@ -150,8 +150,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _page.addLocError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            addErrorBlock(cast_.getBuiltError());
         }
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {

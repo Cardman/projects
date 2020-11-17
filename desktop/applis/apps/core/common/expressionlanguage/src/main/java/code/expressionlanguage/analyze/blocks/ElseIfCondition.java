@@ -53,8 +53,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
                                 ),
                                 "|"));
                 //key word len
-                getErrorsBlock().add(un_.getBuiltError());
-                setReachableError(true);
+                addErrorBlock(un_.getBuiltError());
                 _page.addLocError(un_);
             }
         }

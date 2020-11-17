@@ -175,8 +175,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _page.addLocError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            addErrorBlock(cast_.getBuiltError());
         }
         TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(variableNameFirst, _page);
         if (resOne_.isError()) {

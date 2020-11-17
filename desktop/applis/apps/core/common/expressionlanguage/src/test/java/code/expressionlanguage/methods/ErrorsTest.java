@@ -11196,7 +11196,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word. class=\"e\">(</a>){}\n" +
+                "The field name  is not valid. It must be a word.\" class=\"e\">(</a>){}\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11278,7 +11278,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word. class=\"e\">&lt;</a>&gt;{};\n" +
+                "The field name  is not valid. It must be a word.\" class=\"e\">&lt;</a>&gt;{};\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11316,7 +11316,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word. class=\"e\">&lt;</a>&gt;{}\n" +
+                "The field name  is not valid. It must be a word.\" class=\"e\">&lt;</a>&gt;{}\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test

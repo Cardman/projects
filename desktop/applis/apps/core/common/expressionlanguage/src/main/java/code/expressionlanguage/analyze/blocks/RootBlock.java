@@ -507,8 +507,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 //block len
                 unexp_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
                 _page.addLocError(unexp_);
-                b.setReachableError(true);
-                b.getErrorsBlock().add(unexp_.getBuiltError());
+                b.addErrorBlock(unexp_.getBuiltError());
             }
         }
         if (!isStaticType()) {
@@ -526,8 +525,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             getFullName()
                     );
                     _page.addLocError(unexp_);
-                    b.setReachableError(true);
-                    b.getErrorsBlock().add(unexp_.getBuiltError());
+                    b.addErrorBlock(unexp_.getBuiltError());
                 }
             }
         }
@@ -1784,8 +1782,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void addNameErrors(String _error) {
         if (nameLength == 0){
-            setReachableError(true);
-            getErrorsBlock().add(_error);
+            addErrorBlock(_error);
         } else {
             nameErrors.add(_error);
         }

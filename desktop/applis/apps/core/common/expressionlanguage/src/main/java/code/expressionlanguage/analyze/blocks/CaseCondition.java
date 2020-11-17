@@ -82,8 +82,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     _page.getKeyWords().getKeyWordSwitch());
             //key word len
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
             root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
             return;
         }
@@ -122,8 +121,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 _page.addLocError(d_);
                 nameErrors.add(d_.getBuiltError());
                 if (!emptyType&&variableName.trim().isEmpty()) {
-                    setReachableError(true);
-                    getErrorsBlock().add(d_.getBuiltError());
+                    addErrorBlock(d_.getBuiltError());
                 }
                 return;
             }
@@ -158,16 +156,14 @@ public final class CaseCondition extends SwitchPartBlock {
             root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
             String emp_ = _page.getCurrentEmptyPartErr();
             if (!emp_.isEmpty()) {
-                setReachableError(true);
-                getErrorsBlock().add(emp_);
+                addErrorBlock(emp_);
             }
             return;
         }
         root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
-            setReachableError(true);
-            getErrorsBlock().add(emp_);
+            addErrorBlock(emp_);
         }
     }
 

@@ -88,8 +88,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _page.getAnaGeneType(id_);
@@ -112,8 +111,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     id_);
                             _page.addLocError(un_);
-                            setReachableError(true);
-                            getErrorsBlock().add(un_.getBuiltError());
+                            addErrorBlock(un_.getBuiltError());
                         }
                     } else {
                         enumTest = true;
@@ -147,8 +145,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             ),
                             "|"));
             _page.addLocError(un_);
-            first_.getErrorsBlock().add(un_.getBuiltError());
-            first_.setReachableError(true);
+            first_.addErrorBlock(un_.getBuiltError());
             first_ = first_.getNextSibling();
         }
     }

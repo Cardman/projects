@@ -130,12 +130,8 @@ public abstract class ReachBlock {
         return info.getFile();
     }
 
-    public StringList getErrorsBlock() {
-        return info.getErrorsBlock();
-    }
-
-    public void setReachableError(boolean _reachableError) {
-        info.setReachableError(_reachableError);
+    public void addErrorBlock(String _err) {
+        info.addErrorBlock(_err);
     }
 
     public ReachBracedBlock getParent() {

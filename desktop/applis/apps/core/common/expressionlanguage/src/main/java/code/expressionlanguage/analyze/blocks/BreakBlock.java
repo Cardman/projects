@@ -101,8 +101,7 @@ public final class BreakBlock extends AbruptBlock {
             }
             _page.addLocError(un_);
             if (label.isEmpty()) {
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                addErrorBlock(un_.getBuiltError());
             } else {
                 errorsRefLabels.add(un_.getBuiltError());
             }

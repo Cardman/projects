@@ -51,8 +51,7 @@ public final class DoBlock extends BracedBlock implements Loop {
                             ),
                             "|"));
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
             return;
         }
         if (!(nextSibling_ instanceof DoWhileCondition)) {
@@ -68,8 +67,7 @@ public final class DoBlock extends BracedBlock implements Loop {
                             ),
                             "|"));
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
         }
     }
 

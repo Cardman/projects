@@ -145,8 +145,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
             deadCode_.buildError(_page.getAnalysisMessages().getDeadCode(),
                     getPseudoSignature(_page));
             _page.addLocError(deadCode_);
-            _en.getErrorsBlock().add(deadCode_.getBuiltError());
-            _en.setReachableError(true);
+            _en.addErrorBlock(deadCode_.getBuiltError());
         }
     }
 

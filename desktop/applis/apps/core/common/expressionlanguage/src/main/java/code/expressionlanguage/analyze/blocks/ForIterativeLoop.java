@@ -228,8 +228,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
                         StringUtil.join(arg_.getNames(),"&"),
                         _elementClass);
                 _page.addLocError(cast_);
-                setReachableError(true);
-                getErrorsBlock().add(cast_.getBuiltError());
+                addErrorBlock(cast_.getBuiltError());
             }
         }
 //        ElUtil.setImplicits(_stepEl, _page, _root);
@@ -247,8 +246,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _page.addLocError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
@@ -263,8 +261,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
             _page.addLocError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(variableNameOffset);
         _page.setOffset(0);

@@ -39,7 +39,6 @@ public abstract class Block {
     private int lengthHeader;
 
     private Ints badIndexes = new Ints();
-    private boolean reachableError;
     private StringList errorsBlock = new StringList();
     private StringList errorsLabels = new StringList();
     private int blockNb;
@@ -112,8 +111,7 @@ public abstract class Block {
         //defined len first key words
         un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
         _page.addLocError(un_);
-        _block.setReachableError(true);
-        _block.getErrorsBlock().add(un_.getBuiltError());
+        _block.addErrorBlock(un_.getBuiltError());
         return false;
     }
     public final RootBlock retrieveParentType() {
@@ -189,20 +187,16 @@ public abstract class Block {
         return badIndexes;
     }
 
+    public void addErrorBlock(String _err) {
+        errorsBlock.add(_err);
+    }
+
     public StringList getErrorsBlock() {
         return errorsBlock;
     }
 
     public StringList getErrorsLabels() {
         return errorsLabels;
-    }
-
-    public boolean isReachableError() {
-        return reachableError;
-    }
-
-    public void setReachableError(boolean _reachableError) {
-        reachableError = _reachableError;
     }
 
     public int getBegin() {

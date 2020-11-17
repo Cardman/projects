@@ -224,8 +224,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _page.addLocError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            addErrorBlock(cast_.getBuiltError());
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
@@ -268,8 +267,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(exp_.getNames(),"&"));
                     _page.addLocError(un_);
-                    setReachableError(true);
-                    getErrorsBlock().add(un_.getBuiltError());
+                    addErrorBlock(un_.getBuiltError());
                 }
             }
         }

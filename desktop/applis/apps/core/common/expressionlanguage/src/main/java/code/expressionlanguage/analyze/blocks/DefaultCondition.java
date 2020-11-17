@@ -43,8 +43,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                     "",
                     _page.getKeyWords().getKeyWordSwitch());
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
         } else {
             SwitchBlock s_ = (SwitchBlock) b_;
             setSwitchParent(s_);
@@ -61,8 +60,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                                 _page.getKeyWords().getKeyWordDefault(),
                                 _page.getKeyWords().getKeyWordSwitch());
                         _page.addLocError(un_);
-                        setReachableError(true);
-                        getErrorsBlock().add(un_.getBuiltError());
+                        addErrorBlock(un_.getBuiltError());
                         break;
                     }
                     first_ = first_.getNextSibling();
@@ -79,8 +77,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                         _page.getKeyWords().getKeyWordDefault(),
                         _page.getKeyWords().getKeyWordSwitch());
                 _page.addLocError(un_);
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                addErrorBlock(un_.getBuiltError());
             }
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
             if (res_.isError()) {
@@ -92,8 +89,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                 _page.addLocError(d_);
                 nameErrors.add(d_.getBuiltError());
                 if (variableName.trim().isEmpty()) {
-                    setReachableError(true);
-                    getErrorsBlock().add(d_.getBuiltError());
+                    addErrorBlock(d_.getBuiltError());
                 }
                 return;
             }

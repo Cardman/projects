@@ -22,8 +22,7 @@ public final class DoWhileCondition extends Condition {
                     _page.getKeyWords().getKeyWordWhile(),
                     _page.getKeyWords().getKeyWordDo());
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
         }
     }
 

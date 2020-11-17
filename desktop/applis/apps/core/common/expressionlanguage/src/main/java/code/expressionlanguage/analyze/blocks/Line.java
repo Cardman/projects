@@ -45,8 +45,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         importedClass = import_;
         root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(st_), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
-            getErrorsBlock().add(_page.getCurrentEmptyPartErr());
-            setReachableError(true);
+            addErrorBlock(_page.getCurrentEmptyPartErr());
         }
         if (root instanceof CurrentInvokingConstructor) {
             callFromCtorToCtor = true;

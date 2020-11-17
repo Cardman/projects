@@ -59,8 +59,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
                                 "|"));
                 //key word len
                 _page.addLocError(un_);
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                addErrorBlock(un_.getBuiltError());
             }
         }
     }

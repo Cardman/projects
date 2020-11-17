@@ -41,8 +41,7 @@ public final class InternOverrideBlock extends Leaf {
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
             _page.addLocError(b_);
-            setReachableError(true);
-            getErrorsBlock().add(b_.getBuiltError());
+            addErrorBlock(b_.getBuiltError());
         }
         _page.setGlobalOffset(definitionOffset);
         StringList overrideList_ = StringUtil.splitChar(definition, ';');

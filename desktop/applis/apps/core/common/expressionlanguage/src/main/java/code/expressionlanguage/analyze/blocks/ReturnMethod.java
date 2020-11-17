@@ -57,8 +57,7 @@ public final class ReturnMethod extends AbruptBlock {
         _page.setOffset(0);
         root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(stCtx_), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
-            getErrorsBlock().add(_page.getCurrentEmptyPartErr());
-            setReachableError(true);
+            addErrorBlock(_page.getCurrentEmptyPartErr());
         }
         returnType = retType_;
         checkTypes(retType_, root, _page);
@@ -98,8 +97,7 @@ public final class ReturnMethod extends AbruptBlock {
             cast_.buildError(_page.getAnalysisMessages().getVoidType(),
                     _retType);
             _page.addLocError(cast_);
-            getErrorsBlock().add(cast_.getBuiltError());
-            setReachableError(true);
+            addErrorBlock(cast_.getBuiltError());
             return;
         }
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
@@ -118,8 +116,7 @@ public final class ReturnMethod extends AbruptBlock {
                         StringUtil.join(ret_.getNames(), "&"),
                         _retType);
                 _page.addLocError(cast_);
-                setReachableError(true);
-                getErrorsBlock().add(cast_.getBuiltError());
+                addErrorBlock(cast_.getBuiltError());
             }
 
         }

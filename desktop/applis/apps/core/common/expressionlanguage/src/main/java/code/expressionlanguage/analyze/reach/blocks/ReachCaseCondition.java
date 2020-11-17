@@ -93,8 +93,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                     _page.getKeyWords().getKeyWordCase(),
                     value);
             _page.addLocError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            addErrorBlock(un_.getBuiltError());
         } else {
             checkDuplicateCase(meta.getArgument(), _page);
             Mapping m_ = new Mapping();
@@ -110,8 +109,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                         AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page),
                         StringUtil.join(_resSwitch.getNames(),"&"));
                 _page.addLocError(un_);
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                addErrorBlock(un_.getBuiltError());
             }
         }
     }
@@ -134,8 +132,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                                 AnaApplyCoreMethodUtil.getString(_arg, _page),
                                 _page.getKeyWords().getKeyWordSwitch());
                         _page.addLocError(un_);
-                        setReachableError(true);
-                        getErrorsBlock().add(un_.getBuiltError());
+                        addErrorBlock(un_.getBuiltError());
                         break;
                     }
                 }
@@ -160,8 +157,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                             value.trim(),
                             _page.getKeyWords().getKeyWordSwitch());
                     _page.addLocError(un_);
-                    setReachableError(true);
-                    getErrorsBlock().add(un_.getBuiltError());
+                    addErrorBlock(un_.getBuiltError());
                     break;
                 }
 

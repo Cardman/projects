@@ -34,8 +34,7 @@ public final class Throwing extends AbruptBlock {
         _page.setGlobalOffset(expressionOffset);
         root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(f_.getStaticContext()), _page);
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
-            getErrorsBlock().add(_page.getCurrentEmptyPartErr());
-            setReachableError(true);
+            addErrorBlock(_page.getCurrentEmptyPartErr());
         }
     }
 

@@ -247,7 +247,7 @@ public final class LinkageUtil {
                 }
             }
             if (vars_.getStack().last().getCurrent() == null) {
-                if (child_.isReachableError()) {
+                if (!child_.getErrorsBlock().isEmpty()) {
                     if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
                         String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                         int off_ = child_.getBegin();
@@ -353,7 +353,7 @@ public final class LinkageUtil {
                 child_ = vars_.getStack().last().getBlock();
                 continue;
             }
-            if (child_.isReachableError()) {
+            if (!child_.getErrorsBlock().isEmpty()) {
                 if (child_ instanceof Line) {
                     String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                     int off_ = child_.getBegin();
@@ -1518,7 +1518,7 @@ public final class LinkageUtil {
             if (inst_ == null) {
                 list_.addAllElts(_cond.getRoot().getErrs());
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
@@ -1986,7 +1986,7 @@ public final class LinkageUtil {
             String uniqueFieldName_ = _cond.getUniqueFieldName();
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + 1));
@@ -1995,7 +1995,7 @@ public final class LinkageUtil {
             if (inst_ == null) {
                 list_.addAllElts(_cond.getRoot().getErrs());
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
@@ -2077,7 +2077,7 @@ public final class LinkageUtil {
         if (_vars.getState() != null) {
             return;
         }
-        if (_cond.isReachableError()) {
+        if (!_cond.getErrorsBlock().isEmpty()) {
             StringList listCat_ = _cond.getErrorsBlock();
             _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringUtil.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getBegin()));
             _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
