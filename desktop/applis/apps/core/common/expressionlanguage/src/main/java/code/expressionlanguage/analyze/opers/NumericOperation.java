@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -17,8 +18,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     private String op;
     private int opOffset;
     private boolean okNum;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -69,8 +69,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
-                rootNumber = cl_.getRootNumber();
-                memberNumber = cl_.getMemberNumber();
+                memberId = cl_.getMemberId();
             }
             return;
         }
@@ -110,11 +109,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         return okNum;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
 }

@@ -9,16 +9,17 @@ import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AssSettableFieldOperation extends AssLeafOperation {
-    private FieldInfo fieldMetaInfo;
+    private AnaSettableOperationContent fieldMetaInfo;
     private boolean declare;
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
-        fieldMetaInfo = _ex.getFieldMetaInfo();
+        fieldMetaInfo = _ex.getSettableFieldContent();
         declare = _ex.isDeclare();
     }
 
@@ -130,7 +131,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
         return fieldMetaInfo.getClassField().eq(_key);
     }
 
-    public FieldInfo getFieldMetaInfo() {
+    public AnaSettableOperationContent getFieldMetaInfo() {
         return fieldMetaInfo;
     }
 }

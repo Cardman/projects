@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -160,8 +161,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                 setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
                 return;
             }
-            callFctContent.setRootNumber(clMeth_.getRootNumber());
-            callFctContent.setMemberNumber(clMeth_.getMemberNumber());
+            callFctContent.setMemberId(clMeth_.getMemberId());
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
@@ -179,8 +179,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             return;
         }
         standardMethod = clMeth_.getStandardMethod();
-        callFctContent.setRootNumber(clMeth_.getRootNumber());
-        callFctContent.setMemberNumber(clMeth_.getMemberNumber());
+        callFctContent.setMemberId(clMeth_.getMemberId());
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -257,15 +256,8 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
-
-    @Override
-    public int getMemberNumber() {
-        return callFctContent.getMemberNumber();
-    }
-
-    @Override
-    public int getRootNumber() {
-        return callFctContent.getRootNumber();
+    public MemberId getMemberId() {
+        return callFctContent.getMemberId();
     }
 
 }

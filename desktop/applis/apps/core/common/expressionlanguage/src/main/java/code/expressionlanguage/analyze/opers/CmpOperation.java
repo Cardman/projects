@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -22,8 +23,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     private ClassMethodId classMethodId;
     private AnaOperatorContent operatorContent;
     private boolean okNum;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -69,8 +69,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
-                rootNumber = cl_.getRootNumber();
-                memberNumber = cl_.getMemberNumber();
+                memberId = cl_.getMemberId();
             }
             return;
         }
@@ -153,14 +152,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         return operatorContent.getOpOffset();
     }
 
-    @Override
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    @Override
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
     public AnaOperatorContent getOperatorContent() {

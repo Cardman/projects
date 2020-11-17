@@ -618,10 +618,12 @@ public final class ExecTemplates {
         return params_;
     }
 
-    public static Parameters wrapAndCall(ExecNamedFunctionBlock _id, ExecRootBlock _root, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
+    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
         Parameters p_ = new Parameters();
+        ExecNamedFunctionBlock fct_ = _pair.getFct();
+        ExecRootBlock type_ = _pair.getType();
         int i_ = IndexConstants.FIRST_INDEX;
-        StringList params_ = fetchParamTypes(_root, _id, _formatted, true);
+        StringList params_ = fetchParamTypes(type_, fct_, _formatted, true);
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
             Struct ex_ = checkObjectEx(param_, a, _conf);
@@ -630,10 +632,10 @@ public final class ExecTemplates {
                 return p_;
             }
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), param_);
-            p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
+            p_.getParameters().addEntry(fct_.getParametersNames().get(i_),lv_);
             i_++;
         }
-        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted, new ExecTypeFunction(_root,_id), p_));
+        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         return p_;
     }
 

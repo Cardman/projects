@@ -4,11 +4,9 @@ import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class OperatorConverter {
     private ClassMethodId symbol;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private ClassMethodId test;
-    private int rootNumberTest = -1;
-    private int memberNumberTest = -1;
+    private MemberId memberIdTest = new MemberId();
 
     public ClassMethodId getSymbol() {
         return symbol;
@@ -18,20 +16,12 @@ public final class OperatorConverter {
         symbol = _symbol;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
-
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
     public ClassMethodId getTest() {
@@ -42,20 +32,12 @@ public final class OperatorConverter {
         test = _test;
     }
 
-    public int getRootNumberTest() {
-        return rootNumberTest;
+    public MemberId getMemberIdTest() {
+        return memberIdTest;
     }
 
-    public void setRootNumberTest(int _rootNumberTest) {
-        this.rootNumberTest = _rootNumberTest;
-    }
-
-    public int getMemberNumberTest() {
-        return memberNumberTest;
-    }
-
-    public void setMemberNumberTest(int _memberNumberTest) {
-        this.memberNumberTest = _memberNumberTest;
+    public void setMemberIdTest(MemberId _memberIdTest) {
+        this.memberIdTest = _memberIdTest;
     }
 
 }

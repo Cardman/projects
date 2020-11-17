@@ -58,15 +58,13 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resultClass_.getImplicits().add(cl_);
-                resultClass_.setRootNumber(res_.getRootNumber());
-                resultClass_.setMemberNumber(res_.getMemberNumber());
+                resultClass_.setMemberId(res_.getMemberId());
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(resultClass_, _page);
                 if (trueOp_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     resultClass_.getImplicitsTest().add(cl_);
-                    resultClass_.setRootNumberTest(trueOp_.getRootNumber());
-                    resultClass_.setMemberNumberTest(trueOp_.getMemberNumber());
+                    resultClass_.setMemberIdTest(trueOp_.getMemberId());
                     test = cl_;
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();

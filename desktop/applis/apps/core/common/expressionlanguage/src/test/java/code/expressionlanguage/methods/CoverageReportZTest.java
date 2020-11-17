@@ -4431,6 +4431,90 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage495Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static().$lambda(ExField,,field).call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExField {\n");
+        xml_.append(" $public $static String field = \"\";\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$static()</span>.<span class=\"f\"><a title=\"pkg.ExField.field\" href=\"#m168\">$lambda</a>(<a title=\"pkg.ExField\" href=\"#m130\">ExField</a>,,field)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m130\">pkg.ExField</a> {\n" +
+                " $public $static String <span class=\"g\"><span class=\"g\"><a name=\"m168\">field</a> </span>=<span class=\"g\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage496Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static().$lambda(ExField,,field,String).call(\"value\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExField {\n");
+        xml_.append(" $public $static String field = \"\";\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$static()</span>.<span class=\"f\"><a title=\"pkg.ExField.field\" href=\"#m182\">$lambda</a>(<a title=\"pkg.ExField\" href=\"#m144\">ExField</a>,,field,String)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><span class=\"s\">\"value\"</span></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m144\">pkg.ExField</a> {\n" +
+                " $public $static String <span class=\"g\"><span class=\"g\"><a name=\"m182\">field</a> </span>=<span class=\"g\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage497Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return $static().$lambda(ExField,,field).call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExField {\n");
+        xml_.append(" $public $static $final String field = \"\";\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$static()</span>.<span class=\"f\"><a title=\"pkg.ExField.field\" href=\"#m175\">$lambda</a>(<a title=\"pkg.ExField\" href=\"#m130\">ExField</a>,,field)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m130\">pkg.ExField</a> {\n" +
+                " $public $static $final String <span class=\"g\"><span class=\"g\"><a name=\"m175\">field</a> </span>=<span class=\"g\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

@@ -39,10 +39,8 @@ public final class Classes {
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
     private CustList<ExecOperatorBlock> operators;
-    private ExecRootBlock seedDoubleGenerator;
-    private ExecNamedFunctionBlock seedDoublePick;
-    private ExecRootBlock seedGenerator;
-    private ExecNamedFunctionBlock seedPick;
+    private ExecTypeFunction seedDoubleGeneratorPair;
+    private ExecTypeFunction seedGeneratorPair;
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private String keyWordValue = "";
 
@@ -249,36 +247,21 @@ public final class Classes {
         return classMetaInfos;
     }
 
-    public ExecNamedFunctionBlock getSeedDoublePick() {
-        return seedDoublePick;
+    public ExecTypeFunction getSeedGeneratorPair() {
+        return seedGeneratorPair;
     }
 
-    public void setSeedDoublePick(ExecNamedFunctionBlock _seedDoublePick) {
-        this.seedDoublePick = _seedDoublePick;
+    public void setSeedGeneratorPair(ExecTypeFunction _seedGeneratorPair) {
+        this.seedGeneratorPair = _seedGeneratorPair;
     }
 
-    public ExecNamedFunctionBlock getSeedPick() {
-        return seedPick;
+
+    public ExecTypeFunction getSeedDoubleGeneratorPair() {
+        return seedDoubleGeneratorPair;
     }
 
-    public void setSeedPick(ExecNamedFunctionBlock _seedPick) {
-        this.seedPick = _seedPick;
-    }
-
-    public ExecRootBlock getSeedDoubleGenerator() {
-        return seedDoubleGenerator;
-    }
-
-    public void setSeedDoubleGenerator(ExecRootBlock _seedDoubleGenerator) {
-        this.seedDoubleGenerator = _seedDoubleGenerator;
-    }
-
-    public ExecRootBlock getSeedGenerator() {
-        return seedGenerator;
-    }
-
-    public void setSeedGenerator(ExecRootBlock _seedGenerator) {
-        this.seedGenerator = _seedGenerator;
+    public void setSeedDoubleGeneratorPair(ExecTypeFunction _seedDoubleGeneratorPair) {
+        this.seedDoubleGeneratorPair = _seedDoubleGeneratorPair;
     }
 
     public String getKeyWordValue() {

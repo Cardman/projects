@@ -20,8 +20,7 @@ public final class MethodInfo implements Parametrable {
     private String returnType;
     private String originalReturnType = "";
     private String fileName = "";
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private StringList formattedParams;
 
     private boolean finalMethod;
@@ -182,20 +181,17 @@ public final class MethodInfo implements Parametrable {
         return implicits;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
+    public void setMemberId(MemberId _memberId) {
+        memberId = _memberId;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void memberId(int _rootNumber, int _memberNumber) {
+        memberId.setRootNumber(_rootNumber);
+        memberId.setMemberNumber(_memberNumber);
     }
 
     public StandardMethod getStandardMethod() {

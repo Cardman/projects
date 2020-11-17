@@ -140,8 +140,7 @@ public final class ClassesUtil {
         res_.setReturnType(m_.getReturnType());
         res_.setAncestor(m_.getAncestor());
         res_.setStandardMethod(m_.getStandardMethod());
-        res_.setRootNumber(m_.getRootNumber());
-        res_.setMemberNumber(m_.getMemberNumber());
+        res_.setMemberId(m_.getMemberId());
         res_.setAbstractMethod(m_.isAbstractMethod());
         return res_;
     }
@@ -213,8 +212,7 @@ public final class ClassesUtil {
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setRootNumber(_m.getNumberRoot());
-        mloc_.setMemberNumber(_m.getNumberAll());
+        mloc_.memberId(_m.getNumberRoot(),_m.getNumberAll());
         mloc_.setClassName(_formattedClass);
         mloc_.setAbstractMethod(_m.isAbstractMethod());
         mloc_.setFinalMethod(_m.isFinalMethod());

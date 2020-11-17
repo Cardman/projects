@@ -1,20 +1,17 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 
 public final class ImportedField {
     private int imported;
-    private Accessed geneField;
     private String type;
     private boolean finalField;
     private int valueOffset;
     private String fileName;
-    private int rootNumber;
-    private int memberNumber;
+    private MemberId memberId = new MemberId();
 
-    public ImportedField(int _imported, Accessed _geneField, String _type, boolean _finalField, int _valueOffset) {
+    public ImportedField(int _imported, String _type, boolean _finalField, int _valueOffset) {
         this.imported = _imported;
-        this.geneField = _geneField;
         this.type = _type;
         this.finalField = _finalField;
         valueOffset = _valueOffset;
@@ -22,10 +19,6 @@ public final class ImportedField {
 
     public int getImported() {
         return imported;
-    }
-
-    public Accessed getReturnType() {
-        return geneField;
     }
 
     public String getType() {
@@ -48,19 +41,12 @@ public final class ImportedField {
         this.fileName = _fileName;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
+    }
+    public void memberId(int _rootNumber,int _memberNumber) {
+        memberId.setRootNumber(_rootNumber);
+        memberId.setMemberNumber(_memberNumber);
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
-
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
-    }
 }

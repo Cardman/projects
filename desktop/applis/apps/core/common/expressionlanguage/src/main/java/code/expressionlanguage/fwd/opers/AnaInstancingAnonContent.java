@@ -1,12 +1,12 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.blocks.AnonymousTypeBlock;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 
 public final class AnaInstancingAnonContent {
 
     private final AnonymousTypeBlock block;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public AnaInstancingAnonContent(AnonymousTypeBlock _block) {
         block = _block;
@@ -15,19 +15,12 @@ public final class AnaInstancingAnonContent {
         return block;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
 }

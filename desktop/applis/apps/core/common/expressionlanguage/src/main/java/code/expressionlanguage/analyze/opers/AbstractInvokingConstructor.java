@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
@@ -28,8 +29,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     private AnaClassArgumentMatching from;
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private RootBlock type;
     public AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -99,8 +99,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             checkPositionBasis(_page);
             return;
         }
-        rootNumber = ctorRes_.getRootNumber();
-        memberNumber = ctorRes_.getMemberNumber();
+        memberId = ctorRes_.getMemberId();
         constId = ctorRes_.getRealId();
         checkPositionBasis(_page);
         postAnalysis(ctorRes_, name_, _page);
@@ -180,12 +179,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         return ctors;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
     public RootBlock getType() {

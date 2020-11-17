@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -17,8 +18,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     private String oper;
     private ClassMethodId classMethodId;
     private int opOffset;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -50,8 +50,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _page);
         if (cl_.getSymbol() != null) {
             classMethodId = cl_.getSymbol();
-            rootNumber = cl_.getRootNumber();
-            memberNumber = cl_.getMemberNumber();
+            memberId = cl_.getMemberId();
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
@@ -89,13 +88,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         return true;
     }
 
-    @Override
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    @Override
-    public int getMemberNumber() {
-        return memberNumber;
-    }
 }

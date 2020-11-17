@@ -6,23 +6,24 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public final class ReachFieldOperation extends ReachMethodOperation implements ReachCalculable,ReachPossibleIntermediateDotted {
-    private FieldInfo fieldMetaInfo;
+    private AnaSettableOperationContent fieldMetaInfo;
     private Argument previous;
     ReachFieldOperation(SettableAbstractFieldOperation _info) {
         super(_info);
-        fieldMetaInfo = _info.getFieldMetaInfo();
+        fieldMetaInfo = _info.getSettableFieldContent();
     }
 
     @Override
     public void tryCalculateNode(AnalyzedPageEl _page) {
-        if (fieldMetaInfo == null) {
+        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        if (fieldId_ == null) {
             return;
         }
         if (!fieldMetaInfo.isStaticField()) {
@@ -32,7 +33,6 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
         if (!fieldMetaInfo.isFinalField()) {
             return;
         }
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
         StringMap<Struct> map_ = NumParsers.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
         StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
         Struct str_ = NumParsers.getStaticField(fieldId_, staticFields_);

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
 import code.util.CustList;
@@ -64,10 +65,10 @@ public final class ResultInput {
         }
         if (settable_ instanceof SettableAbstractFieldOperation) {
             setSettable((OperationNode) settable_);
-            FieldInfo infoField_ = ((SettableAbstractFieldOperation) settable_).getFieldMetaInfo();
-            if (infoField_ != null) {
-                ClassField clField_ = infoField_.getClassField();
-                if (infoField_.isStaticField()) {
+            AnaSettableOperationContent settableFieldContent_ = ((SettableAbstractFieldOperation) settable_).getSettableFieldContent();
+            ClassField clField_ = settableFieldContent_.getClassField();
+            if (clField_ != null) {
+                if (settableFieldContent_.isStaticField()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
@@ -75,7 +76,7 @@ public final class ResultInput {
                             clField_.getFieldName());
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
-                if (infoField_.isFinalField()) {
+                if (settableFieldContent_.isFinalField()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));

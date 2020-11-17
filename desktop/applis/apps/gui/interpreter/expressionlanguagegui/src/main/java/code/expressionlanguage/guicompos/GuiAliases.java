@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -3693,10 +3694,8 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasComponentRepaint)) {
                 Argument arg_ = new Argument(inst_);
-                ExecRootBlock classBody_ = _guiEx.getPaint();
-                ExecNamedFunctionBlock fct_ = _guiEx.getPaintMethod();
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                wrapAndCall(_cont, classBody_, fct_, args_);
+                wrapAndCall(_cont, args_, _guiEx.getPairPaintMethod());
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4547,9 +4546,7 @@ public final class GuiAliases {
                 if (_args[0] instanceof ArrayStruct) {
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    ExecRootBlock classBody_ = _guiEx.getPaint();
-                    ExecNamedFunctionBlock fct_ = _guiEx.getPaintRefresh();
-                    wrapAndCall(_cont, classBody_, fct_, args_);
+                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh());
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4558,9 +4555,7 @@ public final class GuiAliases {
                 inst_.clearSelection();
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                ExecRootBlock classBody_ = _guiEx.getPaint();
-                ExecNamedFunctionBlock fct_ = _guiEx.getPaintRefresh();
-                wrapAndCall(_cont, classBody_, fct_, args_);
+                wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4583,9 +4578,7 @@ public final class GuiAliases {
             CustList<Argument> args_ = new CustList<Argument>(arg_);
             args_.add(new Argument(_args[0]));
             args_.add(new Argument(_args[1]));
-            ExecRootBlock classBody_ = _guiEx.getPaint();
-            ExecNamedFunctionBlock fct_ = _guiEx.getPaintAdd();
-            wrapAndCall(_cont, classBody_, fct_, args_);
+            wrapAndCall(_cont, args_, _guiEx.getPairPaintAdd());
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasCombo)) {
@@ -4984,8 +4977,8 @@ public final class GuiAliases {
     protected void processFailInit(ContextEl _cont, CustAliases _custAliases) {
         _custAliases.processFailInit(_cont);
     }
-    private void wrapAndCall(ContextEl _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _fct, CustList<Argument> _args) {
-        ExecTemplates.wrapAndCall(_fct,_classBody,aliasPaint,Argument.createVoid(), _args,_cont);
+    private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair) {
+        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _args,_cont);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

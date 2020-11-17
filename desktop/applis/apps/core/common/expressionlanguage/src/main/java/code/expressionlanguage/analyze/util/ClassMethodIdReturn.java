@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
@@ -20,8 +21,7 @@ public final class ClassMethodIdReturn {
     private boolean varArgToCall;
     private int ancestor;
     private String fileName;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
 
     public ClassMethodIdReturn(boolean _foundMethod) {
@@ -104,20 +104,12 @@ public final class ClassMethodIdReturn {
         ancestor = _ancestor;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
-
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
     public StandardMethod getStandardMethod() {

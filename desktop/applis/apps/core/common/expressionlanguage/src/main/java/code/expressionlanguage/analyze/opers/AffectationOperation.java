@@ -167,8 +167,7 @@ public final class AffectationOperation extends MethodOperation {
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatchRight_.getImplicits().add(cl_);
-                clMatchRight_.setRootNumber(res_.getRootNumber());
-                clMatchRight_.setMemberNumber(res_.getMemberNumber());
+                clMatchRight_.setMemberId(res_.getMemberId());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());

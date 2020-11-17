@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
@@ -82,17 +83,15 @@ public final class ExecClassesUtil {
                 stds_.getContent().getCoreNames().getAliasObject(), _classes));
         String id_ = StringExpUtil.getIdFromAllTypes(stds_.getContent().getPredefTypes().getAliasSeedDoubleGenerator());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
-        _classes.setSeedDoubleGenerator(classBody_);
         String nameToCall_ = stds_.getContent().getPredefTypes().getAliasSeedGet();
         MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
         ExecNamedFunctionBlock fct_ = getMethodBodiesById(classBody_, idMet_).first();
-        _classes.setSeedDoublePick(fct_);
+        _classes.setSeedDoubleGeneratorPair(new ExecTypeFunction(classBody_,fct_));
         id_ = StringExpUtil.getIdFromAllTypes(stds_.getContent().getPredefTypes().getAliasSeedGenerator());
         classBody_ = _classes.getClassBody(id_);
-        _classes.setSeedGenerator(classBody_);
         idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getContent().getPrimTypes().getAliasPrimLong()));
         fct_ = getMethodBodiesById(classBody_, idMet_).first();
-        _classes.setSeedPick(fct_);
+        _classes.setSeedGeneratorPair(new ExecTypeFunction(classBody_,fct_));
     }
 
     private static CustList<ExecOperationNode> newCall(String _varPrevious, String _previous,

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -21,12 +22,10 @@ public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
     private ClassMethodId classMethodId;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private ClassMethodId test;
+    private MemberId memberConverter = new MemberId();
     private ClassMethodId converter;
-    private int rootNumberConv = -1;
-    private int memberNumberConv = -1;
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
     private CustList<PartOffset> errSecond = new CustList<PartOffset>();
 
@@ -56,8 +55,7 @@ public abstract class QuickOperation extends MethodOperation {
         if (opConv_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(), _page)) {
                 classMethodId = opConv_.getSymbol();
-                rootNumber = opConv_.getRootNumber();
-                memberNumber = opConv_.getMemberNumber();
+                memberId = opConv_.getMemberId();
             }
             okNum = true;
             ClassMethodId test_ = opConv_.getTest();
@@ -66,8 +64,7 @@ public abstract class QuickOperation extends MethodOperation {
             }
             test = test_;
             leftRes_.getImplicitsTest().add(test_);
-            leftRes_.setRootNumberTest(opConv_.getRootNumberTest());
-            leftRes_.setMemberNumberTest(opConv_.getMemberNumberTest());
+            leftRes_.setMemberIdTest(opConv_.getMemberIdTest());
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(leftRes_);
@@ -75,8 +72,7 @@ public abstract class QuickOperation extends MethodOperation {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(leftRes_.getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    rootNumberConv = res_.getRootNumber();
-                    memberNumberConv = res_.getMemberNumber();
+                    memberConverter = res_.getMemberId();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -154,20 +150,12 @@ public abstract class QuickOperation extends MethodOperation {
         return converter;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public int getRootNumberConv() {
-        return rootNumberConv;
-    }
-
-    public int getMemberNumberConv() {
-        return memberNumberConv;
+    public MemberId getMemberConverter() {
+        return memberConverter;
     }
 
     public int getOpOffset() {

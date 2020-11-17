@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -24,8 +25,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
     private CustList<PartOffset> partOffsets;
 
     private MethodId castOpId;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     public ImplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         explicitContent = new AnaExplicitContent();
@@ -98,8 +98,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             if (resMethod_.isFoundMethod()) {
                 explicitContent.setClassNameOwner(resMethod_.getRealClass());
                 castOpId = resMethod_.getRealId();
-                rootNumber = resMethod_.getRootNumber();
-                memberNumber = resMethod_.getMemberNumber();
+                memberId = resMethod_.getMemberId();
             }
             return;
         }
@@ -133,8 +132,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         if (resMethod_.isFoundMethod()) {
             explicitContent.setClassNameOwner(resMethod_.getRealClass());
             castOpId = resMethod_.getRealId();
-            rootNumber = resMethod_.getRootNumber();
-            memberNumber = resMethod_.getMemberNumber();
+            memberId = resMethod_.getMemberId();
             setResultClass(virtual_);
             return;
         }
@@ -173,11 +171,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         return castOpId;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
 }

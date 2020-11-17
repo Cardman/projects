@@ -157,8 +157,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resCl_.getImplicits().add(cl_);
-                resCl_.setRootNumber(res_.getRootNumber());
-                resCl_.setMemberNumber(res_.getMemberNumber());
+                resCl_.setMemberId(res_.getMemberId());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_anaDoc.getFileName());

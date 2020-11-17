@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -13,8 +14,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     private ClassMethodId classMethodId;
     private int opOffset;
     private boolean okNum;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -32,8 +32,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         if (clId_ != null) {
             if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
                 classMethodId = clId_.getSymbol();
-                rootNumber = clId_.getRootNumber();
-                memberNumber = clId_.getMemberNumber();
+                memberId = clId_.getMemberId();
             }
             return;
         }
@@ -80,13 +79,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         return okNum;
     }
 
-    @Override
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    @Override
-    public int getRootNumber() {
-        return rootNumber;
-    }
 }

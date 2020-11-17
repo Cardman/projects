@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -81,10 +82,10 @@ public final class CustContextFactory {
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
         new Thread(showUpdates_).start();
-        ExecNamedFunctionBlock fctBody_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethod();
+        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                _definedLgNames.getCustAliases().getAliasExecute(), ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteType(), fctBody_,
-                new CustList<Argument>(argMethod_), rCont_);
+                _definedLgNames.getCustAliases().getAliasExecute(),
+                new CustList<Argument>(argMethod_), rCont_, pair_);
         showUpdates_.stop();
         if (_options.isCovering()) {
             String exp_ = _exec.getCoverFolder();

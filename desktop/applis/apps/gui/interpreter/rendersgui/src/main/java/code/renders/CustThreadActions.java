@@ -116,8 +116,9 @@ public final class CustThreadActions extends AbstractThreadActions {
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
                         ExecNamedFunctionBlock method_ = methods_.first();
-                        Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,new ExecTypeFunction(classBody_, method_), parameters_, ctx_);
+                        ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
+                        Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, classDbName,arg_,args_,ctx_);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, pair_, parameters_, ctx_);
                         if (ctx_.callsOrException()) {
                             afterActionWithoutRemove(ctx_);
                             return;

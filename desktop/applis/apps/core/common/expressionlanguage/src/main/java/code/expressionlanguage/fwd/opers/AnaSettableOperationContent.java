@@ -1,10 +1,13 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.common.ClassField;
 
 public final class AnaSettableOperationContent {
     private boolean variable;
-    private FieldInfo fieldMetaInfo;
+    private String realType;
+    private boolean staticField;
+    private boolean finalField;
+    private ClassField classField;
 
     private boolean catString;
 
@@ -18,12 +21,36 @@ public final class AnaSettableOperationContent {
         this.variable = _variable;
     }
 
-    public FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
+    public ClassField getClassField() {
+        return classField;
     }
 
-    public void setFieldMetaInfo(FieldInfo _fieldMetaInfo) {
-        this.fieldMetaInfo = _fieldMetaInfo;
+    public void setClassField(ClassField _classField) {
+        this.classField = _classField;
+    }
+
+    public boolean isStaticField() {
+        return staticField;
+    }
+
+    public void setStaticField(boolean _staticField) {
+        this.staticField = _staticField;
+    }
+
+    public boolean isFinalField() {
+        return finalField;
+    }
+
+    public void setFinalField(boolean _finalField) {
+        this.finalField = _finalField;
+    }
+
+    public String getRealType() {
+        return realType;
+    }
+
+    public void setRealType(String _realType) {
+        this.realType = _realType;
     }
 
     public boolean isCatString() {

@@ -1,22 +1,76 @@
 package code.expressionlanguage.analyze.opers.util;
 
 
-public class FieldResult {
+import code.expressionlanguage.common.ClassField;
 
-    private FieldInfo id;
+public final class FieldResult {
 
     private SearchingMemberStatus status;
-
+    private String declaringClass;
+    private String realType;
+    private String type;
+    private boolean staticField;
+    private boolean finalField;
+    private ClassField classField;
+    private int valOffset;
     private int anc;
     private String fileName;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
-    public FieldInfo getId() {
-        return id;
+    private MemberId memberId = new MemberId();
+
+    public int getValOffset() {
+        return valOffset;
     }
 
-    public void setId(FieldInfo _id) {
-        id = _id;
+    public void setValOffset(int _valOffset) {
+        valOffset = _valOffset;
+    }
+
+    public ClassField getClassField() {
+        return classField;
+    }
+
+    public void setClassField(ClassField _classField) {
+        this.classField = _classField;
+    }
+
+    public String getDeclaringClass() {
+        return declaringClass;
+    }
+
+    public void setDeclaringClass(String _declaringClass) {
+        this.declaringClass = _declaringClass;
+    }
+
+    public boolean isStaticField() {
+        return staticField;
+    }
+
+    public void setStaticField(boolean _staticField) {
+        this.staticField = _staticField;
+    }
+
+    public boolean isFinalField() {
+        return finalField;
+    }
+
+    public void setFinalField(boolean _finalField) {
+        this.finalField = _finalField;
+    }
+
+    public String getRealType() {
+        return realType;
+    }
+
+    public void setRealType(String _realType) {
+        this.realType = _realType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String _type) {
+        type = _type;
     }
 
     public SearchingMemberStatus getStatus() {
@@ -43,19 +97,12 @@ public class FieldResult {
         this.fileName = _fileName;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
 }

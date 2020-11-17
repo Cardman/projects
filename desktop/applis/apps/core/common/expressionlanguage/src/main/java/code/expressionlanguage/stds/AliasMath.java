@@ -516,7 +516,7 @@ public final class AliasMath {
                 && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, new ExecTypeFunction(classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick()));
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_,classes_.getSeedDoubleGeneratorPair());
             p_ = polymorphMeth_.getPair();
             String className_ = polymorphMeth_.getClassName();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
@@ -542,16 +542,14 @@ public final class AliasMath {
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
-        ExecRootBlock type_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
                 && ExecTemplates.safeObject(lgNames_.getContent().getPredefTypes().getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
             String argClassName_ = seed_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, new ExecTypeFunction(classes_.getSeedGenerator(), classes_.getSeedPick()));
+            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
             p_ = polymorphMeth_.getPair();
-            type_ = p_.getType();
             String className_ = polymorphMeth_.getClassName();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
@@ -564,7 +562,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            ExecTemplates.wrapAndCall(meth_,type_,cl_,argSeed_,argsToPass_,_cont);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_,argsToPass_,_cont);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

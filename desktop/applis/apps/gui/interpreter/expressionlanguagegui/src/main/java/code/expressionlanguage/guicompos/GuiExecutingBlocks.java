@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -58,10 +59,9 @@ public final class GuiExecutingBlocks {
     private ExecNamedFunctionBlock keyPressed;
     private ExecNamedFunctionBlock keyTyped;
     private ExecNamedFunctionBlock keyReleased;
-    private ExecRootBlock paint;
-    private ExecNamedFunctionBlock paintRefresh;
-    private ExecNamedFunctionBlock paintMethod;
-    private ExecNamedFunctionBlock paintAdd;
+    private ExecTypeFunction pairPaintRefresh;
+    private ExecTypeFunction pairPaintMethod;
+    private ExecTypeFunction pairPaintAdd;
     private DefaultClosingMainWindow eventClose;
 
     public void initApplicationParts(GuiInitializer _guiInit,StringList _mainArgs, MainWindow _window) {
@@ -175,16 +175,19 @@ public final class GuiExecutingBlocks {
                 _guiAliases.getAliasKeyTyped(),new StringList(keyEvent_));
         keyTyped = ExecClassesUtil.getMethodBodiesById(keyListener,fct_).first();
         String aliasPaint_ = _guiAliases.getAliasPaint();
-        paint = _classes.getClassBody(aliasPaint_);
+        ExecRootBlock paint_ = _classes.getClassBody(aliasPaint_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 _guiAliases.getAliasPaintRefresh(),new StringList(_guiAliases.getAliasGrList()));
-        paintRefresh = ExecClassesUtil.getMethodBodiesById(paint,fct_).first();
+        ExecNamedFunctionBlock paintRefresh_ = ExecClassesUtil.getMethodBodiesById(paint_, fct_).first();
+        pairPaintRefresh = new ExecTypeFunction(paint_, paintRefresh_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 _guiAliases.getAliasPaintMethod(),new StringList(_guiAliases.getAliasComponent()));
-        paintMethod = ExecClassesUtil.getMethodBodiesById(paint,fct_).first();
+        ExecNamedFunctionBlock paintMethod_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
+        pairPaintMethod = new ExecTypeFunction(paint_, paintMethod_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 _guiAliases.getAliasPaintAdd(),new StringList(_guiAliases.getAliasGrList(),_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject()));
-        paintAdd = ExecClassesUtil.getMethodBodiesById(paint,fct_).first();
+        ExecNamedFunctionBlock paintAdd_ = ExecClassesUtil.getMethodBodiesById(paint_,fct_).first();
+        pairPaintAdd = new ExecTypeFunction(paint_, paintAdd_);
     }
 
     public ExecRootBlock getActionListener() {
@@ -315,20 +318,16 @@ public final class GuiExecutingBlocks {
         return keyTyped;
     }
 
-    public ExecRootBlock getPaint() {
-        return paint;
+    public ExecTypeFunction getPairPaintRefresh() {
+        return pairPaintRefresh;
     }
 
-    public ExecNamedFunctionBlock getPaintRefresh() {
-        return paintRefresh;
+    public ExecTypeFunction getPairPaintMethod() {
+        return pairPaintMethod;
     }
 
-    public ExecNamedFunctionBlock getPaintMethod() {
-        return paintMethod;
-    }
-
-    public ExecNamedFunctionBlock getPaintAdd() {
-        return paintAdd;
+    public ExecTypeFunction getPairPaintAdd() {
+        return pairPaintAdd;
     }
 
     public Struct showTextField(Struct _img,Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {

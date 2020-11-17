@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -18,16 +19,16 @@ public final class ExecLambdaMethodContent {
     private final ExecRootBlock declaring;
     private final ExecTypeFunction pair;
 
-    public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth, AnaLambdaMemberNumberContent _cont, Forwards _forwards) {
+    public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth, MemberId _id, Forwards _forwards) {
         method = _method;
         polymorph = _meth.isPolymorph();
         abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
         clonedMethod = _meth.isClonedMethod();
-        pair = FetchMemberUtil.fetchTypeFunction(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
-        function = FetchMemberUtil.fetchFunctionOrOp(_cont.getRootNumber(), _cont.getMemberNumber(), _cont.getOperatorNumber(), _forwards);
-        declaring = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
+        pair = FetchMemberUtil.fetchTypeFunction(_id, _forwards);
+        function = FetchMemberUtil.fetchFunctionOp(_id, _forwards);
+        declaring = FetchMemberUtil.fetchType(_id, _forwards);
     }
 
     public ExecTypeFunction getPair() {

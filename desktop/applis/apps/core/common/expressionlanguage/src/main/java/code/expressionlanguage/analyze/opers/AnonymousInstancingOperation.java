@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -187,8 +188,7 @@ public final class AnonymousInstancingOperation extends
         if (ctorRes_.getRealId() == null) {
             return;
         }
-        instancingAnonContent.setRootNumber(ctorRes_.getRootNumber());
-        instancingAnonContent.setMemberNumber(ctorRes_.getMemberNumber());
+        instancingAnonContent.setMemberId(ctorRes_.getMemberId());
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
         if (ctorRes_.isVarArgToCall()) {
@@ -214,11 +214,8 @@ public final class AnonymousInstancingOperation extends
         return index;
     }
 
-    public int getRootNumber() {
-        return instancingAnonContent.getRootNumber();
+    public MemberId getMemberId() {
+        return instancingAnonContent.getMemberId();
     }
 
-    public int getMemberNumber() {
-        return instancingAnonContent.getMemberNumber();
-    }
 }

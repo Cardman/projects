@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.IndexableListener;
 import code.util.CustList;
@@ -47,10 +48,9 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
 
     public static void invokePaint(GuiContextEl _r, CustList<Argument> _args) {
         Argument arg_ = new Argument();
-        ExecRootBlock classBody_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPaint();
-        ExecNamedFunctionBlock fct_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPaintRefresh();
+        ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefresh();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
-        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), classBody_, fct_, _args, _r);
+        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _args, _r,pair_);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);

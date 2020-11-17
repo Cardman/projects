@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
@@ -25,7 +26,7 @@ public abstract class SettableAbstractFieldOperation extends
     private int fieldNameLength;
 
     private int indexBlock;
-    private int rootNumber = -1;
+    private MemberId memberId = new MemberId();
     private boolean declare;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
@@ -73,19 +74,19 @@ public abstract class SettableAbstractFieldOperation extends
         } else if (getParent() instanceof SemiAffectationOperation) {
             affect_ = true;
         }
-        FieldResult r_;
-        FieldInfo e_;
-        r_ = getDeclaredCustField(this, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
+        FieldResult r_ = getDeclaredCustField(this, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
         settableFieldContent.setAnc(r_.getAnc());
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        rootNumber = r_.getRootNumber();
-        e_ = r_.getId();
-        valueOffset = e_.getValOffset();
-        settableFieldContent.setFieldMetaInfo(e_);
-        String c_ = settableFieldContent.getFieldMetaInfo().getType();
+        memberId = r_.getMemberId();
+        valueOffset = r_.getValOffset();
+        settableFieldContent.setFinalField(r_.isFinalField());
+        settableFieldContent.setStaticField(r_.isStaticField());
+        settableFieldContent.setClassField(r_.getClassField());
+        settableFieldContent.setRealType(r_.getRealType());
+        String c_ = r_.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }
 
@@ -119,10 +120,7 @@ public abstract class SettableAbstractFieldOperation extends
         setStaticAccess(_staticAccess);
     }
     public final ClassField getFieldId() {
-        if (settableFieldContent.getFieldMetaInfo() == null) {
-            return null;
-        }
-        return settableFieldContent.getFieldMetaInfo().getClassField();
+        return settableFieldContent.getClassField();
     }
     public final ClassField getFieldIdReadOnly() {
         ClassField fieldId_ = getFieldId();
@@ -153,16 +151,13 @@ public abstract class SettableAbstractFieldOperation extends
         return false;
     }
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        if (settableFieldContent.getFieldMetaInfo() == null) {
+        if (settableFieldContent.getClassField() == null) {
             return true;
         }
-        ClassField clField_ = settableFieldContent.getFieldMetaInfo().getClassField();
+        ClassField clField_ = settableFieldContent.getClassField();
         String gl_ = _page.getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
         return !StringUtil.quickEq(clField_.getClassName(), id_);
-    }
-    public final FieldInfo getFieldMetaInfo() {
-        return settableFieldContent.getFieldMetaInfo();
     }
 
     public boolean isDeclare() {
@@ -185,7 +180,7 @@ public abstract class SettableAbstractFieldOperation extends
         return indexBlock;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -13,13 +14,13 @@ public final class ExecLambdaFieldContent {
     private final boolean affField;
     private final ExecRootBlock rootBlock;
     private final ExecAnnotableBlock infoBlock;
-    public ExecLambdaFieldContent(ClassField _classField, AnaLambdaFieldContent _field, AnaLambdaMemberNumberContent _cont, Forwards _forwards) {
+    public ExecLambdaFieldContent(ClassField _classField, AnaLambdaFieldContent _field, MemberId _id, Forwards _forwards) {
         classField = _classField;
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
         affField = _field.isAffField();
-        rootBlock = FetchMemberUtil.fetchType(_cont.getRootNumber(), _forwards);
-        infoBlock = FetchMemberUtil.fetchField(_cont.getRootNumber(), _cont.getMemberNumber(), _forwards);
+        rootBlock = FetchMemberUtil.fetchType(_id, _forwards);
+        infoBlock = FetchMemberUtil.fetchField(_id, _forwards);
     }
 
     public ClassField getClassField() {

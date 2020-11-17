@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
@@ -139,7 +140,7 @@ public final class GuiProcess implements Runnable {
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            RunnableStruct.invoke(arg_, clName, classBody_,fct_, args_, context);
+            RunnableStruct.invoke(arg_, clName, args_, context, new ExecTypeFunction(classBody_, fct_));
         } else {
             context.getCustInit().removeThreadFromList(context);
         }

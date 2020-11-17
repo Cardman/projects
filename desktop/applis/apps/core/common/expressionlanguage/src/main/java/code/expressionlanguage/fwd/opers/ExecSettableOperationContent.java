@@ -17,10 +17,10 @@ public final class ExecSettableOperationContent {
         this.variable = _cont.isVariable();
         this.catString = _cont.isCatString();
         this.anc = _cont.getAnc();
-        this.classField = _cont.getFieldMetaInfo().getClassField();
-        this.staticField = _cont.getFieldMetaInfo().isStaticField();
-        this.realType = _cont.getFieldMetaInfo().getRealType();
-        this.finalField = _cont.getFieldMetaInfo().isFinalField();
+        this.classField = _cont.getClassField();
+        this.staticField = _cont.isStaticField();
+        this.realType = _cont.getRealType();
+        this.finalField = _cont.isFinalField();
     }
 
     public boolean isFinalField() {

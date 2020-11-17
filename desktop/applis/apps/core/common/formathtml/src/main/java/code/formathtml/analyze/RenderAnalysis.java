@@ -167,20 +167,17 @@ public final class RenderAnalysis {
                 OperationNode settable_ = ((AffectationOperation) _current).getSettableOp();
                 if (settable_ instanceof SettableAbstractFieldOperation) {
                     SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
-                    FieldInfo info_ = field_.getFieldMetaInfo();
-                    if (info_ != null) {
-                        if (info_.isFinalField()) {
-                            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-                            badNb_.setFileName(_anaDoc.getFileName());
-                            badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
-                            StringBuilder id_ = new StringBuilder();
-                            id_.append(info_.getClassField().getClassName());
-                            id_.append(";");
-                            id_.append(info_.getClassField().getFieldName());
-                            badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
-                                    id_.toString());
-                            AnalyzingDoc.addError(badNb_, _anaDoc, _page);
-                        }
+                    if (field_.getSettableFieldContent().isFinalField()) {
+                        FoundErrorInterpret badNb_ = new FoundErrorInterpret();
+                        badNb_.setFileName(_anaDoc.getFileName());
+                        badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
+                        StringBuilder id_ = new StringBuilder();
+                        id_.append(field_.getSettableFieldContent().getClassField().getClassName());
+                        id_.append(";");
+                        id_.append(field_.getSettableFieldContent().getClassField().getFieldName());
+                        badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
+                                id_.toString());
+                        AnalyzingDoc.addError(badNb_, _anaDoc, _page);
                     }
                 }
             }

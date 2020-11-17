@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class AnaCallFctContent {
@@ -11,8 +12,8 @@ public final class AnaCallFctContent {
     private String lastType = "";
 
     private int naturalVararg = -1;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
+
     public AnaCallFctContent(String _methodName) {
         this.methodName = _methodName;
     }
@@ -45,19 +46,12 @@ public final class AnaCallFctContent {
         this.naturalVararg = _naturalVararg;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
-    }
 }

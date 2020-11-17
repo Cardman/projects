@@ -105,7 +105,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     public void run() {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getExecuteMethod(),args_);
+        invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(),args_);
     }
 
     @Override

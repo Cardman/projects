@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.blocks;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -22,7 +23,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction conv_ = null;
         if (!implicits_.isEmpty()) {
             owner_ = implicits_.first().getClassName();
-            conv_ = fetchTypeFunction(_ana.getRootNumber(),_ana.getMemberNumber(), _forwards);
+            conv_ = fetchTypeFunction(_ana.getMemberId(), _forwards);
         }
         if (conv_ != null) {
             _implicitsOp.getConverter().add(conv_);
@@ -33,7 +34,7 @@ public final class FetchMemberUtil {
         ExecTypeFunction convTest_ = null;
         if (!implicitsTest_.isEmpty()) {
             ownerTest_ = implicitsTest_.first().getClassName();
-            convTest_ = fetchTypeFunction(_ana.getRootNumberTest(),_ana.getMemberNumberTest(), _forwards);
+            convTest_ = fetchTypeFunction(_ana.getMemberIdTest(), _forwards);
         }
         if (convTest_ != null) {
             _implicitsTestOp.getConverter().add(convTest_);
@@ -41,12 +42,12 @@ public final class FetchMemberUtil {
         }
     }
 
-    public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, int _root, int _member, Forwards _forwards) {
+    public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, MemberId _id, Forwards _forwards) {
         ExecTypeFunction conv_ = null;
         String converterClass_ = "";
         if (_clMet != null) {
             converterClass_ = _clMet.getClassName();
-            conv_ = fetchTypeFunction(_root,_member, _forwards);
+            conv_ = fetchTypeFunction(_id, _forwards);
         }
         if (conv_ != null) {
             ImplicitMethods converter_ = new ImplicitMethods();
@@ -64,10 +65,20 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecInfoBlock fetchField(int _rootNumber, int _memberNumber, Forwards _forwards) {
-        if (_forwards.getMapMembers().isValidIndex(_rootNumber)) {
-            if (_forwards.getMapMembers().getValue(_rootNumber).getAllFields().isValidIndex(_memberNumber)) {
-                return _forwards.getMapMembers().getValue(_rootNumber).getAllFields().getValue(_memberNumber);
+    public static ExecRootBlock fetchType(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
+            return _forwards.getMapMembers().getValue(rootNumber_).getRootBlock();
+        }
+        return null;
+    }
+
+    public static ExecInfoBlock fetchField(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        int memberNumber_ = _id.getMemberNumber();
+        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
+            if (_forwards.getMapMembers().getValue(rootNumber_).getAllFields().isValidIndex(memberNumber_)) {
+                return _forwards.getMapMembers().getValue(rootNumber_).getAllFields().getValue(memberNumber_);
             }
         }
         return null;
@@ -87,11 +98,11 @@ public final class FetchMemberUtil {
         return _cl.getClassName();
     }
 
-    public static ExecNamedFunctionBlock fetchFunctionOp(int _rootNumber, int _memberNumber, Forwards _forwards) {
-        return fetchFunctionOrOp(_rootNumber,_memberNumber,_memberNumber, _forwards);
+    public static ExecNamedFunctionBlock fetchFunctionOp(MemberId _id, Forwards _forwards) {
+        return fetchFunctionOrOp(_id.getRootNumber(),_id.getMemberNumber(),_id.getMemberNumber(), _forwards);
     }
 
-    public static ExecNamedFunctionBlock fetchFunctionOrOp(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
+    private static ExecNamedFunctionBlock fetchFunctionOrOp(int _rootNumber, int _memberNumber, int _operatorNumber, Forwards _forwards) {
         if (_forwards.getMapMembers().isValidIndex(_rootNumber)) {
             if (_forwards.getMapMembers().getValue(_rootNumber).getAllNamed().isValidIndex(_memberNumber)) {
                 return _forwards.getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
@@ -111,23 +122,28 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecTypeFunction fetchTypeFunction(int _nbRoot, int _nbMember, Forwards _forwards) {
-        if (_forwards.getMapMembers().isValidIndex(_nbRoot)) {
-            Members mem_ = _forwards.getMapMembers().getValue(_nbRoot);
-            if (mem_.getAllNamed().isValidIndex(_nbMember)) {
-                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getAllNamed().getValue(_nbMember));
+    public static ExecTypeFunction fetchTypeFunction(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        int memberNumber_ = _id.getMemberNumber();
+        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
+            Members mem_ = _forwards.getMapMembers().getValue(rootNumber_);
+            if (mem_.getAllNamed().isValidIndex(memberNumber_)) {
+                return new ExecTypeFunction(mem_.getRootBlock(),mem_.getAllNamed().getValue(memberNumber_));
             }
         }
         return null;
     }
 
-    public static ExecTypeFunction fetchTypeCtor(int _nbRoot, int _nbMember, Forwards _forwards) {
-        if (_forwards.getMapMembers().isValidIndex(_nbRoot)) {
-            Members mem_ = _forwards.getMapMembers().getValue(_nbRoot);
-            return new ExecTypeFunction(mem_.getRootBlock(),fetchFunction(mem_,_nbMember));
+    public static ExecTypeFunction fetchTypeCtor(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        int memberNumber_ = _id.getMemberNumber();
+        if (_forwards.getMapMembers().isValidIndex(rootNumber_)) {
+            Members mem_ = _forwards.getMapMembers().getValue(rootNumber_);
+            return new ExecTypeFunction(mem_.getRootBlock(),fetchFunction(mem_,memberNumber_));
         }
         return null;
     }
+
     public static ExecClassArgumentMatching toExec(AnaClassArgumentMatching _cl) {
         return new ExecClassArgumentMatching(_cl.getNames(),_cl.getUnwrapObjectNb(),
                 _cl.isCheckOnlyNullPe(),_cl.isConvertToString());

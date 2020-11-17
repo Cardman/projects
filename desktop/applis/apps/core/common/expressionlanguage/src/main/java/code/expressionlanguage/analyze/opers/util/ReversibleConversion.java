@@ -4,43 +4,32 @@ import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class ReversibleConversion {
     private final ClassMethodId from;
-    private final int rootNumberFrom;
-    private final int memberNumberFrom;
+    private final MemberId memberIdFrom;
     private final ClassMethodId to;
-    private final int rootNumberTo;
-    private final int memberNumberTo;
+    private final MemberId memberIdTo;
 
-    public ReversibleConversion(ClassMethodId _from, int _rootNumberFrom, int _memberNumberFrom,
-                                ClassMethodId _to, int _rootNumberTo, int _memberNumberTo) {
+    public ReversibleConversion(ClassMethodId _from, MemberId _memberIdFrom,
+                                ClassMethodId _to, MemberId _memberIdTo) {
         from = _from;
-        rootNumberFrom = _rootNumberFrom;
-        memberNumberFrom = _memberNumberFrom;
+        memberIdFrom = _memberIdFrom;
         to = _to;
-        rootNumberTo = _rootNumberTo;
-        memberNumberTo = _memberNumberTo;
+        memberIdTo = _memberIdTo;
     }
 
     public ClassMethodId getFrom() {
         return from;
     }
 
-    public int getRootNumberFrom() {
-        return rootNumberFrom;
-    }
-
-    public int getMemberNumberFrom() {
-        return memberNumberFrom;
+    public MemberId getMemberIdFrom() {
+        return memberIdFrom;
     }
 
     public ClassMethodId getTo() {
         return to;
     }
 
-    public int getRootNumberTo() {
-        return rootNumberTo;
+    public MemberId getMemberIdTo() {
+        return memberIdTo;
     }
 
-    public int getMemberNumberTo() {
-        return memberNumberTo;
-    }
 }

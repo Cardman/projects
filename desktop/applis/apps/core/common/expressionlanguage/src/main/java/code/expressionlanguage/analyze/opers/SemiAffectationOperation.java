@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -20,14 +21,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private AnaOperatorContent operatorContent;
     private boolean post;
     private ClassMethodId classMethodId;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
+    private MemberId memberIdFrom = new MemberId();
     private ClassMethodId converterFrom;
-    private int rootNumberFrom = -1;
-    private int memberNumberFrom = -1;
+    private MemberId memberIdTo = new MemberId();
     private ClassMethodId converterTo;
-    private int rootNumberTo = -1;
-    private int memberNumberTo = -1;
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
@@ -78,8 +76,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (cl_ != null) {
             String foundClass_ = cl_.getRealClass();
             MethodId id_ = cl_.getRealId();
-            rootNumber = cl_.getRootNumber();
-            memberNumber = cl_.getMemberNumber();
+            memberId = cl_.getMemberId();
             classMethodId = new ClassMethodId(foundClass_,id_);
             return;
         }
@@ -88,12 +85,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             ReversibleConversion reversibleConversion_ = tryGetPair(clMatchLeft_, _page);
             if (reversibleConversion_ != null) {
+                memberIdFrom = reversibleConversion_.getMemberIdFrom();
                 converterFrom = reversibleConversion_.getFrom();
-                rootNumberFrom = reversibleConversion_.getRootNumberFrom();
-                memberNumberFrom = reversibleConversion_.getMemberNumberFrom();
+                memberIdTo = reversibleConversion_.getMemberIdTo();
                 converterTo = reversibleConversion_.getTo();
-                rootNumberTo = reversibleConversion_.getRootNumberTo();
-                memberNumberTo = reversibleConversion_.getMemberNumberTo();
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
@@ -136,28 +131,16 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return settable;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberIdFrom() {
+        return memberIdFrom;
     }
 
-    public int getRootNumberFrom() {
-        return rootNumberFrom;
-    }
-
-    public int getMemberNumberFrom() {
-        return memberNumberFrom;
-    }
-
-    public int getRootNumberTo() {
-        return rootNumberTo;
-    }
-
-    public int getMemberNumberTo() {
-        return memberNumberTo;
+    public MemberId getMemberIdTo() {
+        return memberIdTo;
     }
 
     public AnaOperatorContent getOperatorContent() {

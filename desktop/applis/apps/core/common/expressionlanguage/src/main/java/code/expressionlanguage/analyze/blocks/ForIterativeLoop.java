@@ -218,8 +218,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 arg_.getImplicits().add(cl_);
-                arg_.setRootNumber(res_.getRootNumber());
-                arg_.setMemberNumber(res_.getMemberNumber());
+                arg_.setMemberId(res_.getMemberId());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());

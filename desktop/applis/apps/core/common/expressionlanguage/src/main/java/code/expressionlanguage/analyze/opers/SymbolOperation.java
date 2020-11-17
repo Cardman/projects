@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 
 public interface SymbolOperation {
@@ -9,6 +10,6 @@ public interface SymbolOperation {
     ClassMethodId getClassMethodId();
 
     boolean isOkNum();
-    int getRootNumber();
-    int getMemberNumber();
+    MemberId getMemberId();
+
 }

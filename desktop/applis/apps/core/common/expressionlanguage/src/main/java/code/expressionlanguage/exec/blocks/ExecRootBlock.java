@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -33,7 +34,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecFieldBlock> instanceFields = new CustList<ExecFieldBlock>();
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
-    private ExecNamedFunctionBlock emptyCtor;
+    private ExecTypeFunction emptyCtorPair;
     private CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
     private CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
     private boolean withInstanceElements;
@@ -194,12 +195,12 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         uniqueType = _uniqueType;
     }
 
-    public ExecNamedFunctionBlock getEmptyCtor() {
-        return emptyCtor;
+    public ExecTypeFunction getEmptyCtorPair() {
+        return emptyCtorPair;
     }
 
-    public void setEmptyCtor(ExecNamedFunctionBlock _emptyCtor) {
-        emptyCtor = _emptyCtor;
+    public void emptyCtorPair(ExecNamedFunctionBlock _emptyCtor) {
+        this.emptyCtorPair = new ExecTypeFunction(this,_emptyCtor);
     }
 
     public CustList<ExecRootBlock> getAnonymousRoot() {

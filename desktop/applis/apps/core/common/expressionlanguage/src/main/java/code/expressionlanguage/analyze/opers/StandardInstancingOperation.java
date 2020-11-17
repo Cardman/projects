@@ -28,8 +28,7 @@ public final class StandardInstancingOperation extends
     private AnaInstancingStdContent instancingStdContent;
 
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -232,8 +231,7 @@ public final class StandardInstancingOperation extends
         }
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
-        rootNumber = ctorRes_.getRootNumber();
-        memberNumber = ctorRes_.getMemberNumber();
+        memberId = ctorRes_.getMemberId();
         if (ctorRes_.isVarArgToCall()) {
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
@@ -254,11 +252,8 @@ public final class StandardInstancingOperation extends
         return ctors;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
 }

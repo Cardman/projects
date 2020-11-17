@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -151,8 +152,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
-        callFctContent.setRootNumber(cust_.getRootNumber());
-        callFctContent.setMemberNumber(cust_.getMemberNumber());
+        callFctContent.setMemberId(cust_.getMemberId());
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, cust_.getRealId()));
         if (cust_.isVarArgToCall()) {
             StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
@@ -186,13 +186,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     public CustList<CustList<MethodInfo>> getMethodInfos() {
         return methodInfos;
     }
-
-    public int getMemberNumber() {
-        return callFctContent.getMemberNumber();
-    }
-
-    public int getRootNumber() {
-        return callFctContent.getRootNumber();
+    public MemberId getMemberId() {
+        return callFctContent.getMemberId();
     }
 
     public AnaCallFctContent getCallFctContent() {

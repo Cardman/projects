@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -23,11 +24,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private SettableElResult settable;
     private AnaOperatorContent operatorContent;
     private ClassMethodId classMethodId;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
     private ClassMethodId converter;
-    private int rootNumberConv = -1;
-    private int memberNumberConv = -1;
+    private MemberId memberIdConv = new MemberId();
     private ClassMethodId test;
 
     private boolean rightBool;
@@ -98,14 +97,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
                 clMatchLeft_.getImplicitsTest().add(test_);
-                clMatchLeft_.setRootNumberTest(cl_.getRootNumberTest());
-                clMatchLeft_.setMemberNumberTest(cl_.getMemberNumberTest());
+                clMatchLeft_.setMemberIdTest(cl_.getMemberIdTest());
                 test = test_;
             }
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
-                rootNumber = cl_.getRootNumber();
-                memberNumber = cl_.getMemberNumber();
+                memberId = cl_.getMemberId();
             }
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
@@ -114,8 +111,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(elt_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    rootNumberConv = res_.getRootNumber();
-                    memberNumberConv = res_.getMemberNumber();
+                    memberIdConv = res_.getMemberId();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -261,8 +257,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 if (res_.isFoundMethod()) {
                     ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     clMatchRight_.getImplicits().add(clImpl_);
-                    clMatchRight_.setRootNumber(res_.getRootNumber());
-                    clMatchRight_.setMemberNumber(res_.getMemberNumber());
+                    clMatchRight_.setMemberId(res_.getMemberId());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -326,20 +321,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return settable;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public int getRootNumberConv() {
-        return rootNumberConv;
-    }
-
-    public int getMemberNumberConv() {
-        return memberNumberConv;
+    public MemberId getMemberIdConv() {
+        return memberIdConv;
     }
 
     public boolean isRightBool() {

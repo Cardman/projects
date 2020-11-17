@@ -20,6 +20,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -2398,20 +2399,16 @@ public final class CustAliases {
             String aliasObject_ = _cont.getStandards().getContent().getCoreNames().getAliasObject();
             if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
-                ExecRootBlock classBody_ = _execBlocks.getFormatType();
-                ExecNamedFunctionBlock fct_ = _execBlocks.getFormatObject();
                 Argument arg_ = new Argument(_args[0]);
-                ExecTemplates.wrapAndCall(fct_,classBody_,className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont);
+                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont);
                 return;
             }
         }
         if (_method.getConstraints().getParametersTypes().size() == 2) {
             String className_ = aliasFormatType;
-            ExecRootBlock classBody_ = _execBlocks.getFormatType();
-            ExecNamedFunctionBlock fct_ = _execBlocks.getFormatObjectTwo();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            ExecTemplates.wrapAndCall(fct_,classBody_,className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont);
+            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

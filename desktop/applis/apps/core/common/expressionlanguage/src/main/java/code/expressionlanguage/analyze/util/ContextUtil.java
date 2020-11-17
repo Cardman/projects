@@ -296,8 +296,7 @@ public final class ContextUtil {
                 Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(), r_);
                 FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
-                fieldInfo_.setMemberNumber(i_.getFieldNumber());
-                fieldInfo_.setRootNumber(r_.getNumberAll());
+                fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
                 return fieldInfo_;
             }
             return null;

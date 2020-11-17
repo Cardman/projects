@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -23,10 +24,8 @@ public final class AnaClassArgumentMatching {
     private boolean convertToString;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
-    private int rootNumber = -1;
-    private int memberNumber = -1;
-    private int rootNumberTest = -1;
-    private int memberNumberTest = -1;
+    private MemberId memberId = new MemberId();
+    private MemberId memberIdTest = new MemberId();
 
     public AnaClassArgumentMatching(String _className) {
         className.add(_className);
@@ -192,36 +191,20 @@ public final class AnaClassArgumentMatching {
         return implicitsTest;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
+    public MemberId getMemberIdTest() {
+        return memberIdTest;
     }
 
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
-
-    public int getRootNumberTest() {
-        return rootNumberTest;
-    }
-
-    public void setRootNumberTest(int _rootNumberTest) {
-        this.rootNumberTest = _rootNumberTest;
-    }
-
-    public int getMemberNumberTest() {
-        return memberNumberTest;
-    }
-
-    public void setMemberNumberTest(int _memberNumberTest) {
-        this.memberNumberTest = _memberNumberTest;
+    public void setMemberIdTest(MemberId _memberIdTest) {
+        this.memberIdTest = _memberIdTest;
     }
 
 }

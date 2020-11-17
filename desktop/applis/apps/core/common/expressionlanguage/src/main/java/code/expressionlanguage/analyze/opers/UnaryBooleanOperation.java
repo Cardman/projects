@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -14,8 +15,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     private ClassMethodId classMethodId;
     private int opOffset;
     private boolean okNum;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -34,8 +34,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
             classMethodId = clId_.getSymbol();
-            rootNumber = clId_.getRootNumber();
-            memberNumber = clId_.getMemberNumber();
+            memberId = clId_.getMemberId();
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -44,8 +43,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
-                clMatch_.setRootNumber(res_.getRootNumber());
-                clMatch_.setMemberNumber(res_.getMemberNumber());
+                clMatch_.setMemberId(res_.getMemberId());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -79,13 +77,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         return okNum;
     }
 
-    @Override
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    @Override
-    public int getMemberNumber() {
-        return memberNumber;
-    }
 }

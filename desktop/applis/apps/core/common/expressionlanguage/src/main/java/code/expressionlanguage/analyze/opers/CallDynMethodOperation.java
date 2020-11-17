@@ -147,8 +147,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     if (res_.isFoundMethod()) {
                         ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                         a_.getImplicits().add(cl_);
-                        a_.setRootNumber(res_.getRootNumber());
-                        a_.setMemberNumber(res_.getMemberNumber());
+                        a_.setMemberId(res_.getMemberId());
                     } else {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
                         cast_.setFileName(_page.getLocalizer().getCurrentFileName());

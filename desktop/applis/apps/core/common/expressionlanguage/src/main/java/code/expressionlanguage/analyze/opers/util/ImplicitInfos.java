@@ -4,8 +4,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class ImplicitInfos {
     private ClassMethodId idMethod;
-    private int rootNumber = -1;
-    private int memberNumber = -1;
+    private MemberId memberId = new MemberId();
 
     public ClassMethodId getIdMethod() {
         return idMethod;
@@ -15,19 +14,12 @@ public final class ImplicitInfos {
         this.idMethod = _idMethod;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberId() {
+        return memberId;
     }
 
-    public void setRootNumber(int _rootNumber) {
-        this.rootNumber = _rootNumber;
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public void setMemberNumber(int _memberNumber) {
-        this.memberNumber = _memberNumber;
-    }
 }

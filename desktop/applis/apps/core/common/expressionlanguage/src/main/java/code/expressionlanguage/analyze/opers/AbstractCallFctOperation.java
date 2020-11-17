@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -11,8 +12,7 @@ public interface AbstractCallFctOperation {
 
     StandardMethod getStandardMethod();
 
-    int getRootNumber();
+    MemberId getMemberId();
 
-    int getMemberNumber();
     AnaCallFctContent getCallFctContent();
 }

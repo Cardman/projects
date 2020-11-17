@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -33,10 +34,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private String nbErr = "";
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
-    private int rootNumber = -1;
-    private int rootNumberSet = -1;
-    private int memberNumber = -1;
-    private int memberNumberSet = -1;
+    private MemberId memberIdGet = new MemberId();
+    private MemberId memberIdSet = new MemberId();
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -163,10 +162,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             found_ = false;
         }
         if (found_) {
-            rootNumber = clMeth_.getRootNumber();
-            memberNumber = clMeth_.getMemberNumber();
-            rootNumberSet = clMethSet_.getRootNumber();
-            memberNumberSet = clMethSet_.getMemberNumber();
+            memberIdGet = clMeth_.getMemberId();
+            memberIdSet = clMethSet_.getMemberId();
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -230,8 +227,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
-                indexClass_.setRootNumber(res_.getRootNumber());
-                indexClass_.setMemberNumber(res_.getMemberNumber());
+                indexClass_.setMemberId(res_.getMemberId());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -326,20 +322,12 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         return methodInfos;
     }
 
-    public int getRootNumber() {
-        return rootNumber;
+    public MemberId getMemberIdGet() {
+        return memberIdGet;
     }
 
-    public int getMemberNumber() {
-        return memberNumber;
-    }
-
-    public int getRootNumberSet() {
-        return rootNumberSet;
-    }
-
-    public int getMemberNumberSet() {
-        return memberNumberSet;
+    public MemberId getMemberIdSet() {
+        return memberIdSet;
     }
 
     public AnaCallFctContent getCallFctContent() {

@@ -67,7 +67,7 @@ public abstract class AssOperationNode {
         }
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
-            if (s_.getFieldMetaInfo() != null) {
+            if (s_.getSettableFieldContent().getClassField() != null) {
                 return new AssSettableFieldOperation(s_);
             }
         }

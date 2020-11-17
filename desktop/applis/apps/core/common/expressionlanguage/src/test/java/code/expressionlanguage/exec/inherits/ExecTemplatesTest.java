@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -913,7 +914,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
         ExecNamedFunctionBlock first_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
-        ExecTemplates.wrapAndCall(first_,classBody_,"pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
+        ExecTemplates.wrapAndCall(new ExecTypeFunction(classBody_, first_), "pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
         assertNotNull(getException(cont_));
     }
     @Test
