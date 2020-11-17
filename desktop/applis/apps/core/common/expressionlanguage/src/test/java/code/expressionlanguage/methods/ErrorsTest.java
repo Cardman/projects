@@ -1078,7 +1078,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\">#ONE</a>\n" +
+                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -1093,7 +1093,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\">#ONE</a>;\n" +
+                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>;\n" +
                 " <a name=\"m34\">$public MySub(</a>){}\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -7859,7 +7859,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
-                " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\">ONE</a>;\n" +
+                " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\" class=\"e\">ONE</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -8045,7 +8045,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a> {\n" +
-                " <a name=\"m26\" title=\"The constructor pkg.MyCl($int) is undefined.\">ONE</a>(1)\n" +
+                " <a name=\"m26\" title=\"The constructor pkg.MyCl($int) is undefined.\" class=\"e\">ONE</a>(1)\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -10373,7 +10373,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
-                " <a name=\"m28\" title=\"The constructor pkg.MyEnum($int) is undefined.\">ONE</a>(1);\n" +
+                " <a name=\"m28\" title=\"The constructor pkg.MyEnum($int) is undefined.\" class=\"e\">ONE</a>(1);\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -11178,7 +11178,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>)\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\" class=\"e\">(</a>)\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11196,7 +11196,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word.\">(</a>){}\n" +
+                "The field name  is not valid. It must be a word. class=\"e\">(</a>){}\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11210,7 +11210,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>);\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\" class=\"e\">(</a>);\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11240,7 +11240,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The constructor pkg.MyEnum() is undefined.\">ONE</a>();\n" +
+                " <a name=\"m27\" title=\"The constructor pkg.MyEnum() is undefined.\" class=\"e\">ONE</a>();\n" +
                 " <a name=\"m35\">MyEnum(</a>$int <a name=\"m47\">i</a>){ }}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11256,7 +11256,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;;\n" +
+                "The field name  is not valid. It must be a word.\" class=\"e\">&lt;</a>&gt;;\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11278,7 +11278,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;{};\n" +
+                "The field name  is not valid. It must be a word. class=\"e\">&lt;</a>&gt;{};\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11294,7 +11294,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;\n" +
+                "The field name  is not valid. It must be a word.\" class=\"e\">&lt;</a>&gt;\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
 
@@ -11316,7 +11316,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
-                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;{}\n" +
+                "The field name  is not valid. It must be a word. class=\"e\">&lt;</a>&gt;{}\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test

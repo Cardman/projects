@@ -719,7 +719,7 @@ public final class ResolvingImportTypes {
             if (super_ instanceof RootBlock){
                 RootBlock cust_ = (RootBlock) super_;
                 String pkg_ = cust_.getPackageName();
-                for (InfoBlock e: ClassesUtil.getFieldBlocks(cust_)) {
+                for (InfoBlock e: cust_.getFieldsBlocks()) {
                     int ind_ = notMatch(_method, e);
                     if (ind_ < 0) {
                         continue;

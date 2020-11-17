@@ -515,7 +515,7 @@ public abstract class OperationNode {
                     _classStr,
                     curClassBase_);
             _page.getLocalizer().addError(badAccess_);
-            _op.getErrs().add(badAccess_.getBuiltError());
+            _op.addErr(badAccess_.getBuiltError());
         }
     }
 
@@ -552,7 +552,7 @@ public abstract class OperationNode {
                 _name,
                 StringUtil.join(_class.getNames(),"&"));
         _page.getLocalizer().addError(access_);
-        _op.getErrs().add(access_.getBuiltError());
+        _op.addErr(access_.getBuiltError());
         FieldResult res_ = new FieldResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;
@@ -863,7 +863,7 @@ public abstract class OperationNode {
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
-            _oper.getErrs().add(undefined_.getBuiltError());
+            _oper.addErr(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -976,7 +976,7 @@ public abstract class OperationNode {
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
-            _op.getErrs().add(undefined_.getBuiltError());
+            _op.addErr(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -1061,7 +1061,7 @@ public abstract class OperationNode {
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        _op.getErrs().add(undefined_.getBuiltError());
+        _op.addErr(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
@@ -1088,7 +1088,7 @@ public abstract class OperationNode {
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        _op.getErrs().add(undefined_.getBuiltError());
+        _op.addErr(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
@@ -1114,7 +1114,7 @@ public abstract class OperationNode {
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        _op.getErrs().add(undefined_.getBuiltError());
+        _op.addErr(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());
@@ -3615,6 +3615,19 @@ public abstract class OperationNode {
 
     public final int getIndexBegin() {
         return operations.getDelimiter().getIndexBegin();
+    }
+
+    protected void processEmptyErrorChild() {
+        MethodOperation.processEmptyError(getFirstChild(),errs);
+    }
+    protected String check(String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+        return AnaTemplates.check(errs,_className,_parts,_inherit,_page);
+    }
+    public void mergeErrs(OperationNode _err) {
+        errs.addAllElts(_err.errs);
+    }
+    public void addErr(String _err) {
+        errs.add(_err);
     }
 
     public StringList getErrs() {

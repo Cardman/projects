@@ -44,7 +44,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             //_in len
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             typeCheckContent.setClassName(_page.getAliasObject());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;

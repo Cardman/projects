@@ -73,7 +73,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                         fieldName,
                         annotationClass_);
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
         }
         setResultClass(getFirstChild().getResultClass());

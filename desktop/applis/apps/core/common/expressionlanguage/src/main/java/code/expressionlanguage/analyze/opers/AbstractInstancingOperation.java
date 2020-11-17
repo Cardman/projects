@@ -328,7 +328,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         typeInfer = infer_;
     }
 
-    static void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, StringList _errs, AnalyzedPageEl _page) {
+    void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page) {
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
         AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (g_ != null && !g_.withoutInstance()) {
@@ -343,7 +343,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                         _realClassName);
                 _page.getLocalizer().addError(static_);
-                _errs.add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
             } else {
                 StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 Mapping m_ = new Mapping();
@@ -359,7 +359,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                             glClass_,
                             outer_);
                     _page.getLocalizer().addError(static_);
-                    _errs.add(static_.getBuiltError());
+                    addErr(static_.getBuiltError());
                 }
             }
         }

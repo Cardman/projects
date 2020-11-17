@@ -35,7 +35,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
                         _page.getKeyWords().getKeyWordThis());
                 _page.getLocalizer().addError(static_);
-                getErrs().add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(arg_));
                 return;
             }
@@ -52,7 +52,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
                         _page.getKeyWords().getKeyWordThis());
                 _page.getLocalizer().addError(static_);
-                getErrs().add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -75,7 +75,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                                     _page.getKeyWords().getKeyWordThis());
                             _page.getLocalizer().addError(static_);
-                            getErrs().add(static_.getBuiltError());
+                            addErr(static_.getBuiltError());
                         } else if (thisContent.getNbAncestors() == 0){
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
                             static_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -84,7 +84,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                                     _page.getKeyWords().getKeyWordThis());
                             _page.getLocalizer().addError(static_);
-                            getErrs().add(static_.getBuiltError());
+                            addErr(static_.getBuiltError());
                         }
                     }
                     String className_ = r.getGenericString();
@@ -101,7 +101,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
                     _page.getKeyWords().getKeyWordThis());
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
             int off_ = StringUtil.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             setResultClass(new AnaClassArgumentMatching(arg_));
@@ -117,7 +117,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                     _page.getKeyWords().getKeyWordThis());
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
         }
         setResultClass(new AnaClassArgumentMatching(arg_));
     }

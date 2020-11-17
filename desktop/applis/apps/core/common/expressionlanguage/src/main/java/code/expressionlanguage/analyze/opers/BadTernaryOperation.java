@@ -31,7 +31,7 @@ public final class BadTernaryOperation extends MethodOperation {
                 _page.getKeyWords().getKeyWordBool()
         );
         _page.getLocalizer().addError(badNb_);
-        getErrs().add(badNb_.getBuiltError());
+        addErr(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = _page.getLocalizer().getCurrentLocationIndex();
         getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));

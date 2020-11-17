@@ -106,7 +106,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     Long.toString(args_.size())
             );
             _page.getLocalizer().addError(badCall_);
-            getErrs().add(badCall_.getBuiltError());
+            addErr(badCall_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -142,7 +142,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));
             _page.getLocalizer().addError(undefined_);
-            getErrs().add(undefined_.getBuiltError());
+            addErr(undefined_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

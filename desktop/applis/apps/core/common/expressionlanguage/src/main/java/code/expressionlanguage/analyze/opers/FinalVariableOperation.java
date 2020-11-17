@@ -79,7 +79,7 @@ public final class FinalVariableOperation extends LeafOperation {
         und_.buildError(_page.getAnalysisMessages().getUndefinedVariable(),
                 variableContent.getVariableName());
         _page.getLocalizer().addError(und_);
-        getErrs().add(und_.getBuiltError());
+        addErr(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

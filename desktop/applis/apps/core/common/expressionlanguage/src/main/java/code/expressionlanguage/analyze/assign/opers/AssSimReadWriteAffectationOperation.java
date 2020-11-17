@@ -41,7 +41,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                     str_);
                             _page.addLocError(un_);
-                            analyzed.getErrs().add(un_.getBuiltError());
+                            analyzed.addErr(un_.getBuiltError());
                         }
                     }
                 }
@@ -54,7 +54,7 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         str_);
                 _page.addLocError(un_);
-                analyzed.getErrs().add(un_.getBuiltError());
+                analyzed.addErr(un_.getBuiltError());
             }
         }
     }

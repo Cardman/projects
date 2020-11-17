@@ -62,7 +62,7 @@ public final class AnonymousInstancingOperation extends
             static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (!isIntermediateDottedOperation()) {
@@ -75,7 +75,7 @@ public final class AnonymousInstancingOperation extends
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }
             type = realClassName_;
-            checkInstancingType(realClassName_, isStaticAccess(), getErrs(), _page);
+            checkInstancingType(realClassName_, isStaticAccess(), _page);
             preAnalyzeCtor(realClassName_, _page);
             return;
         }
@@ -86,7 +86,7 @@ public final class AnonymousInstancingOperation extends
         static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                 realClassName_);
         _page.getLocalizer().addError(static_);
-        getErrs().add(static_.getBuiltError());
+        addErr(static_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
     private void preAnalyzeCtor(String _realClassName, AnalyzedPageEl _page) {
@@ -100,7 +100,7 @@ public final class AnonymousInstancingOperation extends
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return;
         }
         for (String p:StringExpUtil.getWildCards(_realClassName)){
@@ -112,7 +112,7 @@ public final class AnonymousInstancingOperation extends
                     p,
                     _realClassName);
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);

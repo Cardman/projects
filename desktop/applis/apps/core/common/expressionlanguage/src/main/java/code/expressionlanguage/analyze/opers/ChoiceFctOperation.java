@@ -168,7 +168,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_page));
             _page.getLocalizer().addError(abs_);
-            getErrs().add(abs_.getBuiltError());
+            addErr(abs_.getBuiltError());
         }
         callFctContent.setClassMethodId(clMeth_.getId());
         MethodId realId_ = clMeth_.getRealId();

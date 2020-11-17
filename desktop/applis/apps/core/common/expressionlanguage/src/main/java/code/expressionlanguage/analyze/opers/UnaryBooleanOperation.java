@@ -53,7 +53,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                         StringUtil.join(clMatch_.getNames(),"&"),
                         oper_);
                 if (!MethodOperation.isEmptyError(getFirstChild())){
-                    getErrs().add(un_.getBuiltError());
+                    addErr(un_.getBuiltError());
                 }
                 _page.getLocalizer().addError(un_);
             }

@@ -264,7 +264,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                             StringUtil.join(arg_.getNames(),"&"),
                             StringUtil.join(param_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
-                    getErrs().add(cast_.getBuiltError());
+                    addErr(cast_.getBuiltError());
                     StringList deep_ = getErrs();
                     int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
                     partOffsetsErrPar.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
@@ -284,7 +284,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             //last parenthese
             cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
             StringList deep_ = getErrs();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
             getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
@@ -301,7 +301,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             //last parenthese
             cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
         }
         IdMap<AssocationOperation,Integer> counts_ = new IdMap<AssocationOperation,Integer>();
         for (AssocationOperation s: suppliedFields_) {
@@ -326,7 +326,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         e.getKey().getFieldName()
                 );
                 _page.getLocalizer().addError(cast_);
-                e.getKey().getErrs().add(cast_.getBuiltError());
+                e.getKey().addErr(cast_.getBuiltError());
             }
         }
         for (AssocationOperation f: suppliedFields_) {
@@ -358,7 +358,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.buildError(_page.getAnalysisMessages().getAnnotFieldMust(),
                         e.getKey());
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
         }
         StringList deep_ = getErrs();

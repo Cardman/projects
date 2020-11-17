@@ -83,7 +83,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                         StringUtil.join(getResultClass().getNames(),"&"),
                         classType);
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
             accessSuperTypes = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
@@ -122,7 +122,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                         StringUtil.join(getResultClass().getNames(),"&"),
                         classType);
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
             staticChoiceMethod = true;
         }
@@ -135,7 +135,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                         kw_);
                 _page.getLocalizer().addError(static_);
-                getErrs().add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
             }
         }
     }

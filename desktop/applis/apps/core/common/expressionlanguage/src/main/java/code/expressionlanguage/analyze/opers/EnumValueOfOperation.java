@@ -63,7 +63,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     clName_);
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             String argClName_ = _page.getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
@@ -80,7 +80,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
                     clName_,
                     curClassBase_);
             _page.getLocalizer().addError(badAccess_);
-            getErrs().add(badAccess_.getBuiltError());
+            addErr(badAccess_.getBuiltError());
         }
         AnaClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _page.getAliasString();
@@ -92,7 +92,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(argCl_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
         }
         className = r_.getWildCardElement();
         setResultClass(new AnaClassArgumentMatching(className));

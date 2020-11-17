@@ -144,7 +144,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                     Long.toString(1),
                     Long.toString(0));
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -166,7 +166,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                         _cl
                 );
                 _page.getLocalizer().addError(undef_);
-                _op.getErrs().add(undef_.getBuiltError());
+                _op.addErr(undef_.getBuiltError());
             }
         }
     }

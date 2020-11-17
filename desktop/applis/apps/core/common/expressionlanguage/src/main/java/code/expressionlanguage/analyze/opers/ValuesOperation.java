@@ -49,7 +49,7 @@ public final class ValuesOperation extends LeafOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     clName_);
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             String argClName_ = _page.getAliasObject();
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
@@ -66,7 +66,7 @@ public final class ValuesOperation extends LeafOperation {
                     clName_,
                     curClassBase_);
             _page.getLocalizer().addError(badAccess_);
-            getErrs().add(badAccess_.getBuiltError());
+            addErr(badAccess_.getBuiltError());
         }
         className = r_.getWildCardElement();
         String ret_ = StringExpUtil.getPrettyArrayType(className);

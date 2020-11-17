@@ -39,7 +39,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         OperationNode par_ = getParent();
@@ -55,7 +55,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
@@ -67,7 +67,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         String superClass_ = AnaTemplates.getOverridingFullTypeByBases(sub_,className_, cl_, _page);
@@ -78,7 +78,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         setType(candidate_);
@@ -95,7 +95,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
     }
 

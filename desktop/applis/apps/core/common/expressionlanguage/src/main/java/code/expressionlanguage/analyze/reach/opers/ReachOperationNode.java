@@ -265,7 +265,7 @@ public abstract class ReachOperationNode {
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());
             _page.getLocalizer().addError(static_);
-            getInfo().getErrs().add(static_.getBuiltError());
+            getInfo().addErr(static_.getBuiltError());
         }
     }
     public void setSiblingSet(ReachPossibleIntermediateDotted _siblingSet) {

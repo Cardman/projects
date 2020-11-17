@@ -77,7 +77,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     _page.getAliasCall(),
                     _page.getAliasFct());
             _page.getLocalizer().addError(und_);
-            getErrs().add(und_.getBuiltError());
+            addErr(und_.getBuiltError());
         }
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();

@@ -59,7 +59,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name_);
             _page.addLocError(b_);
-            o.getErrs().add(b_.getBuiltError());
+            o.addErr(b_.getBuiltError());
         }
     }
     static NameParametersFilter buildQuickFilter(MethodOperation _par) {

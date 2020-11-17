@@ -122,7 +122,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                     StringUtil.join(clCur_.getNames(),"&"),
                     className_);
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
 
@@ -191,7 +191,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_page));
             _page.getLocalizer().addError(abs_);
-            getErrs().add(abs_.getBuiltError());
+            addErr(abs_.getBuiltError());
         }
         String foundClass_ = clMeth_.getRealClass();
         MethodId id_ = clMeth_.getRealId();

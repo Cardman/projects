@@ -169,7 +169,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                         StringUtil.join(clCur_.getNames(),"&"),
                         className_);
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
             trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
             l_ = getBounds(className_, _page);
@@ -203,7 +203,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                         _page.getAliasClone(),
                         StringUtil.join(arrayBounds_,"&"));
                 _page.getLocalizer().addError(undefined_);
-                getErrs().add(undefined_.getBuiltError());
+                addErr(undefined_.getBuiltError());
                 return;
             }
             clonedMethod = true;
@@ -261,7 +261,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                         clMeth_.getRealClass(),
                         clMeth_.getRealId().getSignature(_page));
                 _page.getLocalizer().addError(abs_);
-                getErrs().add(abs_.getBuiltError());
+                addErr(abs_.getBuiltError());
             }
         }
         String foundClass_ = clMeth_.getRealClass();

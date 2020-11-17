@@ -64,7 +64,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(clMatch_.getNames(),"&"));
                     _page.getLocalizer().addError(un_);
-                    getErrs().add(un_.getBuiltError());
+                    addErr(un_.getBuiltError());
                 }
             }
         }

@@ -101,7 +101,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        MethodOperation.processEmptyError(getFirstChild(),getErrs());
+        processEmptyErrorChild();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
@@ -176,7 +176,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                             clMeth_.getRealClass(),
                             clMeth_.getRealId().getSignature(_page));
                     _page.getLocalizer().addError(abs_);
-                    getErrs().add(abs_.getBuiltError());
+                    addErr(abs_.getBuiltError());
                 }
             }
             staticChoiceMethod = staticChoiceMethod_;
@@ -248,7 +248,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(class_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             class_ = new AnaClassArgumentMatching(_page.getAliasObject());
             setResultClass(class_);
             return;

@@ -84,16 +84,6 @@ public final class ContextUtil {
         return _outer == _root.getOuterParent();
     }
 
-    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
-        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
-        for (Block b: ClassesUtil.getDirectChildren(_element)) {
-            if (b instanceof InfoBlock) {
-                methods_.add((InfoBlock) b);
-            }
-        }
-        return methods_;
-    }
-
     public static int getCurrentChildTypeIndex(OperationNode _op, AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
@@ -106,7 +96,7 @@ public final class ContextUtil {
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());
                 _page.getLocalizer().addError(call_);
                 _op.setResultClass(new AnaClassArgumentMatching(_realClassName));
-                _op.getErrs().add(call_.getBuiltError());
+                _op.addErr(call_.getBuiltError());
                 return -2;
             }
             return _page.getIndexChildType();

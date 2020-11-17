@@ -2989,4 +2989,35 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report735Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append(" ONE((1+2]){}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
+                " <a name=\"m28\" title=\"The expression part is empty. class=\"e\">ONE</a>((1+2]){}\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report736Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append(" ONE((1+2])\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
+                " <a name=\"m28\" title=\"The expression part is empty. class=\"e\">ONE</a>((1+2])\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
 }

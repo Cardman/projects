@@ -83,7 +83,7 @@ public final class StandardInstancingOperation extends
             } else {
                 realClassName_ = realClassName_.trim();
             }
-            checkInstancingType(realClassName_, isStaticAccess(), getErrs(), _page);
+            checkInstancingType(realClassName_, isStaticAccess(), _page);
             analyzeCtor(realClassName_, varargParam_, _page);
             return;
         }
@@ -102,7 +102,7 @@ public final class StandardInstancingOperation extends
             static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -120,7 +120,7 @@ public final class StandardInstancingOperation extends
                         p,
                         o);
                 _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
                 ok_ = false;
             }
             if (!ok_) {
@@ -143,7 +143,7 @@ public final class StandardInstancingOperation extends
                     idClass_
             );
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -156,7 +156,7 @@ public final class StandardInstancingOperation extends
             offset_ += a.length() + 1;
         }
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        realClassName_ = AnaTemplates.check(getErrs(), StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+        realClassName_ = check(StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
 
@@ -175,7 +175,7 @@ public final class StandardInstancingOperation extends
                     _realClassName);
             _page.getLocalizer().addError(call_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return;
         }
         OperationNode possibleInit_ = getFirstChild();
@@ -193,7 +193,7 @@ public final class StandardInstancingOperation extends
                     p,
                     _realClassName);
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -203,7 +203,7 @@ public final class StandardInstancingOperation extends
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                     base_);
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }

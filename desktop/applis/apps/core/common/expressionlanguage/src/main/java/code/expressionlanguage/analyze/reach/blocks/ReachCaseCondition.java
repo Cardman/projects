@@ -48,7 +48,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
-            for (InfoBlock f: ContextUtil.getFieldBlocks(e_)) {
+            for (InfoBlock f: e_.getFieldsBlocks()) {
                 if (!match(f)) {
                     continue;
                 }
@@ -169,10 +169,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             first_ = first_.getNextSibling();
         }
     }
-    private EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
-        if (_type.isEmpty()) {
-            return null;
-        }
+    private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
         if (g_ instanceof EnumBlock) {

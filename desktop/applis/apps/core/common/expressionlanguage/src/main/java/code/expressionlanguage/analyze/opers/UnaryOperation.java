@@ -70,7 +70,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
                     oper_);
             _page.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){
-                getErrs().add(un_.getBuiltError());
+                addErr(un_.getBuiltError());
             }
             AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
             setResultClass(arg_);

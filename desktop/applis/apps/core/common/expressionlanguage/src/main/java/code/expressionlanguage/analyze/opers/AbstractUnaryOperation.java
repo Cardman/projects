@@ -16,7 +16,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-        MethodOperation.processEmptyError(getFirstChild(),getErrs());
+        processEmptyErrorChild();
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -27,7 +27,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
                     Long.toString(1),
                     Long.toString(children_.size()));
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

@@ -23,7 +23,7 @@ public final class BadInstancingOperation extends LeafOperation {
         //if parent is null => all text
         //if parent is not null => use parent header
         emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());
-        getErrs().add(emptyPart_.getBuiltError());
+        addErr(emptyPart_.getBuiltError());
         _page.getLocalizer().addError(emptyPart_);
         argClName_ = _page.getAliasObject();
         setResultClass(new AnaClassArgumentMatching(argClName_));

@@ -23,7 +23,7 @@ public final class BadDottedOperation extends LeafOperation {
         //if parent is not null => use parent header
         emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());
         _page.getLocalizer().addError(emptyPart_);
-        getErrs().add(emptyPart_.getBuiltError());
+        addErr(emptyPart_.getBuiltError());
         argClName_ = _page.getAliasObject();
         setResultClass(new AnaClassArgumentMatching(argClName_));
     }

@@ -46,7 +46,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
             varg_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name);
             _page.getLocalizer().addError(varg_);
-            getErrs().add(varg_.getBuiltError());
+            addErr(varg_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

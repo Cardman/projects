@@ -137,7 +137,7 @@ public final class CaseCondition extends SwitchPartBlock {
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            for (InfoBlock f: ContextUtil.getFieldBlocks(e_)) {
+            for (InfoBlock f: e_.getFieldsBlocks()) {
                 if (!match(f)) {
                     continue;
                 }
@@ -171,10 +171,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
-    private EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
-        if (_type.isEmpty()) {
-            return null;
-        }
+    private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
         if (g_ instanceof EnumBlock) {

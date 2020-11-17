@@ -37,7 +37,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.addLocError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         String clCurName_ = _page.getGlobalClass();
@@ -50,7 +50,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.addLocError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         setType(candidate_);
@@ -69,7 +69,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntNotFromInt());
             _page.addLocError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
         Block f_ = br_.getFirstChild();
         if (f_ != curBlock_) {
@@ -95,7 +95,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         //key word len
                         call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                         _page.addLocError(call_);
-                        getErrs().add(call_.getBuiltError());
+                        addErr(call_.getBuiltError());
                     } else {
                         if (!((Line)f_).isCallFromCtorToCtor()|| ((Line)f_).isCallThis()) {
                             //error
@@ -105,7 +105,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             //key word len
                             call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                             _page.addLocError(call_);
-                            getErrs().add(call_.getBuiltError());
+                            addErr(call_.getBuiltError());
                         }
                     }
                     break;
@@ -148,7 +148,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         _cl
                 );
                 _page.addLocError(undef_);
-                _op.getErrs().add(undef_.getBuiltError());
+                _op.addErr(undef_.getBuiltError());
             }
         }
     }

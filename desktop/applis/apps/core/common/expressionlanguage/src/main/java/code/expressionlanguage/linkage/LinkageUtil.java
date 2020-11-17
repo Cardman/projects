@@ -1430,7 +1430,7 @@ public final class LinkageUtil {
     }
 
     private static void processElementBlockReport(VariablesOffsets _vars, ElementBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        StandardInstancingOperation inst_ = (StandardInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
+        AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
             int len_ = _cond.getAnnotationsIndexes().size();
@@ -1478,7 +1478,15 @@ public final class LinkageUtil {
     }
 
     private static void processElementBlockError(VariablesOffsets _vars, ElementBlock _cond, CustList<PartOffset> _parts) {
-        StandardInstancingOperation inst_ = (StandardInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
+        OperationNode firstChild_ = _cond.getRoot().getFirstChild();
+        OperationNode next_ = null;
+        if (firstChild_ != null) {
+            next_ = firstChild_.getNextSibling();
+        }
+        AbstractInstancingOperation inst_ = null;
+        if (next_ instanceof AbstractInstancingOperation) {
+            inst_ = (AbstractInstancingOperation) next_;
+        }
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
@@ -1496,20 +1504,30 @@ public final class LinkageUtil {
             _vars.getStack().last().setIndexAnnotation(0);
             _vars.getStack().last().setIndexAnnotationGroup(0);
             k_ = 0;
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-            ConstructorId c_ = inst_.getConstId();
             String fileName_ = _vars.getCurrentFileName();
             StringList list_ = new StringList(_cond.getNameErrors());
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\">";
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + 1));
                 _vars.getStack().last().setIndexAnnotationGroup(-1);
                 return;
             }
+            if (inst_ == null) {
+                list_.addAllElts(_cond.getRoot().getErrs());
+                String err_ = getLineErr(list_);
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
+                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
+                _vars.getStack().last().setIndexAnnotationGroup(-1);
+                return;
+            }
+            String cl_ = inst_.getClassName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            ConstructorId c_ = inst_.getConstId();
             list_.addAllElts(inst_.getErrs());
             String err_ = getLineErr(list_);
             CustList<RootBlock> refFoundTypes_ = _vars.getRefFoundTypes();
@@ -1520,7 +1538,7 @@ public final class LinkageUtil {
                 addParts(_vars, refFoundTypes_, refOperators_, fileName_, cl_, c_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
                 if (!list_.isEmpty()) {
-                    String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\">";
+                    String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                     _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 } else {
                     String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
@@ -1909,7 +1927,7 @@ public final class LinkageUtil {
         _parts.add(new PartOffset("</a>",endName_));
     }
     private static void processInnerElementBlockReport(VariablesOffsets _vars, InnerElementBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
-        StandardInstancingOperation inst_ = (StandardInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
+        AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
             processAnnotationReport(_vars, _cond, _parts, _cov);
@@ -1948,27 +1966,44 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond, CustList<PartOffset> _parts) {
-        StandardInstancingOperation inst_ = (StandardInstancingOperation) _cond.getRoot().getFirstChild().getNextSibling();
+        OperationNode firstChild_ = _cond.getRoot().getFirstChild();
+        OperationNode next_ = null;
+        if (firstChild_ != null) {
+            next_ = firstChild_.getNextSibling();
+        }
+        AbstractInstancingOperation inst_ = null;
+        if (next_ instanceof AbstractInstancingOperation) {
+            inst_ = (AbstractInstancingOperation) next_;
+        }
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
         if (k_ == -1) {
             processAnnotationError(_vars, _cond, _parts);
             if (_vars.getState() != null) {
                 return;
             }
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-            ConstructorId c_ = inst_.getConstId();
             String fileName_ = _vars.getCurrentFileName();
             StringList list_ = new StringList(_cond.getNameErrors());
             String uniqueFieldName_ = _cond.getUniqueFieldName();
             if (uniqueFieldName_.trim().isEmpty()) {
                 String err_ = getLineErr(list_);
-                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\">";
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + 1));
                 return;
             }
+            if (inst_ == null) {
+                list_.addAllElts(_cond.getRoot().getErrs());
+                String err_ = getLineErr(list_);
+                String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + " class=\"e\">";
+                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
+                return;
+            }
+            String cl_ = inst_.getClassName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            ConstructorId c_ = inst_.getConstId();
             list_.addAllElts(inst_.getErrs());
             String err_ = getLineErr(list_);
             CustList<RootBlock> refFoundTypes_ = _vars.getRefFoundTypes();
@@ -2704,11 +2739,9 @@ public final class LinkageUtil {
             MethodOperation.processEmptyError(_val,l_);
             IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
             if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
-                int s_;
-                int len_;
                 if (!l_.isEmpty()) {
-                    s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
-                    len_ = operators_.getValue(indexChild_).length();
+                    int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
+                    int len_ = operators_.getValue(indexChild_).length();
                     _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">",s_));
                     _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
                 } else {
@@ -3561,8 +3594,6 @@ public final class LinkageUtil {
             int index_ = _curOp.getIndexChild();
             IntTreeMap<String> operators_ =  _parent.getOperations().getOperators();
             ClassMethodId test_ = null;
-            int s_;
-            int len_;
             if (_parent instanceof ShortTernaryOperation && index_ == 1) {
                 ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
                 test_ = sh_.getTest();
@@ -3572,10 +3603,9 @@ public final class LinkageUtil {
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 addParts(_vars, refFoundTypes_,refOperators_,_currentFileName,className_,test_.getConstraints(),_offsetEnd,1,l_,l_,_parts);
             } else if (!l_.isEmpty()) {
-                s_ = _offsetEnd;
-                len_ = operators_.getValue(index_).length();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">",s_));
-                _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
+                int len_ = operators_.getValue(index_).length();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">", _offsetEnd));
+                _parts.add(new PartOffset("</a>", _offsetEnd +Math.max(len_,1)));
             } else {
                 appendPossibleParts(_parts, _parent, index_);
             }

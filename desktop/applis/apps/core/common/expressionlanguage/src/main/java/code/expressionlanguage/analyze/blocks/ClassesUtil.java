@@ -2487,18 +2487,14 @@ public final class ClassesUtil {
         if (_method.getKind() == MethodKind.SET_INDEX) {
             String p_ = _page.getKeyWords().getKeyWordValue();
             CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
-            for (Block d: getDirectChildren(_cl)) {
-                if (!(d instanceof OverridableBlock)) {
+            for (OverridableBlock d: _cl.getOverridableBlocks()) {
+                if (d.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
-                OverridableBlock i_ = (OverridableBlock) d;
-                if (i_.getKind() != MethodKind.GET_INDEX) {
+                if (!d.getId().eqPartial(_method.getId())) {
                     continue;
                 }
-                if (!i_.getId().eqPartial(_method.getId())) {
-                    continue;
-                }
-                getIndexers_.add(i_);
+                getIndexers_.add(d);
             }
             if (getIndexers_.size() == 1) {
                 OverridableBlock matching_ = getIndexers_.first();
@@ -2697,16 +2693,6 @@ public final class ClassesUtil {
         }
     }
 
-
-    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
-        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
-        for (Block b: getDirectChildren(_element)) {
-            if (b instanceof InfoBlock) {
-                methods_.add((InfoBlock) b);
-            }
-        }
-        return methods_;
-    }
 
     public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(RootBlock _r, String _id) {
         CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();

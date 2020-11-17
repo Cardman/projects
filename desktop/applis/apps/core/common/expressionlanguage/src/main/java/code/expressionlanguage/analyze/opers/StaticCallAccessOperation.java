@@ -46,7 +46,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _page.getLocalizer().addError(badAccess_);
-            getErrs().add(badAccess_.getBuiltError());
+            addErr(badAccess_.getBuiltError());
         }
         if (classStr_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
@@ -56,7 +56,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _page.getLocalizer().addError(badAccess_);
-            getErrs().add(badAccess_.getBuiltError());
+            addErr(badAccess_.getBuiltError());
         }
         if (StringExpUtil.isWildCard(classStr_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
@@ -66,7 +66,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _page.getLocalizer().addError(badAccess_);
-            getErrs().add(badAccess_.getBuiltError());
+            addErr(badAccess_.getBuiltError());
         }
         checkClassAccess(this, glClass_, classStr_, _page);
         Argument a_ = new Argument();

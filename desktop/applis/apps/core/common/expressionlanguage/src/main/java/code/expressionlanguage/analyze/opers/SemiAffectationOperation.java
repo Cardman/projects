@@ -49,7 +49,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     operatorContent.getOper());
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -65,7 +65,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _page.getLocalizer().addError(un_);
-                getErrs().add(un_.getBuiltError());
+                addErr(un_.getBuiltError());
             }
         }
         setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
@@ -100,7 +100,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         StringUtil.join(clMatchLeft_.getNames(),"&"));
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
             return;
         }

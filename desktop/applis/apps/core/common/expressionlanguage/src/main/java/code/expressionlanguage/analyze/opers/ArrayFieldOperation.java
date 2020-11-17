@@ -36,7 +36,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
                 str_,
                 StringUtil.join(cl_.getNames(), "&"));
         _page.getLocalizer().addError(und_);
-        getErrs().add(und_.getBuiltError());
+        addErr(und_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
     }
 

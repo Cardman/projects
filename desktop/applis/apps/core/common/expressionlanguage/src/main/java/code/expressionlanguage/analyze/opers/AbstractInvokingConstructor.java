@@ -125,7 +125,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
             _page.addLocError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
@@ -135,7 +135,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtor());
                 _page.addLocError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -144,7 +144,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtorBeforeBlock());
                 _page.addLocError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
             } else {
                 checkPosition(_page);
             }
@@ -159,7 +159,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorFirstLine());
             _page.addLocError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
     }
 

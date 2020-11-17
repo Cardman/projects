@@ -48,7 +48,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
                     Long.toString(types_.size())
             );
             _page.getLocalizer().addError(badCall_);
-            getErrs().add(badCall_.getBuiltError());
+            addErr(badCall_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -85,7 +85,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         explicitContent.getClassName());
                 _page.getLocalizer().addError(un_);
-                getErrs().add(un_.getBuiltError());
+                addErr(un_.getBuiltError());
                 return;
             }
             String gene_ = geneType_.getGenericString();
@@ -112,7 +112,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     explicitContent.getClassName());
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
             return;
         }
         String arg_ = types_.get(1);
@@ -151,7 +151,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        getErrs().add(undefined_.getBuiltError());
+        addErr(undefined_.getBuiltError());
 
     }
 

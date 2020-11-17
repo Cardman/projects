@@ -1257,6 +1257,7 @@ public final class FileResolver {
                         int fieldNb_ = ((RootBlock)currentParent_).getCountField();
                         field_.setFieldNumber(fieldNb_);
                         ((RootBlock)currentParent_).setCountField(fieldNb_+1);
+                        ((RootBlock)currentParent_).getFieldsBlocks().add(field_);
                         br_ = field_;
                     } else {
                         found_ = realFound_;
@@ -1405,6 +1406,7 @@ public final class FileResolver {
                 int fieldNb_ = ((RootBlock)currentParent_).getCountField();
                 ((InfoBlock)br_).setFieldNumber(fieldNb_);
                 ((RootBlock)currentParent_).setCountField(fieldNb_+1);
+                ((RootBlock)currentParent_).getFieldsBlocks().add((InfoBlock)br_);
                 if (!ok_) {
                     br_.getBadIndexes().add(indexBeginCalling_ + 1+_offset);
                 }
@@ -2141,6 +2143,7 @@ public final class FileResolver {
             int fieldNb_ = _currentParent.getCountField();
             ((FieldBlock)br_).setFieldNumber(fieldNb_);
             _currentParent.setCountField(fieldNb_+1);
+            _currentParent.getFieldsBlocks().add((FieldBlock)br_);
             _currentParent.appendChild(br_);
         }
         return br_;

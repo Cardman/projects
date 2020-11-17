@@ -296,7 +296,7 @@ public final class ElUtil {
                     b_.setIndexFile(_page.getTraceIndex());
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.addLocError(b_);
-                    _current.getErrs().add(b_.getBuiltError());
+                    _current.addErr(b_.getBuiltError());
                 }
             } else {
                 if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
@@ -307,7 +307,7 @@ public final class ElUtil {
                         b_.setIndexFile(_page.getTraceIndex());
                         b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                         _page.addLocError(b_);
-                        _current.getErrs().add(b_.getBuiltError());
+                        _current.addErr(b_.getBuiltError());
                     }
                 }
             }
@@ -316,7 +316,7 @@ public final class ElUtil {
             OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();
             if (last_ instanceof ArrOperation) {
                 if (_current.getOperations().getOperators().firstValue().isEmpty()) {
-                    last_.getErrs().addAllElts(_current.getErrs());
+                    last_.mergeErrs(_current);
                 }
             }
         }

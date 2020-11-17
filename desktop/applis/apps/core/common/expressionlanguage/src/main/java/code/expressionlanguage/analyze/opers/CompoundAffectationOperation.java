@@ -83,7 +83,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _page.getLocalizer().addError(un_);
-                getErrs().add(un_.getBuiltError());
+                addErr(un_.getBuiltError());
             }
         }
         IntTreeMap< String> ops_ = getOperations().getOperators();
@@ -121,7 +121,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringUtil.join(getResultClass().getNames(),"&"),
                             StringUtil.join(elt_.getResultClass().getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
-                    getErrs().add(cast_.getBuiltError());
+                    addErr(cast_.getBuiltError());
                 }
                 setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
             }

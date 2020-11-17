@@ -54,7 +54,7 @@ public final class SuperFromFieldOperation extends
                     StringUtil.join(clCur_.getNames(),"&"),
                     className_);
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return null;
         }

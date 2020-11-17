@@ -161,7 +161,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             type_);
                     _page.getLocalizer().addError(un_);
-                    getErrs().add(un_.getBuiltError());
+                    addErr(un_.getBuiltError());
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
@@ -202,7 +202,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             type_);
                     _page.getLocalizer().addError(un_);
-                    getErrs().add(un_.getBuiltError());
+                    addErr(un_.getBuiltError());
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
@@ -247,7 +247,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         Long.toString(argsRes_.getParametersTypes().size())
                 );
                 _page.getLocalizer().addError(static_);
-                getErrs().add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -261,7 +261,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         Long.toString(argsRes_.getParametersTypes().size())
                 );
                 _page.getLocalizer().addError(static_);
-                getErrs().add(static_.getBuiltError());
+                addErr(static_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -386,7 +386,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                                 s);
                         _page.getLocalizer().addError(static_);
-                        getErrs().add(static_.getBuiltError());
+                        addErr(static_.getBuiltError());
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -443,7 +443,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     StringUtil.join(p.getNames(),"&"));
                             _page.getLocalizer().addError(un_);
-                            getErrs().add(un_.getBuiltError());
+                            addErr(un_.getBuiltError());
                         }
                         String cp_ = comp_;
                         comp_ = StringExpUtil.getQuickComponentType(comp_);
@@ -455,7 +455,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                     cp_);
                             _page.getLocalizer().addError(un_);
-                            getErrs().add(un_.getBuiltError());
+                            addErr(un_.getBuiltError());
                             err_ = true;
                             break;
                         }
@@ -660,7 +660,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _page.getLocalizer().addError(static_);
-                    getErrs().add(static_.getBuiltError());
+                    addErr(static_.getBuiltError());
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
@@ -716,7 +716,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 StringUtil.join(p.getNames(),"&"));
                         _page.getLocalizer().addError(un_);
-                        getErrs().add(un_.getBuiltError());
+                        addErr(un_.getBuiltError());
                     }
                     String cp_ = comp_;
                     comp_ = StringExpUtil.getQuickComponentType(comp_);
@@ -728,7 +728,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 cp_);
                         _page.getLocalizer().addError(un_);
-                        getErrs().add(un_.getBuiltError());
+                        addErr(un_.getBuiltError());
                         err_ = true;
                         break;
                     }
@@ -781,7 +781,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringUtil.join(bounds_,"&"),
                     StringUtil.join(str_,"&"));
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -833,7 +833,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     _page.getAliasClone(),
                     StringUtil.join(_str,"&"));
             _page.getLocalizer().addError(undefined_);
-            getErrs().add(undefined_.getBuiltError());
+            addErr(undefined_.getBuiltError());
             return true;
         }
         return false;
@@ -860,7 +860,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         _id.getRealClass(),
                         _id.getRealId().getSignature(_page));
                 _page.getLocalizer().addError(abs_);
-                getErrs().add(abs_.getBuiltError());
+                addErr(abs_.getBuiltError());
             }
         }
     }
@@ -906,7 +906,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _page.getLocalizer().addError(static_);
-                    getErrs().add(static_.getBuiltError());
+                    addErr(static_.getBuiltError());
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
@@ -937,7 +937,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                         id_);
                 _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -950,7 +950,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         p,
                         clFrom_);
                 _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
             }
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructorLambda(this, vararg_, new AnaClassArgumentMatching(clFrom_),id_, h_,feed_, _page, OperationNode.toArgArray(methodTypes_));
@@ -1007,7 +1007,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorArray(),
                         o);
                 _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
                 ok_ = false;
                 continue;
             }
@@ -1020,7 +1020,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         p,
                         o);
                 _page.getLocalizer().addError(call_);
-                getErrs().add(call_.getBuiltError());
+                addErr(call_.getBuiltError());
                 ok_ = false;
             }
         }
@@ -1043,7 +1043,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     idClass_
             );
             _page.getLocalizer().addError(static_);
-            getErrs().add(static_.getBuiltError());
+            addErr(static_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -1064,7 +1064,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         partOffsets.clear();
         partOffsets.addAllElts(partOffsets_);
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        cl_ = AnaTemplates.check(getErrs(), StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+        cl_ = check(StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         processCtor(methodTypes_, vararg_, null, cl_, _page);
     }
 
@@ -1080,7 +1080,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     p,
                     _cl);
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
         AnaGeneType h_ = _page.getAnaGeneType(id_);
@@ -1093,7 +1093,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     id_);
             _page.getLocalizer().addError(call_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return;
         }
         ConstrustorIdVarArg ctorRes_;
@@ -1260,7 +1260,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             arg_,
                             out_);
                     _page.getLocalizer().addError(cast_);
-                    getErrs().add(cast_.getBuiltError());
+                    addErr(cast_.getBuiltError());
                 }
                 params_.add(arg_);
                 //setter
@@ -1319,7 +1319,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             arg_,
                             out_);
                     _page.getLocalizer().addError(cast_);
-                    getErrs().add(cast_.getBuiltError());
+                    addErr(cast_.getBuiltError());
                 }
                 params_.add(arg_);
                 //setter
@@ -1368,7 +1368,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         StringUtil.join(bounds_,"&"),
                         StringUtil.join(str_,"&"));
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -1421,7 +1421,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringUtil.join(bounds_,"&"),
                     StringUtil.join(str_,"&"));
             _page.getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            addErr(cast_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -1469,7 +1469,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         arg_,
                         out_);
                 _page.getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
+                addErr(cast_.getBuiltError());
             }
             params_.add(arg_);
             //setter
@@ -1502,7 +1502,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     _classField.getFieldName());
             _page.getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            addErr(un_.getBuiltError());
         }
     }
 
@@ -1610,7 +1610,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _page.getLocalizer().addError(static_);
-                    getErrs().add(static_.getBuiltError());
+                    addErr(static_.getBuiltError());
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
@@ -1729,7 +1729,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         StringUtil.join(clArg_.getNames(),"&"));
                 _page.getLocalizer().addError(un_);
-                getErrs().add(un_.getBuiltError());
+                addErr(un_.getBuiltError());
                 err_ = true;
             }
             methodTypes_.add(clArg_);
@@ -1744,7 +1744,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     Long.toString(_len)
             );
             _page.getLocalizer().addError(badCall_);
-            getErrs().add(badCall_.getBuiltError());
+            addErr(badCall_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

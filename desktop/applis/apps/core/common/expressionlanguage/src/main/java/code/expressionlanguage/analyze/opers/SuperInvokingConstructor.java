@@ -30,7 +30,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
@@ -46,7 +46,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorNoSuperClassEnum());
             _page.getLocalizer().addError(call_);
-            getErrs().add(call_.getBuiltError());
+            addErr(call_.getBuiltError());
         }
         return new AnaClassArgumentMatching(superClass_);
     }

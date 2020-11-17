@@ -60,7 +60,7 @@ public final class ConstantOperation extends LeafOperation {
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 _page.getLocalizer().addError(badFormat_);
-                getErrs().add(badFormat_.getBuiltError());
+                addErr(badFormat_.getBuiltError());
             }
             return;
         }
@@ -75,7 +75,7 @@ public final class ConstantOperation extends LeafOperation {
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 _page.getLocalizer().addError(badFormat_);
-                getErrs().add(badFormat_.getBuiltError());
+                addErr(badFormat_.getBuiltError());
             } else if (!originalStr_.isEmpty()) {
                 a_ = new Argument(new CharStruct(originalStr_.charAt(0)));
             } else {
@@ -86,7 +86,7 @@ public final class ConstantOperation extends LeafOperation {
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 _page.getLocalizer().addError(badFormat_);
-                getErrs().add(badFormat_.getBuiltError());
+                addErr(badFormat_.getBuiltError());
             }
             setSimpleArgument(a_);
             setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -102,7 +102,7 @@ public final class ConstantOperation extends LeafOperation {
             badFormat_.buildError(_page.getAnalysisMessages().getBadNbFormat(),
                     str_);
             _page.getLocalizer().addError(badFormat_);
-            getErrs().add(badFormat_.getBuiltError());
+            addErr(badFormat_.getBuiltError());
             argClassName_ = _page.getAliasPrimDouble();
         }
         Argument arg_ = new Argument(parsed_.getStruct());
