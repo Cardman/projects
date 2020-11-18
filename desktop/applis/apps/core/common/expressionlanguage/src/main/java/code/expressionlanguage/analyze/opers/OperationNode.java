@@ -521,11 +521,7 @@ public abstract class OperationNode {
 
     final boolean isFirstChildInParent() {
         MethodOperation par_ = getParent();
-        int ind_ = 0;
-        if (par_.getFirstChild() instanceof StaticInitOperation) {
-            ind_++;
-        }
-        return getIndexChild() == ind_;
+        return getIndexChild() == 0;
     }
 
     public abstract OperationNode getFirstChild();

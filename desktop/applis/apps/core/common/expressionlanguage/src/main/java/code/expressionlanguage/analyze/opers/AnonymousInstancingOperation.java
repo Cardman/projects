@@ -164,12 +164,6 @@ public final class AnonymousInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        OperationNode possibleInit_ = getFirstChild();
-        if (possibleInit_ instanceof StaticInitOperation) {
-            StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
-            boolean staticType_ = g_.isStaticType();
-            st_.setInit(base_,staticType_, _page);
-        }
         setResultClass(new AnaClassArgumentMatching(type));
     }
 

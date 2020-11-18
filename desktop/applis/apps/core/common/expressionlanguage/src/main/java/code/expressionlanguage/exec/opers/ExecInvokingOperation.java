@@ -69,7 +69,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (c instanceof ExecNamedArgumentOperation) {
                 named_.add((ExecNamedArgumentOperation)c);
                 filter_.add(c);
-            } else if (!(c instanceof ExecStaticInitOperation)){
+            } else {
                 args_.add(getArgument(_all,c));
                 filter_.add(c);
             }

@@ -55,7 +55,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
             if (c instanceof ReachNamedArgumentOperation) {
                 named_.add((ReachNamedArgumentOperation)c);
                 filter_.add(c);
-            } else if (!(c instanceof ReachStaticInitOperation)){
+            } else {
                 args_.add(c.getArgument());
                 filter_.add(c);
             }

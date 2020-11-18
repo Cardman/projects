@@ -241,18 +241,7 @@ public final class ElUtil {
     }
 
     private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
-        if (isInitializeStaticClassFirst(_current)) {
-            AbstractInstancingOperation block_ = (AbstractInstancingOperation) _current;
-            Delimiters d_ = block_.getOperations().getDelimiter();
-            OperationsSequence opSeq_ = new OperationsSequence();
-            opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(d_);
-            StaticInitOperation staticInitOperation_ = new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-            block_.setNewBefore(false);
-            block_.appendChild(staticInitOperation_);
-            return staticInitOperation_;
-        }
-        OperationNode next_ = createFirstChild(_current, 0,_fieldName,_hasFieldName, _page);
+        OperationNode next_ = createFirstChild(_current, _fieldName,_hasFieldName, _page);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -333,16 +322,10 @@ public final class ElUtil {
     }
 
     private static OperationNode processNext(OperationNode _current, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
-        OperationNode next_;
-        if (_current instanceof StaticInitOperation) {
-            next_ = createFirstChild(_current.getParent(), 1,_fieldName,_hasFieldName, _page);
-        } else {
-            next_ = createNextSibling(_current, _fieldName,_hasFieldName, _page);
-        }
-        return next_;
+        return createNextSibling(_current, _fieldName,_hasFieldName, _page);
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, int _index, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
+    private static OperationNode createFirstChild(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -355,13 +338,9 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _page);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, 0, block_, r_, _page);
         setFieldName(_fieldName, block_, op_,_hasFieldName);
         return op_;
-    }
-
-    public static boolean isInitializeStaticClassFirst(OperationNode _block) {
-        return _block instanceof AbstractInstancingOperation && ((AbstractInstancingOperation) _block).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
@@ -370,16 +349,13 @@ public final class ElUtil {
             return null;
         }
         IntTreeMap<String> children_ = p_.getChildren();
-        int delta_ = 1;
-        if (p_ instanceof AbstractInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
-            delta_ = 0;
-        }
-        if (_block.getIndexChild() + delta_ >= children_.size()) {
+        int del_ = _block.getIndexChild() + 1;
+        if (del_ >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(_block.getIndexChild() + delta_);
+        String value_ = children_.getValue(del_);
         Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
+        int curKey_ = children_.getKey(del_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _page);
@@ -394,14 +370,7 @@ public final class ElUtil {
     }
 
     public static CustList<OperationNode> filterInvoking(CustList<OperationNode> _list) {
-        CustList<OperationNode> out_ = new CustList<OperationNode>();
-        for (OperationNode o: _list) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            out_.add(o);
-        }
-        return out_;
+        return _list;
     }
 
     public static boolean isDeclaringField(OperationNode _var, AnalyzedPageEl _page) {

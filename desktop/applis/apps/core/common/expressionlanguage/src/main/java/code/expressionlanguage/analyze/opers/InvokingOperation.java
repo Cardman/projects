@@ -86,8 +86,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
             } else {
                 if (!(o instanceof VarargOperation
-                        || o instanceof IdFctOperation
-                        || o instanceof StaticInitOperation)) {
+                        || o instanceof IdFctOperation)) {
                     positionalArgs_.add(o);
                 }
             }
@@ -131,12 +130,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected static int getDeltaCount(OperationNode _firstChild) {
         int deltaCount_ = 0;
-        OperationNode next_ = _firstChild;
-        if (_firstChild instanceof StaticInitOperation){
-            next_ = _firstChild.getNextSibling();
-            deltaCount_ = 1;
-        }
-        if (next_ instanceof IdFctOperation || next_ instanceof VarargOperation) {
+        if (_firstChild instanceof IdFctOperation || _firstChild instanceof VarargOperation) {
             deltaCount_++;
         }
         return deltaCount_;
@@ -403,13 +397,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (first_ == null) {
             return -1;
         }
-        if (first_ instanceof StaticInitOperation) {
-            from_++;
-            first_ = first_.getNextSibling();
-            if (first_ == null) {
-                return -1;
-            }
-        }
         if (!(first_ instanceof VarargOperation)&&!(first_ instanceof IdFctOperation)) {
             return -1;
         }
@@ -433,12 +420,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         OperationNode first_ = getFirstChild();
         if (first_ == null) {
             return null;
-        }
-        if (first_ instanceof StaticInitOperation) {
-            first_ = first_.getNextSibling();
-            if (first_ == null) {
-                return null;
-            }
         }
         if (!(first_ instanceof IdFctOperation)) {
             return null;

@@ -3,7 +3,6 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElResolver;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
@@ -102,18 +101,7 @@ public final class RenderAnalysis {
     }
 
     private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (ElUtil.isInitializeStaticClassFirst(_current)) {
-            AbstractInstancingOperation block_ = (AbstractInstancingOperation) _current;
-            Delimiters d_ = block_.getOperations().getDelimiter();
-            OperationsSequence opSeq_ = new OperationsSequence();
-            opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(d_);
-            StaticInitOperation staticInitOperation_ = new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-            block_.setNewBefore(false);
-            block_.appendChild(staticInitOperation_);
-            return staticInitOperation_;
-        }
-        OperationNode next_ = createFirstChild(_current, 0, _anaDoc, _page);
+        OperationNode next_ = createFirstChild(_current, _anaDoc, _page);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -124,11 +112,7 @@ public final class RenderAnalysis {
             processAnalyze(current_, _anaDoc, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            if (current_ instanceof StaticInitOperation) {
-                next_ = createFirstChild(current_.getParent(), 1, _anaDoc, _page);
-            } else {
-                next_ = createNextSibling(current_, _anaDoc, _page);
-            }
+            next_ = createNextSibling(current_, _anaDoc, _page);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof AbstractDotOperation) {
@@ -204,7 +188,7 @@ public final class RenderAnalysis {
         }
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static OperationNode createFirstChild(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -217,7 +201,7 @@ public final class RenderAnalysis {
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
-        return createOperationNode(offset_, _index, block_, r_, _anaDoc, _page);
+        return createOperationNode(offset_, 0, block_, r_, _anaDoc, _page);
     }
 
     private static OperationNode createNextSibling(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -226,16 +210,13 @@ public final class RenderAnalysis {
             return null;
         }
         IntTreeMap<String> children_ = p_.getChildren();
-        int delta_ = 1;
-        if (p_ instanceof AbstractInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
-            delta_ = 0;
-        }
-        if (_block.getIndexChild() + delta_ >= children_.size()) {
+        int del_ = _block.getIndexChild() + 1;
+        if (del_ >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(_block.getIndexChild() + delta_);
+        String value_ = children_.getValue(del_);
         Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
+        int curKey_ = children_.getKey(del_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
         return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _anaDoc, _page);

@@ -488,10 +488,6 @@ public final class RendForwardInfos {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(new ExecOperationContent(m_.getContent()), m_.getOff());
         }
-        if (_anaNode instanceof StaticInitOperation) {
-            StaticInitOperation c_ = (StaticInitOperation) _anaNode;
-            return new RendStaticInitOperation(new ExecOperationContent(c_.getContent()), c_.isPossibleInitClass());
-        }
         if (_anaNode instanceof ForwardOperation) {
             ForwardOperation c_ = (ForwardOperation) _anaNode;
             return new RendForwardOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediate());

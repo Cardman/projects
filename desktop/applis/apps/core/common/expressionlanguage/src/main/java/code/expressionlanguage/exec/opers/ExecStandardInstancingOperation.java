@@ -15,21 +15,17 @@ import code.util.IdMap;
 import code.util.core.StringUtil;
 
 public final class ExecStandardInstancingOperation extends
-        ExecInvokingOperation {
+        ExecAbstractInstancingOperation {
 
-    private ExecInstancingCommonContent instancingCommonContent;
     private ExecInstancingStdContent instancingStdContent;
 
-    private ExecTypeFunction pair;
     private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock ctor;
-    public ExecStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
-        super(_opCont, _intermediateDottedOperation);
-        instancingCommonContent = _instancingCommonContent;
+    public ExecStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, boolean _initBefore, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
+        super(_opCont, _intermediateDottedOperation, _initBefore, _pair,_instancingCommonContent);
         instancingStdContent = _instancingStdContent;
-        pair = _pair;
-        rootBlock = pair.getType();
-        ctor = pair.getFct();
+        rootBlock = _pair.getType();
+        ctor = _pair.getFct();
     }
 
     @Override
@@ -40,7 +36,7 @@ public final class ExecStandardInstancingOperation extends
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
-        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
         if (!instancingStdContent.getFieldName().isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
             off_ -= instancingStdContent.getFieldName().length();
@@ -55,15 +51,15 @@ public final class ExecStandardInstancingOperation extends
             }
         }
         CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareCust(_conf, className_, pair, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return instancePrepareCust(_conf, className_, getPair(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
-        return fectchInstFormattedArgs(_nodes,_className,rootBlock, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
+        return fectchInstFormattedArgs(_nodes,_className,rootBlock, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg());
     }
 
     public String getClassName() {
-        return instancingCommonContent.getClassName();
+        return getInstancingCommonContent().getClassName();
     }
 
     public ExecNamedFunctionBlock getCtor() {
@@ -71,6 +67,6 @@ public final class ExecStandardInstancingOperation extends
     }
 
     public int getNaturalVararg() {
-        return instancingCommonContent.getNaturalVararg();
+        return getInstancingCommonContent().getNaturalVararg();
     }
 }

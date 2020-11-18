@@ -2386,8 +2386,14 @@ public final class LinkageUtil {
             boolean stopOp_ = false;
             while (true) {
                 MethodOperation parent_ = val_.getParent();
+                if (parent_ == null) {
+                    stopOp_ = true;
+                    getEnd(_parts, _fieldName, addCover_, _endBlock + _tr);
+                    _vars.getStack().last().setCurrent(null);
+                    break;
+                }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
-                String tag_ = getEndTag(addCover_, val_);
+                String tag_ = getEndTag(addCover_, val_, _root, _fieldName);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
                 _parts.add(new PartOffset(tag_,offsetEnd_));
                 processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
@@ -2417,7 +2423,7 @@ public final class LinkageUtil {
                     stopOp_ = true;
                 }
                 if (stopOp_) {
-                    getEnd(_endBlock, _parts, _tr, _fieldName, addCover_);
+                    getEnd(_parts, _fieldName, addCover_, _endBlock + _tr);
                     _vars.getStack().last().setCurrent(null);
                     break;
                 }
@@ -2478,6 +2484,11 @@ public final class LinkageUtil {
             boolean stopOp_ = false;
             while (true) {
                 MethodOperation parent_ = val_.getParent();
+                if (parent_ == null) {
+                    stopOp_ = true;
+                    _vars.getStack().last().setCurrent(null);
+                    break;
+                }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
                 processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
@@ -2520,46 +2531,48 @@ public final class LinkageUtil {
 
     private static boolean end(VariablesOffsets _vars, MethodOperation _parent, String _currentFileName, int _offsetEnd, CustList<PartOffset> _parts, OperationNode _r) {
         boolean stopOp_ = false;
-        if (_parent == null) {
+        right(_vars,_currentFileName, _offsetEnd, _parent,_parts);
+        if (_parent == _r) {
             stopOp_ = true;
-        } else {
-            right(_vars,_currentFileName, _offsetEnd, _parent,_parts);
-            if (_parent == _r) {
-                stopOp_ = true;
-            }
         }
         return stopOp_;
     }
     private static void getBeginOpReport(Block _block, CustList<PartOffset> _parts, String _fieldName, OperationNode _root, OperationNode _curOp, int _sum, boolean _addCover, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
-        if (_curOp != _root || _fieldName.isEmpty()) {
-            String tag_ = getBeginReport(_block, _root, _addCover, _curOp, _result, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+        if (addTag(_fieldName, _root, _curOp, _addCover)) {
+            String tag_ = getBeginReport(_block, _root, _curOp, _result, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             _parts.add(new PartOffset(tag_,_sum + _curOp.getIndexInEl()));
         }
     }
 
-    private static void getEnd(int _endBlock, CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _addCover) {
+    private static void getEnd(CustList<PartOffset> _parts, String _fieldName, boolean _addCover, int _offset) {
         String tag_ = "</span>";
         if (_addCover && _fieldName.isEmpty()) {
-            _parts.add(new PartOffset(tag_,_endBlock+_tr));
+            _parts.add(new PartOffset(tag_, _offset));
         }
     }
 
-    private static String getEndTag(boolean _addCover, OperationNode _val) {
+    private static String getEndTag(boolean _addCover, OperationNode _val, OperationNode _root, String _fieldName) {
         String tag_;
-        if (!_addCover || _val instanceof StaticInitOperation || _val.getParent() == null) {
-            tag_ = "";
-        } else {
+        if (addTag(_fieldName,_root,_val,_addCover)) {
             tag_ = "</span>";
+        } else {
+            tag_ = "";
         }
         return tag_;
     }
 
-    private static String getBeginReport(Block _block, OperationNode _root, boolean _addCover, OperationNode _val, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static boolean addTag(String _fieldName, OperationNode _root, OperationNode _curOp, boolean _addCover) {
+        return (_curOp != _root || _fieldName.isEmpty())&&_addCover;
+    }
+
+    private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
+        int indexChild_ = _val.getIndexChild();
+        IntTreeMap<String> children_ = _parent.getChildren();
+        return _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
+    }
+
+    private static String getBeginReport(Block _block, OperationNode _root, OperationNode _val, AbstractCoverageResult _result, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         String tag_;
-        if (!_addCover ||_val instanceof StaticInitOperation) {
-            tag_ = "";
-            return tag_;
-        }
         String full_;
         String fullInit_;
         String partial_;
@@ -3551,23 +3564,6 @@ public final class LinkageUtil {
                 addParts(_vars, _refFoundTypes,_refOperators,_currentFileName,className_,test_.getConstraints(),begin_,_vars.getKeyWords().getKeyWordBool().length(),l_,l_,_parts);
             }
         }
-    }
-
-    private static int getOffsetEnd(int _sum, OperationNode _val, MethodOperation _parent) {
-        int offsetEnd_ = 0;
-        if (_parent != null) {
-            int indexChild_ = _val.getIndexChild();
-            if (_parent instanceof AbstractInstancingOperation && _parent.getFirstChild() instanceof StaticInitOperation) {
-                indexChild_--;
-            }
-            IntTreeMap<String> children_ = _parent.getChildren();
-            if (indexChild_ > -1) {
-                offsetEnd_ = _sum + _val.getIndexInEl() + children_.getValue(indexChild_).length();
-            } else {
-                offsetEnd_ = _sum + _val.getIndexInEl();
-            }
-        }
-        return offsetEnd_;
     }
 
     private static void middleReport(VariablesOffsets _vars,

@@ -28,7 +28,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             if (c instanceof RendNamedArgumentOperation) {
                 named_.add((RendNamedArgumentOperation)c);
                 filter_.add(c);
-            } else if (!(c instanceof RendStaticInitOperation)){
+            } else {
                 args_.add(getArgument(_all,c));
                 filter_.add(c);
             }

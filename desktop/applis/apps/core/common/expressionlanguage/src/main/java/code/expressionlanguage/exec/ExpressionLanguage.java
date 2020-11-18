@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.*;
@@ -47,6 +48,15 @@ public final class ExpressionLanguage {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             ExecOperationNode o = _nodes.getKey(fr_);
+            ExecMethodOperation parent_ = o.getParent();
+            if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
+                ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getPair().getType();
+                String fullName_ = type_.getFullName();
+                if (type_.isStaticType()&&_context.getExiting().hasToExit(fullName_)) {
+                    processCalling(_el, _context, pageEl_, o);
+                    return;
+                }
+            }
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
@@ -228,7 +238,7 @@ public final class ExpressionLanguage {
         return arguments;
     }
 
-    public void setCurrentOper(ExecOperationNode _currentOper) {
+    private void setCurrentOper(ExecOperationNode _currentOper) {
         currentOper = _currentOper;
         index = _currentOper.getOrder();
     }

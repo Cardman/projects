@@ -936,10 +936,6 @@ public final class ForwardInfos {
     }
 
     private static ExecOperationNode createExecOperationNode(OperationNode _anaNode, Forwards _forwards) {
-        if (_anaNode instanceof StaticInitOperation) {
-            StaticInitOperation c_ = (StaticInitOperation) _anaNode;
-            return new ExecStaticInitOperation(new ExecOperationContent(c_.getContent()), c_.isPossibleInitClass());
-        }
         if (_anaNode instanceof ConstantOperation) {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new ExecConstLeafOperation(false, new ExecOperationContent(c_.getContent()));
@@ -1011,13 +1007,13 @@ public final class ForwardInfos {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards);
             if (typeCtor_ != null) {
-                return new ExecStandardInstancingOperation(typeCtor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), new ExecInstancingStdContent(s_.getInstancingStdContent()));
+                return new ExecStandardInstancingOperation(typeCtor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), new ExecInstancingStdContent(s_.getInstancingStdContent()));
             }
             return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()));
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
-            return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards));
+            return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCommonContent(s_.getInstancingCommonContent()), FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards));
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;

@@ -177,12 +177,6 @@ public final class StandardInstancingOperation extends
             addErr(call_.getBuiltError());
             return;
         }
-        OperationNode possibleInit_ = getFirstChild();
-        if (possibleInit_ instanceof StaticInitOperation) {
-            StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
-            boolean staticType_ = g_.isStaticType();
-            st_.setInit(base_,staticType_, _page);
-        }
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -39,9 +39,6 @@ public abstract class ReachOperationNode {
         if (_oper instanceof IdFctOperation) {
             return new ReachNoopOperation(_oper);
         }
-        if (_oper instanceof StaticInitOperation) {
-            return new ReachStaticInitOperation(_oper);
-        }
         if (_oper instanceof ArrayFieldOperation) {
             return new ReachArrayFieldOperation(_oper);
         }
