@@ -205,7 +205,7 @@ abstract class AnaPartType {
         return beginOffset;
     }
 
-    void setBeginOffset(PartOffset _beginOffset) {
+    private void setBeginOffset(PartOffset _beginOffset) {
         beginOffset = _beginOffset;
     }
 
@@ -213,7 +213,7 @@ abstract class AnaPartType {
         return endOffset;
     }
 
-    void setEndOffset(PartOffset _endOffset) {
+    private void setEndOffset(PartOffset _endOffset) {
         endOffset = _endOffset;
     }
 

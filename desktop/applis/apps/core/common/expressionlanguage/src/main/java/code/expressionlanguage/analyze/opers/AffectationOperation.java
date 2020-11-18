@@ -196,10 +196,6 @@ public final class AffectationOperation extends MethodOperation {
     }
 
     public static String processInfer(String _import, AnalyzedPageEl _page) {
-        return processInferLoop(_import, _page);
-    }
-
-    public static String processInferLoop(String _import, AnalyzedPageEl _page) {
         StringList vars_ = _page.getVariablesNames();
         if (StringUtil.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

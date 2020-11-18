@@ -84,25 +84,6 @@ public final class ContextUtil {
         return _outer == _root.getOuterParent();
     }
 
-    public static int getCurrentChildTypeIndex(OperationNode _op, AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
-        if (isEnumType(_type)) {
-            if (_fieldName.isEmpty()) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                String file_ = _page.getLocalizer().getCurrentFileName();
-                int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
-                call_.setFileName(file_);
-                call_.setIndexFile(fileIndex_);
-                //type len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());
-                _page.getLocalizer().addError(call_);
-                _op.setResultClass(new AnaClassArgumentMatching(_realClassName));
-                _op.addErr(call_.getBuiltError());
-                return -2;
-            }
-            return _page.getIndexChildType();
-        }
-        return -1;
-    }
     public static CustList<TypeVar> getParamTypesMapValues(AnaGeneType _type) {
         if (_type instanceof RootBlock) {
             return ((RootBlock)_type).getParamTypesMapValues();

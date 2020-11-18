@@ -114,7 +114,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             String t_ = inferOrObject(importedClassName, _page);
-            AffectationOperation.processInferLoop(t_, _page);
+            AffectationOperation.processInfer(t_, _page);
             getVariableNames().addAllElts(vars_);
         }
         _page.setMerged(false);

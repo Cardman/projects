@@ -178,6 +178,7 @@ public final class ResolvingImportTypes {
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
         AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
+        partOffsets_.clear();
         String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
@@ -237,6 +238,7 @@ public final class ResolvingImportTypes {
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
         AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
+        partOffsets_.clear();
         String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
@@ -293,7 +295,6 @@ public final class ResolvingImportTypes {
             un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
             _page.getLocalizer().addError(un_);
-            partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));

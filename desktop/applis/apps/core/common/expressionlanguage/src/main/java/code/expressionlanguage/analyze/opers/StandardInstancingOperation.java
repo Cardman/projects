@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -207,7 +206,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
-        instancingStdContent.setBlockIndex(ContextUtil.getCurrentChildTypeIndex(this, g_, instancingStdContent.getFieldName(), _realClassName, _page));
+        instancingStdContent.setBlockIndex(getCurrentChildTypeIndex(g_, instancingStdContent.getFieldName(), _realClassName, _page));
         if (instancingStdContent.getBlockIndex() < -1) {
             return;
         }
@@ -238,6 +237,26 @@ public final class StandardInstancingOperation extends
         }
         unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
+    }
+
+    private int getCurrentChildTypeIndex(AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
+        if (ContextUtil.isEnumType(_type)) {
+            if (_fieldName.isEmpty()) {
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                String file_ = _page.getLocalizer().getCurrentFileName();
+                int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
+                call_.setFileName(file_);
+                call_.setIndexFile(fileIndex_);
+                //type len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());
+                _page.getLocalizer().addError(call_);
+                setResultClass(new AnaClassArgumentMatching(_realClassName));
+                addErr(call_.getBuiltError());
+                return -2;
+            }
+            return _page.getIndexChildType();
+        }
+        return -1;
     }
 
     public boolean isHasFieldName() {

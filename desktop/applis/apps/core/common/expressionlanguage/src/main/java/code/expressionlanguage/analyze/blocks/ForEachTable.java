@@ -59,7 +59,6 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
 
     private int expressionOffset;
 
-    private Argument argument;
     private OperationNode root;
     private CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
 
@@ -312,36 +311,35 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
                 return;
             }
         }
-        AnalyzedPageEl page_ = _page;
         if (okVarFirst) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffsetFirst);
             lv_.setIndexClassName(importedClassIndexName);
-            page_.getLoopsVars().put(variableNameFirst, lv_);
+            _page.getLoopsVars().put(variableNameFirst, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
             } else {
-                lInfo_.setClassName(page_.getAliasObject());
+                lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setRef(variableNameOffsetFirst);
             lInfo_.setConstType(ConstType.FIX_VAR);
-            page_.getInfosVars().put(variableNameFirst, lInfo_);
+            _page.getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffsetSecond);
             lv_.setIndexClassName(importedClassIndexName);
-            page_.getLoopsVars().put(variableNameSecond, lv_);
+            _page.getLoopsVars().put(variableNameSecond, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameSecond.isEmpty()) {
                 lInfo_.setClassName(importedClassNameSecond);
             } else {
-                lInfo_.setClassName(page_.getAliasObject());
+                lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setRef(variableNameOffsetSecond);
             lInfo_.setConstType(ConstType.FIX_VAR);
-            page_.getInfosVars().put(variableNameSecond, lInfo_);
+            _page.getInfosVars().put(variableNameSecond, lInfo_);
         }
     }
 

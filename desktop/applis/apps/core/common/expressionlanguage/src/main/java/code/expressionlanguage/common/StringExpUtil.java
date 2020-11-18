@@ -791,6 +791,17 @@ public final class StringExpUtil {
         return _char >= '0' && _char <= '9';
     }
 
+    public static int getBackPrintChar(String _string, int _i) {
+        int bk_ = _i - 1;
+        while (bk_ >= 0) {
+            if (!StringUtil.isWhitespace(_string.charAt(bk_))) {
+                break;
+            }
+            bk_--;
+        }
+        return bk_;
+    }
+
     public static int nextPrintChar(int _j, int _len, String _string) {
         if (_j < 0) {
             return _j;

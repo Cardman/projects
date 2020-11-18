@@ -447,21 +447,6 @@ public final class ValidatorStandard {
         _types.removeDuplicates();
     }
 
-    public static String checkExactType(int _loc, String _in, String _orig, AnalyzedPageEl _page) {
-        if (!_in.isEmpty()) {
-            return _in;
-        }
-        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(_page.getLocalizer().getCurrentFileName());
-        un_.setIndexFile(rc_);
-        //original type len
-        un_.buildError(_page.getAnalysisMessages().getUnknownType(),
-                _orig);
-        _page.getLocalizer().addError(un_);
-        return _page.getAliasObject();
-    }
-
     public static Struct getSimpleResultBase(ClassField _classField, AliasNumber _nbAlias) {
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();

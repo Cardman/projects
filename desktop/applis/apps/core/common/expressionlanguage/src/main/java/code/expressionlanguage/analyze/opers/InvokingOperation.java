@@ -58,7 +58,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             //param name len
             b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name_);
-            _page.addLocError(b_);
+            _page.getLocalizer().addError(b_);
             o.addErr(b_.getBuiltError());
         }
     }

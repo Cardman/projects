@@ -454,7 +454,6 @@ public final class ClassesUtil {
         StringList namesFromParent_ = getParamVarFromParent(_root);
         int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(IndexConstants.SECOND_INDEX)) {
-            int delta_ = 0;
             TypeVar type_ = new TypeVar();
             int indexDef_ = p.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringUtil.splitInTwo(p, indexDef_);
@@ -477,7 +476,7 @@ public final class ClassesUtil {
                 type_.setName(id_);
                 _root.getParamTypes().add(type_);
                 type_.setOffset(offId_);
-                type_.setLength(id_.length()+1);
+                type_.setLength(1);
                 tempOff_ += p.length() + 1;
                 continue;
             }
@@ -516,7 +515,7 @@ public final class ClassesUtil {
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
             if (indexDef_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
-                int begin_ = delta_ + indexDef_;
+                int begin_ = indexDef_;
                 Ints ct_ = new Ints();
                 for (String b: StringUtil.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
                     int off_ = begin_ + StringUtil.getFirstPrintableCharIndex(b);
@@ -535,7 +534,7 @@ public final class ClassesUtil {
             type_.setName(id_);
             _root.getParamTypes().add(type_);
             type_.setOffset(offId_);
-            type_.setLength(id_.length()+delta_);
+            type_.setLength(id_.length());
             tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {

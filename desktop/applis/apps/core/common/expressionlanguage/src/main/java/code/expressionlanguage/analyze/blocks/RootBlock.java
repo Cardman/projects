@@ -1371,24 +1371,20 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (Block b: ClassesUtil.getDirectChildren(this)) {
-            if (!(b instanceof OverridableBlock)) {
-                continue;
-            }
-            OverridableBlock mDer_ = (OverridableBlock) b;
-            if (mDer_.isAbstractMethod()) {
-                if (mDer_.getFirstChild() != null) {
+        for (OverridableBlock b: overridableBlocks) {
+            if (b.isAbstractMethod()) {
+                if (b.getFirstChild() != null) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
                     err_.setFileName(getFile().getFileName());
-                    err_.setIndexFile(mDer_.getNameOffset());
+                    err_.setIndexFile(b.getNameOffset());
                     //last char (brace) in header
                     err_.buildError(
                             _page.getAnalysisMessages().getAbstractMethodBody(),
                             getFullName(),
-                            mDer_.getSignature(_page));
+                            b.getSignature(_page));
                     _page.addLocError(err_);
-                    mDer_.addNameErrors(err_);
+                    b.addNameErrors(err_);
                 }
             }
         }
@@ -1634,11 +1630,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         boolean opt_ = optionalCallConstr(_page);
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
         IdMap<ConstructorId,ConstructorBlock> ctorsId_ = new IdMap<ConstructorId,ConstructorBlock>();
-        for (Block b: ClassesUtil.getDirectChildren(this)) {
-            if (b instanceof ConstructorBlock) {
-                ctors_.add((ConstructorBlock) b);
-                ctorsId_.addEntry(((ConstructorBlock) b).getId(),(ConstructorBlock) b);
-            }
+        for (ConstructorBlock b: constructorBlocks) {
+            ctors_.add(b);
+            ctorsId_.addEntry(b.getId(), b);
         }
         if (ctors_.isEmpty() && !opt_) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

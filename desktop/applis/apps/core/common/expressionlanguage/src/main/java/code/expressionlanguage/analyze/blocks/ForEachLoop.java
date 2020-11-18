@@ -51,7 +51,6 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     private int sepOffset;
     private int expressionOffset;
 
-    private Argument argument;
     private OperationNode root;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();

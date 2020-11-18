@@ -245,7 +245,7 @@ public final class ElResolver {
             if (_page.getCurrentBlock() instanceof FieldBlock
                     && parsBrackets_.isEmpty()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
-                int bk_ = getBackPrintChar(_string, i_);
+                int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
                 if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
                     int beginWord_ = i_;
                     int j_ = getWord(_string, len_, i_);
@@ -724,7 +724,7 @@ public final class ElResolver {
             _callings.add(nextPar_);
             return i_;
         }
-        int bk_ = getBackPrintChar(_string, beginWord_);
+        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             return i_;
         }
@@ -807,7 +807,7 @@ public final class ElResolver {
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (_curChar == ANN_ARR_LEFT) {
-            int bk_ = getBackPrintChar(_string, i_);
+            int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
             if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
                 if (_indexesNewEnd.containsObj(bk_)) {
                     int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -981,17 +981,6 @@ public final class ElResolver {
         }
         i_++;
         return i_;
-    }
-
-    private static int getBackPrintChar(String _string, int _i) {
-        int bk_ = _i - 1;
-        while (bk_ > 0) {
-            if (!StringUtil.isWhitespace(_string.charAt(bk_))) {
-                break;
-            }
-            bk_--;
-        }
-        return bk_;
     }
 
     private static int getWord(String _string, int _len, int _i) {
@@ -1915,7 +1904,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        int bk_ = getBackPrintChar(_string, beginWord_);
+        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             ConstType type_;
             type_ = ConstType.WORD;
@@ -2183,7 +2172,7 @@ public final class ElResolver {
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == ANN_ARR_LEFT) {
-            int bk_ = getBackPrintChar(_string, i_);
+            int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
             if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
                 if (_dout.getIndexesNewEnd().containsObj(bk_)) {
                     RootBlock globalType_ = _page.getGlobalDirType();

@@ -57,9 +57,8 @@ public final class BreakBlock extends AbruptBlock {
             b_ = b_.getParent();
         }
         if (!childOfBreakable_) {
-            AnalyzedPageEl page_ = _page;
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
+            _page.setGlobalOffset(getOffset().getOffsetTrim());
+            _page.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());

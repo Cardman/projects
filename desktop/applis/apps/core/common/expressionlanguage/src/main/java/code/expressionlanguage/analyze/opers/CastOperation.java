@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 
@@ -67,12 +66,28 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ typeCheckContent.getOffset(),_page);
-        typeCheckContent.setClassName(ValidatorStandard.checkExactType(beginType, typeCheckContent.getClassName(), originalClassName, _page));
+        typeCheckContent.setClassName(checkExactType(beginType, typeCheckContent.getClassName(), originalClassName, _page));
         setResultClass(new AnaClassArgumentMatching(typeCheckContent.getClassName(), _page.getPrimitiveTypes()));
         if (AnaTypeUtil.isPrimitive(typeCheckContent.getClassName(), _page)) {
             getFirstChild().getResultClass().setUnwrapObject(typeCheckContent.getClassName(), _page.getPrimitiveTypes());
         }
     }
+
+    private static String checkExactType(int _loc, String _in, String _orig, AnalyzedPageEl _page) {
+        if (!_in.isEmpty()) {
+            return _in;
+        }
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setFileName(_page.getLocalizer().getCurrentFileName());
+        un_.setIndexFile(rc_);
+        //original type len
+        un_.buildError(_page.getAnalysisMessages().getUnknownType(),
+                _orig);
+        _page.getLocalizer().addError(un_);
+        return _page.getAliasObject();
+    }
+
 
     public String getClassName() {
         return typeCheckContent.getClassName();

@@ -201,7 +201,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private void addVars(AnalyzedPageEl _page) {
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
-            errInf = AffectationOperation.processInferLoop(importedClassName, _page);
+            errInf = AffectationOperation.processInfer(importedClassName, _page);
             getVariableNames().addAllElts(vars_);
         }
         _page.setMerged(false);

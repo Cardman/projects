@@ -115,7 +115,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     if (cid_ != null) {
                         String cl_ = cid_.getName();
                         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                        checkInherits(this, previousInts_, n_, cl_, _page);
+                        checkInherits(previousInts_, n_, cl_, _page);
                         previousInts_.add(cl_);
                     } else {
                         previousInts_.add("");
@@ -127,13 +127,13 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             if (cid_ != null) {
                 String cl_ = cid_.getName();
                 cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                checkInherits(this, previousInts_, curBlock_, cl_, _page);
+                checkInherits(previousInts_, curBlock_, cl_, _page);
             }
         }
     
     }
 
-    private static void checkInherits(OperationNode _op, StringList _previousInts, Block _n, String _cl, AnalyzedPageEl _page) {
+    private void checkInherits(StringList _previousInts, Block _n, String _cl, AnalyzedPageEl _page) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             RootBlock supType_ = _page.getAnaClassBody(sup_);
@@ -148,7 +148,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         _cl
                 );
                 _page.addLocError(undef_);
-                _op.addErr(undef_.getBuiltError());
+                addErr(undef_.getBuiltError());
             }
         }
     }
