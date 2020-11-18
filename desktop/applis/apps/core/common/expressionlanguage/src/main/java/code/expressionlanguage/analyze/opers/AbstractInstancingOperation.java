@@ -11,7 +11,7 @@ import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -141,7 +141,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (inferForm_ == null) {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
-                String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(newKeyWord_.length()+local_,className_,true,partOffsets_, _page);
+                String res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(newKeyWord_.length()+local_,className_,true,partOffsets_, _page);
                 if (!res_.isEmpty()) {
                     partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -156,7 +156,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-                    partsArgs_.add(ResolvingImportTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a,true,partOffsets_, _page));
+                    partsArgs_.add(ResolvingTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a,true,partOffsets_, _page));
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
@@ -172,7 +172,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (!isIntermediateDottedOperation()) {
             int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-            type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
+            type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());
             if (type_.isEmpty()) {
                 return;

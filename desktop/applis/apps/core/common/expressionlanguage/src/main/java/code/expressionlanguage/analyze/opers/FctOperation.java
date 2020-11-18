@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
@@ -17,7 +18,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -82,7 +82,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             className_ = className_.substring(lenPref_);
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
+            className_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
             if (!className_.isEmpty()) {
                 partOffsets.addAllElts(partOffsets_);
                 typeInfer = className_;
@@ -150,7 +150,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             className_ = className_.substring(lenPref_);
             if (typeInfer.isEmpty()) {
                 int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-                className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
+                className_ = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
             } else {
                 className_ = typeInfer;
@@ -292,6 +292,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         lengthMethod = callFctContent.getMethodName().length();
         int deltaEnd_ = lengthMethod- StringUtil.getLastPrintableCharIndex(callFctContent.getMethodName())-1;
         lengthMethod -= delta_;
+        lengthMethod -= deltaEnd_;
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;
@@ -311,7 +312,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             delta_ += StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
             lengthMethod -= StringUtil.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
         }
-        lengthMethod -= deltaEnd_;
         delta = delta_;
     }
     private static StringList getArrayBounds(StringList _bounds) {

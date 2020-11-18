@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
@@ -156,7 +156,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             }
             String key_ = parts_.first();
             int off_ = StringUtil.getFirstPrintableCharIndex(key_);
-            String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(off_,key_, _page);
+            String clKey_ = ResolvingTypes.resolveAccessibleIdType(off_,key_, _page);
             CustList<PartOffset> allPartTypes_ = new CustList<PartOffset>();
             CustList<PartOffset> allPartSuperTypes_ = new CustList<PartOffset>();
              allPartTypes_.addAllElts(_page.getCurrentParts());
@@ -185,7 +185,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             int firstPar_ = extr_.getFirst().length();
-            String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
+            String clDest_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
             superPartOffsets_.addAllElts(_page.getCurrentParts());
             String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _page);

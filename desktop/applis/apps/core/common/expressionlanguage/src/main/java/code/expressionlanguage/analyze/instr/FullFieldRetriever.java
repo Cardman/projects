@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -13,7 +14,6 @@ import code.expressionlanguage.common.VariableInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -177,7 +177,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             nextOff_ += inns_.first().length() + 1;
         } else {
             CustList<PartOffset> currentParts_ = _page.getCurrentParts();
-            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_from,inns_.first(), false, currentParts_, _page);
+            start_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from,inns_.first(), false, currentParts_, _page);
             if (start_.isEmpty()) {
                 currentParts_.clear();
             }

@@ -4,8 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -46,8 +45,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private int valueOffset;
     private int fieldNameOffset=-1;
-
-    private StringList emptErrs = new StringList();
 
     public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
@@ -105,7 +102,7 @@ public final class CaseCondition extends SwitchPartBlock {
             if (declaringType_.trim().isEmpty()) {
                 emptyType = true;
             }
-            importedType = ResolvingImportTypes.resolveCorrectType(declaringType_, _page);
+            importedType = ResolvingTypes.resolveCorrectType(declaringType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             variableOffset = valueOffset + declaringType_.length();
             String info_ = value.substring(declaringType_.length());
@@ -222,10 +219,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public void setNullCaseEnum(boolean _nullCaseEnum) {
         this.nullCaseEnum = _nullCaseEnum;
-    }
-
-    public StringList getEmptErrs() {
-        return emptErrs;
     }
 
     public CustList<PartOffset> getPartOffsets() {

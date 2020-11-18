@@ -5,11 +5,11 @@ import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 
 public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
@@ -29,7 +29,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         String cl_ = getMethodName();
         int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = ResolvingImportTypes.resolveAccessibleIdType(leftPar_,cl_, _page);
+        cl_ = ResolvingTypes.resolveAccessibleIdType(leftPar_,cl_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         RootBlock candidate_ = _page.getAnaClassBody(cl_);
         if (!(candidate_ instanceof InterfaceBlock)) {

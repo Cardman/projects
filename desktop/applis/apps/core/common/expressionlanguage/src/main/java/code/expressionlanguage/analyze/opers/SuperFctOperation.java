@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
@@ -14,7 +15,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -59,7 +59,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
+        className_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_,true,partOffsets_, _page);
         if (!className_.isEmpty()) {
             partOffsets.addAllElts(partOffsets_);
             typeInfer = className_;
@@ -100,7 +100,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
-            className_ = ResolvingImportTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            className_ = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;

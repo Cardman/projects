@@ -3,7 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.options.KeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -41,7 +41,7 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
         if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         }
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -15,7 +16,6 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -165,7 +165,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         String fullName_ = parentEnum.getFullName();
         for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, tempClass)).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-            j_.add(ResolvingImportTypes.resolveCorrectType(i_+loc_,p, _page));
+            j_.add(ResolvingTypes.resolveCorrectType(i_+loc_,p, _page));
             partOffsets.addAllElts(_page.getCurrentParts());
             i_ += p.length() + 1;
         }

@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -23,7 +23,6 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -137,7 +136,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -167,7 +166,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringUtil.quickEq(className.trim(), keyWordVar_)) {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             importedClassName = "";

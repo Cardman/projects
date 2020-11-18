@@ -15,7 +15,7 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
@@ -74,7 +74,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 return;
             }
             _page.setGlobalOffset(classNameOffset);
-            setImportedClassName(ResolvingImportTypes.resolveCorrectType(className, _page));
+            setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page));
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(getVariableName(), _page);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();

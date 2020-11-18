@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
@@ -14,7 +15,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.util.CustList;
 import code.util.StringList;
@@ -48,7 +48,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (args_.size() > 1) {
             int off_ = StringUtil.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
-            from = ResolvingImportTypes.resolveCorrectTypeAccessible(off_+ callFctContent.getMethodName().indexOf(',')+1,fromType_, _page);
+            from = ResolvingTypes.resolveCorrectTypeAccessible(off_+ callFctContent.getMethodName().indexOf(',')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         }
         if (from.isEmpty()) {

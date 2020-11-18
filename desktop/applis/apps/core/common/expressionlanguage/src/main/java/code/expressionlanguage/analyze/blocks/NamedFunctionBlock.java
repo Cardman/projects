@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -12,7 +13,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -220,7 +220,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         _page.setGlobalOffset(_offset);
         _page.setOffset(0);
-        String res_ = ResolvingImportTypes.resolveCorrectType(_param, _page);
+        String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
         partOffsets_.addAllElts(_page.getCurrentParts());
         partOffsetsParams.add(partOffsets_);
         return res_;
@@ -237,7 +237,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public final String buildInternRet(int _offset, String _param, AnalyzedPageEl _page) {
         _page.setGlobalOffset(_offset);
         _page.setOffset(0);
-        String res_ = ResolvingImportTypes.resolveCorrectType(_param, _page);
+        String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
         partOffsetsReturn.addAllElts(_page.getCurrentParts());
         return res_;
     }

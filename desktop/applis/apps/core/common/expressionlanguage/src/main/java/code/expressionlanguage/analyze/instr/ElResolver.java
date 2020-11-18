@@ -6,11 +6,11 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -3521,7 +3521,7 @@ public final class ElResolver {
             }
         }
         CustList<PartOffset> curr_ = _page.getCurrentParts();
-        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_from + 1 + off_, subTrim_, true, curr_, _page);
+        String typeOut_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + 1 + off_, subTrim_, true, curr_, _page);
         if (!typeOut_.isEmpty()) {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);

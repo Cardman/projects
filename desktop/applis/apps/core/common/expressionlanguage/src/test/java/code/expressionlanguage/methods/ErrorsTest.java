@@ -1335,7 +1335,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   <a title=\"There must be an expression.\" class=\"e\">$case</a>:\n" +
+                "   <a title=\"There must be an expression.\n" +
+                "\n" +
+                "The $case block with expression  is not constant.\" class=\"e\">$case</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1368,7 +1370,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m69\">e</a>;\n" +
                 " $public $int <a name=\"m86\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m69\">e</a>){\n" +
-                "   $case <a title=\"There is no accessible field named ONE from the type pkg.MySub in this context.\" class=\"e\">ONE</a>:\n" +
+                "   <a title=\"The $case block with expression ONE is not constant.\" class=\"e\">$case</a> <a title=\"There is no accessible field named ONE from the type pkg.MySub in this context.\" class=\"e\">ONE</a>:\n" +
                 "   $case <a title=\"pkg.MyEnum.TWO\" href=\"#m28\">TWO</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -13,7 +14,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
@@ -100,7 +100,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String realClassName_ = instancingAnnotContent.getMethodName().trim().substring(AROBASE.length());
-            realClassName_ = ResolvingImportTypes.resolveCorrectType(1,realClassName_, _page);
+            realClassName_ = ResolvingTypes.resolveCorrectType(1,realClassName_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             RootBlock g_ = _page.getAnaClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {

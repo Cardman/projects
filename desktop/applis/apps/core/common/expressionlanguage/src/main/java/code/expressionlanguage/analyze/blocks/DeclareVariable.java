@@ -4,8 +4,8 @@ import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -67,7 +67,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         }
         _page.setMerged(true);

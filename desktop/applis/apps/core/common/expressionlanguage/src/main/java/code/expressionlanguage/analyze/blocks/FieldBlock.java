@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -16,7 +17,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.blocks.AnaFieldContent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -141,7 +141,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.setGlobalOffset(getClassNameOffset());
         _page.setOffset(0);
         _page.setCurrentBlock(this);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
     }
 

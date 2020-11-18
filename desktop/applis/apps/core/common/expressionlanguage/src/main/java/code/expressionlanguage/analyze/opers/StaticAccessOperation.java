@@ -3,10 +3,10 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -37,7 +37,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _page.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = ResolvingImportTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
+            classStr_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
             partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         } else {
             classStr_ = glClass_;

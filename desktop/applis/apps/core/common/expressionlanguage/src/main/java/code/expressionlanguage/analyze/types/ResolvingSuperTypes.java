@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.util.CustList;
@@ -164,12 +163,11 @@ public final class ResolvingSuperTypes {
 
     public static String resolveBaseInherits(String _idSup, RootBlock _ana, StringList _readyTypes, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_idSup);
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         RootBlock scope_ = _ana.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         _page.setImportingTypes(_ana);
         _page.getMappingLocal().clear();
         _page.getMappingLocal().putAllMap(_ana.getMappings());
-        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_, scope_,_ana, partOffsets_, _page);
+        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_, scope_,_ana, _page);
     }
 }

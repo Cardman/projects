@@ -80,7 +80,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 _page.getKeyWords().getKeyWordCase(),
                 value);
         _page.addLocError(un_);
-        meta.getEmptErrs().add(un_.getBuiltError());
+        addErrorBlock(un_.getBuiltError());
     }
 
     private void processNumValues(AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page) {

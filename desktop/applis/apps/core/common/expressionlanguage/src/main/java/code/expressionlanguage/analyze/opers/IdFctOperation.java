@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.MethodAccessId;
 import code.expressionlanguage.common.StringExpUtil;
@@ -13,7 +14,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -79,7 +79,7 @@ public final class IdFctOperation extends LeafOperation {
             String firstFull_ = args_.first();
             int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
-            cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
+            cl_ = ResolvingTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             if (cl_.isEmpty()) {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -192,7 +192,7 @@ public final class IdFctOperation extends LeafOperation {
             } else {
                 type_ = arg_;
             }
-            arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType, _page);
+            arg_ = ResolvingTypes.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType, _page);
             _partOffsets.addAllElts(_page.getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);

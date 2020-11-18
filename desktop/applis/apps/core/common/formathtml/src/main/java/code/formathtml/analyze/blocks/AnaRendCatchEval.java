@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -46,7 +46,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
             return;
         }
         _page.setGlobalOffset(classNameOffset);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setConstType(ConstType.FIX_VAR);

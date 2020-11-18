@@ -12,7 +12,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -86,7 +86,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -100,7 +100,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {

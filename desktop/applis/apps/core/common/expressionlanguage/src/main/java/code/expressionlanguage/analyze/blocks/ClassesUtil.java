@@ -1797,7 +1797,7 @@ public final class ClassesUtil {
             brBl_.add(c);
         }
         for (BracedBlock c: brBl_) {
-            for (int i: c.getBadIndexes()) {
+            for (int i: c.getBadIndexesGlobal()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(c.getFile().getFileName());
                 b_.setIndexFile(Math.max(0,Math.min(c.getFile().getLength()-1,i)));
@@ -1807,6 +1807,15 @@ public final class ClassesUtil {
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
                 c.getGlobalErrorsPars().getLi().add(g_);
+            }
+            for (int i: c.getBadIndexes()) {
+                FoundErrorInterpret b_ = new FoundErrorInterpret();
+                b_.setFileName(c.getFile().getFileName());
+                b_.setIndexFile(i);
+                //underline index char
+                b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+                _page.addLocError(b_);
+                c.addErrorBlock(b_.getBuiltError());
             }
         }
         for (RootBlock c: _page.getFoundTypes()) {

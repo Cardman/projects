@@ -13,7 +13,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -122,7 +122,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     }
 
     public void buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -152,14 +152,14 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         _page.setGlobalOffset(classNameOffsetFirst);
         _page.setOffset(0);
         if (!toInferFirst(_page)) {
-            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(classNameFirst, _page);
+            importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
         _page.setGlobalOffset(classNameOffsetSecond);
         _page.setOffset(0);
         if (!toInferSecond(_page)) {
-            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(classNameSecond, _page);
+            importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }

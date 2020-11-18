@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -37,7 +37,7 @@ public final class StaticInfoOperation extends LeafOperation {
         }
         int off_ = StringUtil.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = ResolvingImportTypes.resolveCorrectType(afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN), _page);
+        classStr_ = ResolvingTypes.resolveCorrectType(afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN), _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         className = classStr_;
         setResultClass(new AnaClassArgumentMatching(_page.getAliasClassType()));

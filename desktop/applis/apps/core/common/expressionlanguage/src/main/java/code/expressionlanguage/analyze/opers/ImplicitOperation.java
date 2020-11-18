@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -14,7 +15,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaExplicitContent;
 import code.util.CustList;
 import code.util.StringList;
@@ -54,7 +54,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         }
         String res_;
         int leftPar_ = explicitContent.getClassName().indexOf(PAR_LEFT);
-        res_ = ResolvingImportTypes.resolveCorrectType(leftPar_ +1,types_.first(), _page);
+        res_ = ResolvingTypes.resolveCorrectType(leftPar_ +1,types_.first(), _page);
         explicitContent.setClassName(res_);
         explicitContent.setClassNameOwner(res_);
         partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
@@ -73,7 +73,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         if (types_.size() == 2){
             //add a type for full id
             String arg_ = types_.last();
-            String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(leftPar_ + types_.first().length() + 2, arg_, explicitContent.getClassName(), _page);
+            String lastType_ = ResolvingTypes.resolveCorrectAccessibleType(leftPar_ + types_.first().length() + 2, arg_, explicitContent.getClassName(), _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(explicitContent.getClassName()));
             if (geneType_ == null) {
@@ -117,10 +117,10 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         }
         String arg_ = types_.get(1);
         int lc_ = leftPar_ + types_.first().length() + 2;
-        String midType_ = ResolvingImportTypes.resolveCorrectAccessibleType(lc_,arg_, explicitContent.getClassName(), _page);
+        String midType_ = ResolvingTypes.resolveCorrectAccessibleType(lc_,arg_, explicitContent.getClassName(), _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         arg_ = types_.last();
-        String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1,arg_, explicitContent.getClassName(), _page);
+        String lastType_ = ResolvingTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1,arg_, explicitContent.getClassName(), _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         uniq_ = new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
         AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();

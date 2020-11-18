@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -91,7 +91,7 @@ public final class InternOverrideBlock extends Leaf {
                 String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();
-                String cl_ = ResolvingImportTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
+                String cl_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
                 superPartOffsets_.addAllElts(_page.getCurrentParts());
                 String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _page);
                 RootBlock formattedType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));

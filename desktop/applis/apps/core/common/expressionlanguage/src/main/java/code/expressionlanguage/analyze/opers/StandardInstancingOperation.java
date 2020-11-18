@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -14,7 +15,6 @@ import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -77,7 +77,7 @@ public final class StandardInstancingOperation extends
                 realClassName_ = getTypeInfer();
             } else if (!hasFieldName) {
                 int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();
@@ -150,7 +150,7 @@ public final class StandardInstancingOperation extends
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(realClassName_).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-            partsArgs_.add(ResolvingImportTypes.resolveCorrectType(offset_+loc_,a, _page));
+            partsArgs_.add(ResolvingTypes.resolveCorrectType(offset_+loc_,a, _page));
             getPartOffsets().addAllElts(_page.getCurrentParts());
             offset_ += a.length() + 1;
         }

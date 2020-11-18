@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -18,7 +19,6 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -79,7 +79,7 @@ public final class DimensionArrayInstancing extends
         int off_ = StringUtil.getFirstPrintableCharIndex(mName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
+        type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
         partOffsets_.addAllElts(_page.getCurrentParts());
         if (type_.isEmpty()) {
             return;
@@ -240,7 +240,7 @@ public final class DimensionArrayInstancing extends
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringUtil.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+local_,className_, _page);
+            className_ = ResolvingTypes.resolveCorrectType(new_.length()+local_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;

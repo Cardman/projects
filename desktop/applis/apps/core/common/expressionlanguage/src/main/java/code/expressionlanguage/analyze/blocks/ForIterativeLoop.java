@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -19,7 +20,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -237,7 +237,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     private boolean processVariableNames(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -250,7 +250,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         }
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {

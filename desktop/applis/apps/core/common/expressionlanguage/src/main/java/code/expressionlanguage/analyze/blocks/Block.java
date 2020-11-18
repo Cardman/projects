@@ -39,6 +39,7 @@ public abstract class Block {
     private int lengthHeader;
 
     private Ints badIndexes = new Ints();
+    private Ints badIndexesGlobal = new Ints();
     private StringList errorsBlock = new StringList();
     private StringList errorsLabels = new StringList();
     private int blockNb;
@@ -185,6 +186,10 @@ public abstract class Block {
 
     public Ints getBadIndexes() {
         return badIndexes;
+    }
+
+    public Ints getBadIndexesGlobal() {
+        return badIndexesGlobal;
     }
 
     public void addErrorBlock(String _err) {

@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.options.KeyWords;
@@ -76,7 +76,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -93,7 +93,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+                importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
             }
             _page.setMerged(true);
             _page.setFinalVariable(false);

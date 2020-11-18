@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.blocks;
 
-import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -22,7 +22,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -162,7 +161,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -203,7 +202,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         _page.setGlobalOffset(classNameOffsetFirst);
         _page.setOffset(0);
         if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
-            importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(classNameFirst, _page);
+            importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
             partOffsetsFirst.addAllElts(_page.getCurrentParts());
         } else {
             importedClassNameFirst = "";
@@ -211,7 +210,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         _page.setGlobalOffset(classNameOffsetSecond);
         _page.setOffset(0);
         if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
-            importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(classNameSecond, _page);
+            importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
             partOffsetsSecond.addAllElts(_page.getCurrentParts());
         } else {
             importedClassNameSecond = "";

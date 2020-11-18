@@ -241,7 +241,17 @@ public final class ElUtil {
     }
 
     private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {
-
+        if (isInitializeStaticClassFirst(_current)) {
+            AbstractInstancingOperation block_ = (AbstractInstancingOperation) _current;
+            Delimiters d_ = block_.getOperations().getDelimiter();
+            OperationsSequence opSeq_ = new OperationsSequence();
+            opSeq_.setFctName(block_.getOperations().getFctName());
+            opSeq_.setDelimiter(d_);
+            StaticInitOperation staticInitOperation_ = new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
+            block_.setNewBefore(false);
+            block_.appendChild(staticInitOperation_);
+            return staticInitOperation_;
+        }
         OperationNode next_ = createFirstChild(_current, 0,_fieldName,_hasFieldName, _page);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
@@ -338,35 +348,20 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren().isEmpty()) {
-            if (isInitializeStaticClassFirst(_index, block_)) {
-                Delimiters d_ = block_.getOperations().getDelimiter();
-                OperationsSequence opSeq_ = new OperationsSequence();
-                opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(d_);
-                return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-            }
             return null;
         }
         String value_ = block_.getChildren().getValue(0);
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (isInitializeStaticClassFirst(_index, block_)) {
-            OperationsSequence opSeq_ = new OperationsSequence();
-            opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(d_);
-            return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-        }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _page);
         setFieldName(_fieldName, block_, op_,_hasFieldName);
         return op_;
     }
 
-    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation _block) {
-        return _block instanceof AbstractInstancingOperation
-                && _index == IndexConstants.FIRST_INDEX
-                && ((AbstractInstancingOperation) _block).isNewBefore();
+    public static boolean isInitializeStaticClassFirst(OperationNode _block) {
+        return _block instanceof AbstractInstancingOperation && ((AbstractInstancingOperation) _block).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, String _fieldName, boolean _hasFieldName, AnalyzedPageEl _page) {

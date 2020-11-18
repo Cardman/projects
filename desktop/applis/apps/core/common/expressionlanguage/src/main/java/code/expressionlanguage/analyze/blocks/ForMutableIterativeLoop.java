@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -17,7 +18,6 @@ import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -215,7 +215,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private void processVariables(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -234,7 +234,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+                importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
             }
             _page.setMerged(true);

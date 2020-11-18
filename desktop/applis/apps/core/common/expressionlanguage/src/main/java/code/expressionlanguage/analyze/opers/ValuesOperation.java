@@ -5,12 +5,12 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -38,7 +38,7 @@ public final class ValuesOperation extends LeafOperation {
         String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
         leftPar_ += StringUtil.getFirstPrintableCharIndex(sub_);
         String clName_;
-        clName_ = ResolvingImportTypes.resolveAccessibleIdType(leftPar_,sub_, _page);
+        clName_ = ResolvingTypes.resolveAccessibleIdType(leftPar_,sub_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {

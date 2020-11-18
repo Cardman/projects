@@ -239,16 +239,16 @@ public final class LinkageUtil {
             }
             if (child_ instanceof RootBlock || child_ instanceof OperatorBlock) {
                 processGlobalRootBlockError((BracedBlock) child_, list_);
-                if (child_.getParent() instanceof FileBlock) {
-                    if (!((BracedBlock) child_).getGlobalErrorsPars().getLi().isEmpty()) {
-                        child_ = nextSkip(child_, _ex);
-                        continue;
-                    }
+                if (!((BracedBlock) child_).getGlobalErrorsPars().getLi().isEmpty()) {
+                    child_ = nextSkip(child_, _ex);
+                    continue;
                 }
             }
             if (vars_.getStack().last().getCurrent() == null) {
-                if (!child_.getErrorsBlock().isEmpty()) {
-                    if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
+                if (!(child_ instanceof NamedFunctionBlock)&&!(child_ instanceof InfoBlock)
+                        &&!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)
+                        &&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
+                    if (!child_.getErrorsBlock().isEmpty()) {
                         String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                         int off_ = child_.getBegin();
                         int l_ = child_.getLengthHeader();
@@ -353,8 +353,10 @@ public final class LinkageUtil {
                 child_ = vars_.getStack().last().getBlock();
                 continue;
             }
-            if (!child_.getErrorsBlock().isEmpty()) {
-                if (child_ instanceof Line) {
+            if (child_ instanceof Line
+                    || child_ instanceof NamedFunctionBlock
+                    || child_ instanceof InfoBlock) {
+                if (!child_.getErrorsBlock().isEmpty()) {
                     String err_ = StringUtil.join(child_.getErrorsBlock(),"\n\n");
                     int off_ = child_.getBegin();
                     int l_ = child_.getLengthHeader();
@@ -373,28 +375,6 @@ public final class LinkageUtil {
             }
         }
         return list_;
-    }
-
-    private static Block next(Block _current, Block _ex) {
-        Block firstChild_ = _current.getFirstChild();
-        if (firstChild_ != null) {
-            return firstChild_;
-        }
-        return nextSkip(_current,_ex);
-    }
-    private static Block nextSkip(Block _current, Block _ex) {
-        Block child_ = _current;
-        while (true) {
-            Block nextSibling_ = child_.getNextSibling();
-            if (nextSibling_ != null) {
-                return nextSibling_;
-            }
-            BracedBlock parent_ = child_.getParent();
-            if (parent_ == _ex || parent_ == null) {
-                return null;
-            }
-            child_ = parent_;
-        }
     }
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles().getLi()) {
@@ -535,6 +515,28 @@ public final class LinkageUtil {
             }
         }
         return list_;
+    }
+
+    private static Block next(Block _current, Block _ex) {
+        Block firstChild_ = _current.getFirstChild();
+        if (firstChild_ != null) {
+            return firstChild_;
+        }
+        return nextSkip(_current,_ex);
+    }
+    private static Block nextSkip(Block _current, Block _ex) {
+        Block child_ = _current;
+        while (true) {
+            Block nextSibling_ = child_.getNextSibling();
+            if (nextSibling_ != null) {
+                return nextSibling_;
+            }
+            BracedBlock parent_ = child_.getParent();
+            if (parent_ == _ex || parent_ == null) {
+                return null;
+            }
+            child_ = parent_;
+        }
     }
 
     private static void processInternOverrideBlock(VariablesOffsets _vars,CustList<PartOffset> _parts, InternOverrideBlock _child) {
@@ -833,7 +835,7 @@ public final class LinkageUtil {
             String typeEnum_ = _cond.getTypeEnum();
             String currentFileName_ = _vars.getCurrentFileName();
             CustList<RootBlock> refFoundTypes_ = _vars.getRefFoundTypes();
-            updateFieldAnchor(refFoundTypes_, _cond.getEmptErrs(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
+            updateFieldAnchor(refFoundTypes_, new StringList(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
         } else {
             int offsetEndBlock_ = off_ + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
@@ -883,7 +885,7 @@ public final class LinkageUtil {
             int delta_ = _cond.getFieldNameOffset();
             String currentFileName_ = _vars.getCurrentFileName();
             CustList<RootBlock> refFoundTypes_ = _vars.getRefFoundTypes();
-            updateFieldAnchor(refFoundTypes_, _cond.getEmptErrs(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
+            updateFieldAnchor(refFoundTypes_, new StringList(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
         } else {
             off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();
@@ -1967,11 +1969,16 @@ public final class LinkageUtil {
     }
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond, CustList<PartOffset> _parts) {
         OperationNode firstChild_ = _cond.getRoot().getFirstChild();
+        StringList errs_ = new StringList();
         OperationNode next_ = null;
         if (firstChild_ != null) {
+            errs_.addAllElts(firstChild_.getErrs());
             next_ = firstChild_.getNextSibling();
         }
         AbstractInstancingOperation inst_ = null;
+        if (next_ != null) {
+            errs_.addAllElts(next_.getErrs());
+        }
         if (next_ instanceof AbstractInstancingOperation) {
             inst_ = (AbstractInstancingOperation) next_;
         }
@@ -1993,7 +2000,8 @@ public final class LinkageUtil {
                 return;
             }
             if (inst_ == null) {
-                list_.addAllElts(_cond.getRoot().getErrs());
+                errs_.addAllElts(_cond.getRoot().getErrs());
+                list_.addAllElts(errs_);
                 String err_ = getLineErr(list_);
                 String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -2703,7 +2711,7 @@ public final class LinkageUtil {
         processVariables(_vars, _sum, _val, _parts);
         processConstants(_sum, _val, _parts);
         processAssociation(_vars, refFoundTypes_,refOperators_,_sum, _val, _parts, _currentFileName);
-        processFields(refFoundTypes_, _block, _sum, _val, _parts, _currentFileName);
+        processFieldsReport(refFoundTypes_, _block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, refFoundTypes_,refOperators_, _currentFileName, _sum, _val, _parts);
         processAnonLambaReport(_sum, _val, _parts);
         processLamba(_vars, refFoundTypes_,refOperators_, _sum, _val, _parts, _currentFileName);
@@ -2763,7 +2771,7 @@ public final class LinkageUtil {
         processVariables(_vars, _sum, _val, _parts);
         processConstants(_sum, _val, _parts);
         processAssociation(_vars, refFoundTypes_,refOperators_,_sum, _val, _parts, _currentFileName);
-        processFields(refFoundTypes_, _block, _sum, _val, _parts, _currentFileName);
+        processFieldsError(refFoundTypes_, _block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, refFoundTypes_,refOperators_,_currentFileName, _sum, _val, _parts);
         processAnonLambaError(_sum, _val, _parts);
         processLamba(_vars, refFoundTypes_,refOperators_, _sum, _val, _parts, _currentFileName);
@@ -3006,7 +3014,26 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processFields(CustList<RootBlock> _refFoundTypes, Block _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
+    private static void processFieldsReport(CustList<RootBlock> _refFoundTypes, Block _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
+        if (_val instanceof SettableAbstractFieldOperation) {
+            if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
+                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+                int d_ = ((SettableAbstractFieldOperation)_val).getDelta();
+                String tag_ = "<a name=\"m"+idValueOffset_+"\">";
+                _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+            } else {
+                int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+                _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
+                ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
+                int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
+                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,c_,_sum +delta_+ _val.getIndexInEl() + ((SettableAbstractFieldOperation)_val).getDelta(),((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
+            }
+        }
+    }
+
+    private static void processFieldsError(CustList<RootBlock> _refFoundTypes, Block _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
         if (_val instanceof SettableAbstractFieldOperation) {
             int indexBlock_ = ((SettableAbstractFieldOperation) _val).getIndexBlock();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
@@ -3043,7 +3070,6 @@ public final class LinkageUtil {
             }
         }
     }
-
     private static void processVariables(VariablesOffsets _vars, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof VariableOperation) {
             String varName_ = ((VariableOperation) _val).getRealVariableName();
@@ -3225,26 +3251,27 @@ public final class LinkageUtil {
         ConstructorId realId_ = ((LambdaOperation) _val).getRealId();
         ClassField fieldId_ = ((LambdaOperation) _val).getFieldId();
         int off_ = ((LambdaOperation)_val).getClassNameOffset();
+        int beginLambda_ = off_ + _sum + _val.getIndexInEl();
+        int lambdaLen_ = _vars.getKeyWords().getKeyWordLambda().length();
         if (classMethodId_ != null) {
             String className_ = classMethodId_.getClassName();
             className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId id_ = classMethodId_.getConstraints();
             addParts(_vars, _refFoundTypes,_refOperators,_currentFileName,className_,id_,
-                    off_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(),
+                    beginLambda_, lambdaLen_,
                     _val.getErrs(),_val.getErrs(),_parts);
         } else if (realId_ != null) {
             String cl_ = ((LambdaOperation) _val).getLambdaCommonContent().getFoundClass();
             cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             addParts(_vars, _refFoundTypes,_refOperators,_currentFileName,cl_,realId_,
-                    off_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(),
+                    beginLambda_, lambdaLen_,
                     _val.getErrs(),_val.getErrs(),_parts);
         } else {
             if (fieldId_ != null) {
-                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,fieldId_,off_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) _val).getValueOffset());
+                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,fieldId_, beginLambda_, lambdaLen_, _currentFileName,((LambdaOperation) _val).getValueOffset());
             } else if (!_val.getErrs().isEmpty()) {
-                int begin_ = off_+_sum + _val.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordLambda().length()));
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">", beginLambda_));
+                _parts.add(new PartOffset("</a>", beginLambda_ + lambdaLen_));
             }
         }
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsets());
@@ -3498,8 +3525,8 @@ public final class LinkageUtil {
                     _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
                 }
                 if (refTwo_ != -1){
-                    IntTreeMap<String> vs_ = _val.getOperations().getValues();
-                    int begin_ = _sum + _val.getIndexInEl()+vs_.firstKey()-vs_.firstValue().length();
+                    IntTreeMap<String> vs_ = _val.getOperations().getOperators();
+                    int begin_ = _sum + _val.getIndexInEl()+vs_.firstKey();
                     String rel_ = relativize(_currentFileName, relFileTwo_ + "#m" + refTwo_);
                     _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
                     _parts.add(new PartOffset("</a>",begin_+ vs_.firstValue().length()));

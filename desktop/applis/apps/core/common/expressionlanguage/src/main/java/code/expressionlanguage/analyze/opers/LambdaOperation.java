@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -24,7 +25,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -144,7 +144,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             offset_ += StringExpUtil.getOffset(_args.first());
             if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
-                String type_ = ResolvingImportTypes.resolveCorrectTypeAccessible(offset_,_fromType, _page);
+                String type_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_,_fromType, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 ClassMethodIdReturn resMethod_;
                 if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())){
@@ -181,7 +181,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(fct_));
                 return;
             }
-            String type_ = ResolvingImportTypes.resolveCorrectType(offset_,_fromType, _page);
+            String type_ = ResolvingTypes.resolveCorrectType(offset_,_fromType, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             MethodId argsRes_;
             if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
@@ -365,7 +365,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 i_ = idUpdate_.getIndex();
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());
-                String type_ = ResolvingImportTypes.resolveCorrectType(offset_, _fromType, staticFlag_ != MethodAccessKind.STATIC, _page);
+                String type_ = ResolvingTypes.resolveCorrectType(offset_, _fromType, staticFlag_ != MethodAccessKind.STATIC, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 str_ = InvokingOperation.getBounds(type_, _page);
                 String cl_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -546,7 +546,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ += _args.get(2).length();
                 offset_++;
                 offset_ += StringExpUtil.getOffset(_args.get(3));
-                String cl_ = ResolvingImportTypes.resolveAccessibleIdType(offset_,nameId_, _page);
+                String cl_ = ResolvingTypes.resolveAccessibleIdType(offset_,nameId_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 if (cl_.isEmpty()) {
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -639,7 +639,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             i_ = idUpdate_.getIndex();
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
-            String type_ = ResolvingImportTypes.resolveCorrectType(offset_, _fromType, stCtx_ != MethodAccessKind.STATIC, _page);
+            String type_ = ResolvingTypes.resolveCorrectType(offset_, _fromType, stCtx_ != MethodAccessKind.STATIC, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             str_ = InvokingOperation.getBounds(type_, _page);
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -871,7 +871,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         offset_ += StringExpUtil.getOffset(_args.first());
         String clFrom_ = EMPTY_STRING;
         if (!isIntermediateDottedOperation()) {
-            clFrom_ = ResolvingImportTypes.resolveCorrectType(offset_,_fromType, _page);
+            clFrom_ = ResolvingTypes.resolveCorrectType(offset_,_fromType, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             if (clFrom_.startsWith(ARR)) {
                 processArray(_args, _len, clFrom_, _page);
@@ -886,7 +886,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean foundId_ = false;
         String type_ = EMPTY_STRING;
         if (_len > 2 && StringUtil.quickEq(_args.get(2).trim(), keyWordId_)) {
-            type_ = ResolvingImportTypes.resolveCorrectType(offset_,_fromType, _page);
+            type_ = ResolvingTypes.resolveCorrectType(offset_,_fromType, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, cl_, MethodAccessKind.INSTANCE, _args, _page);
@@ -1055,7 +1055,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
             int loc_ = StringExpUtil.getOffset(a);
-            String res_ = ResolvingImportTypes.resolveCorrectType(offset_+loc_,a, _page);
+            String res_ = ResolvingTypes.resolveCorrectType(offset_+loc_,a, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());
             partsArgs_.add(res_);
             offset_ += a.length() + 1;
@@ -1243,7 +1243,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
-                String arg_ = ResolvingImportTypes.resolveCorrectType(offset_,type_, _page);
+                String arg_ = ResolvingTypes.resolveCorrectType(offset_,type_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 getRefConstraints(map_, _page);
@@ -1302,7 +1302,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
-                String arg_ = ResolvingImportTypes.resolveCorrectType(offset_,type_, _page);
+                String arg_ = ResolvingTypes.resolveCorrectType(offset_,type_, _page);
                 partOffsets.addAllElts(_page.getCurrentParts());
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 getRefConstraints(map_, _page);
@@ -1454,7 +1454,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             offset_ += StringExpUtil.getOffset(_args.get(i_));
             String type_ = _args.get(i_).trim();
-            String arg_ = ResolvingImportTypes.resolveCorrectType(offset_,type_, _page);
+            String arg_ = ResolvingTypes.resolveCorrectType(offset_,type_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(arg_);
@@ -1488,7 +1488,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private String resolveSingleTypeExact(StringList _args, String _fromType, AnalyzedPageEl _page) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
-        String type_ = ResolvingImportTypes.resolveCorrectType(offset_, _fromType, _page);
+        String type_ = ResolvingTypes.resolveCorrectType(offset_, _fromType, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         return type_;
     }
@@ -1538,7 +1538,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (operator_.isEmpty()) {
                 offset_--;
             }
-            String type_ = ResolvingImportTypes.resolveCorrectType(offset_, operator_, true, _page);
+            String type_ = ResolvingTypes.resolveCorrectType(offset_, operator_, true, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             from_ = type_;
             if (_len > i_) {
@@ -1800,7 +1800,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             } else {
                 type_ = arg_;
             }
-            arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType, _page);
+            arg_ = ResolvingTypes.resolveCorrectAccessibleType(off_ + loc_,type_, _fromType, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
@@ -1846,7 +1846,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             } else {
                 type_ = arg_;
             }
-            arg_ = ResolvingImportTypes.resolveCorrectType(offset_+loc_,type_, _page);
+            arg_ = ResolvingTypes.resolveCorrectType(offset_+loc_,type_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             if (wrap_) {
                 arg_ = StringExpUtil.getPrettyArrayType(arg_);
@@ -1860,7 +1860,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private StringList resolveCorrectTypes(boolean _exact, String _type, StringList _args, AnalyzedPageEl _page) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
-        String type_ = ResolvingImportTypes.resolveCorrectType(offset_, _type, _exact, _page);
+        String type_ = ResolvingTypes.resolveCorrectType(offset_, _type, _exact, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         return InvokingOperation.getBounds(type_, _page);
     }

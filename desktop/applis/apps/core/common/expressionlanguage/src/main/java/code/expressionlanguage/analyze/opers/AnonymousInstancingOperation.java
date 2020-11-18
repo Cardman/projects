@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -71,7 +71,7 @@ public final class AnonymousInstancingOperation extends
                 realClassName_ = getTypeInfer();
             } else  {
                 int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = ResolvingImportTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }
             type = realClassName_;

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
@@ -10,7 +11,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -49,7 +49,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        sub_ = ResolvingImportTypes.resolveCorrectType(begin_ + off_, sub_, exact_, _page);
+        sub_ = ResolvingTypes.resolveCorrectType(begin_ + off_, sub_, exact_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         if (!exact_) {
             RootBlock r_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sub_));

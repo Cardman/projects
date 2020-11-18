@@ -3,9 +3,9 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -87,9 +87,7 @@ public final class RenderAnalysis {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
-            if (c_ instanceof PreAnalyzableOperation) {
-                ((PreAnalyzableOperation) c_).preAnalyze(_page);
-            }
+            preAnalyze(_page, c_);
             c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
         CustList<ReachMethodOperation> reach_ = ReachOperationUtil.getExecutableNodes(list_);
@@ -97,8 +95,24 @@ public final class RenderAnalysis {
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static void preAnalyze(AnalyzedPageEl _page, OperationNode _c) {
+        if (_c instanceof PreAnalyzableOperation) {
+            ((PreAnalyzableOperation) _c).preAnalyze(_page);
+        }
+    }
 
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        if (ElUtil.isInitializeStaticClassFirst(_current)) {
+            AbstractInstancingOperation block_ = (AbstractInstancingOperation) _current;
+            Delimiters d_ = block_.getOperations().getDelimiter();
+            OperationsSequence opSeq_ = new OperationsSequence();
+            opSeq_.setFctName(block_.getOperations().getFctName());
+            opSeq_.setDelimiter(d_);
+            StaticInitOperation staticInitOperation_ = new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
+            block_.setNewBefore(false);
+            block_.appendChild(staticInitOperation_);
+            return staticInitOperation_;
+        }
         OperationNode next_ = createFirstChild(_current, 0, _anaDoc, _page);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
@@ -196,33 +210,14 @@ public final class RenderAnalysis {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren().isEmpty()) {
-            if (isInitializeStaticClassFirst(_index, block_)) {
-                Delimiters d_ = block_.getOperations().getDelimiter();
-                OperationsSequence opSeq_ = new OperationsSequence();
-                opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(d_);
-                return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-            }
             return null;
         }
         String value_ = block_.getChildren().getValue(0);
         Delimiters d_ = block_.getOperations().getDelimiter();
         int curKey_ = block_.getChildren().getKey(0);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (isInitializeStaticClassFirst(_index, block_)) {
-            OperationsSequence opSeq_ = new OperationsSequence();
-            opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(d_);
-            return new StaticInitOperation(block_.getIndexInEl(), IndexConstants.FIRST_INDEX, block_, opSeq_);
-        }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
         return createOperationNode(offset_, _index, block_, r_, _anaDoc, _page);
-    }
-
-    private static boolean isInitializeStaticClassFirst(int _index, MethodOperation _block) {
-        return _block instanceof AbstractInstancingOperation
-                && _index == IndexConstants.FIRST_INDEX
-                && ((AbstractInstancingOperation) _block).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

@@ -5,12 +5,12 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.util.CustList;
 import code.util.*;
@@ -52,7 +52,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         firstArgs_.add(getFirstChild().getResultClass());
         String glClass_ = _page.getGlobalClass();
         String clName_;
-        clName_ = ResolvingImportTypes.resolveAccessibleIdType(0,className, _page);
+        clName_ = ResolvingTypes.resolveAccessibleIdType(0,className, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {

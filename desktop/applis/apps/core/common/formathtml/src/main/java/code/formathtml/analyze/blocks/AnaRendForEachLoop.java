@@ -13,7 +13,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -96,7 +96,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         putVariable(_page);
     }
     public OperationNode buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -117,7 +117,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         _page.setGlobalOffset(classNameOffset);
         _page.setOffset(0);
         if (!toInfer(_page)) {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         } else {
             importedClassName = EMPTY_STRING;
         }

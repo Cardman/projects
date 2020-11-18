@@ -7,11 +7,11 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -67,7 +67,7 @@ public final class VarargOperation extends LeafOperation {
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringUtil.getFirstPrintableCharIndex(str_);
-        str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_, _page);
+        str_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;

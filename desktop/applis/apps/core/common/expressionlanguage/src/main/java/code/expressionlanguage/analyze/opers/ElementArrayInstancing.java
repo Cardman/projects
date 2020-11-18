@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.StringExpUtil;
@@ -20,7 +21,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -68,7 +68,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
         if (inferForm_ == null) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
+            String res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(new_.length()+loc_,className_,true,partOffsets_, _page);
             String comp_ = StringExpUtil.getQuickComponentType(res_);
             if (comp_ != null) {
                 partOffsets.addAllElts(partOffsets_);
@@ -77,7 +77,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             }
             return;
         }
-        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(new_.length()+local_,inferForm_, _page);
+        type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(new_.length()+local_,inferForm_, _page);
         partOffsets_.addAllElts(_page.getCurrentParts());
         if (type_.isEmpty()) {
             return;
@@ -249,7 +249,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingImportTypes.resolveCorrectType(new_.length()+loc_,className_, _page);
+            className_ = ResolvingTypes.resolveCorrectType(new_.length()+loc_,className_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
         } else {
             className_ = typeInfer;

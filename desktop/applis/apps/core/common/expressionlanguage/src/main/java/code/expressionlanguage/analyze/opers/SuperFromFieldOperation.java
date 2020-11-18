@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,7 +32,7 @@ public final class SuperFromFieldOperation extends
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingImportTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
+        className_ = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
         partOffsets.addAllElts(_page.getCurrentParts());
         AnaClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {

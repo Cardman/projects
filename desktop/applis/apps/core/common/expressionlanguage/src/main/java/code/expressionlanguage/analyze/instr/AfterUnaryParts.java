@@ -510,9 +510,8 @@ final class AfterUnaryParts {
                 }
                 builtOperator_.append(EQ_CHAR);
             } else {
-                int prioOpMult_ = ElResolver.NULL_SAFE_PRIO;
-                if (prio > prioOpMult_) {
-                    prio = prioOpMult_;
+                if (prio > ElResolver.NULL_SAFE_PRIO) {
+                    prio = ElResolver.NULL_SAFE_PRIO;
                     clearOperators_ = true;
                     foundOperator_ = true;
                 }
