@@ -12225,7 +12225,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m107\">pkg.ExTwo</a> {\n" +
-                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m154\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"> <a name=\"m154\">CST2</a> </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -12253,7 +12253,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m109\">pkg.ExTwo</a> {\n" +
-                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m146\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m156\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m146\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"> <a name=\"m156\">CST2</a> </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -12281,7 +12281,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m112\">pkg.ExTwo</a> {\n" +
-                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m149\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m159\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m149\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"> <a name=\"m159\">CST2</a> </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

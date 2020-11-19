@@ -3000,19 +3000,19 @@ public final class LinkageUtil {
 
     private static void processFieldsReport(CustList<RootBlock> _refFoundTypes, Block _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
         if (_val instanceof SettableAbstractFieldOperation) {
+            int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
+            int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
                 int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-                int d_ = ((SettableAbstractFieldOperation)_val).getDelta();
                 String tag_ = "<a name=\"m"+idValueOffset_+"\">";
-                _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_));
+                _parts.add(new PartOffset(tag_,begin_));
                 tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+                _parts.add(new PartOffset(tag_,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
                 int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
-                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,c_,_sum +delta_+ _val.getIndexInEl() + ((SettableAbstractFieldOperation)_val).getDelta(),((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
+                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
             }
         }
     }
@@ -3020,11 +3020,12 @@ public final class LinkageUtil {
     private static void processFieldsError(CustList<RootBlock> _refFoundTypes, Block _block, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
         if (_val instanceof SettableAbstractFieldOperation) {
             int indexBlock_ = ((SettableAbstractFieldOperation) _val).getIndexBlock();
+            int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
+            int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
                 StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
                 int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
-                int d_ = ((SettableAbstractFieldOperation)_val).getDelta();
                 StringList errCst_ = new StringList();
                 if (id_ > -1) {
                     errCst_.addAllElts(((FieldBlock) _block).getCstErrorsFields().get(id_));
@@ -3032,25 +3033,24 @@ public final class LinkageUtil {
                 if (errs_.isEmpty()) {
                     if (errCst_.isEmpty()) {
                         String tag_ = "<a name=\"m"+idValueOffset_+"\">";
-                        _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_));
+                        _parts.add(new PartOffset(tag_,begin_));
                     } else {
                         String err_ = StringUtil.join(errCst_,"\n\n");
                         String tag_ = "<a name=\"m"+idValueOffset_+"\" title=\""+err_+"\" class=\"e\">";
-                        _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_));
+                        _parts.add(new PartOffset(tag_,begin_));
                     }
                 } else {
                     String err_ = StringUtil.join(errs_,"\n\n");
                     String tag_ = "<a title=\""+err_+"\" class=\"e\">";
-                    _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_));
+                    _parts.add(new PartOffset(tag_,begin_));
                 }
                 String tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,_sum + _val.getIndexInEl()+d_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
+                _parts.add(new PartOffset(tag_,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
                 int id_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) _val).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
-                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,c_,_sum +delta_+ _val.getIndexInEl() + ((SettableAbstractFieldOperation)_val).getDelta(),((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
+                updateFieldAnchor(_refFoundTypes, _val.getErrs(),_parts,c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), _currentFileName,id_);
             }
         }
     }
