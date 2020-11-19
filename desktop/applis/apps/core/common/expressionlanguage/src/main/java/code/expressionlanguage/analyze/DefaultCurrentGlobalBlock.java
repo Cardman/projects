@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
     private final AnalyzedPageEl page;
@@ -13,7 +14,7 @@ public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlo
     }
 
     @Override
-    public AccessedBlock getCurrentGlobalBlockImporting() {
+    public CustList<StringList> getCurrentGlobalBlockImportingTypes() {
         return page.getImportingTypes();
     }
 

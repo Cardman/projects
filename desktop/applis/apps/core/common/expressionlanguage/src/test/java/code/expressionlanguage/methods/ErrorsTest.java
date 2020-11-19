@@ -5772,7 +5772,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  <a title=\"The expression part is empty.\" class=\"e\">(</a>$int);\n" +
+                "  (<a title=\"There is no accessible field named $int from the type pkg.MySub in this context.\" class=\"e\">$int</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5790,7 +5790,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
-                "  <a title=\"The expression part is empty.\" class=\"e\">(</a><a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                "  (<a title=\"There is no accessible field named MySub from the type pkg.MySub in this context.\" class=\"e\">MySub</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

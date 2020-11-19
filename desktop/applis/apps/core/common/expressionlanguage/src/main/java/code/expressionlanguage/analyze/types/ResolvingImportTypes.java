@@ -7,11 +7,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
@@ -32,9 +28,7 @@ public final class ResolvingImportTypes {
     private static String getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        AccessedBlock typeImp_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
-        fetchImports(typeImp_, imports_);
+        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
         for (StringList s: imports_) {
             for (String i: s) {
                 String tr_ = i.trim();
@@ -135,9 +129,7 @@ public final class ResolvingImportTypes {
 
     public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(String _glClass, String _method, AnalyzedPageEl _page) {
         CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
-        AccessedBlock type_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        fetchImports(type_, imports_);
+        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
@@ -253,9 +245,7 @@ public final class ResolvingImportTypes {
     public static StringMap<ImportedField> lookupImportStaticFields(String _glClass, String _method, AnalyzedPageEl _page) {
         StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
         int import_ = 1;
-        AccessedBlock type_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
-        CustList<StringList> imports_ = new CustList<StringList>();
-        fetchImports(type_, imports_);
+        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
@@ -399,24 +389,5 @@ public final class ResolvingImportTypes {
         }
         return StringUtil.indexOf(_field.getFieldName(), _method.trim());
     }
-    private static void fetchImports(AccessedBlock _rooted, CustList<StringList> _imports) {
-        if (_rooted instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) _rooted;
-            _imports.add(r_.getImports());
-            for (RootBlock r: r_.getAllParentTypes()) {
-                addImports(r,_imports);
-            }
-        } else {
-            addImports(_rooted, _imports);
-        }
-        if (_rooted != null) {
-            _imports.add(_rooted.getFileImports());
-        }
-    }
 
-    private static void addImports(AccessedBlock _rooted, CustList<StringList> _imports) {
-        if (_rooted != null) {
-            _imports.add(_rooted.getImports());
-        }
-    }
 }

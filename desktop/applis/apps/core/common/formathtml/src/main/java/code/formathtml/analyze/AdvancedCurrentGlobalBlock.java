@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.AbstractCurrentGlobalBlock;
+import code.util.CustList;
+import code.util.StringList;
 
 public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
     private final AnalyzedPageEl page;
@@ -33,8 +35,8 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
     }
 
     @Override
-    public AccessedBlock getCurrentGlobalBlockImporting() {
-        return analyzingDoc.getCurrentDoc();
+    public CustList<StringList> getCurrentGlobalBlockImportingTypes() {
+        return analyzingDoc.getImportTypes();
     }
 
     @Override

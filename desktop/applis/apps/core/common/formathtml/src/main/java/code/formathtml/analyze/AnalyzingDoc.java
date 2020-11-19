@@ -27,6 +27,7 @@ public final class AnalyzingDoc {
     private String attribute="";
     private String fileName="";
     private AnaRendDocumentBlock currentDoc;
+    private CustList<StringList> importTypes = new CustList<StringList>();
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private RendKeyWords rendKeyWords = new RendKeyWords();
 
@@ -184,12 +185,19 @@ public final class AnalyzingDoc {
         fileName = _fileName;
     }
 
+    public CustList<StringList> getImportTypes() {
+        return importTypes;
+    }
+
     public AnaRendDocumentBlock getCurrentDoc() {
         return currentDoc;
     }
 
     public void setCurrentDoc(AnaRendDocumentBlock _current) {
         this.currentDoc = _current;
+        importTypes.clear();
+        importTypes.add(_current.getImports());
+        importTypes.add(_current.getFileImports());
     }
 
     public int getNextIndex() {

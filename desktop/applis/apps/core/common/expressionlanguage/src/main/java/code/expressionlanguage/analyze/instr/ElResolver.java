@@ -674,6 +674,9 @@ public final class ElResolver {
         if (indexParRight_ < 0) {
             return _from;
         }
+        if (indexParRight_ + 1 >= _string.length()) {
+            return _from;
+        }
         if (_callings.containsObj(_from)) {
             return _from;
         }
@@ -1140,6 +1143,9 @@ public final class ElResolver {
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
                         foundLeftPar_ = true;
+                        if (curLoc_ == PAR_LEFT ) {
+                            _d.getCallings().add(j_);
+                        }
                     }
                     j_++;
                     break;
@@ -3502,6 +3508,9 @@ public final class ElResolver {
             _d.getDelLoopVars().add(_from);
             _d.getDelLoopVars().add(indexParRight_);
             return indexParRight_ + 1;
+        }
+        if (indexParRight_ + 1 >= _string.length()) {
+            return _from;
         }
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
         for (String s: StringUtil.wrapStringArray("+=","-=",

@@ -68,7 +68,7 @@ public final class AnalyzedPageEl {
     private MemberCallingsBlock currentFct;
     private AccessedBlock importing;
     private AccessingImportingBlock importingAcces;
-    private AccessedBlock importingTypes;
+    private CustList<StringList> importingTypes = new CustList<StringList>();
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private int countTypes;
     private int countInnerEltTypes;
@@ -524,12 +524,24 @@ public final class AnalyzedPageEl {
         this.importingAcces = _importingAcces;
     }
 
-    public AccessedBlock getImportingTypes() {
+    public CustList<StringList> getImportingTypes() {
         return importingTypes;
     }
 
     public void setImportingTypes(AccessedBlock _importingTypes) {
-        this.importingTypes = _importingTypes;
+        importingTypes.clear();
+        if (_importingTypes instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _importingTypes;
+            importingTypes.add(r_.getImports());
+            for (RootBlock r: r_.getAllParentTypes()) {
+                importingTypes.add(r.getImports());
+            }
+            importingTypes.add(r_.getFileImports());
+        }
+        if (_importingTypes instanceof OperatorBlock) {
+            importingTypes.add(_importingTypes.getImports());
+            importingTypes.add(_importingTypes.getFileImports());
+        }
     }
 
     public int getIndexChildType() {
