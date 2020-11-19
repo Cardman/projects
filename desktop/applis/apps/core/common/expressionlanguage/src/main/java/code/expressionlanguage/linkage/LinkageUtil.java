@@ -2288,14 +2288,14 @@ public final class LinkageUtil {
         buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, "");
     }
 
-    private static void buildCoverageReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, int _i, int _begin, int _end, OperationNode _root, int _indexLoop, int _j, String _field, boolean _annot) {
+    private static void buildCoverageReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, Coverage _cov, int _indexAnnotation, int _begin, int _end, OperationNode _root, int _indexLoop, int _tr, String _field, boolean _annot) {
         OperationNode current_ = getCurrent(_vars, _root);
-        buildCoverageReport(_indexLoop, _index, _i, _vars, _begin, _cond, current_, _root, _end, _parts, _j, _field, _annot, _cov);
+        buildCoverageReport(_indexLoop, _index, _indexAnnotation, _vars, _begin, _cond, current_, _root, _end, _parts, _tr, _field, _annot, _cov);
     }
 
-    private static void buildErrorReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, int _i, int _begin, OperationNode _root, int _indexLoop, int _j, String _field) {
-        OperationNode nodes_ = getCurrent(_vars, _root);
-        buildErrorReport(_indexLoop, _index, _i, _vars, _begin, _cond, nodes_, _root, _parts, _j, _field);
+    private static void buildErrorReport(VariablesOffsets _vars, Block _cond, int _index, CustList<PartOffset> _parts, int _indexAnnotation, int _begin, OperationNode _root, int _indexLoop, int _tr, String _field) {
+        OperationNode current_ = getCurrent(_vars, _root);
+        buildErrorReport(_indexLoop, _index, _indexAnnotation, _vars, _begin, _cond, current_, _root, _parts, _tr, _field);
     }
 
     private static OperationNode getCurrent(VariablesOffsets _vars,OperationNode _root) {
@@ -2318,7 +2318,7 @@ public final class LinkageUtil {
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 AbstractCoverageResult result_ = getCovers(_block, val_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
-                getBeginOpReport(_block, _parts, _fieldName, _from, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
+                getBeginOpReport(_block, _parts, _fieldName, _root, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
                 leftReport(_vars, _block,sum_,val_, result_,_parts, currentFileName_);
                 OperationNode firstChildOp_ = val_.getFirstChild();
                 if (firstChildOp_ != null) {
