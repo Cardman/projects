@@ -687,7 +687,7 @@ public final class ElResolver {
         for (String s: StringUtil.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
-                "||","&&","?",
+                "||","&&","?",":",
                 "<",">",",","->",
                 "!=","=",")","]","}")) {
             if (_string.startsWith(s,next_)) {
@@ -3516,7 +3516,7 @@ public final class ElResolver {
         for (String s: StringUtil.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
-                "||","&&","?",
+                "||","&&","?",":",
                 "<",">",",","->",
                 "!=","=",")","]","}")) {
             if (_string.startsWith(s,next_)) {
