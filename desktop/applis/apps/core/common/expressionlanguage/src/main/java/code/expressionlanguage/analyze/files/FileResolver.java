@@ -23,6 +23,7 @@ public final class FileResolver {
     private static final String EMPTY_STRING = "";
     private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
+    private static final char END_TEMPLATE = '>';
     private static final char BEGIN_BLOCK = '{';
     private static final char END_BLOCK = '}';
     private static final char BEGIN_ARRAY = '[';
@@ -56,25 +57,28 @@ public final class FileResolver {
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _file.length();
-        CommentDelimiters current_ = null;
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
         Ints offsetsImports_ = new Ints();
-        Ints beginComments_ = _block.getBeginComments();
-        Ints endComments_ = _block.getEndComments();
         CustList<CommentDelimiters> comments_ = _page.getComments();
+        int braces_ = 0;
+        int parentheses_ = 0;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (current_ != null) {
-                String endCom_ = getEndCom(_file, i_, current_);
-                int length_ = endCom_.length();
-                if (length_ > 0) {
-                    i_ += length_;
-                    appendEnd(i_, endCom_, endComments_);
-                    appendEndComment(str_, endCom_);
-                    current_ = null;
-                    continue;
-                }
+            if (stringComment(_file, i_, comments_, currentChar_)) {
+                ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,str_);
+                parse_.parse(0,_block,comments_);
+                i_ = parse_.getIndex();
+                continue;
+            }
+            ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
+            parsPars_.parse(currentChar_,false);
+            if (parsPars_.isExitLoop()) {
+                break;
+            }
+            braces_ = parsPars_.getBraces();
+            parentheses_ = parsPars_.getParentheses();
+            if (parentheses_ > 0) {
                 i_++;
                 continue;
             }
@@ -115,23 +119,6 @@ public final class FileResolver {
                 if (currentChar_ == ANNOT) {
                     break;
                 }
-            }
-            boolean skip_= false;
-            for (CommentDelimiters c: comments_) {
-                if (_file.startsWith(c.getBegin(),i_)) {
-                    current_ = c;
-                    beginComments_.add(i_);
-                    int beginLen_ = c.getBegin().length();
-                    for (int e = 0; e < beginLen_; e++) {
-                        str_.append(' ');
-                    }
-                    i_ += beginLen_;
-                    skip_ = true;
-                    break;
-                }
-            }
-            if (skip_) {
-                continue;
             }
             if (currentChar_ == END_IMPORTS) {
                 importedTypes_.add(str_.toString());
@@ -191,53 +178,40 @@ public final class FileResolver {
                 _block.appendChild(block_);
             }
             i_ = res_.getNextIndex();
-            boolean hasNext_ = false;
             boolean ended_ = true;
-            current_ = null;
+            CommentDelimiters current_ = null;
+            braces_ = 0;
+            parentheses_ = 0;
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
-                if (current_ != null) {
-                    String endCom_ = getEndCom(_file, i_, current_);
-                    int length_ = endCom_.length();
-                    if (length_ > 0) {
-                        i_ += length_;
-                        appendEnd(i_, endCom_, endComments_);
-                        current_ = null;
-                        continue;
-                    }
+                if (stringComment(_file, i_, comments_, currentChar_)) {
+                    ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,str_);
+                    parse_.parse(0,_block,comments_);
+                    current_ = parse_.getCurrentCom();
+                    i_ = parse_.getIndex();
+                    continue;
+                }
+                ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
+                parsPars_.parse(currentChar_,false);
+                if (parsPars_.isExitLoop()) {
+                    break;
+                }
+                braces_ = parsPars_.getBraces();
+                parentheses_ = parsPars_.getParentheses();
+                if (parentheses_ > 0) {
                     i_++;
                     continue;
                 }
-                if (StringExpUtil.isTypeLeafChar(currentChar_)) {
-                    hasNext_ = true;
+                if (StringExpUtil.isTypeLeafChar(currentChar_) || currentChar_ == ANNOT) {
                     ended_ = false;
                     break;
                 }
-                if (currentChar_ == ANNOT) {
-                    hasNext_ = true;
-                    ended_ = false;
-                    break;
-                }
-                boolean skip_= false;
-                for (CommentDelimiters c: comments_) {
-                    if (_file.startsWith(c.getBegin(),i_)) {
-                        current_ = c;
-                        beginComments_.add(i_);
-                        i_ += c.getBegin().length();
-                        skip_ = true;
-                        break;
-                    }
-                }
-                if (skip_) {
-                    continue;
-                }
-
                 i_ = i_ + 1;
             }
-            if (ended_ && current_ != null) {
-                endComments_.add(len_ - 1);
-            }
-            if (!hasNext_) {
+            if (ended_) {
+                if (current_ != null) {
+                    _block.getEndComments().add(len_ - 1);
+                }
                 return;
             }
             input_.setNextIndex(i_);
@@ -268,11 +242,8 @@ public final class FileResolver {
         StringBuilder instruction_ = new StringBuilder();
         int instructionLocation_ = _input.getNextIndex();
         FileBlock fileBlock_ = _input.getFile();
-        Ints braces_ = new Ints();
-        Ints parentheses_ = new Ints();
-        boolean constChar_ = false;
-        boolean constString_ = false;
-        boolean constText_ = false;
+        int braces_ = 0;
+        int parentheses_ = 0;
         boolean declType_ = false;
         BracedBlock currentParent_ = null;
 
@@ -281,144 +252,18 @@ public final class FileResolver {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         after_.setIndex(i_);
         after_.setParent(null);
-        CommentDelimiters current_ = null;
         CustList<CommentDelimiters> comments_ = _page.getComments();
-        Ints beginComments_ = fileBlock_.getBeginComments();
-        Ints endComments_ = fileBlock_.getEndComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (current_ != null) {
-                String endCom_ = getEndCom(_file, i_, current_);
-                int length_ = endCom_.length();
-                if (length_ > 0) {
-                    i_ += length_;
-                    appendEnd(i_, endCom_, endComments_);
-                    appendEndComment(instruction_, endCom_);
-                    current_ = null;
-                    continue;
-                }
-                instruction_.append(' ');
-                i_++;
-                continue;
-            }
-            if (constChar_) {
-                instruction_.append(currentChar_);
-                if (currentChar_ == ESCAPE) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        i_++;
-                        continue;
-                    }
-                    instruction_.append(_file.charAt(i_+1));
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-                if (currentChar_ == DEL_CHAR) {
-
-                    i_ = i_ + 1;
-                    constChar_ = false;
-                    continue;
-                }
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (constString_) {
-                instruction_.append(currentChar_);
-                if (currentChar_ == ESCAPE) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        i_++;
-                        continue;
-                    }
-                    instruction_.append(_file.charAt(i_+1));
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-                if (currentChar_ == DEL_STRING) {
-
-                    i_ = i_ + 1;
-                    constString_ = false;
-                    continue;
-                }
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (constText_) {
-                instruction_.append(currentChar_);
-                if (i_ + 1 >= len_) {
-                    //ERROR
-                    i_++;
-                    continue;
-                }
-                if(currentChar_ == DEL_TEXT) {
-                    if (_file.charAt(i_ + 1) != DEL_TEXT) {
-
-                        i_ = i_ + 1;
-                        constText_ = false;
-                        continue;
-                    }
-                    instruction_.append(_file.charAt(i_+1));
-
-                    i_ = i_ + 1;
-
-                    i_ = i_ + 1;
-                    continue;
-                }
-
-                i_ = i_ + 1;
-                continue;
-            }
-            boolean skip_= false;
-            for (CommentDelimiters c: comments_) {
-                if (_file.startsWith(c.getBegin(),i_)) {
-                    current_ = c;
-                    beginComments_.add(i_);
-                    int beginLen_ = c.getBegin().length();
-                    i_ += beginLen_;
-                    for (int e = 0; e < beginLen_; e++) {
-                        instruction_.append(' ');
-                    }
-                    skip_ = true;
-                    break;
-                }
-            }
-            if (skip_) {
-                continue;
-            }
-            if (currentChar_ == DEL_CHAR) {
-                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
-                instruction_.append(currentChar_);
-                constChar_ = true;
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (currentChar_ == DEL_STRING) {
-                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
-                instruction_.append(currentChar_);
-                constString_ = true;
-
-                i_ = i_ + 1;
-                continue;
-            }
-            if (currentChar_ == DEL_TEXT) {
-                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
-                instruction_.append(currentChar_);
-                constText_ = true;
-
-                i_ = i_ + 1;
+            if (stringComment(_file, i_, comments_, currentChar_)) {
+                ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,instruction_);
+                parse_.parse(instructionLocation_,fileBlock_,comments_);
+                i_ = parse_.getIndex();
+                instructionLocation_ = parse_.getInstructionLocation();
                 continue;
             }
             boolean endInstruction_ = false;
-            if (parentheses_.isEmpty()) {
+            if (parentheses_ == 0) {
                 if (currentChar_ == END_LINE) {
                     endInstruction_ = true;
                 }
@@ -430,9 +275,6 @@ public final class FileResolver {
                     if (endInstruction_ && currentParent_ instanceof SwitchPartBlock) {
                         currentParent_ = currentParent_.getParent();
                     }
-                }
-                if (currentChar_ == SEP_ENUM_CONST && canHaveElements(currentParent_)) {
-                    endInstruction_ = true;
                 }
                 if (currentChar_ == END_BLOCK) {
                     endInstruction_ = true;
@@ -446,13 +288,16 @@ public final class FileResolver {
                         }
                     }
                 }
-                if (currentChar_ == BEGIN_TEMPLATE && canHaveElements(currentParent_)) {
-                    //increment to last greater
-                    instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
-                    ParsedTemplatedType par_ = new ParsedTemplatedType(instruction_,i_);
-                    par_.parse(_file,comments_,beginComments_,endComments_);
-                    i_ = par_.getCurrent();
-                    continue;
+                if (canHaveElements(currentParent_)) {
+                    if (currentChar_ == BEGIN_TEMPLATE) {
+                        ((EnumBlock)currentParent_).setLtGt(((EnumBlock)currentParent_).getLtGt()+1);
+                    }
+                    if (currentChar_ == END_TEMPLATE) {
+                        ((EnumBlock)currentParent_).setLtGt(((EnumBlock)currentParent_).getLtGt()-1);
+                    }
+                    if (currentChar_ == SEP_ENUM_CONST && ((EnumBlock)currentParent_).getLtGt() == 0) {
+                        endInstruction_ = true;
+                    }
                 }
                 //End line
             }
@@ -460,40 +305,14 @@ public final class FileResolver {
                 instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
             }
-            if (currentChar_ == BEGIN_CALLING) {
-                parentheses_.add(i_);
+            ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
+            parsPars_.parse(currentChar_,endInstruction_);
+            if (parsPars_.isExitLoop()) {
+                FileResolver.addBadIndex(_input, currentParent_, out_, i_);
+                break;
             }
-            if (currentChar_ == BEGIN_ARRAY) {
-                parentheses_.add(i_);
-            }
-            if (currentChar_ == END_CALLING) {
-                if (parentheses_.isEmpty()) {
-                    addBadIndex(_input, currentParent_, out_, i_);
-                    break;
-                }
-                parentheses_.removeQuicklyLast();
-            }
-            if (currentChar_ == END_ARRAY) {
-                if (parentheses_.isEmpty()) {
-                    addBadIndex(_input, currentParent_, out_, i_);
-                    break;
-                }
-                parentheses_.removeQuicklyLast();
-            }
-            if (currentChar_ == BEGIN_BLOCK) {
-                if (endInstruction_) {
-                    braces_.add(i_);
-                } else {
-                    parentheses_.add(i_);
-                }
-            }
-            if (currentChar_ == END_BLOCK) {
-                if (endInstruction_) {
-                    braces_.removeLast();
-                } else {
-                    parentheses_.removeLast();
-                }
-            }
+            braces_ = parsPars_.getBraces();
+            parentheses_ = parsPars_.getParentheses();
             if (endInstruction_) {
                 after_ = processInstruction(out_,_input, packageName_, currentChar_, currentParent_,
                         instructionLocation_,
@@ -503,7 +322,7 @@ public final class FileResolver {
                 packageName_ = after_.getPackageName();
                 instructionLocation_ = i_;
                 declType_ = false;
-                if (braces_.isEmpty()) {
+                if (braces_ == 0) {
                     okType_ = true;
                     break;
                 }
@@ -521,13 +340,27 @@ public final class FileResolver {
         return out_;
     }
 
+    private static boolean stringComment(String _file, int _i, CustList<CommentDelimiters> _comments, char _currentChar) {
+        return _currentChar == DEL_CHAR || _currentChar == DEL_STRING || _currentChar == DEL_TEXT || ParseStringsCommentsState.skip(_file, _i, _comments) != null;
+    }
+
+    static String getEndCom(String _file, int _i, CommentDelimiters _current) {
+        String endCom_ = "";
+        for (String e: _current.getEnd()) {
+            if (_file.startsWith(e, _i)) {
+                endCom_ = e;
+                break;
+            }
+        }
+        return endCom_;
+    }
     private static boolean isCaseDefault(String _str, String _keyWordCase, String _keyWordDefault) {
         return StringExpUtil.startsWithKeyWord(_str, _keyWordCase)
                 || StringUtil.quickEq(_str, _keyWordDefault)
                 || startsWithDefVar(_str, _keyWordDefault);
     }
 
-    private static int setInstLocation(StringBuilder _instruction, int _instructionLocation, int _i) {
+    static int setInstLocation(StringBuilder _instruction, int _instructionLocation, int _i) {
         if (_instruction.length() == 0) {
             return _i;
         }
@@ -3030,16 +2863,6 @@ public final class FileResolver {
         return -1;
     }
 
-    static String getEndCom(String _file, int _i, CommentDelimiters _current) {
-        String endCom_ = "";
-        for (String e: _current.getEnd()) {
-            if (_file.startsWith(e, _i)) {
-                endCom_ = e;
-                break;
-            }
-        }
-        return endCom_;
-    }
     private static boolean canHaveElements(Block _bl) {
         if (!(_bl instanceof EnumBlock)) {
             return false;

@@ -1170,5 +1170,19 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThirtySixtyFour", xml_.toString());
         assertTrue(hasErr(files_));
     }
-
+    @Test
+    public void calculate169FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyInt{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyInt{}()\n");
+        files_.put("pkg/ExTwo2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append(")$public $interface pkg.MyInt{}\n");
+        files_.put("pkg/ExTwo3", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }
