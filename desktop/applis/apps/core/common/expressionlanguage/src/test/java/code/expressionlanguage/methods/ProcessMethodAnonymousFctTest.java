@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -2091,6 +2092,84 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate86_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m=3;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  return e[new int[]{4,5},a -> m???=a[0]];\n");
+        xml_.append(" }\n");
+        xml_.append(" int this(int[] a,Fct<int[],int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append(" void this(int[] a,Fct<int[],int> fct){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate86__() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static boolean m=true;\n");
+        xml_.append(" static boolean m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  return e[new boolean[]{true},a -> m&&&=a[0]];\n");
+        xml_.append(" }\n");
+        xml_.append(" boolean this(boolean[] a,Fct<boolean[],boolean> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append(" void this(boolean[] a,Fct<boolean[],boolean> fct){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertTrue(BooleanStruct.isTrue(ret_.getStruct()));
+    }
+
+    @Test
+    public void calculate86___() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static boolean m=false;\n");
+        xml_.append(" static boolean m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  return e[new boolean[]{false},a -> m|||=a[0]];\n");
+        xml_.append(" }\n");
+        xml_.append(" boolean this(boolean[] a,Fct<boolean[],boolean> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append(" void this(boolean[] a,Fct<boolean[],boolean> fct){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertTrue(BooleanStruct.isFalse(ret_.getStruct()));
     }
 
     @Test
@@ -4906,6 +4985,15 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("  a=x -> 1?;\n");
         xml_.append("  a=x -> 1+;\n");
         xml_.append("  a=x -> 1-;\n");
+        xml_.append("  a=x -> 1&&&=;\n");
+        xml_.append("  a=x -> 1|||=;\n");
+        xml_.append("  a=x -> 1???=;\n");
+        xml_.append("  a=x -> 1&&&;\n");
+        xml_.append("  a=x -> 1|||;\n");
+        xml_.append("  a=x -> 1???;\n");
+        xml_.append("  a=x -> 1&&&1;\n");
+        xml_.append("  a=x -> 1|||1;\n");
+        xml_.append("  a=x -> 1???1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex2", xml_.toString());

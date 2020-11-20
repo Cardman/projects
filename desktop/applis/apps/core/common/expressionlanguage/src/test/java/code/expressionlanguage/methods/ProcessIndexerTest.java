@@ -2731,6 +2731,656 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertTrue(ret_.isTrue());
     }
     @Test
+    public void calculate80Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] &&&= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate81Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] |||= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate82Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] &&&= $false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate83Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] |||= $true;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate84Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] &&&= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate85Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] |||= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate86Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate87Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate88Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= $false;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate89Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= $true;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate90Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate91Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate92Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] &&&= $true;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate93Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] |||= $false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate94Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= $true;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate95Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= $false;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst=$new $boolean[2];\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate96Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] &&&= e[1] &&&= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$false};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate97Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return e[0] |||= e[1] |||= 1/0>1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$false,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate98Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= e[1] &&&= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$false};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate99Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= e[1] |||= 1/0>1;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$false,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
+    public void calculate100Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] &&&= e[1] &&&= 1/0>1;\n");
+        xml_.append("  $return e[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$true,$false};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isFalse());
+    }
+    @Test
+    public void calculate101Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Object test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[0] |||= e[1] |||= 1/0>1;\n");
+        xml_.append("  $return e[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $boolean[] inst={$false,$true};\n");
+        xml_.append(" $public $boolean $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
+    @Test
     public void calculate7FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

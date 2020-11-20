@@ -19,6 +19,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
@@ -60,6 +61,10 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         Argument rightArg_ = getArgument(_nodes,right_);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
         if (argumentPair_.isArgumentTest()){
+            if (StringUtil.quickEq(operatorContent.getOper(), "&&&=") || StringUtil.quickEq(operatorContent.getOper(), "|||=")) {
+                setSimpleArgument(leftArg_, _conf,_nodes, _context);
+                return;
+            }
             Argument arg_ = RendAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_, _advStandards, _context);
             setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
@@ -80,6 +85,12 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable, _advStandards, _context);
             setSimpleArgument(arg_, _conf,_nodes, _context);
             return;
+        }
+        if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {
+            if (!leftArg_.isNull()) {
+                setSimpleArgument(leftArg_, _conf,_nodes, _context);
+                return;
+            }
         }
         if (converter != null) {
             String tres_ = converter.get(0).getFct().getImportedParametersTypes().get(0);

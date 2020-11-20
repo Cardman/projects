@@ -958,6 +958,11 @@ public final class ElResolver {
             if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
                 j_++;
             }
+            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
+                    j_++;
+                }
+            }
             if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
                 int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
                 if (!isDigitOrDot(_string,n_)) {
@@ -966,6 +971,11 @@ public final class ElResolver {
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
                 j_++;
+            }
+            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
+                    j_++;
+                }
             }
             if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
                 j_++;
@@ -2370,6 +2380,13 @@ public final class ElResolver {
             if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
             }
+            if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
+                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
+                    j_++;
+                } else {
+                    addOp_ = false;
+                }
+            }
             if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
                 int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
                 if (!isDigitOrDot(_string,n_)) {
@@ -2378,6 +2395,13 @@ public final class ElResolver {
             }
             if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
                 j_++;
+            }
+            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
+                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
+                    j_++;
+                } else {
+                    addOp_ = false;
+                }
             }
             if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
                 j_++;

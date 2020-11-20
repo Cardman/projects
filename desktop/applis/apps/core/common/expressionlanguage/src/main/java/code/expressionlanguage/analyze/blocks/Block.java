@@ -11,8 +11,11 @@ public abstract class Block {
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
     public static final String OR_LOG_EQ = "||=";
+    public static final String OR_LOG_EQ_SHORT = "|||=";
     public static final String AND_LOG_EQ = "&&=";
+    public static final String AND_LOG_EQ_SHORT = "&&&=";
     public static final String NULL_EQ = "??=";
+    public static final String NULL_EQ_SHORT = "???=";
     public static final String XOR_EQ = "^=";
     public static final String PLUS_EQ = "+=";
 

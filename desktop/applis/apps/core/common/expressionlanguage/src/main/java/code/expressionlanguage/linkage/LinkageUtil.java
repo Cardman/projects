@@ -2594,8 +2594,11 @@ public final class LinkageUtil {
                     } else if (parentBefore_ instanceof CompoundAffectationOperation) {
                         CompoundAffectationOperation p_ = (CompoundAffectationOperation) parentBefore_;
                         if (StringUtil.quickEq(p_.getOper(),"&&=")
+                                || StringUtil.quickEq(p_.getOper(),"&&&=")
                                 || StringUtil.quickEq(p_.getOper(),"||=")
-                                || StringUtil.quickEq(p_.getOper(),"??=")) {
+                                || StringUtil.quickEq(p_.getOper(),"|||=")
+                                || StringUtil.quickEq(p_.getOper(),"??=")
+                                || StringUtil.quickEq(p_.getOper(),"???=")) {
                             par_ = before_;
                         }
                     }
@@ -3714,17 +3717,33 @@ public final class LinkageUtil {
             addParts(_vars, _refFoundTypes,_refOperators,_currentFileName,className_,id_,begin_,1, _parentOp.getErrs(),title_,_parts);
             begin_++;
             len_--;
+            if (StringUtil.quickEq(par_.getOper(),"&&&=")
+                    || StringUtil.quickEq(par_.getOper(),"|||=")){
+                begin_++;
+                len_--;
+            }
         } else if (StringUtil.quickEq(par_.getOper(),"&&=")
                 || StringUtil.quickEq(par_.getOper(),"||=")){
             AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
             len_--;
+        } else if (StringUtil.quickEq(par_.getOper(),"&&&=")
+                || StringUtil.quickEq(par_.getOper(),"|||=")){
+            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            safeReport(_vars, resultFirst_, begin_,_parts,1);
+            begin_+=2;
+            len_-=2;
         } else if (StringUtil.quickEq(par_.getOper(),"??=")){
             AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             safeReport(_vars, resultFirst_, begin_,_parts,1);
             begin_++;
             len_--;
+        } else if (StringUtil.quickEq(par_.getOper(),"???=")){
+            AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+            safeReport(_vars, resultFirst_, begin_,_parts,1);
+            begin_+=2;
+            len_-=2;
         }
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
@@ -3734,7 +3753,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(tag_, begin_));
             tag_ = "</i>";
             _parts.add(new PartOffset(tag_,begin_+len_));
-        } else if (StringUtil.quickEq(par_.getOper(),"??=")){
+        } else if (StringUtil.quickEq(par_.getOper(),"??=") || StringUtil.quickEq(par_.getOper(),"???=")){
             AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             safeReport(_vars, resultLast_, begin_,_parts, 1);
         } else {

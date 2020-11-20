@@ -4515,6 +4515,1067 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage498Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true;\n");
+        xml_.append("  $var c = $true;\n");
+        xml_.append("  b &&&= c;\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"true\">&amp;</a>&amp;<a title=\"true\">&amp;</a>=<span class=\"p\"> <a href=\"#m81\">c</a></span></span>;\n" +
+                "  $return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage499Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $false;\n");
+        xml_.append("  $var c = $true;\n");
+        xml_.append("  b &&&= c;\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"false\">&amp;</a>&amp;&amp;=<span class=\"n\"> <a href=\"#m82\">c</a></span></span>;\n" +
+                "  $return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage500Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $false;\n");
+        xml_.append("  $var c = $false;\n");
+        xml_.append("  b |||= c;\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"false\">|</a>|<a title=\"false\">|</a>=<span class=\"p\"> <a href=\"#m82\">c</a></span></span>;\n" +
+                "  $return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage501Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var b = $true;\n");
+        xml_.append("  $var c = $false;\n");
+        xml_.append("  b |||= c;\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
+                "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"true\">|</a>||=<span class=\"n\"> <a href=\"#m81\">c</a></span></span>;\n" +
+                "  $return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage502Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass f = new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return (e&&&=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i?1:2;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m109\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
+                "\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m314\">&amp;</a>&amp;<a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m365\">&amp;</a>=<span class=\"f\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m192\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m218\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m250\">true</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m263\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m263\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m314\">false</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m328\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m328\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"false\">!=</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m365\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m385\">i</a>, <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m396\">j</a>){\n" +
+                "  return <span class=\"p\"><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m385\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m396\">j</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m445\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m465\">i</a>, <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m476\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m465\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span>||<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m476\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m539\">$</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m549\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m549\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m600\">$</a>(boolean <a name=\"m610\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m624\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m624\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m610\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m624\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage503Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=10;\n");
+        xml_.append("  ExClass f = new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return (e&&&=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i?1:2;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m110\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
+                "\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m315\">&amp;</a>&amp;<a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m366\">&amp;</a>=<span class=\"n\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m193\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m219\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m251\">true</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m264\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m264\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m315\">false</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m329\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m329\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"true\">!=</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m366\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m386\">i</a>, <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m397\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m386\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span>&amp;&amp;<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m397\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m446\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m466\">i</a>, <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m477\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m466\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span>||<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m477\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m540\">$</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m550\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m550\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m601\">$</a>(boolean <a name=\"m611\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"n\"><span class=\"n\"><a name=\"m625\">e</a> </span>=<span class=\"n\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m625\">e</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m611\">i</a></span>?<span class=\"n\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
+                "  return <span class=\"n\"><a href=\"#m625\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage504Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass f = new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return (e|||=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i?1:2;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m109\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
+                "\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m250\">|</a>|<a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m445\">|</a>=<span class=\"n\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m192\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m218\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m250\">true</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m263\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m263\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m314\">false</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m328\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m328\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m365\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m385\">i</a>, <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m396\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m385\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span>&amp;&amp;<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m396\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m445\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m465\">i</a>, <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m476\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m465\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span>||<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m476\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m539\">$</a>(<a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m549\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m549\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m600\">$</a>(boolean <a name=\"m610\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"n\"><span class=\"n\"><a name=\"m624\">e</a> </span>=<span class=\"n\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m624\">e</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m610\">i</a></span>?<span class=\"n\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
+                "  return <span class=\"n\"><a href=\"#m624\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage505Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=10;\n");
+        xml_.append("  ExClass f = new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return (e|||=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i?1:2;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m110\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
+                "\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m251\">|</a>|<a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m446\">|</a>=<span class=\"f\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m193\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m219\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m251\">true</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m264\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m264\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m315\">false</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m329\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m329\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m366\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m386\">i</a>, <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m397\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m386\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span>&amp;&amp;<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m397\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m446\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m466\">i</a>, <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m477\">j</a>){\n" +
+                "  return <span class=\"p\"><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m466\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span><a title=\"false\">|</a><a title=\"true\">|</a><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m477\">j</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m540\">$</a>(<a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m550\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m550\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <a name=\"m601\">$</a>(boolean <a name=\"m611\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m625\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m193\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m625\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m219\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m611\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m625\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage506Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  String out = \"\";\n");
+        xml_.append("  for (ExClass e:{ new ExClass(10), new ExClass(1)}){\n");
+        xml_.append("   ExClass g = e;\n");
+        xml_.append("   ExClass f = new ExClass(1);\n");
+        xml_.append("   f.field=1;\n");
+        xml_.append("   out += (g&&&=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public ExClass(int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass(i?1:2);\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
+                "   <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">g</a> </span>=<span class=\"f\"> <a href=\"#m91\">e</a></span></span>;\n" +
+                "   <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m159\">f</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">1</span>)</span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m159\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"> (<span class=\"f\"><span class=\"f\"><a href=\"#m141\">g</a></span><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m425\">&amp;</a>&amp;<a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m476\">&amp;</a>=<span class=\"f\"><a href=\"#m159\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m66\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m263\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m289\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " <a name=\"m299\">public ExClass(</a>int <a name=\"m318\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a> </span>=<span class=\"f\"> <a href=\"#m318\">p</a></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m361\">true</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m374\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m374\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m425\">false</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m439\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m439\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>!=<span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m476\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m496\">i</a>, <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m507\">j</a>){\n" +
+                "  return <span class=\"p\"><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m496\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m507\">j</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m556\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m576\">i</a>, <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m587\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m576\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"n\">1</span></span>||<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m587\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m650\">$</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m660\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m660\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m711\">$</a>(boolean <a name=\"m721\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m735\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m721\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m735\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage507Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  String out = \"\";\n");
+        xml_.append("  for (ExClass e:{ new ExClass(10), new ExClass(1)}){\n");
+        xml_.append("   ExClass g = e;\n");
+        xml_.append("   ExClass f = new ExClass(1);\n");
+        xml_.append("   f.field=1;\n");
+        xml_.append("   out += (g|||=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public ExClass(int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass(i?1:2);\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
+                "   <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">g</a> </span>=<span class=\"f\"> <a href=\"#m91\">e</a></span></span>;\n" +
+                "   <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m159\">f</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\">1</span>)</span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m159\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"> (<span class=\"f\"><span class=\"f\"><a href=\"#m141\">g</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m361\">|</a>|<a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m556\">|</a>=<span class=\"f\"><a href=\"#m159\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m66\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m263\">pkg.ExClass</a> {\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m289\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " <a name=\"m299\">public ExClass(</a>int <a name=\"m318\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a> </span>=<span class=\"f\"> <a href=\"#m318\">p</a></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m361\">true</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m374\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m374\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m425\">false</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m439\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m439\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m476\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m496\">i</a>, <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m507\">j</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m496\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"n\">1</span></span>&amp;&amp;<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m507\">j</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span>==<span class=\"n\">1</span></span></span>;\n" +
+                " }\n" +
+                " operator<a name=\"m556\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m576\">i</a>, <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m587\">j</a>){\n" +
+                "  return <span class=\"p\"><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m576\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span><a title=\"false\">|</a><a title=\"true\">|</a><span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m587\">j</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m650\">$</a>(<a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m660\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m660\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m289\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <a name=\"m711\">$</a>(boolean <a name=\"m721\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m735\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m299\">new</a> <a title=\"pkg.ExClass\" href=\"#m263\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m721\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m735\">e</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage508Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v &&&= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">&amp;</a>&amp;&amp;=<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage509Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v &&&= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">&amp;</a>&amp;&amp;=<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage510Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v |||= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">|</a>||=<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage511Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v |||= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">|</a>||=<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage512Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = false;\n");
+        xml_.append("  Boolean j = false;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>??=<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage513Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = null;\n");
+        xml_.append("  Boolean j = false;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?<a title=\"false\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage514Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = false;\n");
+        xml_.append("  Boolean j = null;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>??=<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage515Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = null;\n");
+        xml_.append("  Boolean j = null;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?<a title=\"null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage516Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = null;\n");
+        xml_.append("  Boolean j = true;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?<a title=\"true\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage517Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = null;\n");
+        xml_.append("  Integer j = 1;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?<a title=\"not null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage518Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = 1;\n");
+        xml_.append("  Integer j = null;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m82\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>??=<span class=\"n\"> <a href=\"#m82\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage519Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = 1;\n");
+        xml_.append("  Integer j = 1;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m82\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>??=<span class=\"n\"> <a href=\"#m82\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage520Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = null;\n");
+        xml_.append("  Integer j = null;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?<a title=\"null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage521Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth1(){\n");
+        xml_.append("  return 1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = null;\n");
+        xml_.append("  Integer j = null;\n");
+        xml_.append("  return i ???= j;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth1");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth1</a>(){\n" +
+                "  return <span class=\"f\">1</span>;\n" +
+                " }\n" +
+                " public static Integer <a name=\"m90\">exmeth</a>(){\n" +
+                "  Integer <span class=\"n\"><span class=\"n\"><a name=\"m110\">i</a> </span>=<span class=\"n\"> null</span></span>;\n" +
+                "  Integer <span class=\"n\"><span class=\"n\"><a name=\"m130\">j</a> </span>=<span class=\"n\"> null</span></span>;\n" +
+                "  return <span class=\"n\"><span class=\"n\"><a href=\"#m110\">i</a> </span>???=<span class=\"n\"> <a href=\"#m130\">j</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage522Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = false;\n");
+        xml_.append("  return i ???= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>??=<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage523Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Boolean exmeth(){\n");
+        xml_.append("  Boolean i = null;\n");
+        xml_.append("  return i ???= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>??=<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage524Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = 1;\n");
+        xml_.append("  return i ???= 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>??=<span class=\"n\"> 1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage525Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Integer exmeth(){\n");
+        xml_.append("  Integer i = null;\n");
+        xml_.append("  return i ???= 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
+                "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>??=<span class=\"f\"> 1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

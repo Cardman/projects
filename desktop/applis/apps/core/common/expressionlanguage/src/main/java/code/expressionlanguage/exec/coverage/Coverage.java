@@ -292,7 +292,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
-            if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ)) {
+            if (StringUtil.quickEq(c_.getOper(),Block.NULL_EQ) || StringUtil.quickEq(c_.getOper(),Block.NULL_EQ_SHORT)) {
                 if (_op.getResultClass().isBoolType(boolType_,prim_)) {
                     instr_.add(new NullBooleanCoverageResult());
                 } else {
@@ -478,7 +478,13 @@ public final class Coverage {
                 if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     v_ = BooleanStruct.of(!_v.isArgumentTest());
                 }
+                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                    v_ = BooleanStruct.of(!_v.isArgumentTest());
+                }
                 if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                    v_ = BooleanStruct.of(_v.isArgumentTest());
+                }
+                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
                     v_ = BooleanStruct.of(_v.isArgumentTest());
                 }
             }

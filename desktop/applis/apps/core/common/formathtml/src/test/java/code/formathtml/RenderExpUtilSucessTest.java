@@ -1128,6 +1128,21 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     @Test
+    public void processEl500___Test() {
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&&=1/0>1");
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl500____Test() {
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg???=1/0>1");
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl501___Test() {
+        Argument argument_ = processElNormal2BooleanVars("arg???=arg2");
+        assertTrue(argument_.isFalse());
+    }
+    @Test
     public void processEl500__Test() {
         Argument argument_ = processElNormal2BoolVars(false, false, "arg??arg2");
         assertTrue(argument_.isFalse());
@@ -1150,6 +1165,21 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl503Test() {
         Argument argument_ = processElNormal2BoolVars(false, true, "arg||=arg2");
+        assertTrue(argument_.isTrue());
+    }
+    @Test
+    public void processEl_501Test() {
+        Argument argument_ = processElNormal2BoolVars(true, false, "arg|||=1/0>1");
+        assertTrue(argument_.isTrue());
+    }
+    @Test
+    public void processEl_502Test() {
+        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&&=arg2");
+        assertTrue(argument_.isFalse());
+    }
+    @Test
+    public void processEl_503Test() {
+        Argument argument_ = processElNormal2BoolVars(false, true, "arg|||=arg2");
         assertTrue(argument_.isTrue());
     }
 

@@ -155,6 +155,11 @@ public abstract class ExecOperationNode {
                     return par_.getOrder();
                 }
             }
+            if (StringUtil.quickEq(p_.getOper(),"???=")) {
+                if (_value != NullStruct.NULL_VALUE) {
+                    return par_.getOrder();
+                }
+            }
         }
         if (par_ instanceof ExecCompoundAffectationOperation) {
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
@@ -163,7 +168,17 @@ public abstract class ExecOperationNode {
                     return par_.getOrder();
                 }
             }
+            if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                if (BooleanStruct.isFalse(_value)) {
+                    return par_.getOrder();
+                }
+            }
             if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                if (BooleanStruct.isTrue(_value)) {
+                    return par_.getOrder();
+                }
+            }
+            if (StringUtil.quickEq(p_.getOper(),"|||=")) {
                 if (BooleanStruct.isTrue(_value)) {
                     return par_.getOrder();
                 }
@@ -291,7 +306,19 @@ public abstract class ExecOperationNode {
                             pair_.setCalcArgumentTest(true);
                         }
                     }
+                    if (StringUtil.quickEq(par_.getOper(), "&&&=")){
+                        if (!pair_.isCalcArgumentTest()) {
+                            pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                            pair_.setCalcArgumentTest(true);
+                        }
+                    }
                     if (StringUtil.quickEq(par_.getOper(), "||=")){
+                        if (!pair_.isCalcArgumentTest()) {
+                            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                            pair_.setCalcArgumentTest(true);
+                        }
+                    }
+                    if (StringUtil.quickEq(par_.getOper(), "|||=")){
                         if (!pair_.isCalcArgumentTest()) {
                             pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                             pair_.setCalcArgumentTest(true);

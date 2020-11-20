@@ -2256,6 +2256,1080 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
 
     }
     @Test
+    public void calculateArgument103Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  return b ???= c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument104Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = b ???= c;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument105Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  return b ???= c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument106Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = b ???= c;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument107Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ?? c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument108Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ?? c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument109Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ?? c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument110Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ?? c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument111Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ?? c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument112Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ?? c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument113Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ?? d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument114Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ?? d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument115Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ?? d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument116Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ?? d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument117Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ?? d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument118Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ?? d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument119Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument120Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument121Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  return b ???= c ???= d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument122Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument123Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument124Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument125Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument126Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument127Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument128Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = 3;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument129Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument130Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer b = null;\n");
+        xml_.append("  Integer c = null;\n");
+        xml_.append("  Integer d = 1;\n");
+        xml_.append("  Integer e = b ???= c ???= d;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument131Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  return v[0] ???= 2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument132Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  var t = v[0] ???= 2;\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument133Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  v[0] ???= 2;\n");
+        xml_.append("  return v[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument134Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  return v[0] ???= 2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = {3};\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument135Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  var t = v[0] ???= 2;\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = {3};\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument136Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  v[0] ???= 2;\n");
+        xml_.append("  return v[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = {3};\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument137Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  return v[0] ???= null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument138Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  var t = v[0] ???= null;\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument139Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  v[0] ???= null;\n");
+        xml_.append("  return v[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public Integer this(int i) {\n");
+        xml_.append("  return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i) {\n");
+        xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument140Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument141Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = null;\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ba", getString(ret_));
+    }
+    @Test
+    public void calculateArgument142Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = null;\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument143Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return a;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument144Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = null;\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return a;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ba", getString(ret_));
+    }
+    @Test
+    public void calculateArgument145Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = null;\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return a;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument146Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument147Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = null;\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ba", getString(ret_));
+    }
+    @Test
+    public void calculateArgument148Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String a = \"ab\";\n");
+        xml_.append("  String b = null;\n");
+        xml_.append("  String c = a ???= b;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument149Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Object exmeth(){\n");
+        xml_.append("  Object a = \"ab\";\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
+    public void calculateArgument150Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Object exmeth(){\n");
+        xml_.append("  Object a = \"ab\";\n");
+        xml_.append("  String b = \"ba\";\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ab", getString(ret_));
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
@@ -2410,7 +3484,62 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrLg(files_,"en"));
     }
-
+    @Test
+    public void calculateArgument12FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Object exmeth(){\n");
+        xml_.append("  return 1 ???=;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
+    @Test
+    public void calculateArgument13FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static Object exmeth(){\n");
+        xml_.append("  String a = \"\";\n");
+        xml_.append("  Object b = \"\";\n");
+        xml_.append("  return a ???= b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
+    @Test
+    public void calculateArgument14FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth2(){\n");
+        xml_.append(" }\n");
+        xml_.append(" public static Object exmeth(){\n");
+        xml_.append("  String a = \"\";\n");
+        xml_.append("  return a ???= exmeth2();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
+    @Test
+    public void calculateArgument15FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth2(){\n");
+        xml_.append(" }\n");
+        xml_.append(" static{\n");
+        xml_.append("  String a = \"\";\n");
+        xml_.append("  return exmeth2() ???= a;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<U> :$iterable<U>{\n");

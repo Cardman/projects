@@ -23,7 +23,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
-        if (StringUtil.quickEq(op_, "??")) {
+        if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
             Struct first_ = _left.getStruct();
             if (first_ != NullStruct.NULL_VALUE) {
                 res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls));
@@ -109,7 +109,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             _res.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringUtil.quickEq(op_, "&&")) {
+        if (StringUtil.quickEq(op_, "&&") || StringUtil.quickEq(op_, "&&&")) {
             if (BooleanStruct.isFalse(_first)) {
                 _res.setResult(NumParsers.convertToBoolean(_first));
                 return;

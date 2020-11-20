@@ -17,6 +17,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
@@ -62,6 +63,11 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         ArgumentsPair argumentPair_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
+            if (StringUtil.quickEq(operatorContent.getOper(), "&&&=") || StringUtil.quickEq(operatorContent.getOper(), "|||=")) {
+                pair_.setEndCalculate(true);
+                setSimpleArgument(leftArg_, _conf, _nodes);
+                return;
+            }
             setRelOffsetPossibleLastPage(operatorContent.getOpOffset(),_conf);
             Argument arg_ = ExecAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_);
             pair_.setEndCalculate(true);
@@ -78,6 +84,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
+        }
+        if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {
+            if (!leftArg_.isNull()) {
+                pair_.setIndexImplicitCompound(-1);
+                pair_.setEndCalculate(true);
+                setSimpleArgument(leftArg_, _conf, _nodes);
+                return;
+            }
         }
         ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = pairBefore_.getImplicitsCompound();

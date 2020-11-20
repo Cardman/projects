@@ -226,7 +226,13 @@ public final class ExpressionLanguage {
                 if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     v_ = BooleanStruct.of(false);
                 }
+                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                    v_ = BooleanStruct.of(false);
+                }
                 if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                    v_ = BooleanStruct.of(true);
+                }
+                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
                     v_ = BooleanStruct.of(true);
                 }
             }

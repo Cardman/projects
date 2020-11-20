@@ -482,6 +482,14 @@ final class AfterUnaryParts {
                     foundOperator_ = true;
                 }
                 builtOperator_.append(EQ_CHAR);
+            } else if (StringExpUtil.nextCharIs(_string, index + 2, len_, _curChar)) {
+                if (isGreaterThanAff(prio)) {
+                    clearOperators_ = true;
+                    prio = ElResolver.AFF_PRIO;
+                    foundOperator_ = true;
+                }
+                builtOperator_.append(_curChar);
+                builtOperator_.append(EQ_CHAR);
             } else {
                 int prioOpMult_;
                 if (_curChar == AND_CHAR) {
@@ -508,6 +516,14 @@ final class AfterUnaryParts {
                     prio = ElResolver.AFF_PRIO;
                     foundOperator_ = true;
                 }
+                builtOperator_.append(EQ_CHAR);
+            } else if (StringExpUtil.nextCharIs(_string, index + 2, len_, _curChar)) {
+                if (isGreaterThanAff(prio)) {
+                    clearOperators_ = true;
+                    prio = ElResolver.AFF_PRIO;
+                    foundOperator_ = true;
+                }
+                builtOperator_.append(_curChar);
                 builtOperator_.append(EQ_CHAR);
             } else {
                 if (prio > ElResolver.NULL_SAFE_PRIO) {

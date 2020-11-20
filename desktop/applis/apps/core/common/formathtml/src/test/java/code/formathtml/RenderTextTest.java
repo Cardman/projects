@@ -1708,6 +1708,55 @@ public final class RenderTextTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>ONE</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+    @Test
+    public void process63Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=$new pkg.BeanOne.Inner(10),j=$new pkg.BeanOne.Inner()'/>{(i|||=j)?5:10}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=1;");
+        file_.append("  $public Inner(){");
+        file_.append("  }");
+        file_.append("  $public Inner($int v){");
+        file_.append("   count=v;");
+        file_.append("  }");
+        file_.append("  $public $static $boolean $true(Inner v){");
+        file_.append("   $return v.count==10;");
+        file_.append("  }");
+        file_.append("  $public $static $boolean $false(Inner v){");
+        file_.append("   $return v.count!=10;");
+        file_.append("  }");
+        file_.append("  $operator&& $boolean(Inner a, Inner b){");
+        file_.append("   Inner o = $new Inner();");
+        file_.append("   o.count=a.count==10&&b.count==10?10:5;");
+        file_.append("   $return o;");
+        file_.append("  }");
+        file_.append("  $operator|| $boolean(Inner a, Inner b){");
+        file_.append("   Inner o = $new Inner();");
+        file_.append("   o.count=a.count==10||b.count==10?10:5;");
+        file_.append("   $return o;");
+        file_.append("  }");
+        file_.append("  $public $static $boolean $(Inner v){");
+        file_.append("   $return v.count==10;");
+        file_.append("  }");
+        file_.append("  $public $static Inner $($boolean v){");
+        file_.append("   Inner o = $new Inner();");
+        file_.append("   o.count=v?10:5;");
+        file_.append("   $return o;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>5</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

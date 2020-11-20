@@ -86,7 +86,13 @@ public final class RenderExpUtil {
                 if (StringUtil.quickEq(p_.getOper(),"&&=")) {
                     st_ = BooleanStruct.of(false);
                 }
+                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                    st_ = BooleanStruct.of(false);
+                }
                 if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                    st_ = BooleanStruct.of(true);
+                }
+                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
                     st_ = BooleanStruct.of(true);
                 }
             }

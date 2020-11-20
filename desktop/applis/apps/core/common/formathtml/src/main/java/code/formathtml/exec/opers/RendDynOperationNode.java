@@ -149,6 +149,11 @@ public abstract class RendDynOperationNode {
                     return par_.getOrder();
                 }
             }
+            if (StringUtil.quickEq(p_.getOper(),"???=")) {
+                if (_value != NullStruct.NULL_VALUE) {
+                    return par_.getOrder();
+                }
+            }
         }
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
@@ -157,7 +162,17 @@ public abstract class RendDynOperationNode {
                     return par_.getOrder();
                 }
             }
+            if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
+                if (BooleanStruct.isFalse(_value)) {
+                    return par_.getOrder();
+                }
+            }
             if (StringUtil.quickEq(p_.getOper(),"||=")) {
+                if (BooleanStruct.isTrue(_value)) {
+                    return par_.getOrder();
+                }
+            }
+            if (StringUtil.quickEq(p_.getOper(),"|||=")) {
                 if (BooleanStruct.isTrue(_value)) {
                     return par_.getOrder();
                 }
@@ -269,7 +284,13 @@ public abstract class RendDynOperationNode {
                     if (StringUtil.quickEq(par_.getOper(), "&&=")){
                         pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
                     }
+                    if (StringUtil.quickEq(par_.getOper(), "&&&=")){
+                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                    }
                     if (StringUtil.quickEq(par_.getOper(), "||=")){
+                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                    }
+                    if (StringUtil.quickEq(par_.getOper(), "|||=")){
                         pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                     }
                 } else if (parent_ instanceof RendAndOperation) {

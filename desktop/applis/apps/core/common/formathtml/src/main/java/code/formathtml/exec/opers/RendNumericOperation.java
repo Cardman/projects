@@ -21,7 +21,7 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
     static Argument calculateAffect(Argument _left, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, ContextEl _context) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
-        if (StringUtil.quickEq(op_, "??")) {
+        if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
             Struct first_ = _left.getStruct();
             if (first_ != NullStruct.NULL_VALUE) {
                 res_.setResult(ExecClassArgumentMatching.convert(first_,_context, _cls));
