@@ -51,7 +51,6 @@ public abstract class ExecBracedBlock extends ExecBlock {
         removeLocalVars(_ip);
     }
 
-    @Override
     public ExecBlock getFirstChild() {
         return firstChild;
     }

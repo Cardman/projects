@@ -5,8 +5,4 @@ public abstract class ExecLeaf extends ExecBlock implements WithEl {
         super(_offsetTrim);
     }
 
-    @Override
-    public ExecBlock getFirstChild() {
-        return null;
-    }
 }

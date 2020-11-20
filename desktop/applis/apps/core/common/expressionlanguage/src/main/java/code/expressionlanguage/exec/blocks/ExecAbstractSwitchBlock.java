@@ -29,12 +29,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opValue.last();
-        opValue = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (ip_.matchStatement(this)) {

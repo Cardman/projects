@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
@@ -109,16 +108,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     public final CustList<ExecRootBlock> getSelfAndParentTypes() {
         return rootBlockContent.getSelfAndParentTypes();
     }
-    @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-    }
+
     @Override
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;

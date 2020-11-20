@@ -89,16 +89,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode i_ = opInit.last();
-        opInit = ExpressionLanguage.getReducedNodes(i_);
-        ExecOperationNode e_ = opExp.last();
-        opExp = ExpressionLanguage.getReducedNodes(e_);
-        ExecOperationNode s_ = opStep.last();
-        opStep = ExpressionLanguage.getReducedNodes(s_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);

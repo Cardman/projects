@@ -74,19 +74,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-        ExecOperationNode r_ = opValue.last();
-        opValue = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         boolean static_ = isStaticField();

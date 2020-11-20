@@ -63,16 +63,8 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         return fetchFormattedArgs(_nodes,_conf,_pr,getClassName(),pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg());
     }
 
-    public ExecNamedFunctionBlock getNamed() {
-        return pair.getFct();
-    }
-
     public String getClassName() {
         return instFctContent.getClassName();
-    }
-
-    public int getNaturalVararg() {
-        return instFctContent.getNaturalVararg();
     }
 
 }

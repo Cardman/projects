@@ -86,19 +86,6 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-        ExecOperationNode r_ = opValue.last();
-        opValue = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (ip_ instanceof StaticInitPageEl) {

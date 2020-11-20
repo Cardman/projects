@@ -381,11 +381,6 @@ public abstract class ProcessMethodCommon {
         return validateAndRet(_files, cont_);
     }
 
-    protected static ContextEl ctxOkQuick(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        return validQuick(_files, cont_);
-    }
-
     protected static void forwardAndClear(AnalyzedTestContext _cont) {
         Classes.forwardAndClear(_cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
     }
@@ -502,7 +497,7 @@ public abstract class ProcessMethodCommon {
         return NumParsers.getStaticField(_id, staticFields_);
     }
 
-    private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
+    protected static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
         validateWithoutInit(_files, _cont);
         assertTrue( isEmptyErrors(_cont));
         forwardAndClear(_cont);

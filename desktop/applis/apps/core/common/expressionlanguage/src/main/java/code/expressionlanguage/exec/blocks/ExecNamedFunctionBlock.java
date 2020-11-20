@@ -1,7 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
 import code.util.CustList;
@@ -32,33 +30,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         varargs = _varargs;
         access = _access;
         parametersNames = _parametersNames;
-    }
-
-    @Override
-    public void reduce(ContextEl _context) {
-        reduceBasic(_context);
-        CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams_;
-        annotationsOpsParams_ = new CustList<CustList<CustList<ExecOperationNode>>>();
-        for (CustList<CustList<ExecOperationNode>> l: annotationsOpsParams) {
-            CustList<CustList<ExecOperationNode>> l_;
-            l_ = new CustList<CustList<ExecOperationNode>>();
-            for (CustList<ExecOperationNode> k: l) {
-                ExecOperationNode o_ = k.last();
-                l_.add(ExpressionLanguage.getReducedNodes(o_));
-            }
-            annotationsOpsParams_.add(l_);
-        }
-        annotationsOpsParams = annotationsOpsParams_;
-    }
-
-    public void reduceBasic(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
     }
 
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {

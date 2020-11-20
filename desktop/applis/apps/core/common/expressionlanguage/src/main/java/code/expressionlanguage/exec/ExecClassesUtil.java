@@ -118,23 +118,6 @@ public final class ExecClassesUtil {
         forwardClassesMetaInfos(_context);
         DefaultLockingClass dl_ = _context.getLocks();
         dl_.init(_context);
-        for (ExecRootBlock c: cl_.getClassBodies()) {
-            c.reduce(_context);
-            for (ExecBlock d:c.getChildrenOthers()) {
-                for (ExecBlock b: getSortedDescNodes(d)) {
-                    if (b instanceof ReducableOperations) {
-                        ((ReducableOperations)b).reduce(_context);
-                    }
-                }
-            }
-        }
-        for (ExecOperatorBlock o: cl_.getOperators()) {
-            for (ExecBlock b: getSortedDescNodes(o)) {
-                if (b instanceof ReducableOperations) {
-                    ((ReducableOperations)b).reduce(_context);
-                }
-            }
-        }
         CustList<String> all_ = cl_.getClassesBodies().getKeys();
         _context.setExiting(new DefaultExiting(_context));
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
@@ -201,41 +184,6 @@ public final class ExecClassesUtil {
             }
         }
         return methods_;
-    }
-
-    private static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {
-        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
-        ExecBlock c_ = _root;
-        ExecBlock f_ = c_.getFirstChild();
-        list_.add(c_);
-        if (f_ == null) {
-            return list_;
-        }
-        c_ = f_;
-        while (c_ != null) {
-            list_.add(c_);
-            c_ = getNext(c_, _root);
-        }
-        return list_;
-    }
-
-    private static ExecBlock getNext(ExecBlock _current, ExecBlock _root) {
-        ExecBlock n_ = _current.getFirstChild();
-        if (n_ != null) {
-            return n_;
-        }
-        ExecBlock current_ = _current;
-        while (true) {
-            n_ = current_.getNextSibling();
-            if (n_ != null) {
-                return n_;
-            }
-            n_ = current_.getParent();
-            if (n_ == _root) {
-                return null;
-            }
-            current_ = n_;
-        }
     }
 
 }

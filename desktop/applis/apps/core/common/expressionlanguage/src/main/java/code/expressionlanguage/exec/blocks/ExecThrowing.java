@@ -28,12 +28,6 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opThrow.last();
-        opThrow = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);

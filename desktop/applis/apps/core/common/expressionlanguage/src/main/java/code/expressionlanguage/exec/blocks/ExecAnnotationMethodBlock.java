@@ -49,16 +49,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }
 
-    @Override
-    public void reduce(ContextEl _context) {
-        super.reduce(_context);
-        if (opValue.isEmpty()) {
-            return;
-        }
-        ExecOperationNode r_ = opValue.last();
-        opValue = ExpressionLanguage.getReducedNodes(r_);
-    }
-
     public void setOpValue(CustList<ExecOperationNode> _opValue) {
         this.opValue = _opValue;
     }

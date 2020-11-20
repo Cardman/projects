@@ -176,7 +176,6 @@ public abstract class ExecBlock {
     public final ExecBlock getPreviousSibling() {
         return previousSibling;
     }
-    public abstract ExecBlock getFirstChild();
 
     public final ExecBlock getNextSibling() {
         return nextSibling;

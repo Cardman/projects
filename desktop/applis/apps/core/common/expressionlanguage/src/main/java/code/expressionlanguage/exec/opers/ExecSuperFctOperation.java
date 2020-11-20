@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -54,13 +52,5 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         return instFctContent.getClassName();
     }
 
-    public ExecNamedFunctionBlock getNamed() {
-        return pair.getFct();
-    }
-
-
-    public int getNaturalVararg() {
-        return instFctContent.getNaturalVararg();
-    }
 
 }

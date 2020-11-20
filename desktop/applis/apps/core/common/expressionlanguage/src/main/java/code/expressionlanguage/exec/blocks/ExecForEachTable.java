@@ -95,12 +95,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opList.last();
-        opList = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);

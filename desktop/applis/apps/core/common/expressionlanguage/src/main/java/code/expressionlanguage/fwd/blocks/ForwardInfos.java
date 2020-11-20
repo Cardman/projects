@@ -857,10 +857,10 @@ public final class ForwardInfos {
         return getExecutableNodes(-1,-1,_root,_coverage,_forwards, PutCoveragePhase.NORMAL, _currentBlock);
     }
     private static CustList<ExecOperationNode> getExecutableNodes(int _indexAnnotGroup, int _indexAnnot, OperationNode _root, Coverage _coverage, Forwards _forwards, PutCoveragePhase _phase, Block _currentBlock) {
-        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode current_ = _root;
         ExecOperationNode exp_ = createExecOperationNode(current_, _forwards);
         setImplicits(exp_, current_, _forwards);
+        ExecOperationNode expRoot_ = exp_;
         _coverage.putBlockOperation(_indexAnnotGroup, _indexAnnot, _phase, _forwards, _currentBlock, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
@@ -875,7 +875,6 @@ public final class ForwardInfos {
             }
             while (current_ != null) {
                 tryInitSettablePart(exp_);
-                out_.add(exp_);
                 op_ = current_.getNextSibling();
                 ExecMethodOperation par_ = exp_.getParent();
                 if (hasToCreateExec(par_, op_)) {
@@ -895,7 +894,6 @@ public final class ForwardInfos {
                 op_ = current_.getParent();
                 if (op_ == _root) {
                     tryInitSettablePart(par_);
-                    out_.add(par_);
                     current_ = null;
                     continue;
                 }
@@ -903,7 +901,7 @@ public final class ForwardInfos {
                 exp_ = par_;
             }
         }
-        return out_;
+        return getReducedNodes(expRoot_);
     }
 
     private static void tryInitIntermediate(ExecOperationNode _exp, OperationNode _op, ExecOperationNode _loc) {
@@ -1473,4 +1471,37 @@ public final class ForwardInfos {
         _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
+    private static CustList<ExecOperationNode> getReducedNodes(ExecOperationNode _root) {
+        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
+        ExecOperationNode current_ = _root;
+        while (current_ != null) {
+            ExecOperationNode op_ = current_.getFirstChild();
+            if (op_ != null && current_.getArgument() == null) {
+                current_ = op_;
+                continue;
+            }
+            while (true) {
+                current_.setOrder(out_.size());
+                out_.add(current_);
+                op_ = current_.getNextSibling();
+                if (op_ != null) {
+                    current_ = op_;
+                    break;
+                }
+                op_ = current_.getParent();
+                if (op_ == null) {
+                    current_ = null;
+                    break;
+                }
+                if (op_ == _root) {
+                    op_.setOrder(out_.size());
+                    out_.add(op_);
+                    current_ = null;
+                    break;
+                }
+                current_ = op_;
+            }
+        }
+        return out_;
+    }
 }

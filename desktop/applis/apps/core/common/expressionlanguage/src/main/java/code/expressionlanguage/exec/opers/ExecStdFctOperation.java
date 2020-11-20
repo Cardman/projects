@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
@@ -52,11 +51,4 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         return fectchArgs(_nodes, stdFctContent.getLastType(), stdFctContent.getNaturalVararg());
     }
 
-    public ClassMethodId getClassMethodId() {
-        return stdFctContent.getClassMethodId();
-    }
-
-    public int getNaturalVararg() {
-        return stdFctContent.getNaturalVararg();
-    }
 }

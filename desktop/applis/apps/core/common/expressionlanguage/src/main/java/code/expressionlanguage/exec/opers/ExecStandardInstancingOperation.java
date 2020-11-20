@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -20,12 +19,10 @@ public final class ExecStandardInstancingOperation extends
     private ExecInstancingStdContent instancingStdContent;
 
     private ExecRootBlock rootBlock;
-    private ExecNamedFunctionBlock ctor;
     public ExecStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, boolean _initBefore, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_opCont, _intermediateDottedOperation, _initBefore, _pair,_instancingCommonContent);
         instancingStdContent = _instancingStdContent;
         rootBlock = _pair.getType();
-        ctor = _pair.getFct();
     }
 
     @Override
@@ -62,11 +59,4 @@ public final class ExecStandardInstancingOperation extends
         return getInstancingCommonContent().getClassName();
     }
 
-    public ExecNamedFunctionBlock getCtor() {
-        return ctor;
-    }
-
-    public int getNaturalVararg() {
-        return getInstancingCommonContent().getNaturalVararg();
-    }
 }

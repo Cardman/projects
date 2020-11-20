@@ -52,8 +52,8 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             }
             boolean initFields_ = false;
             ExecBlock bl_ = null;
-            if (blockRoot_ != null) {
-                bl_ = blockRoot_.getFirstChild();
+            if (blockRoot_ instanceof ExecBracedBlock) {
+                bl_ = ((ExecBracedBlock)blockRoot_).getFirstChild();
             }
             if (!(bl_ instanceof ExecLine)) {
                 initFields_ = true;

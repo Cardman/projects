@@ -67,10 +67,6 @@ public final class ExecSettableFieldOperation extends
         String fieldType_ = settableFieldContent.getRealType();
         return ExecTemplates.getField(new DefaultSetOffset(_conf),_conf.getExiting(),className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
-    
-    public ClassField getFieldId() {
-        return settableFieldContent.getClassField();
-    }
 
 
     @Override

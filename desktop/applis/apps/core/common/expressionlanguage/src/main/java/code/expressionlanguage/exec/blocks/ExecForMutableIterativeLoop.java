@@ -97,22 +97,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        if (!opInit.isEmpty()) {
-            ExecOperationNode i_ = opInit.last();
-            opInit = ExpressionLanguage.getReducedNodes(i_);
-        }
-        if (!opExp.isEmpty()) {
-            ExecOperationNode e_ = opExp.last();
-            opExp = ExpressionLanguage.getReducedNodes(e_);
-        }
-        if (!opStep.isEmpty()) {
-            ExecOperationNode s_ = opStep.last();
-            opStep = ExpressionLanguage.getReducedNodes(s_);
-        }
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);

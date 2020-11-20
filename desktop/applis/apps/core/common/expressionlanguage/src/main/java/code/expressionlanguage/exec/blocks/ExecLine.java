@@ -23,11 +23,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         opExp = _opExp;
     }
 
-    public CustList<ExecOperationNode> getExp() {
-        return opExp;
-    }
-
-    public boolean isCallSuper() {
+    private boolean isCallSuper() {
         return opExp.last() instanceof ExecSuperInvokingConstructor;
     }
 
@@ -39,12 +35,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         return new ExpressionLanguage(opExp);
-    }
-
-    @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opExp.last();
-        opExp = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

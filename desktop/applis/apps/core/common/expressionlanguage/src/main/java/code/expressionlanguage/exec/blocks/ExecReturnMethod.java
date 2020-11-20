@@ -44,15 +44,6 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        if (opRet == null) {
-            return;
-        }
-        ExecOperationNode r_ = opRet.last();
-        opRet = ExpressionLanguage.getReducedNodes(r_);
-    }
-
-    @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (!isEmpty()) {

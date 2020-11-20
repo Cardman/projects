@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -47,17 +45,5 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }
 
-    public ExecNamedFunctionBlock getNamed() {
-        return pair.getFct();
-    }
-
-    public String getClassName() {
-        return staticFctContent.getClassName();
-    }
-
-
-    public int getNaturalVararg() {
-        return staticFctContent.getNaturalVararg();
-    }
 
 }
