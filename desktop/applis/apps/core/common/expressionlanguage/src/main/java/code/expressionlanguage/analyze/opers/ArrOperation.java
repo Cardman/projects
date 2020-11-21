@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -193,6 +192,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+            callFctContent.setClassName(foundClass_);
             MethodId realId_ = clMeth_.getRealId();
             if (clMeth_.isVarArgToCall()) {
                 StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();

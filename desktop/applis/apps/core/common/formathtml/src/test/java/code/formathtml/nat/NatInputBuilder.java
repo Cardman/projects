@@ -61,6 +61,7 @@ public final class NatInputBuilder implements AbstractInputBuilder {
             MethodId constraints_ = classMethodId_.getConstraints();
             AnaCallFctContent gene_ = new AnaCallFctContent("");
             gene_.setClassMethodId(new ClassMethodId(classMethodId_.getClassName(),new MethodId(MethodAccessKind.INSTANCE,constraints_.getName(),new StringList(cl_))));
+            gene_.setClassName(callFctContent_.getClassName());
             RendStdFctOperation rendStd_ = new RendStdFctOperation(new ExecOperationContent(0, pr_, 1),false,new ExecStdFctContent(gene_,false));
             RendStdVariableOperation rendVar_ = new RendStdVariableOperation(new ExecOperationContent(0, clResField_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
             rendStd_.appendChild(rendVar_);
@@ -73,6 +74,7 @@ public final class NatInputBuilder implements AbstractInputBuilder {
         MethodId constraints_ = classMethodId_.getConstraints();
         AnaCallFctContent gene_ = new AnaCallFctContent("");
         gene_.setClassMethodId(new ClassMethodId(classMethodId_.getClassName(),new MethodId(MethodAccessKind.INSTANCE,constraints_.getName(),new StringList(cl_))));
+        gene_.setClassName(callFctContent_.getClassName());
         RendStdFctOperation rendStd_ = new RendStdFctOperation(new ExecOperationContent(0, pr_, 2),true,new ExecStdFctContent(gene_,false));
         RendDotOperation rendDot_ = new RendDotOperation(new ExecOperationContent(0, clResField_, 3));
         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));

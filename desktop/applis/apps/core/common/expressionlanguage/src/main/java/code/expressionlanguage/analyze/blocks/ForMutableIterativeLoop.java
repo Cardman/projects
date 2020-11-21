@@ -59,7 +59,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private OperationNode rootExp;
     private OperationNode rootStep;
 
-    private ClassMethodId test;
     private AnaTypeFct function;
     private int testOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -260,7 +259,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     exp_.getImplicitsTest().add(cl_);
                     exp_.setMemberIdTest(trueOp_.getMemberId());
-                    test = cl_;
                     function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -329,10 +327,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public AnaTypeFct getFunction() {
         return function;
-    }
-
-    public ClassMethodId getTest() {
-        return test;
     }
 
     public void setArgument(Argument _arg) {

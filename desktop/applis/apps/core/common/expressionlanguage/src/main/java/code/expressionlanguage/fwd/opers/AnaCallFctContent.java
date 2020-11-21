@@ -8,6 +8,7 @@ public final class AnaCallFctContent {
     private final String methodName;
 
     private ClassMethodId classMethodId;
+    private String className = "";
 
     private String lastType = "";
 
@@ -28,6 +29,14 @@ public final class AnaCallFctContent {
 
     public void setClassMethodId(ClassMethodId _classMethodId) {
         this.classMethodId = _classMethodId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String _className) {
+        className = _className;
     }
 
     public String getLastType() {

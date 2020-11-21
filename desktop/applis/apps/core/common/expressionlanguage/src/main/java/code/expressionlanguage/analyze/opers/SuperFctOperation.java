@@ -169,6 +169,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+            callFctContent.setClassName(foundClass_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
             unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
@@ -203,6 +204,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+        callFctContent.setClassName(foundClass_);
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();

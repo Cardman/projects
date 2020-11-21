@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
@@ -23,7 +22,7 @@ import code.util.core.StringUtil;
 public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
-    private ClassMethodId classMethodId;
+    private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
     private ClassMethodId test;
@@ -58,7 +57,7 @@ public abstract class QuickOperation extends MethodOperation {
         OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _page);
         if (opConv_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(), _page)) {
-                classMethodId = opConv_.getSymbol();
+                className = opConv_.getSymbol().getClassName();
                 memberId = opConv_.getMemberId();
                 function = opConv_.getFunction();
             }
@@ -144,8 +143,8 @@ public abstract class QuickOperation extends MethodOperation {
         return errSecond;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     public ClassMethodId getTest() {

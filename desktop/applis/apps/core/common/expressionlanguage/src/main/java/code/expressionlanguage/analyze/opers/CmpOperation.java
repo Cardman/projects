@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -9,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -22,7 +20,7 @@ import code.util.core.StringUtil;
 public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private boolean stringCompare;
-    private ClassMethodId classMethodId;
+    private String className="";
     private AnaOperatorContent operatorContent;
     private boolean okNum;
     private MemberId memberId = new MemberId();
@@ -71,7 +69,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _page);
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                classMethodId = cl_.getSymbol();
+                className = cl_.getSymbol().getClassName();
                 memberId = cl_.getMemberId();
                 function = cl_.getFunction();
             }
@@ -141,8 +139,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     @Override
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     @Override

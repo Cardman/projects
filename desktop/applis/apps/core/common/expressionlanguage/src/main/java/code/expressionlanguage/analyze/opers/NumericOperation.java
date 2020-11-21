@@ -1,14 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -16,7 +14,7 @@ import code.util.CustList;
 import code.util.*;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
-    private ClassMethodId classMethodId;
+    private String className="";
     private String op;
     private int opOffset;
     private boolean okNum;
@@ -71,9 +69,9 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, ops_.firstValue(), _page);
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                classMethodId = cl_.getSymbol();
                 memberId = cl_.getMemberId();
                 function = cl_.getFunction();
+                className = cl_.getSymbol().getClassName();
             }
             return;
         }
@@ -98,8 +96,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     @Override
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     @Override

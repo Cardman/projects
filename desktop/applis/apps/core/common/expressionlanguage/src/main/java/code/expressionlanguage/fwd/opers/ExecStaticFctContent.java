@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecStaticFctContent {
@@ -11,9 +12,10 @@ public final class ExecStaticFctContent {
     private final String lastType;
 
     private final int naturalVararg;
-    public ExecStaticFctContent(AnaCallFctContent _a) {
+
+    public ExecStaticFctContent(AnaTypeFct _fct, AnaCallFctContent _a) {
         methodName = _a.getMethodName();
-        elts = new ExecStaticEltContent(_a.getClassMethodId());
+        elts = new ExecStaticEltContent(_fct,_a.getClassName());
         lastType = _a.getLastType();
         naturalVararg = _a.getNaturalVararg();
     }

@@ -56,7 +56,7 @@ public abstract class ReachOperationNode {
             if (!s_.isOkNum()) {
                 return new ReachStdOperation(_oper);
             }
-            if (s_.getClassMethodId() != null) {
+            if (s_.getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }
@@ -65,7 +65,7 @@ public abstract class ReachOperationNode {
             if (!s_.isOkNum()) {
                 return new ReachStdOperation(_oper);
             }
-            if (s_.getClassMethodId() != null) {
+            if (s_.getFunction() != null) {
                 return new ReachStdOperation(_oper);
             }
         }

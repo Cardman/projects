@@ -1,15 +1,32 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.OverridableBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
+import code.expressionlanguage.functionid.MethodId;
 
 public final class ExecStaticEltContent {
     private final MethodAccessKind kind;
     private final String className;
-    public ExecStaticEltContent(ClassMethodId _cl) {
-        kind = FetchMemberUtil.getKind(_cl);
-        className = FetchMemberUtil.getType(_cl);
+
+    public ExecStaticEltContent(AnaTypeFct _pair, String _className) {
+        if (_pair == null) {
+            kind =MethodAccessKind.STATIC;
+        } else {
+            kind = kind(_pair.getFunction());
+        }
+        className = _className;
+    }
+
+    private static MethodAccessKind kind(NamedFunctionBlock _fct) {
+        MethodAccessKind kind_;
+        if (_fct instanceof OverridableBlock) {
+            kind_ =MethodId.getKind(((OverridableBlock)_fct).getModifier());
+        } else {
+            kind_ =MethodAccessKind.STATIC;
+        }
+        return kind_;
     }
 
     public String getClassName() {

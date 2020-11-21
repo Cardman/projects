@@ -84,20 +84,6 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static MethodAccessKind getKind(ClassMethodId _cl) {
-        if (_cl == null) {
-            return MethodAccessKind.STATIC;
-        }
-        return _cl.getConstraints().getKind();
-    }
-
-    public static String getType(ClassMethodId _cl) {
-        if (_cl == null) {
-            return "";
-        }
-        return _cl.getClassName();
-    }
-
     public static ExecNamedFunctionBlock fetchFunctionOp(MemberId _id, Forwards _forwards) {
         return fetchFunctionOrOp(_id.getRootNumber(),_id.getMemberNumber(),_id.getMemberNumber(), _forwards);
     }

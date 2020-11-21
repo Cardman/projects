@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
@@ -11,7 +10,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
@@ -22,7 +20,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private SettableElResult settable;
     private AnaOperatorContent operatorContent;
     private boolean post;
-    private ClassMethodId classMethodId;
+    private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
     private MemberId memberIdFrom = new MemberId();
@@ -77,11 +75,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         String op_ = ops_.firstValue();
         ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
         if (cl_ != null) {
-            String foundClass_ = cl_.getRealClass();
-            MethodId id_ = cl_.getRealId();
             memberId = cl_.getMemberId();
             function = cl_.getPair();
-            classMethodId = new ClassMethodId(foundClass_,id_);
+            className = cl_.getRealClass();
             return;
         }
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
@@ -119,8 +115,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return post;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     public ClassMethodId getConverterFrom() {

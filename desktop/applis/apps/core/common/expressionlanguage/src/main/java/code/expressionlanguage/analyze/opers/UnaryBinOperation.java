@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -8,12 +7,12 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.StringUtil;
 
 public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
-    private ClassMethodId classMethodId;
+
+    private String className="";
     private int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
@@ -34,9 +33,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
             if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
-                classMethodId = clId_.getSymbol();
                 memberId = clId_.getMemberId();
                 function = clId_.getFunction();
+                className = clId_.getSymbol().getClassName();
             }
             return;
         }
@@ -69,14 +68,15 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
     }
 
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
     public AnaTypeFct getFunction() {
         return function;
     }
 
-    @Override
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
     @Override
     public int getOpOffset() {
         return opOffset;

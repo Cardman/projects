@@ -41,7 +41,7 @@ public abstract class AssOperationNode {
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
-            if (n_.getClassMethodId() == null) {
+            if (n_.getFunction() == null) {
                 if (_anaNode instanceof UnaryBooleanOperation) {
                     UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
                     return new AssUnaryBooleanOperation(a_);

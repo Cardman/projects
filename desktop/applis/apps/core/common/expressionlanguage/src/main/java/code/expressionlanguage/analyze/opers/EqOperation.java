@@ -1,13 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -18,7 +16,7 @@ import code.util.core.StringUtil;
 public final class EqOperation extends MethodOperation implements MiddleSymbolOperation {
 
     private String oper;
-    private ClassMethodId classMethodId;
+    private String className="";
     private AnaTypeFct function;
     private int opOffset;
     private MemberId memberId = new MemberId();
@@ -52,7 +50,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         OperationNode r_ = chidren_.last();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _page);
         if (cl_.getSymbol() != null) {
-            classMethodId = cl_.getSymbol();
+            className = cl_.getSymbol().getClassName();
             memberId = cl_.getMemberId();
             function = cl_.getFunction();
             return;
@@ -75,13 +73,13 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     }
 
     @Override
-    public String getOp() {
-        return oper;
+    public String getClassName() {
+        return className;
     }
 
     @Override
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getOp() {
+        return oper;
     }
 
     @Override

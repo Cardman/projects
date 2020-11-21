@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -14,5 +15,6 @@ public interface AbstractCallFctOperation {
 
     MemberId getMemberId();
 
+    AnaTypeFct getFunction();
     AnaCallFctContent getCallFctContent();
 }

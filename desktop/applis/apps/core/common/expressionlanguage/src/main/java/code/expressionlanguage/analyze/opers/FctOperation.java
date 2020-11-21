@@ -213,6 +213,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+            callFctContent.setClassName(foundClass_);
             setResultClass(new AnaClassArgumentMatching(arrayBounds_));
             return;
         }
@@ -237,6 +238,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+            callFctContent.setClassName(foundClass_);
             MethodId realId_ = clMeth_.getRealId();
             staticChoiceMethod = staticChoiceMethod_;
             staticMethod = true;
@@ -275,6 +277,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+        callFctContent.setClassName(foundClass_);
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();

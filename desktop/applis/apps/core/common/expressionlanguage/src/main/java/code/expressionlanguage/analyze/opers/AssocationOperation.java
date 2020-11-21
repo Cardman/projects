@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -11,14 +9,13 @@ import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class AssocationOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
+public final class AssocationOperation extends AbstractUnaryOperation {
 
     private String fieldName;
 
     private int offset;
     private int delta;
     private int offEq;
-    private String annotation = EMPTY_STRING;
     private String errAff = EMPTY_STRING;
     private AnaTypeFct function;
 
@@ -38,16 +35,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    public void preAnalyze(AnalyzedPageEl _page) {
-        MethodOperation mOp_ = getParent();
-        AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
-        String annotationClass_ = par_.getClassName();
-        RootBlock type_ = _page.getAnaClassBody(annotationClass_);
-        if (type_ != null) {
-            annotation = annotationClass_;
-        }
-    }
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         MethodOperation mOp_ = getParent();
@@ -92,15 +79,11 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         return offset+delta;
     }
 
-    public String getAnnotation() {
-        return annotation;
-    }
-
     public String getErrAff() {
         return errAff;
     }
 
-    public void setErrAff(String _errAff) {
+    void setErrAff(String _errAff) {
         errAff = _errAff;
     }
 

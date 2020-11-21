@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -26,7 +25,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private SettableElResult settable;
     private AnaOperatorContent operatorContent;
     private AnaTypeFct function;
-    private ClassMethodId classMethodId;
+    private String className="";
     private MemberId memberId = new MemberId();
     private ClassMethodId converter;
     private MemberId memberIdConv = new MemberId();
@@ -113,7 +112,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 functionTest = cl_.getFunctionTest();
             }
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
-                classMethodId = cl_.getSymbol();
+                className = cl_.getSymbol().getClassName();
                 memberId = cl_.getMemberId();
                 function = cl_.getFunction();
             }
@@ -325,8 +324,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return functionTest;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     public ClassMethodId getConverter() {

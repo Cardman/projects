@@ -629,12 +629,9 @@ public final class LinkageUtil {
             return;
         }
         AnaTypeFct function_ = _cond.getFunction();
-        ClassMethodId test_ = _cond.getTest();
-        if (test_ != null) {
-            String cl_ = test_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+        if (function_ != null) {
             StringList list_ = new StringList();
-            addParts(_vars, _vars.getCurrentFileName(),cl_,function_,_cond.getTestOffset(),1, list_,list_,_parts);
+            addParts(_vars, _vars.getCurrentFileName(), function_,_cond.getTestOffset(),1, list_,list_,_parts);
         }
     }
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -733,13 +730,10 @@ public final class LinkageUtil {
     }
 
     private static void processTestCondition(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
-        ClassMethodId test_ = _cond.getTest();
         AnaTypeFct function_ = _cond.getFunction();
-        if (test_ != null) {
-            String cl_ = test_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+        if (function_ != null) {
             StringList list_ = new StringList();
-            addParts(_vars, _vars.getCurrentFileName(),cl_,function_,_cond.getTestOffset(),1, list_,list_,_parts);
+            addParts(_vars, _vars.getCurrentFileName(), function_,_cond.getTestOffset(),1, list_,list_,_parts);
         }
     }
     private static void appendVars(VariablesOffsets _vars, ForMutableIterativeLoop _cond, CustList<PartOffset> _parts) {
@@ -1415,14 +1409,12 @@ public final class LinkageUtil {
             _vars.getStack().last().setIndexAnnotation(0);
             _vars.getStack().last().setIndexAnnotationGroup(0);
             k_ = 0;
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             String fileName_ = _vars.getCurrentFileName();
             AnaTypeFct ctor_ = inst_.getConstructor();
             if (ctor_ != null) {
                 StringList list_ = new StringList();
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, cl_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
+                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
                 String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -1489,14 +1481,12 @@ public final class LinkageUtil {
                 _vars.getStack().last().setIndexAnnotationGroup(-1);
                 return;
             }
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             list_.addAllElts(inst_.getErrs());
             String err_ = getLineErr(list_);
             AnaTypeFct ctor_ = inst_.getConstructor();
             if (ctor_ != null) {
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, cl_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
+                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
                 if (!list_.isEmpty()) {
                     String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
@@ -1894,15 +1884,13 @@ public final class LinkageUtil {
             if (_vars.getState() != null) {
                 return;
             }
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             String fileName_ = _vars.getCurrentFileName();
             AnaTypeFct ctor_ = inst_.getConstructor();
 
             if (ctor_ != null) {
                 StringList list_ = new StringList();
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, cl_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
+                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
                 String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -1965,14 +1953,12 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.trim().length()));
                 return;
             }
-            String cl_ = inst_.getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             list_.addAllElts(inst_.getErrs());
             String err_ = getLineErr(list_);
             AnaTypeFct ctor_ = inst_.getConstructor();
             if (ctor_ != null) {
                 int fieldNameOffest_ = _cond.getFieldNameOffest();
-                addParts(_vars, fileName_, cl_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
+                addParts(_vars, fileName_, ctor_, fieldNameOffest_, uniqueFieldName_.length(), list_, list_, _parts, fieldNameOffest_);
             } else {
                 if (!list_.isEmpty()) {
                     String tag_ = "<a name=\"m" + _cond.getFieldNameOffest() + "\" title=\"" + err_ + "\" class=\"e\">";
@@ -2860,8 +2846,6 @@ public final class LinkageUtil {
             ArrOperation par_ = (ArrOperation) _val;
             ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
             if (classMethodId_ != null) {
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 AnaTypeFct function_;
                 if (par_.getArrContent().isVariable()) {
                     function_ = par_.getFunctionSet();
@@ -2869,7 +2853,7 @@ public final class LinkageUtil {
                     function_ = par_.getFunctionGet();
                 }
                 int offsetEnd_ = _sum + _val.getIndexInEl();
-                addParts(_vars, _currentFileName,className_,function_,offsetEnd_,1,_val.getErrs(),_val.getErrs(),_parts);
+                addParts(_vars, _currentFileName, function_,offsetEnd_,1,_val.getErrs(),_val.getErrs(),_parts);
             } else if (!_val.getErrs().isEmpty()) {
                 int i_ = _sum + _val.getIndexInEl();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
@@ -2883,12 +2867,8 @@ public final class LinkageUtil {
         if (_val instanceof AssocationOperation) {
             AssocationOperation a_ = (AssocationOperation) _val;
             String fieldName_ = a_.getFieldName();
-            String annotation_ = a_.getAnnotation();
-            ClassField c_ = new ClassField(annotation_,fieldName_);
             int delta_ = a_.getSum();
-            String className_ = c_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
-            addParts(_vars, _currentFileName,className_,
+            addParts(_vars, _currentFileName,
                     a_.getFunction(),
                     _sum +delta_+ _val.getIndexInEl(),fieldName_.length(),_val.getErrs(),_val.getErrs(),_parts
             );
@@ -2905,14 +2885,7 @@ public final class LinkageUtil {
             if (_val instanceof FctOperation) {
                 _parts.addAllElts(((FctOperation)_val).getPartOffsets());
                 int delta_ = ((FctOperation) _val).getDelta();
-                ClassMethodId classMethodId_ = ((FctOperation) _val).getClassMethodId();
                 int l_ = ((FctOperation) _val).getLengthMethod();
-                if (classMethodId_ == null) {
-                    addParts(_vars, _currentFileName,"",null,
-                            _sum +delta_+ _val.getIndexInEl(),l_,
-                            _val.getErrs(),_val.getErrs(),_parts);
-                    return;
-                }
                 if (((FctOperation)_val).isClonedMethod()&&_val.getErrs().isEmpty()) {
                     int begin_ = _sum +delta_+ _val.getIndexInEl();
                     String tag_;
@@ -2921,10 +2894,8 @@ public final class LinkageUtil {
                     tag_ = "</b>";
                     _parts.add(new PartOffset(tag_,begin_+l_));
                 } else {
-                    String className_ = classMethodId_.getClassName();
-                    className_ = StringExpUtil.getIdFromAllTypes(className_);
                     AnaTypeFct function_ = ((FctOperation) _val).getFunction();
-                    addParts(_vars, _currentFileName, className_, function_,
+                    addParts(_vars, _currentFileName, function_,
                             _sum + delta_ + _val.getIndexInEl(), l_,
                             _val.getErrs(),_val.getErrs(), _parts);
                 }
@@ -2932,36 +2903,18 @@ public final class LinkageUtil {
             if (_val instanceof ChoiceFctOperation) {
                 _parts.addAllElts(((ChoiceFctOperation)_val).getPartOffsets());
                 int delta_ = ((ChoiceFctOperation) _val).getDelta();
-                ClassMethodId classMethodId_ = ((ChoiceFctOperation) _val).getClassMethodId();
                 int l_ = ((ChoiceFctOperation) _val).getLengthMethod();
-                if (classMethodId_ == null) {
-                    addParts(_vars, _currentFileName,"",null,
-                            _sum +delta_+ _val.getIndexInEl(),l_,
-                            _val.getErrs(),_val.getErrs(),_parts);
-                    return;
-                }
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 AnaTypeFct function_ = ((ChoiceFctOperation) _val).getFunction();
-                addParts(_vars, _currentFileName,className_,function_,
+                addParts(_vars, _currentFileName, function_,
                         _sum +delta_+ _val.getIndexInEl(),l_,
                         _val.getErrs(),_val.getErrs(),_parts);
             }
             if (_val instanceof SuperFctOperation) {
                 _parts.addAllElts(((SuperFctOperation)_val).getPartOffsets());
                 int delta_ = ((SuperFctOperation) _val).getDelta();
-                ClassMethodId classMethodId_ = ((SuperFctOperation) _val).getClassMethodId();
                 int l_ = ((SuperFctOperation) _val).getLengthMethod();
-                if (classMethodId_ == null) {
-                    addParts(_vars, _currentFileName,"",null,
-                            _sum +delta_+ _val.getIndexInEl(),l_,
-                            _val.getErrs(),_val.getErrs(),_parts);
-                    return;
-                }
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 AnaTypeFct function_ = ((SuperFctOperation) _val).getFunction();
-                addParts(_vars, _currentFileName,className_,function_,
+                addParts(_vars, _currentFileName, function_,
                         _sum +delta_+ _val.getIndexInEl(),l_,
                         _val.getErrs(),_val.getErrs(),_parts);
             }
@@ -3116,13 +3069,11 @@ public final class LinkageUtil {
 
     private static void processInstances(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof AbstractInstancingOperation) {
-            String cl_ = ((AbstractInstancingOperation)_val).getClassName();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             AnaTypeFct constructor_ = ((AbstractInstancingOperation) _val).getConstructor();
             AbstractInstancingOperation inst_ = (AbstractInstancingOperation) _val;
             if (!(inst_ instanceof StandardInstancingOperation)||!((StandardInstancingOperation)inst_).isHasFieldName()) {
                 int offsetNew_ = StringUtil.getFirstPrintableCharIndex(inst_.getMethodName());
-                addParts(_vars, _currentFileName,cl_,constructor_,
+                addParts(_vars, _currentFileName, constructor_,
                         offsetNew_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordNew().length(),
                         _val.getErrs(),_val.getErrs(),_parts);
                 if (inst_ instanceof AnonymousInstancingOperation) {
@@ -3208,24 +3159,14 @@ public final class LinkageUtil {
         if (!(_val instanceof LambdaOperation)) {
             return;
         }
-        ClassMethodId classMethodId_ = ((LambdaOperation) _val).getMethod();
-        ConstructorId realId_ = ((LambdaOperation) _val).getRealId();
         ClassField fieldId_ = ((LambdaOperation) _val).getFieldId();
         AnaTypeFct function_ = ((LambdaOperation) _val).getFunction();
         RootBlock fieldType_ = ((LambdaOperation) _val).getFieldType();
         int off_ = ((LambdaOperation)_val).getClassNameOffset();
         int beginLambda_ = off_ + _sum + _val.getIndexInEl();
         int lambdaLen_ = _vars.getKeyWords().getKeyWordLambda().length();
-        if (classMethodId_ != null) {
-            String className_ = classMethodId_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
-            addParts(_vars, _currentFileName,className_,function_,
-                    beginLambda_, lambdaLen_,
-                    _val.getErrs(),_val.getErrs(),_parts);
-        } else if (realId_ != null) {
-            String cl_ = ((LambdaOperation) _val).getLambdaCommonContent().getFoundClass();
-            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-            addParts(_vars, _currentFileName,cl_,function_,
+        if (function_ != null) {
+            addParts(_vars, _currentFileName, function_,
                     beginLambda_, lambdaLen_,
                     _val.getErrs(),_val.getErrs(),_parts);
         } else {
@@ -3259,66 +3200,32 @@ public final class LinkageUtil {
         }
         if (_val instanceof AbstractInvokingConstructor) {
             if (_val instanceof InterfaceInvokingConstructor) {
-                ConstructorId c_ = ((AbstractInvokingConstructor)_val).getConstId();
-                if (c_ == null) {
-                    addParts(_vars, _currentFileName,"",null,
-                            _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                } else {
-                    String cl_ = c_.getName();
-                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                    addParts(_vars, _currentFileName,cl_,((AbstractInvokingConstructor)_val).getConstructor(),
-                            _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                }
+                addParts(_vars, _currentFileName, ((AbstractInvokingConstructor)_val).getConstructor(),
+                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
+                        _val.getErrs(),_val.getErrs(),_parts);
                 _parts.addAllElts(((InterfaceInvokingConstructor)_val).getPartOffsets());
             } else if (_val instanceof InterfaceFctConstructor) {
-                ConstructorId c_ = ((AbstractInvokingConstructor)_val).getConstId();
-                if (c_ == null) {
-                    addParts(_vars, _currentFileName,"",null,
-                            _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                } else {
-                    String cl_ = c_.getName();
-                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                    addParts(_vars, _currentFileName,cl_,((AbstractInvokingConstructor)_val).getConstructor(),
-                            _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                }
+                addParts(_vars, _currentFileName, ((AbstractInvokingConstructor)_val).getConstructor(),
+                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
+                        _val.getErrs(),_val.getErrs(),_parts);
                 _parts.addAllElts(((InterfaceFctConstructor)_val).getPartOffsets());
             } else{
-                ConstructorId c_ = ((AbstractInvokingConstructor) _val).getConstId();
-                if (c_ == null) {
-                    addParts(_vars, _currentFileName, "", null,
-                            _sum + _val.getIndexInEl(), ((AbstractInvokingConstructor) _val).getOffsetOper(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                } else {
-                    String cl_ = c_.getName();
-                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                    addParts(_vars, _currentFileName, cl_, ((AbstractInvokingConstructor)_val).getConstructor(),
-                            _sum + _val.getIndexInEl(), ((AbstractInvokingConstructor) _val).getOffsetOper(),
-                            _val.getErrs(),_val.getErrs(),_parts);
-                }
+                addParts(_vars, _currentFileName, ((AbstractInvokingConstructor)_val).getConstructor(),
+                        _sum + _val.getIndexInEl(), ((AbstractInvokingConstructor) _val).getOffsetOper(),
+                        _val.getErrs(),_val.getErrs(),_parts);
             }
         }
         if (_val instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
-            if (classMethodId_ == null) {
-                addParts(_vars, _currentFileName,"",null,
-                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordOperator().length(),
-                        _val.getErrs(),_val.getErrs(),_parts);
-            } else {
-                addParts(_vars, _currentFileName,classMethodId_.getClassName(),par_.getFunction(),
-                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordOperator().length(),
-                        _val.getErrs(),_val.getErrs(),_parts);
-            }
+            addParts(_vars, _currentFileName, par_.getFunction(),
+                    _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordOperator().length(),
+                    _val.getErrs(),_val.getErrs(),_parts);
             _parts.addAllElts(par_.getPartOffsets());
         }
     }
 
     private static void processUnaryLeftOperationsCoversReport(VariablesOffsets _vars, int _sum, OperationNode _val, AbstractCoverageResult _result, CustList<PartOffset> _parts) {
-        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getClassMethodId() == null && _result.isStrictPartialCovered()) {
+        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFunction() == null && _result.isStrictPartialCovered()) {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
             safeReport(_vars,_result, _sum + _val.getIndexInEl() + offsetOp_,_parts,1);
         }
@@ -3327,10 +3234,9 @@ public final class LinkageUtil {
     private static void processUnaryLeftOperationsLinks(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof SymbolOperation && _val.getFirstChild().getNextSibling() == null) {
             SymbolOperation par_ = (SymbolOperation) _val;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
             AnaTypeFct function_ = par_.getFunction();
-            if (classMethodId_ != null) {
-                addParts(_vars, _currentFileName, classMethodId_.getClassName(), function_,
+            if (function_ != null) {
+                addParts(_vars, _currentFileName, function_,
                         _sum + _val.getIndexInEl() + par_.getOpOffset(), function_.getFunction().getName().length(),
                         _val.getErrs(),_val.getErrs(),_parts);
             } else if (!_val.getErrs().isEmpty()){
@@ -3355,20 +3261,18 @@ public final class LinkageUtil {
             _parts.addAllElts(((CastOperation)_val).getPartOffsets());
         }
         if (_val instanceof ExplicitOperation) {
-            String className_ = ((ExplicitOperation) _val).getClassName();
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
             AnaTypeFct function_ = ((ExplicitOperation) _val).getFunction();
-            addParts(_vars, _currentFileName,StringExpUtil.getIdFromAllTypes(className_),function_,
+            addParts(_vars, _currentFileName, function_,
                     offsetOp_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordExplicit().length(),
                     _val.getErrs(),_val.getErrs(),
                     _parts);
             _parts.addAllElts(((ExplicitOperation)_val).getPartOffsets());
         }
         if (_val instanceof ImplicitOperation) {
-            String className_ = ((ImplicitOperation) _val).getClassName();
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
             AnaTypeFct function_ = ((ImplicitOperation) _val).getFunction();
-            addParts(_vars, _currentFileName,StringExpUtil.getIdFromAllTypes(className_),function_,
+            addParts(_vars, _currentFileName, function_,
                     offsetOp_+_sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordCast().length(),
                     _val.getErrs(),_val.getErrs(),
                     _parts);
@@ -3379,10 +3283,9 @@ public final class LinkageUtil {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
             if(!par_.isPost()) {
                 boolean err_ = true;
-                ClassMethodId classMethodId_ = par_.getClassMethodId();
                 AnaTypeFct function_ = par_.getFunction();
-                if (classMethodId_ != null) {
-                    addParts(_vars, _currentFileName,"",function_,
+                if (function_ != null) {
+                    addParts(_vars, _currentFileName, function_,
                             _sum + _val.getIndexInEl()+offsetOp_,1,
                             _val.getErrs(),_val.getErrs(),_parts);
                     err_ = false;
@@ -3390,10 +3293,7 @@ public final class LinkageUtil {
                 SettableElResult settable_ = par_.getSettable();
                 if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
-                    ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
-                    String className_ = classMethodIdArr_.getClassName();
-                    className_ = StringExpUtil.getIdFromAllTypes(className_);
-                    addParts(_vars, _currentFileName,className_,parArr_.getFunctionSet(),
+                    addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
                             _sum + _val.getIndexInEl()+offsetOp_+1,1,
                             _val.getErrs(),_val.getErrs(),_parts);
                     err_ = false;
@@ -3504,11 +3404,9 @@ public final class LinkageUtil {
             ClassMethodId test_ = t_.getTest();
             AnaTypeFct testFct_ = t_.getTestFct();
             if (test_ != null) {
-                String className_ = test_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 StringList l_ = new StringList();
                 int begin_ = _sum + _val.getIndexInEl();
-                addParts(_vars, _currentFileName,className_,testFct_,begin_,_vars.getKeyWords().getKeyWordBool().length(),l_,l_,_parts);
+                addParts(_vars, _currentFileName, testFct_,begin_,_vars.getKeyWords().getKeyWordBool().length(),l_,l_,_parts);
             }
         }
     }
@@ -3524,17 +3422,13 @@ public final class LinkageUtil {
         if (_parent instanceof ShortTernaryOperation) {
             ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
             int index_ = _curOp.getIndexChild();
-            ClassMethodId test_ = null;
             AnaTypeFct testFct_ = null;
             if (index_ == 1) {
-                test_ = sh_.getTest();
                 testFct_ = sh_.getTestFct();
             }
-            if (test_ != null) {
-                String className_ = test_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
+            if (testFct_ != null) {
                 StringList l_ = new StringList();
-                addParts(_vars, _currentFileName,className_,testFct_,_offsetEnd,1,l_,l_,_parts);
+                addParts(_vars, _currentFileName, testFct_,_offsetEnd,1,l_,l_,_parts);
             }
         }
         processCat(_vars, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts);
@@ -3561,17 +3455,13 @@ public final class LinkageUtil {
         if (middleOper(_parent)) {
             int index_ = _curOp.getIndexChild();
             IntTreeMap<String> operators_ =  _parent.getOperations().getOperators();
-            ClassMethodId test_ = null;
             AnaTypeFct testFct_ = null;
             if (_parent instanceof ShortTernaryOperation && index_ == 1) {
                 ShortTernaryOperation sh_ = (ShortTernaryOperation) _parent;
-                test_ = sh_.getTest();
                 testFct_ = sh_.getTestFct();
             }
-            if (test_ != null) {
-                String className_ = test_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
-                addParts(_vars, _currentFileName,className_,testFct_,_offsetEnd,1,l_,l_,_parts);
+            if (testFct_ != null) {
+                addParts(_vars, _currentFileName, testFct_,_offsetEnd,1,l_,l_,_parts);
             } else if (!l_.isEmpty()) {
                 int len_ = operators_.getValue(index_).length();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(l_,"\n\n")) +"\" class=\"e\">", _offsetEnd));
@@ -3592,10 +3482,9 @@ public final class LinkageUtil {
     private static void processCustomOperator(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (_parentOp instanceof SymbolOperation) {
             SymbolOperation par_ = (SymbolOperation) _parentOp;
-            ClassMethodId classMethodId_ = par_.getClassMethodId();
             AnaTypeFct function_ = par_.getFunction();
-            if (classMethodId_ != null) {
-                addParts(_vars, _currentFileName,classMethodId_.getClassName(),function_,_offsetEnd,function_.getFunction().getName().length(),_parentOp.getErrs(),_parentOp.getErrs(),_parts);
+            if (function_ != null) {
+                addParts(_vars, _currentFileName, function_,_offsetEnd,function_.getFunction().getName().length(),_parentOp.getErrs(),_parentOp.getErrs(),_parts);
             }
         }
     }
@@ -3629,7 +3518,7 @@ public final class LinkageUtil {
 
     private static void processCompareReport(VariablesOffsets _vars, Block _block, int _offsetEnd, MethodOperation _parent, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (_parent instanceof EqOperation || _parent instanceof CmpOperation) {
-            if (((SymbolOperation)_parent).getClassMethodId() == null) {
+            if (((SymbolOperation)_parent).getFunction() == null) {
                 int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
                 AbstractCoverageResult resultLoc_ = getCovers(_block, _parent, _cov, _annot, _indexAnnotGroup, _indexAnnot);
                 safeReport(_vars, resultLoc_, _offsetEnd,_parts,length_);
@@ -3642,22 +3531,18 @@ public final class LinkageUtil {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
-        ClassMethodId classMethodId_ = par_.getClassMethodId();
         AnaTypeFct function_ = par_.getFunction();
         int opDelta_ = par_.getOper().length() - 1;
-        ClassMethodId test_ = par_.getTest();
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
         int len_ = opDelta_;
-        if (test_ != null) {
-            String className_ = test_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
-            addParts(_vars, _currentFileName,className_,functionTest_,begin_,1, _parentOp.getErrs(),_parentOp.getErrs(),_parts);
+        if (functionTest_ != null) {
+            addParts(_vars, _currentFileName, functionTest_,begin_,1, _parentOp.getErrs(),_parentOp.getErrs(),_parts);
             begin_++;
             len_--;
         }
-        if (classMethodId_ != null) {
-            addParts(_vars, _currentFileName,classMethodId_.getClassName(),function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
+        if (function_ != null) {
+            addParts(_vars, _currentFileName, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             String tag_ = "<i>";
             _parts.add(new PartOffset(tag_, begin_));
@@ -3675,7 +3560,6 @@ public final class LinkageUtil {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
-        ClassMethodId classMethodId_ = par_.getClassMethodId();
         AnaTypeFct function_ = par_.getFunction();
         int opDelta_ = par_.getOper().length() - 1;
         ClassMethodId test_ = par_.getTest();
@@ -3683,12 +3567,10 @@ public final class LinkageUtil {
         int begin_ = _offsetEnd;
         int len_ = opDelta_;
         if (test_ != null) {
-            String className_ = test_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
             StringList title_ = new StringList();
             AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
-            addParts(_vars, _currentFileName,className_,functionTest_,begin_,1, _parentOp.getErrs(),title_,_parts);
+            addParts(_vars, _currentFileName, functionTest_,begin_,1, _parentOp.getErrs(),title_,_parts);
             begin_++;
             len_--;
             if (StringUtil.quickEq(par_.getOper(),"&&&=")
@@ -3719,8 +3601,8 @@ public final class LinkageUtil {
             begin_+=2;
             len_-=2;
         }
-        if (classMethodId_ != null) {
-            addParts(_vars, _currentFileName,classMethodId_.getClassName(),function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
+        if (function_ != null) {
+            addParts(_vars, _currentFileName, function_,begin_,len_,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             String tag_ = "<i>";
             _parts.add(new PartOffset(tag_, begin_));
@@ -3744,13 +3626,9 @@ public final class LinkageUtil {
         int opDelta_ = par_.getOper().length() - 1;
         SettableElResult settable_ = par_.getSettable();
         if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
-            ArrOperation parArr_ = (ArrOperation) settable_;
-            ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
-            String className_ = classMethodIdArr_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
-            addParts(_vars, _currentFileName,className_,((ArrOperation) settable_).getFunctionSet(),opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
+            addParts(_vars, _currentFileName, ((ArrOperation) settable_).getFunctionSet(),opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else {
-            addParts(_vars, _currentFileName,"",null,opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
+            addParts(_vars, _currentFileName, null,opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         }
     }
     private static void processLogicAndOrOperationReport(VariablesOffsets _vars, String _currentFileName, Block _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
@@ -3764,22 +3642,17 @@ public final class LinkageUtil {
         StringList errs_ = q_.getErrs();
         AnaTypeFct functionTest_ = q_.getFunctionTest();
         if (test_ != null) {
-            String className_ = test_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
-            addParts(_vars, _currentFileName,className_,functionTest_,_offsetEnd,1, errs_,title_,_parts);
+            addParts(_vars, _currentFileName, functionTest_,_offsetEnd,1, errs_,title_,_parts);
         } else {
             safeReport(_vars, resultFirst_, _offsetEnd,_parts,1);
         }
-        ClassMethodId operator_ = q_.getClassMethodId();
         AnaTypeFct function_ = q_.getFunction();
-        if (operator_ != null) {
-            String className_ = operator_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
+        if (function_ != null) {
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_vars, resultLast_));
-            addParts(_vars, _currentFileName,className_,function_,_offsetEnd+1,1, errs_,title_,_parts);
+            addParts(_vars, _currentFileName, function_,_offsetEnd+1,1, errs_,title_,_parts);
         } else {
             safeReport(_vars, resultLast_, _offsetEnd+1,_parts,1);
         }
@@ -3802,19 +3675,17 @@ public final class LinkageUtil {
             ArrOperation par_ = (ArrOperation) _parentOp;
             ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
             if (classMethodId_ != null) {
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 AnaTypeFct function_;
                 if (par_.getArrContent().isVariable()) {
                     function_ = par_.getFunctionSet();
                 } else {
                     function_ = par_.getFunctionGet();
                 }
-                addParts(_vars, _currentFileName,className_,function_,_offsetEnd,1,new StringList(),new StringList(),_parts);
+                addParts(_vars, _currentFileName, function_,_offsetEnd,1,new StringList(),new StringList(),_parts);
             } else {
                 String er_ = par_.getNbErr();
                 if (!er_.isEmpty()) {
-                    addParts(_vars, _currentFileName,"",null,_offsetEnd,1,new StringList(er_),new StringList(er_),_parts);
+                    addParts(_vars, _currentFileName, null,_offsetEnd,1,new StringList(er_),new StringList(er_),_parts);
                 }
             }
         }
@@ -3838,19 +3709,15 @@ public final class LinkageUtil {
             SemiAffectationOperation par_ = (SemiAffectationOperation) _parent;
             if(par_.isPost()) {
                 boolean err_ = true;
-                ClassMethodId classMethodId_ = par_.getClassMethodId();
                 AnaTypeFct function_ = par_.getFunction();
-                if (classMethodId_ != null) {
-                    addParts(_vars, _currentFileName,classMethodId_.getClassName(),function_,_offsetEnd,1,_parent.getErrs(),_parent.getErrs(),_parts);
+                if (function_ != null) {
+                    addParts(_vars, _currentFileName, function_,_offsetEnd,1,_parent.getErrs(),_parent.getErrs(),_parts);
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
                 if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
-                    ClassMethodId classMethodIdArr_ = parArr_.getCallFctContent().getClassMethodId();
-                    String className_ = classMethodIdArr_.getClassName();
-                    className_ = StringExpUtil.getIdFromAllTypes(className_);
-                    addParts(_vars, _currentFileName,className_,parArr_.getFunctionSet(),_offsetEnd+1,1,_parent.getErrs(),_parent.getErrs(),_parts);
+                    addParts(_vars, _currentFileName, parArr_.getFunctionSet(),_offsetEnd+1,1,_parent.getErrs(),_parent.getErrs(),_parts);
                     err_ = false;
                 }
                 if (err_) {
@@ -3931,12 +3798,12 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,_offsetEnd+ _delta));
     }
 
-    private static void addParts(VariablesOffsets _vars, String _currentFileName, String _className,
+    private static void addParts(VariablesOffsets _vars, String _currentFileName,
                                  AnaTypeFct _id, int _begin, int _length,
                                  StringList _errors,
                                  StringList _title,
                                  CustList<PartOffset> _parts) {
-        addParts(_vars, _currentFileName, _className,
+        addParts(_vars, _currentFileName,
                 _id, _begin, _length,
         _errors,
         _title,
@@ -3948,20 +3815,19 @@ public final class LinkageUtil {
                                  StringList _errors,
                                  StringList _title,
                                  CustList<PartOffset> _parts) {
-        String cl_ = _id.getType().getFullName();
-        addParts(_vars, _currentFileName,cl_,_id,_begin,_length,_errors,_title,_parts, -1);
+        addParts(_vars, _currentFileName, _id,_begin,_length,_errors,_title,_parts, -1);
     }
 
-    private static void addParts(VariablesOffsets _vars, String _currentFileName, String _className,
+    private static void addParts(VariablesOffsets _vars, String _currentFileName,
                                  AnaTypeFct _id, int _begin, int _length,
                                  StringList _errors,
                                  StringList _title,
                                  CustList<PartOffset> _parts, int _name) {
         DisplayedStrings dis_ = _vars.getDisplayedStrings();
-        addParts(dis_, _currentFileName, _className, _id, _begin, _length, _errors, _title, _parts, _name);
+        addParts(dis_, _currentFileName, _id, _begin, _length, _errors, _title, _parts, _name);
     }
 
-    private static void addParts(DisplayedStrings _dis, String _currentFileName, String _className, AnaTypeFct _id,
+    private static void addParts(DisplayedStrings _dis, String _currentFileName, AnaTypeFct _id,
                                  int _begin, int _length, StringList _errors, StringList _title, CustList<PartOffset> _parts, int _name) {
         String rel_ = getRelativize(_currentFileName, _id);
         if (rel_.isEmpty()) {
@@ -3975,11 +3841,11 @@ public final class LinkageUtil {
             return;
         }
         NamedFunctionBlock function_ = _id.getFunction();
-        String cl_ = StringExpUtil.getIdFromAllTypes(_className);
         String tag_;
         if (function_ instanceof OperatorBlock) {
             tag_ = "<a"+name(_name)+"title=\""+ merge(_title,function_.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
         } else {
+            String cl_ = _id.getType().getFullName();
             tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ function_.getSignature(_dis))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
         }
         _parts.add(new PartOffset(tag_,_begin));

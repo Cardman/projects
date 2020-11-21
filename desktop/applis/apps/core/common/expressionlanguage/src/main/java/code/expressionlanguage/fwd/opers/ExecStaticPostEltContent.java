@@ -1,13 +1,14 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecStaticPostEltContent {
     private final ExecStaticEltContent staticEltContent;
     private final boolean post;
-    public ExecStaticPostEltContent(ClassMethodId _cl, boolean _post) {
-        staticEltContent = new ExecStaticEltContent(_cl);
+
+    public ExecStaticPostEltContent(AnaTypeFct _pair, String _className, boolean _post) {
+        staticEltContent = new ExecStaticEltContent(_pair,_className);
         post = _post;
     }
 

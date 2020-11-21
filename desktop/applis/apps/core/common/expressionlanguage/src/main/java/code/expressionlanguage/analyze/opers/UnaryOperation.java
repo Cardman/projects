@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -9,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
@@ -17,7 +15,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
-    private ClassMethodId classMethodId;
+    private String className="";
     private String oper;
     private int opOffset;
     private boolean okNum;
@@ -40,7 +38,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
             if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
-                classMethodId = clId_.getSymbol();
+                className = clId_.getSymbol().getClassName();
                 memberId = clId_.getMemberId();
                 function = clId_.getFunction();
             }
@@ -96,8 +94,8 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
 
     @Override
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
 
     public String getOper() {

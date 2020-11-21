@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -158,6 +157,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         callFctContent.setMemberId(cust_.getMemberId());
         function = cust_.getPair();
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, cust_.getRealId()));
+        callFctContent.setClassName(foundClass_);
         if (cust_.isVarArgToCall()) {
             StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
             callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
@@ -172,10 +172,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public int getOffsetOper() {
         return offsetOper;
-    }
-
-    public ClassMethodId getClassMethodId() {
-        return callFctContent.getClassMethodId();
     }
 
     public String getFrom() {

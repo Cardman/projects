@@ -147,6 +147,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
+            callFctContent.setClassName(foundClass_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
             unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
@@ -176,6 +177,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             addErr(abs_.getBuiltError());
         }
         callFctContent.setClassMethodId(clMeth_.getId());
+        callFctContent.setClassName(clMeth_.getId().getClassName());
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();

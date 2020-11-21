@@ -27,7 +27,6 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private String err = "";
 
-    private ClassMethodId test;
     private AnaTypeFct function;
 
     private int conditionNb;
@@ -67,7 +66,6 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                     ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     resultClass_.getImplicitsTest().add(cl_);
                     resultClass_.setMemberIdTest(trueOp_.getMemberId());
-                    test = cl_;
                     function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -108,10 +106,6 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     public String getErr() {
         return err;
-    }
-
-    public ClassMethodId getTest() {
-        return test;
     }
 
     public int getTestOffset() {
