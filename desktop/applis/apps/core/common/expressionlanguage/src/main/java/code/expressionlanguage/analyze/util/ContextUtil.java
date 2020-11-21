@@ -268,6 +268,7 @@ public final class ContextUtil {
                 FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
+                fieldInfo_.setFieldType(r_);
                 return fieldInfo_;
             }
             return null;

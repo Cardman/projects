@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -43,6 +45,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StandardMethod standardMethod;
+    private AnaTypeFct function;
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -229,6 +232,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 return;
             }
             callFctContent.setMemberId(clMeth_.getMemberId());
+            function = clMeth_.getPair();
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
@@ -249,6 +253,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         standardMethod = clMeth_.getStandardMethod();
         callFctContent.setMemberId(clMeth_.getMemberId());
+        function = clMeth_.getPair();
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
@@ -322,6 +327,10 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             }
         }
         return b_;
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public ClassMethodId getClassMethodId() {

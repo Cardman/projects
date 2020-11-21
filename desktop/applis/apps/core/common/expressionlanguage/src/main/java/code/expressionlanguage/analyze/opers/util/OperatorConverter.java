@@ -1,12 +1,15 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class OperatorConverter {
     private ClassMethodId symbol;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
     private ClassMethodId test;
     private MemberId memberIdTest = new MemberId();
+    private AnaTypeFct functionTest;
 
     public ClassMethodId getSymbol() {
         return symbol;
@@ -22,6 +25,14 @@ public final class OperatorConverter {
 
     public void setMemberId(MemberId _memberId) {
         this.memberId = _memberId;
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
+    public void setFunction(AnaTypeFct _function) {
+        this.function = _function;
     }
 
     public ClassMethodId getTest() {
@@ -40,4 +51,11 @@ public final class OperatorConverter {
         this.memberIdTest = _memberIdTest;
     }
 
+    public AnaTypeFct getFunctionTest() {
+        return functionTest;
+    }
+
+    public void setFunctionTest(AnaTypeFct _functionTest) {
+        this.functionTest = _functionTest;
+    }
 }

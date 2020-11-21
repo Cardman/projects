@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 
@@ -7,6 +8,7 @@ public interface SymbolOperation {
 
     int getOpOffset();
 
+    AnaTypeFct getFunction();
     ClassMethodId getClassMethodId();
 
     boolean isOkNum();

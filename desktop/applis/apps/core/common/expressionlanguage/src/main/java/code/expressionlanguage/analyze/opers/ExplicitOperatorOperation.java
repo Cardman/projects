@@ -2,7 +2,9 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -22,6 +24,7 @@ import code.util.core.StringUtil;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
     private AnaCallFctContent callFctContent;
+    private AnaTypeFct function;
 
     private int offsetOper;
     private String from;
@@ -153,6 +156,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
         callFctContent.setMemberId(cust_.getMemberId());
+        function = cust_.getPair();
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, cust_.getRealId()));
         if (cust_.isVarArgToCall()) {
             StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
@@ -162,6 +166,9 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
     }
 
+    public AnaTypeFct getFunction() {
+        return function;
+    }
 
     public int getOffsetOper() {
         return offsetOper;

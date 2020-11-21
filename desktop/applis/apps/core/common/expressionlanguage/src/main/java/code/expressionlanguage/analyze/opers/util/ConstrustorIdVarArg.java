@@ -6,7 +6,7 @@ import code.expressionlanguage.stds.StandardType;
 public final class ConstrustorIdVarArg {
 
     private ConstructorId realId;
-
+    private AnaTypeFct pair;
     private ConstructorId constId;
 
     private StandardType standardType;
@@ -21,6 +21,14 @@ public final class ConstrustorIdVarArg {
 
     public void setRealId(ConstructorId _realId) {
         realId = _realId;
+    }
+
+    public AnaTypeFct getPair() {
+        return pair;
+    }
+
+    public void setPair(AnaTypeFct _pair) {
+        pair = _pair;
     }
 
     public ConstructorId getConstId() {

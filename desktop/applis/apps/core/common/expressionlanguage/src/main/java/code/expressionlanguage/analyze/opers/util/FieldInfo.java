@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -16,6 +17,7 @@ public final class FieldInfo {
     private final Accessed accessed;
     private final int valOffset;
     private String fileName;
+    private RootBlock fieldType;
     private MemberId memberId = new MemberId();
 
     private FieldInfo(String _name, String _declaringClass, String _type, String _realType,
@@ -70,6 +72,13 @@ public final class FieldInfo {
         return finalField;
     }
 
+    public RootBlock getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(RootBlock _fieldType) {
+        fieldType = _fieldType;
+    }
     public Accessed getAccessed() {
         return accessed;
     }

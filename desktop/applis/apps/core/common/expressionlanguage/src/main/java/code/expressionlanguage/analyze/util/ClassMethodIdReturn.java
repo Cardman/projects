@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
 
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
@@ -23,6 +24,7 @@ public final class ClassMethodIdReturn {
     private String fileName;
     private MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
+    private AnaTypeFct pair;
 
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
@@ -118,6 +120,14 @@ public final class ClassMethodIdReturn {
 
     public void setStandardMethod(StandardMethod _standardMethod) {
         this.standardMethod = _standardMethod;
+    }
+
+    public AnaTypeFct getPair() {
+        return pair;
+    }
+
+    public void setPair(AnaTypeFct _pair) {
+        this.pair = _pair;
     }
 
 }

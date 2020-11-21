@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -20,6 +21,11 @@ public abstract class NamedCalledFunctionBlock extends NamedFunctionBlock {
     public abstract MethodId getId();
     @Override
     public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
+    }
+
+    @Override
+    public String getSignature(DisplayedStrings _page) {
         return getId().getSignature(_page);
     }
 }

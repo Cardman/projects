@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -33,6 +34,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     @Override
     public String getSignature(AnalyzedPageEl _page) {
+        return getId().getSignature(_page);
+    }
+
+    @Override
+    public String getSignature(DisplayedStrings _page) {
         return getId().getSignature(_page);
     }
 

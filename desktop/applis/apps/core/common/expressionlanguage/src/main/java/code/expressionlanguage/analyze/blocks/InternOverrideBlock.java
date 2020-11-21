@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -97,33 +98,37 @@ public final class InternOverrideBlock extends Leaf {
                 RootBlock formattedType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
                 if (formattedType_ == null) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
                 MethodId superMethodId_ = IdFctOperation.resolveArguments(1, cl_,nameLoc_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_, _page);
                 if (superMethodId_ == null) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
                 if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formattedType_,formatted_))) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
                 CustList<OverridableBlock> methods_ = formattedType_.getOverridableBlocks();
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
                 int rc_ = _page.getTraceIndex();
                 ClassMethodId id_ = null;
+                AnaTypeFct fct_ = null;
                 for (OverridableBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {
                         id_ = new ClassMethodId(cl_,m.getId());
                         GeneStringOverridable g_ = new GeneStringOverridable(formatted_,formattedType_,m);
                         list_.add(g_);
+                        fct_ = new AnaTypeFct();
+                        fct_.setType(formattedType_);
+                        fct_.setFunction(m);
                         break;
                     }
                 }
-                listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,id_, rc_,nameLoc_.length()));
+                listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,id_,fct_, rc_,nameLoc_.length()));
                 CustList<GeneStringOverridable> methodIds_ = ov_.getMethodIds();
                 methodIds_.addAllElts(list_);
                 localSum_ += s.length()+1;

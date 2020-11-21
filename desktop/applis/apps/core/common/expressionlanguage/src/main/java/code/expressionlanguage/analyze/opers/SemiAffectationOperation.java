@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -22,6 +24,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private boolean post;
     private ClassMethodId classMethodId;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
     private MemberId memberIdFrom = new MemberId();
     private ClassMethodId converterFrom;
     private MemberId memberIdTo = new MemberId();
@@ -77,6 +80,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             String foundClass_ = cl_.getRealClass();
             MethodId id_ = cl_.getRealId();
             memberId = cl_.getMemberId();
+            function = cl_.getPair();
             classMethodId = new ClassMethodId(foundClass_,id_);
             return;
         }
@@ -105,6 +109,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             return;
         }
         clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public boolean isPost() {

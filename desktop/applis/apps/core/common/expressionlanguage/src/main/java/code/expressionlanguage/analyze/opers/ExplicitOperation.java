@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -24,7 +25,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     private AnaExplicitContent explicitContent;
     private CustList<PartOffset> partOffsets;
 
-    private MethodId castOpId;
+    private AnaTypeFct function;
     private MemberId memberId = new MemberId();
     public ExplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -97,8 +98,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
                 explicitContent.setClassNameOwner(resMethod_.getRealClass());
-                castOpId = resMethod_.getRealId();
                 memberId = resMethod_.getMemberId();
+                function = resMethod_.getPair();
             }
             return;
         }
@@ -132,8 +133,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
                 explicitContent.setClassNameOwner(resMethod_.getRealClass());
-                castOpId = resMethod_.getRealId();
                 memberId = resMethod_.getMemberId();
+                function = resMethod_.getPair();
                 setResultClass(virtual_);
                 return;
             }
@@ -149,8 +150,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             return;
         }
         memberId = resMethod_.getMemberId();
+        function = resMethod_.getPair();
         explicitContent.setClassNameOwner(resMethod_.getRealClass());
-        castOpId = resMethod_.getRealId();
     }
     private void buildError(AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
@@ -169,6 +170,10 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
 
     }
 
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
     public String getClassName() {
         return explicitContent.getClassName();
     }
@@ -179,10 +184,6 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
-    }
-
-    public MethodId getCastOpId() {
-        return castOpId;
     }
 
     public MemberId getMemberId() {

@@ -160,6 +160,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
                 mloc_.setConstraints(ctor_);
+                mloc_.pair((RootBlock) _anaGeneType,e);
                 mloc_.setParametersNames(e.getParametersNames());
                 mloc_.setParameters(pg_);
                 mloc_.setClassName(_typeInfer);

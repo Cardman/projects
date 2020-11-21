@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -37,6 +38,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private StandardMethod standardMethod;
+    private AnaTypeFct function;
 
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -162,6 +164,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                 return;
             }
             callFctContent.setMemberId(clMeth_.getMemberId());
+            function = clMeth_.getPair();
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
@@ -180,6 +183,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         standardMethod = clMeth_.getStandardMethod();
         callFctContent.setMemberId(clMeth_.getMemberId());
+        function = clMeth_.getPair();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -208,6 +212,10 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public ClassMethodId getClassMethodId() {

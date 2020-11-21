@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -23,10 +25,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
     private AnaOperatorContent operatorContent;
+    private AnaTypeFct function;
     private ClassMethodId classMethodId;
     private MemberId memberId = new MemberId();
     private ClassMethodId converter;
     private MemberId memberIdConv = new MemberId();
+    private AnaTypeFct functionTest;
     private ClassMethodId test;
 
     private boolean rightBool;
@@ -106,10 +110,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 clMatchLeft_.getImplicitsTest().add(test_);
                 clMatchLeft_.setMemberIdTest(cl_.getMemberIdTest());
                 test = test_;
+                functionTest = cl_.getFunctionTest();
             }
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
                 memberId = cl_.getMemberId();
+                function = cl_.getFunction();
             }
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
@@ -309,6 +315,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public String getOper() {
         return operatorContent.getOper();
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
+    public AnaTypeFct getFunctionTest() {
+        return functionTest;
     }
 
     public ClassMethodId getClassMethodId() {

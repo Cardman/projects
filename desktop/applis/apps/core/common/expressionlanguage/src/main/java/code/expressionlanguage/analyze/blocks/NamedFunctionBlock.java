@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -241,6 +242,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         partOffsetsReturn.addAllElts(_page.getCurrentParts());
         return res_;
     }
+    public abstract String getSignature(DisplayedStrings _page);
     public String getReturnType() {
         return returnType;
     }

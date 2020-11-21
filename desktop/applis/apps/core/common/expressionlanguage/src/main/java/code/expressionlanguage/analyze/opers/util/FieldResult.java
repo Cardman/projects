@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 
 public final class FieldResult {
@@ -11,6 +12,7 @@ public final class FieldResult {
     private String type;
     private boolean staticField;
     private boolean finalField;
+    private RootBlock fieldType;
     private ClassField classField;
     private int valOffset;
     private int anc;
@@ -63,6 +65,14 @@ public final class FieldResult {
 
     public void setRealType(String _realType) {
         this.realType = _realType;
+    }
+
+    public RootBlock getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(RootBlock _fieldType) {
+        fieldType = _fieldType;
     }
 
     public String getType() {

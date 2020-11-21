@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -23,7 +25,9 @@ public abstract class QuickOperation extends MethodOperation {
     private boolean okNum;
     private ClassMethodId classMethodId;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
     private ClassMethodId test;
+    private AnaTypeFct functionTest;
     private MemberId memberConverter = new MemberId();
     private ClassMethodId converter;
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
@@ -56,12 +60,14 @@ public abstract class QuickOperation extends MethodOperation {
             if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(), _page)) {
                 classMethodId = opConv_.getSymbol();
                 memberId = opConv_.getMemberId();
+                function = opConv_.getFunction();
             }
             okNum = true;
             ClassMethodId test_ = opConv_.getTest();
             if (test_ == null) {
                 return;
             }
+            functionTest = opConv_.getFunctionTest();
             test = test_;
             leftRes_.getImplicitsTest().add(test_);
             leftRes_.setMemberIdTest(opConv_.getMemberIdTest());
@@ -150,8 +156,16 @@ public abstract class QuickOperation extends MethodOperation {
         return converter;
     }
 
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
     public MemberId getMemberId() {
         return memberId;
+    }
+
+    public AnaTypeFct getFunctionTest() {
+        return functionTest;
     }
 
     public MemberId getMemberConverter() {

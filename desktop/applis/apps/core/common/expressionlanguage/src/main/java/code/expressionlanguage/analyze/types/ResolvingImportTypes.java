@@ -21,9 +21,7 @@ public final class ResolvingImportTypes {
     }
 
     public static String lookupImportType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
-        String prefixedType_;
-        prefixedType_ = getRealSinglePrefixedMemberType(_type, _rooted,_ready, _page);
-        return prefixedType_;
+        return getRealSinglePrefixedMemberType(_type, _rooted,_ready, _page);
     }
     private static String getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String look_ = _type.trim();
@@ -213,6 +211,7 @@ public final class ResolvingImportTypes {
                     value_.setFileName(e.getFile().getFileName());
                     value_.memberId(t_.getNumberAll(),e.getNameNumber());
                     value_.setCustMethod(e);
+                    value_.setType(t_);
                     addImportMethod(_methods, value_);
                 }
             }
@@ -370,6 +369,7 @@ public final class ResolvingImportTypes {
                     ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_);
                     value_.setFileName(e.getFile().getFileName());
                     value_.memberId(cust_.getNumberAll(),e.getFieldNumber());
+                    value_.setFieldType(cust_);
                     addImport(_methods,s, value_);
                 }
             }

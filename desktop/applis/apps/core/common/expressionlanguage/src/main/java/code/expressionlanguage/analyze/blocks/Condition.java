@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -27,6 +28,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     private String err = "";
 
     private ClassMethodId test;
+    private AnaTypeFct function;
 
     private int conditionNb;
 
@@ -66,6 +68,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                     resultClass_.getImplicitsTest().add(cl_);
                     resultClass_.setMemberIdTest(trueOp_.getMemberId());
                     test = cl_;
+                    function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(getFile().getFileName());
@@ -81,6 +84,10 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
     }
 
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
 
     public Argument getArgument() {
         return argument;

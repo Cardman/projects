@@ -1,11 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
-import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -13,9 +10,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.ConstructorBlock;
-import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
 import code.util.CustList;
 import code.util.StringList;
@@ -27,6 +21,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private ConstructorId constId;
     private AnaInvokingConstructorContent invokingConstructorContent;
 
+    private AnaTypeFct constructor;
     private AnaClassArgumentMatching from;
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
@@ -99,6 +94,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             checkPositionBasis(_page);
             return;
         }
+        constructor = ctorRes_.getPair();
         memberId = ctorRes_.getMemberId();
         constId = ctorRes_.getRealId();
         checkPositionBasis(_page);
@@ -161,6 +157,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             _page.addLocError(call_);
             addErr(call_.getBuiltError());
         }
+    }
+
+    public AnaTypeFct getConstructor() {
+        return constructor;
     }
 
     public final ConstructorId getConstId() {

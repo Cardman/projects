@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -15,6 +17,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     private int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -33,6 +36,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
                 classMethodId = clId_.getSymbol();
                 memberId = clId_.getMemberId();
+                function = clId_.getFunction();
             }
             return;
         }
@@ -63,6 +67,10 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         }
         clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     @Override

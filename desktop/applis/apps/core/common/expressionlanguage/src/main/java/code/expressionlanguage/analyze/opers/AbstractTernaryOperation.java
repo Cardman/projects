@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -22,6 +24,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
 
     private int offsetLocal;
     private ClassMethodId test;
+    private AnaTypeFct testFct;
 
     public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -55,6 +58,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     clMatch_.getImplicitsTest().add(test_);
                     clMatch_.setMemberIdTest(trueOp_.getMemberId());
                     test = test_;
+                    testFct = trueOp_.getPair();
                 } else {
                     setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -123,6 +127,10 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             opThree_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
         }
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
+    }
+
+    public AnaTypeFct getTestFct() {
+        return testFct;
     }
 
     public ClassMethodId getTest() {

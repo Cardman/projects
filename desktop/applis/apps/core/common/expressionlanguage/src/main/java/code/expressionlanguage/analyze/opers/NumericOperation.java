@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
@@ -19,6 +21,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     private int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -70,6 +73,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
                 classMethodId = cl_.getSymbol();
                 memberId = cl_.getMemberId();
+                function = cl_.getFunction();
             }
             return;
         }
@@ -88,6 +92,10 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         getChildren().putAllMap(vs_);
     }
     abstract void setCatenize(ResultOperand _res);
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
 
     @Override
     public ClassMethodId getClassMethodId() {

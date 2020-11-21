@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -17,6 +19,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     private String oper;
     private ClassMethodId classMethodId;
+    private AnaTypeFct function;
     private int opOffset;
     private MemberId memberId = new MemberId();
     public EqOperation(int _index,
@@ -51,6 +54,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         if (cl_.getSymbol() != null) {
             classMethodId = cl_.getSymbol();
             memberId = cl_.getMemberId();
+            function = cl_.getFunction();
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
@@ -64,6 +68,10 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     public String getOper() {
         return getOp();
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     @Override

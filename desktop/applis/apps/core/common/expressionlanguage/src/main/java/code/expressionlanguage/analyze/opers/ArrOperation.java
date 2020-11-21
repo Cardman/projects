@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -36,6 +38,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private MemberId memberIdGet = new MemberId();
     private MemberId memberIdSet = new MemberId();
+    private AnaTypeFct functionGet;
+    private AnaTypeFct functionSet;
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -162,6 +166,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             found_ = false;
         }
         if (found_) {
+            functionGet = clMeth_.getPair();
+            functionSet = clMethSet_.getPair();
             memberIdGet = clMeth_.getMemberId();
             memberIdSet = clMethSet_.getMemberId();
             if (staticChoiceMethod_) {
@@ -283,6 +289,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public boolean isGetAndSet() {
         return getAndSet;
+    }
+
+    public AnaTypeFct getFunctionGet() {
+        return functionGet;
+    }
+
+    public AnaTypeFct getFunctionSet() {
+        return functionSet;
     }
 
     @Override

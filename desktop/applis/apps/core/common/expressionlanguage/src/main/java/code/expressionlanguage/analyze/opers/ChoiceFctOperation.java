@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -21,6 +23,7 @@ import code.util.core.StringUtil;
 public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
 
     private AnaCallFctContent callFctContent;
+    private AnaTypeFct function;
 
     private boolean staticMethod;
 
@@ -139,6 +142,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
                 return;
             }
             callFctContent.setMemberId(clMeth_.getMemberId());
+            function = clMeth_.getPair();
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
@@ -157,6 +161,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         standardMethod = clMeth_.getStandardMethod();
         callFctContent.setMemberId(clMeth_.getMemberId());
+        function = clMeth_.getPair();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -180,6 +185,10 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         staticMethod = realId_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public ClassMethodId getClassMethodId() {

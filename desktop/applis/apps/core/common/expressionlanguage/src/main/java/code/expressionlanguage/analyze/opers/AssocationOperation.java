@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -19,6 +20,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     private int offEq;
     private String annotation = EMPTY_STRING;
     private String errAff = EMPTY_STRING;
+    private AnaTypeFct function;
 
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op, String _fieldName) {
@@ -54,12 +56,11 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {
             boolean ok_ = false;
-            for (Block b: ClassesUtil.getDirectChildren(type_)) {
-                if (!(b instanceof AnnotationMethodBlock)) {
-                    continue;
-                }
-                AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
-                if (StringUtil.quickEq(a_.getName(), fieldName)) {
+            for (AnnotationMethodBlock b: type_.getAnnotationsMethodsBlocks()) {
+                if (StringUtil.quickEq(b.getName(), fieldName)) {
+                    function = new AnaTypeFct();
+                    function.setType(type_);
+                    function.setFunction(b);
                     ok_ = true;
                     break;
                 }
@@ -77,6 +78,10 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             }
         }
         setResultClass(getFirstChild().getResultClass());
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public String getFieldName() {

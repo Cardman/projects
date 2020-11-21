@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
@@ -11,6 +12,7 @@ import code.util.StringList;
 public final class MethodInfo implements Parametrable {
 
     private MethodId constraints;
+    private AnaTypeFct pair = new AnaTypeFct();
     private MethodId formatted;
 
     private ParametersGroup parameters;
@@ -42,6 +44,15 @@ public final class MethodInfo implements Parametrable {
 
     public void setConstraints(MethodId _constraints) {
         constraints = _constraints;
+    }
+
+    public AnaTypeFct getPair() {
+        return pair;
+    }
+    public void pair(RootBlock _root, NamedFunctionBlock _fct) {
+        pair = new AnaTypeFct();
+        pair.setType(_root);
+        pair.setFunction(_fct);
     }
 
     @Override

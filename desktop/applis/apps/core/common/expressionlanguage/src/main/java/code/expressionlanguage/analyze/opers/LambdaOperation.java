@@ -44,6 +44,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodId method;
     private AnaLambdaMethodContent lambdaMethodContent;
     private ConstructorId realId;
+    private RootBlock fieldType;
+    private AnaTypeFct function;
     private ClassField fieldId;
     private AnaLambdaFieldContent lambdaFieldContent;
     private int valueOffset;
@@ -169,6 +171,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 lambdaCommonContent.setReturnFieldType(resMethod_.getOriginalReturnType());
                 lambdaCommonContent.setFileName(resMethod_.getFileName());
                 lambdaMemberNumberContentId = resMethod_.getMemberId();
+                function = resMethod_.getPair();
                 String foundClass_ = resMethod_.getRealClass();
                 foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
                 lambdaCommonContent.setFoundClass(resMethod_.getId().getClassName());
@@ -309,6 +312,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
+            function = id_.getPair();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -508,6 +512,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
+            function = id_.getPair();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -583,6 +588,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
+            function = id_.getPair();
             String foundClass_ = id_.getRealClass();
             MethodId idCt_ = id_.getRealId();
             if (idCt_.getKind() != MethodAccessKind.STATIC_CALL) {
@@ -796,6 +802,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
         lambdaCommonContent.setFileName(id_.getFileName());
         lambdaMemberNumberContentId = id_.getMemberId();
+        function = id_.getPair();
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -959,6 +966,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
+            function = ctorRes_.getPair();
             standardType = ctorRes_.getStandardType();
             lambdaCommonContent.setFileName(ctorRes_.getFileName());
             lambdaMemberNumberContentId = ctorRes_.getMemberId();
@@ -1103,6 +1111,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        function = ctorRes_.getPair();
         standardType = ctorRes_.getStandardType();
         lambdaCommonContent.setFileName(ctorRes_.getFileName());
         lambdaMemberNumberContentId = ctorRes_.getMemberId();
@@ -1225,6 +1234,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             valueOffset = r_.getValOffset();
             lambdaFieldContent.setAffField(aff_);
             fieldId = r_.getClassField();
+            fieldType = r_.getFieldType();
             lambdaFieldContent.setStaticField(r_.isStaticField());
             lambdaFieldContent.setFinalField(r_.isFinalField());
             String out_ = r_.getType();
@@ -1286,6 +1296,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             valueOffset = r_.getValOffset();
             lambdaFieldContent.setAffField(aff_);
             fieldId = r_.getClassField();
+            fieldType = r_.getFieldType();
             lambdaFieldContent.setStaticField(r_.isStaticField());
             lambdaFieldContent.setFinalField(r_.isFinalField());
             String out_ = r_.getType();
@@ -1437,6 +1448,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         valueOffset = r_.getValOffset();
         lambdaFieldContent.setAffField(aff_);
         fieldId = r_.getClassField();
+        fieldType = r_.getFieldType();
         lambdaFieldContent.setStaticField(r_.isStaticField());
         lambdaFieldContent.setFinalField(r_.isFinalField());
         String out_ = r_.getType();
@@ -1653,6 +1665,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             lambdaCommonContent.setFileName(id_.getFileName());
             lambdaMemberNumberContentId = id_.getMemberId();
+            function = id_.getPair();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             lambdaCommonContent.setFoundClass(id_.getId().getClassName());
@@ -1685,6 +1698,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         lambdaCommonContent.setFileName(id_.getFileName());
         lambdaMemberNumberContentId = id_.getMemberId();
+        function = id_.getPair();
         lambdaCommonContent.setReturnFieldType(id_.getOriginalReturnType());
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
@@ -1968,6 +1982,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         previousResultClass = _previousResultClass;
     }
 
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
     public ClassMethodId getMethod() {
         return method;
     }
@@ -1978,6 +1996,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public ConstructorId getRealId() {
         return realId;
+    }
+
+    public RootBlock getFieldType() {
+        return fieldType;
     }
 
     public ClassField getFieldId() {

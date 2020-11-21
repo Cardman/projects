@@ -223,6 +223,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         setConstId(ctorRes_.getRealId());
+        setConstructor(ctorRes_.getPair());
         setClassName(ctorRes_.getConstId().getName());
         memberId = ctorRes_.getMemberId();
         if (ctorRes_.isVarArgToCall()) {

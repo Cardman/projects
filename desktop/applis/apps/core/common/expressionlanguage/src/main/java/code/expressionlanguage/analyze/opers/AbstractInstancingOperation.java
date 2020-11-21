@@ -5,10 +5,7 @@ import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
-import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -32,6 +29,7 @@ import code.util.core.StringUtil;
 public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     private AnaInstancingCommonContent instancingCommonContent;
+    private AnaTypeFct constructor;
     private String typeInfer = EMPTY_STRING;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean newBefore = true;
@@ -378,6 +376,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public void setConstId(ConstructorId _constId) {
         instancingCommonContent.setConstId(_constId);
+    }
+
+    public AnaTypeFct getConstructor() {
+        return constructor;
+    }
+
+    public void setConstructor(AnaTypeFct _constructor) {
+        this.constructor = _constructor;
     }
 
     public String getClassName() {

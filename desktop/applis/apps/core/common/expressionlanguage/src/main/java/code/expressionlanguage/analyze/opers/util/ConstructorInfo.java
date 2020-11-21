@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
@@ -15,6 +16,7 @@ public final class ConstructorInfo implements Parametrable {
 
     private ConstructorId constraints;
     private ConstructorId formatted;
+    private AnaTypeFct pair = new AnaTypeFct();
 
     private String className;
 
@@ -36,6 +38,15 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setConstraints(ConstructorId _constraints) {
         constraints = _constraints;
+    }
+
+    public AnaTypeFct getPair() {
+        return pair;
+    }
+    public void pair(RootBlock _root, NamedFunctionBlock _fct) {
+        pair = new AnaTypeFct();
+        pair.setType(_root);
+        pair.setFunction(_fct);
     }
 
     @Override

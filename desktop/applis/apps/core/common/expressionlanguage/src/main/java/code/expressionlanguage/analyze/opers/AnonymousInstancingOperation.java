@@ -183,6 +183,7 @@ public final class AnonymousInstancingOperation extends
             return;
         }
         instancingAnonContent.setMemberId(ctorRes_.getMemberId());
+        setConstructor(ctorRes_.getPair());
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
         if (ctorRes_.isVarArgToCall()) {

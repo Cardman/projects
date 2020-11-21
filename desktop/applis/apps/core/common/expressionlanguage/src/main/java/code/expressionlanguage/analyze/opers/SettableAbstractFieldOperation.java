@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -27,6 +28,7 @@ public abstract class SettableAbstractFieldOperation extends
 
     private int indexBlock;
     private MemberId memberId = new MemberId();
+    private RootBlock fieldType;
     private boolean declare;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
@@ -81,6 +83,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         memberId = r_.getMemberId();
+        fieldType = r_.getFieldType();
         valueOffset = r_.getValOffset();
         settableFieldContent.setFinalField(r_.isFinalField());
         settableFieldContent.setStaticField(r_.isStaticField());
@@ -178,6 +181,10 @@ public abstract class SettableAbstractFieldOperation extends
 
     public int getIndexBlock() {
         return indexBlock;
+    }
+
+    public RootBlock getFieldType() {
+        return fieldType;
     }
 
     public MemberId getMemberId() {

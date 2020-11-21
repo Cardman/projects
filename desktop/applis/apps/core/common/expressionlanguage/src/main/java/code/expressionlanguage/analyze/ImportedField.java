@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 
 public final class ImportedField {
@@ -8,6 +9,7 @@ public final class ImportedField {
     private boolean finalField;
     private int valueOffset;
     private String fileName;
+    private RootBlock fieldType;
     private MemberId memberId = new MemberId();
 
     public ImportedField(int _imported, String _type, boolean _finalField, int _valueOffset) {
@@ -49,4 +51,11 @@ public final class ImportedField {
         memberId.setMemberNumber(_memberNumber);
     }
 
+    public RootBlock getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(RootBlock _fieldType) {
+        fieldType = _fieldType;
+    }
 }

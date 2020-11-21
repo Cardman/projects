@@ -45,6 +45,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private int valueOffset;
     private int fieldNameOffset=-1;
+    private EnumBlock enumBlock;
 
     public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
@@ -136,6 +137,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 if (!match(f)) {
                     continue;
                 }
+                enumBlock = e_;
                 _page.setLookLocalClass(id_);
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
@@ -187,6 +189,10 @@ public final class CaseCondition extends SwitchPartBlock {
         if (!variableName.isEmpty()) {
             _ip.getInfosVars().removeKey(variableName);
         }
+    }
+
+    public EnumBlock getEnumBlock() {
+        return enumBlock;
     }
 
     public Argument getArgument() {

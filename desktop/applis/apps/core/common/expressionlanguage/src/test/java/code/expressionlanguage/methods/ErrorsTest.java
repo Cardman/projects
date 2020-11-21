@@ -9848,7 +9848,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " {\n" +
                 "  <a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The type $int cannot be implicitly cast to pkg.MySub\n" +
                 "\n" +
-                "$static +(pkg.MySub,$int)\" href=\"#m61\" class=\"e\">+</a><a title=\"The type $int cannot be implicitly cast to pkg.MySub\" class=\"e\">=</a>1;\n" +
+                "pkg.MySub.$static +(pkg.MySub,$int)\" href=\"#m61\" class=\"e\">+</a><a title=\"The type $int cannot be implicitly cast to pkg.MySub\" class=\"e\">=</a>1;\n" +
                 " }\n" +
                 " $operator<a name=\"m61\">+</a> $int(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m74\">m</a>, $int <a name=\"m82\">n</a>){\n" +
                 "  $return 0;\n" +
@@ -9879,7 +9879,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type $int cannot be implicitly cast to pkg.MySub\n" +
                 "\n" +
-                "$static +(pkg.MySub,$int)\" href=\"#m92\" class=\"e\">+</a><a title=\"The field i is already assigned.\n" +
+                "pkg.MySub.$static +(pkg.MySub,$int)\" href=\"#m92\" class=\"e\">+</a><a title=\"The field i is already assigned.\n" +
                 "\n" +
                 "The type $int cannot be implicitly cast to pkg.MySub\" class=\"e\">=</a>1;\n" +
                 " }\n" +
@@ -11376,7 +11376,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m204\">field</a>=10;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m115\">f</a> = $new <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a>();\n" +
                 "  <a href=\"#m115\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m204\">field</a>=1;\n" +
-                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m239\">|</a><a title=\"$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m367\">|</a>=<a href=\"#m115\">f</a>;\n" +
+                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m239\">|</a><a title=\"pkg.ExClass.$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m367\">|</a>=<a href=\"#m115\">f</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "$public $class <a name=\"m177\">pkg.ExClass</a> {\n" +

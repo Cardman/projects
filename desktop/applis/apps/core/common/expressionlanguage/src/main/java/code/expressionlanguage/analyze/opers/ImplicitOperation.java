@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -24,8 +25,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
     private AnaExplicitContent explicitContent;
     private CustList<PartOffset> partOffsets;
 
-    private MethodId castOpId;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
     public ImplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         explicitContent = new AnaExplicitContent();
@@ -97,8 +98,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
                 explicitContent.setClassNameOwner(resMethod_.getRealClass());
-                castOpId = resMethod_.getRealId();
                 memberId = resMethod_.getMemberId();
+                function = resMethod_.getPair();
             }
             return;
         }
@@ -131,8 +132,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
         if (resMethod_.isFoundMethod()) {
             explicitContent.setClassNameOwner(resMethod_.getRealClass());
-            castOpId = resMethod_.getRealId();
             memberId = resMethod_.getMemberId();
+            function = resMethod_.getPair();
             setResultClass(virtual_);
             return;
         }
@@ -167,8 +168,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         return partOffsets;
     }
 
-    public MethodId getCastOpId() {
-        return castOpId;
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public MemberId getMemberId() {

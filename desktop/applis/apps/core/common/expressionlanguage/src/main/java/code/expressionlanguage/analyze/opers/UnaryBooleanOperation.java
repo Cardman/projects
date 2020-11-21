@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -16,6 +18,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     private int opOffset;
     private boolean okNum;
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -35,6 +38,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         if (clId_ != null) {
             classMethodId = clId_.getSymbol();
             memberId = clId_.getMemberId();
+            function = clId_.getFunction();
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
@@ -62,6 +66,10 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));
     }
 
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
 
     @Override
     public ClassMethodId getClassMethodId() {

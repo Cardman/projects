@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -59,6 +60,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private OperationNode rootStep;
 
     private ClassMethodId test;
+    private AnaTypeFct function;
     private int testOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
@@ -259,6 +261,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     exp_.getImplicitsTest().add(cl_);
                     exp_.setMemberIdTest(trueOp_.getMemberId());
                     test = cl_;
+                    function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(getFile().getFileName());
@@ -322,6 +325,10 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public void setTestOffset(int _testOffset) {
         testOffset = _testOffset;
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
     }
 
     public ClassMethodId getTest() {

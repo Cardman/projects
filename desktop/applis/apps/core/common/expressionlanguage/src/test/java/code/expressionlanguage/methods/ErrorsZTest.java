@@ -3097,7 +3097,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m205\">field</a>=10;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a> <a name=\"m115\">f</a> = $new <a title=\"pkg.ExClass\" href=\"#m178\">ExClass</a>();\n" +
                 "  <a href=\"#m115\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m205\">field</a>=1;\n" +
-                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m240\">|</a><a title=\"$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m368\">||</a>=<a href=\"#m115\">f</a>;\n" +
+                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m240\">|</a><a title=\"pkg.ExClass.$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m368\">||</a>=<a href=\"#m115\">f</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "$public $class <a name=\"m178\">pkg.ExClass</a> {\n" +

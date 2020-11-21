@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -163,12 +164,12 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             RootBlock root_ = _page.getAnaClassBody(clKey_);
             if (root_ == null) {
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
             if (!root_.isSubTypeOf(_root)) {
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
             String sgn_ = parts_.last().substring(1);
@@ -176,7 +177,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             String nameLoc_ = extr_.getFirst().trim();
             if (StringExpUtil.isIndexerOrInexist(nameLoc_)) {
                 sum_ += o.length() + 1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
             _page.setOffset(sum_+indexDef_+1);
@@ -193,14 +194,14 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             if (formattedDestType_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
             MethodId methodIdDest_ = IdFctOperation.resolveArguments(1, clDest_,nameLoc_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_, _page);
             if (methodIdDest_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
                 continue;
             }
             CustList<OverridableBlock> methods_ = formattedDestType_.getOverridableBlocks();
@@ -208,7 +209,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             if (!getId().quickOverrideFormat(_root,formattedDeclaring_).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_)))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, 0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
                 continue;
             }
             String return_ = AnaTemplates.quickFormat(_root,formattedDeclaring_,getImportedReturnType());
@@ -217,6 +218,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                 vars_.put(t.getName(), t.getConstraints());
             }
             ClassMethodId id_ = null;
+            AnaTypeFct fct_ = null;
             int rc_ = _page.getTraceIndex() +off_;
             for (OverridableBlock m: methods_) {
                 if (m.isAbstractMethod()) {
@@ -227,13 +229,16 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                     if (!AnaTemplates.isReturnCorrect(return_,returnDest_,vars_,_page)) {
                         continue;
                     }
+                    fct_ = new AnaTypeFct();
+                    fct_.setType(formattedDestType_);
+                    fct_.setFunction(m);
                     id_ = new ClassMethodId(clDest_,m.getId());
                     overrides.put(clKey_,new GeneStringOverridable(formattedDest_,formattedDestType_,m));
                     break;
                 }
             }
             allPartSuperTypes_.addAllElts(superPartOffsets_);
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_, rc_, nameLoc_.length()));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, rc_, nameLoc_.length()));
             sum_ += o.length()+1;
         }
     }
