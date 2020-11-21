@@ -420,7 +420,7 @@ public final class ExecutingUtil {
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
                 String formCl_ = _type.getFullName();
-                MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, id_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,_type.getFullName(), id_, MethodModifier.ABSTRACT, ret_, id_, formCl_);
                 met_.setCallee(method_);
                 met_.pair(_type,method_);
                 met_.setFileName(fileName_);

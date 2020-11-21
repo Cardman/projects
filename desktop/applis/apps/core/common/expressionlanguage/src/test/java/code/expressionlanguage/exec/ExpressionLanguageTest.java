@@ -6159,7 +6159,6 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
@@ -6167,7 +6166,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().putLocalVar(_var, lv_);
         cont_.getLastPage().putValueVar(_var, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
+        ExpressionLanguage el_ = f_.getEl(cont_,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
         assertNull(getException(cont_));
         return arg_;
@@ -6180,14 +6179,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
         cont_.getLastPage().getValueVars().put(_var, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
+        ExpressionLanguage el_ = f_.getEl(cont_,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
         assertNull(getException(cont_));
         return arg_;
@@ -6201,7 +6199,6 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
@@ -6209,7 +6206,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().putLocalVar(var_, lv_);
         cont_.getLastPage().putValueVar(var_, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
+        ExpressionLanguage el_ = f_.getEl(cont_, 0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
         assertNull(getException(cont_));
         return arg_;
@@ -6219,8 +6216,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
-        CustList<ExecOperationNode> list_ = f_.getOpValue();
-        ExpressionLanguage el_ = new ExpressionLanguage(list_);
+        ExpressionLanguage el_ = f_.getEl(_context,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
         if (!_exc) {
             assertNull(getException(_context));

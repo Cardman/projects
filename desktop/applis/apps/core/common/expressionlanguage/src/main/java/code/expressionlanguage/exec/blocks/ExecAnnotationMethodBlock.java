@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -27,10 +26,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
         super(_name, _varargs, _access, _parametersNames, _offsetTrim);
         defaultValueOffset = _defaultValueOffset;
-    }
-
-    public MethodModifier getModifier() {
-        return MethodModifier.ABSTRACT;
     }
 
     public Struct getDefaultArgument() {
@@ -61,16 +56,12 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        boolean in_ = false;
-        if (ip_ instanceof FieldInitPageEl) {
-            in_ = true;
-        }
-        if (in_ && !opValue.isEmpty()) {
+        if (ip_ instanceof FieldInitPageEl && !opValue.isEmpty()) {
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
             Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
-            setValue(_cont,arg_);
+            setValue(_cont,arg_, ip_.getBlockRootType());
             if (_cont.callsOrException()) {
                 return;
             }
@@ -79,12 +70,11 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         processBlock(_cont);
     }
 
-    private void setValue(ContextEl _cont, Argument _arg) {
+    private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type) {
         String name_ = getName();
-        ExecRootBlock r_ = (ExecRootBlock) getParent();
-        String idCl_ = r_.getFullName();
+        String idCl_ = _type.getFullName();
         String ret_ = getImportedReturnType();
-        setValue(r_,idCl_,name_,ret_,_cont,_arg);
+        setValue(_type,idCl_,name_,ret_,_cont,_arg);
     }
     public static void setValue(ExecRootBlock _rootBlock,String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
         if (_cont.callsOrException()) {

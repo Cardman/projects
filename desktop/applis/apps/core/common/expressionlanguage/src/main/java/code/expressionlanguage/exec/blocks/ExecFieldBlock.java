@@ -100,10 +100,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         this.opValue = _opValue;
     }
 
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
-
     @Override
     public CustList<ExecRootBlock> getAnonymous() {
         return anonymous;

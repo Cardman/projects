@@ -693,7 +693,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static boolean invalid(StringMap<String> _files, AnalyzedTestContext _cont) {
-        validateAll(_files, _cont);
+        validateWithoutInit(_files, _cont);
         return !isEmptyErrors(_cont);
     }
 
