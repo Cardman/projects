@@ -117,7 +117,7 @@ public final class ExecutingUtil {
         _page.setBlockRoot(fct_);
         _context.getCoverage().passCalls(_page);
         _page.initReturnType(_args.getRight());
-        _page.getValueVars().putAllMap(_args.getParameters());
+        _page.getValueVars().addAllEntries(_args.getParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
         rwLoc_.setBlock(fct_.getFirstChild());
@@ -188,7 +188,7 @@ public final class ExecutingUtil {
         _page.setBlockRoot(ctor_);
         if (ctor_ != null) {
             _context.getCoverage().passCalls(_page);
-            _page.getValueVars().putAllMap(_args.getParameters());
+            _page.getValueVars().addAllEntries(_args.getParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);
         }

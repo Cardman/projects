@@ -34,10 +34,6 @@ public abstract class PageEl {
         return content.getVars();
     }
 
-    public void putLocalVar(String _key, LocalVariable _var) {
-        content.putLocalVar(_key, _var);
-    }
-
     public void removeLocalVar(String _key) {
         content.removeLocalVar(_key);
     }

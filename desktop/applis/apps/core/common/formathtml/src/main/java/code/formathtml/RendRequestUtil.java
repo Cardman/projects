@@ -33,7 +33,7 @@ final class RendRequestUtil {
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), _advStandards.getAliasPrimLong());
-            ip_.putLocalVar(_varNames.get(i), locVar_);
+            ip_.putValueVar(_varNames.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(_exps,_conf,_bean, _advStandards, _context);
         for (String n: _varNames) {
@@ -59,19 +59,19 @@ final class RendRequestUtil {
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
         ImportingPage ip_ = _conf.getLastPage();
         LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _nodeContainer.getUpdatedClass());
-        ip_.putLocalVar(prev_, lv_);
+        ip_.putValueVar(prev_, lv_);
         int i_ = 0;
         CustList<Struct> structParam_ = _nodeContainer.getStructParam();
         CustList<String> structParamClass_ = _nodeContainer.getStructParamClass();
         for (String p: _nodeContainer.getVarParamName()) {
             Struct arg_ = structParam_.get(i_);
             lv_ = LocalVariable.newLocalVariable(arg_, structParamClass_.get(i_));
-            ip_.putLocalVar(p, lv_);
+            ip_.putValueVar(p, lv_);
             i_++;
         }
         String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
-        ip_.putLocalVar(attrName_, lv_);
+        ip_.putValueVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context);
         ip_.removeLocalVar(prev_);
         for (String p: _nodeContainer.getVarParamName()) {

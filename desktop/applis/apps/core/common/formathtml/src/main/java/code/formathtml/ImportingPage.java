@@ -142,10 +142,6 @@ public final class ImportingPage {
     }
 
 
-    public void putLocalVar(String _key, LocalVariable _var) {
-        pageEl.putLocalVar(_key, _var);
-    }
-
     public void removeLocalVar(String _key) {
         pageEl.removeLocalVar(_key);
     }

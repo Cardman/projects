@@ -34,7 +34,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
         Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
-            ip_.putLocalVar(v, lv_);
+            ip_.putValueVar(v, lv_);
         }
         processBlock(_cont, _stds, _ctx);
     }

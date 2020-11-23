@@ -69,7 +69,7 @@ public abstract class BeanLgNames extends LgNames {
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
-            _conf.getLastPage().putLocalVar(varNameConvert_, lv_);
+            _conf.getLastPage().putValueVar(varNameConvert_, lv_);
             _conf.getLastPage().setGlobalArgumentStruct(_container.getBean());
             Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf, this, _context);
             _conf.getLastPage().removeLocalVar(varNameConvert_);

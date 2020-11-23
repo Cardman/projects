@@ -6,15 +6,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.MethodPageEl;
-import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
@@ -83,7 +79,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl9Test() {
-        Argument arg_ = calculateIndirect("integer", COMPOSITE);
+        Argument arg_ = calculateIndirect(COMPOSITE);
         assertEq(0, getNumber(arg_));
     }
 
@@ -125,13 +121,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl16Test() {
-        Argument arg_ = calculateIndirectLocalVars("v.integer", "v", COMPOSITE);
+        Argument arg_ = calculateIndirectLocalVars("v", COMPOSITE);
         assertEq(0, getNumber(arg_));
     }
 
     @Test
     public void processEl17Test() {
-        Argument arg_ = calculateIndirectLoopVars("v.integer", "v", COMPOSITE);
+        Argument arg_ = calculateIndirectLoopVars("v", COMPOSITE);
         assertEq(0, getNumber(arg_));
     }
 
@@ -6137,13 +6133,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
-        return calculatePrepareStaticResult(c_, false);
+        Argument arg_ = tryCalculate(c_);
+        assertNull(c_.getCallingState());
+        return arg_;
     }
 
     private static Struct directCalculateExc(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
-        calculatePrepareStaticResult(c_, true);
+        tryCalculate(c_);
+        assertNotNull(((CustomFoundExc) c_.getCallingState()).getStruct());
         return ((CustomFoundExc)c_.getCallingState()).getStruct();
     }
 
@@ -6153,7 +6152,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         return contextEl(files_);
     }
 
-    private static Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
+    private static Argument calculateIndirectLocalVars(String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
@@ -6163,17 +6162,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().putLocalVar(_var, lv_);
         cont_.getLastPage().putValueVar(_var, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         return arg_;
 
     }
 
-    private static Argument calculateIndirectLoopVars(String _el, String _var, String _className) {
+    private static Argument calculateIndirectLoopVars(String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
@@ -6187,12 +6185,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         return arg_;
 
     }
 
-    private static Argument calculateIndirect(String _el, String _className) {
+    private static Argument calculateIndirect(String _className) {
         String var_ = "temp";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
@@ -6203,36 +6201,22 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().putLocalVar(var_, lv_);
         cont_.getLastPage().putValueVar(var_, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_, 0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         return arg_;
     }
 
-    private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
+    private static Argument tryCalculate(ContextEl _context) {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getEl(_context,0);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
-        if (!_exc) {
-            assertNull(getException(_context));
-        } else {
-            assertNotNull(getException(_context));
-        }
-        return arg_;
+        return ExpressionLanguage.tryToCalculate(_context,el_,0);
     }
 
-    protected static Struct getException(ContextEl _cont) {
-        CallingState str_ = _cont.getCallingState();
-        if (str_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc) str_).getStruct();
-        }
-        return null;
-    }
     private static String addonFileStaticResult(String _el) {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.Apply {\n");

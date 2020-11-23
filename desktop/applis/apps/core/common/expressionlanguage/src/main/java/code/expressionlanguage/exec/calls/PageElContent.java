@@ -40,10 +40,6 @@ public final class PageElContent {
         return vars;
     }
 
-    public void putLocalVar(String _key, LocalVariable _var) {
-        valueVars.put(_key, _var);
-    }
-
     public void removeLocalVar(String _key) {
         getValueVars().removeKey(_key);
     }

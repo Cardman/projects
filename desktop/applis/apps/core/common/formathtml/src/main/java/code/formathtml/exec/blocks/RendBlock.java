@@ -435,7 +435,7 @@ public abstract class RendBlock {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _cont.getLastPage().putLocalVar(_varNameConv, locVar_);
+            _cont.getLastPage().putValueVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont, _advStandards, _ctx);
             _cont.getLastPage().removeLocalVar(_varNameConv);
             if (_ctx.callsOrException()) {
