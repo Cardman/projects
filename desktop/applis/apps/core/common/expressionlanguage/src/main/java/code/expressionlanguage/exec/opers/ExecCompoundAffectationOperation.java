@@ -75,14 +75,10 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
-            chidren_.add(getFirstChild());
-            chidren_.add(ExecTemplates.getLastNode(this));
             CustList<Argument> arguments_ = new CustList<Argument>();
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, arguments_, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {

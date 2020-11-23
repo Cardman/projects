@@ -91,7 +91,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return out_;
     }
-    static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Struct> optArgs_ = new CustList<Struct>();

@@ -24,11 +24,9 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelOffsetPossibleLastPage(getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-        ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, firstArgs_, staticEltContent.getClassName(), staticEltContent.getKind());
+        ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, arguments_, staticEltContent.getClassName(), staticEltContent.getKind());
     }
 
 }
