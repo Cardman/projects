@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -148,9 +147,8 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             callFctContent.setClassName(foundClass_);
-            MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
+            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
@@ -180,7 +178,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         callFctContent.setClassName(clMeth_.getId().getClassName());
         MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
+            StringList paramtTypes_ = realId_.getParametersTypes();
             callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
             callFctContent.setLastType(paramtTypes_.last());
         }

@@ -170,9 +170,8 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             MethodId id_ = clMeth_.getRealId();
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
             callFctContent.setClassName(foundClass_);
-            MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
+            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
@@ -205,14 +204,13 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
         callFctContent.setClassName(foundClass_);
-        MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
+            StringList paramtTypes_ = id_.getParametersTypes();
             callFctContent.setNaturalVararg(paramtTypes_.size() - 1);
             callFctContent.setLastType(paramtTypes_.last());
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
+        unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
     }
 

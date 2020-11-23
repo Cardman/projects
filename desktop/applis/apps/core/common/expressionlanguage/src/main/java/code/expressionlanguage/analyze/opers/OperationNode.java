@@ -873,8 +873,8 @@ public abstract class OperationNode {
         for (int i = 0; i < len_; i++) {
             CustList<ImplicitInfos> implicitInfos_ = cInfo_.getImplicits().get(i);
             for (ImplicitInfos j: implicitInfos_) {
-                _filter.getPositional().get(i).getResultClass().getImplicits().add(j.getIdMethod());
-                _filter.getPositional().get(i).getResultClass().setMemberId(j.getMemberId());
+                cInfo_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
+                cInfo_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
             }
         }
         int parNameLen_ = cInfo_.getNameParametersFilterIndexes().size();
@@ -1049,7 +1049,6 @@ public abstract class OperationNode {
         if (res_.isFoundMethod()) {
             return res_;
         }
-        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
         for (OperationNode c: _filter.getPositional()) {
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), "&"));
@@ -1065,9 +1064,7 @@ public abstract class OperationNode {
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
         _op.addErr(undefined_.getBuiltError());
-        return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
-        return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
-        return_.setRealClass(_classes.first());
+        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         return_.setReturnType(_page.getAliasObject());
         return return_;
     }
@@ -2647,8 +2644,8 @@ public abstract class OperationNode {
         for (int i = 0; i < len_; i++) {
             CustList<ImplicitInfos> implicitInfos_ = m_.getImplicits().get(i);
             for (ImplicitInfos j: implicitInfos_) {
-                _filter.getPositional().get(i).getResultClass().getImplicits().add(j.getIdMethod());
-                _filter.getPositional().get(i).getResultClass().setMemberId(j.getMemberId());
+                m_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
+                m_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
             }
         }
         int parNameLen_ = m_.getNameParametersFilterIndexes().size();
@@ -2798,9 +2795,14 @@ public abstract class OperationNode {
         CustList<NamedArgumentOperation> parameterFilter_ = _filter.getParameterFilter();
         CustList<OperationNode> positional_ = _filter.getPositional();
         int lengthArgs_ = positional_.size();
-        AnaClassArgumentMatching[] merged_ =new AnaClassArgumentMatching[lengthArgs_ +parameterFilter_.size()];
+        int sum_ = lengthArgs_ + parameterFilter_.size();
+        AnaClassArgumentMatching[] merged_ =new AnaClassArgumentMatching[sum_];
+        for (int i = 0; i < sum_; i++) {
+            _id.getAllOps().add(null);
+        }
         for (int i = 0; i < lengthArgs_; i++) {
             merged_[i] = positional_.get(i).getResultClass();
+            _id.getAllOps().set(i,positional_.get(i));
         }
         for (NamedArgumentOperation f: parameterFilter_) {
             int ind_ = StringUtil.indexOf(_id.getParametersNames(), f.getName());
@@ -2813,6 +2815,7 @@ public abstract class OperationNode {
             }
             merged_[ind_] = f.getResultClass();
             _id.getNameParametersFilterIndexes().add(ind_);
+            _id.getAllOps().set(ind_,f);
         }
 
 

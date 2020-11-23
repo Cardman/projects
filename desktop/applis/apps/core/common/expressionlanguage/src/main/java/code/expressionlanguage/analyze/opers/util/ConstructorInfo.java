@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
@@ -32,6 +33,7 @@ public final class ConstructorInfo implements Parametrable {
     private StringList parametersNames = new StringList();
     private NamedFunctionBlock customCtor;
     private Ints nameParametersFilterIndexes = new Ints();
+    private final CustList<OperationNode> allOps = new CustList<OperationNode>();
     public ConstructorId getConstraints() {
         return constraints;
     }
@@ -176,4 +178,7 @@ public final class ConstructorInfo implements Parametrable {
         return nameParametersFilterIndexes;
     }
 
+    public CustList<OperationNode> getAllOps() {
+        return allOps;
+    }
 }

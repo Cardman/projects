@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.Identifiable;
 import code.util.CustList;
 import code.util.Ints;
@@ -24,6 +25,7 @@ public interface Parametrable {
     StringList getFormattedParams();
     StringList getParametersNames();
     Ints getNameParametersFilterIndexes();
+    CustList<OperationNode> getAllOps();
     Identifiable getPartialId();
 
     void setInvocation(InvocationMethod _inv);

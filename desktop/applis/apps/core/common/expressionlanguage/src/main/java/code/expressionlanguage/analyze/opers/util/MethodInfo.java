@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -37,6 +38,7 @@ public final class MethodInfo implements Parametrable {
     private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
     private StringList parametersNames = new StringList();
     private Ints nameParametersFilterIndexes = new Ints();
+    private final CustList<OperationNode> allOps = new CustList<OperationNode>();
 
     public MethodId getConstraints() {
         return constraints;
@@ -233,4 +235,7 @@ public final class MethodInfo implements Parametrable {
         return nameParametersFilterIndexes;
     }
 
+    public CustList<OperationNode> getAllOps() {
+        return allOps;
+    }
 }
