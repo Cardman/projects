@@ -781,10 +781,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             prev_ = new Argument();
         }
         classNameFound_ = _rend.getClassMethodId().getClassName();
-        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, _rend.getNaturalVararg(), lastType_, first_);
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, firstArgs_);
+        int naturalVararg_ = _rend.getNaturalVararg();
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, _rend.fectchArgs(_all,lastType_,naturalVararg_));
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf, ContextEl _ctx) {

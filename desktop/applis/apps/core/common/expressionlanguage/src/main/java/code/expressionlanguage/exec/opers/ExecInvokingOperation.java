@@ -60,7 +60,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
         return listArguments(filter_, _naturalVararg, _lastType, first_);
     }
-    static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
+    private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
         ArgumentList out_ = new ArgumentList();
         CustList<Argument> args_ = out_.getArguments();
         CustList<ExecOperationNode> filter_ = out_.getFilter();

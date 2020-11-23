@@ -13,7 +13,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -38,7 +37,6 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
@@ -48,17 +46,14 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         Struct pr_ = prev_.getStruct();
         String cl_ = pr_.getClassName(_context);
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(pair.getType(), clGen_, lastType_);
-        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
         ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context,pr_,classNameFound_,pair);
         ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), null, MethodAccessKind.INSTANCE, "");
     }
 
     public int getNaturalVararg() {

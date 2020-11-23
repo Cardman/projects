@@ -11,7 +11,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendExplicitOperatorOperation extends RendInvokingOperation implements RendCalculableOperation {
@@ -34,10 +33,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     }
 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, staticFctContent.getNaturalVararg(), staticFctContent.getLastType(), first_);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, firstArgs_, staticFctContent.getClassName(), staticFctContent.getKind());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, fectchArgs(_all,staticFctContent.getLastType(),staticFctContent.getNaturalVararg()), staticFctContent.getClassName(), staticFctContent.getKind());
         return Argument.createVoid();
     }
 }

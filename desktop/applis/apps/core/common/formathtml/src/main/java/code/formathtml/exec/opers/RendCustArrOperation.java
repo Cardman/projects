@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
@@ -111,17 +110,14 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         } else {
             fct_ = get;
         }
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         Struct pr_ = prev_.getStruct();
         String cl_ = pr_.getClassName(_context);
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(fct_.getType(), clGen_, lastType_);
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context,pr_,classNameFound_,fct_);
         fct_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, fct_, prev_,null, firstArgs_, _right, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, fct_, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), _right, MethodAccessKind.INSTANCE, "");
     }
 
 }

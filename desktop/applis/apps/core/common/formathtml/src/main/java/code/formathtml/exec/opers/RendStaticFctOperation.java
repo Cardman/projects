@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -37,9 +36,6 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         Argument prev_ = new Argument();
         String classNameFound_ = staticFctContent.getClassName();
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, firstArgs_, null, staticFctContent.getKind(), "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), null, staticFctContent.getKind(), "");
     }
 }

@@ -19,7 +19,15 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         intermediate = _intermediateDottedOperation;
     }
 
-    public static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
+    public CustList<Argument> fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<RendDynOperationNode> filter_ = argumentList_.getFilter();
+        return listArguments(filter_, _naturalVararg, _lastType, first_);
+    }
+
+    private static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
         RendArgumentList out_ = new RendArgumentList();
         CustList<Argument> args_ = out_.getArguments();
         CustList<RendDynOperationNode> filter_ = out_.getFilter();
@@ -50,7 +58,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         }
         return out_;
     }
-    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Struct> optArgs_ = new CustList<Struct>();

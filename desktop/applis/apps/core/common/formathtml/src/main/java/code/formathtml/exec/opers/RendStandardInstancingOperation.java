@@ -9,9 +9,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendArgumentList;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -47,12 +45,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = instancingCommonContent.getClassName();
         String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendArgumentList args_ = listNamedArguments(_all, chidren_);
-        CustList<Argument> first_ = args_.getArguments();
-        CustList<RendDynOperationNode> filter_ = args_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), lastType_, first_);
-        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, fectchArgs(_all,lastType_,instancingCommonContent.getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
 }

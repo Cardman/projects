@@ -149,8 +149,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
-        CustList<RendDynOperationNode> list_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
+        CustList<Argument> first_ = getArguments(_all,this);
         ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, first_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
         return Argument.createVoid();
     }

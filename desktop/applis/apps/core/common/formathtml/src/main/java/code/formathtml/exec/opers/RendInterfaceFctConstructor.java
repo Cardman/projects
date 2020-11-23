@@ -14,7 +14,6 @@ import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation {
@@ -63,10 +62,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
+        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_all,lastType_,natvararg_),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

@@ -7,9 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendArgumentList;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -30,11 +28,6 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
                          Configuration _conf, ContextEl _context) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = args_.getArguments();
-        CustList<RendDynOperationNode> filter_ = args_.getFilter();
-        CustList<Argument> firstArgs_ = listArguments(filter_, instancingCommonContent.getNaturalVararg(), instancingCommonContent.getLastType(), first_);
-        return ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);
+        return ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), fectchArgs(_nodes,instancingCommonContent.getLastType(),instancingCommonContent.getNaturalVararg()));
     }
 }
