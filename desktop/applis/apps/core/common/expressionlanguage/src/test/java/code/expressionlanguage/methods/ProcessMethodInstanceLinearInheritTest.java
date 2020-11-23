@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
@@ -53,7 +52,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -107,7 +106,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -156,7 +155,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -208,7 +207,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -263,7 +262,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -318,7 +317,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -375,7 +374,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -432,7 +431,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -492,7 +491,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -553,7 +552,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -620,7 +619,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -683,7 +682,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -739,7 +738,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -799,7 +798,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -866,7 +865,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -925,7 +924,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -981,7 +980,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
@@ -1012,7 +1011,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExTwo", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
@@ -1046,7 +1045,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExOne");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExOne", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExOne", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExOne", str_.getClassName(cont_));
         Struct field_;
@@ -1075,7 +1074,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1107,7 +1106,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1155,7 +1154,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1202,7 +1201,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1249,7 +1248,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1291,7 +1290,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1330,7 +1329,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1377,7 +1376,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex", cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormalCtor("pkg.Ex", null, id_, args_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -1419,7 +1418,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
@@ -1458,7 +1457,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1497,7 +1496,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -1539,7 +1538,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1572,7 +1571,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1604,7 +1603,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1638,7 +1637,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1672,7 +1671,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1715,7 +1714,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1758,7 +1757,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1805,7 +1804,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1849,7 +1848,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1907,7 +1906,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -1965,7 +1964,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -2003,7 +2002,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkgtwo.ExThree", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
@@ -2058,7 +2057,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2132,7 +2131,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2206,7 +2205,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2281,7 +2280,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
 
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2347,7 +2346,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2395,7 +2394,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2443,7 +2442,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2502,7 +2501,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2561,7 +2560,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2625,7 +2624,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2686,7 +2685,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2751,7 +2750,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2875,7 +2874,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -2945,7 +2944,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -3013,7 +3012,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -3111,7 +3110,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -3199,7 +3198,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3249,7 +3248,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3300,7 +3299,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3360,7 +3359,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3418,7 +3417,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3458,7 +3457,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3499,7 +3498,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3542,7 +3541,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.Ex", null, id_, cont_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -3589,7 +3588,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3629,7 +3628,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3679,7 +3678,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3729,7 +3728,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3779,7 +3778,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3829,7 +3828,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
@@ -3879,7 +3878,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExThree", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;

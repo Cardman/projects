@@ -87,7 +87,7 @@ public abstract class CommonRender {
     }
 
     protected static boolean isEmptyErrors(AnalyzedTestConfiguration _cont) {
-        return _cont.getAnalyzing() == null || (_cont.getAnalyzing().isEmptyErrors());
+        return _cont.getAnalyzing().isEmptyErrors();
     }
 
     protected static void getHeaders(StringMap<String> _files, AnalyzedTestConfiguration _cont) {
@@ -136,10 +136,7 @@ public abstract class CommonRender {
 
     protected static Struct getException(AnalyzedTestConfiguration _cont) {
         CallingState str_ = _cont.getContext().getCallingState();
-        if (str_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc) str_).getStruct();
-        }
-        return null;
+        return ((CustomFoundExc) str_).getStruct();
     }
 
     private static void setFiles(StringMap<String> _filesThree, AnalyzedTestConfiguration _conf) {
@@ -287,9 +284,7 @@ public abstract class CommonRender {
     private static AnalyzedTestContext buildStd(String... _types) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        for (String t: _types) {
-            opt_.getTypesInit().add(t);
-        }
+        opt_.getTypesInit().addAllElts(new StringList(_types));
 
         return InitializationLgNames.buildStdThree(opt_);
     }
@@ -1115,13 +1110,14 @@ public abstract class CommonRender {
 
     private static String successRes(AnalyzedTestConfiguration _a) {
         String res_ = res(_a);
-        assertNull(getException(_a));
+        assertNull(_a.getContext().getCallingState());
         return res_;
     }
 
     private static Struct failRes(AnalyzedTestConfiguration _a) {
         res(_a);
-        return getException(_a);
+        CallingState str_ = _a.getContext().getCallingState();
+        return ((CustomFoundExc) str_).getStruct();
     }
 
     private static String res(AnalyzedTestConfiguration _a) {

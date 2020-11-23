@@ -1129,7 +1129,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         state_ = cont_.getLocks().getState("pkg.Ex");
         assertSame(InitClassState.ERROR, state_);
-        Struct exc_ = getException(cont_);
+        Struct exc_ = getTrueException(cont_);
         assertTrue(exc_ instanceof CausingErrorStruct);
         CausingErrorStruct cause_ = (CausingErrorStruct) exc_;
         Struct c_ = cause_.getCause();

@@ -48,7 +48,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = validated(files_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",new IntStruct(1),c_));
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
 
     @Test
@@ -65,7 +65,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",in_,c_);
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
     @Test
     public void getParent3Test() {
@@ -82,7 +82,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_);
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
 
     @Test
@@ -96,7 +96,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_));
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
 
     @Test
@@ -110,7 +110,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_));
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
 
     @Test
@@ -124,7 +124,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
-        assertNotNull(getException(c_));
+        assertNotNull(getTrueException(c_));
     }
 
     @Test
@@ -138,7 +138,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(arr_, ExecTemplates.getParent(0,"["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
-        assertNull(getException(c_));
+        assertNull(c_.getCallingState());
     }
 
     @Test
@@ -510,7 +510,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ExecTemplates.setCheckedElements(args_,arr_,cont_);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs1Test() {
@@ -520,8 +520,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray1(NullStruct.NULL_VALUE, "[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs2Test() {
@@ -531,8 +531,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs3Test() {
@@ -546,8 +546,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
         args_.add(new Argument(arr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs4Test() {
@@ -557,8 +557,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs5Test() {
@@ -572,8 +572,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "pkg.Ex", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs6Test() {
@@ -587,8 +587,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(ExecTemplates.okArgsSet(id_, "pkg.Ex<$int>", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex<$int>", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs7Test() {
@@ -597,8 +597,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(NullStruct.NULL_VALUE));
-        assertTrue(ExecTemplates.okArgsSet(id_, "", args_, cont_) != null);
-        assertNotNull(getException(cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs8Test() {
@@ -614,7 +614,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(arr_));
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, args_, cont_, null, true);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs9Test() {
@@ -628,7 +628,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, args_, cont_, null, true);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs10Test() {
@@ -641,7 +641,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, args_, cont_, null, true);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs11Test() {
@@ -653,7 +653,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, args_, cont_, null,true);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getErrorWhenContain1Test() {
@@ -694,7 +694,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getIndexLoop(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getIndexLoop2() {
@@ -709,7 +709,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.getIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getIndexLoop3() {
@@ -730,7 +730,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(2,getNumber(myvar_));
     }
     @Test
@@ -744,7 +744,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getValue(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getValue2() {
@@ -759,7 +759,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.getValue(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getValue3() {
@@ -777,7 +777,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(2,getNumber(myvar_));
     }
     @Test
@@ -791,7 +791,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.setValue(cont_,"", null,-1, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void setValue2() {
@@ -806,7 +806,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.setValue(cont_,"", null,0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void setValue3() {
@@ -823,7 +823,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", new Argument(new IntStruct(4)),0, cont_.getLastPage().getCache(), cont_.getLastPage().getValueVars());
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(4,getNumber(myvar_));
         assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar",0))));
     }
@@ -838,7 +838,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void incrValue2() {
@@ -853,7 +853,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void incrValue3() {
@@ -873,7 +873,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.incrIndexLoop(cont_,"myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
     }
     @Test
@@ -915,7 +915,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
         ExecNamedFunctionBlock first_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
         ExecTemplates.wrapAndCall(new ExecTypeFunction(classBody_, first_), "pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
-        assertNotNull(getException(cont_));
+        assertNotNull(getTrueException(cont_));
     }
     @Test
     public void breakEmpty() {

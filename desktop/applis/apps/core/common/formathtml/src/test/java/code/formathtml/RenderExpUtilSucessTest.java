@@ -5608,7 +5608,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(getException(_context));
+        assertNull(_context.getContext().getCallingState());
         return arg_;
     }
 
@@ -5618,7 +5618,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(getException(_context));
+        assertNull(_context.getContext().getCallingState());
         return arg_;
     }
 
@@ -5629,7 +5629,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(getException(_context));
+        assertNull(_context.getContext().getCallingState());
         return arg_;
     }
 
@@ -5674,17 +5674,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(conf_, out_);
-        assertNull(getException(conf_));
+        assertNull(conf_.getContext().getCallingState());
         return arg_;
-    }
-
-    private static void addVar(ClassField _keyField, String _className, Struct _value, String _varName, String _init, ContextEl _cont, StringMap<LocalVariable> _localVars) {
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = _cont.getInit().processInit(_cont, NullStruct.NULL_VALUE, _init, _cont.getClasses().getClassBody(_init), "", -1);
-        setStruct(value_, _keyField, _value);
-        lv_.setStruct(value_);
-        lv_.setClassName(_className);
-        _localVars.put(_varName, lv_);
     }
 
     private static LocalVariable processElNormal1Bool1(boolean _b, String _s) {
@@ -5723,7 +5714,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(_an, out_);
-        assertNull(getException(_an));
+        assertNull(_an.getContext().getCallingState());
         return arg_;
     }
 
@@ -5782,7 +5773,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getAnalyzing().getOptions());
         caculateReuse(context_, out_);
-        assertNull(getException(context_));
+        assertNull(context_.getContext().getCallingState());
         return lv_;
     }
 
@@ -5855,7 +5846,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out1_ = CommonRender.getReducedNodes(out1_.last());
         caculateReuse(context_, out1_);
-        assertNull(getException(context_));
+        assertNull(context_.getContext().getCallingState());
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, _i, context_);
         assertTrue(d_.getBadOffset() < 0);
@@ -5870,7 +5861,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(getException(context_));
+        assertNull(context_.getContext().getCallingState());
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -5911,7 +5902,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(),context_.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(getException(context_));
+        assertNull(context_.getContext().getCallingState());
         return arg_;
     }
 
@@ -5944,7 +5935,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(getException(context_));
+        assertNull(context_.getContext().getCallingState());
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
     }

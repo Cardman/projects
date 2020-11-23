@@ -561,7 +561,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -652,7 +652,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -745,7 +745,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
@@ -791,7 +791,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
         Argument ret_;
-        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
+        ret_ = instanceNormal("pkg.ExCont", null, id_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;

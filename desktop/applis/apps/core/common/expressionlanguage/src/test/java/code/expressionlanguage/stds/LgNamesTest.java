@@ -2312,7 +2312,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_);
-        assertNull(getException(ctx_));
+        assertNull(ctx_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -2347,7 +2347,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_);
-        assertNull(getException(ctx_));
+        assertNull(ctx_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
 

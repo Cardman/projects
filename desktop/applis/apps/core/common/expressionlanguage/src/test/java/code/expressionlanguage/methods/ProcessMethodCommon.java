@@ -51,72 +51,61 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, fct_).first();
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
         ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
-        Struct exc_ = getException(_cont);
+        CustomFoundExc excState_ = (CustomFoundExc) _cont.getCallingState();
+        Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
         return new Argument(exc_);
     }
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, fct_).first();
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
         Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
-        assertNull(getException(_cont));
+        assertNull(_cont.getCallingState());
         return arg_;
     }
 
     protected static MethodId getMethodId(String _name, String..._classNames) {
-        StringList cl_ = toList(_classNames);
+        StringList cl_ = new StringList(_classNames);
         return new MethodId(MethodAccessKind.STATIC, _name, cl_);
     }
 
-    protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
-        StringList constraints_ = getParamsTypes(_id);
-        ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
+    protected static Argument instanceError(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecConstructorBlock ctor_ = tryGet(type_, id_);
-        Parameters p_ = getParameters(_args, _cont, ctor_);
+        ExecConstructorBlock ctor_ = tryGet(type_, _id);
+        assertNull(ctor_);
+        Parameters p_ = new Parameters();
         ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
-        Struct exc_ = getException(_cont);
+        CustomFoundExc excState_ = (CustomFoundExc) _cont.getCallingState();
+        Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
         return new Argument(exc_);
     }
-    protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
-        StringList constraints_ = getParamsTypes(_id);
-        ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
+    protected static Argument instanceNormal(String _class, Argument _global, ConstructorId _id, ContextEl _cont) {
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        ExecConstructorBlock ctor_ = tryGet(type_, id_);
-        Parameters p_ = getParameters(_args, _cont, ctor_);
+        ExecConstructorBlock ctor_ = tryGet(type_, _id);
+        assertNull(ctor_);
+        Parameters p_ = new Parameters();
         Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
-        assertNull(getException(_cont));
+        assertNull(_cont.getCallingState());
         return arg_;
     }
-
-    private static StringList getParamsTypes(ConstructorId _id) {
-        int len_ = _id.getParametersTypes().size();
-        StringList constraints_ = new StringList();
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = _id.getParametersTypes().get(i);
-            constraints_.add(n_);
-        }
-        return constraints_;
-    }
-
-    private static Parameters getParameters(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock _ctor) {
+    protected static Argument instanceNormalCtor(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+        ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecConstructorBlock ctor_ = get(type_, _id);
         Parameters p_ = new Parameters();
-        if (_ctor != null) {
-            feedParams(_args, _cont, _ctor, p_);
-        }
-        return p_;
+        feedParams(_args, _cont, ctor_, p_);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
+        assertNull(_cont.getCallingState());
+        return arg_;
     }
 
     private static void feedParams(CustList<Argument> _args, ContextEl _cont, ExecNamedFunctionBlock _ctor, Parameters _p) {
@@ -141,18 +130,24 @@ public abstract class ProcessMethodCommon {
         }
         return null;
     }
-
-    protected static ConstructorId getConstructorId(String _name, String..._classNames) {
-        StringList cl_ = toList(_classNames);
-        return new ConstructorId(_name, cl_, false);
+    private static ExecConstructorBlock get(ExecRootBlock _root, ConstructorId _id) {
+        CustList<ExecConstructorBlock> list_ = new CustList<ExecConstructorBlock>();
+        for (ExecBlock b: _root.getChildrenOthers()) {
+            if (!(b instanceof ExecConstructorBlock)) {
+                continue;
+            }
+            ExecConstructorBlock method_ = (ExecConstructorBlock) b;
+            if (!method_.getId().eq(_id)) {
+                continue;
+            }
+            list_.add(method_);
+        }
+        return list_.first();
     }
 
-    private static StringList toList(String... _classNames) {
-        StringList cl_ = new StringList();
-        for (String c: _classNames) {
-            cl_.add(c);
-        }
-        return cl_;
+    protected static ConstructorId getConstructorId(String _name, String..._classNames) {
+        StringList cl_ = new StringList(_classNames);
+        return new ConstructorId(_name, cl_, false);
     }
 
     private static AnalyzedTestContext contextElCoverageDefaultEnComment() {
@@ -354,9 +349,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static void addTypesInit(Options _opt, String... _types) {
-        for (String t: _types) {
-            _opt.getTypesInit().add(t);
-        }
+        _opt.getTypesInit().addAllElts(new StringList(_types));
     }
 
     protected static ContextEl ctxResOk(StringMap<String> _srcFiles, StringMap<String> _all) {
@@ -603,14 +596,10 @@ public abstract class ProcessMethodCommon {
         return ClassFieldStruct.getPair(((FieldableStruct)_struct).getFields(),_key).getStruct();
     }
 
-    protected static Struct getException(ContextEl _cont) {
+    protected static Struct getTrueException(ContextEl _cont) {
         CallingState str_ = _cont.getCallingState();
-        if (str_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc) str_).getStruct();
-        }
-        return null;
+        return ((CustomFoundExc) str_).getStruct();
     }
-
     protected static ContextEl cov(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
         return validateCovAndRet(_files, cont_);
@@ -712,7 +701,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static boolean isEmptyErrors(AnalyzedTestContext _cont) {
-        return _cont.getAnalyzing() == null || (_cont.getAnalyzing().isEmptyErrors());
+        return _cont.getAnalyzing().isEmptyErrors();
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {

@@ -6615,7 +6615,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         args_.add(new Argument(s_));
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
         Argument out_ = ProcessMethod.reflectArgument(cont_, ref_);
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(1, getNumber(out_));
     }
     @Test
@@ -6629,7 +6629,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         args_.add(new Argument(s_));
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
         Argument out_ = ProcessMethod.reflectArgument(cont_, ref_);
-        assertNull(getException(cont_));
+        assertNull(cont_.getCallingState());
         assertEq(1, getNumber(out_));
     }
 

@@ -1079,7 +1079,6 @@ public abstract class OperationNode {
         if (res_.isFoundMethod()) {
             return res_;
         }
-        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
             classesNames_.add(StringUtil.join(c.getNames(), "&"));
@@ -1092,9 +1091,7 @@ public abstract class OperationNode {
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
         _op.addErr(undefined_.getBuiltError());
-        return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
-        return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
-        return_.setRealClass(_classes.first());
+        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         return_.setReturnType(_page.getAliasObject());
         return return_;
     }
@@ -1105,7 +1102,6 @@ public abstract class OperationNode {
         if (res_.isFoundMethod()) {
             return res_;
         }
-        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
             classesNames_.add(StringUtil.join(c.getNames(), "&"));
@@ -1118,11 +1114,7 @@ public abstract class OperationNode {
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
         _op.addErr(undefined_.getBuiltError());
-        return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
-        return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
-        return_.setRealClass(_classes.first());
-        return_.setReturnType(_page.getAliasObject());
-        return return_;
+        return new ClassMethodIdReturn(false);
     }
 
     protected static AnaClassArgumentMatching voidToObject(AnaClassArgumentMatching _original, AnalyzedPageEl _page) {
@@ -2300,7 +2292,7 @@ public abstract class OperationNode {
                 if (filter(_accessFromSuper, _superClass, _kind, _superTypesBase, _fullName, k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap, _page, e.getId(), e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap, _page, id_, e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
