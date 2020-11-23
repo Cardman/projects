@@ -357,10 +357,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         newInstance(_classes);
     }
 
-    private CustList<RendDynOperationNode> newCall(String _varPrevious, String _previous,
-                                                   ClassMethodId _id,
-                                                   String _res,
-                                                   StringMap<String> _args, Classes _classes) {
+    private static CustList<RendDynOperationNode> newCall(String _varPrevious, String _previous,
+                                                          ClassMethodId _id,
+                                                          String _res,
+                                                          StringMap<String> _args, Classes _classes) {
         CustList<RendDynOperationNode> ops_ = new CustList<RendDynOperationNode>();
         ExecClassArgumentMatching clMatch_ = new ExecClassArgumentMatching(_res);
         RendDotOperation dot_ = new RendDotOperation(new ExecOperationContent(0, clMatch_, _args.size()+2));
@@ -430,7 +430,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         buildIterables(_context.getClasses());
     }
 
-    private void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName) {
+    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -605,7 +605,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return strBean_;
     }
 
-    private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
+    private static Struct getBeanOrNull(Configuration _conf, String _currentBeanName) {
         Struct bean_ = getBean(_conf,_currentBeanName);
         if (bean_ == null) {
             bean_ = NullStruct.NULL_VALUE;
@@ -613,7 +613,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return bean_;
     }
 
-    private Struct getBean(Configuration _conf,String _beanName) {
+    private static Struct getBean(Configuration _conf, String _beanName) {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
 

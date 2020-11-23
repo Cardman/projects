@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -30,8 +28,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _conf);
 
-        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf);
-        checkParametersCtors(_conf, _conf.getLastPage().getGlobalClass(), getPair(), firstArgs_, InstancingStep.USING_THIS);
+        checkParametersCtors(_conf, _conf.getLastPage().getGlobalClass(), getPair(), getArgs(_nodes, _conf), InstancingStep.USING_THIS);
         return Argument.createVoid();
     }
 

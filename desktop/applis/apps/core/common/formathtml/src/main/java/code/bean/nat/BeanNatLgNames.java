@@ -169,14 +169,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     @Override
     public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
-        String lastType_ = _rend.getLastType();
-        int naturalVararg_ = _rend.getNaturalVararg();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_all,_rend);
         int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
         for (Argument a: firstArgs_) {

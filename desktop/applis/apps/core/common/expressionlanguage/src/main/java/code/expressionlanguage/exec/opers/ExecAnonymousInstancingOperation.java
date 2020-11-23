@@ -33,8 +33,7 @@ public final class ExecAnonymousInstancingOperation extends
         if (_conf.getExiting().hasToExit(base_)) {
             return Argument.createVoid();
         }
-        CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareCust(_conf, className_, getPair(), _previous, firstArgs_, "", -1);
+        return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), "", -1);
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {

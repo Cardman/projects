@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -13,11 +14,13 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringMap;
 import org.junit.Test;
@@ -80,6 +83,9 @@ public final class RenderInitStdsTest extends CommonRender {
         assertTrue(!RendBlock.hasBlockBreak(a_.getConfiguration().getLastPage(),""));
         assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null,a_.getConfiguration().getLastPage(),""));
         assertNull(RendBlock.getParentNode((Element)null));
+        RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
+        RendDynOperationNode.getFirstNode(null);
+        assertNull(RendDynOperationNode.getParentOrNull(null));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);

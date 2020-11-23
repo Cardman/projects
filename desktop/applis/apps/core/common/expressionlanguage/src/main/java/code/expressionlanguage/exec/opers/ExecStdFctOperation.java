@@ -43,8 +43,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         } else {
             prev_ = new Argument();
         }
-        CustList<Argument> firstArgs_ = getArgs(_nodes);
-        return callStd(_conf.getExiting(),_conf, classNameFound_, methodId_, prev_, firstArgs_);
+        return callStd(_conf.getExiting(),_conf, classNameFound_, methodId_, prev_, getArgs(_nodes));
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

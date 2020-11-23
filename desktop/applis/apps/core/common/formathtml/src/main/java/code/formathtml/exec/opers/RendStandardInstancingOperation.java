@@ -43,12 +43,11 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                                 Configuration _conf, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_;
-        className_ = instancingCommonContent.getClassName();
+        String className_ = instancingCommonContent.getClassName();
         String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList args_ = listNamedArguments(_all, chidren_);
         CustList<Argument> first_ = args_.getArguments();
         CustList<RendDynOperationNode> filter_ = args_.getFilter();

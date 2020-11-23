@@ -54,9 +54,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
                 return;
             }
         }
-        CustList<RendDynOperationNode> list_ = getChildrenNodes();
-        RendDynOperationNode left_ = list_.first();
-        RendDynOperationNode right_ = list_.last();
+        RendDynOperationNode left_ = getFirstNode(this);
+        RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);

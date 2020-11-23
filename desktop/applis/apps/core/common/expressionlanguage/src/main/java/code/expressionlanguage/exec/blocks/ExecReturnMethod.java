@@ -12,15 +12,13 @@ import code.util.core.IndexConstants;
 
 public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
 
-    private boolean empty;
 
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opRet;
     private String returnMethod;
-    public ExecReturnMethod(boolean _empty, int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod, int _offsetTrim) {
+    public ExecReturnMethod(int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod, int _offsetTrim) {
         super(_offsetTrim);
-        empty = _empty;
         expressionOffset = _expressionOffset;
         opRet = _opRet;
         returnMethod = _returnMethod;
@@ -46,7 +44,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        if (!isEmpty()) {
+        if (opRet != null) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
@@ -59,13 +57,9 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
             if (!ExecTemplates.checkQuick(type_,arg_,_cont)) {
                 return;
             }
-            _cont.getLastPage().setReturnedArgument(arg_);
+            ip_.setReturnedArgument(arg_);
         }
         removeBlockFinally(_cont);
-    }
-
-    public boolean isEmpty() {
-        return empty;
     }
 
 }

@@ -32,12 +32,11 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _conf);
         String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
-        CustList<Argument> firstArgs_ = getArgs(_nodes, classNameFound_);
         if (_conf.getExiting().hasToExit(classNameFound_)) {
             return Argument.createVoid();
         }
         Argument prev_ = new Argument();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, firstArgs_, null, staticFctContent.getKind(), "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, classNameFound_), null, staticFctContent.getKind(), "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {

@@ -43,7 +43,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     public static RendMethodOperation castParentTo(RendDynOperationNode _root) {
         RendMethodOperation elt_;
         if (!(_root instanceof RendAbstractDotOperation)) {
-            elt_ = _root.getParent();
+            elt_ = getParentOrNull(_root);
         } else {
             elt_ = (RendMethodOperation) _root;
         }
@@ -55,7 +55,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         if (!(_root instanceof RendAbstractDotOperation)) {
             elt_ = _root;
         } else {
-            elt_ = ((RendMethodOperation) _root).getChildrenNodes().last();
+            elt_ = getLastNode((RendMethodOperation) _root);
         }
         return elt_;
     }
@@ -75,7 +75,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
                 return;
             }
         }
-        RendDynOperationNode right_ = getChildrenNodes().last();
+        RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_, _advStandards, _context);
         setSimpleArgument(arg_, _conf,_nodes, _context);

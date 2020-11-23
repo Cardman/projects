@@ -28,8 +28,7 @@ public final class ExecDirectStandardInstancingOperation extends
                          ContextEl _conf) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _conf);
-        CustList<Argument> firstArgs_ = getArgs(_nodes);
-        return instancePrepareStd(_conf, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), firstArgs_);
+        return instancePrepareStd(_conf, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), getArgs(_nodes));
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

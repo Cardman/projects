@@ -53,8 +53,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _conf);
         String superClass_ = _conf.formatVarType(getClassFromName());
-        CustList<Argument> firstArgs_ = getArgs(_nodes, superClass_);
-        checkParameters(_conf, superClass_, getPair(), _argument,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
+        checkParameters(_conf, superClass_, getPair(), _argument,null, getArgs(_nodes, superClass_),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

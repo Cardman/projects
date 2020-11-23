@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -108,11 +106,10 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             fct_ = get;
         }
         Struct pr_ = prev_.getStruct();
-        CustList<Argument> firstArgs_ = getArgs(fct_,_nodes, _conf, pr_);
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_, instFctContent.getClassName(),fct_);
         fct_ = polymorph_.getPair();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, firstArgs_, _right, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, getArgs(fct_,_nodes, _conf, pr_), _right, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(ExecTypeFunction _pair,IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

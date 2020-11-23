@@ -78,7 +78,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     @Override
     public final void forwardTo(AbstractPageEl _page, ContextEl _context) {
-        Argument a_ = getGlobalArgument();
+        Argument a_ = getReturnedArgument();
         _page.receive(a_, _context);
     }
 

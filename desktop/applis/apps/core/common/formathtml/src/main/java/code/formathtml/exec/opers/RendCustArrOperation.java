@@ -3,8 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -97,13 +95,10 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        CustList<Argument> firstArgs_;
         String lastType_ = instFctContent.getLastType();
         int naturalVararg_ = instFctContent.getNaturalVararg();
-        String classNameFound_;
-        classNameFound_ = instFctContent.getClassName();
+        String classNameFound_ = instFctContent.getClassName();
         Struct argPrev_ = _previous.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _context));
         if (_context.callsOrException()) {
@@ -116,12 +111,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         } else {
             fct_ = get;
         }
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         Struct pr_ = prev_.getStruct();
         String cl_ = pr_.getClassName(_context);
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(fct_.getType(), clGen_, lastType_);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context,pr_,classNameFound_,fct_);
         fct_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();

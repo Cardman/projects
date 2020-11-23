@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendIdOperation extends RendAbstractUnaryOperation {
@@ -16,8 +15,7 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendDynOperationNode o_ = chidren_.first();
+        RendDynOperationNode o_ = getFirstNode(this);
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof RendSettableElResult) {

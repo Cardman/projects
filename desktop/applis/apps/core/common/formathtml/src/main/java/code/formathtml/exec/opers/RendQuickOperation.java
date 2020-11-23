@@ -30,9 +30,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-        RendDynOperationNode first_ = chidren_.first();
+        RendDynOperationNode first_ = getFirstNode(this);
         if (pair.getFct() != null) {
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
             if (argumentPair_.isArgumentTest()){
@@ -58,7 +56,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
             setQuickConvertSimpleArgument(f_, _nodes, _context);
             return;
         }
-        Argument a_ = getArgument(_nodes,chidren_.last());
+        Argument a_ = getArgument(_nodes,getLastNode(this));
         setSimpleArgument(a_, _conf,_nodes, _context);
     }
 

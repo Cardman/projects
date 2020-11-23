@@ -7,7 +7,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendUnaryBooleanOperation extends RendAbstractUnaryOperation {
@@ -18,8 +17,7 @@ public final class RendUnaryBooleanOperation extends RendAbstractUnaryOperation 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument arg_ = getArgument(_nodes,chidren_.first());
+        Argument arg_ = getArgument(_nodes,getFirstNode(this));
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         Argument a_ = new Argument(o_.neg());

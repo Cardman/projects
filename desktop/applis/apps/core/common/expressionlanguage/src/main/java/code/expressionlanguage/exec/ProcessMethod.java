@@ -33,7 +33,7 @@ public final class ProcessMethod {
         AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
-        return page_.getGlobalArgument();
+        return page_.getReturnedArgument();
     }
 
     public static Argument calculateArgument(Argument _global, String _class, ExecTypeFunction _method, Parameters _args, ContextEl _cont) {

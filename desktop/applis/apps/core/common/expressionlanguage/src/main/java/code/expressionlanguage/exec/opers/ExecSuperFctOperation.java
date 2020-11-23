@@ -40,8 +40,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
             return new Argument();
         }
         Struct pr_ = prev_.getStruct();
-        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, _conf, pr_), null, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

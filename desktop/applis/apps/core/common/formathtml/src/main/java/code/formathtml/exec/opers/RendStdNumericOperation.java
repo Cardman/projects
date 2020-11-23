@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class RendStdNumericOperation extends RendNumericOperation {
@@ -22,13 +21,10 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument(_nodes,chidren_.first());
-        Argument c_ = getArgument(_nodes,chidren_.last());
+        Argument a_ = getArgument(_nodes,getFirstNode(this));
+        Argument c_ = getArgument(_nodes,getLastNode(this));
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
-        Argument r_;
-        r_ = calculateOper(a_, op, c_, _context);
-        a_ = r_;
-        setSimpleArgument(a_, _conf,_nodes, _context);
+        Argument r_ = calculateOper(a_, op, c_, _context);
+        setSimpleArgument(r_, _conf,_nodes, _context);
     }
 }

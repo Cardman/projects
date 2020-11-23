@@ -52,11 +52,10 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             return new Argument();
         }
         Struct pr_ = prev_.getStruct();
-        CustList<Argument> firstArgs_ = getArgs(_nodes, _conf, pr_);
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_,classNameFound_,pair);
         ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_,null, getArgs(_nodes, _conf, pr_), null, MethodAccessKind.INSTANCE, "");
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

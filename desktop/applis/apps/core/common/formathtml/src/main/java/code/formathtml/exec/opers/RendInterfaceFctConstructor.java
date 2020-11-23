@@ -33,10 +33,11 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        if (getParent().getFirstChild().getNextSibling() == this) {
+        RendDynOperationNode main_ = getMainNode(this);
+        ArgumentsPair pair_ = getArgumentPair(_nodes, main_);
+        if (getIndexChild() == 1) {
             //init and test
-            int order_ = getParent().getFirstChild().getOrder();
-            Argument lda_ = new Argument(Argument.getNullableValue(_nodes.getValue(order_).getArgument()).getStruct());
+            Argument lda_ = new Argument(Argument.getNullableValue(pair_.getArgument()).getStruct());
             if (!ExecTemplates.checkObject(_context.getStandards().getContent().getReflect().getAliasFct(), lda_, _context)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _context);
                 return;
@@ -48,25 +49,23 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _context);
                 return;
             }
-            _nodes.getValue(getParent().getFirstChild().getOrder()).setArgument(ref_);
+            pair_.setArgument(ref_);
             Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, ref_, _conf, _context), _context);
             setSimpleArgument(argres_,_conf,_nodes, _context);
             return;
         }
-        int order_ = getParent().getFirstChild().getOrder();
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(_nodes.getValue(order_).getArgument()), _conf, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _conf);
-        CustList<Argument> firstArgs_;
         String superClass_ = invokingConstructorContent.getClassFromName();
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, firstArgs_,CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }

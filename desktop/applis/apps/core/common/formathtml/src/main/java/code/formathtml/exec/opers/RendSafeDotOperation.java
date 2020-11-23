@@ -7,7 +7,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendSafeDotOperation extends RendAbstractDotOperation {
@@ -17,9 +16,8 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendDynOperationNode o_ = chidren_.first();
-        RendDynOperationNode l_ = chidren_.last();
+        RendDynOperationNode o_ = getFirstNode(this);
+        RendDynOperationNode l_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);
         if (a_.isNull()&&!(l_ instanceof RendLambdaOperation)) {
             a_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));

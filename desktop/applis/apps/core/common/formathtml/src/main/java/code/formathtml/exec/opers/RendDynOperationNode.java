@@ -38,8 +38,6 @@ public abstract class RendDynOperationNode {
 
     private RendMethodOperation parent;
 
-    private RendDynOperationNode nextSibling;
-
     private ExecOperationContent content;
 
     private RendPossibleIntermediateDotted siblingSet;
@@ -84,10 +82,7 @@ public abstract class RendDynOperationNode {
     }
 
     public final RendDynOperationNode getNextSibling() {
-        return nextSibling;
-    }
-    final void setNextSibling(RendDynOperationNode _nextSibling) {
-        nextSibling = _nextSibling;
+        return getNextNode(this);
     }
 
     private void setNextSiblingsArg(Argument _arg, Configuration _cont, ContextEl _context) {
@@ -119,7 +114,7 @@ public abstract class RendDynOperationNode {
         }
         return previous_;
     }
-    protected static CustList<Argument> getArguments(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendMethodOperation _method) {
+    public static CustList<Argument> getArguments(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendMethodOperation _method) {
         CustList<Argument> a_ = new CustList<Argument>();
         for (RendDynOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
@@ -128,9 +123,6 @@ public abstract class RendDynOperationNode {
     }
     protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
-    }
-    protected static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
-        return _nodes.getValue(_node.getOrder());
     }
     protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendPossibleIntermediateDotted _node) {
         return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
@@ -362,6 +354,62 @@ public abstract class RendDynOperationNode {
             out_ = new Argument(ExecCatOperation.getDisplayable(out_, _context));
         }
         return out_;
+    }
+
+    public static RendMethodOperation getParentOrNull(RendDynOperationNode _node) {
+        if (_node == null) {
+            return null;
+        }
+        return _node.getParent();
+    }
+    public static RendDynOperationNode getMainNode(RendDynOperationNode _node) {
+        RendMethodOperation parent_ = _node.getParent();
+        return getFirstNode(parent_);
+    }
+
+    public static RendDynOperationNode getFirstNode(RendMethodOperation _parent) {
+        if (_parent == null) {
+            return null;
+        }
+        return getNode(_parent.getChildrenNodes(),0);
+    }
+
+    public static RendDynOperationNode getLastNode(RendMethodOperation _parent) {
+        CustList<RendDynOperationNode> childrenNodes_ = _parent.getChildrenNodes();
+        return getNode(childrenNodes_,childrenNodes_.size()-1);
+    }
+    public static RendDynOperationNode getNextNode(RendDynOperationNode _node) {
+        RendMethodOperation par_ = _node.getParent();
+        if (par_ == null) {
+            return null;
+        }
+        return getNode(par_.getChildrenNodes(),_node.getIndexChild()+1);
+    }
+    public static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        int order_ = getOrder(_node);
+        return getArgumentPair(_nodes, order_);
+    }
+
+    public static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, int _order) {
+        if (!_nodes.isValidIndex(_order)) {
+            ArgumentsPair pair_ = new ArgumentsPair();
+            pair_.setArgument(Argument.createVoid());
+            return pair_;
+        }
+        return _nodes.getValue(_order);
+    }
+
+    public static int getOrder(RendDynOperationNode _node) {
+        if (_node == null) {
+            return 0;
+        }
+        return _node.getOrder();
+    }
+    public static RendDynOperationNode getNode(CustList<RendDynOperationNode> _nodes, int _index) {
+        if (_nodes.isValidIndex(_index)) {
+            return _nodes.get(_index);
+        }
+        return null;
     }
     public final ExecClassArgumentMatching getResultClass() {
         return content.getResultClass();

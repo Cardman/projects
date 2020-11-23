@@ -55,10 +55,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             }
         }
         if (pair.getFct() != null) {
-            CustList<RendDynOperationNode> list_ = getChildrenNodes();
-            RendDynOperationNode left_ = list_.first();
-            CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
-            chidren_.add(left_);
+            RendDynOperationNode left_ = getFirstNode(this);
             Argument stored_ = getArgument(_nodes,left_);
             Argument res_;
             res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
@@ -66,8 +63,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             setSimpleArgument(res_, _conf,_nodes, _context);
             return;
         }
-        CustList<RendDynOperationNode> list_ = getChildrenNodes();
-        RendDynOperationNode left_ = list_.first();
+        RendDynOperationNode left_ = getFirstNode(this);
         Argument leftStore_ = getArgument(_nodes,left_);
         Argument stored_ = getNullArgument(_nodes, settable);
         Argument before_ = stored_;

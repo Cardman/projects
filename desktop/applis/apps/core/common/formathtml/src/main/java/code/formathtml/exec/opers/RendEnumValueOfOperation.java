@@ -34,8 +34,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
     }
 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
-        CustList<RendDynOperationNode> list_ = getChildrenNodes();
-        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        return getCommonArgument(first_.first(),_conf, _context);
+
+        return getCommonArgument(getArgument(_all,getFirstChild()),_conf, _context);
     }
 }

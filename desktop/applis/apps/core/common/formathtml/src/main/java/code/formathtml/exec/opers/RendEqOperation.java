@@ -6,7 +6,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -24,9 +23,8 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument first_ = getArgument(_nodes,chidren_.first());
-        Argument second_ = getArgument(_nodes,chidren_.last());
+        Argument first_ = getArgument(_nodes,getFirstNode(this));
+        Argument second_ = getArgument(_nodes,getLastNode(this));
         boolean complement_ = false;
         String op_ = oper.trim();
         if (StringUtil.quickEq(op_, DIFF)) {

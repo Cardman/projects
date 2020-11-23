@@ -47,8 +47,7 @@ public final class ExecStandardInstancingOperation extends
                 return Argument.createVoid();
             }
         }
-        CustList<Argument> firstArgs_ = getArgs(_nodes, className_);
-        return instancePrepareCust(_conf, className_, getPair(), _previous, firstArgs_, instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {

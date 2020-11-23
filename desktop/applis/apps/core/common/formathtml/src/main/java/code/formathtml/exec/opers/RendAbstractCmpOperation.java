@@ -23,9 +23,8 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        RendDynOperationNode opOne_ = chidren_.first();
-        RendDynOperationNode opTwo_ = chidren_.last();
+        RendDynOperationNode opOne_ = getFirstNode(this);
+        RendDynOperationNode opTwo_ = getLastNode(this);
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
         Argument arg_ = calculateCommon(first_, second_);

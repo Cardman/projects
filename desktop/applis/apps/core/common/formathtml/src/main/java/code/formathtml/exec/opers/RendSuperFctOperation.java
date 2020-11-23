@@ -3,8 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -36,14 +34,11 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
     }
 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
         String lastType_ = instFctContent.getLastType();
         int naturalVararg_ = instFctContent.getNaturalVararg();
-        String classNameFound_;
-        classNameFound_ = instFctContent.getClassName();
+        String classNameFound_ = instFctContent.getClassName();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(),_context));
         if (_context.callsOrException()) {
             return new Argument();
@@ -52,8 +47,9 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(pair.getType(),fullClassNameFound_, lastType_);
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = listNamedArguments(_all, chidren_).getArguments();
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, firstArgs_, null, MethodAccessKind.INSTANCE, "");
     }
 }

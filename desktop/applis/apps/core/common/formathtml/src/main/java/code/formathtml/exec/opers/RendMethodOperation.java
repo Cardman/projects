@@ -4,41 +4,22 @@ import code.util.CustList;
 
 public abstract class RendMethodOperation extends RendDynOperationNode {
 
-    private RendDynOperationNode firstChild;
+    private CustList<RendDynOperationNode> childrenNodes = new CustList<RendDynOperationNode>();
 
     public RendMethodOperation(ExecOperationContent _content) {
         super(_content);
     }
     public final void appendChild(RendDynOperationNode _child) {
         _child.setParent(this);
-        if (firstChild == null) {
-            firstChild = _child;
-            return;
-        }
-        RendDynOperationNode child_ = firstChild;
-        while (true) {
-            RendDynOperationNode sibling_ = child_.getNextSibling();
-            if (sibling_ == null) {
-                child_.setNextSibling(_child);
-                return;
-            }
-            child_ = sibling_;
-        }
+        childrenNodes.add(_child);
     }
 
     public final CustList<RendDynOperationNode> getChildrenNodes() {
-        CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
-        RendDynOperationNode firstChild_ = getFirstChild();
-        RendDynOperationNode elt_ = firstChild_;
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
+        return childrenNodes;
     }
 
     public final RendDynOperationNode getFirstChild() {
-        return firstChild;
+        return getFirstNode(this);
     }
 
 }

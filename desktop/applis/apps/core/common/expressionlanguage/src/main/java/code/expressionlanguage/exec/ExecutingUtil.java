@@ -71,6 +71,7 @@ public final class ExecutingUtil {
         page_.setGlobalClass(_class);
         page_.setFwd(_fwd);
         page_.setGlobalArgument(argGl_);
+        page_.setReturnedArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
@@ -147,6 +148,7 @@ public final class ExecutingUtil {
         int ordinal_ = _e.getChildIndex();
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
+        page_.setReturnedArgument(argGl_);
         setInstanciationInfos(_context,page_,cl_, args_, _e.getPair());
         return page_;
     }
@@ -161,6 +163,7 @@ public final class ExecutingUtil {
         Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
+        page_.setReturnedArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
         page_.setFile(file_);
@@ -174,6 +177,7 @@ public final class ExecutingUtil {
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
         page_.setGlobalArgument(global_);
+        page_.setReturnedArgument(global_);
         setInstanciationInfos(_context,page_,cl_, args_, _e.getPair());
         return page_;
     }
@@ -200,6 +204,7 @@ public final class ExecutingUtil {
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
+        page_.setReturnedArgument(_current);
         page_.setBlockRootType(_type);
         ReadWrite rw_ = new ReadWrite();
         ExecBlock firstChild_ = _type.getFirstChild();
@@ -221,6 +226,7 @@ public final class ExecutingUtil {
         BlockPageEl page_ = new BlockPageEl();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
+        page_.setReturnedArgument(_current);
         page_.setBlockRootType(_rootBlock);
         ReadWrite rw_ = new ReadWrite();
         ExecBlock firstChild_ = _block.getFirstChild();
