@@ -75,20 +75,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         while (!named_.isEmpty()) {
-            ExecNamedArgumentOperation min_ = named_.first();
-            int minIndex_ = min_.getIndex();
+            int minIndex_ = named_.first().getIndex();
             int size_ = named_.size();
             int i_ = 0;
             for (int i = 1; i < size_; i++) {
                 ExecNamedArgumentOperation elt_ = named_.get(i);
                 int index_ = elt_.getIndex();
                 if (index_ < minIndex_) {
-                    min_ = elt_;
                     minIndex_ = index_;
                     i_ = i;
                 }
             }
-            args_.add(getArgument(_all,min_));
+            args_.add(getArgument(_all,named_.get(i_)));
             named_.remove(i_);
         }
         return out_;

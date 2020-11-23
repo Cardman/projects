@@ -46,7 +46,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
         return quickListArguments(filterCh_, naturalVararg, lastType, list_.getArguments());
     }
 
-    static AnaArgumentList listNamedArguments(CustList<ReachOperationNode> _children) {
+    private static AnaArgumentList listNamedArguments(CustList<ReachOperationNode> _children) {
         AnaArgumentList out_ = new AnaArgumentList();
         CustList<Argument> args_ = out_.getArguments();
         CustList<ReachOperationNode> filter_ = out_.getFilter();
@@ -61,25 +61,23 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
             }
         }
         while (!named_.isEmpty()) {
-            ReachNamedArgumentOperation min_ = named_.first();
-            int minIndex_ = min_.getIndex();
+            int minIndex_ = named_.first().getIndex();
             int size_ = named_.size();
             int i_ = 0;
             for (int i = 1; i < size_; i++) {
                 ReachNamedArgumentOperation elt_ = named_.get(i);
                 int index_ = elt_.getIndex();
                 if (index_ < minIndex_) {
-                    min_ = elt_;
                     minIndex_ = index_;
                     i_ = i;
                 }
             }
-            args_.add(min_.getArgument());
+            args_.add(named_.get(i_).getArgument());
             named_.remove(i_);
         }
         return out_;
     }
-    public static CustList<Argument> quickListArguments(CustList<ReachOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
+    private static CustList<Argument> quickListArguments(CustList<ReachOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Struct> optArgs_ = new CustList<Struct>();
