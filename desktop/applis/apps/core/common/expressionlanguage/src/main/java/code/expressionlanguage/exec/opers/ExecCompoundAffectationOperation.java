@@ -14,7 +14,6 @@ import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -75,10 +74,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(leftArg_);
-            arguments_.add(rightArg_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, arguments_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes,this, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {

@@ -1478,20 +1478,7 @@ public final class ClassesUtil {
                     for (TypeInfo i: g) {
                         all_.add(i.getType());
                     }
-                    StringMap<StringList>baseParams_ = getBaseParams(all_);
-                    for (EntryCust<String, StringList> e: baseParams_.entryList()) {
-                        if (!e.getValue().onlyOneElt()) {
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setFileName(s.getFile().getFileName());
-                            duplicate_.setIndexFile(s.getIdRowCol());
-                            //type var len => at def
-                            duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
-                                    StringUtil.join(e.getValue(),"&"));
-                            _page.addLocError(duplicate_);
-                            s.addNameErrors(duplicate_);
-                        }
-                    }
+                    checkDupl(_page, s, all_);
 
                 }
                 if (okLoc_) {
@@ -1595,26 +1582,30 @@ public final class ClassesUtil {
         }
     }
 
+    private static void checkDupl(AnalyzedPageEl _page, RootBlock _s, StringList _all) {
+        StringMap<StringList> baseParams_ = getBaseParams(_all);
+        for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+            if (!e.getValue().onlyOneElt()) {
+                FoundErrorInterpret duplicate_;
+                duplicate_ = new FoundErrorInterpret();
+                duplicate_.setFileName(_s.getFile().getFileName());
+                duplicate_.setIndexFile(_s.getIdRowCol());
+                //type var len => at def
+                duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
+                        StringUtil.join(e.getValue(),"&"));
+                _page.addLocError(duplicate_);
+                _s.addNameErrors(duplicate_);
+            }
+        }
+    }
+
     private static void validateSingleParameterizedClasses(AnalyzedPageEl _page) {
         for (RootBlock i: _page.getFoundTypes()) {
             CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.fetchAllGenericSuperTypes();
             for (AnaFormattedRootBlock a: genericSuperTypes_) {
                 i.getAllGenericSuperTypes().add(a.getFormatted());
             }
-            StringMap<StringList> baseParams_ = getBaseParams(i.getAllGenericSuperTypes());
-            for (EntryCust<String, StringList> e: baseParams_.entryList()) {
-                if (!e.getValue().onlyOneElt()) {
-                    FoundErrorInterpret duplicate_;
-                    duplicate_ = new FoundErrorInterpret();
-                    duplicate_.setFileName(i.getFile().getFileName());
-                    duplicate_.setIndexFile(i.getIdRowCol());
-                    //original id len
-                    duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
-                            StringUtil.join(e.getValue(),"&"));
-                    _page.addLocError(duplicate_);
-                    i.addNameErrors(duplicate_);
-                }
-            }
+            checkDupl(_page, i, i.getAllGenericSuperTypes());
             i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
             CustList<AnaFormattedRootBlock> genericClasses_ = i.fetchAllGenericClasses();
             for (AnaFormattedRootBlock a: genericClasses_) {

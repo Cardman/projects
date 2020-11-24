@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
@@ -16,7 +15,6 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -69,11 +67,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
-            chidren_.add(left_);
-            chidren_.add(right_);
-            Argument res_;
-            res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context);
                 if (conv_ == null) {
@@ -148,8 +142,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     }
 
     private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
-        CustList<Argument> first_ = getArguments(_all,this);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, first_, staticEltContent.getClassName(), staticEltContent.getKind());
+        RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, _all,this, staticEltContent.getClassName(), staticEltContent.getKind());
         return Argument.createVoid();
     }
 

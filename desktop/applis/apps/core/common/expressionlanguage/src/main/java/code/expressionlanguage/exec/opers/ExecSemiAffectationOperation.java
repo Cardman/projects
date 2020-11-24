@@ -16,7 +16,6 @@ import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
@@ -62,11 +61,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             }
         }
         if (pair.getFct() != null) {
-            ExecOperationNode left_ = getFirstChild();
-            CustList<Argument> arguments_ = new CustList<Argument>();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            arguments_.add(leftArg_);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, arguments_, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes,this, staticPostEltContent.getClassName(), staticPostEltContent.getKind());
             return;
         }
         ArgumentsPair pairBefore_ = ExecTemplates.getArgumentPair(_nodes,this);

@@ -183,10 +183,8 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
             MethodId mid_ = id_.getConstraints();
-            boolean vararg_ = mid_.isVararg();
-            StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_,mid_));
             feedBase_ = classMethodId_;
             feed_ = new ClassMethodIdAncestor(classMethodId_,idMethod_.getAncestor());
         }

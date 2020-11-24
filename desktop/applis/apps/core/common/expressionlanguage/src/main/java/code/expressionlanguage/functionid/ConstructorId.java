@@ -29,7 +29,9 @@ public final class ConstructorId implements Identifiable {
             classNames.add(StringUtil.nullToEmpty(s));
         }
     }
-    
+    public static ConstructorId to(String _access, StringList _params,ConstructorId _id) {
+        return new ConstructorId(_access,_params, _id.vararg);
+    }
     public ConstructorId reflectFormat(String _genericClass, ContextEl _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();

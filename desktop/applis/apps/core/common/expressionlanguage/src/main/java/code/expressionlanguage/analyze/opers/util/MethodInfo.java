@@ -139,7 +139,7 @@ public final class MethodInfo implements Parametrable {
             params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
         }
         formattedParams = params_;
-        formatted = new MethodId(MethodId.getKind(_keepParams), constraints.getName(), params_, isVararg());
+        formatted = MethodId.to(MethodId.getKind(_keepParams), params_, constraints);
     }
 
     public void formatWithoutParams() {
@@ -153,7 +153,7 @@ public final class MethodInfo implements Parametrable {
     }
 
     public MethodId getFoundFormatted() {
-        return new MethodId(constraints.getKind(),formatted.getName(),formattedParams,formatted.isVararg());
+        return MethodId.to(formattedParams,formatted);
     }
 
     public StringList getFormattedParams() {

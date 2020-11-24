@@ -10,9 +10,9 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
@@ -75,9 +75,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
-            boolean vararg_ = id_.getConstraints().isVararg();
-            StringList params_ = id_.getConstraints().getParametersTypes();
-            feed_ = new ConstructorId(idClass_, params_, vararg_);
+            feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
         String clCurName_ = from.getName();
         invokingConstructorContent.setClassFromName(clCurName_);

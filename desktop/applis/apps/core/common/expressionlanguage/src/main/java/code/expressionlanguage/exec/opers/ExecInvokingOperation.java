@@ -79,8 +79,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int size_ = named_.size();
             int i_ = 0;
             for (int i = 1; i < size_; i++) {
-                ExecNamedArgumentOperation elt_ = named_.get(i);
-                int index_ = elt_.getIndex();
+                int index_ = named_.get(i).getIndex();
                 if (index_ < minIndex_) {
                     minIndex_ = index_;
                     i_ = i;
@@ -288,6 +287,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return _r == null || _category != ClassCategory.ENUM;
     }
 
+    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
+                                                IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecMethodOperation _meth, String _className, MethodAccessKind _kind) {
+        CustList<Argument> arguments_ = getArguments(_nodes, _meth);
+        checkParametersOperators(_exit, _conf, _named, arguments_, _className, _kind);
+    }
     public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                                 CustList<Argument> _firstArgs, String _className, MethodAccessKind _kind) {
         String classNameFound_ = _className;

@@ -673,7 +673,7 @@ public abstract class OperationNode {
     private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
         for (TypeInfo t: _list) {
             if (t.isBase()) {
-                String id_ = StringExpUtil.getIdFromAllTypes(t.getType());
+                String id_ = t.getTypeId();
                 _baseTypes.add(id_);
                 _superTypesBaseAnc.put(id_, id_);
                 for (String m: t.getSuperTypes()) {
@@ -2138,7 +2138,7 @@ public abstract class OperationNode {
             CustList<MethodInfo> methods_ = new CustList<MethodInfo>();
             for (TypeInfo t: g) {
                 String f_ = t.getType();
-                String cl_ = StringExpUtil.getIdFromAllTypes(f_);
+                String cl_ =t.getTypeId();
                 AnaGeneType root_ = t.getRoot();
                 fetchParamClassMethods(_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_, _page);
             }
@@ -2217,9 +2217,9 @@ public abstract class OperationNode {
     }
     private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, boolean _base, AnalyzedPageEl _page) {
         TypeInfo t_ = newTypeInfo(_k, _firstType,_first, _secondType, _second, _anc, _page);
-        String f_ = t_.getType();
+        String f_ = t_.getTypeId();
         for (TypeInfo t: _list) {
-            if (StringUtil.quickEq(t.getType(), f_)) {
+            if (StringUtil.quickEq(t.getTypeId(), f_)) {
                 return;
             }
         }
@@ -2238,6 +2238,7 @@ public abstract class OperationNode {
         }
         TypeInfo t_ = new TypeInfo();
         t_.setType(type_);
+        t_.setTypeId(StringExpUtil.getIdFromAllTypes(type_));
         t_.setRoot(_secondType);
         t_.setAncestor(_anc);
         t_.setScope(k_);

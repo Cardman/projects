@@ -49,6 +49,22 @@ public final class MethodId implements Identifiable {
         return new FormattedMethodId(_id.name, _id.classNames, _id.vararg);
     }
 
+    public static ConstructorId to(String _access,MethodId _id) {
+        return new ConstructorId(_access,_id.classNames, _id.vararg);
+    }
+
+    public static MethodId to(StringList _params,MethodId _id) {
+        return new MethodId(_id.kind,_id.name, _params, _id.vararg);
+    }
+
+    public static MethodId to(MethodAccessKind _access, StringList _params,MethodId _id) {
+        return new MethodId(_access,_id.name, _params, _id.vararg);
+    }
+
+    public static MethodId to(MethodAccessKind _access, String _name,MethodId _id) {
+        return new MethodId(_access,_name, _id.classNames, _id.vararg);
+    }
+
     public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {
         if (_context == MethodAccessKind.STATIC) {
             return MethodAccessKind.STATIC;

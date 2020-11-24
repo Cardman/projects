@@ -104,7 +104,7 @@ public final class ConstructorInfo implements Parametrable {
         for (String p: constraints.getParametersTypes()) {
             params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
         }
-        formatted = new ConstructorId(className, params_, isVararg());
+        formatted = ConstructorId.to(className, params_, constraints);
     }
 
     public StringList getFormattedParams() {

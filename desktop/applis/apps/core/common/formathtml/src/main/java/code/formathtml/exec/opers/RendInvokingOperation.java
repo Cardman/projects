@@ -1,8 +1,13 @@
 package code.formathtml.exec.opers;
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendArgumentList;
@@ -18,7 +23,11 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         super(_content);
         intermediate = _intermediateDottedOperation;
     }
-
+    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
+                                                IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendMethodOperation _meth, String _className, MethodAccessKind _kind) {
+        CustList<Argument> arguments_ = getArguments(_nodes, _meth);
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, arguments_, _className, _kind);
+    }
     public CustList<Argument> fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
@@ -46,8 +55,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             int size_ = named_.size();
             int i_ = 0;
             for (int i = 1; i < size_; i++) {
-                RendNamedArgumentOperation elt_ = named_.get(i);
-                int index_ = elt_.getIndex();
+                int index_ = named_.get(i).getIndex();
                 if (index_ < minIndex_) {
                     minIndex_ = index_;
                     i_ = i;

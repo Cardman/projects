@@ -117,7 +117,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             id_ = idMethod_.getClassMethodId();
             MethodId s_ = id_.getConstraints();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), s_.getKind());
-            id_ = new ClassMethodId(from,new MethodId(static_,op_,s_.getParametersTypes(),s_.isVararg()));
+            id_ = new ClassMethodId(from,MethodId.to(static_,op_,s_));
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {

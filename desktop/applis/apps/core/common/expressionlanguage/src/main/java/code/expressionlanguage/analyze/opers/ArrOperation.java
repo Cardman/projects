@@ -126,10 +126,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
             MethodId mid_ = id_.getConstraints();
-            boolean vararg_ = mid_.isVararg();
-            StringList params_ = mid_.getParametersTypes();
-            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
-            feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMethSet_, params_, vararg_)),idMethod_.getAncestor());
+            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMeth_, mid_)),idMethod_.getAncestor());
+            feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMethSet_, mid_)),idMethod_.getAncestor());
         }
         AnaClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";

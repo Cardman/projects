@@ -10,7 +10,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdMap;
 
 
@@ -40,8 +39,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(_conf);
-            CustList<Argument> arguments_ = getArguments(_nodes, this);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, arguments_, staticEltContent.getClassName(), staticEltContent.getKind());
+            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind());
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

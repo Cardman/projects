@@ -115,10 +115,8 @@ public final class IdFctOperation extends LeafOperation {
             ClassMethodId id_ = new ClassMethodId(cl_, argsRes_);
             String idClass_ = id_.getClassName();
             MethodId mid_ = id_.getConstraints();
-            boolean vararg_ = mid_.isVararg();
-            StringList params_ = mid_.getParametersTypes();
             MethodAccessKind staticKind_ = MethodId.getKind(f_.isStaticAccess(), mid_.getKind());
-            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, new MethodId(staticKind_, f_.getMethodFound(), params_, vararg_));
+            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, MethodId.to(staticKind_, f_.getMethodFound(), mid_));
             ClassMethodIdAncestor feed_ = new ClassMethodIdAncestor(classMethodId_,anc_);
             CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
             int len_ = methodInfos_.size();
@@ -141,9 +139,7 @@ public final class IdFctOperation extends LeafOperation {
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
             ClassMethodId id_ = new ClassMethodId(cl_, argsRes_);
             String idClass_ = id_.getClassName();
-            boolean vararg_ = id_.getConstraints().isVararg();
-            StringList params_ = id_.getConstraints().getParametersTypes();
-            ConstructorId feed_ = new ConstructorId(idClass_, params_, vararg_);
+            ConstructorId feed_ = MethodId.to(idClass_, id_.getConstraints());
             CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
             int len_ = methodInfos_.size();
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();

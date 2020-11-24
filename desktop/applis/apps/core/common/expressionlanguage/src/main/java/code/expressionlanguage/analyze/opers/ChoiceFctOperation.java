@@ -119,10 +119,8 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
             MethodId mid_ = id_.getConstraints();
-            boolean vararg_ = mid_.isVararg();
-            StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feedBase_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            feedBase_ = new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_, mid_));
             feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
         }
         NameParametersFilter name_ = buildFilter(_page);

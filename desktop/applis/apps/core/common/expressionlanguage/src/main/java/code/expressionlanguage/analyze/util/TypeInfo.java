@@ -6,6 +6,7 @@ import code.util.StringList;
 
 public final class TypeInfo {
     private String type;
+    private String typeId;
     private AnaGeneType root;
     private MethodAccessKind scope;
     private int ancestor;
@@ -26,6 +27,14 @@ public final class TypeInfo {
 
     public void setType(String _type) {
         type = _type;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String _typeId) {
+        typeId = _typeId;
     }
 
     public MethodAccessKind getScope() {
