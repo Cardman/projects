@@ -208,9 +208,7 @@ public final class StandardInstancingOperation extends
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
-            boolean vararg_ = id_.getConstraints().isVararg();
-            StringList params_ = id_.getConstraints().getParametersTypes();
-            feed_ = new ConstructorId(idClass_, params_, vararg_);
+            feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
