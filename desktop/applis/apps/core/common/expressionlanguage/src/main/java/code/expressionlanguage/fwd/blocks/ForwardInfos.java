@@ -92,7 +92,7 @@ public final class ForwardInfos {
             for (Block b: ClassesUtil.getDirectChildren(fileBlock_)) {
                 if (b instanceof OperatorBlock) {
                     OperatorBlock r_ = (OperatorBlock) b;
-                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim());
+                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim(), r_.getImportedParametersTypes(), r_.getParametersRef());
                     e_.setFile(exFile_);
                     _forwards.getMapOperators().addEntry(r_,e_);
                     coverage_.putOperator(r_);
@@ -146,6 +146,17 @@ public final class ForwardInfos {
                 boolean instEltCount_ = false;
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     RootBlock superBl_ = s.getRootBlock();
+                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
+                        if (b instanceof OverridableBlock) {
+                            OverridableBlock m =(OverridableBlock)b;
+                            if (!m.getId().isRef()) {
+                                continue;
+                            }
+                            if (m.isAbstractMethod()) {
+                                instEltCount_ = true;
+                            }
+                        }
+                    }
                     for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
                         if (b instanceof OverridableBlock) {
                             OverridableBlock m =(OverridableBlock)b;
@@ -222,7 +233,7 @@ public final class ForwardInfos {
         for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
             ExecOperatorBlock value_ = e.getValue();
-            value_.buildImportedTypes(o.getImportedReturnType(), o.getImportedParametersTypes());
+            value_.setImportedReturnType(o.getImportedReturnType());
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
@@ -438,7 +449,7 @@ public final class ForwardInfos {
                     mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
                 }
                 if (b instanceof ConstructorBlock) {
-                    ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim());
+                    ExecConstructorBlock val_ = new ExecConstructorBlock(((ConstructorBlock)b).getName(), ((ConstructorBlock)b).isVarargs(), ((ConstructorBlock)b).getAccess(), ((ConstructorBlock)b).getParametersNames(), b.getOffset().getOffsetTrim(), ((ConstructorBlock)b).getImportedParametersTypes(), ((ConstructorBlock)b).getParametersRef());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
@@ -448,7 +459,7 @@ public final class ForwardInfos {
                 }
                 if (b instanceof OverridableBlock) {
                     MethodKind kind_ = ((OverridableBlock) b).getKind();
-                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim());
+                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ((OverridableBlock)b).getImportedParametersTypes(), ((OverridableBlock)b).getParametersRef());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
@@ -531,10 +542,10 @@ public final class ForwardInfos {
         ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         AnonymousFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.getMapAnonLambda().size());
-        ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()));
+        ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), block_.getImportedParametersTypes(), block_.getParametersRef());
         fct_.setParentType(declaring_);
         _forwards.getMapAnonLambda().addEntry(block_,fct_);
-        fct_.buildImportedTypes(block_.getImportedReturnType(), block_.getImportedParametersTypes());
+        fct_.setImportedReturnType(block_.getImportedReturnType());
         return fct_;
     }
 
@@ -1067,6 +1078,10 @@ public final class ForwardInfos {
             NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
             return new ExecNamedArgumentOperation(new ExecOperationContent(f_.getContent()), new ExecNamedContent(f_.getNamedContent()));
         }
+        if (_anaNode instanceof WrappOperation) {
+            WrappOperation f_ = (WrappOperation) _anaNode;
+            return new ExecWrappOperation(new ExecOperationContent(f_.getContent()));
+        }
         if (_anaNode instanceof FirstOptOperation) {
             FirstOptOperation f_ = (FirstOptOperation) _anaNode;
             return new ExecFirstOptOperation(new ExecOperationContent(f_.getContent()), f_.getOffset());
@@ -1173,6 +1188,10 @@ public final class ForwardInfos {
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
             return new ExecStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+        }
+        if (_anaNode instanceof RefParamOperation) {
+            RefParamOperation m_ = (RefParamOperation) _anaNode;
+            return new ExecRefParamOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;
@@ -1360,14 +1379,14 @@ public final class ForwardInfos {
 
     private static void validateIds(Members _mem) {
         for (EntryCust<OverridableBlock,ExecOverridableBlock> e: _mem.getAllMethods().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
+            e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
             String returnTypeGet_ = e.getKey().getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {
                 e.getValue().setImportedReturnType(returnTypeGet_);
             }
         }
         for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: _mem.getAllCtors().entryList()) {
-            e.getValue().buildImportedTypes(e.getKey().getImportedReturnType(), e.getKey().getImportedParametersTypes());
+            e.getValue().setImportedReturnType(e.getKey().getImportedReturnType());
         }
         for (EntryCust<AnnotationMethodBlock,ExecAnnotationMethodBlock> e: _mem.getAllAnnotMethods().entryList()) {
             AnnotationMethodBlock key1_ = e.getKey();

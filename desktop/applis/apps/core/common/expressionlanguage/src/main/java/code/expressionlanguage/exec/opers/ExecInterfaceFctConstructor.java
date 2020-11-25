@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -57,7 +58,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         return Argument.createVoid();
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
+    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
         String lastType_ = ExecTemplates.quickFormat(getPair().getType(),_superClass, getLastType());
         return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }

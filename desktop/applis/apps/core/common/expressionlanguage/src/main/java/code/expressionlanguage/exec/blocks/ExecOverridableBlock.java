@@ -5,6 +5,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -13,8 +14,8 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodModifier methodModifier;
 
     private final ExecMethodKind kind;
-    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
+    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
         methodModifier = _modifier;
         kind = _execKind;
     }
@@ -29,15 +30,18 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
+        BooleanList rTypes_ = new BooleanList();
         if (kind == ExecMethodKind.EXPLICIT_CAST || kind == ExecMethodKind.IMPLICIT_CAST
                 ||kind == ExecMethodKind.TRUE_OPERATOR || kind == ExecMethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
+            rTypes_.add(false);
         }
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
+            rTypes_.add(getParametersRef(i));
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
 
     }
 
@@ -48,11 +52,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     @Override
     public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);
-    }
-
-    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
-        setImportedReturnType(_importedReturnType);
-        getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
     public ExecMethodKind getKind() {

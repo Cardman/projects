@@ -1728,6 +1728,12 @@ public final class ElResolver {
                 _out.setNextIndex(i_);
                 return;
             }
+            if (afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT) {
+                _d.getCallings().add(afterSuper_);
+                i_ = afterSuper_;
+                _out.setNextIndex(i_);
+                return;
+            }
             if (!foundHat_) {
                 _d.setBadOffset(afterSuper_);
                 return;
@@ -1950,6 +1956,7 @@ public final class ElResolver {
                     parse_.getOffestsTypes().add(beginWord_+instrLoc_);
                     parse_.getParametersName().add(word_);
                     parse_.getParametersType().add("");
+                    parse_.getParametersRef().add(false);
                     int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
                     int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
                     InputTypeCreation input_ = new InputTypeCreation();
@@ -1976,6 +1983,7 @@ public final class ElResolver {
                 parse_.getOffestsTypes().add(beginWord_+instrLoc_);
                 parse_.getParametersName().add(word_);
                 parse_.getParametersType().add("");
+                parse_.getParametersRef().add(false);
                 int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
                 int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
                 int k_ = stack(_string, j_, globalType_, _page);

@@ -9,7 +9,9 @@ import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -67,7 +69,8 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         String paramName_ = _conf.formatVarType(_className);
         ExecRootBlock type_ = _pair.getType();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, paramName_, _cache, _arguments, _conf, null, true);
+        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(_pair,paramName_,Argument.createVoid(),_arguments,_conf, MethodAccessKind.STATIC_CALL);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, paramName_, _cache, l_, _conf, null, true);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }

@@ -154,4 +154,11 @@ public final class ExecSettableFieldOperation extends
         getCommonSetting(prev_,_conf,_right);
     }
 
+    public ExecSettableOperationContent getSettableFieldContent() {
+        return settableFieldContent;
+    }
+
+    public ExecRootBlock getRootBlock() {
+        return rootBlock;
+    }
 }

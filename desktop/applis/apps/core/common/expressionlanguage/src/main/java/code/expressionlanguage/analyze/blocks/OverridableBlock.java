@@ -20,10 +20,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.options.KeyWords;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -49,8 +46,8 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset,
-                            OffsetStringInfo _modifier, OffsetsBlock _offset, AnalyzedPageEl _page) {
-        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+                            OffsetStringInfo _modifier, OffsetsBlock _offset, AnalyzedPageEl _page, BooleanList _refParams) {
+        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -102,16 +99,19 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
+        BooleanList rTypes_ = new BooleanList();
         StringList pTypes_ = new StringList();
         if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST
                 ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
+            rTypes_.add(false);
         }
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);
+            rTypes_.add(getParametersRef().get(i));
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
     }
 
     public boolean isStaticMethod() {

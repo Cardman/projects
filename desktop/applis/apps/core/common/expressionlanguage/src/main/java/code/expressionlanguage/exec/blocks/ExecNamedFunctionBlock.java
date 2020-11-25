@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -13,7 +14,8 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private String importedReturnType;
 
-    private StringList importedParametersTypes;
+    private final StringList importedParametersTypes;
+    private final BooleanList parametersRef;
 
     private final StringList parametersNames;
 
@@ -23,13 +25,14 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    ExecNamedFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim) {
+    ExecNamedFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
         super(_offsetTrim);
-        importedParametersTypes = new StringList();
+        importedParametersTypes = _importedParametersTypes;
         name = _name;
         varargs = _varargs;
         access = _access;
         parametersNames = _parametersNames;
+        parametersRef = _parametersRef;
     }
 
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
@@ -40,8 +43,12 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return name;
     }
 
-    public final StringList getParametersNames() {
-        return new StringList(parametersNames);
+    public final boolean getParametersRef(int _index) {
+        return parametersRef.get(_index);
+    }
+
+    public final String getParametersName(int _index) {
+        return parametersNames.get(_index);
     }
 
     public final boolean isVarargs() {
@@ -52,7 +59,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return access;
     }
 
-    public StringList getImportedParametersTypes() {
+    public final StringList getImportedParametersTypes() {
         return importedParametersTypes;
     }
 
@@ -68,4 +75,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         importedReturnType = _importedReturnType;
     }
 
+    public BooleanList getParametersRef() {
+        return parametersRef;
+    }
 }

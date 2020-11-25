@@ -111,4 +111,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
+    public ExecVariableContent getVariableContent() {
+        return variableContent;
+    }
 }

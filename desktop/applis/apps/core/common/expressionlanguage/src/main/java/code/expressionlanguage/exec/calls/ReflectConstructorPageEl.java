@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -89,7 +90,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             ExecTypeFunction pair_ = metaInfo.getPair();
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, args_, "", -1);
+                ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_,res_,previous_,args_,_context, null);
+                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, l_, "", -1);
             }
             if (metaInfo.getStandardType() != null) {
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);

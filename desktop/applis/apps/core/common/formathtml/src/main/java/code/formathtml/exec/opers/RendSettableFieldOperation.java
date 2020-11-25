@@ -123,6 +123,10 @@ public final class RendSettableFieldOperation extends
         getCommonSetting(prev_,_conf,_right, _advStandards, _context);
     }
 
+    public ExecSettableOperationContent getSettableFieldContent() {
+        return settableFieldContent;
+    }
+
     public boolean isFinalField() {
         return settableFieldContent.isFinalField();
     }

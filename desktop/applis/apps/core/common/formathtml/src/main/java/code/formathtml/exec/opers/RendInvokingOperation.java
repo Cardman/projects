@@ -5,6 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -26,26 +28,34 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                                 IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendMethodOperation _meth, String _className, MethodAccessKind _kind) {
         CustList<Argument> arguments_ = getArguments(_nodes, _meth);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, arguments_, _className, _kind);
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.getArguments().addAllElts(arguments_);
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, _className, _kind);
     }
-    public CustList<Argument> fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+    public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<Argument> first_ = argumentList_.getArguments().getArguments();
         CustList<RendDynOperationNode> filter_ = argumentList_.getFilter();
-        return listArguments(filter_, _naturalVararg, _lastType, first_);
+        CustList<Argument> res_ = listArguments(filter_, _naturalVararg, _lastType, first_);
+        first_.clear();
+        first_.addAllElts(res_);
+        return argumentList_.getArguments();
     }
 
     private static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
         RendArgumentList out_ = new RendArgumentList();
-        CustList<Argument> args_ = out_.getArguments();
+        CustList<Argument> args_ = out_.getArguments().getArguments();
+        CustList<AbstractWrapper> wrappers_ = out_.getArguments().getWrappers();
         CustList<RendDynOperationNode> filter_ = out_.getFilter();
         CustList<RendNamedArgumentOperation> named_ = new CustList<RendNamedArgumentOperation>();
         for (RendDynOperationNode c: _children) {
             if (c instanceof RendNamedArgumentOperation) {
-                named_.add((RendNamedArgumentOperation)c);
-                filter_.add(c);
-            } else {
+                if (!(c.getFirstChild() instanceof RendWrappOperation)) {
+                    named_.add((RendNamedArgumentOperation)c);
+                    filter_.add(c);
+                }
+            } else if (!(c instanceof RendWrappOperation)){
                 args_.add(getArgument(_all,c));
                 filter_.add(c);
             }
@@ -62,6 +72,31 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
                 }
             }
             args_.add(getArgument(_all,named_.get(i_)));
+            named_.remove(i_);
+        }
+        for (RendDynOperationNode c: _children) {
+            if (c instanceof RendNamedArgumentOperation) {
+                if (c.getFirstChild() instanceof RendWrappOperation) {
+                    named_.add((RendNamedArgumentOperation)c);
+                }
+            } else if (c instanceof RendWrappOperation){
+                ArgumentsPair pair_ = getArgumentPair(_all, c);
+                wrappers_.add(pair_.getWrapper());
+            }
+        }
+        while (!named_.isEmpty()) {
+            int minIndex_ = named_.first().getIndex();
+            int size_ = named_.size();
+            int i_ = 0;
+            for (int i = 1; i < size_; i++) {
+                int index_ = named_.get(i).getIndex();
+                if (index_ < minIndex_) {
+                    minIndex_ = index_;
+                    i_ = i;
+                }
+            }
+            ArgumentsPair pair_ = getArgumentPair(_all, named_.get(i_).getFirstChild());
+            wrappers_.add(pair_.getWrapper());
             named_.remove(i_);
         }
         return out_;

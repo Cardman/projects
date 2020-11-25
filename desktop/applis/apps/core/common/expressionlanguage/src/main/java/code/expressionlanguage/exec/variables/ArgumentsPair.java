@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 public class ArgumentsPair {
 
     private Argument argument;
+    private AbstractWrapper wrapper;
     private Argument argumentBeforeTest;
     private boolean argumentTest;
     private boolean calcArgumentTest;
@@ -25,6 +26,14 @@ public class ArgumentsPair {
     }
     public void setArgument(Argument _argument) {
         argument = _argument;
+    }
+
+    public AbstractWrapper getWrapper() {
+        return wrapper;
+    }
+
+    public void setWrapper(AbstractWrapper _wrapper) {
+        this.wrapper = _wrapper;
     }
 
     public Argument getArgumentBeforeTest() {

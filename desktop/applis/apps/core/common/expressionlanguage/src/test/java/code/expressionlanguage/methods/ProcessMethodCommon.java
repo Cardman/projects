@@ -112,7 +112,7 @@ public abstract class ProcessMethodCommon {
         int i_ = IndexConstants.FIRST_INDEX;
         for (Argument a : _args) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
-            _p.getParameters().addEntry(_ctor.getParametersNames().get(i_), lv_);
+            _p.getParameters().addEntry(_ctor.getParametersName(i_), lv_);
             i_++;
         }
     }

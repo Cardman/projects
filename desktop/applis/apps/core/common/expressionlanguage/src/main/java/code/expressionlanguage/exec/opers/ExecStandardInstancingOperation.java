@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -50,7 +51,7 @@ public final class ExecStandardInstancingOperation extends
         return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
+    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
         return fectchInstFormattedArgs(_nodes,_className,rootBlock, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg());
     }
 

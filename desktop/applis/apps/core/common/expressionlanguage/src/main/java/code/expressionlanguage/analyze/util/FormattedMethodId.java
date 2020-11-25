@@ -1,4 +1,5 @@
 package code.expressionlanguage.analyze.util;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -7,12 +8,13 @@ public final class FormattedMethodId {
     private final String name;
 
     private final StringList classNames;
-
+    private final BooleanList refParams;
     private final boolean vararg;
 
-    public FormattedMethodId(String _name, StringList _classNames, boolean _vararg) {
+    public FormattedMethodId(String _name, StringList _classNames, BooleanList _refParam, boolean _vararg) {
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
+        refParams = _refParam;
         classNames = new StringList();
         feedParamTypes(_classNames);
     }
@@ -39,6 +41,9 @@ public final class FormattedMethodId {
             return false;
         }
         for (int i = 0; i < len_; i++) {
+            if (refParams.get(i) != _other.refParams.get(i)) {
+                return false;
+            }
             String param_ = classNames.get(i);
             String paramOther_ = _other.classNames.get(i);
             if (!StringUtil.eq(param_,paramOther_)) {

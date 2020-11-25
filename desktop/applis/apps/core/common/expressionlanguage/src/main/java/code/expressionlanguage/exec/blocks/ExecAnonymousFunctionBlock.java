@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -16,8 +17,8 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     private ExecRootBlock parentType;
     private final ExecAnonFctContent anonFctContent;
 
-    public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
+    public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
         methodModifier = _modifier;
         anonFctContent = _anonFctContent;
     }
@@ -32,13 +33,9 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_, isVarargs());
+        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
     }
 
-    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
-        setImportedReturnType(_importedReturnType);
-        getImportedParametersTypes().addAllElts(_importedParametersTypes);
-    }
     public MethodModifier getModifier() {
         return methodModifier;
     }

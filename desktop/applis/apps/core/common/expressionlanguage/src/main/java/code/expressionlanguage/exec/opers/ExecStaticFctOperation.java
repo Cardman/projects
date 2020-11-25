@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -39,7 +40,7 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, classNameFound_), null, staticFctContent.getKind(), "");
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {
+    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {
         String lastType_ = ClassMethodId.formatType(pair.getType(),_classNameFound, staticFctContent.getLastType(), staticFctContent.getKind());
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }

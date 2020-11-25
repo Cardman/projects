@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.DisplayedStrings;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -43,6 +44,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final StringList parametersNames;
 
+    private BooleanList parametersRef;
     private Ints parametersNamesOffset;
 
     private final AccessEnum access;
@@ -68,14 +70,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               StringList _paramTypes, Ints _paramTypesOffset,
                               StringList _paramNames, Ints _paramNamesOffset,
-                              OffsetsBlock _offset) {
+                              OffsetsBlock _offset, BooleanList _refParams) {
         super(_offset);
         importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();
         parametersTypes = new StringList();
         parametersNames = new StringList();
-        varargs = setupParam(_paramTypes,_paramNames);
+        parametersRef = new BooleanList();
+        varargs = setupParam(_paramTypes,_paramNames, _refParams);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         returnType = _retType.getInfo();
@@ -94,9 +97,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         access = AccessEnum.PUBLIC;
         returnType = "";
         parametersNames = new StringList();
+        parametersRef = new BooleanList();
     }
 
-    public boolean setupParam(StringList _paramTypes,StringList _paramNames) {
+    public boolean setupParam(StringList _paramTypes, StringList _paramNames, BooleanList _refParams) {
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
@@ -112,6 +116,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             } else {
                 parametersTypes.add(className_);
             }
+            parametersRef.add(_refParams.get(i_));
             i_++;
         }
         i_ = IndexConstants.FIRST_INDEX;
@@ -191,8 +196,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void setVarargs(StringList _paramTypes, Ints _paramTypesOffset,
                            StringList _paramNames, Ints _paramNamesOffset,
-                           String _retType, int _retTypeOffset) {
-        varargs = setupParam(_paramTypes,_paramNames);
+                           BooleanList _refParams, String _retType, int _retTypeOffset) {
+        varargs = setupParam(_paramTypes,_paramNames, _refParams);
         parametersTypesOffset = _paramTypesOffset;
         parametersNamesOffset = _paramNamesOffset;
         returnType = _retType;
@@ -242,6 +247,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         partOffsetsReturn.addAllElts(_page.getCurrentParts());
         return res_;
     }
+
+    public BooleanList getParametersRef() {
+        return parametersRef;
+    }
+
     public abstract String getSignature(DisplayedStrings _page);
     public String getReturnType() {
         return returnType;

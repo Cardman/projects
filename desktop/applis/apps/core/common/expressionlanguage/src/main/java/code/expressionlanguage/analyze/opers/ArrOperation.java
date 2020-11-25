@@ -149,10 +149,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
                 varargParam_, name_, _page);
-        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),false,
+        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
                 varargParam_, name_, _page);
         boolean found_ = true;

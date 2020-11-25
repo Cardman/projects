@@ -14,6 +14,8 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -40,6 +42,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
+        ExecTemplates.local(null);
+        ExecTemplates.getValue(null);
+        ExecTemplates.trySetArgument(cont_.getContext(),new Argument(),new ArgumentsPair());
     }
 
     @Test

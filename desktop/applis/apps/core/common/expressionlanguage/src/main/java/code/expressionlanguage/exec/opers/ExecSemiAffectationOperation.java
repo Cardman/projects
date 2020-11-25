@@ -87,6 +87,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         if (settable instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
         }
+        if (settable instanceof ExecRefParamOperation) {
+            arg_ = ((ExecRefParamOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
         if (settable instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
         }
@@ -154,6 +157,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         Argument arg_ = null;
         if (_settable instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
+        }
+        if (_settable instanceof ExecRefParamOperation) {
+            arg_ = ((ExecRefParamOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         if (_settable instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);

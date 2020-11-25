@@ -10,8 +10,10 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.FormattedParameters;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentList;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -40,12 +42,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected CustList<Argument> fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
         String lastType_ = ExecTemplates.quickFormat(_rootBlock,_className, _lastType);
         return fectchArgs(_nodes, lastType_, _naturalVararg);
     }
 
-    protected CustList<Argument> fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
         String cl_ = _pr.getClassName(_conf);
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _conf);
@@ -53,23 +55,29 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return fectchArgs(_nodes,lastType_, _naturalVararg);
     }
 
-    protected CustList<Argument> fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<Argument> first_ = argumentList_.getArguments().getArguments();
         CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
-        return listArguments(filter_, _naturalVararg, _lastType, first_);
+        CustList<Argument> res_ = listArguments(filter_, _naturalVararg, _lastType, first_);
+        first_.clear();
+        first_.addAllElts(res_);
+        return argumentList_.getArguments();
     }
     private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
         ArgumentList out_ = new ArgumentList();
-        CustList<Argument> args_ = out_.getArguments();
+        CustList<Argument> args_ = out_.getArguments().getArguments();
+        CustList<AbstractWrapper> wrappers_ = out_.getArguments().getWrappers();
         CustList<ExecOperationNode> filter_ = out_.getFilter();
         CustList<ExecNamedArgumentOperation> named_ = new CustList<ExecNamedArgumentOperation>();
         for (ExecOperationNode c: _children) {
             if (c instanceof ExecNamedArgumentOperation) {
-                named_.add((ExecNamedArgumentOperation)c);
-                filter_.add(c);
-            } else {
+                if (!(c.getFirstChild() instanceof ExecWrappOperation)) {
+                    named_.add((ExecNamedArgumentOperation)c);
+                    filter_.add(c);
+                }
+            } else if (!(c instanceof ExecWrappOperation)){
                 args_.add(getArgument(_all,c));
                 filter_.add(c);
             }
@@ -86,6 +94,31 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
             args_.add(getArgument(_all,named_.get(i_)));
+            named_.remove(i_);
+        }
+        for (ExecOperationNode c: _children) {
+            if (c instanceof ExecNamedArgumentOperation) {
+                if (c.getFirstChild() instanceof ExecWrappOperation) {
+                    named_.add((ExecNamedArgumentOperation)c);
+                }
+            } else if (c instanceof ExecWrappOperation){
+                ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_all, c);
+                wrappers_.add(pair_.getWrapper());
+            }
+        }
+        while (!named_.isEmpty()) {
+            int minIndex_ = named_.first().getIndex();
+            int size_ = named_.size();
+            int i_ = 0;
+            for (int i = 1; i < size_; i++) {
+                int index_ = named_.get(i).getIndex();
+                if (index_ < minIndex_) {
+                    minIndex_ = index_;
+                    i_ = i;
+                }
+            }
+            ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_all, named_.get(i_).getFirstChild());
+            wrappers_.add(pair_.getWrapper());
             named_.remove(i_);
         }
         return out_;
@@ -140,7 +173,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static Argument instancePrepareCust(ContextEl _conf, String _className, ExecTypeFunction _pair,
-                                               Argument _previous, CustList<Argument> _arguments, String _fieldName,
+                                               Argument _previous, ArgumentListCall _arguments, String _fieldName,
                                                int _blockIndex) {
         LgNames stds_ = _conf.getStandards();
         ExecRootBlock type_ = _pair.getType();
@@ -230,7 +263,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
 
-    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, CustList<Argument> _firstArgs, Argument _right, MethodAccessKind _kind, String _name) {
+    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, String _name) {
         ExecRootBlock type_ = _rootBlock.getType();
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         if (!(fct_ instanceof ExecOverridableBlock)&&!(fct_ instanceof ExecAnonymousFunctionBlock)) {
@@ -244,10 +277,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             //static enum methods
             LgNames stds_ = _cont.getStandards();
-            if (_firstArgs.size() != 1) {
+            if (_firstArgs.getArguments().size() != 1) {
                 return tryGetEnumValues(_exit,_cont,type_,  ClassCategory.ENUM);
             }
-            Argument arg_ = _firstArgs.first();
+            Argument arg_ = _firstArgs.getArguments().first();
             Struct ex_ = ExecTemplates.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), arg_, _cont);
             if (ex_ != null) {
                 _cont.setCallingState(new CustomFoundExc(ex_));
@@ -272,7 +305,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             ExecOverridableBlock gene_ = (ExecOverridableBlock) fct_;
             if (gene_.isAbstractMethod()) {
                 Argument fctInst_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
-                return prepareCallDyn(fctInst_, _firstArgs, _cont);
+                return prepareCallDyn(fctInst_, _firstArgs.getArguments(), _cont);
             }
         }
         if (_kind == MethodAccessKind.STATIC_CALL) {
@@ -290,16 +323,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                                 IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecMethodOperation _meth, String _className, MethodAccessKind _kind) {
         CustList<Argument> arguments_ = getArguments(_nodes, _meth);
-        checkParametersOperators(_exit, _conf, _named, arguments_, _className, _kind);
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.getArguments().addAllElts(arguments_);
+        checkParametersOperators(_exit, _conf, _named, l_, _className, _kind);
     }
     public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                                CustList<Argument> _firstArgs, String _className, MethodAccessKind _kind) {
+                                                ArgumentListCall _firstArgs, String _className, MethodAccessKind _kind) {
         String classNameFound_ = _className;
         classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, _kind);
         checkParametersOperatorsFormatted(_exit, _conf, _named, _firstArgs, classNameFound_, _kind);
     }
 
-    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, CustList<Argument> _firstArgs, String _classNameFound, MethodAccessKind _kind) {
+    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, String _classNameFound, MethodAccessKind _kind) {
         if (_exit.hasToExit(_classNameFound)) {
             return;
         }
@@ -308,14 +343,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
                                             ExecTypeFunction _named,
-                                            CustList<Argument> _firstArgs,
+                                            ArgumentListCall _firstArgs,
                                             InstancingStep _kindCall) {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
         checkParameters(_conf, _classNameFound, _named, arg_,null, _firstArgs,CallPrepareState.CTOR, _kindCall,null, MethodAccessKind.INSTANCE);
     }
 
     public static FormattedParameters checkParameters(ContextEl _conf, String _classNameFound, ExecTypeFunction _methodId,
-                                                      Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
+                                                      Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
                                                       CallPrepareState _state,
                                                       InstancingStep _kindCall, Argument _right, MethodAccessKind _kind) {
         ExecRootBlock type_ = _methodId.getType();

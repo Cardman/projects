@@ -20,6 +20,13 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
+        if (getFirstChild() instanceof ExecWrappOperation) {
+            ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
+            ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+            pair_.setWrapper(pairCh_.getWrapper());
+            setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes);
+            return;
+        }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument argres_ = getArgument(arguments_, _conf);
         setSimpleArgument(argres_, _conf, _nodes);

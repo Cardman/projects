@@ -654,7 +654,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_page));
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (m_.isVarargs()) {
+                    } else if (m_.isVarargs() || m_.getId().isRef()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -703,7 +703,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_page));
                         _page.addLocError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (m_.isVarargs()) {
+                    } else if (m_.isVarargs() || m_.getId().isRef()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -784,7 +784,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         _page.addLocError(unexp_);
                         m_.addNameErrors(unexp_);
                     }
-                    if (m_.getParametersTypes().isEmpty()) {
+                    if (m_.getParametersTypes().isEmpty()||m_.getId().isRef()) {
                         int where_ = b.getOffset().getOffsetTrim();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());

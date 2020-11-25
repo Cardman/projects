@@ -28,6 +28,6 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
                          Configuration _conf, ContextEl _context) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        return ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), fectchArgs(_nodes,instancingCommonContent.getLastType(),instancingCommonContent.getNaturalVararg()));
+        return ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), fectchArgs(_nodes,instancingCommonContent.getLastType(),instancingCommonContent.getNaturalVararg()).getArguments());
     }
 }

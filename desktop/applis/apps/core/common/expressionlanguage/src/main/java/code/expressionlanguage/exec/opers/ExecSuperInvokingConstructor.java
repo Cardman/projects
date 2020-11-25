@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
@@ -33,7 +34,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         return Argument.createVoid();
     }
 
-    private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
+    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
         String lastType_ = ExecTemplates.quickFormat(getPair().getType(), _superClass, getLastType());
         return fectchArgs(_nodes,lastType_,getNaturalVararg());
     }

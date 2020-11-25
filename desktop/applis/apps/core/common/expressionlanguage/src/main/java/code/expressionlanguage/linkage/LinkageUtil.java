@@ -3039,6 +3039,15 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()+varName_.length()));
             }
         }
+        if (_val instanceof RefParamOperation) {
+            String varName_ = ((RefParamOperation) _val).getRealVariableName();
+            int delta_ = ((RefParamOperation) _val).getOff();
+            int id_ = ((RefParamOperation) _val).getRef();
+            String tag_ = "<a href=\"#m" + id_ + "\">";
+            _parts.add(new PartOffset(tag_, delta_ + _sum + _val.getIndexInEl()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,  delta_ + _sum + _val.getIndexInEl() + varName_.length()));
+        }
         if (_val instanceof FinalVariableOperation) {
             String varName_ = ((FinalVariableOperation) _val).getRealVariableName();
             int delta_ = ((FinalVariableOperation) _val).getOff();

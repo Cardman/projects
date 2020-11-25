@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -33,7 +34,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         checkParametersOperators(_conf.getExiting(),_conf, pair, getArgs(_nodes, _conf), staticFctContent.getClassName(), staticFctContent.getKind());
     }
 
-    public CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    public ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
         String lastType_ = ClassMethodId.formatType(pair.getType(),classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());

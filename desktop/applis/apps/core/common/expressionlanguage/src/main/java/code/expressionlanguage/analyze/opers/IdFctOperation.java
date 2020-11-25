@@ -14,6 +14,7 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -158,6 +159,7 @@ public final class IdFctOperation extends LeafOperation {
     }
     public static MethodId resolveArguments(int _from, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
         StringList out_ = new StringList();
+        BooleanList ref_ = new BooleanList();
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = _className.indexOf('(')+1;
@@ -168,6 +170,13 @@ public final class IdFctOperation extends LeafOperation {
             String full_ = _params.get(i);
             int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
             String arg_ = StringExpUtil.removeDottedSpaces(full_);
+            boolean refParam_ = false;
+            if (arg_.startsWith("~")) {
+                arg_ = arg_.substring(1);
+                loc_ += StringUtil.getFirstPrintableCharIndex(arg_)+1;
+                arg_ = arg_.trim();
+                refParam_ = true;
+            }
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
                 if (i + 1 != len_) {
@@ -192,8 +201,9 @@ public final class IdFctOperation extends LeafOperation {
             _partOffsets.addAllElts(_page.getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
+            ref_.add(refParam_);
         }
-        return new MethodId(_static, _name, out_, vararg_ != -1);
+        return new MethodId(_static, _name, out_,ref_, vararg_ != -1);
     }
 
     public ClassMethodIdAncestor getMethod() {

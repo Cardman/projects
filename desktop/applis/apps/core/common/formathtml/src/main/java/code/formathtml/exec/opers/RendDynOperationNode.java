@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
@@ -326,7 +327,9 @@ public abstract class RendDynOperationNode {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException()) {
-            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, args_, _context, null, true);
+            ArgumentListCall l_ = new ArgumentListCall();
+            l_.getArguments().addAllElts(args_);
+            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, null, true);
         }
         if (_context.callsOrException()) {
             return null;

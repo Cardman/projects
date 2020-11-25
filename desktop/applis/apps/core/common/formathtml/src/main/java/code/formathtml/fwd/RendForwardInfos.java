@@ -618,6 +618,10 @@ public final class RendForwardInfos {
             FirstOptOperation f_ = (FirstOptOperation) _anaNode;
             return new RendFirstOptOperation(new ExecOperationContent(f_.getContent()), f_.getOffset());
         }
+        if (_anaNode instanceof WrappOperation) {
+            WrappOperation f_ = (WrappOperation) _anaNode;
+            return new RendWrappOperation(new ExecOperationContent(f_.getContent()));
+        }
         if (_anaNode instanceof StaticAccessOperation) {
             LeafOperation f_ = (LeafOperation) _anaNode;
             return new RendConstLeafOperation(false,new ExecOperationContent(f_.getContent()));

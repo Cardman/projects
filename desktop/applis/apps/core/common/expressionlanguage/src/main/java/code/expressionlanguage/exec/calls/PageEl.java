@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -23,6 +24,9 @@ public abstract class PageEl {
         content.setGlobalArgument(_globalArgument);
     }
 
+    public StringMap<AbstractWrapper> getRefParams() {
+        return content.getRefParams();
+    }
     public StringMap<LocalVariable> getValueVars() {
         return content.getValueVars();
     }

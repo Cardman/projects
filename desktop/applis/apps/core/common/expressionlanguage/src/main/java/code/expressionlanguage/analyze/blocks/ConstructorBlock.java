@@ -27,8 +27,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
-                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar,OffsetsBlock _offset) {
-        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+                            StringList _paramNames, Ints _paramNamesOffset, int _leftPar, OffsetsBlock _offset, BooleanList _refParams) {
+        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         leftPar = _leftPar;
     }
 
@@ -53,7 +53,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_, isVarargs());
+        return new ConstructorId(name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     public void setupInstancingStep(AnalyzedPageEl _page) {

@@ -21,6 +21,13 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
+        if (getFirstChild() instanceof RendWrappOperation) {
+            ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
+            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+            pair_.setWrapper(pairCh_.getWrapper());
+            setQuickNoConvertSimpleArgument(Argument.createVoid(), _nodes,_context);
+            return;
+        }
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument argres_ = getArgument(arguments_, _conf);
         setSimpleArgument(argres_, _conf,_nodes, _context);

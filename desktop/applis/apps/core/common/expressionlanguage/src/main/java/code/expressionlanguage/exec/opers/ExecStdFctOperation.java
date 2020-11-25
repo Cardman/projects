@@ -47,7 +47,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        return fectchArgs(_nodes, stdFctContent.getLastType(), stdFctContent.getNaturalVararg());
+        return fectchArgs(_nodes, stdFctContent.getLastType(), stdFctContent.getNaturalVararg()).getArguments();
     }
 
 }

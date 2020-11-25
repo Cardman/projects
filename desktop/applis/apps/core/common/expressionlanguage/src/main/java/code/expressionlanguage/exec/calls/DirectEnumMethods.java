@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -30,6 +31,8 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
         MethodMetaInfo method_ = getMetaInfo();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), _args, _right, getAccessKind(),getMethodName());
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.getArguments().addAllElts(_args);
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), l_, _right, getAccessKind(),getMethodName());
     }
 }

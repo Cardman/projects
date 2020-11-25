@@ -5,19 +5,16 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,ExecReturnableWithSignature {
 
-    public ExecOperatorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
+    public ExecOperatorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
     }
 
-    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
-        setImportedReturnType(_importedReturnType);
-        getImportedParametersTypes().addAllElts(_importedParametersTypes);
-    }
     @Override
     public MethodId getId() {
         String name_ = getName();
@@ -28,7 +25,7 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
+        return new MethodId(MethodAccessKind.STATIC, name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     @Override

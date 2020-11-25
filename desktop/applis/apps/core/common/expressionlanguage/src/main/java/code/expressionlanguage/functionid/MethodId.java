@@ -7,6 +7,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.DisplayedStrings;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -23,6 +24,7 @@ public final class MethodId implements Identifiable {
 
     private final String name;
 
+    private final BooleanList refParams;
     private final StringList classNames;
 
     private final boolean vararg;
@@ -35,34 +37,55 @@ public final class MethodId implements Identifiable {
         kind = _staticMethod;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
+        refParams = new BooleanList();
         classNames = new StringList();
         feedParamTypes(_classNames);
+    }
+
+    public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames, BooleanList _refParam, boolean _vararg) {
+        kind = _staticMethod;
+        vararg = _vararg;
+        name = StringUtil.nullToEmpty(_name);
+        refParams = new BooleanList();
+        classNames = new StringList();
+        feedParamTypes(_classNames,_refParam);
     }
 
     private void feedParamTypes(StringList _classNames) {
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
+            refParams.add(false);
+        }
+    }
+
+    private void feedParamTypes(StringList _classNames, BooleanList _refParams) {
+        int min_ = Math.min(_classNames.size(),_refParams.size());
+        for (String s: _classNames.left(min_)) {
+            classNames.add(StringUtil.nullToEmpty(s));
+        }
+        for (boolean s: _refParams.left(min_)) {
+            refParams.add(s);
         }
     }
 
     public static FormattedMethodId to(MethodId _id) {
-        return new FormattedMethodId(_id.name, _id.classNames, _id.vararg);
+        return new FormattedMethodId(_id.name, _id.classNames,_id.refParams, _id.vararg);
     }
 
     public static ConstructorId to(String _access,MethodId _id) {
-        return new ConstructorId(_access,_id.classNames, _id.vararg);
+        return new ConstructorId(_access,_id.classNames,_id.refParams, _id.vararg);
     }
 
     public static MethodId to(StringList _params,MethodId _id) {
-        return new MethodId(_id.kind,_id.name, _params, _id.vararg);
+        return new MethodId(_id.kind,_id.name, _params,_id.refParams, _id.vararg);
     }
 
     public static MethodId to(MethodAccessKind _access, StringList _params,MethodId _id) {
-        return new MethodId(_access,_id.name, _params, _id.vararg);
+        return new MethodId(_access,_id.name, _params,_id.refParams, _id.vararg);
     }
 
     public static MethodId to(MethodAccessKind _access, String _name,MethodId _id) {
-        return new MethodId(_access,_name, _id.classNames, _id.vararg);
+        return new MethodId(_access,_name, _id.classNames,_id.refParams, _id.vararg);
     }
 
     public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {
@@ -116,9 +139,26 @@ public final class MethodId implements Identifiable {
         if (vararg) {
             suf_ = VARARG_DOTS;
         }
-        return StringUtil.concat(pref_,name,LEFT, StringUtil.join(classNames, SEP_TYPE),suf_,RIGHT);
+        StringList cls_ = new StringList();
+        int m_ = Math.min(classNames.size(),refParams.size());
+        for (int i = 0; i < m_; i++) {
+            String s_ = "";
+            if (refParams.get(i)) {
+                s_ = "~";
+            }
+            cls_.add(StringUtil.concat(s_,classNames.get(i)));
+        }
+        return StringUtil.concat(pref_,name,LEFT, StringUtil.join(cls_, SEP_TYPE),suf_,RIGHT);
     }
 
+    public boolean isRef() {
+        for (boolean r: refParams) {
+            if (r) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean eq(MethodId _obj) {
         if (!StringUtil.quickEq(_obj.name, name)) {
             return false;
@@ -142,22 +182,22 @@ public final class MethodId implements Identifiable {
             String formatted_ = ExecTemplates.reflectFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
-        return new MethodId(kind, name_, pTypes_, isVararg());
+        return new MethodId(kind, name_, pTypes_, refParams,isVararg());
     }
     
     public MethodId quickFormat(ExecRootBlock _root, String _genericClass) {
         StringList pTypes_ = getFormattedTypes(_root,_genericClass);
-        return new MethodId(kind, name, pTypes_, isVararg());
+        return new MethodId(kind, name, pTypes_, refParams,isVararg());
     }
 
     public MethodId quickFormat(AnaGeneType _root, String _genericClass) {
         StringList pTypes_ = getFormattedTypes(_root,_genericClass);
-        return new MethodId(kind, name, pTypes_, isVararg());
+        return new MethodId(kind, name, pTypes_,refParams, isVararg());
     }
 
     public FormattedMethodId quickOverrideFormat(AnaGeneType _root, String _genericClass) {
         StringList pTypes_ = getFormattedTypes(_root,_genericClass);
-        return new FormattedMethodId(name, pTypes_, isVararg());
+        return new FormattedMethodId(name, pTypes_,refParams, isVararg());
     }
 
     private StringList getFormattedTypes(ExecRootBlock _root, String _genericClass) {
@@ -213,7 +253,10 @@ public final class MethodId implements Identifiable {
     public int getParametersTypesLength() {
         return classNames.size();
     }
-
+    @Override
+    public boolean getParametersRef(int _index) {
+        return refParams.get(_index);
+    }
     @Override
     public String getParametersType(int _index) {
         return classNames.get(_index);

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.files;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -14,6 +15,7 @@ public final class ParsedFctHeader {
     private static final char ANNOT = '@';
     private Ints offestsTypes = new Ints();
     private Ints offestsParams = new Ints();
+    private BooleanList parametersRef = new BooleanList();
     private StringList parametersType = new StringList();
     private StringList parametersName = new StringList();
     private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
@@ -27,10 +29,11 @@ public final class ParsedFctHeader {
     public void parse(int _paramOffest, String _info, int _offset, AnalyzedPageEl _parse) {
         KeyWords keyWords_ = _parse.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
-        parse(_paramOffest, _info, _offset, keyWordIntern_);
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        parse(_paramOffest, _info, _offset, keyWordIntern_, keyWordThat_);
     }
 
-    public void parse(int _paramOffest, String _info, int _offset, String _keyWordIntern) {
+    public void parse(int _paramOffest, String _info, int _offset, String _keyWordIntern, String _keyWordThat) {
         String info_ = _info;
         paramOffest = _paramOffest;
         offsetLast = _paramOffest;
@@ -56,6 +59,14 @@ public final class ParsedFctHeader {
             }
             annotationsIndexesParams.add(annotationsIndexesParam_);
             annotationsParams.add(annotationsParam_);
+            if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
+                info_ = info_.substring(_keyWordThat.length());
+                paramOffest += _keyWordThat.length() + StringExpUtil.getOffset(info_);
+                info_ = info_.trim();
+                parametersRef.add(true);
+            } else {
+                parametersRef.add(false);
+            }
             offestsTypes.add(paramOffest+_offset);
             String paramType_ = FileResolver.getFoundType(info_);
             parametersType.add(paramType_.trim());
@@ -144,6 +155,7 @@ public final class ParsedFctHeader {
                 paramType_ = FileResolver.getFoundType(info_);
             }
             parametersType.add(paramType_.trim());
+            parametersRef.add(false);
             String afterParamType_ = info_.substring(paramType_.length());
             info_ = afterParamType_.trim();
             int call_ = info_.indexOf(SEP_CALLING);
@@ -239,5 +251,9 @@ public final class ParsedFctHeader {
 
     public StringList getParametersType() {
         return parametersType;
+    }
+
+    public BooleanList getParametersRef() {
+        return parametersRef;
     }
 }

@@ -808,7 +808,7 @@ public final class FileResolver {
                     boolean ok_ = parseHeader_.isOk();
                     currentParent_ = new OperatorBlock(new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
                             new OffsetStringInfo(symbolIndex_ + _offset, symbol_.toString().trim()), parametersType_,
-                            offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_+_offset, nextIndex_+_offset));
+                            offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_+_offset, nextIndex_+_offset), parseHeader_.getParametersRef());
                     ((NamedFunctionBlock)currentParent_).getAnnotationsParams().addAllElts(annotationsParams_);
                     ((NamedFunctionBlock)currentParent_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
                     ((OperatorBlock)currentParent_).getImports().addAllElts(importedTypes_);
@@ -1805,6 +1805,7 @@ public final class FileResolver {
             info_ = parseHeader_.getInfo();
             Ints offestsTypes_ = parseHeader_.getOffestsTypes();
             Ints offestsParams_ = parseHeader_.getOffestsParams();
+            BooleanList parametersRef_ = parseHeader_.getParametersRef();
             StringList parametersType_ = parseHeader_.getParametersType();
             StringList parametersName_ = parseHeader_.getParametersName();
             CustList<Ints> annotationsIndexesParams_ = parseHeader_.getAnnotationsIndexesParams();
@@ -1821,7 +1822,7 @@ public final class FileResolver {
                         new OffsetStringInfo(typeOffset_+_offset, retType_),
                         new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                         parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                        new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                        new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 ov_.setKind(kind_);
                 _currentParent.getOverridableBlocks().add(ov_);
                 int countFct_ = _currentParent.getCountFct();
@@ -1848,28 +1849,28 @@ public final class FileResolver {
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordTrue())) {
                     kind_ = MethodKind.TRUE_OPERATOR;
                     ov_ = new OverridableBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordExplicit())) {
                     kind_ = MethodKind.EXPLICIT_CAST;
                     ov_ = new OverridableBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordCast())) {
                     kind_ = MethodKind.IMPLICIT_CAST;
                     ov_ = new OverridableBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordThis())) {
                     boolean get_ = !StringUtil.quickEq(retType_, _page.getAliasVoid());
                     if (!get_) {
@@ -1883,7 +1884,7 @@ public final class FileResolver {
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                     ov_.setMatchParamNames(false);
                 } else {
                     if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordToString())
@@ -1898,7 +1899,7 @@ public final class FileResolver {
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
-                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page);
+                            new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                     ov_.setDefinition(info_);
                     ov_.setDefinitionOffset(offsetLast_);
                 }
@@ -1921,7 +1922,7 @@ public final class FileResolver {
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                         new OffsetStringInfo(accessOffest_+_offset, EMPTY_STRING),
                         new OffsetStringInfo(accessOffest_+_offset, EMPTY_STRING), parametersType_, offestsTypes_,
-                        parametersName_, offestsParams_,leftPar_+_offset, new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                        parametersName_, offestsParams_,leftPar_+_offset, new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), parametersRef_);
                 ((ConstructorBlock)br_).setCtorName(ctorName_);
                 int countFct_ = _currentParent.getCountFct();
                 ((ConstructorBlock)br_).setNumberFct(countFct_);

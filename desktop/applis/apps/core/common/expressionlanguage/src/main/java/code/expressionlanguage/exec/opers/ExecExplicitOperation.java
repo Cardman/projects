@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
@@ -63,7 +64,9 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         }
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         ExecRootBlock type_ = _rootBlock.getType();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, _arguments, _conf, null, true);
+        ArgumentListCall l_ = new ArgumentListCall();
+        l_.getArguments().addAllElts(_arguments);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, l_, _conf, null, true);
         if (parameters_.getError() != null) {
             return true;
         }

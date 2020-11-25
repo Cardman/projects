@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -10,8 +11,8 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
 
     private boolean implicitCallSuper;
 
-    public ExecConstructorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
+    public ExecConstructorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
     }
 
     public ConstructorId getId() {
@@ -27,7 +28,7 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new ConstructorId(_name, pTypes_, isVarargs());
+        return new ConstructorId(_name, pTypes_,getParametersRef(), isVarargs());
     }
 
     @Override
@@ -37,11 +38,6 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
 
     public boolean implicitConstr() {
         return implicitCallSuper;
-    }
-
-    public void buildImportedTypes(String _importedReturnType, StringList _importedParametersTypes) {
-        setImportedReturnType(_importedReturnType);
-        getImportedParametersTypes().addAllElts(_importedParametersTypes);
     }
 
     public void setImplicitCallSuper(boolean _implicitCallSuper) {

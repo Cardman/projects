@@ -1,14 +1,14 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 
 public final class RendArgumentList {
-    private final CustList<Argument> arguments = new CustList<Argument>();
+    private final ArgumentListCall arguments = new ArgumentListCall();
     private final CustList<RendDynOperationNode> filter = new CustList<RendDynOperationNode>();
 
-    public CustList<Argument> getArguments() {
+    public ArgumentListCall getArguments() {
         return arguments;
     }
 

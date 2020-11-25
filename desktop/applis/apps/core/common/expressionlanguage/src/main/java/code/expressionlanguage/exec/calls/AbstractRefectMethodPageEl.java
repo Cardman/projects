@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -140,7 +141,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,pair, _instance,metaInfo.getCache(), _args, _right,accessKind, methodName);
+        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair,_className,_instance,_args,_context, accessKind);
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,pair, _instance,metaInfo.getCache(), l_, _right,accessKind, methodName);
     }
 
     MethodMetaInfo getMetaInfo() {

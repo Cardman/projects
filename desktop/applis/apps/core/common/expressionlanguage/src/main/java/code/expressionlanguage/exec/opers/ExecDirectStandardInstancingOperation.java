@@ -32,7 +32,7 @@ public final class ExecDirectStandardInstancingOperation extends
     }
 
     private CustList<Argument> getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
-        return fectchArgs(_nodes, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg());
+        return fectchArgs(_nodes, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg()).getArguments();
     }
 
 }

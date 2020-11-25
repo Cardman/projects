@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -24,7 +25,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
 
     private CustList<ExecOperationNode> opValue = new CustList<ExecOperationNode>();
     public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim);
+        super(_name, _varargs, _access, _parametersNames, _offsetTrim, new StringList(), new BooleanList());
         defaultValueOffset = _defaultValueOffset;
     }
 

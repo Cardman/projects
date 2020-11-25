@@ -14,12 +14,11 @@ import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -416,7 +415,7 @@ public final class ExecTemplates {
     }
 
     public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
-                                                  Argument _previous, Cache _cache, CustList<Argument> _firstArgs,
+                                                  Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
                                                   Argument _right, MethodAccessKind _kind) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
@@ -447,7 +446,7 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
         Parameters ex_ = okArgsEx(_rootBlock,_id, _classNameFound,_cache, _firstArgs, _conf, _right, _hasFormat);
         if (ex_.getError() != null) {
             _conf.setCallingState(new CustomFoundExc(ex_.getError()));
@@ -506,7 +505,7 @@ public final class ExecTemplates {
         }
         return null;
     }
-    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
+    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
         Parameters p_ = new Parameters();
         if (_hasFormat && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
@@ -523,27 +522,35 @@ public final class ExecTemplates {
                 return p_;
             }
         }
+        CustList<Argument> args_ = _firstArgs.getArguments();
+        CustList<AbstractWrapper> wrappers_ = _firstArgs.getWrappers();
         if (_id == null) {
-            if (_firstArgs.size() != 0) {
+            if (wrappers_.size()+args_.size() != 0) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                StringBuilder mess_ = countDiff(_firstArgs.size(), 0);
+                StringBuilder mess_ = countDiff(wrappers_.size()+args_.size(), 0);
                 p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
                 return p_;
             }
             return p_;
         }
-        StringList params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, _hasFormat);
-        if (_firstArgs.size() != params_.size()) {
-            LgNames stds_ = _conf.getStandards();
-            String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-            StringBuilder mess_ = countDiff(_firstArgs.size(), params_.size());
-            p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
-            return p_;
+        ParametersTypes params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, _hasFormat);
+        for (Sizes s: new CustList<Sizes>(
+                new Sizes(args_.size(), params_.getTypes().size()),
+                new Sizes(wrappers_.size(), params_.getTypesRef().size())
+                )) {
+            if (s.getArg() != s.getParam()) {
+                LgNames stds_ = _conf.getStandards();
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                StringBuilder mess_ = countDiff(s.getArg(), s.getParam());
+                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
+                return p_;
+            }
+
         }
         int i_ = IndexConstants.FIRST_INDEX;
-        for (Argument a: _firstArgs) {
-            String param_ = params_.get(i_);
+        for (Argument a: args_) {
+            String param_ = params_.getTypes().get(i_);
             Struct ex_ = checkObjectEx(param_, a, _conf);
             if (ex_ != null) {
                 p_.setError(ex_);
@@ -551,20 +558,36 @@ public final class ExecTemplates {
             }
             Struct struct_ = a.getStruct();
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
-            p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
+            p_.getParameters().addEntry(params_.getNames().get(i_),lv_);
             i_++;
         }
-        if (_id.isVarargs()) {
-            Struct str_ = _firstArgs.last().getStruct();
-            if (str_ instanceof ArrayStruct) {
-                ArrayStruct arr_ = (ArrayStruct) str_;
-                for (Struct s: arr_.list()) {
-                    ErrorType state_ = checkElement(arr_, s, _conf);
-                    if (state_ != ErrorType.NOTHING) {
-                        Struct struct_ = processError(_conf, arr_, s, state_);
-                        p_.setError(struct_);
-                        return p_;
-                    }
+        i_ = IndexConstants.FIRST_INDEX;
+        for (AbstractWrapper w: wrappers_) {
+            String param_ = params_.getTypesRef().get(i_);
+            Struct value_ = getValue(w);
+            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf);
+            if (ex_ != null) {
+                p_.setError(ex_);
+                return p_;
+            }
+            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),w);
+            i_++;
+        }
+        Struct str_ = null;
+        if (params_.isVararg()) {
+            str_ = args_.last().getStruct();
+        }
+        if (params_.isVarargRef()) {
+            str_ = getValue(wrappers_.last());
+        }
+        if (str_ instanceof ArrayStruct) {
+            ArrayStruct arr_ = (ArrayStruct) str_;
+            for (Struct s: arr_.list()) {
+                ErrorType state_ = checkElement(arr_, s, _conf);
+                if (state_ != ErrorType.NOTHING) {
+                    Struct struct_ = processError(_conf, arr_, s, state_);
+                    p_.setError(struct_);
+                    return p_;
                 }
             }
         }
@@ -583,6 +606,12 @@ public final class ExecTemplates {
         return p_;
     }
 
+    public static Struct getValue(AbstractWrapper _w) {
+        if (_w == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return Argument.getNull(_w.getValue());
+    }
     public static StringBuilder countDiff(int _argsCount, int _paramsCount) {
         StringBuilder mess_ = new StringBuilder();
         mess_.append(_argsCount);
@@ -591,8 +620,13 @@ public final class ExecTemplates {
         return mess_;
     }
 
-    private static StringList fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, boolean _hasFormat) {
+    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, boolean _hasFormat) {
+        ParametersTypes parametersTypes_ = new ParametersTypes();
         StringList params_ = new StringList();
+        StringList names_ = new StringList();
+        StringList paramsRef_ = new StringList();
+        StringList namesRef_ = new StringList();
+        boolean lastRef_ = false;
         if (_hasFormat) {
             int i_ = 0;
             for (String c: _id.getImportedParametersTypes()) {
@@ -601,7 +635,16 @@ public final class ExecTemplates {
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
-                params_.add(c_);
+                if (_id.getParametersRef(i_)) {
+                    if (i_ + 1 == _id.getImportedParametersTypes().size()) {
+                        lastRef_ = true;
+                    }
+                    paramsRef_.add(c_);
+                    namesRef_.add(_id.getParametersName(i_));
+                } else {
+                    params_.add(c_);
+                    names_.add(_id.getParametersName(i_));
+                }
                 i_++;
             }
         } else {
@@ -611,28 +654,89 @@ public final class ExecTemplates {
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
-                params_.add(c_);
+                if (_id.getParametersRef(i_)) {
+                    if (i_ + 1 == _id.getImportedParametersTypes().size()) {
+                        lastRef_ = true;
+                    }
+                    paramsRef_.add(c_);
+                    namesRef_.add(_id.getParametersName(i_));
+                } else {
+                    params_.add(c_);
+                    names_.add(_id.getParametersName(i_));
+                }
                 i_++;
             }
         }
-        return params_;
+        parametersTypes_.setNames(names_);
+        parametersTypes_.setTypes(params_);
+        parametersTypes_.setNamesRef(namesRef_);
+        parametersTypes_.setTypesRef(paramsRef_);
+        if (_id.isVarargs()) {
+            if (lastRef_) {
+                parametersTypes_.setVarargRef(true);
+            } else {
+                parametersTypes_.setVararg(true);
+            }
+        }
+        return parametersTypes_;
     }
 
+    public static ArgumentListCall wrapAndCallDirect(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, MethodAccessKind _kind) {
+        ArgumentListCall out_ = new ArgumentListCall();
+        String classFormat_ = _formatted;
+        if (_kind != null && !_previous.isNull()) {
+            classFormat_ = getQuickFullTypeByBases(_previous.getStruct().getClassName(_conf), classFormat_, _conf);
+        }
+        if (_kind != MethodAccessKind.STATIC &&!correctNbParameters(classFormat_,_conf)) {
+            return out_;
+        }
+        ExecRootBlock type_ = _pair.getType();
+        ExecNamedFunctionBlock fct_ = _pair.getFct();
+        if (fct_ == null) {
+            return out_;
+        }
+        int i_ = 0;
+        for (String c: fct_.getImportedParametersTypes()) {
+            String c_ = c;
+            c_ = quickFormat(type_,classFormat_, c_);
+            if (i_ + 1 == fct_.getImportedParametersTypes().size() && fct_.isVarargs()) {
+                c_ = StringExpUtil.getPrettyArrayType(c_);
+            }
+            if (fct_.getParametersRef(i_)) {
+                VariableWrapper v_ = new VariableWrapper();
+                Struct struct_ = _firstArgs.get(i_).getStruct();
+                LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
+                local_ = local(local_);
+                v_.setLocal(local_);
+                out_.getWrappers().add(v_);
+            } else {
+                out_.getArguments().add(_firstArgs.get(i_));
+            }
+            i_++;
+        }
+        return out_;
+    }
+    public static LocalVariable local(LocalVariable _loc) {
+        if (_loc != null) {
+            return _loc;
+        }
+        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,"");
+    }
     public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
         Parameters p_ = new Parameters();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
         int i_ = IndexConstants.FIRST_INDEX;
-        StringList params_ = fetchParamTypes(type_, fct_, _formatted, true);
+        ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted, true);
         for (Argument a: _firstArgs) {
-            String param_ = params_.get(i_);
+            String param_ = params_.getTypes().get(i_);
             Struct ex_ = checkObjectEx(param_, a, _conf);
             if (ex_ != null) {
                 _conf.setCallingState(new CustomFoundExc(ex_));
                 return p_;
             }
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), param_);
-            p_.getParameters().addEntry(fct_.getParametersNames().get(i_),lv_);
+            p_.getParameters().addEntry(params_.getNames().get(i_),lv_);
             i_++;
         }
         _conf.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
@@ -1215,7 +1319,7 @@ public final class ExecTemplates {
         return checkSet(_context,locVar_,_value);
     }
 
-    private static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
+    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
         if (!checkQuick(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
@@ -1690,5 +1794,14 @@ public final class ExecTemplates {
             return classBody_.getGenericString();
         }
         return _ctx.getStandards().getCoreNames().getAliasObject();
+    }
+
+    public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair) {
+        AbstractWrapper wrapper_ = _pair.getWrapper();
+        if (wrapper_ == null || _conf.callsOrException()) {
+            return _res;
+        }
+        wrapper_.setValue(_conf, _res);
+        return _res;
     }
 }

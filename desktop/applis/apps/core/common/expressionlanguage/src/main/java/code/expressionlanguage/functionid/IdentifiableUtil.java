@@ -34,6 +34,9 @@ public final class IdentifiableUtil {
             return false;
         }
         for (int i = 0; i < len_; i++) {
+            if (_this.getParametersRef(i) != _other.getParametersRef(i)) {
+                return false;
+            }
             String param_ = _this.getParametersType(i);
             String paramOther_ = _other.getParametersType(i);
             if (!StringUtil.eq(param_,paramOther_)) {

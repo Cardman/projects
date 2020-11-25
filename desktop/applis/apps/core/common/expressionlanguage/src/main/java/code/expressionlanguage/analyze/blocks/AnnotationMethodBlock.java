@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.util.BooleanList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,7 +36,7 @@ public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
         super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName,
                 new StringList(), new Ints(), new StringList(), new Ints(),
-                _offset);
+                _offset, new BooleanList());
         defaultValue = _defaultValue.getInfo();
         defaultValueOffset = _defaultValue.getOffset();
         rightPar = _rightPar;

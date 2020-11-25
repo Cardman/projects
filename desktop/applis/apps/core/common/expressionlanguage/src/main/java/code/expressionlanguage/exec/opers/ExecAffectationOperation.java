@@ -80,6 +80,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (_set instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
         }
+        if (_set instanceof ExecRefParamOperation) {
+            arg_ = ((ExecRefParamOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
         if (_set instanceof ExecSettableFieldOperation) {
             arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right);
         }

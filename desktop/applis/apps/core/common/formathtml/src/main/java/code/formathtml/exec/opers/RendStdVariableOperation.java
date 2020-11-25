@@ -109,4 +109,8 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         ExecTemplates.setValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
     }
+
+    public ExecVariableContent getVariableContent() {
+        return variableContent;
+    }
 }
