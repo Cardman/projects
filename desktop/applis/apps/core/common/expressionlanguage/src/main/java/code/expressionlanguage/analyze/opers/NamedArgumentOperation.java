@@ -38,7 +38,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
         namedContent.setOffset(offset);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ namedContent.getOffset(), _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCall(m_)) {
+        if (isNotChildOfCall(m_) || m_ instanceof CallDynMethodOperation) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

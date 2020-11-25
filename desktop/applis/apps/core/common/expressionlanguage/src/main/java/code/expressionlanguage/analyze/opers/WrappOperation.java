@@ -37,6 +37,18 @@ public final class WrappOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        if (m_ instanceof NamedArgumentOperation && m_.getParent() instanceof CallDynMethodOperation) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordThat());
+            _page.getLocalizer().addError(varg_);
+            addErr(varg_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
         if (getFirstChild() instanceof RefParamOperation) {
             setResultClass(new AnaClassArgumentMatching(getFirstChild().getResultClass().getNames()));
             return;
