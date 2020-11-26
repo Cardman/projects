@@ -14,7 +14,10 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -44,6 +47,7 @@ import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
+import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.NodeContainer;
@@ -234,12 +238,24 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         analyzingDoc_.setConverterCheck(new NativeConverterCheck());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeTestForEachFetch(this));
-        _nav.initInstancesPattern(page_, analyzingDoc_);
+        initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return page_.getMessages();
     }
-
+    public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            OperationsSequence seq_ = new OperationsSequence();
+            seq_.setValue("",0);
+            seq_.setDelimiter(new Delimiters());
+            StandardInstancingOperation root_ = new StandardInstancingOperation(0,0,null,seq_);
+            root_.setConstId(new ConstructorId(info_.getClassName(), new StringList(), false));
+            root_.setClassName(info_.getClassName());
+            info_.setResolvedClassName(info_.getClassName());
+            _anaDoc.getBeansInfos().addEntry(root_,info_);
+        }
+    }
     public void setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx) {
         if (!(_mainBean instanceof BeanStruct)) {

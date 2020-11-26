@@ -2155,7 +2155,7 @@ public abstract class OperationNode {
                 String f_ = t.getType();
                 String cl_ =t.getTypeId();
                 AnaGeneType root_ = t.getRoot();
-                fetchParamClassMethods(_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_, _page);
+                _page.getFieldFilter().fetchParamClassMethods(_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_, _page);
             }
             _methods.add(methods_);
         }
@@ -2287,7 +2287,7 @@ public abstract class OperationNode {
         return _list;
     }
 
-    private static void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
+    public static void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
                                                ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
                                                String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
         String genericString_ = _g.getGenericString();
@@ -2460,6 +2460,10 @@ public abstract class OperationNode {
     private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String ret_ = _importedReturnType;
         ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _page);
+        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, ret_);
+    }
+
+    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, String _ret) {
         ParametersGroup p_ = new ParametersGroup();
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setOriginalReturnType(_importedReturnType);
@@ -2468,7 +2472,7 @@ public abstract class OperationNode {
         mloc_.setClassName(_formattedClass);
         mloc_.setConstraints(_id);
         mloc_.setParameters(p_);
-        mloc_.setReturnType(ret_);
+        mloc_.setReturnType(_ret);
         mloc_.setAncestor(_anc);
         mloc_.format(_keepParams, _page);
         return mloc_;

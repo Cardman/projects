@@ -6,10 +6,15 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.StandardField;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -18,6 +23,13 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
     @Override
     public void tryAddField(FieldInfo _fi, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static, boolean _aff, String _name, String _glClass, StringMap<FieldResult> _ancestors, String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
         OperationNode.addFieldInfo(_root,_fi,_anc,_ancestors,_fi, false);
+    }
+
+    @Override
+    public void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind, ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
+        for (StandardMethod e: ((StandardType) _g).getMethods()) {
+            _methods.add(OperationNode.getMethodInfo(e,false,0, _cl, _page, e.getId(), e.getImportedReturnType(), e.getImportedReturnType()));
+        }
     }
 
     @Override
@@ -30,10 +42,8 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
                 continue;
             }
             String type_ = f.getImportedClassName();
-            boolean final_ = false;
-            boolean static_ = true;
             Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-            return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, static_, final_, a_,-1);
+            return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, true, false, a_,-1);
         }
         return null;
     }

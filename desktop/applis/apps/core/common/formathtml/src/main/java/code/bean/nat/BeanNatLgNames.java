@@ -4,7 +4,11 @@ import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
@@ -15,11 +19,15 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
+import code.formathtml.exec.opers.RendDirectStandardInstancingOperation;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
@@ -37,6 +45,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
+import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.NodeContainer;
@@ -373,10 +382,23 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         analyzingDoc_.setConverterCheck(new NativeConverterCheck());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         page_.setForEachFetch(new NativeForEachFetch(this));
-        _nav.initInstancesPattern(page_, analyzingDoc_);
+        initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
         return page_.getMessages();
+    }
+    public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {
+        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            OperationsSequence seq_ = new OperationsSequence();
+            seq_.setValue("",0);
+            seq_.setDelimiter(new Delimiters());
+            StandardInstancingOperation root_ = new StandardInstancingOperation(0,0,null,seq_);
+            root_.setConstId(new ConstructorId(info_.getClassName(), new StringList(), false));
+            root_.setClassName(info_.getClassName());
+            info_.setResolvedClassName(info_.getClassName());
+            _anaDoc.getBeansInfos().addEntry(root_,info_);
+        }
     }
     public abstract Struct wrapStd(Object _element);
 

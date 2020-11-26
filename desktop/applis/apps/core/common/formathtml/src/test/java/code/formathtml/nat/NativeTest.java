@@ -1253,7 +1253,7 @@ public final class NativeTest {
         analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         _conf.getAnalyzing().setForEachFetch(new NativeForEachFetch(standards_));
-        _nav.initInstancesPattern(_conf.getAnalyzing(), analyzingDoc_);
+        BeanNatLgNames.initInstancesPattern(_conf.getConfiguration(), analyzingDoc_);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
