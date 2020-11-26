@@ -2,8 +2,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -86,23 +84,25 @@ public abstract class RendDynOperationNode {
         return getNextNode(this);
     }
 
-    private void setNextSiblingsArg(Argument _arg, Configuration _cont, ContextEl _context) {
+    private void setNextSiblingsArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _cont, ContextEl _context) {
         if (_context.callsOrException()) {
             return;
         }
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        Argument last_ = Argument.getNullableValue(pair_.getArgument());
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
         if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
-            if (_arg.isNull()) {
+            if (last_.isNull()) {
                 LgNames stds_ = _context.getStandards();
-                String null_;
-                null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
                 _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
                 return;
             }
         }
         if (unwrapObjectNb_ > -1) {
-            _arg.setStruct(NumParsers.unwrapObject(unwrapObjectNb_, _arg.getStruct()));
+            Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
+            pair_.setArgument(arg_);
         }
     }
 
@@ -240,7 +240,7 @@ public abstract class RendDynOperationNode {
 
     public final void setSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context) {
         setQuickConvertSimpleArgument(_argument, _nodes, _context);
-        setNextSiblingsArg(_argument, _conf, _context);
+        setNextSiblingsArg(_nodes,_conf, _context);
     }
 
     protected final void setQuickNoConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context) {
