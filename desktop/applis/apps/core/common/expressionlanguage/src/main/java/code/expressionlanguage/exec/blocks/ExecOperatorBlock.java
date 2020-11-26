@@ -2,20 +2,18 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,ExecReturnableWithSignature {
+public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
     public ExecOperatorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
         super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

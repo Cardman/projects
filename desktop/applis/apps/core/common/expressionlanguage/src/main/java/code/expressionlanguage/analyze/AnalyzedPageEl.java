@@ -49,6 +49,7 @@ public final class AnalyzedPageEl {
 
     private final StringList predefinedInterfacesInitOrder = new StringList();
     private AbstractConstantsCalculator calculator;
+    private AbstractFieldFilter fieldFilter;
     private AbstractFileBuilder fileBuilder;
     private StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
@@ -1206,6 +1207,14 @@ public final class AnalyzedPageEl {
 
     public void setCalculator(AbstractConstantsCalculator _calculator) {
         this.calculator = _calculator;
+    }
+
+    public AbstractFieldFilter getFieldFilter() {
+        return fieldFilter;
+    }
+
+    public void setFieldFilter(AbstractFieldFilter _fieldFilter) {
+        this.fieldFilter = _fieldFilter;
     }
 
     public AbstractFileBuilder getFileBuilder() {

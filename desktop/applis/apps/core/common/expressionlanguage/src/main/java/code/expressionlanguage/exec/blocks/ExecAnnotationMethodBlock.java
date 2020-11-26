@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -19,7 +18,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
-        GeneCustModifierMethod, WithNotEmptyEl {
+        WithNotEmptyEl {
 
     private int defaultValueOffset;
 
@@ -40,7 +39,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         return arg_.getStruct();
     }
 
-    @Override
     public MethodId getId() {
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }

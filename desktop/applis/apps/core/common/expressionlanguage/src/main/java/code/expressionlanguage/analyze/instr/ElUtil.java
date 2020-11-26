@@ -466,11 +466,11 @@ public final class ElUtil {
     public static boolean checkFinalFieldReadOnly(SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, AnalyzedPageEl _page) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_page);
         ClassField cl_ = _cst.getFieldIdReadOnly();
-        FieldInfo meta_ = ContextUtil.getFieldInfo(cl_, _page);
+        String fieldName_ = cl_.getFieldName();
+        FieldInfo meta_ = _page.getFieldFilter().getFieldInfo(_cst.getFieldType(), fieldName_);
         if (meta_ == null) {
             return false;
         }
-        String fieldName_ = cl_.getFieldName();
         return meta_.isFinalField() && checkFinalReadOnly(_cst, _ass, fromCurClass_, fieldName_, meta_, _page);
     }
     private static boolean checkFinalReadOnly(SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta, AnalyzedPageEl _page) {

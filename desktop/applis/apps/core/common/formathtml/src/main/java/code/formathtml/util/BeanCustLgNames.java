@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
+import code.formathtml.analyze.DefaultReducingOperations;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.AdvancedSetOffset;
 import code.formathtml.exec.RenderExpUtil;
@@ -407,6 +408,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setReducingOperations(new DefaultReducingOperations());
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc_.setConverterCheck(new DefaultConverterCheck(getContent().getPrimTypes().getPrimitiveTypes(), getContent().getCharSeq().getAliasString()));

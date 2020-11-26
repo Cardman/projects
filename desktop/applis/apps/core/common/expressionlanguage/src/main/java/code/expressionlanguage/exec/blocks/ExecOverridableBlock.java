@@ -2,14 +2,13 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
+public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
     private final MethodModifier methodModifier;
 
@@ -24,7 +23,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         return methodModifier == MethodModifier.ABSTRACT;
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

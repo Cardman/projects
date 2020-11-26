@@ -2,12 +2,14 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.StringList;
 
-public interface InfoBlock extends GeneField, AnnotableBlock {
+public interface InfoBlock extends AnnotableBlock {
+
+    boolean isStaticField();
+    StringList getFieldName();
     int getFieldNameOffset();
     int getFieldNumber();
     void setFieldNumber(int _nb);

@@ -1,9 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.analyze.AbstractConstantsCalculator;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -58,7 +55,7 @@ public final class InitializationLgNames {
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
@@ -72,7 +69,7 @@ public final class InitializationLgNames {
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
@@ -92,7 +89,7 @@ public final class InitializationLgNames {
         int tabWidth_ = 4;
         ContextEl out_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
@@ -449,7 +446,7 @@ public final class InitializationLgNames {
         }
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_);
+        ContextFactory.validatedStds(a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_, new DefaultFieldFilter());
         _undefinedLgNames.build();
         ValidatorStandard.setupOverrides(page_);
         return new AnalyzedTestContext(contextEl_,page_, new Forwards());

@@ -640,13 +640,9 @@ public final class ExecutingUtil {
         infosFalses_ = new CustList<MethodMetaInfo>();
         for (StandardField f: _type.getFields()) {
             String ret_ = f.getImportedClassName();
-            boolean staticElement_ = f.isStaticField();
-            boolean finalElement_ = f.isFinalField();
             String decl_ = _type.getFullName();
-            for (String g: f.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, AccessEnum.PUBLIC, decl_);
-                infosFields_.add(met_);
-            }
+            FieldMetaInfo met_ = new FieldMetaInfo(k_, f.getFieldName(), ret_, true, true, AccessEnum.PUBLIC, decl_);
+            infosFields_.add(met_);
         }
         for (StandardMethod m: _type.getMethods()) {
             MethodId id_ = m.getId();

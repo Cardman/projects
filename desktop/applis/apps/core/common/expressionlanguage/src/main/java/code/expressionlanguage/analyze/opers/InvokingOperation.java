@@ -8,13 +8,13 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -139,7 +139,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page, AnaGeneType _anaGeneType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
         if (_anaGeneType instanceof StandardType) {
-            for (GeneConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
+            for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
                 ConstructorId ctor_ = e.getId().copy(base_);
                 ParametersGroup pg_ = new ParametersGroup();
                 ConstructorInfo mloc_ = new ConstructorInfo();
@@ -154,7 +154,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_anaGeneType instanceof RootBlock) {
             for (ConstructorBlock e: ((RootBlock)_anaGeneType).getConstructorBlocks()) {
                 ConstructorId ctor_ = e.getId().copy(base_);
-                if (excludeCust(_anaGeneType, null,-1, e, _page)) {
+                if (excludeCust((RootBlock) _anaGeneType, null,-1, e, _page)) {
                     continue;
                 }
                 ParametersGroup pg_ = new ParametersGroup();

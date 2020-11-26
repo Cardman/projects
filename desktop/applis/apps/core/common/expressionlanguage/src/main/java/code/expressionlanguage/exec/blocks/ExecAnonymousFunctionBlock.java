@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -11,7 +10,7 @@ import code.util.BooleanList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
+public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
     private final MethodModifier methodModifier;
     private ExecRootBlock parentType;
@@ -23,7 +22,6 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
         anonFctContent = _anonFctContent;
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

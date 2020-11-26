@@ -89,9 +89,7 @@ public final class RenderAnalysis {
             preAnalyze(_page, c_);
             c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
-        CustList<ReachMethodOperation> reach_ = ReachOperationUtil.getExecutableNodes(list_);
-        ReachOperationUtil.tryCalculate(_page, reach_);
-        return list_;
+        return _analyzingDoc.getReducingOperations().reduced(list_,_page);
     }
 
     private static void preAnalyze(AnalyzedPageEl _page, OperationNode _c) {

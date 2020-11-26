@@ -1,10 +1,9 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
-public final class StandardConstructor extends StandardNamedFunction implements GeneConstructor {
+public final class StandardConstructor extends StandardNamedFunction {
 
     private static final String DEFAULT_NAME = "";
 
@@ -15,7 +14,6 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs,_paramNames);
     }
 
-    @Override
     public ConstructorId getId() {
         return new ConstructorId("", getImportedParametersTypes(), isVarargs());
     }

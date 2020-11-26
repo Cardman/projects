@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
@@ -30,7 +31,7 @@ public final class InitializationLgNames {
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());

@@ -4,6 +4,7 @@ import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.nat.NativeContextEl;
 import code.bean.nat.NativeConverterCheck;
+import code.bean.nat.NativeReducingOperations;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -38,7 +39,6 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendInvokingOperation;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.fwd.RendForwardInfos;
@@ -229,6 +229,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
+        analyzingDoc_.setReducingOperations(new NativeReducingOperations());
         analyzingDoc_.setInputBuilder(new NatInputBuilder());
         analyzingDoc_.setConverterCheck(new NativeConverterCheck());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
@@ -337,7 +338,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         Options options_ = new Options();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, this, tabWidth_);
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page, new NativeTestFieldFilter());
         return contextEl_;
     }
 

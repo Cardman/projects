@@ -5,11 +5,8 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -239,18 +236,15 @@ public final class ContextUtil {
         }
         return finalField_;
     }
-    public static FieldInfo getFieldInfo(ClassField _classField, AnalyzedPageEl _page) {
-        String fullName_ = _classField.getClassName();
-        String search_ = _classField.getFieldName();
-        AnaGeneType cust_ = _page.getAnaGeneType(fullName_);
-        if (cust_ instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) cust_;
+    public static FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fieldName) {
+        if (_anaGeneType instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _anaGeneType;
             for (Block b: ClassesUtil.getDirectChildren(r_)) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
                 InfoBlock i_ = (InfoBlock) b;
-                int ind_ = StringUtil.indexOf(i_.getFieldName(), search_);
+                int ind_ = StringUtil.indexOf(i_.getFieldName(), _fieldName);
                 if (ind_ < 0) {
                     continue;
                 }
@@ -264,8 +258,8 @@ public final class ContextUtil {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(), r_);
-                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
+                Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
+                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
                 fieldInfo_.setFieldType(r_);
@@ -273,16 +267,16 @@ public final class ContextUtil {
             }
             return null;
         }
-        if (cust_ instanceof StandardType) {
-            for (StandardField f: ((StandardType)cust_).getFields()) {
-                if (!StringUtil.contains(f.getFieldName(), search_)) {
+        if (_anaGeneType instanceof StandardType) {
+            for (StandardField f: ((StandardType) _anaGeneType).getFields()) {
+                if (!StringUtil.quickEq(f.getFieldName(), _fieldName)) {
                     continue;
                 }
                 String type_ = f.getImportedClassName();
-                boolean final_ = f.isFinalField();
-                boolean static_ = f.isStaticField();
+                boolean final_ = true;
+                boolean static_ = true;
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_,-1);
+                return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, static_, final_, a_,-1);
             }
         }
         return null;

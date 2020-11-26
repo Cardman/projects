@@ -694,15 +694,17 @@ public abstract class OperationNode {
                                         boolean _aff,
                                         String _name, String _glClass, StringMap<FieldResult> _ancestors,
                                         String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
-        String fullName_ = _root.getFullName();
-        String genericString_ = _root.getGenericString();
-        String id_ = StringExpUtil.getIdFromAllTypes(fullName_);
-        ClassField candidate_ = new ClassField(id_, _name);
-        FieldInfo fi_ = ContextUtil.getFieldInfo(candidate_, _page);
+        FieldInfo fi_ = _page.getFieldFilter().getFieldInfo(_root, _name);
         if (fi_ == null) {
             return;
         }
-        boolean staticField_ = fi_.isStaticField();
+        _page.getFieldFilter().tryAddField(fi_,_accessFromSuper,_superClass,_anc,_static,_aff,_name,_glClass,_ancestors,_cl,_root,_superTypesBase,_superTypesBaseMap,_page);
+    }
+
+    public static void tryAddField(FieldInfo _fi, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static, boolean _aff, String _name, String _glClass, StringMap<FieldResult> _ancestors, String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
+        String fullName_ = _root.getFullName();
+        String genericString_ = _root.getGenericString();
+        boolean staticField_ = _fi.isStaticField();
         if (_static) {
             if (!staticField_) {
                 return;
@@ -712,7 +714,7 @@ public abstract class OperationNode {
                 return;
             }
         }
-        if (cannotAccess(fullName_,fi_.getAccessed(),_glClass,_superTypesBaseMap, _page)) {
+        if (cannotAccess(fullName_, _fi.getAccessed(),_glClass,_superTypesBaseMap, _page)) {
             return;
         }
         if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
@@ -724,30 +726,36 @@ public abstract class OperationNode {
         } else {
             formatted_ = AnaTemplates.quickFormat(_root,_cl,genericString_);
         }
-        String realType_ = fi_.getType();
-        boolean finalField_ = fi_.isFinalField();
-        int valOffset_ = fi_.getValOffset();
+        String realType_ = _fi.getType();
+        boolean finalField_ = _fi.isFinalField();
+        int valOffset_ = _fi.getValOffset();
         FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _aff, null,valOffset_, _page);
         if (if_ == null) {
             return;
         }
+        if_.setMemberId(_fi.getMemberId());
+        addFieldInfo(_root,_fi, _anc, _ancestors, if_, if_.isStaticField());
+    }
+
+    public static void addFieldInfo(AnaGeneType _root, FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, FieldInfo _if, boolean _staticField) {
+        String fullName_ = _root.getFullName();
         FieldResult res_ = new FieldResult();
-        res_.setFileName(fi_.getFileName());
-        if_.setMemberId(fi_.getMemberId());
-        res_.setMemberId(fi_.getMemberId());
-        res_.setFieldType(fi_.getFieldType());
-        res_.setType(fi_.getType());
-        res_.setValOffset(if_.getValOffset());
-        res_.setClassField(if_.getClassField());
-        res_.setDeclaringClass(if_.getDeclaringClass());
-        res_.setStaticField(if_.isStaticField());
-        res_.setFinalField(if_.isFinalField());
-        res_.setType(if_.getType());
-        res_.setRealType(if_.getRealType());
+        res_.setFileName(_fi.getFileName());
+        res_.setMemberId(_fi.getMemberId());
+        res_.setFieldType(_fi.getFieldType());
+        res_.setType(_fi.getType());
+        res_.setValOffset(_if.getValOffset());
+        res_.setClassField(_if.getClassField());
+        res_.setDeclaringClass(_if.getDeclaringClass());
+        res_.setStaticField(_staticField);
+        res_.setFinalField(_if.isFinalField());
+        res_.setType(_if.getType());
+        res_.setRealType(_if.getRealType());
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        addIfNotExist(_ancestors,id_, res_);
+        addIfNotExist(_ancestors, fullName_, res_);
     }
+
     private static FieldResult getRes(StringMap<FieldResult> _ancestors, StringList _classes) {
         if (_classes.onlyOneElt()) {
             return _ancestors.getVal(_classes.first());
@@ -782,7 +790,7 @@ public abstract class OperationNode {
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
                 ConstructorId ctor_ = s.getId().copy(_id);
-                if (exclude(_uniqueId,varargOnly_, s, _page)) {
+                if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
                 ParametersGroup pg_ = new ParametersGroup();
@@ -802,7 +810,7 @@ public abstract class OperationNode {
         if (_type instanceof RootBlock){
             for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
                 ConstructorId ctor_ = b.getId().copy(_id);
-                if (excludeCust(_type, _uniqueId,varargOnly_, b, _page)) {
+                if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
                 ParametersGroup pg_ = new ParametersGroup();
@@ -926,7 +934,7 @@ public abstract class OperationNode {
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
                 ConstructorId ctor_ = s.getId().copy(_id);
-                if (exclude(_uniqueId,varargOnly_, s, _page)) {
+                if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
                 ParametersGroup pg_ = new ParametersGroup();
@@ -950,7 +958,7 @@ public abstract class OperationNode {
                     continue;
                 }
                 ConstructorId ctor_ = id_.copy(_id);
-                if (excludeCust(_type, _uniqueId,varargOnly_, b, _page)) {
+                if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
                 ParametersGroup pg_ = new ParametersGroup();
@@ -1020,19 +1028,19 @@ public abstract class OperationNode {
         return _varargOnly > -1;
     }
 
-    protected static boolean exclude(ConstructorId _uniqueId, int _varargOnly, StandardConstructor _e, AnalyzedPageEl _page) {
+    protected static boolean exclude(ConstructorId _uniqueId, int _varargOnly, StandardConstructor _e) {
         ConstructorId ctor_ = _e.getId();
         boolean varArg_ = ctor_.isVararg();
         return excludeBytFilter(_uniqueId, _varargOnly, ctor_, varArg_);
     }
 
-    protected static boolean excludeCust(AnaGeneType _g, ConstructorId _uniqueId, int _varargOnly, GeneConstructor _e, AnalyzedPageEl _page) {
+    protected static boolean excludeCust(RootBlock _g, ConstructorId _uniqueId, int _varargOnly, ConstructorBlock _e, AnalyzedPageEl _page) {
         ConstructorId ctor_ = _e.getId();
         boolean varArg_ = ctor_.isVararg();
         if (excludeBytFilter(_uniqueId, _varargOnly, ctor_, varArg_)) {
             return true;
         }
-        return excludeQuick((RootBlock)_g,(ConstructorBlock)_e,_page);
+        return excludeQuick(_g, _e,_page);
     }
 
     private static boolean excludeBytFilter(ConstructorId _uniqueId, int _varargOnly, ConstructorId _ctor, boolean _varArg) {

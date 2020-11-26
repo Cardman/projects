@@ -44,6 +44,7 @@ public final class AnalyzingDoc {
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
     private AbstractInputBuilder inputBuilder;
     private AbstractConverterCheck converterCheck;
+    private AbstractReducingOperations reducingOperations;
 
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
@@ -262,5 +263,13 @@ public final class AnalyzingDoc {
 
     public void setConverterCheck(AbstractConverterCheck _converterCheck) {
         this.converterCheck = _converterCheck;
+    }
+
+    public AbstractReducingOperations getReducingOperations() {
+        return reducingOperations;
+    }
+
+    public void setReducingOperations(AbstractReducingOperations _reducingOperations) {
+        this.reducingOperations = _reducingOperations;
     }
 }

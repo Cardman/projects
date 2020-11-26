@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
@@ -17,10 +18,12 @@ import code.util.core.StringUtil;
 public final class AssSettableFieldOperation extends AssLeafOperation {
     private AnaSettableOperationContent fieldMetaInfo;
     private boolean declare;
+    private RootBlock rootBlock;
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getSettableFieldContent();
         declare = _ex.isDeclare();
+        rootBlock = _ex.getFieldType();
     }
 
     @Override
@@ -133,5 +136,9 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
 
     public AnaSettableOperationContent getFieldMetaInfo() {
         return fieldMetaInfo;
+    }
+
+    public RootBlock getRootBlock() {
+        return rootBlock;
     }
 }

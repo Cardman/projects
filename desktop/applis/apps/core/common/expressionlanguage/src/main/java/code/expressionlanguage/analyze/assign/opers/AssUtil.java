@@ -218,7 +218,7 @@ public final class AssUtil {
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
             ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
         }
-        return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(cl_, _page), _page);
+        return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_cst.getRootBlock(), fieldName_), _page);
     }
     private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta, AnalyzedPageEl _page) {
         boolean checkFinal_;

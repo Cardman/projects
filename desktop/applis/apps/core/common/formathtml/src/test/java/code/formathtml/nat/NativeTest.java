@@ -1,9 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
-import code.bean.nat.DefaultInitialization;
-import code.bean.nat.NativeConfigurationLoader;
-import code.bean.nat.NativeForEachFetch;
+import code.bean.nat.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -32,7 +30,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.bean.BeanStruct;
-import code.bean.nat.BeanNatLgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.*;
 import code.sml.Document;
@@ -1354,7 +1351,7 @@ public final class NativeTest {
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_, page_);
+        ContextFactory.validatedStds(a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), null, DefaultFileBuilder.newInstance(lgNames_.getContent()), lgNames_.getContent(), tabWidth_, page_, new NativeFieldFilter());
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         return new NativeAnalyzedTestContext(contextEl_, page_, new Forwards(), lgNames_);

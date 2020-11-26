@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
@@ -14,7 +13,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
+public final class ConstructorBlock extends NamedFunctionBlock implements ReturnableWithSignature {
 
     private ConstructorId constIdSameClass;
 
@@ -42,7 +41,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return getId().getSignature(_page);
     }
 
-    @Override
     public ConstructorId getId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();

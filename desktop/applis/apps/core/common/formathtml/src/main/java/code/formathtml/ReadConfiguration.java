@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
@@ -50,7 +51,7 @@ public final class ReadConfiguration {
             }
         }
         ContextEl context_ = ContextFactory.simpleBuild(stack_, opt_, _stds, tab_);
-        ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, _page);
+        ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, _page, new DefaultFieldFilter());
         AnalysisMessages.validateMessageContents(_rend.allMessages(), _page);
         if (!_page.isEmptyMessageError()) {
             return null;

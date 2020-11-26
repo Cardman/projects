@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.nat.NativeConverterCheck;
+import code.bean.nat.NativeReducingOperations;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.fwd.Forwards;
@@ -27,6 +28,7 @@ class NativeOtherAnalyzedTestConfiguration {
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new NatInputBuilder());
+        analyzingDoc.setReducingOperations(new NativeReducingOperations());
         analyzingDoc.setConverterCheck(new NativeConverterCheck());
         this.analyzing = _analyzing.getAnalyzing();
         context = _analyzing.getContext();

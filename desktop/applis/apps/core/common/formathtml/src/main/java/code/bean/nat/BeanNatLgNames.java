@@ -21,7 +21,6 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendInvokingOperation;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.fwd.DefaultInputBuilder;
@@ -368,6 +367,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setReducingOperations(new NativeReducingOperations());
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc_.setConverterCheck(new NativeConverterCheck());
@@ -435,7 +435,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Options options_ = new Options();
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, this, tabWidth_);
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page);
+        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page, new NativeFieldFilter());
         return contextEl_;
     }
 

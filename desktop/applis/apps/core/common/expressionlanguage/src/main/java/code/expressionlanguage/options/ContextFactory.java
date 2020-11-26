@@ -22,7 +22,7 @@ public final class ContextFactory {
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
                                             CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth(), page_);
+        validateStds(_mess, _definedKw, _definedLgNames, _comments, _options, _com, _calculator, _fileBuilder, _content, _contextEl.getTabWidth(), page_, new DefaultFieldFilter());
         return addResourcesAndValidate(_files, _contextEl, _folder, page_, new Forwards());
     }
 
@@ -44,14 +44,14 @@ public final class ContextFactory {
     }
 
     public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,
-                                              CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page) {
-        if (validatedStds(_mess,_definedKw,_comments,_options,_com,_calculator,_fileBuilder,_content,_tabWidth,_page)) {
+                                    CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page, AbstractFieldFilter _fieldFilter) {
+        if (validatedStds(_mess,_definedKw,_comments,_options,_com,_calculator,_fileBuilder,_content,_tabWidth,_page, _fieldFilter)) {
             _definedLgNames.build();
             ValidatorStandard.setupOverrides(_page);
         }
     }
     public static boolean validatedStds(AnalysisMessages _mess, KeyWords _definedKw,
-                                        CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page) {
+                                        CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page, AbstractFieldFilter _fieldFilter) {
         _page.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
@@ -60,6 +60,7 @@ public final class ContextFactory {
         _page.setKeyWords(_definedKw);
         _page.setStandards(_content);
         _page.setCalculator(_calculator);
+        _page.setFieldFilter(_fieldFilter);
         _page.setFileBuilder(_fileBuilder);
         _page.setResources(_com.getResources());
         _page.setStaticFields(_com.getStaticFields());

@@ -7,6 +7,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
+import code.formathtml.analyze.DefaultReducingOperations;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.BeanCustLgNames;
@@ -27,6 +28,7 @@ public final class AnalyzedTestConfiguration {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
+        analyzingDoc.setReducingOperations(new DefaultReducingOperations());
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc.setConverterCheck(new DefaultConverterCheck(adv.getContent().getPrimTypes().getPrimitiveTypes(), adv.getContent().getCharSeq().getAliasString()));

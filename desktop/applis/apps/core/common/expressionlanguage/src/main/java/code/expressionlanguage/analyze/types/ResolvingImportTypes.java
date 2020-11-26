@@ -337,11 +337,10 @@ public final class ResolvingImportTypes {
             AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof StandardType) {
                 for (StandardField m: ((StandardType)super_).getFields()) {
-                    int ind_ = notMatch(_method, m);
-                    if (ind_ < 0) {
+                    if (!StringUtil.quickEq(m.getFieldName(), _method.trim())) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import, m.getImportedClassName(),m.isFinalField(),-1));
+                    addImport(_methods,s, new ImportedField(_import, m.getImportedClassName(),true,-1));
                 }
             }
             if (super_ instanceof RootBlock){
@@ -383,7 +382,7 @@ public final class ResolvingImportTypes {
         }
         _methods.addEntry(_class,_value);
     }
-    private static int notMatch(String _method, GeneField _field) {
+    private static int notMatch(String _method, InfoBlock _field) {
         if (!_field.isStaticField()) {
             return -1;
         }

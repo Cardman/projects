@@ -1,9 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.common.GeneField;
-import code.util.StringList;
-
-public final class StandardField implements GeneField {
+public final class StandardField {
 
     private final String fieldName;
 
@@ -24,18 +21,8 @@ public final class StandardField implements GeneField {
         owner = _owner;
     }
 
-    @Override
-    public StringList getFieldName() {
-        return new StringList(fieldName);
-    }
-
-    @Override
-    public boolean isStaticField() {
-        return staticField;
-    }
-
-    public boolean isFinalField() {
-        return finalField;
+    public String getFieldName() {
+        return fieldName;
     }
 
     public String getImportedClassName() {
