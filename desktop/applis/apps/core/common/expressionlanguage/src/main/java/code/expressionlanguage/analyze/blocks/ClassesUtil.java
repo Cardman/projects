@@ -2022,6 +2022,7 @@ public final class ClassesUtil {
             _page.setImportingTypes(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setGlobalType(c);
+            _page.setGlobalDirType(c);
             _page.setCurrentFct(null);
             CustList<Block> annotated_ = new CustList<Block>();
             if (!(c instanceof InnerElementBlock)) {
@@ -2033,20 +2034,16 @@ public final class ClassesUtil {
             for (Block b:annotated_) {
                 _page.setCurrentBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
-                    _page.setGlobalDirType(c);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
                 }
                 if (b instanceof RootBlock) {
-                    _page.setGlobalDirType(c);
                     ((RootBlock)b).buildAnnotations(_page);
                 }
                 if (b instanceof NamedFunctionBlock) {
-                    _page.setGlobalDirType(c);
                     ((NamedFunctionBlock)b).buildAnnotations(_page);
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_page);
                 }
                 if (b instanceof InfoBlock) {
-                    _page.setGlobalDirType(c);
                     ((InfoBlock)b).buildAnnotations(_page);
                 }
             }

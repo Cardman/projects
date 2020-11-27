@@ -212,14 +212,14 @@ public final class AnonymousLambdaOperation extends
         RootBlock globalType_ = _page.getGlobalType();
         lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
         block.setParentType(globalType_);
-        block.getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
+        block.getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(_page.getGlobalDirType().getMappings());
+            block.getMappings().putAllMap(_page.getGlobalType().getMappings());
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();

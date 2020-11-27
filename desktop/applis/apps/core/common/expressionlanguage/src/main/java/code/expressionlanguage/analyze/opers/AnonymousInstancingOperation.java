@@ -121,14 +121,14 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().setName(((ImmutableNameRootBlock)g_).getName());
         instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
-        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalDirType().getAllReservedInners());
+        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
             instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            instancingAnonContent.getBlock().getMappings().putAllMap(_page.getGlobalDirType().getMappings());
+            instancingAnonContent.getBlock().getMappings().putAllMap(_page.getGlobalType().getMappings());
         }
         Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
