@@ -17,7 +17,7 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         if (!getVariableName().isEmpty()) {
-            _ip.getValueVars().removeKey(getVariableName());
+            _ip.removeLocalVar(getVariableName());
         }
     }
     @Override

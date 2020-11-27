@@ -27,7 +27,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         if (!getVariableName().isEmpty()) {
-            _ip.getValueVars().removeKey(getVariableName());
+            _ip.removeLocalVar(getVariableName());
         }
     }
 

@@ -47,8 +47,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableName);
-        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
-        vInfo_.removeKey(variableName);
+        _ip.removeLocalVar(variableName);
     }
 
     @Override

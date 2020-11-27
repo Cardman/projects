@@ -21,7 +21,7 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getValueVars().removeKey(variableName);
+        _ip.removeLocalVar(variableName);
     }
 
     public String getVariableName() {

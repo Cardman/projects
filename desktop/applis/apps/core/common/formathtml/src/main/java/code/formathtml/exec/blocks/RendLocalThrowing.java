@@ -44,7 +44,7 @@ public final class RendLocalThrowing {
                                 catchElt_ = ca_;
                                 String var_ = ca_.getVariableName();
                                 LocalVariable lv_ = LocalVariable.newLocalVariable(_str,name_);
-                                bkIp_.getValueVars().put(var_, lv_);
+                                bkIp_.putValueVar(var_, lv_);
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;
                             }

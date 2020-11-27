@@ -200,8 +200,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LoopVariable> v_ = _ip.getVars();
         String var_ = getVariableName();
         v_.removeKey(var_);
-        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
-        vInfo_.removeKey(var_);
+        _ip.removeLocalVar(var_);
     }
 
     @Override

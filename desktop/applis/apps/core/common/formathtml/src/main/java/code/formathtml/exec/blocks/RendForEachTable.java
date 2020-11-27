@@ -124,9 +124,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
-        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
-        vInfo_.removeKey(variableNameFirst);
-        vInfo_.removeKey(variableNameSecond);
+        _ip.removeLocalVar(variableNameFirst);
+        _ip.removeLocalVar(variableNameSecond);
     }
 
     @Override

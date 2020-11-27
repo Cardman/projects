@@ -221,10 +221,9 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
-        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
         String var_ = getVariableName();
         v_.removeKey(var_);
-        vInfo_.removeKey(var_);
+        _ip.removeLocalVar(var_);
     }
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {

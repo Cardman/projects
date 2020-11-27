@@ -146,7 +146,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         super.removeAllVars(_ip);
         for (String v: variableNames) {
             _ip.getVars().removeKey(v);
-            _ip.getValueVars().removeKey(v);
+            _ip.removeLocalVar(v);
         }
     }
 
