@@ -348,9 +348,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String objectClassName_ = _page.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-            String glClass_ = _page.getGlobalClass();
-            String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            AnaGeneType gl_ = _page.getAnaGeneType(curClassBase_);
+            AnaGeneType gl_ = _page.getGlobalType();
             StringMap<StringList> mapping_ = new StringMap<StringList>();
             for (TypeVar t: ContextUtil.getParamTypesMapValues(gl_)) {
                 mapping_.put(t.getName(), t.getConstraints());

@@ -22,6 +22,7 @@ public final class AnonymousInstancingOperation extends
 
     private AnaInstancingAnonContent instancingAnonContent;
     private String glClass;
+    private RootBlock glType;
     private String base;
     private String type="";
     private int index;
@@ -140,6 +141,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
         glClass = _page.getGlobalClass();
+        glType = _page.getGlobalType();
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
@@ -195,6 +197,10 @@ public final class AnonymousInstancingOperation extends
 
     public AnonymousTypeBlock getBlock() {
         return instancingAnonContent.getBlock();
+    }
+
+    public RootBlock getGlType() {
+        return glType;
     }
 
     public String getGlClass() {

@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.CustList;
@@ -21,8 +20,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         String clCurName_ = _page.getGlobalClass();
-        String base_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        RootBlock clBody_ = _page.getAnaClassBody(base_);
+        RootBlock clBody_ = _page.getGlobalType();
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());

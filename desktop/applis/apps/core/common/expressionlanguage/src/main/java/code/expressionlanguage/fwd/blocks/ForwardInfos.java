@@ -146,30 +146,29 @@ public final class ForwardInfos {
                 boolean instEltCount_ = false;
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     RootBlock superBl_ = s.getRootBlock();
-                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
-                        if (b instanceof OverridableBlock) {
-                            OverridableBlock m =(OverridableBlock)b;
-                            if (!m.getId().isRef()) {
-                                continue;
-                            }
-                            if (m.isAbstractMethod()) {
-                                instEltCount_ = true;
+                    for (OverridableBlock b: superBl_.getOverridableBlocks()) {
+                        if (b.getId().isRef()) {
+                            continue;
+                        }
+                        if (b.isAbstractMethod()) {
+                            Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
+                            ExecRootBlock ex_ = mem_.getRootBlock();
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(mem_, b.getNameNumber()), root_.getFullName());
+                            if (val_ == null) {
+                                ExecOverridableBlock value_ = mem_.getAllMethods().getValue(b.getNameOverrideNumber());
+                                e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
                         }
                     }
-                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
-                        if (b instanceof OverridableBlock) {
-                            OverridableBlock m =(OverridableBlock)b;
-                            if (m.isAbstractMethod()) {
-                                Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
-                                ExecRootBlock ex_ = mem_.getRootBlock();
-                                ExecOverrideInfo val_ = ex_.getRedirections().getVal(FetchMemberUtil.fetchFunction(mem_,m.getNameNumber()), root_.getFullName());
-                                if (val_ == null) {
-                                    ExecOverridableBlock value_ = mem_.getAllMethods().getValue(m.getNameOverrideNumber());
-                                    e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
-                                }
-                            }
+                    for (OverridableBlock b: superBl_.getOverridableBlocks()) {
+                        if (!b.getId().isRef()) {
+                            continue;
                         }
+                        if (b.isAbstractMethod()) {
+                            instEltCount_ = true;
+                        }
+                    }
+                    for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
                         if ((b instanceof FieldBlock)) {
                             if (((FieldBlock)b).isStaticField()) {
                                 continue;

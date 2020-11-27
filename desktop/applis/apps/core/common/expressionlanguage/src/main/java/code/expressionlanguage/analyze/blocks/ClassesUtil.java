@@ -351,6 +351,7 @@ public final class ClassesUtil {
                     if (parentType_ == null) {
                         continue;
                     }
+                    _page.setGlobalType(e.getGlType());
                     _page.setGlobalClass(e.getGlClass());
                     e.postAnalyze(_page);
                 }
@@ -1669,7 +1670,7 @@ public final class ClassesUtil {
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         _page.setGlobalClass("");
-        _page.setGlobalType((RootBlock) null);
+        _page.setGlobalType(null);
         for (OperatorBlock o: _page.getFoundOperators()) {
             String name_ = o.getName();
             _page.setImporting(o);
@@ -1999,7 +2000,7 @@ public final class ClassesUtil {
             }
         }
         _page.setGlobalClass("");
-        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalType(null);
         _page.setGlobalDirType(null);
         for (OperatorBlock o: _page.getFoundOperators()) {
             _page.setImporting(o);
@@ -2051,7 +2052,7 @@ public final class ClassesUtil {
             }
         }
         _page.setGlobalClass("");
-        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalType(null);
         _page.setGlobalDirType(null);
         _page.setCurrentFct(null);
         for (OperatorBlock o: _page.getFoundOperators()) {
@@ -2078,6 +2079,7 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
@@ -2154,6 +2156,7 @@ public final class ClassesUtil {
         _page.setAssignedStaticFields(true);
         for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2294,6 +2297,7 @@ public final class ClassesUtil {
 
         for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2328,7 +2332,7 @@ public final class ClassesUtil {
         }
         assVars_.setCache(new AnaCache());
         _page.setGlobalClass("");
-        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalType(null);
         _page.setGlobalDirType(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
@@ -2353,6 +2357,7 @@ public final class ClassesUtil {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
@@ -2374,6 +2379,7 @@ public final class ClassesUtil {
         _page.setAssignedStaticFields(true);
         for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2410,6 +2416,7 @@ public final class ClassesUtil {
 
         for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
+            _page.setGlobalType(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -2445,7 +2452,7 @@ public final class ClassesUtil {
         }
         assVars_.setCache(new AnaCache());
         _page.setGlobalClass("");
-        _page.setGlobalType((RootBlock)null);
+        _page.setGlobalType(null);
         _page.setGlobalDirType(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();

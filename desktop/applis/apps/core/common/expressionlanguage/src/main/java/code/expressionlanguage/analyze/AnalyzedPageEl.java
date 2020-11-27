@@ -428,10 +428,6 @@ public final class AnalyzedPageEl {
         return globalClass;
     }
 
-    public void setGlobalType(String _globalClass) {
-        setGlobalClass(_globalClass);
-        setGlobalType(getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
-    }
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
     }

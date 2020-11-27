@@ -2190,7 +2190,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void processElLow(String _el, AnalyzedTestConfiguration _cont) {
-        _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
+        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+        _cont.getAnalyzing().setGlobalClass(gl_);
+        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
         setupAnalyzing(_cont.getAnalyzing(), _cont.getLastPage(), _cont.getAnalyzingDoc());
         Argument argGl_ = _cont.getConfiguration().getPageEl().getGlobalArgument();
@@ -2213,7 +2215,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
-        _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
+        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+        _cont.getAnalyzing().setGlobalClass(gl_);
+        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
@@ -2288,24 +2292,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         return _cont.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
     }
 
-    private static Struct checkEx2(AnalyzedTestConfiguration _cont, String _s) {
-        addImportingPage(_cont);
-        _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
-        CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
-        assertTrue(_cont.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        _cont.getContext().setExiting(new NoExiting());
-        calculateReuse(_cont,out_);
-        assertTrue(_cont.isEmptyErrors());
-        assertNotNull(getException(_cont));
-        assertNotNull(getException(_cont));
-        return getException(_cont);
-    }
-
     private static Struct checkEx3(AnalyzedTestConfiguration _cont, String _s) {
         addImportingPage(_cont);
-        _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext()));
+        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+        _cont.getAnalyzing().setGlobalClass(gl_);
+        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
@@ -2317,10 +2308,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertTrue(_cont.isEmptyErrors());
         assertNotNull(getException(_cont));
         return getException(_cont);
-    }
-
-    private static Struct init(AnalyzedTestConfiguration _cont, String _cl) {
-        return _cont.getContext().getInit().processInit(_cont.getContext(), NullStruct.NULL_VALUE, _cl,_cont.getClasses().getClassBody(_cl), "", -1);
     }
 
 }

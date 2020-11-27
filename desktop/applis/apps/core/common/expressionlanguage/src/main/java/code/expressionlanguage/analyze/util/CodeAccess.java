@@ -17,7 +17,7 @@ final class CodeAccess {
         return root;
     }
 
-    public RootBlock getOuter() {
+    RootBlock getOuter() {
         return outer;
     }
 

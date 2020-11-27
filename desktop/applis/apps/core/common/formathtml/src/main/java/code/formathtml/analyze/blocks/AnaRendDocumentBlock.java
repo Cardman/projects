@@ -44,7 +44,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _page.setGlobalType(_page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
         } else {
             _page.setGlobalClass("");
-            _page.setGlobalType((RootBlock)null);
+            _page.setGlobalType(null);
         }
         AnaRendBlock en_ = this;
         CustList<AnaRendParentBlock> parents_ = new CustList<AnaRendParentBlock>();

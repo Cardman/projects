@@ -26,13 +26,13 @@ public final class ContextUtil {
         String belongPkg_ = _block.getPackageName();
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _page);
+            return processNormalProtected(_block, root_, belongPkg_, rootPkg_);
         }
         RootBlock outer_ = code_.getOuter();
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
 
-    private static boolean processNormalProtected(Accessed _block, RootBlock _root, String _belongPkg, String _rootPkg, AnalyzedPageEl _analyzing) {
+    private static boolean processNormalProtected(Accessed _block, RootBlock _root, String _belongPkg, String _rootPkg) {
         if (_root.isSubTypeOf(_block.getType())) {
             return true;
         }
@@ -54,18 +54,18 @@ public final class ContextUtil {
                     return true;
                 }
             }
-            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _analyzing);
+            return processNormalProtected(_block, root_, belongPkg_, rootPkg_);
         }
         RootBlock outer_ = code_.getOuter();
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_, outer_);
     }
     private static CodeAccess processBegin(String _className, Accessed _block, AnalyzedPageEl _analyzing) {
-        RootBlock outer_ = _block.outerParent();
         if (_block.getAccess() == AccessEnum.PUBLIC) {
-            return new CodeAccess(2,outer_,null);
+            return new CodeAccess(2,null,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
         RootBlock root_ = _analyzing.getAnaClassBody(baseClass_);
+        RootBlock outer_ = _block.outerParent();
         if (root_ == null) {
             return new CodeAccess(0,outer_,null);
         }
@@ -120,7 +120,7 @@ public final class ContextUtil {
         return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
     }
 
-    public static boolean isExplicitFct(FunctionBlock _fct) {
+    private static boolean isExplicitFct(FunctionBlock _fct) {
         return _fct instanceof OverridableBlock
                 && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
         ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST
@@ -273,10 +273,8 @@ public final class ContextUtil {
                     continue;
                 }
                 String type_ = f.getImportedClassName();
-                boolean final_ = true;
-                boolean static_ = true;
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-                return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, static_, final_, a_,-1);
+                return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, true, true, a_,-1);
             }
         }
         return null;

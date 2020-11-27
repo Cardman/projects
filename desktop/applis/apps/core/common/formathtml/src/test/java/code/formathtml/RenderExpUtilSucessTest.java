@@ -125,7 +125,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        context_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
@@ -584,7 +584,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        context_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1082,7 +1082,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         addImportingPage(context_);
-        context_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(context_, "pkg.Ex");
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         String globalClass_ = context_.getAnalyzing().getGlobalClass();
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
@@ -1464,7 +1464,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        cont_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(cont_, "pkg.ExTwo");
         addImportingPage(cont_);
         CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", 0, cont_, cont_.getAnalyzingDoc());
         Argument arg_ = buildAndCalculateFwd(cont_, all_);
@@ -3131,7 +3131,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        context_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
         addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
@@ -3154,7 +3154,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        context_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
         addImportingPage(context_);
         Struct str_ = init(context_, "pkg.Ex");
@@ -4206,7 +4206,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        conf_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(conf_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -4244,7 +4244,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        conf_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(conf_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -4281,7 +4281,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        conf_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(conf_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -4897,7 +4897,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        cont_.getAnalyzing().setGlobalType("pkg.Composite");
+        setGlobalType(cont_, "pkg.Composite");
         Argument res_ = buildAndCalculate(cont_, all_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
@@ -5014,7 +5014,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        cont_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(cont_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", 0, cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -5069,7 +5069,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         addImportingPage(cont_);
-        cont_.getAnalyzing().setGlobalType("pkg.Ex");
+        setGlobalType(cont_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", 0, cont_, cont_.getAnalyzingDoc());
         buildAndCalculateFwd(cont_, all_);
         Struct fieldValue_ = getStaticField(cont_);
@@ -5097,7 +5097,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        cont_.getAnalyzing().setGlobalType("pkg.Composite");
+        setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.integer++", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -5120,7 +5120,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        cont_.getAnalyzing().setGlobalType("pkg.Composite");
+        setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("++v.integer", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -5144,7 +5144,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        cont_.getAnalyzing().setGlobalType("pkg.Composite");
+        setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -5591,7 +5591,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Argument calcLow(String _s, AnalyzedTestConfiguration _context) {
-        _context.getAnalyzing().setGlobalType(_context.getLastPage().getGlobalArgument().getStruct().getClassName(_context.getContext()));
+        setGlobalType(_context, _context.getLastPage().getGlobalArgument().getStruct().getClassName(_context.getContext()));
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
         setupAnalyzing(_context.getAnalyzing(), _context.getLastPage(), _context.getAnalyzingDoc());
         Argument argGl_ = _context.getConfiguration().getPageEl().getGlobalArgument();
@@ -5885,7 +5885,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
         addImportingPage(context_);
-        context_.getAnalyzing().setGlobalType(context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
+        setGlobalType(context_, context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
         Argument argGl_ = context_.getConfiguration().getPageEl().getGlobalArgument();
@@ -5950,7 +5950,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files);
-        context_.getAnalyzing().setGlobalType(_clasName);
+        setGlobalType(context_, _clasName);
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -6011,6 +6011,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_);
         Classes.forwardAndClear(_conf.getContext(), _conf.getAnalyzing(), _conf.getForwards());
         return ops_;
+    }
+
+    private static void setGlobalType(AnalyzedTestConfiguration _context, String _clasName) {
+        _context.getAnalyzing().setGlobalClass(_clasName);
+        _context.getAnalyzing().setGlobalType(_context.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(_clasName)));
     }
 
 

@@ -533,7 +533,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.BeanOne");
+        setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
@@ -1934,7 +1934,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.BeanOne");
+        setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
@@ -3265,7 +3265,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3309,7 +3309,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3352,7 +3352,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3397,7 +3397,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3450,7 +3450,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3495,7 +3495,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestContext conf_ = prepare(files_);
 
-        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
+        setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -5444,6 +5444,11 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext _conf, String _el, int _minIndex) {
         return ElResolver.checkSyntaxDelimiters(_el, _minIndex, _conf.getAnalyzing());
+    }
+
+    private static void setGlobalType(AnalyzedTestContext _conf, String _globalClass) {
+        _conf.getAnalyzing().setGlobalClass(_globalClass);
+        _conf.getAnalyzing().setGlobalType(_conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
     }
 
     private static RootBlock getAnaClassBody(AnalyzedTestContext _classes, String _className) {

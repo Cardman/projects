@@ -29,8 +29,7 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
     }
 
     private static AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl, AnalyzedPageEl _analyzing) {
-        String gl_ = _analyzing.getGlobalClass();
-        RootBlock root_ = _analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_));
+        RootBlock root_ = _analyzing.getGlobalType();
         return getAccessingImportingBlock(_bl, root_);
     }
 
