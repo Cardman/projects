@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -46,6 +47,9 @@ public final class AnonymousLambdaOperation extends
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         for (EntryCust<String,AnaLocalVariable> e: _page.getInfosVars().entryList()) {
+            if (e.getValue().getConstType() == ConstType.REF_PARAM) {
+                continue;
+            }
             block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
         }
         for (AnaNamedLocalVariable e: _page.getCache().getLocalVariables()) {

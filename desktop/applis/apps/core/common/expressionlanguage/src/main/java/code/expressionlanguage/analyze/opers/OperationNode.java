@@ -471,6 +471,11 @@ public abstract class OperationNode {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
         AnaLocalVariable val_ = _page.getInfosVars().getVal(str_);
+        if (val_ != null) {
+            if (val_.getConstType() == ConstType.REF_PARAM) {
+                return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op);
+            }
+        }
         int deep_ = -1;
         if (val_ == null) {
             String shortStr_ = StringExpUtil.skipPrefix(str_);
@@ -484,9 +489,6 @@ public abstract class OperationNode {
 
         }
         if (val_ != null) {
-            if (val_.getConstType() == ConstType.REF_PARAM) {
-                return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op);
-            }
             if (val_.getConstType() == ConstType.LOC_VAR) {
                 return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
             }

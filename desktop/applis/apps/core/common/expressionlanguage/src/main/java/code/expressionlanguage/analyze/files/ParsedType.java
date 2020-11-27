@@ -9,11 +9,11 @@ public final class ParsedType {
     private int delta;
     private boolean ok;
 
-    public void parse(String _file) {
-        int len_ = _file.length();
+    public void parse(String _found) {
+        int len_ = _found.length();
         int i_ = 0;
         while (i_ < len_) {
-            char ch_ = _file.charAt(i_);
+            char ch_ = _found.charAt(i_);
             if (ch_ == '<') {
                 break;
             }
@@ -23,14 +23,14 @@ public final class ParsedType {
             if (ch_ == '(') {
                 break;
             }
-            if (_file.startsWith("...",i_)) {
+            if (_found.startsWith("...",i_)) {
                 break;
             }
             instruction.append(ch_);
             i_++;
             if (StringExpUtil.isTypeLeafChar(ch_)) {
-                int next_ = StringExpUtil.nextPrintChar(i_, len_, _file);
-                if (next_ > i_ && StringExpUtil.isTypeLeafChar(_file.charAt(next_))) {
+                int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
+                if (next_ > i_ && StringExpUtil.isTypeLeafChar(_found.charAt(next_))) {
                     ok = true;
                     break;
                 }
@@ -42,14 +42,14 @@ public final class ParsedType {
         int count_ = 0;
         while (i_ < len_) {
             if (count_ == 0) {
-                if (_file.startsWith("...",i_)) {
+                if (_found.startsWith("...",i_)) {
                     instruction.append("...");
                     delta = "...".length();
                     ok = true;
                     break;
                 }
             }
-            char ch_ = _file.charAt(i_);
+            char ch_ = _found.charAt(i_);
             if (ch_ == '<') {
                 count_++;
             }
@@ -60,10 +60,10 @@ public final class ParsedType {
 
                 if (ch_ == '.') {
                     i_++;
-                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _file);
+                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
                     if (next_ > -1) {
                         instruction.append(ch_);
-                        instruction.append(_file,i_,next_);
+                        instruction.append(_found,i_,next_);
                         i_ = next_;
                         continue;
                     }
@@ -71,8 +71,8 @@ public final class ParsedType {
                 if (StringExpUtil.isTypeLeafChar(ch_)) {
                     i_++;
                     instruction.append(ch_);
-                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _file);
-                    if (next_ > i_ && StringExpUtil.isTypeLeafChar(_file.charAt(next_))) {
+                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
+                    if (next_ > i_ && StringExpUtil.isTypeLeafChar(_found.charAt(next_))) {
                         ok = true;
                         break;
                     }
@@ -80,18 +80,18 @@ public final class ParsedType {
                 }
                 if (ch_ == '[') {
                     i_++;
-                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _file);
+                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
                     instruction.append(ch_);
-                    if (_file.startsWith("]",next_)) {
-                        instruction.append(_file,i_,next_+1);
-                        int nextTwo_ = StringExpUtil.nextPrintChar(next_+1, len_, _file);
-                        if (_file.startsWith("...",nextTwo_) || StringExpUtil.nextCharIs(_file, nextTwo_, len_, '[')) {
-                            instruction.append(_file,next_+1,nextTwo_);
+                    if (_found.startsWith("]",next_)) {
+                        instruction.append(_found,i_,next_+1);
+                        int nextTwo_ = StringExpUtil.nextPrintChar(next_+1, len_, _found);
+                        if (_found.startsWith("...",nextTwo_) || StringExpUtil.nextCharIs(_found, nextTwo_, len_, '[')) {
+                            instruction.append(_found,next_+1,nextTwo_);
                             i_ = nextTwo_;
                             continue;
                         }
                         if (nextTwo_ >= 0) {
-                            if (StringExpUtil.isTypeLeafChar(_file.charAt(nextTwo_))) {
+                            if (StringExpUtil.isTypeLeafChar(_found.charAt(nextTwo_))) {
                                 ok = true;
                             }
                             break;
@@ -102,15 +102,15 @@ public final class ParsedType {
                 }
                 if (ch_ == '>') {
                     i_++;
-                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _file);
+                    int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
                     instruction.append(ch_);
-                    if (_file.startsWith(".",next_) ||_file.startsWith("[",next_)) {
-                        instruction.append(_file,i_,next_);
+                    if (_found.startsWith(".",next_) ||_found.startsWith("[",next_)) {
+                        instruction.append(_found,i_,next_);
                         i_ = next_;
                         continue;
                     }
                     if (next_ > -1) {
-                        if (StringExpUtil.isTypeLeafChar(_file.charAt(next_))) {
+                        if (StringExpUtil.isTypeLeafChar(_found.charAt(next_))) {
                             ok = true;
                             break;
                         }

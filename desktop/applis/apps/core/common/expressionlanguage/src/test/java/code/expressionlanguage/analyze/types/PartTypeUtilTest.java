@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -1409,7 +1408,6 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyze(String _input, String _globalType, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        ContextEl ctx_ = _an.getContext();
         AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, false, _globalType, _rooted, _rooted, 0, new CustList<PartOffset>(), page_);
         AnaPartType partType_ = anaResultPartType_.getPartType();
         if (partType_ == null) {
