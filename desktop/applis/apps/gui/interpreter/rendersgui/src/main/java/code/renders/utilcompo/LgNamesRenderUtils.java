@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -98,13 +99,13 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _args);
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ContextEl _contextEl){
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className,ExecRootBlock _rootBlock, LambdaStruct _functional,ContextEl _contextEl) {
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
     }
 
     @Override

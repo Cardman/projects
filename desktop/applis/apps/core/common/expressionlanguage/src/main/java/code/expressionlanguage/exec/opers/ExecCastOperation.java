@@ -56,22 +56,23 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                     CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
                     if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();
-                        MethodId realId_ = clRealId_.getOverridableBlock().getId();
+                        ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
+                        MethodId realId_ = overridableBlock_.getId();
                         String geneStr_ = r_.getGenericString();
                         MethodId idMeth_ = realId_.quickFormat(r_,geneStr_);
                         String gene_ = clRealId_.getClassName();
                         String geneFor_ = ExecTemplates.quickFormat(r_,_className,gene_);
-                        String ret_ = clRealId_.getOverridableBlock().getImportedReturnType();
+                        String ret_ = overridableBlock_.getImportedReturnType();
                         ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
                         String fctParam_ = formatReturn(_conf, ret_, idMeth_);
                         fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,r_,(LambdaStruct) str_,_conf);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,r_,(LambdaStruct) str_, overridableBlock_, _conf);
                                 _objArg.setStruct(struct_);
                             } else {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,r_,(LambdaStruct) str_,_conf);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,r_,(LambdaStruct) str_, overridableBlock_, _conf);
                                 _objArg.setStruct(struct_);
                             }
                         }

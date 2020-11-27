@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
@@ -22,17 +23,24 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
 
+    private final ExecNamedFunctionBlock named;
     public RunnableFunctionalInstance(String _className, LambdaStruct _functional,
-                                      CustList<ClassFieldStruct> _fields, ContextEl _contextEl) {
+                                      CustList<ClassFieldStruct> _fields, ContextEl _contextEl, ExecNamedFunctionBlock _named) {
         className = _className;
         functional = _functional;
         executionInfos = _contextEl.getExecutionInfos();
         fields = _fields;
+        named = _named;
     }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
+    }
+
+    @Override
+    public ExecNamedFunctionBlock getNamed() {
+        return named;
     }
 
     @Override

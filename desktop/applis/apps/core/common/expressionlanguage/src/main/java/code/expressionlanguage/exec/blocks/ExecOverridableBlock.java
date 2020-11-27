@@ -19,10 +19,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         kind = _execKind;
     }
 
-    public boolean isAbstractMethod() {
-        return methodModifier == MethodModifier.ABSTRACT;
-    }
-
     public MethodId getId() {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();

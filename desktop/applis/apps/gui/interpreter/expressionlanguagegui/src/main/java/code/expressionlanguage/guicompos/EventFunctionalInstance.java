@@ -7,6 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.ListSelection;
@@ -29,17 +30,24 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
 
-    public EventFunctionalInstance(String _className,LambdaStruct _functional,
-                                   CustList<ClassFieldStruct> _fields,ContextEl _contextEl) {
+    private final ExecNamedFunctionBlock named;
+    public EventFunctionalInstance(String _className, LambdaStruct _functional,
+                                   CustList<ClassFieldStruct> _fields, ContextEl _contextEl, ExecNamedFunctionBlock _named) {
         className = _className;
         functional = _functional;
         fields = _fields;
         executionInfos = _contextEl.getExecutionInfos();
+        named = _named;
     }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
+    }
+
+    @Override
+    public ExecNamedFunctionBlock getNamed() {
+        return named;
     }
 
     @Override

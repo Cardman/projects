@@ -302,8 +302,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         Struct prev_ =_previous.getStruct();
         if (fct_ instanceof ExecOverridableBlock&&prev_ instanceof AbstractFunctionalInstance) {
-            ExecOverridableBlock gene_ = (ExecOverridableBlock) fct_;
-            if (gene_.isAbstractMethod()) {
+            if (((AbstractFunctionalInstance)prev_).getNamed() == fct_) {
                 Argument fctInst_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
                 return prepareCallDyn(fctInst_, _firstArgs.getArguments(), _cont);
             }

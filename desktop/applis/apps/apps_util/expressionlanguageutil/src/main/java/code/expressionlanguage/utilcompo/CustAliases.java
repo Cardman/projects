@@ -20,7 +20,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -383,9 +382,9 @@ public final class CustAliases {
         return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
     }
 
-    public static AbstractFunctionalInstance newFunctional(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ContextEl _contextEl) {
+    public static AbstractFunctionalInstance newFunctional(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
-        return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
+        return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl, _named);
     }
 
     public void buildOther(LgNamesContent _content) {

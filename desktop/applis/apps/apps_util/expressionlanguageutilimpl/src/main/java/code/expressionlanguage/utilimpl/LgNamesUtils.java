@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.*;
@@ -67,13 +68,13 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return infos;
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl){
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className,ExecRootBlock _rootBlock, LambdaStruct _functional,ContextEl _contextEl) {
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _contextEl);
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
     }
 
     public CustAliases getCustAliases() {
