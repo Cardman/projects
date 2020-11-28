@@ -664,11 +664,18 @@ public final class ForwardInfos {
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(_from,exec_,en_);
             } else if (en_ instanceof DeclareVariable) {
-                ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames(), en_.getOffset().getOffsetTrim());
-                decl_ = exec_;
-                exec_.setFile(fileDest_);
-                blockToWrite_.appendChild(exec_);
-                _coverage.putBlockOperations(_from,exec_,en_);
+                if (((DeclareVariable) en_).isRefVariable()) {
+                    ExecRefDeclareVariable exec_ = new ExecRefDeclareVariable(en_.getOffset().getOffsetTrim(), ((DeclareVariable)en_).getVariableNames());
+                    exec_.setFile(fileDest_);
+                    blockToWrite_.appendChild(exec_);
+                    _coverage.putBlockOperations(_from,exec_,en_);
+                } else {
+                    ExecDeclareVariable exec_ = new ExecDeclareVariable(((DeclareVariable) en_).getImportedClassName(),((DeclareVariable)en_).getVariableNames(), en_.getOffset().getOffsetTrim());
+                    decl_ = exec_;
+                    exec_.setFile(fileDest_);
+                    blockToWrite_.appendChild(exec_);
+                    _coverage.putBlockOperations(_from,exec_,en_);
+                }
             } else if (en_ instanceof DefaultCondition) {
                 SwitchBlock b_ = ((DefaultCondition)en_).getSwitchParent();
                 ExecBracedBlock exec_;
@@ -1187,6 +1194,10 @@ public final class ForwardInfos {
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
             return new ExecStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+        }
+        if (_anaNode instanceof RefVariableOperation) {
+            RefVariableOperation m_ = (RefVariableOperation) _anaNode;
+            return new ExecStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()),m_.isDeclare());
         }
         if (_anaNode instanceof RefParamOperation) {
             RefParamOperation m_ = (RefParamOperation) _anaNode;

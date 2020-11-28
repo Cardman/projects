@@ -443,8 +443,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return templateDef;
     }
 
-    public abstract String getName();
-
+    public String getName() {
+        return getRootBlockContent().getName();
+    }
     public String getSuffixedName() {
         return StringUtil.concat(getName(), rootBlockContent.getSuffix());
     }

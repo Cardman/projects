@@ -5726,6 +5726,84 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage530Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 1;\n");
+        xml_.append("  that var u = that(t);\n");
+        xml_.append("  u += 8;\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">t</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  that <b title=\"int\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m75\">u</a> </span>=<span class=\"f\"> that(<span class=\"f\"><a href=\"#m57\">t</a></span>)</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m75\">u</a> </span>+=<span class=\"f\"> 8</span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m57\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage531Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Compo t = new Compo();\n");
+        xml_.append("  t.f=8;\n");
+        xml_.append("  Compo u = new Compo();\n");
+        xml_.append("  u.f=3;\n");
+        xml_.append("  that Compo v = that(t);\n");
+        xml_.append("  v += u;\n");
+        xml_.append("  return t.f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Compo {\n");
+        xml_.append(" public int f;\n");
+        xml_.append(" operator+ Compo (Compo a, Compo b){\n");
+        xml_.append("  Compo c = new Compo();\n");
+        xml_.append("  c.f = a.f+b.f;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <span class=\"f\"><span class=\"f\"><a name=\"m59\">t</a> </span>=<span class=\"f\"> new <a title=\"pkg.Compo\" href=\"#m187\">Compo</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m59\">t</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a></span></span>=<span class=\"f\">8</span></span>;\n" +
+                "  <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <span class=\"f\"><span class=\"f\"><a name=\"m93\">u</a> </span>=<span class=\"f\"> new <a title=\"pkg.Compo\" href=\"#m187\">Compo</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m93\">u</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a></span></span>=<span class=\"f\">3</span></span>;\n" +
+                "  that <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <span class=\"f\"><span class=\"f\"><a name=\"m132\">v</a> </span>=<span class=\"f\"> that(<span class=\"f\"><a href=\"#m59\">t</a></span>)</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m132\">v</a> </span><a title=\"pkg.Compo.static +(pkg.Compo,pkg.Compo)\" href=\"#m223\">+</a>=<span class=\"f\"> <a href=\"#m93\">u</a></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m59\">t</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m187\">pkg.Compo</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m211\">f</a></span>;\n" +
+                " operator<a name=\"m223\">+</a> <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> (<a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <a name=\"m238\">a</a>, <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <a name=\"m247\">b</a>){\n" +
+                "  <a title=\"pkg.Compo\" href=\"#m187\">Compo</a> <span class=\"f\"><span class=\"f\"><a name=\"m259\">c</a> </span>=<span class=\"f\"> new <a title=\"pkg.Compo\" href=\"#m187\">Compo</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m259\">c</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m238\">a</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m247\">b</a></span>.<span class=\"f\"><a title=\"pkg.Compo.f\" href=\"#m211\">f</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m259\">c</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

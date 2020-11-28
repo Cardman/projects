@@ -766,6 +766,49 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, getNumber(ret_));
     }
     @Test
+    public void calculate20_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new ExSub();\n");
+        xml_.append("  e.call(0,5);\n");
+        xml_.append("  $return e.$that[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExSub:Ex {\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p]*2;\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value*2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
+        xml_.append(" $public $void call($int p, $int q) {\n");
+        xml_.append("  $that[p] = q;\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $int $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $protected $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
     public void calculate21Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

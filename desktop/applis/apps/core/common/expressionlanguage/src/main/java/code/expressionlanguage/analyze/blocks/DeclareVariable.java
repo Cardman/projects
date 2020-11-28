@@ -25,13 +25,15 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     private int finalVariableOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
+    private boolean refVariable;
 
-    public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
+    public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset, boolean _refVariable) {
         super(_offset);
         finalVariable = _finalVar.isInfo();
         finalVariableOffset = _finalVar.getOffset();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
+        refVariable = _refVariable;
     }
 
     public StringList getVariableNames() {
@@ -62,6 +64,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
             partOffsets.addAllElts(_page.getCurrentParts());
         }
         _page.setMerged(true);
+        _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);
         _page.setFinalVariable(finalVariable);
         _page.setCurrentVarSetting(importedClassName);
@@ -72,6 +75,10 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
 //        exec_.setFile(_page.getBlockToWrite().getFile());
 //        _page.getBlockToWrite().appendChild(exec_);
 //        _page.getCoverage().putBlockOperations(exec_,this);
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
     }
 
     public boolean isFinalVariable() {

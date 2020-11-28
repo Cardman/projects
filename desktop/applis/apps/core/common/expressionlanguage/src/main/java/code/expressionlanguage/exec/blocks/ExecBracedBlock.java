@@ -6,7 +6,7 @@ import code.util.CustList;
 public abstract class ExecBracedBlock extends ExecBlock {
 
     private ExecBlock firstChild;
-    private final CustList<ExecDeclareVariable> declares = new CustList<ExecDeclareVariable>();
+    private final CustList<ExecAbstractDeclareVariable> declares = new CustList<ExecAbstractDeclareVariable>();
 
     ExecBracedBlock(int _offsetTrim) {
         super(_offsetTrim);
@@ -20,8 +20,8 @@ public abstract class ExecBracedBlock extends ExecBlock {
     }
     public final void appendChild(ExecBlock _child) {
         _child.setParent(this);
-        if (_child instanceof ExecDeclareVariable) {
-            declares.add((ExecDeclareVariable) _child);
+        if (_child instanceof ExecAbstractDeclareVariable) {
+            declares.add((ExecAbstractDeclareVariable) _child);
         }
         if (firstChild == null) {
             firstChild = _child;
@@ -40,10 +40,8 @@ public abstract class ExecBracedBlock extends ExecBlock {
     }
 
     public final void removeLocalVars(AbstractPageEl _ip) {
-        for (ExecDeclareVariable s: declares) {
-            for (String v: s.getVariableNames()) {
-                _ip.removeLocalVar(v);
-            }
+        for (ExecAbstractDeclareVariable s: declares) {
+            s.removeLocalVars(_ip);
         }
     }
 

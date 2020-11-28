@@ -50,6 +50,9 @@ public final class AnonymousLambdaOperation extends
             if (e.getValue().getConstType() == ConstType.REF_PARAM) {
                 continue;
             }
+            if (e.getValue().getConstType() == ConstType.REF_LOC_VAR) {
+                continue;
+            }
             block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
         }
         for (AnaNamedLocalVariable e: _page.getCache().getLocalVariables()) {

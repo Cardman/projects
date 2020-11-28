@@ -167,9 +167,8 @@ public abstract class ReachOperationNode {
             AffectationOperation d_ = (AffectationOperation) _oper;
             return new ReachAffectationOperation(d_);
         }
-        boolean int_;
         if (_oper instanceof PossibleIntermediateDotted) {
-            int_ = ((PossibleIntermediateDotted)_oper).isIntermediateDottedOperation();
+            boolean int_ = ((PossibleIntermediateDotted) _oper).isIntermediateDottedOperation();
             if (_oper instanceof AbstractCallFctOperation) {
                 AbstractCallFctOperation f_ = (AbstractCallFctOperation) _oper;
                 if (f_.getClassMethodId() != null) {

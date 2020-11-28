@@ -245,14 +245,9 @@ public final class FullFieldRetriever implements FieldRetriever {
     }
 
     private static boolean isField(String _fromClass, boolean _ctor, String _word, AnalyzedPageEl _page) {
-        boolean field_;
         boolean stCtx_ = _page.isStaticContext() || _ctor;
-        field_ = true;
         AnaClassArgumentMatching clArg_ = new AnaClassArgumentMatching(_fromClass);
         FieldResult fr_ = OperationNode.resolveDeclaredCustField(stCtx_, clArg_, true, true, _word, true, false, _page);
-        if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
-            field_ = false;
-        }
-        return field_;
+        return fr_.getStatus() == SearchingMemberStatus.UNIQ;
     }
 }

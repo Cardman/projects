@@ -401,6 +401,9 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     private static boolean isDeclaringLoopVariable(AnalyzedPageEl _page) {
+        if (_page.isRefVariable()) {
+            return false;
+        }
         if (!_page.isMerged()) {
             return false;
         }
@@ -422,10 +425,25 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     private static boolean isDeclaringVariable(AnalyzedPageEl _page) {
+        if (_page.isRefVariable()) {
+            return false;
+        }
         if (!_page.isMerged()) {
             return false;
         }
         return _page.getLocalDeclaring().hasDeclarator();
+    }
+    public static boolean isDeclaringRefVariable(RefVariableOperation _var, AnalyzedPageEl _page) {
+        if (!_page.isRefVariable()) {
+            return false;
+        }
+        return isDeclaringVariable(_var);
+    }
+    public static boolean isDeclaringRefVariable(MethodOperation _par, AnalyzedPageEl _page) {
+        if (!_page.isRefVariable()) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
     }
     private static boolean isDeclaringVariable(OperationNode _var) {
         MethodOperation par_ = _var.getParent();

@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 
 public final class DefaultLoopDeclaring implements AbstractLoopDeclaring {
@@ -12,23 +11,14 @@ public final class DefaultLoopDeclaring implements AbstractLoopDeclaring {
 
     @Override
     public boolean hasLoopDeclarator() {
-        return hasLoop();
+        return page.getCurrentBlock() instanceof ForMutableIterativeLoop;
     }
 
     @Override
     public void setupLoopDeclaratorClass(String _className) {
-        setupLoopClass(_className);
+        ((ForMutableIterativeLoop)page.getCurrentBlock()).setImportedClassName(_className);
     }
 
-    public boolean hasLoop() {
-        Block bl_ =  page.getCurrentBlock();
-        return bl_ instanceof ForMutableIterativeLoop;
-    }
-
-    public void setupLoopClass(String _className) {
-        Block bl_ =  page.getCurrentBlock();
-        ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
-    }
     @Override
     public String getIndexClassName() {
         return ((ForMutableIterativeLoop)page.getCurrentBlock()).getImportedClassIndexName();

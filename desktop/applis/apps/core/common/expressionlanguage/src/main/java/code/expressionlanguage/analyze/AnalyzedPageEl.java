@@ -104,6 +104,7 @@ public final class AnalyzedPageEl {
     private boolean merged;
     private boolean acceptCommaInstr;
     private boolean finalVariable;
+    private boolean refVariable;
     private String currentVarSetting = "";
     private final StringList needInterfaces = new StringList();
     private final StringMap<Integer> availableVariables = new StringMap<Integer>();
@@ -563,6 +564,14 @@ public final class AnalyzedPageEl {
 
     public void setAcceptCommaInstr(boolean _acceptCommaInstr) {
         acceptCommaInstr = _acceptCommaInstr;
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
+    }
+
+    public void setRefVariable(boolean _refVariable) {
+        refVariable = _refVariable;
     }
 
     public boolean isFinalVariable() {

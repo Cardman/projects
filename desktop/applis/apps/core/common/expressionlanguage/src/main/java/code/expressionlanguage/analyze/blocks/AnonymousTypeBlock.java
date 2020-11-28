@@ -28,11 +28,6 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
         return true;
     }
 
-    @Override
-    public String getName() {
-        return getRootBlockContent().getName();
-    }
-
     public void setName(String _name) {
         getRootBlockContent().setName(_name);
     }

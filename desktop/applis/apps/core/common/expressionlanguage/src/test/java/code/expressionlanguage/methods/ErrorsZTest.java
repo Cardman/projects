@@ -3117,4 +3117,27 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report740Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int a = 0;\n");
+        xml_.append("  that Object #v = that(a);\n");
+        xml_.append("  return a;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">a</a> = 0;\n" +
+                "  that Object <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a> <a title=\"The type int cannot be implicitly cast to \" class=\"e\">=</a> that(<a href=\"#m39\">a</a>);\n" +
+                "  return <a href=\"#m39\">a</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

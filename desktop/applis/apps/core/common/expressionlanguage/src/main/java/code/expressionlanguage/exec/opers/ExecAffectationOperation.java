@@ -2,11 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -71,6 +73,16 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
         setRelOffsetPossibleLastPage(opOffset,_conf);
+        if (settable instanceof ExecStdRefVariableOperation) {
+            if (((ExecStdRefVariableOperation)settable).isDeclare()){
+                CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
+                ArgumentsPair pairRight_ = ExecTemplates.getArgumentPair(_nodes, ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1));
+                PageEl ip_ = _conf.getLastPage();
+                ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),pairRight_.getWrapper());
+                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes);
+                return;
+            }
+        }
         Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
     }
@@ -79,6 +91,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         Argument arg_ = null;
         if (_set instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
+        if (_set instanceof ExecStdRefVariableOperation) {
+            arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
         }
         if (_set instanceof ExecRefParamOperation) {
             arg_ = ((ExecRefParamOperation)_set).calculateSetting(_nodes, _conf, _right);

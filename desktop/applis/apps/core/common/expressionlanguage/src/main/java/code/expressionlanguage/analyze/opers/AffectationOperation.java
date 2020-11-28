@@ -68,11 +68,26 @@ public final class AffectationOperation extends MethodOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        boolean decl_ = false;
+        String inf_ = "";
+        if (elt_ instanceof RefVariableOperation) {
+            settableOp = (RefVariableOperation)elt_;
+            RefVariableOperation v_ = (RefVariableOperation)elt_;
+            inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringRefVariable(v_, _page)) {
+                decl_ = true;
+            }
+        }
         if (elt_ instanceof VariableOperation) {
+            settableOp = (VariableOperation)elt_;
             VariableOperation v_ = (VariableOperation)elt_;
-            settableOp = v_;
-            String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _page) && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
+            inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringVariable(v_, _page)) {
+                decl_ = true;
+            }
+        }
+        if (decl_) {
+            if (StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -82,14 +97,14 @@ public final class AffectationOperation extends MethodOperation {
                     _page.getVariablesNamesToInfer().removeString(inf_);
                     _page.getLocalDeclaring().setupDeclaratorClass(type_);
                     _page.setCurrentVarSetting(type_);
-                    v_.setResultClass(n_);
+                    settableOp.setResultClass(n_);
                 }
             }
         }
         if (elt_ instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
             settableOp = v_;
-            String inf_ = v_.getVariableName();
+            inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _page) && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();

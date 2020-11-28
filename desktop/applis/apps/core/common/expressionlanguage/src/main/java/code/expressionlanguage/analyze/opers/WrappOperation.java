@@ -25,7 +25,15 @@ public final class WrappOperation extends AbstractUnaryOperation {
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation) || m_ instanceof CallDynMethodOperation) {
+        boolean rightAffDecl_ = false;
+        if (_page.isRefVariable() && m_ instanceof AffectationOperation) {
+            if (m_.getParent() == null || m_.getParent() instanceof DeclaringOperation) {
+                if (m_.getFirstChild() != this) {
+                    rightAffDecl_ = true;
+                }
+            }
+        }
+        if (!rightAffDecl_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation) || m_ instanceof CallDynMethodOperation) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -53,7 +61,7 @@ public final class WrappOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(getFirstChild().getResultClass().getNames()));
             return;
         }
-        if (!(getFirstChild() instanceof VariableOperation)&&!(getFirstChild() instanceof MutableLoopVariableOperation)&&!(getFirstChild() instanceof SettableAbstractFieldOperation)&&!(getFirstChild() instanceof DotOperation)) {
+        if (!(getFirstChild() instanceof RefVariableOperation)&&!(getFirstChild() instanceof VariableOperation)&&!(getFirstChild() instanceof MutableLoopVariableOperation)&&!(getFirstChild() instanceof SettableAbstractFieldOperation)&&!(getFirstChild() instanceof DotOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -134,19 +142,13 @@ public final class WrappOperation extends AbstractUnaryOperation {
         if (getFirstChild() instanceof VariableOperation) {
             VariableOperation v_ = (VariableOperation)getFirstChild();
             AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
-            if (var_ == null || var_.isFinalVariable()) {
-                FoundErrorInterpret varg_ = new FoundErrorInterpret();
-                varg_.setFileName(_page.getLocalizer().getCurrentFileName());
-                varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //key word len
-                varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                        _page.getKeyWords().getKeyWordThat());
-                _page.getLocalizer().addError(varg_);
-                addErr(varg_.getBuiltError());
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
-            setResultClass(new AnaClassArgumentMatching(var_.getClassName()));
+            processErrorVar(_page, var_);
+            return;
+        }
+        if (getFirstChild() instanceof RefVariableOperation) {
+            RefVariableOperation v_ = (RefVariableOperation)getFirstChild();
+            AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
+            processErrorVar(_page, var_);
             return;
         }
         MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)getFirstChild();
@@ -164,5 +166,22 @@ public final class WrappOperation extends AbstractUnaryOperation {
             return;
         }
         setResultClass(new AnaClassArgumentMatching(var_.getClassName()));
+    }
+
+    public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {
+        if (_var == null || _var.isFinalVariable()) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordThat());
+            _page.getLocalizer().addError(varg_);
+            addErr(varg_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        setResultClass(new AnaClassArgumentMatching(_var.getClassName()));
+        return;
     }
 }

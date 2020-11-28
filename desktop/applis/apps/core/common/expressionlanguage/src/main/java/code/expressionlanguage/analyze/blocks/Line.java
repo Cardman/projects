@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
@@ -65,6 +66,41 @@ public final class Line extends Leaf implements BuildableElMethod {
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
+            if (declaring_.isRefVariable()) {
+                if (!(root instanceof DeclaringOperation)&&!(root instanceof AffectationOperation)&&!(root instanceof ErrorPartOperation)) {
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //variable name len
+                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                    _page.getLocalizer().addError(b_);
+                } else if (root instanceof DeclaringOperation) {
+                    for (OperationNode c: ((DeclaringOperation)root).getChildrenNodes()) {
+                        if (!(c instanceof AffectationOperation)) {
+                            FoundErrorInterpret b_ = new FoundErrorInterpret();
+                            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            //variable name len
+                            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                            _page.getLocalizer().addError(b_);
+                        } else if (!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
+                            FoundErrorInterpret b_ = new FoundErrorInterpret();
+                            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            //variable name len
+                            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                            _page.getLocalizer().addError(b_);
+                        }
+                    }
+                } else if (root instanceof AffectationOperation&&!(((AffectationOperation) root).getChildrenNodes().last() instanceof WrappOperation)) {
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //variable name len
+                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                    _page.getLocalizer().addError(b_);
+                }
+            }
             import_ = declaring_.getImportedClassName();
             importedClass = import_;
             String err_ = AffectationOperation.processInfer(import_, _page);
@@ -72,6 +108,7 @@ public final class Line extends Leaf implements BuildableElMethod {
             declaring_.getVariableNames().addAllElts(vars_);
         }
         _page.setMerged(false);
+        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setFinalVariable(false);
     }

@@ -458,6 +458,9 @@ public abstract class OperationNode {
         if (ElUtil.isDeclaringVariable(_m, _page)) {
             return new VariableOperation(_index, _indexChild, _m, _op);
         }
+        if (ElUtil.isDeclaringRefVariable(_m, _page)) {
+            return new RefVariableOperation(_index, _indexChild, _m, _op);
+        }
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();
             if (ch_ != null) {
@@ -474,6 +477,9 @@ public abstract class OperationNode {
         if (val_ != null) {
             if (val_.getConstType() == ConstType.REF_PARAM) {
                 return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op);
+            }
+            if (val_.getConstType() == ConstType.REF_LOC_VAR) {
+                return new RefVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
             }
         }
         int deep_ = -1;
@@ -558,9 +564,7 @@ public abstract class OperationNode {
                 StringUtil.join(_class.getNames(),"&"));
         _page.getLocalizer().addError(access_);
         _op.addErr(access_.getBuiltError());
-        FieldResult res_ = new FieldResult();
-        res_.setStatus(SearchingMemberStatus.ZERO);
-        return res_;
+        return fr_;
     }
 
     static FieldResult getDeclaredCustFieldLambda(int _offset, CustList<PartOffset> _parts, AnaClassArgumentMatching _class,
@@ -581,9 +585,7 @@ public abstract class OperationNode {
         _page.getLocalizer().addError(access_);
         _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(access_.getBuiltError()) +"\" class=\"e\">",i_));
         _parts.add(new PartOffset("</a>",i_+Math.max(1, _name.length())));
-        FieldResult res_ = new FieldResult();
-        res_.setStatus(SearchingMemberStatus.ZERO);
-        return res_;
+        return fr_;
     }
     public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,
                                                        boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {

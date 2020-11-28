@@ -1289,50 +1289,84 @@ public final class FileResolver {
                     //fields, constructors or methods
                     br_ = processTypeMember(_currentChar, _instruction, instructionLocation_, _i, _offset, (RootBlock)currentParent_, _page);
                 } else {
-                    int affectOffset_;
-                    int afterDeclareOffset_;
-                    boolean finalLocalVar_ = StringExpUtil.startsWithKeyWord(trimmedInstruction_, keyWordFinal_);
-                    int delta_ = 0;
-                    int deltaAfter_ = 0;
-                    if (finalLocalVar_) {
-                        deltaAfter_ = keyWordFinal_.length();
-                        delta_ = StringUtil.getFirstPrintableCharIndex(found_) + deltaAfter_;
+                    String keyWordThat_ = keyWords_.getKeyWordThat();
+                    boolean ok_ = false;
+                    if (StringExpUtil.startsWithKeyWord(trimmedInstruction_, keyWordThat_)) {
+                        int thatLength_ = keyWordThat_.length();
+                        String substring_ = trimmedInstruction_.substring(thatLength_);
+                        int next_ = StringExpUtil.nextPrintChar(0, substring_.length(), substring_);
+                        String declaringType_ = "";
+                        int deltaAfter_ = thatLength_;
+                        int delta_ = StringUtil.getFirstPrintableCharIndex(found_) + deltaAfter_;
                         deltaAfter_ = delta_;
                         deltaAfter_ += StringUtil.getFirstPrintableCharIndex(found_.substring(delta_));
+                        String foundAfter_ = found_.substring(delta_);
+                        if (next_ > -1 && StringExpUtil.isTypeLeafChar(substring_.charAt(next_))) {
+                            declaringType_ = getDeclaringTypeInstr(foundAfter_,keyWords_);
+                        }
+                        if (!declaringType_.trim().isEmpty()) {
+                            String info_ = foundAfter_.substring(declaringType_.length());
+                            found_ = foundAfter_;
+                            int realTypeOffset_ = instructionRealLocation_ + deltaAfter_;
+                            int varNameOffset_ = instructionRealLocation_ + delta_;
+                            varNameOffset_ += declaringType_.length();
+                            varNameOffset_ += StringUtil.getFirstPrintableCharIndex(info_);
+                            int afterDeclareOffset_ = varNameOffset_;
+                            br_ = new DeclareVariable(new OffsetBooleanInfo(0,false),
+                                    new OffsetStringInfo(realTypeOffset_+_offset, declaringType_.trim()),
+                                    new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset),true);
+                            currentParent_.appendChild(br_);
+                            br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, info_.trim()), new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                            br_.setBegin(_i+_offset);
+                            br_.setLengthHeader(1);
+                            currentParent_.appendChild(br_);
+                            ok_ = true;
+                        }
                     }
-                    found_ = found_.substring(delta_);
-                    String declaringType_ = getDeclaringTypeInstr(found_,keyWords_);
-                    boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
-                    String info_;
-                    int realTypeOffset_;
-                    if (finalLocalVar_) {
-                        realTypeOffset_ = instructionRealLocation_ + deltaAfter_;
-                    } else {
-                        realTypeOffset_ = instructionLocation_;
-                    }
-                    if (typeDeclaring_) {
-                        int varNameOffset_ = instructionRealLocation_ + delta_;
-                        varNameOffset_ += declaringType_.length();
-                        info_ = found_.substring(declaringType_.length());
-                        varNameOffset_ += StringUtil.getFirstPrintableCharIndex(info_);
-                        afterDeclareOffset_ = varNameOffset_;
-                    } else {
-                        affectOffset_ = instructionRealLocation_;
-                        affectOffset_ += StringUtil.getFirstPrintableCharIndex(found_);
-                        afterDeclareOffset_ = affectOffset_;
-                        info_ = found_;
-                    }
-                    String inst_ = info_;
-                    if (typeDeclaring_) {
-                        br_ = new DeclareVariable(new OffsetBooleanInfo(instructionLocation_+_offset, finalLocalVar_),
-                                new OffsetStringInfo(realTypeOffset_+_offset, declaringType_.trim()),
-                                new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                    if (!ok_) {
+                        boolean finalLocalVar_ = StringExpUtil.startsWithKeyWord(trimmedInstruction_, keyWordFinal_);
+                        int delta_ = 0;
+                        int deltaAfter_ = 0;
+                        if (finalLocalVar_) {
+                            deltaAfter_ = keyWordFinal_.length();
+                            delta_ = StringUtil.getFirstPrintableCharIndex(found_) + deltaAfter_;
+                            deltaAfter_ = delta_;
+                            deltaAfter_ += StringUtil.getFirstPrintableCharIndex(found_.substring(delta_));
+                        }
+                        found_ = found_.substring(delta_);
+                        String declaringType_ = getDeclaringTypeInstr(found_,keyWords_);
+                        boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
+                        int realTypeOffset_;
+                        if (finalLocalVar_) {
+                            realTypeOffset_ = instructionRealLocation_ + deltaAfter_;
+                        } else {
+                            realTypeOffset_ = instructionLocation_;
+                        }
+                        int afterDeclareOffset_;
+                        String info_;
+                        if (typeDeclaring_) {
+                            int varNameOffset_ = instructionRealLocation_ + delta_;
+                            varNameOffset_ += declaringType_.length();
+                            info_ = found_.substring(declaringType_.length());
+                            varNameOffset_ += StringUtil.getFirstPrintableCharIndex(info_);
+                            afterDeclareOffset_ = varNameOffset_;
+                        } else {
+                            int affectOffset_ = instructionRealLocation_;
+                            affectOffset_ += StringUtil.getFirstPrintableCharIndex(found_);
+                            afterDeclareOffset_ = affectOffset_;
+                            info_ = found_;
+                        }
+                        if (typeDeclaring_) {
+                            br_ = new DeclareVariable(new OffsetBooleanInfo(instructionLocation_+_offset, finalLocalVar_),
+                                    new OffsetStringInfo(realTypeOffset_+_offset, declaringType_.trim()),
+                                    new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), false);
+                            currentParent_.appendChild(br_);
+                        }
+                        br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, info_.trim()), new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                        br_.setBegin(_i+_offset);
+                        br_.setLengthHeader(1);
                         currentParent_.appendChild(br_);
                     }
-                    br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, inst_.trim()), new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                    br_.setBegin(_i+_offset);
-                    br_.setLengthHeader(1);
-                    currentParent_.appendChild(br_);
                 }
             } else {
                 br_ = bl_;

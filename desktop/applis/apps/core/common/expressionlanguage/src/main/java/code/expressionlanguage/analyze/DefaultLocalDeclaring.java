@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.DeclareVariable;
 
 public final class DefaultLocalDeclaring implements AbstractLocalDeclaring {
@@ -12,22 +11,12 @@ public final class DefaultLocalDeclaring implements AbstractLocalDeclaring {
 
     @Override
     public boolean hasDeclarator() {
-        return hasDecl();
+        return context.getCurrentBlock().getPreviousSibling() instanceof DeclareVariable;
     }
 
     @Override
     public void setupDeclaratorClass(String _className) {
-        setupDeclClass(_className);
+        ((DeclareVariable)context.getCurrentBlock().getPreviousSibling()).setImportedClassName(_className);
     }
 
-    public boolean hasDecl() {
-        Block bl_ = context.getCurrentBlock();
-        return bl_.getPreviousSibling() instanceof DeclareVariable;
-    }
-
-    public void setupDeclClass(String _className) {
-        Block bl_ = context.getCurrentBlock();
-        Block previousSibling_ = bl_.getPreviousSibling();
-        ((DeclareVariable)previousSibling_).setImportedClassName(_className);
-    }
 }

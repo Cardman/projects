@@ -107,6 +107,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         if (settable instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
+        if (settable instanceof ExecStdRefVariableOperation) {
+            arg_ = ((ExecStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
         if (settable instanceof ExecRefParamOperation) {
             arg_ = ((ExecRefParamOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
@@ -145,6 +148,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         Argument arg_ = null;
         if (_set instanceof ExecStdVariableOperation) {
             arg_ = ((ExecStdVariableOperation)_set).endCalculate(_conf, _nodes, _right);
+        }
+        if (_set instanceof ExecStdRefVariableOperation) {
+            arg_ = ((ExecStdRefVariableOperation)_set).endCalculate(_conf, _nodes, _right);
         }
         if (_set instanceof ExecRefParamOperation) {
             arg_ = ((ExecRefParamOperation)_set).endCalculate(_conf, _nodes, _right);

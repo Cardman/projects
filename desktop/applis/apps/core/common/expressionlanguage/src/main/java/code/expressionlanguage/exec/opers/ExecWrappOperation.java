@@ -16,6 +16,16 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+        if (getFirstChild() instanceof ExecStdRefVariableOperation) {
+            ExecStdRefVariableOperation ch_ = (ExecStdRefVariableOperation) getFirstChild();
+            String variableName_ = ch_.getVariableContent().getVariableName();
+            PageEl ip_ = _conf.getLastPage();
+            AbstractWrapper val_ = ip_.getRefParams().getVal(variableName_);
+            ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+            pair_.setWrapper(val_);
+            setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes);
+            return;
+        }
         if (getFirstChild() instanceof ExecStdVariableOperation) {
             ExecStdVariableOperation ch_ = (ExecStdVariableOperation) getFirstChild();
             String variableName_ = ch_.getVariableContent().getVariableName();

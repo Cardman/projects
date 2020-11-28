@@ -2985,6 +2985,33 @@ public final class LinkageUtil {
         }
     }
     private static void processVariables(VariablesOffsets _vars, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+        if (_val instanceof RefVariableOperation) {
+            String varName_ = ((RefVariableOperation) _val).getRealVariableName();
+            int delta_ = ((RefVariableOperation) _val).getOff();
+            if (((RefVariableOperation) _val).isDeclare()) {
+                StringList errs_ = ((RefVariableOperation) _val).getNameErrors();
+                int id_ = ((RefVariableOperation) _val).getRef();
+                if (!errs_.isEmpty()) {
+                    String err_ = transform(StringUtil.join(errs_,"\n\n"));
+                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
+                    _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()+varName_.length()));
+                } else {
+                    String tag_ = "<a name=\"m"+ id_ +"\">";
+                    _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()+varName_.length()));
+                }
+
+            } else {
+                int id_ = ((RefVariableOperation) _val).getRef();
+                String tag_ = "<a href=\"#m"+id_+"\">";
+                _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,delta_+_sum + _val.getIndexInEl()+varName_.length()));
+            }
+        }
         if (_val instanceof VariableOperation) {
             String varName_ = ((VariableOperation) _val).getRealVariableName();
             int delta_ = ((VariableOperation) _val).getOff();

@@ -12,9 +12,4 @@ public abstract class ImmutableNameRootBlock extends RootBlock {
         super(_idRowCol, _packageName,_access,_templateDef,_directSuperTypes,_offset);
         getRootBlockContent().setName(_name.trim());
     }
-
-    @Override
-    public String getName() {
-        return getRootBlockContent().getName();
-    }
 }
