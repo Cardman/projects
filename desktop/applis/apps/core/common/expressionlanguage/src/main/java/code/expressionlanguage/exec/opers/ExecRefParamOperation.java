@@ -28,9 +28,9 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(new Argument(ExecTemplates.getValue(val_)), _conf, _nodes);
+            setQuickNoConvertSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
         } else {
-            setSimpleArgument(new Argument(ExecTemplates.getValue(val_)), _conf, _nodes);
+            setSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
         }
     }
 
@@ -42,14 +42,14 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper());
+        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
         return getCommonCompoundSetting(_nodes,_conf,store_,_op,_right,_cl,_cast);
     }
 
 
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper());
+        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
         return getCommonSemiSetting(_nodes,_conf,store_,_op,_post,_cast);
     }
 

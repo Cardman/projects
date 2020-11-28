@@ -6,5 +6,5 @@ import code.expressionlanguage.structs.Struct;
 
 public interface AbstractWrapper {
     void setValue(ContextEl _conf, Argument _right);
-    Struct getValue();
+    Struct getValue(ContextEl _conf);
 }

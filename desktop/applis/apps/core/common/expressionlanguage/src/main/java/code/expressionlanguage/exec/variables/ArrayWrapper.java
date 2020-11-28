@@ -8,14 +8,12 @@ import code.expressionlanguage.structs.Struct;
 public final class ArrayWrapper implements AbstractWrapper {
     private Struct container;
     private Struct index;
-    private Struct value;
     public void setValue(ContextEl _conf, Argument _right) {
         ExecTemplates.setElement(container,index,_right.getStruct(),_conf);
-        value = _right.getStruct();
     }
 
-    public Struct getValue() {
-        return value;
+    public Struct getValue(ContextEl _conf) {
+        return ExecTemplates.getElement(container,index,_conf);
     }
 
     public void setContainer(Struct _container) {
@@ -26,7 +24,4 @@ public final class ArrayWrapper implements AbstractWrapper {
         this.index = _index;
     }
 
-    public void setValue(Struct _value) {
-        this.value = _value;
-    }
 }

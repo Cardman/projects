@@ -15,16 +15,16 @@ public final class FieldWrapper implements AbstractWrapper {
     private boolean staticField;
     private boolean finalField;
     private ClassField id;
-    private Struct value;
     public void setValue(ContextEl _conf, Argument _right) {
         String className_ = id.getClassName();
         String fieldName_ = id.getFieldName();
         ExecTemplates.setField(new DefaultSetOffset(_conf), _conf.getExiting(),rootBlock,className_,fieldName_,staticField,finalField,false,fieldType,new Argument(container),_right,_conf,-1);
-        value = _right.getStruct();
     }
 
-    public Struct getValue() {
-        return value;
+    public Struct getValue(ContextEl _conf) {
+        String className_ = id.getClassName();
+        String fieldName_ = id.getFieldName();
+        return ExecTemplates.getField(new DefaultSetOffset(_conf), _conf.getExiting(),className_,fieldName_,staticField,fieldType,new Argument(container),_conf,-1).getStruct();
     }
 
     public void setContainer(Struct _container) {
@@ -49,10 +49,6 @@ public final class FieldWrapper implements AbstractWrapper {
 
     public void setId(ClassField _id) {
         id = _id;
-    }
-
-    public void setValue(Struct _value) {
-        value = _value;
     }
 
 }

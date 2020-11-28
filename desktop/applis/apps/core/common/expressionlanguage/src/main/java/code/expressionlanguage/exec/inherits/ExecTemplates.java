@@ -564,7 +564,7 @@ public final class ExecTemplates {
         i_ = IndexConstants.FIRST_INDEX;
         for (AbstractWrapper w: wrappers_) {
             String param_ = params_.getTypesRef().get(i_);
-            Struct value_ = getValue(w);
+            Struct value_ = getValue(w, _conf);
             Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf);
             if (ex_ != null) {
                 p_.setError(ex_);
@@ -578,7 +578,7 @@ public final class ExecTemplates {
             str_ = args_.last().getStruct();
         }
         if (params_.isVarargRef()) {
-            str_ = getValue(wrappers_.last());
+            str_ = getValue(wrappers_.last(), null);
         }
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
@@ -606,11 +606,11 @@ public final class ExecTemplates {
         return p_;
     }
 
-    public static Struct getValue(AbstractWrapper _w) {
+    public static Struct getValue(AbstractWrapper _w, ContextEl _context) {
         if (_w == null) {
             return NullStruct.NULL_VALUE;
         }
-        return Argument.getNull(_w.getValue());
+        return Argument.getNull(_w.getValue(_context));
     }
     public static StringBuilder countDiff(int _argsCount, int _paramsCount) {
         StringBuilder mess_ = new StringBuilder();

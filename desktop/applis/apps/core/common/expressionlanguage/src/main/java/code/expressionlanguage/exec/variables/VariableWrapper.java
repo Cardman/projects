@@ -9,18 +9,15 @@ import code.expressionlanguage.structs.Struct;
 public final class VariableWrapper implements AbstractWrapper {
     private LocalVariable local = LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,"");
 
-    private Struct value;
     public void setValue(ContextEl _conf, Argument _right) {
         ExecTemplates.checkSet(_conf,local,_right);
-        value = _right.getStruct();
     }
 
-    public Struct getValue() {
-        return value;
+    public Struct getValue(ContextEl _conf) {
+        return local.getStruct();
     }
 
     public void setLocal(LocalVariable _local) {
         local = _local;
-        value = _local.getStruct();
     }
 }

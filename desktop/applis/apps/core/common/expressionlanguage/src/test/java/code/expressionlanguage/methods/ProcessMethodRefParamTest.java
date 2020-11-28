@@ -2636,6 +2636,50 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         assertEq(9, getNumber(ret_));
     }
     @Test
+    public void calculateArgument98Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=1;\n");
+        xml_.append("  $that $var u=$that(t),v=$that(t);\n");
+        xml_.append("  u += 8;\n");
+        xml_.append("  v *= 2;\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(18, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument99Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=1;\n");
+        xml_.append("  $that $var u=$that(t),v=$that(t);\n");
+        xml_.append("  v *= 2;\n");
+        xml_.append("  u += 8;\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
