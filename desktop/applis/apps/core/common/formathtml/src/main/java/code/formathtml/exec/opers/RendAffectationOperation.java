@@ -7,7 +7,9 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
+import code.formathtml.SimplePageEl;
 import code.formathtml.util.BeanLgNames;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -76,6 +78,15 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
             }
         }
         RendDynOperationNode right_ = getLastNode(this);
+        if (settable instanceof RendStdRefVariableOperation) {
+            if (((RendStdRefVariableOperation)settable).isDeclare()){
+                CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
+                ArgumentsPair pairRight_ = getArgumentPair(_nodes, getNode(childrenNodes_,childrenNodes_.size()-1));
+                _conf.getLastPage().getRefParams().put(((RendStdRefVariableOperation)settable).getVariableName(),pairRight_.getWrapper());
+                setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context);
+                return;
+            }
+        }
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_, _advStandards, _context);
         setSimpleArgument(arg_, _conf,_nodes, _context);
@@ -85,6 +96,9 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
         Argument arg_ = null;
         if (_set instanceof RendStdVariableOperation) {
             arg_ = ((RendStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context);
+        }
+        if (_set instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context);
         }
         if (_set instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right, _advStandards, _context);

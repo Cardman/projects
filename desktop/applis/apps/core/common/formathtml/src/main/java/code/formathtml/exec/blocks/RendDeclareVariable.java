@@ -9,23 +9,24 @@ import code.formathtml.ImportingPage;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 
-public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
+public final class RendDeclareVariable extends RendAbstractDeclareVariable {
 
-    private StringList variableNames = new StringList();
 
     private String importedClassName;
 
     private int classNameOffset;
 
     public RendDeclareVariable(int _offsetTrim, String _info, int _offset, StringList _variables) {
-        super(_offsetTrim);
+        super(_offsetTrim,_variables);
         importedClassName = _info;
         classNameOffset = _offset;
-        variableNames = _variables;
     }
 
-    public StringList getVariableNames() {
-        return variableNames;
+    @Override
+    public void removeLocalVars(ImportingPage _ip) {
+        for (String v: getVariableNames()) {
+            _ip.removeLocalVar(v);
+        }
     }
 
     @Override

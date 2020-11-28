@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -56,15 +55,13 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
+        Struct store_ = a_.getStruct();
         return getCommonCompoundSetting(_conf, store_, _op, _right, _cl, _cast, _context);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
-        Struct store_;
-        store_ = _store.getStruct();
+        Struct store_ = _store.getStruct();
         return getCommonSemiSetting(_conf, store_, _op, _post, _cast, _context);
     }
 
@@ -77,8 +74,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         SimplePageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         Argument left_ = new Argument(_store);
-        Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context);
         ExecTemplates.setValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
         return res_;
     }
@@ -86,8 +82,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         SimplePageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         Argument left_ = new Argument(_store);
-        Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         ExecTemplates.setValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

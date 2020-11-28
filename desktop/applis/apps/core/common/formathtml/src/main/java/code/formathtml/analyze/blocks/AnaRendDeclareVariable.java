@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -18,8 +19,10 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
     private String importedClassName;
 
     private int classNameOffset;
-    AnaRendDeclareVariable(OffsetStringInfo _className, OffsetsBlock _offset) {
+    private boolean refVariable;
+    AnaRendDeclareVariable(OffsetBooleanInfo _refVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_offset);
+        refVariable = _refVar.isInfo();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
     }
@@ -44,11 +47,16 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
             importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
         }
         _page.setMerged(true);
+        _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);
         _page.setFinalVariable(false);
         _page.setCurrentVarSetting(importedClassName);
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
     }
 
     public int getClassNameOffset() {

@@ -152,6 +152,9 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendDeclareVariable){
             AnaRendDeclareVariable f_ = (AnaRendDeclareVariable) _current;
+            if (f_.isRefVariable()) {
+                return new RendRefDeclareVariable(_current.getOffset().getOffsetTrim(),f_.getVariableNames());
+            }
             return new RendDeclareVariable(_current.getOffset().getOffsetTrim(),f_.getImportedClassName(),f_.getClassNameOffset(),f_.getVariableNames());
         }
         if (_current instanceof AnaRendLine){
@@ -676,6 +679,10 @@ public final class RendForwardInfos {
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
             return new RendStdVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
+        }
+        if (_anaNode instanceof RefVariableOperation) {
+            RefVariableOperation m_ = (RefVariableOperation) _anaNode;
+            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()),m_.isDeclare());
         }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;

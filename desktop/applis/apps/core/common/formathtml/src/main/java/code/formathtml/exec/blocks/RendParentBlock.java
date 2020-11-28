@@ -1,10 +1,12 @@
 package code.formathtml.exec.blocks;
 
 import code.formathtml.ImportingPage;
+import code.util.CustList;
 
 public abstract class RendParentBlock extends RendBlock {
 
     private RendBlock firstChild;
+    private CustList<RendAbstractDeclareVariable> decl = new CustList<RendAbstractDeclareVariable>();
     protected RendParentBlock(int _offsetTrim) {
         super(_offsetTrim);
     }
@@ -26,6 +28,9 @@ public abstract class RendParentBlock extends RendBlock {
 
     public final void appendChild(RendBlock _child) {
         _child.setParent(this);
+        if (_child instanceof RendAbstractDeclareVariable) {
+            decl.add((RendAbstractDeclareVariable)_child);
+        }
         if (firstChild == null) {
             firstChild = _child;
             return;
@@ -48,12 +53,8 @@ public abstract class RendParentBlock extends RendBlock {
     }
 
     public final void removeLocalVars(ImportingPage _ip) {
-        for (RendBlock s: getDirectChildren(this)) {
-            if (s instanceof RendDeclareVariable) {
-                for (String v: ((RendDeclareVariable)s).getVariableNames()) {
-                    _ip.removeLocalVar(v);
-                }
-            }
+        for (RendAbstractDeclareVariable s: decl) {
+            s.removeLocalVars(_ip);
         }
     }
 

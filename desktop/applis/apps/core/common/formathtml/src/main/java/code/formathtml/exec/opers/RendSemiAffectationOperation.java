@@ -107,6 +107,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (_settable instanceof RendStdVariableOperation) {
             arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
+        if (_settable instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
+        }
         if (_settable instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
@@ -123,6 +126,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument arg_ = null;
         if (settable instanceof RendStdVariableOperation) {
             arg_ = ((RendStdVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+        }
+        if (settable instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);

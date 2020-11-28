@@ -38,6 +38,9 @@ public abstract class PageEl {
         return content.getVars();
     }
 
+    public void removeRefVar(String _key) {
+        content.removeRefVar(_key);
+    }
     public void removeLocalVar(String _key) {
         content.removeLocalVar(_key);
     }

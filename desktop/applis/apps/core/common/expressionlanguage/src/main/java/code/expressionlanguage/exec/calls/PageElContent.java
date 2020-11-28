@@ -46,6 +46,10 @@ public final class PageElContent {
         return vars;
     }
 
+    public void removeRefVar(String _key) {
+        getRefParams().removeKey(_key);
+    }
+
     public void removeLocalVar(String _key) {
         getValueVars().removeKey(_key);
     }

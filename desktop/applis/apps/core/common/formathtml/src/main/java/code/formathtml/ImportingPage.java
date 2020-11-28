@@ -2,6 +2,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -133,7 +134,13 @@ public final class ImportingPage {
     public void setGlobalArgumentStruct(Struct _obj) {
         pageEl.setGlobalArgumentStruct(_obj);
     }
+    public StringMap<AbstractWrapper> getRefParams() {
+        return getPageEl().getRefParams();
+    }
 
+    public void removeRefVar(String _key) {
+        getPageEl().removeRefVar(_key);
+    }
     public StringMap<LocalVariable> getValueVars() {
         return getPageEl().getValueVars();
     }

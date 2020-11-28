@@ -224,7 +224,8 @@ public abstract class AnaRendBlock {
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSet()))) {
             if (elt_.hasAttribute(_rendKeyWords.getAttrClassName())) {
-                _curParent.appendChild(new AnaRendDeclareVariable(newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
+                _curParent.appendChild(new AnaRendDeclareVariable(newOffsetBooleanInfo(elt_,_rendKeyWords.getAttrHref()),
+                        newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                         new OffsetsBlock(_begin,_begin)));
             }
             return new AnaRendLine(newOffsetStringInfo(elt_, _rendKeyWords.getAttrValue(), attr_),

@@ -67,39 +67,7 @@ public final class Line extends Leaf implements BuildableElMethod {
             StringList vars_ = _page.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             if (declaring_.isRefVariable()) {
-                if (!(root instanceof DeclaringOperation)&&!(root instanceof AffectationOperation)&&!(root instanceof ErrorPartOperation)) {
-                    FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //variable name len
-                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                    _page.getLocalizer().addError(b_);
-                } else if (root instanceof DeclaringOperation) {
-                    for (OperationNode c: ((DeclaringOperation)root).getChildrenNodes()) {
-                        if (!(c instanceof AffectationOperation)) {
-                            FoundErrorInterpret b_ = new FoundErrorInterpret();
-                            b_.setFileName(_page.getLocalizer().getCurrentFileName());
-                            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                            //variable name len
-                            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                            _page.getLocalizer().addError(b_);
-                        } else if (!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
-                            FoundErrorInterpret b_ = new FoundErrorInterpret();
-                            b_.setFileName(_page.getLocalizer().getCurrentFileName());
-                            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                            //variable name len
-                            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                            _page.getLocalizer().addError(b_);
-                        }
-                    }
-                } else if (root instanceof AffectationOperation&&!(((AffectationOperation) root).getChildrenNodes().last() instanceof WrappOperation)) {
-                    FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //variable name len
-                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                    _page.getLocalizer().addError(b_);
-                }
+                checkOpers(root, _page);
             }
             import_ = declaring_.getImportedClassName();
             importedClass = import_;
@@ -111,6 +79,46 @@ public final class Line extends Leaf implements BuildableElMethod {
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setFinalVariable(false);
+    }
+
+    public static void checkOpers(OperationNode _root, AnalyzedPageEl _page) {
+        if (!(_root instanceof DeclaringOperation)&&!(_root instanceof AffectationOperation)&&!(_root instanceof ErrorPartOperation)) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //variable name len
+            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+            _page.getLocalizer().addError(b_);
+            _root.addErr(b_.getBuiltError());
+        } else if (_root instanceof DeclaringOperation) {
+            for (OperationNode c: ((DeclaringOperation) _root).getChildrenNodes()) {
+                if (!(c instanceof AffectationOperation)) {
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //variable name len
+                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                    _page.getLocalizer().addError(b_);
+                    c.addErr(b_.getBuiltError());
+                } else if (!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //variable name len
+                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                    _page.getLocalizer().addError(b_);
+                    c.addErr(b_.getBuiltError());
+                }
+            }
+        } else if (_root instanceof AffectationOperation&&!(((AffectationOperation) _root).getChildrenNodes().last() instanceof WrappOperation)) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //variable name len
+            b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+            _page.getLocalizer().addError(b_);
+            _root.addErr(b_.getBuiltError());
+        }
     }
 
 

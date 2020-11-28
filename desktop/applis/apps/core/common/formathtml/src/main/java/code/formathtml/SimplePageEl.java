@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
@@ -20,6 +21,9 @@ public final class SimplePageEl {
         content.setGlobalArgumentStruct(_obj);
     }
 
+    public StringMap<AbstractWrapper> getRefParams() {
+        return content.getRefParams();
+    }
     public StringMap<LocalVariable> getValueVars() {
         return content.getValueVars();
     }
@@ -29,6 +33,10 @@ public final class SimplePageEl {
     }
     public StringMap<LoopVariable> getVars() {
         return content.getVars();
+    }
+
+    public void removeRefVar(String _key) {
+        content.removeRefVar(_key);
     }
 
     public void removeLocalVar(String _key) {

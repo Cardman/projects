@@ -108,6 +108,9 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         if (_settable instanceof RendStdVariableOperation) {
             arg_ = ((RendStdVariableOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context);
         }
+        if (_settable instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context);
+        }
         if (_settable instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context);
         }
@@ -124,6 +127,9 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         Argument arg_ = null;
         if (settable instanceof RendStdVariableOperation) {
             arg_ = ((RendStdVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+        }
+        if (settable instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         if (settable instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
