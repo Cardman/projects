@@ -1921,7 +1921,7 @@ public final class FileResolver {
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                 } else if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordTrue())) {
                     kind_ = MethodKind.TRUE_OPERATOR;
-                    ov_ = new OverridableBlock(false, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
+                    ov_ = new OverridableBlock(retRef_, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
@@ -1956,7 +1956,8 @@ public final class FileResolver {
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                     ov_.setMatchParamNames(false);
                 } else {
-                    if (StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordToString())
+                    if (!retRef_
+                            &&StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordToString())
                             &&!StringUtil.quickEq(modifier_,keyWordStatic_)
                             &&!StringUtil.quickEq(modifier_,keyWordStaticCall_)
                             &&parametersType_.isEmpty()) {
