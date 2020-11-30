@@ -100,6 +100,35 @@ public final class AffectationOperation extends MethodOperation {
                     settableOp.setResultClass(n_);
                 }
             }
+            if (elt_ instanceof RefVariableOperation) {
+                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getPrimitiveTypes()));
+                elt_.setVariable(true);
+                if (!clMatchLeft_.matchClass(clMatchRight_)) {
+                    setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //oper
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(clMatchRight_.getNames(),"&"),
+                            StringUtil.join(clMatchLeft_.getNames(),"&"));
+                    _page.getLocalizer().addError(cast_);
+                    IntTreeMap< String> ops_ = getOperations().getOperators();
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+                    int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
+                    CustList<PartOffset> err_ = new CustList<PartOffset>();
+                    err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                    err_.add(new PartOffset("</a>",opLocat_+1));
+                    getPartOffsetsChildren().add(err_);
+                } else {
+                    IntTreeMap< String> ops_ = getOperations().getOperators();
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+                    foundOffset = _page.getLocalizer().getCurrentLocationIndex();
+                }
+                return;
+            }
         }
         if (elt_ instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;

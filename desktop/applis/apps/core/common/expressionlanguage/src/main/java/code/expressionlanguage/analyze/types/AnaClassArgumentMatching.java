@@ -87,6 +87,10 @@ public final class AnaClassArgumentMatching {
         return StringUtil.equalsSet(className, l_);
     }
 
+    public boolean matchClass(AnaClassArgumentMatching _class) {
+        return StringUtil.equalsSet(className, _class.className);
+    }
+
     public boolean isVariable() {
         return StringUtil.contains(className, "");
     }

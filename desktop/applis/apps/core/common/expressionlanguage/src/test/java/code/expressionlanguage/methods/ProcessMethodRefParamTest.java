@@ -2722,6 +2722,8 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         xml_.append("  $that $int zb = $that(za), $that(za) = $that(t);\n");
         xml_.append("  $that;\n");
         xml_.append("  ($int x:$void)->{$int v = x;};\n");
+        xml_.append("  Object s2 = $null;\n");
+        xml_.append("  $that $int s3 = $that(s2);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
