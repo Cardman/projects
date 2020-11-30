@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
@@ -38,14 +39,18 @@ public abstract class AbstractPageEl extends PageEl {
     private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private ExecFileBlock file;
 
+    private AbstractWrapper wrapper;
     private Argument returnedArgument = Argument.createVoid();
 
     private LoopBlockStack lastLoop;
     private IfBlockStack lastIf;
     private TryBlockStack lastTry;
 
-    public void receive(Argument _argument, ContextEl _context) {
-        basicReceive(_argument,_context);
+    public final void forwardTo(AbstractPageEl _page, ContextEl _context) {
+        _page.receive(wrapper, returnedArgument, _context);
+    }
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+        basicReceive(_wrap, _argument,_context);
     }
     public String formatVarType(String _varType) {
         if (getGlobalArgument().isNull()) {
@@ -54,11 +59,11 @@ public abstract class AbstractPageEl extends PageEl {
         return ExecTemplates.quickFormat(blockRootType, globalClass, _varType);
     }
 
-    void basicReceive(Argument _argument, ContextEl _context) {
+    void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
         if (isEmptyEl()) {
             return;
         }
-        getLastEl().setArgument(_argument, _context);
+        getLastEl().setArgument(_wrap,_argument, _context);
     }
 
     public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context) {
@@ -263,6 +268,14 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void setReturnedArgument(Argument _returnedArgument) {
         returnedArgument = Argument.getNullableValue(_returnedArgument);
+    }
+
+    public AbstractWrapper getWrapper() {
+        return wrapper;
+    }
+
+    public void setWrapper(AbstractWrapper _wrapper) {
+        wrapper = _wrapper;
     }
 
     public LoopBlockStack getLastLoop() {

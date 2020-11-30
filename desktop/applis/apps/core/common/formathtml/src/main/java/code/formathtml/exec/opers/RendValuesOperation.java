@@ -22,7 +22,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument argres_ = RendDynOperationNode.processCall(getCommonArgument(_conf, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getCommonArgument(_conf, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

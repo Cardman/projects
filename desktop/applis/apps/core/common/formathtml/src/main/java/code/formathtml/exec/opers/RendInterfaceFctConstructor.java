@@ -49,11 +49,11 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
                 return;
             }
             pair_.setArgument(ref_);
-            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, ref_, _conf, _context), _context);
+            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, ref_, _conf, _context), _context).getValue();
             setSimpleArgument(argres_,_conf,_nodes, _context);
             return;
         }
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _conf, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _conf, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, ContextEl _context) {

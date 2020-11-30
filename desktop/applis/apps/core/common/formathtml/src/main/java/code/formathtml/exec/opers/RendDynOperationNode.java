@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -51,9 +52,9 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
 
-    protected static Argument processCall(Argument _res, ContextEl _context) {
+    protected static ArgumentWrapper processCall(Argument _res, ContextEl _context) {
         CallingState callingState_ = _context.getCallingState();
-        Argument res_;
+        ArgumentWrapper res_;
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
             res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context);
@@ -67,7 +68,7 @@ public abstract class RendDynOperationNode {
             CustomFoundCast cast_ = (CustomFoundCast) callingState_;
             res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getPair(), cast_.getArguments(), _context);
         } else {
-            res_ = _res;
+            res_ = new ArgumentWrapper(_res,null);
         }
         return res_;
     }
@@ -238,6 +239,14 @@ public abstract class RendDynOperationNode {
     }
 
 
+    public final void setSimpleArgument(ArgumentWrapper _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context) {
+        if (_argument.getWrapper() != null) {
+            getArgumentPair(_nodes,this).setWrapper(_argument.getWrapper());
+        }
+        setQuickConvertSimpleArgument(_argument.getValue(), _nodes, _context);
+        setNextSiblingsArg(_nodes,_conf, _context);
+    }
+
     public final void setSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context) {
         setQuickConvertSimpleArgument(_argument, _nodes, _context);
         setNextSiblingsArg(_nodes,_conf, _context);
@@ -334,7 +343,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException()) {
             return null;
         }
-        Argument out_ = ProcessMethod.castArgument(_owner,_c, parameters_, _context);
+        Argument out_ = ProcessMethod.castArgument(_owner,_c, parameters_, _context).getValue();
         if (_context.callsOrException()) {
             return null;
         }
@@ -347,7 +356,7 @@ public abstract class RendDynOperationNode {
         boolean convert_ = false;
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context);
+            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context).getValue();
             convert_ = true;
         }
         if (_context.callsOrException()) {

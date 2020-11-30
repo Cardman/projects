@@ -10,8 +10,8 @@ import code.util.core.IndexConstants;
 
 public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
-    public ExecOperatorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+    public ExecOperatorBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
     }
 
     public MethodId getId() {
@@ -23,7 +23,7 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements E
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodAccessKind.STATIC, name_, pTypes_,getParametersRef(), isVarargs());
+        return new MethodId(isRetRef(), MethodAccessKind.STATIC, name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     @Override

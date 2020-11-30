@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ReflectingType;
@@ -6614,8 +6615,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = args();
         args_.add(new Argument(s_));
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
-        Argument out_ = ProcessMethod.reflectArgument(cont_, ref_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
+        Argument out_ = argumentWrapper_.getValue();
         assertNull(cont_.getCallingState());
+        assertNull(argumentWrapper_.getWrapper());
         assertEq(1, getNumber(out_));
     }
     @Test
@@ -6628,8 +6631,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = args();
         args_.add(new Argument(s_));
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
-        Argument out_ = ProcessMethod.reflectArgument(cont_, ref_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
+        Argument out_ = argumentWrapper_.getValue();
         assertNull(cont_.getCallingState());
+        assertNull(argumentWrapper_.getWrapper());
         assertEq(1, getNumber(out_));
     }
 

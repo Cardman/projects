@@ -1734,6 +1734,20 @@ public final class ClassesUtil {
                 }
                 i_++;
             }
+            if (o.isRetRef()) {
+                if (StringUtil.quickEq(o.getImportedReturnType(),_page.getAliasVoid())) {
+                    int r_ = o.getNameOffset();
+                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                    badMeth_.setFileName(o.getFile().getFileName());
+                    badMeth_.setIndexFile(r_);
+                    //method name len
+                    badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                            o.getSignature(_page),
+                            _page.getAliasVoid());
+                    _page.addLocError(badMeth_);
+                    o.addNameErrors(badMeth_);
+                }
+            }
         }
     }
 

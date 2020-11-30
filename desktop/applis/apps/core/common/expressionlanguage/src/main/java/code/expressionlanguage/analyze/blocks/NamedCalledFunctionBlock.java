@@ -11,8 +11,8 @@ import code.util.Ints;
 import code.util.StringList;
 
 public abstract class NamedCalledFunctionBlock extends NamedFunctionBlock {
-    protected NamedCalledFunctionBlock(OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset, BooleanList _refParams) {
-        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+    protected NamedCalledFunctionBlock(boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _fctName, StringList _paramTypes, Ints _paramTypesOffset, StringList _paramNames, Ints _paramNamesOffset, OffsetsBlock _offset, BooleanList _refParams) {
+        super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
     }
 
     protected NamedCalledFunctionBlock(int _fctName, OffsetsBlock _offset, AnalyzedPageEl _page) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.util.CustList;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -21,14 +22,9 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     }
 
     @Override
-    public void receive(Argument _argument, ContextEl _context) {
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+        setWrapper(_wrap);
         setReturnedArgument(_argument);
-    }
-
-    @Override
-    public final void forwardTo(AbstractPageEl _page, ContextEl _context) {
-        Argument a_ = getReturnedArgument();
-        _page.receive(a_, _context);
     }
 
     public CustList<Argument> getArguments() {

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -19,7 +20,7 @@ public final class ExpressionLanguage {
     private final CustList<ExecOperationNode> operations;
     private final IdMap<ExecOperationNode,ArgumentsPair> arguments;
     private ExecOperationNode currentOper;
-    private Argument argument;
+    private ArgumentsPair argument;
     private int index;
 
     public ExpressionLanguage(CustList<ExecOperationNode> _operations) {
@@ -28,16 +29,21 @@ public final class ExpressionLanguage {
     }
 
     public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset) {
-        Argument argument_ = _right.argument;
+        ArgumentsPair argumentsPair_ = tryToCalculatePair(_conf, _right, _offset);
+        return getNullable(argumentsPair_);
+    }
+
+    public static ArgumentsPair tryToCalculatePair(ContextEl _conf, ExpressionLanguage _right, int _offset) {
+        ArgumentsPair argument_ = _right.argument;
         if (argument_ != null) {
             return argument_;
         }
         IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
         calculate(allRight_, _right, _conf, _offset);
         if (_conf.callsOrException()) {
-            return Argument.getNullableValue(_right.argument);
+            return null;
         }
-        _right.argument = Argument.getNullableValue(ExecTemplates.getArgumentPair(_right.arguments,_right.arguments.size()-1).getArgument());
+        _right.argument = ExecTemplates.getArgumentPair(_right.arguments,_right.arguments.size()-1);
         return _right.argument;
     }
 
@@ -147,7 +153,30 @@ public final class ExpressionLanguage {
     }
 
     public Argument getArgument() {
-        return Argument.getNullableValue(argument);
+        return Argument.getNullableValue(getNullable(argument));
+    }
+
+    public static Argument getNullable(ArgumentsPair _argumentsPair) {
+        if (_argumentsPair != null) {
+            return _argumentsPair.getArgument();
+        }
+        return Argument.createVoid();
+    }
+
+    public void setArgument(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont) {
+        Argument arg_ = tryUnwrapp(_wrapp, _arg, _cont);
+        if (_wrapp != null) {
+            ExecTemplates.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
+        }
+        setArgument(arg_,_cont);
+    }
+
+    public static Argument tryUnwrapp(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont) {
+        Argument arg_ = _arg;
+        if (_wrapp != null) {
+            arg_ = new Argument(_wrapp.getValue(_cont));
+        }
+        return arg_;
     }
 
     public void setArgument(Argument _arg, ContextEl _cont) {

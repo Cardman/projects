@@ -67,7 +67,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context).getValue();
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context);
                 if (conv_ == null) {

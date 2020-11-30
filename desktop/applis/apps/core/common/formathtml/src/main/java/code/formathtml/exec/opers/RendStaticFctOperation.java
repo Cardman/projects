@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -25,7 +26,7 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _conf, _context), _context);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

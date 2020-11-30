@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.WrappOperation;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -60,6 +61,23 @@ public final class ReturnMethod extends AbruptBlock {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }
         returnType = retType_;
+        if (f_ instanceof NamedFunctionBlock) {
+            if (((NamedFunctionBlock)f_).isRetRef()) {
+                AnaClassArgumentMatching ret_ = root.getResultClass();
+                if (!(root instanceof WrappOperation)||!ret_.matchClass(retType_)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setIndexFile(expressionOffset);
+                    //original type
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(ret_.getNames(), "&"),
+                            retType_);
+                    _page.addLocError(cast_);
+                    addErrorBlock(cast_.getBuiltError());
+                }
+                return;
+            }
+        }
         checkTypes(retType_, root, _page);
     }
 

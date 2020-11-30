@@ -21,12 +21,13 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final AccessEnum access;
 
+    private final boolean retRef;
     private final boolean varargs;
-
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    ExecNamedFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+    ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
         super(_offsetTrim);
+        retRef = _retRef;
         importedParametersTypes = _importedParametersTypes;
         name = _name;
         varargs = _varargs;
@@ -49,6 +50,10 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     public final String getParametersName(int _index) {
         return parametersNames.get(_index);
+    }
+
+    public final boolean isRetRef() {
+        return retRef;
     }
 
     public final boolean isVarargs() {

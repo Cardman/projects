@@ -1067,8 +1067,8 @@ public abstract class OperationNode {
 
     static ClassMethodIdReturn getDeclaredCustMethod(OperationNode _op, int _varargOnly,
                                                      MethodAccessKind _staticContext, StringList _classes, String _name,
-                                                     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
-        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_varargOnly, _staticContext, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _param,_filter, _page);
+                                                     boolean _import, String _param, NameParametersFilter _filter, AnalyzedPageEl _page, ScopeFilter _sc) {
+        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_varargOnly, _staticContext, _classes, _name, _import, _param,_filter, _page, _sc);
         if (res_.isFoundMethod()) {
             return res_;
         }
@@ -1147,13 +1147,11 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(int _varargOnly,
                                                                   MethodAccessKind _staticContext,
                                                                   StringList _classes, String _name,
-                                                                  boolean _superClass, boolean _accessFromSuper,
-                                                                  boolean _import, ClassMethodIdAncestor _uniqueId,
-                                                                  String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
-        CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId, _page);
-        boolean uniq_ = uniq(_uniqueId,_varargOnly);
-        int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
+                                                                  boolean _import,
+                                                                  String _param, NameParametersFilter _filter, AnalyzedPageEl _page, ScopeFilter _sc) {
+        CustList<CustList<MethodInfo>> methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, _sc);
+        boolean uniq_ = uniq(_sc.getId(),_varargOnly);
+        int varargOnly_ = fetchVarargOnly(_varargOnly, _sc.getId());
         return getCustResult(uniq_, false, varargOnly_, methods_, _name, _param,_filter, _page);
     }
 
@@ -1164,7 +1162,7 @@ public abstract class OperationNode {
                                                                   boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                   String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId, _page);
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()));
         boolean uniq_ = uniq(_uniqueId,_varargOnly);
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResult(uniq_, varargOnly_, methods_, _name, _param,_argsClass, _page);
@@ -1201,7 +1199,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(StringList _classes, String _name,
                                                                           AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, false, false, _classes, _name, false, null, _page);
+        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()));
         return getCustIncrDecrResult(methods_, _name, _argsClass, _page);
     }
     protected static ReversibleConversion tryGetPair(AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
@@ -1235,7 +1233,7 @@ public abstract class OperationNode {
                                                                         boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                         AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId, _page);
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()));
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
@@ -1783,23 +1781,23 @@ public abstract class OperationNode {
 
     private static ClassMethodIdReturn getIncrDecrOperator(String _op, AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         //implicit use of operator key word
-        CustList<MethodInfo> ops_ = getOperators(null, _page);
+        CustList<MethodInfo> ops_ = getOperators(false, null, _page);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
         return getCustIncrDecrResult(o_, _op, _argsClass, _page);
     }
     static ClassMethodIdReturn getOperator(ClassMethodId _cl, int _varargOnly,
                                            String _op, String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
-        CustList<MethodInfo> ops_ = getOperators(_cl, _page);
+        CustList<MethodInfo> ops_ = getOperators(false, _cl, _page);
         boolean uniq_ = uniq(_cl,_varargOnly);
         int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
         return getCustResult(uniq_, varargOnly_, o_, _op, _param,_argsClass, _page);
     }
-    static ClassMethodIdReturn getOperator(ClassMethodId _cl, int _varargOnly,
+    static ClassMethodIdReturn getOperator(boolean _refRet, ClassMethodId _cl, int _varargOnly,
                                            String _op, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
-        CustList<MethodInfo> ops_ = getOperators(_cl, _page);
+        CustList<MethodInfo> ops_ = getOperators(_refRet, _cl, _page);
         boolean uniq_ = uniq(_cl,_varargOnly);
         int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
@@ -1809,7 +1807,7 @@ public abstract class OperationNode {
 
     static ClassMethodIdReturn getOperatorLambda(ClassMethodId _cl, int _varargOnly,
                                                  String _op, AnalyzedPageEl _page, AnaClassArgumentMatching... _argsClass) {
-        CustList<MethodInfo> ops_ = getOperators(_cl, _page);
+        CustList<MethodInfo> ops_ = getOperators(false, _cl, _page);
         int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
@@ -1839,10 +1837,15 @@ public abstract class OperationNode {
         }
         return uniq_;
     }
-    static CustList<MethodInfo> getOperators(ClassMethodId _cl, AnalyzedPageEl _page){
+    static CustList<MethodInfo> getOperators(boolean _retRef, ClassMethodId _cl, AnalyzedPageEl _page){
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         for (OperatorBlock e: _page.getAllOperators()) {
+            if (_retRef) {
+                if (!e.isRetRef()) {
+                    continue;
+                }
+            }
             String ret_ = e.getImportedReturnType();
             MethodId id_ = e.getId();
             if (_cl != null) {
@@ -2090,20 +2093,19 @@ public abstract class OperationNode {
         }
     }
     protected static CustList<CustList<MethodInfo>>
-    getDeclaredCustMethodByType(MethodAccessKind _staticContext, boolean _accessFromSuper,
-                                boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodIdAncestor _uniqueId, AnalyzedPageEl _page) {
-        String glClass_ = _page.getGlobalClass();
+    getDeclaredCustMethodByType(MethodAccessKind _staticContext,
+                                StringList _fromClasses, String _name, boolean _import, AnalyzedPageEl _page, ScopeFilter _sc) {
         CustList<CustList<MethodInfo>> methods_;
         methods_ = new CustList<CustList<MethodInfo>>();
-        fetchParamClassAncMethods(_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_, _page);
+        fetchParamClassAncMethods(_fromClasses,_staticContext, methods_, _page, _sc);
         if (_import) {
-            for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticMethods(glClass_, _name, _page)) {
+            for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticMethods(_page.getGlobalClass(), _name, _page)) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (ImportedMethod e:l) {
                     ClassMethodId m = e.getId();
                     String clName_ = m.getClassName();
                     MethodId id_ = m.getConstraints();
-                    if (isCandidateMethod(_uniqueId,0, clName_, id_)) {
+                    if (isCandidateMethod(_sc.getId(),0, clName_, id_)) {
                         continue;
                     }
                     ParametersGroup p_ = new ParametersGroup();
@@ -2144,12 +2146,11 @@ public abstract class OperationNode {
 
 
     public static void fetchParamClassAncMethods(StringList _fromClasses, CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page) {
-        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE,false,true,null,_methods, _page);
+        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE, _methods, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()));
     }
-    private static void fetchParamClassAncMethods(StringList _fromClasses, MethodAccessKind _staticContext, boolean _accessFromSuper,
-                                                  boolean _superClass, ClassMethodIdAncestor _uniqueId, CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page) {
+    private static void fetchParamClassAncMethods(StringList _fromClasses, MethodAccessKind _staticContext,
+                                                  CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, ScopeFilter _sc) {
         CustList<CustList<TypeInfo>> typeInfosGroups_ = typeLists(_fromClasses,_staticContext, _page);
-        String glClass_ = _page.getGlobalClass();
         for (CustList<TypeInfo> g: typeInfosGroups_) {
             StringList baseTypes_ = new StringList();
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
@@ -2159,7 +2160,8 @@ public abstract class OperationNode {
                 String f_ = t.getType();
                 String cl_ =t.getTypeId();
                 AnaGeneType root_ = t.getRoot();
-                _page.getFieldFilter().fetchParamClassMethods(_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_, _page);
+                ScopeFilterType scType_ = new ScopeFilterType(_sc,t.getScope(),t.getAncestor(),baseTypes_,superTypesBaseAncBis_,f_,cl_);
+                _page.getFieldFilter().fetchParamClassMethods(scType_, methods_, root_, _page);
             }
             _methods.add(methods_);
         }
@@ -2291,9 +2293,9 @@ public abstract class OperationNode {
         return _list;
     }
 
-    public static void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
-                                               ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
-                                               String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
+    public static void fetchParamClassMethods(ScopeFilterType _refRet,
+                                              CustList<MethodInfo> _methods,
+                                              AnaGeneType _g, AnalyzedPageEl _page) {
         String genericString_ = _g.getGenericString();
         if (_g instanceof RootBlock) {
             CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
@@ -2306,10 +2308,10 @@ public abstract class OperationNode {
             for (NamedCalledFunctionBlock e: methods_) {
                 MethodId id_ = e.getId();
                 MethodAccessKind k_ = id_.getKind();
-                if (filter(_accessFromSuper, _superClass, _kind, _superTypesBase, _fullName, k_)) {
+                if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap, _page, id_, e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, id_, e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -2320,39 +2322,45 @@ public abstract class OperationNode {
             for (StandardMethod e: ((StandardType) _g).getMethods()) {
                 MethodId id_ = e.getId();
                 MethodAccessKind k_ = id_.getKind();
-                if (filter(_accessFromSuper, _superClass, _kind, _superTypesBase, _fullName, k_)) {
+                if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethod(e,genericString_,k_ == MethodAccessKind.STATIC, _uniqueId, _anc, _cl, _page, e.getId(), e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, e.getId(), e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
                 _methods.add(stMeth_);
             }
         }
-        for (MethodInfo e: getPredefineStaticEnumMethods(genericString_,_anc, _page)) {
+        for (MethodInfo e: getPredefineStaticEnumMethods(genericString_,_refRet.getAnc(), _page)) {
             MethodId id_ = e.getConstraints();
-            if (isCandidateMethod(_uniqueId,_anc, _fullName, id_)) {
+            if (isCandidateMethod(_refRet.getId(),_refRet.getAnc(), _refRet.getFullName(), id_)) {
                 continue;
             }
             _methods.add(e);
         }
     }
 
-    private static boolean filter(boolean _accessFromSuper, boolean _superClass, MethodAccessKind _kind, StringList _superTypesBase, String _fullName, MethodAccessKind _k) {
-        if (_kind == MethodAccessKind.STATIC) {
+    private static boolean filter(ScopeFilterType _sc, boolean _retRef, MethodAccessKind _k) {
+        MethodAccessKind kind_ = _sc.getKind();
+        if (_sc.isRetRef()) {
+            if (!_retRef) {
+                return true;
+            }
+        }
+        if (kind_ == MethodAccessKind.STATIC) {
             if (_k != MethodAccessKind.STATIC) {
                 return true;
             }
         }
-        if (_kind == MethodAccessKind.STATIC_CALL) {
+        if (kind_ == MethodAccessKind.STATIC_CALL) {
             if (_k != MethodAccessKind.STATIC) {
                 if (_k != MethodAccessKind.STATIC_CALL) {
                     return true;
                 }
             }
         }
-        return filterMember(_accessFromSuper, _superClass, _superTypesBase, _fullName);
+        return filterMember(_sc.isAccessFromSuper(), _sc.isSuperClass(), _sc.getSuperTypesBase(), _sc.getFullName());
     }
 
     private static boolean filterMember(boolean _accessFromSuper, boolean _superClass,StringList _superTypesBase, String _fullName) {
@@ -2367,29 +2375,27 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(StandardMethod _m, String _s, boolean _keepParams,
-                                                 ClassMethodIdAncestor _uniqueId,
+    private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s, boolean _keepParams,
                                                  int _anc, String _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
-        if (isCandidateMethod(_uniqueId,_anc, base_, _id)) {
+        if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
         String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
         return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType);
     }
 
-    private static MethodInfo fetchedParamMethodCust(RootBlock _r, NamedFunctionBlock _m, String _s, boolean _keepParams,
-                                                     ClassMethodIdAncestor _uniqueId,
-                                                     String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+    private static MethodInfo fetchedParamMethodCust(RootBlock _r, NamedFunctionBlock _m, ScopeFilterType _scType, String _s, boolean _keepParams,
+                                                     int _anc, String _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
-        if (isCandidateMethod(_uniqueId,_anc, base_, _id)) {
+        if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
         String formattedClass_ = getFormattedClass(_s, _f, _page, base_, _id);
         if (_m instanceof OverridableBlock) {
             OverridableBlock c = (OverridableBlock) _m;
             Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r);
-            if (cannotAccess(base_,a_,_glClass,_superTypesBaseMap, _page)) {
+            if (cannotAccess(base_,a_,_scType.getGlClass(),_scType.getSuperTypesBaseAncBis(), _page)) {
                 return null;
             }
         }
@@ -3171,6 +3177,23 @@ public abstract class OperationNode {
     }
 
     private static Parametrable sortFct(CustList<CustList<MethodInfo>> _fct, ArgumentsGroup _context) {
+        CustList<CustList<MethodInfo>> group_ = new CustList<CustList<MethodInfo>>();
+        for (CustList<MethodInfo> l: _fct) {
+            CustList<MethodInfo> filter_ = new CustList<MethodInfo>();
+            for (MethodInfo m: l) {
+                if (!m.getConstraints().isRetRef()) {
+                    filter_.add(m);
+                }
+            }
+            group_.add(filter_);
+        }
+        Parametrable parametrable_ = sortFctGroup(group_, _context);
+        if (parametrable_ != null) {
+            return parametrable_;
+        }
+        return sortFctGroup(_fct, _context);
+    }
+    private static Parametrable sortFctGroup(CustList<CustList<MethodInfo>> _fct, ArgumentsGroup _context) {
         for (CustList<MethodInfo> l: _fct) {
             MethodInfo meth_ = getFoundMethod(l, _context);
             if (meth_ != null) {
@@ -3207,9 +3230,8 @@ public abstract class OperationNode {
         return null;
     }
     private static Parametrable getBest(CustList<Parametrable> _fct, ArgumentsGroup _context) {
-        int len_;
         if (!_fct.isEmpty()) {
-            len_ = _fct.size();
+            int len_ = _fct.size();
             for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
                 Parametrable pFirst_ = _fct.first();
                 Parametrable pCurrent_ = _fct.get(i);
@@ -3274,10 +3296,10 @@ public abstract class OperationNode {
         if (allMax_.size() == 1) {
             return first_;
         }
-        CustList<Parametrable> allMaxInst_ = new CustList<Parametrable>();
+        CustList<MethodInfo> allMaxInst_ = new CustList<MethodInfo>();
         for (Parametrable m: allMax_) {
             if (((MethodInfo)m).getConstraints().getKind() == MethodAccessKind.INSTANCE) {
-                allMaxInst_.add(m);
+                allMaxInst_.add((MethodInfo) m);
             }
         }
         if (allMaxInst_.isEmpty()) {
@@ -3287,32 +3309,42 @@ public abstract class OperationNode {
         int lenMax_ = allMaxInst_.size();
         boolean allOvEq_ = true;
         for (int i = 1; i < lenMax_; i++) {
-            if (!((MethodInfo)allMaxInst_.get(i)).same(id_)) {
+            if (!allMaxInst_.get(i).same(id_)) {
                 allOvEq_ = false;
                 break;
             }
         }
-        CustList<Parametrable> nonAbs_ = new CustList<Parametrable>();
-        CustList<Parametrable> abs_ = new CustList<Parametrable>();
-        CustList<Parametrable> finals_ = new CustList<Parametrable>();
+        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> nonAbsNonRef_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> abs_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
+        for (MethodInfo p: allMaxInst_) {
+            if (p.isAbstractMethod()) {
+                if (!p.getConstraints().isRetRef()) {
+                    abs_.add(p);
+                }
+                continue;
+            }
+            if (!p.getConstraints().isRetRef()) {
+                nonAbsNonRef_.add(p);
+            }
+        }
         if (allOvEq_) {
-            for (Parametrable p: allMaxInst_) {
-                MethodInfo m_ = (MethodInfo)p;
-                if (!m_.isFinalMethod()) {
+            for (MethodInfo p: allMaxInst_) {
+                if (!p.isFinalMethod()) {
                     continue;
                 }
                 finals_.add(p);
             }
             if (finals_.size() == 1) {
-                return (MethodInfo) finals_.first();
+                return finals_.first();
             }
             AnalyzedPageEl context_ = _context.getContext();
-            for (Parametrable p: allMaxInst_) {
-                MethodInfo m_ = (MethodInfo)p;
-                if (m_.isAbstractMethod()) {
+            for (MethodInfo p: allMaxInst_) {
+                if (p.isAbstractMethod()) {
                     continue;
                 }
-                String type_ = m_.getClassName();
+                String type_ = p.getClassName();
                 type_ = StringExpUtil.getIdFromAllTypes(type_);
                 if (context_.getAnaClassBody(type_) instanceof InterfaceBlock) {
                     continue;
@@ -3320,32 +3352,30 @@ public abstract class OperationNode {
                 nonAbs_.add(p);
             }
             if (nonAbs_.size() == 1) {
-                return (MethodInfo) nonAbs_.first();
+                return nonAbs_.first();
             }
             nonAbs_.clear();
-            for (Parametrable p: allMaxInst_) {
-                MethodInfo m_ = (MethodInfo)p;
-                if (m_.isAbstractMethod()) {
-                    abs_.add(m_);
+            for (MethodInfo p: allMaxInst_) {
+                if (p.isAbstractMethod()) {
                     continue;
                 }
                 nonAbs_.add(p);
             }
             if (nonAbs_.size() == 1) {
-                return (MethodInfo) nonAbs_.first();
+                return nonAbs_.first();
             }
             StringMap<StringList> map_;
             map_ = _context.getMap();
-            int lenAllMax_ = nonAbs_.size();
+            int lenAllMax_ = nonAbsNonRef_.size();
             for (int i = 0; i < lenAllMax_; i++) {
-                MethodInfo curMi_ = (MethodInfo) nonAbs_.get(i);
+                MethodInfo curMi_ = nonAbsNonRef_.get(i);
                 boolean spec_ = true;
                 String curRet_ = curMi_.getReturnType();
                 for (int j = 0; j < lenAllMax_; j++) {
                     if (i == j) {
                         continue;
                     }
-                    MethodInfo otherMi_ = (MethodInfo) nonAbs_.get(j);
+                    MethodInfo otherMi_ = nonAbsNonRef_.get(j);
                     String otherRet_ = otherMi_.getReturnType();
                     if (StringUtil.quickEq(curRet_, otherRet_)) {
                         spec_ = false;
@@ -3362,14 +3392,14 @@ public abstract class OperationNode {
             }
             lenAllMax_ = abs_.size();
             for (int i = 0; i < lenAllMax_; i++) {
-                MethodInfo curMi_ = (MethodInfo) abs_.get(i);
+                MethodInfo curMi_ = abs_.get(i);
                 boolean spec_ = true;
                 String curRet_ = curMi_.getReturnType();
                 for (int j = 0; j < lenAllMax_; j++) {
                     if (i == j) {
                         continue;
                     }
-                    MethodInfo otherMi_ = (MethodInfo) abs_.get(j);
+                    MethodInfo otherMi_ = abs_.get(j);
                     String otherRet_ = otherMi_.getReturnType();
                     if (!AnaTemplates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
                         spec_ = false;

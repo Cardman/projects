@@ -3,10 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -55,11 +52,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         if (from.isEmpty()) {
             methodFound = op_;
-            CustList<MethodInfo> ops_ = getOperators(null, _page);
+            CustList<MethodInfo> ops_ = getOperators(getParent() instanceof WrappOperation, null, _page);
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, false,false,new StringList(from), op_, false,null, _page);
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, getParent() instanceof WrappOperation, _page.getGlobalClass()));
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -126,11 +123,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(id_,varargOnly_, op_, varargParam_, name_, _page);
+            cust_ = getOperator(getParent() instanceof WrappOperation, id_,varargOnly_, op_, varargParam_, name_, _page);
         } else {
             cust_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC_CALL,
-                    new StringList(from), op_, false, false, false, null,
-                    varargParam_, name_, _page);
+                    new StringList(from), op_, false,
+                    varargParam_, name_, _page, new ScopeFilter(null, false, false, getParent() instanceof WrappOperation, _page.getGlobalClass()));
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();

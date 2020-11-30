@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -28,7 +29,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

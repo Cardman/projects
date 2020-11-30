@@ -55,7 +55,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (pair.getFct() != null) {
             RendDynOperationNode left_ = getFirstNode(this);
             Argument stored_ = getArgument(_nodes,left_);
-            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context).getValue();
             res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent, _advStandards, _context);
             setSimpleArgument(res_, _conf,_nodes, _context);
             return;

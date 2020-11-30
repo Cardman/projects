@@ -68,7 +68,7 @@ public abstract class ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont).getValue();
         assertNull(_cont.getCallingState());
         return arg_;
     }
@@ -94,7 +94,7 @@ public abstract class ProcessMethodCommon {
         ExecConstructorBlock ctor_ = tryGet(type_, _id);
         assertNull(ctor_);
         Parameters p_ = new Parameters();
-        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont).getValue();
         assertNull(_cont.getCallingState());
         return arg_;
     }
@@ -103,7 +103,7 @@ public abstract class ProcessMethodCommon {
         ExecConstructorBlock ctor_ = get(type_, _id);
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, ctor_, p_);
-        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont).getValue();
         assertNull(_cont.getCallingState());
         return arg_;
     }

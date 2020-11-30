@@ -125,7 +125,7 @@ public final class AnaTypeUtil {
                         _page.addLocError(err_);
                         continue;
                     }
-                    if (supId_.getBlock().getKind() != MethodKind.STD_METHOD) {
+                    if (supId_.getBlock().mustHaveSameRet()) {
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();

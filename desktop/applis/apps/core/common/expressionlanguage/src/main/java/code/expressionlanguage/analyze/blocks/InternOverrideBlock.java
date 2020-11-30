@@ -68,7 +68,12 @@ public final class InternOverrideBlock extends Leaf {
             }
             String idCurrent_ = _root.getFullName();
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            MethodId methodId_ = IdFctOperation.resolveArguments(0, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_, _page);
+            boolean retRefMain_ = false;
+            if (name_.startsWith("~")) {
+                retRefMain_ = true;
+                name_ = name_.substring(1);
+            }
+            MethodId methodId_ = IdFctOperation.resolveArguments(0, retRefMain_, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_, _page);
             if (methodId_ == null) {
                 allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,new CustList<PartOffsetsClassMethodId>()));
                 sum_ += o.length()+1;
@@ -101,7 +106,13 @@ public final class InternOverrideBlock extends Leaf {
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
-                MethodId superMethodId_ = IdFctOperation.resolveArguments(1, cl_,nameLoc_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_, _page);
+                boolean retRef_ = false;
+                String nameLocId_ = nameLoc_;
+                if (nameLoc_.startsWith("~")) {
+                    retRef_ = true;
+                    nameLocId_ = nameLoc_.substring(1);
+                }
+                MethodId superMethodId_ = IdFctOperation.resolveArguments(1, retRef_, cl_,nameLocId_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_, _page);
                 if (superMethodId_ == null) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));

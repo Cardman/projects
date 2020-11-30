@@ -37,7 +37,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context).getValue();
             if (converter != null) {
                 Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _context);
                 if (res_ == null) {

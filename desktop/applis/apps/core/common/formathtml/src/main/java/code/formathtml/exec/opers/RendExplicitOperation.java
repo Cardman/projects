@@ -26,7 +26,7 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _conf);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

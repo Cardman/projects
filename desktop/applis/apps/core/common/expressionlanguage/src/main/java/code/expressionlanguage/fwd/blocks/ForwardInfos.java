@@ -92,7 +92,7 @@ public final class ForwardInfos {
             for (Block b: ClassesUtil.getDirectChildren(fileBlock_)) {
                 if (b instanceof OperatorBlock) {
                     OperatorBlock r_ = (OperatorBlock) b;
-                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim(), r_.getImportedParametersTypes(), r_.getParametersRef());
+                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_.isRetRef(), r_.getName(), r_.isVarargs(), r_.getAccess(), r_.getParametersNames(), r_.getOffset().getOffsetTrim(), r_.getImportedParametersTypes(), r_.getParametersRef());
                     e_.setFile(exFile_);
                     _forwards.getMapOperators().addEntry(r_,e_);
                     coverage_.putOperator(r_);
@@ -458,7 +458,7 @@ public final class ForwardInfos {
                 }
                 if (b instanceof OverridableBlock) {
                     MethodKind kind_ = ((OverridableBlock) b).getKind();
-                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ((OverridableBlock)b).getImportedParametersTypes(), ((OverridableBlock)b).getParametersRef());
+                    ExecOverridableBlock val_ = new ExecOverridableBlock(((OverridableBlock) b).isRetRef(), ((OverridableBlock)b).getName(), ((OverridableBlock)b).isVarargs(), ((OverridableBlock)b).getAccess(), ((OverridableBlock)b).getParametersNames(), ((OverridableBlock)b).getModifier(), toExecMethodKind(kind_), b.getOffset().getOffsetTrim(), ((OverridableBlock)b).getImportedParametersTypes(), ((OverridableBlock)b).getParametersRef());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);

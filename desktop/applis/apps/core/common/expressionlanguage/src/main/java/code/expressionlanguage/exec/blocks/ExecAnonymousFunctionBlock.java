@@ -17,7 +17,7 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     private final ExecAnonFctContent anonFctContent;
 
     public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, BooleanList _parametersRef) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+        super(false, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
         methodModifier = _modifier;
         anonFctContent = _anonFctContent;
     }
@@ -31,7 +31,7 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
+        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     public MethodModifier getModifier() {

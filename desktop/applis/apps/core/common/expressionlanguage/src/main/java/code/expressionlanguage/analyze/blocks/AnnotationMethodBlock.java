@@ -33,7 +33,7 @@ public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
     public AnnotationMethodBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
                                  OffsetStringInfo _defaultValue,
                                  OffsetsBlock _offset, int _rightPar) {
-        super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+        super(false, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName,
                 new StringList(), new Ints(), new StringList(), new Ints(),
                 _offset, new BooleanList());

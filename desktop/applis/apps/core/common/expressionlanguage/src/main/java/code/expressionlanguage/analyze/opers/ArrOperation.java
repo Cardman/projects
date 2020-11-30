@@ -2,10 +2,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -73,7 +70,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _page));
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, false,null, _page);
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -150,11 +147,11 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
-                bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
-                varargParam_, name_, _page);
+                bounds_, trimMeth_, false,
+                varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
-                bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
-                varargParam_, name_, _page);
+                bounds_, trimMethSet_, false,
+                varargParam_, name_, _page, new ScopeFilter(feedSet_, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
         boolean found_ = true;
         if (!clMeth_.isFoundMethod()) {
             found_ = false;

@@ -23,7 +23,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument arg_ = RendDynOperationNode.processCall(getArgument(previous_, _conf, _context), _context);
+        Argument arg_ = getArgument(previous_, _conf, _context);
         if (_context.callsOrException()) {
             return;
         }

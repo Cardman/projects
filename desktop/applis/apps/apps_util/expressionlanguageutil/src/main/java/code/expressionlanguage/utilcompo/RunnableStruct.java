@@ -104,12 +104,12 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static Argument invoke(Argument _global, String _class, CustList<Argument> _args, RunnableContextEl _cont, ExecTypeFunction _pair) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _args, _cont);
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont);
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont).getValue();
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }
     public static Argument reflect(RunnableContextEl _cont, AbstractReflectElement _ref) {
-        Argument arg_ = ProcessMethod.reflectArgument(_cont,_ref);
+        Argument arg_ = ProcessMethod.reflectArgument(_cont,_ref).getValue();
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

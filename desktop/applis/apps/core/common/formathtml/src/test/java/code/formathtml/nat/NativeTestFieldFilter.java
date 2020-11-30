@@ -6,9 +6,8 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -22,9 +21,9 @@ public final class NativeTestFieldFilter implements AbstractFieldFilter {
     }
 
     @Override
-    public void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind, ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
+    public void fetchParamClassMethods(ScopeFilterType _retRef, CustList<MethodInfo> _methods, AnaGeneType _g, AnalyzedPageEl _page) {
         for (StandardMethod e: ((StandardType) _g).getMethods()) {
-            _methods.add(OperationNode.getMethodInfo(e,false,0, _cl, _page, e.getId(), e.getImportedReturnType(), e.getImportedReturnType()));
+            _methods.add(OperationNode.getMethodInfo(e,false,0, _retRef.getFormatted(), _page, e.getId(), e.getImportedReturnType(), e.getImportedReturnType()));
         }
     }
 

@@ -2071,7 +2071,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getParameters().addEntry(method_.getParametersName(0),lv_);
-        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_);
+        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_).getValue();
 
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));

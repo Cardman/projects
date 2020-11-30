@@ -4,10 +4,9 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -19,8 +18,8 @@ public final class DefaultFieldFilter implements AbstractFieldFilter {
     }
 
     @Override
-    public void fetchParamClassMethods(boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind, ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g, AnalyzedPageEl _page) {
-        OperationNode.fetchParamClassMethods(_accessFromSuper, _superClass, _anc, _kind, _uniqueId, _glClass, _methods, _cl, _superTypesBase, _superTypesBaseMap, _fullName, _g, _page);
+    public void fetchParamClassMethods(ScopeFilterType _retRef, CustList<MethodInfo> _methods, AnaGeneType _g, AnalyzedPageEl _page) {
+        OperationNode.fetchParamClassMethods(_retRef, _methods, _g, _page);
     }
 
     @Override

@@ -42,12 +42,12 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
     private StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
     private int nameOverrideNumber;
     private String returnTypeGet = "";
-    public OverridableBlock(OffsetAccessInfo _access,
+    public OverridableBlock(boolean _retRef, OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset,
                             OffsetStringInfo _modifier, OffsetsBlock _offset, AnalyzedPageEl _page, BooleanList _refParams) {
-        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+        super(_retRef, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -111,7 +111,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             pTypes_.add(n_);
             rTypes_.add(getParametersRef().get(i));
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
+        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
     }
 
     public boolean isStaticMethod() {
@@ -197,7 +197,13 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
-            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1, clDest_,nameLoc_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_, _page);
+            boolean retRef_ = false;
+            String nameLocId_ = nameLoc_;
+            if (nameLoc_.startsWith("~")) {
+                retRef_ = true;
+                nameLocId_ = nameLoc_.substring(1);
+            }
+            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1, retRef_, clDest_,nameLocId_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_, _page);
             if (methodIdDest_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
@@ -226,8 +232,14 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
                 }
                 if (m.getId().eq(methodIdDest_)) {
                     String returnDest_ = AnaTemplates.quickFormat(formattedDestType_,formattedDest_,m.getImportedReturnType());
-                    if (!AnaTemplates.isReturnCorrect(return_,returnDest_,vars_,_page)) {
-                        continue;
+                    if (methodIdDest_.isRetRef()) {
+                        if (!StringUtil.quickEq(return_,returnDest_)) {
+                            continue;
+                        }
+                    } else {
+                        if (!AnaTemplates.isReturnCorrect(return_,returnDest_,vars_,_page)) {
+                            continue;
+                        }
                     }
                     fct_ = new AnaTypeFct();
                     fct_.setType(formattedDestType_);
@@ -251,6 +263,9 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
         return allInternTypesParts;
     }
 
+    public boolean mustHaveSameRet() {
+        return getKind() != MethodKind.STD_METHOD || isRetRef();
+    }
     public MethodKind getKind() {
         return kind;
     }

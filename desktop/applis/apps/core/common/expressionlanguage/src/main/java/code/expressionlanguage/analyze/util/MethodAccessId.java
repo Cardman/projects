@@ -8,12 +8,24 @@ import code.util.core.StringUtil;
 
 public final class MethodAccessId {
     private MethodAccessKind kind;
+    private boolean retRef;
     private int index;
     private int ancestor;
 
     public MethodAccessId(int _index) {
         kind = MethodAccessKind.INSTANCE;
         index = _index;
+    }
+    public void setupInfosId(int _index,StringList _args, String _kwSt, String _kwStCall) {
+        int i_ = _index;
+        if (_args.size() > i_) {
+            if (StringUtil.quickEq(_args.get(i_).trim(), "~")) {
+                index++;
+                retRef = true;
+                i_++;
+            }
+        }
+        setupInfos(i_,_args,_kwSt,_kwStCall);
     }
     public void setupInfos(int _index,StringList _args, String _kwSt, String _kwStCall) {
         int i_ = _index;
@@ -48,6 +60,10 @@ public final class MethodAccessId {
 
     public int getAncestor() {
         return ancestor;
+    }
+
+    public boolean isRetRef() {
+        return retRef;
     }
 
     public MethodAccessKind getKind() {

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -169,8 +170,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void receive(Argument _argument, ContextEl _context) {
-        basicReceive(_argument,_context);
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+        basicReceive(_wrap, _argument,_context);
     }
 
     public void setOnParameters(boolean _onParameters) {

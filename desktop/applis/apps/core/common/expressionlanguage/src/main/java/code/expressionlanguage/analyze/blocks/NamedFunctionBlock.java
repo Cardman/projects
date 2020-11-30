@@ -65,13 +65,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final CustList<StringList> paramErrors = new CustList<StringList>();
     private int nameNumber;
     private boolean matchParamNames = true;
+    private boolean retRef;
 
-    public NamedFunctionBlock(OffsetAccessInfo _access,
+    public NamedFunctionBlock(boolean _retRef, OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               StringList _paramTypes, Ints _paramTypesOffset,
                               StringList _paramNames, Ints _paramNamesOffset,
                               OffsetsBlock _offset, BooleanList _refParams) {
         super(_offset);
+        retRef = _retRef;
         importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();
@@ -90,6 +92,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public NamedFunctionBlock(int _fctName,
                               OffsetsBlock _offset, AnalyzedPageEl _page) {
         super(_offset);
+        retRef = false;
         importedParametersTypes = new StringList();
         name = _page.getKeyWords().getKeyWordLambda();
         nameOffset = _fctName;
@@ -346,4 +349,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         this.matchParamNames = _matchParamNames;
     }
 
+    public boolean isRetRef() {
+        return retRef;
+    }
 }

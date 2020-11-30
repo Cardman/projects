@@ -24,7 +24,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
 
     private CustList<ExecOperationNode> opValue = new CustList<ExecOperationNode>();
     public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim, new StringList(), new BooleanList());
+        super(false, _name, _varargs, _access, _parametersNames, _offsetTrim, new StringList(), new BooleanList());
         defaultValueOffset = _defaultValueOffset;
     }
 

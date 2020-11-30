@@ -19,11 +19,11 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     private Ints importsOffset = new Ints();
 
-    public OperatorBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
+    public OperatorBlock(boolean _retRef, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          StringList _paramTypes, Ints _paramTypesOffset,
                          StringList _paramNames, Ints _paramNamesOffset,
                          OffsetsBlock _offset, BooleanList _refParams) {
-        super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+        super(_retRef, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
     }
 
@@ -45,7 +45,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodAccessKind.STATIC, name_, pTypes_,getParametersRef(), isVarargs());
+        return new MethodId(isRetRef(), MethodAccessKind.STATIC, name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     public boolean isStaticMethod() {

@@ -1,6 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -25,6 +29,14 @@ public final class WrappOperation extends AbstractUnaryOperation {
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         MethodOperation m_ = getParent();
+        boolean retRef_ = false;
+        Block cur_ = _page.getCurrentBlock();
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        if (m_ == null && f_ instanceof NamedFunctionBlock && cur_ instanceof ReturnMethod) {
+            if (((NamedFunctionBlock)f_).isRetRef()) {
+                retRef_ = true;
+            }
+        }
         boolean rightAffDecl_ = false;
         if (_page.isRefVariable() && m_ instanceof AffectationOperation) {
             if (m_.getParent() == null || m_.getParent() instanceof DeclaringOperation) {
@@ -33,7 +45,7 @@ public final class WrappOperation extends AbstractUnaryOperation {
                 }
             }
         }
-        if (!rightAffDecl_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation) || m_ instanceof CallDynMethodOperation) {
+        if (!rightAffDecl_&&!retRef_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation) || m_ instanceof CallDynMethodOperation) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -57,7 +69,7 @@ public final class WrappOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (getFirstChild() instanceof RefParamOperation) {
+        if (getFirstChild() instanceof RefParamOperation || getFirstChild() instanceof AbstractCallFctOperation || getFirstChild() instanceof ExplicitOperatorOperation) {
             setResultClass(new AnaClassArgumentMatching(getFirstChild().getResultClass().getNames()));
             return;
         }

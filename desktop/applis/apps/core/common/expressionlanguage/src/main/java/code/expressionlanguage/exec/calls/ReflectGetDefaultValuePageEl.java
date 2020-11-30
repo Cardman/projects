@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -53,8 +54,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void receive(Argument _argument, ContextEl _context) {
-        basicReceive(_argument,_context);
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+        basicReceive(_wrap, _argument,_context);
     }
 
     public MethodMetaInfo getMetaInfo() {

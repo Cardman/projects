@@ -32,7 +32,7 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
             setSimpleArgument(res_, _conf, _nodes, _context);
             return;
         }
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

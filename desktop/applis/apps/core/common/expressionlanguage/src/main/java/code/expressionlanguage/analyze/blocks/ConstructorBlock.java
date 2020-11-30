@@ -27,7 +27,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
                             StringList _paramNames, Ints _paramNamesOffset, int _leftPar, OffsetsBlock _offset, BooleanList _refParams) {
-        super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
+        super(false, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset, _refParams);
         leftPar = _leftPar;
     }
 

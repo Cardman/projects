@@ -5,13 +5,16 @@ import code.util.core.StringUtil;
 
 public final class FormattedMethodId {
 
+
+    private final boolean retRef;
     private final String name;
 
     private final StringList classNames;
     private final BooleanList refParams;
     private final boolean vararg;
 
-    public FormattedMethodId(String _name, StringList _classNames, BooleanList _refParam, boolean _vararg) {
+    public FormattedMethodId(boolean _retRef, String _name, StringList _classNames, BooleanList _refParam, boolean _vararg) {
+        retRef = _retRef;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
         refParams = _refParam;
@@ -33,6 +36,9 @@ public final class FormattedMethodId {
     }
 
     public boolean eqPartial(FormattedMethodId _other) {
+        if (retRef != _other.retRef) {
+            return false;
+        }
         int len_ = classNames.size();
         if (len_ != _other.classNames.size()) {
             return false;

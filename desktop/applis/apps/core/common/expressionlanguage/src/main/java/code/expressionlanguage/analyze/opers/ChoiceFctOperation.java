@@ -1,10 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -73,7 +70,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), false,false,bounds_, trimMeth_, import_,null, _page);
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()));
         boolean apply_ = applyMatching();
         filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
     }
@@ -150,7 +147,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, feed_,varargParam_, name_, _page);
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, false, false, false, _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));

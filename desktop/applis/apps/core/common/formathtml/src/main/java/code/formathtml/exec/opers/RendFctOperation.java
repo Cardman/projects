@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -30,7 +31,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _context), _context);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

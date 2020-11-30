@@ -73,6 +73,7 @@ public final class IdFctOperation extends LeafOperation {
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_);
         MethodAccessKind static_ = MethodAccessKind.STATIC;
+        boolean retRef_ = false;
         int i_ = 0;
         String cl_ = "";
         int anc_ = 0;
@@ -89,8 +90,9 @@ public final class IdFctOperation extends LeafOperation {
             String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
             String keyWordStaticCall_ = _page.getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);
-            idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
+            idUpdate_.setupInfosId(1,args_,keyWordStatic_,keyWordStaticCall_);
             static_ = idUpdate_.getKind();
+            retRef_ = idUpdate_.isRetRef();
             i_ = idUpdate_.getIndex();
             anc_ = idUpdate_.getAncestor();
         } else {
@@ -99,13 +101,14 @@ public final class IdFctOperation extends LeafOperation {
                 String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
                 String keyWordStaticCall_ = _page.getKeyWords().getKeyWordStaticCall();
                 MethodAccessId idUpdate_ = new MethodAccessId(0);
-                idUpdate_.setupInfos(0,args_,keyWordStatic_,keyWordStaticCall_);
+                idUpdate_.setupInfosId(0,args_,keyWordStatic_,keyWordStaticCall_);
                 static_ = idUpdate_.getKind();
+                retRef_ = idUpdate_.isRetRef();
                 i_ = idUpdate_.getIndex();
                 anc_ = idUpdate_.getAncestor();
             }
         }
-        MethodId argsRes_ = resolveArguments(i_, cl_, EMPTY_STRING, static_, args_, className, partOffsets, _page);
+        MethodId argsRes_ = resolveArguments(i_, retRef_, cl_, EMPTY_STRING, static_, args_, className, partOffsets, _page);
         if (argsRes_ == null) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
@@ -157,7 +160,7 @@ public final class IdFctOperation extends LeafOperation {
         setSimpleArgument(new Argument());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
-    public static MethodId resolveArguments(int _from, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
+    public static MethodId resolveArguments(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
         StringList out_ = new StringList();
         BooleanList ref_ = new BooleanList();
         int len_ = _params.size();
@@ -203,7 +206,7 @@ public final class IdFctOperation extends LeafOperation {
             out_.add(arg_);
             ref_.add(refParam_);
         }
-        return new MethodId(_static, _name, out_,ref_, vararg_ != -1);
+        return new MethodId(_retRef, _static, _name, out_,ref_, vararg_ != -1);
     }
 
     public ClassMethodIdAncestor getMethod() {

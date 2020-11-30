@@ -35,7 +35,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 

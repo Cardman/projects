@@ -64,6 +64,8 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             f_.setContainer(previous_.getStruct());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
+            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
+            return;
         }
         if (chFirst_ instanceof RendArrOperation) {
             RendArrOperation ch_ = (RendArrOperation)chFirst_;
@@ -74,7 +76,12 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             a_.setIndex(pairIndex_.getArgument().getStruct());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(a_);
+            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
+            return;
         }
+        ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        pair_.setWrapper(pairCh_.getWrapper());
         setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
     }
 }

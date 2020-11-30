@@ -13,8 +13,8 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodModifier methodModifier;
 
     private final ExecMethodKind kind;
-    public ExecOverridableBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
-        super(_name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+    public ExecOverridableBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
         methodModifier = _modifier;
         kind = _execKind;
     }
@@ -35,7 +35,7 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
             pTypes_.add(n_);
             rTypes_.add(getParametersRef(i));
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
+        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,rTypes_, isVarargs());
 
     }
 

@@ -273,7 +273,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     String retBase_ = supCl_.getImportedReturnType();
                     String formattedRetDer_ = AnaTemplates.quickFormat(c.getType(),nameCl_, retBase_);
                     String formattedRetBase_ = AnaTemplates.quickFormat(i.getType(),name_, retInt_);
-                    if (supCl_.getKind() != MethodKind.STD_METHOD) {
+                    if (supCl_.mustHaveSameRet()) {
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
@@ -949,6 +949,20 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 idConstructors_.add(idCt_);
             }
             validateParameters(method_, _page);
+            if (method_.isRetRef()) {
+                if (StringUtil.quickEq(method_.getImportedReturnType(),_page.getAliasVoid())) {
+                    int r_ = method_.getNameOffset();
+                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                    badMeth_.setFileName(getFile().getFileName());
+                    badMeth_.setIndexFile(r_);
+                    //method name len
+                    badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                            method_.getSignature(_page),
+                            _page.getAliasVoid());
+                    _page.addLocError(badMeth_);
+                    method_.addNameErrors(badMeth_);
+                }
+            }
         }
         buildFieldInfos(bl_, _page);
         _page.getUnary().addEntry(getFullName(),unary_);

@@ -88,7 +88,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, ContextEl _context) {
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _right, _context), _context);
+        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _conf, _right, _context), _context).getValue();
         setSimpleArgument(argres_,_conf,_nodes, _context);
         return argres_;
     }

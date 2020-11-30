@@ -46,7 +46,7 @@ public final class AnonymousFunctionBlock extends NamedCalledFunctionBlock imple
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new MethodId(MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
+        return new MethodId(isRetRef(), MethodId.getKind(getModifier()), name_, pTypes_,getParametersRef(), isVarargs());
     }
 
     public boolean isStaticMethod() {

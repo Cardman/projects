@@ -35,7 +35,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument arg_ = RendDynOperationNode.processCall(getCommonArgument(previous_, _conf, _advStandards, _context), _context);
+        Argument arg_ = RendDynOperationNode.processCall(getCommonArgument(previous_, _conf, _advStandards, _context), _context).getValue();
         if (_context.callsOrException()) {
             return;
         }
@@ -60,7 +60,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        return RendDynOperationNode.processCall(getCommonSetting(previous_, _conf, _right, _advStandards, _context), _context);
+        return RendDynOperationNode.processCall(getCommonSetting(previous_, _conf, _right, _advStandards, _context), _context).getValue();
     }
 
     @Override

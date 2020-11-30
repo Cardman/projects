@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -74,12 +73,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             //fields of the current class are initialized if there is no interface constructors to call
         }
         return true;
-    }
-
-    @Override
-    public final void forwardTo(AbstractPageEl _page, ContextEl _context) {
-        Argument a_ = getReturnedArgument();
-        _page.receive(a_, _context);
     }
 
     public void setBlockRootTypes(ExecRootBlock _blockRootType) {

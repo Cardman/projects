@@ -100,12 +100,12 @@ public class DefaultInitializer implements Initializer {
 
     private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b) {
         if (_p instanceof ForwardPageEl) {
-            ((ForwardPageEl)_p).forwardTo(_b, _owner);
+            _p.forwardTo(_b, _owner);
         } else if (_p instanceof StaticInitPageEl) {
             StaticInitPageEl s_ = (StaticInitPageEl) _p;
             Argument fwd_ = s_.getFwd();
             if (fwd_ != null) {
-                _b.receive(fwd_, _owner);
+                _b.receive(null, fwd_, _owner);
             }
         }
     }
