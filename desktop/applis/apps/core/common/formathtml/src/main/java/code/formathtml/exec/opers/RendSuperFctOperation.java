@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -16,12 +17,12 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendSuperFctOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendSuperFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
     private ExecInstFctContent instFctContent;
     private ExecTypeFunction pair;
-    public RendSuperFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
-        super(_content, _intermediateDottedOperation);
+    public RendSuperFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent, ExecArrContent _arrContent) {
+        super(_content, _intermediateDottedOperation, _arrContent);
         instFctContent = _instFctContent;
         pair = _pair;
     }

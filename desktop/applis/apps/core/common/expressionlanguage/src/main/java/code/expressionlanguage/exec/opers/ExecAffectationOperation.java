@@ -107,6 +107,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         if (_set instanceof ExecArrOperation) {
             arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right);
         }
+        if (_set instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right);
+        }
         return Argument.getNullableValue(arg_);
     }
 }

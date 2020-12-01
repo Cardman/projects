@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
@@ -17,13 +18,13 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
     private ExecInstFctContent instFctContent;
 
     private ExecTypeFunction pair;
-    public RendFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, ExecInstFctContent _instFctContent, boolean _intermediateDottedOperation) {
-        super(_content, _intermediateDottedOperation);
+    public RendFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, ExecInstFctContent _instFctContent, boolean _intermediateDottedOperation, ExecArrContent _arrContent) {
+        super(_content, _intermediateDottedOperation, _arrContent);
         instFctContent = _instFctContent;
         pair= _pair;
     }

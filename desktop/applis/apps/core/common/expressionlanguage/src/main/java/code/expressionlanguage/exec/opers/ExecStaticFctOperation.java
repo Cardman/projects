@@ -6,19 +6,19 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecStaticFctOperation extends ExecInvokingOperation {
+public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
 
     private ExecStaticFctContent staticFctContent;
 
     private ExecTypeFunction pair;
-    public ExecStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
-        super(_opCont, _intermediateDottedOperation);
+    public ExecStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecArrContent _arrContent) {
+        super(_opCont, _intermediateDottedOperation,_arrContent);
         staticFctContent = _staticFctContent;
         pair = _pair;
     }
@@ -27,6 +27,10 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         Argument res_ = getArgument(_nodes, _conf);
+        if (resultCanBeSet()) {
+            setQuickNoConvertSimpleArgument(res_, _conf, _nodes);
+            return;
+        }
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {

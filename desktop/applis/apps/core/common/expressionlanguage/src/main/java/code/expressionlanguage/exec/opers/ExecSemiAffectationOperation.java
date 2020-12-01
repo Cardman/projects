@@ -102,6 +102,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         if (settable instanceof ExecArrOperation) {
             arg_ = ((ExecArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
         }
+        if (settable instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb());
+        }
         return Argument.getNullableValue(arg_);
     }
 
@@ -175,6 +178,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         }
         if (_settable instanceof ExecArrOperation) {
             arg_ = ((ExecArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
+        }
+        if (_settable instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent.isPost(), _stored, _right);
         }
         return Argument.getNullableValue(arg_);
     }

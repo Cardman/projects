@@ -3140,4 +3140,88 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report741Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  int[] a = new int[0];\n");
+        xml_.append("  a.clone() = new int[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
+                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a> new int[0];\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report742Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  int[] a = new int[0];\n");
+        xml_.append("  a.clone() += new int[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
+                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator += is unexpected.\" class=\"e\">+=</a> new int[0];\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report743Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  int[] a = new int[0];\n");
+        xml_.append("  a.clone() ++;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
+                "  <a href=\"#m42\">a</a>.<b>clone</b>() <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report744Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  int[] a = new int[0];\n");
+        xml_.append("  ++ a.clone();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
+                "  <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a> <a href=\"#m42\">a</a>.<b>clone</b>();\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

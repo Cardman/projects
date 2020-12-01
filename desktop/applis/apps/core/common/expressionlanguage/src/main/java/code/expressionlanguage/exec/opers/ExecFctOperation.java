@@ -10,29 +10,29 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecFctOperation extends ExecInvokingOperation {
+public final class ExecFctOperation extends ExecSettableCallFctOperation {
 
     private ExecInstFctContent instFctContent;
     private final ExecTypeFunction pair;
 
-    public ExecFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
-        super(_opCont, _intermediateDottedOperation);
+    public ExecFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent, ExecArrContent _arrContent) {
+        super(_opCont, _intermediateDottedOperation,_arrContent);
         instFctContent = _instFctContent;
         pair = _pair;
     }
 
     public ExecFctOperation(ExecClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
-                            int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_child,_res,_order,true);
+                            int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecArrContent _arrContent) {
+        super(_child,_res,_order,true,_arrContent);
         instFctContent = new ExecInstFctContent(_classMethodId);
         pair = new ExecTypeFunction(_rootBlock,_named);
     }
@@ -40,6 +40,10 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument res_ = getArgument(previous_,_nodes, _conf);
+        if (resultCanBeSet()) {
+            setQuickNoConvertSimpleArgument(res_, _conf, _nodes);
+            return;
+        }
         setSimpleArgument(res_, _conf, _nodes);
     }
 

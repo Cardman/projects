@@ -6,7 +6,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
 
-public interface AbstractCallFctOperation {
+public interface AbstractCallFctOperation extends AbstractCallLeftOperation {
     ClassMethodId getClassMethodId();
     boolean isStaticMethod();
     boolean isTrueFalse();

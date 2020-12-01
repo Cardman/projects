@@ -10,15 +10,17 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
+public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation,SettableElResult {
 
     private AnaCallFctContent callFctContent;
+    private AnaArrContent arrContent;
     private AnaTypeFct function;
 
     private boolean staticMethod;
@@ -34,11 +36,13 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private StandardMethod standardMethod;
+    private boolean errLeftValue;
 
     public ChoiceFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         callFctContent = new AnaCallFctContent(getOperations().getFctName());
+        arrContent = new AnaArrContent();
     }
 
     @Override
@@ -70,7 +74,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
         boolean apply_ = applyMatching();
         filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
     }
@@ -126,6 +130,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             return;
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {
+            errLeftValue = true;
             ClassMethodId f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
@@ -147,7 +152,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, false, false, false, _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, false, false, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
@@ -235,5 +240,20 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     public MemberId getMemberId() {
         return callFctContent.getMemberId();
     }
+    public boolean isErrLeftValue() {
+        return errLeftValue;
+    }
+    public AnaArrContent getArrContent() {
+        return arrContent;
+    }
 
+    @Override
+    public void setVariable(boolean _variable) {
+        arrContent.setVariable(_variable);
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        arrContent.setCatString(true);
+    }
 }

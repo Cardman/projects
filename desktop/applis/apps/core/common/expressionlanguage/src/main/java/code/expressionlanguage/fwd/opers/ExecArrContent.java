@@ -10,6 +10,11 @@ public final class ExecArrContent {
         variable = _cont.isVariable();
         catString = _cont.isCatString();
     }
+
+    public ExecArrContent(boolean _variable, boolean _catString) {
+        variable = _variable;
+        catString = _catString;
+    }
     public boolean isVariable() {
         return variable;
     }

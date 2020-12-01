@@ -14,6 +14,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
@@ -105,7 +106,7 @@ public final class ExecClassesUtil {
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         ExecNamedFunctionBlock fct_ = getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
+        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_, new ExecArrContent(false,false));
         dot_.appendChild(f_);
         r_.setSiblingSet(f_);
         ops_.add(f_);

@@ -522,7 +522,7 @@ public final class RendForwardInfos {
                 }
                 if (a_.isStaticMethod()) {
                     return new RendStaticFctOperation(pair_,
-                            new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()));
+                            new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()));
                 }
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
                     return new RendAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
@@ -596,21 +596,21 @@ public final class RendForwardInfos {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
             ExecTypeFunction ex_ = FetchMemberUtil.fetchTypeFunction(c_.getMemberId(), _forwards);
             if (ex_ != null) {
-                return new RendChoiceFctOperation(ex_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true));
+                return new RendChoiceFctOperation(ex_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true), new ExecArrContent(c_.getArrContent()));
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
             ExecTypeFunction ex_ = FetchMemberUtil.fetchTypeFunction(s_.getMemberId(), _forwards);
             if (ex_ != null) {
-                return new RendSuperFctOperation(ex_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true));
+                return new RendSuperFctOperation(ex_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true), new ExecArrContent(s_.getArrContent()));
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
             ExecTypeFunction p_ = FetchMemberUtil.fetchTypeFunction(f_.getMemberId(), _forwards);
             if (p_ != null) {
-                return new RendFctOperation(p_, new ExecOperationContent(f_.getContent()), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod()), f_.isIntermediateDottedOperation());
+                return new RendFctOperation(p_, new ExecOperationContent(f_.getContent()), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod()), f_.isIntermediateDottedOperation(), new ExecArrContent(f_.getArrContent()));
             }
         }
         if (_anaNode instanceof NamedArgumentOperation) {
@@ -705,7 +705,7 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getFunction(),m_.getCallFctContent()), FetchMemberUtil.fetchFunctionOp(m_.getMemberId(), _forwards), FetchMemberUtil.fetchType(m_.getMemberId(), _forwards), m_.getOffsetOper());
+            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getFunction(),m_.getCallFctContent()), FetchMemberUtil.fetchFunctionOp(m_.getMemberId(), _forwards), FetchMemberUtil.fetchType(m_.getMemberId(), _forwards), m_.getOffsetOper(), new ExecArrContent(m_.getArrContent()));
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;

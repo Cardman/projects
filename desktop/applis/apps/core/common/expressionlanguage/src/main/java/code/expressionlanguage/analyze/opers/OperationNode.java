@@ -131,6 +131,34 @@ public abstract class OperationNode {
         }
         return !(this instanceof AnnotationInstanceOperation);
     }
+    protected final boolean isLvalue() {
+        return getParent() instanceof WrappOperation || isSettable();
+    }
+    protected final boolean isSettable() {
+        OperationNode c_ = this;
+        OperationNode p_ = getParent();
+        if (p_ instanceof AbstractDotOperation) {
+            if (getIndexChild() == 0) {
+                return false;
+            }
+            p_ = p_.getParent();
+            c_ = c_.getParent();
+        }
+        while (p_ instanceof IdOperation && p_.getOperations().getValues().size() <= 1) {
+            p_ = p_.getParent();
+            c_ = c_.getParent();
+        }
+        if (c_.getIndexChild() > 0) {
+            return false;
+        }
+        if (p_ instanceof AffectationOperation) {
+            return true;
+        }
+        if (p_ instanceof SemiAffectationOperation) {
+            return true;
+        }
+        return p_ instanceof CompoundAffectationOperation;
+    }
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
         _page.setOffset(operations.getDelimiter().getIndexBegin()+_offset);

@@ -13,13 +13,15 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
+public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallLeftOperation,SettableElResult {
     private AnaCallFctContent callFctContent;
+    private AnaArrContent arrContent;
     private AnaTypeFct function;
 
     private int offsetOper;
@@ -33,6 +35,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         super(_index, _indexChild, _m, _op);
         callFctContent = new AnaCallFctContent(getOperations().getFctName());
         offsetOper = getOperations().getOperators().firstKey();
+        arrContent = new AnaArrContent();
     }
 
     @Override
@@ -52,11 +55,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         if (from.isEmpty()) {
             methodFound = op_;
-            CustList<MethodInfo> ops_ = getOperators(getParent() instanceof WrappOperation, null, _page);
+            CustList<MethodInfo> ops_ = getOperators(isLvalue(), null, _page);
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, getParent() instanceof WrappOperation, _page.getGlobalClass()));
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -123,11 +126,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(getParent() instanceof WrappOperation, id_,varargOnly_, op_, varargParam_, name_, _page);
+            cust_ = getOperator(isLvalue(), id_,varargOnly_, op_, varargParam_, name_, _page);
         } else {
             cust_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC_CALL,
                     new StringList(from), op_, false,
-                    varargParam_, name_, _page, new ScopeFilter(null, false, false, getParent() instanceof WrappOperation, _page.getGlobalClass()));
+                    varargParam_, name_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -192,5 +195,25 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public AnaCallFctContent getCallFctContent() {
         return callFctContent;
+    }
+
+    @Override
+    public boolean isErrLeftValue() {
+        return false;
+    }
+
+    @Override
+    public AnaArrContent getArrContent() {
+        return arrContent;
+    }
+
+    @Override
+    public void setVariable(boolean _variable) {
+        arrContent.setVariable(_variable);
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        arrContent.setCatString(true);
     }
 }

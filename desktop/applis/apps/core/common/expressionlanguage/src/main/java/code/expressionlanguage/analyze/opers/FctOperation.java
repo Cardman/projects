@@ -11,6 +11,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -21,10 +22,10 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
+public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation,SettableElResult {
 
     private AnaCallFctContent callFctContent;
-
+    private AnaArrContent arrContent;
     private boolean staticMethod;
 
     private boolean staticChoiceMethod;
@@ -42,10 +43,12 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StandardMethod standardMethod;
     private AnaTypeFct function;
+    private boolean errLeftValue;
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         callFctContent = new AnaCallFctContent(getOperations().getFctName());
+        arrContent = new AnaArrContent();
     }
 
     @Override
@@ -102,7 +105,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, getParent() instanceof WrappOperation, _page.getGlobalClass()));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
         boolean apply_ = applyMatching();
         filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
     }
@@ -203,6 +206,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 addErr(undefined_.getBuiltError());
                 return;
             }
+            errLeftValue = true;
             clonedMethod = true;
             String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
@@ -217,6 +221,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {
+            errLeftValue = true;
             ClassMethodId f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
@@ -240,7 +245,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, getParent() instanceof WrappOperation, _page.getGlobalClass()));
+        clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
@@ -384,4 +389,21 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         return callFctContent.getMemberId();
     }
 
+    public AnaArrContent getArrContent() {
+        return arrContent;
+    }
+
+    @Override
+    public void setVariable(boolean _variable) {
+        arrContent.setVariable(_variable);
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        arrContent.setCatString(true);
+    }
+
+    public boolean isErrLeftValue() {
+        return errLeftValue;
+    }
 }

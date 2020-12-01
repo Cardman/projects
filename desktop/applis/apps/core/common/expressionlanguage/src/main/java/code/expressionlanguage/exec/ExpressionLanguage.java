@@ -153,12 +153,12 @@ public final class ExpressionLanguage {
     }
 
     public Argument getArgument() {
-        return Argument.getNullableValue(getNullable(argument));
+        return getNullable(argument);
     }
 
     public static Argument getNullable(ArgumentsPair _argumentsPair) {
         if (_argumentsPair != null) {
-            return _argumentsPair.getArgument();
+            return Argument.getNullableValue(_argumentsPair.getArgument());
         }
         return Argument.createVoid();
     }

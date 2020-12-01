@@ -49,7 +49,7 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
-        if (!ok_) {
+        if (!ok_ || elt_ instanceof AbstractCallLeftOperation && ((AbstractCallLeftOperation)elt_).isErrLeftValue()) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());

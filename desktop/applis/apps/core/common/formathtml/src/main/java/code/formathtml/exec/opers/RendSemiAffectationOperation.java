@@ -119,6 +119,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (_settable instanceof RendArrOperation) {
             arg_ = ((RendArrOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
         }
+        if (_settable instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)_settable).endCalculate(_nodes,_conf, _staticPostEltContent.isPost(), _stored, _res, _advStandards, _context);
+        }
         return Argument.getNullableValue(arg_);
     }
 
@@ -138,6 +141,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         }
         if (settable instanceof RendArrOperation) {
             arg_ = ((RendArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+        }
+        if (settable instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(),_stored, getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }

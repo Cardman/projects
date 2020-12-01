@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -8,20 +7,20 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
-import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
+public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOperation {
 
     private final ExecTypeFunction pair;
     private ExecStaticFctContent staticFctContent;
 
     private int offsetOper;
 
-    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_opCont, _intermediateDottedOperation);
+    public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecArrContent _exArr) {
+        super(_opCont, _intermediateDottedOperation,_exArr);
         staticFctContent = _staticFctContent;
         offsetOper = _offsetOper;
         pair = new ExecTypeFunction(_rootBlock,_named);

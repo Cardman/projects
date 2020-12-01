@@ -7,20 +7,19 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecSuperFctOperation extends ExecInvokingOperation {
+public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
 
     private ExecInstFctContent instFctContent;
-
     private ExecTypeFunction pair;
-    public ExecSuperFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent) {
-        super(_opCont, _intermediateDottedOperation);
+    public ExecSuperFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent, ExecArrContent _execArr) {
+        super(_opCont, _intermediateDottedOperation, _execArr);
         instFctContent = _instFctContent;
         pair = _pair;
     }

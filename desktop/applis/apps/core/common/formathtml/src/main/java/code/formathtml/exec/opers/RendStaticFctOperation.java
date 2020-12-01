@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.Configuration;
@@ -13,13 +14,13 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendStaticFctOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendStaticFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
     private ExecStaticFctContent staticFctContent;
 
     private ExecTypeFunction pair;
-    public RendStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent) {
-        super(_content, _intermediateDottedOperation);
+    public RendStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecArrContent _arrContent) {
+        super(_content, _intermediateDottedOperation, _arrContent);
         staticFctContent = _staticFctContent;
         pair = _pair;
     }

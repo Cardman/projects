@@ -120,6 +120,9 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         if (_settable instanceof RendCustArrOperation) {
             arg_ = ((RendCustArrOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context);
         }
+        if (_settable instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context);
+        }
         return Argument.getNullableValue(arg_);
     }
 
@@ -139,6 +142,9 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         }
         if (settable instanceof RendCustArrOperation) {
             arg_ = ((RendCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
+        }
+        if (settable instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context);
         }
         return Argument.getNullableValue(arg_);
     }

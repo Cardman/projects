@@ -122,6 +122,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         if (settable instanceof ExecCustArrOperation) {
             arg_ = ((ExecCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
         }
+        if (settable instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb());
+        }
         return Argument.getNullableValue(arg_);
     }
 
@@ -163,6 +166,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         if (_set instanceof ExecArrOperation) {
             arg_ = ((ExecArrOperation)_set).endCalculate(_conf, _nodes,_right);
+        }
+        if (_set instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)_set).endCalculate(_conf, _nodes,_right);
         }
         return Argument.getNullableValue(arg_);
     }

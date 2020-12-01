@@ -35,7 +35,30 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
         assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
     }
-
+    @Test
+    public void calculateObj1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static Interface test(){\n");
+        xml_.append("  $return (Interface) (fct(),$interfaces(Interface)());\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $Fct<$int,$int,$int> fct(){\n");
+        xml_.append("  $return $static().$lambda($math,plus,$int,$int);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface {\n");
+        xml_.append(" $int opTwo($int a,$int b);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertTrue(ret_.getStruct() instanceof FullFunctionalInstance);
+        assertEq(0, ((FullFunctionalInstance)ret_.getStruct()).getFields().size());
+    }
     @Test
     public void calculateObj2Test() {
         StringMap<String> files_ = new StringMap<String>();
