@@ -90,6 +90,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (_settable instanceof RendStdVariableOperation) {
             arg_ = getArgument(_nodes, _settable);
         }
+        if (_settable instanceof RendStdRefVariableOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
         if (_settable instanceof RendSettableFieldOperation) {
             arg_ = getArgument(_nodes, _settable);
         }
@@ -97,6 +100,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             arg_ = getArgument(_nodes, _settable);
         }
         if (_settable instanceof RendArrOperation) {
+            arg_ = getArgument(_nodes, _settable);
+        }
+        if (_settable instanceof RendSettableCallFctOperation) {
             arg_ = getArgument(_nodes, _settable);
         }
         return Argument.getNullableValue(arg_);
