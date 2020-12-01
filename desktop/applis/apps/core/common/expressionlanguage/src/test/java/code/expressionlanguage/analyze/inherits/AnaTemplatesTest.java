@@ -454,7 +454,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getInferForm5Test() {
-        assertEq("java.lang.$iterable",AnaTemplates.getInferForm("java.lang .$iterable<>"));
+        assertEq("java.lang .$iterable",AnaTemplates.getInferForm("java.lang .$iterable<>"));
     }
     @Test
     public void getInferForm6Test() {

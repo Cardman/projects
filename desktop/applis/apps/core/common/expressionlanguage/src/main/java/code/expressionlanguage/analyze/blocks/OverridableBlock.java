@@ -184,7 +184,7 @@ public final class OverridableBlock extends NamedCalledFunctionBlock implements 
             StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_.getSecond());
             String firstFull_ = args_.first();
             off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-            String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
+            String fromType_ = firstFull_.trim();
             int firstPar_ = extr_.getFirst().length();
             String clDest_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();

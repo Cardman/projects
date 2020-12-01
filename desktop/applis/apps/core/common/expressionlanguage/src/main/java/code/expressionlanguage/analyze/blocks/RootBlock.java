@@ -113,8 +113,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         rootBlockContent.setIdRowCol(_idRowCol);
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
-            String type_ = StringExpUtil.removeDottedSpaces(t.getValue());
-            directSuperTypes.add(type_);
+            directSuperTypes.add(t.getValue());
             explicitDirectSuperTypes.put(t.getKey(), true);
         }
     }
@@ -1125,21 +1124,22 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public final void buildDirectGenericSuperTypes(AnalyzedPageEl _page){
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
-        int i_ = 0;
         results.clear();
         _page.getMappingLocal().clear();
         _page.getMappingLocal().putAllMap(mappings);
-        for (String s: getDirectSuperTypes()) {
-            int index_ = rcs_.getKey(i_);
+        int len_ = rcs_.size();
+        for (int i = 0; i < len_; i++) {
+            int index_ = rcs_.getKey(i);
+            String value_ = rcs_.getValue(i);
             AnaResultPartType s_;
             if (this instanceof InnerElementBlock) {
                 int o_ = 1;
                 boolean ok_ = true;
                 StringList j_ = new StringList();
-                StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                StringList allTypes_ = StringExpUtil.getAllTypes(value_);
                 for (String p: allTypes_.mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p, this, o_ + loc_, new CustList<PartOffset>(), _page);
+                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p.trim(), this, o_ + loc_, new CustList<PartOffset>(), _page);
                     if (resType_ != null) {
                         j_.add(resType_.getResult());
                     } else {
@@ -1155,13 +1155,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 s_ = new AnaResultPartType(res_,null);
             } else if (index_ < 0){
-                s_ = new AnaResultPartType(s,null);
+                s_ = new AnaResultPartType(value_,null);
             } else {
-                int off_ = StringUtil.getFirstPrintableCharIndex(s);
-                s_ = ResolvingSuperTypes.resolveTypeInherits(s, this, off_+index_, getSuperTypesParts(), _page);
+                int off_ = StringUtil.getFirstPrintableCharIndex(value_);
+                s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_+index_, getSuperTypesParts(), _page);
                 results.add(s_);
             }
-            i_++;
             String result_ = s_.getResult();
             String base_ = StringExpUtil.getIdFromAllTypes(result_);
             RootBlock r_ = _page.getAnaClassBody(base_);

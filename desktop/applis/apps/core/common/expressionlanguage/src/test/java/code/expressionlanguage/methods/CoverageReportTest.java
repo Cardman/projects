@@ -3730,6 +3730,110 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage81_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" pkg.Ex out = $new pkg.Ex();\n");
+        xml_.append(" out.field = p.field+q.field;\n");
+        xml_.append(" $return out;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex: ExTwo {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  pkg.Ex one = $new pkg.Ex();\n");
+        xml_.append("  pkg.Ex two = $new pkg.Ex();\n");
+        xml_.append("  one.field = 1;\n");
+        xml_.append("  two.field = 2;\n");
+        xml_.append("  $return (one+two).$super.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int call(){\n");
+        xml_.append("  $return 1i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+                " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a></span></span></span></span>;\n" +
+                " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m130\">pkg.Ex</a>: <a title=\"pkg.ExTwo\" href=\"#m373\">ExTwo</a> {\n" +
+                " $public $static $int <a name=\"m168\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m187\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m217\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m187\">one</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a> </span></span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m217\">two</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a> </span></span>=<span class=\"f\"> 2</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a href=\"#m187\">one</a></span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">+</a><span class=\"f\"><a href=\"#m217\">two</a></span></span>)</span>.<span class=\"f\">$super.<a title=\"pkg.ExTwo.field\" href=\"#m399\">field</a></span></span>;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m331\">call</a>(){\n" +
+                "  $return <span class=\"n\">1i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m373\">pkg.ExTwo</a> {\n" +
+                " $public $int <span class=\"f\"><a name=\"m399\">field</a></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage81__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.Ex (pkg.Ex p, pkg.Ex q){\n");
+        xml_.append(" pkg.Ex out = $new pkg.Ex();\n");
+        xml_.append(" out.field = p.field+q.field;\n");
+        xml_.append(" $return out;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex:pkg. ExTwo {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  pkg.Ex one = $new pkg.Ex();\n");
+        xml_.append("  pkg.Ex two = $new pkg.Ex();\n");
+        xml_.append("  one.field = 1;\n");
+        xml_.append("  two.field = 2;\n");
+        xml_.append("  $return (one+two).$super.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int call(){\n");
+        xml_.append("  $return 1i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+                " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a></span></span></span></span>;\n" +
+                " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m130\">pkg.Ex</a>:<a title=\"pkg.ExTwo\" href=\"#m377\">pkg. ExTwo</a> {\n" +
+                " $public $static $int <a name=\"m172\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m191\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m221\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m191\">one</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a> </span></span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m221\">two</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a> </span></span>=<span class=\"f\"> 2</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a href=\"#m191\">one</a></span><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">+</a><span class=\"f\"><a href=\"#m221\">two</a></span></span>)</span>.<span class=\"f\">$super.<a title=\"pkg.ExTwo.field\" href=\"#m403\">field</a></span></span>;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m335\">call</a>(){\n" +
+                "  $return <span class=\"n\">1i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m377\">pkg.ExTwo</a> {\n" +
+                " $public $int <span class=\"f\"><a name=\"m403\">field</a></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverage82Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$operator+ pkg.Ex (pkg.Ex p, pkg.Ex q){\n");
@@ -6762,6 +6866,28 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m48\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage163_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static Ex<int> exmeth(){\n");
+        xml_.append("  return new pkg. Ex<>();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+                " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m48\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">pkg. Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

@@ -253,13 +253,12 @@ public final class AnaTypeUtil {
             }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
-                String base_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 _page.setCurrentBlock(c);
                 _page.setGlobalOffset(offset_);
                 _page.setOffset(0);
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getMappings());
-                base_ = ResolvingTypes.resolveAccessibleIdType(0,base_, _page);
+                String base_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
                 c.getPartsStaticInitInterfacesOffset().addAllElts(_page.getCurrentParts());
                 RootBlock r_ = _page.getAnaClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
@@ -280,7 +279,6 @@ public final class AnaTypeUtil {
                 }
             }
             for (int i = 0; i < len_; i++) {
-                String sup_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
                 _page.setGlobalClass(c.getGenericString());
@@ -288,14 +286,13 @@ public final class AnaTypeUtil {
                 _page.setGlobalDirType(null);
                 _page.setGlobalOffset(offsetSup_);
                 _page.setOffset(0);
-                sup_ = ResolvingTypes.resolveAccessibleIdType(0,sup_, _page);
+                String sup_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
                 RootBlock rs_ = _page.getAnaClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
                 RootBlock rsSup_ = rs_;
                 for (int j = i + 1; j < len_; j++) {
-                    String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
                     _page.setCurrentBlock(c);
                     _page.setGlobalClass(c.getGenericString());
@@ -303,7 +300,7 @@ public final class AnaTypeUtil {
                     _page.setGlobalDirType(null);
                     _page.setGlobalOffset(offsetSub_);
                     _page.setOffset(0);
-                    sub_ = ResolvingTypes.resolveAccessibleIdType(0,sub_, _page);
+                    String sub_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(j), _page);
                     rs_ = _page.getAnaClassBody(sub_);
                     if (rs_ == null) {
                         continue;

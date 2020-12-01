@@ -80,7 +80,7 @@ public final class IdFctOperation extends LeafOperation {
         if (!(m_ instanceof ExplicitOperatorOperation)) {
             String firstFull_ = args_.first();
             int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-            String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
+            String fromType_ = firstFull_.trim();
             cl_ = ResolvingTypes.resolveAccessibleIdType(off_+className.indexOf('(')+1,fromType_, _page);
             partOffsets.addAllElts(_page.getCurrentParts());
             if (cl_.isEmpty()) {
@@ -172,7 +172,7 @@ public final class IdFctOperation extends LeafOperation {
         for (int i = _from; i < len_; i++) {
             String full_ = _params.get(i);
             int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
-            String arg_ = StringExpUtil.removeDottedSpaces(full_);
+            String arg_ = full_.trim();
             boolean refParam_ = false;
             if (arg_.startsWith("~")) {
                 arg_ = arg_.substring(1);

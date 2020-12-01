@@ -329,8 +329,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         assertEq("<#Param>",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit", getDirectSuperTypes(r_).first());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -351,8 +351,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         assertEq("<#Param>",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#Param>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#Param>", getDirectSuperTypes(r_).first());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -373,9 +373,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         assertEq("<#Param,#SecondParam>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#Param>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#SecondParam>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#Param>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#SecondParam>", getDirectSuperTypes(r_).last());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -396,9 +396,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#T>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#T>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -446,9 +446,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -610,10 +610,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -806,9 +806,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(((FieldBlock) child_).isStaticField());
@@ -927,9 +927,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(!((FieldBlock) child_).isStaticField());
@@ -1049,10 +1049,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1214,9 +1214,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(!((FieldBlock) child_).isStaticField());
@@ -1347,10 +1347,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1490,10 +1490,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1657,10 +1657,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1822,10 +1822,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -1957,10 +1957,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -2092,10 +2092,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -2226,10 +2226,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         assertTrue(((FieldBlock) child_).isStaticField());
@@ -2345,8 +2345,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2380,8 +2380,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2426,8 +2426,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2478,8 +2478,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2541,8 +2541,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2611,8 +2611,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2673,8 +2673,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2735,8 +2735,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2793,8 +2793,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2849,8 +2849,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2916,8 +2916,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -2976,9 +2976,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#T>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#T>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -3101,10 +3101,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -3242,10 +3242,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -3381,8 +3381,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3444,8 +3444,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3508,8 +3508,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3567,8 +3567,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3620,8 +3620,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3690,8 +3690,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3759,9 +3759,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -3907,8 +3907,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -3963,8 +3963,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -4030,8 +4030,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -4088,9 +4088,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#T>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#T>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -4124,9 +4124,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#T>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#T>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -4160,9 +4160,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("pkgthree.Inherit<#T>",r_.getDirectSuperTypes().first());
-        assertEq("pkgfour.Inherit<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("pkgthree.Inherit<#T>", getDirectSuperTypes(r_).first());
+        assertEq("pkgfour.Inherit<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -4217,10 +4217,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -4424,10 +4424,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         assertEq(3, r_.getRowColDirectSuperTypes().size());
         assertEq("java.lang.$Enum<pkgtwo.Toto>", r_.getRowColDirectSuperTypes().getVal(-1));
         assertEq(" hello.word<Ex> ", r_.getRowColDirectSuperTypes().getVal(70));
@@ -4670,10 +4670,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -4756,10 +4756,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -4814,7 +4814,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -4852,7 +4852,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -4893,7 +4893,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -4945,7 +4945,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertNull(child_);
         assertEq(1, countFileTypes(context_));
@@ -4968,7 +4968,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5009,7 +5009,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5052,7 +5052,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5095,7 +5095,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5138,7 +5138,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof AnnotationMethodBlock);
         AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
@@ -5407,7 +5407,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5441,7 +5441,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5476,7 +5476,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5511,7 +5511,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock method_ = (FieldBlock) child_;
@@ -5633,9 +5633,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -5675,9 +5675,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -5717,9 +5717,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -5760,7 +5760,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
@@ -5787,7 +5787,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
@@ -5816,7 +5816,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
+        assertEq(1, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
         RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
@@ -5881,10 +5881,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -6021,10 +6021,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<pkgtwo.Inherit>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<pkgtwo.Inherit>",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<pkgtwo.Inherit>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<pkgtwo.Inherit>", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         assertEq("FIRST", ((ElementBlock) child_).getUniqueFieldName());
@@ -6171,7 +6171,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         assertTrue(!cl_.isAbstractType());
         assertTrue(cl_.isFinalType());
         Block child_ = cl_.getFirstChild();
@@ -6203,7 +6203,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         assertTrue(cl_.isAbstractType());
         assertTrue(!cl_.isFinalType());
         Block child_ = cl_.getFirstChild();
@@ -6237,7 +6237,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("<#T>",r_.getTemplateDef());
         assertTrue(cl_.isAbstractType());
         assertTrue(cl_.isFinalType());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6276,7 +6276,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock  method_ = (OverridableBlock) child_;
@@ -6333,7 +6333,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock  method_ = (OverridableBlock) child_;
@@ -6396,9 +6396,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6526,9 +6526,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6587,9 +6587,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6641,9 +6641,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6706,9 +6706,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6857,9 +6857,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6994,7 +6994,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -8048,10 +8048,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(3,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
-        assertEq("every.body",r_.getDirectSuperTypes().get(1));
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        assertEq(3, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<Ex>", getDirectSuperTypes(r_).first());
+        assertEq("every.body", getDirectSuperTypes(r_).get(1));
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
@@ -8098,8 +8098,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(1,r_.getDirectSuperTypes().size());
-        assertEq("java.lang.$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().first());
+        assertEq(1, getDirectSuperTypes(r_).size());
+        assertEq("java.lang.$Enum<pkgtwo.Toto>", getDirectSuperTypes(r_).first());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof StaticBlock);
         Block instr_ = child_.getFirstChild();
@@ -8146,7 +8146,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8177,7 +8177,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8208,7 +8208,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8239,7 +8239,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8270,7 +8270,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8301,7 +8301,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8332,7 +8332,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8363,7 +8363,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock field_ = (OverridableBlock) child_;
@@ -8394,7 +8394,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof DeclareVariable);
         DeclareVariable field_ = (DeclareVariable) child_;
@@ -8420,7 +8420,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof DeclareVariable);
         DeclareVariable field_ = (DeclareVariable) child_;
@@ -8446,7 +8446,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof DeclareVariable);
         DeclareVariable field_ = (DeclareVariable) child_;
@@ -8472,7 +8472,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof DeclareVariable);
         DeclareVariable field_ = (DeclareVariable) child_;
@@ -8498,7 +8498,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof Line);
         Line line_ = (Line) child_;
@@ -8520,7 +8520,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof DeclareVariable);
         DeclareVariable field_ = (DeclareVariable) child_;
@@ -8736,7 +8736,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild().getFirstChild();
         assertTrue(child_ instanceof ForEachTable);
         ForEachTable field_ = (ForEachTable) child_;
@@ -9237,9 +9237,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -9378,9 +9378,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(2,r_.getDirectSuperTypes().size());
-        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
-        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        assertEq(2, getDirectSuperTypes(r_).size());
+        assertEq("hello.word<#T>", getDirectSuperTypes(r_).first());
+        assertEq("every.body<#T>", getDirectSuperTypes(r_).last());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -9503,7 +9503,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -9545,7 +9545,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertEq(0,r_.getDirectSuperTypes().size());
+        assertEq(0, getDirectSuperTypes(r_).size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof OverridableBlock);
         OverridableBlock method_ = (OverridableBlock) child_;
@@ -9918,6 +9918,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private CustList<OperatorBlock> getOperators(AnalyzedTestContext _context) {
         return _context.getAnalyzing().getAllOperators();
+    }
+
+    private static StringList getDirectSuperTypes(RootBlock _r) {
+        StringList l_ = new StringList();
+        for (String p: _r.getDirectSuperTypes()) {
+            l_.add(StringExpUtil.removeDottedSpaces(p));
+        }
+        return l_;
     }
 
 }

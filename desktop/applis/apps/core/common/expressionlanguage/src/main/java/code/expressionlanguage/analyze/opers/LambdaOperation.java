@@ -98,7 +98,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         int len_ = _args.size();
         MethodOperation m_ = getParent();
-        String fromType_ = StringExpUtil.removeDottedSpaces(_args.first());
+        String fromType_ = _args.first().trim();
         KeyWords keyWords_ = _page.getKeyWords();
         String operator_ = keyWords_.getKeyWordOperator();
         String new_ = keyWords_.getKeyWordNew();
@@ -1792,7 +1792,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (full_.trim().isEmpty()) {
                 loc_--;
             }
-            String arg_ = StringExpUtil.removeDottedSpaces(full_);
+            String arg_ = full_.trim();
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
                 if (i + 1 != len_) {
@@ -1836,7 +1836,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (param_.trim().isEmpty()) {
                 loc_--;
             }
-            String arg_ = StringExpUtil.removeDottedSpaces(param_);
+            String arg_ = param_.trim();
             String type_;
             boolean wrap_ = false;
             if (arg_.endsWith(VARARG_SUFFIX)) {

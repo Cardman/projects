@@ -343,7 +343,7 @@ public final class ResolvingTypes {
                 res_ = id_;
             }
         } else {
-            ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_, _page);
+            ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),res_,partOffsets_, _page);
         }
         int offset_ = _loc;
         offset_ += inners_.first().length();

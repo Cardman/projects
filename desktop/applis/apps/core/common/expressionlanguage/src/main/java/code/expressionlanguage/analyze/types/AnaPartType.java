@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StrTypes;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -49,7 +48,7 @@ abstract class AnaPartType {
                 return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _value.trim(),str_);
             }
             String type_ = _value;
-            type_ = StringExpUtil.removeDottedSpaces(type_);
+            type_ = type_.trim();
             boolean okVarType_ = false;
             if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType) {
                 okVarType_ = true;

@@ -94,7 +94,7 @@ public final class InternOverrideBlock extends Leaf {
                 StringList args_ = StringExpUtil.getAllSepCommaTypes(extValue_.getSecond());
                 String firstFull_ = args_.first();
                 int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
-                String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
+                String fromType_ = firstFull_.trim();
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();
                 String cl_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);

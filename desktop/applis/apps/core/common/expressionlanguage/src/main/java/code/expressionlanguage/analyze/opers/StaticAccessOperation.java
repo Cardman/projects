@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
@@ -21,7 +20,6 @@ public final class StaticAccessOperation extends LeafOperation {
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         String ext_ = op_.getExtractType();
-        ext_ = StringExpUtil.removeDottedSpaces(ext_);
         if (!ext_.isEmpty()) {
             partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();

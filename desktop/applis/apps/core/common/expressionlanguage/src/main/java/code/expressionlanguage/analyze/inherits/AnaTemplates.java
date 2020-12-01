@@ -527,7 +527,7 @@ public final class AnaTemplates {
             }
             return null;
         }
-        return StringExpUtil.removeDottedSpaces(tr_);
+        return tr_;
     }
 
     public static String check(StringList _errs, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
