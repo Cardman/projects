@@ -4219,6 +4219,96 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         assertEq(8, getNumber(ret_));
     }
     @Test
+    public void calculateArgument150Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExCont e = $new ExCont();\n");
+        xml_.append("  $int t = 0;\n");
+        xml_.append("  $int res = e[$that(t)]+=20;\n");
+        xml_.append("  $if (res != 30){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (e[0] != 10){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (e[1] != 30){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $int[] t={10,10};\n");
+        xml_.append(" $public $int $this($that $int p){\n");
+        xml_.append("  $return t[p++];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($that $int p){\n");
+        xml_.append("  t[p]=$value;\n");
+        xml_.append("  p++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $this($int p){\n");
+        xml_.append("  $return t[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  t[p]=$value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument151Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExCont e = $new ExCont();\n");
+        xml_.append("  $int t = 0;\n");
+        xml_.append("  $int res = e[$id(ExCont,~$int),$that(t)]+=20;\n");
+        xml_.append("  $if (res != 30){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (e[$id(ExCont,$int),0] != 10){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (e[$id(ExCont,$int),1] != 30){\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $int[] t={10,10};\n");
+        xml_.append(" $public $int $this($that $int p){\n");
+        xml_.append("  $return t[p++];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($that $int p){\n");
+        xml_.append("  t[p]=$value;\n");
+        xml_.append("  p++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $this($int p){\n");
+        xml_.append("  $return t[p];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int p){\n");
+        xml_.append("  t[p]=$value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -4272,8 +4362,8 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $int $this($that $int t){$return 0;}\n");
-        xml_.append(" $public $void $this($that $int t){}\n");
+        xml_.append(" $public $that $int $this($that $int t){$return 0;}\n");
+        xml_.append(" $public $that $void $this($that $int t){}\n");
         xml_.append(" $public $static $int $($that ExTwo t){$return 0;}\n");
         xml_.append(" $public $static $boolean $true($that ExTwo t){$return $false;}\n");
         xml_.append(" $public $static $boolean $true(ExTwo t){$return $false;}\n");

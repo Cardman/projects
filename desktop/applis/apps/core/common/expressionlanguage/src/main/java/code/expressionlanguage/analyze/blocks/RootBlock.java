@@ -784,7 +784,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         _page.addLocError(unexp_);
                         m_.addNameErrors(unexp_);
                     }
-                    if (m_.getParametersTypes().isEmpty()||m_.getId().isRef()) {
+                    if (m_.getParametersTypes().isEmpty()||m_.isRetRef()) {
                         int where_ = b.getOffset().getOffsetTrim();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());
