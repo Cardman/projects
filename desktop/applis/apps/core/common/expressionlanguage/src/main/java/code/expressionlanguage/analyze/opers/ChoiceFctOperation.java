@@ -75,8 +75,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
         methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
-        boolean apply_ = applyMatching();
-        filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
+        filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
     @Override

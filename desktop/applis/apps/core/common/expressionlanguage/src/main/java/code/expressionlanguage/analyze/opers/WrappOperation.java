@@ -12,7 +12,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.IntTreeMap;
 
-public final class WrappOperation extends AbstractUnaryOperation {
+public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;
     public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -25,6 +25,26 @@ public final class WrappOperation extends AbstractUnaryOperation {
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
+
+    @Override
+    public void preAnalyze(AnalyzedPageEl _page) {
+        MethodOperation m_ = getParent();
+        boolean retRef_ = false;
+        Block cur_ = _page.getCurrentBlock();
+        MemberCallingsBlock f_ = _page.getCurrentFct();
+        String type_ = EMPTY_STRING;
+        if (m_ == null && f_ instanceof NamedFunctionBlock && cur_ instanceof ReturnMethod) {
+            if (((NamedFunctionBlock)f_).isRetRef()) {
+                retRef_ = true;
+                type_ = ((NamedFunctionBlock)f_).getImportedReturnType();
+            }
+        }
+        if (!retRef_) {
+            return;
+        }
+        setResultClass(voidToObject(new AnaClassArgumentMatching(type_),_page));
+    }
+
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);

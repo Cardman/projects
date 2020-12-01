@@ -117,6 +117,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_m instanceof CastOperation) {
             CastOperation c_ = (CastOperation) _m;
             return c_.getClassName();
+        } else if (_m instanceof WrappOperation) {
+            return _m.getResultClass().getSingleNameOrEmpty();
         } else if (_m instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _m;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
@@ -253,22 +255,69 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
     }
 
-    protected boolean applyMatching() {
+    protected void filterByNameReturnType(AnalyzedPageEl _page, String _trimMeth, CustList<CustList<MethodInfo>> _methodInfos) {
+        boolean apply_ = applyMatching();
+        filterByNameReturnType(_trimMeth, apply_, _methodInfos, _page, getParentMatching());
+    }
+
+    private boolean applyMatching() {
         boolean apply_ = false;
+        OperationNode cur_ = this;
         OperationNode curPar_ = getParent();
         if (curPar_ instanceof AbstractDotOperation) {
             if (getIndexChild() > 0) {
                 if (curPar_.getParent() == null) {
                     apply_ = true;
+                } else {
+                    cur_ = cur_.getParent();
+                    curPar_ = curPar_.getParent();
                 }
             }
+        } else if (curPar_ instanceof WrappOperation){
+            apply_ = true;
         } else if (curPar_ == null){
             apply_ = true;
         }
+        while (curPar_ instanceof IdOperation && curPar_.getOperations().getValues().size() <= 1) {
+            curPar_ = curPar_.getParent();
+            cur_ = cur_.getParent();
+        }
+        if (curPar_ instanceof AffectationOperation) {
+            if (cur_.getIndexChild() > 0) {
+                apply_ = true;
+            }
+        }
         return apply_;
     }
-
-    protected static void filterByNameReturnType(String _trimMeth, boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+    protected OperationNode getParentMatching() {
+        OperationNode cur_ = this;
+        OperationNode curPar_ = getParent();
+        if (curPar_ instanceof AbstractDotOperation) {
+            if (getIndexChild() > 0) {
+                if (curPar_.getParent() == null) {
+                    return null;
+                } else {
+                    cur_ = cur_.getParent();
+                    curPar_ = curPar_.getParent();
+                }
+            }
+        } else if (curPar_ instanceof WrappOperation){
+            return curPar_;
+        } else if (curPar_ == null){
+            return null;
+        }
+        while (curPar_ instanceof IdOperation && curPar_.getOperations().getValues().size() <= 1) {
+            curPar_ = curPar_.getParent();
+            cur_ = cur_.getParent();
+        }
+        if (curPar_ instanceof AffectationOperation) {
+            if (cur_.getIndexChild() > 0) {
+                return curPar_;
+            }
+        }
+        return null;
+    }
+    private static void filterByNameReturnType(String _trimMeth, boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
         int len_ = _methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = _methodInfos.get(i).size();
@@ -282,15 +331,23 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             _methodInfos.set(i, newList_);
         }
+        filterByReturnType(_apply, _methodInfos, _page, _parentMatching);
+    }
+
+    protected static void filterByReturnType(boolean _apply, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page, OperationNode _parentMatching) {
         String typeAff_ = EMPTY_STRING;
         Block cur_ = _page.getCurrentBlock();
-        if (_apply && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_page);
+        if (_apply) {
+            if (_parentMatching == null &&cur_ instanceof ReturnMethod) {
+                typeAff_ = tryGetRetType(_page);
+            } else {
+                typeAff_ = tryGetTypeAff(_parentMatching);
+            }
         }
         filterByReturnType(typeAff_, _methodInfos, _page);
     }
 
-    protected static void filterByReturnType(String _typeAff, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
+    private static void filterByReturnType(String _typeAff, CustList<CustList<MethodInfo>> _methodInfos, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(_typeAff, keyWordVar_)) {
@@ -308,10 +365,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
                 String returnType_ = methodInfo_.getReturnType();
                 mapping_.setArg(returnType_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
-                    if (!res_.isFoundMethod()) {
+                if (methodInfo_.getConstraints().isRetRef()) {
+                    if (!StringUtil.quickEq(returnType_,_typeAff)) {
                         continue;
+                    }
+                } else {
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
+                        if (!res_.isFoundMethod()) {
+                            continue;
+                        }
                     }
                 }
                 newList_.add(methodInfo_);

@@ -76,8 +76,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         methodFound = trimMeth_;
         methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, true, isLvalue(), _page.getGlobalClass()));
-        boolean apply_ = applyMatching();
-        filterByNameReturnType(trimMeth_, apply_, methodInfos, _page);
+        filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
     @Override

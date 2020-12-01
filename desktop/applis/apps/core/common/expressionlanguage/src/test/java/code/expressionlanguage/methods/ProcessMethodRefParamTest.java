@@ -4049,6 +4049,176 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         assertEq("18", getString(ret_));
     }
     @Test
+    public void calculateArgument145Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static Solo<$int> t;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  exmeth()=$new Solo<>(8);\n");
+        xml_.append("  $return t.info;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth(){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class Solo<T>{\n");
+        xml_.append("  $public T info;\n");
+        xml_.append("  $public Solo(T p){\n");
+        xml_.append("   info = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument146Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static Solo<$int> t;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  exmeth()=same($new Solo<>(8));\n");
+        xml_.append("  $return t.info;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth(){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Solo<$int> same(Solo<$int> p){\n");
+        xml_.append("  $return p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class Solo<T>{\n");
+        xml_.append("  $public T info;\n");
+        xml_.append("  $public Solo(T p){\n");
+        xml_.append("   info = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument147Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static Solo<$int> t;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  exmeth()=same($new Solo<>(8));\n");
+        xml_.append("  $return t.info;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth(){\n");
+        xml_.append("  $return $that(exmeth2($new Solo<>(8)));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth2(Solo<$int> s){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Solo<$int> same(Solo<$int> p){\n");
+        xml_.append("  $return p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class Solo<T>{\n");
+        xml_.append("  $public T info;\n");
+        xml_.append("  $public Solo(T p){\n");
+        xml_.append("   info = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument148Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static Solo<$int> t;\n");
+        xml_.append(" $static Object v;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  exmeth()=same($new Solo<>(8));\n");
+        xml_.append("  $return t.info;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth(){\n");
+        xml_.append("  $return $that(exmeth2($new Solo<>(8),0));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth2(Solo<$int> s,$int u){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Object exmeth2(Solo<$long> s, $long u){\n");
+        xml_.append("  $return $that(v);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Solo<$int> same(Solo<$int> p){\n");
+        xml_.append("  $return p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class Solo<T>{\n");
+        xml_.append("  $public T info;\n");
+        xml_.append("  $public Solo(T p){\n");
+        xml_.append("   info = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument149Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static Solo<$int> t;\n");
+        xml_.append(" $static Object v;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  exmeth()=same($new Solo<>(8));\n");
+        xml_.append("  $return t.info;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth(){\n");
+        xml_.append("  $return $that(exmeth2($new Solo<>(8)));\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Solo<$int> exmeth2(Solo<$int> s){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that Object exmeth2(Solo<$long> s){\n");
+        xml_.append("  $int i = 1/0;\n");
+        xml_.append("  $return $that(v);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Solo<$int> same(Solo<$int> p){\n");
+        xml_.append("  $return p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class Solo<T>{\n");
+        xml_.append("  $public T info;\n");
+        xml_.append("  $public Solo(T p){\n");
+        xml_.append("   info = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
