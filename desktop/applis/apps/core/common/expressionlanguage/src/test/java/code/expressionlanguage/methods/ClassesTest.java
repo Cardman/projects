@@ -6109,6 +6109,17 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {([unknown]) = {};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo2 {\n");
+        xml_.append(" {([[unknown]]) = {};}\n");
+        xml_.append(" {([(unknown)]) = {};}\n");
+        xml_.append(" {([\"unknown\"]) = {};}\n");
+        xml_.append(" {([{unknown}]) = {};}\n");
+        xml_.append(" {([{unknown]]) = {};}\n");
+        xml_.append(" {([{unknown)]) = {};}\n");
+        xml_.append(" {([[unknown}]) = {};}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         assertTrue(hasErr(files_));
     }
     @Test

@@ -70,6 +70,7 @@ public final class ElResolver {
     private static final char MAX_ENCODE_UPP_LETTER = 'F';
 
     private static final String ARR = "[";
+    private static final String ARR_END = "]";
 
     private static final char NEG_BOOL_CHAR = '!';
 
@@ -2541,8 +2542,16 @@ public final class ElResolver {
         doubleDotted_.setNextIndex(i_);
     }
 
+    private static boolean noWideInternDelimiter(String _substring) {
+        return noDelSt(_substring) && StringExpUtil.noDel(_substring);
+    }
+
     private static boolean noInternDelimiter(String _substring) {
-        return _substring.indexOf(PAR_LEFT) < 0 && _substring.indexOf(DELIMITER_CHAR) < 0 && _substring.indexOf(DELIMITER_STRING) < 0 && _substring.indexOf(DELIMITER_TEXT) < 0;
+        return _substring.indexOf(PAR_LEFT) < 0 && noDelSt(_substring);
+    }
+
+    private static boolean noDelSt(String _substring) {
+        return _substring.indexOf(DELIMITER_CHAR) < 0 && _substring.indexOf(DELIMITER_STRING) < 0 && _substring.indexOf(DELIMITER_TEXT) < 0;
     }
 
     private static boolean isPossibleDigit(String _string, Delimiters _dout) {
@@ -3535,11 +3544,13 @@ public final class ElResolver {
         String sub_ = _string.substring(_from + 1, indexParRight_);
         int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
         String subTrim_ = sub_.trim();
-        int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
-        if (noInternDelimiter(sub_)&&subTrim_.startsWith(ARR) && arrRight_ > -1) {
-            _d.getDelLoopVars().add(_from);
-            _d.getDelLoopVars().add(indexParRight_);
-            return indexParRight_ + 1;
+        if (subTrim_.startsWith(ARR) && subTrim_.endsWith(ARR_END)) {
+            String candidate_ = subTrim_.substring(1,subTrim_.length()-1);
+            if (noWideInternDelimiter(candidate_)) {
+                _d.getDelLoopVars().add(_from);
+                _d.getDelLoopVars().add(indexParRight_);
+                return indexParRight_ + 1;
+            }
         }
         if (indexParRight_ + 1 >= _string.length()) {
             return _from;

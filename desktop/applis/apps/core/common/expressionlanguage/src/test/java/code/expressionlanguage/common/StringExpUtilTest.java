@@ -297,6 +297,34 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
         assertEq("hello",StringExpUtil.tryToExtract("hello()",'(',')').getFirst());
     }
     @Test
+    public void noDel1(){
+        assertTrue(!StringExpUtil.noDel("("));
+    }
+    @Test
+    public void noDel2(){
+        assertTrue(!StringExpUtil.noDel("["));
+    }
+    @Test
+    public void noDel3(){
+        assertTrue(!StringExpUtil.noDel("{"));
+    }
+    @Test
+    public void noDel4(){
+        assertTrue(!StringExpUtil.noDel(")"));
+    }
+    @Test
+    public void noDel5(){
+        assertTrue(!StringExpUtil.noDel("]"));
+    }
+    @Test
+    public void noDel6(){
+        assertTrue(!StringExpUtil.noDel("}"));
+    }
+    @Test
+    public void noDel7(){
+        assertTrue(StringExpUtil.noDel(" "));
+    }
+    @Test
     public void toGeneHex1Test(){
         assertEq("0",StringExpUtil.toGeneHex(0));
     }

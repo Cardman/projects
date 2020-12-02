@@ -1030,6 +1030,10 @@ public final class StringExpUtil {
         e_.setSecond(_string.substring(afterIndex_,last_));
         return e_;
     }
+    public static boolean noDel(String _str) {
+        return _str.indexOf('(') < 0 && _str.indexOf('{') < 0 && _str.indexOf('[') < 0
+                &&_str.indexOf(')') < 0 && _str.indexOf('}') < 0 && _str.indexOf(']') < 0;
+    }
     public static int getOffset(String _str) {
         return Math.max(0, StringUtil.getFirstPrintableCharIndex(_str));
     }
