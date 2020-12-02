@@ -2921,7 +2921,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<?T>"));
-        assertEq(3, res_.size());
+        assertEq(5, res_.size());
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?>"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree<?>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?T>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExThree<java.lang.$iterable<?T>>"));
         assertTrue(StringUtil.contains(res_, "java.lang.Object"));
@@ -2942,7 +2944,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("U", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<#U>"));
-        assertEq(3, res_.size());
+        assertEq(5, res_.size());
+        assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?>"));
+        assertTrue(StringUtil.contains(res_, "pkg.ExThree<?>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExTwo<#U>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExThree<#U>"));
         assertTrue(StringUtil.contains(res_, "java.lang.Object"));
@@ -4845,8 +4849,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argOne_ = null;
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
-        assertEq(1, res_.getTypes().size());
+        assertEq(2, res_.getTypes().size());
         assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFive<?>"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
@@ -4877,8 +4882,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argOne_ = null;
         Argument argTwo_ =  null;
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
-        assertEq(1, res_.getTypes().size());
-        assertTrue(StringUtil.contains(res_.getTypes(), "java.lang.Object"));
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFour<?>"));
+        assertTrue(StringUtil.contains(res_.getTypes(), "pkg.ExFive<?>"));
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }

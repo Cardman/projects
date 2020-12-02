@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
@@ -14,6 +15,7 @@ import code.expressionlanguage.inherits.*;
 
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -265,13 +267,11 @@ public final class AnaTemplates {
                         continue;
                     }
                     DimComp dci_ = StringExpUtil.getQuickComponentBaseType(t);
-                    String i_ = dci_.getComponent();
+                    String component_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
-                    i_ = StringExpUtil.getIdFromAllTypes(i_);
+                    String i_ = StringExpUtil.getIdFromAllTypes(component_);
                     AnaGeneType j_ = _page.getAnaGeneType(i_);
-                    for (String u: j_.getAllGenericSuperTypes()) {
-                        superTypes_.add(StringExpUtil.getPrettyArrayType(u, d_ + dLoc_));
-                    }
+                    addTypes(superTypes_, component_, d_+ dLoc_, j_);
                 }
                 for (int d = 1; d <= d_; d++) {
                     superTypes_.add(StringExpUtil.getPrettyArrayType(obj_, d));
@@ -301,10 +301,7 @@ public final class AnaTemplates {
             }
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
             AnaGeneType g_ = _page.getAnaGeneType(id_);
-            for (String t: g_.getAllGenericSuperTypes()) {
-                String f_ = format(g_,base_, t);
-                superTypes_.add(StringExpUtil.getPrettyArrayType(f_, d_));
-            }
+            addTypes(superTypes_, base_, d_, g_);
             for (int d = 1; d <= d_; d++) {
                 superTypes_.add(StringExpUtil.getPrettyArrayType(obj_, d));
             }
@@ -313,6 +310,30 @@ public final class AnaTemplates {
         superTypes_.removeDuplicates();
         return superTypes_;
     }
+
+    private static void addTypes(StringList _superTypes, String _base, int _d, AnaGeneType _g) {
+        if (_g instanceof RootBlock) {
+            addWildCard(_superTypes, _d, (RootBlock)_g);
+            for (AnaFormattedRootBlock m: ((RootBlock) _g).getAllGenericSuperTypesInfo()) {
+                RootBlock rootBlock_ = m.getRootBlock();
+                String formatted_ = m.getFormatted();
+                String f_ = format(_g, _base, formatted_);
+                addWildCard(_superTypes, _d, rootBlock_);
+                _superTypes.add(StringExpUtil.getPrettyArrayType(f_, _d));
+            }
+        }
+        if (_g instanceof StandardType) {
+            for (String t: _g.getAllGenericSuperTypes()) {
+                String f_ = format(_g, _base, t);
+                _superTypes.add(StringExpUtil.getPrettyArrayType(f_, _d));
+            }
+        }
+    }
+
+    private static void addWildCard(StringList _superTypes, int _d, RootBlock _g) {
+        _superTypes.add(StringExpUtil.getPrettyArrayType(_g.getWildCardString(), _d));
+    }
+
     public static String wildCardFormatReturn(String _first, String _second, AnalyzedPageEl _page) {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
