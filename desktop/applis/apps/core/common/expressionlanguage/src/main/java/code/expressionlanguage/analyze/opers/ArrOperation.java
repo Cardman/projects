@@ -214,6 +214,19 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         OperationNode right_ = chidren_.last();
+        if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //first separator char
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    StringUtil.join(class_.getNames(),"&"));
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+            class_ = new AnaClassArgumentMatching(_page.getAliasObject());
+            setResultClass(class_);
+            return;
+        }
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _page);
         if (!indexClass_.isNumericInt(_page)) {

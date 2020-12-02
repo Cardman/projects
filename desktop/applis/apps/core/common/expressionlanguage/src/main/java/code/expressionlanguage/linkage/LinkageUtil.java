@@ -3357,6 +3357,13 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
             }
         }
+        if (_val instanceof WrappOperation) {
+            if (!_val.getErrs().isEmpty()) {
+                int begin_ = _sum + _val.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordThat().length()));
+            }
+        }
         if (_val instanceof NamedArgumentOperation) {
             NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
             int firstOff_ = n_.getOffsetTr();

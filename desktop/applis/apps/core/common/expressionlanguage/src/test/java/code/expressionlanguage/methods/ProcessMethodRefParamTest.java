@@ -4338,6 +4338,8 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         xml_.append("  $for ($final $int i=0;i<10;){\n");
         xml_.append("   exmeth($that(i));\n");
         xml_.append("  }\n");
+        xml_.append("  arr[a:0];\n");
+        xml_.append("  arr[$that(v)];\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void exmeth($that $int t){\n");
         xml_.append(" }\n");
