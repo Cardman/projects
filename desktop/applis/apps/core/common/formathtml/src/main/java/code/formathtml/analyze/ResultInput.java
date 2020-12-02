@@ -6,11 +6,13 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.formathtml.util.InputInfo;
 import code.sml.Element;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -25,6 +27,7 @@ public final class ResultInput {
     private AnaClassArgumentMatching result;
     private AnaClassArgumentMatching previousResult;
     private StringList varNames = new StringList();
+    private InputInfo varNamesParams = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -129,26 +132,34 @@ public final class ResultInput {
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
                 setVarNames(varNames_);
+                InputInfo info_ = new InputInfo();
+                info_.getVarNames().addAllElts(varParamNames_);
+                setVarNamesParams(info_);
                 setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_));
             } else {
-                CustList<OperationNode> childrenNodes_ = ((ArrOperation) settable_).getChildrenNodes();
                 StringList varNames_ = new StringList();
                 String varPrevLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varPrevLoc_);
                 idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
                 StringList varParamNames_ = new StringList();
-                int s_ = childrenNodes_.size();
-                for (int i = 0; i < s_; i++) {
+                MethodId constraints_ = classMethodId_.getConstraints();
+                int nbParam_ = constraints_.getParametersTypesLength();
+                InputInfo info_ = new InputInfo();
+                for (int i = 0; i < nbParam_; i++) {
                     String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varParam_);
                     varParamNames_.add(varParam_);
+                    info_.getVarTypes().add(constraints_.getParametersType(i));
+                    info_.getRefs().add(constraints_.getParametersRef(i));
                 }
-                String sgn_ = classMethodId_.getConstraints().getSignature(_page);
+                String sgn_ = constraints_.getSignature(_page);
                 idName = StringUtil.concat("[]", sgn_);
                 id = StringUtil.concat(idClass,".",idName);
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
                 setVarNames(varNames_);
+                info_.getVarNames().addAllElts(varParamNames_);
+                setVarNamesParams(info_);
                 setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_));
             }
         } else {
@@ -222,6 +233,14 @@ public final class ResultInput {
 
     public void setPreviousResult(AnaClassArgumentMatching _previousResult) {
         previousResult = _previousResult;
+    }
+
+    public InputInfo getVarNamesParams() {
+        return varNamesParams;
+    }
+
+    public void setVarNamesParams(InputInfo _varNamesParams) {
+        varNamesParams = _varNamesParams;
     }
 
     public StringList getVarNames() {

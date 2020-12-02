@@ -55,7 +55,7 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
         ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context,pr_,classNameFound_,pair);
         ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), null, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, fectchArgs(_conf, _all,lastType_,naturalVararg_), null, MethodAccessKind.INSTANCE, "");
     }
 
     public int getNaturalVararg() {

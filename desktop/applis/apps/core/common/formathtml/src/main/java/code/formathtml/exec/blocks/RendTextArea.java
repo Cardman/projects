@@ -6,10 +6,12 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
+import code.formathtml.util.InputInfo;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -25,6 +27,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String varName = EMPTY_STRING;
+    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -35,7 +38,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                         StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
                         String _varNameConverter, String _varNameConverterField,
-                        String _varName, String _id, String _idClass, String _idName, String _className, Element _elt) {
+                        String _varName, String _id, String _idClass, String _idName, String _className, Element _elt, InputInfo _list) {
         super(_offsetTrim);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
@@ -52,6 +55,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         this.idName = _idName;
         this.className = _className;
         this.elt = _elt;
+        varNames = _list;
     }
 
     @Override
@@ -66,6 +70,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);
+        f_.setVarNames(varNames);
         f_.setClassName(className);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);

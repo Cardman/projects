@@ -784,7 +784,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         classNameFound_ = _rend.getClassMethodId().getClassName();
         int naturalVararg_ = _rend.getNaturalVararg();
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, _rend.fectchArgs(_all,lastType_,naturalVararg_).getArguments());
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, _rend.fectchArgs(_conf, _all,lastType_,naturalVararg_).getArguments());
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf, ContextEl _ctx) {

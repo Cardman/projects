@@ -62,7 +62,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_all,lastType_,natvararg_),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
+        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_conf, _all,lastType_,natvararg_),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE);
         return Argument.createVoid();
     }
 

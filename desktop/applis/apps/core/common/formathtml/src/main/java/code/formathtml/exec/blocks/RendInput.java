@@ -6,8 +6,10 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
+import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -18,6 +20,7 @@ public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
+    private InputInfo varNames = new InputInfo();
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String id = EMPTY_STRING;
@@ -28,13 +31,14 @@ public abstract class RendInput extends RendElement {
     public RendInput(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
                      CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                      CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField, String _varName, String _varNameConverter,
-                     String _varNameConverterField, String _id, String _idClass, String _idName, String _className) {
+                     String _varNameConverterField, String _id, String _idClass, String _idName, String _className, InputInfo _list) {
         super(_offsetTrim, _read, _execAttributes, _execAttributesText);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
         this.opsWrite = _opsWrite;
         this.opsConverter = _opsConverter;
         this.opsConverterField = _opsConverterField;
+        varNames = _list;
         this.varName = _varName;
         this.varNameConverter = _varNameConverter;
         this.varNameConverterField = _varNameConverterField;
@@ -52,6 +56,7 @@ public abstract class RendInput extends RendElement {
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);
+        f_.setVarNames(varNames);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setClassName(className);

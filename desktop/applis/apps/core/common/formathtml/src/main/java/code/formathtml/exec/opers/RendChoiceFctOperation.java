@@ -49,7 +49,7 @@ public final class RendChoiceFctOperation extends RendSettableCallFctOperation i
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
         lastType_ = ExecTemplates.quickFormat(pair.getType(),fullClassNameFound_, lastType_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), null, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, fectchArgs(_conf, _all,lastType_,naturalVararg_), null, MethodAccessKind.INSTANCE, "");
     }
 
 }

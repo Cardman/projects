@@ -45,7 +45,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = instancingCommonContent.getClassName();
         String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
-        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, fectchArgs(_all,lastType_,instancingCommonContent.getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, fectchArgs(_conf, _all,lastType_,instancingCommonContent.getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 
 }

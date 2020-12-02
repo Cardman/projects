@@ -9,9 +9,11 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -23,8 +25,8 @@ public final class RendRadio extends RendInput {
                      CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                      CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                      String _varName, String _varNameConverter, String _varNameConverterField, String _id, String _idClass, String _idName, String _className,
-                     CustList<RendDynOperationNode> _opsConverterFieldValue, String _varNameConverterFieldValue) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsWrite, _opsConverter, _opsConverterField, _varName, _varNameConverter, _varNameConverterField, _id, _idClass, _idName, _className);
+                     CustList<RendDynOperationNode> _opsConverterFieldValue, String _varNameConverterFieldValue, InputInfo _list) {
+        super(_offsetTrim, _read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsWrite, _opsConverter, _opsConverterField, _varName, _varNameConverter, _varNameConverterField, _id, _idClass, _idName, _className, _list);
         this.opsConverterFieldValue = _opsConverterFieldValue;
         this.varNameConverterFieldValue = _varNameConverterFieldValue;
     }

@@ -117,7 +117,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context,pr_,classNameFound_,fct_);
         fct_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, fct_, prev_,null, fectchArgs(_all,lastType_,naturalVararg_), _right, MethodAccessKind.INSTANCE, "");
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, fct_, prev_,null, fectchArgs(_conf, _all,lastType_,naturalVararg_), _right, MethodAccessKind.INSTANCE, "");
     }
 
 }

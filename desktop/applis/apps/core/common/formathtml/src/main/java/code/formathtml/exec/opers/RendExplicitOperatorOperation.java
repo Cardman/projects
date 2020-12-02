@@ -30,12 +30,12 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context), _context);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_conf, _nodes, _context), _context);
         setSimpleArgument(argres_,_conf,_nodes, _context);
     }
 
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, fectchArgs(_all,staticFctContent.getLastType(),staticFctContent.getNaturalVararg()), staticFctContent.getClassName(), staticFctContent.getKind());
+    private Argument getArgument(Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context) {
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, fectchArgs(_conf, _all,staticFctContent.getLastType(),staticFctContent.getNaturalVararg()), staticFctContent.getClassName(), staticFctContent.getKind());
         return Argument.createVoid();
     }
 }

@@ -27,6 +27,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private StringMap<ExecTextPart> execAttributesText = new StringMap<ExecTextPart>();
     private StringMap<ExecTextPart> execAttributes = new StringMap<ExecTextPart>();
     private String varName = EMPTY_STRING;
+    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -44,7 +45,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                       StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
                       String _varName, String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
                       String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
-                      String _className, boolean _arrayConverter) {
+                      String _className, boolean _arrayConverter, InputInfo _list) {
         super(_offsetTrim);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
@@ -67,6 +68,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         this.varNameConverterFieldValue = _varNameConverterFieldValue;
         this.className = _className;
         this.arrayConverter = _arrayConverter;
+        varNames = _list;
     }
 
     @Override
@@ -271,6 +273,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);
+        f_.setVarNames(varNames);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);

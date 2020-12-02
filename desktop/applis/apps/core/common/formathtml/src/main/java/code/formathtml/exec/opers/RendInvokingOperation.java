@@ -12,6 +12,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.exec.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
@@ -32,15 +33,21 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         l_.getArguments().addAllElts(arguments_);
         ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, _className, _kind);
     }
-    public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+    public ArgumentListCall fectchArgs(Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
-        CustList<Argument> first_ = argumentList_.getArguments().getArguments();
+        ArgumentListCall fetchArgs_ = argumentList_.getArguments();
+        CustList<Argument> first_ = fetchArgs_.getArguments();
         CustList<RendDynOperationNode> filter_ = argumentList_.getFilter();
         CustList<Argument> res_ = listArguments(filter_, _naturalVararg, _lastType, first_);
         first_.clear();
         first_.addAllElts(res_);
-        return argumentList_.getArguments();
+        ArgumentListCall list_ = _conf.getLastPage().getList();
+        list_.getArguments().clear();
+        list_.getWrappers().clear();
+        list_.getArguments().addAllElts(first_);
+        list_.getWrappers().addAllElts(fetchArgs_.getWrappers());
+        return fetchArgs_;
     }
 
     private static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {

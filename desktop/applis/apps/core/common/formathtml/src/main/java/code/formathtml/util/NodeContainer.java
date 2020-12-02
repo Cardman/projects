@@ -1,14 +1,18 @@
 package code.formathtml.util;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
 public class NodeContainer {
 
     private CustList<Struct> object = new CustList<Struct>();
+    private CustList<Struct> allObject = new CustList<Struct>();
+    private CustList<AbstractWrapper> wrappers = new CustList<AbstractWrapper>();
     private StringList objectClasses = new StringList();
     private Struct bean = NullStruct.NULL_VALUE;
 
@@ -18,7 +22,7 @@ public class NodeContainer {
     private String idFieldClass;
     private String idFieldName;
     private String varPrevName;
-    private CustList<String> varParamName;
+    private InputInfo varParamName;
     private String varName;
     private String varNameConvert;
     private CustList<RendDynOperationNode> opsWrite;
@@ -28,14 +32,15 @@ public class NodeContainer {
     private final NodeInformations nodeInformation = new NodeInformations();
 
     private boolean enabled;
+    private boolean indexer;
 
     public boolean eqObj(CustList<Struct> _object) {
         int size_ = _object.size();
-        if (object.size() != size_) {
+        if (allObject.size() != size_) {
             return false;
         }
         for (int i = 0; i < size_; i++) {
-            if (!object.get(i).sameReference(_object.get(i))) {
+            if (!allObject.get(i).sameReference(_object.get(i))) {
                 return false;
             }
         }
@@ -61,6 +66,18 @@ public class NodeContainer {
 
     public void setObjectClasses(StringList _objectClasses) {
         this.objectClasses = _objectClasses;
+    }
+
+    public void setAllObject(CustList<Struct> _allObject) {
+        allObject = _allObject;
+    }
+
+    public CustList<AbstractWrapper> getWrappers() {
+        return wrappers;
+    }
+
+    public void setWrappers(CustList<AbstractWrapper> _wrappers) {
+        wrappers = _wrappers;
     }
 
     public Struct getTypedStruct() {
@@ -122,11 +139,11 @@ public class NodeContainer {
         varPrevName = _varPrevName;
     }
 
-    public  CustList<String> getVarParamName() {
+    public  InputInfo getVarParamName() {
         return varParamName;
     }
 
-    public void setVarParamName(CustList<String> _varParamName) {
+    public void setVarParamName(InputInfo _varParamName) {
         this.varParamName = _varParamName;
     }
 
@@ -168,6 +185,14 @@ public class NodeContainer {
 
     public void setArrayConverter(boolean _arrayConverter) {
         arrayConverter = _arrayConverter;
+    }
+
+    public boolean isIndexer() {
+        return indexer;
+    }
+
+    public void setIndexer(boolean _indexer) {
+        this.indexer = _indexer;
     }
 
     public Struct getBean() {

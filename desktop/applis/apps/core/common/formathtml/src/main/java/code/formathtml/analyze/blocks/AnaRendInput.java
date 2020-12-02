@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -20,6 +21,7 @@ public abstract class AnaRendInput extends AnaRendElement {
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
     private String varName = EMPTY_STRING;
+    private InputInfo varNames = new InputInfo();
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String id = EMPTY_STRING;
@@ -34,6 +36,7 @@ public abstract class AnaRendInput extends AnaRendElement {
     protected void processAnaInput(Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultInput r_ = new ResultInput();
         r_.build(this, _read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
+        varNames = r_.getVarNamesParams();
         resultInput = r_;
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
@@ -177,5 +180,9 @@ public abstract class AnaRendInput extends AnaRendElement {
 
     public ResultInput getResultInput() {
         return resultInput;
+    }
+
+    public InputInfo getVarNames() {
+        return varNames;
     }
 }
