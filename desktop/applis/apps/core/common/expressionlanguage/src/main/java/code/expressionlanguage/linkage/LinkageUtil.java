@@ -2844,14 +2844,13 @@ public final class LinkageUtil {
     private static void processLeftIndexer(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (_val instanceof ArrOperation) {
             ArrOperation par_ = (ArrOperation) _val;
-            ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
-            if (classMethodId_ != null) {
-                AnaTypeFct function_;
-                if (par_.getArrContent().isVariable()) {
-                    function_ = par_.getFunctionSet();
-                } else {
-                    function_ = par_.getFunctionGet();
-                }
+            AnaTypeFct function_;
+            if (par_.getArrContent().isVariable()) {
+                function_ = par_.getFunctionSet();
+            } else {
+                function_ = par_.getFunctionGet();
+            }
+            if (function_ != null) {
                 int offsetEnd_ = _sum + _val.getIndexInEl();
                 addParts(_vars, _currentFileName, function_,offsetEnd_,1,_val.getErrs(),_val.getErrs(),_parts);
             } else if (!_val.getErrs().isEmpty()) {
@@ -3327,8 +3326,8 @@ public final class LinkageUtil {
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
-                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
-                    ArrOperation parArr_ = (ArrOperation) par_.getSettable();
+                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
+                    ArrOperation parArr_ = (ArrOperation) settable_;
                     addParts(_vars, _currentFileName, parArr_.getFunctionSet(),
                             _sum + _val.getIndexInEl()+offsetOp_+1,1,
                             _val.getErrs(),_val.getErrs(),_parts);
@@ -3444,9 +3443,8 @@ public final class LinkageUtil {
         }
         if (_val instanceof TernaryOperation) {
             TernaryOperation t_ = (TernaryOperation) _val;
-            ClassMethodId test_ = t_.getTest();
             AnaTypeFct testFct_ = t_.getTestFct();
-            if (test_ != null) {
+            if (testFct_ != null) {
                 StringList l_ = new StringList();
                 int begin_ = _sum + _val.getIndexInEl();
                 addParts(_vars, _currentFileName, testFct_,begin_,_vars.getKeyWords().getKeyWordBool().length(),l_,l_,_parts);
@@ -3605,11 +3603,10 @@ public final class LinkageUtil {
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
         AnaTypeFct function_ = par_.getFunction();
         int opDelta_ = par_.getOper().length() - 1;
-        ClassMethodId test_ = par_.getTest();
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
         int len_ = opDelta_;
-        if (test_ != null) {
+        if (functionTest_ != null) {
             StringList title_ = new StringList();
             AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
             title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
@@ -3668,7 +3665,7 @@ public final class LinkageUtil {
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) _parentOp;
         int opDelta_ = par_.getOper().length() - 1;
         SettableElResult settable_ = par_.getSettable();
-        if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
+        if (settable_ instanceof ArrOperation) {
             addParts(_vars, _currentFileName, ((ArrOperation) settable_).getFunctionSet(),opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
         } else {
             addParts(_vars, _currentFileName, null,opDelta_+_offsetEnd,1,_parentOp.getErrs(),_parentOp.getErrs(),_parts);
@@ -3679,12 +3676,11 @@ public final class LinkageUtil {
             return;
         }
         QuickOperation q_ = (QuickOperation) _parentOp;
-        ClassMethodId test_ = q_.getTest();
         AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         StringList errs_ = q_.getErrs();
         AnaTypeFct functionTest_ = q_.getFunctionTest();
-        if (test_ != null) {
+        if (functionTest_ != null) {
             StringList title_ = new StringList();
             title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
             addParts(_vars, _currentFileName, functionTest_,_offsetEnd,1, errs_,title_,_parts);
@@ -3716,14 +3712,13 @@ public final class LinkageUtil {
     private static void processRightIndexer(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (_parentOp instanceof ArrOperation) {
             ArrOperation par_ = (ArrOperation) _parentOp;
-            ClassMethodId classMethodId_ = par_.getCallFctContent().getClassMethodId();
-            if (classMethodId_ != null) {
-                AnaTypeFct function_;
-                if (par_.getArrContent().isVariable()) {
-                    function_ = par_.getFunctionSet();
-                } else {
-                    function_ = par_.getFunctionGet();
-                }
+            AnaTypeFct function_;
+            if (par_.getArrContent().isVariable()) {
+                function_ = par_.getFunctionSet();
+            } else {
+                function_ = par_.getFunctionGet();
+            }
+            if (function_ != null) {
                 addParts(_vars, _currentFileName, function_,_offsetEnd,1,new StringList(),new StringList(),_parts);
             } else {
                 String er_ = par_.getNbErr();
@@ -3758,8 +3753,8 @@ public final class LinkageUtil {
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
-                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getCallFctContent().getClassMethodId() != null) {
-                    ArrOperation parArr_ = (ArrOperation) par_.getSettable();
+                if (settable_ instanceof ArrOperation && ((ArrOperation) settable_).getFunctionSet() != null) {
+                    ArrOperation parArr_ = (ArrOperation) settable_;
                     addParts(_vars, _currentFileName, parArr_.getFunctionSet(),_offsetEnd+1,1,_parent.getErrs(),_parent.getErrs(),_parts);
                     err_ = false;
                 }

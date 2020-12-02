@@ -30,7 +30,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private ClassMethodId converter;
     private MemberId memberIdConv = new MemberId();
     private AnaTypeFct functionTest;
-    private ClassMethodId test;
 
     private boolean rightBool;
 
@@ -108,7 +107,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (test_ != null) {
                 clMatchLeft_.getImplicitsTest().add(test_);
                 clMatchLeft_.setMemberIdTest(cl_.getMemberIdTest());
-                test = test_;
                 functionTest = cl_.getFunctionTest();
             }
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(), _page)) {
@@ -330,10 +328,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public ClassMethodId getConverter() {
         return converter;
-    }
-
-    public ClassMethodId getTest() {
-        return test;
     }
 
     public SettableElResult getSettable() {

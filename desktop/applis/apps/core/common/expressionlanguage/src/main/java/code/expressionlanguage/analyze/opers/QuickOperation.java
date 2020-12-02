@@ -25,7 +25,6 @@ public abstract class QuickOperation extends MethodOperation {
     private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
-    private ClassMethodId test;
     private AnaTypeFct functionTest;
     private MemberId memberConverter = new MemberId();
     private ClassMethodId converter;
@@ -67,7 +66,6 @@ public abstract class QuickOperation extends MethodOperation {
                 return;
             }
             functionTest = opConv_.getFunctionTest();
-            test = test_;
             leftRes_.getImplicitsTest().add(test_);
             leftRes_.setMemberIdTest(opConv_.getMemberIdTest());
             Mapping map_ = new Mapping();
@@ -145,10 +143,6 @@ public abstract class QuickOperation extends MethodOperation {
 
     public String getClassName() {
         return className;
-    }
-
-    public ClassMethodId getTest() {
-        return test;
     }
 
     public ClassMethodId getConverter() {

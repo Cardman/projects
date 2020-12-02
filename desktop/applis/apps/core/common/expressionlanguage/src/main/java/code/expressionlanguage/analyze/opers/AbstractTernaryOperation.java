@@ -23,7 +23,6 @@ import code.util.core.StringUtil;
 public abstract class AbstractTernaryOperation extends MethodOperation {
 
     private int offsetLocal;
-    private ClassMethodId test;
     private AnaTypeFct testFct;
 
     public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
@@ -57,7 +56,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     ClassMethodId test_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     clMatch_.getImplicitsTest().add(test_);
                     clMatch_.setMemberIdTest(trueOp_.getMemberId());
-                    test = test_;
                     testFct = trueOp_.getPair();
                 } else {
                     setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _page);
@@ -133,7 +131,4 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         return testFct;
     }
 
-    public ClassMethodId getTest() {
-        return test;
-    }
 }
