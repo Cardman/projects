@@ -1,20 +1,16 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class DefaultFieldFilter implements AbstractFieldFilter {
     @Override
-    public void tryAddField(FieldInfo _fi, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static, boolean _aff, String _name, String _glClass, StringMap<FieldResult> _ancestors, String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
-        OperationNode.tryAddField(_fi, _accessFromSuper, _superClass, _anc, _static, _aff, _name, _glClass, _ancestors, _cl, _root, _superTypesBase, _superTypesBaseMap, _page);
+    public void tryAddField(ScopeFilterType _scope, FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page) {
+        OperationNode.tryAddField(_fi, _aff, _name, _ancestors, _root, _page, _scope);
     }
 
     @Override

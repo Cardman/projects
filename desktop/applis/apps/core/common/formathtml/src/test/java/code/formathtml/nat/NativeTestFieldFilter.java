@@ -11,13 +11,12 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class NativeTestFieldFilter implements AbstractFieldFilter {
     @Override
-    public void tryAddField(FieldInfo _fi, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static, boolean _aff, String _name, String _glClass, StringMap<FieldResult> _ancestors, String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
-        OperationNode.addFieldInfo(_root,_fi,_anc,_ancestors,_fi, false);
+    public void tryAddField(ScopeFilterType _scope, FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page) {
+        OperationNode.addFieldInfo(_fi,0,_ancestors,_fi, false, _scope.getFullName());
     }
 
     @Override

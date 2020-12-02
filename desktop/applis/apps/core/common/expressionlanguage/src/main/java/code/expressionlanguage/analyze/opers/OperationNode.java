@@ -617,27 +617,22 @@ public abstract class OperationNode {
     }
     public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,
                                                        boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
+        ScopeFilter scope_ = new ScopeFilter(null, !_baseClass, _superClass, false, _page.getGlobalClass());
         if (!_staticContext) {
-            FieldResult resIns_ = getDeclaredCustFieldByContext(false, _class, _baseClass, _superClass, _name, _import, _aff, _page);
+            FieldResult resIns_ = getDeclaredCustFieldByContext(MethodAccessKind.INSTANCE, _class, _name, _import, _aff, _page, scope_);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
         }
-        return getDeclaredCustFieldByContext(true, _class, _baseClass, _superClass, _name, _import,_aff, _page);
+        return getDeclaredCustFieldByContext(MethodAccessKind.STATIC, _class, _name, _import,_aff, _page, scope_);
     }
-    private static FieldResult getDeclaredCustFieldByContext(boolean _static, AnaClassArgumentMatching _class,
-                                                             boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
+    private static FieldResult getDeclaredCustFieldByContext(MethodAccessKind _kind, AnaClassArgumentMatching _class,
+                                                             String _name, boolean _import, boolean _aff, AnalyzedPageEl _page, ScopeFilter _scope) {
         StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
-        String glClass_ = _page.getGlobalClass();
+        String glClass_ = _scope.getGlClass();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         int maxAnc_ = 0;
-        MethodAccessKind k_;
-        if (_static) {
-            k_ = MethodAccessKind.STATIC;
-        } else {
-            k_ = MethodAccessKind.INSTANCE;
-        }
-        CustList<CustList<TypeInfo>> typesGroup_= typeLists(_class.getNames(),k_, _page);
+        CustList<CustList<TypeInfo>> typesGroup_= typeLists(_class.getNames(),_kind, _page);
         for (CustList<TypeInfo> g: typesGroup_) {
             StringList baseTypes_ = new StringList();
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
@@ -645,7 +640,7 @@ public abstract class OperationNode {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 AnaGeneType root_ = t.getRoot();
-                fetchFieldsType(!_baseClass,_superClass,t.getAncestor(),t.getScope() == MethodAccessKind.STATIC,_aff,_name,glClass_,ancestors_,f_,root_,baseTypes_,superTypesBaseAncBis_, _page);
+                fetchFieldsType(_aff,_name, ancestors_, root_, _page, new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId()));
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
         }
@@ -722,22 +717,21 @@ public abstract class OperationNode {
         }
     }
 
-    private static void fetchFieldsType(boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static,
-                                        boolean _aff,
-                                        String _name, String _glClass, StringMap<FieldResult> _ancestors,
-                                        String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
+    private static void fetchFieldsType(boolean _aff,
+                                        String _name, StringMap<FieldResult> _ancestors,
+                                        AnaGeneType _root, AnalyzedPageEl _page, ScopeFilterType _scope) {
         FieldInfo fi_ = _page.getFieldFilter().getFieldInfo(_root, _name);
         if (fi_ == null) {
             return;
         }
-        _page.getFieldFilter().tryAddField(fi_,_accessFromSuper,_superClass,_anc,_static,_aff,_name,_glClass,_ancestors,_cl,_root,_superTypesBase,_superTypesBaseMap,_page);
+        _page.getFieldFilter().tryAddField(_scope, fi_, _aff,_name, _ancestors, _root, _page);
     }
 
-    public static void tryAddField(FieldInfo _fi, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static, boolean _aff, String _name, String _glClass, StringMap<FieldResult> _ancestors, String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page) {
-        String fullName_ = _root.getFullName();
+    public static void tryAddField(FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page, ScopeFilterType _scope) {
+        String fullName_ = _scope.getFullName();
         String genericString_ = _root.getGenericString();
         boolean staticField_ = _fi.isStaticField();
-        if (_static) {
+        if (_scope.getKind() == MethodAccessKind.STATIC) {
             if (!staticField_) {
                 return;
             }
@@ -746,17 +740,17 @@ public abstract class OperationNode {
                 return;
             }
         }
-        if (cannotAccess(fullName_, _fi.getAccessed(),_glClass,_superTypesBaseMap, _page)) {
+        if (cannotAccess(fullName_, _fi.getAccessed(), _scope.getGlClass(), _scope.getSuperTypesBaseAncBis(), _page)) {
             return;
         }
-        if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
+        if (filterMember(_scope.isAccessFromSuper(), _scope.isSuperClass(), _scope.getSuperTypesBase(),fullName_)) {
             return;
         }
         String formatted_;
         if (staticField_) {
-            formatted_ = _cl;
+            formatted_ = _scope.getFormatted();
         } else {
-            formatted_ = AnaTemplates.quickFormat(_root,_cl,genericString_);
+            formatted_ = AnaTemplates.quickFormat(_root, _scope.getFormatted(),genericString_);
         }
         String realType_ = _fi.getType();
         boolean finalField_ = _fi.isFinalField();
@@ -766,11 +760,10 @@ public abstract class OperationNode {
             return;
         }
         if_.setMemberId(_fi.getMemberId());
-        addFieldInfo(_root,_fi, _anc, _ancestors, if_, if_.isStaticField());
+        addFieldInfo(_fi, _scope.getAnc(), _ancestors, if_, if_.isStaticField(), _scope.getFullName());
     }
 
-    public static void addFieldInfo(AnaGeneType _root, FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, FieldInfo _if, boolean _staticField) {
-        String fullName_ = _root.getFullName();
+    public static void addFieldInfo(FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, FieldInfo _if, boolean _staticField, String _fullName) {
         FieldResult res_ = new FieldResult();
         res_.setFileName(_fi.getFileName());
         res_.setMemberId(_fi.getMemberId());
@@ -785,7 +778,7 @@ public abstract class OperationNode {
         res_.setRealType(_if.getRealType());
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        addIfNotExist(_ancestors, fullName_, res_);
+        addIfNotExist(_ancestors, _fullName, res_);
     }
 
     private static FieldResult getRes(StringMap<FieldResult> _ancestors, StringList _classes) {
