@@ -893,8 +893,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean foundId_ = false;
         String type_ = EMPTY_STRING;
         if (_len > 2 && StringUtil.quickEq(_args.get(2).trim(), keyWordId_)) {
-            type_ = ResolvingTypes.resolveCorrectType(offset_,_fromType, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            if (isIntermediateDottedOperation()) {
+                type_ = ResolvingTypes.resolveCorrectType(offset_,_fromType, _page);
+                partOffsets.addAllElts(_page.getCurrentParts());
+            } else {
+                type_ = clFrom_;
+            }
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, cl_, MethodAccessKind.INSTANCE, _args, _page);
             if (argsRes_ == null) {
