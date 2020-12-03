@@ -2,13 +2,13 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.analyze.files.DefaultAccessType;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -29,7 +29,6 @@ import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
@@ -282,13 +281,30 @@ public abstract class CommonRender {
     }
 
     private static AnalyzedTestContext buildStd(String... _types) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.getTypesInit().addAllElts(new StringList(_types));
 
         return InitializationLgNames.buildStdThree(opt_);
     }
 
+    private static Options newOptions() {
+        Options options_ = new Options();
+        DefaultAccess defaultAccess_ = options_.getDefaultAccess();
+        setup(defaultAccess_.getAccAnonymous(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccInnerEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccAnnotation(),AccessEnum.PUBLIC);
+        setup(defaultAccess_.getAccInterface(),AccessEnum.PUBLIC);
+        defaultAccess_.setAccOuter(AccessEnum.PACKAGE);
+        return options_;
+    }
+    private static void setup(DefaultAccessType _def, AccessEnum _value) {
+        _def.setAccLocalTypes(_value);
+        _def.setAccMember(_value);
+        _def.setAccInners(_value);
+    }
     protected static Struct getCommEx(String _folder, String _relative, String _html, StringMap<String> _files) {
         AnalyzedTestConfiguration a_ = validateBase(_files);
         setup(_folder, _relative, a_);

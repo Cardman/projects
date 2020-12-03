@@ -835,7 +835,7 @@ public final class FileResolver {
                         currentParent_.getBadIndexesGlobal().add(_i+_offset);
                     }
                 } else {
-                    AccessEnum access_ = AccessEnum.PUBLIC;
+                    AccessEnum access_ = _page.getDefaultAccess().getAccOuter();
                     String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
                     String keyWordAnnotation_ = keyWords_.getKeyWordAnnotation();
                     String keyWordClass_ = keyWords_.getKeyWordClass();
@@ -870,17 +870,17 @@ public final class FileResolver {
                         nextIndex_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
                         afterAccessType_ = afterAccess_.trim();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordAbstract_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordFinal_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordClass_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordInterface_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordEnum_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordAnnotation_)) {
-                        access_ = AccessEnum.PACKAGE;
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else {
                         //ERROR
                         badIndexes_.add(nextIndex_);
@@ -904,6 +904,7 @@ public final class FileResolver {
                     }
                     int categoryOffset_ = nextIndex_;
                     String type_ = keyWordClass_;
+                    boolean okCat_ = true;
                     if (StringExpUtil.startsWithKeyWord(beforeQu_, keyWordClass_)) {
                         type_ = keyWordClass_;
                         nextIndex_ = nextIndex_ + keyWordClass_.length();
@@ -931,6 +932,7 @@ public final class FileResolver {
                     } else {
                         //ERROR
                         badIndexes_.add(nextIndex_);
+                        okCat_ = false;
                     }
                     ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_,_offset, beforeQu_);
                     StringList importedTypes_ = p_.getImportedTypes();
@@ -991,7 +993,7 @@ public final class FileResolver {
                     typeBlock_.setupOffsets(baseName_,packageName_);
                     typeBlock_.setBegin(categoryOffset_+_offset);
                     typeBlock_.setLengthHeader(type_.length());
-                    if (!okType_) {
+                    if (!okCat_ || !okType_) {
                         typeBlock_.getBadIndexesGlobal().add(bad_);
                     }
                     typeBlock_.getImports().addAllElts(importedTypes_);
@@ -1034,7 +1036,7 @@ public final class FileResolver {
                             instructionLocation_, instructionRealLocation_,
                             found_,
                             trimmedInstruction_,
-                            AccessEnum.PUBLIC, _page);
+                            _page.getDefaultAccess().getAccessInner(currentParent_).getAccInners(), _page);
                     currentParent_.appendChild(built_);
                     built_.setParentType((AnnotationBlock)currentParent_);
                     br_ = built_;
@@ -1286,16 +1288,19 @@ public final class FileResolver {
                     //Inner types
                     boolean defStatic_;
                     MemberCallingsBlock outerFuntion_ = Block.getOuterFuntionInType(currentParent_);
+                    AccessEnum defAcc_;
                     if (outerFuntion_ != null) {
+                        defAcc_ = _page.getDefaultAccess().getAccessInner(outerFuntion_).getAccLocalTypes();
                         defStatic_ = outerFuntion_.getStaticContext() != MethodAccessKind.INSTANCE;
                     } else {
+                        defAcc_ = _page.getDefaultAccess().getAccessInner(currentParent_).getAccInners();
                         defStatic_ = false;
                     }
                     RootBlock built_ = processTypeHeader(_offset, _pkgName,defStatic_,
                             instructionLocation_, instructionRealLocation_,
                             found_,
                             trimmedInstruction_,
-                            AccessEnum.PACKAGE, _page);
+                            defAcc_, _page);
                     built_.setParentType(currentParent_.retrieveParentType());
                     currentParent_.appendChild(built_);
                     br_ = built_;
@@ -1607,7 +1612,7 @@ public final class FileResolver {
         int instructionRealLocation_ = instructionLocation_;
         instructionLocation_ += StringUtil.getFirstPrintableCharIndex(found_);
         Block br_;
-        AccessEnum accessFct_ = AccessEnum.PACKAGE;
+        AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
         String word_ = EMPTY_STRING;
         int trFound_ = StringUtil.getFirstPrintableCharIndex(found_);
         int accessOffest_ = trFound_ + _i - found_.length();
@@ -1638,6 +1643,7 @@ public final class FileResolver {
             word_ = keyWordPrivate_;
         } else {
             if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPackage_)) {
+                accessFct_ = AccessEnum.PACKAGE;
                 word_ = keyWordPackage_;
             } else {
                 if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordProtected_)) {
@@ -1655,10 +1661,8 @@ public final class FileResolver {
         String trimmedAfterAccess_ = afterAccess_.trim();
         String infoModifiers_ = trimmedAfterAccess_;
         boolean field_ = false;
-        if (_currentChar == ';' && StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
-            String otherModifier_;
-            otherModifier_ = keyWordStatic_;
-            int lenLoc_ = otherModifier_.length();
+        if (_currentChar != '{' && StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordStatic_)) {
+            int lenLoc_ = keyWordStatic_.length();
             String sub_ = infoModifiers_.substring(lenLoc_);
             int delta_ = StringUtil.getFirstPrintableCharIndex(sub_);
             infoModifiers_ = sub_.substring(delta_);
@@ -1752,10 +1756,7 @@ public final class FileResolver {
                 meth_ = true;
             }
         }
-        if (meth_|| oper_||ctor_||_currentChar != ';') {
-            if (_currentParent instanceof InterfaceBlock && word_.isEmpty()) {
-                accessFct_ = AccessEnum.PUBLIC;
-            }
+        if (meth_|| oper_||ctor_||_currentChar == '{') {
 
             //constructors or methods or types
             int modifierOffest_ = accessOffest_ + word_.length();

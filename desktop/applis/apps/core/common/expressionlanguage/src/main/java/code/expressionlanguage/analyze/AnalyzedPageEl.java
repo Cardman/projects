@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -155,6 +156,7 @@ public final class AnalyzedPageEl {
     private boolean variableIssue;
     private final StringList toStringOwners = new StringList();
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+    private DefaultAccess defaultAccess;
     private AnalysisMessages analysisMessages;
     private KeyWords keyWords;
     private boolean gettingErrors;
@@ -1152,6 +1154,14 @@ public final class AnalyzedPageEl {
 
     public void setComments(CustList<CommentDelimiters> _comments) {
         this.comments = _comments;
+    }
+
+    public DefaultAccess getDefaultAccess() {
+        return defaultAccess;
+    }
+
+    public void setDefaultAccess(DefaultAccess _defaultAccess) {
+        this.defaultAccess = _defaultAccess;
     }
 
     public AnalysisMessages getAnalysisMessages() {

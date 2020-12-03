@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -11,6 +12,7 @@ public final class Options {
     private boolean covering;
     private boolean gettingErrors;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+    private final DefaultAccess defaultAccess = new DefaultAccess();
 
     public StringList getTypesInit() {
         return typesInit;
@@ -44,4 +46,7 @@ public final class Options {
         return comments;
     }
 
+    public DefaultAccess getDefaultAccess() {
+        return defaultAccess;
+    }
 }

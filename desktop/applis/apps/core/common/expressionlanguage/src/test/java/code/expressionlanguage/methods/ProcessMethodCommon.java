@@ -7,6 +7,7 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -15,9 +16,6 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.files.FileResolver;
-import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -151,21 +149,21 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElCoverageDefaultEnComment() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
     private static AnalyzedTestContext contextElCoverageDefaultComment() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
     private static AnalyzedTestContext contextElErrorReadOnlyDef() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOneAna(opt_);
@@ -207,20 +205,20 @@ public abstract class ProcessMethodCommon {
         return validateAndCheckReportErrors(_files, cont_);
     }
     private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
     private static AnalyzedTestContext contextElCoverageReadOnlyDef() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
     private static AnalyzedTestContext contextElCoverageDisplayDef() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setCovering(true);
         AnalyzedTestContext ct_ = InitializationLgNames.buildStdOneAna(opt_);
         ct_.getDisplayedStrings().setTrueString("\"");
@@ -229,7 +227,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElCoverageDefAna() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
@@ -240,7 +238,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
@@ -257,7 +255,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElCoverageEnAna() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
@@ -268,7 +266,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElEnumAna() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         return InitializationLgNames.buildStdEnumsAna(opt_);
     }
 
@@ -289,7 +287,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElReadOnlyMustInit() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
@@ -300,7 +298,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElToStringAna() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         return InitializationLgNames.buildStdToStringAna(opt_);
     }
 
@@ -316,12 +314,12 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElExp() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         return InitializationLgNames.buildStdExp(opt_);
     }
 
     private static AnalyzedTestContext ctxLgReadOnlyAna(String _lg, String... _types) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
         return InitializationLgNames.buildStdOneAna(_lg, opt_);
@@ -333,7 +331,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElDefault(int _m) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         return InitializationLgNames.buildStdOneAna(_m, opt_);
     }
 
@@ -343,7 +341,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext contextElTypes(String... _types) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         addTypesInit(opt_, _types);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
@@ -417,19 +415,19 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static AnalyzedTestContext ctxAna(String... _types) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         addTypesInit(opt_, _types);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
     protected static AnalyzedTestContext ctxLgAna(String _lg, String... _types) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         addTypesInit(opt_, _types);
         return InitializationLgNames.buildStdOneAna(_lg, opt_);
     }
 
     protected static AnalyzedTestContext getEnContextElComment() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
@@ -439,7 +437,7 @@ public abstract class ProcessMethodCommon {
 
 
     protected boolean failValidateValue(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         validateWithoutInit(_files, cont_);
@@ -464,14 +462,14 @@ public abstract class ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext ctxReadOnlyAna() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
     private static AnalyzedTestContext contextElSingleDotDefaultComment() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
@@ -479,7 +477,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected ContextEl validateStaticFields(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         return validQuick(_files, cont_);
@@ -498,7 +496,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected ContextEl validateStaticFieldsFail(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         validateWithoutInit(_files, cont_);
@@ -506,7 +504,7 @@ public abstract class ProcessMethodCommon {
         return cont_.getContext();
     }
     protected static AnalyzedTestContext unfullValidateInheriting(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         parseCustomFiles(_files, cont_);
@@ -517,7 +515,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
@@ -526,7 +524,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected boolean failValidateInheritingClassesSingleValue(StringMap<String> _files) {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         parseCustomFiles(_files, cont_);
@@ -544,7 +542,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static AnalyzedTestContext simpleCtx() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         parsePredefFiles(cont_);
         return cont_;
@@ -575,12 +573,30 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {
-        Options opt_ = new Options();
+        Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         parsePredefFiles(cont_);
         return cont_;
+    }
+
+    private static Options newOptions() {
+        Options options_ = new Options();
+        DefaultAccess defaultAccess_ = options_.getDefaultAccess();
+        setup(defaultAccess_.getAccAnonymous(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccInnerEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccAnnotation(),AccessEnum.PUBLIC);
+        setup(defaultAccess_.getAccInterface(),AccessEnum.PUBLIC);
+        defaultAccess_.setAccOuter(AccessEnum.PACKAGE);
+        return options_;
+    }
+    private static void setup(DefaultAccessType _def, AccessEnum _value) {
+        _def.setAccLocalTypes(_value);
+        _def.setAccMember(_value);
+        _def.setAccInners(_value);
     }
 
     private static void parsePredefFiles(AnalyzedTestContext _cont) {

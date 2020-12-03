@@ -56,6 +56,7 @@ public final class ContextFactory {
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
         _page.setComments(comments_);
+        _page.setDefaultAccess(_options.getDefaultAccess());
         _page.setAnalysisMessages(_mess);
         _page.setKeyWords(_definedKw);
         _page.setStandards(_content);
