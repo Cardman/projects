@@ -116,10 +116,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
     }
 
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        ClassField clField_ = fieldMetaInfo.getClassField();
-        String gl_ = _page.getGlobalClass();
-        String id_ = StringExpUtil.getIdFromAllTypes(gl_);
-        return !StringUtil.quickEq(clField_.getClassName(), id_);
+        return rootBlock != _page.getGlobalType();
     }
 
     public boolean isDeclare() {
@@ -138,7 +135,4 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
         return fieldMetaInfo;
     }
 
-    public RootBlock getRootBlock() {
-        return rootBlock;
-    }
 }

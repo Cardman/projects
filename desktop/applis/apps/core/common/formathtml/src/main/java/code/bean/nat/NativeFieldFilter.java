@@ -4,10 +4,7 @@ import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.stds.StandardField;
@@ -19,8 +16,18 @@ import code.util.core.StringUtil;
 
 public final class NativeFieldFilter implements AbstractFieldFilter {
     @Override
-    public void tryAddField(ScopeFilterType _scope, FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page) {
-        OperationNode.addFieldInfo(_fi,0,_ancestors,_fi, false, _scope.getFullName());
+    public void tryAddField(ScopeFilterType _scope, ScopeFilterField _scopeField, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page) {
+        AnaGeneType root_ = _scopeField.getRoot();
+        String name_ = _scopeField.getName();
+        for (StandardField f: ((StandardType) root_).getFields()) {
+            if (StringUtil.quickEq(f.getFieldName(), name_)) {
+                String type_ = f.getImportedClassName();
+                Accessed a_ = new Accessed(AccessEnum.PUBLIC, "", null);
+                FieldInfo fi_ = FieldInfo.newFieldMetaInfo(name_, root_.getFullName(), type_, true, false, a_, -1);
+                OperationNode.addFieldInfo(fi_, 0, _ancestors, fi_, false, _scope.getFullName());
+                return;
+            }
+        }
     }
 
     @Override
@@ -30,19 +37,4 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
         }
     }
 
-    @Override
-    public FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fieldName) {
-        if (_anaGeneType == null) {
-            return null;
-        }
-        for (StandardField f: ((StandardType) _anaGeneType).getFields()) {
-            if (!StringUtil.quickEq(f.getFieldName(), _fieldName)) {
-                continue;
-            }
-            String type_ = f.getImportedClassName();
-            Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-            return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, true, false, a_,-1);
-        }
-        return null;
-    }
 }

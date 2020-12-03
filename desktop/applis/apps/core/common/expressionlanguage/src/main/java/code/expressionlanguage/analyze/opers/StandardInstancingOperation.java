@@ -12,7 +12,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -57,7 +56,6 @@ public final class StandardInstancingOperation extends
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
@@ -69,7 +67,7 @@ public final class StandardInstancingOperation extends
             off_ += j_+1;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
+        CustList<OperationNode> filter_ =  getChildrenNodes();
         String varargParam_ = getVarargParam(filter_);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_page.getStaticContext());

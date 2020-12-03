@@ -3,8 +3,6 @@ package code.expressionlanguage.analyze.assign.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
@@ -218,14 +216,14 @@ public final class AssUtil {
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
             ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
         }
-        return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_cst.getRootBlock(), fieldName_), _page);
+        return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, _page, _cst.getFieldMetaInfo().isStaticField());
     }
-    private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta, AnalyzedPageEl _page) {
+    private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page, boolean _staticField) {
         boolean checkFinal_;
         if (_page.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_page.isAssignedStaticFields()) {
-            if (_meta.isStaticField()) {
+            if (_staticField) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
                 checkFinal_ = true;

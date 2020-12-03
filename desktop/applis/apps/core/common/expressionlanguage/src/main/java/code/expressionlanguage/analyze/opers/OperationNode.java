@@ -629,8 +629,6 @@ public abstract class OperationNode {
     private static FieldResult getDeclaredCustFieldByContext(MethodAccessKind _kind, AnaClassArgumentMatching _class,
                                                              String _name, boolean _import, boolean _aff, AnalyzedPageEl _page, ScopeFilter _scope) {
         StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
-        String glClass_ = _scope.getGlClass();
-        String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         int maxAnc_ = 0;
         CustList<CustList<TypeInfo>> typesGroup_= typeLists(_class.getNames(),_kind, _page);
         for (CustList<TypeInfo> g: typesGroup_) {
@@ -640,7 +638,9 @@ public abstract class OperationNode {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 AnaGeneType root_ = t.getRoot();
-                fetchFieldsType(_aff,_name, ancestors_, root_, _page, new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId()));
+                fetchFieldsType(ancestors_, _page,
+                        new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId()),
+                        new ScopeFilterField(_aff, _name, root_, t.getTypeId()));
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
         }
@@ -661,6 +661,8 @@ public abstract class OperationNode {
         }
         if (_import) {
             int maxLoc_ = maxAnc_ + 1;
+            String glClass_ = _scope.getGlClass();
+            String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
             for (EntryCust<String, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
@@ -717,19 +719,15 @@ public abstract class OperationNode {
         }
     }
 
-    private static void fetchFieldsType(boolean _aff,
-                                        String _name, StringMap<FieldResult> _ancestors,
-                                        AnaGeneType _root, AnalyzedPageEl _page, ScopeFilterType _scope) {
-        FieldInfo fi_ = _page.getFieldFilter().getFieldInfo(_root, _name);
-        if (fi_ == null) {
-            return;
-        }
-        _page.getFieldFilter().tryAddField(_scope, fi_, _aff,_name, _ancestors, _root, _page);
+    private static void fetchFieldsType(StringMap<FieldResult> _ancestors,
+                                        AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
+        _page.getFieldFilter().tryAddField(_scope, _scopeField, _ancestors, _page);
     }
 
-    public static void tryAddField(FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page, ScopeFilterType _scope) {
+    public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         String fullName_ = _scope.getFullName();
-        String genericString_ = _root.getGenericString();
+        AnaGeneType root_ = _scopeField.getRoot();
+        String genericString_ = root_.getGenericString();
         boolean staticField_ = _fi.isStaticField();
         if (_scope.getKind() == MethodAccessKind.STATIC) {
             if (!staticField_) {
@@ -750,12 +748,12 @@ public abstract class OperationNode {
         if (staticField_) {
             formatted_ = _scope.getFormatted();
         } else {
-            formatted_ = AnaTemplates.quickFormat(_root, _scope.getFormatted(),genericString_);
+            formatted_ = AnaTemplates.quickFormat(root_, _scope.getFormatted(),genericString_);
         }
         String realType_ = _fi.getType();
         boolean finalField_ = _fi.isFinalField();
         int valOffset_ = _fi.getValOffset();
-        FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _aff, null,valOffset_, _page);
+        FieldInfo if_ = FieldInfo.newFieldInfo(_scopeField.getName(), formatted_, realType_, staticField_, finalField_, _scopeField.isAff(), null,valOffset_, _page);
         if (if_ == null) {
             return;
         }

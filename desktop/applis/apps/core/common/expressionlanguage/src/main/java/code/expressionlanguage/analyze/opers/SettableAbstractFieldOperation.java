@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -15,7 +14,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.CustList;
-import code.util.core.StringUtil;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
@@ -153,13 +151,7 @@ public abstract class SettableAbstractFieldOperation extends
         return false;
     }
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        if (settableFieldContent.getClassField() == null) {
-            return true;
-        }
-        ClassField clField_ = settableFieldContent.getClassField();
-        String gl_ = _page.getGlobalClass();
-        String id_ = StringExpUtil.getIdFromAllTypes(gl_);
-        return !StringUtil.quickEq(clField_.getClassName(), id_);
+        return _page.getGlobalType() != fieldType;
     }
 
     public boolean isDeclare() {

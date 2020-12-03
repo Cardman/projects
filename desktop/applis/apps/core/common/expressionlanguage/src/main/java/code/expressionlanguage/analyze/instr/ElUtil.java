@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
@@ -368,10 +367,6 @@ public final class ElUtil {
         }
     }
 
-    public static CustList<OperationNode> filterInvoking(CustList<OperationNode> _list) {
-        return _list;
-    }
-
     public static boolean isDeclaringField(OperationNode _var, AnalyzedPageEl _page) {
         Block bl_ = _page.getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
@@ -484,18 +479,14 @@ public final class ElUtil {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_page);
         ClassField cl_ = _cst.getFieldIdReadOnly();
         String fieldName_ = cl_.getFieldName();
-        FieldInfo meta_ = _page.getFieldFilter().getFieldInfo(_cst.getFieldType(), fieldName_);
-        if (meta_ == null) {
-            return false;
-        }
-        return meta_.isFinalField() && checkFinalReadOnly(_cst, _ass, fromCurClass_, fieldName_, meta_, _page);
+        return _cst.getSettableFieldContent().isFinalField() && checkFinalReadOnly(_cst.getSettableFieldContent().isStaticField(), _cst, _ass, fromCurClass_, fieldName_, _page);
     }
-    private static boolean checkFinalReadOnly(SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta, AnalyzedPageEl _page) {
+    private static boolean checkFinalReadOnly(boolean _staticField, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
         boolean checkFinal_;
         if (_page.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_page.isAssignedStaticFields()) {
-            if (_meta.isStaticField()) {
+            if (_staticField) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
                 checkFinal_ = true;

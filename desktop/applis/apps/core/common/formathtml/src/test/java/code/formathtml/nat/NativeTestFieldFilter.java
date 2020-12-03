@@ -3,9 +3,9 @@ package code.formathtml.nat;
 import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.ScopeFilterField;
 import code.expressionlanguage.analyze.opers.util.ScopeFilterType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.stds.StandardMethod;
@@ -15,8 +15,8 @@ import code.util.StringMap;
 
 public final class NativeTestFieldFilter implements AbstractFieldFilter {
     @Override
-    public void tryAddField(ScopeFilterType _scope, FieldInfo _fi, boolean _aff, String _name, StringMap<FieldResult> _ancestors, AnaGeneType _root, AnalyzedPageEl _page) {
-        OperationNode.addFieldInfo(_fi,0,_ancestors,_fi, false, _scope.getFullName());
+    public void tryAddField(ScopeFilterType _scope, ScopeFilterField _scopeField, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page) {
+
     }
 
     @Override
@@ -26,8 +26,4 @@ public final class NativeTestFieldFilter implements AbstractFieldFilter {
         }
     }
 
-    @Override
-    public FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fieldName) {
-        return null;
-    }
 }

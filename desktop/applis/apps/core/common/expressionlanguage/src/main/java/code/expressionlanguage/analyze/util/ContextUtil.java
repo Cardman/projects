@@ -236,7 +236,7 @@ public final class ContextUtil {
         }
         return finalField_;
     }
-    public static FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fieldName) {
+    public static FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fullName, String _fieldName) {
         if (_anaGeneType instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _anaGeneType;
             for (Block b: ClassesUtil.getDirectChildren(r_)) {
@@ -259,7 +259,7 @@ public final class ContextUtil {
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
-                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, static_, final_, a_, valOffset_);
+                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(_fieldName, _fullName, type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
                 fieldInfo_.setFieldType(r_);
@@ -267,15 +267,13 @@ public final class ContextUtil {
             }
             return null;
         }
-        if (_anaGeneType instanceof StandardType) {
-            for (StandardField f: ((StandardType) _anaGeneType).getFields()) {
-                if (!StringUtil.quickEq(f.getFieldName(), _fieldName)) {
-                    continue;
-                }
-                String type_ = f.getImportedClassName();
-                Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-                return FieldInfo.newFieldMetaInfo(_fieldName, _anaGeneType.getFullName(), type_, true, true, a_,-1);
+        for (StandardField f: ((StandardType) _anaGeneType).getFields()) {
+            if (!StringUtil.quickEq(f.getFieldName(), _fieldName)) {
+                continue;
             }
+            String type_ = f.getImportedClassName();
+            Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
+            return FieldInfo.newFieldMetaInfo(_fieldName, _fullName, type_, true, true, a_,-1);
         }
         return null;
     }

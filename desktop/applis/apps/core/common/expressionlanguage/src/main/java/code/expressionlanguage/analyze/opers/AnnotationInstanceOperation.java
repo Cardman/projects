@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.common.AnnotationFieldInfo;
@@ -197,8 +196,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     }
 
     private void analyzeCtor(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
+        CustList<OperationNode> filter_ = getChildrenNodes();
         String objCl_ = _page.getAliasObject();
         if (StringUtil.quickEq(instancingAnnotContent.getClassName(), objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();

@@ -11,7 +11,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
@@ -170,8 +169,7 @@ public final class AnonymousInstancingOperation extends
     }
 
     public void postAnalyze(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
+        CustList<OperationNode> filter_ = getChildrenNodes();
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
         AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(instancingAnonContent.getBlock().getGenericString());
