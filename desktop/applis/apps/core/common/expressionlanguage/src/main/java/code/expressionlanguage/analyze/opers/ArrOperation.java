@@ -214,7 +214,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         OperationNode right_ = chidren_.last();
-        if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation) {
+        if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
+                ||right_ instanceof FirstOptOperation || right_ instanceof IdFctOperation
+                ||right_ instanceof VarargOperation) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
