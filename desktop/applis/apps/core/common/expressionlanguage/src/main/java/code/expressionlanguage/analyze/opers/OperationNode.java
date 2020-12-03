@@ -563,7 +563,6 @@ public abstract class OperationNode {
     }
 
     final boolean isFirstChildInParent() {
-        MethodOperation par_ = getParent();
         return getIndexChild() == 0;
     }
 
@@ -1274,7 +1273,7 @@ public abstract class OperationNode {
             MethodId constraints_ = m_.getConstraints();
             String baseClassName_ = m_.getClassName();
             ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-            MethodId id_ = m_.getFoundFormatted();
+            MethodId id_ = m_.getFormatted();
             ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
             res_.setId(idForm_);
             res_.setRealId(constraints_);
@@ -1309,7 +1308,7 @@ public abstract class OperationNode {
             MethodId constraints_ = m_.getConstraints();
             String baseClassName_ = m_.getClassName();
             ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-            MethodId id_ = m_.getFoundFormatted();
+            MethodId id_ = m_.getFormatted();
             ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
             res_.setId(idForm_);
             res_.setRealId(constraints_);
@@ -2634,7 +2633,7 @@ public abstract class OperationNode {
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
+        MethodId id_ = m_.getFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
@@ -2716,7 +2715,7 @@ public abstract class OperationNode {
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
+        MethodId id_ = m_.getFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
         if (m_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
@@ -2764,7 +2763,7 @@ public abstract class OperationNode {
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
+        MethodId id_ = m_.getFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
@@ -3143,7 +3142,7 @@ public abstract class OperationNode {
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
+        MethodId id_ = m_.getFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
@@ -3164,7 +3163,7 @@ public abstract class OperationNode {
 
     private static boolean isPossibleMethod(MethodInfo _id,
                                             AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
-        StringList params_ = _id.getFoundFormatted().shiftFirst();
+        StringList params_ = _id.getFormatted().shiftFirst();
         int nbDem_ = params_.size();
         StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
@@ -3324,8 +3323,52 @@ public abstract class OperationNode {
         if (allMaxInst_.isEmpty()) {
             return null;
         }
-        MethodId id_ = first_.getFoundFormatted();
+        if (first_.getFormatted().getKind() != MethodAccessKind.INSTANCE) {
+            return null;
+        }
         int lenMax_ = allMaxInst_.size();
+        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
+        for (MethodInfo p: allMaxInst_) {
+            if (!p.isFinalMethod()) {
+                continue;
+            }
+            finals_.add(p);
+        }
+        if (finals_.size() == 1) {
+            return finals_.first();
+        }
+        AnalyzedPageEl context_ = _context.getContext();
+        for (MethodInfo p: allMaxInst_) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            String type_ = p.getClassName();
+            type_ = StringExpUtil.getIdFromAllTypes(type_);
+            if (context_.getAnaClassBody(type_) instanceof InterfaceBlock) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
+        nonAbs_.clear();
+        for (MethodInfo p: allMaxInst_) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
+        for (MethodInfo p: allMaxInst_) {
+            if (p.getConstraints().isRetRef()) {
+                return null;
+            }
+        }
+        MethodId id_ = allMaxInst_.first().getFormatted();
         boolean allOvEq_ = true;
         for (int i = 1; i < lenMax_; i++) {
             if (!allMaxInst_.get(i).same(id_)) {
@@ -3333,55 +3376,15 @@ public abstract class OperationNode {
                 break;
             }
         }
-        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> nonAbsNonRef_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> abs_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
-        for (MethodInfo p: allMaxInst_) {
-            if (p.isAbstractMethod()) {
-                if (!p.getConstraints().isRetRef()) {
-                    abs_.add(p);
-                }
-                continue;
-            }
-            if (!p.getConstraints().isRetRef()) {
-                nonAbsNonRef_.add(p);
-            }
-        }
         if (allOvEq_) {
-            for (MethodInfo p: allMaxInst_) {
-                if (!p.isFinalMethod()) {
-                    continue;
-                }
-                finals_.add(p);
-            }
-            if (finals_.size() == 1) {
-                return finals_.first();
-            }
-            AnalyzedPageEl context_ = _context.getContext();
+            CustList<MethodInfo> nonAbsNonRef_ = new CustList<MethodInfo>();
+            CustList<MethodInfo> abs_ = new CustList<MethodInfo>();
             for (MethodInfo p: allMaxInst_) {
                 if (p.isAbstractMethod()) {
+                    abs_.add(p);
                     continue;
                 }
-                String type_ = p.getClassName();
-                type_ = StringExpUtil.getIdFromAllTypes(type_);
-                if (context_.getAnaClassBody(type_) instanceof InterfaceBlock) {
-                    continue;
-                }
-                nonAbs_.add(p);
-            }
-            if (nonAbs_.size() == 1) {
-                return nonAbs_.first();
-            }
-            nonAbs_.clear();
-            for (MethodInfo p: allMaxInst_) {
-                if (p.isAbstractMethod()) {
-                    continue;
-                }
-                nonAbs_.add(p);
-            }
-            if (nonAbs_.size() == 1) {
-                return nonAbs_.first();
+                nonAbsNonRef_.add(p);
             }
             StringMap<StringList> map_;
             map_ = _context.getMap();

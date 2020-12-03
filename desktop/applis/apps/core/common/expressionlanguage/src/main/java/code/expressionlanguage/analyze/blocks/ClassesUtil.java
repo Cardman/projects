@@ -133,7 +133,7 @@ public final class ClassesUtil {
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
+        MethodId id_ = m_.getFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);

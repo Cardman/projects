@@ -1258,7 +1258,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
                         continue;
                     }
-                    addClass(signatures_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
+                    addClass(signatures_, new MethodIdAncestor(e.getFormatted(),e.getAncestor()), e);
                 }
             }
             String fullName_ = "";
@@ -1370,7 +1370,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
                     continue;
                 }
-                addClass(ov_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
+                addClass(ov_, new MethodIdAncestor(e.getFormatted(),e.getAncestor()), e);
             }
         }
         String fullName_ = getFullName();

@@ -298,7 +298,7 @@ public final class AnonymousLambdaOperation extends
         mloc_.setClassName(found_);
         mloc_.setConstraints(idC_);
         mloc_.format(idC_.getKind() == MethodAccessKind.STATIC, _page);
-        MethodId id_ = mloc_.getFoundFormatted();
+        MethodId id_ = mloc_.getFormatted();
         String foundClass_ = found_;
         if (idC_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);

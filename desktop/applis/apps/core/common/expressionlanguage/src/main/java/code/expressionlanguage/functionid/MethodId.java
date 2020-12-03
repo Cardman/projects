@@ -80,10 +80,6 @@ public final class MethodId implements Identifiable {
         return new ConstructorId(_access,_id.classNames,_id.refParams, _id.vararg);
     }
 
-    public static MethodId to(StringList _params,MethodId _id) {
-        return new MethodId(_id.retRef, _id.kind, _id.name, _params,_id.refParams, _id.vararg);
-    }
-
     public static MethodId to(MethodAccessKind _access, StringList _params,MethodId _id) {
         return new MethodId(_id.retRef, _access, _id.name, _params,_id.refParams, _id.vararg);
     }

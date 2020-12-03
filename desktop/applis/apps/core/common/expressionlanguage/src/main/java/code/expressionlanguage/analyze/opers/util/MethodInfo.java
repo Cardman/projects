@@ -149,11 +149,11 @@ public final class MethodInfo implements Parametrable {
 
     @Override
     public Identifiable getGeneFormatted() {
-        return getFoundFormatted();
+        return getFormatted();
     }
 
-    public MethodId getFoundFormatted() {
-        return MethodId.to(formattedParams,formatted);
+    public MethodId getFormatted() {
+        return formatted;
     }
 
     public StringList getFormattedParams() {

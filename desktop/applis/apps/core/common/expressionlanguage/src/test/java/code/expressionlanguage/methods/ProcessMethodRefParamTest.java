@@ -4400,6 +4400,18 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         xml_.append("  $return 2*t;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
+        xml_.append("$public $class pkg.Sub2 {\n");
+        xml_.append(" $public $that $int p;\n");
+        xml_.append(" {\n");
+        xml_.append("  exmeth2($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $that $int exmeth2(Number n){\n");
+        xml_.append("  $return $that(p);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $that $int exmeth2(String n){\n");
+        xml_.append("  $return $that(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErr(files_));
