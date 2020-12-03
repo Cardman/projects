@@ -29,7 +29,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
     public void analyzeUnary(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCall(m_)) {
+        if (isNotChildOfCallDyn(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

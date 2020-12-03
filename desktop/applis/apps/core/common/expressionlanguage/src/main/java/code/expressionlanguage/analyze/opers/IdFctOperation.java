@@ -40,7 +40,7 @@ public final class IdFctOperation extends LeafOperation {
         partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCall(m_)) {
+        if (isNotChildOfCallDyn(m_)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());

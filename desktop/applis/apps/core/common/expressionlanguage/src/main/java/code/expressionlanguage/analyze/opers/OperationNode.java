@@ -119,6 +119,10 @@ public abstract class OperationNode {
 
     public abstract void analyze(AnalyzedPageEl _page);
 
+    static boolean isNotChildOfCallDyn(MethodOperation _m) {
+        return isNotChildOfCall(_m) || _m instanceof CallDynMethodOperation;
+    }
+
     static boolean isNotChildOfCall(MethodOperation _m) {
         return _m == null ||!_m.isCallMethodCtor();
     }
