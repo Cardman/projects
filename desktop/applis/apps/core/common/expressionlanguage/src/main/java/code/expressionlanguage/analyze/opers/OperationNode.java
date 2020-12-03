@@ -3343,9 +3343,7 @@ public abstract class OperationNode {
             if (p.isAbstractMethod()) {
                 continue;
             }
-            String type_ = p.getClassName();
-            type_ = StringExpUtil.getIdFromAllTypes(type_);
-            if (context_.getAnaClassBody(type_) instanceof InterfaceBlock) {
+            if (p.getPair().getType() instanceof InterfaceBlock) {
                 continue;
             }
             nonAbs_.add(p);
