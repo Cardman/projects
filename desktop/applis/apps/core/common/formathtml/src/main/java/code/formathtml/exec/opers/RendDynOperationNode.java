@@ -58,6 +58,9 @@ public abstract class RendDynOperationNode {
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
             res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context);
+        } else if (callingState_ instanceof CustomFoundRecordConstructor) {
+            CustomFoundRecordConstructor ctor_ = (CustomFoundRecordConstructor)callingState_;
+            res_ = ProcessMethod.instanceRecordArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getId(), ctor_.getArguments(), _context);
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
             res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context);

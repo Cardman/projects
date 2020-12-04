@@ -2,7 +2,9 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -10,6 +12,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
+import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -45,6 +48,11 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = instancingCommonContent.getClassName();
         String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
+        if (pair.getType() instanceof ExecRecordBlock) {
+            CustList<Argument> arguments_ = getArguments(_all, this);
+            _context.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+            return Argument.createVoid();
+        }
         return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, fectchArgs(_conf, _all,lastType_,instancingCommonContent.getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }
 

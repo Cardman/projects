@@ -394,7 +394,7 @@ public final class FileResolver {
             if (tr_.isEmpty()) {
                 return EndInstruction.DECLARE_TYPE;
             }
-            if (tr_.charAt(0) == ANNOT) {
+            if (startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
                 ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
                 par_.parse();
                 tr_ = par_.getAfter();
@@ -428,6 +428,8 @@ public final class FileResolver {
             boolean dType_ = false;
             if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordClass_)) {
                 dType_ = true;
+            } else if (StringExpUtil.startsWithArobaseKeyWord(beforeQu_,keyWordClass_)) {
+                dType_ = true;
             } else if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordEnum_)) {
                 dType_ = true;
             } else if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordInterface_)) {
@@ -452,7 +454,7 @@ public final class FileResolver {
             return EndInstruction.NO_DECLARE_TYPE;
         }
         String trTmp_ = tr_;
-        if (tr_.charAt(0) == ANNOT) {
+        if (startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
             ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
             par_.parse();
             tr_ = par_.getAfter();
@@ -490,6 +492,9 @@ public final class FileResolver {
         boolean dType_ = false;
         if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordClass_)) {
             beforeQu_ = beforeQu_.substring(keyWordClass_.length()).trim();
+            dType_ = true;
+        } else if (StringExpUtil.startsWithArobaseKeyWord(beforeQu_,keyWordClass_)) {
+            beforeQu_ = beforeQu_.substring(keyWordClass_.length()+1).trim();
             dType_ = true;
         } else if (StringExpUtil.startsWithKeyWord(beforeQu_,keyWordEnum_)) {
             beforeQu_ = beforeQu_.substring(keyWordEnum_.length()).trim();
@@ -746,7 +751,7 @@ public final class FileResolver {
                     currentParent_ = typeBlock_;
                 }
             } else {
-                if (trimType_.charAt(0) == ANNOT) {
+                if (startsWithAnnot(trimType_, keyWords_.getKeyWordClass())) {
                     // accessOffesType_ == nextIndex_ == i_ + 1;
                     ParsedAnnotations par_ = new ParsedAnnotations(afterAccessType_, instructionRealLocation_ + _offset);
                     par_.parse();
@@ -875,6 +880,8 @@ public final class FileResolver {
                         access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordClass_)) {
                         access_ = _page.getDefaultAccess().getAccOuter();
+                    } else if (StringExpUtil.startsWithArobaseKeyWord(afterAccessType_, keyWordClass_)) {
+                        access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordInterface_)) {
                         access_ = _page.getDefaultAccess().getAccOuter();
                     } else if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordEnum_)) {
@@ -909,6 +916,12 @@ public final class FileResolver {
                         type_ = keyWordClass_;
                         nextIndex_ = nextIndex_ + keyWordClass_.length();
                         String afterAccess_ = beforeQu_.substring(keyWordClass_.length());
+                        nextIndex_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
+                        beforeQu_ = afterAccess_.trim();
+                    } else if (StringExpUtil.startsWithArobaseKeyWord(beforeQu_, keyWordClass_)) {
+                        type_ = "@"+keyWordClass_;
+                        nextIndex_ = nextIndex_ + keyWordClass_.length()+1;
+                        String afterAccess_ = beforeQu_.substring(keyWordClass_.length()+1);
                         nextIndex_ += StringUtil.getFirstPrintableCharIndex(afterAccess_);
                         beforeQu_ = afterAccess_.trim();
                     } else if (StringExpUtil.startsWithKeyWord(beforeQu_, keyWordEnum_)) {
@@ -982,6 +995,10 @@ public final class FileResolver {
                     } else if (StringUtil.quickEq(type_, keyWordClass_)) {
                         typeBlock_ = new ClassBlock(beginDefinition_+_offset, baseName_, packageName_,
                                 new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_, finalType_, abstractType_, true,
+                                new OffsetsBlock(beginType_+_offset,beginType_+_offset));
+                    } else if (StringUtil.quickEq(type_, "@"+keyWordClass_)) {
+                        typeBlock_ = new RecordBlock(beginDefinition_+_offset, baseName_, packageName_,
+                                new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,
                                 new OffsetsBlock(beginType_+_offset,beginType_+_offset));
                     } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
                         typeBlock_ = new InterfaceBlock(beginDefinition_+_offset, baseName_, packageName_,
@@ -1436,7 +1453,7 @@ public final class FileResolver {
         Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         int typeOffset_ = _instructionLocation;
-        if (trimmedInstruction_.charAt(0) == ANNOT) {
+        if (startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass())) {
             ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionLocation+_offset);
             par_.parse();
             annotationsIndexes_ = par_.getAnnotationsIndexes();
@@ -1504,6 +1521,9 @@ public final class FileResolver {
         if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordClass_)) {
             type_ = keyWordClass_;
             locIndex_ += keyWordClass_.length();
+        } else if (StringExpUtil.startsWithArobaseKeyWord(infoModifiers_,keyWordClass_)) {
+            type_ = "@"+keyWordClass_;
+            locIndex_ += keyWordClass_.length()+1;
         } else if (StringExpUtil.startsWithKeyWord(infoModifiers_,keyWordEnum_)) {
             type_ = keyWordEnum_;
             locIndex_ += keyWordEnum_.length();
@@ -1582,6 +1602,10 @@ public final class FileResolver {
         } else if (StringUtil.quickEq(_type, keyWordClass_)) {
             typeBlock_ = new ClassBlock(beginDefinition_, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct), tempDef_, superTypes_, _finalType, _abstractType, _staticType,
+                    new OffsetsBlock(_instructionRealLocation + _trFound+_offset, _instructionLocation + _trFound+_offset));
+        } else if (StringUtil.quickEq(_type, "@"+keyWordClass_)) {
+            typeBlock_ = new RecordBlock(beginDefinition_, typeName_, _pkgName,
+                    new OffsetAccessInfo(_typeOffset - 1+_offset, _accessFct), tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound+_offset, _instructionLocation + _trFound+_offset));
         } else if (StringUtil.quickEq(_type, keyWordInterface_)) {
             typeBlock_ = new InterfaceBlock(beginDefinition_, typeName_, _pkgName,
@@ -2045,6 +2069,11 @@ public final class FileResolver {
                 delta_ += keyWordFinal_.length();
                 delta_ += StringUtil.getFirstPrintableCharIndex(afterFinal_);
                 info_ = afterFinal_.trim();
+            }
+            if (!static_) {
+                if (_currentParent instanceof RecordBlock) {
+                    final_ = true;
+                }
             }
             int typeOffest_ = _i - found_.length() + delta_;
             String declaringType_ = getFoundType(info_);
@@ -2941,4 +2970,9 @@ public final class FileResolver {
         }
         return ((EnumBlock)_bl).isCanHaveElements();
     }
+
+    private static boolean startsWithAnnot(String _trimmedInstruction, String _keyWordClass) {
+        return _trimmedInstruction.charAt(0) == ANNOT && !StringExpUtil.startsWithArobaseKeyWord(_trimmedInstruction, _keyWordClass);
+    }
+
 }

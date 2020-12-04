@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -16,6 +17,8 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     private int offsetTr;
     private AnaNamedContent namedContent;
     private String name;
+    private RootBlock field;
+    private int ref=-1;
     private CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
     public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -80,5 +83,21 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
 
     public int getOffsetTr() {
         return offsetTr;
+    }
+
+    public int getRef() {
+        return ref;
+    }
+
+    public void setRef(int _ref) {
+        this.ref = _ref;
+    }
+
+    public RootBlock getField() {
+        return field;
+    }
+
+    public void setField(RootBlock _field) {
+        this.field = _field;
     }
 }

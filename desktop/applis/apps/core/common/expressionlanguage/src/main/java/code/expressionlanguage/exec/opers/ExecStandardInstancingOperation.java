@@ -3,7 +3,9 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -47,6 +49,11 @@ public final class ExecStandardInstancingOperation extends
             if (_conf.getExiting().hasToExit(base_)) {
                 return Argument.createVoid();
             }
+        }
+        if (rootBlock instanceof ExecRecordBlock) {
+            CustList<Argument> arguments_ = getArguments(_nodes, this);
+            _conf.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+            return Argument.createVoid();
         }
         return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
     }

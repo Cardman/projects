@@ -240,7 +240,7 @@ public final class AnaTypeUtil {
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
-            if (len_ > 0 && c instanceof InterfaceBlock) {
+            if (len_ > 0 && (c instanceof InterfaceBlock || c instanceof RecordBlock)) {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);

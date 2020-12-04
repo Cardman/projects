@@ -421,6 +421,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
             }
         }
+        if (ls_ instanceof LambdaRecordConstructorStruct) {
+            LambdaRecordConstructorStruct l_ = (LambdaRecordConstructorStruct) ls_;
+            String clName_ = StringUtil.nullToEmpty(l_.getFormClassName());
+            _conf.setCallingState(new CustomReflectRecordConstructor(l_.getRoot(),l_.getId(),clName_,values_,true));
+            return new Argument();
+        }
         if (ls_ instanceof LambdaConstructorStruct) {
             LambdaConstructorStruct l_ = (LambdaConstructorStruct) ls_;
             String forId_ = StringUtil.nullToEmpty(l_.getFormClassName());

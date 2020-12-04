@@ -361,6 +361,11 @@ public abstract class ProcessMethodCommon {
         return validateAndRet(_files, cont_);
     }
 
+    protected static ContextEl ctxOkRead(StringMap<String> _files, String... _types) {
+        AnalyzedTestContext cont_ = ctxReadOnlyAna(_types);
+        return validateAndRet(_files, cont_);
+    }
+
     private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
         validateAll(_files, _cont);
         assertTrue(isEmptyErrors(_cont));
@@ -412,6 +417,13 @@ public abstract class ProcessMethodCommon {
 
     protected static void checkInterfaces(AnalyzedTestContext _cont) {
         AnaTypeUtil.checkInterfaces(_cont.getAnalyzing());
+    }
+
+    protected static AnalyzedTestContext ctxReadOnlyAna(String... _types) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        addTypesInit(opt_, _types);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
 
     protected static AnalyzedTestContext ctxAna(String... _types) {

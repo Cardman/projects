@@ -3214,6 +3214,21 @@ public final class LinkageUtil {
         }
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsets());
         _parts.addAllElts(((LambdaOperation)_val).getPartOffsetsEnd());
+        if (((LambdaOperation)_val).isRecordType()) {
+            int len_ = ((LambdaOperation)_val).getNamed().size();
+            for (int i = 0; i < len_; i++) {
+                int ref_ = ((LambdaOperation) _val).getRefs().get(i);
+                if (ref_ < 0) {
+                    continue;
+                }
+                String name_ = ((LambdaOperation) _val).getNamed().get(i);
+                updateFieldAnchor(fieldType_,new StringList(),_parts,
+                        new ClassField(fieldType_.getFullName(),name_),
+                        beginLambda_+((LambdaOperation) _val).getOffsets().get(i),
+                        name_.length(),_currentFileName,ref_
+                );
+            }
+        }
     }
 
     private static void processRichHeader(VariablesOffsets _vars, String _currentFileName, int _sum, OperationNode _val, CustList<PartOffset> _parts) {
@@ -3366,6 +3381,13 @@ public final class LinkageUtil {
         if (_val instanceof NamedArgumentOperation) {
             NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
             int firstOff_ = n_.getOffsetTr();
+            if (n_.getField() != null) {
+                int begin_ = _sum + _val.getIndexInEl()+firstOff_;
+                updateFieldAnchor(n_.getField(),n_.getErrs(),_parts,
+                        new ClassField(n_.getField().getFullName(),n_.getName()),
+                        begin_,n_.getName().length(),_currentFileName,n_.getRef());
+                return;
+            }
             CustList<NamedFunctionBlock> customMethods_ = n_.getCustomMethod();
             int refOne_ = -1;
             int refTwo_ = -1;

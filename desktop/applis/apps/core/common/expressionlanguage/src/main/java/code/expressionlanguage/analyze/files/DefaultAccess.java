@@ -9,6 +9,7 @@ public final class DefaultAccess {
     private final DefaultAccessType accAnnotation = new DefaultAccessType();
     private final DefaultAccessType accEnum = new DefaultAccessType();
     private final DefaultAccessType accInnerEnum = new DefaultAccessType();
+    private final DefaultAccessType accRecord = new DefaultAccessType();
     private final DefaultAccessType accAnonymous = new DefaultAccessType();
     private AccessEnum accOuter = AccessEnum.PUBLIC;
 
@@ -32,6 +33,9 @@ public final class DefaultAccess {
         if (root_ instanceof AnnotationBlock) {
             return getAccAnnotation();
         }
+        if (root_ instanceof RecordBlock) {
+            return getAccRecord();
+        }
         return getAccAnonymous();
     }
     public DefaultAccessType getAccClass() {
@@ -52,6 +56,10 @@ public final class DefaultAccess {
 
     public DefaultAccessType getAccInnerEnum() {
         return accInnerEnum;
+    }
+
+    public DefaultAccessType getAccRecord() {
+        return accRecord;
     }
 
     public DefaultAccessType getAccAnonymous() {

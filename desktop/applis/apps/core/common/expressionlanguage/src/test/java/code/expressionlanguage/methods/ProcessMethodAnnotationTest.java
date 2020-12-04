@@ -354,6 +354,45 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calculateArgument10_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoIntOne()2i;\n");
+        xml_.append(" $int infoIntTwo()4i;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(infoIntTwo=6i,infoIntOne=8i)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 5i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 4i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr[0i];\n");
+        xml_.append("  $if (a.infoIntOne() != 8i){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (a.infoIntTwo() != 6i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument11Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $annotation pkg.MyAnnot {\n");

@@ -16,6 +16,7 @@ import code.expressionlanguage.stds.StandardType;
 import code.formathtml.Configuration;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringMap;
 
 public final class RendLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
@@ -25,8 +26,10 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private ExecLambdaFieldContent lambdaFieldContent;
     private StandardMethod standardMethod;
     private StandardType standardType;
+    private StringMap<String> id;
+    private boolean recordType;
 
-    public RendLambdaOperation(ExecOperationContent _content, ExecLambdaCommonContent _lambdaCommonContent, ExecLambdaMethodContent _lambdaMethodContent, ExecLambdaConstructorContent _lambdaConstructorContent, ExecLambdaFieldContent _lambdaFieldContent, StandardMethod _standardMethod, StandardType _standardType) {
+    public RendLambdaOperation(ExecOperationContent _content, ExecLambdaCommonContent _lambdaCommonContent, ExecLambdaMethodContent _lambdaMethodContent, ExecLambdaConstructorContent _lambdaConstructorContent, ExecLambdaFieldContent _lambdaFieldContent, StandardMethod _standardMethod, StandardType _standardType, StringMap<String> _id, boolean _recordType) {
         super(_content);
         lambdaCommonContent = _lambdaCommonContent;
         lambdaMethodContent = _lambdaMethodContent;
@@ -34,6 +37,8 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         lambdaFieldContent = _lambdaFieldContent;
         standardMethod = _standardMethod;
         standardType = _standardType;
+        id = _id;
+        recordType = _recordType;
     }
 
     @Override
@@ -54,6 +59,10 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         if (standardType != null) {
             return new Argument(ExecStdConstructorLambdaOperation.newLambda(_previous, _context, ownerType_, lambdaConstructorContent.getRealId(), lambdaCommonContent.getReturnFieldType(),
                     lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(), standardType));
+        }
+        if (recordType) {
+            ExecTypeFunction pair_ = lambdaConstructorContent.getPair();
+            return new Argument(ExecRecordConstructorLambdaOperation.newLambda(ownerType_,name_,pair_.getType(),id));
         }
         if (methodId_ == null && lambdaConstructorContent.getRealId() == null) {
             String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);

@@ -126,6 +126,33 @@ public final class ExecutingUtil {
         _page.setReadWrite(rwLoc_);
         _page.setFile(fct_.getFile());
     }
+    public static AbstractPageEl createRecordInstancing(ContextEl _context,CustomFoundRecordConstructor _e) {
+        String cl_ = _e.getClassName();
+        ExecRootBlock type_ = _e.getPair().getType();
+        CustList<Argument> args_ = _e.getArguments();
+        _context.setCallingState(null);
+        StringMap<String> fields_ = new StringMap<String>();
+        for (EntryCust<String, String> f: _e.getId().entryList()) {
+            fields_.addEntry(f.getKey(),ExecTemplates.quickFormat(type_,cl_,f.getValue()));
+        }
+        NewRecordPageEl page_;
+        page_ = new NewRecordPageEl(fields_,args_);
+        Struct str_ = NullStruct.NULL_VALUE;
+        String fieldName_ = _e.getFieldName();
+        int ordinal_ = _e.getChildIndex();
+        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
+        page_.setGlobalArgument(argGl_);
+        page_.setReturnedArgument(argGl_);
+        ExecFileBlock file_ = type_.getFile();
+        page_.setGlobalClass(cl_);
+        ReadWrite rw_ = new ReadWrite();
+        page_.setBlockRootTypes(type_);
+        ExecMemberCallingsBlock ctor_ = _e.getPair().getFct();
+        page_.setBlockRoot(ctor_);
+        page_.setReadWrite(rw_);
+        page_.setFile(file_);
+        return page_;
+    }
     public static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
@@ -249,6 +276,9 @@ public final class ExecutingUtil {
             CustomReflectConstructor c_ = (CustomReflectConstructor) _ref;
             ConstructorMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectConstructorPageEl(args_, metaInfo_);
+        } else if (_ref instanceof CustomReflectRecordConstructor) {
+            CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
+            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getRoot(),c_.getId(),c_.getClassName());
         } else if (_ref instanceof CustomReflectField) {
             CustomReflectField c_ = (CustomReflectField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
@@ -514,6 +544,8 @@ public final class ExecutingUtil {
         if (_type instanceof ExecClassBlock) {
             abs_ = ((ExecClassBlock)_type).isAbstractType();
             final_ = ((ExecClassBlock)_type).isFinalType();
+        } else if (_type instanceof ExecRecordBlock) {
+            abs_ = false;
         }
         String superClass_ = _type.getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();
@@ -560,7 +592,7 @@ public final class ExecutingUtil {
         if (_type instanceof ExecClassBlock) {
             return ((ExecClassBlock)_type).isAbstractType();
         }
-        return true;
+        return !(_type instanceof ExecRecordBlock);
     }
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, ClassMetaInfo _classOwner) {
         return getExtendedClassMetaInfo(_context,_name,_classOwner.getVariableOwner());

@@ -1,11 +1,18 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.blocks.RecordBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -208,9 +215,51 @@ public final class StandardInstancingOperation extends
             String idClass_ = id_.getClassName();
             feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
+        if (g_ instanceof RecordBlock) {
+            CustList<OperationNode> childrenNodes_ = getChildrenNodes();
+            for (OperationNode o: childrenNodes_) {
+                if (!(o instanceof NamedArgumentOperation) || o.getFirstChild() instanceof WrappOperation) {
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //type len
+                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                            base_);
+                    _page.getLocalizer().addError(call_);
+                    addErr(call_.getBuiltError());
+                    setResultClass(new AnaClassArgumentMatching(_realClassName));
+                    return;
+                }
+            }
+            NameParametersFilter filter_ = buildQuickStrictFilter(_page,_realClassName,(RecordBlock) g_, this);
+            for (NamedArgumentOperation o: filter_.getParameterFilterErr()) {
+                String name_ = o.getName();
+                o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _page);
+                FoundErrorInterpret b_;
+                b_ = new FoundErrorInterpret();
+                b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //param name len
+                b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
+                        name_);
+                _page.getLocalizer().addError(b_);
+                o.addErr(b_.getBuiltError());
+            }
+            if (!filter_.getParameterFilterErr().isEmpty()) {
+                setResultClass(new AnaClassArgumentMatching(_realClassName));
+                return;
+            }
+            memberId.setRootNumber(((RecordBlock)g_).getNumberAll());
+            AnaTypeFct constructor_ = new AnaTypeFct();
+            constructor_.setType((RecordBlock)g_);
+            setConstructor(constructor_);
+            setClassName(_realClassName);
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
+            return;
+        }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, new AnaClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, name_, _page);
@@ -229,7 +278,52 @@ public final class StandardInstancingOperation extends
         unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
+    private NameParametersFilter buildQuickStrictFilter(AnalyzedPageEl _page,String _real,RootBlock _root, MethodOperation _par) {
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+        NameParametersFilter out_ = new NameParametersFilter();
+        CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
+        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
+        CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
+        StringList names_ = new StringList();
+        boolean ok_ = true;
+        for (OperationNode o: childrenNodes_) {
+            String name_ = ((NamedArgumentOperation) o).getName();
+            boolean contained_ = false;
+            for (InfoBlock f: _root.getFieldsBlocks()) {
+                String par_ = AnaTemplates.quickFormat(_root, _real, f.getImportedClassName());
+                Mapping m_ = new Mapping();
+                m_.setArg(o.getResultClass());
+                m_.setParam(par_);
+                m_.setMapping(vars_);
+                int index_ = StringUtil.indexOf(f.getFieldName(), name_);
+                if (((FieldBlock)f).getValuesOffset().isValidIndex(index_)) {
+                    ((NamedArgumentOperation) o).setField(_root);
+                    ((NamedArgumentOperation) o).setRef(((FieldBlock)f).getValuesOffset().get(index_));
+                    instancingStdContent.getInfos().addEntry(name_,f.getImportedClassName());
+                    if (!AnaTemplates.isCorrectOrNumbers(m_, _page)){
+                        ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);
+                        if (!res_.isFoundMethod()) {
+                            continue;
+                        }
+                        ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                        o.getResultClass().getImplicits().add(cl_);
+                        o.getResultClass().setMemberId(res_.getMemberId());
 
+                    }
+                    contained_ = true;
+                    break;
+                }
+            }
+            if (StringUtil.contains(names_,name_) || !contained_) {
+                ok_ = false;
+                filterErr_.add(((NamedArgumentOperation) o));
+            }
+            names_.add(name_);
+            filter_.add(((NamedArgumentOperation) o));
+        }
+        out_.setOk(ok_);
+        return out_;
+    }
     private int getCurrentChildTypeIndex(AnaGeneType _type, String _fieldName, String _realClassName, AnalyzedPageEl _page) {
         if (ContextUtil.isEnumType(_type)) {
             if (_fieldName.isEmpty()) {

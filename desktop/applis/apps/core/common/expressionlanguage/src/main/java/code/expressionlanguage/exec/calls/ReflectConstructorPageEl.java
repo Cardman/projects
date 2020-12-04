@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -19,9 +18,8 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
-    
-    private boolean initClass;
+public final class ReflectConstructorPageEl extends AbstractReflectConstructorPageEl {
+
     private boolean calledMethod;
     private ConstructorMetaInfo metaInfo;
 
@@ -33,30 +31,15 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
+        if (!keep(_context)) {
+            return false;
+        }
         LgNames stds_ = _context.getStandards();
         String className_ = metaInfo.getDeclaringClass();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
-        if (ExecutingUtil.isAbstractType(type_)) {
-            String null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_)));
-            return false;
-        }
         boolean static_ = type_.isStaticType();
-        String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
-        if (res_.isEmpty()) {
-            String null_;
-            null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_)));
-            return false;
-        }
-        if (!initClass) {
-            initClass = true;
-            if (static_ && _context.getExiting().hasToExit(res_)) {
-                setWrapException(true);
-                return false;
-            }
-        }
+        String res_ = getResolved();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
@@ -105,4 +88,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         return true;
     }
 
+    @Override
+    protected String getDeclaringClass() {
+        return metaInfo.getDeclaringClass();
+    }
 }

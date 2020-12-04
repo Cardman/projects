@@ -510,6 +510,71 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 b.addErrorBlock(unexp_.getBuiltError());
             }
         }
+        if (this instanceof RecordBlock) {
+            for (Block b: bl_) {
+                if (b instanceof ConstructorBlock) {
+                    int where_ = b.getOffset().getOffsetTrim();
+                    FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setIndexFile(where_);
+                    //key word len
+                    unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
+                            getFullName()
+                    );
+                    _page.addLocError(unexp_);
+                    b.addErrorBlock(unexp_.getBuiltError());
+                }
+                if (b instanceof InstanceBlock) {
+                    int where_ = b.getOffset().getOffsetTrim();
+                    FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setIndexFile(where_);
+                    //key word len
+                    unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
+                            getFullName()
+                    );
+                    _page.addLocError(unexp_);
+                    b.addErrorBlock(unexp_.getBuiltError());
+                }
+            }
+            for (AnaFormattedRootBlock a:getAllGenericSuperTypesInfo()) {
+                for (Block b: ClassesUtil.getDirectChildren(a.getRootBlock())) {
+                    if (b instanceof ConstructorBlock) {
+                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setIndexFile(getIdRowCol());
+                        //key word len
+                        unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
+                                getFullName()
+                        );
+                        _page.addLocError(unexp_);
+                        addNameErrors(unexp_);
+                    }
+                    if (b instanceof InitBlock) {
+                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setIndexFile(getIdRowCol());
+                        //key word len
+                        unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
+                                getFullName()
+                        );
+                        _page.addLocError(unexp_);
+                        addNameErrors(unexp_);
+                    }
+                    if (b instanceof InfoBlock) {
+                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setIndexFile(getIdRowCol());
+                        //key word len
+                        unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
+                                getFullName()
+                        );
+                        _page.addLocError(unexp_);
+                        addNameErrors(unexp_);
+                    }
+                }
+            }
+        }
         if (!isStaticType()) {
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {

@@ -325,6 +325,42 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
         assertTrue(StringExpUtil.noDel(" "));
     }
     @Test
+    public void startsWithArobaseKeyWord1(){
+        assertTrue(StringExpUtil.startsWithArobaseKeyWord("@class","class"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord2(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord("@classes","class"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord3(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord("@class","classes"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord4(){
+        assertTrue(StringExpUtil.startsWithArobaseKeyWord("@classes","classes"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord5(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord("classes","classes"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord6(){
+        assertTrue(StringExpUtil.startsWithArobaseKeyWord(" @classes",1,"classes"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord7(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord("@classes",1,"class"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord8(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord("@class",1,"classes"));
+    }
+    @Test
+    public void startsWithArobaseKeyWord9(){
+        assertTrue(!StringExpUtil.startsWithArobaseKeyWord(" class",1,"class"));
+    }
+    @Test
     public void toGeneHex1Test(){
         assertEq("0",StringExpUtil.toGeneHex(0));
     }

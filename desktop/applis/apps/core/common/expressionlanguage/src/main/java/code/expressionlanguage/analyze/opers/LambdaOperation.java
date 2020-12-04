@@ -28,6 +28,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -44,6 +45,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodId method;
     private AnaLambdaMethodContent lambdaMethodContent;
     private ConstructorId realId;
+    private final StringMap<String> infos = new StringMap<String>();
+    private final Ints offsets = new Ints();
+    private final StringList named = new StringList();
+    private final Ints refs = new Ints();
+    private boolean recordType;
     private RootBlock fieldType;
     private AnaTypeFct function;
     private ClassField fieldId;
@@ -882,6 +888,71 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             partOffsets.addAllElts(_page.getCurrentParts());
             if (clFrom_.startsWith(ARR)) {
                 processArray(_args, _len, clFrom_, _page);
+                return;
+            }
+            String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+            AnaGeneType h_ = _page.getAnaGeneType(id_);
+            if (h_ instanceof RecordBlock) {
+                for (String p:StringExpUtil.getWildCards(clFrom_)){
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //_fromType len
+                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                            p,
+                            clFrom_);
+                    _page.getLocalizer().addError(call_);
+                    addErr(call_.getBuiltError());
+                }
+                StringList names_ = new StringList();
+                StringList types_ = new StringList();
+                int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-StringExpUtil.getOffset(className);
+                for (int i = 2; i < _len; i++) {
+                    String arg_ = _args.get(i);
+                    String name_ = arg_.trim();
+                    boolean contained_ = false;
+                    for (InfoBlock f: ((RecordBlock)h_).getFieldsBlocks()) {
+                        String par_ = AnaTemplates.quickFormat(h_, clFrom_, f.getImportedClassName());
+                        int index_ = StringUtil.indexOf(f.getFieldName(), name_);
+                        if (((FieldBlock)f).getValuesOffset().isValidIndex(index_)) {
+                            contained_ = true;
+                            types_.add(par_);
+                            offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
+                            named.add(name_);
+                            refs.add(((FieldBlock)f).getValuesOffset().get(index_));
+                            infos.addEntry(name_,f.getImportedClassName());
+                            break;
+                        }
+                    }
+                    if (!contained_) {
+                        offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
+                        named.add(name_);
+                        refs.add(-1);
+                    }
+                    if (StringUtil.contains(names_,name_) || !contained_) {
+                        FoundErrorInterpret call_ = new FoundErrorInterpret();
+                        call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        //_fromType len
+                        call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                                id_);
+                        _page.getLocalizer().addError(call_);
+                        addErr(call_.getBuiltError());
+                    }
+                    names_.add(name_);
+                    offsetArg_ += arg_.length()+1;
+                }
+                lambdaMemberNumberContentId = new MemberId();
+                lambdaMemberNumberContentId.setRootNumber(((RecordBlock)h_).getNumberAll());
+                lambdaCommonContent.setFoundClass(clFrom_);
+                types_.add(clFrom_);
+                fieldType = (RootBlock) h_;
+                StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                fct_.append(Templates.TEMPLATE_BEGIN);
+                fct_.append(StringUtil.join(types_, Templates.TEMPLATE_SEP));
+                fct_.append(Templates.TEMPLATE_END);
+                setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                recordType = true;
                 return;
             }
         }
@@ -2044,5 +2115,25 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public StandardType getStandardType() {
         return standardType;
+    }
+
+    public boolean isRecordType() {
+        return recordType;
+    }
+
+    public Ints getOffsets() {
+        return offsets;
+    }
+
+    public StringList getNamed() {
+        return named;
+    }
+
+    public Ints getRefs() {
+        return refs;
+    }
+
+    public StringMap<String> getInfos() {
+        return infos;
     }
 }

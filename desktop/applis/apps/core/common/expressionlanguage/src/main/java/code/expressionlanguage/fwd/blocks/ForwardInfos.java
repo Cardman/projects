@@ -76,6 +76,11 @@ public final class ForwardInfos {
                 v_.setRootBlock(e_);
                 _forwards.getMapInnerEltTypes().addEntry((InnerElementBlock) r, e_);
             }
+            if (r instanceof RecordBlock) {
+                ExecRecordBlock e_ = new ExecRecordBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
+                e_.setFile(exFile_);
+                v_.setRootBlock(e_);
+            }
             coverage_.putType(r);
             _forwards.getMapMembers().addEntry(r, v_);
         }
@@ -1131,6 +1136,10 @@ public final class ForwardInfos {
             }
             if (f_.getStandardType() != null) {
                 return new ExecStdConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), f_.getRealId(), f_.getStandardType());
+            }
+            if (f_.isRecordType()) {
+                ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(f_.getLambdaMemberNumberContentId().getRootNumber(), _forwards);
+                return new ExecRecordConstructorLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), rootBlock_, f_.getInfos());
             }
             if (f_.getMethod() == null && f_.getRealId() == null) {
                 return new ExecFieldLambdaOperation(new ExecOperationContent(f_.getContent()), new ExecLambdaCommonContent(f_.getLambdaCommonContent()), new ExecLambdaFieldContent(f_.getFieldId(), f_.getLambdaFieldContent(), f_.getLambdaMemberNumberContentId(), _forwards));

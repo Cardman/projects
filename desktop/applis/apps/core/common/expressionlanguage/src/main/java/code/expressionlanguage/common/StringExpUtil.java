@@ -898,7 +898,16 @@ public final class StringExpUtil {
         }
         return StringUtil.quickEq(_op, "--");
     }
+    public static boolean startsWithArobaseKeyWord(String _found, String _keyWord) {
+        return startsWithArobaseKeyWord(_found,0,_keyWord);
+    }
 
+    public static boolean startsWithArobaseKeyWord(String _found, int _start, String _keyWord) {
+        if (!_found.startsWith("@",_start)) {
+            return false;
+        }
+        return startsWithKeyWord(_found,_start+1,_keyWord);
+    }
     public static boolean startsWithKeyWord(String _found, String _keyWord) {
         return startsWithKeyWord(_found,0,_keyWord);
     }

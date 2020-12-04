@@ -1310,7 +1310,7 @@ public final class ClassesUtil {
                             r.addNameErrors(enum_);
                         }
                     }
-                    if (r instanceof InterfaceBlock) {
+                    if (r instanceof InterfaceBlock || r instanceof RecordBlock) {
                         if (!(s_ instanceof InterfaceBlock)) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
