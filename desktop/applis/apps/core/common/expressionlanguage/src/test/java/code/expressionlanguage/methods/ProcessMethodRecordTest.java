@@ -750,11 +750,14 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append(" $static {\n");
         xml_.append("  $new Rec(0);\n");
         xml_.append("  $new Rec(f:$that(0));\n");
+        xml_.append("  $static().$lambda(Rec2,$new,$id);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("@$class $interfaces(Int) pkg.Rec:Int {\n");
         xml_.append(" $int field;\n");
         xml_.append(" Rec(){}\n");
+        xml_.append("}\n");
+        xml_.append("@$class pkg.Rec2 {\n");
         xml_.append("}\n");
         xml_.append("$interface pkg.Int {\n");
         xml_.append(" $int sup;\n");

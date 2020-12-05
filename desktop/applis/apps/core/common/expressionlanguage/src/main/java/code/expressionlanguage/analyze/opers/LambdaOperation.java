@@ -1011,7 +1011,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!isIntermediateDottedOperation()) {
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
             AnaGeneType h_ = _page.getAnaGeneType(id_);
-            if (ContextUtil.isAbstractType(h_)) {
+            if (noDefCtor(h_)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_page.getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1167,7 +1167,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
         AnaGeneType h_ = _page.getAnaGeneType(id_);
-        if (ContextUtil.isAbstractType(h_)) {
+        if (noDefCtor(h_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1210,6 +1210,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringUtil.join(parts_, Templates.TEMPLATE_SEP));
         fct_.append(Templates.TEMPLATE_END);
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+    }
+
+    private static boolean noDefCtor(AnaGeneType _h) {
+        return ContextUtil.isAbstractType(_h) || _h instanceof RecordBlock;
     }
 
     private void processField(MethodOperation _m, StringList _args, int _len, String _fromType, AnalyzedPageEl _page) {
