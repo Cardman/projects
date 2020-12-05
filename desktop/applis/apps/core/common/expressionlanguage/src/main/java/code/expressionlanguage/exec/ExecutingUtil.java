@@ -290,7 +290,7 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectMethodDefVal) {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
-            pageLoc_ = new ReflectGetDefaultValuePageEl(args_, metaInfo_);
+            pageLoc_ = new ReflectGetDefaultValuePageEl(metaInfo_);
         } else if (_ref instanceof CustomReflectMethod) {
             CustomReflectMethod c_ = (CustomReflectMethod) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();

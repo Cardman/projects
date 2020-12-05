@@ -23,8 +23,10 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     private boolean calledMethod;
     private ConstructorMetaInfo metaInfo;
 
+    private final CustList<Argument> arguments;
+
     public ReflectConstructorPageEl(CustList<Argument> _arguments, ConstructorMetaInfo _metaInfo) {
-        super(_arguments);
+        arguments = _arguments;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
     }
@@ -44,7 +46,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         if (!calledMethod) {
             calledMethod = true;
             ConstructorId mid_ = metaInfo.getRealId();
-            Struct struct_ = ExecTemplates.getLastArgument(getArguments()).getStruct();
+            Struct struct_ = ExecTemplates.getLastArgument(arguments).getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();

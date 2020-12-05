@@ -15,8 +15,10 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     private StringMap<String> id;
     private final String className;
 
+    private final CustList<Argument> arguments;
+
     public ReflectRecordConstructorPageEl(CustList<Argument> _arguments,ExecRootBlock _root,StringMap<String> _id,String _className) {
-        super(_arguments);
+        arguments = _arguments;
         root = _root;
         id = _id;
         className = _className;
@@ -30,7 +32,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            _context.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, "", -1, getArguments()));
+            _context.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, "", -1, arguments));
             return false;
         }
         return true;

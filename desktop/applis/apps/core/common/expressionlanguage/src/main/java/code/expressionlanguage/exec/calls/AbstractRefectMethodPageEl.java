@@ -26,6 +26,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private ExecTypeFunction pair;
     private boolean calledMethod;
     private boolean calledAfter;
+
+    private final CustList<Argument> arguments;
+
     private CustList<Argument> args = new CustList<Argument>();
     private Argument instance;
     private Argument rightArg;
@@ -34,7 +37,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private MethodMetaInfo metaInfo;
 
     public AbstractRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments);
+        arguments = _arguments;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
@@ -57,7 +60,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         setWrapException(false);
         if (pair == null) {
             if (metaInfo.isInstanceMethod()) {
-                Argument instance_ = ExecTemplates.getFirstArgument(getArguments());
+                Argument instance_ = ExecTemplates.getFirstArgument(arguments);
                 if (instance_.isNull()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                     _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
@@ -71,7 +74,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             }
             String className_ = metaInfo.getClassName();
             if (isPolymorph(_context)) {
-                Struct instance_ = ExecTemplates.getFirstArgument(getArguments()).getStruct();
+                Struct instance_ = ExecTemplates.getFirstArgument(arguments).getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
                 className = polymorph_.getClassName();
                 pair = polymorph_.getPair();
@@ -88,9 +91,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (metaInfo.isWideStatic()) {
                 instance = new Argument();
             } else {
-                instance = ExecTemplates.getFirstArgument(getArguments());
+                instance = ExecTemplates.getFirstArgument(arguments);
             }
-            Struct struct_ = ExecTemplates.getLastArgument(getArguments()).getStruct();
+            Struct struct_ = ExecTemplates.getLastArgument(arguments).getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));

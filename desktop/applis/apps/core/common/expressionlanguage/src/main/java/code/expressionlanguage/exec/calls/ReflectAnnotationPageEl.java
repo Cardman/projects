@@ -28,8 +28,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private CustList<Ints> annotationsParamsIndexes = new CustList<Ints>();
     private final AnnotatedStruct annotated;
 
+    private final CustList<Argument> arguments;
+
     public ReflectAnnotationPageEl(CustList<Argument> _arguments, AnnotatedStruct _annotated) {
-        super(_arguments);
+        arguments = _arguments;
         annotated = _annotated;
         setGlobalArgumentStruct(_annotated);
     }
@@ -54,10 +56,9 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     annotations = annotableBlock_.getAnnotationsOps();
                 }
             }
-            CustList<Argument> args_ = getArguments();
             String cl_ = "";
-            if (!args_.isEmpty()) {
-                Struct arg_ = args_.first().getStruct();
+            if (!arguments.isEmpty()) {
+                Struct arg_ = arguments.first().getStruct();
                 if (arg_ instanceof ClassMetaInfo) {
                     cl_ = NumParsers.getClass(arg_).getName();
                 }

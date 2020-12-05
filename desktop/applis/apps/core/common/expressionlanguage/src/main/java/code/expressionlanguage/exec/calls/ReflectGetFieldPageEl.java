@@ -14,8 +14,10 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private FieldMetaInfo metaInfo;
 
+    private final CustList<Argument> arguments;
+
     public ReflectGetFieldPageEl(CustList<Argument> _arguments, FieldMetaInfo _metaInfo) {
-        super(_arguments);
+        arguments = _arguments;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
@@ -42,7 +44,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
             setReturnedArgument(arg_);
             return true;
         }
-        Argument instance_ = ExecTemplates.getFirstArgument(getArguments());
+        Argument instance_ = ExecTemplates.getFirstArgument(arguments);
         Argument arg_ = ExecTemplates.getField(metaInfo, instance_, _context);
         if (_context.callsOrException()) {
             return false;

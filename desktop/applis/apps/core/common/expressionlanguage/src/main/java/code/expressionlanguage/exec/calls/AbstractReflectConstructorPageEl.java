@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -9,14 +8,10 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.util.CustList;
 
 public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private String resolved = "";
-    protected AbstractReflectConstructorPageEl(CustList<Argument> _arguments) {
-        super(_arguments);
-    }
     protected boolean keep(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         String className_ = getDeclaringClass();

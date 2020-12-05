@@ -18,8 +18,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     private CustList<ExecOperationNode> ops = new CustList<ExecOperationNode>();
     private MethodMetaInfo metaInfo;
 
-    public ReflectGetDefaultValuePageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments);
+    public ReflectGetDefaultValuePageEl(MethodMetaInfo _metaInfo) {
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
