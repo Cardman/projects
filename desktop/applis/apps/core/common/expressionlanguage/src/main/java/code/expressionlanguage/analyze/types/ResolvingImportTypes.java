@@ -347,16 +347,12 @@ public final class ResolvingImportTypes {
                 RootBlock cust_ = (RootBlock) super_;
                 String pkg_ = cust_.getPackageName();
                 for (InfoBlock e: cust_.getFieldsBlocks()) {
-                    int ind_ = notMatch(_method, e);
-                    if (ind_ < 0) {
+                    if (!e.isStaticField()) {
                         continue;
                     }
-                    int v_ = -1;
-                    if (e instanceof FieldBlock) {
-                        v_ = ((FieldBlock)e).getValuesOffset().get(ind_);
-                    }
-                    if (e instanceof InnerTypeOrElement) {
-                        v_ = e.getFieldNameOffset();
+                    int v_ = AnaTypeUtil.getIndex(e,_method);
+                    if (v_ < 0) {
+                        continue;
                     }
                     Accessed a_ = new Accessed(e.getAccess(),pkg_, cust_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _page)) {
@@ -381,12 +377,6 @@ public final class ResolvingImportTypes {
             }
         }
         _methods.addEntry(_class,_value);
-    }
-    private static int notMatch(String _method, InfoBlock _field) {
-        if (!_field.isStaticField()) {
-            return -1;
-        }
-        return StringUtil.indexOf(_field.getFieldName(), _method.trim());
     }
 
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -244,16 +245,9 @@ public final class ContextUtil {
                     continue;
                 }
                 InfoBlock i_ = (InfoBlock) b;
-                int ind_ = StringUtil.indexOf(i_.getFieldName(), _fieldName);
-                if (ind_ < 0) {
+                int valOffset_ = AnaTypeUtil.getIndex(i_, _fieldName);
+                if (valOffset_ < 0) {
                     continue;
-                }
-                int valOffset_ = -1;
-                if (i_ instanceof FieldBlock) {
-                    valOffset_ = ((FieldBlock)i_).getValuesOffset().get(ind_);
-                }
-                if (i_ instanceof InnerTypeOrElement) {
-                    valOffset_ = i_.getFieldNameOffset();
                 }
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();

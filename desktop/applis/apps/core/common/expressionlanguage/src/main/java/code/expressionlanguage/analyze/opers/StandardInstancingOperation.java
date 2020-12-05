@@ -295,10 +295,10 @@ public final class StandardInstancingOperation extends
                 m_.setArg(o.getResultClass());
                 m_.setParam(par_);
                 m_.setMapping(vars_);
-                int index_ = StringUtil.indexOf(f.getFieldName(), name_);
-                if (((FieldBlock)f).getValuesOffset().isValidIndex(index_)) {
+                int index_ = AnaTypeUtil.getIndex(f,name_);
+                if (index_ >= 0) {
                     ((NamedArgumentOperation) o).setField(_root);
-                    ((NamedArgumentOperation) o).setRef(((FieldBlock)f).getValuesOffset().get(index_));
+                    ((NamedArgumentOperation) o).setRef(index_);
                     instancingStdContent.getInfos().addEntry(name_,f.getImportedClassName());
                     if (!AnaTemplates.isCorrectOrNumbers(m_, _page)){
                         ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);

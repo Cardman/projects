@@ -913,13 +913,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     boolean contained_ = false;
                     for (InfoBlock f: ((RecordBlock)h_).getFieldsBlocks()) {
                         String par_ = AnaTemplates.quickFormat(h_, clFrom_, f.getImportedClassName());
-                        int index_ = StringUtil.indexOf(f.getFieldName(), name_);
-                        if (((FieldBlock)f).getValuesOffset().isValidIndex(index_)) {
+                        int index_ = AnaTypeUtil.getIndex(f,name_);
+                        if (index_ >= 0) {
                             contained_ = true;
                             types_.add(par_);
                             offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
                             named.add(name_);
-                            refs.add(((FieldBlock)f).getValuesOffset().get(index_));
+                            refs.add(index_);
                             infos.addEntry(name_,f.getImportedClassName());
                             break;
                         }

@@ -715,4 +715,18 @@ public final class AnaTypeUtil {
         }
         return new AnaClassArgumentMatching(cl_);
     }
+    public static int getIndex(InfoBlock _i, String _field) {
+        int ind_ = StringUtil.indexOf(_i.getFieldName(), _field.trim());
+        if (ind_ < 0) {
+            return -1;
+        }
+        int v_ = -1;
+        if (_i instanceof FieldBlock) {
+            v_ = ((FieldBlock)_i).getValuesOffset().get(ind_);
+        }
+        if (_i instanceof InnerTypeOrElement) {
+            v_ = _i.getFieldNameOffset();
+        }
+        return v_;
+    }
 }
