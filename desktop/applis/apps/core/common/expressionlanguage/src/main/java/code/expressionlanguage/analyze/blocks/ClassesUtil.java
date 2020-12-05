@@ -392,7 +392,7 @@ public final class ClassesUtil {
         parseFiles(_page);
     }
 
-    public static void processBracedClass(boolean _add, RootBlock _root, AnalyzedPageEl _page) {
+    private static void processBracedClass(boolean _add, RootBlock _root, AnalyzedPageEl _page) {
         String fullName_ = _root.getFullName();
         boolean ok_ = _add;
         if (_page.getSorted().contains(fullName_)) {
@@ -718,7 +718,7 @@ public final class ClassesUtil {
         }
     }
 
-    public static void checkBody(AnalyzedPageEl _page, OperatorBlock _r) {
+    private static void checkBody(AnalyzedPageEl _page, OperatorBlock _r) {
         Block c_ = _r;
         if (_r.getFirstChild() != null) {
             while (true) {
@@ -808,10 +808,10 @@ public final class ClassesUtil {
                         cur_.getAllReservedInners().add(r.getName());
                     }
                     RootBlock possibleParent_ = cur_.getParentType();
-                    String s_ = cur_.getName();
                     MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntionInType();
                     cur_.getAllReservedInners().addAllElts(allReservedInnersRoot_);
                     if (!(cur_ instanceof AnonymousTypeBlock) && possibleParent_ != null) {
+                        String s_ = cur_.getName();
                         cur_.getAllReservedInners().addAllElts(possibleParent_.getAllReservedInners());
                         if (StringUtil.contains(allReservedInnersRoot_, s_)) {
                             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -878,29 +878,32 @@ public final class ClassesUtil {
 
                         }
                     }
-                    if (StringUtil.contains(_basePkgFound, s_)) {
-                        //ERROR
-                        FoundErrorInterpret d_ = new FoundErrorInterpret();
-                        d_.setFileName(_r.getFile().getFileName());
-                        d_.setIndexFile(cur_.getIdRowCol());
-                        //s_ len
-                        d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
-                                s_);
-                        _page.addLocError(d_);
-                        cur_.addNameErrors(d_);
-                        add_ = false;
-                        addPkg_ = false;
-                    } else if (StringUtil.contains(simpleNames_, s_)) {
-                        //ERROR
-                        FoundErrorInterpret d_ = new FoundErrorInterpret();
-                        d_.setFileName(_r.getFile().getFileName());
-                        d_.setIndexFile(cur_.getIdRowCol());
-                        //s_ len
-                        d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
-                                s_);
-                        _page.addLocError(d_);
-                        cur_.addNameErrors(d_);
-                        add_ = false;
+                    if (!(cur_ instanceof AnonymousTypeBlock)) {
+                        String s_ = cur_.getName();
+                        if (StringUtil.contains(_basePkgFound, s_)) {
+                            //ERROR
+                            FoundErrorInterpret d_ = new FoundErrorInterpret();
+                            d_.setFileName(_r.getFile().getFileName());
+                            d_.setIndexFile(cur_.getIdRowCol());
+                            //s_ len
+                            d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
+                                    s_);
+                            _page.addLocError(d_);
+                            cur_.addNameErrors(d_);
+                            add_ = false;
+                            addPkg_ = false;
+                        } else if (StringUtil.contains(simpleNames_, s_)) {
+                            //ERROR
+                            FoundErrorInterpret d_ = new FoundErrorInterpret();
+                            d_.setFileName(_r.getFile().getFileName());
+                            d_.setIndexFile(cur_.getIdRowCol());
+                            //s_ len
+                            d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
+                                    s_);
+                            _page.addLocError(d_);
+                            cur_.addNameErrors(d_);
+                            add_ = false;
+                        }
                     }
                     ClassesUtil.processBracedClass(addPkg_&&add_, cur_, _page);
                 }
@@ -2652,7 +2655,7 @@ public final class ClassesUtil {
         }
     }
 
-    public static void initStaticFields(AnalyzedPageEl _page) {
+    private static void initStaticFields(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getFoundTypes()) {
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
