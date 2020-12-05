@@ -703,11 +703,10 @@ public final class ExecTemplates {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
             if (fct_.getParametersRef(i_)) {
-                VariableWrapper v_ = new VariableWrapper();
                 Struct struct_ = _firstArgs.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
                 local_ = local(local_);
-                v_.setLocal(local_);
+                VariableWrapper v_ = new VariableWrapper(local_);
                 out_.getWrappers().add(v_);
             } else {
                 out_.getArguments().add(_firstArgs.get(i_));

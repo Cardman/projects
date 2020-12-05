@@ -9,12 +9,21 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.Struct;
 
 public final class FieldWrapper implements AbstractWrapper {
-    private Struct container;
-    private String fieldType;
-    private ExecRootBlock rootBlock;
-    private boolean staticField;
-    private boolean finalField;
-    private ClassField id;
+    private final Struct container;
+    private final String fieldType;
+    private final ExecRootBlock rootBlock;
+    private final boolean staticField;
+    private final boolean finalField;
+    private final ClassField id;
+    public FieldWrapper(Struct _container,String _fieldType,ExecRootBlock _rootBlock,
+                        boolean _staticField,boolean _finalField,ClassField _id) {
+        container = _container;
+        fieldType = _fieldType;
+        rootBlock = _rootBlock;
+        staticField = _staticField;
+        finalField = _finalField;
+        id = _id;
+    }
     public void setValue(ContextEl _conf, Argument _right) {
         String className_ = id.getClassName();
         String fieldName_ = id.getFieldName();
@@ -25,30 +34,6 @@ public final class FieldWrapper implements AbstractWrapper {
         String className_ = id.getClassName();
         String fieldName_ = id.getFieldName();
         return ExecTemplates.getField(new DefaultSetOffset(_conf), _conf.getExiting(),className_,fieldName_,staticField,fieldType,new Argument(container),_conf,-1).getStruct();
-    }
-
-    public void setContainer(Struct _container) {
-        container = _container;
-    }
-
-    public void setFieldType(String _fieldType) {
-        fieldType = _fieldType;
-    }
-
-    public void setRootBlock(ExecRootBlock _rootBlock) {
-        rootBlock = _rootBlock;
-    }
-
-    public void setStaticField(boolean _staticField) {
-        staticField = _staticField;
-    }
-
-    public void setFinalField(boolean _finalField) {
-        finalField = _finalField;
-    }
-
-    public void setId(ClassField _id) {
-        id = _id;
     }
 
 }

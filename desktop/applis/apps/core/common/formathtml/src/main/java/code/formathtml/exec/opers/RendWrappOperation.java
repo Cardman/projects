@@ -32,9 +32,8 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             String variableName_ = ch_.getVariableContent().getVariableName();
             SimplePageEl ip_ = _conf.getPageEl();
             LocalVariable val_ = ip_.getValueVars().getVal(variableName_);
-            VariableWrapper v_ = new VariableWrapper();
             val_ = ExecTemplates.local(val_);
-            v_.setLocal(val_);
+            VariableWrapper v_ = new VariableWrapper(val_);
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(v_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
@@ -47,12 +46,6 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
         if (chFirst_ instanceof RendSettableFieldOperation) {
             RendSettableFieldOperation ch_ = (RendSettableFieldOperation)chFirst_;
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
-            FieldWrapper f_ = new FieldWrapper();
-            f_.setFieldType(settableFieldContent_.getRealType());
-            f_.setFinalField(settableFieldContent_.isFinalField());
-            f_.setStaticField(settableFieldContent_.isStaticField());
-            f_.setId(settableFieldContent_.getClassField());
-            f_.setRootBlock(ch_.getRootBlock());
             Argument previous_;
             if (!settableFieldContent_.isStaticField()) {
                 Argument previousArgument_ = getPreviousArg(ch_,_nodes, _conf);
@@ -61,7 +54,8 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             } else {
                 previous_ = new Argument();
             }
-            f_.setContainer(previous_.getStruct());
+            FieldWrapper f_ = new FieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                    settableFieldContent_.isStaticField(),settableFieldContent_.isFinalField(),settableFieldContent_.getClassField());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
@@ -69,12 +63,10 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
         }
         if (chFirst_ instanceof RendArrOperation) {
             RendArrOperation ch_ = (RendArrOperation)chFirst_;
-            ArrayWrapper a_ = new ArrayWrapper();
             Argument previousArgument_ = getPreviousArg(ch_,_nodes, _conf);
-            a_.setContainer(previousArgument_.getStruct());
             ArgumentsPair pairIndex_ = getArgumentPair(_nodes, ch_.getFirstChild());
-            a_.setIndex(pairIndex_.getArgument().getStruct());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+            ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context);
             return;

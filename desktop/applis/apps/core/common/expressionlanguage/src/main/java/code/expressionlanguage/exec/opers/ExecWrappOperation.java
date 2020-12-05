@@ -31,9 +31,8 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             String variableName_ = ch_.getVariableContent().getVariableName();
             PageEl ip_ = _conf.getLastPage();
             LocalVariable val_ = ip_.getValueVars().getVal(variableName_);
-            VariableWrapper v_ = new VariableWrapper();
             val_ = ExecTemplates.local(val_);
-            v_.setLocal(val_);
+            VariableWrapper v_ = new VariableWrapper(val_);
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(v_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes);
@@ -46,12 +45,6 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         if (chFirst_ instanceof ExecSettableFieldOperation) {
             ExecSettableFieldOperation ch_ = (ExecSettableFieldOperation)chFirst_;
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
-            FieldWrapper f_ = new FieldWrapper();
-            f_.setFieldType(settableFieldContent_.getRealType());
-            f_.setFinalField(settableFieldContent_.isFinalField());
-            f_.setStaticField(settableFieldContent_.isStaticField());
-            f_.setId(settableFieldContent_.getClassField());
-            f_.setRootBlock(ch_.getRootBlock());
             Argument previous_;
             if (!settableFieldContent_.isStaticField()) {
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _conf);
@@ -60,7 +53,8 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             } else {
                 previous_ = new Argument();
             }
-            f_.setContainer(previous_.getStruct());
+            FieldWrapper f_ = new FieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                    settableFieldContent_.isStaticField(),settableFieldContent_.isFinalField(),settableFieldContent_.getClassField());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes);
@@ -68,12 +62,10 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
         }
         if (chFirst_ instanceof ExecArrOperation) {
             ExecArrOperation ch_ = (ExecArrOperation)chFirst_;
-            ArrayWrapper a_ = new ArrayWrapper();
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _conf);
-            a_.setContainer(previousArgument_.getStruct());
             ArgumentsPair pairIndex_ = ExecTemplates.getArgumentPair(_nodes, ch_.getFirstChild());
-            a_.setIndex(pairIndex_.getArgument().getStruct());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+            ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes);
             return;
