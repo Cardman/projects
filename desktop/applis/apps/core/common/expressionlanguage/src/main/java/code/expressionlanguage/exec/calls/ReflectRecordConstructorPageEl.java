@@ -10,7 +10,6 @@ import code.util.StringMap;
 
 public final class ReflectRecordConstructorPageEl extends AbstractReflectConstructorPageEl {
 
-    private boolean initClass;
     private boolean calledMethod;
     private ExecRootBlock root;
     private StringMap<String> id;
