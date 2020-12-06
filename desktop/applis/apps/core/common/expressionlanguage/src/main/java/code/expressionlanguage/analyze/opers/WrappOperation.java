@@ -11,11 +11,14 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.IntTreeMap;
+import code.util.core.StringUtil;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;
-    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    private int delta;
+    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
+        delta = _delta;
     }
 
     @Override
@@ -224,5 +227,9 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         setResultClass(new AnaClassArgumentMatching(_var.getClassName()));
         return;
+    }
+
+    public int getDelta() {
+        return delta;
     }
 }

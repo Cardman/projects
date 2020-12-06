@@ -3422,4 +3422,25 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report753Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  int[] a = new int[0];\n");
+        xml_.append("  that int[] b = that(a.clone());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  int[] <a name=\"m42\">a</a> = new int[0];\n" +
+                "  that int[] <a name=\"m71\">b</a> <a title=\"The type $core.Object cannot be implicitly cast to [int\" class=\"e\">=</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(<a href=\"#m42\">a</a>.<b>clone</b>());\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

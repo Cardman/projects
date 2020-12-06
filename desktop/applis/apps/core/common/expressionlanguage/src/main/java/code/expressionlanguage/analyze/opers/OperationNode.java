@@ -235,6 +235,7 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
+            int delta_ = StringExpUtil.getOffset(_op.getFctName());
             if (_m instanceof AbstractDotOperation) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
@@ -291,13 +292,13 @@ public abstract class OperationNode {
                 return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
             }
             if (StringUtil.quickEq(fctName_, keyWordThat_)) {
-                return new WrappOperation(_index, _indexChild, _m, _op);
+                return new WrappOperation(_index, _indexChild, _m, _op,delta_);
             }
             if (StringUtil.quickEq(fctName_, keyWordFirstopt_)) {
-                return new FirstOptOperation(_index, _indexChild, _m, _op);
+                return new FirstOptOperation(_index, _indexChild, _m, _op,delta_);
             }
             if (StringUtil.quickEq(fctName_, keyWordDefault_)) {
-                return new DefaultOperation(_index, _indexChild, _m, _op);
+                return new DefaultOperation(_index, _indexChild, _m, _op,delta_);
             }
             if (StringUtil.quickEq(fctName_,keyWordThis_)) {
                 return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);

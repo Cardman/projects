@@ -8,9 +8,11 @@ import code.util.IntTreeMap;
 public final class DefaultOperation extends AbstractUnaryOperation {
 
     private int offset;
+    private int delta;
     public DefaultOperation(int _index, int _indexChild, MethodOperation _m,
-                            OperationsSequence _op) {
+                            OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
+        delta = _delta;
     }
 
     @Override
@@ -35,5 +37,9 @@ public final class DefaultOperation extends AbstractUnaryOperation {
 
     public int getOffset() {
         return offset;
+    }
+
+    public int getDelta() {
+        return delta;
     }
 }

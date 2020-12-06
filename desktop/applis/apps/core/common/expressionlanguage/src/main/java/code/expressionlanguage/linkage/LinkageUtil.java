@@ -3366,14 +3366,14 @@ public final class LinkageUtil {
         }
         if (_val instanceof FirstOptOperation) {
             if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl();
+                int begin_ = _sum + _val.getIndexInEl() + ((FirstOptOperation)_val).getDelta();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordFirstopt().length()));
             }
         }
         if (_val instanceof WrappOperation) {
             if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl();
+                int begin_ = _sum + _val.getIndexInEl() + ((WrappOperation)_val).getDelta();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordThat().length()));
             }
@@ -3458,7 +3458,7 @@ public final class LinkageUtil {
         }
         if (_val instanceof DefaultOperation) {
             if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl();
+                int begin_ = _sum + _val.getIndexInEl() + ((DefaultOperation)_val).getDelta();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _vars.getKeyWords().getKeyWordDefault().length()));
             }
