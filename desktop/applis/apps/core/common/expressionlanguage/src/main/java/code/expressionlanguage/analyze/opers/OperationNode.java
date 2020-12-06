@@ -136,7 +136,7 @@ public abstract class OperationNode {
         return !(this instanceof AnnotationInstanceOperation);
     }
     protected final boolean isLvalue() {
-        return getParent() instanceof WrappOperation || isSettable();
+        return isSettable();
     }
     protected final boolean isSettable() {
         OperationNode c_ = this;
@@ -154,6 +154,9 @@ public abstract class OperationNode {
         }
         if (c_.getIndexChild() > 0) {
             return false;
+        }
+        if (p_ instanceof WrappOperation) {
+            return true;
         }
         if (p_ instanceof AffectationOperation) {
             return true;

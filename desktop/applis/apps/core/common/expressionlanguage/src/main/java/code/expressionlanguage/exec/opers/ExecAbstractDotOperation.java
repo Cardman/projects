@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class ExecAbstractDotOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -18,14 +17,18 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
         super(_indexChild,_res,_order);
     }
     public void calculateDot(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument a_ = getLastArgument(_nodes,this);
+        ExecOperationNode lastNode_ = ExecTemplates.getLastNode(this);
+        ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, lastNode_);
+        Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
         boolean simple_;
         if (getParent() instanceof ExecAffectationOperation) {
             ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
-            simple_ = aff_.getSettable() == ExecTemplates.getLastNode(this);
+            simple_ = aff_.getSettable() == lastNode_;
         } else {
             simple_ = false;
         }
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
         } else {

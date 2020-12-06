@@ -21,6 +21,9 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         } else {
             simple_ = false;
         }
+        ArgumentsPair pairCh_ = getArgumentPair(_nodes, last_);
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
             setQuickNoConvertSimpleArgument(getArgument(_nodes,last_), _nodes, _context);
         } else {

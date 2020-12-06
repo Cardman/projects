@@ -89,11 +89,12 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (getFirstChild() instanceof RefParamOperation || isLeftValue(getFirstChild())) {
-            setResultClass(new AnaClassArgumentMatching(getFirstChild().getResultClass().getNames()));
+        OperationNode firstChild_ = AffectationOperation.getFirstToBeAnalyzed(this);
+        if (firstChild_ instanceof RefParamOperation || isLeftValue(firstChild_)) {
+            setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
             return;
         }
-        if (!(getFirstChild() instanceof RefVariableOperation)&&!(getFirstChild() instanceof VariableOperation)&&!(getFirstChild() instanceof MutableLoopVariableOperation)&&!(getFirstChild() instanceof SettableAbstractFieldOperation)&&!(getFirstChild() instanceof DotOperation)) {
+        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -105,8 +106,8 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (getFirstChild() instanceof DotOperation) {
-            OperationNode last_ = ((DotOperation) getFirstChild()).getChildrenNodes().last();
+        if (firstChild_ instanceof DotOperation) {
+            OperationNode last_ = ((DotOperation) firstChild_).getChildrenNodes().last();
             if (last_ instanceof SettableAbstractFieldOperation) {
                 SettableAbstractFieldOperation v_ = (SettableAbstractFieldOperation) last_;
                 AnaSettableOperationContent settableFieldContent_ = v_.getSettableFieldContent();
@@ -142,6 +143,10 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
                 setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(),_page.getPrimitiveTypes()));
                 return;
             }
+            if (isLeftValue(last_)) {
+                setResultClass(AnaClassArgumentMatching.copy(last_.getResultClass(),_page.getPrimitiveTypes()));
+                return;
+            }
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -153,8 +158,8 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (getFirstChild() instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation v_ = (SettableAbstractFieldOperation)getFirstChild();
+        if (firstChild_ instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation v_ = (SettableAbstractFieldOperation)firstChild_;
             AnaSettableOperationContent settableFieldContent_ = v_.getSettableFieldContent();
             if (settableFieldContent_.isFinalField()) {
                 FoundErrorInterpret varg_ = new FoundErrorInterpret();
@@ -171,19 +176,19 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(),_page.getPrimitiveTypes()));
             return;
         }
-        if (getFirstChild() instanceof VariableOperation) {
-            VariableOperation v_ = (VariableOperation)getFirstChild();
+        if (firstChild_ instanceof VariableOperation) {
+            VariableOperation v_ = (VariableOperation)firstChild_;
             AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
             processErrorVar(_page, var_);
             return;
         }
-        if (getFirstChild() instanceof RefVariableOperation) {
-            RefVariableOperation v_ = (RefVariableOperation)getFirstChild();
+        if (firstChild_ instanceof RefVariableOperation) {
+            RefVariableOperation v_ = (RefVariableOperation)firstChild_;
             AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
             processErrorVar(_page, var_);
             return;
         }
-        MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)getFirstChild();
+        MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)firstChild_;
         AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
         if (var_ == null || var_.isFinalVariable()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();

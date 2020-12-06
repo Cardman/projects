@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
@@ -22,6 +23,9 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
                 simple_ = true;
             }
         }
+        ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+        pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
         } else {

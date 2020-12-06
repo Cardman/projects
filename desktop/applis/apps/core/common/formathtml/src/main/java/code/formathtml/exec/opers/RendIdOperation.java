@@ -24,6 +24,9 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
                 simple_ = true;
             }
         }
+        ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _nodes, _context);
         } else {
