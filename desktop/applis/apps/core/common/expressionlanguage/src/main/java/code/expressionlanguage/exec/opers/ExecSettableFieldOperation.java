@@ -35,11 +35,7 @@ public final class ExecSettableFieldOperation extends
                           ContextEl _conf) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument arg_ = getCommonArgument(previous_, _conf);
-        boolean simple_ = false;
         if (resultCanBeSet()) {
-            simple_ = true;
-        }
-        if (simple_) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes);
         } else {
             setSimpleArgument(arg_, _conf, _nodes);
@@ -116,9 +112,8 @@ public final class ExecSettableFieldOperation extends
     }
     private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         Argument left_ = new Argument(_store);
-        Argument res_;
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _arg.getNames(), _cast);
 
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _arg.getNames(), _cast);
         if (_conf.callsOrException()) {
             return res_;
         }
@@ -126,9 +121,8 @@ public final class ExecSettableFieldOperation extends
     }
     private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post, byte _cast) {
         Argument left_ = new Argument(_store);
-        Argument res_;
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
 
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         getCommonSetting(_previous,_conf,res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

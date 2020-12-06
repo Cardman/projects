@@ -131,12 +131,7 @@ public final class ExecutingUtil {
         ExecRootBlock type_ = _e.getPair().getType();
         CustList<Argument> args_ = _e.getArguments();
         _context.setCallingState(null);
-        StringMap<String> fields_ = new StringMap<String>();
-        for (EntryCust<String, String> f: _e.getId().entryList()) {
-            fields_.addEntry(f.getKey(),ExecTemplates.quickFormat(type_,cl_,f.getValue()));
-        }
-        NewRecordPageEl page_;
-        page_ = new NewRecordPageEl(fields_,args_);
+        NewRecordPageEl page_ = new NewRecordPageEl(_e.getId(),args_);
         Struct str_ = NullStruct.NULL_VALUE;
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
@@ -165,9 +160,8 @@ public final class ExecutingUtil {
         ExecRootBlock type_ = _e.getPair().getType();
         Parameters args_ = _e.getArguments();
         _context.setCallingState(null);
-        CallConstructorPageEl page_;
         Argument global_ = _e.getCurrentObject();
-        page_ = new CallConstructorPageEl();
+        CallConstructorPageEl page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
             str_ = global_.getStruct();

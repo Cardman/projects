@@ -468,7 +468,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (ls_ instanceof LambdaFieldStruct) {
             LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
-            boolean aff_ = l_.isAffect();
             ClassField idField_ = l_.getFid();
             if (idField_ == null) {
                 Argument instance_ = l_.getInstanceCall();
@@ -489,12 +488,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int nbAncestors_ = l_.getAncestor();
             String clName_ = StringUtil.nullToEmpty(idField_.getClassName());
             Struct metaInfo_ = l_.getMetaInfo();
-            ReflectingType type_;
-            if (aff_) {
-                type_ = ReflectingType.SET_FIELD;
-            } else {
-                type_ = ReflectingType.GET_FIELD;
-            }
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
@@ -517,8 +510,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 realInstance_ = new Argument();
             }
             nList_.add(realInstance_);
+            ReflectingType type_;
+            boolean aff_ = l_.isAffect();
             if (aff_) {
+                type_ = ReflectingType.SET_FIELD;
                 nList_.add(ExecTemplates.getLastArgument(values_));
+            } else {
+                type_ = ReflectingType.GET_FIELD;
             }
             FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
             _conf.setCallingState(new CustomReflectField(type_, method_, nList_, true));
