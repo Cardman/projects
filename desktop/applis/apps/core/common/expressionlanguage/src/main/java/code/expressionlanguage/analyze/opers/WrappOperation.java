@@ -89,7 +89,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (getFirstChild() instanceof RefParamOperation || getFirstChild() instanceof AbstractCallFctOperation || getFirstChild() instanceof ExplicitOperatorOperation) {
+        if (getFirstChild() instanceof RefParamOperation || isLeftValue(getFirstChild())) {
             setResultClass(new AnaClassArgumentMatching(getFirstChild().getResultClass().getNames()));
             return;
         }
@@ -198,6 +198,10 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         setResultClass(new AnaClassArgumentMatching(var_.getClassName()));
+    }
+
+    private static boolean isLeftValue(OperationNode _ch) {
+        return _ch instanceof AbstractCallLeftOperation && !((AbstractCallLeftOperation) _ch).isErrLeftValue();
     }
 
     public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {

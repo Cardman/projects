@@ -45,12 +45,12 @@ public final class AffectationOperation extends MethodOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
         boolean ok_ = elt_ != null;
-        if (!ok_ || elt_ instanceof AbstractCallLeftOperation && ((AbstractCallLeftOperation)elt_).isErrLeftValue()) {
-            setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
+        if (!ok_ || isNotLeft(elt_)) {
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -58,8 +58,6 @@ public final class AffectationOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     "=");
             _page.getLocalizer().addError(un_);
-            IntTreeMap< String> ops_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -106,7 +104,8 @@ public final class AffectationOperation extends MethodOperation {
                 setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(), _page.getPrimitiveTypes()));
                 elt_.setVariable(true);
                 if (!clMatchLeft_.matchClass(clMatchRight_)) {
-                    setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
+                    IntTreeMap< String> ops_ = getOperations().getOperators();
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -115,8 +114,6 @@ public final class AffectationOperation extends MethodOperation {
                             StringUtil.join(clMatchRight_.getNames(),"&"),
                             StringUtil.join(clMatchLeft_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
-                    IntTreeMap< String> ops_ = getOperations().getOperators();
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                     int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
                     err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -153,7 +150,8 @@ public final class AffectationOperation extends MethodOperation {
             settableOp = cst_;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
-                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
+                IntTreeMap< String> ops_ = getOperations().getOperators();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -161,8 +159,6 @@ public final class AffectationOperation extends MethodOperation {
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _page.getLocalizer().addError(un_);
-                IntTreeMap< String> ops_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                 int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -178,12 +174,13 @@ public final class AffectationOperation extends MethodOperation {
         elt_.setVariable(true);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
 
         if (clMatchRight_.isVariable()) {
             if (!clMatchLeft_.isPrimitive(_page)) {
                 return;
             }
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_page.getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -192,8 +189,6 @@ public final class AffectationOperation extends MethodOperation {
                     StringUtil.join(clMatchRight_.getNames(),"&"),
                     StringUtil.join(clMatchLeft_.getNames(),"&"));
             _page.getLocalizer().addError(cast_);
-            IntTreeMap< String> ops_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -213,6 +208,8 @@ public final class AffectationOperation extends MethodOperation {
                 clMatchRight_.getImplicits().add(cl_);
                 clMatchRight_.setMemberId(res_.getMemberId());
             } else {
+                IntTreeMap< String> ops_ = getOperations().getOperators();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -221,8 +218,6 @@ public final class AffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),"&"),
                         StringUtil.join(clMatchLeft_.getNames(),"&"));
                 _page.getLocalizer().addError(cast_);
-                IntTreeMap< String> ops_ = getOperations().getOperators();
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
                 int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -230,13 +225,16 @@ public final class AffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
             }
         }
-        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         foundOffset = _page.getLocalizer().getCurrentLocationIndex();
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }
+    }
+
+    public static boolean isNotLeft(SettableElResult _elt) {
+        return _elt instanceof AbstractCallLeftOperation && ((AbstractCallLeftOperation) _elt).isErrLeftValue();
     }
 
     public static String processInfer(String _import, AnalyzedPageEl _page) {

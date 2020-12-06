@@ -4364,6 +4364,7 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         xml_.append("  $that $int s3 = $that(s2);\n");
         xml_.append("  $classchoice(ExTwo)$true($null)=$false;\n");
         xml_.append("  $superaccess(ExTwo)$true($null)=$false;\n");
+        xml_.append("  $that $int s4 = $that($classchoice(ExTwo)$true($null));\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo {\n");

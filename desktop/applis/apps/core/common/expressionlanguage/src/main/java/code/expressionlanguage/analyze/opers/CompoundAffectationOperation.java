@@ -53,7 +53,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
-        if (!(elt_ instanceof OperationNode) || elt_ instanceof AbstractCallLeftOperation && ((AbstractCallLeftOperation)elt_).isErrLeftValue()) {
+        if (!(elt_ instanceof OperationNode) || AffectationOperation.isNotLeft(elt_)) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
