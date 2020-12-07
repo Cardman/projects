@@ -394,9 +394,9 @@ public final class FileResolver {
             if (tr_.isEmpty()) {
                 return EndInstruction.DECLARE_TYPE;
             }
-            if (startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
+            if (ParsedAnnotations.startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
                 ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
-                par_.parse();
+                par_.parse(keyWords_.getKeyWordClass());
                 tr_ = par_.getAfter();
             }
             String word_ = EMPTY_STRING;
@@ -454,9 +454,9 @@ public final class FileResolver {
             return EndInstruction.NO_DECLARE_TYPE;
         }
         String trTmp_ = tr_;
-        if (startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
+        if (ParsedAnnotations.startsWithAnnot(tr_, keyWords_.getKeyWordClass())) {
             ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
-            par_.parse();
+            par_.parse(keyWords_.getKeyWordClass());
             tr_ = par_.getAfter();
         }
         String word_ = EMPTY_STRING;
@@ -751,10 +751,10 @@ public final class FileResolver {
                     currentParent_ = typeBlock_;
                 }
             } else {
-                if (startsWithAnnot(trimType_, keyWords_.getKeyWordClass())) {
+                if (ParsedAnnotations.startsWithAnnot(trimType_, keyWords_.getKeyWordClass())) {
                     // accessOffesType_ == nextIndex_ == i_ + 1;
                     ParsedAnnotations par_ = new ParsedAnnotations(afterAccessType_, instructionRealLocation_ + _offset);
-                    par_.parse();
+                    par_.parse(keyWords_.getKeyWordClass());
                     annotationsIndexesTypes_ = par_.getAnnotationsIndexes();
                     annotationsTypes_ = par_.getAnnotations();
                     afterAccessType_ = par_.getAfter();
@@ -1066,7 +1066,7 @@ public final class FileResolver {
                     int typeOffset_ = instructionLocation_;
                     if (trimmedInstruction_.charAt(0) == ANNOT) {
                         ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_+_offset);
-                        par_.parse();
+                        par_.parse("");
                         annotationsIndexes_ = par_.getAnnotationsIndexes();
                         annotations_ = par_.getAnnotations();
                         found_ = par_.getAfter();
@@ -1224,7 +1224,7 @@ public final class FileResolver {
                 StringList annotations_ = new StringList();
                 if (trimmedInstruction_.charAt(0) == ANNOT) {
                     ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_+_offset);
-                    par_.parse();
+                    par_.parse("");
                     annotationsIndexes_ = par_.getAnnotationsIndexes();
                     annotations_ = par_.getAnnotations();
                     found_ = par_.getAfter();
@@ -1453,9 +1453,9 @@ public final class FileResolver {
         Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         int typeOffset_ = _instructionLocation;
-        if (startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass())) {
+        if (ParsedAnnotations.startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass())) {
             ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionLocation+_offset);
-            par_.parse();
+            par_.parse(keyWords_.getKeyWordClass());
             annotationsIndexes_ = par_.getAnnotationsIndexes();
             annotations_ = par_.getAnnotations();
             trimmedInstruction_ = par_.getAfter();
@@ -1655,7 +1655,7 @@ public final class FileResolver {
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         if (trimmedInstruction_.charAt(0) == ANNOT) {
             ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, accessOffest_+_offset);
-            par_.parse();
+            par_.parse("");
             annotationsIndexes_ = par_.getAnnotationsIndexes();
             annotations_ = par_.getAnnotations();
             trimmedInstruction_ = par_.getAfter();
@@ -2969,10 +2969,6 @@ public final class FileResolver {
             return false;
         }
         return ((EnumBlock)_bl).isCanHaveElements();
-    }
-
-    private static boolean startsWithAnnot(String _trimmedInstruction, String _keyWordClass) {
-        return _trimmedInstruction.charAt(0) == ANNOT && !StringExpUtil.startsWithArobaseKeyWord(_trimmedInstruction, _keyWordClass);
     }
 
 }

@@ -25,7 +25,7 @@ public final class ParsedAnnotations {
         instruction = _instruction;
         instructionLocation = _instructionLocation;
     }
-    public void parse() {
+    public void parse(String _keyWordClass) {
         int lenInst_ = instruction.length();
         int j_ = 0;
         int nbPars_ = 0;
@@ -107,7 +107,7 @@ public final class ParsedAnnotations {
                     String after_ = instruction.substring(j_+1);
                     if (after_.isEmpty() || !isPart(after_.charAt(0))) {
                         String afterTrim_ = after_.trim();
-                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && afterTrim_.charAt(0) != ANNOT  && afterTrim_.charAt(0) != BEGIN_CALLING) {
+                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnotFilter(afterTrim_,_keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
                             annotation_.append(cur_);
                             annotations.add(annotation_.toString());
                             index = j_ + instructionLocation;
@@ -128,7 +128,7 @@ public final class ParsedAnnotations {
                 }
                 if (cur_ == END_CALLING) {
                     String after_ = instruction.substring(j_+1).trim();
-                    if (after_.isEmpty() || after_.charAt(0) != ANNOT) {
+                    if (after_.isEmpty() || !startsWithAnnotFilter(after_,_keyWordClass)) {
                         annotation_.append(cur_);
                         annotations.add(annotation_.toString());
                         index = j_ + instructionLocation;
@@ -184,5 +184,13 @@ public final class ParsedAnnotations {
     public int getIndex() {
         return index;
     }
-    
+    private static boolean startsWithAnnotFilter(String _trimmedInstruction, String _keyWordClass) {
+        if (_keyWordClass.isEmpty()) {
+            return _trimmedInstruction.charAt(0) == ANNOT;
+        }
+        return startsWithAnnot(_trimmedInstruction, _keyWordClass);
+    }
+    static boolean startsWithAnnot(String _trimmedInstruction, String _keyWordClass) {
+        return _trimmedInstruction.charAt(0) == ANNOT && !StringExpUtil.startsWithArobaseKeyWord(_trimmedInstruction, _keyWordClass);
+    }
 }

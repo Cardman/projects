@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.IntStruct;
@@ -722,6 +721,30 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return ((Annot)$class(Rec).getAnnotations()[0]).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@Annot(2)\n");
+        xml_.append("@$class pkg.Rec {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append(" $int field();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void recordTest() {

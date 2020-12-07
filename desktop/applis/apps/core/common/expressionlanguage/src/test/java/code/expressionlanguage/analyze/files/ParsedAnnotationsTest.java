@@ -14,7 +14,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -30,7 +30,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -46,7 +46,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot({})",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -62,7 +62,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -78,7 +78,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\\\"\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -94,7 +94,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\\\\\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -110,7 +110,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot('\"')",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -126,7 +126,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot('\\\\')",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -142,7 +142,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"s\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -158,7 +158,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=1)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -175,7 +175,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -191,7 +191,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -208,7 +208,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg .MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -224,7 +224,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg .MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -240,7 +240,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot ()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -257,7 +257,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo",p_.getAnnotations().last());
@@ -276,7 +276,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo",p_.getAnnotations().last());
@@ -295,7 +295,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo()",p_.getAnnotations().last());
@@ -313,7 +313,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -329,7 +329,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(@MySec())",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -345,7 +345,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=`first`)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -361,7 +361,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=`first``second`)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -376,7 +376,7 @@ public final class ParsedAnnotationsTest {
         file_.append("@pkg.MyAnnot\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -391,7 +391,7 @@ public final class ParsedAnnotationsTest {
         file_.append("@pkg.MyAnnot");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -406,7 +406,7 @@ public final class ParsedAnnotationsTest {
         file_.append("@pkg.MyAnnot()\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -421,7 +421,7 @@ public final class ParsedAnnotationsTest {
         file_.append("@pkg.MyAnnot()");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -435,7 +435,7 @@ public final class ParsedAnnotationsTest {
         file_.append("pkgtwo.MyClassTwo;\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(0,p_.getAnnotations().size());
         assertEq(0,p_.getAnnotationsIndexes().size());
         assertEq("",p_.getAfter());
@@ -450,7 +450,7 @@ public final class ParsedAnnotationsTest {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;".length();
         ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse();
+        p_.parse("class");
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
