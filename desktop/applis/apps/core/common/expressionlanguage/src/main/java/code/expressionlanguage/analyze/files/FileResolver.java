@@ -2487,7 +2487,7 @@ public final class FileResolver {
                 if (nextIndexVar_ < 0) {
                     ok_ = false;
                 } else {
-                    firstVar_ = variableName_.substring(0, nextIndexVar_);
+                    firstVar_ = variableName_.substring(0, nextIndexVar_).trim();
                     afterFirst_ = variableName_.substring(nextIndexVar_+1);
                 }
                 String declaringTypeSec_ = getFoundType(afterFirst_);
