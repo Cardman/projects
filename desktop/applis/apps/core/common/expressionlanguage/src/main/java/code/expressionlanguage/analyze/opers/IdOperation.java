@@ -17,9 +17,11 @@ public final class IdOperation extends AbstractUnaryOperation {
 
     private boolean standard = true;
 
+    private int delta;
     public IdOperation(int _index,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
+            int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
+        delta = _delta;
     }
 
     @Override
@@ -179,4 +181,7 @@ public final class IdOperation extends AbstractUnaryOperation {
         return false;
     }
 
+    public int getDelta() {
+        return delta;
+    }
 }

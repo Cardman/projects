@@ -268,7 +268,7 @@ public abstract class OperationNode {
                 return new StandardInstancingOperation(_index, _indexChild, _m, _op);
             }
             if (fctName_.isEmpty()) {
-                return new IdOperation(_index, _indexChild, _m, _op);
+                return new IdOperation(_index, _indexChild, _m, _op,_op.getFctName().length());
             }
             if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
                 return new EnumValueOfOperation(_index, _indexChild, _m, _op);

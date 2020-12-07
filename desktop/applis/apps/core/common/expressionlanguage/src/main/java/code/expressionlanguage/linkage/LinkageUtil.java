@@ -3359,7 +3359,7 @@ public final class LinkageUtil {
         }
         if (_val instanceof IdOperation) {
             if (!_val.getErrs().isEmpty()) {
-                int begin_ = _sum + _val.getIndexInEl();
+                int begin_ = _sum + _val.getIndexInEl() + ((IdOperation)_val).getDelta();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ 1));
             }
