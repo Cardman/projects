@@ -1,18 +1,16 @@
 package code.expressionlanguage.exec.calls.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.util.CustList;
 
-public final class CustomReflectField extends AbstractReflectElement {
+public abstract class CustomAbstractReflectField extends AbstractReflectElement {
 
     private final ReflectingType reflect;
     private final FieldMetaInfo gl;
 
-    public CustomReflectField(ReflectingType _reflect,FieldMetaInfo _gl,
-                              CustList<Argument> _arguments, boolean _lambda) {
-        super(_arguments,_lambda);
+    public CustomAbstractReflectField(ReflectingType _reflect, FieldMetaInfo _gl,
+                                      boolean _lambda) {
+        super(_lambda);
         reflect = _reflect;
         gl = _gl;
     }
@@ -25,4 +23,5 @@ public final class CustomReflectField extends AbstractReflectElement {
     public ReflectingType getReflect() {
         return reflect;
     }
+
 }

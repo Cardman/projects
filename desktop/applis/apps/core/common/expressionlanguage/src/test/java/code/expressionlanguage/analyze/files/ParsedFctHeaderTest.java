@@ -37,7 +37,7 @@ public final class ParsedFctHeaderTest {
     @Test
     public void test6() {
         ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(->",0,':');
+        p_.parseAnonymous(0,"(->",0,':',"that");
         assertTrue(!p_.isOk());
     }
 }

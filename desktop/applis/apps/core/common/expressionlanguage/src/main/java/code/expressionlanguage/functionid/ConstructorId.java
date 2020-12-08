@@ -64,14 +64,6 @@ public final class ConstructorId implements Identifiable {
         return new ConstructorId(_class, classNames,refParams, vararg);
     }
 
-    public boolean isRef() {
-        for (boolean r: refParams) {
-            if (r) {
-                return true;
-            }
-        }
-        return false;
-    }
     @Override
     public String getSignature(ContextEl _ana) {
         return getSignature(_ana.getStandards().getDisplayedStrings());

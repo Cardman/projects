@@ -199,11 +199,12 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void setVarargs(StringList _paramTypes, Ints _paramTypesOffset,
                            StringList _paramNames, Ints _paramNamesOffset,
-                           BooleanList _refParams, String _retType, int _retTypeOffset) {
+                           BooleanList _refParams, boolean _refRef, String _retType, int _retTypeOffset) {
         varargs = setupParam(_paramTypes,_paramNames, _refParams);
         parametersTypesOffset = _paramTypesOffset;
         parametersNamesOffset = _paramNamesOffset;
         returnType = _retType;
+        retRef = _refRef;
         returnTypeOffset = _retTypeOffset;
     }
 

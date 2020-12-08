@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -682,7 +681,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_)));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectField(ReflectingType.GET_FIELD, field_, ExecTemplates.getArgs(_args), false));
+            _cont.setCallingState(new CustomReflectGetField(ReflectingType.GET_FIELD, field_, new Argument(_args[0]), false));
             return result_;
         }
         if (StringUtil.quickEq(aliasSetField_, name_)) {
@@ -690,7 +689,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,field_)));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectField(ReflectingType.SET_FIELD, field_, ExecTemplates.getArgs(_args), false));
+            _cont.setCallingState(new CustomReflectSetField(ReflectingType.SET_FIELD, field_, new Argument(_args[0]),new Argument(_args[1]), false));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsStatic)) {
@@ -760,7 +759,7 @@ public final class AliasReflection {
         String aliasGetDefaultValue_ = lgNames_.getContent().getReflect().getAliasGetDefaultValue();
         MethodMetaInfo method_ = NumParsers.getMethod(_struct);
         if (StringUtil.quickEq(aliasGetDefaultValue_, name_)) {
-            _cont.setCallingState(new CustomReflectMethodDefVal(method_, ExecTemplates.getArgs(_args), false));
+            _cont.setCallingState(new CustomReflectMethodDefVal(method_, false));
             return result_;
         }
         boolean invoke_ = StringUtil.quickEq(aliasInvoke_, name_);
@@ -768,16 +767,16 @@ public final class AliasReflection {
         if (invoke_ || invokeDirect_) {
             if (method_.isInvokable()) {
                 if (method_.isDirectCast()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
                 if (method_.getStdCallee() != null) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
                 ExecRootBlock e_ = method_.getPair().getType();
                 if (e_ instanceof ExecAnnotationBlock) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
             }
@@ -789,14 +788,14 @@ public final class AliasReflection {
             }
             if (method_.getPair().getFct() != null) {
                 if (method_.isExpCast()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
                 if (method_.isStaticCall()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, method_, ExecTemplates.getArgs(_args), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                 return result_;
             }
         }
@@ -807,19 +806,24 @@ public final class AliasReflection {
             }
             if (method_.getPair().getFct() != null) {
                 if (method_.isExpCast()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
                 if (method_.isStaticCall()) {
-                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, ExecTemplates.getArgs(_args), false));
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                     return result_;
                 }
-                _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, method_, ExecTemplates.getArgs(_args), false));
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, method_, new Argument(_args[0]),new Argument(_args[1]), false));
                 return result_;
             }
         }
         if (invoke_ || invokeDirect_) {
-            ExecInvokingOperation.redirectGenerated(_cont, ExecTemplates.getArgs(_args),false, method_);
+            ExecRootBlock e_ = method_.getPair().getType();
+            if (e_ != null) {
+                _cont.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, method_, new Argument(_args[0]),new Argument(_args[1]),false));
+                return result_;
+            }
+            _cont.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, method_, new Argument(_args[0]),new Argument(_args[1]),false));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsAbstract)) {
@@ -1944,7 +1948,7 @@ public final class AliasReflection {
                 _cont.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,ctor_)));
                 return result_;
             }
-            _cont.setCallingState(new CustomReflectConstructor(ctor_, ExecTemplates.getArgs(_args), false));
+            _cont.setCallingState(new CustomReflectConstructor(ctor_, _args[0], false));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsVarargs)) {

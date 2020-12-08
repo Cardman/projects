@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
 public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
-    public DirectEnumMethods(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public DirectEnumMethods(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override

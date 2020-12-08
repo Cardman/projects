@@ -86,7 +86,11 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         String fctBase_ = stds_.getContent().getReflect().getAliasFct();
         StringList paramsReturn_ = new StringList();
         IdentifiableUtil.appendLeftPart(paramsReturn_, _shortId);
-        paramsReturn_.add(_returnType);
+        if (_shortId.isRetRef()) {
+            paramsReturn_.add("~"+_returnType);
+        } else {
+            paramsReturn_.add(_returnType);
+        }
         return StringUtil.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 }

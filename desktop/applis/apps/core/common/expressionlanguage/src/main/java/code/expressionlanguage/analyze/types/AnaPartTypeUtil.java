@@ -45,7 +45,8 @@ public final class AnaPartTypeUtil {
                     }
                 }
                 if (current_ instanceof AnaEmptyWildCardPart
-                        || current_ instanceof AnaWildCardPartType) {
+                        || current_ instanceof AnaWildCardPartType
+                        || current_ instanceof AnaRefPartType) {
                     if (!(current_.getParent() instanceof AnaTemplatePartType)) {
                         return false;
                     }
@@ -71,10 +72,7 @@ public final class AnaPartTypeUtil {
                 break;
             }
         }
-        if (root_ instanceof AnaWildCardPartType) {
-            return root_.getParent() instanceof AnaTemplatePartType;
-        }
-        return true;
+        return !(root_ instanceof AnaWildCardPartType) && !(root_ instanceof AnaRefPartType);
     }
 
     static boolean isKoForWord(String _type, CustList<String> _excludedWords) {
@@ -313,6 +311,9 @@ public final class AnaPartTypeUtil {
             return true;
         }
         if (_current instanceof AnaWildCardPartType) {
+            return true;
+        }
+        if (_current instanceof AnaRefPartType) {
             return true;
         }
         return _current instanceof AnaEmptyWildCardPart;
@@ -627,7 +628,7 @@ public final class AnaPartTypeUtil {
     private static void appendQuickParts(AnaPartType _root, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         AnaPartType current_ = _root;
         while (true) {
-            if (current_ instanceof AnaWildCardPartType) {
+            if (current_ instanceof AnaWildCardPartType||current_ instanceof AnaRefPartType) {
                 appendOffset(_offs, current_);
             }
             AnaPartType child_ = current_.getFirstChild();

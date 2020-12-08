@@ -526,7 +526,7 @@ public final class AliasMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
             _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
@@ -559,7 +559,7 @@ public final class AliasMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
             ExecTemplates.wrapAndCall(p_, cl_,argSeed_,argsToPass_,_cont);

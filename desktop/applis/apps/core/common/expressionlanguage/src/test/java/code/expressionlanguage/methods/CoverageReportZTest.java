@@ -6122,6 +6122,114 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage542Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 7;\n");
+        xml_.append("  (that int u:void)->{u=8;}.call(that(t));\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static void exmeth(that int t){\n");
+        xml_.append("  t=8;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(int t){\n");
+        xml_.append("  return t+8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">t</a> </span>=<span class=\"f\"> 7</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"t\">(that int <a name=\"m76\">u</a>:void)<a name=\"m83\">-&gt;</a>{<span class=\"f\"><span class=\"f\"><a href=\"#m76\">u</a></span>=<span class=\"f\">8</span></span>;}</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">that(<span class=\"f\"><a href=\"#m57\">t</a></span>)</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m57\">t</a></span>;\n" +
+                " }\n" +
+                " public static void <a name=\"m142\">exmeth</a>(that int <a name=\"m158\">t</a>){\n" +
+                "  <span class=\"n\"><span class=\"n\"><a href=\"#m158\">t</a></span>=<span class=\"n\">8</span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m191\">exmeth</a>(int <a name=\"m202\">t</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><a href=\"#m202\">t</a></span>+<span class=\"n\">8</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage543Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Inner v = new Inner(7);\n");
+        xml_.append("  (that Inner u:void)->{u=new Inner(8);}.call(that(v));\n");
+        xml_.append("  return v.t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static class Inner{\n");
+        xml_.append("  int t;\n");
+        xml_.append("  Inner(int p){\n");
+        xml_.append("   t = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex..Inner\" href=\"#m171\">Inner</a> <span class=\"f\"><span class=\"f\"><a name=\"m59\">v</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex..Inner.pkg.Ex..Inner(int)\" href=\"#m189\">new</a> <a title=\"pkg.Ex..Inner\" href=\"#m171\">Inner</a>(<span class=\"f\">7</span>)</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"t\">(that <a title=\"pkg.Ex..Inner\" href=\"#m171\">Inner</a> <a name=\"m91\">u</a>:void)<a name=\"m98\">-&gt;</a>{<span class=\"f\"><span class=\"f\"><a href=\"#m91\">u</a></span>=<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner(int)\" href=\"#m189\">new</a> <a title=\"pkg.Ex..Inner\" href=\"#m171\">Inner</a>(<span class=\"f\">8</span>)</span></span>;}</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">that(<span class=\"f\"><a href=\"#m59\">v</a></span>)</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m59\">v</a></span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.t\" href=\"#m184\">t</a></span></span>;\n" +
+                " }\n" +
+                " public static class <a name=\"m171\">Inner</a>{\n" +
+                "  int <span class=\"f\"><a name=\"m184\">t</a></span>;\n" +
+                "  <a name=\"m189\">Inner(</a>int <a name=\"m199\">p</a>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex..Inner.t\" href=\"#m184\">t</a> </span>=<span class=\"f\"> <a href=\"#m199\">p</a></span></span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage544Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int t = 7;\n");
+        xml_.append("  app((that u:void)->{u=8;},that(t));\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static void app(Fct<~int,void> f,that int u){\n");
+        xml_.append("  f.call(that(u));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">t</a> </span>=<span class=\"f\"> 7</span></span>;\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ex.static app($core.Fct&lt;~int,void&gt;,~int)\" href=\"#m137\">app</a>(<span class=\"f\"><span class=\"t\">(that <a name=\"m76\">u</a>:void)<a name=\"m83\">-&gt;</a>{<span class=\"f\"><span class=\"f\"><a href=\"#m76\">u</a></span>=<span class=\"f\">8</span></span>;}</span></span>,<span class=\"f\">that(<span class=\"f\"><a href=\"#m57\">t</a></span>)</span>)</span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m57\">t</a></span>;\n" +
+                " }\n" +
+                " public static void <a name=\"m137\">app</a>(Fct&lt;~int,void&gt; <a name=\"m156\">f</a>,that int <a name=\"m167\">u</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m156\">f</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">that(<span class=\"f\"><a href=\"#m167\">u</a></span>)</span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

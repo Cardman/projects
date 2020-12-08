@@ -64,6 +64,9 @@ abstract class ExecPartType {
         if (_analyze.getPrio() == ExecPartTypeUtil.ARR_PRIO) {
             return new ExecArraryPartType(_parent, _index, previousOperator_);
         }
+        if (StringUtil.quickEq(operators_.firstValue(),"~")) {
+            return new ExecRefPartType(_parent, _index, operators_.firstValue(), previousOperator_);
+        }
         return new ExecWildCardPartType(_parent, _index, operators_.firstValue(), previousOperator_);
     }
 

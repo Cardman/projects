@@ -6610,11 +6610,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(new StringMap<String>());
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(Argument.createVoid());
         ArrayStruct s_ = args();
-        args_.add(new Argument(s_));
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(cont_.getCallingState());
@@ -6626,11 +6623,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(new StringMap<String>());
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
-        CustList<Argument> args_ = new CustList<Argument>();
-        args_.add(Argument.createVoid());
         ArrayStruct s_ = args();
-        args_.add(new Argument(s_));
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,args_,false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(cont_.getCallingState());

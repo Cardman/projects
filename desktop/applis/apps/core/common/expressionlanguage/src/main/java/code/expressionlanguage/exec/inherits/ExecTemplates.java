@@ -1702,15 +1702,6 @@ public final class ExecTemplates {
         return classes_;
     }
 
-    public static ArrayStruct getArray(CustList<Argument> _args, String _cl) {
-        int len_ = _args.size();
-        ArrayStruct classes_ = new ArrayStruct(len_,_cl);
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_.set(i, _args.get(i).getStruct());
-        }
-        return classes_;
-    }
-
     public static CustList<Argument> getArgs(Struct... _args) {
         int len_ = _args.length;
         CustList<Argument> classes_ = new CustList<Argument>(new CollCapacity(len_));

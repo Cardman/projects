@@ -52,23 +52,25 @@ public final class AnaClassArgumentMatching {
     }
 
     public boolean isNumericInt(AnalyzedPageEl _page) {
+        return isNumericInt(getSingleNameOrEmpty(),_page);
+    }
+    public static boolean isNumericInt(String _p, AnalyzedPageEl _page) {
         String intPr_ = _page.getAliasPrimInteger();
         String shortPr_ = _page.getAliasPrimShort();
         String charPr_ = _page.getAliasPrimChar();
         String bytePr_ = _page.getAliasPrimByte();
-        AnaClassArgumentMatching prim_ = AnaTypeUtil.toPrimitive(this, _page);
-        if (prim_.matchClass(intPr_)) {
+        String prim_ = AnaTypeUtil.toPrimitive(_p, _page.getPrimitiveTypes());
+        if (StringUtil.quickEq(prim_,intPr_)) {
             return true;
         }
-        if (prim_.matchClass(shortPr_)) {
+        if (StringUtil.quickEq(prim_,shortPr_)) {
             return true;
         }
-        if (prim_.matchClass(charPr_)) {
+        if (StringUtil.quickEq(prim_,charPr_)) {
             return true;
         }
-        return prim_.matchClass(bytePr_);
+        return StringUtil.quickEq(prim_,bytePr_);
     }
-
     public boolean isArray() {
         for (String b: className) {
             if (b.startsWith(ARR_CLASS)) {

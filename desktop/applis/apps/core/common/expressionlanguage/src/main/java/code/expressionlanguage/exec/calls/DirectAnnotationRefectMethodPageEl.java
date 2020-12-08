@@ -10,8 +10,8 @@ import code.util.CustList;
 
 public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectAnnotationRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public DirectAnnotationRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override

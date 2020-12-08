@@ -3462,4 +3462,208 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report755Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  Param<~$int> t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Param<T> {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " {\n" +
+                "  <a title=\"pkg.Param\" href=\"#m68\">Param</a>&lt;<a title=\"The type Param&lt;~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt; <a name=\"m45\">t</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m68\">pkg.Param</a>&lt;<a name=\"m78\">T</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report756Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  Object t=$(Param<~~$int>)$null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Param<T> {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " {\n" +
+                "  Object <a name=\"m39\">t</a>=$(<a title=\"pkg.Param\" href=\"#m84\">Param</a>&lt;~<a title=\"The type Param&lt;~~$int&gt; is unknown.\" class=\"e\">~</a>$int&gt;)$null;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m84\">pkg.Param</a>&lt;<a name=\"m94\">T</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report757Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  Object t=$($Fct<~>)$null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Param<T> {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " {\n" +
+                "  Object <a name=\"m39\">t</a>=$($Fct<a title=\"The type $Fct&lt;~&gt; is unknown.\" class=\"e\">&lt;</a>~&gt;)$null;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m78\">pkg.Param</a>&lt;<a name=\"m88\">T</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report758Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $lambda(Ex,exmeth,~$int).call(t);\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int t){\n");
+        xml_.append("  t=8;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($int t){\n");
+        xml_.append("  $return t+8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  $int <a name=\"m63\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#m145\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type $int cannot be implicitly cast to ~$int\" class=\"e\">(</a><a href=\"#m63\">t</a>);\n" +
+                "  $return <a href=\"#m63\">t</a>;\n" +
+                " }\n" +
+                " $public $static $void <a name=\"m145\">exmeth</a>($that $int <a name=\"m163\">t</a>){\n" +
+                "  <a href=\"#m163\">t</a>=8;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m199\">exmeth</a>($int <a name=\"m211\">t</a>){\n" +
+                "  $return <a href=\"#m211\">t</a>+8;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report759Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Object t = 7;\n");
+        xml_.append("  $lambda(Ex,exmeth,~$int).call($that(t));\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int t){\n");
+        xml_.append("  t=8;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($int t){\n");
+        xml_.append("  $return t+8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  Object <a name=\"m65\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth(~$int)\" href=\"#m154\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,~$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to ~$int\" class=\"e\">(</a>$that(<a href=\"#m65\">t</a>));\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                " $public $static $void <a name=\"m154\">exmeth</a>($that $int <a name=\"m172\">t</a>){\n" +
+                "  <a href=\"#m172\">t</a>=8;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m208\">exmeth</a>($int <a name=\"m220\">t</a>){\n" +
+                "  $return <a href=\"#m220\">t</a>+8;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report760Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  Object t = 7;\n");
+        xml_.append("  $lambda(Ex,exmeth,$int).call($that(t));\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int t){\n");
+        xml_.append("  t=8;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($int t){\n");
+        xml_.append("  $return t+8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
+                "  Object <a name=\"m65\">t</a> = 7;\n" +
+                "  <a title=\"pkg.Ex.$static exmeth($int)\" href=\"#m207\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,exmeth,$int).<b>call</b><a title=\"The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">(</a>$that(<a href=\"#m65\">t</a>));\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                " $public $static $void <a name=\"m153\">exmeth</a>($that $int <a name=\"m171\">t</a>){\n" +
+                "  <a href=\"#m171\">t</a>=8;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m207\">exmeth</a>($int <a name=\"m219\">t</a>){\n" +
+                "  $return <a href=\"#m219\">t</a>+8;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report761Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("  $Fct<$int> t=$($Fct<~$int>)$null;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                "  $Fct&lt;$int&gt; <a name=\"m37\">t</a><a title=\"The type java.lang.$Fct&lt;~$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;$int&gt;\" class=\"e\">=</a>$($Fct&lt;~$int&gt;)$null;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report762Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("  $Fct<~$int> t=$($Fct<$int>)$null;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                "  $Fct&lt;~$int&gt; <a name=\"m38\">t</a><a title=\"The type java.lang.$Fct&lt;$int&gt; cannot be implicitly cast to java.lang.$Fct&lt;~$int&gt;\" class=\"e\">=</a>$($Fct&lt;$int&gt;)$null;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

@@ -116,6 +116,9 @@ public final class ExecPartTypeUtil {
         if (_current instanceof ExecWildCardPartType) {
             return true;
         }
+        if (_current instanceof ExecRefPartType) {
+            return true;
+        }
         return _current instanceof ExecEmptyWildCardPart;
     }
     public static String processPrettyType(String _input) {
@@ -337,6 +340,14 @@ public final class ExecPartTypeUtil {
             }
             a_.setPrio(WILD_CARD_PRIO);
             a_.setupUnaryValuesExec(_string, Templates.SUP_TYPE);
+            return a_;
+        }
+        if (_string.trim().startsWith("~")) {
+            if (StringUtil.quickEq(_string.trim(), "~")) {
+                a_.setError(true);
+            }
+            a_.setPrio(WILD_CARD_PRIO);
+            a_.setupUnaryValuesExec(_string, "~");
             return a_;
         }
         StrTypes operators_ = a_.getOperators();

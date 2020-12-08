@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
@@ -14,29 +13,14 @@ import code.util.CustList;
 public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     private boolean direct;
-    public CastRefectMethodPageEl(boolean _direct, CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public CastRefectMethodPageEl(boolean _direct, Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
         direct = _direct;
     }
 
     @Override
     boolean initType(ContextEl _cont) {
-        MethodMetaInfo method_ = getMetaInfo();
-        if (direct) {
-            return false;
-        }
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(method_.getClassName(), _cont);
-        if (res_.isEmpty()) {
-            String null_;
-            null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, method_.getClassName(), null_)));
-            return true;
-        }
-        if (!StringExpUtil.customCast(res_)) {
-            return false;
-        }
-        String paramNameOwner_ = _cont.formatVarType(res_);
-        return _cont.getExiting().hasToExit(paramNameOwner_);
+        return initType(_cont,direct);
     }
 
     @Override
@@ -51,14 +35,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
-        if (res_.isEmpty()) {
-            String null_;
-            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_)));
-            return Argument.createVoid();
-        }
-        return ExecExplicitOperation.prepare(_context.getExiting(),getPair(),direct,_args,res_,res_,_context);
+        return prepareCast(_context, _className, _args, direct);
     }
 
     @Override

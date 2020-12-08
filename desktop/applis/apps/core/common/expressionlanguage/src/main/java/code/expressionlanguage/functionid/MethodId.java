@@ -87,6 +87,13 @@ public final class MethodId implements Identifiable {
     public static MethodId to(MethodAccessKind _access, String _name,MethodId _id) {
         return new MethodId(_id.retRef, _access, _name, _id.classNames,_id.refParams, _id.vararg);
     }
+    public MethodId prepend(String _name,String _type, boolean _ref) {
+        StringList types_ = new StringList(classNames);
+        BooleanList refs_ = new BooleanList(refParams);
+        types_.add(0,_type);
+        refs_.add(0,_ref);
+        return new MethodId(retRef, kind, _name, types_,refs_, vararg);
+    }
 
     public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {
         if (_context == MethodAccessKind.STATIC) {

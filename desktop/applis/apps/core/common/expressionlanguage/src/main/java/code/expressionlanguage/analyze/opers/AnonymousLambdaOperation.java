@@ -255,7 +255,11 @@ public final class AnonymousLambdaOperation extends
             for (int i = 0; i < len_; i++) {
                 String before_ = parTypes_.get(i);
                 if (before_.isEmpty()) {
-                    feed_.add(modifiedArgCandidates_.get(i));
+                    if (modifiedArgCandidates_.get(i).startsWith("~")) {
+                        feed_.add(modifiedArgCandidates_.get(i).substring(1));
+                    } else {
+                        feed_.add(modifiedArgCandidates_.get(i));
+                    }
                     block.getPartOffsetsParams().add(new CustList<PartOffset>());
                 } else {
                     feed_.add(block.buildInternParam(offestsTypes_.get(i),before_, _page));
@@ -263,22 +267,31 @@ public final class AnonymousLambdaOperation extends
             }
             String retType_;
             if (!parse.getReturnType().isEmpty()) {
-                retType_ = block.buildInternRet(parse.getReturnOffest(),parse.getReturnType(), _page);
+                String void_ = _page.getAliasVoid();
+                if (StringUtil.quickEq(parse.getReturnType().trim(), void_)) {
+                    retType_ = void_;
+                } else {
+                    retType_ = block.buildInternRet(parse.getReturnOffest(), parse.getReturnType(), _page);
+                }
             } else {
-                retType_ = modifiedArgCandidates_.last();
+                if (modifiedArgCandidates_.last().startsWith("~")) {
+                    retType_ = modifiedArgCandidates_.last().substring(1);
+                } else {
+                    retType_ = modifiedArgCandidates_.last();
+                }
             }
             block.getImportedParametersTypes().clear();
             block.getImportedParametersTypes().addAllElts(feed_);
             block.setImportedReturnType(retType_);
             block.setVarargs(parse.getParametersType(),parse.getOffestsTypes(),
                     parse.getParametersName(),parse.getOffestsParams(),
-                    parse.getParametersRef(), parse.getReturnType(), parse.getReturnOffest());
+                    parse.getParametersRef(),parse.isRetRef(), parse.getReturnType(), parse.getReturnOffest());
             built_ = true;
         }
         if (!built_) {
             block.setVarargs(parse.getParametersType(), parse.getOffestsTypes(),
                     parse.getParametersName(), parse.getOffestsParams(),
-                    parse.getParametersRef(), parse.getReturnType(), parse.getReturnOffest());
+                    parse.getParametersRef(),parse.isRetRef(), parse.getReturnType(), parse.getReturnOffest());
             block.buildInternImportedTypes(_page);
         }
         globalType_.validateParameters(block, _page);

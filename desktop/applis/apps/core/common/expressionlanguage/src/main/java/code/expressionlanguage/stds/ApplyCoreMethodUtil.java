@@ -123,7 +123,7 @@ public final class ApplyCoreMethodUtil {
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
             CustList<Argument> ar_ = arr_.listArgs();
-            res_.setResult(ExecInvokingOperation.prepareCallDyn(new Argument(_struct), ar_, _cont).getStruct());
+            res_.setResult(ExecInvokingOperation.prepareCallDynReflect(new Argument(_struct), ar_, _cont).getStruct());
             return res_;
         }
         if (StringUtil.quickEq(type_, ref_.getAliasField())) {

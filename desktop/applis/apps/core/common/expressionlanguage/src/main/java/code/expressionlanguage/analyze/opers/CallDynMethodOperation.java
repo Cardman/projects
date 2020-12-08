@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -19,14 +20,17 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class CallDynMethodOperation extends InvokingOperation {
+public final class CallDynMethodOperation extends InvokingOperation implements SettableElResult,AbstractCallLeftOperation {
     private String sepErr = "";
     private boolean noNeed;
     private int indexCh=-1;
     private String fctName;
+    private AnaArrContent arrContent;
+    private boolean errLeftValue;
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        arrContent = new AnaArrContent();
     }
 
     @Override
@@ -35,6 +39,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo())) {
+            errLeftValue = true;
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -52,6 +57,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             return;
         }
         if (StringUtil.quickEq(fctName_, _page.getAliasInstance())) {
+            errLeftValue = true;
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -69,6 +75,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             return;
         }
         if (!StringUtil.quickEq(fctName_, _page.getAliasCall())) {
+            errLeftValue = true;
             FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_page.getLocalizer().getCurrentFileName());
             und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -89,10 +96,12 @@ public final class CallDynMethodOperation extends InvokingOperation {
             firstArgs_.add(o.getResultClass());
         }
         if (all_.size() == 1) {
+            errLeftValue = true;
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         if (firstArgs_.size() != param_.size()) {
+            errLeftValue = true;
             if (param_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -142,13 +151,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 m_.setArg(a_);
                 m_.setParam(pa_);
                 m_.setMapping(map_);
-                if (!StringUtil.quickEq("?",pa_)&&!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
-                    if (res_.isFoundMethod()) {
-                        ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                        a_.getImplicits().add(cl_);
-                        a_.setMemberId(res_.getMemberId());
-                    } else {
+                if (pa_.startsWith("~")) {
+                    if (!(chidren_.get(i) instanceof WrappOperation)||!a_.matchClass(pa_.substring(1))) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
                         cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                         int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -161,6 +165,39 @@ public final class CallDynMethodOperation extends InvokingOperation {
                         parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                         parts_.add(new PartOffset("</a>",i_+1));
                     }
+                } else if (!StringUtil.quickEq("?", pa_)) {
+                    if (chidren_.get(i) instanceof WrappOperation) {
+                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        int i_ = _page.getLocalizer().getCurrentLocationIndex();
+                        cast_.setIndexFile(i_);
+                        //character before
+                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                                StringUtil.join(a_.getNames(),"&"),
+                                pa_);
+                        _page.getLocalizer().addError(cast_);
+                        parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
+                        parts_.add(new PartOffset("</a>",i_+1));
+                    } else if (!AnaTemplates.isCorrectOrNumbers(m_, _page)) {
+                        ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
+                        if (res_.isFoundMethod()) {
+                            ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                            a_.getImplicits().add(cl_);
+                            a_.setMemberId(res_.getMemberId());
+                        } else {
+                            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            int i_ = _page.getLocalizer().getCurrentLocationIndex();
+                            cast_.setIndexFile(i_);
+                            //character before
+                            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                                    StringUtil.join(a_.getNames(),"&"),
+                                    pa_);
+                            _page.getLocalizer().addError(cast_);
+                            parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
+                            parts_.add(new PartOffset("</a>",i_+1));
+                        }
+                    }
                 }
                 if (AnaTypeUtil.isPrimitive(pa_, _page)) {
                     a_.setUnwrapObject(pa_, _page.getPrimitiveTypes());
@@ -172,7 +209,12 @@ public final class CallDynMethodOperation extends InvokingOperation {
         if (StringUtil.quickEq(ret_, void_) || StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
             ret_ = _page.getAliasObject();
         }
-        setResultClass(new AnaClassArgumentMatching(ret_));
+        if (!ret_.startsWith("~")) {
+            errLeftValue = true;
+            setResultClass(new AnaClassArgumentMatching(ret_));
+        } else {
+            setResultClass(new AnaClassArgumentMatching(ret_.substring(1)));
+        }
     }
 
     public int getIndexCh() {
@@ -189,5 +231,25 @@ public final class CallDynMethodOperation extends InvokingOperation {
 
     public String getFctName() {
         return fctName;
+    }
+
+    @Override
+    public boolean isErrLeftValue() {
+        return errLeftValue;
+    }
+
+    @Override
+    public AnaArrContent getArrContent() {
+        return arrContent;
+    }
+
+    @Override
+    public void setVariable(boolean _variable) {
+        arrContent.setVariable(_variable);
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        arrContent.setCatString(true);
     }
 }

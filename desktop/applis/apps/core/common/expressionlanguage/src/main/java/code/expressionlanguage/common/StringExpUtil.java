@@ -656,6 +656,23 @@ public final class StringExpUtil {
         for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             String arg_ = _args.get(i);
             String param_ = _params.get(i);
+            if (param_.startsWith("~")) {
+                if (arg_.startsWith("~")) {
+                    Matching match_ = new Matching();
+                    match_.setArg(arg_.substring(1));
+                    match_.setParam(param_.substring(1));
+                    match_.setMatchEq(MatchingEnum.EQ);
+                    pairsArgParam_.add(match_);
+                    continue;
+                }
+                return null;
+            }
+            if (arg_.startsWith("~")) {
+                if (StringUtil.quickEq(param_, SUB_TYPE)) {
+                    continue;
+                }
+                return null;
+            }
             if (i < argCall_) {
                 if (StringUtil.quickEq(arg_, SUB_TYPE)) {
                     if (StringUtil.quickEq(param_, SUB_TYPE)) {

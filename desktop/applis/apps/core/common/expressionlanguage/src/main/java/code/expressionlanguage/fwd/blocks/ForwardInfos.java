@@ -152,9 +152,6 @@ public final class ForwardInfos {
                 for (AnaFormattedRootBlock s: allSuperClass_) {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock b: superBl_.getOverridableBlocks()) {
-                        if (b.getId().isRef()) {
-                            continue;
-                        }
                         if (b.isAbstractMethod()) {
                             Members mem_ = _forwards.getMapMembers().getValue(superBl_.getNumberAll());
                             ExecRootBlock ex_ = mem_.getRootBlock();
@@ -163,14 +160,6 @@ public final class ForwardInfos {
                                 ExecOverridableBlock value_ = mem_.getAllMethods().getValue(b.getNameOverrideNumber());
                                 e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
-                        }
-                    }
-                    for (OverridableBlock b: superBl_.getOverridableBlocks()) {
-                        if (!b.getId().isRef()) {
-                            continue;
-                        }
-                        if (b.isAbstractMethod()) {
-                            instEltCount_ = true;
                         }
                     }
                     for (Block b: ClassesUtil.getDirectChildren(superBl_)) {
@@ -1009,7 +998,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
-            return new ExecCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), c_.getFctName());
+            return new ExecCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), c_.getFctName(), new ExecArrContent(c_.getArrContent()));
         }
         if (_anaNode instanceof InferArrayInstancing) {
             InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;

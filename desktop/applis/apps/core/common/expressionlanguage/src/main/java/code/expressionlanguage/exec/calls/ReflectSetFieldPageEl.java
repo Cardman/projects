@@ -8,17 +8,18 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.util.CustList;
 
 public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
     private FieldMetaInfo metaInfo;
 
-    private final CustList<Argument> arguments;
+    private final Argument first;
+    private final Argument last;
 
-    public ReflectSetFieldPageEl(CustList<Argument> _arguments, FieldMetaInfo _metaInfo) {
-        arguments = _arguments;
+    public ReflectSetFieldPageEl(Argument _first, Argument _last, FieldMetaInfo _metaInfo) {
+        first = _first;
+        last = _last;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
     }
@@ -45,9 +46,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ill_)));
             return false;
         }
-        Argument instance_ = ExecTemplates.getFirstArgument(arguments);
-        Argument right_ = ExecTemplates.getLastArgument(arguments);
-        Argument arg_ = ExecTemplates.setField(metaInfo, instance_, right_, _context);
+        Argument arg_ = ExecTemplates.setField(metaInfo, first, last, _context);
         if (_context.callsOrException()) {
             return false;
         }

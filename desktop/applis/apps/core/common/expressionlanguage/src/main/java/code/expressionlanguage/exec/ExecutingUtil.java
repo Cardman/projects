@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.Templates;
@@ -264,53 +265,93 @@ public final class ExecutingUtil {
     public static AbstractReflectPageEl createReflectMethod(ContextEl _context, AbstractReflectElement _ref) {
         _context.setCallingState(null);
         AbstractReflectPageEl pageLoc_;
-        CustList<Argument> args_ = _ref.getArguments();
         ReflectingType reflect_ = _ref.getReflect();
-        if (_ref instanceof CustomReflectConstructor) {
+        if (_ref instanceof CustomReflectLambdaConstructor) {
+            CustomReflectLambdaConstructor c_ = (CustomReflectLambdaConstructor) _ref;
+            Argument args_ = c_.getArgument();
+            ArgumentListCall array_ = c_.getArray();
+            ConstructorMetaInfo metaInfo_ = c_.getGl();
+            pageLoc_ = new ReflectLambdaConstructorPageEl(args_,array_, metaInfo_);
+        } else if (_ref instanceof CustomReflectConstructor) {
             CustomReflectConstructor c_ = (CustomReflectConstructor) _ref;
+            Argument args_ = c_.getArgument();
             ConstructorMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectConstructorPageEl(args_, metaInfo_);
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
+            CustList<Argument> args_ = c_.getArguments();
             pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getRoot(),c_.getId(),c_.getClassName());
-        } else if (_ref instanceof CustomReflectField) {
-            CustomReflectField c_ = (CustomReflectField) _ref;
+        } else if (_ref instanceof CustomReflectGetField) {
+            CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
-            if (reflect_ == ReflectingType.GET_FIELD) {
-                pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_);
-            } else {
-                pageLoc_ = new ReflectSetFieldPageEl(args_, metaInfo_);
-            }
+            Argument args_ = c_.getArgument();
+            pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_);
+        } else if (_ref instanceof CustomReflectSetField) {
+            CustomReflectSetField c_ = (CustomReflectSetField) _ref;
+            FieldMetaInfo metaInfo_ = c_.getGl();
+            Argument first_ = c_.getFirst();
+            Argument last_ = c_.getLast();
+            pageLoc_ = new ReflectSetFieldPageEl(first_,last_, metaInfo_);
         } else if (_ref instanceof CustomReflectMethodDefVal) {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectGetDefaultValuePageEl(metaInfo_);
+        } else if (_ref instanceof CustomReflectLambdaMethod) {
+            CustomReflectLambdaMethod c_ = (CustomReflectLambdaMethod) _ref;
+            MethodMetaInfo metaInfo_ = c_.getGl();
+            AbstractRefectLambdaMethodPageEl refMet_;
+            Argument instance_ = c_.getInstance();
+            ArgumentListCall array_ = c_.getArray();
+            Argument right_ = c_.getRight();
+            if (reflect_ == ReflectingType.METHOD) {
+                refMet_ = new LambdaPolymorphRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.DIRECT) {
+                refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.STATIC_CALL) {
+                refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CAST) {
+                refMet_ = new LambdaCastRefectMethodPageEl(false, instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CAST_DIRECT) {
+                refMet_ = new LambdaCastRefectMethodPageEl(true, instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.STD_FCT) {
+                refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.CLONE_FCT) {
+                refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+            } else if (reflect_ == ReflectingType.ENUM_METHODS) {
+                refMet_ = new LambdaDirectEnumMethods(instance_,array_,right_, metaInfo_);
+            } else {
+                refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+            }
+            pageLoc_ = refMet_;
         } else if (_ref instanceof CustomReflectMethod) {
             CustomReflectMethod c_ = (CustomReflectMethod) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
             AbstractRefectMethodPageEl refMet_;
+            Argument instance_ = c_.getInstance();
+            Argument array_ = c_.getArray();
             if (reflect_ == ReflectingType.METHOD) {
-                refMet_ = new PolymorphRefectMethodPageEl(args_, metaInfo_);
+                refMet_ = new PolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.DIRECT) {
-                refMet_ = new DirectRefectMethodPageEl(args_, metaInfo_);
+                refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STATIC_CALL) {
-                refMet_ = new StaticCallMethodPageEl(args_, metaInfo_);
+                refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CAST) {
-                refMet_ = new CastRefectMethodPageEl(false, args_, metaInfo_);
+                refMet_ = new CastRefectMethodPageEl(false, instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CAST_DIRECT) {
-                refMet_ = new CastRefectMethodPageEl(true, args_, metaInfo_);
+                refMet_ = new CastRefectMethodPageEl(true, instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STD_FCT) {
-                refMet_ = new DirectStdRefectMethodPageEl(args_, metaInfo_);
+                refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CLONE_FCT) {
-                refMet_ = new DirectCloneRefectMethodPageEl(args_, metaInfo_);
+                refMet_ = new DirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.ENUM_METHODS) {
-                refMet_ = new DirectEnumMethods(args_, metaInfo_);
+                refMet_ = new DirectEnumMethods(instance_,array_, metaInfo_);
             } else {
-                refMet_ = new DirectAnnotationRefectMethodPageEl(args_, metaInfo_);
+                refMet_ = new DirectAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
             }
             pageLoc_ = refMet_;
         } else {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
+            CustList<Argument> args_ = c_.getArguments();
             pageLoc_ = new ReflectAnnotationPageEl(args_, c_.getGl());
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
         }
@@ -618,7 +659,11 @@ public final class ExecutingUtil {
         if (_name.startsWith(Templates.ARR_BEG_STRING)&&_name.contains(Templates.PREFIX_VAR_TYPE)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, _variableOwner);
         }
-        return getClassMetaInfo(_context,_name);
+        String name_ = _name;
+        if (_name.startsWith("~")) {
+            name_ = _name.substring("~".length());
+        }
+        return getClassMetaInfo(_context,name_);
     }
     public static Struct getClassMetaInfo(ContextEl _context,AnnotatedMemberStruct _member) {
         String formDeclaringClass_ = _member.getFormDeclaringClass();

@@ -43,6 +43,17 @@ public final class MethodAccessId {
         setupAncestor(_args, i_);
     }
 
+    public void setupAncestorId(StringList _args, int _i) {
+        int i_ = _i;
+        if (_args.size() > i_) {
+            if (StringUtil.quickEq(_args.get(i_).trim(), "~")) {
+                index++;
+                retRef = true;
+                i_++;
+            }
+        }
+        setupAncestor(_args, i_);
+    }
     public void setupAncestor(StringList _args, int _i) {
         if (_args.size() > _i) {
             String trim_ = _args.get(_i).trim();

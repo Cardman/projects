@@ -79,7 +79,7 @@ public final class ParserType {
                     id_.append(curChar_);
                 }
             } else {
-                if (curChar_ != '?' && curChar_ != '!') {
+                if (curChar_ != '?' && curChar_ != '!' && curChar_ != '~') {
                     id_.append(curChar_);
                 }
             }
@@ -134,6 +134,14 @@ public final class ParserType {
             }
             _a.setPrio(WILD_CARD_PRIO);
             _a.setupWildCardValues(Templates.SUP_TYPE, _string);
+            return _a;
+        }
+        if (_string.trim().startsWith("~")) {
+            if (StringUtil.quickEq(_string.trim(), "~")) {
+                _a.setError(true);
+            }
+            _a.setPrio(WILD_CARD_PRIO);
+            _a.setupWildCardValues("~", _string);
             return _a;
         }
         StrTypes operators_ = _a.getOperators();

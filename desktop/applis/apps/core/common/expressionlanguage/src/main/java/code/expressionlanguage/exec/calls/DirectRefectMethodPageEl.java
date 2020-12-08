@@ -2,14 +2,12 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public DirectRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override

@@ -11,11 +11,13 @@ public final class CustomReflectAnnotations extends AbstractReflectElement {
 
     private final AnnotatedStruct gl;
 
+    private final CustList<Argument> arguments;
     public CustomReflectAnnotations(ReflectingType _reflect, AnnotatedStruct _gl,
                                     CustList<Argument> _arguments, boolean _lambda) {
-        super(_arguments,_lambda);
+        super(_lambda);
         reflect = _reflect;
         gl = _gl;
+        arguments = _arguments;
     }
 
     public ReflectingType getReflect() {
@@ -24,5 +26,9 @@ public final class CustomReflectAnnotations extends AbstractReflectElement {
 
     public AnnotatedStruct getGl() {
         return gl;
+    }
+
+    public CustList<Argument> getArguments() {
+        return arguments;
     }
 }

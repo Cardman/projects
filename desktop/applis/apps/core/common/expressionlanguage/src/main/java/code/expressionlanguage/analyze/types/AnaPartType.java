@@ -50,7 +50,7 @@ abstract class AnaPartType {
             String type_ = _value;
             type_ = type_.trim();
             boolean okVarType_ = false;
-            if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType) {
+            if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType || _parent instanceof AnaRefPartType) {
                 okVarType_ = true;
             } else if (_parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null) {
                 okVarType_ = true;
@@ -69,6 +69,9 @@ abstract class AnaPartType {
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
             return new AnaArraryPartType(_parent, _index, _indexInType,operators_);
+        }
+        if (StringUtil.quickEq(operators_.firstValue(),"~")) {
+            return new AnaRefPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
         }
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
@@ -95,6 +98,9 @@ abstract class AnaPartType {
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
             return new AnaArraryPartType(_parent, _index, _indexInType,operators_);
+        }
+        if (StringUtil.quickEq(operators_.firstValue(),"~")) {
+            return new AnaRefPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
         }
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }

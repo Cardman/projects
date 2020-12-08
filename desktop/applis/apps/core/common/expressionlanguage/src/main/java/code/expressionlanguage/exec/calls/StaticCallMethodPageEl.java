@@ -21,8 +21,8 @@ import code.util.CustList;
 
 public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public StaticCallMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public StaticCallMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
@@ -67,17 +67,10 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     private static Argument checkStaticCall(ExecTypeFunction _pair, Cache _cache, CustList<Argument> _arguments,
                                             String _className, ContextEl _conf) {
         String paramName_ = _conf.formatVarType(_className);
-        ExecRootBlock type_ = _pair.getType();
-        ExecNamedFunctionBlock fct_ = _pair.getFct();
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(_pair,paramName_,Argument.createVoid(),_arguments,_conf, MethodAccessKind.STATIC_CALL);
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, paramName_, _cache, l_, _conf, null, true);
-        if (parameters_.getError() != null) {
-            return Argument.createVoid();
-        }
-        _conf.setCallingState(new CustomFoundCast(paramName_, _pair, parameters_));
-        return Argument.createVoid();
-
+        return checkStaticCall(_pair, _cache, _conf, paramName_, l_);
     }
+
     @Override
     public String formatVarType(String _varType) {
         return _varType;

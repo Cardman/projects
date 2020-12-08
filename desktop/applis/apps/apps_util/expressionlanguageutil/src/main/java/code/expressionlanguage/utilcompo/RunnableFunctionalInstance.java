@@ -55,7 +55,7 @@ public final class RunnableFunctionalInstance extends WithoutParentIdStruct impl
 
     public static void callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {
         RunnableStruct.setupThread(_localThread);
-        ExecInvokingOperation.prepareCallDyn(new Argument(_functional), _arguments, _localThread);
+        ExecInvokingOperation.prepareCallDynReflect(new Argument(_functional), _arguments, _localThread);
         if (_localThread.getCallingState() instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) _localThread.getCallingState();
             RunnableStruct.reflect(_localThread, ref_);

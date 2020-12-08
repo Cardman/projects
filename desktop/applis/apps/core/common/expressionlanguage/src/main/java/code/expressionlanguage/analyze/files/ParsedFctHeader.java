@@ -23,6 +23,7 @@ public final class ParsedFctHeader {
     private String info = "";
     private String returnType = "";
     private boolean ok = true;
+    private boolean retRef;
     private int paramOffest;
     private int returnOffest;
     private int offsetLast;
@@ -110,7 +111,7 @@ public final class ParsedFctHeader {
         info = info_;
     }
 
-    public void parseAnonymous(int _paramOffest, String _info, int _offset, char _sepRet) {
+    public void parseAnonymous(int _paramOffest, String _info, int _offset, char _sepRet, String _keyWordThat) {
         String info_ = _info;
         paramOffest = _paramOffest;
         offsetLast = _paramOffest;
@@ -119,6 +120,12 @@ public final class ParsedFctHeader {
                 info_ = info_.substring(1);
                 offsetLast++;
                 offsetLast +=  StringUtil.getFirstPrintableCharIndex(info_);
+                if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
+                    info_ = info_.substring(_keyWordThat.length());
+                    offsetLast += _keyWordThat.length() + StringExpUtil.getOffset(info_);
+                    info_ = info_.trim();
+                    retRef = true;
+                }
                 break;
             }
             int lenInfo_ = info_.length();
@@ -126,7 +133,6 @@ public final class ParsedFctHeader {
             StringList annotationsParam_ = new StringList();
             annotationsIndexesParams.add(annotationsIndexesParam_);
             annotationsParams.add(annotationsParam_);
-            offestsTypes.add(paramOffest+_offset);
             int implCall_ = info_.indexOf(SEP_CALLING);
             int implStopInd_ = info_.indexOf(_sepRet);
             int implStopRightPar_ = info_.indexOf(END_CALLING);
@@ -144,18 +150,32 @@ public final class ParsedFctHeader {
                 }
             }
             String paramType_;
+            boolean ref_ = false;
             if (implCall_ >= 0) {
                 String parName_ = info_.substring(0, implCall_).trim();
                 if (StringExpUtil.isTypeLeafPart(parName_)) {
                     paramType_ = "";
                 } else {
-                    paramType_ = FileResolver.getFoundType(info_);
+                    if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
+                        parName_ = parName_.substring(_keyWordThat.length());
+                        info_ = info_.substring(_keyWordThat.length());
+                        paramOffest += _keyWordThat.length() + StringExpUtil.getOffset(info_);
+                        info_ = info_.trim();
+                        parName_ = parName_.trim();
+                        ref_ = true;
+                    }
+                    if (StringExpUtil.isTypeLeafPart(parName_)) {
+                        paramType_ = "";
+                    } else {
+                        paramType_ = FileResolver.getFoundType(info_);
+                    }
                 }
             } else {
                 paramType_ = FileResolver.getFoundType(info_);
             }
+            offestsTypes.add(paramOffest+_offset);
             parametersType.add(paramType_.trim());
-            parametersRef.add(false);
+            parametersRef.add(ref_);
             String afterParamType_ = info_.substring(paramType_.length());
             info_ = afterParamType_.trim();
             int call_ = info_.indexOf(SEP_CALLING);
@@ -193,6 +213,12 @@ public final class ParsedFctHeader {
             paramOffest += call_ + 1;
             paramOffest += StringUtil.getFirstPrintableCharIndex(afterParamName_);
             if (stopInd_ > -1 && call_ + 1 >= stopInd_) {
+                if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
+                    info_ = info_.substring(_keyWordThat.length());
+                    paramOffest += _keyWordThat.length() + StringExpUtil.getOffset(info_);
+                    info_ = info_.trim();
+                    retRef = true;
+                }
                 break;
             }
             if (noAddedInfo(info_, lenInfo_)) {
@@ -215,6 +241,10 @@ public final class ParsedFctHeader {
 
     public String getInfo() {
         return info;
+    }
+
+    public boolean isRetRef() {
+        return retRef;
     }
 
     public boolean isOk() {

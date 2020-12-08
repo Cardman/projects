@@ -11,13 +11,15 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
     private final ExecRootBlock root;
     private final StringMap<String> id;
     private final String className;
+    private final CustList<Argument> arguments;
 
     public CustomReflectRecordConstructor(ExecRootBlock _root,StringMap<String> _id,String _className,
                                           CustList<Argument> _arguments, boolean _lambda) {
-        super(_arguments,_lambda);
+        super(_lambda);
         root = _root;
         id = _id;
         className = _className;
+        arguments = _arguments;
     }
 
     public ExecRootBlock getRoot() {
@@ -35,5 +37,9 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
     @Override
     public ReflectingType getReflect() {
         return ReflectingType.CONSTRUCTOR;
+    }
+
+    public CustList<Argument> getArguments() {
+        return arguments;
     }
 }

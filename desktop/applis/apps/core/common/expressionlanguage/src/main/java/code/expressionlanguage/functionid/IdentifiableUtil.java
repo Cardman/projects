@@ -11,16 +11,16 @@ public final class IdentifiableUtil {
     }
 
     public static void appendLeftPart(StringList _paramsReturn, MethodId _id) {
-        StringList params_ = _id.getParametersTypes();
-        if (_id.isVararg()) {
-            for (String p: params_.left(params_.size() - 1)) {
-                _paramsReturn.add(p);
+        int len_ = _id.getParametersTypesLength();
+        for (int i = 0; i < len_; i++) {
+            String p_ = _id.getParametersType(i);
+            if (i + 1 == len_ && _id.isVararg()) {
+                p_ = StringExpUtil.getPrettyArrayType(p_);
             }
-            String p_ = params_.last();
-            _paramsReturn.add(StringExpUtil.getPrettyArrayType(p_));
-        } else {
-            for (String p: params_) {
-                _paramsReturn.add(p);
+            if (_id.getParametersRef(i)) {
+                _paramsReturn.add("~"+p_);
+            } else {
+                _paramsReturn.add(p_);
             }
         }
     }

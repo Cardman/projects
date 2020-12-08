@@ -2122,7 +2122,7 @@ public final class ElResolver {
                                 ParsedFctHeader parse_ = new ParsedFctHeader();
                                 String packageName_ = globalType_.getPackageName();
                                 int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                                parse_.parseAnonymous(i_+1, substring_, instrLoc_,':');
+                                parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
                                 int j_ = i_+1 + substring_.length()+off_+2;
                                 int jBef_ = i_+1 + substring_.length()+deltaArr_;
                                 InputTypeCreation input_ = new InputTypeCreation();
@@ -2147,7 +2147,7 @@ public final class ElResolver {
                             int j_ = i_+1 + substring_.length()+off_+2;
                             int jBef_ = i_+1 + substring_.length()+deltaArr_;
                             int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                            parse_.parseAnonymous(i_+1, substring_, instrLoc_,':');
+                            parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
                             int k_ = stack(_string, j_, globalType_, _page);
                             String part_ = _string.substring(j_,k_);
                             AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(jBef_+instrLoc_,new OffsetsBlock(j_+instrLoc_,j_+instrLoc_), _page);

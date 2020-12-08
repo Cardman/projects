@@ -3,16 +3,18 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.util.CustList;
+import code.expressionlanguage.structs.Struct;
 
 public final class CustomReflectConstructor extends AbstractReflectElement {
 
     private final ConstructorMetaInfo gl;
 
+    private final Argument argument;
     public CustomReflectConstructor(ConstructorMetaInfo _gl,
-                                    CustList<Argument> _arguments, boolean _lambda) {
-        super(_arguments,_lambda);
+                                    Struct _struct, boolean _lambda) {
+        super(_lambda);
         gl = _gl;
+        argument = new Argument(_struct);
     }
 
     public ConstructorMetaInfo getGl() {
@@ -23,4 +25,9 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
     public ReflectingType getReflect() {
         return ReflectingType.CONSTRUCTOR;
     }
+
+    public Argument getArgument() {
+        return argument;
+    }
+
 }

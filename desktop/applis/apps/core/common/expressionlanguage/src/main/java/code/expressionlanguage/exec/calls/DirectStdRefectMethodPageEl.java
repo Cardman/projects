@@ -9,8 +9,8 @@ import code.util.CustList;
 
 public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectStdRefectMethodPageEl(CustList<Argument> _arguments, MethodMetaInfo _metaInfo) {
-        super(_arguments, _metaInfo);
+    public DirectStdRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
