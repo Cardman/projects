@@ -118,11 +118,15 @@ public final class ParsedFctHeader {
         while (true) {
             if (info_.indexOf(_sepRet) == 0||info_.indexOf(END_CALLING) == 0) {
                 info_ = info_.substring(1);
+                paramOffest++;
                 offsetLast++;
-                offsetLast +=  StringUtil.getFirstPrintableCharIndex(info_);
+                offsetLast += StringExpUtil.getOffset(info_);
+                paramOffest += StringExpUtil.getOffset(info_);
+                info_ = info_.trim();
                 if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
                     info_ = info_.substring(_keyWordThat.length());
                     offsetLast += _keyWordThat.length() + StringExpUtil.getOffset(info_);
+                    paramOffest += _keyWordThat.length() + StringExpUtil.getOffset(info_);
                     info_ = info_.trim();
                     retRef = true;
                 }
@@ -156,6 +160,8 @@ public final class ParsedFctHeader {
                 if (StringExpUtil.isTypeLeafPart(parName_)) {
                     paramType_ = "";
                 } else {
+                    paramOffest += StringExpUtil.getOffset(info_);
+                    info_ = info_.trim();
                     if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {
                         parName_ = parName_.substring(_keyWordThat.length());
                         info_ = info_.substring(_keyWordThat.length());
