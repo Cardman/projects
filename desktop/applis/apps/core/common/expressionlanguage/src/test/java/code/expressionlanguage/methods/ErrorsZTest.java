@@ -3666,4 +3666,23 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report763Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append("  {\n");
+        xml_.append("   $Fct<~~$int> t;\n");
+        xml_.append("  }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                "  {\n" +
+                "   <a title=\"There is no accessible field named $Fct from the type pkg.Ex in this context.\" class=\"e\">$Fct</a>&lt;<a title=\"The operands types java.lang.Number for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"The operands types java.lang.Object for the operator ~ are unexpected.\" class=\"e\">~</a><a title=\"There is no accessible field named $int from the type pkg.Ex in this context.\" class=\"e\">$int</a><a title=\"The number of required operands 2 is different from the number of supplied arguments 3 for the operator &lt;\" class=\"e\">&gt;</a> <a title=\"There is no accessible field named t from the type pkg.Ex in this context.\" class=\"e\">t</a>;\n" +
+                "  }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

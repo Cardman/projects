@@ -53,6 +53,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                     operatorContent.getOper()
             );
             _page.getLocalizer().addError(badNb_);
+            for (int i = 0; i < in_;i++) {
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                getPartOffsetsChildren().add(err_);
+            }
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
