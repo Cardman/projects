@@ -67,6 +67,8 @@ public final class AnonymousLambdaOperation extends
         analyzeCtor(_page);
     }
     private void analyzeCtor(AnalyzedPageEl _page) {
+        int offset_ = _page.getOffset();
+        int globalOffset_ = _page.getGlobalOffset();
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
@@ -319,6 +321,8 @@ public final class AnonymousLambdaOperation extends
         lambdaAnoContent.setMethod(new ClassMethodId(foundClass_, idC_));
         String fct_ = LambdaOperation.formatReturn(_page, importedReturnType_, found_, idC_, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
+        _page.setOffset(offset_);
+        _page.setGlobalOffset(globalOffset_);
     }
 
     public AnonymousFunctionBlock getBlock() {

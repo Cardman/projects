@@ -401,6 +401,10 @@ public final class AnalyzedPageEl {
         translatedOffset = _translatedOffset;
     }
 
+    public int getGlobalOffset() {
+        return globalOffset;
+    }
+
     public void setGlobalOffset(int _globalOffset) {
         globalOffset = _globalOffset;
     }
