@@ -241,6 +241,7 @@ public final class LgNamesContent {
     private static final String IS_INSTANCE_METHOD = "IsInstanceMethod";
     private static final String GET_NAME = "GetName";
     private static final String IS_CLASS = "IsClass";
+    private static final String IS_SPE_CLASS = "IsSpeClass";
     private static final String SET_FIELD = "SetField";
     private static final String GET_CLASS = "GetClass";
     private static final String IS_FINAL = "IsFinal";
@@ -584,6 +585,7 @@ public final class LgNamesContent {
         getReflect().setAliasIsInstanceMethod(get(_util,_cust, IS_INSTANCE_METHOD));
         getReflect().setAliasGetName(get(_util,_cust, GET_NAME));
         getReflect().setAliasIsClass(get(_util,_cust, IS_CLASS));
+        getReflect().setAliasIsSpecialClass(get(_util,_cust, IS_SPE_CLASS));
         getReflect().setAliasSetField(get(_util,_cust, SET_FIELD));
         getReflect().setAliasGetClass(get(_util,_cust, GET_CLASS));
         getReflect().setAliasIsFinal(get(_util,_cust, IS_FINAL));
@@ -1361,6 +1363,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(IS_ANNOTATION,getReflect().getAliasIsAnnotation()),
                 new KeyValueMemberName(IS_ARRAY,getReflect().getAliasIsArray()),
                 new KeyValueMemberName(IS_ASSIGNABLE_FROM,getReflect().getAliasIsAssignableFrom()),
+                new KeyValueMemberName(IS_SPE_CLASS,getReflect().getAliasIsSpecialClass()),
                 new KeyValueMemberName(IS_CLASS,getReflect().getAliasIsClass()),
                 new KeyValueMemberName(IS_ENUM,getReflect().getAliasIsEnum()),
                 new KeyValueMemberName(IS_FINAL,getReflect().getAliasIsFinal()),

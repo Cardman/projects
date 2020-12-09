@@ -324,6 +324,9 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public boolean isTypeClass() {
         return category == ClassCategory.CLASS;
     }
+    public boolean isTypeSpeClass() {
+        return category == ClassCategory.SPE_CLASS;
+    }
     public boolean isTypeInterface() {
         return category == ClassCategory.INTERFACE;
     }

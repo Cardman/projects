@@ -460,6 +460,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasIsPackage("isPackage");
         _lgNames.getContent().getReflect().setAliasIsPrivate("isPrivate");
         _lgNames.getContent().getReflect().setAliasIsClass("isClass");
+        _lgNames.getContent().getReflect().setAliasIsSpecialClass("isSpeClass");
         _lgNames.getContent().getReflect().setAliasIsWildCard("isWildCard");
         _lgNames.getContent().getReflect().setAliasIsRefType("isRefType");
         _lgNames.getContent().getReflect().setAliasIsInterface("isInterface");
@@ -793,6 +794,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasIsPackage("estPaquetage");
         _lgNames.getContent().getReflect().setAliasIsPrivate("estPrive");
         _lgNames.getContent().getReflect().setAliasIsClass("estClasse");
+        _lgNames.getContent().getReflect().setAliasIsSpecialClass("estClasseSpe");
         _lgNames.getContent().getReflect().setAliasIsWildCard("estSynthetique");
         _lgNames.getContent().getReflect().setAliasIsRefType("estTypeRef");
         _lgNames.getContent().getReflect().setAliasIsInterface("estInterface");

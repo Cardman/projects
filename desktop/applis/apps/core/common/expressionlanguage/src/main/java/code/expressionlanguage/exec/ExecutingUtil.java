@@ -581,6 +581,7 @@ public final class ExecutingUtil {
             final_ = ((ExecClassBlock)_type).isFinalType();
         } else if (_type instanceof ExecRecordBlock) {
             abs_ = false;
+            cat_ = ClassCategory.SPE_CLASS;
         }
         String superClass_ = _type.getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();

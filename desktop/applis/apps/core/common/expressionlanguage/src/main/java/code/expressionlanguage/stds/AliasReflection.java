@@ -74,6 +74,7 @@ public final class AliasReflection {
     private String aliasIsPackage;
     private String aliasIsPrivate;
     private String aliasIsClass;
+    private String aliasIsSpecialClass;
     private String aliasIsWildCard;
     private String aliasIsRefType;
     private String aliasIsInterface;
@@ -194,6 +195,9 @@ public final class AliasReflection {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsClass, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsSpecialClass, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsRefType, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
@@ -1278,6 +1282,10 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsClass)) {
             result_.setResult(BooleanStruct.of(instanceClass_.isTypeClass()));
+            return result_;
+        }
+        if (StringUtil.quickEq(name_, ref_.aliasIsSpecialClass)) {
+            result_.setResult(BooleanStruct.of(instanceClass_.isTypeSpeClass()));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsWildCard)) {
@@ -2489,6 +2497,13 @@ public final class AliasReflection {
     public void setAliasIsPrivate(String _aliasIsPrivate) {
         aliasIsPrivate = _aliasIsPrivate;
     }
+    public String getAliasIsSpecialClass() {
+        return aliasIsSpecialClass;
+    }
+    public void setAliasIsSpecialClass(String _aliasIsSpecialClass) {
+        aliasIsSpecialClass = _aliasIsSpecialClass;
+    }
+
     public String getAliasIsClass() {
         return aliasIsClass;
     }

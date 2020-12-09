@@ -1030,6 +1030,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasIsPackage("isPackage");
         _lgNames.getContent().getReflect().setAliasIsPrivate("isPrivate");
         _lgNames.getContent().getReflect().setAliasIsClass("isClass");
+        _lgNames.getContent().getReflect().setAliasIsSpecialClass("isSpeClass");
         _lgNames.getContent().getReflect().setAliasIsWildCard("isWildCard");
         _lgNames.getContent().getReflect().setAliasIsRefType("isRefType");
         _lgNames.getContent().getReflect().setAliasIsInterface("isInterface");
