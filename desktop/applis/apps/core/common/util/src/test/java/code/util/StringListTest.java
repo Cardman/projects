@@ -3,10 +3,7 @@ import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.SortConstants;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 
@@ -2559,7 +2556,12 @@ public class StringListTest {
     public void nullToEmpty2(){
         assertEq("", StringUtil.nullToEmpty(""));
     }
-    static String replaceFinalFile(String _str) {
+    @Test
+    public void applyUniformString(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("r", u_.apply("r"));
+    }
+    private static String replaceFinalFile(String _str) {
         int lastIndexDot_ = _str.lastIndexOf('.');
         if (lastIndexDot_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return _str;
