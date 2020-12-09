@@ -56,7 +56,7 @@ public final class GuiProcess implements Runnable {
         }
         String archive_ = linesFiles_.first();
         UniformingString app_ = new DefaultUniformingString();
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_, app_);
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_, app_).getZipFiles();
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";

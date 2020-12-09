@@ -4,6 +4,7 @@ import code.expressionlanguage.utilcompo.AbstractReporter;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.core.ReadFiles;
 import code.util.StringMap;
 import code.util.ints.UniformingString;
 
@@ -22,7 +23,7 @@ public final class DefaultReporter implements AbstractReporter {
     }
 
     @Override
-    public StringMap<String> getFiles(String _archiveOrFolder) {
+    public ReadFiles getFiles(String _archiveOrFolder) {
         return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString);
     }
 

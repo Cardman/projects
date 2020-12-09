@@ -65,7 +65,7 @@ public final class RunningTest implements Runnable {
         }
         String archive_ = linesFiles_.first();
         String lg_ = linesFiles_.get(1);
-        StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_);
+        StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_).getZipFiles();
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){

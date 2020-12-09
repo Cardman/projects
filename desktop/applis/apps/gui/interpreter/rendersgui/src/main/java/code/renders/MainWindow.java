@@ -121,7 +121,7 @@ public final class MainWindow extends GroupFrame {
         String archive_ = linesFiles_.first();
         String confRel_ = linesFiles_.get(1);
         UniformingString app_ = new DefaultUniformingString();
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_,app_);
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_,app_).getZipFiles();
         String clName_ = "";
         String mName_ = "";
         ExecutingOptions exec_ = new ExecutingOptions();
