@@ -25,8 +25,10 @@ import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.core.DefaultUniformingString;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+import code.util.ints.UniformingString;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,7 +120,8 @@ public final class MainWindow extends GroupFrame {
         }
         String archive_ = linesFiles_.first();
         String confRel_ = linesFiles_.get(1);
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_);
+        UniformingString app_ = new DefaultUniformingString();
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_,app_);
         String clName_ = "";
         String mName_ = "";
         ExecutingOptions exec_ = new ExecutingOptions();
@@ -149,7 +152,7 @@ public final class MainWindow extends GroupFrame {
             }
         }
         BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                new DefaultFileSystem(), new DefaultReporter(), getGenerator()));
+                new DefaultFileSystem(app_), new DefaultReporter(app_), getGenerator()));
         session.initNav();
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);

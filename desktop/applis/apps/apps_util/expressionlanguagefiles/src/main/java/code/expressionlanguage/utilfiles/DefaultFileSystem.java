@@ -7,14 +7,21 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.StringUtil;
+import code.util.ints.UniformingString;
 
 import java.io.File;
 
 public final class DefaultFileSystem implements AbstractFileSystem {
 
+    private final UniformingString uniformingString;
+
+    public DefaultFileSystem(UniformingString _uniformingString) {
+        uniformingString = _uniformingString;
+    }
+
     @Override
     public String contentsOfFile(String _file, RunnableContextEl _rCont) {
-        return StreamTextFile.contentsOfFile(_file);
+        return StreamTextFile.contentsOfFile(_file, uniformingString);
     }
 
     @Override

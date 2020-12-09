@@ -21,6 +21,8 @@ import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.ThreadUtil;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
+import code.util.ints.UniformingString;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +50,8 @@ public final class MainWindow extends GroupFrame {
 
     private Thread th;
     private StringMap<String> messages;
+    private final UniformingString uniformingString = new DefaultUniformingString();
+
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
@@ -140,7 +144,7 @@ public final class MainWindow extends GroupFrame {
         String txt_ = conf.getText().trim();
         RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this),
                 new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                        new DefaultFileSystem(), new DefaultReporter(), getGenerator()));
+                        new DefaultFileSystem(uniformingString), new DefaultReporter(uniformingString), getGenerator()));
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
@@ -160,7 +164,7 @@ public final class MainWindow extends GroupFrame {
     public void launchFileConf(String _fichier) {
         RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this),
                 new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                        new DefaultFileSystem(), new DefaultReporter(), getGenerator()));
+                        new DefaultFileSystem(uniformingString), new DefaultReporter(uniformingString), getGenerator()));
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();

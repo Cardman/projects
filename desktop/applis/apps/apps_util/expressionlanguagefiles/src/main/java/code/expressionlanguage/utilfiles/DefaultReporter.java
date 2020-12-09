@@ -5,10 +5,17 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
+import code.util.ints.UniformingString;
 
 import java.io.File;
 
 public final class DefaultReporter implements AbstractReporter {
+    private final UniformingString uniformingString;
+
+    public DefaultReporter(UniformingString _uniformingString) {
+        uniformingString = _uniformingString;
+    }
+
     @Override
     public String conf(String _fileConfOrContent) {
         return StreamTextFile.contentsOfFile(_fileConfOrContent);
@@ -16,7 +23,7 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public StringMap<String> getFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getFiles(_archiveOrFolder);
+        return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString);
     }
 
     @Override

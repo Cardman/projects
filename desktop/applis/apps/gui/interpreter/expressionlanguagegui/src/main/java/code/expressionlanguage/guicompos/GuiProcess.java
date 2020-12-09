@@ -27,7 +27,9 @@ import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
+import code.util.ints.UniformingString;
 
 import java.io.File;
 
@@ -53,7 +55,8 @@ public final class GuiProcess implements Runnable {
             return null;
         }
         String archive_ = linesFiles_.first();
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_);
+        UniformingString app_ = new DefaultUniformingString();
+        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_, app_);
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
@@ -91,7 +94,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         opt_.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter(), _window.getGenerator()));
+        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(app_), new DefaultReporter(app_), _window.getGenerator()));
         ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();

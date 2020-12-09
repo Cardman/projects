@@ -7,8 +7,10 @@ import code.sml.Element;
 import code.stream.core.StreamCoreUtil;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.DefaultUniformingString;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
+import code.util.ints.UniformingString;
 
 public final class StreamTextFile {
 
@@ -91,12 +93,16 @@ public final class StreamTextFile {
     }
 
     public static String contentsOfFile(String _nomFichier) {
-        return readFile(_nomFichier);
+        return contentsOfFile(_nomFichier,new DefaultUniformingString());
     }
 
-    private static String readFile(String _filePath) {
+    public static String contentsOfFile(String _nomFichier, UniformingString _apply) {
+        return readFile(_nomFichier,_apply);
+    }
+
+    private static String readFile(String _filePath,UniformingString _apply) {
         File file_ = new File(_filePath);
-        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_)), file_.length());
+        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_)), file_.length(),_apply);
     }
     private static BufferedReader tryCreateBufferedReader(FileInputStream _file) {
         if (_file == null) {
@@ -113,7 +119,7 @@ public final class StreamTextFile {
         return doc_.getDocumentElement();
     }
 
-    private static String readingFile(BufferedReader _br, long _capacity) {
+    private static String readingFile(BufferedReader _br, long _capacity,UniformingString _apply) {
         if (_br == null) {
             return null;
         }
@@ -122,16 +128,16 @@ public final class StreamTextFile {
 
             int char_ = StreamCoreUtil.read(_br);
             if (char_ == -2) {
+                StreamCoreUtil.close(_br);
                 return null;
             }
             if (char_ < 0) {
                 break;
             }
-            if (char_ != '\r') {
-                strBuilder_.append((char) char_);
-            }
+            strBuilder_.append((char) char_);
         }
-        return strBuilder_.toString();
+        StreamCoreUtil.close(_br);
+        return _apply.apply(strBuilder_.toString());
     }
 
     public static boolean saveTextFile(String _nomFichier, String _text) {
@@ -159,7 +165,7 @@ public final class StreamTextFile {
         if (_nomFichier == null) {
             return false;
         }
-        return println(tryCreateWriter(_nomFichier, true),_text);
+        return write(tryCreateWriter(_nomFichier, true), _text);
     }
 
     private static FileWriter tryCreateWriter(String _nomFichier, boolean _append) {
@@ -169,17 +175,5 @@ public final class StreamTextFile {
             return null;
         }
     }
-    private static boolean println(FileWriter _bw,String _text) {
-        if (_bw == null) {
-            return false;
-        }
-        PrintWriter pr_ = new PrintWriter(_bw);
-        println(pr_, _text);
-        return StreamCoreUtil.close(_bw);
-    }
 
-    private static void println(PrintWriter _bw, String _text) {
-        _bw.println(_text);
-        _bw.close();
-    }
 }

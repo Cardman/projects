@@ -3,7 +3,9 @@ package code.stream;
 import code.stream.core.StreamZipFile;
 import code.util.EntryCust;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
+import code.util.ints.UniformingString;
 
 import java.io.File;
 
@@ -22,6 +24,9 @@ public final class StreamFolderFile {
         return StringUtil.quickEq(absPath_,path_);
     }
     public static StringMap<String> getFiles(String _archiveOrFolder) {
+        return getFiles(_archiveOrFolder,new DefaultUniformingString());
+    }
+    public static StringMap<String> getFiles(String _archiveOrFolder, UniformingString _app) {
         StringMap<String> zipFiles_ = new StringMap<String>();
         File file_ = new File(_archiveOrFolder);
         if (file_.isDirectory()) {
@@ -30,7 +35,7 @@ public final class StreamFolderFile {
                 if (new File(f).isDirectory()) {
                     continue;
                 }
-                String contentOfFile_ = StreamTextFile.contentsOfFile(f);
+                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -50,7 +55,7 @@ public final class StreamFolderFile {
                 if (dec_ == null) {
                     continue;
                 }
-                zipFiles_.addEntry(key_, StringUtil.removeChars(dec_,'\r'));
+                zipFiles_.addEntry(key_, _app.apply(dec_));
             }
         }
         return zipFiles_;
