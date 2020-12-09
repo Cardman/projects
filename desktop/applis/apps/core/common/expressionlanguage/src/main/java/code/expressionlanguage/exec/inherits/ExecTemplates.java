@@ -950,7 +950,7 @@ public final class ExecTemplates {
             StringList parts_ = new StringList();
             for (String s: _classNames) {
                 if (StringUtil.quickEq(s, Templates.SUB_TYPE)) {
-                    parts_.add(_context.getStandards().getContent().getCoreNames().getAliasObject());
+                    parts_.add(s);
                     continue;
                 }
                 if (s.startsWith(Templates.SUB_TYPE)) {

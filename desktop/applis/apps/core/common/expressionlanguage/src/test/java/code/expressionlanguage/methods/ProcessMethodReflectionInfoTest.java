@@ -842,7 +842,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("java.lang.$Fct<java.lang.Object>",getString(out_));
+        assertEq("java.lang.$Fct<?>",getString(out_));
     }
     @Test
     public void processEl354Test() {
