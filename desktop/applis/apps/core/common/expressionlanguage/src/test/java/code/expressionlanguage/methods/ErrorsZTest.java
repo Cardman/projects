@@ -3685,4 +3685,181 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report764Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@interface pkg.Ext {\n");
+        xml_.append(" {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@interface <a name=\"m11\">pkg.Ext</a> {\n" +
+                " <a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report765Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  Rec r = new Rec(f:10);\n");
+        xml_.append("  return r.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#m111\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m111\">Rec</a>(<a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a>:10);\n" +
+                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m126\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m111\">pkg.Rec</a> {\n" +
+                " int <a name=\"m126\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report766Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth (){\n");
+        xml_.append("  $lambda(Rec,new,f);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m91\">Rec</a>,new,f);\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m91\">pkg.Rec</a> {\n" +
+                " int <a name=\"m106\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report767Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  Rec r = new Rec(field:10,field:10);\n");
+        xml_.append("  return r.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#m124\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m124\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m139\">field</a>:10,<a title=\"The parameter function name field is duplicated.\n" +
+                "\n" +
+                "pkg.Rec.field\" href=\"#m139\" class=\"e\">field</a>:10);\n" +
+                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m139\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m124\">pkg.Rec</a> {\n" +
+                " int <a name=\"m139\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report768Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  Rec r = new Rec(field:\"10\");\n");
+        xml_.append("  return r.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#m117\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m117\">Rec</a>(<a title=\"The parameter function name field is duplicated.\n" +
+                "\n" +
+                "pkg.Rec.field\" href=\"#m132\" class=\"e\">field</a>:<span class=\"s\">\"10\"</span>);\n" +
+                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m132\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m117\">pkg.Rec</a> {\n" +
+                " int <a name=\"m132\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report769Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth (){\n");
+        xml_.append("  $lambda(Rec,new,field,field);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">exmeth</a> (){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m101\">Rec</a>,new,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m101\">pkg.Rec</a> {\n" +
+                " int <a name=\"m116\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report770Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static void exmeth (){\n");
+        xml_.append("  $lambda(Rec<?>,new,field);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec<T> {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static void <a name=\"m42\">exmeth</a> (){\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m98\">Rec</a>&lt;?&gt;,new,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m98\">pkg.Rec</a>&lt;<a name=\"m106\">T</a>&gt; {\n" +
+                " int <a name=\"m116\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

@@ -25,7 +25,7 @@ public final class ParsedAnnotations {
         instruction = _instruction;
         instructionLocation = _instructionLocation;
     }
-    public void parse(String _keyWordClass) {
+    public void parse(String... _keyWordClass) {
         int lenInst_ = instruction.length();
         int j_ = 0;
         int nbPars_ = 0;
@@ -184,13 +184,23 @@ public final class ParsedAnnotations {
     public int getIndex() {
         return index;
     }
-    private static boolean startsWithAnnotFilter(String _trimmedInstruction, String _keyWordClass) {
-        if (_keyWordClass.isEmpty()) {
+    private static boolean startsWithAnnotFilter(String _trimmedInstruction, String... _keyWordClass) {
+        if (_keyWordClass.length == 0) {
             return _trimmedInstruction.charAt(0) == ANNOT;
         }
         return startsWithAnnot(_trimmedInstruction, _keyWordClass);
     }
-    static boolean startsWithAnnot(String _trimmedInstruction, String _keyWordClass) {
-        return _trimmedInstruction.charAt(0) == ANNOT && !StringExpUtil.startsWithArobaseKeyWord(_trimmedInstruction, _keyWordClass);
+    static boolean startsWithAnnot(String _trimmedInstruction, String... _keyWordClass) {
+        if (_trimmedInstruction.charAt(0) != ANNOT) {
+            return false;
+        }
+        boolean exist_ = false;
+        for (String k:_keyWordClass) {
+            if (StringExpUtil.startsWithArobaseKeyWord(_trimmedInstruction, k)) {
+                exist_ = true;
+                break;
+            }
+        }
+        return !exist_;
     }
 }

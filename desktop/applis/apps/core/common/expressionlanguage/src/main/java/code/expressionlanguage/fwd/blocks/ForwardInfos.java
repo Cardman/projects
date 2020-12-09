@@ -77,7 +77,7 @@ public final class ForwardInfos {
                 _forwards.getMapInnerEltTypes().addEntry((InnerElementBlock) r, e_);
             }
             if (r instanceof RecordBlock) {
-                ExecRecordBlock e_ = new ExecRecordBlock(r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
+                ExecRecordBlock e_ = new ExecRecordBlock(((RecordBlock)r).isMutable(),r.getOffset().getOffsetTrim(), new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
                 e_.setFile(exFile_);
                 v_.setRootBlock(e_);
             }

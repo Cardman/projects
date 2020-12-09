@@ -18,7 +18,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public final class ProcessMethodRecordTest extends ProcessMethodCommon {
+public final class ProcessMethodMutableRecordTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument0Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -28,7 +28,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -49,7 +49,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one;\n");
         xml_.append(" $int two;\n");
         xml_.append("}\n");
@@ -71,7 +71,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one;\n");
         xml_.append(" $int two;\n");
         xml_.append("}\n");
@@ -94,7 +94,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -115,7 +115,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public @$class pkg.Rec {\n");
+        xml_.append("$public @$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -137,7 +137,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return 0;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -159,7 +159,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one;\n");
         xml_.append(" $int two;\n");
         xml_.append("}\n");
@@ -182,7 +182,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one;\n");
         xml_.append(" $int two;\n");
         xml_.append("}\n");
@@ -204,7 +204,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one,two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -225,7 +225,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one,two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -246,7 +246,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int two,one;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -267,7 +267,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int two,one;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -289,7 +289,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one,two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -311,7 +311,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int one,two;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -333,7 +333,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int two,one;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -355,7 +355,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.one-r.two;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int two,one;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -376,7 +376,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec<T> {\n");
+        xml_.append("@$interface pkg.Rec<T> {\n");
         xml_.append(" T field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -402,7 +402,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec<T> {\n");
+        xml_.append("@$interface pkg.Rec<T> {\n");
         xml_.append(" T field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -424,7 +424,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec<T> {\n");
+        xml_.append("@$interface pkg.Rec<T> {\n");
         xml_.append(" T field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -451,7 +451,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec<T> {\n");
+        xml_.append("@$interface pkg.Rec<T> {\n");
         xml_.append(" T field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -466,7 +466,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument20Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -492,7 +492,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  Rec r = $new Rec(field:10);\n");
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
-        xml_.append(" @$class Rec {\n");
+        xml_.append(" @$interface Rec {\n");
         xml_.append("  $int field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -510,7 +510,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth (){\n");
-        xml_.append("  @$class Rec {\n");
+        xml_.append("  @$interface Rec {\n");
         xml_.append("   $int field;\n");
         xml_.append("  }\n");
         xml_.append("  Rec r = $new Rec(field:10);\n");
@@ -535,7 +535,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec:Int {\n");
+        xml_.append("@$interface pkg.Rec:Int {\n");
         xml_.append(" $int field;\n");
         xml_.append(" $public $int field(){\n");
         xml_.append("  $return field;\n");
@@ -562,7 +562,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec:Int {\n");
+        xml_.append("@$interface pkg.Rec:Int {\n");
         xml_.append(" $int field;\n");
         xml_.append(" $public $int field(){\n");
         xml_.append("  $return field;\n");
@@ -593,7 +593,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return l.call(10).field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append(" $static $int stField=Ex.stField++;\n");
         xml_.append("}\n");
@@ -615,7 +615,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -643,7 +643,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return p.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -665,7 +665,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -687,7 +687,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -711,7 +711,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -732,7 +732,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("@Annot(2)\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         xml_.append("$public $annotation pkg.Annot {\n");
@@ -752,10 +752,10 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $boolean exmeth (){\n");
-        xml_.append("  $return $class(Rec).isSpeClass();\n");
+        xml_.append("  $return $class(Rec).isSpeMuClass();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -772,10 +772,10 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $boolean exmeth (){\n");
-        xml_.append("  $return $class(Ex).isSpeClass();\n");
+        xml_.append("  $return $class(Ex).isSpeMuClass();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -792,10 +792,10 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $boolean exmeth (){\n");
-        xml_.append("  $return $class(Ex).isSpeClass();\n");
+        xml_.append("  $return $class(Ex).isSpeMuClass();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$interface pkg.Rec {\n");
+        xml_.append("@$class pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -810,7 +810,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
     @Test
     public void recordTest() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("@$class pkg.Rec {\n");
+        xml_.append("@$interface pkg.Rec {\n");
         xml_.append(" $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -837,11 +837,11 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("  $static().$lambda(Rec2,$new,$id);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("@$class $interfaces(Int) pkg.Rec:Int {\n");
+        xml_.append("@$interface $interfaces(Int) pkg.Rec:Int {\n");
         xml_.append(" $int field;\n");
         xml_.append(" Rec(){}\n");
         xml_.append("}\n");
-        xml_.append("@$class pkg.Rec2 {\n");
+        xml_.append("@$interface pkg.Rec2 {\n");
         xml_.append("}\n");
         xml_.append("$interface pkg.Int {\n");
         xml_.append(" $int sup;\n");
