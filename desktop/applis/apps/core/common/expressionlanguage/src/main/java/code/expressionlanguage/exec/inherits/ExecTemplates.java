@@ -1005,7 +1005,7 @@ public final class ExecTemplates {
                     continue;
                 }
                 if (arg_.startsWith("~")) {
-                    continue;
+                    arg_ = arg_.substring(1);
                 }
                 String param_ = format(root_,formatted_, b);
                 if (!isCorrectExecute(arg_,param_,_context)) {
