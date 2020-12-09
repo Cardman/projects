@@ -22,6 +22,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.core.OutputType;
+import code.stream.core.ReadFiles;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -121,7 +123,11 @@ public final class MainWindow extends GroupFrame {
         String archive_ = linesFiles_.first();
         String confRel_ = linesFiles_.get(1);
         UniformingString app_ = new DefaultUniformingString();
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_,app_).getZipFiles();
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_);
+        if (result_.getType() == OutputType.NOTHING) {
+            return;
+        }
+        StringMap<String> zipFiles_ = result_.getZipFiles();
         String clName_ = "";
         String mName_ = "";
         ExecutingOptions exec_ = new ExecutingOptions();

@@ -23,6 +23,8 @@ import code.gui.Clock;
 import code.gui.CustComponent;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.core.OutputType;
+import code.stream.core.ReadFiles;
 import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
@@ -56,7 +58,11 @@ public final class GuiProcess implements Runnable {
         }
         String archive_ = linesFiles_.first();
         UniformingString app_ = new DefaultUniformingString();
-        StringMap<String> zipFiles_ = StreamFolderFile.getFiles(archive_, app_).getZipFiles();
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_);
+        if (result_.getType() == OutputType.NOTHING) {
+            return null;
+        }
+        StringMap<String> zipFiles_ = result_.getZipFiles();
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";

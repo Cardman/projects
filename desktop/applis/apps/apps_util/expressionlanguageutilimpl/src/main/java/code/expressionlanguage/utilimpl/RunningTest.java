@@ -6,6 +6,8 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
+import code.stream.core.OutputType;
+import code.stream.core.ReadFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -65,7 +67,11 @@ public final class RunningTest implements Runnable {
         }
         String archive_ = linesFiles_.first();
         String lg_ = linesFiles_.get(1);
-        StringMap<String> zipFiles_ = _infos.getReporter().getFiles(archive_).getZipFiles();
+        ReadFiles result_ = _infos.getReporter().getFiles(archive_);
+        if (result_.getType() == OutputType.NOTHING) {
+            return;
+        }
+        StringMap<String> zipFiles_ = result_.getZipFiles();
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
