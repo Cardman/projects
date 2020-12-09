@@ -318,6 +318,9 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public boolean isTypeWildCard() {
         return category == ClassCategory.WILD_CARD;
     }
+    public boolean isRefType() {
+        return category == ClassCategory.REF_TYPE;
+    }
     public boolean isTypeClass() {
         return category == ClassCategory.CLASS;
     }

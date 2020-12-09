@@ -986,6 +986,9 @@ public final class ExecTemplates {
             if (arg_.contains(PREFIX_VAR_TYPE)) {
                 return null;
             }
+            if (arg_.startsWith("~")) {
+                arg_ = arg_.substring(1);
+            }
 
             varTypes_.addEntry(t.getName(), arg_);
             i_++;
@@ -999,6 +1002,9 @@ public final class ExecTemplates {
                     continue;
                 }
                 if (arg_.startsWith("!")) {
+                    continue;
+                }
+                if (arg_.startsWith("~")) {
                     continue;
                 }
                 String param_ = format(root_,formatted_, b);

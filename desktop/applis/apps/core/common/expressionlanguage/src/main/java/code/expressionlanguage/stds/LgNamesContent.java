@@ -308,6 +308,7 @@ public final class LgNamesContent {
     private static final String IS_ABSTRACT = "IsAbstract";
     private static final String MAKE_ARRAY = "MakeArray";
     private static final String IS_INTERFACE = "IsInterface";
+    private static final String MAKE_REF_TYPE = "MakeRefType";
     private static final String MAKE_WILD_CARD = "MakeWildCard";
     private static final String IS_TYPE_VARIABLE = "IsTypeVariable";
     private static final String IS_PRIVATE = "IsPrivate";
@@ -317,6 +318,7 @@ public final class LgNamesContent {
     private static final String GET_ACTUAL_TYPE_ARGUMENTS = "GetActualTypeArguments";
     private static final String IS_PROTECTED = "IsProtected";
     private static final String IS_PRIMITIVE = "IsPrimitive";
+    private static final String IS_REF_TYPE = "IsRefType";
     private static final String IS_WILD_CARD = "IsWildCard";
     private static final String IS_ANNOTATION = "IsAnnotation";
     private static final String GET_GENERIC_TYPE = "GetGenericType";
@@ -649,6 +651,7 @@ public final class LgNamesContent {
         getReflect().setAliasIsAbstract(get(_util,_cust, IS_ABSTRACT));
         getReflect().setAliasMakeArray(get(_util,_cust, MAKE_ARRAY));
         getReflect().setAliasIsInterface(get(_util,_cust, IS_INTERFACE));
+        getReflect().setAliasMakeRef(get(_util,_cust, MAKE_REF_TYPE));
         getReflect().setAliasMakeWildCard(get(_util,_cust, MAKE_WILD_CARD));
         getReflect().setAliasIsTypeVariable(get(_util,_cust, IS_TYPE_VARIABLE));
         getReflect().setAliasIsPrivate(get(_util,_cust, IS_PRIVATE));
@@ -658,6 +661,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetActualTypeArguments(get(_util,_cust, GET_ACTUAL_TYPE_ARGUMENTS));
         getReflect().setAliasIsProtected(get(_util,_cust, IS_PROTECTED));
         getReflect().setAliasIsPrimitive(get(_util,_cust, IS_PRIMITIVE));
+        getReflect().setAliasIsRefType(get(_util,_cust, IS_REF_TYPE));
         getReflect().setAliasIsWildCard(get(_util,_cust, IS_WILD_CARD));
         getReflect().setAliasIsAnnotation(get(_util,_cust, IS_ANNOTATION));
         getReflect().setAliasGetGenericType(get(_util,_cust, GET_GENERIC_TYPE));
@@ -1370,9 +1374,11 @@ public final class LgNamesContent {
                 new KeyValueMemberName(IS_PROTECTED,getReflect().getAliasIsProtected()),
                 new KeyValueMemberName(IS_PUBLIC,getReflect().getAliasIsPublic()),
                 new KeyValueMemberName(IS_STATIC,getReflect().getAliasIsStatic()),
+                new KeyValueMemberName(IS_REF_TYPE,getReflect().getAliasIsRefType()),
                 new KeyValueMemberName(IS_WILD_CARD,getReflect().getAliasIsWildCard()),
                 new KeyValueMemberName(MAKE_ARRAY,getReflect().getAliasMakeArray()),
                 new KeyValueMemberName(MAKE_GENERIC,getReflect().getAliasMakeGeneric()),
+                new KeyValueMemberName(MAKE_REF_TYPE,getReflect().getAliasMakeRef()),
                 new KeyValueMemberName(MAKE_WILD_CARD,getReflect().getAliasMakeWildCard()),
                 new KeyValueMemberName(ARRAY_NEW_INSTANCE,getReflect().getAliasArrayNewInstance()),
                 new KeyValueMemberName(ARRAY_SET,getReflect().getAliasArraySet())));

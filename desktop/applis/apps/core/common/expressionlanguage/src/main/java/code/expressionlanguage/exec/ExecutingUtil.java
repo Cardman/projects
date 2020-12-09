@@ -656,14 +656,15 @@ public final class ExecutingUtil {
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
+        if (_name.startsWith("~")) {
+            StringList upperBounds_ = new StringList(_name.substring("~".length()));
+            StringList lowerBounds_ = new StringList(_name.substring("~".length()));
+            return new ClassMetaInfo(_name, ClassCategory.REF_TYPE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+        }
         if (_name.startsWith(Templates.ARR_BEG_STRING)&&_name.contains(Templates.PREFIX_VAR_TYPE)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, _variableOwner);
         }
-        String name_ = _name;
-        if (_name.startsWith("~")) {
-            name_ = _name.substring("~".length());
-        }
-        return getClassMetaInfo(_context,name_);
+        return getClassMetaInfo(_context,_name);
     }
     public static Struct getClassMetaInfo(ContextEl _context,AnnotatedMemberStruct _member) {
         String formDeclaringClass_ = _member.getFormDeclaringClass();

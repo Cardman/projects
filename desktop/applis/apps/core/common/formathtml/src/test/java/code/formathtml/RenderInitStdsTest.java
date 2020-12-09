@@ -384,12 +384,14 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasIsPrivate("isPrivate");
         _lgNames.getContent().getReflect().setAliasIsClass("isClass");
         _lgNames.getContent().getReflect().setAliasIsWildCard("isWildCard");
+        _lgNames.getContent().getReflect().setAliasIsRefType("isRefType");
         _lgNames.getContent().getReflect().setAliasIsInterface("isInterface");
         _lgNames.getContent().getReflect().setAliasIsEnum("isEnum");
         _lgNames.getContent().getReflect().setAliasIsPrimitive("isPrimitive");
         _lgNames.getContent().getReflect().setAliasIsArray("isArray");
         _lgNames.getContent().getReflect().setAliasIsAnnotation("isAnnotation");
         _lgNames.getContent().getReflect().setAliasMakeWildCard("makeWildCard");
+        _lgNames.getContent().getReflect().setAliasMakeRef("makeRefType");
         _lgNames.getContent().getReflect().setAliasIsInstance("isInstance");
         _lgNames.getContent().getReflect().setAliasIsAssignableFrom("isAssignableFrom");
         _lgNames.getContent().getReflect().setAliasInit("init");
