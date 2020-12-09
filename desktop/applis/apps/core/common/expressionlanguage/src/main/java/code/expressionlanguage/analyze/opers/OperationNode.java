@@ -135,6 +135,16 @@ public abstract class OperationNode {
         }
         return !(this instanceof AnnotationInstanceOperation);
     }
+
+    protected static boolean isLeftValue(SettableElResult _ch) {
+        return _ch instanceof OperationNode && (!(_ch instanceof AbstractCallLeftOperation)
+                ||isLeftValueCall((OperationNode)_ch));
+    }
+
+    protected static boolean isLeftValueCall(OperationNode _ch) {
+        return _ch instanceof AbstractCallLeftOperation && !((AbstractCallLeftOperation) _ch).isErrLeftValue();
+    }
+
     protected final boolean isLvalue() {
         return isSettable();
     }

@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.IntTreeMap;
-import code.util.core.StringUtil;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;
@@ -93,7 +92,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         OperationNode firstChild_ = AffectationOperation.getFirstToBeAnalyzed(this);
-        if (firstChild_ instanceof RefParamOperation || isLeftValue(firstChild_)) {
+        if (firstChild_ instanceof RefParamOperation || isLeftValueCall(firstChild_)) {
             setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
             return;
         }
@@ -146,7 +145,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
                 setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(),_page.getPrimitiveTypes()));
                 return;
             }
-            if (isLeftValue(last_)) {
+            if (isLeftValueCall(last_)) {
                 setResultClass(AnaClassArgumentMatching.copy(last_.getResultClass(),_page.getPrimitiveTypes()));
                 return;
             }
@@ -206,10 +205,6 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         setResultClass(new AnaClassArgumentMatching(var_.getClassName()));
-    }
-
-    private static boolean isLeftValue(OperationNode _ch) {
-        return _ch instanceof AbstractCallLeftOperation && !((AbstractCallLeftOperation) _ch).isErrLeftValue();
     }
 
     public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {

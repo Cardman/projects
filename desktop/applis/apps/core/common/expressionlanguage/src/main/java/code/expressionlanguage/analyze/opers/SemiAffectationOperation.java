@@ -41,7 +41,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     public void analyzeUnary(AnalyzedPageEl _page) {
         OperationNode leftEl_ = getFirstChild();
         settable = AffectationOperation.tryGetSettable(this);
-        if (!(settable instanceof OperationNode) || AffectationOperation.isNotLeft(settable)) {
+        if (!isLeftValue(settable)) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());

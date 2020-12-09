@@ -47,8 +47,7 @@ public final class AffectationOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = tryGetSettable(this);
-        boolean ok_ = elt_ != null;
-        if (!ok_ || isNotLeft(elt_)) {
+        if (!isLeftValue(elt_)) {
             IntTreeMap< String> ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -231,10 +230,6 @@ public final class AffectationOperation extends MethodOperation {
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }
-    }
-
-    public static boolean isNotLeft(SettableElResult _elt) {
-        return _elt instanceof AbstractCallLeftOperation && ((AbstractCallLeftOperation) _elt).isErrLeftValue();
     }
 
     public static String processInfer(String _import, AnalyzedPageEl _page) {
