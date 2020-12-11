@@ -26,11 +26,6 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public String getBasePath() {
-        return base;
-    }
-
-    @Override
     public void build(String _base, StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders) {
         base = _base;
         mkdirs(_base);

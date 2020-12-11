@@ -8,7 +8,7 @@ import code.util.StringList;
 public interface AbstractReporter {
     AbstractNameValidating getNameValidating();
     boolean koOutZip(String _folderPath,StringList _list, ExecutingOptions _exec);
-    boolean isMemory();
+
     String conf(String _fileConfOrContent);
     ReadBinFiles getBinFiles(String _archiveOrFolder);
     ReadFiles getFiles(String _archiveOrFolder);

@@ -21,11 +21,6 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public String getBasePath() {
-        return base;
-    }
-
-    @Override
     public void build(String _base, StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders) {
         root = FolderStruct.build(_foldersElts,_files, _folders);
     }

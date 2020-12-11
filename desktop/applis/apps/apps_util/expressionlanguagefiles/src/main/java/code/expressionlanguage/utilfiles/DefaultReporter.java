@@ -11,8 +11,6 @@ import code.stream.core.ReadFiles;
 import code.util.StringList;
 import code.util.ints.UniformingString;
 
-import java.io.File;
-
 public final class DefaultReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
@@ -44,11 +42,6 @@ public final class DefaultReporter implements AbstractReporter {
             _exec.setOutputZip(fileOut_);
         }
         return false;
-    }
-
-    @Override
-    public boolean isMemory() {
-        return memory;
     }
 
     @Override
