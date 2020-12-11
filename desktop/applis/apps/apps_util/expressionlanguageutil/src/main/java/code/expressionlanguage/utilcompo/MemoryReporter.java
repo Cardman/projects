@@ -52,6 +52,9 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
+        if (!nameValidating.okPath(_exec.getOutputZip(),'/','\\')) {
+            return true;
+        }
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
             if (!nameValidating.okPath(f,'/','\\')) {
