@@ -2,11 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
 import code.util.CustList;
@@ -52,13 +48,16 @@ public final class ZipBinStructUtil {
         cont_ = StringExpUtil.getPrettyArrayType(cont_);
         CustList<EntryBinaryStruct> filesMap_ = new CustList<EntryBinaryStruct>();
         for (EntryCust<String,ContentTime> e: unzip_.entryList()) {
-            byte[] bytesFile_ = e.getValue().getContent();
+            ContentTime value_ = e.getValue();
+            byte[] bytesFile_ = value_.getContent();
             int lengthFile_ = bytesFile_.length;
             ArrayStruct bs_ = new ArrayStruct(lengthFile_,cont_);
             for (int j = 0; j < lengthFile_; j++) {
                 bs_.set(j, new ByteStruct(bytesFile_[j]));
             }
-            filesMap_.add(new EntryBinaryStruct(new StringStruct(e.getKey()),bs_));
+            EntryBinaryStruct bin_ = new EntryBinaryStruct(new StringStruct(e.getKey()), bs_);
+            bin_.setLongTime(new LongStruct(value_.getLastModifTime()));
+            filesMap_.add(bin_);
         }
         return filesMap_;
     }
@@ -88,13 +87,14 @@ public final class ZipBinStructUtil {
                     continue;
                 }
                 EntryBinaryStruct e_ = (EntryBinaryStruct)s;
-                int len_ = e_.getBinary().getLength();
+                ArrayStruct array_ = e_.getBinary();
+                int len_ = array_.getLength();
                 byte[] file_ = new byte[len_];
                 for (int i = 0; i < len_; i++) {
-                    Struct byte_ = e_.getBinary().get(i);
+                    Struct byte_ = array_.get(i);
                     file_[i] = NumParsers.convertToNumber(byte_).byteStruct();
                 }
-                files_.addEntry(e_.getName().getInstance(),new ContentTime(file_,0));
+                files_.addEntry(e_.getName().getInstance(),new ContentTime(file_,e_.getTime()));
             }
             return StreamZipFile.zipBinFiles(files_);
         }

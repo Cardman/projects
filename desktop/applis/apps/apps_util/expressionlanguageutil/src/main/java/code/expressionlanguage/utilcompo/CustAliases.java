@@ -105,6 +105,7 @@ public final class CustAliases {
     private static final String ENTRY_TEXT = "EntryText";
     private static final String ENTRY_NAME = "EntryName";
     private static final String ENTRY_VALUE = "EntryValue";
+    private static final String ENTRY_TIME = "EntryTime";
     private static final String FILE_IS_ABSOLUTE = "FileIsAbsolute";
     private static final String FILE_READ_BIN = "FileReadBin";
     private static final String FILE_WRITE_BIN = "FileWriteBin";
@@ -263,6 +264,7 @@ public final class CustAliases {
     private String aliasEntryText;
     private String aliasEntryName;
     private String aliasEntryValue;
+    private String aliasEntryTime;
     private String aliasFileIsAbsolute;
     private String aliasFileReadBin;
     private String aliasFileWriteBin;
@@ -615,6 +617,12 @@ public final class CustAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasEntryValue, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), false, MethodModifier.FINAL);
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryBinary0EntryTime0()));
+        methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()));
         ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryBinary0EntryBinary0(),custAliasParameters.getAliasEntryBinary0EntryBinary1()));
         constructors_.add(ctor_);
@@ -629,6 +637,12 @@ public final class CustAliases {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasEntryValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        methods_.add( method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryText0EntryTime0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), _content.getCharSeq().getAliasString());
         ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryText0EntryText0(),custAliasParameters.getAliasEntryText0EntryText1()));
@@ -1210,6 +1224,7 @@ public final class CustAliases {
         setAliasEntryText(LgNamesContent.get(_util, _cust, ENTRY_TEXT));
         setAliasEntryName(LgNamesContent.get(_util, _cust, ENTRY_NAME));
         setAliasEntryValue(LgNamesContent.get(_util, _cust, ENTRY_VALUE));
+        setAliasEntryTime(LgNamesContent.get(_util, _cust, ENTRY_TIME));
         setAliasFileIsAbsolute(LgNamesContent.get(_util, _cust, FILE_IS_ABSOLUTE));
         setAliasFileReadBin(LgNamesContent.get(_util, _cust, FILE_READ_BIN));
         setAliasFileWriteBin(LgNamesContent.get(_util, _cust, FILE_WRITE_BIN));
@@ -1485,9 +1500,11 @@ public final class CustAliases {
                 new KeyValueMemberName(FILE_MAKE_DIRS,getAliasFileMakeDirs())));
         m_.addEntry(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
+                new KeyValueMemberName(ENTRY_TIME,getAliasEntryTime()),
                 new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
         m_.addEntry(getAliasEntryText(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
+                new KeyValueMemberName(ENTRY_TIME,getAliasEntryTime()),
                 new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
         m_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(LgNames.NEXT,_content.getPredefTypes().getAliasNext()),
@@ -2103,6 +2120,15 @@ public final class CustAliases {
                 res_.setResult(inst_.getName());
                 return res_;
             }
+            if (StringUtil.quickEq(name_,aliasEntryTime)) {
+                if (_args.length == 0) {
+                    res_.setResult(inst_.getLongTime());
+                    return res_;
+                }
+                inst_.setLongTime(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
             res_.setResult(inst_.getText());
             return res_;
         }
@@ -2111,6 +2137,15 @@ public final class CustAliases {
             EntryBinaryStruct inst_ = (EntryBinaryStruct) _instance;
             if (StringUtil.quickEq(name_,aliasEntryName)) {
                 res_.setResult(inst_.getName());
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasEntryTime)) {
+                if (_args.length == 0) {
+                    res_.setResult(inst_.getLongTime());
+                    return res_;
+                }
+                inst_.setLongTime(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             ArrayStruct bin_ = inst_.getBinary();
@@ -2307,7 +2342,9 @@ public final class CustAliases {
                             for (int j = 0; j < bLen_; j++) {
                                 bs_.set(j, new ByteStruct(encoded_[j]));
                             }
-                            bins_.add(new EntryBinaryStruct(cont_.getName(), bs_));
+                            EntryBinaryStruct bin_ = new EntryBinaryStruct(cont_.getName(), bs_);
+                            bin_.setLongTime(cont_.getLongTime());
+                            bins_.add(bin_);
                         }
                     }
                 }
@@ -2366,11 +2403,14 @@ public final class CustAliases {
                             prim_[j] = ((NumberStruct)bin_.get(j)).byteStruct();
                         }
                         String dec_ = StringUtil.decode(prim_);
+                        EntryTextStruct txt_;
                         if (dec_ == null) {
-                            filesOut_.set(i, new EntryTextStruct(fileBin_.getName(),NullStruct.NULL_VALUE));
+                            txt_ = new EntryTextStruct(fileBin_.getName(), NullStruct.NULL_VALUE);
                         } else {
-                            filesOut_.set(i, new EntryTextStruct(fileBin_.getName(),new StringStruct(dec_)));
+                            txt_ = new EntryTextStruct(fileBin_.getName(), new StringStruct(dec_));
                         }
+                        txt_.setLongTime(fileBin_.getLongTime());
+                        filesOut_.set(i, txt_);
                     }
                     res_.setResult(filesOut_);
                     return res_;
@@ -2967,6 +3007,14 @@ public final class CustAliases {
 
     public void setAliasEntryName(String _aliasEntryName) {
         this.aliasEntryName = _aliasEntryName;
+    }
+
+    public String getAliasEntryTime() {
+        return aliasEntryTime;
+    }
+
+    public void setAliasEntryTime(String _aliasEntryTime) {
+        this.aliasEntryTime = _aliasEntryTime;
     }
 
     public String getAliasEntryValue() {

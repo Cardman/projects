@@ -1,11 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 public final class EntryBinaryStruct extends WithoutParentIdStruct implements Struct {
     private StringStruct name;
     private ArrayStruct binary;
+    private long time;
     EntryBinaryStruct(Struct _name, Struct _binary, String _arrType) {
         name = getString(_name);
         binary = getArray(_binary,_arrType);
@@ -25,6 +27,18 @@ public final class EntryBinaryStruct extends WithoutParentIdStruct implements St
             return (ArrayStruct) _str;
         }
         return new ArrayStruct(0,_arrType);
+    }
+
+    public Struct getLongTime() {
+        return new LongStruct(getTime());
+    }
+
+    public void setLongTime(Struct _str) {
+        time = NumParsers.convertToNumber(_str).longStruct();
+    }
+
+    public long getTime() {
+        return time;
     }
 
     public StringStruct getName() {

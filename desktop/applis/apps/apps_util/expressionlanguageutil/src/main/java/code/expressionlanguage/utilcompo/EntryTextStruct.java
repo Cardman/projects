@@ -1,11 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 public final class EntryTextStruct extends WithoutParentIdStruct implements Struct {
     private StringStruct name;
     private StringStruct text;
+    private long time;
     EntryTextStruct(Struct _name, Struct _text) {
         name = getString(_name);
         text = getString(_text);
@@ -17,6 +19,13 @@ public final class EntryTextStruct extends WithoutParentIdStruct implements Stru
         return new StringStruct("");
     }
 
+    public Struct getLongTime() {
+        return new LongStruct(time);
+    }
+
+    public void setLongTime(Struct _str) {
+        time = NumParsers.convertToNumber(_str).longStruct();
+    }
     public StringStruct getName() {
         return name;
     }

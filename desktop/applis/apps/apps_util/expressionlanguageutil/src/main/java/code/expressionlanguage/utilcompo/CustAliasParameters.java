@@ -44,8 +44,10 @@ public final class CustAliasParameters {
     private static final String ATOMIC_LONG_0_ATOMIC_LONG_0="AtomicLong0AtomicLong0";
     private static final String ENTRY_BINARY_0_ENTRY_BINARY_0="EntryBinary0EntryBinary0";
     private static final String ENTRY_BINARY_0_ENTRY_BINARY_1="EntryBinary0EntryBinary1";
+    private static final String ENTRY_BINARY_0_ENTRY_TIME_0="EntryBinary0EntryTime0";
     private static final String ENTRY_TEXT_0_ENTRY_TEXT_0="EntryText0EntryText0";
     private static final String ENTRY_TEXT_0_ENTRY_TEXT_1="EntryText0EntryText1";
+    private static final String ENTRY_TEXT_0_ENTRY_TIME_0="EntryText0EntryTime0";
     private static final String FILE_0_READ_0="File0Read0";
     private static final String FILE_0_WRITE_0="File0Write0";
     private static final String FILE_0_WRITE_1="File0Write1";
@@ -175,8 +177,10 @@ public final class CustAliasParameters {
     private String aliasAtomicLong0AtomicLong0;
     private String aliasEntryBinary0EntryBinary0;
     private String aliasEntryBinary0EntryBinary1;
+    private String aliasEntryBinary0EntryTime0;
     private String aliasEntryText0EntryText0;
     private String aliasEntryText0EntryText1;
+    private String aliasEntryText0EntryTime0;
     private String aliasFile0Read0;
     private String aliasFile0Write0;
     private String aliasFile0Write1;
@@ -302,7 +306,9 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_LONG_0_GET_AND_ADD_ATOMIC_0,aliasAtomicLong0GetAndAddAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_LONG_0_ATOMIC_LONG_0,aliasAtomicLong0AtomicLong0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENTRY_BINARY_0_ENTRY_BINARY_0,aliasEntryBinary0EntryBinary0),new KeyValueMemberName(ENTRY_BINARY_0_ENTRY_BINARY_1,aliasEntryBinary0EntryBinary1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENTRY_BINARY_0_ENTRY_TIME_0,aliasEntryBinary0EntryTime0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENTRY_TEXT_0_ENTRY_TEXT_0,aliasEntryText0EntryText0),new KeyValueMemberName(ENTRY_TEXT_0_ENTRY_TEXT_1,aliasEntryText0EntryText1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENTRY_TEXT_0_ENTRY_TIME_0,aliasEntryText0EntryTime0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_READ_0,aliasFile0Read0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_WRITE_0,aliasFile0Write0),new KeyValueMemberName(FILE_0_WRITE_1,aliasFile0Write1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_READ_BIN_0,aliasFile0FileReadBin0)));
@@ -407,8 +413,10 @@ public final class CustAliasParameters {
         aliasAtomicLong0AtomicLong0= LgNamesContent.get(_util, _cust, ATOMIC_LONG_0_ATOMIC_LONG_0);
         aliasEntryBinary0EntryBinary0= LgNamesContent.get(_util, _cust, ENTRY_BINARY_0_ENTRY_BINARY_0);
         aliasEntryBinary0EntryBinary1= LgNamesContent.get(_util, _cust, ENTRY_BINARY_0_ENTRY_BINARY_1);
+        aliasEntryBinary0EntryTime0= LgNamesContent.get(_util, _cust, ENTRY_BINARY_0_ENTRY_TIME_0);
         aliasEntryText0EntryText0= LgNamesContent.get(_util, _cust, ENTRY_TEXT_0_ENTRY_TEXT_0);
         aliasEntryText0EntryText1= LgNamesContent.get(_util, _cust, ENTRY_TEXT_0_ENTRY_TEXT_1);
+        aliasEntryText0EntryTime0= LgNamesContent.get(_util, _cust, ENTRY_TEXT_0_ENTRY_TIME_0);
         aliasFile0Read0= LgNamesContent.get(_util, _cust, FILE_0_READ_0);
         aliasFile0Write0= LgNamesContent.get(_util, _cust, FILE_0_WRITE_0);
         aliasFile0Write1= LgNamesContent.get(_util, _cust, FILE_0_WRITE_1);
@@ -649,12 +657,20 @@ public final class CustAliasParameters {
         return aliasEntryBinary0EntryBinary1;
     }
 
+    public String getAliasEntryBinary0EntryTime0() {
+        return aliasEntryBinary0EntryTime0;
+    }
+
     public String getAliasEntryText0EntryText0() {
         return aliasEntryText0EntryText0;
     }
 
     public String getAliasEntryText0EntryText1() {
         return aliasEntryText0EntryText1;
+    }
+
+    public String getAliasEntryText0EntryTime0() {
+        return aliasEntryText0EntryTime0;
     }
 
     public String getAliasFile0Read0() {
