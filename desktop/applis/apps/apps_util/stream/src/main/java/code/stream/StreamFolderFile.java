@@ -1,7 +1,6 @@
 package code.stream;
 
 import code.stream.core.*;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -53,13 +52,9 @@ public final class StreamFolderFile {
         File file_ = new File(_archiveOrFolder);
         if (file_.isDirectory()) {
             StringMap<String> zipFiles_ = new StringMap<String>();
-            StringList folders_ = new StringList();
             String abs_ = file_.getAbsolutePath();
             for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder)) {
                 if (new File(f).isDirectory()) {
-                    if (abs_.length()+1 <= f.length()) {
-                        folders_.add(f.substring(abs_.length()+1));
-                    }
                     continue;
                 }
                 String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app);
@@ -68,32 +63,10 @@ public final class StreamFolderFile {
                 }
                 zipFiles_.addEntry(f.substring(abs_.length()+1),contentOfFile_);
             }
-            return new ReadFiles(zipFiles_,folders_,OutputType.FOLDER);
+            return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
         byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder);
-        return getZippedFiles(_app, bytes_);
-    }
-
-    public static ReadFiles getZippedFiles(UniformingString _app, byte[] _bytes) {
-        StringMap<ContentTime> zip_ =  StreamZipFile.zippedBinaryFiles(_bytes);
-        StringMap<String> zipFiles_ = new StringMap<String>();
-        StringList folders_ = new StringList();
-        if (zip_ == null) {
-            return new ReadFiles(zipFiles_,folders_,OutputType.NOTHING);
-        }
-        for (EntryCust<String,ContentTime> e: zip_.entryList()) {
-            String key_ = e.getKey();
-            if (key_.endsWith("/")) {
-                folders_.add(key_.substring(0,key_.length()-1));
-                continue;
-            }
-            String dec_ = StringUtil.decode(e.getValue().getContent());
-            if (dec_ == null) {
-                continue;
-            }
-            zipFiles_.addEntry(key_, _app.apply(dec_));
-        }
-        return new ReadFiles(zipFiles_,folders_,OutputType.ZIP);
+        return StreamZipFile.getZippedFiles(_app, bytes_);
     }
 
     public static ReadBinFiles getBinFiles(String _archiveOrFolder) {
@@ -119,24 +92,7 @@ public final class StreamFolderFile {
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
         byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder);
-        return getZippedBinFiles(bytes_);
+        return StreamZipFile.getZippedBinFiles(bytes_);
     }
 
-    public static ReadBinFiles getZippedBinFiles(byte[] _bytes) {
-        StringMap<ContentTime> zipFiles_ = new StringMap<ContentTime>();
-        StringMap<ContentTime> zipFolders_ = new StringMap<ContentTime>();
-        StringMap<ContentTime> zip_ =  StreamZipFile.zippedBinaryFiles(_bytes);
-        if (zip_ == null) {
-            return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.NOTHING);
-        }
-        for (EntryCust<String,ContentTime> e: zip_.entryList()) {
-            String key_ = e.getKey();
-            if (key_.endsWith("/")) {
-                zipFolders_.addEntry(key_.substring(0,key_.length()-1), e.getValue());
-                continue;
-            }
-            zipFiles_.addEntry(key_, e.getValue());
-        }
-        return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.ZIP);
-    }
 }

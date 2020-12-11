@@ -1,14 +1,10 @@
 package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.AbstractReporter;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.*;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.core.OutputType;
-import code.stream.core.ReadBinFiles;
-import code.stream.core.ReadFiles;
+import code.stream.core.*;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -139,6 +135,15 @@ public final class DefaultReporter implements AbstractReporter {
     @Override
     public void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
         saveFile(_folder, _fileName, _content);
+    }
+
+    @Override
+    public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
+        StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log);
+        if (!out_.isEmpty()) {
+            return StreamZipFile.zipBinFiles(out_);
+        }
+        return null;
     }
 
     private void saveFile(String _folder, String _fileName, String _content) {
