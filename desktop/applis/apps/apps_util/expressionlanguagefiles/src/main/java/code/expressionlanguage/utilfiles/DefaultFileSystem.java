@@ -33,7 +33,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public String contentsOfFile(String _file, RunnableContextEl _rCont) {
-        return StreamTextFile.contentsOfFile(_file, uniformingString);
+        String file_ = prefix(_file, _rCont);
+        return StreamTextFile.contentsOfFile(file_, uniformingString);
     }
 
     @Override
@@ -47,7 +48,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public byte[] loadFile(String _file, RunnableContextEl _rCont) {
-        return StreamBinaryFile.loadFile(_file);
+        String file_ = prefix(_file, _rCont);
+        return StreamBinaryFile.loadFile(file_);
     }
 
     @Override
@@ -89,33 +91,39 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public String absolutePath(String _file, RunnableContextEl _rCont) {
-        return StringUtil.replaceBackSlash(new File(_file).getAbsolutePath());
+        String file_ = prefix(_file, _rCont);
+        return StringUtil.replaceBackSlash(new File(file_).getAbsolutePath());
     }
 
     @Override
     public long length(String _file, RunnableContextEl _rCont) {
-        return new File(_file).length();
+        String file_ = prefix(_file, _rCont);
+        return new File(file_).length();
     }
 
     @Override
     public String getName(String _file, RunnableContextEl _rCont) {
-        return new File(_file).getName();
+        String file_ = prefix(_file, _rCont);
+        return new File(file_).getName();
     }
 
     @Override
     public String getParentPath(String _file, RunnableContextEl _rCont) {
-        return StringUtil.replaceBackSlash(new File(_file).getParentFile().getAbsolutePath());
+        String file_ = prefix(_file, _rCont);
+        return StringUtil.replaceBackSlash(new File(file_).getParentFile().getAbsolutePath());
     }
 
     @Override
     public boolean isDirectory(String _file, RunnableContextEl _rCont) {
-        File info_ = new File(_file);
+        String file_ = prefix(_file, _rCont);
+        File info_ = new File(file_);
         return info_.exists()&&info_.isDirectory();
     }
 
     @Override
     public boolean isFile(String _file, RunnableContextEl _rCont) {
-        File info_ = new File(_file);
+        String file_ = prefix(_file, _rCont);
+        File info_ = new File(file_);
         return info_.exists()&&!info_.isDirectory();
     }
 
@@ -149,7 +157,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFiles(String _file, RunnableContextEl _rCont) {
-        File info_ = new File(_file);
+        String file_ = prefix(_file, _rCont);
+        File info_ = new File(file_);
         File[] files_ = info_.listFiles();
         if (files_ == null) {
             return null;
@@ -170,7 +179,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFolders(String _file, RunnableContextEl _rCont) {
-        File info_ = new File(_file);
+        String file_ = prefix(_file, _rCont);
+        File info_ = new File(file_);
         File[] files_ = info_.listFiles();
         if (files_ == null) {
             return null;

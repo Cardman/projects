@@ -12,7 +12,6 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     private final UniformingString uniformingString;
     private final AbstractNameValidating nameValidating;
-    private String base = "";
     private FolderStruct root;
 
     public MemoryFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating) {
