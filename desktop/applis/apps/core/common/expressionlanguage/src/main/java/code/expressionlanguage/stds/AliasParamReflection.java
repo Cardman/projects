@@ -27,6 +27,7 @@ public final class AliasParamReflection {
     public static final String CLASS_TYPE_0_GET_DECLARED_BLOCKS_1="ClassType0GetDeclaredBlocks1";
     public static final String CLASS_TYPE_0_MAKE_GENERIC_0="ClassType0MakeGeneric0";
     public static final String CLASS_TYPE_0_MAKE_WILD_CARD_0="ClassType0MakeWildCard0";
+    public static final String CLASS_TYPE_0_MAKE_REF_0="ClassType0MakeRef0";
     public static final String CLASS_TYPE_0_GET_OPERATORS_0="ClassType0GetOperators0";
     public static final String CLASS_TYPE_0_GET_OPERATORS_1="ClassType0GetOperators1";
     public static final String CLASS_TYPE_0_GET_OPERATORS_2="ClassType0GetOperators2";
@@ -95,6 +96,7 @@ public final class AliasParamReflection {
     private String aliasClassType0GetDeclaredBlocks1="b";
     private String aliasClassType0MakeGeneric0="a";
     private String aliasClassType0MakeWildCard0="a";
+    private String aliasClassType0MakeRef0="a";
     private String aliasClassType0GetOperators0="a";
     private String aliasClassType0GetOperators1="b";
     private String aliasClassType0GetOperators2="c";
@@ -335,6 +337,14 @@ public final class AliasParamReflection {
 
     public void setAliasClassType0MakeGeneric0(String _v) {
         this.aliasClassType0MakeGeneric0 =_v;
+    }
+
+    public String getAliasClassType0MakeRef0() {
+        return aliasClassType0MakeRef0;
+    }
+
+    public void setAliasClassType0MakeRef0(String _v) {
+        this.aliasClassType0MakeRef0 =_v;
     }
 
     public String getAliasClassType0MakeWildCard0() {

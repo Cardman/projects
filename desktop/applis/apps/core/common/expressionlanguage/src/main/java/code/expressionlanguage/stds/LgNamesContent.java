@@ -1118,6 +1118,7 @@ public final class LgNamesContent {
         getReflect().getParams().setAliasClassType0GetDeclaredBlocks1(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_1));
         getReflect().getParams().setAliasClassType0MakeGeneric0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_MAKE_GENERIC_0));
         getReflect().getParams().setAliasClassType0MakeWildCard0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_MAKE_WILD_CARD_0));
+        getReflect().getParams().setAliasClassType0MakeRef0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_MAKE_REF_0));
         getReflect().getParams().setAliasClassType0GetOperators0(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_0));
         getReflect().getParams().setAliasClassType0GetOperators1(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_1));
         getReflect().getParams().setAliasClassType0GetOperators2(get(_util,_cust, AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_2));
@@ -2057,6 +2058,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_IMPLICITS_0, getReflect().getParams().getAliasClassType0GetDeclaredImplicits0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_0, getReflect().getParams().getAliasClassType0GetDeclaredBlocks0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_DECLARED_BLOCKS_1, getReflect().getParams().getAliasClassType0GetDeclaredBlocks1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_GENERIC_0, getReflect().getParams().getAliasClassType0MakeGeneric0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_REF_0, getReflect().getParams().getAliasClassType0MakeRef0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_MAKE_WILD_CARD_0, getReflect().getParams().getAliasClassType0MakeWildCard0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_0, getReflect().getParams().getAliasClassType0GetOperators0()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_1, getReflect().getParams().getAliasClassType0GetOperators1()),new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_GET_OPERATORS_2, getReflect().getParams().getAliasClassType0GetOperators2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.CLASS_TYPE_0_ARRAY_NEW_INSTANCE_0, getReflect().getParams().getAliasClassType0ArrayNewInstance0())));

@@ -333,7 +333,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasMakeArray, params_, aliasClassType, false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasMakeRef, params_, aliasClassType, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeWildCard0()));
+        method_ = new StandardMethod(aliasMakeRef, params_, aliasClassType, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeRef0()));
         methods_.add( method_);
         params_ = new StringList(aliasBoolean_);
         method_ = new StandardMethod(aliasMakeWildCard, params_, aliasClassType, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeWildCard0()));
