@@ -106,7 +106,11 @@ public final class DefaultReporter implements AbstractReporter {
             _exec.setOutputFolder(_folderPath+folderOut_);
             _exec.setOutputZip(fileOut_);
         }
-        return foldersConf_.hasDuplicates();
+        if (foldersConf_.hasDuplicates()) {
+            return true;
+        }
+        _exec.setOutput(StringUtil.replaceBackSlashDot(new File(_folderPath).getAbsolutePath()));
+        return false;
     }
     private static StringList list(ExecutingOptions _exec) {
         return new StringList(_exec.getLogFolder(), _exec.getCoverFolder(),

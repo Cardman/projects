@@ -3,6 +3,7 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.utilcompo.AbstractReporter;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
@@ -15,8 +16,6 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
-
-import java.io.File;
 
 public final class RunningTest implements Runnable {
     private String fileConfOrContent;
@@ -91,13 +90,13 @@ public final class RunningTest implements Runnable {
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
-        String folderPath_ = _infos.getReporter().getFolderPath(_archive,_exec,_results);
-        if (_infos.getReporter().koPaths(folderPath_, _exec)) {
+        AbstractReporter reporter_ = _infos.getReporter();
+        String folderPath_ = reporter_.getFolderPath(_archive,_exec,_results);
+        if (reporter_.koPaths(folderPath_, _exec)) {
             return null;
         }
-        _exec.setOutput(StringUtil.replaceBackSlashDot(new File(folderPath_).getAbsolutePath()));
-        StringMap<String> readZip_ = _infos.getReporter().getSrc(_archive, _exec, _results);
-        ReadBinFiles resultOs_ = _infos.getReporter().getBinFiles(folderPath_+_exec.getFiles());
+        StringMap<String> readZip_ = reporter_.getSrc(_archive, _exec, _results);
+        ReadBinFiles resultOs_ = reporter_.getBinFiles(folderPath_+_exec.getFiles());
 
         _infos.getFileSystem().build(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()),resultOs_);
         return readZip_;
