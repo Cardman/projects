@@ -90,8 +90,8 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
-        String errorsFolder_ = _rCont.getExecutingOptions().getCoverFolder();
-        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),System.currentTimeMillis()));
+        String coversFolder_ = _rCont.getExecutingOptions().getCoverFolder();
+        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),System.currentTimeMillis()));
     }
 
     @Override
