@@ -22,6 +22,13 @@ public final class DefaultLogger implements AbstractLogger {
     }
 
     @Override
+    public void logErr(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
+        StreamFolderFile.mkdirs(_folerName);
+        String toFile_ = StringUtil.concat(_folerName,"/",_fileName);
+        StreamTextFile.logToFile(toFile_, _content);
+    }
+
+    @Override
     public void log(String _folderName,String _fileName, String _content, RunnableContextEl _cont) {
         StreamFolderFile.mkdirs(_folderName);
         String toFile_ = StringUtil.concat(_folderName,"/",_fileName);

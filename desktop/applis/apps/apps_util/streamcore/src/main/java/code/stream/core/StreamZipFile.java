@@ -7,7 +7,6 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class StreamZipFile {
 

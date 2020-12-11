@@ -8,7 +8,6 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.Clock;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
 import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
 import code.util.EntryCust;
@@ -26,21 +25,34 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
-    public void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec) {
+    public void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
+        AbstractLogger logger_ = _infos.getLogger();
+        String time_ = Clock.getDateTimeText("_", "_", "_");
         if (!_reportedMessages.isAllEmptyErrors()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayWarnings());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayStdErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayMessageErrors());
+            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayErrors(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayWarnings(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayStdErrors(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayMessageErrors(),_ctx);
         }
         if (!_reportedMessages.isEmptyWarnings()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayWarnings());
+            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayWarnings(),_ctx);
+        }
+        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
+        if (logger_ instanceof MemoryLogger) {
+            String errFile_ = ((MemoryLogger) logger_).getErrFile();
+            if (!errFile_.isEmpty()) {
+                String errs_ = ((MemoryLogger) logger_).getErrs();
+                out_.addEntry(errFile_,new ContentTime(StringUtil.encode(errs_),System.currentTimeMillis()));
+            }
+        }
+        if (!out_.isEmpty()) {
+            byte[] bytes_ = StreamZipFile.zipBinFiles(out_);
+            StreamFolderFile.mkdirs(_exec.getOutputFolder());
+            StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),bytes_);
         }
     }
 

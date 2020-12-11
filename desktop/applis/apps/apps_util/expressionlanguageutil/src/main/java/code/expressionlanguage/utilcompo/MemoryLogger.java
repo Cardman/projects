@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class MemoryLogger implements AbstractLogger {
     private final ConcurrentHashMap<String,FileStruct> logs = new ConcurrentHashMap<String,FileStruct>();
     private final AbstractNameValidating nameValidating;
+    private String errFile = "";
+    private String errs = "";
 
     public MemoryLogger(AbstractNameValidating _nameValidating) {
         nameValidating = _nameValidating;
@@ -16,6 +18,12 @@ public final class MemoryLogger implements AbstractLogger {
     @Override
     public AbstractNameValidating getNameValidating() {
         return nameValidating;
+    }
+
+    @Override
+    public void logErr(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
+        errFile = _fileName;
+        errs += _content;
     }
 
     @Override
@@ -40,6 +48,14 @@ public final class MemoryLogger implements AbstractLogger {
 
     private static void val(byte[] _merged, int _j, byte[] _content, int _i) {
         _merged[_j] = _content[_i];
+    }
+
+    public String getErrFile() {
+        return errFile;
+    }
+
+    public String getErrs() {
+        return errs;
     }
 
     public ConcurrentHashMap<String, FileStruct> getLogs() {

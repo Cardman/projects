@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
@@ -18,10 +17,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
@@ -65,9 +60,10 @@ public final class CustContextFactory {
                 _definedLgNames, _files, _exec.getTabWidth());
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(rCont_, _options, _exec, reportedMessages_, _definedLgNames.getInfos());
+        FileInfos infos_ = _definedLgNames.getInfos();
+        CustContextFactory.reportErrors(rCont_, _options, _exec, reportedMessages_, infos_);
         if (!reportedMessages_.isAllEmptyErrors()) {
-            _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
+            _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec,infos_);
             return;
         }
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
@@ -85,7 +81,7 @@ public final class CustContextFactory {
         if (_options.isCovering()) {
             String exp_ = _exec.getOutput()+_exec.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
-                _definedLgNames.getInfos().getReporter().coverFile(exp_, f.getKey(), f.getValue(), rCont_);
+                infos_.getReporter().coverFile(exp_, f.getKey(), f.getValue(), rCont_);
             }
         }
         _progressingTests.setResults(rCont_,arg_, _definedLgNames);
