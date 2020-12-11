@@ -3,11 +3,13 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
-import code.util.StringList;
+import code.util.StringMap;
 
 public interface AbstractReporter {
     AbstractNameValidating getNameValidating();
-    boolean koOutZip(String _folderPath,StringList _list, ExecutingOptions _exec);
+    StringMap<String> getSrc(String _archive, ExecutingOptions _exec, ReadFiles _results);
+    String getFolderPath(String _folderPath, ExecutingOptions _exec,ReadFiles _results);
+    boolean koPaths(String _folderPath, ExecutingOptions _exec);
 
     String conf(String _fileConfOrContent);
     ReadBinFiles getBinFiles(String _archiveOrFolder);

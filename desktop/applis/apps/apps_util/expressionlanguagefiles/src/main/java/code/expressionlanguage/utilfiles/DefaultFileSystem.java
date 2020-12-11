@@ -6,9 +6,8 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.core.ContentTime;
+import code.stream.core.ReadBinFiles;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
@@ -26,7 +25,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public void build(String _base, StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders) {
+    public void build(String _base, ReadBinFiles _readBin) {
         base = _base;
         mkdirs(_base);
     }

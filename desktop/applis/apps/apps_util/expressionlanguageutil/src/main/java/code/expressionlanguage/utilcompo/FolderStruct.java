@@ -26,7 +26,7 @@ public final class FolderStruct {
         return lastDate;
     }
 
-    public static FolderStruct build(StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders) {
+    public static FolderStruct build(StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files) {
         FolderStruct root_ = new FolderStruct();
         for (EntryCust<String, ContentTime> f:_foldersElts.entryList()) {
             FolderStruct curr_ = root_;

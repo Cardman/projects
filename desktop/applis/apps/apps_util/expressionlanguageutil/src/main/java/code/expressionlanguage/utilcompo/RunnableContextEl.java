@@ -8,13 +8,13 @@ import code.threads.Locking;
 
 public class RunnableContextEl extends ContextEl implements Locking {
 
-    private ThreadStruct thread;
+    private final ThreadStruct thread;
     private String idDate;
 
     public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
         super(_executionInfos, _state);
         setFullStack(new DefaultFullStack(this));
-        setThread();
+        thread = new ThreadStruct(Thread.currentThread());
     }
 
     @Override
@@ -36,10 +36,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     public ThreadStruct getThread() {
         return thread;
-    }
-
-    private void setThread() {
-        thread = new ThreadStruct(Thread.currentThread());
     }
 
     String getIdDate() {

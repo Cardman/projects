@@ -6,12 +6,10 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
-import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -46,7 +44,7 @@ public final class RunningTest implements Runnable {
     }
     @Override
     public void run() {
-        String content_ = "";
+        String content_;
         if (file) {
             content_ = infos.getReporter().conf(fileConfOrContent);
             if (content_ == null) {
@@ -93,73 +91,16 @@ public final class RunningTest implements Runnable {
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
-        String folderPath_ = StringUtil.replaceBackSlashDot(_archive);
-        StringMap<String> zipFiles_ = _results.getZipFiles();
-        if (_results.getType() != OutputType.FOLDER) {
-            String absolutePath_ = StringUtil.replaceBackSlash(new File(_archive).getAbsolutePath());
-            int last_ = absolutePath_.lastIndexOf('/');
-            if (last_ > -1) {
-                folderPath_ = StringUtil.replaceBackSlashDot(absolutePath_.substring(0,last_));
-            }
-        }
-        StringMap<String> readZip_ = new StringMap<String>();
-        StringList foldersConf_ = new StringList();
-        for (String f: list(_exec)) {
-            if (f.trim().isEmpty()) {
-                return null;
-            }
-            int index_ = f.indexOf('/');
-            if (index_ < 0) {
-                foldersConf_.add(f);
-            } else {
-                foldersConf_.add(f.substring(0,index_));
-            }
-        }
-        if (_infos.getReporter().koOutZip(folderPath_,foldersConf_,_exec)) {
-            return null;
-        }
-        if (foldersConf_.hasDuplicates()) {
+        String folderPath_ = _infos.getReporter().getFolderPath(_archive,_exec,_results);
+        if (_infos.getReporter().koPaths(folderPath_, _exec)) {
             return null;
         }
         _exec.setOutput(StringUtil.replaceBackSlashDot(new File(folderPath_).getAbsolutePath()));
-        if (_results.getType() == OutputType.FOLDER) {
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
-            }
-            ReadFiles resultRes_ = _infos.getReporter().getFiles(_archive+"/"+_exec.getResources());
-            if (resultRes_.getType() == OutputType.FOLDER) {
-                for (EntryCust<String,String> e: resultRes_.getZipFiles().entryList()) {
-                    readZip_.addEntry(_exec.getResources()+"/"+e.getKey(), e.getValue());
-                }
-            }
-        } else {
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
-            }
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getResources()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
-            }
-        }
+        StringMap<String> readZip_ = _infos.getReporter().getSrc(_archive, _exec, _results);
         ReadBinFiles resultOs_ = _infos.getReporter().getBinFiles(folderPath_+_exec.getFiles());
-        StringMap<ContentTime> miniOs_ = resultOs_.getZipFiles();
-        StringMap<ContentTime> zipFolders_ = resultOs_.getZipFolders();
-        StringList folders_ = resultOs_.getFolders();
 
-        _infos.getFileSystem().build(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()),zipFolders_, miniOs_,folders_);
+        _infos.getFileSystem().build(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()),resultOs_);
         return readZip_;
-    }
-    private static StringList list(ExecutingOptions _exec) {
-        return new StringList(_exec.getLogFolder(), _exec.getCoverFolder(),
-                _exec.getErrorsFolder(), _exec.getFiles(), _exec.getSrcFolder(), _exec.getResources());
     }
 
     public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {

@@ -1,10 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.stream.core.ContentTime;
+import code.stream.core.ReadBinFiles;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
@@ -20,8 +19,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public void build(String _base, StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders) {
-        root = FolderStruct.build(_foldersElts,_files, _folders);
+    public void build(String _base, ReadBinFiles _readBin) {
+        root = FolderStruct.build(_readBin.getZipFolders(),_readBin.getZipFiles());
     }
 
     @Override
