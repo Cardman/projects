@@ -63,7 +63,7 @@ public final class StreamBinaryFile {
     }
 
     private static boolean write(byte[] _content, FileOutputStream _fos) {
-        if (_fos == null) {
+        if (_content == null || _fos == null) {
             return false;
         }
         boolean w_ = write(_content, new BufferedOutputStream(_fos));
