@@ -19,14 +19,15 @@ public final class MemoryReporter implements AbstractReporter {
     private final byte[] conf;
     private final byte[] src;
     private final byte[] files;
-    private AbstractNameValidating nameValidating;
+    private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString = new DefaultUniformingString();
     private StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files) {
+    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
+        nameValidating = _nameValidating;
     }
 
     @Override
@@ -53,7 +54,7 @@ public final class MemoryReporter implements AbstractReporter {
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
-            if (f.trim().isEmpty()) {
+            if (!nameValidating.okPath(f,'/','\\')) {
                 return true;
             }
             int index_ = f.indexOf('/');
