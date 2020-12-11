@@ -66,12 +66,12 @@ public final class FolderStruct {
         return files;
     }
 
-    public StringMap<byte[]> exportAll() {
-        StringMap<byte[]> all_ = new StringMap<byte[]>();
+    public StringMap<ContentTime> exportAll() {
+        StringMap<ContentTime> all_ = new StringMap<ContentTime>();
         StringMap<FolderStruct> curFolder_ = new StringMap<FolderStruct>();
         ExportedFolder export_ = export();
-        for (EntryCust<String, byte[]> f: export_.getOut().entryList()) {
-            byte[] value_ = f.getValue();
+        for (EntryCust<String, ContentTime> f: export_.getOut().entryList()) {
+            ContentTime value_ = f.getValue();
             all_.addEntry(f.getKey(), value_);
         }
         for (EntryCust<String, FolderStruct> f: export_.getFolders().entryList()) {
@@ -82,7 +82,7 @@ public final class FolderStruct {
             StringMap<FolderStruct> newFolder_ = new StringMap<FolderStruct>();
             for (EntryCust<String,FolderStruct> e: curFolder_.entryList()) {
                 ExportedFolder exportLoc_ = e.getValue().export();
-                for (EntryCust<String, byte[]> f: exportLoc_.getOut().entryList()) {
+                for (EntryCust<String, ContentTime> f: exportLoc_.getOut().entryList()) {
                     all_.addEntry(e.getKey()+"/"+f.getKey(),f.getValue());
                 }
                 for (EntryCust<String, FolderStruct> f: exportLoc_.getFolders().entryList()) {
@@ -98,22 +98,22 @@ public final class FolderStruct {
     }
     private ExportedFolder export() {
         if (StringUtil.disjoint(files.getKeys(),folders.getKeys())) {
-            StringMap<byte[]> out_ = new StringMap<byte[]>();
+            StringMap<ContentTime> out_ = new StringMap<ContentTime>();
             for (EntryCust<String,FileStruct> e: files.entryList()) {
-                out_.addEntry(e.getKey(),e.getValue().getContent());
+                out_.addEntry(e.getKey(),new ContentTime(e.getValue().getContent(),e.getValue().getLastDate()));
             }
             for (EntryCust<String,FolderStruct> e: folders.entryList()) {
-                out_.addEntry(e.getKey(),null);
+                out_.addEntry(e.getKey(),new ContentTime(null,e.getValue().lastDate));
             }
             return new ExportedFolder(out_,folders);
         }
-        StringMap<byte[]> out_ = new StringMap<byte[]>();
+        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
         StringMap<FolderStruct> folders_ = new StringMap<FolderStruct>();
         for (EntryCust<String,FileStruct> e: files.entryList()) {
-            out_.addEntry("f"+e.getKey(),e.getValue().getContent());
+            out_.addEntry("f"+e.getKey(),new ContentTime(e.getValue().getContent(),e.getValue().getLastDate()));
         }
         for (EntryCust<String,FolderStruct> e: folders.entryList()) {
-            out_.addEntry("d"+e.getKey(),null);
+            out_.addEntry("d"+e.getKey(),new ContentTime(null,e.getValue().lastDate));
             folders_.addEntry("d"+e.getKey(),e.getValue());
         }
         return new ExportedFolder(out_,folders_);

@@ -70,15 +70,16 @@ public final class StreamZipFile {
         _copy[_j] = _bytes[_j];
     }
 
-    public static byte[] zipBinFiles(StringMap<byte[]> _files) {
+    public static byte[] zipBinFiles(StringMap<ContentTime> _files) {
         try {
             ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
             ZipOutputStream zos_ = new ZipOutputStream(baos_);
             for (String n : _files.getKeys()) {
-                byte[] file_ = _files.getVal(n);
+                ContentTime file_ = _files.getVal(n);
                 ZipEntry ze_ = new ZipEntry(n);
+                ze_.setTime(file_.getLastModifTime());
                 zos_.putNextEntry(ze_);
-                zos_.write(file_);
+                zos_.write(file_.getContent());
             }
             zos_.closeEntry();
             // remember close it

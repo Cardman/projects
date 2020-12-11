@@ -80,7 +80,7 @@ public final class ZipBinStructUtil {
 
     public static byte[] getZipBinFileAsArray(Struct _files) {
         if (_files instanceof ArrayStruct) {
-            StringMap<byte[]> files_ = new StringMap<byte[]>();
+            StringMap<ContentTime> files_ = new StringMap<ContentTime>();
             int fileLength_ = ((ArrayStruct) _files).getLength();
             for (int j = 0; j < fileLength_; j++) {
                 Struct s = ((ArrayStruct) _files).get(j);
@@ -94,10 +94,10 @@ public final class ZipBinStructUtil {
                     Struct byte_ = e_.getBinary().get(i);
                     file_[i] = NumParsers.convertToNumber(byte_).byteStruct();
                 }
-                files_.addEntry(e_.getName().getInstance(),file_);
+                files_.addEntry(e_.getName().getInstance(),new ContentTime(file_,0));
             }
             return StreamZipFile.zipBinFiles(files_);
         }
-        return StreamZipFile.zipBinFiles(new StringMap<byte[]>());
+        return StreamZipFile.zipBinFiles(new StringMap<ContentTime>());
     }
 }

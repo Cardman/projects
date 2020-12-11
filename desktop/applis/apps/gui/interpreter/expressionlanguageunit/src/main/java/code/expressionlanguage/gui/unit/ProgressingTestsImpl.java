@@ -9,6 +9,7 @@ import code.gui.Clock;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -58,23 +59,21 @@ public final class ProgressingTestsImpl implements ProgressingTests {
         mainWindow.setResults(_ctx,_res, _evolved);
         ExecutingOptions executingOptions_ = _ctx.getExecutingOptions();
         AbstractLogger logger_ = _evolved.getInfos().getLogger();
-        StringMap<byte[]> out_ = new StringMap<byte[]>();
+        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
         if (logger_ instanceof MemoryLogger) {
             ConcurrentHashMap<String, FileStruct> logs_ = ((MemoryLogger) logger_).getLogs();
             for (Map.Entry<String, FileStruct> e: logs_.entrySet()) {
                 String key_ = e.getKey();
                 String toFile_ = StringUtil.concat(executingOptions_.getLogFolder(),"/",key_);
-                out_.addEntry(toFile_,e.getValue().getContent());
+                FileStruct value_ = e.getValue();
+                out_.addEntry(toFile_,new ContentTime(value_.getContent(),value_.getLastDate()));
             }
         }
         AbstractFileSystem fileSystem_ = _evolved.getInfos().getFileSystem();
         if (fileSystem_ instanceof MemoryFileSystem) {
-            StringMap<byte[]> stringMap_ = ((MemoryFileSystem) fileSystem_).getRoot().exportAll();
-            for (EntryCust<String, byte[]> e: stringMap_.entryList()) {
-                byte[] bytes_ = e.getValue();
-                if (bytes_ == null) {
-                    continue;
-                }
+            StringMap<ContentTime> stringMap_ = ((MemoryFileSystem) fileSystem_).getRoot().exportAll();
+            for (EntryCust<String, ContentTime> e: stringMap_.entryList()) {
+                ContentTime bytes_ = e.getValue();
                 String key_ = e.getKey();
                 out_.addEntry(executingOptions_.getFiles()+"/"+key_,bytes_);
             }
