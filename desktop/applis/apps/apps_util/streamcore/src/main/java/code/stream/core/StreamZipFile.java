@@ -53,6 +53,7 @@ public final class StreamZipFile {
                     i += read_;
                 }
                 if (i > MAX) {
+                    zis_.closeEntry();
                     continue;
                 }
                 int maxByte_ = Math.min(i,bytes_.length);
