@@ -17,11 +17,7 @@ public final class GuiContextFactory {
                                           Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        if (StringUtil.quickEq(_lang, "en")) {
-            _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
-            _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
-            _undefinedLgNames.otherAlias(_lang,_exec.getAliases());
-        } else if (StringUtil.quickEq(_lang, "fr")) {
+        if (!_lang.isEmpty()) {
             _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.otherAlias(_lang,_exec.getAliases());

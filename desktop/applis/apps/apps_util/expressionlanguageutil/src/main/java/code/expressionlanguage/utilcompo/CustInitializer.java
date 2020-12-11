@@ -76,12 +76,9 @@ public class CustInitializer extends DefaultInitializer {
         removeThreadFromList(_cont);
     }
 
-    private void log(RunnableContextEl _cont,String _txt) {
-        String toFile_ = getCurrentFileThread(_cont);
+    private static void log(RunnableContextEl _cont, String _txt) {
         String text_ = StringUtil.concat(CustAliases.getDateTimeText("_", "_", "_"),":",_txt);
-        ExecutingOptions ex_ = _cont.getExecutingOptions();
-        String folder_ = ex_.getLogFolder();
-        ((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().log(folder_, toFile_,text_,_cont);
+        ((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().log(text_,_cont);
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {

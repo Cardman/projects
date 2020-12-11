@@ -1,8 +1,11 @@
 package code.gui.initialize;
 
+import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.gui.GroupFrame;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
+import code.stream.StreamFolderFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,10 +35,13 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractGenerator generator;
     private final String tmpUserFolder;
     private final String homePath;
+    private final DefaultNameValidating validator;
+
     public ProgramInfos() {
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
         tmpUserFolder = StringUtil.concat(initialize(homePath),SEPARATEUR);
         generator = new AdvancedGenerator();
+        validator = new DefaultNameValidating(new StringList());
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
     }
@@ -87,7 +93,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
             lastFolders_.add(folders_.get(1));
             lastFolders_.add(folders_.last());
             virtualStore_ = StringUtil.concat(virtualStore_, StringUtil.join(lastFolders_, SEPARATEUR));
-            new File(StringUtil.concat(virtualStore_, SEPARATEUR)).mkdirs();
+            StreamFolderFile.mkdirs(StringUtil.concat(virtualStore_, SEPARATEUR));
             return virtualStore_;
         }
         //jarFolder_.startsWith("C:/Program Files/")
@@ -122,7 +128,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
             }
             realTmpUserFolder_ = StringUtil.concatNbs(tmpUserFolder_, nb_);
         }
-        new File(realTmpUserFolder_).mkdirs();
+        StreamFolderFile.mkdirs(realTmpUserFolder_);
         return realTmpUserFolder_;
     }
 
@@ -144,5 +150,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
 
     public AbstractGenerator getGenerator() {
         return generator;
+    }
+
+    @Override
+    public AbstractNameValidating getValidator() {
+        return validator;
     }
 }

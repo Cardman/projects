@@ -1,9 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
+import code.stream.core.ContentTime;
 import code.util.StringList;
+import code.util.StringMap;
 
 public interface AbstractFileSystem {
 
+    String getBasePath();
+    void build(String _base, StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files, StringList _folders);
     String contentsOfFile(String _file, RunnableContextEl _rCont);
     boolean saveTextFile(String _file, String _content, RunnableContextEl _rCont);
     byte[] loadFile(String _file, RunnableContextEl _rCont);

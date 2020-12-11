@@ -1,6 +1,7 @@
 package code.renders;
 
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
@@ -157,12 +158,17 @@ public final class MainWindow extends GroupFrame {
                 }
             }
         }
-        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                new DefaultFileSystem(app_), new DefaultReporter(app_), getGenerator()));
+        AbstractNameValidating validator_ = getValidator();
+        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_),
+                new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), getGenerator()));
         session.initNav();
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
-        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(confRel_, lgCode.getText(), lgNames_, zipFiles_, clName_, mName_, session));
+        String lgCode_ = lgCode.getText();
+        if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
+            lgCode_ = "";
+        }
+        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(confRel_, lgCode_, lgNames_, zipFiles_, clName_, mName_, session));
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
         for (String l: _lines.mid(_from)) {

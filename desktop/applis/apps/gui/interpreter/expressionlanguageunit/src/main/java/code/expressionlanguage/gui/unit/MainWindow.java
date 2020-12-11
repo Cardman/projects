@@ -2,6 +2,7 @@ package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
@@ -32,6 +33,7 @@ import java.awt.event.KeyEvent;
 public final class MainWindow extends GroupFrame {
     private Menu menu;
     private MenuItem open;
+    private CheckBoxMenuItem memory;
 
     private Panel contentPane;
     private Panel form;
@@ -63,6 +65,8 @@ public final class MainWindow extends GroupFrame {
         open.addActionListener(new FileOpenEvent(this));
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         menu.addMenuItem(open);
+        memory = new CheckBoxMenuItem(messages.getVal("memory"));
+        menu.addMenuItem(memory);
         getJMenuBar().add(menu);
         contentPane = Panel.newPageBox();
         form = Panel.newGrid(0,2);
@@ -142,9 +146,10 @@ public final class MainWindow extends GroupFrame {
 
     public void process() {
         String txt_ = conf.getText().trim();
+        AbstractNameValidating validator_ = getValidator();
         RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this),
-                new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                        new DefaultFileSystem(uniformingString), new DefaultReporter(uniformingString), getGenerator()));
+                new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
+                        buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator()));
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
@@ -162,12 +167,27 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void launchFileConf(String _fichier) {
+        AbstractNameValidating validator_ = getValidator();
         RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this),
-                new FileInfos(new DefaultResourcesReader(),new DefaultLogger(),
-                        new DefaultFileSystem(uniformingString), new DefaultReporter(uniformingString), getGenerator()));
+                new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
+                        buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator()));
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
+    }
+
+    private AbstractLogger buildLogger(AbstractNameValidating _validator) {
+        if (memory.isSelected()) {
+            return new MemoryLogger(_validator);
+        }
+        return new DefaultLogger(_validator);
+    }
+
+    private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
+        if (memory.isSelected()) {
+            return new MemoryFileSystem(uniformingString,_validator);
+        }
+        return new DefaultFileSystem(uniformingString, _validator);
     }
 
     public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {

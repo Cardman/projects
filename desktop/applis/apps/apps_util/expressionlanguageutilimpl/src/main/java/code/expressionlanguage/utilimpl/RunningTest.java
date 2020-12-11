@@ -6,14 +6,19 @@ import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.ProgressingTests;
+import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
+import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+
+import java.io.File;
 
 public final class RunningTest implements Runnable {
     private String fileConfOrContent;
@@ -71,16 +76,90 @@ public final class RunningTest implements Runnable {
         if (result_.getType() == OutputType.NOTHING) {
             return;
         }
-        StringMap<String> zipFiles_ = result_.getZipFiles();
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
+            lg_ = "";
             setupOptionals(1, opt_, exec_,linesFiles_);
         } else {
             setupOptionals(2, opt_, exec_, linesFiles_);
         }
+        StringMap<String> list_ = tryGetSrc(archive_, exec_, _infos, result_);
+        if (list_ == null) {
+            return;
+        }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests, new LgNamesUtils(_infos));
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesUtils(_infos));
+    }
+
+    public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
+        String folderPath_ = StringUtil.replaceBackSlashDot(_archive);
+        StringMap<String> zipFiles_ = _results.getZipFiles();
+        if (_results.getType() != OutputType.FOLDER) {
+            String absolutePath_ = StringUtil.replaceBackSlash(new File(_archive).getAbsolutePath());
+            int last_ = absolutePath_.lastIndexOf('/');
+            if (last_ > -1) {
+                folderPath_ = StringUtil.replaceBackSlashDot(absolutePath_.substring(0,last_));
+            }
+        }
+        StringMap<String> readZip_ = new StringMap<String>();
+        StringList foldersConf_ = new StringList();
+        for (String f: list(_exec)) {
+            if (f.trim().isEmpty()) {
+                return null;
+            }
+            int index_ = f.indexOf('/');
+            if (index_ < 0) {
+                foldersConf_.add(f);
+            } else {
+                foldersConf_.add(f.substring(0,index_));
+            }
+        }
+        if (_infos.getReporter().koOutZip(folderPath_,foldersConf_,_exec)) {
+            return null;
+        }
+        if (foldersConf_.hasDuplicates()) {
+            return null;
+        }
+        _exec.setOutput(StringUtil.replaceBackSlashDot(new File(folderPath_).getAbsolutePath()));
+        if (_results.getType() == OutputType.FOLDER) {
+            for (EntryCust<String,String> e: zipFiles_.entryList()) {
+                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
+                    continue;
+                }
+                readZip_.addEntry(e.getKey(), e.getValue());
+            }
+            ReadFiles resultRes_ = _infos.getReporter().getFiles(_archive+"/"+_exec.getResources());
+            if (resultRes_.getType() == OutputType.FOLDER) {
+                for (EntryCust<String,String> e: resultRes_.getZipFiles().entryList()) {
+                    readZip_.addEntry(_exec.getResources()+"/"+e.getKey(), e.getValue());
+                }
+            }
+        } else {
+            for (EntryCust<String,String> e: zipFiles_.entryList()) {
+                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
+                    continue;
+                }
+                readZip_.addEntry(e.getKey(), e.getValue());
+            }
+            for (EntryCust<String,String> e: zipFiles_.entryList()) {
+                if (!e.getKey().startsWith(_exec.getResources()+"/")) {
+                    continue;
+                }
+                readZip_.addEntry(e.getKey(), e.getValue());
+            }
+        }
+        ReadBinFiles resultOs_ = _infos.getReporter().getBinFiles(folderPath_+_exec.getFiles());
+        StringMap<ContentTime> miniOs_ = resultOs_.getZipFiles();
+        StringMap<ContentTime> zipFolders_ = resultOs_.getZipFolders();
+        StringList folders_ = resultOs_.getFolders();
+
+        _infos.getFileSystem().build(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()),zipFolders_, miniOs_,folders_);
+        return readZip_;
+    }
+    private static StringList list(ExecutingOptions _exec) {
+        return new StringList(_exec.getLogFolder(), _exec.getCoverFolder(),
+                _exec.getErrorsFolder(), _exec.getFiles(), _exec.getSrcFolder(), _exec.getResources());
     }
 
     public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
@@ -123,6 +202,33 @@ public final class RunningTest implements Runnable {
                         output_ = output_.substring(0,output_.length()-1);
                     }
                     _exec.setSrcFolder(output_);
+                }
+            }
+            if (l.startsWith("res=")) {
+                String output_ = l.substring("res=".length());
+                if (!output_.isEmpty()) {
+                    if (output_.endsWith("/")) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setResources(output_);
+                }
+            }
+            if (l.startsWith("files=")) {
+                String output_ = l.substring("files=".length());
+                if (!output_.isEmpty()) {
+                    if (output_.endsWith("/")) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setFiles(output_);
+                }
+            }
+            if (l.startsWith("out=")) {
+                String output_ = l.substring("out=".length());
+                if (!output_.isEmpty()) {
+                    if (output_.endsWith("/")) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setOutputZip(output_);
                 }
             }
             if (l.startsWith("tabWidth=")) {

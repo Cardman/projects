@@ -173,18 +173,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleAttrsPart_, styleAttrs_);
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
-        if (StringUtil.quickEq(_lg, "en")) {
-            custAliases.messages(_mess,_lg,mess_);
-            rendMessages(_rMess,_lg,rendMess_);
-            custAliases.keyWord(_kw,_lg,kw_);
-            otherAlias(_lg,al_);
-            otherTags(_rkw,_lg,tags_);
-            otherAttrs(_rkw,_lg,attrs_);
-            otherValues(_rkw,_lg,values_);
-            otherStyleAttrs(_rkw,_lg,styleAttrs_);
-            otherStyleValues(_rkw,_lg,styleValues_);
-            otherStyleUnits(_rkw,_lg,styleUnits_);
-        } else if (StringUtil.quickEq(_lg, "fr")) {
+        if (!_lg.isEmpty()) {
             custAliases.messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
             custAliases.keyWord(_kw,_lg,kw_);

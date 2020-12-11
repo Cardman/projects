@@ -7,6 +7,7 @@ import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -43,15 +44,15 @@ public final class ZipBinStructUtil {
     }
 
     public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] _bytes, RunnableContextEl _ctx) {
-        StringMap<byte[]> unzip_ = StreamZipFile.zippedBinaryFiles(_bytes);
+        StringMap<ContentTime> unzip_ = StreamZipFile.zippedBinaryFiles(_bytes);
         if (unzip_ == null) {
             return null;
         }
         String cont_ = _ctx.getStandards().getContent().getPrimTypes().getAliasPrimByte();
         cont_ = StringExpUtil.getPrettyArrayType(cont_);
         CustList<EntryBinaryStruct> filesMap_ = new CustList<EntryBinaryStruct>();
-        for (EntryCust<String,byte[]> e: unzip_.entryList()) {
-            byte[] bytesFile_ = e.getValue();
+        for (EntryCust<String,ContentTime> e: unzip_.entryList()) {
+            byte[] bytesFile_ = e.getValue().getContent();
             int lengthFile_ = bytesFile_.length;
             ArrayStruct bs_ = new ArrayStruct(lengthFile_,cont_);
             for (int j = 0; j < lengthFile_; j++) {

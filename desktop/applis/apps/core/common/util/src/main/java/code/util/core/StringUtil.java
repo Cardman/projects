@@ -1601,8 +1601,22 @@ public final class StringUtil {
         l_.add(str_.toString());
         return l_;
     }
-
-
+    public static boolean containsAllObj(CustList<String> _this,CustList<String> _list) {
+        for (String e: _list) {
+            if (!StringUtil.contains(_this, e)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean disjoint(CustList<String> _this,CustList<String> _list) {
+        for (String s: _list) {
+            if (StringUtil.contains(_this,s)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean contains(CustList<String> _list, String _value) {
         return indexOf(_list,_value) > IndexConstants.INDEX_NOT_FOUND_ELT;
     }

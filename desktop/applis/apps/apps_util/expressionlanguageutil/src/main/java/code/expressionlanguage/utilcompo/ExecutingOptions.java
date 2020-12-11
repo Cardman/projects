@@ -10,6 +10,11 @@ public final class ExecutingOptions {
     private String srcFolder = "src";
     private String logFolder = "logs";
     private String mainThread = "main_thread.txt";
+    private String files = "files";
+    private String resources = "res";
+    private String outputZip = "out/results.zip";
+    private String outputFolder = "";
+    private String output = "";
     private int tabWidth = 4;
     private AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
@@ -44,6 +49,30 @@ public final class ExecutingOptions {
 
     public void setMainThread(String _mainThread) {
         mainThread = _mainThread;
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String _files) {
+        this.files = _files;
+    }
+
+    public String getResources() {
+        return resources;
+    }
+
+    public void setResources(String _resources) {
+        this.resources = _resources;
+    }
+
+    public String getOutputZip() {
+        return outputZip;
+    }
+
+    public void setOutputZip(String _outputZip) {
+        this.outputZip = _outputZip;
     }
 
     public AtomicBoolean getInterrupt() {
@@ -130,4 +159,19 @@ public final class ExecutingOptions {
         keyWords = _keyWords;
     }
 
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String _output) {
+        output = _output;
+    }
+
+    public String getOutputFolder() {
+        return outputFolder;
+    }
+
+    public void setOutputFolder(String _outputFolder) {
+        outputFolder = _outputFolder;
+    }
 }

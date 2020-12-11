@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -27,8 +28,10 @@ import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
 import code.threads.ThreadUtil;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
@@ -62,31 +65,21 @@ public final class GuiProcess implements Runnable {
         if (result_.getType() == OutputType.NOTHING) {
             return null;
         }
-        StringMap<String> zipFiles_ = result_.getZipFiles();
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
         int from_ = 2;
-        if (lg_.startsWith("main=")) {
-            String line_ = StringExpUtil.removeDottedSpaces(lg_);
-            if (line_.startsWith("main=")) {
-                String subLine_ = line_.substring("main=".length());
-                int last_ = subLine_.lastIndexOf('.');
-                if (last_ > -1) {
-                    clName_ = subLine_.substring(0,last_);
-                    mName_ = subLine_.substring(last_+1);
-                }
-            }
-        } else {
-            from_++;
-            String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
-            if (line_.startsWith("main=")) {
-                String subLine_ = line_.substring("main=".length());
-                int last_ = subLine_.lastIndexOf('.');
-                if (last_ > -1) {
-                    clName_ = subLine_.substring(0,last_);
-                    mName_ = subLine_.substring(last_+1);
-                }
+        if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
+            lg_ = "";
+        }
+        from_++;
+        String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
+        if (line_.startsWith("main=")) {
+            String subLine_ = line_.substring("main=".length());
+            int last_ = subLine_.lastIndexOf('.');
+            if (last_ > -1) {
+                clName_ = subLine_.substring(0,last_);
+                mName_ = subLine_.substring(last_+1);
             }
         }
 
@@ -99,9 +92,16 @@ public final class GuiProcess implements Runnable {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
         }
+        AbstractNameValidating validator_ = _window.getValidator();
+        FileInfos fileInfos_ = new FileInfos(new DefaultResourcesReader(), new DefaultLogger(validator_), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
+
+        StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
+        if (list_ == null) {
+            return null;
+        }
         opt_.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(app_), new DefaultReporter(app_), _window.getGenerator()));
-        ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
+        LgNamesGui stds_ = new LgNamesGui(fileInfos_);
+        ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, list_, exec_.getTabWidth());
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(cont_, opt_, exec_, reportedMessages_, stds_.getInfos());
@@ -131,7 +131,7 @@ public final class GuiProcess implements Runnable {
     public void run() {
         RunnableStruct.setupThread(context);
         String folder_ = executingOptions.getLogFolder();
-        new File(folder_).mkdirs();
+        StreamFolderFile.mkdirs(folder_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
         ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
         if (classBody_ == null) {

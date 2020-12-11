@@ -1785,8 +1785,7 @@ public final class CustAliases {
                     return res_;
                 }
                 CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                String dtPart_ = cust_.getCurrentFileThread((RunnableContextEl)_cont);
-                log(dtPart_, (RunnableContextEl)_cont, _method, _execBlocks, _args);
+                log((RunnableContextEl)_cont, _method, _execBlocks, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
                 out_.setResult(NullStruct.NULL_VALUE);
                 return out_;
@@ -2391,7 +2390,7 @@ public final class CustAliases {
         return res_;
     }
 
-    private void log(String _dtPart, RunnableContextEl _cont,
+    private void log(RunnableContextEl _cont,
                      ClassMethodId _method, ExecutingBlocks _execBlocks, Struct... _args) {
         if (_method.getConstraints().getParametersTypes().size() == 1) {
             String type_ = _method.getConstraints().getParametersTypes().first();
@@ -2412,17 +2411,18 @@ public final class CustAliases {
         }
         String stringAppFile_ = buildLog(_cont, _args);
         stringAppFile_ = StringUtil.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
-        String folder_ = _cont.getExecutingOptions().getLogFolder();
-        log(folder_,_dtPart,stringAppFile_,_cont);
+        log(stringAppFile_,_cont);
     }
-    void log(String _folerName,String _fileName, String _content,RunnableContextEl _cont){
-        infos.getLogger().log(_folerName,_fileName,_content,_cont);
+    void log(String _content, RunnableContextEl _cont){
+        ExecutingOptions executingOptions_ = _cont.getExecutingOptions();
+        String folder_ = executingOptions_.getLogFolder();
+        CustInitializer cust_ = _cont.getCustInit();
+        String dtPart_ = cust_.getCurrentFileThread(_cont);
+        infos.getLogger().log(executingOptions_.getOutput()+folder_,dtPart_,_content+"\n",_cont);
     }
     private static String buildLog(ContextEl _cont,
                                    Struct... _args) {
-        String stringAppFile_;
-        stringAppFile_ = getStandarString(_cont,_args[0]);
-        return stringAppFile_;
+        return getStandarString(_cont,_args[0]);
     }
     private static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {

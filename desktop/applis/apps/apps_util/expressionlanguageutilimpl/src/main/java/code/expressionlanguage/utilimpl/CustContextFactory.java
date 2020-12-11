@@ -20,17 +20,16 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public final class CustContextFactory {
     private CustContextFactory(){}
     public static ResultsRunnableContext buildDefKw(String _lang,
                                                     Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
-        if (StringUtil.quickEq(_lang, "en")) {
-            _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
-            _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
-            _undefinedLgNames.getCustAliases().otherAlias(_undefinedLgNames.getContent(),_lang,_exec.getAliases());
-        } else if (StringUtil.quickEq(_lang, "fr")) {
+        if (!_lang.isEmpty()) {
             _undefinedLgNames.getCustAliases().messages(mess_, _lang, _exec.getMessages());
             _undefinedLgNames.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _undefinedLgNames.getCustAliases().otherAlias(_undefinedLgNames.getContent(),_lang,_exec.getAliases());
@@ -45,11 +44,7 @@ public final class CustContextFactory {
                                     Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesUtils _stds) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        if (StringUtil.quickEq(_lang, "en")) {
-            _stds.getCustAliases().messages(mess_, _lang, _exec.getMessages());
-            _stds.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
-            _stds.getCustAliases().otherAlias(_stds.getContent(),_lang,_exec.getAliases());
-        } else if (StringUtil.quickEq(_lang, "fr")) {
+        if (!_lang.isEmpty()) {
             _stds.getCustAliases().messages(mess_, _lang, _exec.getMessages());
             _stds.getCustAliases().keyWord(kwl_, _lang, _exec.getKeyWords());
             _stds.getCustAliases().otherAlias(_stds.getContent(),_lang,_exec.getAliases());
@@ -88,7 +83,7 @@ public final class CustContextFactory {
                 new CustList<Argument>(argMethod_), rCont_, pair_);
         showUpdates_.stop();
         if (_options.isCovering()) {
-            String exp_ = _exec.getCoverFolder();
+            String exp_ = _exec.getOutput()+_exec.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
                 _definedLgNames.getInfos().getReporter().coverFile(exp_, f.getKey(), f.getValue(), rCont_);
             }
@@ -97,7 +92,7 @@ public final class CustContextFactory {
     }
     public static void reportErrors(RunnableContextEl _ctx, Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {
-            String exp_ = _exec.getErrorsFolder();
+            String exp_ = _exec.getOutput()+_exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
                 _infos.getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);
             }

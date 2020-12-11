@@ -98,12 +98,7 @@ public final class StringList extends AbEqList<String> implements Displayable {
     }
 
     public boolean containsAllObj(CustList<String> _list) {
-        for (String e: _list) {
-            if (!StringUtil.contains(this, e)) {
-                return false;
-            }
-        }
-        return true;
+        return StringUtil.containsAllObj(this,_list);
     }
 
     public void removeAllString(String _obj) {
@@ -134,12 +129,7 @@ public final class StringList extends AbEqList<String> implements Displayable {
     }
 
     public boolean disjoint(CustList<String> _list) {
-        for (String s: _list) {
-            if (StringUtil.contains(this,s)) {
-                return false;
-            }
-        }
-        return true;
+        return StringUtil.disjoint(this,_list);
     }
 
     @Override

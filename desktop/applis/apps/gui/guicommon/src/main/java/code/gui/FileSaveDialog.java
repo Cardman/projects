@@ -9,6 +9,7 @@ import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.CharList;
 import code.util.StringMap;
@@ -37,8 +38,6 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private static final String CREATE = "+";
 
-    private static final char QUOTE = 34;
-
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
 
@@ -47,7 +46,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private Panel searchingPanel = Panel.newLineBox();
 
     private StringMap<String> messages;
-    private CommonFrame frame;
+    private GroupFrame frame;
 
     public FileSaveDialog() {
         setAccessFile(DIALOG_ACCESS);
@@ -59,13 +58,13 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         _w.getFileSaveDialog().initSaveDialog(_w, _homePath);
     }
 
-    public static void setFileSaveDialog(CommonFrame _c, Dialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog, String... _excludedFolders) {
+    public static void setFileSaveDialog(GroupFrame _c, Dialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog, String... _excludedFolders) {
         _dialog.getFileSaveDialog().dialog = _dialog.getConfirmDialog();
         _dialog.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
         _dialog.getFileSaveDialog().initSaveDialog(_c, _homePath);
     }
 
-    private void initSaveDialog(CommonFrame _c, String _homePath) {
+    private void initSaveDialog(GroupFrame _c, String _homePath) {
         frame =_c;
         messages = getMessages(_c, GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
@@ -98,12 +97,18 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (sel_ instanceof DefaultMutableTreeNode) {
             StringBuilder str_ = buildPath((DefaultMutableTreeNode) sel_);
             str_.append(typedString.getText());
-            if (!new File(str_.toString()).mkdirs()) {
+            if (!frame.getValidator().okPath(str_.toString(),'/','\\')) {
+                return;
+            }
+            if (!StreamFolderFile.mkdirs(str_.toString())) {
                 return;
             }
             applyTreeChangeSelected();
         } else {
-            if (!new File(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim())).mkdirs()) {
+            if (!frame.getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
+                return;
+            }
+            if (!StreamFolderFile.mkdirs(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()))) {
                 return;
             }
             applyTreeChange();
@@ -128,25 +133,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        boolean hasForbbidenChars_ = false;
-        for (char c: text_.toCharArray()) {
-            for (char e: CharList.wrapCharArray('<', '>', '?', QUOTE, '*', '/', '\\', '|', ':')) {
-                if (c == e) {
-                    hasForbbidenChars_ = true;
-                    break;
-                }
-            }
-            if (hasForbbidenChars_) {
-                break;
-            }
-        }
-        if (StringUtil.quickEq(text_,"..")) {
-            hasForbbidenChars_ = true;
-        }
-        if (StringUtil.quickEq(text_,".")) {
-            hasForbbidenChars_ = true;
-        }
-        if (hasForbbidenChars_) {
+        if (!frame.getValidator().okPath(text_,'/','\\')) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
             ConfirmDialog.showMessage(this, errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE, dialog);
             return;

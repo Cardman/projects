@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.stream.ExtractFromFiles;
@@ -153,6 +154,10 @@ public abstract class GroupFrame extends CommonFrame {
 
     public AbstractGenerator getGenerator() {
         return frames.getGenerator();
+    }
+
+    public AbstractNameValidating getValidator() {
+        return frames.getValidator();
     }
 
     public AbstractProgramInfos getFrames() {

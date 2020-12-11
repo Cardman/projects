@@ -1,5 +1,6 @@
 package code.gui.initialize;
 
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.GroupFrame;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
@@ -13,4 +14,5 @@ public interface AbstractProgramInfos {
     CustList<GroupFrame> getFrames();
     StringMap<AtomicInteger> getCounts();
     AbstractGenerator getGenerator();
+    AbstractNameValidating getValidator();
 }

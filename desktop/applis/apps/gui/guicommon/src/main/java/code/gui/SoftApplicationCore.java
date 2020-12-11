@@ -196,7 +196,7 @@ public abstract class SoftApplicationCore {
 
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl, String _folder) {
-        new File(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder)).mkdirs();
+        StreamFolderFile.mkdirs(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder));
         return StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder);
     }
 

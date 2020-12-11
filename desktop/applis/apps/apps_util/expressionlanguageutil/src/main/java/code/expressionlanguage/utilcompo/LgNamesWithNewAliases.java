@@ -4,6 +4,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.stds.BuildableLgNames;
 
 public interface LgNamesWithNewAliases extends BuildableLgNames {
+    FileInfos getInfos();
     CustAliases getCustAliases();
     ExecutingOptions getExecutingOptions();
     void setExecutingOptions(ExecutingOptions _executingOptions);

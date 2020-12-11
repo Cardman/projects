@@ -16,6 +16,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.gui.initialize.ProgramInfos;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -41,10 +42,8 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        File f;
-        f=new File(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER));
-        f.mkdirs();
-        f=new File(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT));
+        StreamFolderFile.mkdirs(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER));
+        File f = new File(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_));

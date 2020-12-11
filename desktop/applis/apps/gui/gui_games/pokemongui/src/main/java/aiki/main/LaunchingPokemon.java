@@ -7,6 +7,7 @@ import aiki.sml.Resources;
 import aiki.game.Game;
 import aiki.sml.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
@@ -70,6 +71,13 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
         if (param_ == null) {
             String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
+            AbstractNameValidating def_ = getFrames().getValidator();
+            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastSavedGame()),'/','\\')) {
+                param_.setLastSavedGame("");
+            }
+            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastRom()),'/','\\')) {
+                param_.setLastRom("");
+            }
         }
         //String path_ = getFolderJarPath();
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS);

@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ThreadStruct extends WithoutParentIdStruct implements Struct {
 
-    private Thread thread;
+    private final Thread thread;
 
     private AtomicBoolean ended = new AtomicBoolean();
 

@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.EntryCust;
 
@@ -27,7 +28,7 @@ public final class CoveringCodeTask implements Runnable {
                 if (end_ > -1) {
                     String par_ = full_.substring(0, end_);
                     if (!par_.isEmpty()) {
-                        new File(par_).mkdirs();
+                        StreamFolderFile.mkdirs(par_);
                     }
                 }
                 StreamTextFile.saveTextFile(full_,f.getValue());

@@ -7,18 +7,20 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class StreamZipFile {
 
+    private static final int MAX = Integer.MAX_VALUE/2;
     private StreamZipFile() {
     }
 
-    public static StringMap<byte[]> zippedBinaryFiles(byte[] _bytes) {
+    public static StringMap<ContentTime> zippedBinaryFiles(byte[] _bytes) {
         if (_bytes == null) {
             return null;
         }
         try {
-            StringMap<byte[]> files_ = new StringMap<byte[]>();
+            StringMap<ContentTime> files_ = new StringMap<ContentTime>();
             ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
             ZipInputStream zis_ = new ZipInputStream(bais_);
             while (true) {
@@ -28,16 +30,32 @@ public final class StreamZipFile {
                 }
                 if (e_.isDirectory()) {
                     byte[] bytes_ = new byte[0];
-                    files_.put(e_.getName(), bytes_);
+                    ContentTime content_ = new ContentTime(bytes_,e_.getTime());
+                    files_.put(e_.getName(), content_);
                     zis_.closeEntry();
                     continue;
                 }
-                byte[] bytes_ = new byte[(int) e_.getSize()];
+                long size_ = e_.getSize();
+                if (size_ < 0) {
+                    size_ = MAX;
+                } else {
+                    size_ = Math.min(MAX,size_);
+                }
+                byte[] bytes_ = new byte[Math.max((int) size_,0)];
                 int i = 0;
                 while (i < bytes_.length) {
-                    i += zis_.read(bytes_, i, bytes_.length - i);
+                    int read_ = zis_.read(bytes_, i, bytes_.length - i);
+                    if (read_ <= 0) {
+                        break;
+                    }
+                    i += read_;
                 }
-                files_.put(e_.getName(), bytes_);
+                byte[] copy_ = new byte[i];
+                for (int j = 0; j < i; j++) {
+                    set(bytes_, copy_, j);
+                }
+                ContentTime content_ = new ContentTime(copy_,e_.getTime());
+                files_.put(e_.getName(), content_);
                 zis_.closeEntry();
             }
             zis_.close();
@@ -46,6 +64,10 @@ public final class StreamZipFile {
             return null;
         }
 
+    }
+
+    private static void set(byte[] _bytes, byte[] _copy, int _j) {
+        _copy[_j] = _bytes[_j];
     }
 
     public static byte[] zipBinFiles(StringMap<byte[]> _files) {
