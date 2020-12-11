@@ -31,6 +31,7 @@ public final class RendAnalysisMessagesTest {
         Options opts_ = new Options();
         getCtx(lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setLogErr(lgName_);
         page_.setAnalysisMessages(new AnalysisMessages());
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());

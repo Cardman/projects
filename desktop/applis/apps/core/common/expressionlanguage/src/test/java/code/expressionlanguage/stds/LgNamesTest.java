@@ -2360,6 +2360,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setKeyWords(_kw);
         page_.setFileBuilder(DefaultFileBuilder.newInstance(_lgName.getContent()));
         page_.setStandards(_lgName.getContent());
+        page_.setLogErr(_lgName);
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());

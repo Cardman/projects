@@ -159,7 +159,7 @@ public final class MainWindow extends GroupFrame {
             }
         }
         AbstractNameValidating validator_ = getValidator();
-        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_),
+        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_, null),
                 new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), getGenerator()));
         session.initNav();
         session.setLanguage(lg_,lgs_);

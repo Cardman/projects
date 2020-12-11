@@ -31,6 +31,15 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     public void forwardAndClear(Classes _classes) {
         executingBlocks.forwardAndClear(getContent(),custAliases,_classes);
     }
+
+    @Override
+    public void logIssue(String _info) {
+        AbstractIssuer issuer_ = infos.getLogger().getIssuer();
+        if (issuer_ != null) {
+            issuer_.log(_info);
+        }
+    }
+
     @Override
     public void buildOther() {
         custAliases.buildOther(getContent());

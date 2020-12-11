@@ -244,6 +244,7 @@ public final class AnalysisMessagesTest {
         Options opts_ = new Options();
         getCtx(lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setLogErr(lgName_);
         page_.setAnalysisMessages(def_);
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());

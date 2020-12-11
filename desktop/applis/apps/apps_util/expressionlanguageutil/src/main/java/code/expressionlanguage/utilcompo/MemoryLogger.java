@@ -10,9 +10,15 @@ public final class MemoryLogger implements AbstractLogger {
     private final AbstractNameValidating nameValidating;
     private String errFile = "";
     private String errs = "";
+    private AbstractIssuer issuer;
 
-    public MemoryLogger(AbstractNameValidating _nameValidating) {
+    public MemoryLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer) {
         nameValidating = _nameValidating;
+        issuer = _issuer;
+    }
+
+    public AbstractIssuer getIssuer() {
+        return issuer;
     }
 
     @Override

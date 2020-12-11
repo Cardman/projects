@@ -360,6 +360,7 @@ public final class RendKeyWordsTest {
     private static AnalyzedTestContext getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
         ContextEl s_ =  _lgName.newContext(4, -1, new Coverage(_opts.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setLogErr(_lgName);
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
         return new AnalyzedTestContext(s_, page_, new Forwards(), _lgName);

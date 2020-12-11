@@ -62,7 +62,7 @@ public final class RenderInitStdsTest extends CommonRender {
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, b_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(am_, k_, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), null, BeanFileBuilder.newInstance(b_.getContent(),b_.getBeanAliases()), b_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
+        ContextFactory.validatedStds(b_, am_, k_, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), null, BeanFileBuilder.newInstance(b_.getContent(),b_.getBeanAliases()), b_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         b_.build();
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext an_ = new AnalyzedTestContext(contextEl_, page_, new Forwards(), b_);
@@ -97,7 +97,7 @@ public final class RenderInitStdsTest extends CommonRender {
         int tabWidth_ = 4;
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, _opt, _beanLgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_mess, _kw, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), _calculator, BeanFileBuilder.newInstance(_beanLgNames.getContent(),_beanLgNames.getBeanAliases()), _beanLgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
+        ContextFactory.validatedStds(_beanLgNames, _mess, _kw, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), _calculator, BeanFileBuilder.newInstance(_beanLgNames.getContent(),_beanLgNames.getBeanAliases()), _beanLgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         _beanLgNames.build();
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext an_ = new AnalyzedTestContext(contextEl_, page_, new Forwards(), _beanLgNames);

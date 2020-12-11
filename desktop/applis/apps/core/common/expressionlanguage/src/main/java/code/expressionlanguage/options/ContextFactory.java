@@ -45,13 +45,14 @@ public final class ContextFactory {
 
     public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,
                                     CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page, AbstractFieldFilter _fieldFilter) {
-        if (validatedStds(_mess,_definedKw,_comments,_options,_com,_calculator,_fileBuilder,_content,_tabWidth,_page, _fieldFilter)) {
+        if (validatedStds(_definedLgNames, _mess,_definedKw,_comments,_options,_com,_calculator,_fileBuilder,_content,_tabWidth,_page, _fieldFilter)) {
             _definedLgNames.build();
             ValidatorStandard.setupOverrides(_page);
         }
     }
-    public static boolean validatedStds(AnalysisMessages _mess, KeyWords _definedKw,
+    public static boolean validatedStds(BuildableLgNames _lgNames, AnalysisMessages _mess, KeyWords _definedKw,
                                         CustList<CommentDelimiters> _comments, Options _options, ClassesCommon _com, AbstractConstantsCalculator _calculator, AbstractFileBuilder _fileBuilder, LgNamesContent _content, int _tabWidth, AnalyzedPageEl _page, AbstractFieldFilter _fieldFilter) {
+        _page.setLogErr(_lgNames);
         _page.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);

@@ -33,6 +33,7 @@ import java.awt.event.KeyEvent;
 public final class MainWindow extends GroupFrame {
     private Menu menu;
     private MenuItem open;
+    private MenuItem logErr;
     private CheckBoxMenuItem memory;
 
     private Panel contentPane;
@@ -53,6 +54,8 @@ public final class MainWindow extends GroupFrame {
     private Thread th;
     private StringMap<String> messages;
     private final UniformingString uniformingString = new DefaultUniformingString();
+    private TextArea errors = new TextArea();
+    private UnitIssuer unitIssuer = new UnitIssuer(errors);
 
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -65,6 +68,9 @@ public final class MainWindow extends GroupFrame {
         open.addActionListener(new FileOpenEvent(this));
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         menu.addMenuItem(open);
+        logErr = new MenuItem(messages.getVal("status"));
+        logErr.addActionListener(new LogErrEvent(this));
+        menu.addMenuItem(logErr);
         memory = new CheckBoxMenuItem(messages.getVal("memory"));
         menu.addMenuItem(memory);
         getJMenuBar().add(menu);
@@ -146,10 +152,8 @@ public final class MainWindow extends GroupFrame {
 
     public void process() {
         String txt_ = conf.getText().trim();
-        AbstractNameValidating validator_ = getValidator();
         RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this),
-                new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
-                        buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator()));
+                getInfos());
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
@@ -167,20 +171,27 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void launchFileConf(String _fichier) {
-        AbstractNameValidating validator_ = getValidator();
         RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this),
-                new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
-                        buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator()));
+                getInfos());
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
     }
 
+    private FileInfos getInfos() {
+        AbstractNameValidating validator_ = getValidator();
+        return new FileInfos(new DefaultResourcesReader(), buildLogger(validator_),
+                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator());
+    }
+
+    public void logErr() {
+        ConfirmDialog.showMessage(this,errors.getText(),"",getLanguageKey(),JOptionPane.INFORMATION_MESSAGE);
+    }
     private AbstractLogger buildLogger(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
-            return new MemoryLogger(_validator);
+            return new MemoryLogger(_validator, unitIssuer);
         }
-        return new DefaultLogger(_validator);
+        return new DefaultLogger(_validator, unitIssuer);
     }
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {

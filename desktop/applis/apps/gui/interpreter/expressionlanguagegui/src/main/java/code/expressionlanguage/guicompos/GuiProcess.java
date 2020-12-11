@@ -28,15 +28,12 @@ import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
 import code.threads.ThreadUtil;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
-
-import java.io.File;
 
 
 public final class GuiProcess implements Runnable {
@@ -93,7 +90,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _window.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultResourcesReader(), new DefaultLogger(validator_), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
+        FileInfos fileInfos_ = new FileInfos(new DefaultResourcesReader(), new DefaultLogger(validator_, null), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {

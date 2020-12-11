@@ -66,6 +66,10 @@ public final class CustContextFactory {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec,infos_);
             return;
         }
+        AbstractIssuer issuer_ = _definedLgNames.getInfos().getLogger().getIssuer();
+        if (issuer_ != null) {
+            issuer_.log("OK");
+        }
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
                 NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);

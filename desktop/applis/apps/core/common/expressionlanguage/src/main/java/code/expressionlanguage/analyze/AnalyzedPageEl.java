@@ -25,15 +25,7 @@ import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.AliasCharSequence;
-import code.expressionlanguage.stds.AliasCore;
-import code.expressionlanguage.stds.AliasMath;
-import code.expressionlanguage.stds.AliasNumber;
-import code.expressionlanguage.stds.DisplayedStrings;
-import code.expressionlanguage.stds.LgNamesContent;
-import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.stds.PrimitiveTypes;
-import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
@@ -162,6 +154,7 @@ public final class AnalyzedPageEl {
     private boolean gettingErrors;
     private Options options;
     private LgNamesContent content;
+    private BuildableLgNames logErr;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -387,6 +380,10 @@ public final class AnalyzedPageEl {
 
     public void setStandards(LgNamesContent _content) {
         content = _content;
+    }
+
+    public void setLogErr(BuildableLgNames _logErr) {
+        logErr = _logErr;
     }
 
     public int getTabWidth() {
@@ -1019,6 +1016,7 @@ public final class AnalyzedPageEl {
 
     public void addError(FoundErrorInterpret _error) {
         messages.addError(_error);
+        logErr.logIssue(_error.display());
     }
 
     public boolean isEmptyMessageError() {
@@ -1026,6 +1024,7 @@ public final class AnalyzedPageEl {
     }
     public void addMessageError(String _std) {
         messages.addMessageError(_std);
+        logErr.logIssue(_std);
     }
 
     public boolean isEmptyStdError() {
@@ -1033,10 +1032,12 @@ public final class AnalyzedPageEl {
     }
     public void addStdError(StdWordError _std) {
         messages.addStdError(_std);
+        logErr.logIssue(_std.display());
     }
 
     public void addWarning(FoundWarningInterpret _warning) {
         messages.addWarning(_warning);
+        logErr.logIssue(_warning.display());
     }
 
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {

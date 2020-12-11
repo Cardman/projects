@@ -1,21 +1,25 @@
 package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.utilcompo.AbstractIssuer;
 import code.expressionlanguage.utilcompo.AbstractLogger;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
-import java.io.File;
-
 public final class DefaultLogger implements AbstractLogger {
     private final AbstractNameValidating nameValidating;
+    private AbstractIssuer issuer;
 
-    public DefaultLogger(AbstractNameValidating _nameValidating) {
+    public DefaultLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer) {
         nameValidating = _nameValidating;
+        issuer = _issuer;
     }
 
+    public AbstractIssuer getIssuer() {
+        return issuer;
+    }
     @Override
     public AbstractNameValidating getNameValidating() {
         return nameValidating;
