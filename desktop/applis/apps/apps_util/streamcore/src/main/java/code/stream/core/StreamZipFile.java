@@ -52,8 +52,12 @@ public final class StreamZipFile {
                     }
                     i += read_;
                 }
-                byte[] copy_ = new byte[i];
-                for (int j = 0; j < i; j++) {
+                if (i > MAX) {
+                    continue;
+                }
+                int maxByte_ = Math.min(i,bytes_.length);
+                byte[] copy_ = new byte[maxByte_];
+                for (int j = 0; j < maxByte_; j++) {
                     set(bytes_, copy_, j);
                 }
                 ContentTime content_ = new ContentTime(copy_,e_.getTime());
