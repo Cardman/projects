@@ -102,7 +102,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         CustList<String> parts_ = StringUtil.splitChars(_file, '/','\\');
         String simpleName_ = parts_.last();
         boolean folder_;
-        if (_file.endsWith("/")) {
+        if (endsSep(_file)) {
             simpleName_ = parts_.get(parts_.size()-2);
             parts_ = parts_.left(parts_.size()-1);
             folder_ = true;
@@ -138,13 +138,13 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean rename(String _origin, String _dest, RunnableContextEl _rCont) {
-        if (_origin.endsWith("/") && !_dest.endsWith("/")) {
+        if (endsSep(_origin) && !endsSep(_dest)) {
             return false;
         }
-        if (_dest.endsWith("/") && !_origin.endsWith("/")) {
+        if (endsSep(_dest) && !endsSep(_origin)) {
             return false;
         }
-        if (_origin.endsWith("/")) {
+        if (endsSep(_origin)) {
             StringList parts_ = StringUtil.splitChars(_origin, '/','\\');
             String simpleName_ = parts_.get(parts_.size()-2);
             FolderStruct curr_ = getParentFolder(parts_.left(parts_.size()-1));
@@ -326,7 +326,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         CustList<String> parts_ = StringUtil.splitChars(_file, '/','\\');
         String simpleName_ = parts_.last();
         boolean folder_;
-        if (_file.endsWith("/")) {
+        if (endsSep(_file)) {
             simpleName_ = parts_.get(parts_.size()-2);
             parts_ = parts_.left(parts_.size()-1);
             folder_ = true;
@@ -403,6 +403,10 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             curr_ = curr_.getFolders().getVal(_parts.get(i));
         }
         return curr_;
+    }
+
+    private static boolean endsSep(String _file) {
+        return _file.endsWith("/") || _file.endsWith("\\");
     }
 
     public FolderStruct getRoot() {

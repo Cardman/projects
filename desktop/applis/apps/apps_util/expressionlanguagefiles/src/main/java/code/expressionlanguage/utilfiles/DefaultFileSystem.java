@@ -139,7 +139,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public boolean mkdirs(String _file, RunnableContextEl _rCont) {
         String file_ = _file;
-        if (file_.endsWith("/")) {
+        if (endsSep(file_)) {
             file_ = file_.substring(0,file_.length()-1);
         }
         if (koName(file_, _rCont)) {
@@ -203,10 +203,14 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         if (!_file.startsWith(base)) {
             return;
         }
-        if (file_.endsWith("/")) {
+        if (endsSep(file_)) {
             file_ = file_.substring(0,file_.length()-1);
         }
         simpleMkdirs(file_);
+    }
+
+    private static boolean endsSep(String _file) {
+        return _file.endsWith("/") || _file.endsWith("\\");
     }
 
     private static boolean simpleMkdirs(String _modified) {
