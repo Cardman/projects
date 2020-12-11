@@ -10,4 +10,6 @@ public interface ProgressingTests {
     void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved);
     void finish(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);
     void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
+    ExecutingOptions getExec();
+    void init(ExecutingOptions _exec);
 }

@@ -34,6 +34,7 @@ public final class MainWindow extends GroupFrame {
     private Menu menu;
     private MenuItem open;
     private MenuItem logErr;
+    private MenuItem stop;
     private CheckBoxMenuItem memory;
 
     private Panel contentPane;
@@ -51,6 +52,7 @@ public final class MainWindow extends GroupFrame {
     private TextArea results;
     private ProgressBar progressBar;
 
+    private RunningTest running;
     private Thread th;
     private StringMap<String> messages;
     private final UniformingString uniformingString = new DefaultUniformingString();
@@ -73,6 +75,10 @@ public final class MainWindow extends GroupFrame {
         menu.addMenuItem(logErr);
         memory = new CheckBoxMenuItem(messages.getVal("memory"));
         menu.addMenuItem(memory);
+        menu.addSeparator();
+        stop = new MenuItem(messages.getVal("stop"));
+        stop.addActionListener(new StopRunEvent(this));
+        menu.addMenuItem(stop);
         getJMenuBar().add(menu);
         contentPane = Panel.newPageBox();
         form = Panel.newGrid(0,2);
@@ -125,6 +131,17 @@ public final class MainWindow extends GroupFrame {
         basicDispose();
     }
 
+    public void stop() {
+        if (running != null) {
+            ProgressingTests progressingTests_ = running.getProgressingTests();
+            if (progressingTests_ != null) {
+                ExecutingOptions exec_ = progressingTests_.getExec();
+                if (exec_ != null) {
+                    exec_.getInterrupt().set(true);
+                }
+            }
+        }
+    }
     @Override
     public void quit() {
         if (th != null) {
@@ -154,6 +171,7 @@ public final class MainWindow extends GroupFrame {
         String txt_ = conf.getText().trim();
         RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(this),
                 getInfos());
+        running = r_;
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();
@@ -173,6 +191,7 @@ public final class MainWindow extends GroupFrame {
     public void launchFileConf(String _fichier) {
         RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(this),
                 getInfos());
+        running = r_;
         Thread th_ = new Thread(r_);
         th = th_;
         th_.start();

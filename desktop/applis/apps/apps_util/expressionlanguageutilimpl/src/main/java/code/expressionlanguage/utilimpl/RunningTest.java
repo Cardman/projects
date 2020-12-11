@@ -55,6 +55,10 @@ public final class RunningTest implements Runnable {
         launchByConfContent(content_,progressingTests,infos);
     }
 
+    public ProgressingTests getProgressingTests() {
+        return progressingTests;
+    }
+
     public static void launchByConfContent(String _content, ProgressingTests _progressingTests, FileInfos _infos) {
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();

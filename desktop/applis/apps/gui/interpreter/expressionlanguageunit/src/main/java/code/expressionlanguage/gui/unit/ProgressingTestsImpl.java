@@ -15,9 +15,20 @@ import code.util.core.StringUtil;
 
 public final class ProgressingTestsImpl implements ProgressingTests {
     private MainWindow mainWindow;
+    private ExecutingOptions exec;
 
     public ProgressingTestsImpl(MainWindow _mainWindow) {
         mainWindow = _mainWindow;
+    }
+
+    @Override
+    public ExecutingOptions getExec() {
+        return exec;
+    }
+
+    @Override
+    public void init(ExecutingOptions _exec) {
+        exec = _exec;
     }
 
     @Override

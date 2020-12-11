@@ -56,6 +56,7 @@ public final class CustContextFactory {
                                KeyWords _definedKw,
                                LgNamesUtils _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
+        _progressingTests.init(_exec);
         ResultsRunnableContext res_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
         RunnableContextEl rCont_ = res_.getRunnable();
