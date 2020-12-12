@@ -90,6 +90,10 @@ public final class StreamZipFile {
                     ze_.setTime(file_.getLastModifTime());
                     zos_.putNextEntry(ze_);
                     zos_.write(content_);
+                } else {
+                    ZipEntry ze_ = new ZipEntry(n.getKey()+"/");
+                    ze_.setTime(file_.getLastModifTime());
+                    zos_.putNextEntry(ze_);
                 }
             }
             zos_.closeEntry();
