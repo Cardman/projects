@@ -117,8 +117,8 @@ public final class RunningTest implements Runnable {
                 String output_ = l.substring("log=".length());
                 int lastSep_ = output_.lastIndexOf('>');
                 if (lastSep_ > -1) {
-                    _exec.setLogFolder(output_.substring(0,lastSep_));
-                    _exec.setMainThread(output_.substring(lastSep_+1));
+                    _exec.setLogFolder(StringUtil.replaceBackSlash(output_.substring(0,lastSep_)));
+                    _exec.setMainThread(StringUtil.replaceBackSlash(output_.substring(lastSep_+1)));
                 }
             }
             if (l.startsWith("cover=")) {
@@ -126,14 +126,14 @@ public final class RunningTest implements Runnable {
                 _exec.setCovering(true);
                 String output_ = l.substring("cover=".length());
                 if (!output_.isEmpty()) {
-                    _exec.setCoverFolder(output_);
+                    _exec.setCoverFolder(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("err=")) {
                 _options.setGettingErrors(true);
                 String output_ = l.substring("err=".length());
                 if (!output_.isEmpty()) {
-                    _exec.setErrorsFolder(output_);
+                    _exec.setErrorsFolder(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("src=")) {
@@ -145,7 +145,7 @@ public final class RunningTest implements Runnable {
                     if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
-                    _exec.setSrcFolder(output_);
+                    _exec.setSrcFolder(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("res=")) {
@@ -154,7 +154,7 @@ public final class RunningTest implements Runnable {
                     if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
-                    _exec.setResources(output_);
+                    _exec.setResources(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("files=")) {
@@ -163,7 +163,7 @@ public final class RunningTest implements Runnable {
                     if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
-                    _exec.setFiles(output_);
+                    _exec.setFiles(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("out=")) {
@@ -172,7 +172,7 @@ public final class RunningTest implements Runnable {
                     if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
-                    _exec.setOutputZip(output_);
+                    _exec.setOutputZip(StringUtil.replaceBackSlash(output_));
                 }
             }
             if (l.startsWith("tabWidth=")) {

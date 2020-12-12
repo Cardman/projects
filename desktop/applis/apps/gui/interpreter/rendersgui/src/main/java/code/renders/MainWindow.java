@@ -176,8 +176,8 @@ public final class MainWindow extends GroupFrame {
                 String output_ = l.substring("log=".length());
                 int lastSep_ = output_.lastIndexOf('>');
                 if (lastSep_ > -1) {
-                    _exec.setLogFolder(output_.substring(0,lastSep_));
-                    _exec.setMainThread(output_.substring(lastSep_+1));
+                    _exec.setLogFolder(StringUtil.replaceBackSlash(output_.substring(0,lastSep_)));
+                    _exec.setMainThread(StringUtil.replaceBackSlash(output_.substring(lastSep_+1)));
                 }
             }
             if (l.startsWith("tabWidth=")) {
