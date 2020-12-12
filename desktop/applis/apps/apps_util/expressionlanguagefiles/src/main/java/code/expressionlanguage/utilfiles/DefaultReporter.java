@@ -80,7 +80,7 @@ public final class DefaultReporter implements AbstractReporter {
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
-            if (f.trim().isEmpty()) {
+            if (!nameValidating.okPath(f,'/','\\')) {
                 return true;
             }
             int index_ = f.indexOf('/');
@@ -90,10 +90,15 @@ public final class DefaultReporter implements AbstractReporter {
                 foldersConf_.add(f.substring(0,index_));
             }
         }
+        _exec.setCoverFolder(StringUtil.replaceBackSlashDot(_exec.getCoverFolder()));
+        _exec.setErrorsFolder(StringUtil.replaceBackSlashDot(_exec.getErrorsFolder()));
         if (memory) {
             String outZip_ = _exec.getOutputZip().trim();
             int index_ = outZip_.indexOf('/');
             if (index_ < 0) {
+                return true;
+            }
+            if (!nameValidating.okPath(outZip_,'/','\\')) {
                 return true;
             }
             String folderOut_ = outZip_.substring(0, index_);
