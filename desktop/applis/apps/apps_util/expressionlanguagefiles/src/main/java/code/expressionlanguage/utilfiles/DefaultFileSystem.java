@@ -150,7 +150,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public long lastModified(String _file, RunnableContextEl _rCont) {
-        File info_ = new File(_file);
+        String file_ = prefix(_file, _rCont);
+        File info_ = new File(file_);
         return info_.lastModified();
     }
 
@@ -217,8 +218,8 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
     private boolean koName(String _file, RunnableContextEl _rCont) {
         String normal_ = StringUtil.replaceBackSlash(_file);
-        String ext_ = _file;
-        if (isAbsolute(_file, _rCont)) {
+        String ext_ = normal_;
+        if (isAbsolute(normal_, _rCont)) {
             if (!normal_.startsWith(base)) {
                 return true;
             }
@@ -228,9 +229,10 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     private String prefix(String _file, RunnableContextEl _rCont) {
-        String file_ = _file;
-        if (!isAbsolute(_file, _rCont)) {
-            file_ = base+_file;
+        String chg_ = StringUtil.replaceBackSlash(_file);
+        String file_ = chg_;
+        if (!isAbsolute(chg_, _rCont)) {
+            file_ = base+chg_;
         }
         return file_;
     }
