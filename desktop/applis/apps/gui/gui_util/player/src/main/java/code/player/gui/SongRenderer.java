@@ -40,6 +40,7 @@ public class SongRenderer extends PaintableLabel {
         }
         int h_ = f_.getHeight() * songs.size();
         if (w_ <= 0 || h_ <= 0) {
+            setEmptyIcon();
             return;
         }
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);

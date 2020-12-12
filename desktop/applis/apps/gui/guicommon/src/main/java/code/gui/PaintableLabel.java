@@ -15,6 +15,10 @@ public abstract class PaintableLabel extends CustComponent {
     public void repaintLabel() {
         int w_ = getWidth();
         int h_ = getHeight();
+        if (w_ <= 0 || h_ <= 0) {
+            setEmptyIcon();
+            return;
+        }
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
         CustGraphics gr_ = new CustGraphics(img_.getGraphics());
         gr_.setFont(getFont());
@@ -39,6 +43,9 @@ public abstract class PaintableLabel extends CustComponent {
         return label.requestFocusInWindow();
     }
 
+    public void setEmptyIcon() {
+        label.setIcon(new ImageIcon());
+    }
     public void setIcon(BufferedImage _icon) {
         label.setIcon(new ImageIcon(_icon));
     }
