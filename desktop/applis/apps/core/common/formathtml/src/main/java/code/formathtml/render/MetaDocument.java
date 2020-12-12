@@ -721,14 +721,16 @@ public final class MetaDocument {
                 _style.setFontFamily(value_);
                 continue;
             }
+            String styleUnitPx_ = _rend.getStyleUnitPx();
             if (StringUtil.quickEq(key_, _rend.getStyleAttrFontSize())) {
-                if (value_.endsWith(_rend.getStyleUnitPx())) {
-                    String size_ = value_.substring(0, value_.length() - 2);
+                if (value_.endsWith(styleUnitPx_)) {
+                    String size_ = value_.substring(0, value_.length() - styleUnitPx_.length());
                     int val_ = NumberUtil.parseInt(size_);
                     _style.setSize(val_);
                 }
-                if (value_.endsWith(_rend.getStyleUnitEm())) {
-                    String size_ = value_.substring(0, value_.length() - 2);
+                String styleUnitEm_ = _rend.getStyleUnitEm();
+                if (value_.endsWith(styleUnitEm_)) {
+                    String size_ = value_.substring(0, value_.length() - styleUnitEm_.length());
                     int val_ = NumberUtil.parseInt(size_);
                     _style.setEm(val_);
                 }
@@ -743,8 +745,8 @@ public final class MetaDocument {
                     continue;
                 }
                 for (String v: StringUtil.splitChars(value_, ' ','\t','\n','\r')) {
-                    if (v.endsWith(_rend.getStyleUnitPx())) {
-                        String size_ = v.substring(0, v.length() - 2);
+                    if (v.endsWith(styleUnitPx_)) {
+                        String size_ = v.substring(0, v.length() - styleUnitPx_.length());
                         int val_ = NumberUtil.parseInt(size_);
                         _style.setBorderSize(val_);
                         continue;
