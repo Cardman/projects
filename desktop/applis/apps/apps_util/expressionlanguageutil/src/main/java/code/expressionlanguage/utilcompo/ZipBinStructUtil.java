@@ -56,7 +56,7 @@ public final class ZipBinStructUtil {
                 bs_.set(j, new ByteStruct(bytesFile_[j]));
             }
             EntryBinaryStruct bin_ = new EntryBinaryStruct(new StringStruct(e.getKey()), bs_);
-            bin_.setLongTime(new LongStruct(value_.getLastModifTime()));
+            bin_.setTime(value_.getLastModifTime());
             filesMap_.add(bin_);
         }
         return filesMap_;

@@ -41,6 +41,10 @@ public final class EntryBinaryStruct extends WithoutParentIdStruct implements St
         return time;
     }
 
+    public void setTime(long _time) {
+        time = _time;
+    }
+
     public StringStruct getName() {
         return name;
     }

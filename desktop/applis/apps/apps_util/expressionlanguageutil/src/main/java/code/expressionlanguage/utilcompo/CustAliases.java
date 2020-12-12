@@ -1801,7 +1801,6 @@ public final class CustAliases {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
                 log((RunnableContextEl)_cont, _method, _execBlocks, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
                 out_.setResult(NullStruct.NULL_VALUE);
