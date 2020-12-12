@@ -260,12 +260,22 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public String getParentPath(String _file, RunnableContextEl _rCont) {
+        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+            return "";
+        }
         StringList parts_ = FolderStruct.splitParts(_file);
-        return StringUtil.join(parts_.left(parts_.size()-1),'/');
+        int nbElements_ = parts_.size() - 1;
+        if (nbElements_ == 0) {
+            return "/";
+        }
+        return StringUtil.join(parts_.left(nbElements_),'/');
     }
 
     @Override
     public boolean isDirectory(String _file, RunnableContextEl _rCont) {
+        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+            return true;
+        }
         StringList parts_ = FolderStruct.splitParts(_file);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
@@ -276,6 +286,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean isFile(String _file, RunnableContextEl _rCont) {
+        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+            return false;
+        }
         StringList parts_ = FolderStruct.splitParts(_file);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
