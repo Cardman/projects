@@ -357,6 +357,14 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFiles(String _file, RunnableContextEl _rCont) {
+        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+            StringList files_ = new StringList();
+            for (String f: root.getFiles().getKeys()) {
+                files_.add(f);
+            }
+            files_.sort();
+            return files_;
+        }
         CustList<String> parts_ = FolderStruct.splitParts(_file);
         FolderStruct curr_ = getCurrentFolder(parts_);
         if (curr_ == null) {
@@ -373,6 +381,14 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFolders(String _file, RunnableContextEl _rCont) {
+        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+            StringList files_ = new StringList();
+            for (String f: root.getFolders().getKeys()) {
+                files_.add(f);
+            }
+            files_.sort();
+            return files_;
+        }
         CustList<String> parts_ = FolderStruct.splitParts(_file);
         FolderStruct curr_ = getCurrentFolder(parts_);
         if (curr_ == null) {
