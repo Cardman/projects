@@ -84,10 +84,13 @@ public final class StreamZipFile {
             ZipOutputStream zos_ = new ZipOutputStream(baos_);
             for (EntryCust<String, ContentTime> n : _files.entryList()) {
                 ContentTime file_ = n.getValue();
-                ZipEntry ze_ = new ZipEntry(n.getKey());
-                ze_.setTime(file_.getLastModifTime());
-                zos_.putNextEntry(ze_);
-                zos_.write(file_.getContent());
+                byte[] content_ = file_.getContent();
+                if (content_ != null) {
+                    ZipEntry ze_ = new ZipEntry(n.getKey());
+                    ze_.setTime(file_.getLastModifTime());
+                    zos_.putNextEntry(ze_);
+                    zos_.write(content_);
+                }
             }
             zos_.closeEntry();
             // remember close it
