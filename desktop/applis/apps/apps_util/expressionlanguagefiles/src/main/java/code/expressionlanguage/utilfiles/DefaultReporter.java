@@ -113,6 +113,11 @@ public final class DefaultReporter implements AbstractReporter {
             return true;
         }
         _exec.setOutput(StringUtil.replaceBackSlashDot(new File(_folderPath).getAbsolutePath()));
+        if (!memory) {
+            _exec.setBaseFiles(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()));
+        } else {
+            _exec.setBaseFiles("/");
+        }
         return false;
     }
     private static StringList list(ExecutingOptions _exec) {

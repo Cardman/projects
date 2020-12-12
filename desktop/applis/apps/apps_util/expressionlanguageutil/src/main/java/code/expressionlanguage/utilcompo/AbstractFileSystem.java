@@ -25,5 +25,7 @@ public interface AbstractFileSystem {
     long lastModified(String _file,RunnableContextEl _rCont);
     StringList getFiles(String _file, RunnableContextEl _rCont);
     StringList getFolders(String _file, RunnableContextEl _rCont);
+    String currentDir(RunnableContextEl _rCont);
+    void changeDir(String _file, RunnableContextEl _rCont);
 
 }

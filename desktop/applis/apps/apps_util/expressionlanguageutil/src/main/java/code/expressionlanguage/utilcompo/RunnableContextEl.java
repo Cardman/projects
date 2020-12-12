@@ -10,11 +10,14 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     private final ThreadStruct thread;
     private String idDate;
+    private String currentDir;
 
     public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
         super(_executionInfos, _state);
         setFullStack(new DefaultFullStack(this));
         thread = new ThreadStruct(Thread.currentThread());
+        LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
+        currentDir = standards_.getExecutingOptions().getBaseFiles();
     }
 
     @Override
@@ -46,6 +49,13 @@ public class RunnableContextEl extends ContextEl implements Locking {
         idDate = _idDate;
     }
 
+    public String getCurrentDir() {
+        return currentDir;
+    }
+
+    public void setCurrentDir(String _currentDir) {
+        this.currentDir = _currentDir;
+    }
 
     public CustInitializer getCustInit() {
         return (CustInitializer)getInit();

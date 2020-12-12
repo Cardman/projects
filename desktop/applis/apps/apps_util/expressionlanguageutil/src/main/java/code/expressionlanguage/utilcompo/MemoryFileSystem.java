@@ -24,8 +24,24 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
+    public void changeDir(String _file, RunnableContextEl _rCont) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (!isDirectory(abs_,_rCont)) {
+            return;
+        }
+        String normal_ = StringUtil.replaceBackSlashDot(abs_);
+        _rCont.setCurrentDir(normal_);
+    }
+
+    @Override
+    public String currentDir(RunnableContextEl _rCont) {
+        return _rCont.getCurrentDir();
+    }
+
+    @Override
     public String contentsOfFile(String _file, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return null;
@@ -41,7 +57,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     @Override
     public boolean saveTextFile(String _file, String _content, RunnableContextEl _rCont) {
         byte[] content_ = StringUtil.encode(_content);
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return false;
@@ -62,7 +79,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public byte[] loadFile(String _file, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return null;
@@ -76,7 +94,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean writeFile(String _file, byte[] _content, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return false;
@@ -97,11 +116,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean delete(String _file, RunnableContextEl _rCont) {
-
-        CustList<String> parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        CustList<String> parts_ = FolderStruct.splitParts(abs_);
         String simpleName_ = parts_.last();
         boolean folder_;
-        if (endsSep(_file)) {
+        if (endsSep(abs_)) {
             simpleName_ = parts_.get(parts_.size()-2);
             parts_ = parts_.left(parts_.size()-1);
             folder_ = true;
@@ -137,14 +156,16 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean rename(String _origin, String _dest, RunnableContextEl _rCont) {
-        if (endsSep(_origin) && !endsSep(_dest)) {
+        String origin_ = absolutePath(_origin, _rCont);
+        String destElt_ = absolutePath(_dest, _rCont);
+        if (endsSep(origin_) && !endsSep(destElt_)) {
             return false;
         }
-        if (endsSep(_dest) && !endsSep(_origin)) {
+        if (endsSep(destElt_) && !endsSep(origin_)) {
             return false;
         }
-        if (endsSep(_origin)) {
-            StringList parts_ = FolderStruct.splitParts(_origin);
+        if (endsSep(origin_)) {
+            StringList parts_ = FolderStruct.splitParts(origin_);
             String simpleName_ = parts_.get(parts_.size()-2);
             FolderStruct curr_ = getParentFolder(parts_.left(parts_.size()-1));
             if (curr_ == null) {
@@ -154,7 +175,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             if (folder_ == null) {
                 return false;
             }
-            StringList partsDest_ = FolderStruct.splitParts(_dest);
+            StringList partsDest_ = FolderStruct.splitParts(destElt_);
             String simpleNameDest_ = partsDest_.get(partsDest_.size()-2);
             FolderStruct dest_ = getParentFolder(partsDest_.left(partsDest_.size()-1));
             if (dest_ == null) {
@@ -169,7 +190,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             dest_.setupDate();
             curr_.setupDate();
         } else {
-            StringList parts_ = FolderStruct.splitParts(_origin);
+            StringList parts_ = FolderStruct.splitParts(origin_);
             String simpleName_ = parts_.last();
             FolderStruct curr_ = getParentFolder(parts_);
             if (curr_ == null) {
@@ -179,7 +200,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             if (file_ == null) {
                 return false;
             }
-            StringList partsDest_ = FolderStruct.splitParts(_dest);
+            StringList partsDest_ = FolderStruct.splitParts(destElt_);
             String simpleNameDest_ = partsDest_.last();
             FolderStruct dest_ = getParentFolder(partsDest_);
             if (dest_ == null) {
@@ -200,7 +221,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     @Override
     public boolean logToFile(String _file, String _content, RunnableContextEl _rCont) {
         byte[] content_ = StringUtil.encode(_content);
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return false;
@@ -235,12 +257,26 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public String absolutePath(String _file, RunnableContextEl _rCont) {
-        return _file;
+        if (StringUtil.quickEq(_file,"..")) {
+            String abs_ = _rCont.getCurrentDir();
+            StringList parts_ = FolderStruct.splitParts(abs_);
+            parts_.removeLast();
+            int nbElements_ = parts_.size() - 1;
+            if (nbElements_ == 0) {
+                return "/";
+            }
+            return StringUtil.join(parts_.left(nbElements_),'/');
+        }
+        if (isAbsolute(_file, _rCont)) {
+            return StringUtil.replaceBackSlash(_file);
+        }
+        return _rCont.getCurrentDir()+StringUtil.replaceBackSlash(_file);
     }
 
     @Override
     public long length(String _file, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return 0;
@@ -254,16 +290,18 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public String getName(String _file, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         return parts_.last();
     }
 
     @Override
     public String getParentPath(String _file, RunnableContextEl _rCont) {
-        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (StringUtil.quickEq(abs_,"/") || StringUtil.quickEq(abs_,"\\")) {
             return "";
         }
-        StringList parts_ = FolderStruct.splitParts(_file);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         int nbElements_ = parts_.size() - 1;
         if (nbElements_ == 0) {
             return "/";
@@ -273,10 +311,14 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean isDirectory(String _file, RunnableContextEl _rCont) {
-        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (abs_.endsWith("/") || StringUtil.quickEq(abs_,"\\")) {
+            abs_ = abs_.substring(0,abs_.length()-1);
+        }
+        if (StringUtil.quickEq(abs_,"/") || StringUtil.quickEq(abs_,"\\")) {
             return true;
         }
-        StringList parts_ = FolderStruct.splitParts(_file);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return false;
@@ -286,10 +328,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean isFile(String _file, RunnableContextEl _rCont) {
-        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (StringUtil.quickEq(abs_,"/") || StringUtil.quickEq(abs_,"\\")) {
             return false;
         }
-        StringList parts_ = FolderStruct.splitParts(_file);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
             return false;
@@ -304,12 +347,13 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean isAbsolute(String _file, RunnableContextEl _rCont) {
-        return true;
+        return _file.startsWith("/") || _file.startsWith("\\");
     }
 
     @Override
     public boolean mkdirs(String _file, RunnableContextEl _rCont) {
-        StringList parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        StringList parts_ = FolderStruct.splitParts(abs_);
         String simpleName_ = parts_.last();
         if (!nameValidating.ok(simpleName_)) {
             return false;
@@ -340,10 +384,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public long lastModified(String _file, RunnableContextEl _rCont) {
-        CustList<String> parts_ = FolderStruct.splitParts(_file);
+        String abs_ = absolutePath(_file, _rCont);
+        CustList<String> parts_ = FolderStruct.splitParts(abs_);
         String simpleName_ = parts_.last();
         boolean folder_;
-        if (endsSep(_file)) {
+        if (endsSep(abs_)) {
             simpleName_ = parts_.get(parts_.size()-2);
             parts_ = parts_.left(parts_.size()-1);
             folder_ = true;
@@ -370,21 +415,22 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFiles(String _file, RunnableContextEl _rCont) {
-        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (StringUtil.quickEq(abs_,"/") || StringUtil.quickEq(abs_,"\\")) {
             StringList files_ = new StringList();
             for (String f: root.getFiles().getKeys()) {
-                files_.add(f);
+                files_.add("/"+f);
             }
             files_.sort();
             return files_;
         }
-        CustList<String> parts_ = FolderStruct.splitParts(_file);
+        CustList<String> parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getCurrentFolder(parts_);
         if (curr_ == null) {
             return null;
         }
         StringList files_ = new StringList();
-        String rep_ = StringUtil.replaceBackSlashDot(_file);
+        String rep_ = StringUtil.replaceBackSlashDot(abs_);
         for (String f: curr_.getFiles().getKeys()) {
             files_.add(rep_+f);
         }
@@ -394,21 +440,22 @@ public final class MemoryFileSystem implements AbstractFileSystem {
 
     @Override
     public StringList getFolders(String _file, RunnableContextEl _rCont) {
-        if (StringUtil.quickEq(_file,"/") || StringUtil.quickEq(_file,"\\")) {
+        String abs_ = absolutePath(_file, _rCont);
+        if (StringUtil.quickEq(abs_,"/") || StringUtil.quickEq(abs_,"\\")) {
             StringList files_ = new StringList();
             for (String f: root.getFolders().getKeys()) {
-                files_.add(f);
+                files_.add("/"+f);
             }
             files_.sort();
             return files_;
         }
-        CustList<String> parts_ = FolderStruct.splitParts(_file);
+        CustList<String> parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getCurrentFolder(parts_);
         if (curr_ == null) {
             return null;
         }
         StringList files_ = new StringList();
-        String rep_ = StringUtil.replaceBackSlashDot(_file);
+        String rep_ = StringUtil.replaceBackSlashDot(abs_);
         for (String f: curr_.getFolders().getKeys()) {
             files_.add(rep_+f);
         }
@@ -419,7 +466,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     private FolderStruct getCurrentFolder(CustList<String> _parts) {
         FolderStruct curr_ = root;
         int nbFolders_ = _parts.size();
-        for (int i = 0; i < nbFolders_; i++) {
+        for (int i = 1; i < nbFolders_; i++) {
             if (curr_ == null) {
                 return null;
             }
@@ -430,7 +477,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     private FolderStruct getParentFolder(CustList<String> _parts) {
         FolderStruct curr_ = root;
         int nbFolders_ = _parts.size()-1;
-        for (int i = 0; i < nbFolders_; i++) {
+        for (int i = 1; i < nbFolders_; i++) {
             if (curr_ == null) {
                 return null;
             }

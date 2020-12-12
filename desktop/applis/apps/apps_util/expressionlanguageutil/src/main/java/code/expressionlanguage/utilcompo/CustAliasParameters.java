@@ -57,6 +57,7 @@ public final class CustAliasParameters {
     private static final String FILE_0_THREAD_SET_REMOVE_0="File0ThreadSetRemove0";
     private static final String FILE_0_FILE_RENAME_0="File0FileRename0";
     private static final String FILE_0_FILE_RENAME_1="File0FileRename1";
+    private static final String FILE_0_FILE_DIR_0="File0FileDir0";
     private static final String FILE_0_APPEND_TO_FILE_0="File0AppendToFile0";
     private static final String FILE_0_APPEND_TO_FILE_1="File0AppendToFile1";
     private static final String FILE_0_FILE_ABSOLUTE_PATH_0="File0FileAbsolutePath0";
@@ -190,6 +191,7 @@ public final class CustAliasParameters {
     private String aliasFile0ThreadSetRemove0;
     private String aliasFile0FileRename0;
     private String aliasFile0FileRename1;
+    private String aliasFile0FileDir0;
     private String aliasFile0AppendToFile0;
     private String aliasFile0AppendToFile1;
     private String aliasFile0FileAbsolutePath0;
@@ -314,6 +316,7 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_READ_BIN_0,aliasFile0FileReadBin0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_WRITE_BIN_0,aliasFile0FileWriteBin0),new KeyValueMemberName(FILE_0_FILE_WRITE_BIN_1,aliasFile0FileWriteBin1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_THREAD_SET_REMOVE_0,aliasFile0ThreadSetRemove0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_DIR_0,aliasFile0FileDir0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_RENAME_0,aliasFile0FileRename0),new KeyValueMemberName(FILE_0_FILE_RENAME_1,aliasFile0FileRename1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_APPEND_TO_FILE_0,aliasFile0AppendToFile0),new KeyValueMemberName(FILE_0_APPEND_TO_FILE_1,aliasFile0AppendToFile1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_ABSOLUTE_PATH_0,aliasFile0FileAbsolutePath0)));
@@ -424,6 +427,7 @@ public final class CustAliasParameters {
         aliasFile0FileWriteBin0= LgNamesContent.get(_util, _cust, FILE_0_FILE_WRITE_BIN_0);
         aliasFile0FileWriteBin1= LgNamesContent.get(_util, _cust, FILE_0_FILE_WRITE_BIN_1);
         aliasFile0ThreadSetRemove0= LgNamesContent.get(_util, _cust, FILE_0_THREAD_SET_REMOVE_0);
+        aliasFile0FileDir0= LgNamesContent.get(_util, _cust, FILE_0_FILE_DIR_0);
         aliasFile0FileRename0= LgNamesContent.get(_util, _cust, FILE_0_FILE_RENAME_0);
         aliasFile0FileRename1= LgNamesContent.get(_util, _cust, FILE_0_FILE_RENAME_1);
         aliasFile0AppendToFile0= LgNamesContent.get(_util, _cust, FILE_0_APPEND_TO_FILE_0);
@@ -699,6 +703,10 @@ public final class CustAliasParameters {
 
     public String getAliasFile0ThreadSetRemove0() {
         return aliasFile0ThreadSetRemove0;
+    }
+
+    public String getAliasFile0FileDir0() {
+        return aliasFile0FileDir0;
     }
 
     public String getAliasFile0FileRename0() {

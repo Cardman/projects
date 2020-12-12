@@ -112,6 +112,7 @@ public final class CustAliases {
     private static final String FILE_WRITE_BIN = "FileWriteBin";
     private static final String FILE_DELETE = "FileDelete";
     private static final String FILE_RENAME = "FileRename";
+    private static final String FILE_DIR = "FileDir";
     private static final String CUST_ITER_TABLE = "CustIterTable";
     private static final String TABLE_VAR_FIRST = "TableVarFirst";
     private static final String SET_SECOND = "SetSecond";
@@ -272,6 +273,7 @@ public final class CustAliases {
     private String aliasFileWriteBin;
     private String aliasFileDelete;
     private String aliasFileRename;
+    private String aliasFileDir;
     private String aliasIllegalThreadStateException;
 
     private String aliasCustIterator;
@@ -673,6 +675,12 @@ public final class CustAliases {
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasFileRename, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileRename0(),custAliasParameters.getAliasFile0FileRename1()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFileDir, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList());
+        methods_.add( method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasFileDir, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileDir0()));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasAppendToFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0AppendToFile0(),custAliasParameters.getAliasFile0AppendToFile1()));
@@ -1235,6 +1243,7 @@ public final class CustAliases {
         setAliasFileReadBin(LgNamesContent.get(_util, _cust, FILE_READ_BIN));
         setAliasFileWriteBin(LgNamesContent.get(_util, _cust, FILE_WRITE_BIN));
         setAliasFileDelete(LgNamesContent.get(_util, _cust, FILE_DELETE));
+        setAliasFileDir(LgNamesContent.get(_util, _cust, FILE_DIR));
         setAliasFileRename(LgNamesContent.get(_util, _cust, FILE_RENAME));
         setAliasCustIterTable(LgNamesContent.get(_util, _cust, CUST_ITER_TABLE));
         setAliasTableVarFirst(LgNamesContent.get(_util, _cust, TABLE_VAR_FIRST));
@@ -1494,6 +1503,7 @@ public final class CustAliases {
                 new KeyValueMemberName(FILE_READ_BIN,getAliasFileReadBin()),
                 new KeyValueMemberName(FILE_WRITE_BIN,getAliasFileWriteBin()),
                 new KeyValueMemberName(FILE_DELETE,getAliasFileDelete()),
+                new KeyValueMemberName(FILE_DIR,getAliasFileDir()),
                 new KeyValueMemberName(FILE_RENAME,getAliasFileRename()),
                 new KeyValueMemberName(FILE_LAST_MODIF,getAliasFileLastModif()),
                 new KeyValueMemberName(FILE_LIST_DIRECTORIES,getAliasFileListDirectories()),
@@ -2182,6 +2192,19 @@ public final class CustAliases {
                     arr_.set(i, new StringStruct(roots_.get(i)));
                 }
                 res_.setResult(arr_);
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasFileDir)) {
+                if (_args.length == 0) {
+                    res_.setResult(new StringStruct(infos.getFileSystem().currentDir((RunnableContextEl) _cont)));
+                    return res_;
+                }
+                if (!(_args[0] instanceof StringStruct)) {
+                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    return res_;
+                }
+                infos.getFileSystem().changeDir(((StringStruct)_args[0]).getInstance(), (RunnableContextEl) _cont);
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
@@ -3079,6 +3102,14 @@ public final class CustAliases {
 
     public void setAliasFileDelete(String _aliasFileDelete) {
         this.aliasFileDelete = _aliasFileDelete;
+    }
+
+    public String getAliasFileDir() {
+        return aliasFileDir;
+    }
+
+    public void setAliasFileDir(String _aliasFileDir) {
+        this.aliasFileDir = _aliasFileDir;
     }
 
     public String getAliasFileRename() {

@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ExecutingOptions {
 
+    private String baseFiles="";
     private String srcFolder = "src";
     private String logFolder = "logs";
     private String mainThread = "main_thread.txt";
@@ -26,6 +27,14 @@ public final class ExecutingOptions {
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
+
+    public String getBaseFiles() {
+        return baseFiles;
+    }
+
+    public void setBaseFiles(String _baseFiles) {
+        baseFiles = _baseFiles;
+    }
 
     public String getSrcFolder() {
         return srcFolder;

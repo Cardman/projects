@@ -68,6 +68,7 @@ public final class MemoryReporter implements AbstractReporter {
                 foldersConf_.add(normal_.substring(0,index_));
             }
         }
+        _exec.setBaseFiles("/");
         return foldersConf_.hasDuplicates();
     }
     private static StringList list(ExecutingOptions _exec) {

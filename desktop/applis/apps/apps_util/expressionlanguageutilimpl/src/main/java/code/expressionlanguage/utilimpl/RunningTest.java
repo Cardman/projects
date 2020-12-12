@@ -102,7 +102,7 @@ public final class RunningTest implements Runnable {
         StringMap<String> readZip_ = reporter_.getSrc(_archive, _exec, _results);
         ReadBinFiles resultOs_ = reporter_.getBinFiles(folderPath_+_exec.getFiles());
 
-        _infos.getFileSystem().build(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()),resultOs_);
+        _infos.getFileSystem().build(_exec.getBaseFiles(),resultOs_);
         return readZip_;
     }
 

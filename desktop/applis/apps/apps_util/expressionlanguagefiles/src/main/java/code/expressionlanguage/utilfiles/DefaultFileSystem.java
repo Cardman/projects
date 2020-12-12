@@ -31,6 +31,31 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
+    public void changeDir(String _file, RunnableContextEl _rCont) {
+        String normal_ = StringUtil.replaceBackSlashDot(_file);
+        if (isAbsolute(_file,_rCont)) {
+            if (!normal_.startsWith(base)) {
+                return;
+            }
+            if (!isDirectory(_file)) {
+                return;
+            }
+            _rCont.setCurrentDir(normal_);
+        }
+        String currentDir_ = _rCont.getCurrentDir();
+        String candidate_ = currentDir_ + normal_;
+        if (!isDirectory(candidate_)) {
+            return;
+        }
+        _rCont.setCurrentDir(candidate_);
+    }
+
+    @Override
+    public String currentDir(RunnableContextEl _rCont) {
+        return _rCont.getCurrentDir();
+    }
+
+    @Override
     public String contentsOfFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         return StreamTextFile.contentsOfFile(file_, uniformingString);
@@ -115,7 +140,11 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public boolean isDirectory(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
-        File info_ = new File(file_);
+        return isDirectory(file_);
+    }
+
+    private boolean isDirectory(String _file) {
+        File info_ = new File(_file);
         return info_.exists()&&info_.isDirectory();
     }
 
@@ -239,7 +268,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         String chg_ = StringUtil.replaceBackSlash(_file);
         String file_ = chg_;
         if (!isAbsolute(chg_, _rCont)) {
-            file_ = base+chg_;
+            file_ = _rCont.getCurrentDir()+chg_;
         }
         return file_;
     }
