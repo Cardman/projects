@@ -127,6 +127,13 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
+    public StringList getRoots(RunnableContextEl _rCont) {
+        StringList roots_ = StreamFolderFile.listRootsAbPath();
+        roots_.sort();
+        return roots_;
+    }
+
+    @Override
     public boolean isAbsolute(String _file, RunnableContextEl _rCont) {
         return isAbsolute(_file);
     }

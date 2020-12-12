@@ -285,6 +285,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
+    public StringList getRoots(RunnableContextEl _rCont) {
+        return new StringList("/");
+    }
+
+    @Override
     public boolean isAbsolute(String _file, RunnableContextEl _rCont) {
         return true;
     }

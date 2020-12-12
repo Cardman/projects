@@ -20,6 +20,7 @@ public interface AbstractFileSystem {
     boolean isDirectory(String _file,RunnableContextEl _rCont);
     boolean isFile(String _file,RunnableContextEl _rCont);
     boolean isAbsolute(String _file,RunnableContextEl _rCont);
+    StringList getRoots(RunnableContextEl _rCont);
     boolean mkdirs(String _file,RunnableContextEl _rCont);
     long lastModified(String _file,RunnableContextEl _rCont);
     StringList getFiles(String _file, RunnableContextEl _rCont);

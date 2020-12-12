@@ -68,6 +68,7 @@ public final class CustAliases {
     private static final String REENTRANT_LOCK = "ReentrantLock";
     private static final String JOIN_OTHERS = "JoinOthers";
     private static final String FILE_IS_FILE = "FileIsFile";
+    private static final String FILE_ROOTS = "FileRoots";
     private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
     private static final String APPEND_TO_FILE = "AppendToFile";
     private static final String THREAD_CURRENT_TIME = "ThreadCurrentTime";
@@ -246,6 +247,7 @@ public final class CustAliases {
     private String aliasAppendToFile;
     private String aliasFileIsDirectory;
     private String aliasFileIsFile;
+    private String aliasFileRoots;
     private String aliasFileGetParentPath;
     private String aliasFileGetName;
     private String aliasFileGetLength;
@@ -701,6 +703,9 @@ public final class CustAliases {
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasFileIsFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsFile0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFileRoots, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasFileIsAbsolute, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsAbsolute0()));
@@ -1187,6 +1192,7 @@ public final class CustAliases {
         setAliasReentrantLock(LgNamesContent.get(_util, _cust, REENTRANT_LOCK));
         setAliasJoinOthers(LgNamesContent.get(_util, _cust, JOIN_OTHERS));
         setAliasFileIsFile(LgNamesContent.get(_util, _cust, FILE_IS_FILE));
+        setAliasFileRoots(LgNamesContent.get(_util, _cust, FILE_ROOTS));
         setAliasThreadExitHook(LgNamesContent.get(_util, _cust, THREAD_EXIT_HOOK));
         setAliasAppendToFile(LgNamesContent.get(_util, _cust, APPEND_TO_FILE));
         setAliasThreadCurrentTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_TIME));
@@ -1483,6 +1489,7 @@ public final class CustAliases {
                 new KeyValueMemberName(FILE_GET_PARENT_PATH,getAliasFileGetParentPath()),
                 new KeyValueMemberName(FILE_IS_DIRECTORY,getAliasFileIsDirectory()),
                 new KeyValueMemberName(FILE_IS_FILE,getAliasFileIsFile()),
+                new KeyValueMemberName(FILE_ROOTS,getAliasFileRoots()),
                 new KeyValueMemberName(FILE_IS_ABSOLUTE,getAliasFileIsAbsolute()),
                 new KeyValueMemberName(FILE_READ_BIN,getAliasFileReadBin()),
                 new KeyValueMemberName(FILE_WRITE_BIN,getAliasFileWriteBin()),
@@ -2165,6 +2172,16 @@ public final class CustAliases {
             }
             if (StringUtil.quickEq(name_,aliasFileZippedBinArray)) {
                 res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasFileRoots)) {
+                StringList roots_ = infos.getFileSystem().getRoots((RunnableContextEl) _cont);
+                int len_ = roots_.size();
+                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
+                for (int i = 0; i < len_; i++) {
+                    arr_.set(i, new StringStruct(roots_.get(i)));
+                }
+                res_.setResult(arr_);
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
@@ -2878,6 +2895,14 @@ public final class CustAliases {
 
     public void setAliasFileIsFile(String _aliasFileIsFile) {
         this.aliasFileIsFile = _aliasFileIsFile;
+    }
+
+    public String getAliasFileRoots() {
+        return aliasFileRoots;
+    }
+
+    public void setAliasFileRoots(String _aliasFileRoots) {
+        this.aliasFileRoots = _aliasFileRoots;
     }
 
     public String getAliasFileGetParentPath() {
