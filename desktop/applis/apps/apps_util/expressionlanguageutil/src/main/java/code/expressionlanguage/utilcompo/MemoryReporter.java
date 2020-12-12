@@ -57,14 +57,15 @@ public final class MemoryReporter implements AbstractReporter {
         }
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
-            if (!nameValidating.okPath(f,'/','\\')) {
+            String normal_ = StringUtil.replaceBackSlash(f);
+            if (!nameValidating.okPath(normal_,'/','\\')) {
                 return true;
             }
-            int index_ = f.indexOf('/');
+            int index_ = normal_.indexOf('/');
             if (index_ < 0) {
-                foldersConf_.add(f);
+                foldersConf_.add(normal_);
             } else {
-                foldersConf_.add(f.substring(0,index_));
+                foldersConf_.add(normal_.substring(0,index_));
             }
         }
         return foldersConf_.hasDuplicates();

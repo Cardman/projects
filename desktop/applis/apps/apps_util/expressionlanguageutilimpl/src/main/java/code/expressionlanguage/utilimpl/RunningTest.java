@@ -142,7 +142,7 @@ public final class RunningTest implements Runnable {
                 _exec.setCovering(true);
                 String output_ = l.substring("src=".length());
                 if (!output_.isEmpty()) {
-                    if (output_.endsWith("/")) {
+                    if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
                     _exec.setSrcFolder(output_);
@@ -151,7 +151,7 @@ public final class RunningTest implements Runnable {
             if (l.startsWith("res=")) {
                 String output_ = l.substring("res=".length());
                 if (!output_.isEmpty()) {
-                    if (output_.endsWith("/")) {
+                    if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
                     _exec.setResources(output_);
@@ -160,7 +160,7 @@ public final class RunningTest implements Runnable {
             if (l.startsWith("files=")) {
                 String output_ = l.substring("files=".length());
                 if (!output_.isEmpty()) {
-                    if (output_.endsWith("/")) {
+                    if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
                     _exec.setFiles(output_);
@@ -169,7 +169,7 @@ public final class RunningTest implements Runnable {
             if (l.startsWith("out=")) {
                 String output_ = l.substring("out=".length());
                 if (!output_.isEmpty()) {
-                    if (output_.endsWith("/")) {
+                    if (endsWithSep(output_)) {
                         output_ = output_.substring(0,output_.length()-1);
                     }
                     _exec.setOutputZip(output_);
@@ -273,5 +273,9 @@ public final class RunningTest implements Runnable {
             }
             _exec.setKeyWords(kw_);
         }
+    }
+
+    private static boolean endsWithSep(String _output) {
+        return _output.endsWith("/") || _output.endsWith("\\");
     }
 }

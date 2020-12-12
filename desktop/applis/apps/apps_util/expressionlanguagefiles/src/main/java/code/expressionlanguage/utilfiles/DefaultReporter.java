@@ -80,29 +80,31 @@ public final class DefaultReporter implements AbstractReporter {
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
-            if (!nameValidating.okPath(f,'/','\\')) {
+            String normal_ = StringUtil.replaceBackSlash(f);
+            if (!nameValidating.okPath(normal_,'/','\\')) {
                 return true;
             }
-            int index_ = f.indexOf('/');
+            int index_ = normal_.indexOf('/');
             if (index_ < 0) {
-                foldersConf_.add(f);
+                foldersConf_.add(normal_);
             } else {
-                foldersConf_.add(f.substring(0,index_));
+                foldersConf_.add(normal_.substring(0,index_));
             }
         }
         _exec.setCoverFolder(StringUtil.replaceBackSlashDot(_exec.getCoverFolder()));
         _exec.setErrorsFolder(StringUtil.replaceBackSlashDot(_exec.getErrorsFolder()));
         if (memory) {
             String outZip_ = _exec.getOutputZip().trim();
-            int index_ = outZip_.indexOf('/');
+            String normal_ = StringUtil.replaceBackSlash(outZip_);
+            int index_ = normal_.indexOf('/');
             if (index_ < 0) {
                 return true;
             }
-            if (!nameValidating.okPath(outZip_,'/','\\')) {
+            if (!nameValidating.okPath(normal_,'/','\\')) {
                 return true;
             }
-            String folderOut_ = outZip_.substring(0, index_);
-            String fileOut_ = outZip_.substring(index_+1);
+            String folderOut_ = normal_.substring(0, index_);
+            String fileOut_ = normal_.substring(index_+1);
             foldersConf_.add(folderOut_);
             _exec.setOutputFolder(_folderPath+folderOut_);
             _exec.setOutputZip(fileOut_);
