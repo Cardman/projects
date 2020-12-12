@@ -37,14 +37,12 @@ public final class StreamFolderFile {
     }
     public static StringList listRootsAbPath() {
         StringList l_ = new StringList();
-        for (File f: listRoots()) {
+        for (File f: File.listRoots()) {
             l_.add(StringUtil.replaceBackSlashDot(f.getAbsolutePath()));
         }
         return l_;
     }
-    public static File[] listRoots() {
-        return File.listRoots();
-    }
+
     public static boolean mkdirs(String _folder) {
         return new File(_folder).mkdirs();
     }

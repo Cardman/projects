@@ -147,10 +147,8 @@ public abstract class FileDialog extends Dialog {
             folderSystem = new TreeGui(default_);
         } else {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
-            for (File f: StreamFolderFile.listRoots()) {
-                String path_ = f.getAbsolutePath();
-                path_ = StringUtil.replaceBackSlash(path_);
-                default_.add(new DefaultMutableTreeNode(StringUtil.join(StringUtil.splitStrings(path_, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
+            for (String f: StreamFolderFile.listRootsAbPath()) {
+                default_.add(new DefaultMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new TreeGui(default_);
             folderSystem.setRootVisible(false);
