@@ -30,10 +30,11 @@ public final class StreamZipFile {
                 if (e_ == null) {
                     break;
                 }
+                String name_ = StringUtil.replaceBackSlash(e_.getName());
                 if (e_.isDirectory()) {
                     byte[] bytes_ = new byte[0];
                     ContentTime content_ = new ContentTime(bytes_,e_.getTime());
-                    files_.put(e_.getName(), content_);
+                    files_.put(name_, content_);
                     zis_.closeEntry();
                     continue;
                 }
@@ -62,7 +63,7 @@ public final class StreamZipFile {
                     set(bytes_, copy_, j);
                 }
                 ContentTime content_ = new ContentTime(copy_,e_.getTime());
-                files_.put(e_.getName(), content_);
+                files_.put(name_, content_);
                 zis_.closeEntry();
             }
             zis_.close();
