@@ -88,10 +88,12 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         launch = new PlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(_parent, this));
         form.add(launch);
-        subForm = Panel.newGrid(0,1);
+        subForm = Panel.newGrid(0,2);
         srcField = new TextField();
+        subForm.add(new TextLabel(messages.getVal("src")));
         subForm.add(srcField);
         filesField = new TextField();
+        subForm.add(new TextLabel(messages.getVal("files")));
         subForm.add(filesField);
         form.add(subForm);
         contentPane.add(form);
