@@ -131,7 +131,11 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public String getParentPath(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
-        return StringUtil.replaceBackSlash(new File(file_).getParentFile().getAbsolutePath());
+        File parentFile_ = new File(file_).getParentFile();
+        if (parentFile_ == null) {
+            return "";
+        }
+        return StringUtil.replaceBackSlash(parentFile_.getAbsolutePath());
     }
 
     @Override
