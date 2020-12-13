@@ -153,6 +153,15 @@ public final class DefaultReporter implements AbstractReporter {
     }
 
     @Override
+    public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
+        StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log);
+        if (!out_.isEmpty()) {
+            return StreamZipFile.zipBinFiles(out_);
+        }
+        return null;
+    }
+
+    @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
         StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log);
         if (!out_.isEmpty()) {
@@ -163,13 +172,7 @@ public final class DefaultReporter implements AbstractReporter {
 
     private static void saveFile(String _folder, String _fileName, String _content) {
         String full_ = _folder + _fileName;
-        int end_ = full_.lastIndexOf('/');
-        if (end_ > -1) {
-            String par_ = full_.substring(0, end_);
-            if (!par_.isEmpty()) {
-                StreamFolderFile.mkdirs(par_);
-            }
-        }
+        StreamFolderFile.makeParent(full_);
         StreamTextFile.saveTextFile(full_,_content);
     }
 }

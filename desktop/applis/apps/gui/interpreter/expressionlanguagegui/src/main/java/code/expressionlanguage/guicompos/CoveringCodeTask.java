@@ -24,13 +24,7 @@ public final class CoveringCodeTask implements Runnable {
             String exp_ = executingOptions.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(contextEl).entryList()) {
                 String full_ = exp_ + f.getKey();
-                int end_ = full_.lastIndexOf('/');
-                if (end_ > -1) {
-                    String par_ = full_.substring(0, end_);
-                    if (!par_.isEmpty()) {
-                        StreamFolderFile.mkdirs(par_);
-                    }
-                }
+                StreamFolderFile.makeParent(full_);
                 StreamTextFile.saveTextFile(full_,f.getValue());
             }
         }

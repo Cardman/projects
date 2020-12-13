@@ -1,6 +1,8 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.options.Options;
 import code.stream.core.ContentTime;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
@@ -20,14 +22,15 @@ public final class MemoryReporter implements AbstractReporter {
     private final byte[] src;
     private final byte[] files;
     private final AbstractNameValidating nameValidating;
-    private final UniformingString uniformingString = new DefaultUniformingString();
+    private final UniformingString uniformingString;
     private StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating) {
+    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
         nameValidating = _nameValidating;
+        uniformingString = _uniformingString;
     }
 
     @Override
@@ -71,6 +74,7 @@ public final class MemoryReporter implements AbstractReporter {
                 foldersConf_.add(normal_.substring(0,index_));
             }
         }
+        _exec.setOutputFolder(_folderPath);
         _exec.setBaseFiles("/");
         return foldersConf_.hasDuplicates();
     }
@@ -106,6 +110,16 @@ public final class MemoryReporter implements AbstractReporter {
     }
 
     @Override
+    public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
+        StringMap<ContentTime> out_ = exportErr(_log);
+        out_.addAllEntries(reports);
+        if (!out_.isEmpty()) {
+            return StreamZipFile.zipBinFiles(out_);
+        }
+        return null;
+    }
+
+    @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
         StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log);
         out_.addAllEntries(reports);
@@ -115,6 +129,17 @@ public final class MemoryReporter implements AbstractReporter {
         return null;
     }
 
+    public static StringMap<ContentTime> exportErr(AbstractLogger _log) {
+        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
+        if (_log instanceof MemoryLogger) {
+            String errFile_ = ((MemoryLogger) _log).getErrFile();
+            if (!errFile_.isEmpty()) {
+                String errs_ = ((MemoryLogger) _log).getErrs();
+                out_.addEntry(errFile_,new ContentTime(StringUtil.encode(errs_),System.currentTimeMillis()));
+            }
+        }
+        return out_;
+    }
     public static StringMap<ContentTime> exportSysLoggs(ExecutingOptions _ex, AbstractFileSystem _sys, AbstractLogger _log) {
         StringMap<ContentTime> out_ = new StringMap<ContentTime>();
         if (_log instanceof MemoryLogger) {
@@ -135,5 +160,21 @@ public final class MemoryReporter implements AbstractReporter {
             }
         }
         return out_;
+    }
+    public static void buildError(RunnableContextEl _ctx, ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
+        AbstractLogger logger_ = _infos.getLogger();
+        if (!_reportedMessages.isAllEmptyErrors()) {
+            String folder_ = _exec.getOutput()+_exec.getLogFolder();
+            String dtPart_ = _time +".txt";
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayErrors(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayStdErrors(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayMessageErrors(),_ctx);
+        }
+        if (!_reportedMessages.isEmptyWarnings()) {
+            String folder_ = _exec.getOutput()+_exec.getLogFolder();
+            String dtPart_ = _time +".txt";
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings(),_ctx);
+        }
     }
 }

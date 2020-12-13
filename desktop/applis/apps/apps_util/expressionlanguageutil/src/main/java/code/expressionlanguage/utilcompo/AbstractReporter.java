@@ -16,5 +16,6 @@ public interface AbstractReporter {
     ReadFiles getFiles(String _archiveOrFolder);
     void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont);
     void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont);
+    byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log);
     byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log);
 }

@@ -18,7 +18,7 @@ public final class CreateMainWindow implements Runnable {
     public void run() {
         MainWindow window_ = new MainWindow(language, list);
         if (!args.isEmpty()) {
-            window_.launchFileConf(args.firstKey());
+            window_.launchFileConf(args.firstKey(), window_);
         }
     }
 }

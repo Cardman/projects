@@ -1,6 +1,8 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.maths.montecarlo.AbstractGenerator;
+import code.util.core.DefaultUniformingString;
 
 public final class FileInfos {
     private final AbstractResourcesReader reader;
@@ -17,6 +19,10 @@ public final class FileInfos {
         this.generator = _generator;
     }
 
+    public static FileInfos buildMemoryFromFile(AbstractResourcesReader _reader, AbstractGenerator _generator, byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating,AbstractIssuer _issuer) {
+        DefaultUniformingString uniformingString_ = new DefaultUniformingString();
+        return new FileInfos(_reader,new MemoryLogger(_nameValidating,_issuer),new MemoryFileSystem(uniformingString_,_nameValidating),new MemoryReporter(_conf, _src, _files, _nameValidating, uniformingString_),_generator);
+    }
     public AbstractResourcesReader getReader() {
         return reader;
     }

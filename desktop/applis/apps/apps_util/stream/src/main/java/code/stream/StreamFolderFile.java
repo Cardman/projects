@@ -42,7 +42,14 @@ public final class StreamFolderFile {
         }
         return l_;
     }
-
+    public static void makeParent(String _pathname) {
+        StringList parts_ = StringUtil.splitChars(_pathname, '/', '\\');
+        int nbElements_ = parts_.size() - 1;
+        if (nbElements_ <= 0) {
+            return;
+        }
+        mkdirs(StringUtil.join(parts_.left(nbElements_),'/'));
+    }
     public static boolean mkdirs(String _folder) {
         return new File(_folder).mkdirs();
     }

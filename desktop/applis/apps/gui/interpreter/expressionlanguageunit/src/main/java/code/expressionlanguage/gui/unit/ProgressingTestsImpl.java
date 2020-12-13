@@ -14,10 +14,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ProgressingTestsImpl implements ProgressingTests {
-    private MainWindow mainWindow;
+    private TestableFrame mainWindow;
     private ExecutingOptions exec;
 
-    public ProgressingTestsImpl(MainWindow _mainWindow) {
+    public ProgressingTestsImpl(TestableFrame _mainWindow) {
         mainWindow = _mainWindow;
     }
 
@@ -33,32 +33,12 @@ public final class ProgressingTestsImpl implements ProgressingTests {
 
     @Override
     public void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
-        AbstractLogger logger_ = _infos.getLogger();
         String time_ = Clock.getDateTimeText("_", "_", "_");
-        if (!_reportedMessages.isAllEmptyErrors()) {
-            String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String dtPart_ = time_+".txt";
-            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayErrors(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayWarnings(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayStdErrors(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayMessageErrors(),_ctx);
-        }
-        if (!_reportedMessages.isEmptyWarnings()) {
-            String folder_ = _exec.getOutput()+_exec.getLogFolder();
-            String dtPart_ = time_+".txt";
-            logger_.logErr(folder_,"_"+dtPart_, time_+":"+_reportedMessages.displayWarnings(),_ctx);
-        }
-        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
-        if (logger_ instanceof MemoryLogger) {
-            String errFile_ = ((MemoryLogger) logger_).getErrFile();
-            if (!errFile_.isEmpty()) {
-                String errs_ = ((MemoryLogger) logger_).getErrs();
-                out_.addEntry(errFile_,new ContentTime(StringUtil.encode(errs_),System.currentTimeMillis()));
-            }
-        }
-        if (!out_.isEmpty()) {
-            byte[] bytes_ = StreamZipFile.zipBinFiles(out_);
-            StreamFolderFile.mkdirs(_exec.getOutputFolder());
+        MemoryReporter.buildError(_ctx,_reportedMessages,_exec,_infos,time_);
+        AbstractLogger logger_ = _infos.getLogger();
+        byte[] bytes_ = _infos.getReporter().exportErrs(_exec, logger_);
+        if (bytes_ != null) {
+            StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+_exec.getOutputZip());
             StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),bytes_);
         }
     }
@@ -83,7 +63,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
         if (export_ == null) {
             return;
         }
-        StreamFolderFile.mkdirs(executingOptions_.getOutputFolder());
+        StreamFolderFile.makeParent(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip());
         StreamBinaryFile.writeFile(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),export_);
     }
 }
