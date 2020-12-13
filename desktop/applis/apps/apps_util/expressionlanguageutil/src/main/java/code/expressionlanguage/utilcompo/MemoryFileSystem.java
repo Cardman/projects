@@ -424,6 +424,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             files_.sort();
             return files_;
         }
+        if (endsSep(abs_)) {
+            abs_ = abs_.substring(0,abs_.length()-1);
+        }
         CustList<String> parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getCurrentFolder(parts_);
         if (curr_ == null) {
@@ -448,6 +451,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             }
             files_.sort();
             return files_;
+        }
+        if (endsSep(abs_)) {
+            abs_ = abs_.substring(0,abs_.length()-1);
         }
         CustList<String> parts_ = FolderStruct.splitParts(abs_);
         FolderStruct curr_ = getCurrentFolder(parts_);

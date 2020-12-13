@@ -89,11 +89,19 @@ public final class StreamZipFile {
                     ZipEntry ze_ = new ZipEntry(n.getKey());
                     ze_.setTime(file_.getLastModifTime());
                     zos_.putNextEntry(ze_);
-                    zos_.write(content_);
+                    if (!n.getKey().endsWith("/")) {
+                        zos_.write(content_);
+                    }
                 } else {
-                    ZipEntry ze_ = new ZipEntry(n.getKey()+"/");
-                    ze_.setTime(file_.getLastModifTime());
-                    zos_.putNextEntry(ze_);
+                    if (n.getKey().endsWith("/")) {
+                        ZipEntry ze_ = new ZipEntry(n.getKey());
+                        ze_.setTime(file_.getLastModifTime());
+                        zos_.putNextEntry(ze_);
+                    } else {
+                        ZipEntry ze_ = new ZipEntry(n.getKey()+"/");
+                        ze_.setTime(file_.getLastModifTime());
+                        zos_.putNextEntry(ze_);
+                    }
                 }
             }
             zos_.closeEntry();
