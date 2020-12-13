@@ -79,6 +79,9 @@ public final class DefaultReporter implements AbstractReporter {
     @Override
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
         StringList foldersConf_ = new StringList();
+        if (!nameValidating.okPath(_exec.getMainThread(),'/','\\')) {
+            return true;
+        }
         for (String f: list(_exec)) {
             String normal_ = StringUtil.replaceBackSlash(f);
             if (!nameValidating.okPath(normal_,'/','\\')) {
@@ -158,7 +161,7 @@ public final class DefaultReporter implements AbstractReporter {
         return null;
     }
 
-    private void saveFile(String _folder, String _fileName, String _content) {
+    private static void saveFile(String _folder, String _fileName, String _content) {
         String full_ = _folder + _fileName;
         int end_ = full_.lastIndexOf('/');
         if (end_ > -1) {

@@ -55,6 +55,9 @@ public final class MemoryReporter implements AbstractReporter {
         if (!nameValidating.okPath(_exec.getOutputZip(),'/','\\')) {
             return true;
         }
+        if (!nameValidating.okPath(_exec.getMainThread(),'/','\\')) {
+            return true;
+        }
         StringList foldersConf_ = new StringList();
         for (String f: list(_exec)) {
             String normal_ = StringUtil.replaceBackSlash(f);
