@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.filenames.PathUtil;
 import code.stream.core.ContentTime;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -31,13 +32,13 @@ public final class FolderStruct {
         for (EntryCust<String, ContentTime> f:_foldersElts.entryList()) {
             FolderStruct curr_ = root_;
             String key_ = f.getKey();
-            for (String p:splitParts(key_)) {
+            for (String p: PathUtil.splitParts(key_)) {
                 curr_ = curr_.tryAddFolder(p,f.getValue().getLastModifTime());
             }
         }
         for (EntryCust<String, ContentTime> e: _files.entryList()) {
             String key_ = e.getKey();
-            StringList parts_ = splitParts(key_);
+            StringList parts_ = PathUtil.splitParts(key_);
             int nbFolders_ = parts_.size()-1;
             FolderStruct curr_ = root_;
             for (int i = 0; i < nbFolders_; i++) {
@@ -47,10 +48,6 @@ public final class FolderStruct {
             curr_.files.addEntry(parts_.last(),new FileStruct(value_.getContent(),value_.getLastModifTime()));
         }
         return root_;
-    }
-
-    static StringList splitParts(String _file) {
-        return StringUtil.splitChars(_file, '/','\\');
     }
 
     private FolderStruct tryAddFolder(String _folderName, long _time) {
