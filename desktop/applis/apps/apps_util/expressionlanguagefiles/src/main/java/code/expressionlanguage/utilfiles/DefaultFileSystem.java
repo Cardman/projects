@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.filenames.PathUtil;
 import code.expressionlanguage.utilcompo.AbstractFileSystem;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.StreamBinaryFile;
@@ -32,22 +33,15 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public void changeDir(String _file, RunnableContextEl _rCont) {
-        String normal_ = StringUtil.replaceBackSlashDot(_file);
-        if (isAbsolute(_file,_rCont)) {
-            if (!normal_.startsWith(base)) {
-                return;
-            }
-            if (!isDirectory(_file)) {
-                return;
-            }
-            _rCont.setCurrentDir(normal_);
-        }
-        String currentDir_ = _rCont.getCurrentDir();
-        String candidate_ = currentDir_ + normal_;
-        if (!isDirectory(candidate_)) {
+        String abs_ = absolutePath(_file, _rCont);
+        String normal_ = StringUtil.replaceBackSlashDot(abs_);
+        if (!normal_.startsWith(base)) {
             return;
         }
-        _rCont.setCurrentDir(candidate_);
+        if (!isDirectory(normal_,_rCont)) {
+            return;
+        }
+        _rCont.setCurrentDir(normal_);
     }
 
     @Override
@@ -115,8 +109,11 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public String absolutePath(String _file, RunnableContextEl _rCont) {
-        String file_ = prefix(_file, _rCont);
-        return StringUtil.replaceBackSlash(new File(file_).getAbsolutePath());
+        if (isAbsolute(_file, _rCont)) {
+            return StringUtil.replaceBackSlash(_file);
+        }
+        String abs_ = _rCont.getCurrentDir();
+        return PathUtil.transform(abs_,_file);
     }
 
     @Override

@@ -19,8 +19,8 @@ public final class StreamFolderFile {
 
     public static boolean isAbsolute(String _path) {
         File file_ = new File(_path);
-        String absPath_ = StringUtil.replaceBackSlash(file_.getAbsolutePath());
-        String path_ = StringUtil.replaceBackSlash(_path);
+        String absPath_ = StringUtil.replaceBackSlashDot(file_.getAbsolutePath());
+        String path_ = StringUtil.replaceBackSlashDot(_path);
         return StringUtil.quickEq(absPath_,path_);
     }
     public static StringMap<String> getFiles(String _archiveOrFolder) {
