@@ -22,6 +22,7 @@ import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.Clock;
 import code.gui.CustComponent;
+import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.OutputType;
@@ -65,11 +66,9 @@ public final class GuiProcess implements Runnable {
         String lg_ = linesFiles_.get(1);
         String clName_ = "";
         String mName_ = "";
-        int from_ = 2;
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
             lg_ = "";
         }
-        from_++;
         String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
         if (line_.startsWith("main=")) {
             String subLine_ = line_.substring("main=".length());
@@ -83,7 +82,7 @@ public final class GuiProcess implements Runnable {
 
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
-        RunningTest.setupOptionals(from_, opt_, exec_,linesFiles_);
+        RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
         String folder_ = exec_.getLogFolder();
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
@@ -104,11 +103,13 @@ public final class GuiProcess implements Runnable {
         CustContextFactory.reportErrors(cont_, opt_, exec_, reportedMessages_, stds_.getInfos());
         if (!reportedMessages_.isAllEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
-            String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayWarnings());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayStdErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayMessageErrors());
+            MemoryReporter.buildError(cont_,reportedMessages_,exec_,fileInfos_,time_);
+            AbstractLogger logger_ = fileInfos_.getLogger();
+            byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
+            if (bytes_ != null) {
+                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip());
+                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_);
+            }
             return null;
         }
         if (!reportedMessages_.isEmptyWarnings()) {
