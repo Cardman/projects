@@ -196,6 +196,9 @@ public final class LinkageUtil {
         _xml.insert(0, tr_);
     }
     private static String transformText(char _ch) {
+        if (_ch > 128) {
+            return "&#"+(int)_ch+";";
+        }
         if (_ch < ' ') {
             if (_ch == '\n') {
                 return "\n";
@@ -4004,7 +4007,11 @@ public final class LinkageUtil {
     public static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (c == '<') {
+            if (c > 128) {
+                str_.append("&#");
+                str_.append((int)c);
+                str_.append(";");
+            } else if (c == '<') {
                 str_.append("&lt;");
             } else if (c == '>') {
                 str_.append("&gt;");

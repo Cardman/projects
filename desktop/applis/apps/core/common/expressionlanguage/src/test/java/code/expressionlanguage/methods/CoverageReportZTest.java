@@ -6691,6 +6691,34 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage559Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return m"+(char)225+"();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int m"+(char)225+"(){\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = cov(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">catching</a>(){\n" +
+                "  $return <span class=\"f\"><a title=\"pkg.Ex.$static m&#225;()\" href=\"#m99\">m&#225;</a>()</span>;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m99\">m&#225;</a>(){\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
