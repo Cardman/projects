@@ -352,7 +352,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         }
         FolderStruct curr_ = root;
         int nbFolders_ = parts_.size()-1;
-        for (int i = 0; i < nbFolders_; i++) {
+        for (int i = 1; i < nbFolders_; i++) {
             String parent_ = parts_.get(i);
             FolderStruct next_ = curr_.getFolders().getVal(parent_);
             if (next_ == null) {
