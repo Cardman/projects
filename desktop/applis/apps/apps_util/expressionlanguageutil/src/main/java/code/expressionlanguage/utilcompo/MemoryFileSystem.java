@@ -345,6 +345,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     @Override
     public boolean mkdirs(String _file, RunnableContextEl _rCont) {
         String abs_ = absolutePath(_file, _rCont);
+        if (abs_.endsWith("/")) {
+            abs_ = abs_.substring(0,abs_.length()-1);
+        }
         StringList parts_ = PathUtil.splitParts(abs_);
         String simpleName_ = parts_.last();
         if (!nameValidating.ok(simpleName_)) {
