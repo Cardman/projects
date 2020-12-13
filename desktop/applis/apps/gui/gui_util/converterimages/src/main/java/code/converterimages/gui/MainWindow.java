@@ -10,6 +10,7 @@ import code.gui.events.QuittingEvent;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
+import code.stream.StreamFolderFile;
 import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -90,7 +91,7 @@ public final class MainWindow extends GroupFrame {
                 if (!new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                new File(path.getText()+StreamTextFile.SEPARATEUR+f_).getParentFile().mkdirs();
+                makeParernt(path.getText()+StreamTextFile.SEPARATEUR+f_);
             }
             for (String f: files_) {
                 if (new File(pathExport.getText()+f).isDirectory()) {
@@ -120,7 +121,7 @@ public final class MainWindow extends GroupFrame {
                 if (!new File(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                new File(path.getText()+StreamTextFile.SEPARATEUR+f_).getParentFile().mkdirs();
+                makeParernt(path.getText()+StreamTextFile.SEPARATEUR+f_);
             }
             for (String f: files_) {
                 if (new File(pathExport.getText()+f).isDirectory()) {
@@ -136,6 +137,16 @@ public final class MainWindow extends GroupFrame {
             }
         }
     }
+
+    private static void makeParernt(String _pathname) {
+        StringList parts_ = StringUtil.splitChars(_pathname, '/', '\\');
+        int nbElements_ = parts_.size() - 1;
+        if (nbElements_ <= 0) {
+            return;
+        }
+        StreamFolderFile.mkdirs(StringUtil.join(parts_.left(nbElements_),'/'));
+    }
+
     public void readOneImageArg(String _readPath) {
         BufferedImage img_ = StreamImageFile.read(_readPath);
         if (img_ == null) {
