@@ -196,17 +196,11 @@ public final class LinkageUtil {
         _xml.insert(0, tr_);
     }
     private static String transformText(char _ch) {
-        if (_ch > 128) {
+        if (_ch > 126) {
             return "&#"+(int)_ch+";";
         }
         if (_ch < ' ') {
-            if (_ch == '\n') {
-                return "\n";
-            }
-            if (_ch == '\t') {
-                return "\t";
-            }
-            return " ";
+            return processSpace(_ch);
         }
         if (_ch == '<') {
             return("&lt;");
@@ -219,6 +213,17 @@ public final class LinkageUtil {
         }
         return Character.toString(_ch);
     }
+
+    private static String processSpace(char _ch) {
+        if (_ch == '\n') {
+            return "\n";
+        }
+        if (_ch == '\t') {
+            return "\t";
+        }
+        return " ";
+    }
+
     private static CustList<PartOffset> processError(StringList _toStringOwers, FileBlock _ex, String _fileExp, KeyWords _keyWords, DisplayedStrings _displayedStrings){
         CustList<PartOffset> list_ = new CustList<PartOffset>();
         VariablesOffsets vars_ = new VariablesOffsets();
@@ -4007,7 +4012,7 @@ public final class LinkageUtil {
     public static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
-            if (c > 128) {
+            if (c > 126) {
                 str_.append("&#");
                 str_.append((int)c);
                 str_.append(";");
@@ -4019,6 +4024,8 @@ public final class LinkageUtil {
                 str_.append("&amp;");
             } else if (c == '\"') {
                 str_.append("&quot;");
+            } else if (c < ' ') {
+                str_.append(processSpace(c));
             } else {
                 str_.append(c);
             }
