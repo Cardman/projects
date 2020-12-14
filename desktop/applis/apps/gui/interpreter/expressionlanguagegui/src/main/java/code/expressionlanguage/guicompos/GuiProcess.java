@@ -24,7 +24,6 @@ import code.gui.Clock;
 import code.gui.CustComponent;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
 import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
 import code.threads.ThreadUtil;
@@ -83,7 +82,6 @@ public final class GuiProcess implements Runnable {
         ExecutingOptions exec_ = new ExecutingOptions();
         Options opt_ = new Options();
         RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
-        String folder_ = exec_.getLogFolder();
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
@@ -101,8 +99,8 @@ public final class GuiProcess implements Runnable {
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(cont_, opt_, exec_, reportedMessages_, stds_.getInfos());
+        String time_ = Clock.getDateTimeText("_", "_", "_");
         if (!reportedMessages_.isAllEmptyErrors()) {
-            String time_ = Clock.getDateTimeText("_", "_", "_");
             MemoryReporter.buildError(cont_,reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
@@ -112,11 +110,7 @@ public final class GuiProcess implements Runnable {
             }
             return null;
         }
-        if (!reportedMessages_.isEmptyWarnings()) {
-            String time_ = Clock.getDateTimeText("_", "_", "_");
-            String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayWarnings());
-        }
+        MemoryReporter.buildWarning(cont_,reportedMessages_,exec_,fileInfos_,time_);
         GuiProcess pr_ = new GuiProcess();
         pr_.executingOptions = exec_;
         pr_.context = cont_;

@@ -2,7 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.options.Options;
 import code.stream.core.ContentTime;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
@@ -151,7 +150,7 @@ public final class MemoryReporter implements AbstractReporter {
         return out_;
     }
     public static StringMap<ContentTime> exportSysLoggs(ExecutingOptions _ex, AbstractFileSystem _sys, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = new StringMap<ContentTime>();
+        StringMap<ContentTime> out_ = exportErr(_log);
         if (_log instanceof MemoryLogger) {
             ConcurrentHashMap<String, FileStruct> logs_ = ((MemoryLogger) _log).getLogs();
             for (Map.Entry<String, FileStruct> e: logs_.entrySet()) {
@@ -181,6 +180,11 @@ public final class MemoryReporter implements AbstractReporter {
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayStdErrors(),_ctx);
             logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayMessageErrors(),_ctx);
         }
+        buildWarning(_ctx, _reportedMessages, _exec, _infos, _time);
+    }
+
+    public static void buildWarning(RunnableContextEl _ctx, ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
+        AbstractLogger logger_ = _infos.getLogger();
         if (!_reportedMessages.isEmptyWarnings()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
             String dtPart_ = _time +".txt";

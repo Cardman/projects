@@ -44,6 +44,12 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
+    public void showWarnings(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
+        String time_ = Clock.getDateTimeText("_", "_", "_");
+        MemoryReporter.buildWarning(_ctx,_reportedMessages,_exec,_infos,time_);
+    }
+
+    @Override
     public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
         mainWindow.showProgress(_ctx,_infos,_doneTests,_method,_count, _evolved);
     }

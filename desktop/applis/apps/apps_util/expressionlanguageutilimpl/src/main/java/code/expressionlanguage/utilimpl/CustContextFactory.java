@@ -67,6 +67,7 @@ public final class CustContextFactory {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec,infos_);
             return;
         }
+        _progressingTests.showWarnings(rCont_,reportedMessages_,_options,_exec,infos_);
         AbstractIssuer issuer_ = _definedLgNames.getInfos().getLogger().getIssuer();
         if (issuer_ != null) {
             issuer_.log("OK");
