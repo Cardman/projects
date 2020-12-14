@@ -100,7 +100,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             if (!frame.getValidator().okPath(str_.toString(),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.mkdirs(str_.toString())) {
+            if (!StreamFolderFile.makeParent(str_.toString())) {
                 return;
             }
             applyTreeChangeSelected();
@@ -108,7 +108,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             if (!frame.getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.mkdirs(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()))) {
+            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()))) {
                 return;
             }
             applyTreeChange();

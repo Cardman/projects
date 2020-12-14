@@ -133,6 +133,11 @@ public final class DefaultReporter implements AbstractReporter {
     }
 
     @Override
+    public String confTxt(String _fileConfOrContent) {
+        return _fileConfOrContent;
+    }
+
+    @Override
     public ReadBinFiles getBinFiles(String _archiveOrFolder) {
         return StreamFolderFile.getBinFiles(_archiveOrFolder);
     }

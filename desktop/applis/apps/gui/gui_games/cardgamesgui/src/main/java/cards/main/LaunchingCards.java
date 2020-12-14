@@ -42,7 +42,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        StreamFolderFile.mkdirs(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER));
+        StreamFolderFile.makeParent(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER));
         File f = new File(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {

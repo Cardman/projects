@@ -192,15 +192,20 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         }
     }
     public void selectFile(TestableFrame _mainWindow) {
+        String fichier_ = selectedFile();
+        if (fichier_.isEmpty()) {
+            return;
+        }
+        launchFileConf(fichier_, _mainWindow);
+    }
+
+    public String selectedFile() {
         FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath(),"jre");
         String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = "";
         }
-        if (fichier_.isEmpty()) {
-            return;
-        }
-        launchFileConf(fichier_, _mainWindow);
+        return fichier_;
     }
 
     public void launchFileConf(String _fichier, TestableFrame _mainWindow) {

@@ -129,7 +129,7 @@ public final class GuiProcess implements Runnable {
     public void run() {
         RunnableStruct.setupThread(context);
         String folder_ = executingOptions.getLogFolder();
-        StreamFolderFile.mkdirs(folder_);
+        StreamFolderFile.makeParent(folder_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
         ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
         if (classBody_ == null) {

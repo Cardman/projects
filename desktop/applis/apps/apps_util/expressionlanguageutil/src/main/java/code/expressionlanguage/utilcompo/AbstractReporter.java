@@ -12,6 +12,7 @@ public interface AbstractReporter {
     boolean koPaths(String _folderPath, ExecutingOptions _exec);
 
     String conf(String _fileConfOrContent);
+    String confTxt(String _fileConfOrContent);
     ReadBinFiles getBinFiles(String _archiveOrFolder);
     ReadFiles getFiles(String _archiveOrFolder);
     void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont);

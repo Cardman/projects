@@ -93,7 +93,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
             lastFolders_.add(folders_.get(1));
             lastFolders_.add(folders_.last());
             virtualStore_ = StringUtil.concat(virtualStore_, StringUtil.join(lastFolders_, SEPARATEUR));
-            StreamFolderFile.mkdirs(StringUtil.concat(virtualStore_, SEPARATEUR));
+            StreamFolderFile.makeParent(StringUtil.concat(virtualStore_, SEPARATEUR));
             return virtualStore_;
         }
         //jarFolder_.startsWith("C:/Program Files/")
@@ -128,7 +128,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
             }
             realTmpUserFolder_ = StringUtil.concatNbs(tmpUserFolder_, nb_);
         }
-        StreamFolderFile.mkdirs(realTmpUserFolder_);
+        StreamFolderFile.makeParent(realTmpUserFolder_);
         return realTmpUserFolder_;
     }
 

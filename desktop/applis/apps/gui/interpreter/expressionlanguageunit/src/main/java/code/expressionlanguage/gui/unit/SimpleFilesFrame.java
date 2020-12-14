@@ -17,6 +17,7 @@ import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.events.ClosingChildFrameEvent;
 import code.stream.StreamBinaryFile;
+import code.stream.StreamFolderFile;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -34,11 +35,13 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private Panel contentPane;
     private Panel form;
     private Panel subForm;
+    private TextField folderField;
     private TextField srcField;
     private TextField filesField;
     private PlainLabel content;
     private TextArea conf;
     private PlainButton launch;
+    private PlainButton launchByFile;
     private Panel progressing;
     private PlainLabel doneTests;
     private PlainLabel doneTestsCount;
@@ -56,6 +59,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private TextArea errors;
     private UnitIssuer unitIssuer;
     private CommonExecution commonExecution;
+    private String filePath = "";
 
     public SimpleFilesFrame(MainWindow _parent, String _title) {
         super(_parent.getLanguageKey());
@@ -69,7 +73,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         setJMenuBar(new MenuBar());
         menu = new Menu(messages.getVal("file"));
         open = new MenuItem(messages.getVal("open"));
-        open.addActionListener(new FileOpenEvent(_parent, this));
+        open.addActionListener(new FileSelectEvent(_parent, this));
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         menu.addMenuItem(open);
         menu.addSeparator();
@@ -85,15 +89,27 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         ScrollPane scr_ = new ScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
+        Panel formButtons_ = Panel.newGrid(0,2);
         launch = new PlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(_parent, this));
-        form.add(launch);
+        formButtons_.add(launch);
+        launchByFile = new PlainButton(messages.getVal("launchByFile"));
+        launchByFile.addActionListener(new ListenerLaunchFileTests(_parent, this));
+        formButtons_.add(launchByFile);
+        form.add(formButtons_);
         subForm = Panel.newGrid(0,2);
+        folderField = new TextField();
+        subForm.add(new TextLabel(messages.getVal("folder")));
+        subForm.add(folderField);
         srcField = new TextField();
-        subForm.add(new TextLabel(messages.getVal("src")));
+        PlainButton srcButton_ = new PlainButton(messages.getVal("src"));
+        srcButton_.addActionListener(new LoadSrcEvent(this));
+        subForm.add(srcButton_);
         subForm.add(srcField);
         filesField = new TextField();
-        subForm.add(new TextLabel(messages.getVal("files")));
+        PlainButton filesButton_ = new PlainButton(messages.getVal("files"));
+        filesButton_.addActionListener(new LoadFilesEvent(this));
+        subForm.add(filesButton_);
         subForm.add(filesField);
         form.add(subForm);
         contentPane.add(form);
@@ -143,36 +159,62 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     @Override
     public boolean ok(String _file) {
         Thread th_ = parent.getTh();
+        return th_ == null || !th_.isAlive();
+    }
+
+    public void src() {
+        Thread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
-            return false;
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),srcField.getText()));
+            errors.append("\n");
+            return;
         }
-        byte[] src_ = StreamBinaryFile.loadFile(srcField.getText());
-        byte[] files_ = StreamBinaryFile.loadFile(filesField.getText());
-        byte[] conf_;
-        if (!_file.isEmpty()) {
-            conf_ = StreamBinaryFile.loadFile(_file);
+        if (StreamFolderFile.isAbsolute(srcField.getText())) {
+            src = StreamBinaryFile.loadFile(srcField.getText());
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),srcField.getText()));
+            errors.append("\n");
         } else {
-            String txt_ = conf.getText().trim();
-            conf_ = StringUtil.encode(txt_);
+            if (!StreamFolderFile.isAbsolute(folderField.getText())) {
+                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),srcField.getText()));
+                errors.append("\n");
+                return;
+            }
+            src = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+srcField.getText());
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+srcField.getText()));
+            errors.append("\n");
         }
-        if (src_ == null) {
-            return false;
+    }
+
+    public void files() {
+        Thread th_ = parent.getTh();
+        if (th_ != null && th_.isAlive()) {
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),filesField.getText()));
+            errors.append("\n");
+            return;
         }
-        if (files_ == null) {
-            return false;
+        if (StreamFolderFile.isAbsolute(filesField.getText())) {
+            files = StreamBinaryFile.loadFile(filesField.getText());
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),filesField.getText()));
+            errors.append("\n");
+        } else {
+            if (!StreamFolderFile.isAbsolute(folderField.getText())) {
+                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),filesField.getText()));
+                errors.append("\n");
+                return;
+            }
+            files = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+filesField.getText());
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+filesField.getText()));
+            errors.append("\n");
         }
-        if (conf_ == null) {
-            return false;
-        }
-        confFile = conf_;
-        src = src_;
-        files = files_;
-        return true;
+
     }
 
     @Override
     public String getTxtConf() {
-        return conf.getText().trim();
+
+        String trim_ = conf.getText().trim();
+        confFile = StringUtil.encode(trim_);
+        return trim_;
     }
 
     public FileInfos getInfos() {
@@ -193,4 +235,22 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
     }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String _filePath) {
+        Thread th_ = parent.getTh();
+        if (th_ != null && th_.isAlive()) {
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),_filePath));
+            errors.append("\n");
+            return;
+        }
+        this.filePath = _filePath;
+        confFile = StreamBinaryFile.loadFile(_filePath);
+        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
+        errors.append("\n");
+    }
+
 }

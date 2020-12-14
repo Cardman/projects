@@ -84,6 +84,16 @@ public final class MemoryReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
+        if (conf == null) {
+            return null;
+        }
+        return StringUtil.decode(conf);
+    }
+    @Override
+    public String confTxt(String _fileConfOrContent) {
+        if (conf == null) {
+            return null;
+        }
         return StringUtil.decode(conf);
     }
 

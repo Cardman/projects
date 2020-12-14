@@ -46,11 +46,11 @@ public final class RunningTest implements Runnable {
         String content_;
         if (file) {
             content_ = infos.getReporter().conf(fileConfOrContent);
-            if (content_ == null) {
-                return;
-            }
         } else {
-            content_ = fileConfOrContent;
+            content_ = infos.getReporter().confTxt(fileConfOrContent);
+        }
+        if (content_ == null) {
+            return;
         }
         launchByConfContent(content_,progressingTests,infos);
     }
