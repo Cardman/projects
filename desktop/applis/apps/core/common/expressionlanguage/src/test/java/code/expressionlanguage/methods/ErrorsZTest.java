@@ -3862,4 +3862,279 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report771Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public void exmeth (){\n");
+        xml_.append("  ++this;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public void <a name=\"m35\">exmeth</a> (){\n" +
+                "  <a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>this;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage772Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return and(e,f);\n");
+        xml_.append(" }\n");
+        xml_.append(" static boolean and(boolean a, boolean b){\n");
+        xml_.append("  return a&&b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a> <a name=\"m64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a>();\n" +
+                "  <a href=\"#m64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m264\">field</a>=1;\n" +
+                "  <a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a> <a name=\"m107\">f</a> = new <a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a>();\n" +
+                "  <a href=\"#m107\">f</a>.<a title=\"pkg.ExClass2.field\" href=\"#m376\">field</a>=1;\n" +
+                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a title=\"pkg.Apply.static and(boolean,boolean)\" href=\"#m178\">and</a>(<a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#m296\"> </a><a href=\"#m64\">e</a>,<a title=\"pkg.ExClass2.static $(boolean,pkg.ExClass2)\" href=\"#m408\"> </a><a href=\"#m107\">f</a>);\n" +
+                " }\n" +
+                " static boolean <a name=\"m178\">and</a>(boolean <a name=\"m190\">a</a>, boolean <a name=\"m201\">b</a>){\n" +
+                "  return <a href=\"#m190\">a</a>&amp;&amp;<a href=\"#m201\">b</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m238\">pkg.ExClass</a> {\n" +
+                " public int <a name=\"m264\">field</a>=2;\n" +
+                " public static boolean <a name=\"m296\">$</a>(<a title=\"pkg.ExClass\" href=\"#m238\">ExClass</a> <a name=\"m306\">i</a>){\n" +
+                "  return <a href=\"#m306\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m264\">field</a>==1;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m349\">pkg.ExClass2</a> {\n" +
+                " public int <a name=\"m376\">field</a>=2;\n" +
+                " public static boolean <a name=\"m408\">$</a>(<a title=\"pkg.ExClass2\" href=\"#m349\">ExClass2</a> <a name=\"m419\">i</a>){\n" +
+                "  return <a href=\"#m419\">i</a>.<a title=\"pkg.ExClass2.field\" href=\"#m376\">field</a>==1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage773Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass f = new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return e&&f?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator&& boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1&&j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| boolean (ExClass i, ExClass j){\n");
+        xml_.append("  return i.field==1||j.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(boolean i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i?1:2;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m64\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
+                "  <a href=\"#m64\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=1;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m106\">f</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
+                "  <a href=\"#m106\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=1;\n" +
+                "  <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m64\">e</a><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m307\">&amp;</a><a title=\"pkg.ExClass.static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m358\">&amp;</a><a title=\"pkg.ExClass.static $(pkg.ExClass,boolean)\" href=\"#m593\"> </a><a href=\"#m106\">f</a><a title=\"pkg.ExClass.static $(boolean,pkg.ExClass)\" href=\"#m532\">?</a><span class=\"s\">\"Vrai\"</span>:<span class=\"s\">\"Faux\"</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m185\">pkg.ExClass</a> {\n" +
+                " public int <a name=\"m211\">field</a>=2;\n" +
+                " public static boolean <a name=\"m243\">true</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m256\">i</a>){\n" +
+                "  return <a href=\"#m256\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m307\">false</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m321\">i</a>){\n" +
+                "  return <a href=\"#m321\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>!=1;\n" +
+                " }\n" +
+                " operator<a name=\"m358\">&amp;&amp;</a> boolean (<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m378\">i</a>, <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m389\">j</a>){\n" +
+                "  return <a href=\"#m378\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1&amp;&amp;<a href=\"#m389\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " }\n" +
+                " operator<a name=\"m438\">||</a> boolean (<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m458\">i</a>, <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m469\">j</a>){\n" +
+                "  return <a href=\"#m458\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1||<a href=\"#m469\">j</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m532\">$</a>(<a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m542\">i</a>){\n" +
+                "  return <a href=\"#m542\">i</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>==1;\n" +
+                " }\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m593\">$</a>(boolean <a name=\"m603\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a> <a name=\"m617\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m185\">ExClass</a>();\n" +
+                "  <a href=\"#m617\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m211\">field</a>=<a href=\"#m603\">i</a>?1:2;\n" +
+                "  return <a href=\"#m617\">e</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage774Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass nb = new ExClass();\n");
+        xml_.append("  ExTwo ex = new ExTwo();\n");
+        xml_.append("  return nb <= ex;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator<= ExClass (ExClass h, int i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field = i + h.field;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static int $(ExTwo i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m64\">nb</a> = new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>();\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a> <a name=\"m92\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a>();\n" +
+                "  <a title=\"The type pkg.ExClass cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m64\">nb</a> <a title=\"pkg.ExClass.static &lt;=(pkg.ExClass,int)\" href=\"#m191\">&lt;=</a><a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m358\"> </a> <a href=\"#m92\">ex</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m147\">pkg.ExClass</a> {\n" +
+                " public int <a name=\"m173\">field</a>=2;\n" +
+                " operator<a name=\"m191\">&lt;=</a> <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> (<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m211\">h</a>, int <a name=\"m218\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m232\">e</a> = new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>();\n" +
+                "  <a href=\"#m232\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m173\">field</a> = <a href=\"#m218\">i</a> + <a href=\"#m211\">h</a>.<a title=\"pkg.ExClass.field\" href=\"#m173\">field</a>;\n" +
+                "  return <a href=\"#m232\">e</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m306\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\"m330\">field</a>=2;\n" +
+                " public static int <a name=\"m358\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m306\">ExTwo</a> <a name=\"m366\">i</a>){\n" +
+                "  return <a href=\"#m366\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#m330\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage775Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExTwo ex = new ExTwo();\n");
+        xml_.append("  return ex <= ex;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static int $(ExTwo i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a> <a name=\"m62\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a>();\n" +
+                "  <a title=\"The type boolean cannot be implicitly cast to int\" class=\"e\">return</a> <a href=\"#m62\">ex</a> <a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m169\"> </a>&lt;=<a title=\"pkg.ExTwo.static $(int,pkg.ExTwo)\" href=\"#m169\"> </a> <a href=\"#m62\">ex</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m117\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\"m141\">field</a>=2;\n" +
+                " public static int <a name=\"m169\">$</a>(<a title=\"pkg.ExTwo\" href=\"#m117\">ExTwo</a> <a name=\"m177\">i</a>){\n" +
+                "  return <a href=\"#m177\">i</a>.<a title=\"pkg.ExTwo.field\" href=\"#m141\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage776Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static void method(){\n");
+        xml_.append("  ExTwo ex = new ExTwo();\n");
+        xml_.append("  ex += ex;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static void <a name=\"m45\">method</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"#m111\">ExTwo</a> <a name=\"m63\">ex</a> = new <a title=\"pkg.ExTwo\" href=\"#m111\">ExTwo</a>();\n" +
+                "  <a href=\"#m63\">ex</a> <a title=\"The type pkg.ExTwo cannot be implicitly cast to pkg.ExTwo\" class=\"e\">+</a>= <a href=\"#m63\">ex</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m111\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\"m135\">field</a>=2;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage777Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static void method(){\n");
+        xml_.append("  int a = 0;\n");
+        xml_.append("  a += ;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
+                " public static void <a name=\"m45\">method</a>(){\n" +
+                "  int <a name=\"m61\">a</a> = 0;\n" +
+                "  <a href=\"#m61\">a</a> <a title=\"The expression part is empty.\" class=\"e\">+=</a> ;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

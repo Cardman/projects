@@ -32,6 +32,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private MemberId memberIdGet = new MemberId();
     private MemberId memberIdSet = new MemberId();
+    private AnaTypeFct converter;
     private AnaTypeFct functionGet;
     private AnaTypeFct functionSet;
 
@@ -237,6 +238,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
                 indexClass_.setMemberId(res_.getMemberId());
+                converter = res_.getPair();
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -337,6 +339,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public CustList<CustList<MethodInfo>> getMethodInfos() {
         return methodInfos;
+    }
+
+    public AnaTypeFct getConverter() {
+        return converter;
     }
 
     public MemberId getMemberIdGet() {

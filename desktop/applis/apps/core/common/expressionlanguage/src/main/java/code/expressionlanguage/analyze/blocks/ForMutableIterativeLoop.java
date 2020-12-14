@@ -59,6 +59,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private OperationNode rootExp;
     private OperationNode rootStep;
 
+    private AnaTypeFct functionImpl;
     private AnaTypeFct function;
     private int testOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -253,6 +254,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);
                 exp_.setMemberId(res_.getMemberId());
+                functionImpl = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
                 if (trueOp_.isFoundMethod()) {
@@ -323,6 +325,10 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public void setTestOffset(int _testOffset) {
         testOffset = _testOffset;
+    }
+
+    public AnaTypeFct getFunctionImpl() {
+        return functionImpl;
     }
 
     public AnaTypeFct getFunction() {

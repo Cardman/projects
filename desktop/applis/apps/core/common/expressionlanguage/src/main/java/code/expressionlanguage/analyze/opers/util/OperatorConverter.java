@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class OperatorConverter {

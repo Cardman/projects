@@ -11,6 +11,7 @@ public final class Options {
     private boolean readOnly;
     private boolean covering;
     private boolean gettingErrors;
+    private boolean displayImplicit;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
 
@@ -40,6 +41,14 @@ public final class Options {
 
     public void setGettingErrors(boolean _gettingErrors) {
         gettingErrors = _gettingErrors;
+    }
+
+    public boolean isDisplayImplicit() {
+        return displayImplicit;
+    }
+
+    public void setDisplayImplicit(boolean _displayImplicit) {
+        this.displayImplicit = _displayImplicit;
     }
 
     public CustList<CommentDelimiters> getComments() {

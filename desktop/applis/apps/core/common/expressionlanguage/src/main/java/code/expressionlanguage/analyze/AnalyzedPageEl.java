@@ -1189,6 +1189,10 @@ public final class AnalyzedPageEl {
         return isCovering() || isGettingErrors();
     }
 
+    public boolean isImplicit() {
+        return getOptions().isDisplayImplicit();
+    }
+
     public boolean isCovering() {
         return getOptions().isCovering();
     }

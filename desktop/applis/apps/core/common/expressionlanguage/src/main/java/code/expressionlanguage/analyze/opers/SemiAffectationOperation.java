@@ -23,8 +23,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
+    private AnaTypeFct functionFrom;
     private MemberId memberIdFrom = new MemberId();
     private ClassMethodId converterFrom;
+    private AnaTypeFct functionTo;
     private MemberId memberIdTo = new MemberId();
     private ClassMethodId converterTo;
 
@@ -87,8 +89,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             if (reversibleConversion_ != null) {
                 memberIdFrom = reversibleConversion_.getMemberIdFrom();
                 converterFrom = reversibleConversion_.getFrom();
+                functionFrom = reversibleConversion_.getFunctionFrom();
                 memberIdTo = reversibleConversion_.getMemberIdTo();
                 converterTo = reversibleConversion_.getTo();
+                functionTo = reversibleConversion_.getFunctionTo();
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
@@ -143,8 +147,16 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return memberIdFrom;
     }
 
+    public AnaTypeFct getFunctionFrom() {
+        return functionFrom;
+    }
+
     public MemberId getMemberIdTo() {
         return memberIdTo;
+    }
+
+    public AnaTypeFct getFunctionTo() {
+        return functionTo;
     }
 
     public AnaOperatorContent getOperatorContent() {

@@ -37,6 +37,7 @@ public final class Coverage {
     private final IdMap<ExecBlock,RootBlock> mappingTypes = new IdMap<ExecBlock,RootBlock>();
     private KeyWords keyWords;
     private final boolean covering;
+    private boolean implicit;
 
     public Coverage(boolean _covering) {
         this.covering = _covering;
@@ -620,5 +621,13 @@ public final class Coverage {
 
     public boolean isCovering() {
         return covering;
+    }
+
+    public boolean isImplicit() {
+        return implicit;
+    }
+
+    public void setImplicit(boolean _implicit) {
+        this.implicit = _implicit;
     }
 }

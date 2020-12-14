@@ -29,6 +29,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private MemberId memberId = new MemberId();
     private ClassMethodId converter;
     private MemberId memberIdConv = new MemberId();
+    private AnaTypeFct functionImpl;
     private AnaTypeFct functionTest;
 
     private boolean rightBool;
@@ -122,6 +123,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     memberIdConv = res_.getMemberId();
+                    functionImpl = res_.getPair();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -267,6 +269,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     clMatchRight_.getImplicits().add(clImpl_);
                     clMatchRight_.setMemberId(res_.getMemberId());
+                    functionImpl = res_.getPair();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -316,6 +319,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public AnaTypeFct getFunction() {
         return function;
+    }
+
+    public AnaTypeFct getFunctionImpl() {
+        return functionImpl;
     }
 
     public AnaTypeFct getFunctionTest() {

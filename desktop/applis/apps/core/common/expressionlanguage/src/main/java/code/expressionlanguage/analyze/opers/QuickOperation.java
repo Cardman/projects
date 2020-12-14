@@ -16,6 +16,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 
@@ -25,11 +26,12 @@ public abstract class QuickOperation extends MethodOperation {
     private String className="";
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
+    private AnaTypeFct convert;
     private AnaTypeFct functionTest;
     private MemberId memberConverter = new MemberId();
     private ClassMethodId converter;
-    private CustList<PartOffset> errFirst = new CustList<PartOffset>();
-    private CustList<PartOffset> errSecond = new CustList<PartOffset>();
+    private StringList errFirst = new StringList();
+    private StringList errSecond = new StringList();
 
     private int opOffset;
 
@@ -76,6 +78,7 @@ public abstract class QuickOperation extends MethodOperation {
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     memberConverter = res_.getMemberId();
+                    convert = res_.getPair();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -86,9 +89,7 @@ public abstract class QuickOperation extends MethodOperation {
                             StringUtil.join(leftRes_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
-                    int index_ = _page.getLocalizer().getCurrentLocationIndex();
-                    errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",index_));
-                    errFirst.add(new PartOffset("</a>",index_+1));
+                    errFirst.add(LinkageUtil.transform(cast_.getBuiltError()));
                     okNum = false;
                 }
                 setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_, _page), _page.getPrimitiveTypes()));
@@ -105,9 +106,7 @@ public abstract class QuickOperation extends MethodOperation {
                     StringUtil.join(leftRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
-            int index_ = _page.getLocalizer().getCurrentLocationIndex();
-            errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-            errFirst.add(new PartOffset("</a>",index_+1));
+            errFirst.add(LinkageUtil.transform(un_.getBuiltError()));
             okNum = false;
         }
         if (!rightRes_.isBoolType(_page)) {
@@ -119,9 +118,7 @@ public abstract class QuickOperation extends MethodOperation {
                     StringUtil.join(rightRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
-            int index_ = _page.getLocalizer().getCurrentLocationIndex()+1;
-            errSecond.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-            errSecond.add(new PartOffset("</a>",index_+1));
+            errSecond.add(LinkageUtil.transform(un_.getBuiltError()));
             okNum = false;
         }
         leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
@@ -133,11 +130,11 @@ public abstract class QuickOperation extends MethodOperation {
         return okNum;
     }
 
-    public CustList<PartOffset> getErrFirst() {
+    public StringList getErrFirst() {
         return errFirst;
     }
 
-    public CustList<PartOffset> getErrSecond() {
+    public StringList getErrSecond() {
         return errSecond;
     }
 
@@ -159,6 +156,10 @@ public abstract class QuickOperation extends MethodOperation {
 
     public AnaTypeFct getFunctionTest() {
         return functionTest;
+    }
+
+    public AnaTypeFct getConvert() {
+        return convert;
     }
 
     public MemberId getMemberConverter() {

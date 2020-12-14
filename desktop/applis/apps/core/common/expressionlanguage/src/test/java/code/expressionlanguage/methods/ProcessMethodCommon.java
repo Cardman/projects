@@ -168,6 +168,13 @@ public abstract class ProcessMethodCommon {
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
+    private static AnalyzedTestContext contextElErrorReadOnlyDefImpl() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        opt_.setDisplayImplicit(true);
+        return InitializationLgNames.buildStdOneAna(opt_);
+    }
 
     private static StringMap<String> getErrors(ReportedMessages _report) {
         return _report.getErrors();
@@ -199,9 +206,18 @@ public abstract class ProcessMethodCommon {
         AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
         return validateAndCheckReportErrors(_files, cont_);
     }
+    protected static StringMap<String> ctxErrReadOnlyImpl(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = contextElErrorReadOnlyDefImpl();
+        return validateAndCheckReportErrors(_files, cont_);
+    }
 
     protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDef();
+        return validateAndCheckReportErrors(_files, cont_);
+    }
+
+    protected static StringMap<String> ctxErrStdReadOnlyImpl(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl();
         return validateAndCheckReportErrors(_files, cont_);
     }
     private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
@@ -214,6 +230,20 @@ public abstract class ProcessMethodCommon {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
+        return InitializationLgNames.buildStdOneAna(opt_);
+    }
+    private static AnalyzedTestContext contextElErrorStdReadOnlyDefImpl() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        opt_.setDisplayImplicit(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
+    }
+    private static AnalyzedTestContext contextElCoverageReadOnlyDefImpl() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setCovering(true);
+        opt_.setDisplayImplicit(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
@@ -237,10 +267,23 @@ public abstract class ProcessMethodCommon {
         return validateCovAndRet(_files, cont_);
     }
 
+    protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEnImpl();
+        return validateCovAndRet(_files, cont_);
+    }
+
     private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
+    }
+
+    private static AnalyzedTestContext ontextElCoverageReadOnlyEnImpl() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setCovering(true);
+        opt_.setDisplayImplicit(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
 
@@ -635,6 +678,11 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl covReadOnly(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElCoverageReadOnlyDef();
+        return validateCovAndRet(_files, cont_);
+    }
+
+    protected static ContextEl covReadOnlyImpl(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = contextElCoverageReadOnlyDefImpl();
         return validateCovAndRet(_files, cont_);
     }
 

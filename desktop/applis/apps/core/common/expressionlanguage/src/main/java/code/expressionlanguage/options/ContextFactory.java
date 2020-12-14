@@ -40,7 +40,9 @@ public final class ContextFactory {
     }
 
     public static ContextEl simpleBuild(int _stack, Options _options, BuildableLgNames _definedLgNames, int _tabWidth) {
-        return _definedLgNames.newContext(_tabWidth,_stack, new Coverage(_options.isCovering()));
+        Coverage coverage_ = new Coverage(_options.isCovering());
+        coverage_.setImplicit(_options.isDisplayImplicit());
+        return _definedLgNames.newContext(_tabWidth,_stack, coverage_);
     }
 
     public static void validateStds(AnalysisMessages _mess, KeyWords _definedKw, BuildableLgNames _definedLgNames,

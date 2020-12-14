@@ -15,6 +15,7 @@ public final class VariablesOffsets {
     private KeyWords keyWords;
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
+    private boolean implicit;
 
     public String getCurrentFileName() {
         return currentFileName;
@@ -62,5 +63,13 @@ public final class VariablesOffsets {
 
     public void setToStringOwners(StringList _v) {
         this.toStringOwners = _v;
+    }
+
+    public boolean isImplicit() {
+        return implicit;
+    }
+
+    public void setImplicit(boolean _implicit) {
+        this.implicit = _implicit;
     }
 }

@@ -47,6 +47,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
                 clMatch_.setMemberId(res_.getMemberId());
+                clMatch_.setFunction(res_.getPair());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

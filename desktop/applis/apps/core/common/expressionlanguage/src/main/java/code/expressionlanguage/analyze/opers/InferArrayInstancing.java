@@ -187,6 +187,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     argType_.getImplicits().add(cl_);
                     argType_.setMemberId(res_.getMemberId());
+                    argType_.setFunction(res_.getPair());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());

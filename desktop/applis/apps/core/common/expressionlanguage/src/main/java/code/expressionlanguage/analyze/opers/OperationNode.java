@@ -930,6 +930,7 @@ public abstract class OperationNode {
             for (ImplicitInfos j: implicitInfos_) {
                 cInfo_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
                 cInfo_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
+                cInfo_.getAllOps().get(i).getResultClass().setFunction(j.getFunction());
             }
         }
         int parNameLen_ = cInfo_.getNameParametersFilterIndexes().size();
@@ -1246,8 +1247,8 @@ public abstract class OperationNode {
             }
             ClassMethodId clFrom_ = new ClassMethodId(from_.getId().getClassName(),from_.getRealId());
             ClassMethodId clTo_ = new ClassMethodId(to_.getId().getClassName(),to_.getRealId());
-            return new ReversibleConversion(clFrom_, from_.getMemberId(),
-                    clTo_, to_.getMemberId());
+            return new ReversibleConversion(clFrom_, from_.getMemberId(),from_.getPair(),
+                    clTo_, to_.getMemberId(),to_.getPair());
         }
         return null;
     }
@@ -2705,6 +2706,7 @@ public abstract class OperationNode {
             for (ImplicitInfos j: implicitInfos_) {
                 m_.getAllOps().get(i).getResultClass().getImplicits().add(j.getIdMethod());
                 m_.getAllOps().get(i).getResultClass().setMemberId(j.getMemberId());
+                m_.getAllOps().get(i).getResultClass().setFunction(j.getFunction());
             }
         }
         int parNameLen_ = m_.getNameParametersFilterIndexes().size();
@@ -2979,6 +2981,7 @@ public abstract class OperationNode {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     imp_.setIdMethod(cl_);
                     imp_.setMemberId(res_.getMemberId());
+                    imp_.setFunction(res_.getPair());
                     l_.add(imp_);
                     continue;
                 }
@@ -3058,6 +3061,7 @@ public abstract class OperationNode {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 imp_.setIdMethod(cl_);
                 imp_.setMemberId(res_.getMemberId());
+                imp_.setFunction(res_.getPair());
                 l_.add(imp_);
                 return true;
             }
@@ -3090,6 +3094,7 @@ public abstract class OperationNode {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     imp_.setIdMethod(cl_);
                     imp_.setMemberId(res_.getMemberId());
+                    imp_.setFunction(res_.getPair());
                     l_.add(imp_);
                     continue;
                 }

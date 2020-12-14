@@ -23,6 +23,7 @@ import code.util.core.StringUtil;
 public abstract class AbstractTernaryOperation extends MethodOperation {
 
     private int offsetLocal;
+    private AnaTypeFct implFct;
     private AnaTypeFct testFct;
 
     public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
@@ -50,6 +51,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
                 clMatch_.setMemberId(res_.getMemberId());
+                implFct = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(clMatch_, _page);
                 if (trueOp_.isFoundMethod()) {
@@ -125,6 +127,10 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             opThree_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
         }
         setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
+    }
+
+    public AnaTypeFct getImplFct() {
+        return implFct;
     }
 
     public AnaTypeFct getTestFct() {

@@ -148,6 +148,9 @@ public final class RunningTest implements Runnable {
                     _exec.setSrcFolder(StringUtil.replaceBackSlash(output_));
                 }
             }
+            if (l.startsWith("impl=")) {
+                _options.setDisplayImplicit(true);
+            }
             if (l.startsWith("res=")) {
                 String output_ = l.substring("res=".length());
                 if (!output_.isEmpty()) {

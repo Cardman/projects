@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -25,6 +26,7 @@ public final class AnaClassArgumentMatching {
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
     private MemberId memberId = new MemberId();
+    private AnaTypeFct function;
     private MemberId memberIdTest = new MemberId();
 
     public AnaClassArgumentMatching(String _className) {
@@ -203,6 +205,14 @@ public final class AnaClassArgumentMatching {
 
     public void setMemberId(MemberId _memberId) {
         this.memberId = _memberId;
+    }
+
+    public AnaTypeFct getFunction() {
+        return function;
+    }
+
+    public void setFunction(AnaTypeFct _function) {
+        this.function = _function;
     }
 
     public MemberId getMemberIdTest() {
