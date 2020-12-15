@@ -2354,6 +2354,7 @@ public final class LinkageUtil {
                     break;
                 }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
+                processImplicit(_vars,currentFileName_,offsetEnd_,val_, parent_,_parts);
                 String tag_ = getEndTag(addCover_, val_, _root, _fieldName);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
                 _parts.add(new PartOffset(tag_,offsetEnd_));
@@ -2451,6 +2452,7 @@ public final class LinkageUtil {
                     break;
                 }
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
+                processImplicit(_vars,currentFileName_,offsetEnd_,val_, parent_,_parts);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
                 processUnaryRightOperations(_vars, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
                 if (nextSiblingOp_ != null) {
@@ -2687,13 +2689,18 @@ public final class LinkageUtil {
             int s_ = _sum + _val.getIndexInEl();
             _parts.add(mergeParts(_vars,_currentFileName,_val.getResultClass().getFunction(),s_,new StringList(),new StringList()));
         }
-        if (leftOperNotUnary(par_)) {
-            IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
-            if (_vars.isImplicit()) {
-                int indexChild_ = _val.getIndexChild();
-                int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
-                int len_ = operators_.getValue(indexChild_).length();
-                int off_ = s_+Math.max(len_,1);
+        if (!(par_ instanceof TernaryOperation)) {
+            if (leftOperNotUnary(par_) || par_ instanceof UnaryOperation || par_ instanceof UnaryBooleanOperation || par_ instanceof UnaryBinOperation||par_ instanceof SemiAffectationOperation&&!((SemiAffectationOperation)par_).isPost()) {
+                if (_vars.isImplicit()) {
+                    int off_ = _sum + _val.getIndexInEl();
+                    _parts.add(mergeParts(_vars, _currentFileName, _val.getResultClass().getFunction(), off_, new StringList(), new StringList()));
+                }
+            }
+        }
+        if (!(par_ instanceof ShortTernaryOperation)&&middleOper(par_)) {
+            int indexChild_ = _val.getIndexChild();
+            if (_vars.isImplicit() && indexChild_ > 0) {
+                int off_ = _sum + _val.getIndexInEl();
                 _parts.add(mergeParts(_vars,_currentFileName,_val.getResultClass().getFunction(),off_,new StringList(),new StringList()));
             }
         }
@@ -2750,11 +2757,22 @@ public final class LinkageUtil {
                 appendPossibleParts(_parts, par_, indexChild_);
             }
         }
-        if (leftOperNotUnary(par_)) {
-            IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
-            if (_vars.isImplicit()) {
-                int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
-                int len_ = operators_.getValue(indexChild_).length();
+        if (!(par_ instanceof TernaryOperation)) {
+            if (leftOperNotUnary(par_) || par_ instanceof UnaryOperation || par_ instanceof UnaryBooleanOperation || par_ instanceof UnaryBinOperation||par_ instanceof SemiAffectationOperation&&!((SemiAffectationOperation)par_).isPost()) {
+                IntTreeMap<String> operators_ = par_.getOperations().getOperators();
+                if (_vars.isImplicit()) {
+                    int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
+                    int len_ = operators_.getValue(indexChild_).length();
+                    int off_ = s_ + Math.max(len_, 1);
+                    _parts.add(mergeParts(_vars, _currentFileName, _val.getResultClass().getFunction(), off_, new StringList(), new StringList()));
+                }
+            }
+        }
+        if (!(par_ instanceof ShortTernaryOperation)&&middleOper(par_)) {
+            if (_vars.isImplicit() && indexChild_ > 0) {
+                IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
+                int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_-1);
+                int len_ = operators_.getValue(indexChild_-1).length();
                 int off_ = s_+Math.max(len_,1);
                 _parts.add(mergeParts(_vars,_currentFileName,_val.getResultClass().getFunction(),off_,new StringList(),new StringList()));
             }
@@ -2911,10 +2929,6 @@ public final class LinkageUtil {
                 int i_ = _sum + _val.getIndexInEl();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
                 _parts.add(new PartOffset("</a>",i_+1));
-            }
-            if (_vars.isImplicit()) {
-                int i_ = _sum + _val.getIndexInEl();
-                _parts.add(mergeParts(_vars,_currentFileName,par_.getConverter(),i_+1,new StringList(),new StringList()));
             }
         }
     }
@@ -3352,10 +3366,6 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringUtil.join(_val.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
                 _parts.add(new PartOffset("</a>",i_+1));
             }
-            if (_vars.isImplicit()) {
-                int i_ = _sum + _val.getIndexInEl() + par_.getOpOffset();
-                _parts.add(mergeParts(_vars,_currentFileName,_val.getFirstChild().getResultClass().getFunction(),i_+1,new StringList(),new StringList()));
-            }
         }
         if (_val instanceof CastOperation) {
             int l_;
@@ -3426,7 +3436,6 @@ public final class LinkageUtil {
                         int begin_ = par_.getOpOffset() + _sum + par_.getIndexInEl()+2;
                         _parts.add(mergeParts(_vars, _currentFileName, par_.getFunctionFrom(), begin_, new StringList(), new StringList()));
                         _parts.add(mergeParts(_vars, _currentFileName, par_.getFunctionTo(), begin_, new StringList(), new StringList()));
-                        _parts.add(mergeParts(_vars, _currentFileName, ch_.getResultClass().getFunction(), begin_, new StringList(), new StringList()));
                     }
                 }
             }
@@ -3578,11 +3587,10 @@ public final class LinkageUtil {
             }
         }
         processCustomOperator(_vars, _currentFileName, _offsetEnd,_curOp,_nextSiblingOp, _parent, _parts);
-        processAff(_vars, _currentFileName, _offsetEnd, _parent, _parts);
         processCompoundAffLeftOpReport(_vars, _block, _currentFileName, _offsetEnd, _curOp,_nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
-        processCompoundAffRightOp(_vars, _currentFileName, _offsetEnd, _parent, _parts, _nextSiblingOp);
+        processCompoundAffRightOp(_vars, _currentFileName, _offsetEnd, _parent, _parts);
 
-        processCompareReport(_vars, _block, _offsetEnd, _curOp,_nextSiblingOp,_parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
+        processCompareReport(_vars, _block, _offsetEnd, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         processDotSafeReport(_vars, _block, _offsetEnd, _curOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         processNullSafeReport(_vars, _block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         processLogicAndOrOperationReport(_vars, _currentFileName,_block, _offsetEnd, _curOp, _nextSiblingOp, _parent, _parts, _cov, _annot, _indexAnnotGroup, _indexAnnot);
@@ -3622,9 +3630,6 @@ public final class LinkageUtil {
         }
         if (l_.isEmpty()&&_curOp.getIndexChild() == 0 &&_parent instanceof QuickOperation) {
             QuickOperation q_ = (QuickOperation) _parent;
-            if (_vars.isImplicit()) {
-                _parts.add(mergeParts(_vars,_currentFileName,_curOp.getResultClass().getFunction(),_offsetEnd,new StringList(),new StringList()));
-            }
             StringList errs_ = q_.getErrFirst();
             AnaTypeFct functionTest_ = q_.getFunctionTest();
             StringList title_ = new StringList();
@@ -3634,29 +3639,29 @@ public final class LinkageUtil {
             addParts(_vars, _currentFileName, function_,_offsetEnd+1,1, errs_,title_,_parts);
             if (_vars.isImplicit()) {
                 _parts.add(mergeParts(_vars,_currentFileName,q_.getConvert(),_offsetEnd+2,new StringList(),new StringList()));
-                _parts.add(mergeParts(_vars,_currentFileName,_nextSiblingOp.getResultClass().getFunction(),_offsetEnd+2,new StringList(),new StringList()));
             }
         }
         processCustomOperator(_vars, _currentFileName, _offsetEnd,_curOp,_nextSiblingOp, _parent, _parts);
-        processAff(_vars, _currentFileName, _offsetEnd, _parent, _parts);
-        processCompoundAffLeftOpError(_vars, _currentFileName, _offsetEnd, _curOp,_nextSiblingOp, _parent, _parts);
-        processCompoundAffRightOp(_vars, _currentFileName, _offsetEnd, _parent, _parts, _nextSiblingOp);
-        processCompareError(_vars, _offsetEnd,_curOp,_nextSiblingOp, _parent, _parts);
+        processCompoundAffLeftOpError(_vars, _currentFileName, _offsetEnd, _nextSiblingOp, _parent, _parts);
+        processCompoundAffRightOp(_vars, _currentFileName, _offsetEnd, _parent, _parts);
+    }
+    private static void processImplicit(VariablesOffsets _vars,
+                                        String _currentFileName,
+                                        int _off,
+                                        OperationNode _curOp,
+                                        MethodOperation _parent,
+                                        CustList<PartOffset> _parts) {
+        if (!(_parent instanceof ShortTernaryOperation)&&middleOper(_parent)||_parent instanceof SemiAffectationOperation&&((SemiAffectationOperation)_parent).isPost()) {
+            if (_vars.isImplicit()&&_curOp.getIndexChild() == 0) {
+                _parts.add(mergeParts(_vars,_currentFileName,_curOp.getResultClass().getFunction(),_off,new StringList(),new StringList()));
+            }
+        }
     }
     private static void processCustomOperator(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, OperationNode _curOp,
                                               OperationNode _nextSiblingOp,MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (_parentOp instanceof MiddleSymbolOperation) {
             MiddleSymbolOperation par_ = (MiddleSymbolOperation) _parentOp;
             AnaTypeFct function_ = par_.getFunction();
-            if (_vars.isImplicit()) {
-                boolean dis_ = true;
-                if (isWideCmp(_parentOp) && function_ ==null) {
-                    dis_ = false;
-                }
-                if (dis_) {
-                    _parts.add(mergeParts(_vars, _currentFileName, _curOp.getResultClass().getFunction(), _offsetEnd, new StringList(), new StringList()));
-                }
-            }
             if (function_ != null) {
                 addParts(_vars, _currentFileName, function_,_offsetEnd,par_.getOp().length(),_parentOp.getErrs(),_parentOp.getErrs(),_parts);
             } else if (_parentOp instanceof AddOperation && ((AddOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
@@ -3664,15 +3669,6 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset(tag_, _offsetEnd));
                 tag_ = "</i>";
                 _parts.add(new PartOffset(tag_, _offsetEnd + 1));
-            }
-            if (_vars.isImplicit()) {
-                boolean dis_ = true;
-                if (isWideCmp(_parentOp) && function_ ==null) {
-                    dis_ = false;
-                }
-                if (dis_) {
-                    _parts.add(mergeParts(_vars, _currentFileName, _nextSiblingOp.getResultClass().getFunction(), _offsetEnd+par_.getOp().length(), new StringList(), new StringList()));
-                }
             }
 
         }
@@ -3696,31 +3692,14 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processCompareError(VariablesOffsets _vars, int _offsetEnd, OperationNode _curOp,
-                                            OperationNode _nextSiblingOp, MethodOperation _parent, CustList<PartOffset> _parts) {
-        if (isWideCmp(_parent)) {
-            if (_vars.isImplicit()&&((SymbolOperation)_parent).getFunction() == null) {
-                _parts.add(mergeParts(_vars, _vars.getCurrentFileName(), _curOp.getResultClass().getFunction(), _offsetEnd, new StringList(), new StringList()));
-                int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
-                _parts.add(mergeParts(_vars, _vars.getCurrentFileName(), _nextSiblingOp.getResultClass().getFunction(), length_+_offsetEnd, new StringList(), new StringList()));
-            }
-        }
-    }
-
-    private static void processCompareReport(VariablesOffsets _vars, Block _block, int _offsetEnd,OperationNode _curOp,
-                                             OperationNode _nextSiblingOp, MethodOperation _parent, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
+    private static void processCompareReport(VariablesOffsets _vars, Block _block, int _offsetEnd,
+                                             MethodOperation _parent, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (isWideCmp(_parent)) {
 
             int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
             if (((SymbolOperation)_parent).getFunction() == null) {
-                if (_vars.isImplicit()) {
-                    _parts.add(mergeParts(_vars, _vars.getCurrentFileName(), _curOp.getResultClass().getFunction(), _offsetEnd, new StringList(), new StringList()));
-                }
                 AbstractCoverageResult resultLoc_ = getCovers(_block, _parent, _cov, _annot, _indexAnnotGroup, _indexAnnot);
                 safeReport(_vars, resultLoc_, _offsetEnd,_parts,length_);
-                if (_vars.isImplicit()) {
-                    _parts.add(mergeParts(_vars, _vars.getCurrentFileName(), _nextSiblingOp.getResultClass().getFunction(), length_ + _offsetEnd, new StringList(), new StringList()));
-                }
             }
         }
     }
@@ -3729,7 +3708,7 @@ public final class LinkageUtil {
         return _parentOp instanceof EqOperation || _parentOp instanceof CmpOperation;
     }
 
-    private static void processCompoundAffLeftOpError(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, OperationNode _curOp,OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts) {
+    private static void processCompoundAffLeftOpError(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (!(_parentOp instanceof CompoundAffectationOperation)) {
             return;
         }
@@ -3738,11 +3717,6 @@ public final class LinkageUtil {
         int opDelta_ = par_.getOper().length() - 1;
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
-        if (_vars.isImplicit()) {
-            AnaTypeFct functionConv_ = _curOp.getResultClass().getFunction();
-            PartOffset part_ = mergeParts(_vars, _currentFileName, functionConv_, begin_, new StringList(), new StringList());
-            _parts.add(part_);
-        }
         int len_ = opDelta_;
         if (functionTest_ != null) {
             addParts(_vars, _currentFileName, functionTest_,begin_,1, _parentOp.getErrs(),_parentOp.getErrs(),_parts);
@@ -3762,17 +3736,7 @@ public final class LinkageUtil {
     private static boolean hasToCallStringConver(VariablesOffsets _vars, OperationNode _nextSiblingOp) {
         return _nextSiblingOp.getResultClass().isConvertToString() && canCallToString(_vars,_nextSiblingOp.getResultClass());
     }
-    private static void processAff(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, MethodOperation _parentOp, CustList<PartOffset> _parts) {
-        if (!_vars.isImplicit() || !(_parentOp instanceof AffectationOperation)) {
-            return;
-        }
-        AffectationOperation par_ = (AffectationOperation) _parentOp;
-        AnaTypeFct function_ = par_.getImplFct();
-        if (function_ != null) {
-            StringList title_ = new StringList();
-            _parts.add(mergeParts(_vars,_currentFileName,function_,_offsetEnd+1,title_,title_));
-        }
-    }
+
     private static void processCompoundAffLeftOpReport(VariablesOffsets _vars, Block _block, String _currentFileName, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
         if (!(_parentOp instanceof CompoundAffectationOperation)) {
             return;
@@ -3782,11 +3746,6 @@ public final class LinkageUtil {
         int opDelta_ = par_.getOper().length() - 1;
         AnaTypeFct functionTest_ = par_.getFunctionTest();
         int begin_ = _offsetEnd;
-        if (_vars.isImplicit()) {
-            AnaTypeFct functionConv_ = _curOp.getResultClass().getFunction();
-            PartOffset part_ = mergeParts(_vars, _currentFileName, functionConv_, begin_, new StringList(), new StringList());
-            _parts.add(part_);
-        }
         int len_ = opDelta_;
         if (functionTest_ != null) {
             StringList title_ = new StringList();
@@ -3840,7 +3799,7 @@ public final class LinkageUtil {
             }
         }
     }
-    private static void processCompoundAffRightOp(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, MethodOperation _parentOp, CustList<PartOffset> _parts, OperationNode _right) {
+    private static void processCompoundAffRightOp(VariablesOffsets _vars, String _currentFileName, int _offsetEnd, MethodOperation _parentOp, CustList<PartOffset> _parts) {
         if (!(_parentOp instanceof CompoundAffectationOperation)) {
             return;
         }
@@ -3854,7 +3813,6 @@ public final class LinkageUtil {
         }
         if (_vars.isImplicit()) {
             _parts.add(mergeParts(_vars,_currentFileName,par_.getFunctionImpl(),opDelta_+_offsetEnd+1,new StringList(),new StringList()));
-            _parts.add(mergeParts(_vars,_currentFileName,_right.getResultClass().getFunction(),opDelta_+_offsetEnd+2,new StringList(),new StringList()));
         }
     }
     private static void processLogicAndOrOperationReport(VariablesOffsets _vars, String _currentFileName, Block _block, int _offsetEnd, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, CustList<PartOffset> _parts, Coverage _cov, boolean _annot, int _indexAnnotGroup, int _indexAnnot) {
@@ -3862,9 +3820,6 @@ public final class LinkageUtil {
             return;
         }
         QuickOperation q_ = (QuickOperation) _parentOp;
-        if (_vars.isImplicit()) {
-            _parts.add(mergeParts(_vars,_currentFileName,_curOp.getResultClass().getFunction(),_offsetEnd,new StringList(),new StringList()));
-        }
         AbstractCoverageResult resultFirst_ = getCovers(_block, _curOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         AbstractCoverageResult resultLast_ = getCovers(_block, _nextSiblingOp, _cov, _annot, _indexAnnotGroup, _indexAnnot);
         StringList errs_ = q_.getErrs();
@@ -3886,7 +3841,6 @@ public final class LinkageUtil {
         }
         if (_vars.isImplicit()) {
             _parts.add(mergeParts(_vars,_currentFileName,q_.getConvert(),_offsetEnd+2,new StringList(),new StringList()));
-            _parts.add(mergeParts(_vars,_currentFileName,_nextSiblingOp.getResultClass().getFunction(),_offsetEnd+2,new StringList(),new StringList()));
         }
     }
 
@@ -3940,7 +3894,6 @@ public final class LinkageUtil {
             SemiAffectationOperation par_ = (SemiAffectationOperation) _parent;
             if(par_.isPost()) {
                 if (_vars.isImplicit()) {
-                    _parts.add(mergeParts(_vars,_currentFileName,_curOp.getResultClass().getFunction(),_offsetEnd,new StringList(),new StringList()));
                     _parts.add(mergeParts(_vars, _currentFileName, par_.getFunctionFrom(), _offsetEnd, new StringList(), new StringList()));
                     _parts.add(mergeParts(_vars, _currentFileName, par_.getFunctionTo(), _offsetEnd, new StringList(), new StringList()));
                 }

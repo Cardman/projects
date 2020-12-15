@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -21,7 +20,6 @@ import code.util.core.StringUtil;
 public final class AffectationOperation extends MethodOperation {
 
     private OperationNode settableOp;
-    private AnaTypeFct implFct;
 
     private boolean synthetic;
 
@@ -208,7 +206,7 @@ public final class AffectationOperation extends MethodOperation {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatchRight_.getImplicits().add(cl_);
                 clMatchRight_.setMemberId(res_.getMemberId());
-                implFct = res_.getPair();
+                clMatchRight_.setFunction(res_.getPair());
             } else {
                 IntTreeMap< String> ops_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
@@ -282,10 +280,6 @@ public final class AffectationOperation extends MethodOperation {
             return (SettableElResult) _op;
         }
         return null;
-    }
-
-    public AnaTypeFct getImplFct() {
-        return implFct;
     }
 
     public int getOpOffset() {

@@ -269,7 +269,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     clMatchRight_.getImplicits().add(clImpl_);
                     clMatchRight_.setMemberId(res_.getMemberId());
-                    functionImpl = res_.getPair();
+                    clMatchRight_.setFunction(res_.getPair());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
