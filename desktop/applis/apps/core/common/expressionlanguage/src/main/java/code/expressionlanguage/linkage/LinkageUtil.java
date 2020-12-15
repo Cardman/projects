@@ -2734,11 +2734,12 @@ public final class LinkageUtil {
             if (!errEmpt_.isEmpty()) {
                 int off_ = _val.getOperations().getOffset();
                 int begin_ = _sum + off_ + _val.getIndexInEl();
+                processNullParent(_vars, _val, _parts, _currentFileName, begin_);
                 _parts.add(new PartOffset("<a title=\""+transform(StringUtil.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+_val.getOperations().getDelimiter().getLength()));
-            } else if (_vars.isImplicit()) {
+            } else {
                 int s_ = _sum + _val.getIndexInEl();
-                _parts.add(mergeParts(_vars,_currentFileName,_val.getResultClass().getFunction(),s_,errEmpt_,new StringList()));
+                processNullParent(_vars, _val, _parts, _currentFileName, s_);
             }
         } else {
             StringList l_ = new StringList();
@@ -2811,6 +2812,12 @@ public final class LinkageUtil {
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,_sum + c_.getIndexInEl()+rightPar_+1));
             }
+        }
+    }
+
+    private static void processNullParent(VariablesOffsets _vars, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName, int _off) {
+        if (_vars.isImplicit()) {
+            _parts.add(mergeParts(_vars, _currentFileName, _val.getResultClass().getFunction(), _off, new StringList(), new StringList()));
         }
     }
 
