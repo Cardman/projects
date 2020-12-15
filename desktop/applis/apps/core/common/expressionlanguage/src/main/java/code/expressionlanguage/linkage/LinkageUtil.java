@@ -1108,31 +1108,16 @@ public final class LinkageUtil {
         if (_cond.isEmpty()) {
             return;
         }
-        processReturnConverter(_vars, _cond, _parts);
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         OperationNode root_ = _cond.getRoot();
         buildCoverageReport(_vars, _cond, -1, _parts, _cov, 0, off_, offsetEndBlock_, root_, 0, 0, "", false);
     }
 
-    private static void processReturnConverter(VariablesOffsets _vars, ReturnMethod _cond, CustList<PartOffset> _parts) {
-        if (_vars.getStack().last().getCurrent() == null) {
-            if (_vars.isImplicit()&&!isImplicitReturn(_cond)) {
-                AnaTypeFct function_ = _cond.getFunction();
-                int off_ = _cond.getOffset().getOffsetTrim();
-                if (function_ != null) {
-                    StringList list_ = new StringList();
-                    addParts(_vars, _vars.getCurrentFileName(), function_,off_,_vars.getKeyWords().getKeyWordReturn().length(), list_,list_,_parts);
-                }
-            }
-        }
-    }
-
     private static void processReturnMethodError(VariablesOffsets _vars, ReturnMethod _cond, CustList<PartOffset> _parts) {
         if (_cond.isEmpty()) {
             return;
         }
-        processReturnConverter(_vars, _cond, _parts);
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
         buildErrorReport(_vars, _cond, -1, _parts, 0, off_, root_, 0, 0, "");
@@ -1755,22 +1740,12 @@ public final class LinkageUtil {
         processOverridableRedef(_vars,m_,_parts);
     }
 
-    private static void processAnonymousFctReport(VariablesOffsets _vars,int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
+    private static void processAnonymousFctReport(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
         int begName_ = _cond.getNameOffset();
         _parts.add(new PartOffset("<span class=\"t\">", _begin));
         refParams(_cond, _parts);
         _parts.addAllElts(_cond.getPartOffsetsReturn());
         addNameParts(_cond,_parts, begName_, 2);
-        Block child_ = _cond.getFirstChild();
-        processImplicitReturn(_vars, _parts, begName_, child_);
-    }
-
-    private static void processImplicitReturn(VariablesOffsets _vars, CustList<PartOffset> _parts, int _begName, Block _child) {
-        if (isImplicitReturn(_child)&&_vars.isImplicit()){
-            AnaTypeFct function_ = ((ReturnMethod) _child).getFunction();
-            StringList l_ = new StringList();
-            _parts.add(mergeParts(_vars, _vars.getCurrentFileName(), function_, _begName + 2, l_, l_));
-        }
     }
 
 
@@ -1843,7 +1818,7 @@ public final class LinkageUtil {
             _parts.addAllElts(p.getSuperTypes());
         }
     }
-    private static void processAnonymousFctBlockError(VariablesOffsets _vars,int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
+    private static void processAnonymousFctBlockError(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
         int begName_ = _cond.getNameOffset();
         _parts.add(new PartOffset("<span class=\"t\">", _begin));
         refParamsError(_cond, _parts);
@@ -1854,7 +1829,6 @@ public final class LinkageUtil {
             errs_.addAllElts(child_.getErrorsBlock());
         }
         addNameParts(errs_,_cond,_parts, begName_, 2);
-        processImplicitReturn(_vars, _parts, begName_, child_);
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars, AnnotationMethodBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
@@ -2729,7 +2703,7 @@ public final class LinkageUtil {
         processAssociation(_vars, _sum, _val, _parts, _currentFileName);
         processFieldsReport(_block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, _currentFileName, _sum, _val, _parts);
-        processAnonLambaReport(_vars,_sum, _val, _parts);
+        processAnonLambaReport(_sum, _val, _parts);
         processLamba(_vars, _sum, _val, _parts, _currentFileName);
         processLeafType(_vars, _sum,_val, _parts);
         processDynamicCall(_sum, _val, _parts);
@@ -2799,7 +2773,7 @@ public final class LinkageUtil {
         processAssociation(_vars, _sum, _val, _parts, _currentFileName);
         processFieldsError(_block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, _currentFileName, _sum, _val, _parts);
-        processAnonLambaError(_vars,_sum, _val, _parts);
+        processAnonLambaError(_sum, _val, _parts);
         processLamba(_vars, _sum, _val, _parts, _currentFileName);
         processLeafType(_vars, _sum,_val, _parts);
         processDynamicCall(_sum, _val, _parts);
@@ -3257,22 +3231,22 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processAnonLambaReport(VariablesOffsets _vars,int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+    private static void processAnonLambaReport(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (!(_val instanceof AnonymousLambdaOperation)) {
             return;
         }
         AnonymousLambdaOperation v_ = (AnonymousLambdaOperation)_val;
         int begin_ = _sum + _val.getIndexInEl();
-        processAnonymousFctReport(_vars,begin_,v_.getBlock(), _parts);
+        processAnonymousFctReport(begin_,v_.getBlock(), _parts);
     }
 
-    private static void processAnonLambaError(VariablesOffsets _vars,int _sum, OperationNode _val, CustList<PartOffset> _parts) {
+    private static void processAnonLambaError(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
         if (!(_val instanceof AnonymousLambdaOperation)) {
             return;
         }
         AnonymousLambdaOperation v_ = (AnonymousLambdaOperation)_val;
         int begin_ = _sum + _val.getIndexInEl();
-        processAnonymousFctBlockError(_vars,begin_,v_.getBlock(), _parts);
+        processAnonymousFctBlockError(begin_,v_.getBlock(), _parts);
     }
     private static void processLamba(VariablesOffsets _vars, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
         if (!(_val instanceof LambdaOperation)) {

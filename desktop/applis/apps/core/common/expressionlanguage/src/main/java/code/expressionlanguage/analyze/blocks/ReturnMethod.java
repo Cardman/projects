@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.WrappOperation;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -27,8 +26,6 @@ public final class ReturnMethod extends AbruptBlock {
     private int expressionOffset;
     private boolean implicit;
     private String returnType = "";
-
-    private AnaTypeFct function;
 
     public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
@@ -128,7 +125,7 @@ public final class ReturnMethod extends AbruptBlock {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 ret_.getImplicits().add(cl_);
                 ret_.setMemberId(res_.getMemberId());
-                function = res_.getPair();
+                ret_.setFunction(res_.getPair());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
@@ -164,7 +161,4 @@ public final class ReturnMethod extends AbruptBlock {
         return returnType;
     }
 
-    public AnaTypeFct getFunction() {
-        return function;
-    }
 }

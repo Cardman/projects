@@ -6755,7 +6755,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public staticCall <a href=\"#m130\">S</a> <a name=\"m156\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m249\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m179\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m249\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m179\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m276\">field</a> </span></span>=<span class=\"f\"> (<a href=\"#m130\">S</a>)<span class=\"f\">5</span></span></span>;\n" +
-                "  <a title=\"pkg.ExClass.static $(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m300\">return</a> <span class=\"f\"><a href=\"#m179\">e</a></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m300\"> </a><a href=\"#m179\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m249\">pkg.ExClass</a>&lt;<a name=\"m261\">T</a>&gt; {\n" +
@@ -6803,7 +6803,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m117\">pkg.ExCaller</a>&lt;<a name=\"m130\">S</a>&gt; {\n" +
                 " public staticCall <a href=\"#m130\">S</a> <a name=\"m156\">method</a>(){\n" +
-                "  Fct&lt;<a href=\"#m130\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m175\">fct</a> </span>=<span class=\"f\"><span class=\"t\"> (:<a href=\"#m130\">S</a>) <a name=\"m186\">-&gt;</a><a title=\"pkg.ExClass.static $(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m337\"> </a> <span class=\"f\"><a title=\"pkg.ExClass.pkg.ExClass(#T)\" href=\"#m285\">new</a> <a title=\"pkg.ExClass\" href=\"#m250\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;(<span class=\"f\">(<a href=\"#m130\">S</a>)<span class=\"f\">5</span></span>)</span></span></span></span>;\n" +
+                "  Fct&lt;<a href=\"#m130\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m175\">fct</a> </span>=<span class=\"f\"><span class=\"t\"> (:<a href=\"#m130\">S</a>) <a name=\"m186\">-&gt;</a> <span class=\"f\"><a title=\"pkg.ExClass.static $(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m337\"> </a><a title=\"pkg.ExClass.pkg.ExClass(#T)\" href=\"#m285\">new</a> <a title=\"pkg.ExClass\" href=\"#m250\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;(<span class=\"f\">(<a href=\"#m130\">S</a>)<span class=\"f\">5</span></span>)</span></span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m175\">fct</a></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
