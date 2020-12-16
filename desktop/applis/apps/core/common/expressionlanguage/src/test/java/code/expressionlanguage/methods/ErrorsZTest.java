@@ -4,6 +4,7 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 public final class ErrorsZTest extends ProcessMethodCommon {
 
@@ -4136,5 +4137,12 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage778Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", "");
+        StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl2(files_);
+        assertTrue(!filesExp_.isEmpty());
     }
 }

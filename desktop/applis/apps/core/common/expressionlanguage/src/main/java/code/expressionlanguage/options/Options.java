@@ -12,6 +12,7 @@ public final class Options {
     private boolean covering;
     private boolean gettingErrors;
     private boolean displayImplicit;
+    private boolean encodeHeader = true;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
 
@@ -49,6 +50,14 @@ public final class Options {
 
     public void setDisplayImplicit(boolean _displayImplicit) {
         this.displayImplicit = _displayImplicit;
+    }
+
+    public boolean isEncodeHeader() {
+        return encodeHeader;
+    }
+
+    public void setEncodeHeader(boolean _encodeHeader) {
+        encodeHeader = _encodeHeader;
     }
 
     public CustList<CommentDelimiters> getComments() {

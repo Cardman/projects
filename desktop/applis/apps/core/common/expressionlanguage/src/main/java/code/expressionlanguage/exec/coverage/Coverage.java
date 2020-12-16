@@ -38,6 +38,7 @@ public final class Coverage {
     private KeyWords keyWords;
     private final boolean covering;
     private boolean implicit;
+    private boolean displayEncode;
 
     public Coverage(boolean _covering) {
         this.covering = _covering;
@@ -629,5 +630,13 @@ public final class Coverage {
 
     public void setImplicit(boolean _implicit) {
         this.implicit = _implicit;
+    }
+
+    public boolean isDisplayEncode() {
+        return displayEncode;
+    }
+
+    public void setDisplayEncode(boolean _displayEncode) {
+        this.displayEncode = _displayEncode;
     }
 }

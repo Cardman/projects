@@ -1193,6 +1193,10 @@ public final class AnalyzedPageEl {
         return getOptions().isDisplayImplicit();
     }
 
+    public boolean isEncodeHeader() {
+        return getOptions().isEncodeHeader();
+    }
+
     public boolean isCovering() {
         return getOptions().isCovering();
     }

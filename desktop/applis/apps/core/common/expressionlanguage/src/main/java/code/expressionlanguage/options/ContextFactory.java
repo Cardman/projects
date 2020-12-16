@@ -42,6 +42,7 @@ public final class ContextFactory {
     public static ContextEl simpleBuild(int _stack, Options _options, BuildableLgNames _definedLgNames, int _tabWidth) {
         Coverage coverage_ = new Coverage(_options.isCovering());
         coverage_.setImplicit(_options.isDisplayImplicit());
+        coverage_.setDisplayEncode(_options.isEncodeHeader());
         return _definedLgNames.newContext(_tabWidth,_stack, coverage_);
     }
 

@@ -105,6 +105,7 @@ public final class CustContextFactory {
         _definedLgNames.setExecutingOptions(_exec);
         Coverage coverage_ = new Coverage(_options.isCovering());
         coverage_.setImplicit(_options.isDisplayImplicit());
+        coverage_.setDisplayEncode(_options.isEncodeHeader());
         RunnableContextEl r_ = (RunnableContextEl) _definedLgNames.newContext(_tabWidth, _stack, coverage_);
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(),
                 new DefaultConstantsCalculator(_definedLgNames.getContent().getNbAlias()), CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());

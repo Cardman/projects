@@ -45,7 +45,7 @@ public final class LinkageUtil {
             CustList<PartOffset> listStr_ = processError(toStringOwners_,f,fileExp_, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_,"css/style.css");
-            String cssPart_ = "<head>" +
+            String cssPart_ = "<head>" +encode(_analyzing.isEncodeHeader())+
                     "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
                     "</head>";
             files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
@@ -76,7 +76,7 @@ public final class LinkageUtil {
             CustList<PartOffset> listStr_ = processReport(toStringOwners_,f,fileExp_, cov_, keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String rel_ = relativize(fileExp_,"css/style.css");
-            String cssPart_ = "<head>" +
+            String cssPart_ = "<head>" +encode(cov_.isDisplayEncode())+
                     "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
                     "</head>";
             files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
@@ -154,6 +154,12 @@ public final class LinkageUtil {
         return files_;
     }
 
+    private static String encode(boolean _encode) {
+        if (_encode) {
+            return "<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\"/>";
+        }
+        return "";
+    }
     private static StringBuilder build(FileBlock _fileBlock, String _value, CustList<PartOffset> _listStr) {
         String value_ = _value;
         if (_value.isEmpty()) {

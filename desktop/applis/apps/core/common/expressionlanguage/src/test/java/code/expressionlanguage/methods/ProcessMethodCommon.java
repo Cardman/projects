@@ -220,6 +220,10 @@ public abstract class ProcessMethodCommon {
         AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl();
         return validateAndCheckReportErrors(_files, cont_);
     }
+    protected static StringMap<String> ctxErrStdReadOnlyImpl2(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl2();
+        return validateAndCheckReportErrors(_files, cont_);
+    }
     private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
@@ -237,6 +241,14 @@ public abstract class ProcessMethodCommon {
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
+    }
+    private static AnalyzedTestContext contextElErrorStdReadOnlyDefImpl2() {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        opt_.setDisplayImplicit(true);
+        opt_.setEncodeHeader(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
     private static AnalyzedTestContext contextElCoverageReadOnlyDefImpl() {
@@ -272,6 +284,11 @@ public abstract class ProcessMethodCommon {
         return validateCovAndRet(_files, cont_);
     }
 
+    protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
+        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEnImpl2();
+        return validateCovAndRet(_files, cont_);
+    }
+
     private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
@@ -281,6 +298,15 @@ public abstract class ProcessMethodCommon {
 
     private static AnalyzedTestContext ontextElCoverageReadOnlyEnImpl() {
         Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setCovering(true);
+        opt_.setDisplayImplicit(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
+    }
+
+    private static AnalyzedTestContext ontextElCoverageReadOnlyEnImpl2() {
+        Options opt_ = newOptions();
+        opt_.setEncodeHeader(true);
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
@@ -638,6 +664,7 @@ public abstract class ProcessMethodCommon {
 
     private static Options newOptions() {
         Options options_ = new Options();
+        options_.setEncodeHeader(false);
         DefaultAccess defaultAccess_ = options_.getDefaultAccess();
         setup(defaultAccess_.getAccAnonymous(),AccessEnum.PACKAGE);
         setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
