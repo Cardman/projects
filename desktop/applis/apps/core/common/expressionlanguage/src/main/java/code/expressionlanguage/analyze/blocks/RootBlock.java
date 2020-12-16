@@ -31,7 +31,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final StringList nameErrors = new StringList();
 
-    private final AnaRootBlockContent rootBlockContent = new AnaRootBlockContent();
+    private final AnaRootBlockContent rootBlockContent;
 
     private final AccessEnum access;
 
@@ -103,14 +103,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private int countOv;
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
-              IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
+              IntMap<String> _directSuperTypes, OffsetsBlock _offset, String _name) {
         super(_offset);
         allOverridingMethods = new CustList<OverridingMethodDto>();
+        rootBlockContent = new AnaRootBlockContent();
         rootBlockContent.setPackageName(StringExpUtil.removeDottedSpaces(_packageName));
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
         rootBlockContent.setIdRowCol(_idRowCol);
+        rootBlockContent.setName(_name.trim());
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             directSuperTypes.add(t.getValue());

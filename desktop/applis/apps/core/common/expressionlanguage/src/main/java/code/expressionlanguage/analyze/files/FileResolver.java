@@ -745,7 +745,7 @@ public final class FileResolver {
                     RootBlock typeBlock_;
                     typeBlock_ = new AnonymousTypeBlock(beginType_+_offset, packageName_,
                             new OffsetAccessInfo(beginType_+_offset, AccessEnum.PUBLIC), "", new IntMap<String>(),
-                            new OffsetsBlock(beginType_+_offset,beginType_+_offset));
+                            new OffsetsBlock(beginType_+_offset,beginType_+_offset),_input.getGeneratedId());
                     typeBlock_.setBegin(beginType_+_offset);
                     typeBlock_.setNameLength(1);
                     typeBlock_.setLengthHeader(1);

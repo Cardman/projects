@@ -6,11 +6,12 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.util.IntMap;
 
 public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedBlock {
-//    private String name = "";
+
     private int indexEnd;
     private int numberAnonType = -1;
-    public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
-        super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+
+    public AnonymousTypeBlock(int _idRowCol, String _packageName, OffsetAccessInfo _access, String _templateDef, IntMap<String> _directSuperTypes, OffsetsBlock _offset, String _name) {
+        super(_idRowCol, _packageName, _access, _templateDef, _directSuperTypes, _offset,_name);
     }
 
     @Override
@@ -28,10 +29,6 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
         return true;
     }
 
-    public void setName(String _name) {
-        getRootBlockContent().setName(_name);
-    }
-
     public int getIndexEnd() {
         return indexEnd;
     }
@@ -47,4 +44,5 @@ public final class AnonymousTypeBlock extends RootBlock implements UniqueRootedB
     public void setNumberAnonType(int _numberAnonType) {
         this.numberAnonType = _numberAnonType;
     }
+
 }

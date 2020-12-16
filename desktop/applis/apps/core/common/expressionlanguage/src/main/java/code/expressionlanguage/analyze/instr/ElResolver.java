@@ -346,6 +346,8 @@ public final class ElResolver {
         boolean constText_ = false;
         Ints callings_ = new Ints();
         Ints indexesNew_ = new Ints();
+        StringList stringsNew_ = new StringList();
+        StringList stringsNewEnd_ = new StringList();
         Ints indexesNewEnd_ = new Ints();
         IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
         char prevOp_ = ' ';
@@ -404,7 +406,7 @@ public final class ElResolver {
                 from_++;
                 continue;
             }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,callings_,indexesNew_, _page);
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,callings_,indexesNew_,stringsNew_, _page);
             if (next_ > from_) {
                 from_ = next_;
                 continue;
@@ -425,7 +427,7 @@ public final class ElResolver {
                     }
                 }
             }
-            next_ = processOperatorsQuick(parsBrackets_,callings_,indexesNew_,indexesNewEnd_,from_,curChar_, _string, _globalDirType, _page);
+            next_ = processOperatorsQuick(parsBrackets_,callings_,indexesNew_,indexesNewEnd_,from_,curChar_, _string, _globalDirType,stringsNew_,stringsNewEnd_, _page);
             if (next_ < 0) {
                 break;
             }
@@ -436,7 +438,7 @@ public final class ElResolver {
         }
         return from_;
     }
-    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _callings, Ints _indexesNew, AnalyzedPageEl _page) {
+    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _callings, Ints _indexesNew, StringList _stringsNew, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -499,6 +501,7 @@ public final class ElResolver {
             }
             if (foundLeftPar_) {
                 i_ = j_-1;
+                _stringsNew.add("");
                 _indexesNew.add(i_);
                 return i_;
             }
@@ -538,6 +541,7 @@ public final class ElResolver {
                 }
                 j_ = k_;
             }
+            int from_ = j_;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
                 if (curLoc_ == Templates.LT) {
@@ -562,6 +566,7 @@ public final class ElResolver {
                 }
                 j_++;
             }
+            _stringsNew.add(_string.substring(from_,j_));
             _indexesNew.add(j_);
             return j_;
         }
@@ -758,7 +763,7 @@ public final class ElResolver {
         return i_;
     }
     private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, Ints _callings, Ints _indexesNew, Ints _indexesNewEnd, int _i, char _curChar, String _string,
-                                             RootBlock _globalDirType, AnalyzedPageEl _page) {
+                                             RootBlock _globalDirType, StringList _stringsNew, StringList _stringsNewEnd, AnalyzedPageEl _page) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _parsBrackets;
 
@@ -806,21 +811,26 @@ public final class ElResolver {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            if (_indexesNew.containsObj(parsBrackets_.lastKey())) {
+            int indexLast_ = _indexesNew.indexOf(parsBrackets_.lastKey());
+            if (indexLast_ > -1) {
                 _indexesNewEnd.add(i_);
+                _stringsNewEnd.add(_stringsNew.get(indexLast_));
             }
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (_curChar == ANN_ARR_LEFT) {
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
             if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
-                if (_indexesNewEnd.containsObj(bk_)) {
+                int indexLast_ = _indexesNewEnd.indexOf(bk_);
+                if (indexLast_ > -1) {
+                    String beforeCall_ = _stringsNewEnd.get(indexLast_);
                     int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                     String packageName_ = _globalDirType.getPackageName();
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
                     input_.setFile(_globalDirType.getFile());
                     input_.setNextIndex(i_);
+                    input_.generatedId(beforeCall_,_page.getKeyWords().getKeyWordId());
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
                     int j_ = res_.getNextIndex() - 1;
                     return j_+1;
@@ -1169,6 +1179,7 @@ public final class ElResolver {
             if (foundLeftPar_) {
                 i_ = j_-1;
                 _d.getIndexesNew().add(i_);
+                _d.getStringsNew().add("");
                 _out.setNextIndex(i_);
                 return;
             }
@@ -1211,6 +1222,7 @@ public final class ElResolver {
                 }
                 j_ = k_;
             }
+            int from_ = j_;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
                 if (curLoc_ == Templates.LT) {
@@ -1241,6 +1253,7 @@ public final class ElResolver {
             }
             i_ = j_;
             _d.getIndexesNew().add(i_);
+            _d.getStringsNew().add(_string.substring(from_,j_));
             _out.setNextIndex(i_);
             return;
         }
@@ -2193,15 +2206,19 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            if (_dout.getIndexesNew().containsObj(parsBrackets_.lastKey())) {
+            int indexLast_ = _dout.getIndexesNew().indexOf(parsBrackets_.lastKey());
+            if (indexLast_ > -1) {
                 _dout.getIndexesNewEnd().add(i_);
+                _dout.getStringsNewEnd().add(_dout.getStringsNew().get(indexLast_));
             }
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == ANN_ARR_LEFT) {
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
             if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
-                if (_dout.getIndexesNewEnd().containsObj(bk_)) {
+                int indexLast_ = _dout.getIndexesNewEnd().indexOf(bk_);
+                if (indexLast_ > -1) {
+                    String beforeCall_ = _dout.getStringsNewEnd().get(indexLast_);
                     RootBlock globalType_ = _page.getGlobalDirType();
                     if (globalType_ != null) {
                         int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -2210,6 +2227,7 @@ public final class ElResolver {
                         input_.setType(OuterBlockEnum.ANON_TYPE);
                         input_.setFile(globalType_.getFile());
                         input_.setNextIndex(i_);
+                        input_.generatedId(beforeCall_,_page.getKeyWords().getKeyWordId());
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
                         Block block_ = res_.getBlock();
                         int j_ = res_.getNextIndex() - 1;

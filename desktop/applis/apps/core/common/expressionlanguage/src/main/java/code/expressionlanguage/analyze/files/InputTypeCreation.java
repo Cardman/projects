@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.Ints;
+import code.util.StringList;
 
 public final class InputTypeCreation {
 
@@ -11,6 +13,7 @@ public final class InputTypeCreation {
     private OuterBlockEnum type;
     private FileBlock file;
     private Ints badIndexes = new Ints();
+    private String generatedId="";
 
     public int getNextIndex() {
         return nextIndex;
@@ -45,5 +48,18 @@ public final class InputTypeCreation {
 
     public Ints getBadIndexes() {
         return badIndexes;
+    }
+
+    public String getGeneratedId() {
+        return generatedId;
+    }
+
+    public void generatedId(String _generated,String _defaultId) {
+        StringList parts_ = StringExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(_generated.trim()));
+        if (parts_.isEmpty()) {
+            generatedId = _defaultId;
+        } else {
+            generatedId = parts_.last().trim();
+        }
     }
 }
