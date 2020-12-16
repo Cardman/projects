@@ -435,18 +435,20 @@ public final class ClassesUtil {
                 }
             }
         }
-        String className_;
-        className_ = _root.getName().trim();
-        TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkToken(className_, _page);
-        if (resClName_.isError()) {
-            FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-            badCl_.setFileName(_root.getFile().getFileName());
-            badCl_.setIndexFile(_root.getIdRowCol());
-            //name part if possible or original type
-            badCl_.setBuiltError(resClName_.getMessage());
-            _page.addLocError(badCl_);
-            _root.addNameErrors(badCl_);
-            ok_ = false;
+        if (!(_root instanceof AnonymousTypeBlock)) {
+            String className_;
+            className_ = _root.getName().trim();
+            TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkToken(className_, _page);
+            if (resClName_.isError()) {
+                FoundErrorInterpret badCl_ = new FoundErrorInterpret();
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setIndexFile(_root.getIdRowCol());
+                //name part if possible or original type
+                badCl_.setBuiltError(resClName_.getMessage());
+                _page.addLocError(badCl_);
+                _root.addNameErrors(badCl_);
+                ok_ = false;
+            }
         }
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();

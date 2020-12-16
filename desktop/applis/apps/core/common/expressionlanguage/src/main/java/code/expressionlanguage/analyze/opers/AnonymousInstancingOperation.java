@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
@@ -24,6 +25,7 @@ public final class AnonymousInstancingOperation extends
     private RootBlock glType;
     private String base;
     private String type="";
+    private String simpleName="";
     private int index;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
@@ -54,7 +56,13 @@ public final class AnonymousInstancingOperation extends
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
-        if (getTypeInfer().contains("#")) {
+        StringList parts_ = StringExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(realClassName_));
+        if (parts_.isEmpty()) {
+            simpleName = _page.getKeyWords().getKeyWordId();
+        } else {
+            simpleName = parts_.last().trim();
+        }
+        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(simpleName)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -117,7 +125,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
-        instancingAnonContent.getBlock().setName(((ImmutableNameRootBlock)g_).getName());
+        instancingAnonContent.getBlock().setName(simpleName);
         instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
         instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());

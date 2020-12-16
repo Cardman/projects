@@ -3036,7 +3036,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("  this.p=p;\n");
         xml_.append(" }\n");
         xml_.append(" static int m(){\n");
-        xml_.append("  return m(4,a -> new(a){Ext(int q){super(q);}});\n");
+        xml_.append("  return m(4,a -> new(a){$id(int q){super(q);}});\n");
         xml_.append(" }\n");
         xml_.append(" static int m(int a,Fct<int,Ext<int,int[]>> fct){\n");
         xml_.append("  return fct.call(a).p;\n");

@@ -210,7 +210,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Int<int> l = new(2){\n");
         xml_.append("   public int field;\n");
-        xml_.append("   public Int(int p){\n");
+        xml_.append("   public $id(int p){\n");
         xml_.append("    field = p;\n");
         xml_.append("   }\n");
         xml_.append("   public int field(){\n");
@@ -241,7 +241,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Int<int> l = new(2){\n");
         xml_.append("   public int field;\n");
-        xml_.append("   public Int(int... p){\n");
+        xml_.append("   public $id(int... p){\n");
         xml_.append("    field = p[0];\n");
         xml_.append("   }\n");
         xml_.append("   public int field(){\n");
@@ -272,7 +272,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Int<int> l = new($vararg(int),$firstopt(2)){\n");
         xml_.append("   public int field;\n");
-        xml_.append("   public Int(int... p){\n");
+        xml_.append("   public $id(int... p){\n");
         xml_.append("    field = p[0];\n");
         xml_.append("   }\n");
         xml_.append("   public int field(){\n");
@@ -954,6 +954,99 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         assertEq(3, getNumber(ret_));
     }
     @Test
+    public void calculate29() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  Int<int> l = new(2){\n");
+        xml_.append("   public int field;\n");
+        xml_.append("   public $id(int p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..$id*1\").getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq("pkg.Ext..$id*1", getString(ret_));
+    }
+    @Test
+    public void calculate30() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  Int<int> l = new (2){\n");
+        xml_.append("   public int field;\n");
+        xml_.append("   public $id(int p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..$id*1\").getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq("pkg.Ext..$id*1", getString(ret_));
+    }
+    @Test
+    public void calculate31() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  Int<int> l = new {} (2){\n");
+        xml_.append("   public int field;\n");
+        xml_.append("   public $id(int p){\n");
+        xml_.append("    field = p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..$id*1\").getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq("pkg.Ext..$id*1", getString(ret_));
+    }
+    @Test
     public void fail1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -1039,6 +1132,8 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("interface pkg.Int<T> {\n");
         xml_.append(" T field();\n");
         xml_.append("}\n");
+        xml_.append("interface pkg.Int2 {\n");
+        xml_.append("}\n");
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static int extField;\n");
         xml_.append(" static int m(){\n");
@@ -1050,6 +1145,8 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         xml_.append("   public int field(){\n");
         xml_.append("    return field;\n");
         xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  Int2 m = new Int2.(){\n");
         xml_.append("  };\n");
         xml_.append("  return l.field();\n");
         xml_.append("  return l.field();\n");
