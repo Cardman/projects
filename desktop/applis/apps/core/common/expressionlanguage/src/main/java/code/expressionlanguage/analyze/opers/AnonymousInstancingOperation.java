@@ -55,7 +55,7 @@ public final class AnonymousInstancingOperation extends
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
-        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(getSimpleName())) {
+        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

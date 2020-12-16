@@ -1535,6 +1535,17 @@ public final class StringExpUtil {
         return ret_;
     }
 
+    public static boolean isDollarWord(String _string) {
+        if (_string.isEmpty()) {
+            return false;
+        }
+        for (char c : _string.toCharArray()) {
+            if (!isDollarWordChar(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean isDollarWordChar(char _char) {
         if (_char == '$') {
             return true;
@@ -8494,15 +8505,4 @@ public final class StringExpUtil {
         return _ch;
     }
 
-    public static boolean isDollarWord(String _string) {
-        if (_string.isEmpty()) {
-            return false;
-        }
-        for (char c : _string.toCharArray()) {
-            if (!MathExpUtil.isWordChar(c) && c != '$') {
-                return false;
-            }
-        }
-        return true;
-    }
 }

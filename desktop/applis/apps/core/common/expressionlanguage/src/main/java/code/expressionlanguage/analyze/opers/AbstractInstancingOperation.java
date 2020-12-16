@@ -36,7 +36,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     private StringList staticInitInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
-    private String simpleName="";
 
     public AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -64,12 +63,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         staticInitInterfacesOffset = ints_.getStaticInitInterfacesOffset();
         local_ = ints_.getLocIndex();
         className_ = ints_.getPart();
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(className_));
-        if (parts_.isEmpty()) {
-            simpleName = _page.getKeyWords().getKeyWordId();
-        } else {
-            simpleName = parts_.last().trim();
-        }
         AnaClassArgumentMatching arg_ = getPreviousResultClass();
         StringMap<String> ownersMap_ = new StringMap<String>();
         StringMap<String> vars_ = new StringMap<String>();
@@ -331,10 +324,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
         ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
         typeInfer = infer_;
-    }
-
-    protected String getSimpleName() {
-        return simpleName;
     }
 
     void checkInstancingType(String _realClassName, MethodAccessKind _staticAccess, AnalyzedPageEl _page) {
