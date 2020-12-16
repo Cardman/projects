@@ -111,6 +111,9 @@ public final class LinkageUtil {
         }
         String callTable_ = "calls.html";
         StringBuilder table_ = new StringBuilder("<html>");
+        table_.append("<head>");
+        table_.append(encode(cov_.isDisplayEncode()));
+        table_.append("</head>");
         table_.append("<body>");
         table_.append("<table>");
         table_.append("<tr>");
