@@ -486,11 +486,12 @@ public final class ElResolver {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
                         l_++;
+                        j_++;
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
                         foundLeftPar_ = true;
+                        j_++;
                     }
-                    j_++;
                     break;
                 }
                 l_++;
@@ -1151,14 +1152,15 @@ public final class ElResolver {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
                         l_++;
+                        j_++;
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
                         foundLeftPar_ = true;
                         if (curLoc_ == PAR_LEFT ) {
                             _d.getCallings().add(j_);
                         }
+                        j_++;
                     }
-                    j_++;
                     break;
                 }
                 l_++;

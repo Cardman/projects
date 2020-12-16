@@ -5411,7 +5411,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         AnalyzedTestContext conf_ = contextEl();
 
         String el_ = "$new $interfaces ";
-        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(5, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5419,7 +5419,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         AnalyzedTestContext conf_ = contextEl();
 
         String el_ = "$new $interfaces( ";
-        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(5, checkSyntax(conf_, el_).getBadOffset());
     }
 
     private AnalyzedTestContext prepare(StringMap<String> _files) {
