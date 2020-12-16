@@ -21,11 +21,10 @@ public final class AnonymousInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation {
 
     private AnaInstancingAnonContent instancingAnonContent;
-    private String glClass;
+    private String glClass="";
     private RootBlock glType;
-    private String base;
+    private String base="";
     private String type="";
-    private String simpleName="";
     private int index;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
@@ -56,13 +55,8 @@ public final class AnonymousInstancingOperation extends
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
-        StringList parts_ = StringExpUtil.getDollarWordSeparators(StringExpUtil.getIdFromAllTypes(realClassName_));
-        if (parts_.isEmpty()) {
-            simpleName = _page.getKeyWords().getKeyWordId();
-        } else {
-            simpleName = parts_.last().trim();
-        }
-        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(simpleName)) {
+        instancingAnonContent.getBlock().setName(getSimpleName());
+        if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(getSimpleName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -125,7 +119,6 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
-        instancingAnonContent.getBlock().setName(simpleName);
         instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
         instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
