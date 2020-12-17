@@ -33,11 +33,7 @@ public final class Delimiters {
     private Ints delDefaultValue = new Ints();
     private Ints delClass = new Ints();
     private Ints delSimpleAnnotations = new Ints();
-    private Ints callings = new Ints();
-    private Ints indexesNew = new Ints();
-    private StringList stringsNew = new StringList();
-    private Ints indexesNewEnd = new Ints();
-    private StringList stringsNewEnd = new StringList();
+    private StackDelimiters stack = new StackDelimiters();
     private CustList<StringInfo> stringInfo = new CustList<StringInfo>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
@@ -141,24 +137,8 @@ public final class Delimiters {
         return delSimpleAnnotations;
     }
 
-    public Ints getCallings() {
-        return callings;
-    }
-
-    public Ints getIndexesNew() {
-        return indexesNew;
-    }
-
-    public StringList getStringsNew() {
-        return stringsNew;
-    }
-
-    public Ints getIndexesNewEnd() {
-        return indexesNewEnd;
-    }
-
-    public StringList getStringsNewEnd() {
-        return stringsNewEnd;
+    public StackDelimiters getStack() {
+        return stack;
     }
 
     public int getIndexBegin() {
