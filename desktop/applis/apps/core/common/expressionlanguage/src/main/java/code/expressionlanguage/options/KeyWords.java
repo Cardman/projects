@@ -736,20 +736,20 @@ public final class KeyWords {
     }
     public StringMap<Character> getSuffixes() {
         StringMap<Character> keyWords_ = new StringMap<Character>();
-        keyWords_.put(keyWordNbSufDoublePrim,'d');
-        keyWords_.put(keyWordNbSufDouble,'D');
-        keyWords_.put(keyWordNbSufFloatPrim,'f');
-        keyWords_.put(keyWordNbSufFloat,'F');
-        keyWords_.put(keyWordNbSufLongPrim,'l');
-        keyWords_.put(keyWordNbSufLong,'L');
-        keyWords_.put(keyWordNbSufIntegerPrim,'i');
-        keyWords_.put(keyWordNbSufInteger,'I');
-        keyWords_.put(keyWordNbSufCharacterPrim,'c');
-        keyWords_.put(keyWordNbSufCharacter,'C');
-        keyWords_.put(keyWordNbSufShortPrim,'s');
-        keyWords_.put(keyWordNbSufShort,'S');
-        keyWords_.put(keyWordNbSufBytePrim,'b');
-        keyWords_.put(keyWordNbSufByte,'B');
+        keyWords_.addEntry(keyWordNbSufDoublePrim,'d');
+        keyWords_.addEntry(keyWordNbSufDouble,'D');
+        keyWords_.addEntry(keyWordNbSufFloatPrim,'f');
+        keyWords_.addEntry(keyWordNbSufFloat,'F');
+        keyWords_.addEntry(keyWordNbSufLongPrim,'l');
+        keyWords_.addEntry(keyWordNbSufLong,'L');
+        keyWords_.addEntry(keyWordNbSufIntegerPrim,'i');
+        keyWords_.addEntry(keyWordNbSufInteger,'I');
+        keyWords_.addEntry(keyWordNbSufCharacterPrim,'c');
+        keyWords_.addEntry(keyWordNbSufCharacter,'C');
+        keyWords_.addEntry(keyWordNbSufShortPrim,'s');
+        keyWords_.addEntry(keyWordNbSufShort,'S');
+        keyWords_.addEntry(keyWordNbSufBytePrim,'b');
+        keyWords_.addEntry(keyWordNbSufByte,'B');
         return keyWords_;
     }
     public String getNbKeyWord(String _string, int _from) {

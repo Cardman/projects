@@ -88,6 +88,8 @@ public final class ContextFactory {
         ValidatorStandard.validatePrimitiveDuplicates(prims_, _page);
         _definedKw.validateKeyWordDuplicates(keyWords_, _page);
         _definedKw.validateEscapingsDuplicates(escapings_, _page);
+        StringMap<String> nbWordsBasic_ = _definedKw.allNbWords(new StringMap<String>());
+        _definedKw.validateNbWordDuplicates(nbWordsBasic_, _page);
         StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
         _definedKw.validateNbWordDuplicates(nbWordsDec_, _page);
         StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
