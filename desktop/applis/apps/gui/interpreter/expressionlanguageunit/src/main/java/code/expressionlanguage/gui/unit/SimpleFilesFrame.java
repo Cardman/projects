@@ -247,13 +247,13 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             errors.append("\n");
             return;
         }
-        this.filePath = _filePath;
         byte[] confFile_ = StreamBinaryFile.loadFile(_filePath);
         if (confFile_ == null) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
             errors.append("\n");
             return;
         }
+        this.filePath = _filePath;
         confFile = confFile_;
         errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
         errors.append("\n");
