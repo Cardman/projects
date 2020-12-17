@@ -163,52 +163,52 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     }
 
     public void src() {
-        Thread th_ = parent.getTh();
-        if (th_ != null && th_.isAlive()) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),srcField.getText()));
-            errors.append("\n");
-            return;
-        }
-        if (StreamFolderFile.isAbsolute(srcField.getText())) {
-            src = StreamBinaryFile.loadFile(srcField.getText());
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),srcField.getText()));
-            errors.append("\n");
-        } else {
-            if (!StreamFolderFile.isAbsolute(folderField.getText())) {
-                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),srcField.getText()));
-                errors.append("\n");
-                return;
-            }
-            src = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+srcField.getText());
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+srcField.getText()));
-            errors.append("\n");
+        byte[] read_ = read(srcField);
+        if (read_ != null) {
+            src = read_;
         }
     }
 
     public void files() {
+        byte[] read_ = read(filesField);
+        if (read_ != null) {
+            files = read_;
+        }
+    }
+    public byte[] read(TextField _fileField) {
         Thread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),filesField.getText()));
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_fileField.getText()));
             errors.append("\n");
-            return;
+            return null;
         }
-        if (StreamFolderFile.isAbsolute(filesField.getText())) {
-            files = StreamBinaryFile.loadFile(filesField.getText());
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),filesField.getText()));
-            errors.append("\n");
-        } else {
-            if (!StreamFolderFile.isAbsolute(folderField.getText())) {
-                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),filesField.getText()));
+        if (StreamFolderFile.isAbsolute(_fileField.getText())) {
+            byte[] files_ = StreamBinaryFile.loadFile(_fileField.getText());
+            if (files_ == null) {
+                errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
                 errors.append("\n");
-                return;
+                return null;
             }
-            files = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+filesField.getText());
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+filesField.getText()));
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_fileField.getText()));
             errors.append("\n");
+            return files_;
         }
+        if (!StreamFolderFile.isAbsolute(folderField.getText())) {
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
+            errors.append("\n");
+            return null;
+        }
+        byte[] files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText());
+        if (files_ == null) {
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
+            errors.append("\n");
+            return null;
+        }
+        errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText()));
+        errors.append("\n");
+        return files_;
 
     }
-
     @Override
     public String getTxtConf() {
 
@@ -243,12 +243,17 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     public void setFilePath(String _filePath) {
         Thread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
-            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoad"),_filePath));
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_filePath));
             errors.append("\n");
             return;
         }
         this.filePath = _filePath;
         confFile = StreamBinaryFile.loadFile(_filePath);
+        if (confFile == null) {
+            errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
+            errors.append("\n");
+            return;
+        }
         errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
         errors.append("\n");
     }
