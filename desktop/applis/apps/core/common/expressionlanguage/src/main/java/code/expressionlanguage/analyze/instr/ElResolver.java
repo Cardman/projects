@@ -488,6 +488,9 @@ public final class ElResolver {
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
                         foundLeftPar_ = true;
+                        if (curLoc_ == PAR_LEFT ) {
+                            _stack.getCallings().add(j_);
+                        }
                         j_++;
                     }
                     break;
