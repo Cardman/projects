@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
@@ -25,7 +26,7 @@ import code.util.core.StringUtil;
 public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
 
     private String defaultValue;
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private int defaultValueOffset;
     private int rightPar;
     private boolean ko;
@@ -102,12 +103,12 @@ public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
         }
         _page.setGlobalOffset(defaultValueOffset);
         _page.setOffset(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        AnaClassArgumentMatching arg_ = root.getResultClass();
+        AnaClassArgumentMatching arg_ = res.getRoot().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
@@ -122,14 +123,17 @@ public final class AnnotationMethodBlock extends NamedCalledFunctionBlock {
             addNameErrors(cast_);
         }
         if (AnaTypeUtil.isPrimitive(getImportedReturnType(), _page)) {
-            root.getResultClass().setUnwrapObject(getImportedReturnType(), _page.getPrimitiveTypes());
+            res.getRoot().getResultClass().setUnwrapObject(getImportedReturnType(), _page.getPrimitiveTypes());
         }
-        ReachOperationUtil.tryCalculate(root, _page);
+        ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public void setKo() {

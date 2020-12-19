@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -24,7 +25,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
     private Argument argument;
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
 
     private boolean builtEnum;
     private boolean emptyType;
@@ -81,7 +82,7 @@ public final class CaseCondition extends SwitchPartBlock {
             //key word len
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
-            root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
+            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
@@ -146,20 +147,20 @@ public final class CaseCondition extends SwitchPartBlock {
                 ElUtil.retrieveErrorsAnalyze(op_, _page);
                 _page.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
-                root = op_;
+                res.setRoot(op_);
                 builtEnum = true;
                 fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 return;
             }
-            root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
+            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
             String emp_ = _page.getCurrentEmptyPartErr();
             if (!emp_.isEmpty()) {
                 addErrorBlock(emp_);
             }
             return;
         }
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(stCtx_), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
             addErrorBlock(emp_);
@@ -191,6 +192,10 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
     public EnumBlock getEnumBlock() {
         return enumBlock;
     }
@@ -204,7 +209,7 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public String getTypeEnum() {

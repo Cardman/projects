@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -23,7 +24,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private Argument argument;
 
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
 
     private String err = "";
 
@@ -48,9 +49,9 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setGlobalOffset(conditionOffset);
         _page.setOffset(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(condition, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition, Calculation.staticCalculation(f_.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
-        processBoolean(root, _page);
+        processBoolean(res.getRoot(), _page);
     }
 
     private void processBoolean(OperationNode _root, AnalyzedPageEl _page) {
@@ -84,6 +85,10 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
     public AnaTypeFct getFunctionImpl() {
         return functionImpl;
     }
@@ -106,7 +111,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public String getErr() {

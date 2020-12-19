@@ -14,7 +14,6 @@ import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
@@ -118,7 +117,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
-        instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
+//        instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
         instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
@@ -144,16 +143,7 @@ public final class AnonymousInstancingOperation extends
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
-        KeyWords keyWords_ = _page.getKeyWords();
-        String newKeyWord_ = keyWords_.getKeyWordNew();
-        String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
-        int j_ = realClassName_.indexOf("}");
-        if (j_ > -1) {
-            off_ += j_+1;
-        }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (!isIntermediateDottedOperation()) {
             analyzeCtor(_page);
         }

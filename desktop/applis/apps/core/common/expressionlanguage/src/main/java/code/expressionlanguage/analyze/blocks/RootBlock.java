@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
@@ -79,6 +80,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final StringList allGenericClasses = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<OperationNode> roots = new CustList<OperationNode>();
+    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private int nbOperators;
     private int numberAll = -1;
     private final StringList allSuperTypes = new StringList();
@@ -181,7 +183,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -1999,6 +2001,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return generic_;
     }
+
+    public CustList<ResultExpression> getResList() {
+        return resList;
+    }
+
     public int getNumberAll() {
         return numberAll;
     }

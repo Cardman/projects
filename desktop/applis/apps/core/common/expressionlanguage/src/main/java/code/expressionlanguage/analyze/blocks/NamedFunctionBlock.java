@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -36,7 +37,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private String returnType;
 
-    private String importedReturnType;
+    private String importedReturnType = "";
 
     private final StringList importedParametersTypes;
 
@@ -59,7 +60,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
 
     private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
+    private CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
@@ -137,7 +140,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -156,7 +159,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 _page.setGlobalOffset(begin_);
                 _page.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(list_.get(i).trim(), c_, _page);
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), list_.get(i).trim(), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }
@@ -306,6 +309,14 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<PartOffset> getPartOffsetsReturn() {
         return partOffsetsReturn;
+    }
+
+    public CustList<ResultExpression> getResList() {
+        return resList;
+    }
+
+    public CustList<CustList<ResultExpression>> getResLists() {
+        return resLists;
     }
 
     public CustList<OperationNode> getRoots() {

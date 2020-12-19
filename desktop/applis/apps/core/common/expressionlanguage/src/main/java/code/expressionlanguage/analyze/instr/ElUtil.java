@@ -1,10 +1,12 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
@@ -22,9 +24,10 @@ public final class ElUtil {
     private ElUtil() {
     }
 
-    public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static CustList<PartOffsetAffect> getFieldNames(ResultExpression _res,int _valueOffset, String _el, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _page);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (d_.getBadOffset() >= 0) {
@@ -106,10 +109,11 @@ public final class ElUtil {
         _page.setAccessStaticContext(access_);
     }
 
-    public static OperationNode getRootAnalyzedOperationsReadOnly(String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static OperationNode getRootAnalyzedOperationsReadOnly(ResultExpression _res, String _el, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentEmptyPartErr("");
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
@@ -126,6 +130,7 @@ public final class ElUtil {
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
+            _res.setRoot(e_);
             return e_;
         }
         OperationNode op_;
@@ -142,13 +147,15 @@ public final class ElUtil {
         setupStaticContext(hiddenVarTypes_, op_, _page);
         setSyntheticRoot(op_, hasFieldName_);
         getSortedDescNodesReadOnly(op_, fieldName_,hasFieldName_, _page);
+        _res.setRoot(op_);
         return op_;
     }
 
 
-    public static CustList<OperationNode> getAnalyzedOperationsQucikly(String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static CustList<OperationNode> getAnalyzedOperationsQucikly(ResultExpression _res,String _el, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         _page.getAnonymous().removeLast();
         _page.getAnonymousLambda().removeLast();

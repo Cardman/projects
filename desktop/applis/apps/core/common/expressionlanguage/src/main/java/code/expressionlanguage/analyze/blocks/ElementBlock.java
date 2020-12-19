@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -34,8 +35,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int valueOffest;
 
     private StringList annotations = new StringList();
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
@@ -154,15 +156,23 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = StringUtil.concat(elementContent.getFieldName(),"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
-        int tr_ = valueOffest -1 - elementContent.getFieldName().length() - elementContent.getFieldNameOffest() - 1 - newKeyWord_.length();
+        String fullInstance_ = buildVirtualCreate(newKeyWord_);
+        int tr_ = retrieveTr(newKeyWord_);
         trOffset = tr_;
         _page.setTranslatedOffset(tr_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(elementContent.getFieldName()), _page);
-        ReachOperationUtil.tryCalculate(root, _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(elementContent.getFieldName()), _page));
+        ReachOperationUtil.tryCalculate(res.getRoot(), _page);
         _page.setTranslatedOffset(0);
+    }
+
+    public String buildVirtualCreate(String _newKeyWord) {
+        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, value, PAR_RIGHT);
+    }
+
+    public int retrieveTr(String _newKeyWord) {
+        return valueOffest -1 - elementContent.getFieldName().length() - elementContent.getFieldNameOffest() - 1 - _newKeyWord.length();
     }
 
     private int getIndex() {
@@ -183,7 +193,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -198,9 +208,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotationsIndexes;
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
+    public CustList<ResultExpression> getResList() {
+        return resList;
+    }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public CustList<OperationNode> getRoots() {

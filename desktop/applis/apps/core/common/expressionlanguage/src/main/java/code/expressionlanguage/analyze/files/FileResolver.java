@@ -337,6 +337,7 @@ public final class FileResolver {
             addBadIndex(_input, currentParent_, out_, len_);
         }
         out_.setNextIndex(i_);
+        out_.setOkType(okType_);
         return out_;
     }
 

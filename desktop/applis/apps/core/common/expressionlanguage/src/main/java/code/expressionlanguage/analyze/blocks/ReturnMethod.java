@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.WrappOperation;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -22,7 +23,7 @@ public final class ReturnMethod extends AbruptBlock {
 
     private final String expression;
 
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private int expressionOffset;
     private boolean implicit;
     private String returnType = "";
@@ -56,15 +57,15 @@ public final class ReturnMethod extends AbruptBlock {
         MethodAccessKind stCtx_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(stCtx_), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(stCtx_), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }
         returnType = retType_;
         if (f_ instanceof NamedFunctionBlock) {
             if (((NamedFunctionBlock)f_).isRetRef()) {
-                AnaClassArgumentMatching ret_ = root.getResultClass();
-                if (!(root instanceof WrappOperation)||!ret_.matchClass(retType_)) {
+                AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
+                if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -78,7 +79,7 @@ public final class ReturnMethod extends AbruptBlock {
                 return;
             }
         }
-        checkTypes(retType_, root, _page);
+        checkTypes(retType_, res.getRoot(), _page);
     }
 
     private String processReturnValue(AnalyzedPageEl _page) {
@@ -144,9 +145,12 @@ public final class ReturnMethod extends AbruptBlock {
         }
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public boolean isImplicit() {

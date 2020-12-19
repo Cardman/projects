@@ -8,6 +8,8 @@ public final class ResultCreation {
 
     private Block block;
 
+    private boolean okType;
+
     public Block getBlock() {
         return block;
     }
@@ -24,4 +26,11 @@ public final class ResultCreation {
         nextIndex = _nextIndex;
     }
 
+    public boolean isOkType() {
+        return okType;
+    }
+
+    public void setOkType(boolean _okType) {
+        this.okType = _okType;
+    }
 }

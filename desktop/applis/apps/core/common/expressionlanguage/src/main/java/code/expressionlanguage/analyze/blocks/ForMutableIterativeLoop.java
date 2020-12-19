@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -55,9 +56,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private boolean alwaysTrue;
     private Argument argument;
 
-    private OperationNode rootInit;
-    private OperationNode rootExp;
-    private OperationNode rootStep;
+    private ResultExpression resInit = new ResultExpression();
+    private ResultExpression resExp = new ResultExpression();
+    private ResultExpression resStep = new ResultExpression();
 
     private AnaTypeFct functionImpl;
     private AnaTypeFct function;
@@ -174,7 +175,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!init.trim().isEmpty()) {
-            rootInit = ElUtil.getRootAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
+            resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
         }
         addVars(_page);
         _page.setGlobalOffset(expressionOffset);
@@ -183,8 +184,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         if (expression.trim().isEmpty()) {
             alwaysTrue = true;
         } else {
-            rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
-            checkBoolCondition(rootExp, _page);
+            resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, expression, Calculation.staticCalculation(static_), _page));
+            checkBoolCondition(resExp.getRoot(), _page);
         }
         _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
@@ -193,7 +194,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
         if (!step.trim().isEmpty()) {
-            rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
+            resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, step, Calculation.staticCalculation(static_), _page));
         }
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
@@ -299,16 +300,28 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         return argument;
     }
 
+    public ResultExpression getResInit() {
+        return resInit;
+    }
+
     public OperationNode getRootInit() {
-        return rootInit;
+        return resInit.getRoot();
+    }
+
+    public ResultExpression getResExp() {
+        return resExp;
     }
 
     public OperationNode getRootExp() {
-        return rootExp;
+        return resExp.getRoot();
+    }
+
+    public ResultExpression getResStep() {
+        return resStep;
     }
 
     public OperationNode getRootStep() {
-        return rootStep;
+        return resStep.getRoot();
     }
 
     public String getImportedClassName() {

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
@@ -35,7 +36,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private int fieldNumber;
     private EnumBlock parentEnum;
     private StringList fieldList = new StringList();
@@ -118,15 +119,23 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _page.setOffset(0);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = StringUtil.concat(elementContent.getFieldName(),"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
-        int trOffset_ = valueOffest  -1 - elementContent.getFieldName().length()- elementContent.getFieldNameOffest() - 1 - newKeyWord_.length();
+        String fullInstance_ = buildVirtualCreate(newKeyWord_);
+        int trOffset_ = retrieveTr(newKeyWord_);
         trOffset = trOffset_;
         _page.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
         _page.setIndexChildType(index_);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(fullInstance_, new Calculation(elementContent.getFieldName()), _page);
-        ReachOperationUtil.tryCalculate(root, _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(elementContent.getFieldName()), _page));
+        ReachOperationUtil.tryCalculate(res.getRoot(), _page);
         _page.setTranslatedOffset(0);
+    }
+
+    public String buildVirtualCreate(String _newKeyWord) {
+        return StringUtil.concat(elementContent.getFieldName(),"=", _newKeyWord, PAR_LEFT, value, PAR_RIGHT);
+    }
+
+    public int retrieveTr(String _newKeyWord) {
+        return valueOffest  -1 - elementContent.getFieldName().length()- elementContent.getFieldNameOffest() - 1 - _newKeyWord.length();
     }
 
 
@@ -177,6 +186,10 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         }
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
     @Override
     public CustList<PartOffset> getTypePartOffsets() {
         return partOffsets;
@@ -213,7 +226,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     @Override

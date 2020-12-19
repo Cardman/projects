@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -28,7 +29,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private boolean enumTest;
     private String instanceTest = "";
 
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
 
     private String err = "";
 
@@ -72,9 +73,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setGlobalOffset(valueOffset);
         _page.setOffset(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(f_.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
-        result = root.getResultClass();
+        result = res.getRoot().getResultClass();
         processAfterEl(_page);
     }
 
@@ -154,8 +155,12 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return result;
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public String getErr() {

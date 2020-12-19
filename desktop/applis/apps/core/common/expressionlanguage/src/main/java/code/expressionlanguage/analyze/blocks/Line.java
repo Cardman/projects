@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
@@ -20,7 +21,7 @@ public final class Line extends Leaf implements BuildableElMethod {
     private boolean callThis;
     private boolean callInts;
     private boolean callFromCtorToCtor;
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private String importedClass;
 
     public Line(OffsetStringInfo _left, OffsetsBlock _offset) {
@@ -44,30 +45,30 @@ public final class Line extends Leaf implements BuildableElMethod {
         _page.setOffset(0);
         String import_ = _page.getAliasObject();
         importedClass = import_;
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(st_), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(st_), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }
-        if (root instanceof CurrentInvokingConstructor) {
+        if (res.getRoot() instanceof CurrentInvokingConstructor) {
             callFromCtorToCtor = true;
             callThis = true;
         }
-        if (root instanceof SuperInvokingConstructor) {
+        if (res.getRoot() instanceof SuperInvokingConstructor) {
             callFromCtorToCtor = true;
             callSuper = true;
         }
-        if (root instanceof InterfaceInvokingConstructor) {
+        if (res.getRoot() instanceof InterfaceInvokingConstructor) {
             callFromCtorToCtor = true;
             callInts = true;
         }
-        if (root instanceof AbstractInvokingConstructor) {
-            constId =((AbstractInvokingConstructor)root).getConstId();
+        if (res.getRoot() instanceof AbstractInvokingConstructor) {
+            constId =((AbstractInvokingConstructor) res.getRoot()).getConstId();
         }
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             if (declaring_.isRefVariable()) {
-                checkOpers(root, _page);
+                checkOpers(res.getRoot(), _page);
             }
             import_ = declaring_.getImportedClassName();
             importedClass = import_;
@@ -121,6 +122,9 @@ public final class Line extends Leaf implements BuildableElMethod {
         }
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
 
     public ConstructorId getConstId() {
         return constId;
@@ -149,7 +153,7 @@ public final class Line extends Leaf implements BuildableElMethod {
     }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public String getImportedClass() {

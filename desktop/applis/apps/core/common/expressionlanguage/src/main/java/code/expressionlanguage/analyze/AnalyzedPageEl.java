@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.*;
@@ -76,7 +77,9 @@ public final class AnalyzedPageEl {
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaMethod = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
+    private final CustList<RootBlock> outerTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private CustList<IntermediaryResults> nextResults = new CustList<IntermediaryResults>();
     private final NatStringTreeMap<RootBlock> sorted = new NatStringTreeMap<RootBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
@@ -135,6 +138,7 @@ public final class AnalyzedPageEl {
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
+    private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
     private CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
     private CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
     private CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
@@ -746,6 +750,18 @@ public final class AnalyzedPageEl {
         return listTypesNames;
     }
 
+    public CustList<RootBlock> getOuterTypes() {
+        return outerTypes;
+    }
+
+    public CustList<IntermediaryResults> getNextResults() {
+        return nextResults;
+    }
+
+    public void setNextResults(CustList<IntermediaryResults> _nextResults) {
+        this.nextResults = _nextResults;
+    }
+
     public CustList<RootBlock> getFoundTypes() {
         return foundTypes;
     }
@@ -1080,6 +1096,14 @@ public final class AnalyzedPageEl {
 
     public CustList<AnonymousResult> getAnonymousResults() {
         return anonymousResults;
+    }
+
+    public CustList<AnonymousResult> getCurrentAnonymousResults() {
+        return currentAnonymousResults;
+    }
+
+    public void setCurrentAnonymousResults(CustList<AnonymousResult> _currentAnonymousResults) {
+        this.currentAnonymousResults = _currentAnonymousResults;
     }
 
     public CustList<CustList<AnonymousInstancingOperation>> getAnonymous() {

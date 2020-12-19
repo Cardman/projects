@@ -1,6 +1,7 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -24,6 +25,7 @@ public final class RenderAnalysis {
     }
 
     public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -56,6 +58,7 @@ public final class RenderAnalysis {
     }
 
     public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
         Delimiters d_ = ElResolver.checkSyntax(_el, _index, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {

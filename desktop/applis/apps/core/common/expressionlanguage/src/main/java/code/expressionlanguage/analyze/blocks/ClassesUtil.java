@@ -10,12 +10,13 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.FoundSuperType;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
-import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.IntermediaryResults;
+import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -232,46 +233,10 @@ public final class ClassesUtil {
         AnaTypeUtil.checkInterfaces(_page);
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
-        while (true) {
-            boolean contained_ = false;
+        for (IntermediaryResults s:_page.getNextResults()) {
             for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
                 for (AnonymousInstancingOperation e: m) {
                     AnonymousTypeBlock block_ = e.getBlock();
-                    RootBlock parentType_ = block_.getParentType();
-                    contained_ = true;
-                    if (parentType_ == null) {
-                        continue;
-                    }
-                    StringMap<Integer> countsAnon_ = parentType_.getCountsAnon();
-                    Integer val_ = countsAnon_.getVal(block_.getName());
-                    if (val_ == null) {
-                        countsAnon_.put(block_.getName(),1);
-                        block_.setSuffix("*1");
-                    } else {
-                        countsAnon_.put(block_.getName(),val_+1);
-                        block_.setSuffix("*"+(val_+1));
-                    }
-                }
-            }
-            for (CustList<AnonymousLambdaOperation> m: _page.getAnonymousLambda()) {
-                for (AnonymousLambdaOperation e: m) {
-                    contained_ = true;
-                    AnonymousFunctionBlock block_ = e.getBlock();
-                    RootBlock parentType_ = block_.getParentType();
-                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct()+1);
-                    block_.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
-                }
-            }
-            if (!contained_) {
-                break;
-            }
-            for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
-                for (AnonymousInstancingOperation e: m) {
-                    AnonymousTypeBlock block_ = e.getBlock();
-                    RootBlock parentType_ = block_.getParentType();
-                    if (parentType_ == null) {
-                        continue;
-                    }
                     String base_ = e.getBase();
                     String enumClassName_ = _page.getAliasEnumType();
                     String enumParamClassName_ = _page.getAliasEnumParam();
@@ -304,24 +269,10 @@ public final class ClassesUtil {
             _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
             _page.getFoundTypes().clear();
             _page.getFoundOperators().clear();
-            for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
-                for (AnonymousInstancingOperation e: m) {
-                    AnonymousTypeBlock block_ = e.getBlock();
-                    RootBlock parentType_ = block_.getParentType();
-                    if (parentType_ == null) {
-                        continue;
-                    }
-                    processType(basePkgFound_,pkgFound_, block_, _page);
-                }
+            for (AnonymousTypeBlock a: s.getAnonymousTypes()) {
+                processType(basePkgFound_,pkgFound_, a, _page);
             }
-            CustList<AnonymousFunctionBlock> retrList_ = new CustList<AnonymousFunctionBlock>();
-            for (CustList<AnonymousLambdaOperation> m: _page.getAnonymousLambda()) {
-                for (AnonymousLambdaOperation e: m) {
-                    AnonymousFunctionBlock method_ = e.getBlock();
-                    retrList_.add(method_);
-                }
-            }
-            for (AnonymousFunctionBlock e: retrList_) {
+            for (AnonymousFunctionBlock e: s.getAnonymousFunctions()) {
                 processType(basePkgFound_,pkgFound_, e, _page);
             }
             for (RootBlock r: _page.getFoundTypes()) {
@@ -346,11 +297,6 @@ public final class ClassesUtil {
             validateOverridingInherit(_page);
             for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
                 for (AnonymousInstancingOperation e: m) {
-                    AnonymousTypeBlock block_ = e.getBlock();
-                    RootBlock parentType_ = block_.getParentType();
-                    if (parentType_ == null) {
-                        continue;
-                    }
                     _page.setGlobalType(e.getGlType());
                     _page.setGlobalClass(e.getGlClass());
                     e.postAnalyze(_page);
@@ -359,7 +305,7 @@ public final class ClassesUtil {
             _page.getAnonymous().clear();
             _page.getAnonymousLambda().clear();
             validateEl(_page);
-            for (AnonymousFunctionBlock e:retrList_) {
+            for (AnonymousFunctionBlock e:s.getAnonymousFunctions()) {
                 RootBlock c_ = e.getParentType();
                 _page.setImporting(c_);
                 _page.setImportingAcces(new TypeAccessor(c_.getFullName()));
@@ -681,6 +627,20 @@ public final class ClassesUtil {
         }
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
             FileBlock value_ = f.getValue();
+            for (Block b: getDirectChildren(value_)) {
+                if (b instanceof RootBlock) {
+                    RootBlock r_ = (RootBlock) b;
+                    _page.getOuterTypes().add(r_);
+                }
+                if (b instanceof OperatorBlock) {
+                    OperatorBlock r_ = (OperatorBlock) b;
+                    _page.getFoundOperators().add(r_);
+                }
+            }
+        }
+        _page.setNextResults(SplitExpressionUtil.getNextResults(_page));
+        for (EntryCust<String,FileBlock> f: files_.entryList()) {
+            FileBlock value_ = f.getValue();
             fetchByFile(basePkgFound_, pkgFound_, value_, _page);
         }
         for (RootBlock r: _page.getFoundTypes()) {
@@ -710,7 +670,6 @@ public final class ClassesUtil {
             }
             if (b instanceof OperatorBlock) {
                 OperatorBlock r_ = (OperatorBlock) b;
-                _page.getFoundOperators().add(r_);
                 _page.getAllOperators().add(r_);
                 int c_ = _page.getCountOperators();
                 r_.setNameNumber(c_);
@@ -866,14 +825,6 @@ public final class ClassesUtil {
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             } else {
-                                Integer val_ = possibleParent_.getCounts().getVal(s_);
-                                if (val_ == null) {
-                                    possibleParent_.getCounts().put(s_,1);
-                                    cur_.setSuffix("+1");
-                                } else {
-                                    possibleParent_.getCounts().put(s_,val_+1);
-                                    cur_.setSuffix("+"+(val_+1));
-                                }
                                 mappings_.put(s_, new MappingLocalType(cur_.getFullName(),cur_.getSuffixedName(),possibleParent_,cur_));
 
                             }
@@ -2055,14 +2006,13 @@ public final class ClassesUtil {
                 if (b instanceof AnnotationMethodBlock) {
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_page);
                 }
-                if (b instanceof RootBlock) {
-                    ((RootBlock)b).buildAnnotations(_page);
-                }
                 if (b instanceof NamedFunctionBlock) {
                     ((NamedFunctionBlock)b).buildAnnotations(_page);
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_page);
                 }
-                if (b instanceof InfoBlock) {
+                if (b instanceof RootBlock) {
+                    ((RootBlock)b).buildAnnotations(_page);
+                } else if (b instanceof InfoBlock) {
                     ((InfoBlock)b).buildAnnotations(_page);
                 }
             }

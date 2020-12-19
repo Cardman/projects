@@ -3,6 +3,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -51,9 +52,9 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     private final boolean eq;
     private int eqOffset;
 
-    private OperationNode rootInit;
-    private OperationNode rootExp;
-    private OperationNode rootStep;
+    private ResultExpression resInit = new ResultExpression();
+    private ResultExpression resExp = new ResultExpression();
+    private ResultExpression resStep = new ResultExpression();
 
     private final StringList nameErrors = new StringList();
     public ForIterativeLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -171,22 +172,22 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         _page.setGlobalOffset(initOffset);
         _page.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        rootInit = ElUtil.getRootAnalyzedOperationsReadOnly(init, Calculation.staticCalculation(static_), _page);
+        resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
 //        rootInit = _page.getCurrentRoot();
 //        ExecOperationNode initEl_ = init_.last();
-        checkType(cl_, initOffset, rootInit, _page);
+        checkType(cl_, initOffset, resInit.getRoot(), _page);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
-        rootExp = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+        resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, expression, Calculation.staticCalculation(static_), _page));
 //        rootExp = _page.getCurrentRoot();
 //        ExecOperationNode expressionEl_ = exp_.last();
-        checkType(cl_, expressionOffset, rootExp, _page);
+        checkType(cl_, expressionOffset, resExp.getRoot(), _page);
         _page.setGlobalOffset(stepOffset);
         _page.setOffset(0);
-        rootStep = ElUtil.getRootAnalyzedOperationsReadOnly(step, Calculation.staticCalculation(static_), _page);
+        resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, step, Calculation.staticCalculation(static_), _page));
 //        rootStep = _page.getCurrentRoot();
 //        ExecOperationNode stepEl_ = step_.last();
-        checkType(cl_, stepOffset, rootStep, _page);
+        checkType(cl_, stepOffset, resStep.getRoot(), _page);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffset);
@@ -288,16 +289,28 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         _ip.getInfosVars().removeKey(variableName);
     }
 
+    public ResultExpression getResInit() {
+        return resInit;
+    }
+
     public OperationNode getRootInit() {
-        return rootInit;
+        return resInit.getRoot();
+    }
+
+    public ResultExpression getResExp() {
+        return resExp;
     }
 
     public OperationNode getRootExp() {
-        return rootExp;
+        return resExp.getRoot();
+    }
+
+    public ResultExpression getResStep() {
+        return resStep;
     }
 
     public OperationNode getRootStep() {
-        return rootStep;
+        return resStep.getRoot();
     }
 
     public StringList getNameErrors() {

@@ -8,6 +8,7 @@ public final class AnonymousResult {
     private int index;
     private int until;
     private int length;
+    private int next;
     private Block type;
 
     public ParsedFctHeader getResults() {
@@ -40,6 +41,14 @@ public final class AnonymousResult {
 
     public void setLength(int _length) {
         this.length = _length;
+    }
+
+    public int getNext() {
+        return next;
+    }
+
+    public void setNext(int _next) {
+        this.next = _next;
     }
 
     public Block getType() {

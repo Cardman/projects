@@ -5,12 +5,13 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 
 public final class Throwing extends AbruptBlock {
 
     private final String expression;
 
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private int expressionOffset;
 
     public Throwing(OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -32,13 +33,17 @@ public final class Throwing extends AbruptBlock {
         MemberCallingsBlock f_ = _page.getCurrentFct();
         _page.setOffset(0);
         _page.setGlobalOffset(expressionOffset);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(f_.getStaticContext()), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(f_.getStaticContext()), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());
         }
     }
 
+    public ResultExpression getRes() {
+        return res;
+    }
+
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 }

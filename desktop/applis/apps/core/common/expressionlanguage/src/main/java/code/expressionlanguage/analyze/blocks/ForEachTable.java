@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -58,7 +59,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
 
     private int expressionOffset;
 
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
 
     private CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
@@ -118,11 +119,11 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MethodAccessKind static_ = processVarTypes(_page);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(expression, Calculation.staticCalculation(static_), _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(static_), _page));
 //        root = _page.getCurrentRoot();
 //        ExecOperationNode l_ = op_.last();
 //        argument = l_.getArgument();
-        checkMatchs(root.getResultClass(), _page);
+        checkMatchs(res.getRoot().getResultClass(), _page);
         processVariables(_page);
 //        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, importedClassNameFirst,
 //                importedClassNameSecond,
@@ -405,8 +406,13 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         _ip.getInfosVars().removeKey(variableNameFirst);
         _ip.getInfosVars().removeKey(variableNameSecond);
     }
+
+    public ResultExpression getRes() {
+        return res;
+    }
+
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public CustList<PartOffset> getPartOffsetsFirst() {

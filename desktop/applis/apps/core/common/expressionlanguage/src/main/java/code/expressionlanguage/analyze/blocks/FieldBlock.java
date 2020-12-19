@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -47,8 +48,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StringList assignedDeclaredFields = new StringList();
-    private OperationNode root;
+    private ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private final StringList nameRetErrors = new StringList();
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
     private final CustList<StringList> cstErrorsFields = new CustList<StringList>();
@@ -154,7 +156,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.setOffset(0);
         Calculation calcul_ = Calculation.staticCalculation(fieldContent.isStaticField());
-        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(fieldContent.getValueOffset(),value, calcul_, _page);
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(res,fieldContent.getValueOffset(),value, calcul_, _page);
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
@@ -232,15 +234,15 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.setOffset(0);
         _page.setIndexBlock(0);
-        root = ElUtil.getRootAnalyzedOperationsReadOnly(value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
-        ReachOperationUtil.tryCalculate(root, _page);
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(fieldContent.isStaticField()), _page));
+        ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
 
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.setOffset(0);
         _page.setIndexBlock(0);
-        return ElUtil.getAnalyzedOperationsQucikly(value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
+        return ElUtil.getAnalyzedOperationsQucikly(res,value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
@@ -251,7 +253,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _page.setGlobalOffset(begin_);
             _page.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -267,7 +269,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public OperationNode getRoot() {
-        return root;
+        return res.getRoot();
     }
 
     public CustList<OperationNode> getRoots() {
@@ -295,6 +297,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     public StringList getNameRetErrors() {
         return nameRetErrors;
+    }
+
+    public CustList<ResultExpression> getResList() {
+        return resList;
+    }
+
+    public ResultExpression getRes() {
+        return res;
     }
 
     @Override

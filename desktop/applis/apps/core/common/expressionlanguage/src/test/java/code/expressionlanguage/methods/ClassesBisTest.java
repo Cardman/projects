@@ -521,6 +521,18 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
     @Test
+    public void validateEl27_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $void outer(){($new{]};}\n");
+        xml_.append(" $public $static $void outer2(){a=$new;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
+    @Test
     public void validateEl28FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

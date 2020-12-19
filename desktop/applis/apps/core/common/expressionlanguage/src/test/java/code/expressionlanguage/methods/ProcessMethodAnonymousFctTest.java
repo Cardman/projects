@@ -5011,6 +5011,9 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("  a=x -> static [];\n");
         xml_.append("  a=x -> interfaces (];\n");
         xml_.append("  a=x -> interfaces [];\n");
+        xml_.append("  a=x -> {];\n");
+        xml_.append("  a=(x) -> {];\n");
+        xml_.append("  a=(x) -> new Cl(){];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());
