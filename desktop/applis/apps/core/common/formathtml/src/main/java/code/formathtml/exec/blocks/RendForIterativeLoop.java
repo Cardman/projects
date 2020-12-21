@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -97,9 +98,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
-        long nbMaxIterations_ = 0;
-        long stepValue_ = 0;
-        long fromValue_ = 0;
 
         boolean eq_ = isEq();
         ip_.setOffset(initOffset);
@@ -132,9 +130,10 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_)));
             return;
         }
-        fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
+        long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
-        stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
+        long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
+        long ratio_ = ExecForIterativeLoop.getIterCounts(stepValue_, fromValue_, eq_, toValue_);
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -144,35 +143,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
                 stepValue_ = -stepValue_;
             }
         }
-        if (stepValue_ > 0) {
-            long copyFrom_ = fromValue_;
-            while (true) {
-                if (copyFrom_ >= toValue_ && !eq_) {
-                    break;
-                }
-                if (copyFrom_ > toValue_) {
-                    break;
-                }
-                nbMaxIterations_++;
-                copyFrom_ += stepValue_;
-            }
-        } else if (stepValue_ < 0) {
-            long copyFrom_ = fromValue_;
-            while (true) {
-                if (copyFrom_ <= toValue_ && !eq_) {
-                    break;
-                }
-                if (copyFrom_ < toValue_) {
-                    break;
-                }
-                nbMaxIterations_++;
-                copyFrom_ += stepValue_;
-            }
-        }
-        long length_;
         boolean finished_ = false;
-        length_ = nbMaxIterations_;
-        if (length_ == IndexConstants.SIZE_EMPTY) {
+        if (ratio_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -181,7 +153,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setMaxIteration(length_);
+        l_.setMaxIteration(ratio_);
         l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {

@@ -115,9 +115,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         AbstractPageEl ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
-        long nbMaxIterations_ = 0;
-        long stepValue_;
-        long fromValue_;
 
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
@@ -154,9 +151,10 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return null;
         }
         ip_.clearCurrentEls();
-        fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
+        long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
-        stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
+        long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
+        long ratio_ = getIterCounts(stepValue_, fromValue_, eq_, toValue_);
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -166,35 +164,8 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
                 stepValue_ = -stepValue_;
             }
         }
-        if (stepValue_ > 0) {
-            long copyFrom_ = fromValue_;
-            while (true) {
-                if (copyFrom_ >= toValue_ && !eq_) {
-                    break;
-                }
-                if (copyFrom_ > toValue_) {
-                    break;
-                }
-                nbMaxIterations_++;
-                copyFrom_ += stepValue_;
-            }
-        } else if (stepValue_ < 0) {
-            long copyFrom_ = fromValue_;
-            while (true) {
-                if (copyFrom_ <= toValue_ && !eq_) {
-                    break;
-                }
-                if (copyFrom_ < toValue_) {
-                    break;
-                }
-                nbMaxIterations_++;
-                copyFrom_ += stepValue_;
-            }
-        }
-        long length_;
         boolean finished_ = false;
-        length_ = nbMaxIterations_;
-        if (length_ == IndexConstants.SIZE_EMPTY) {
+        if (ratio_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
         LoopBlockStack l_ = new LoopBlockStack();
@@ -203,7 +174,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setMaxIteration(length_);
+        l_.setMaxIteration(ratio_);
         l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {
@@ -215,6 +186,19 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         varsLoop_.put(var_, lv_);
         ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
         return l_;
+    }
+
+    public static long getIterCounts(long _stepValue, long _fromValue, boolean _eq, long _toValue) {
+        long ratio_ = 0;
+        long absStep_ = Math.abs(_stepValue);
+        if (absStep_ > 0) {
+            long num_ = Math.max(_fromValue, _toValue)-Math.min(_fromValue, _toValue);
+            ratio_ = num_/absStep_+1;
+            if (!_eq &&num_%absStep_==0) {
+                ratio_--;
+            }
+        }
+        return ratio_;
     }
 
     @Override
