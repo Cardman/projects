@@ -47,16 +47,10 @@ public final class AnonymousLambdaOperation extends
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         for (EntryCust<String,AnaLocalVariable> e: _page.getInfosVars().entryList()) {
-            if (e.getValue().getConstType() == ConstType.REF_PARAM) {
-                continue;
-            }
-            if (e.getValue().getConstType() == ConstType.REF_LOC_VAR) {
-                continue;
-            }
-            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
+            tryAdd(e.getKey(),e.getValue());
         }
         for (AnaNamedLocalVariable e: _page.getCache().getLocalVariables()) {
-            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getName(),e.getLocalVariable()));
+            tryAdd(e.getName(),e.getLocalVariable());
         }
         for (EntryCust<String,AnaLoopVariable> e: _page.getLoopsVars().entryList()) {
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
@@ -65,6 +59,15 @@ public final class AnonymousLambdaOperation extends
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getName(),e.getLocalVariable()));
         }
         analyzeCtor(_page);
+    }
+    private void tryAdd(String _name, AnaLocalVariable _var) {
+        if (_var.getConstType() == ConstType.REF_PARAM) {
+            return;
+        }
+        if (_var.getConstType() == ConstType.REF_LOC_VAR) {
+            return;
+        }
+        block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(_name,_var));
     }
     private void analyzeCtor(AnalyzedPageEl _page) {
         int offset_ = _page.getOffset();
