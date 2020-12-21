@@ -117,7 +117,6 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getDirectSuperTypes().add(_realClassName);
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
-//        instancingAnonContent.getBlock().setParentType(_page.getGlobalType());
         base = base_;
         instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();

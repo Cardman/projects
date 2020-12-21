@@ -223,7 +223,6 @@ public final class AnonymousLambdaOperation extends
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         RootBlock globalType_ = _page.getGlobalType();
         lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
-        block.setParentType(globalType_);
         block.getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
