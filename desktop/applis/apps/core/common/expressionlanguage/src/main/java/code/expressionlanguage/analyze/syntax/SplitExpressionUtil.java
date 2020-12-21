@@ -69,6 +69,9 @@ public final class SplitExpressionUtil {
                 processType(_page, int_, c);
             }
             for (AnonymousFunctionBlock c: anonymousFunctions_) {
+                RootBlock parentType_ = c.getParentType();
+                _page.setGlobalType(parentType_);
+                _page.setGlobalDirType(parentType_);
                 processFunction(_page,int_,c);
             }
         }
