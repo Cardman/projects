@@ -3,7 +3,6 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -22,7 +21,6 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 
 public final class RendForIterativeLoop extends RendParentBlock implements RendLoop {
 
