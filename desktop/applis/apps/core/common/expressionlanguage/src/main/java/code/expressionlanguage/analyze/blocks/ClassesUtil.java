@@ -1568,14 +1568,6 @@ public final class ClassesUtil {
             for (AnaFormattedRootBlock a: genericClasses_) {
                 i.getAllGenericClasses().add(a.getFormatted());
             }
-//            ExecRootBlock value_ = _page.getMapTypes().getValue(i.getNumberAll());
-//            if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-//                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _page));
-//            }
-//            ConstructorBlock emptyCtor_ = i.getEmptyCtor();
-//            if (emptyCtor_ != null) {
-//                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _page));
-//            }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
 
@@ -2538,57 +2530,29 @@ public final class ClassesUtil {
 
     private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors, StringList _params, BooleanList _refParams, StringList _types, boolean _varargs) {
         int len_ = _params.size();
-        if (!_varargs) {
-            for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                if (!_paramErrors.get(i).isEmpty()) {
-                    continue;
-                }
-                String p_ = _params.get(i);
-                String c_ = _types.get(i);
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(c_);
-                lv_.setRef(_offs.get(i));
-                if (_refParams.get(i)) {
-                    lv_.setConstType(ConstType.REF_PARAM);
-                    _page.getInfosVars().put(p_, lv_);
-                    continue;
-                }
-                lv_.setConstType(ConstType.PARAM);
-                _page.getInfosVars().put(p_, lv_);
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            if (!_paramErrors.get(i).isEmpty()) {
+                continue;
             }
-        } else {
-            for (int i = IndexConstants.FIRST_INDEX; i < len_ - 1; i++) {
-                if (!_paramErrors.get(i).isEmpty()) {
-                    continue;
-                }
-                String p_ = _params.get(i);
-                String c_ = _types.get(i);
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(c_);
-                lv_.setRef(_offs.get(i));
-                if (_refParams.get(i)) {
-                    lv_.setConstType(ConstType.REF_PARAM);
-                    _page.getInfosVars().put(p_, lv_);
-                    continue;
-                }
-                lv_.setConstType(ConstType.PARAM);
-                _page.getInfosVars().put(p_, lv_);
+            String c_ = _types.get(i);
+            if (_varargs && i + 1 == len_) {
+                c_ = StringExpUtil.getPrettyArrayType(c_);
             }
-            if (_paramErrors.last().isEmpty()) {
-                String p_ = _params.last();
-                String c_ = _types.last();
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(StringExpUtil.getPrettyArrayType(c_));
-                lv_.setRef(_offs.last());
-                if (_refParams.last()){
-                    lv_.setConstType(ConstType.REF_PARAM);
-                    _page.getInfosVars().put(p_, lv_);
-                } else {
-                    lv_.setConstType(ConstType.PARAM);
-                    _page.getInfosVars().put(p_, lv_);
-                }
-            }
+            String p_ = _params.get(i);
+            buildParam(_page, _offs, _refParams, i, p_, c_);
         }
+    }
+
+    private static void buildParam(AnalyzedPageEl _page, Ints _offs, BooleanList _refParams, int _i, String _p, String _c) {
+        AnaLocalVariable lv_ = new AnaLocalVariable();
+        lv_.setClassName(_c);
+        lv_.setRef(_offs.get(_i));
+        if (_refParams.get(_i)) {
+            lv_.setConstType(ConstType.REF_PARAM);
+        } else {
+            lv_.setConstType(ConstType.PARAM);
+        }
+        _page.getInfosVars().put(_p, lv_);
     }
 
     private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
