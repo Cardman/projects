@@ -24,28 +24,28 @@ import code.util.core.IndexConstants;
 
 public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
-    private String label;
+    private final String label;
 
-    private String importedClassName;
+    private final String importedClassName;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
     private final String variableName;
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
-    private int initOffset;
+    private final int initOffset;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private int stepOffset;
+    private final int stepOffset;
 
     private final boolean eq;
 
-    private CustList<ExecOperationNode> opInit;
+    private final CustList<ExecOperationNode> opInit;
 
-    private CustList<ExecOperationNode> opExp;
+    private final CustList<ExecOperationNode> opExp;
 
-    private CustList<ExecOperationNode> opStep;
+    private final CustList<ExecOperationNode> opStep;
 
     public ExecForIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset,
                                 int _initOffset, int _expressionOffset, int _stepOffset, boolean _eq,
@@ -67,7 +67,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
-        if (_l.hasNext()) {
+        if (_l.hasNextIter()) {
             incrementLoop(_conf, _l);
             _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(true)));
             return;
@@ -116,7 +116,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
 
-        boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
@@ -154,7 +153,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
         long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
-        long ratio_ = getIterCounts(stepValue_, fromValue_, eq_, toValue_);
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -165,7 +163,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             }
         }
         boolean finished_ = false;
-        if (ratio_ == IndexConstants.SIZE_EMPTY) {
+        if (stepValue_ == 0 || fromValue_ == toValue_&&!eq) {
             finished_ = true;
         }
         LoopBlockStack l_ = new LoopBlockStack();
@@ -174,7 +172,9 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         l_.setExecBlock(this);
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setMaxIteration(ratio_);
+        l_.setEq(eq);
+        l_.setCurrentValue(fromValue_);
+        l_.setAchieveValue(toValue_);
         l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {
@@ -188,19 +188,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         return l_;
     }
 
-    public static long getIterCounts(long _stepValue, long _fromValue, boolean _eq, long _toValue) {
-        long ratio_ = 0;
-        long absStep_ = Math.abs(_stepValue);
-        if (absStep_ > 0) {
-            long num_ = Math.max(_fromValue, _toValue)-Math.min(_fromValue, _toValue);
-            ratio_ = num_/absStep_+1;
-            if (!_eq &&num_%absStep_==0) {
-                ratio_--;
-            }
-        }
-        return ratio_;
-    }
-
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
@@ -212,6 +199,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
         _l.setIndex(_l.getIndex() + 1);
+        _l.incr();
         _conf.getLastPage().setGlobalOffset(variableNameOffset);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
@@ -224,10 +212,6 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     public String getVariableName() {
         return variableName;
-    }
-
-    public boolean isEq() {
-        return eq;
     }
 
 }

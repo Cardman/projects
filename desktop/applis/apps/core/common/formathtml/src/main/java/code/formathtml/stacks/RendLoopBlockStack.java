@@ -23,8 +23,43 @@ public final class RendLoopBlockStack extends RendAbstractStask {
 
     private Struct container = NullStruct.NULL_VALUE;
 
+    private long currentValue;
+
+    private long achieveValue;
+
+    private boolean eq;
+
     public boolean hasNext() {
         return index + 1 < maxIteration;
+    }
+
+    public boolean hasNextIter() {
+        if (eq) {
+            if (step > 0) {
+                return currentValue + step <= achieveValue;
+            }
+            return currentValue + step >= achieveValue;
+        }
+        if (step > 0) {
+            return currentValue + step < achieveValue;
+        }
+        return currentValue + step > achieveValue;
+    }
+
+    public void incr() {
+        currentValue+=step;
+    }
+
+    public void setAchieveValue(long _achieveValue) {
+        this.achieveValue = _achieveValue;
+    }
+
+    public void setCurrentValue(long _currentValue) {
+        this.currentValue = _currentValue;
+    }
+
+    public void setEq(boolean _eq) {
+        this.eq = _eq;
     }
 
     public void setMaxIteration(long _maxIteration) {

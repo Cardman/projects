@@ -26,25 +26,25 @@ import code.util.core.IndexConstants;
 
 public final class RendForIterativeLoop extends RendParentBlock implements RendLoop {
 
-    private String label;
+    private final String label;
 
-    private String importedClassName;
-    private String importedClassIndexName;
+    private final String importedClassName;
+    private final String importedClassIndexName;
 
-    private String variableName;
+    private final String variableName;
 
-    private int initOffset;
+    private final int initOffset;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private int stepOffset;
+    private final int stepOffset;
 
-    private boolean eq;
-    private CustList<RendDynOperationNode> opInit;
+    private final boolean eq;
+    private final CustList<RendDynOperationNode> opInit;
 
-    private CustList<RendDynOperationNode> opExp;
+    private final CustList<RendDynOperationNode> opExp;
 
-    private CustList<RendDynOperationNode> opStep;
+    private final CustList<RendDynOperationNode> opStep;
 
     public RendForIterativeLoop(String _className, String _variable,
                          int _from,
@@ -66,10 +66,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
 
     public String getVariableName() {
         return variableName;
-    }
-
-    public boolean isEq() {
-        return eq;
     }
 
     @Override
@@ -99,7 +95,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
 
-        boolean eq_ = isEq();
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrFrom());
         Argument argFrom_ = RenderExpUtil.calculateReuse(opInit,_conf, _advStandards, _ctx);
@@ -133,7 +128,6 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
         long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
-        long ratio_ = ExecForIterativeLoop.getIterCounts(stepValue_, fromValue_, eq_, toValue_);
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -144,7 +138,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             }
         }
         boolean finished_ = false;
-        if (ratio_ == IndexConstants.SIZE_EMPTY) {
+        if (stepValue_ == 0 || fromValue_ == toValue_&&!eq) {
             finished_ = true;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -153,7 +147,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setMaxIteration(ratio_);
+        l_.setEq(eq);
+        l_.setCurrentValue(fromValue_);
+        l_.setAchieveValue(toValue_);
         l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {
@@ -183,7 +179,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        if (l_.hasNext()) {
+        if (l_.hasNextIter()) {
             incrementLoop(l_, vars_,varsInfos_, _ctx);
             rw_.setRead(forLoopLoc_.getFirstChild());
             return;
@@ -194,6 +190,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     public void incrementLoop(RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars, StringMap<LocalVariable> _varsInfos, ContextEl _ctx) {
         _l.setIndex(_l.getIndex() + 1);
+        _l.incr();
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
         LocalVariable lInfo_ = _varsInfos.getVal(var_);
