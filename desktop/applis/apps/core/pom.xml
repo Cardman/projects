@@ -23,7 +23,7 @@
 				<version>2.19.1</version>
 				<configuration>
 					<junitArtifactName>junit:junit</junitArtifactName>
-					<argLine>${argLine} -Dfile.encoding=UTF-8</argLine>
+					<argLine>@{argLine} -Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
