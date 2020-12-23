@@ -182,7 +182,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             return false;
         }
         String pref_ = prefix(file_, _rCont);
-        return simpleMkdirs(pref_);
+        return simpleMkdirs(pref_+"/");
     }
 
     @Override
