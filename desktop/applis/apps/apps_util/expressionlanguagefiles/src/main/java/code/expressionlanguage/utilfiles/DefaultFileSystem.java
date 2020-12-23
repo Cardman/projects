@@ -243,7 +243,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         if (endsSep(file_)) {
             file_ = file_.substring(0,file_.length()-1);
         }
-        simpleMkdirs(file_);
+        simpleMkdirs(file_+"/");
     }
 
     private static boolean endsSep(String _file) {
