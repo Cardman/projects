@@ -127,6 +127,7 @@ public final class CustAliasParameters {
     private static final String ASSERT_4_ASSERT_ASSERT_0="Assert4AssertAssert0";
     private static final String ASSERT_4_ASSERT_ASSERT_1="Assert4AssertAssert1";
     private static final String ASSERT_0_ASSERT_ASSERT_TRUE_0="Assert0AssertAssertTrue0";
+    private static final String ASSERT_0_ASSERT_ASSERT_FALSE_0="Assert0AssertAssertFalse0";
     private static final String ASSERT_0_ASSERT_ASSERT_NULL_0="Assert0AssertAssertNull0";
     private static final String ASSERT_0_ASSERT_ASSERT_NOT_NULL_0="Assert0AssertAssertNotNull0";
     private static final String ASSERT_0_ASSERT_ASSERT_SAME_0="Assert0AssertAssertSame0";
@@ -261,6 +262,7 @@ public final class CustAliasParameters {
     private String aliasAssert4AssertAssert0;
     private String aliasAssert4AssertAssert1;
     private String aliasAssert0AssertAssertTrue0;
+    private String aliasAssert0AssertAssertFalse0;
     private String aliasAssert0AssertAssertNull0;
     private String aliasAssert0AssertAssertNotNull0;
     private String aliasAssert0AssertAssertSame0;
@@ -369,6 +371,7 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_0,aliasAssert3AssertAssert0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_1,aliasAssert3AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_0,aliasAssert4AssertAssert0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_1,aliasAssert4AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_TRUE_0,aliasAssert0AssertAssertTrue0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_FALSE_0,aliasAssert0AssertAssertFalse0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NULL_0,aliasAssert0AssertAssertNull0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_NULL_0,aliasAssert0AssertAssertNotNull0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_0,aliasAssert0AssertAssertSame0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_1,aliasAssert0AssertAssertSame1)));
@@ -499,6 +502,7 @@ public final class CustAliasParameters {
         aliasAssert4AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_0);
         aliasAssert4AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_1);
         aliasAssert0AssertAssertTrue0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_TRUE_0);
+        aliasAssert0AssertAssertFalse0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_FALSE_0);
         aliasAssert0AssertAssertNull0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NULL_0);
         aliasAssert0AssertAssertNotNull0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_NULL_0);
         aliasAssert0AssertAssertSame0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_SAME_0);
@@ -987,6 +991,10 @@ public final class CustAliasParameters {
 
     public String getAliasAssert0AssertAssertTrue0() {
         return aliasAssert0AssertAssertTrue0;
+    }
+
+    public String getAliasAssert0AssertAssertFalse0() {
+        return aliasAssert0AssertAssertFalse0;
     }
 
     public String getAliasAssert0AssertAssertNull0() {

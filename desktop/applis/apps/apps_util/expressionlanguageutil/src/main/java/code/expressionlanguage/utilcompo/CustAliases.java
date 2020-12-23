@@ -137,6 +137,7 @@ public final class CustAliases {
     private static final String CONCURRENT_ERROR = "ConcurrentError";
     private static final String RESULT_FAIL_MESSAGE = "ResultFailMessage";
     private static final String ASSERT_ASSERT_TRUE = "AssertAssertTrue";
+    private static final String ASSERT_ASSERT_FALSE = "AssertAssertFalse";
     private static final String INFO_TEST_CURRENT_METHOD = "InfoTestCurrentMethod";
     private static final String RESULT_PARAMS = "ResultParams";
     private static final String PARAMETERS_METHOD = "ParametersMethod";
@@ -350,6 +351,7 @@ public final class CustAliases {
 
     private String aliasAssertAssert;
     private String aliasAssertAssertTrue;
+    private String aliasAssertAssertFalse;
     private String aliasAssertAssertNull;
     private String aliasAssertAssertNotNull;
     private String aliasAssertAssertSame;
@@ -368,7 +370,7 @@ public final class CustAliases {
 
     private String aliasConcurrentError;
 
-    private CustAliasParameters custAliasParameters = new CustAliasParameters();
+    private final CustAliasParameters custAliasParameters = new CustAliasParameters();
 
     private FileInfos infos;
 
@@ -927,6 +929,7 @@ public final class CustAliases {
         map_.put("{a51}",custAliasParameters.getAliasAssert4AssertAssert0());
         map_.put("{a52}",custAliasParameters.getAliasAssert4AssertAssert1());
         map_.put("{a6}",custAliasParameters.getAliasAssert0AssertAssertTrue0());
+        map_.put("{a61}",custAliasParameters.getAliasAssert0AssertAssertFalse0());
         map_.put("{a7}",custAliasParameters.getAliasAssert0AssertAssertNull0());
         map_.put("{a8}",custAliasParameters.getAliasAssert0AssertAssertNotNull0());
         map_.put("{a91}",custAliasParameters.getAliasAssert0AssertAssertSame0());
@@ -943,6 +946,7 @@ public final class CustAliases {
                 custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
                 custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
                 custAliasParameters.getAliasAssert0AssertAssertTrue0(),
+                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
                 custAliasParameters.getAliasAssert0AssertAssertNull0(),
                 custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
                 custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
@@ -1093,6 +1097,7 @@ public final class CustAliases {
         map_.put("{foundNotTrue}",aliasDifferenceFoundNotTrue);
         map_.put("{assert}",aliasAssertAssert);
         map_.put("{assertTrue}",aliasAssertAssertTrue);
+        map_.put("{assertFalse}",aliasAssertAssertFalse);
         map_.put("{assertNull}",aliasAssertAssertNull);
         map_.put("{assertNotNull}",aliasAssertAssertNotNull);
         map_.put("{assertSame}",aliasAssertAssertSame);
@@ -1269,6 +1274,7 @@ public final class CustAliases {
         setAliasConcurrentError(LgNamesContent.get(_util, _cust, CONCURRENT_ERROR));
         setAliasResultFailMessage(LgNamesContent.get(_util, _cust, RESULT_FAIL_MESSAGE));
         setAliasAssertAssertTrue(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_TRUE));
+        setAliasAssertAssertFalse(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_FALSE));
         setAliasInfoTestCurrentMethod(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_METHOD));
         setAliasResultParams(LgNamesContent.get(_util, _cust, RESULT_PARAMS));
         setAliasParametersMethod(LgNamesContent.get(_util, _cust, PARAMETERS_METHOD));
@@ -1571,7 +1577,8 @@ public final class CustAliases {
                 new KeyValueMemberName(ASSERT_ASSERT_NOT_NULL,getAliasAssertAssertNotNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_NULL,getAliasAssertAssertNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_SAME,getAliasAssertAssertSame()),
-                new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue())
+                new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue()),
+                new KeyValueMemberName(ASSERT_ASSERT_FALSE,getAliasAssertAssertFalse())
         ));
         m_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
         ));
@@ -3670,6 +3677,14 @@ public final class CustAliases {
 
     public void setAliasAssertAssertTrue(String _aliasAssertAssertTrue) {
         this.aliasAssertAssertTrue = _aliasAssertAssertTrue;
+    }
+
+    public String getAliasAssertAssertFalse() {
+        return aliasAssertAssertFalse;
+    }
+
+    public void setAliasAssertAssertFalse(String _aliasAssertAssertFalse) {
+        this.aliasAssertAssertFalse = _aliasAssertAssertFalse;
     }
 
     public String getAliasAssertAssertNull() {

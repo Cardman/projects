@@ -263,6 +263,15 @@
             {throw} {d}{local}{endLine}
         '}'
     '}'
+    {public} {static} {void} {assertFalse}({boolean} {a61})'{'
+        {if} ({a61}{param})'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={false}{endLine}
+            ({d}{local}).{found}={true}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
     {public} {static} {void} {assertNull}({Object} {a7})'{'
         {if} (!{static}({ObjectsUtil}).{eq}({a7}{param}, {null}))'{'
             {var} {d} = {new} {Difference}(){endLine}
