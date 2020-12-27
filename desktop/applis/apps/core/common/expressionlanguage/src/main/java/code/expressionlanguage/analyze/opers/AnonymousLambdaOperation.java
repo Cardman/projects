@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -25,10 +24,10 @@ import code.util.core.StringUtil;
 
 public final class AnonymousLambdaOperation extends
         LeafOperation {
-    private AnaLambdaCommonContent lambdaCommonContent;
-    private AnaLambdaAnoContent lambdaAnoContent;
-    private AnonymousFunctionBlock block;
-    private ParsedFctHeader parse;
+    private final AnaLambdaCommonContent lambdaCommonContent;
+    private final AnaLambdaAnoContent lambdaAnoContent;
+    private final AnonymousFunctionBlock block;
+    private final ParsedFctHeader parse;
 
     public AnonymousLambdaOperation(int _index, int _indexChild,
                                     MethodOperation _m, OperationsSequence _op, AnonymousFunctionBlock _block, ParsedFctHeader _parse) {
@@ -47,10 +46,10 @@ public final class AnonymousLambdaOperation extends
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         for (EntryCust<String,AnaLocalVariable> e: _page.getInfosVars().entryList()) {
-            tryAdd(e.getKey(),e.getValue());
+            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(), e.getValue()));
         }
         for (AnaNamedLocalVariable e: _page.getCache().getLocalVariables()) {
-            tryAdd(e.getName(),e.getLocalVariable());
+            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getName(), e.getLocalVariable()));
         }
         for (EntryCust<String,AnaLoopVariable> e: _page.getLoopsVars().entryList()) {
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
@@ -60,15 +59,7 @@ public final class AnonymousLambdaOperation extends
         }
         analyzeCtor(_page);
     }
-    private void tryAdd(String _name, AnaLocalVariable _var) {
-        if (_var.getConstType() == ConstType.REF_PARAM) {
-            return;
-        }
-        if (_var.getConstType() == ConstType.REF_LOC_VAR) {
-            return;
-        }
-        block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(_name,_var));
-    }
+
     private void analyzeCtor(AnalyzedPageEl _page) {
         int offset_ = _page.getOffset();
         int globalOffset_ = _page.getGlobalOffset();

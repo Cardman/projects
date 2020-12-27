@@ -33,7 +33,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
                 AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
                 ArgumentsPair pair_ = getArgumentPair(_nodes, this);
                 pair_.setWrapper(val_);
-                setQuickNoConvertSimpleArgument(new Argument(ExecTemplates.getValue(val_, _context)), _nodes, _context);
+                setQuickNoConvertSimpleArgument(ExecTemplates.getWrapValue(_context,variableContent.getVariableName(),variableContent.getDeep(),ip_.getPageEl().getCache(), ip_.getPageEl().getRefParams()), _nodes, _context);
             } else {
                 setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context);
             }
@@ -42,7 +42,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
             AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
-            setSimpleArgument(new Argument(ExecTemplates.getValue(val_, _context)), _conf, _nodes, _context);
+            setSimpleArgument(ExecTemplates.getWrapValue(_context,variableContent.getVariableName(),variableContent.getDeep(),ip_.getPageEl().getCache(), ip_.getPageEl().getRefParams()), _conf, _nodes, _context);
         }
     }
     public String getVariableName() {
@@ -61,48 +61,48 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return trySetArgument(_nodes, _context, _right);
+        return trySetArgument(_conf,_nodes, _context, _right);
     }
 
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context);
-        return getCommonCompoundSetting(_nodes,_context,store_,_op,_right,_cl,_cast);
+        Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getPageEl().getCache(), _conf.getLastPage().getPageEl().getRefParams()).getStruct();
+        return getCommonCompoundSetting(_conf,_nodes,_context,store_,_op,_right,_cl,_cast);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context);
-        return getCommonSemiSetting(_nodes,_context,store_,_op,_post,_cast);
+        Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getPageEl().getCache(), _conf.getLastPage().getPageEl().getRefParams()).getStruct();
+        return getCommonSemiSetting(_conf,_nodes,_context,store_,_op,_post,_cast);
     }
-    private Argument getCommonCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
+    private Argument getCommonCompoundSetting(Configuration _config,IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast,_conf);
-        return trySetArgument(_nodes, _conf, res_);
+        return trySetArgument(_config,_nodes, _conf, res_);
     }
 
-    private Argument getCommonSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
+    private Argument getCommonSemiSetting(Configuration _config,IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _conf, res_);
+        trySetArgument(_config,_nodes, _conf, res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        return trySetArgument(_nodes, _context, _right);
+        return trySetArgument(_conf,_nodes, _context, _right);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context) {
-        trySetArgument(_nodes, _context, _right);
+        trySetArgument(_conf,_nodes, _context, _right);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res) {
+    private Argument trySetArgument(Configuration _config,IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_);
+        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(),_config.getLastPage().getPageEl().getCache(), _config.getLastPage().getPageEl().getRefParams());
     }
 
     public boolean isDeclare() {

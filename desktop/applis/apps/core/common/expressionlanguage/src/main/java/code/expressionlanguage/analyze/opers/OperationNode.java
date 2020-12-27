@@ -68,16 +68,16 @@ public abstract class OperationNode {
     protected static final String AROBASE = "@";
     protected static final int BOOLEAN_ARGS = 3;
 
-    private MethodOperation parent;
+    private final MethodOperation parent;
 
     private OperationNode nextSibling;
 
-    private AnaOperationContent content;
+    private final AnaOperationContent content;
 //    private Argument argument;
 
-    private OperationsSequence operations;
+    private final OperationsSequence operations;
 
-    private StringList errs = new StringList();
+    private final StringList errs = new StringList();
 
     private int indexInExp = -1;
 //    private int indexInEl;
@@ -520,14 +520,6 @@ public abstract class OperationNode {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
         AnaLocalVariable val_ = _page.getInfosVars().getVal(str_);
-        if (val_ != null) {
-            if (val_.getConstType() == ConstType.REF_PARAM) {
-                return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op);
-            }
-            if (val_.getConstType() == ConstType.REF_LOC_VAR) {
-                return new RefVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
-            }
-        }
         int deep_ = -1;
         if (val_ == null) {
             String shortStr_ = StringExpUtil.skipPrefix(str_);
@@ -541,6 +533,12 @@ public abstract class OperationNode {
 
         }
         if (val_ != null) {
+            if (val_.getConstType() == ConstType.REF_PARAM) {
+                return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op, deep_);
+            }
+            if (val_.getConstType() == ConstType.REF_LOC_VAR) {
+                return new RefVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(), deep_);
+            }
             if (val_.getConstType() == ConstType.LOC_VAR) {
                 return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
             }

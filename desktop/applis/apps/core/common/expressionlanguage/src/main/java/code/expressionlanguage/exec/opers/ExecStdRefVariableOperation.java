@@ -27,19 +27,19 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
         if (resultCanBeSet()) {
             if (!declare) {
                 PageEl ip_ = _conf.getLastPage();
-                AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
+                AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
                 ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
                 pair_.setWrapper(val_);
-                setQuickNoConvertSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
+                setQuickNoConvertSimpleArgument(ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
             } else {
                 setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes);
             }
         } else {
             PageEl ip_ = _conf.getLastPage();
-            AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
+            AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
-            setSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
+            setSimpleArgument(ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
         }
     }
 
@@ -59,14 +59,14 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
+        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
         return getCommonCompoundSetting(_nodes,_conf,store_,_op,_right,_cl,_cast);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
+        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
         return getCommonSemiSetting(_nodes,_conf,store_,_op,_post,_cast);
     }
     private Argument getCommonCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
@@ -99,7 +99,7 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
 
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_);
+        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
     }
     public boolean isDeclare() {
         return declare;

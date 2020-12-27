@@ -9,12 +9,13 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.util.IntTreeMap;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private int offset;
-    private int delta;
+    private final int delta;
     public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
         delta = _delta;
@@ -186,8 +187,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (firstChild_ instanceof RefVariableOperation) {
             RefVariableOperation v_ = (RefVariableOperation)firstChild_;
-            AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
-            processErrorVar(_page, var_);
+            setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }
         MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)firstChild_;

@@ -87,7 +87,7 @@ public final class InitializationLgNames {
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
+        ContextEl out_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(_lgNames, a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         _lgNames.build();
@@ -286,6 +286,7 @@ public final class InitializationLgNames {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars("getDeclaredAnonymousLambdaLocVars");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars("getDeclaredAnonymousLambdaWrapVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
@@ -448,7 +449,7 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(_undefinedLgNames, a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_, new DefaultFieldFilter());
         _undefinedLgNames.build();

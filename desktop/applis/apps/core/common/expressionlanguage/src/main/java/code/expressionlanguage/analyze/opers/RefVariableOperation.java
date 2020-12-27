@@ -18,7 +18,7 @@ import code.util.core.StringUtil;
 public final class RefVariableOperation extends LeafOperation implements
         SettableElResult {
 
-    private AnaVariableContent variableContent;
+    private final AnaVariableContent variableContent;
 
     private String realVariableName = EMPTY_STRING;
 
@@ -31,19 +31,19 @@ public final class RefVariableOperation extends LeafOperation implements
 
     public RefVariableOperation(int _indexInEl, int _indexChild,
                                 MethodOperation _m, OperationsSequence _op) {
-        this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0);
+        this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0, -1);
     }
 
     public RefVariableOperation(int _indexInEl, int _indexChild,
                                 MethodOperation _m, OperationsSequence _op,
-                                String _className, int _ref) {
+                                String _className, int _ref, int _deep) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
         variableContent = new AnaVariableContent(StringUtil.getFirstPrintableCharIndex(originalStr_)+relativeOff_);
         className = _className;
         ref = _ref;
-        variableContent.setDeep(-1);
+        variableContent.setDeep(_deep);
     }
 
     @Override

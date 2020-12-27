@@ -24,13 +24,13 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
-        AbstractWrapper val_ = ip_.getRefParams().getVal(variableContent.getVariableName());
+        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
+            setQuickNoConvertSimpleArgument(ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
         } else {
-            setSimpleArgument(new Argument(ExecTemplates.getValue(val_, _conf)), _conf, _nodes);
+            setSimpleArgument(ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
         }
     }
 
@@ -42,14 +42,14 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
+        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
         return getCommonCompoundSetting(_nodes,_conf,store_,_op,_right,_cl,_cast);
     }
 
 
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _conf);
+        Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
         return getCommonSemiSetting(_nodes,_conf,store_,_op,_post,_cast);
     }
 
@@ -83,7 +83,7 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res) {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_);
+        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
     }
 }
 

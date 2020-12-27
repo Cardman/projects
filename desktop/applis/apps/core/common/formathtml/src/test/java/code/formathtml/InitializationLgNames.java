@@ -29,7 +29,7 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild((int) IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         ContextFactory.validatedStds(lgNames_, a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
         lgNames_.build();
@@ -280,6 +280,7 @@ public final class InitializationLgNames {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars("getDeclaredAnonymousLambdaLocVars");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars("getDeclaredAnonymousLambdaWrapVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");

@@ -4402,6 +4402,30 @@ public final class ProcessMethodRefParamTest extends ProcessMethodCommon {
         assertEq(8, getNumber(ret_));
     }
     @Test
+    public void calculateArgument156Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $int t = 1;\n");
+        xml_.append(" $public $static $void exmeth(){\n");
+        xml_.append("  exmeth()/=0;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that $int exmeth(){\n");
+        xml_.append("  $return $that(exmeth2());\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $that $int exmeth2(){\n");
+        xml_.append("  $return $that(t);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DivideZeroException", ret_.getStruct().getClassName(cont_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

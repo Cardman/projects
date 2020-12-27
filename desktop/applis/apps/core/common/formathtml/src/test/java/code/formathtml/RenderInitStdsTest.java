@@ -290,6 +290,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars("getDeclaredAnonymousLambdaLocVars");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars("getDeclaredAnonymousLambdaWrapVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");

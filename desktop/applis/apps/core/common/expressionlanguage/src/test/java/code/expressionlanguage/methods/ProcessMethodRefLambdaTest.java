@@ -4,11 +4,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
@@ -1761,5 +1763,630 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq("java.lang.$Fct<~$int>", getString(ret_));
+    }
+    @Test
+    public void calculateArgument70Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  (:$void)->{r=8;}.call();\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument71Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  exmeth($that(t));\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int r){\n");
+        xml_.append("  (:$void)->{r=8;}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument72Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)8);\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$return r+=7;}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(15, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument73Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  ($int r:$void)->{#r=8;}.call(0);\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument74Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  exmeth($that(t));\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int r){\n");
+        xml_.append("  ($int r:$void)->{#r=8;}.call(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$return r+=7;}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", ret_.getStruct().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  $Method v = ($Method)(:$void)->{r=8;}.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", ret_.getStruct().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  exmeth($that(t));\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int r){\n");
+        xml_.append("  $Method v = ($Method)(:$void)->{r=8;}.metaInfo();\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException", ret_.getStruct().getClassName(cont_));
+    }
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  (:$void)->{(:$void)->{r=8;}.call();}.call();\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  (:$void)->{exmeth($that(r));}.call();\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int s){\n");
+        xml_.append("  s = 8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  ($int r:$void)->{exmeth($that(#r),r);}.call(8);\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int s,$int u){\n");
+        xml_.append("  s = u;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument81Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $int t2 = 7;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  $that $int r2 = $that(t2);\n");
+        xml_.append("  ($int r,$int r2:$void)->{exmeth($that(#r),$that(#r2),r,r2);}.call(8,9);\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int s,$that $int s2,$int u,$int u2){\n");
+        xml_.append("  s = u;\n");
+        xml_.append("  s2 += u;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument82Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $int t2 = 8;\n");
+        xml_.append("  $that $int r = $that(t);\n");
+        xml_.append("  ($that $int r:$void)->{exmeth($that(#r),r);}.call($that(t2));\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int s,$int u){\n");
+        xml_.append("  s = u;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument83Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"s\",(Object)\"8\");\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$return r+=7;}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(15, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument84Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$return r+=7;}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(15, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument85Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(20, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument86Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"v2\",0,(Object)0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"v3\",0,(Object)0);\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(20, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument87Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\",0);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument88Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\",1);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument89Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\",2);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument90Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"s\",0);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument91Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars().length;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument92Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\");\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument93Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument94Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\");\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument95Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\",0);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument96Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)0);\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument97Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)0);\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
     }
 }

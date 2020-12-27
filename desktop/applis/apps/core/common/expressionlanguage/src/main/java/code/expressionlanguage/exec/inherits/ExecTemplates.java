@@ -514,7 +514,7 @@ public final class ExecTemplates {
             return p_;
         }
         if (_cache != null) {
-            _cache.setCache(_rootBlock,_classNameFound);
+            _cache.setCache(_rootBlock,_classNameFound,_conf);
             p_.setCache(_cache);
             Struct err_ = _cache.checkCache(_conf);
             if (err_ != null){
@@ -1283,6 +1283,20 @@ public final class ExecTemplates {
         locVar_.setIndex(locVar_.getIndex() + 1);
     }
 
+    public static Argument getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+        AbstractWrapper wrapper_ = getWrapper(_val, _deep, _cache, _refParams);
+        return new Argument(getValue(wrapper_, _context));
+    }
+
+    public static AbstractWrapper getWrapper(String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+        if (_cache != null) {
+            AbstractWrapper wr_ = _cache.getLocalWrapper(_val, _deep);
+            if (wr_ != null) {
+                return wr_;
+            }
+        }
+        return _refParams.getVal(_val);
+    }
     public static Argument getValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
         if (_cache != null) {
             LocalVariable loopVar_ = _cache.getLocalVar(_val,_deep);
@@ -1302,6 +1316,21 @@ public final class ExecTemplates {
             return new Argument();
         }
         return new Argument(locVar_.getStruct());
+    }
+
+    public static Argument setWrapValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+        if (_context.callsOrException()) {
+            return new Argument();
+        }
+        if (_cache != null) {
+            AbstractWrapper wr_ = _cache.getLocalWrapper(_val, _deep);
+            if (wr_ != null) {
+                wr_.setValue(_context,_value);
+                return _value;
+            }
+        }
+        AbstractWrapper wr_ = _refParams.getVal(_val);
+        return trySetArgument(_context,_value,wr_);
     }
 
     public static Argument setValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
@@ -1794,10 +1823,14 @@ public final class ExecTemplates {
 
     public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair) {
         AbstractWrapper wrapper_ = _pair.getWrapper();
-        if (wrapper_ == null || _conf.callsOrException()) {
+        return trySetArgument(_conf, _res, wrapper_);
+    }
+
+    private static Argument trySetArgument(ContextEl _conf, Argument _res, AbstractWrapper _wrapper) {
+        if (_wrapper == null || _conf.callsOrException()) {
             return _res;
         }
-        wrapper_.setValue(_conf, _res);
+        _wrapper.setValue(_conf, _res);
         return _res;
     }
 }

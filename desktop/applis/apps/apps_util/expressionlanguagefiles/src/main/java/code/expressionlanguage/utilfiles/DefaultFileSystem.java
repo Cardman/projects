@@ -182,7 +182,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             return false;
         }
         String pref_ = prefix(file_, _rCont);
-        return simpleMkdirs(pref_+"/");
+        return simpleMkdirs(pref_);
     }
 
     @Override
@@ -243,7 +243,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         if (endsSep(file_)) {
             file_ = file_.substring(0,file_.length()-1);
         }
-        simpleMkdirs(file_+"/");
+        simpleMkdirs(file_);
     }
 
     private static boolean endsSep(String _file) {
@@ -251,7 +251,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     private static boolean simpleMkdirs(String _modified) {
-        return StreamFolderFile.makeParent(_modified);
+        return StreamFolderFile.makeParent(_modified+"/");
     }
     private boolean koName(String _file, RunnableContextEl _rCont) {
         String normal_ = StringUtil.replaceBackSlash(_file);

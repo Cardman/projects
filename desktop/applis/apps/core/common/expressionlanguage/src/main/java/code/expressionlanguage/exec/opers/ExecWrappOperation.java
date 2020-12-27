@@ -20,7 +20,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             ExecStdRefVariableOperation ch_ = (ExecStdRefVariableOperation) getFirstChild();
             String variableName_ = ch_.getVariableContent().getVariableName();
             PageEl ip_ = _conf.getLastPage();
-            AbstractWrapper val_ = ip_.getRefParams().getVal(variableName_);
+            AbstractWrapper val_ = ExecTemplates.getWrapper(variableName_,ch_.getVariableContent().getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
             setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes);

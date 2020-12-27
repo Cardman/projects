@@ -221,6 +221,7 @@ public final class LgNamesContent {
     private static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA = "GetDeclaredAnonymousLambda";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS = "GetDeclaredAnonymousLambdaLocalVars";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS = "GetDeclaredAnonymousLambdaWrapVars";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS = "GetDeclaredAnonymousLambdaLoopVars";
     private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
     private static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
@@ -338,18 +339,18 @@ public final class LgNamesContent {
     private static final String EXPONENT = "Exponent";
     private static final String NAN = "Nan";
 
-    private StringMap<StandardType> standards = new StringMap<StandardType>();
+    private final StringMap<StandardType> standards = new StringMap<StandardType>();
 
-    private AliasCore coreNames = new AliasCore();
+    private final AliasCore coreNames = new AliasCore();
 
-    private AliasCharSequence charSeq = new AliasCharSequence();
-    private AliasReflection reflect = new AliasReflection();
-    private AliasStackTraceElement stackElt = new AliasStackTraceElement();
-    private AliasNumber nbAlias = new AliasNumber();
-    private AliasMath mathRef = new AliasMath();
-    private PrimitiveTypes primTypes = new PrimitiveTypes();
-    private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
-    private DisplayedStrings displayedStrings = new DisplayedStrings();
+    private final AliasCharSequence charSeq = new AliasCharSequence();
+    private final AliasReflection reflect = new AliasReflection();
+    private final AliasStackTraceElement stackElt = new AliasStackTraceElement();
+    private final AliasNumber nbAlias = new AliasNumber();
+    private final AliasMath mathRef = new AliasMath();
+    private final PrimitiveTypes primTypes = new PrimitiveTypes();
+    private final AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
+    private final DisplayedStrings displayedStrings = new DisplayedStrings();
     private String defaultPkg = "";
     public void build(StringMap<String> _util, StringMap<String> _cust) {
         setDefaultPkg(get(_util,_cust, DEFAULT_PKG));
@@ -566,6 +567,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
         getReflect().setAliasGetDeclaredAnonymousLambda(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
         getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS));
+        getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS));
         getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
         getReflect().setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
         getReflect().setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
@@ -1435,6 +1437,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLocalVars()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaWrapperVars()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLoopVars()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getReflect().getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_DEFAULT_VALUE,getReflect().getAliasGetDefaultValue()),
