@@ -155,9 +155,6 @@ public final class Cache {
             localWrappers.set(_index,named_);
         }
     }
-    public void addLocal(String _key, LocalVariable _var) {
-        localWrappers.add(new NamedWrapper(_key,new VariableWrapper(_var),""));
-    }
     public StringList getLoopVars() {
         StringList list_ = new StringList();
         for (NamedLoopVariable n: loopVariables) {

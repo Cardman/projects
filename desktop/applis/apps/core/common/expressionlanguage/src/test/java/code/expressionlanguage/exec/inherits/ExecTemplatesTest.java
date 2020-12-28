@@ -20,6 +20,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -782,7 +783,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
-        cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         Argument myvar_ = ExecTemplates.getWrapValue(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
@@ -800,7 +801,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
-        cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
         cache_.setClassLocalValueWrapper(-1,"",cont_);
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -847,7 +848,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
-        cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
         Argument myvar_ = ExecTemplates.setWrapValue(cont_, "myvar", new Argument(new IntStruct(4)),0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
