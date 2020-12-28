@@ -41,7 +41,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(false));
         lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v&=1/0 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -65,7 +65,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(true));
         lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v|=1/0 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -89,7 +89,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v&=1 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -113,7 +113,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v|=1 > 0";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -143,7 +143,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         String el_ = "!v";
         processElLow(el_, context_);
         
@@ -158,7 +158,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasByte());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         String el_ = "$($byte)v";
         processElLow(el_, context_);
 
@@ -172,7 +172,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -194,7 +194,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -216,7 +216,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setValue(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -239,7 +239,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setValue(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v[0i]";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -1521,7 +1521,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("($int)arg", context_);
         assertNotNull(getException(context_));
     }
@@ -1538,7 +1538,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("($boolean)arg2", context_);
         assertNotNull(getException(context_));
     }
@@ -1551,7 +1551,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("arg.length", context_);
         assertNotNull(getException(context_));
     }
@@ -2120,7 +2120,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v2", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("v=v2", context_);
         
         assertNotNull(getException(context_));
@@ -2145,7 +2145,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         processElLow("$classchoice(pkg.Ex)inst=v", cont_);
         
         assertNotNull(getException(cont_));
@@ -2166,7 +2166,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(new IntStruct(1));
         lv_.setClassName(context_.getAliasInteger());
         localVars_.put("v2", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("v[0i]=v2", context_);
         
         assertNotNull(getException(context_));
@@ -2183,7 +2183,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setStruct(array_);
         lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         processElLow("v[0i]/=0", context_);
         
         assertNotNull(getException(context_));
@@ -2194,7 +2194,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         _cont.getAnalyzing().setGlobalClass(gl_);
         _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
-        setupAnalyzing(_cont.getAnalyzing(), _cont.getLastPage(), _cont.getAnalyzingDoc());
+        setupAnalyzing(_cont, _cont.getLastPage(), _cont.getAnalyzingDoc());
         Argument argGl_ = _cont.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _cont.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
@@ -2265,7 +2265,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context.getAnalyzing(), _context.getLastPage(), _context.getAnalyzingDoc());
+        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
     }
 
     private static void setValue(LocalVariable _lv) {

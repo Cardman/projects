@@ -28,7 +28,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
-    private boolean intermediate;
+    private final boolean intermediate;
 
     protected ExecInvokingOperation(
             ExecOperationContent _opCont, boolean _intermediateDottedOperation) {
@@ -430,7 +430,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (c.startsWith("~")) {
                 Struct struct_ = values_.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
-                local_ = ExecTemplates.local(local_);
                 VariableWrapper v_ = new VariableWrapper(local_);
                 argumentListCall_.getWrappers().add(v_);
             } else {

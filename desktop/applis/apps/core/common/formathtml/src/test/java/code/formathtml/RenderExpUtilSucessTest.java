@@ -238,7 +238,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
@@ -252,7 +252,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence))", context_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
@@ -274,7 +274,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("f.format(v,d,v)", context_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
@@ -288,7 +288,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("f.format()", context_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
@@ -335,7 +335,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("arrays[0i]", context_);
         assertEq(0, getNumber(arg_));
     }
@@ -347,7 +347,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("arrays[0i].length", context_);
         assertEq(2, getNumber(arg_));
     }
@@ -399,7 +399,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
         assertEq(14, getNumber(arg_));
     }
@@ -411,7 +411,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("$static($math).abs(v[0i]+2)*2", context_);
         assertEq(20L, getNumber(arg_));
     }
@@ -423,7 +423,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("(v[0i]+2)*2", context_);
         assertEq(20L, getNumber(arg_));
     }
@@ -931,7 +931,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasPrimInteger()));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("arg={2}", context_);
         ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
         assertEq(1,struct_.getInstance().length);
@@ -3028,7 +3028,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("str"));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument argument_ = calcLow("(String)arg", context_);
         assertEq("str",getString(argument_));
     }
@@ -3087,7 +3087,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("v.clone()", context_);
         ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
         assertEq(1, arr_.getInstance().length);
@@ -3145,7 +3145,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(0));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         buildAndCalculate(context_, all_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
@@ -3168,7 +3168,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(2));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         buildAndCalculate(context_, all_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
@@ -4220,7 +4220,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(14,getNumber(argument_));
         assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
@@ -4258,7 +4258,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(6,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
@@ -4295,7 +4295,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(7,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
@@ -4862,7 +4862,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 0, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("v[0i]=12i", context_);
         assertEq(12, ((NumberStruct) ((ArrayStruct)lv_.getStruct()).getInstance()[0]).intStruct());
     }
@@ -4874,7 +4874,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("v[0i][0i]=12i", context_);
         assertEq(12, ((NumberStruct)(((ArrayStruct)((ArrayStruct)lv_.getStruct()).getInstance()[0]).getInstance())[0]).intStruct());
     }
@@ -4900,7 +4900,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         setGlobalType(cont_, "pkg.Composite");
         Argument res_ = buildAndCalculate(cont_, all_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
@@ -4914,7 +4914,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 0, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("v[0i]-=12i", context_);
         assertEq(-12, ((NumberStruct) in_.get(0)).intStruct());
         assertEq(-12, getNumber(res_));
@@ -4927,7 +4927,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("v[0i][0i]-=12i", context_);
         assertEq(-12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(-12, getNumber(res_));
@@ -4940,7 +4940,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("v[0i][0i]++", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
@@ -4954,7 +4954,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("v[0i][0i]--", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
@@ -4967,7 +4967,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("++v[0i][0i]", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(1, getNumber(res_));
@@ -4980,7 +4980,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         Argument res_ = calcLow("--v[0i][0i]", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
         assertEq(-1, getNumber(res_));
@@ -5026,7 +5026,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         buildAndCalculate(cont_, all_);
         Struct arg_ = getStaticField(cont_);
         assertSame(NullStruct.NULL_VALUE,arg_);
@@ -5040,7 +5040,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("add "));
         lv_.setClassName(context_.getAliasString());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("v+=1i", context_);
         assertEq("add 1", ((StringStruct)lv_.getStruct()).getInstance());
     }
@@ -5056,7 +5056,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(array_);
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("v[0i]+=1i", context_);
         assertEq("add 1",((StringStruct)(((ArrayStruct) lv_.getStruct()).getInstance())[0]).getInstance());
     }
@@ -5110,7 +5110,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         Argument res_ = buildAndCalculate(cont_, all_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(0, getNumber(res_));
@@ -5133,7 +5133,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         Argument res_ = buildAndCalculate(cont_, all_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(1, getNumber(res_));
@@ -5157,7 +5157,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(cont_, localVars_);
         Argument res_ = buildAndCalculate(cont_, all_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
@@ -5170,7 +5170,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow("(v[0i][0i])=12i", context_);
         assertEq(12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
     }
@@ -5184,7 +5184,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(3));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+=1i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5218,7 +5218,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(3));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v==1i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5240,7 +5240,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(3));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5263,7 +5263,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(3));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5285,7 +5285,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]++";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5307,7 +5307,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v[0i]";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5330,7 +5330,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(3));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+=2i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5352,7 +5352,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]+=3i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5379,7 +5379,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setStruct(new IntStruct(12));
         lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5408,7 +5408,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setStruct(new IntStruct(12));
         lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v---v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5436,7 +5436,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setStruct(new IntStruct(12));
         lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v=++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5464,7 +5464,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setStruct(new IntStruct(12));
         lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v= ++v2";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5510,7 +5510,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv2_.setStruct(new IntStruct(12));
         lv2_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v=v2=4i";
         Delimiters d_ = checkSyntax(context_, elr_, 0);
@@ -5534,7 +5534,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
@@ -5550,7 +5550,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
@@ -5566,7 +5566,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
@@ -5578,7 +5578,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
@@ -5590,14 +5590,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(_i));
         localVars_.put(_varName, lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
     private static Argument calcLow(String _s, AnalyzedTestConfiguration _context) {
         setGlobalType(_context, _context.getLastPage().getGlobalArgument().getStruct().getClassName(_context.getContext()));
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context.getAnalyzing(), _context.getLastPage(), _context.getAnalyzingDoc());
+        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
         Argument argGl_ = _context.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _context.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
@@ -5649,7 +5649,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(_b2));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
@@ -5664,7 +5664,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         addImportingPage(conf_);
         conf_.getAnalyzingDoc().setup(conf_.getConfiguration(), conf_.getDual());
-        setupAnalyzing(conf_.getAnalyzing(), conf_.getLastPage(), conf_.getAnalyzingDoc());
+        setupAnalyzing(conf_, conf_.getLastPage(), conf_.getAnalyzingDoc());
         Argument argGl_ = conf_.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         conf_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
@@ -5690,7 +5690,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(_b));
         lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow(_s, context_);
         return lv_;
     }
@@ -5703,7 +5703,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new IntStruct(_i));
         lv_.setClassName(context_.getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         calcLow(_s, context_);
         return lv_;
     }
@@ -5763,7 +5763,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(BooleanStruct.of(_b));
         lv_.setClassName(context_.getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         Delimiters d_ = checkSyntax(context_, _s, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -5891,7 +5891,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         setGlobalType(context_, context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
-        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage(), context_.getAnalyzingDoc());
+        setupAnalyzing(context_, context_.getLastPage(), context_.getAnalyzingDoc());
         Argument argGl_ = context_.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
@@ -5963,7 +5963,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(str_);
         lv_.setClassName(_clasName);
         localVars_.put(_varName, lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CommonRender.setLocalVars(context_, localVars_);
         return buildAndCalculate(context_, all_);
     }
 
@@ -5982,7 +5982,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context.getAnalyzing(), _context.getLastPage(), _context.getAnalyzingDoc());
+        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
     }
 
     private static Struct getStaticField(AnalyzedTestConfiguration _cont) {

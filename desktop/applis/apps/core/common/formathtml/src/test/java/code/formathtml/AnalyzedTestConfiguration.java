@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -21,8 +22,9 @@ public final class AnalyzedTestConfiguration {
     private final BeanCustLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
-    private DualConfigurationContext dual;
+    private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
+    private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
 
     public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.configuration = _configuration;
@@ -36,6 +38,10 @@ public final class AnalyzedTestConfiguration {
         dual = _analyzing.getDual();
         dual.setContext(context);
         this.analyzing = _analyzing.getAnalyzing();
+    }
+
+    public StringMap<LocalVariable> getLocalVariables() {
+        return localVariables;
     }
 
     public Configuration getConfiguration() {

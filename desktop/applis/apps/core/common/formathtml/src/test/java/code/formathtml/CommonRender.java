@@ -65,28 +65,29 @@ public abstract class CommonRender {
         return nav_;
     }
 
-    protected static void setupAnalyzing(AnalyzedPageEl _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
+    protected static void setupAnalyzing(AnalyzedTestConfiguration _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
 
-        String globalClass_ = _analyzing.getGlobalClass();
-        setupAna(_analyzingDoc, _analyzing);
-        _analyzing.setGlobalType(_analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
-        for (EntryCust<String, AbstractWrapper> e: _lastPage.getRefParams().entryList()) {
+        String globalClass_ = _analyzing.getAnalyzing().getGlobalClass();
+        setupAna(_analyzingDoc, _analyzing.getAnalyzing());
+        _analyzing.getAnalyzing().setGlobalType(_analyzing.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        for (EntryCust<String, LocalVariable> e: _analyzing.getLocalVariables().entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(((VariableWrapper)e.getValue()).getLocal().getClassName());
+            a_.setClassName(e.getValue().getClassName());
             a_.setConstType(ConstType.LOC_VAR);
-            _analyzing.getInfosVars().put(e.getKey(), a_);
+            _analyzing.getAnalyzing().getInfosVars().put(e.getKey(), a_);
         }
         for (EntryCust<String,LoopVariable> e: _lastPage.getVars().entryList()) {
             AnaLoopVariable a_ = new AnaLoopVariable();
             a_.setIndexClassName(e.getValue().getIndexClassName());
-            _analyzing.getLoopsVars().put(e.getKey(), a_);
+            _analyzing.getAnalyzing().getLoopsVars().put(e.getKey(), a_);
         }
     }
 
-    protected static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
+    protected static void setLocalVars(AnalyzedTestConfiguration _importingPage, StringMap<LocalVariable> _localVars) {
         for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
-            _importingPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+            _importingPage.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
         }
+        _importingPage.getLocalVariables().addAllEntries(_localVars);
     }
 
     protected static boolean isEmptyErrors(AnalyzedTestConfiguration _cont) {
@@ -148,7 +149,7 @@ public abstract class CommonRender {
 
     protected static CustList<OperationNode> getQuickAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
-        setupAnalyzing(_conf.getAnalyzing(), _conf.getLastPage(), _conf.getAnalyzingDoc());
+        setupAnalyzing(_conf, _conf.getLastPage(), _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getConfiguration().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));

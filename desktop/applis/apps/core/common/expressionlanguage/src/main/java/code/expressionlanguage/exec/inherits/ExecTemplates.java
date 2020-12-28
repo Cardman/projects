@@ -578,7 +578,7 @@ public final class ExecTemplates {
             str_ = args_.last().getStruct();
         }
         if (params_.isVarargRef()) {
-            str_ = getValue(wrappers_.last(), null);
+            str_ = getValue(wrappers_.last(), _conf);
         }
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
@@ -627,8 +627,8 @@ public final class ExecTemplates {
         StringList paramsRef_ = new StringList();
         StringList namesRef_ = new StringList();
         boolean lastRef_ = false;
+        int i_ = 0;
         if (_hasFormat) {
-            int i_ = 0;
             for (String c: _id.getImportedParametersTypes()) {
                 String c_ = c;
                 c_ = quickFormat(_rootBlock,_classNameFound, c_);
@@ -648,7 +648,6 @@ public final class ExecTemplates {
                 i_++;
             }
         } else {
-            int i_ = 0;
             for (String c: _id.getImportedParametersTypes()) {
                 String c_ = c;
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
@@ -705,7 +704,6 @@ public final class ExecTemplates {
             if (fct_.getParametersRef(i_)) {
                 Struct struct_ = _firstArgs.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
-                local_ = local(local_);
                 VariableWrapper v_ = new VariableWrapper(local_);
                 out_.getWrappers().add(v_);
             } else {
@@ -714,12 +712,6 @@ public final class ExecTemplates {
             i_++;
         }
         return out_;
-    }
-    public static LocalVariable local(LocalVariable _loc) {
-        if (_loc != null) {
-            return _loc;
-        }
-        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,"");
     }
     public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
         Parameters p_ = new Parameters();

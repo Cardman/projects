@@ -16,10 +16,7 @@ public final class VariableWrapper implements AbstractWrapper {
     }
 
     public Struct getValue(ContextEl _conf) {
-        return getLocal().getStruct();
+        return local.getStruct();
     }
 
-    public LocalVariable getLocal() {
-        return local;
-    }
 }
