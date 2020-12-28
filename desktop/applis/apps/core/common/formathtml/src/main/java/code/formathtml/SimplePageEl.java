@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -24,12 +25,9 @@ public final class SimplePageEl {
     public StringMap<AbstractWrapper> getRefParams() {
         return content.getRefParams();
     }
-    public StringMap<LocalVariable> getValueVars() {
-        return content.getValueVars();
-    }
 
     public void putValueVar(String _key, LocalVariable _var) {
-        content.putValueVar(_key, _var);
+        content.getRefParams().put(_key, new VariableWrapper(_var));
     }
     public StringMap<LoopVariable> getVars() {
         return content.getVars();

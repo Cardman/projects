@@ -4,15 +4,10 @@ import code.util.CustList;
 
 public final class CacheInfo {
     private final CustList<NameAndType> cacheLocalNames = new CustList<NameAndType>();
-    private final CustList<NameAndType> cacheLocalWrappers = new CustList<NameAndType>();
     private final CustList<NameAndType> cacheLoopNames = new CustList<NameAndType>();
 
     public CustList<NameAndType> getCacheLoopNames() {
         return cacheLoopNames;
-    }
-
-    public CustList<NameAndType> getCacheLocalWrappers() {
-        return cacheLocalWrappers;
     }
 
     public CustList<NameAndType> getCacheLocalNames() {

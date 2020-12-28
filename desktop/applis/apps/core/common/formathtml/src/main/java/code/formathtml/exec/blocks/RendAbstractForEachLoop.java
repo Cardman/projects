@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.*;
@@ -19,17 +20,17 @@ import code.util.StringMap;
 
 public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendLoop {
 
-    private String label;
+    private final String label;
 
-    private String importedClassName;
+    private final String importedClassName;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
-    private String variableName;
+    private final String variableName;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private CustList<RendDynOperationNode> opList;
+    private final CustList<RendDynOperationNode> opList;
 
     protected RendAbstractForEachLoop(String _importedClassName, String _variable,
                                       int _expressionOffset, String _classIndex, String _label, int _offsetTrim,CustList<RendDynOperationNode> _res) {
@@ -96,7 +97,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
-        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
+        StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
         ConditionReturn hasNext_ = hasNext(_conf,_advStandards,_ctx,_loopBlock);
         if (hasNext_ == ConditionReturn.CALL_EX) {
             return;
@@ -110,13 +111,13 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
 
     private void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                                StringMap<LoopVariable> _vars,
-                               StringMap<LocalVariable> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx) {
+                               StringMap<AbstractWrapper> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx) {
         _l.setIndex(_l.getIndex() + 1);
         ImportingPage abs_ = _conf.getLastPage();
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
-        LocalVariable lInfo_ = _varsInfos.getVal(variableName);
+        AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         Argument arg_ = retrieveValue(_conf,_advStandards,_ctx,_l);
         if (_ctx.callsOrException()) {
             return;
@@ -124,7 +125,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         if (!ExecTemplates.checkQuick(importedClassName, arg_, _ctx)) {
             return;
         }
-        lInfo_.setStruct(arg_.getStruct());
+        lInfo_.setValue(_ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }

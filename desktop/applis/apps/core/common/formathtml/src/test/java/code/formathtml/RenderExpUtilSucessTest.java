@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
@@ -20,6 +21,7 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -129,7 +131,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        context_.getLastPage().getValueVars().put("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
+        context_.getLastPage().getPageEl().getRefParams().addEntry("v",new VariableWrapper(LocalVariable.newLocalVariable(str_,"pkg.Ex")));
         Argument arg_ = buildAndCalculate(context_, all_);
         assertEq(2, getNumber(arg_));
     }
@@ -593,7 +595,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
-        context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
+        for (EntryCust<String, LocalVariable> e: localVars_.entryList()) {
+            context_.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+        }
         Argument arg_ = buildAndCalculate(context_, all_);
         assertEq(2, getNumber(arg_));
     }

@@ -18,19 +18,19 @@ import code.util.core.IndexConstants;
 
 public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
-    private String label;
+    private final String label;
 
-    private String importedClassName;
+    private final String importedClassName;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
     private final String variableName;
 
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private CustList<ExecOperationNode> opList;
+    private final CustList<ExecOperationNode> opList;
 
     protected ExecAbstractForEachLoop(String _label, String _importedClassName, String _importedClassIndexName, String _variableName, int _variableNameOffset, int _expressionOffset, CustList<ExecOperationNode> _opList, int _offsetTrim) {
         super(_offsetTrim);
@@ -125,7 +125,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
             return;
         }
         abs_.clearCurrentEls();
-        ExecTemplates.setValue(_conf, variableName, arg_,-1, abs_.getCache(), abs_.getValueVars());
+        ExecTemplates.setWrapValue(_conf, variableName, arg_,-1, abs_.getCache(), abs_.getRefParams());
         ExecTemplates.incrIndexLoop(_conf, variableName, -1, abs_.getCache(), abs_.getVars());
         if (_conf.callsOrException()) {
             return;

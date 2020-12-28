@@ -13,14 +13,6 @@ public final class ExecAnonFctContent {
     public ExecAnonFctContent(AnaAnonFctContent _cont) {
         AnaCache cache_ = _cont.getCache();
         for (AnaNamedLocalVariable e: cache_.getLocalVariables()) {
-            if (e.getLocalVariable().getConstType() == ConstType.REF_LOC_VAR) {
-                cacheInfo.getCacheLocalWrappers().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
-                continue;
-            }
-            if (e.getLocalVariable().getConstType() == ConstType.REF_PARAM) {
-                cacheInfo.getCacheLocalWrappers().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
-                continue;
-            }
             cacheInfo.getCacheLocalNames().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
         }
         for (AnaNamedLoopVariable e: cache_.getLoopVariables()) {

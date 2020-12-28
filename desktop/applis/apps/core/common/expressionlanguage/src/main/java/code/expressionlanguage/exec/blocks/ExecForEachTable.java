@@ -23,21 +23,21 @@ import code.util.core.IndexConstants;
 
 public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
-    private String label;
+    private final String label;
 
-    private String importedClassNameFirst;
+    private final String importedClassNameFirst;
 
-    private String importedClassNameSecond;
+    private final String importedClassNameSecond;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
     private final String variableNameFirst;
 
     private final String variableNameSecond;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private CustList<ExecOperationNode> opList;
+    private final CustList<ExecOperationNode> opList;
 
     public ExecForEachTable(String _label, String _importedClassNameFirst, String _importedClassNameSecond, String _importedClassIndexName,
                             String _variableNameFirst, String _variableNameSecond,
@@ -199,7 +199,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return;
         }
         if (call_.sizeEl() < 4) {
-            ExecTemplates.setValue(_conf,variableNameFirst, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+            ExecTemplates.setWrapValue(_conf,variableNameFirst, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
             ExecTemplates.incrIndexLoop(_conf, variableNameFirst, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
             if (_conf.callsOrException()) {
                 return;
@@ -213,7 +213,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        ExecTemplates.setValue(_conf,variableNameSecond, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+        ExecTemplates.setWrapValue(_conf,variableNameSecond, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
         ExecTemplates.incrIndexLoop(_conf, variableNameSecond, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
         if (_conf.callsOrException()) {
             return;

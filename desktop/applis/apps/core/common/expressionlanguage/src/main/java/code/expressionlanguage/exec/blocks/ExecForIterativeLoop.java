@@ -203,10 +203,10 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         _conf.getLastPage().setGlobalOffset(variableNameOffset);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
-        Argument struct_ = ExecTemplates.getValue(_conf,var_, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+        Argument struct_ = ExecTemplates.getWrapValue(_conf,var_, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards().getPrimTypes()), new LongStruct(o_));
-        ExecTemplates.setValue(_conf,var_, new Argument(element_),-1, _conf.getLastPage().getCache(), _conf.getLastPage().getValueVars());
+        ExecTemplates.setWrapValue(_conf,var_, new Argument(element_),-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
         ExecTemplates.incrIndexLoop(_conf,var_, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
     }
 

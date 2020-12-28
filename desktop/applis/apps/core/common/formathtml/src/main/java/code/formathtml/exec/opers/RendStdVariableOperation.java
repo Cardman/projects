@@ -17,7 +17,7 @@ import code.util.IdMap;
 public final class RendStdVariableOperation  extends RendLeafOperation implements
         RendCalculableOperation,RendSettableElResult{
 
-    private ExecVariableContent variableContent;
+    private final ExecVariableContent variableContent;
 
     public RendStdVariableOperation(ExecOperationContent _content, ExecVariableContent _variableContent) {
         super(_content);
@@ -44,7 +44,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getValue(_context, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        return ExecTemplates.getWrapValue(_context, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
     }
 
     @Override
@@ -68,14 +68,14 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     private Argument getCommonSetting(Configuration _conf, Argument _right, ContextEl _context) {
         SimplePageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
-        return ExecTemplates.setValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        return ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
     }
     private Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, ContextEl _context) {
         SimplePageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         Argument left_ = new Argument(_store);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context);
-        ExecTemplates.setValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
         return res_;
     }
     private Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post, byte _cast, ContextEl _context) {
@@ -83,7 +83,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
         Argument left_ = new Argument(_store);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        ExecTemplates.setValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -102,7 +102,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     private void processVariable(Configuration _conf, Argument _right, ContextEl _context) {
         SimplePageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _conf);
-        ExecTemplates.setValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
     }
 
     public ExecVariableContent getVariableContent() {

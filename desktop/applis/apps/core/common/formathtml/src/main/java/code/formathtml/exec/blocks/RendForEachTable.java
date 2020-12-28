@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -24,22 +25,22 @@ import code.util.core.IndexConstants;
 
 public final class RendForEachTable extends RendParentBlock implements RendLoop, RendWithEl {
 
-    private String label;
+    private final String label;
 
-    private String importedClassNameFirst;
+    private final String importedClassNameFirst;
 
-    private String importedClassNameSecond;
+    private final String importedClassNameSecond;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
-    private String variableNameFirst;
+    private final String variableNameFirst;
 
 
-    private String variableNameSecond;
+    private final String variableNameSecond;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private CustList<RendDynOperationNode> opList;
+    private final CustList<RendDynOperationNode> opList;
 
     public RendForEachTable(String _className, String _variable,
                      String _classNameSec, String _variableSec,
@@ -132,7 +133,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
-        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
+        StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
         ConditionReturn has_ = iteratorHasNext(_conf, _advStandards, _ctx, _loopBlock);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
@@ -145,7 +146,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
     }
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars, StringMap<LocalVariable> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx) {
+                              StringMap<LoopVariable> _vars, StringMap<AbstractWrapper> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx) {
         _l.setIndex(_l.getIndex() + 1);
         Struct iterator_ = _l.getStructIterator();
         ImportingPage call_ = _conf.getLastPage();
@@ -162,8 +163,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
-        LocalVariable lInfo_ = _varsInfos.getVal(variableNameFirst);
-        lInfo_.setStruct(arg_.getStruct());
+        AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
+        lInfo_.setValue(_ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         arg_ = second(value_,_conf, _advStandards, _ctx);
         if (_ctx.callsOrException()) {
@@ -174,7 +175,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         lv_ = _vars.getVal(variableNameSecond);
         lInfo_ = _varsInfos.getVal(variableNameSecond);
-        lInfo_.setStruct(arg_.getStruct());
+        lInfo_.setValue(_ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }

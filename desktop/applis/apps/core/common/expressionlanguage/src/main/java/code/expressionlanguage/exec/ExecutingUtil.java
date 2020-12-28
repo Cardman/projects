@@ -9,6 +9,8 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.inherits.Templates;
@@ -119,7 +121,9 @@ public final class ExecutingUtil {
         _page.setBlockRoot(fct_);
         _context.getCoverage().passCalls(_page);
         _page.initReturnType(_args.getRight());
-        _page.getValueVars().addAllEntries(_args.getParameters());
+        for (EntryCust<String, LocalVariable> e: _args.getParameters().entryList()) {
+            _page.getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+        }
         _page.getRefParams().addAllEntries(_args.getRefParameters());
         _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
@@ -215,7 +219,9 @@ public final class ExecutingUtil {
         _page.setBlockRoot(ctor_);
         if (ctor_ != null) {
             _context.getCoverage().passCalls(_page);
-            _page.getValueVars().addAllEntries(_args.getParameters());
+            for (EntryCust<String, LocalVariable> e: _args.getParameters().entryList()) {
+                _page.getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+            }
             _page.getRefParams().addAllEntries(_args.getRefParameters());
             ExecBlock firstChild_ = ctor_.getFirstChild();
             rw_.setBlock(firstChild_);

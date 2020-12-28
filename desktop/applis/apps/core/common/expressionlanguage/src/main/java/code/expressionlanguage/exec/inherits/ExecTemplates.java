@@ -1297,15 +1297,6 @@ public final class ExecTemplates {
         }
         return _refParams.getVal(_val);
     }
-    public static Argument getValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
-        if (_cache != null) {
-            LocalVariable loopVar_ = _cache.getLocalVar(_val,_deep);
-            if (loopVar_ != null) {
-                return new Argument(loopVar_.getStruct());
-            }
-        }
-        return getValueVar(_val, _valueVars, _context);
-    }
 
     public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context) {
         LocalVariable locVar_ = _valueVars.getVal(_val);
@@ -1331,26 +1322,6 @@ public final class ExecTemplates {
         }
         AbstractWrapper wr_ = _refParams.getVal(_val);
         return trySetArgument(_context,_value,wr_);
-    }
-
-    public static Argument setValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<LocalVariable> _valueVars) {
-        if (_context.callsOrException()) {
-            return new Argument();
-        }
-        LgNames stds_ = _context.getStandards();
-        if (_cache != null) {
-            LocalVariable loopVar_ = _cache.getLocalVar(_val,_deep);
-            if (loopVar_ != null) {
-                return checkSet(_context,loopVar_,_value);
-            }
-        }
-        LocalVariable locVar_ = _valueVars.getVal(_val);
-        if (locVar_ == null) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
-            return new Argument();
-        }
-        return checkSet(_context,locVar_,_value);
     }
 
     public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {

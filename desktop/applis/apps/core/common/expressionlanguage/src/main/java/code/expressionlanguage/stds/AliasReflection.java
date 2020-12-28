@@ -916,7 +916,7 @@ public final class AliasReflection {
             if (_args.length == 3) {
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    cache_.putLocalValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct(),_args[2]);
+                    cache_.putLocalWrapperValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct(),_args[2],_cont);
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
@@ -925,14 +925,14 @@ public final class AliasReflection {
                 Cache cache_ = method_.getCache();
                 if (StringUtil.quickEq(_method.getConstraints().getParametersType(1), lgNames_.getContent().getPrimTypes().getAliasPrimLong())) {
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct()));
+                        result_.setResult(cache_.getLocalWrapperValue(NumParsers.getStringValue(_args[0]), NumParsers.convertToNumber(_args[1]).longStruct(),_cont));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
                     return result_;
                 }
                 if (cache_ != null) {
-                    cache_.putLocalValue(NumParsers.getStringValue(_args[0]),_args[1]);
+                    cache_.putLocalWrapperValue(NumParsers.getStringValue(_args[0]),_args[1],_cont);
                 }
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
@@ -940,7 +940,7 @@ public final class AliasReflection {
             if (_args.length == 1) {
                 Cache cache_ = method_.getCache();
                 if (cache_ != null) {
-                    result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(_args[0]),0));
+                    result_.setResult(cache_.getLocalWrapperValue(NumParsers.getStringValue(_args[0]),0,_cont));
                 } else {
                     result_.setResult(NullStruct.NULL_VALUE);
                 }
@@ -950,7 +950,7 @@ public final class AliasReflection {
             String arrStr_ = lgNames_.getContent().getCharSeq().getAliasString();
             arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
             if (cache_ != null) {
-                StringList localVars_ = cache_.getLocalVars();
+                StringList localVars_ = cache_.getLocalWrappers();
                 int size_ = localVars_.size();
                 ArrayStruct array_ = new ArrayStruct(size_, arrStr_);
                 for (int i = 0; i < size_; i++) {

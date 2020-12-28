@@ -42,7 +42,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getValue(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        return ExecTemplates.getWrapValue(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
     }
 
     @Override
@@ -72,7 +72,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        return ExecTemplates.setValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        return ExecTemplates.setWrapValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
     }
 
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
@@ -93,12 +93,12 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     }
 
     private static void setVar(ContextEl _conf, String _variableName, PageEl _var, Argument _value, int _deep) {
-        ExecTemplates.setValue(_conf,_variableName, _value,_deep, _var.getCache(), _var.getValueVars());
+        ExecTemplates.setWrapValue(_conf,_variableName, _value,_deep, _var.getCache(), _var.getRefParams());
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        ExecTemplates.setWrapValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
         return _right;
     }
 
@@ -107,7 +107,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getValueVars());
+        ExecTemplates.setWrapValue(_conf, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams());
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 

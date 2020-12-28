@@ -21,11 +21,11 @@ public final class ImportingPage {
 
     private String processingAttribute = EMPTY_STRING;
 
-    private CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
+    private final CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
 
     private String beanName;
 
-    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
+    private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private String readUrl = "";
 
@@ -43,7 +43,7 @@ public final class ImportingPage {
     private RendLoopBlockStack lastLoop;
     private RendIfStack lastIf;
     private RendTryBlockStack lastTry;
-    private ArgumentListCall list = new ArgumentListCall();
+    private final ArgumentListCall list = new ArgumentListCall();
 
     public int getRowFile(int _sum) {
         int i_ = 0;
@@ -142,9 +142,7 @@ public final class ImportingPage {
     public void removeRefVar(String _key) {
         getPageEl().removeRefVar(_key);
     }
-    public StringMap<LocalVariable> getValueVars() {
-        return getPageEl().getValueVars();
-    }
+
     public StringMap<LoopVariable> getVars() {
         return getPageEl().getVars();
     }

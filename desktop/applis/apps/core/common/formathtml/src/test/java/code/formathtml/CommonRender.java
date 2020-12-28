@@ -11,8 +11,10 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -68,9 +70,9 @@ public abstract class CommonRender {
         String globalClass_ = _analyzing.getGlobalClass();
         setupAna(_analyzingDoc, _analyzing);
         _analyzing.setGlobalType(_analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
-        for (EntryCust<String,LocalVariable> e: _lastPage.getValueVars().entryList()) {
+        for (EntryCust<String, AbstractWrapper> e: _lastPage.getRefParams().entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
+            a_.setClassName(((VariableWrapper)e.getValue()).getLocal().getClassName());
             a_.setConstType(ConstType.LOC_VAR);
             _analyzing.getInfosVars().put(e.getKey(), a_);
         }
@@ -82,7 +84,9 @@ public abstract class CommonRender {
     }
 
     protected static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
-        _importingPage.getPageEl().getValueVars().putAllMap(_localVars);
+        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
+            _importingPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+        }
     }
 
     protected static boolean isEmptyErrors(AnalyzedTestConfiguration _cont) {

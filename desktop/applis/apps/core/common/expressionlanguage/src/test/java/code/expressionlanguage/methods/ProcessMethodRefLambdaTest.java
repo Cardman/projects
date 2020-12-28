@@ -2257,7 +2257,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, getNumber(ret_));
+        assertEq(3, getNumber(ret_));
     }
     @Test
     public void calculateArgument92Test() {

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -174,7 +175,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();
-        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
+        StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         if (l_.hasNextIter()) {
@@ -186,14 +187,14 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     public void incrementLoop(RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars, StringMap<LocalVariable> _varsInfos, ContextEl _ctx) {
+                              StringMap<LoopVariable> _vars, StringMap<AbstractWrapper> _varsInfos, ContextEl _ctx) {
         _l.setIndex(_l.getIndex() + 1);
         _l.incr();
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        LocalVariable lInfo_ = _varsInfos.getVal(var_);
-        long o_ = NumParsers.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
-        lInfo_.setStruct(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(o_)));
+        AbstractWrapper lInfo_ = _varsInfos.getVal(var_);
+        long o_ = NumParsers.convertToNumber(lInfo_.getValue(_ctx)).longStruct()+_l.getStep();
+        lInfo_.setValue(_ctx,new Argument(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(o_))));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 }

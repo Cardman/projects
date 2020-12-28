@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.MethodPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -6181,7 +6182,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().getValueVars().put(_var, lv_);
+        cont_.getLastPage().getRefParams().put(_var, new VariableWrapper(lv_));
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_,0);
         Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
