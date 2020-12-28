@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -105,23 +104,7 @@ public final class ExpressionLanguage {
         IdMap<ExecOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();
         for (ExecOperationNode o: operations) {
-            boolean std_ = true;
-            if (o instanceof ExecCompoundAffectationOperation) {
-                if (((ExecCompoundAffectationOperation) o).getSettable() instanceof ExecCustArrOperation) {
-                    std_ = false;
-                }
-            }
-            if (o instanceof ExecSemiAffectationOperation) {
-                if (((ExecSemiAffectationOperation) o).getSettable() instanceof ExecCustArrOperation) {
-                    std_ = false;
-                }
-            }
-            ArgumentsPair a_;
-            if (std_) {
-                a_ = new ArgumentsPair();
-            } else {
-                a_ = new TwoStepsArgumentsPair();
-            }
+            ArgumentsPair a_ = new ArgumentsPair();
             a_.setImplicits(o.getImplicits());
             a_.setImplicitsTest(o.getImplicitsTest());
             if (o instanceof ExecCompoundAffectationOperation) {

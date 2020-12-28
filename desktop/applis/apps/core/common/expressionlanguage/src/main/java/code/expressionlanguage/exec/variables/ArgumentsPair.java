@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 
-public class ArgumentsPair {
+public final class ArgumentsPair {
 
     private Argument argument;
     private AbstractWrapper wrapper;
@@ -21,6 +21,7 @@ public class ArgumentsPair {
     private int indexImplicitSemiFrom;
     private int indexImplicitSemiTo;
     private boolean endCalculate;
+    private boolean calledIndexer;
     public Argument getArgument() {
         return argument;
     }
@@ -154,4 +155,13 @@ public class ArgumentsPair {
     public void setIndexImplicitSemiTo(int _indexImplicitSemiTo) {
         this.indexImplicitSemiTo = _indexImplicitSemiTo;
     }
+
+    public boolean isCalledIndexer() {
+        return calledIndexer;
+    }
+
+    public void setCalledIndexer(boolean _calledIndexer) {
+        calledIndexer = _calledIndexer;
+    }
+
 }

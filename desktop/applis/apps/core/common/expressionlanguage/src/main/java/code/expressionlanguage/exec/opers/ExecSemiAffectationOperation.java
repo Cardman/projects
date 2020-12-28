@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
@@ -22,10 +21,10 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private final ExecTypeFunction pair;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
-    private ExecOperatorContent operatorContent;
-    private ExecStaticPostEltContent staticPostEltContent;
-    private ImplicitMethods converterFrom;
-    private ImplicitMethods converterTo;
+    private final ExecOperatorContent operatorContent;
+    private final ExecStaticPostEltContent staticPostEltContent;
+    private final ImplicitMethods converterFrom;
+    private final ImplicitMethods converterTo;
 
     public ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
         super(_opCont);
@@ -52,8 +51,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 pairBefore_.setEndCalculate(true);
                 pairBefore_.setIndexImplicitSemiFrom(-1);
                 pairBefore_.setIndexImplicitSemiTo(-1);
-                if (pairBefore_ instanceof TwoStepsArgumentsPair) {
-                    ((TwoStepsArgumentsPair)pairBefore_).setCalledIndexer(true);
+                if (settable instanceof ExecCustArrOperation) {
+                    pairBefore_.setCalledIndexer(true);
                 }
                 leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
@@ -140,11 +139,10 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (pair_ instanceof TwoStepsArgumentsPair) {
-            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
+        if (settable instanceof ExecCustArrOperation) {
             Argument out_;
-            if (!s_.isCalledIndexer()) {
-                s_.setCalledIndexer(true);
+            if (!pair_.isCalledIndexer()) {
+                pair_.setCalledIndexer(true);
                 out_ = ExecSemiAffectationOperation.getPrePost(staticPostEltContent.isPost(), stored_, _right);
             } else {
                 out_ = _right;
@@ -191,10 +189,6 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             a_ = _stored;
         }
         return a_;
-    }
-
-    public ExecOperationNode getSettable() {
-        return settable;
     }
 
     public ImplicitMethods getConverterFrom() {
