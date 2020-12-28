@@ -28,41 +28,39 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
+            setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf), _conf, _nodes);
         } else {
-            setSimpleArgument(ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),ip_.getCache(), _conf.getLastPage().getRefParams()), _conf, _nodes);
+            setSimpleArgument(ExecTemplates.getArgValue(val_,_conf), _conf, _nodes);
         }
     }
 
 
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        return trySetArgument(_nodes, _conf, _right);
+        return trySetArgument(_conf, _right);
     }
 
 
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
-        return getCommonCompoundSetting(_nodes,_conf,store_,_op,_right,_cl,_cast);
+        return getCommonCompoundSetting(_conf,store_,_op,_right,_cl,_cast);
     }
 
 
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
-        return getCommonSemiSetting(_nodes,_conf,store_,_op,_post,_cast);
+        return getCommonSemiSetting(_conf,store_,_op,_post,_cast);
     }
 
-    private Argument getCommonCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
+    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast);
-        return trySetArgument(_nodes, _conf, res_);
+        return trySetArgument(_conf, res_);
     }
 
-    private Argument getCommonSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
+    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _conf, res_);
+        trySetArgument(_conf, res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
     @Override
@@ -72,17 +70,16 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
 
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return trySetArgument(_nodes, _conf, _right);
+        return trySetArgument(_conf, _right);
     }
 
 
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right) {
-        trySetArgument(_nodes, _conf, _right);
+        trySetArgument(_conf, _right);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res) {
-        ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
+    private Argument trySetArgument(ContextEl _conf, Argument _res) {
         return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
     }
 }

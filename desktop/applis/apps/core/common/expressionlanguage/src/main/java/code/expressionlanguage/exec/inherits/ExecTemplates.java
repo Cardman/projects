@@ -491,7 +491,7 @@ public final class ExecTemplates {
             }
             i_++;
         }
-        if (_id.isVararg()) {
+        if (!_firstArgs.isEmpty()&&_id.isVararg()) {
             Struct str_ = _firstArgs.last().getStruct();
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
@@ -574,10 +574,10 @@ public final class ExecTemplates {
             i_++;
         }
         Struct str_ = null;
-        if (params_.isVararg()) {
+        if (!args_.isEmpty()&&params_.isVararg()) {
             str_ = args_.last().getStruct();
         }
-        if (params_.isVarargRef()) {
+        if (!wrappers_.isEmpty()&&params_.isVarargRef()) {
             str_ = getValue(wrappers_.last(), _conf);
         }
         if (str_ instanceof ArrayStruct) {
@@ -606,6 +606,9 @@ public final class ExecTemplates {
         return p_;
     }
 
+    public static Argument getArgValue(AbstractWrapper _w, ContextEl _context) {
+        return new Argument(getValue(_w, _context));
+    }
     public static Struct getValue(AbstractWrapper _w, ContextEl _context) {
         if (_w == null) {
             return NullStruct.NULL_VALUE;
