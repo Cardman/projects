@@ -4,7 +4,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class ExecCatchEval extends ExecAbstractCatchEval {
 
-    private String importedClassName;
+    private final String importedClassName;
 
     private final String variableName;
 
@@ -21,7 +21,7 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.removeLocalVar(variableName);
+        _ip.removeRefVar(variableName);
     }
 
     public String getVariableName() {

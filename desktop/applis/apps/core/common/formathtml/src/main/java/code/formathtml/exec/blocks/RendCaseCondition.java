@@ -9,9 +9,9 @@ import code.formathtml.util.BeanLgNames;
 
 public final class RendCaseCondition extends RendSwitchPartCondition implements RendWithEl {
 
-    private String value;
+    private final String value;
 
-    private Argument argument;
+    private final Argument argument;
 
     public RendCaseCondition(int _offsetTrim, String _importedClassName, String _variableName, String _value, Argument _argument) {
         super(_offsetTrim, _importedClassName, _variableName);
@@ -27,7 +27,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         if (!getVariableName().isEmpty()) {
-            _ip.removeLocalVar(getVariableName());
+            _ip.removeRefVar(getVariableName());
         }
     }
 

@@ -41,10 +41,6 @@ public final class PageElContent {
         getRefParams().removeKey(_key);
     }
 
-    public void removeLocalVar(String _key) {
-        getRefParams().removeKey(_key);
-    }
-
     public Cache getCache() {
         return cache;
     }

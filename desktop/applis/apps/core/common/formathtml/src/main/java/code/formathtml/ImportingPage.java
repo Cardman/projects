@@ -148,10 +148,6 @@ public final class ImportingPage {
     }
 
 
-    public void removeLocalVar(String _key) {
-        pageEl.removeLocalVar(_key);
-    }
-
     public void addBlock(RendAbstractStask _b) {
         rendBlockStacks.add(_b);
     }

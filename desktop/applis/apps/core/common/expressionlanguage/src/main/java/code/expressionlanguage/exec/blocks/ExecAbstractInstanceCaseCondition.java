@@ -15,7 +15,7 @@ public abstract class ExecAbstractInstanceCaseCondition extends ExecAbstractCase
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
         if (!variableName.isEmpty()) {
-            _ip.removeLocalVar(variableName);
+            _ip.removeRefVar(variableName);
         }
     }
 

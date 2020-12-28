@@ -44,7 +44,7 @@ public abstract class RendBlock {
     private RendBlock previousSibling;
 
 
-    private int offsetTrim;
+    private final int offsetTrim;
 
     private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
 
@@ -476,7 +476,7 @@ public abstract class RendBlock {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _cont.getLastPage().putValueVar(_varNameConv, locVar_);
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont, _advStandards, _ctx);
-            _cont.getLastPage().removeLocalVar(_varNameConv);
+            _cont.getLastPage().removeRefVar(_varNameConv);
             if (_ctx.callsOrException()) {
                 return Argument.createVoid();
             }

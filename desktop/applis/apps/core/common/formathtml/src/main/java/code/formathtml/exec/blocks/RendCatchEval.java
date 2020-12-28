@@ -4,9 +4,9 @@ import code.formathtml.ImportingPage;
 
 public final class RendCatchEval extends RendAbstractCatchEval {
 
-    private String importedClassName;
+    private final String importedClassName;
 
-    private String variableName;
+    private final String variableName;
     public RendCatchEval(String _className, String _variable, int _offsetTrim) {
         super(_offsetTrim);
         importedClassName = _className;
@@ -24,7 +24,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         String var_ = getVariableName();
-        _ip.removeLocalVar(var_);
+        _ip.removeRefVar(var_);
     }
 
 }

@@ -48,7 +48,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableName);
-        _ip.removeLocalVar(variableName);
+        _ip.removeRefVar(variableName);
     }
 
     @Override

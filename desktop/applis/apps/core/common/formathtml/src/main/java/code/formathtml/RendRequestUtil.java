@@ -38,7 +38,7 @@ final class RendRequestUtil {
         }
         Argument arg_ = RenderExpUtil.calculateReuse(_exps,_conf,_bean, _advStandards, _context);
         for (String n: _varNames) {
-            ip_.removeLocalVar(n);
+            ip_.removeRefVar(n);
         }
         if (_context.callsOrException()) {
             return NullStruct.NULL_VALUE;
@@ -98,13 +98,13 @@ final class RendRequestUtil {
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putValueVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context);
-        ip_.removeLocalVar(prev_);
+        ip_.removeRefVar(prev_);
         for (String p: locVars_) {
-            ip_.removeLocalVar(p);
+            ip_.removeRefVar(p);
         }
         for (String p: refParams_) {
             ip_.getRefParams().removeKey(p);
         }
-        ip_.removeLocalVar(attrName_);
+        ip_.removeRefVar(attrName_);
     }
 }

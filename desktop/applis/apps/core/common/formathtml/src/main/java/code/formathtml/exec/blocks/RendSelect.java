@@ -31,13 +31,13 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
-    private Element elt;
-    private boolean multiple;
+    private final Element elt;
+    private final boolean multiple;
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String varNameConverterFieldValue = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private boolean arrayConverter;
+    private final boolean arrayConverter;
 
     public RendSelect(int _offsetTrim, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                       CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
@@ -218,7 +218,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _conf.getLastPage().putValueVar(varNameConverterField, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _conf, _advStandards, _ctx);
-        _conf.getLastPage().removeLocalVar(varNameConverterField);
+        _conf.getLastPage().removeRefVar(varNameConverterField);
         if (_ctx.callsOrException()) {
             return EMPTY_STRING;
         }
@@ -231,7 +231,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _conf.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _conf, _advStandards, _ctx);
-        _conf.getLastPage().removeLocalVar(varNameConverterFieldValue);
+        _conf.getLastPage().removeRefVar(varNameConverterFieldValue);
         if (_ctx.callsOrException()) {
             return EMPTY_STRING;
         }

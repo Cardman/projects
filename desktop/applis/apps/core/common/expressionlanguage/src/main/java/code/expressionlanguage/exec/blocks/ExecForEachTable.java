@@ -171,8 +171,8 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
-        _ip.removeLocalVar(variableNameFirst);
-        _ip.removeLocalVar(variableNameSecond);
+        _ip.removeRefVar(variableNameFirst);
+        _ip.removeRefVar(variableNameSecond);
     }
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {

@@ -12,9 +12,9 @@ import code.util.StringList;
 public final class RendDeclareVariable extends RendAbstractDeclareVariable {
 
 
-    private String importedClassName;
+    private final String importedClassName;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
     public RendDeclareVariable(int _offsetTrim, String _info, int _offset, StringList _variables) {
         super(_offsetTrim,_variables);
@@ -25,7 +25,7 @@ public final class RendDeclareVariable extends RendAbstractDeclareVariable {
     @Override
     public void removeLocalVars(ImportingPage _ip) {
         for (String v: getVariableNames()) {
-            _ip.removeLocalVar(v);
+            _ip.removeRefVar(v);
         }
     }
 

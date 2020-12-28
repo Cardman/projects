@@ -37,10 +37,6 @@ public final class SimplePageEl {
         content.removeRefVar(_key);
     }
 
-    public void removeLocalVar(String _key) {
-        content.removeLocalVar(_key);
-    }
-
     public Cache getCache() {
         return content.getCache();
     }

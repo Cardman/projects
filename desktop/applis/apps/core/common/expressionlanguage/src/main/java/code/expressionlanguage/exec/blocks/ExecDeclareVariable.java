@@ -31,7 +31,7 @@ public final class ExecDeclareVariable extends ExecAbstractDeclareVariable {
     @Override
     public void removeLocalVars(AbstractPageEl _ip) {
         for (String v: getVariableNames()) {
-            _ip.removeLocalVar(v);
+            _ip.removeRefVar(v);
         }
     }
 

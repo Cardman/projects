@@ -19,25 +19,25 @@ import code.util.core.IndexConstants;
 
 public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
-    private String label;
+    private final String label;
 
     private final String importedClassName;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
     private final StringList variableNames;
 
-    private int initOffset;
+    private final int initOffset;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private int stepOffset;
+    private final int stepOffset;
 
-    private CustList<ExecOperationNode> opInit;
+    private final CustList<ExecOperationNode> opInit;
 
-    private CustList<ExecOperationNode> opExp;
+    private final CustList<ExecOperationNode> opExp;
 
-    private CustList<ExecOperationNode> opStep;
+    private final CustList<ExecOperationNode> opStep;
 
     public ExecForMutableIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, StringList _variableNames,
                                        int _initOffset, int _expressionOffset, int _stepOffset,
@@ -146,7 +146,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         super.removeAllVars(_ip);
         for (String v: variableNames) {
             _ip.getVars().removeKey(v);
-            _ip.removeLocalVar(v);
+            _ip.removeRefVar(v);
         }
     }
 

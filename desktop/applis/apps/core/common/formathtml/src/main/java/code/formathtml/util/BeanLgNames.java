@@ -76,7 +76,7 @@ public abstract class BeanLgNames extends LgNames {
             _conf.getLastPage().putValueVar(varNameConvert_, lv_);
             _conf.getLastPage().setGlobalArgumentStruct(_container.getBean());
             Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf, this, _context);
-            _conf.getLastPage().removeLocalVar(varNameConvert_);
+            _conf.getLastPage().removeRefVar(varNameConvert_);
             ResultErrorStd out_ = new ResultErrorStd();
             if (_context.callsOrException()) {
                 return out_;

@@ -21,25 +21,25 @@ import code.util.StringList;
 public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl {
 
 
-    private String label;
+    private final String label;
 
     private String importedClassName = EMPTY_STRING;
 
-    private String importedClassIndexName;
+    private final String importedClassIndexName;
 
     private StringList variableNames = new StringList();
 
-    private int initOffset;
+    private final int initOffset;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private int stepOffset;
+    private final int stepOffset;
 
-    private CustList<RendDynOperationNode> opInit;
+    private final CustList<RendDynOperationNode> opInit;
 
-    private CustList<RendDynOperationNode> opExp;
+    private final CustList<RendDynOperationNode> opExp;
 
-    private CustList<RendDynOperationNode> opStep;
+    private final CustList<RendDynOperationNode> opStep;
 
     public RendForMutableIterativeLoop(String _className,
                                 int _from,
@@ -108,7 +108,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             _ip.getVars().removeKey(v);
         }
         for (String v: variableNames) {
-            _ip.removeLocalVar(v);
+            _ip.removeRefVar(v);
         }
     }
 
