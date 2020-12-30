@@ -29,36 +29,36 @@ import code.util.core.StringUtil;
 
 public final class AnaRendForEachTable extends AnaRendParentBlock implements AnaRendLoop,ImportForEachTable {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String classNameFirst;
 
     private String importedClassNameFirst;
 
-    private int classNameOffsetFirst;
+    private final int classNameOffsetFirst;
 
     private final String classNameSecond;
 
     private String importedClassNameSecond;
 
-    private int classNameOffsetSecond;
+    private final int classNameOffsetSecond;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final String variableNameFirst;
 
-    private int variableNameOffsetFirst;
+    private final int variableNameOffsetFirst;
 
     private final String variableNameSecond;
 
-    private int variableNameOffsetSecond;
+    private final int variableNameOffsetSecond;
 
     private final String expression;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private OperationNode root;
     private boolean okVarFirst = true;
@@ -263,6 +263,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
+            _page.getLoopsVars().put(variableNameSecond, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameSecond.isEmpty()) {
                 lInfo_.setClassName(importedClassNameSecond);
