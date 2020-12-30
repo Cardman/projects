@@ -34,6 +34,10 @@ public abstract class AbstractConfigurationLoader {
                 d_.setProperties(ReadConfiguration.loadStringMapString(c));
                 continue;
             }
+            if (StringUtil.quickEq(fieldName_, "resources")) {
+                d_.setAddedResources(ReadConfiguration.getStringList(c));
+                continue;
+            }
             if (StringUtil.quickEq(fieldName_, "navigation")) {
                 _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(c));
                 continue;

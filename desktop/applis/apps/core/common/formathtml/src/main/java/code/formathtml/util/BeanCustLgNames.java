@@ -407,7 +407,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         Forwards forwards_ = new Forwards();
         AnalyzedPageEl page_ = _dual.getAnalyzed();
-        setupRendClasses(_files, page_, _dual.getContext().getFilesConfName());
+        setupRendClasses(_files, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setReducingOperations(new DefaultReducingOperations());
         analyzingDoc_.setContent(this);
@@ -432,7 +432,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         buildIterables(_context.getClasses());
     }
 
-    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName) {
+    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -449,7 +449,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 }
             }
         }
+        StringMap<String> resFiles_ = new StringMap<String>();
+        for (EntryCust<String, String> e: _files.entryList()) {
+            if (StringUtil.contains(_added,e.getKey())) {
+                resFiles_.put(e.getKey(), e.getValue());
+            }
+        }
         //!classFiles_.isEmpty()
+        _page.addResources(resFiles_);
         Classes.validateWithoutInit(classFiles_, _page);
     }
     @Override

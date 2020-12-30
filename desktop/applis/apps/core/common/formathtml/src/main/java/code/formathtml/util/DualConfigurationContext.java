@@ -12,11 +12,12 @@ public final class DualConfigurationContext {
 
     private static final String EMPTY_STRING = "";
 
-    private RendAnalysisMessages analysisMessages = new RendAnalysisMessages();
+    private final RendAnalysisMessages analysisMessages = new RendAnalysisMessages();
     private AbstractFileBuilder fileBuilder;
     private String messagesFolder = EMPTY_STRING;
 
     private StringMap<String> properties = new StringMap<String>();
+    private StringList addedResources = new StringList();
 
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
@@ -51,6 +52,14 @@ public final class DualConfigurationContext {
 
     public void setProperties(StringMap<String> _properties) {
         this.properties = _properties;
+    }
+
+    public StringList getAddedResources() {
+        return addedResources;
+    }
+
+    public void setAddedResources(StringList _addedResources) {
+        this.addedResources = _addedResources;
     }
 
     public StringList getAddedFiles() {
