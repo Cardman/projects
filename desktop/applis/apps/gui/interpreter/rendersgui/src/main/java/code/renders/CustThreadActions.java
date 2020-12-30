@@ -20,10 +20,10 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
-import code.formathtml.HtmlPage;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.DualConfigurationContext;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
 import code.renders.utilcompo.CustBeanFileBuilder;
@@ -76,7 +76,12 @@ public final class CustThreadActions extends AbstractThreadActions {
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = new CustBeanFileBuilder(stds.getContent(), stds.getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
         DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, fileBuilder_, def_);
-        ContextEl ctx_ = du_.getContext().getContext();
+        DualConfigurationContext dualCtx_ = du_.getContext();
+        if (dualCtx_ == null) {
+            afterActionWithoutRemove(null, null);
+            return;
+        }
+        ContextEl ctx_ = dualCtx_.getContext();
         getPage().setContext(ctx_);
         StackCall stack_ = null;
         if (ctx_ != null) {
