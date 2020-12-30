@@ -39,10 +39,11 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class MainWindow extends GroupFrame {
-    private Menu menu;
-    private MenuItem open;
-    private TextField lgCode;
-    private RenderedPage session;
+    private final Menu menu;
+    private final MenuItem open;
+    private final TextField lgCode;
+    private final TextField path;
+    private final RenderedPage session;
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setJMenuBar(new MenuBar());
@@ -56,6 +57,8 @@ public final class MainWindow extends GroupFrame {
         Panel pane_ = Panel.newPageBox();
         lgCode = new TextField(20);
         pane_.add(lgCode);
+        path = new TextField(20);
+        pane_.add(path);
         session = new RenderedPage(new ScrollPane());
         session.initNav();
         session.setLanguage(_lg);
@@ -94,6 +97,10 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void load() {
+        if (!path.getText().trim().isEmpty()) {
+            loadRenderConf(path.getText().trim());
+            return;
+        }
         FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath(),"jre");
         String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
@@ -159,8 +166,9 @@ public final class MainWindow extends GroupFrame {
             }
         }
         AbstractNameValidating validator_ = getValidator();
-        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_, null),
+        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(validator_, null),
                 new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), getGenerator()));
+        lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
@@ -197,7 +205,29 @@ public final class MainWindow extends GroupFrame {
                     _lgs.add(tr_);
                 }
             }
+            if (l.startsWith("res=")) {
+                String output_ = l.substring("res=".length());
+                if (!output_.isEmpty()) {
+                    if (endsWithSep(output_)) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setResources(StringUtil.replaceBackSlash(output_));
+                }
+            }
+            if (l.startsWith("files=")) {
+                String output_ = l.substring("files=".length());
+                if (!output_.isEmpty()) {
+                    if (endsWithSep(output_)) {
+                        output_ = output_.substring(0,output_.length()-1);
+                    }
+                    _exec.setFiles(StringUtil.replaceBackSlash(output_));
+                }
+            }
         }
+    }
+
+    private static boolean endsWithSep(String _output) {
+        return _output.endsWith("/") || _output.endsWith("\\");
     }
 
     @Override

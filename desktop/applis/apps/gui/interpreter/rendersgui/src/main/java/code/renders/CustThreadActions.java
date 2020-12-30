@@ -51,7 +51,6 @@ public final class CustThreadActions extends AbstractThreadActions {
 
     public static CustThreadActions inst(RenderedPage _page, BeanCustLgNames _lgNames, String _lgCode, String _fileName, StringMap<String> _fileNames) {
         CustThreadActions t_ = new CustThreadActions(_page);
-        t_.getPage().start();
         t_.stds = _lgNames;
         t_.lgCode = _lgCode;
         t_.fileName = _fileName;
@@ -81,8 +80,6 @@ public final class CustThreadActions extends AbstractThreadActions {
         getPage().setContext(ctx_);
         StackCall stack_ = null;
         if (ctx_ != null) {
-            HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();
-            htmlPage_.setUrl(-1);
             getPage().getNavigation().setFiles(fileNames);
             ReportedMessages reportedMessages_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
             if (!reportedMessages_.isAllEmptyErrors()) {

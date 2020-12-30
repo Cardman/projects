@@ -43,8 +43,7 @@ public final class RenderAnalysis {
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            int end_ = d_.getIndexEnd();
-            _anaDoc.setNextIndex(end_+2);
+            _anaDoc.setNextIndex(_el.length());
             return e_;
         }
         int beg_ = d_.getIndexBegin();

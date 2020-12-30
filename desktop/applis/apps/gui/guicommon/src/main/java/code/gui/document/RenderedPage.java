@@ -116,6 +116,7 @@ public final class RenderedPage implements ProcessingSession {
         if (processing.get()) {
             return;
         }
+        start();
         standards = _stds;
         contextCreator = _creator;
         threadAction = CustComponent.newThread(_inst);
