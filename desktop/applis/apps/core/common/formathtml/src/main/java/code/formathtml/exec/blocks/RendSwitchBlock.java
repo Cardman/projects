@@ -2,11 +2,11 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -136,7 +136,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
                 }
             }
         } else if (enumTest) {
-            EnumerableStruct en_ = (EnumerableStruct) arg_.getStruct();
+            String name_ = NumParsers.getNameOfEnum(arg_.getStruct());
             for (RendParentBlock b: children_) {
                 if (!(b instanceof RendCaseCondition)) {
                     found_ = b;
@@ -146,7 +146,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
                 if (c_.getArgument() != null) {
                     continue;
                 }
-                if (StringUtil.quickEq(c_.getValue().trim(), en_.getName())) {
+                if (StringUtil.quickEq(c_.getValue().trim(), name_)) {
                     found_ = c_;
                     break;
                 }
