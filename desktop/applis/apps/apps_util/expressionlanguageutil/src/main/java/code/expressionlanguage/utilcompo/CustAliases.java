@@ -2562,18 +2562,7 @@ public final class CustAliases {
     public CustList<CommentDelimiters> defComments() {
         String content_ = infos.getReader().read("resources_lg/aliases/comments.properties");
         content_ = content_.substring(content_.indexOf('=')+1);
-        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-        for (String c: StringUtil.splitChar(
-                content_.trim(),
-                ';')) {
-            StringList parts_ = StringUtil.splitChar(
-                    c.trim(),
-                    ',');
-            String begin_ = ParseLinesArgUtil.parseValue(parts_.first());
-            String end_ = ParseLinesArgUtil.parseValue(parts_.last());
-            comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
-        }
-        return comments_;
+        return ParseLinesArgUtil.buildComments(content_);
     }
     public String getAliasRunnable() {
         return aliasRunnable;

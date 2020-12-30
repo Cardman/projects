@@ -199,19 +199,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     }
 
     private static void buildMap(StringBuilder _parts, StringMap<String> _map) {
-        if (_parts.length() > 0) {
-            StringList infos_ = StringUtil.splitChars(_parts.toString(),',');
-            for (String l: infos_) {
-                int sep_ = l.indexOf('=');
-                if (sep_ < 0) {
-                    continue;
-                }
-                String key_ = l.substring(0, sep_).trim();
-                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
-                value_ = ParseLinesArgUtil.parseValue(value_);
-                _map.put(key_,value_);
-            }
-        }
+        ParseLinesArgUtil.buildMap(_parts, _map);
     }
 
     private void otherStyleUnits(RendKeyWords _rendKw, String _lang, StringMap<String> _cust) {

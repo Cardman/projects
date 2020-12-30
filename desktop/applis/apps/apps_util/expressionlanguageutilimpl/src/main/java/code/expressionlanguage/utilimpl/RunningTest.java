@@ -205,22 +205,7 @@ public final class RunningTest implements Runnable {
                 keyWordsPart_.append(l.substring("keyWords=".length()));
             }
             if (l.startsWith("comments=")) {
-                CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
-                for (String c: StringUtil.splitChar(
-                        l.substring("comments=".length()).trim(),
-                        ';')) {
-                    StringList parts_ = StringUtil.splitChar(
-                            c.trim(),
-                            ',');
-                    if (parts_.size() <= 2) {
-                        parts_.clear();
-                        parts_.add(" ");
-                        parts_.add(" ");
-                    }
-                    String begin_ = ParseLinesArgUtil.parseValue(parts_.first());
-                    String end_ = ParseLinesArgUtil.parseValue(parts_.last());
-                    comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
-                }
+                CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(l.substring("comments=".length()));
                 _options.getComments().clear();
                 _options.getComments().addAllElts(comments_);
             }
@@ -232,48 +217,18 @@ public final class RunningTest implements Runnable {
             _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(classesPart_.toString()));
         }
         if (aliasesPart_.length() > 0) {
-            StringList infos_ = StringUtil.splitChars(aliasesPart_.toString(),',');
             StringMap<String> al_ = new StringMap<String>();
-            for (String l: infos_) {
-                int sep_ = l.indexOf('=');
-                if (sep_ < 0) {
-                    continue;
-                }
-                String key_ = l.substring(0, sep_).trim();
-                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
-                value_ = ParseLinesArgUtil.parseValue(value_);
-                al_.put(key_,value_);
-            }
+            ParseLinesArgUtil.buildMap(aliasesPart_,al_);
             _exec.setAliases(al_);
         }
         if (messagesPart_.length() > 0) {
-            StringList infos_ = StringUtil.splitChars(messagesPart_.toString(),',');
             StringMap<String> kw_ = new StringMap<String>();
-            for (String l: infos_) {
-                int sep_ = l.indexOf('=');
-                if (sep_ < 0) {
-                    continue;
-                }
-                String key_ = l.substring(0, sep_).trim();
-                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
-                value_ = ParseLinesArgUtil.parseValue(value_);
-                kw_.put(key_,value_);
-            }
+            ParseLinesArgUtil.buildMap(messagesPart_,kw_);
             _exec.setMessages(kw_);
         }
         if (keyWordsPart_.length() > 0) {
-            StringList infos_ = StringUtil.splitChars(keyWordsPart_.toString(),',');
             StringMap<String> kw_ = new StringMap<String>();
-            for (String l: infos_) {
-                int sep_ = l.indexOf('=');
-                if (sep_ < 0) {
-                    continue;
-                }
-                String key_ = l.substring(0, sep_).trim();
-                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
-                value_ = ParseLinesArgUtil.parseValue(value_);
-                kw_.put(key_,value_);
-            }
+            ParseLinesArgUtil.buildMap(keyWordsPart_,kw_);
             _exec.setKeyWords(kw_);
         }
     }

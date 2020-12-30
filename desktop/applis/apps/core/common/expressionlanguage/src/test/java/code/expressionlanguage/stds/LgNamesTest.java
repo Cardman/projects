@@ -2699,4 +2699,61 @@ public class LgNamesTest extends ProcessMethodCommon {
     public void parseValue23Test() {
         assertEq("first_argugggg", ParseLinesArgUtil.parseValue("first_arg\\ugggg"));
     }
+    @Test
+    public void buildMap1Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        ParseLinesArgUtil.buildMap(new StringBuilder(), map_);
+        assertEq(0, map_.size());
+    }
+    @Test
+    public void buildMap2Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        ParseLinesArgUtil.buildMap(new StringBuilder("key"), map_);
+        assertEq(0, map_.size());
+    }
+    @Test
+    public void buildMap3Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        ParseLinesArgUtil.buildMap(new StringBuilder("key=value"), map_);
+        assertEq(1, map_.size());
+        assertEq("key", map_.firstKey());
+        assertEq("value", map_.firstValue());
+    }
+    @Test
+    public void buildMap4Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        ParseLinesArgUtil.buildMap(new StringBuilder("key=value,key2=value2"), map_);
+        assertEq(2, map_.size());
+        assertEq("key", map_.firstKey());
+        assertEq("value", map_.firstValue());
+        assertEq("key2", map_.lastKey());
+        assertEq("value2", map_.lastValue());
+    }
+    @Test
+    public void buildComments1Test() {
+        CustList<CommentDelimiters> commentDelimiters_ = ParseLinesArgUtil.buildComments("");
+        assertEq(1, commentDelimiters_.size());
+        assertEq(" ", commentDelimiters_.first().getBegin());
+        assertEq(1, commentDelimiters_.first().getEnd().size());
+        assertEq(" ", commentDelimiters_.first().getEnd().first());
+    }
+    @Test
+    public void buildComments2Test() {
+        CustList<CommentDelimiters> commentDelimiters_ = ParseLinesArgUtil.buildComments("\\\\*,,*\\\\");
+        assertEq(1, commentDelimiters_.size());
+        assertEq("\\*", commentDelimiters_.first().getBegin());
+        assertEq(1, commentDelimiters_.first().getEnd().size());
+        assertEq("*\\", commentDelimiters_.first().getEnd().first());
+    }
+    @Test
+    public void buildComments3Test() {
+        CustList<CommentDelimiters> commentDelimiters_ = ParseLinesArgUtil.buildComments("\\\\*,,*\\\\;\\\\<,,>\\\\");
+        assertEq(2, commentDelimiters_.size());
+        assertEq("\\*", commentDelimiters_.first().getBegin());
+        assertEq(1, commentDelimiters_.first().getEnd().size());
+        assertEq("*\\", commentDelimiters_.first().getEnd().first());
+        assertEq("\\<", commentDelimiters_.last().getBegin());
+        assertEq(1, commentDelimiters_.last().getEnd().size());
+        assertEq(">\\", commentDelimiters_.last().getEnd().first());
+    }
 }

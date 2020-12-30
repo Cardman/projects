@@ -1,11 +1,48 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public final class ParseLinesArgUtil {
     private ParseLinesArgUtil() {
     }
-
+    public static CustList<CommentDelimiters> buildComments(String _line) {
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        for (String c: StringUtil.splitChar(
+                _line.trim(),
+                ';')) {
+            StringList parts_ = StringUtil.splitChar(
+                    c.trim(),
+                    ',');
+            if (parts_.size() <= 1) {
+                parts_.clear();
+                parts_.add(" ");
+                parts_.add(" ");
+            }
+            String begin_ = ParseLinesArgUtil.parseValue(parts_.first());
+            String end_ = ParseLinesArgUtil.parseValue(parts_.last());
+            comments_.add(new CommentDelimiters(begin_,new StringList(end_)));
+        }
+        return comments_;
+    }
+    public static void buildMap(StringBuilder _parts, StringMap<String> _map) {
+        if (_parts.length() > 0) {
+            StringList infos_ = StringUtil.splitChars(_parts.toString(),',');
+            for (String l: infos_) {
+                int sep_ = l.indexOf('=');
+                if (sep_ < 0) {
+                    continue;
+                }
+                String key_ = l.substring(0, sep_).trim();
+                String value_ = StringUtil.removeAllSpaces(l.substring(sep_ +1));
+                value_ = ParseLinesArgUtil.parseValue(value_);
+                _map.put(key_,value_);
+            }
+        }
+    }
     public static StringList parseLineArg(String _line) {
         StringList args_ = new StringList();
         StringBuilder arg_ = new StringBuilder();
