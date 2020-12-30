@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -9,7 +10,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvokingConstructor {
@@ -20,17 +20,17 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument res_ = getArgument(_nodes, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument res_ = getArgument(_nodes, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         int off_ = getOffsetOper();
-        setRelOffsetPossibleLastPage(off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
 
-        String superClass_ = _conf.formatVarType(getClassFromName());
-        checkParametersCtors(_conf, superClass_, getPair(),  getArgs(_nodes, superClass_), InstancingStep.USING_SUPER);
+        String superClass_ = _stackCall.formatVarType(getClassFromName());
+        checkParametersCtors(_conf, superClass_, getPair(),  getArgs(_nodes, superClass_), InstancingStep.USING_SUPER, _stackCall);
         return Argument.createVoid();
     }
 

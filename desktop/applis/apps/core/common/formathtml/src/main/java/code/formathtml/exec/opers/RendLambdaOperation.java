@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.*;
@@ -14,20 +15,21 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public final class RendLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
-    private ExecLambdaCommonContent lambdaCommonContent;
-    private ExecLambdaMethodContent lambdaMethodContent;
-    private ExecLambdaConstructorContent lambdaConstructorContent;
-    private ExecLambdaFieldContent lambdaFieldContent;
-    private StandardMethod standardMethod;
-    private StandardType standardType;
-    private StringMap<String> id;
-    private boolean recordType;
+    private final ExecLambdaCommonContent lambdaCommonContent;
+    private final ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecLambdaConstructorContent lambdaConstructorContent;
+    private final ExecLambdaFieldContent lambdaFieldContent;
+    private final StandardMethod standardMethod;
+    private final StandardType standardType;
+    private final StringMap<String> id;
+    private final boolean recordType;
 
     public RendLambdaOperation(ExecOperationContent _content, ExecLambdaCommonContent _lambdaCommonContent, ExecLambdaMethodContent _lambdaMethodContent, ExecLambdaConstructorContent _lambdaConstructorContent, ExecLambdaFieldContent _lambdaFieldContent, StandardMethod _standardMethod, StandardType _standardType, StringMap<String> _id, boolean _recordType) {
         super(_content);
@@ -42,10 +44,10 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
-        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Argument res_ = getCommonArgument(previous_, _context);
-        setSimpleArgument(res_, _conf,_nodes, _context);
+        setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _context) {

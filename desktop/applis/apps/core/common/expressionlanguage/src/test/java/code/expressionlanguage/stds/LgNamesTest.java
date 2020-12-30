@@ -2312,8 +2312,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_).getValue();
-        assertNull(ctx_.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
     @Test
@@ -2347,8 +2348,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_).getValue();
-        assertNull(ctx_.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
 

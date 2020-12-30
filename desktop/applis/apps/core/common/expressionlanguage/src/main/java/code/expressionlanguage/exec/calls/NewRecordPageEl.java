@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.CustList;
 import code.util.StringMap;
@@ -16,7 +17,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
         args = _args;
     }
     @Override
-    public void tryProcessEl(ContextEl _context) {
+    public void tryProcessEl(ContextEl _context, StackCall _stack) {
         //set fields for annotation after calculating default one
         int len_ = Math.min(names.size(),args.size());
         Argument gl_ = getGlobalArgument();
@@ -26,8 +27,8 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             String name_ = names.getKey(i);
             Argument value_ = args.get(i);
             String t_ = names.getValue(i);
-            ExecTemplates.setInstanceField(getBlockRootType(),id_, name_, t_, gl_, value_, _context);
-            if (_context.callsOrException()) {
+            ExecTemplates.setInstanceField(getBlockRootType(),id_, name_, t_, gl_, value_, _context, _stack);
+            if (_context.callsOrException(_stack)) {
                 return;
             }
         }

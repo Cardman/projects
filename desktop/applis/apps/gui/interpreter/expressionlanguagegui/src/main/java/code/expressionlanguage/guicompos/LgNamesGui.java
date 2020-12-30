@@ -19,8 +19,8 @@ import code.util.StringMap;
 
 public class LgNamesGui extends LgNamesUtils {
 
-    private GuiAliases guiAliases = new GuiAliases();
-    private GuiExecutingBlocks guiExecutingBlocks = new GuiExecutingBlocks();
+    private final GuiAliases guiAliases = new GuiAliases();
+    private final GuiExecutingBlocks guiExecutingBlocks = new GuiExecutingBlocks();
     public LgNamesGui(FileInfos _infos) {
         super(_infos);
         setCalculator(new AdvancedExecConstantsCalculator(this));
@@ -55,20 +55,20 @@ public class LgNamesGui extends LgNamesUtils {
         }
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
-    public Argument defaultInstance(ContextEl _cont, String _id) {
-        Argument arg_ = getCustAliases().defaultInstance(_cont, _id);
-        if (!arg_.isNull() || _cont.callsOrException()) {
+    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
+        Argument arg_ = getCustAliases().defaultInstance(_cont, _id, _stackCall);
+        if (!arg_.isNull() || _cont.callsOrException(_stackCall)) {
             return arg_;
         }
-        return guiAliases.defaultInstance(getCustAliases(),_cont,_id);
+        return guiAliases.defaultInstance(getCustAliases(),_cont,_id, _stackCall);
     }
-    public ResultErrorStd getOtherResult(ContextEl _cont,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
-        return guiAliases.getOtherResult(getCustAliases(),_cont,_method,_args);
+        return guiAliases.getOtherResult(getCustAliases(),_cont,_method, _stack,_args);
     }
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        return guiAliases.getOtherResult(getCustAliases(),_cont,_instance,_method, getExecutingBlocks(), guiExecutingBlocks, _args);
+        return guiAliases.getOtherResult(getCustAliases(),_cont,_instance,_method, getExecutingBlocks(), guiExecutingBlocks, _stack, _args);
     }
 
     @Override

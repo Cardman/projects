@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.*;
 import code.util.*;
 import org.junit.Test;
@@ -115,7 +116,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendAnchorRequest(AnalyzedTestNavigation _nav, String _s) {
-        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext());
+        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getStackCall(), new RendStackCall());
     }
 
     @Test
@@ -2895,7 +2896,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -3913,7 +3914,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "request", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -3968,7 +3969,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -4209,7 +4210,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -4263,7 +4264,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -4318,7 +4319,7 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
         Navigation nav_ = session_.getNav();
-        assertNull(session_.getGl().getContext().getCallingState());
+        checkNoExc(session_);
         nav_.getHtmlPage().setUrl(0);
         processRendFormRequest(session_);
         assertNotNull(getException(session_.getGl()));
@@ -5669,7 +5670,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
-        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext());
+        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getStackCall());
     }
 
     @Test
@@ -5763,6 +5764,9 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
+    private static void checkNoExc(AnalyzedTestNavigation _session) {
+        assertNull(_session.getGl().getStackCall().getCallingState());
+    }
 
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();

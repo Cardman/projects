@@ -4,36 +4,36 @@ import code.expressionlanguage.AbstractFullStack;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
-import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 
 public final class AdvancedFullStack implements AbstractFullStack {
-    private final Configuration context;
     private final ContextEl cont;
+    private final RendStackCall rendStackCall;
 
-    public AdvancedFullStack(Configuration _conf, ContextEl _context) {
-        this.context = _conf;
+    public AdvancedFullStack(ContextEl _context, RendStackCall _rendStackCall) {
         cont = _context;
+        rendStackCall = _rendStackCall;
     }
 
     @Override
-    public ArrayStruct newStackTraceElementArray() {
-        return newStackTraceElementArray(context, cont);
+    public ArrayStruct newStackTraceElementArray(StackCall _stack) {
+        return newStackTraceElementArray(cont, _stack, rendStackCall);
     }
 
-    private static ArrayStruct newStackTraceElementArray(Configuration _configuration, ContextEl _context) {
-        int count_ = _configuration.getImporting().size();
-        int lenArrCtx_ = _context.nbPages();
+    private static ArrayStruct newStackTraceElementArray(ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+        int count_ = _rendStackCall.getImporting().size();
+        int lenArrCtx_ = _stackCall.nbPages();
         String cl_ = _context.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         ArrayStruct array_ = new ArrayStruct(count_+ lenArrCtx_, cl_);
         for (int i = 0; i < count_; i++) {
-            array_.set(i, newStackTraceElement(_configuration.getImporting().get(i), _context));
+            array_.set(i, newStackTraceElement(_rendStackCall.getImporting().get(i), _context));
         }
         for (int i = 0; i < lenArrCtx_; i++) {
-            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_context,i));
+            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_context,i, _stackCall));
         }
         return array_;
     }

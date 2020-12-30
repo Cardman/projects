@@ -3,24 +3,25 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendRemovableVars;
 
 public final class RendLocalThrowing {
 
     private RendLocalThrowing() {
     }
-    public static void removeBlockFinally(Configuration _conf, ContextEl _ctx, Struct _str) {
+    public static void removeBlockFinally(ContextEl _ctx, Struct _str, StackCall _stackCall, RendStackCall _rendStackCall) {
         RendAbstractCatchEval catchElt_ = null;
-        while (_conf.hasPages()) {
-            _ctx.setCallingState(null);
-            ImportingPage bkIp_ = _conf.getLastPage();
+        while (_rendStackCall.hasPages()) {
+            _stackCall.setCallingState(null);
+            ImportingPage bkIp_ = _rendStackCall.getLastPage();
             while (bkIp_.hasBlock()) {
                 RendRemovableVars bl_ = bkIp_.getRendLastStack();
                 RendBlock currentBlock_ = bl_.getCurrentVisitedBlock();
@@ -68,9 +69,9 @@ public final class RendLocalThrowing {
                     return;
                 }
             }
-            _conf.removeLastPage();
+            _rendStackCall.removeLastPage();
         }
-        _ctx.setCallingState(new CustomFoundExc(_str));
+        _stackCall.setCallingState(new CustomFoundExc(_str));
     }
 
 }

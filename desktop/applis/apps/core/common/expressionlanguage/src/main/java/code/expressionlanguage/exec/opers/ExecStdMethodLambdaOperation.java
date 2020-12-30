@@ -5,11 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -20,8 +20,8 @@ import code.util.IdMap;
 
 public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ClassMethodId method;
-    private StandardMethod function;
+    private final ClassMethodId method;
+    private final StandardMethod function;
 
     public ExecStdMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ClassMethodId _method, StandardMethod _standardMethod) {
         super(_opCont, _lamCont);
@@ -31,21 +31,21 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getCommonArgument(previous_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), method.getConstraints()));
+    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), method.getConstraints(), _stackCall));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, MethodId _constraints) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, MethodId _constraints, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = _foundClass;
-        ownerType_ = _conf.formatVarType(ownerType_);
-        clArg_ = _conf.formatVarType(clArg_);
+        ownerType_ = _stackCall.formatVarType(ownerType_);
+        clArg_ = _stackCall.formatVarType(clArg_);
         return newLambda(_previous, _conf, ownerType_, _returnFieldType, isShiftArgument(), isSafeInstance(), clArg_, function, _constraints);
     }
 

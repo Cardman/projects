@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
@@ -25,10 +27,10 @@ public final class RenderedPage implements ProcessingSession {
     private DualPanel page;
     private final ScrollPane scroll;
     private Navigation navigation;
-    private IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
+    private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
-    private AtomicBoolean processing = new AtomicBoolean();
+    private final AtomicBoolean processing = new AtomicBoolean();
 
     private Thread threadAction;
 
@@ -45,7 +47,7 @@ public final class RenderedPage implements ProcessingSession {
     private AbstractContextCreator contextCreator;
     private BeanLgNames standards;
 
-    private CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
+    private final CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
     private LabelButton find;
     private TextField field;
@@ -91,7 +93,7 @@ public final class RenderedPage implements ProcessingSession {
         contextCreator = new NativeContextCreator();
         ContextEl ctx_ = _stds.getContext();
         setContext(ctx_);
-        navigation.initializeRendSession(ctx_, standards);
+        navigation.initializeRendSession(ctx_, standards, StackCall.newInstance(InitPhase.NOTHING,ctx_));
         setupText();
     }
     public void initializeOnlyConf(Object _dataBase, PreparedAnalyzed _prepared, String _lg) {

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -56,26 +57,26 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
-        AbstractPageEl ip_ = _conf.getLastPage();
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         _l.setEvaluatingKeepLoop(true);
         int index_ = 0;
         ip_.setOffset(0);
         ip_.setGlobalOffset(stepOffset);
         if (!opStep.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
-            ExpressionLanguage.tryToCalculate(_conf,from_,0);
-            if (_conf.callsOrException()) {
+            ExpressionLanguage.tryToCalculate(_conf,from_,0, _stack);
+            if (_conf.callsOrException(_stack)) {
                 return;
             }
             index_++;
         }
         if (ip_.sizeEl() <= index_) {
             for (String v : variableNames) {
-                ExecTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars());
+                ExecTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars(), _stack);
             }
         }
-        ConditionReturn keep_ = evaluateCondition(_conf, index_);
+        ConditionReturn keep_ = evaluateCondition(_conf, index_, _stack);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -97,18 +98,18 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            ip_.processVisitedLoop(c_,this,this,_cont);
+            ip_.processVisitedLoop(c_,this,this,_cont, _stack);
             return;
         }
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         int index_ = 0;
         if (ip_.isEmptyEl()) {
-            String formatted_ = _cont.formatVarType(importedClassName);
+            String formatted_ = _stack.formatVarType(importedClassName);
             Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
                 LoopVariable lv_ = new LoopVariable();
@@ -119,10 +120,10 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
         if (!opInit.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            ExpressionLanguage.tryToCalculate(_cont,from_,0);
+            ExpressionLanguage.tryToCalculate(_cont,from_,0, _stack);
             index_++;
         }
-        ConditionReturn res_ = evaluateCondition(_cont, index_);
+        ConditionReturn res_ = evaluateCondition(_cont, index_, _stack);
         if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -135,7 +136,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         l_.setFinished(finished_);
         ip_.addBlock(l_);
         if (finished_) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stack);
             return;
         }
         ip_.setBlock(getFirstChild());
@@ -150,11 +151,11 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
     }
 
-    private ConditionReturn evaluateCondition(ContextEl _context, int _index) {
-        if (_context.callsOrException()) {
+    private ConditionReturn evaluateCondition(ContextEl _context, int _index, StackCall _stackCall) {
+        if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
-        AbstractPageEl last_ = _context.getLastPage();
+        AbstractPageEl last_ = _stackCall.getLastPage();
         if (opExp.isEmpty()) {
             last_.clearCurrentEls();
             return ConditionReturn.YES;
@@ -162,12 +163,12 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, IndexConstants.SECOND_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(expressionOffset);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0);
-        if (_context.callsOrException()) {
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0, _stackCall);
+        if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        _context.getCoverage().passConditionsForMutable(_context, this, arg_,opExp.last());
+        _context.getCoverage().passConditionsForMutable(this, arg_,opExp.last(), _stackCall);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

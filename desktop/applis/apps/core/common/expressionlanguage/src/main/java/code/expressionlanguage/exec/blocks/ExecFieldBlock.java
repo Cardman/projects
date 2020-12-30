@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
@@ -19,12 +20,12 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private String importedClassName;
 
-    private ExecFieldContent fieldContent;
+    private final ExecFieldContent fieldContent;
 
     private CustList<ExecOperationNode> opValue;
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
+    private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     public ExecFieldBlock(int _offsetTrim, AnaFieldContent _fieldContent) {
         super(_offsetTrim);
         fieldContent = new ExecFieldContent(_fieldContent);
@@ -74,8 +75,8 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         boolean static_ = isStaticField();
         boolean in_ = false;
         if (ip_ instanceof FieldInitPageEl && !static_) {
@@ -87,13 +88,13 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
             ip_.setGlobalOffset(fieldContent.getValueOffset());
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            ExpressionLanguage.tryToCalculate(_cont,el_,0);
-            if (_cont.callsOrException()) {
+            ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+            if (_cont.callsOrException(_stack)) {
                 return;
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont);
+        processBlock(_cont, _stack);
     }
 
     public void setOpValue(CustList<ExecOperationNode> _opValue) {

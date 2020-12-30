@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.core.StringUtil;
@@ -22,7 +23,7 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack) {
         return localSumDiff(_a, _op, _b);
     }
 

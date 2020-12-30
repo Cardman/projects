@@ -15,13 +15,13 @@ public final class LocalThrowing {
 
     private LocalThrowing() {
     }
-    public static void removeBlockFinally(ContextEl _conf, Struct _str) {
+    public static void removeBlockFinally(ContextEl _conf, Struct _str, StackCall _stackCall) {
         Struct custCause_ = _str;
         ExecAbstractCatchEval catchElt_ = null;
-        while (_conf.hasPages()) {
-            AbstractPageEl bkIp_ = _conf.getLastPage();
+        while (_stackCall.hasPages()) {
+            AbstractPageEl bkIp_ = _stackCall.getLastPage();
             bkIp_.clearCurrentEls();
-            _conf.setCallingState(null);
+            _stackCall.setCallingState(null);
             while (bkIp_.hasBlock()) {
                 AbstractStask bl_ = bkIp_.getLastStack();
                 ExecBlock currentBlock_ = bl_.getCurrentVisitedBlock();
@@ -36,7 +36,7 @@ public final class LocalThrowing {
                                 n_ = n_.getNextSibling();
                                 continue;
                             }
-                            name_ = _conf.formatVarType(name_);
+                            name_ = _stackCall.formatVarType(name_);
                             Argument arg_ = new Argument(custCause_);
                             if (ExecTemplates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
@@ -67,10 +67,10 @@ public final class LocalThrowing {
                     return;
                 }
             }
-            custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_, bkIp_);
-            _conf.removeLastPage();
+            custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_, bkIp_, _stackCall);
+            _stackCall.removeLastPage();
         }
-        _conf.setCallingState(new CustomFoundExc(custCause_));
+        _stackCall.setCallingState(new CustomFoundExc(custCause_));
     }
 
 

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.structs.Struct;
 
@@ -13,7 +14,7 @@ public final class CustomFoundExc implements CallingState {
     }
 
     @Override
-    public AbstractPageEl processAfterOperation(ContextEl _context) {
+    public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return null;
     }
 

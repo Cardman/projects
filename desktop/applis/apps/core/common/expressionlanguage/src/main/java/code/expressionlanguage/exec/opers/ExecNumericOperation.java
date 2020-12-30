@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -13,26 +14,26 @@ import code.util.core.StringUtil;
 
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private static final String INCR = "++";
-    private int opOffset;
+    private final int opOffset;
 
     protected ExecNumericOperation(ExecOperationContent _opCont, int _opOffset) {
         super(_opCont);
         opOffset = _opOffset;
     }
 
-    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {
+    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, StackCall _stackCall) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
             Struct first_ = _left.getStruct();
             if (first_ != NullStruct.NULL_VALUE) {
-                res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls));
+                res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls, _stackCall));
             } else {
-                res_.setResult(ExecClassArgumentMatching.convertFormatted(_right.getStruct(),_conf, _cls));
+                res_.setResult(ExecClassArgumentMatching.convertFormatted(_right.getStruct(),_conf, _cls, _stackCall));
             }
             return new Argument(res_.getResult());
         }
-        calculateOperator(_conf, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast);
+        calculateOperator(_conf, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
         return new Argument(res_.getResult());
     }
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
@@ -47,7 +48,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
 
     public static void calculateOperator(ContextEl _cont, ResultErrorStd _res,
                                          String _op, boolean _catString,
-                                         Struct _first, Struct _second, byte _cast) {
+                                         Struct _first, Struct _second, byte _cast, StackCall _stackCall) {
         if (_catString) {
             catenize(_cont, _res, _first, _second);
             return;
@@ -66,11 +67,11 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             return;
         }
         if (StringUtil.quickEq(op_, "/")) {
-            _res.setResult(calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast));
+            _res.setResult(calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall));
             return;
         }
         if (StringUtil.quickEq(op_, "%")) {
-            _res.setResult(calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast));
+            _res.setResult(calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall));
             return;
         }
         if (StringUtil.quickEq(op_, "&")) {
@@ -129,24 +130,24 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
       _res.setResult(arg_.getStruct());
   }
 
-    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
+    public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateDiv(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall)));
         }
         return res_;
     }
 
-    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast) {
+    public static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getContent().getCoreNames().getAliasDivisionZero();
         Struct res_ = NumParsers.calculateMod(_a,_b, _cast);
         if (res_ == NullStruct.NULL_VALUE) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, div_, _stackCall)));
         }
         return res_;
     }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -34,8 +35,8 @@ public final class CustomFoundConstructor implements CallingState {
     }
 
     @Override
-    public AbstractPageEl processAfterOperation(ContextEl _context) {
-        return ExecutingUtil.createInstancing(_context,this);
+    public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
+        return ExecutingUtil.createInstancing(_context,this, _stack);
     }
 
     public int getChildIndex() {

@@ -54,8 +54,9 @@ public abstract class ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
-        ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont);
-        CustomFoundExc excState_ = (CustomFoundExc) _cont.getCallingState();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont, stackCall_);
+        CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -66,8 +67,9 @@ public abstract class ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont).getValue();
-        assertNull(_cont.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, new ExecTypeFunction(classBody_, method_), p_, _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
         return arg_;
     }
 
@@ -81,8 +83,9 @@ public abstract class ProcessMethodCommon {
         ExecConstructorBlock ctor_ = tryGet(type_, _id);
         assertNull(ctor_);
         Parameters p_ = new Parameters();
-        ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont);
-        CustomFoundExc excState_ = (CustomFoundExc) _cont.getCallingState();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_);
+        CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -92,8 +95,9 @@ public abstract class ProcessMethodCommon {
         ExecConstructorBlock ctor_ = tryGet(type_, _id);
         assertNull(ctor_);
         Parameters p_ = new Parameters();
-        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont).getValue();
-        assertNull(_cont.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
         return arg_;
     }
     protected static Argument instanceNormalCtor(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
@@ -101,8 +105,9 @@ public abstract class ProcessMethodCommon {
         ExecConstructorBlock ctor_ = get(type_, _id);
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, ctor_, p_);
-        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont).getValue();
-        assertNull(_cont.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_).getValue();
+        assertNull(stackCall_.getCallingState());
         return arg_;
     }
 
@@ -694,7 +699,7 @@ public abstract class ProcessMethodCommon {
         return ClassFieldStruct.getPair(((FieldableStruct)_struct).getFields(),_key).getStruct();
     }
 
-    protected static Struct getTrueException(ContextEl _cont) {
+    protected static Struct getTrueException(StackCall _cont) {
         CallingState str_ = _cont.getCallingState();
         return ((CustomFoundExc) str_).getStruct();
     }

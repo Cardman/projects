@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -20,7 +21,7 @@ import code.util.core.StringUtil;
 
 public final class ExecDimensionArrayInstancing extends
         ExecAbstractArrayInstancingOperation {
-    private int countArrayDims;
+    private final int countArrayDims;
 
     public ExecDimensionArrayInstancing(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent, int _countArrayDims) {
         super(_opCont, _intermediateDottedOperation, _arrayInstancingContent);
@@ -28,19 +29,19 @@ public final class ExecDimensionArrayInstancing extends
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument res_ = getArgument(_nodes, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument res_ = getArgument(_nodes, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                         ContextEl _conf) {
+                         ContextEl _conf, StackCall _stackCall) {
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(m_);
-        setRelOffsetPossibleLastPage(off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
         String className_ = getClassName();
-        className_ = _conf.formatVarType(className_);
+        className_ = _stackCall.formatVarType(className_);
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_ = new int[filter_.size()];
@@ -52,7 +53,7 @@ public final class ExecDimensionArrayInstancing extends
             NumberStruct n_ = NumParsers.convertToNumber(arg_.getStruct());
             int offset_ = getIndexBegin()+o.getIndexInEl() + off_;
             offs_.add(offset_);
-            _conf.setOffset(offset_);
+            _stackCall.setOffset(offset_);
             int dim_ = n_.intStruct();
             args_[i_] = dim_;
             i_++;
@@ -62,9 +63,9 @@ public final class ExecDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf);
+        Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf, _stackCall);
         if (res_ instanceof ErrorStruct) {
-            _conf.setCallingState(new CustomFoundExc(res_));
+            _stackCall.setCallingState(new CustomFoundExc(res_));
             return new Argument();
         }
         return new Argument(res_);

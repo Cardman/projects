@@ -1,14 +1,11 @@
 package code.expressionlanguage;
 
-public final class DefaultSetOffset implements AbstractSetOffset {
-    private final ContextEl context;
+import code.expressionlanguage.exec.StackCall;
 
-    public DefaultSetOffset(ContextEl _context) {
-        this.context = _context;
-    }
+public final class DefaultSetOffset implements AbstractSetOffset {
 
     @Override
-    public void setOffset(int _offset) {
-        context.setOffset(_offset);
+    public void setOffset(StackCall _stack, int _offset) {
+        _stack.setOffset(_offset);
     }
 }

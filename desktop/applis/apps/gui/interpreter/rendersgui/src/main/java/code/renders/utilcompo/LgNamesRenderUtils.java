@@ -27,11 +27,11 @@ import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
 
-    private CustAliases custAliases = new CustAliases();
-    private FileInfos infos;
+    private final CustAliases custAliases = new CustAliases();
+    private final FileInfos infos;
 
     private ExecutingOptions executingOptions;
-    private ExecutingBlocks executingBlocks = new ExecutingBlocks();
+    private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
     public LgNamesRenderUtils(FileInfos _infos) {
         super(_infos.getGenerator());
         custAliases.setInfos(_infos);
@@ -65,38 +65,38 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
     @Override
-    public Argument defaultInstance(ContextEl _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
         if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_id)) {
             return Argument.createVoid();
         }
-        return custAliases.defaultInstance(_cont, _id);
+        return custAliases.defaultInstance(_cont, _id, _stackCall);
     }
 
     @Override
-    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
-        return custAliases.instance(_cont, _method, _args);
+    protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
+        return custAliases.instance(_cont, _method, _stack, _args);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
         if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getName())) {
             ResultErrorStd resultErrorStd_ = new ResultErrorStd();
             resultErrorStd_.setResult(NullStruct.NULL_VALUE);
             return resultErrorStd_;
         }
-        return custAliases.getOtherResult(_cont, _method, _args);
+        return custAliases.getOtherResult(_cont, _method, _stack, _args);
     }
 
-    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return custAliases.invoke(_cont, _method, _struct, _exit, _args);
+    protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+        return custAliases.invoke(_cont, _method, _struct, _exit, _stack, _args);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
-            return getBeanAliases().getOtherResult(_cont, _instance, _method, _args);
+            return getBeanAliases().getOtherResult(_cont, _instance, _method, _stack, _args);
         }
-        return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _args);
+        return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _stack, _args);
     }
 
     public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){

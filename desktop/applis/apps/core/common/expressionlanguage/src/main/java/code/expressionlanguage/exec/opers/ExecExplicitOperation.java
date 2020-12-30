@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
@@ -18,8 +19,8 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
-    private ExecTypeFunction pair;
-    private ExecExplicitContent explicitContent;
+    private final ExecTypeFunction pair;
+    private final ExecExplicitContent explicitContent;
     public ExecExplicitOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, ExecExplicitContent _explicitContent) {
         super(_opCont);
         pair = _pair;
@@ -27,8 +28,8 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        setRelOffsetPossibleLastPage(explicitContent.getOffset(), _conf);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(explicitContent.getOffset(), _stack);
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (ExecOperationNode o: getChildrenNodes()) {
             if (ExecConstLeafOperation.isFilter(o)) {
@@ -36,15 +37,15 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             }
             arguments_.add(getArgument(_nodes, o));
         }
-        Argument argres_ =  prepare(_conf.getExiting(),pair,false,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf);
-        setSimpleArgument(argres_, _conf, _nodes);
+        Argument argres_ =  prepare(_conf.getExiting(),pair,false,arguments_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf,_stack);
+        setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock, boolean _direct, CustList<Argument> _arguments, String _className,
-                                   String _classNameOwner, ContextEl _conf) {
+                                   String _classNameOwner, ContextEl _conf, StackCall _stackCall) {
         if (direct(_direct, _rootBlock, _className)) {
-            return getFormattedArgument(_arguments, _className, _conf);
+            return getFormattedArgument(_arguments, _className, _conf, _stackCall);
         }
-        checkFormattedCustomOper(_exit, _rootBlock, _arguments, _classNameOwner, _conf,null);
+        checkFormattedCustomOper(_exit, _rootBlock, _arguments, _classNameOwner, _conf,null, _stackCall);
         return Argument.createVoid();
     }
 
@@ -53,35 +54,35 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
 
-    public static boolean checkFormattedCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, CustList<Argument> _arguments, String _classNameOwner, ContextEl _conf, Argument _fwd) {
-        String paramNameOwner_ = _conf.formatVarType(_classNameOwner);
-        return checkCustomOper(_exit, _rootBlock, _arguments, paramNameOwner_, _conf, _fwd);
+    public static boolean checkFormattedCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, CustList<Argument> _arguments, String _classNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall) {
+        String paramNameOwner_ = _stackCall.formatVarType(_classNameOwner);
+        return checkCustomOper(_exit, _rootBlock, _arguments, paramNameOwner_, _conf, _fwd, _stackCall);
     }
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, CustList<Argument> _arguments, String _paramNameOwner, ContextEl _conf, Argument _fwd) {
-        if (_exit.hasToExit(_paramNameOwner,_fwd)) {
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, CustList<Argument> _arguments, String _paramNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall) {
+        if (_exit.hasToExit(_stackCall, _paramNameOwner,_fwd)) {
             return true;
         }
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         ExecRootBlock type_ = _rootBlock.getType();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(_arguments);
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, l_, _conf, null, true);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, l_, _conf, null, true, _stackCall);
         if (parameters_.getError() != null) {
             return true;
         }
-        _conf.setCallingState(new CustomFoundCast(_paramNameOwner, _rootBlock, parameters_));
+        _stackCall.setCallingState(new CustomFoundCast(_paramNameOwner, _rootBlock, parameters_));
         return false;
     }
 
-    public static Argument getFormattedArgument(CustList<Argument> _arguments, String _className, ContextEl _conf) {
-        String paramName_ = _conf.formatVarType(_className);
-        return getArgument(_arguments, paramName_, _conf);
+    public static Argument getFormattedArgument(CustList<Argument> _arguments, String _className, ContextEl _conf, StackCall _stackCall) {
+        String paramName_ = _stackCall.formatVarType(_className);
+        return getArgument(_arguments, paramName_, _conf, _stackCall);
     }
 
-    public static Argument getArgument(CustList<Argument> _arguments, String _paramName, ContextEl _conf) {
+    public static Argument getArgument(CustList<Argument> _arguments, String _paramName, ContextEl _conf, StackCall _stackCall) {
         Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
-        ExecTemplates.checkObject(_paramName, objArg_, _conf);
+        ExecTemplates.checkObject(_paramName, objArg_, _conf, _stackCall);
         return objArg_;
     }
 }

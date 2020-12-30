@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -65,11 +66,11 @@ public final class Cache {
             }
         }
     }
-    public void setCache(ExecRootBlock _rootBlock, String _globalClass,ContextEl _context) {
+    public void setCache(ExecRootBlock _rootBlock, String _globalClass, ContextEl _context, StackCall _stackCall) {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
             String cl_ = ExecTemplates.quickFormat(_rootBlock, _globalClass, v.getType());
-            setClassLocalValueWrapper(i_,cl_,_context);
+            setClassLocalValueWrapper(i_,cl_,_context, _stackCall);
             i_++;
         }
         i_ = 0;
@@ -79,11 +80,11 @@ public final class Cache {
             i_++;
         }
     }
-    public Struct checkCache(ContextEl _context) {
+    public Struct checkCache(ContextEl _context, StackCall _stackCall) {
         if (reflection) {
             for (NamedWrapper v: localWrappers) {
                 AbstractWrapper localVariable_ = v.getWrapper();
-                Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), new Argument(localVariable_.getValue(_context)), _context);
+                Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), new Argument(localVariable_.getValue(_stackCall, _context)), _context, _stackCall);
                 if (struct_ != null) {
                     return struct_;
                 }
@@ -98,12 +99,12 @@ public final class Cache {
         }
         return list_;
     }
-    public Struct getLocalWrapperValue(String _key, long _var, ContextEl _context) {
+    public Struct getLocalWrapperValue(String _key, long _var, ContextEl _context, StackCall _stackCall) {
         long index_ = 0;
         for (NamedWrapper n: localWrappers) {
             if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _var) {
-                    return n.getWrapper().getValue(_context);
+                    return n.getWrapper().getValue(_stackCall, _context);
                 }
                 index_++;
             }
@@ -122,21 +123,21 @@ public final class Cache {
         }
         return null;
     }
-    public void putLocalWrapperValue(String _key, Struct _var, ContextEl _context) {
+    public void putLocalWrapperValue(String _key, Struct _var, ContextEl _context, StackCall _stackCall) {
         for (NamedWrapper n: localWrappers) {
             if (StringUtil.quickEq(n.getName(),_key)) {
-                n.getWrapper().setValue(_context,new Argument(_var));
+                n.getWrapper().setValue(_stackCall, _context,new Argument(_var));
                 break;
             }
         }
 
     }
-    public void putLocalWrapperValue(String _key, long _index, Struct _var, ContextEl _context) {
+    public void putLocalWrapperValue(String _key, long _index, Struct _var, ContextEl _context, StackCall _stackCall) {
         long index_ = 0;
         for (NamedWrapper n: localWrappers) {
             if (StringUtil.quickEq(n.getName(),_key)) {
                 if (index_ == _index) {
-                    n.getWrapper().setValue(_context,new Argument(_var));
+                    n.getWrapper().setValue(_stackCall, _context,new Argument(_var));
                     break;
                 }
                 index_++;
@@ -147,11 +148,11 @@ public final class Cache {
         localWrappers.add(new NamedWrapper(_key,_var,""));
     }
 
-    public void setClassLocalValueWrapper(int _index, String _var,ContextEl _context) {
+    public void setClassLocalValueWrapper(int _index, String _var, ContextEl _context, StackCall _stackCall) {
         if (localWrappers.isValidIndex(_index)) {
             NamedWrapper namedWrapper_ = localWrappers.get(_index);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
-            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_context),_var)),_var);
+            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),_var)),_var);
             localWrappers.set(_index,named_);
         }
     }

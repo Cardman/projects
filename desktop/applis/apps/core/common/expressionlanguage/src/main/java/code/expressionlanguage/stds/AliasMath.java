@@ -5,8 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -54,7 +54,7 @@ public final class AliasMath {
     private String aliasRotateRight;
     private String aliasRandom;
     private String aliasSeed;
-    private AliasParamMath params = new AliasParamMath();
+    private final AliasParamMath params = new AliasParamMath();
     public void build(LgNames _stds) {
         CustList<StandardField> fields_;
         StringList params_;
@@ -295,7 +295,7 @@ public final class AliasMath {
         method_ = new StandardMethod(aliasSeed, params_, aliasObject_, false, MethodModifier.STATIC);
         methods_.add( method_);
     }
-    public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Argument... _args) {
+    public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = ExecTemplates.getObjects(_args);
         String name_ = _method.getConstraints().getName();
@@ -332,7 +332,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                    _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.mod(num_, den_)));
@@ -341,7 +341,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.mod(num_, den_)));
@@ -352,7 +352,7 @@ public final class AliasMath {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
-                    _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                    _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                     return result_;
                 }
                 result_.setResult(new LongStruct(NumberUtil.quot(num_, den_)));
@@ -361,7 +361,7 @@ public final class AliasMath {
             int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
             int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
-                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
             }
             result_.setResult(new IntStruct(NumberUtil.quot(num_, den_)));
@@ -396,7 +396,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
             }
             result_.setResult(arg_);
@@ -406,7 +406,7 @@ public final class AliasMath {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
                     ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(getDivideZero(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
             }
             result_.setResult(arg_);
@@ -481,33 +481,33 @@ public final class AliasMath {
             result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
             return result_;
         }
-        if (_cont.getInitializingTypeInfos().isInitEnums()) {
-            _cont.getInitializingTypeInfos().failInitEnums();
+        if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
             return result_;
         }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeed())) {
             if (paramList_.isEmpty()) {
-                Struct seed_ = _cont.getSeed();
+                Struct seed_ = _stackCall.getSeed();
                 result_.setResult(seed_);
                 return result_;
             }
-            _cont.setSeed(_args[0].getStruct());
+            _stackCall.setSeed(_args[0].getStruct());
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
         if (paramList_.isEmpty()) {
-            return random(_cont, result_);
+            return random(_cont, result_, _stackCall);
         }
-        return randomParam(_cont, result_, args_);
+        return randomParam(_cont, result_, args_, _stackCall);
     }
 
-    private static ErrorStruct getDivideZero(ContextEl _cont) {
-        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero());
+    private static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
+        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
     }
 
-    private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result) {
+    private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
-        Struct seed_ = _cont.getSeed();
+        Struct seed_ = _stackCall.getSeed();
         Argument argSeed_ = new Argument(seed_);
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
@@ -526,10 +526,10 @@ public final class AliasMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont).getStruct());
+                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -537,9 +537,9 @@ public final class AliasMath {
         return _result;
     }
 
-    private static ResultErrorStd randomParam(ContextEl _cont, ResultErrorStd _result, Struct[] _args) {
+    private static ResultErrorStd randomParam(ContextEl _cont, ResultErrorStd _result, Struct[] _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
-        Struct seed_ = _cont.getSeed();
+        Struct seed_ = _stackCall.getSeed();
         Argument argSeed_ = new Argument(seed_);
         ExecTypeFunction p_ = new ExecTypeFunction(null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
@@ -559,10 +559,10 @@ public final class AliasMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont).getStruct());
+                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_,argsToPass_,_cont);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_,argsToPass_,_cont, _stackCall);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

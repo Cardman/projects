@@ -11,5 +11,5 @@ public interface Initializer {
     CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className,ExecRootBlock _rootBlock);
     Struct processInitAnnot(ContextEl _context, String _className,ExecRootBlock _rootBlock);
 
-    void loopCalling(ContextEl _owner);
+    void loopCalling(ContextEl _owner, StackCall _stackCall);
 }

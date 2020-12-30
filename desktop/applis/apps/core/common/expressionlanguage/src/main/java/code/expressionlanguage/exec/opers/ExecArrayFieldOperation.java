@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
@@ -20,22 +21,22 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument arg_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(arg_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument arg_ = getCommonArgument(previous_, _conf, _stack);
+        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        setRelOffsetPossibleLastPage(getOff(), _conf);
+    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        setRelOffsetPossibleLastPage(getOff(), _stackCall);
         Struct inst_ = _previous.getStruct();
         int len_ = getLength(inst_,_conf);
         if (inst_ instanceof ArrayStruct) {
             return new Argument(new IntStruct(len_));
         }
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-        setRelativeOffsetPossibleLastPage(_conf);
-        _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+        setRelativeOffsetPossibleLastPage(_stackCall);
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
         return new Argument();
     }
 

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
@@ -24,8 +25,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private ArrayStruct array;
     private CustList<CustList<ExecOperationNode>> annotations = new CustList<CustList<ExecOperationNode>>();
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
-    private Ints annotationsIndexes = new Ints();
-    private CustList<Ints> annotationsParamsIndexes = new CustList<Ints>();
+    private final Ints annotationsIndexes = new Ints();
+    private final CustList<Ints> annotationsParamsIndexes = new CustList<Ints>();
     private final AnnotatedStruct annotated;
 
     private final CustList<Argument> arguments;
@@ -37,7 +38,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
         LgNames stds_ = _context.getStandards();
         if (!retrievedAnnot) {
             if (onParameters) {
@@ -121,8 +122,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
                     ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                    Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
-                    if (_context.callsOrException()) {
+                    Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+                    if (_context.callsOrException(_stack)) {
                         return false;
                     }
                     clearCurrentEls();
@@ -137,8 +138,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             for (int i = indexAnnotation; i < len_; i++) {
                 CustList<ExecOperationNode> ops_ = annotations.get(i);
                 ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
-                if (_context.callsOrException()) {
+                Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+                if (_context.callsOrException(_stack)) {
                     return false;
                 }
                 clearCurrentEls();
@@ -171,8 +172,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
-        basicReceive(_wrap, _argument,_context);
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        basicReceive(_wrap, _argument,_context, _stack);
     }
 
     public void setOnParameters(boolean _onParameters) {

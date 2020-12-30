@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -60,7 +62,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setSession(conf_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInitStdMess(a_, n_));
-        n_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
+        n_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), a_.getStackCall());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -253,7 +255,7 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), StackCall.newInstance(InitPhase.NOTHING,page_.getContext().getContext()));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
@@ -340,7 +342,7 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), StackCall.newInstance(InitPhase.NOTHING,page_.getContext().getContext()));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -432,7 +434,7 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds());
+        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), StackCall.newInstance(InitPhase.NOTHING,page_.getContext().getContext()));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
@@ -479,7 +481,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setSession(conf_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInitStdMess(a_, n_));
-        n_.initializeRendSession(a_.getContext(), a_.getAdvStandards());
+        n_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), a_.getStackCall());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
 
@@ -1151,6 +1153,7 @@ public final class RenderInitNavTest extends CommonRender {
     private static boolean setupRendClassesInitStdMess(AnalyzedTestConfigurationBis _a, Navigation _n) {
         DualConfigurationContext d_ = _a.getDual();
         DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getAnalyzing(),_a.getAdvStandards(),d_);
+        _a.setStackCall(StackCall.newInstance(InitPhase.NOTHING,d_.getContext()));
         return _a.getAdvStandards().setupAll(_n, _n.getSession(), _n.getFiles(), dual_).isAllEmptyErrors();
     }
 

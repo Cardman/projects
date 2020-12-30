@@ -1,5 +1,8 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,6 +18,6 @@ public final class DefaultClosingMainWindow extends WindowAdapter {
 
     @Override
     public void windowClosing(WindowEvent _e) {
-        context.disposeAll(executingBlocks);
+        context.disposeAll(executingBlocks, StackCall.newInstance(InitPhase.NOTHING,context));
     }
 }

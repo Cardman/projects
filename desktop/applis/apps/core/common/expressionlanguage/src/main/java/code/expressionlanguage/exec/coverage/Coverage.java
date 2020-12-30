@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.coverage;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
@@ -25,7 +25,7 @@ import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class Coverage {
-    private CustList<FileBlock> files = new CustList<FileBlock>();
+    private final CustList<FileBlock> files = new CustList<FileBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> refOperators = new CustList<OperatorBlock>();
     private final StringList toStringOwners = new StringList();
@@ -317,62 +317,62 @@ public final class Coverage {
         toStringOwners.add(_owner);
     }
 
-    public void passLoop(ContextEl _context, ExecBlock _loop, Argument _value) {
+    public void passLoop(ExecBlock _loop, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         BooleanCoverageResult covTwo_ = fctRes_.getCoverLoops().getVal(_loop);
-        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
-    public void passConditions(ContextEl _context, ExecBlock _condition, Argument _value, ExecOperationNode _exec) {
+    public void passConditions(ExecBlock _condition, Argument _value, ExecOperationNode _exec, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         BooleanCoverageResult covTwo_ = fctRes_.getCoversConditions().getVal(_condition);
-        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             covTwo_.fullCover();
         } else {
             covTwo_.cover(_value);
         }
     }
-    public void passConditionsForMutable(ContextEl _context, ExecBlock _condition, Argument _value, ExecOperationNode _exec) {
+    public void passConditionsForMutable(ExecBlock _condition, Argument _value, ExecOperationNode _exec, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         BooleanCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(_condition);
-        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             covTwo_.fullCover();
         } else {
             covTwo_.cover(_value);
         }
     }
-    public void passSwitch(ContextEl _context, ExecBlock _parent, ExecBlock _child, Argument _value) {
+    public void passSwitch(ExecBlock _parent, ExecBlock _child, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getChildren().getVal(_child);
-        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
-    public void passSwitch(ContextEl _context, ExecBlock _parent, Argument _value) {
+    public void passSwitch(ExecBlock _parent, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         FunctionCoverageResult fctRes_ = getFctRes(lastPage_);
         StandardCoverageResult covTwo_ = fctRes_.getCoverSwitchs().getVal(_parent).getResultNoDef();
-        covTwo_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
     }
 
@@ -384,11 +384,11 @@ public final class Coverage {
         fctRes_.getCatches().set(_block,BoolVal.TRUE);
     }
 
-    public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, boolean _full, ArgumentsPair _pair) {
+    public void passBlockOperation(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getLastPage();
+        AbstractPageEl lastPage_ = _stackCall.getLastPage();
         ExecBlock en_ = lastPage_.getBlock();
         Block matchBl_;
         int indexAnnotGroup_ = -1;
@@ -455,7 +455,7 @@ public final class Coverage {
             return;
         }
         AbstractCoverageResult result_ = instr_.get(ana_.getIndexInExp());
-        result_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
+        result_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_full) {
             result_.fullCover();
         } else {

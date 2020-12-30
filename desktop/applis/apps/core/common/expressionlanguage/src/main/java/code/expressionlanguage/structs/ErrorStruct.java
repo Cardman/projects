@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -16,13 +17,13 @@ public final class ErrorStruct extends WithoutParentIdStruct implements Erroneou
 
     private final String message;
 
-    public ErrorStruct(ContextEl _context, String _className) {
-        this(_context, "", _className);
+    public ErrorStruct(ContextEl _context, String _className, StackCall _stackCall) {
+        this(_context, "", _className, _stackCall);
     }
 
-    public ErrorStruct(ContextEl _context, String _message, String _className) {
-        stack = ExecutingUtil.newStackTraceElementArray(_context);
-        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_context);
+    public ErrorStruct(ContextEl _context, String _message, String _className, StackCall _stackCall) {
+        stack = ExecutingUtil.newStackTraceElementArray(_context, _stackCall);
+        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_stackCall);
         className = _className;
         message = _message;
     }

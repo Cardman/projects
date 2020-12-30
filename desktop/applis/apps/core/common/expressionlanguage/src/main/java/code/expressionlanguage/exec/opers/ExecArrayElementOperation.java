@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
@@ -20,18 +21,18 @@ public final class ExecArrayElementOperation extends
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+        Argument res_ = getArgument(arguments_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
         String me_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(me_);
-        setRelOffsetPossibleLastPage(off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
         String cl_ = getClassName();
-        String className_ = _conf.formatVarType(cl_);
+        String className_ = _stackCall.formatVarType(cl_);
 
         int nbCh_ = _arguments.size();
 
@@ -39,7 +40,7 @@ public final class ExecArrayElementOperation extends
         dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
-        ExecTemplates.setCheckedElements(_arguments,str_,_conf);
+        ExecTemplates.setCheckedElements(_arguments,str_,_conf, _stackCall);
         return new Argument(str_);
     }
 }

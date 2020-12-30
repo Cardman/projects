@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -11,12 +12,12 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     private boolean lambda;
 
     @Override
-    public void tryProcessEl(ContextEl _context) {
+    public void tryProcessEl(ContextEl _context, StackCall _stack) {
         setNullReadWrite();
     }
 
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }

@@ -13,8 +13,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private String currentDir;
 
     public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
-        super(_executionInfos, _state);
-        setFullStack(new DefaultFullStack(this));
+        super(_executionInfos);
         thread = new ThreadStruct(Thread.currentThread());
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         currentDir = standards_.getExecutingOptions().getBaseFiles();
@@ -66,11 +65,11 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public boolean callsOrException() {
+    public boolean callsOrException(StackCall _stack) {
         if (stopped()) {
             return true;
         }
-        return super.callsOrException();
+        return super.callsOrException(_stack);
     }
 
     boolean stopped() {

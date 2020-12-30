@@ -2,13 +2,14 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public abstract class ExecStdNumericOperation extends ExecNumericOperation {
 
-    private String oper;
+    private final String oper;
 
     public ExecStdNumericOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
         super(_opCont, _opOffset);
@@ -16,14 +17,14 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                                ContextEl _conf) {
+                                ContextEl _conf, StackCall _stack) {
         Argument a_ = getFirstArgument(_nodes,this);
         Argument c_ = getLastArgument(_nodes,this);
-        setRelOffsetPossibleLastPage(getOpOffset(), _conf);
-        Argument r_ = calculateOper(a_, oper, c_, _conf);
-        setSimpleArgument(r_, _conf, _nodes);
+        setRelOffsetPossibleLastPage(getOpOffset(), _stack);
+        Argument r_ = calculateOper(a_, oper, c_, _conf, _stack);
+        setSimpleArgument(r_, _conf, _nodes, _stack);
     }
-    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
+    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack);
 
 
 }

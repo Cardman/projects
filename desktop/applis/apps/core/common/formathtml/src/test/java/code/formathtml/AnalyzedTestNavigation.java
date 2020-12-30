@@ -21,8 +21,8 @@ public final class AnalyzedTestNavigation {
     private final BeanCustLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
-    private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
-    private AnalyzedTestConfiguration gl;
+    private final StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
+    private final AnalyzedTestConfiguration gl;
 
     public AnalyzedTestNavigation(Navigation _nav, AnalyzedTestConfiguration _analyzing) {
         nav = _nav;
@@ -66,20 +66,12 @@ public final class AnalyzedTestNavigation {
         return context;
     }
 
-    public ImportingPage getLastPage() {
-        return configuration.getLastPage();
-    }
-
     public boolean isEmptyErrors() {
         return analyzing.isEmptyErrors();
     }
 
     public Classes getClasses() {
         return context.getClasses();
-    }
-
-    public boolean hasPages() {
-        return configuration.hasPages();
     }
 
     public void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {

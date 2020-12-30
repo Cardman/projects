@@ -1,15 +1,17 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
-    private String label;
+    private final String label;
 
     public RendDoBlock(int _offsetTrim, String _label) {
         super(_offsetTrim);
@@ -17,8 +19,8 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
@@ -28,7 +30,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
                     nextSibling_ = nextSibling_.getNextSibling();
                 }
                 RendBlock next_ = nextSibling_;
-                next_.processBlockAndRemove(_cont, _stds, _ctx);
+                next_.processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
                 return;
             }
             rw_.setRead(getFirstChild());
@@ -44,8 +46,8 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock nextSibling_ = getNextSibling();
         if (nextSibling_ instanceof RendPossibleEmpty) {

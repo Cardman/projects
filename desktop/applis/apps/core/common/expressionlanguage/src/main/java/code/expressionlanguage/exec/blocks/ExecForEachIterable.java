@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -21,23 +22,23 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     }
 
     @Override
-    protected void checkIfNext(ContextEl _cont, LoopBlockStack _l) {
-        iteratorHasNext(_cont, _l);
+    protected void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack) {
+        iteratorHasNext(_cont, _l, _stack);
     }
 
     @Override
-    protected LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its) {
+    protected LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its, StackCall _stack) {
         if (_its == NullStruct.NULL_VALUE) {
             String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_, _stack)));
             return null;
         }
         String locName_ = _cont.getClasses().getIteratorVarCust();
-        AbstractPageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _stack.getLastPage();
         ip_.putInternVars(locName_, _its,_cont);
         ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
-        if (_cont.callsOrException()) {
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0, _stack);
+        if (_cont.callsOrException(_stack)) {
             return null;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -55,17 +56,17 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
     }
 
     @Override
-    protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l) {
+    protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         String locName_ = _conf.getClasses().getNextVarCust();
-        AbstractPageEl abs_ = _conf.getLastPage();
+        AbstractPageEl abs_ = _stack.getLastPage();
         abs_.putInternVars(locName_, _l.getStructIterator(),_conf);
         ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
-        return ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
+        return ExpressionLanguage.tryToCalculate(_conf,dyn_,0, _stack);
     }
 
     @Override
-    protected ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l) {
-        return iteratorHasNext(_conf, _l);
+    protected ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
+        return iteratorHasNext(_conf, _l, _stack);
     }
 
     @Override
@@ -81,12 +82,12 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         }
         return new ExpressionLanguage(_context.getClasses().getExpsNextCust());
     }
-    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
+    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         String locName_ = _conf.getClasses().getHasNextVarCust();
-        _conf.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
-        if (_conf.callsOrException()) {
+        _stackCall.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
+        ExpressionLanguage dyn_ = _stackCall.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

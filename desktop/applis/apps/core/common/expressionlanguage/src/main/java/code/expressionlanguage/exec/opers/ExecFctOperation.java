@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -20,7 +21,7 @@ import code.util.core.StringUtil;
 
 public final class ExecFctOperation extends ExecSettableCallFctOperation {
 
-    private ExecInstFctContent instFctContent;
+    private final ExecInstFctContent instFctContent;
     private final ExecTypeFunction pair;
 
     public ExecFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent, ExecArrContent _arrContent) {
@@ -37,30 +38,30 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         pair = new ExecTypeFunction(_rootBlock,_named);
     }
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_,_nodes, _conf);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getArgument(previous_,_nodes, _conf, _stack);
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        setSimpleArgument(res_, _conf, _nodes);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelOffsetPossibleLastPage(off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
         String classNameFound_ = getClassName();
         Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _conf));
-        if (_conf.callsOrException()) {
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _conf, _stackCall));
+        if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
         Struct pr_ = prev_.getStruct();
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_,classNameFound_,pair);
         ExecTypeFunction pair_ = polymorph_.getPair();
         classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_,null, getArgs(_nodes, _conf, pr_), null, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair_, prev_,null, getArgs(_nodes, _conf, pr_), null, MethodAccessKind.INSTANCE, "", _stackCall);
     }
 
     private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

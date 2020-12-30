@@ -5,15 +5,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
@@ -48,8 +47,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",new IntStruct(1),c_));
+        AnalyzedTestContext c_ = validated(files_);
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",new IntStruct(1),c_.getContext(), c_.getStackCall()));
         assertNotNull(getTrueException(c_));
     }
 
@@ -63,10 +62,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
-        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
-        ExecTemplates.getParent(0,"java.lang.Integer",in_,c_);
+        AnalyzedTestContext c_ = validated(files_);
+        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
+        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
+        ExecTemplates.getParent(0,"java.lang.Integer",in_,c_.getContext(), c_.getStackCall());
         assertNotNull(getTrueException(c_));
     }
     @Test
@@ -79,11 +78,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
-        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
-        Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
-        ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_);
+        AnalyzedTestContext c_ = validated(files_);
+        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
+        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
+        Struct inTwo_ = c_.getInit().processInit(c_.getContext(),in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
+        ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_.getContext(), c_.getStackCall());
         assertNotNull(getTrueException(c_));
     }
 
@@ -95,9 +94,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_));
+        AnalyzedTestContext c_ = validated(files_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_.getContext(), c_.getStackCall()));
         assertNotNull(getTrueException(c_));
     }
 
@@ -109,9 +108,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_));
+        AnalyzedTestContext c_ = validated(files_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_.getContext(), c_.getStackCall()));
         assertNotNull(getTrueException(c_));
     }
 
@@ -123,9 +122,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
+        AnalyzedTestContext c_ = validated(files_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_.getContext(), c_.getStackCall()));
         assertNotNull(getTrueException(c_));
     }
 
@@ -137,10 +136,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
-        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_);
-        assertSame(arr_, ExecTemplates.getParent(0,"["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_));
-        assertNull(c_.getCallingState());
+        AnalyzedTestContext c_ = validated(files_);
+        ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
+        assertSame(arr_, ExecTemplates.getParent(0,"["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_.getContext(), c_.getStackCall()));
+        assertNull(c_.getStackCall().getCallingState());
     }
 
     @Test
@@ -151,9 +150,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.CustClass{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         Ints dims_ = new Ints(1);
-        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
+        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_.getContext());
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
         assertEq(1, instance_.length);
@@ -169,9 +168,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.CustClass{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         Ints dims_ = new Ints(2);
-        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
+        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_.getContext());
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
         assertEq(2, instance_.length);
@@ -189,9 +188,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.CustClass{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         Ints dims_ = new Ints(2,3);
-        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
+        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_.getContext());
         assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
         assertEq(2, instance_.length);
@@ -225,9 +224,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.CustClass{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         Ints dims_ = new Ints(4,2,3);
-        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
+        ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_.getContext());
         assertEq(ARR_ARR_ARR_CUST_CLASS, customArray_.getClassName());
         Struct[] instance_ = customArray_.getInstance();
         assertEq(4, instance_.length);
@@ -238,7 +237,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<[#T>";
         assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
@@ -249,7 +248,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<[#T>";
         assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
@@ -260,7 +259,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<[#T>";
         assertEq("pkg.Ex<?>", reflectFormat(context_, first_, second_));
@@ -271,7 +270,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<[#E>";
         assertEq("pkg.Ex<[#E>", reflectFormat(context_, first_, second_));
@@ -282,7 +281,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#E";
         assertEq("[#E", reflectFormat(context_, first_, second_));
@@ -293,7 +292,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<![#T>";
         assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
@@ -304,7 +303,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<?[#T>";
         assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
@@ -315,7 +314,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<?[#T>";
         assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
@@ -326,14 +325,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<![#T>";
         assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
-    }
-
-    private static String reflectFormat(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.reflectFormat(_first,_second,_context);
     }
 
     @Test
@@ -343,7 +338,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
         String t_ = getFullObject(context_, first_, second_);
@@ -357,10 +352,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "[pkg.ExTwo";
-        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_);
+        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_.getContext());
         assertEq("",t_);
     }
 
@@ -371,10 +366,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "[pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
-        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_);
+        String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_.getContext());
         assertEq("",t_);
     }
 
@@ -385,15 +380,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.ExTwo";
-        String t_ = getFullObject(context_, first_, second_);
+        String t_ = getFullObject(context_.getContext(), first_, second_);
         assertEq("",t_);
-    }
-
-    private String getFullObject(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getFullObject(_first, _second, _context);
     }
 
     @Test
@@ -403,7 +394,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "";
         String t_ = getSuperGeneric(context_, first_, second_);
@@ -418,7 +409,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "";
         String t_ = getSuperGeneric(context_, first_, second_);
@@ -432,15 +423,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.ExAnnot";
         String second_ = "pkg.Ex";
         String t_ = getSuperGeneric(context_, first_, second_);
         assertEq("",t_);
-    }
-
-    private static String getSuperGeneric(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getSuperGeneric(_first, _second, _context);
     }
 
     @Test
@@ -450,7 +437,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "$void";
         String second_ = "pkg.Ex";
         String t_ = getFullTypeByBases(context_, first_, second_);
@@ -464,7 +451,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "$void";
         String t_ = getFullTypeByBases(context_, first_, second_);
@@ -478,7 +465,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "[java.lang.Object";
         String t_ = getFullTypeByBases(context_, first_, second_);
@@ -492,54 +479,50 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = validated(files_);
+        AnalyzedTestContext context_ = validated(files_);
         String first_ = "";
         String second_ = "";
         String t_ = getFullTypeByBases(context_, first_, second_);
         assertEq("",t_);
     }
 
-    private static String getFullTypeByBases(ContextEl _context, String _first, String _second) {
-        return ExecTemplates.getFullTypeByBases(_first, _second, _context);
-    }
-
     @Test
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = new ArrayStruct(1,"[$int");
         arr_.set(0,new IntStruct(0));
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        ExecTemplates.setCheckedElements(args_,arr_,cont_);
+        ExecTemplates.setCheckedElements(args_,arr_,cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("$int"),true);
         ArrayStruct arr_ = defaultArray1(NullStruct.NULL_VALUE, "[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         ArrayStruct arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
@@ -548,18 +531,18 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         arr_ = new ArrayStruct(1,"[java.lang.Number");
         arr_.set(0,new StringStruct(""));
         args_.add(new Argument(arr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         ArrayStruct arr_ = defaultArray2("[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -569,12 +552,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
-        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -584,22 +567,22 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
-        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex<$int>", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "pkg.Ex<$int>", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void okArgs7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(NullStruct.NULL_VALUE));
-        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_));
+        assertNotNull(ExecTemplates.okArgsSet(id_, "", args_, cont_.getContext(), cont_.getStackCall()));
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -609,7 +592,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         ArrayStruct arr_ = defaultArray2("[$int");
         CustList<Argument> args_ = new CustList<Argument>();
@@ -617,7 +600,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_, null, true);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -627,13 +610,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_, null, true);
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -643,12 +626,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(args_);
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, l_, cont_, null, true);
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -658,40 +641,40 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.getArguments().addAllElts(args_);
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_, null,true);
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), null,true, cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
     public void getErrorWhenContain1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(ErrorType.NPE, ExecTemplates.setElement(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_));
+        assertSame(ErrorType.NPE, ExecTemplates.setElement(arr_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall()));
     }
     @Test
     public void getErrorWhenContain2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(ErrorType.CAST, ExecTemplates.setElement(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_));
+        assertSame(ErrorType.CAST, ExecTemplates.setElement(arr_, new StringStruct(""), NullStruct.NULL_VALUE, cont_.getContext(), cont_.getStackCall()));
     }
     @Test
     public void getErrorWhenIndex1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, NullStruct.NULL_VALUE,cont_));
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, NullStruct.NULL_VALUE,cont_.getContext(), cont_.getStackCall()));
     }
     @Test
     public void getErrorWhenIndex2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct arr_ = defaultArray();
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, new StringStruct(""),cont_));
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, new StringStruct(""),cont_.getContext(), cont_.getStackCall()));
     }
     @Test
     public void getIndexLoop() {
@@ -701,9 +684,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getIndexLoop(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
+        AnalyzedTestContext cont_ = validated(files_);
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null, cont_.getStackCall()), cont_.getStackCall());
+        ExecTemplates.getIndexLoop(cont_.getContext(),"", -1, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -714,11 +697,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         instancingClass_.setCache(new Cache());
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.getIndexLoop(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -729,8 +712,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         Cache cache_ = new Cache();
         LoopVariable loop_ = new LoopVariable();
         loop_.setIndex(2);
@@ -738,9 +721,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.addLoop("myvar", loop_);
         cache_.setClassLoopValue(-1,"");
         instancingClass_.setCache(cache_);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        Argument myvar_ = ExecTemplates.getIndexLoop(cont_.getContext(), "myvar", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
         assertEq(2,getNumber(myvar_));
     }
     @Test
@@ -751,10 +734,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getWrapValue(cont_,"", -1, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        AnalyzedTestContext cont_ = validated(files_);
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null, cont_.getStackCall()), cont_.getStackCall());
+        ExecTemplates.getWrapValue(cont_.getContext(),"", -1, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
     }
     @Test
     public void getValue2() {
@@ -764,13 +747,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         instancingClass_.setCache(new Cache());
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getWrapValue(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
-        ExecTemplates.getValueVar("",new StringMap<LocalVariable>(),cont_);
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.getWrapValue(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
+        ExecTemplates.getValueVar("",new StringMap<LocalVariable>(),cont_.getContext(), cont_.getStackCall());
     }
     @Test
     public void getValue3() {
@@ -780,16 +763,17 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         Cache cache_ = new Cache();
-        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
         instancingClass_.setCache(cache_);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getWrapValue(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        Argument myvar_ = ExecTemplates.getWrapValue(cont_.getContext(), "myvar", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
         assertEq(2,getNumber(myvar_));
     }
+
     @Test
     public void getValue4() {
         StringMap<String> files_ = new StringMap<String>();
@@ -798,15 +782,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         Cache cache_ = new Cache();
-        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
-        cache_.setClassLocalValueWrapper(-1,"",cont_);
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
+        cache_.setClassLocalValueWrapper(-1,"",cont_.getContext(), cont_.getStackCall());
         instancingClass_.setCache(cache_);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getWrapValue(cont_, "myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        Argument myvar_ = ExecTemplates.getWrapValue(cont_.getContext(), "myvar", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
         assertEq(2,getNumber(myvar_));
     }
     @Test
@@ -817,10 +801,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.setWrapValue(cont_,"", null,-1, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        AnalyzedTestContext cont_ = validated(files_);
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null, cont_.getStackCall()), cont_.getStackCall());
+        ExecTemplates.setWrapValue(cont_.getContext(),"", null,-1, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
     }
     @Test
     public void setValue2() {
@@ -830,12 +814,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         instancingClass_.setCache(new Cache());
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.setWrapValue(cont_,"", null,0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.setWrapValue(cont_.getContext(),"", null,0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
     }
     @Test
     public void setValue3() {
@@ -845,16 +829,16 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         Cache cache_ = new Cache();
-        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_)));
+        cache_.addLocalWrapper("myvar",new VariableWrapper(LocalVariable.newLocalVariable(new IntStruct(2),cont_.getContext())));
         instancingClass_.setCache(cache_);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.setWrapValue(cont_, "myvar", new Argument(new IntStruct(4)),0, cont_.getLastPage().getCache(), cont_.getLastPage().getRefParams());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        Argument myvar_ = ExecTemplates.setWrapValue(cont_.getContext(), "myvar", new Argument(new IntStruct(4)),0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
         assertEq(4,getNumber(myvar_));
-        assertEq(4,getNumber(new Argument(cache_.getLocalWrapper("myvar",0).getValue(cont_))));
+        assertEq(4,getNumber(new Argument(cache_.getLocalWrapper("myvar",0).getValue(cont_.getStackCall(), cont_.getContext()))));
     }
     @Test
     public void incrValue() {
@@ -864,9 +848,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
+        AnalyzedTestContext cont_ = validated(files_);
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null, cont_.getStackCall()), cont_.getStackCall());
+        ExecTemplates.incrIndexLoop(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -877,11 +861,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         instancingClass_.setCache(new Cache());
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.incrIndexLoop(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -892,23 +876,23 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
         Cache cache_ = new Cache();
         LoopVariable loop_ = new LoopVariable();
         loop_.setIndex(2);
         loop_.setIndexClassName(cont_.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         cache_.addLoop("myvar", loop_);
         instancingClass_.setCache(cache_);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"myvar", 0, cont_.getLastPage().getCache(), cont_.getLastPage().getVars());
-        assertNull(cont_.getCallingState());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.incrIndexLoop(cont_.getContext(),"myvar", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getVars(), cont_.getStackCall());
+        assertNull(cont_.getStackCall().getCallingState());
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
     }
     @Test
     public void trySet1() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
         ExecTemplates.trySet(str_,-1,NullStruct.NULL_VALUE);
         assertNotNull(str_.get(0));
@@ -916,7 +900,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void trySet2() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
         ExecTemplates.trySet(str_,1,NullStruct.NULL_VALUE);
         assertNotNull(str_.get(0));
@@ -924,7 +908,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void trySet3() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ArrayStruct str_ = new ArrayStruct(1,StringExpUtil.getPrettyArrayType(cont_.getStandards().getCoreNames().getAliasObject()));
         ExecTemplates.trySet(str_,0,NullStruct.NULL_VALUE);
         assertNotNull(str_.get(0));
@@ -939,11 +923,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
+        AnalyzedTestContext cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(classBody_,"pkg.Ex",null, cont_.getStackCall()), cont_.getStackCall());
         ExecNamedFunctionBlock first_ = ExecClassesUtil.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
-        ExecTemplates.wrapAndCall(new ExecTypeFunction(classBody_, first_), "pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
+        wrapAndCall(cont_, classBody_, first_);
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -954,9 +938,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         assertTrue(!ExecTemplates.hasBlockBreak(instancingClass_,""));
         assertNull(instancingClass_.getReadWrite());
     }
@@ -968,10 +952,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        assertTrue(!ExecTemplates.hasBlockContinue(cont_,instancingClass_,""));
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        assertTrue(!ExecTemplates.hasBlockContinue(cont_.getContext(),instancingClass_,"", cont_.getStackCall()));
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -982,9 +966,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
         ExecTemplates.setVisited(instancingClass_,null);
         assertNull(instancingClass_.getReadWrite());
     }
@@ -996,10 +980,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.processFinally(cont_,null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.processFinally(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1010,10 +994,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.processElseIf(cont_,null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.processElseIf(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1024,10 +1008,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.processElse(cont_,null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.processElse(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1038,10 +1022,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.processDo(cont_,null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.processDo(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1052,10 +1036,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = validated(files_);
-        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
-        ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.processBlockAndRemove(cont_,null);
+        AnalyzedTestContext cont_ = validated(files_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        addPage(cont_.getContext(), instancingClass_, cont_.getStackCall());
+        ExecTemplates.processBlockAndRemove(cont_.getContext(),null, cont_.getStackCall());
         assertNull(instancingClass_.getReadWrite());
     }
     @Test
@@ -1067,11 +1051,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" Annot myAnnot();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
+        AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecutingUtil.addPage(c_, instancingClass_);
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        addPage2(c_, instancingClass_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
@@ -1084,12 +1068,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" Annot myAnnot2();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
+        AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecutingUtil.addPage(c_, instancingClass_);
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        addPage2(c_, instancingClass_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
@@ -1101,15 +1085,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" Annot myAnnot();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
+        AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecutingUtil.addPage(c_, instancingClass_);
-        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
-        c_.removeLastPage();
-        ExecutingUtil.addPage(c_, instancingClass2_);
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        addPage2(c_, instancingClass_);
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass2_.getGlobalArgument(), c_.getStackCall());
+        c_.getStackCall().removeLastPage();
+        addPage2(c_, instancingClass2_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/1)))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
     }
     @Test
@@ -1122,17 +1106,17 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" Annot myAnnot2();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = validated(files_);
+        AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Annot");
-        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecutingUtil.addPage(c_, instancingClass_);
-        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_, "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>());
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
-        c_.removeLastPage();
-        ExecutingUtil.addPage(c_, instancingClass2_);
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_,instancingClass2_.getGlobalArgument());
-        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_,instancingClass_.getGlobalArgument());
+        AbstractPageEl instancingClass_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        addPage2(c_, instancingClass_);
+        AbstractPageEl instancingClass2_ = ExecutingUtil.createAnnotation(c_.getContext(), "pkg.Annot",root_,  new StringMap<AnnotationTypeInfo>(),new CustList<Argument>(), c_.getStackCall());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass2_.getGlobalArgument(), c_.getStackCall());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
+        c_.getStackCall().removeLastPage();
+        addPage2(c_, instancingClass2_);
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot","pkg.Annot",c_.getContext(),instancingClass2_.getGlobalArgument(), c_.getStackCall());
+        ExecAnnotationMethodBlock.setValue(root_,"pkg.Annot","myAnnot2","pkg.Annot",c_.getContext(),instancingClass_.getGlobalArgument(), c_.getStackCall());
         assertEq("@pkg.Annot(myAnnot=@pkg.Annot(myAnnot=@pkg.Annot(pkg.Annot/2),myAnnot2=@pkg.Annot(pkg.Annot/1)),myAnnot2=@pkg.Annot(pkg.Annot/1))",ExportAnnotationUtil.exportAnnotation("I","N","E",instancingClass_.getGlobalStruct()));
         assertSame(NullStruct.NULL_VALUE,instancingClass_.getValue(1).getStruct());
     }
@@ -1147,7 +1131,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void setArgumentExp() {
         ExpressionLanguage ex_ = new ExpressionLanguage(new CustList<ExecOperationNode>());
-        ex_.setArgument(null,null);
+        ex_.setArgument(null,null, null);
         assertEq(0,ex_.getIndex());
     }
     @Test
@@ -1165,9 +1149,18 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void getGenericTypeNameOrObject() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl c_ = validated(files_);
-        assertNotNull(ExecTemplates.getGenericTypeNameOrObject(c_,""));
+        AnalyzedTestContext c_ = validated(files_);
+        assertNotNull(ExecTemplates.getGenericTypeNameOrObject(c_.getContext(),""));
     }
+
+
+    @Test
+    public void hasToLookForParent() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        assertTrue(!ExecTemplates.hasToLookForParent(cont_.getContext(),"",null));
+    }
+
     private static ArrayStruct defaultArray() {
         ArrayStruct array_ = new ArrayStruct(1, "[java.lang.Number");
         array_.set(0, NullStruct.NULL_VALUE);
@@ -1188,20 +1181,59 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         return array_;
     }
 
-
-    @Test
-    public void hasToLookForParent() {
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = validated(files_);
-        assertTrue(!ExecTemplates.hasToLookForParent(cont_,"",null));
+    private void addPage(ContextEl _cont, AbstractPageEl _instancingClass, StackCall _stackCall) {
+        ExecutingUtil.addPage(_cont, _instancingClass, _stackCall);
     }
 
-    private static ContextEl validated(StringMap<String> _files) {
+    private static Struct getTrueException(AnalyzedTestContext _cont) {
+        CallingState str_ = _cont.getStackCall().getCallingState();
+        return ((CustomFoundExc) str_).getStruct();
+    }
+
+    private static AnalyzedTestContext validated(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
         validateWithoutInit(_files,cont_);
         assertTrue(isEmptyErrors(cont_));
         forwardAndClear(cont_);
-        return cont_.getContext();
+        cont_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,cont_.getContext()));
+        return cont_;
+    }
+
+    private static String reflectFormat(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.reflectFormat(_first,_second,_context.getContext());
+    }
+
+    private void addPage2(AnalyzedTestContext _c, AbstractPageEl _instancingClass2) {
+        ExecutingUtil.addPage(_c.getContext(), _instancingClass2, _c.getStackCall());
+    }
+
+    private void wrapAndCall(AnalyzedTestContext _cont, ExecRootBlock _classBody, ExecNamedFunctionBlock _first) {
+        ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), "pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), _cont.getContext(), _cont.getStackCall());
+    }
+
+    private static String getFullTypeByBases(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.getFullTypeByBases(_first, _second, _context.getContext());
+    }
+
+    private static String getFullTypeByBases(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getFullTypeByBases(_first, _second, _context);
+    }
+
+
+    private String getFullObject(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getFullObject(_first, _second, _context);
+    }
+
+    private String getFullObject(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.getFullObject(_first, _second, _context.getContext());
+    }
+
+    private static String getSuperGeneric(AnalyzedTestContext _context, String _first, String _second) {
+        return ExecTemplates.getSuperGeneric(_first, _second, _context.getContext());
+    }
+
+    private static String getSuperGeneric(ContextEl _context, String _first, String _second) {
+        return ExecTemplates.getSuperGeneric(_first, _second, _context);
     }
 
 }

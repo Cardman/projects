@@ -2,6 +2,8 @@ package code.gui.document;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -14,9 +16,9 @@ import code.sml.Document;
 
 public final class ThreadRefresh implements Runnable {
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
-    private BeanNatLgNames stds;
+    private final BeanNatLgNames stds;
 
     ThreadRefresh(RenderedPage _page, BeanNatLgNames _lgNames) {
         page = _page;
@@ -26,12 +28,13 @@ public final class ThreadRefresh implements Runnable {
 
     @Override
     public void run() {
-        stds.rendRefresh(page.getNavigation(), page.getContext());
-        afterAction();
+        StackCall stack_ = StackCall.newInstance(InitPhase.NOTHING,page.getContext());
+        stds.rendRefresh(page.getNavigation(), page.getContext(), stack_);
+        afterAction(stack_);
     }
-    private void afterAction() {
+    private void afterAction(StackCall _stackCall) {
         ContextEl context_ = page.getContext();
-        CallingState exc_ = context_.getCallingState();
+        CallingState exc_ = _stackCall.getCallingState();
         if (exc_ instanceof CustomFoundExc) {
             if (page.getArea() != null) {
                 Struct exception_ = ((CustomFoundExc) exc_).getStruct();
@@ -39,12 +42,12 @@ public final class ThreadRefresh implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(context_, fullStack_));
                 } else {
-                    context_.setCallingState(null);
-                    String str_ = page.getStandards().processString(new Argument(exception_), page.getContext());
+                    _stackCall.setCallingState(null);
+                    String str_ = page.getStandards().processString(new Argument(exception_), page.getContext(), _stackCall);
                     page.getArea().append(str_);
                 }
             }
-            context_.setCallingState(null);
+            _stackCall.setCallingState(null);
             finish();
             return;
         }

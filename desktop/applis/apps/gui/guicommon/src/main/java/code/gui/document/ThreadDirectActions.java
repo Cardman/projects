@@ -1,6 +1,8 @@
 package code.gui.document;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 
 public final class ThreadDirectActions extends AbstractThreadActions {
 
@@ -16,7 +18,8 @@ public final class ThreadDirectActions extends AbstractThreadActions {
         if (ctx_ == null) {
             return;
         }
-        page_.getNavigation().initializeRendSession(ctx_, page_.getStandards());
-        afterAction(ctx_);
+        StackCall stack_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
+        page_.getNavigation().initializeRendSession(ctx_, page_.getStandards(), stack_);
+        afterAction(ctx_,stack_);
     }
 }

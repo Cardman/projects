@@ -1,21 +1,22 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 
 public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally {
 
-    private String label;
+    private final String label;
     public ExecBreakBlock(String _label, int _offsetTrim) {
         super(_offsetTrim);
         label = _label;
     }
 
     @Override
-    public void removeBlockFinally(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
+    public void removeBlockFinally(ContextEl _conf, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         //when labelled this loop does not remove if
         //the last statement is a "try" with "finally" clause
         //and the current block is a "try" or a "catch"
@@ -29,8 +30,8 @@ public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinal
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        removeBlockFinally(_cont);
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        removeBlockFinally(_cont, _stack);
     }
 
 }

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
@@ -47,17 +48,17 @@ public final class AliasStackTraceElement {
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
     }
 
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct) {
+    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall) {
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         AliasStackTraceElement ref_ = lgNames_.getStackElt();
         if (StringUtil.quickEq(name_, ref_.aliasCurrentStack)) {
-            result_.setResult(ExecutingUtil.newStackTraceElementArray(_cont));
+            result_.setResult(ExecutingUtil.newStackTraceElementArray(_cont, _stackCall));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasCurrentFullStack)) {
-            result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_cont));
+            result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_stackCall));
             return result_;
         }
         result_.setResult(NumParsers.getStack(_struct).getDisplayedString(_cont));

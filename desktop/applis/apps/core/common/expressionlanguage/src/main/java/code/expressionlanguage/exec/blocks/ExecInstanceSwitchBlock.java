@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
@@ -17,8 +17,8 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
     }
 
     @Override
-    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         ExecBlock n_ = getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -40,7 +40,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecInstanceCaseCondition) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                    found_ = fetch(_cont, _if, _arg,found_,b_);
+                    found_ = fetch(_cont, _if, _arg,found_,b_, _stack);
                 }
             }
         }
@@ -48,28 +48,28 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
             for (ExecBracedBlock b: children_) {
                 if (b instanceof ExecInstanceDefaultCondition) {
                     ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                    found_ = fetch(_cont, _if, _arg,found_,b_);
+                    found_ = fetch(_cont, _if, _arg,found_,b_, _stack);
                 }
             }
         }
         if (found_ == null) {
-            _cont.getCoverage().passSwitch(_cont, this, _arg);
+            _cont.getCoverage().passSwitch(this, _arg, _stack);
             _if.setCurrentVisitedBlock(this);
         } else {
-            _cont.getCoverage().passSwitch(_cont, this, found_, _arg);
+            _cont.getCoverage().passSwitch(this, found_, _arg, _stack);
             ip_.setBlock(found_);
             _if.setCurrentVisitedBlock(found_);
         }
         ip_.addBlock(_if);
     }
     private static ExecBracedBlock fetch(ContextEl _cont, SwitchBlockStack _if, Argument _arg,
-                                         ExecBracedBlock _found, ExecAbstractInstanceTypeCaseCondition _s) {
+                                         ExecBracedBlock _found, ExecAbstractInstanceTypeCaseCondition _s, StackCall _stackCall) {
         if (_found != null) {
             return _found;
         }
         String type_ = _s.getImportedClassName();
-        AbstractPageEl ip_ = _cont.getLastPage();
-        type_ = _cont.formatVarType(type_);
+        AbstractPageEl ip_ = _stackCall.getLastPage();
+        type_ = _stackCall.formatVarType(type_);
         if (ExecTemplates.safeObject(type_, _arg, _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(_arg.getStruct(),type_));

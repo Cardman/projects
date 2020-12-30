@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -13,7 +14,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         ExecOperationNode o_ = getFirstChild();
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
@@ -27,9 +28,9 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {
-            setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
         } else {
-            setSimpleArgument(a_, _conf, _nodes);
+            setSimpleArgument(a_, _conf, _nodes, _stack);
         }
     }
 }

@@ -6,6 +6,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -30,7 +32,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
-        String str_ = processString(new Argument(_instance), _cont);
+        String str_ = processString(new Argument(_instance), _cont, StackCall.newInstance(InitPhase.NOTHING,_cont));
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(new StringStruct(str_));
         return res_;
@@ -49,7 +51,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         if (_instance instanceof BeanStruct) {

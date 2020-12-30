@@ -5,8 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -820,7 +819,7 @@ public final class GuiAliases {
     private String aliasMenuItemCheck;
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
-    private GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
+    private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
@@ -2732,9 +2731,9 @@ public final class GuiAliases {
         }
         return new IntStruct(OtherConfirmDialog.CANCEL_OPTION);
     }
-    public Argument defaultInstance(CustAliases _custAliases,ContextEl _cont, String _id) {
-        Argument arg_ = _custAliases.defaultInstance(_cont, _id);
-        if (!arg_.isNull() || _cont.callsOrException()) {
+    public Argument defaultInstance(CustAliases _custAliases, ContextEl _cont, String _id, StackCall _stackCall) {
+        Argument arg_ = _custAliases.defaultInstance(_cont, _id, _stackCall);
+        if (!arg_.isNull() || _cont.callsOrException(_stackCall)) {
             return arg_;
         }
         if (StringUtil.quickEq(_id,aliasFont)) {
@@ -2744,8 +2743,8 @@ public final class GuiAliases {
             WindowSetStruct set_ = new WindowSetStruct(true);
             return new Argument(set_);
         }
-        if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-            processFailInit(_cont, _custAliases);
+        if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+            processFailInit(_cont, _custAliases, _stackCall);
             return new Argument();
         }
         if (StringUtil.quickEq(_id,aliasFrame)) {
@@ -2790,13 +2789,13 @@ public final class GuiAliases {
         }
         return arg_;
     }
-    public ResultErrorStd getOtherResult(CustAliases _custAliases,ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
+    public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont,
+                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
         if (StringUtil.quickEq(name_,aliasActionEvent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2809,8 +2808,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasWindowEvent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2818,8 +2817,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasMouseEvent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2837,8 +2836,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasWheelEvent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2857,8 +2856,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasKeyEvent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2872,8 +2871,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasFrame)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2883,8 +2882,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasDialog)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2894,8 +2893,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasPanel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2903,8 +2902,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasPanelBorder)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2912,8 +2911,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTabbedPane)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2921,8 +2920,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasScrollPane)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2934,30 +2933,30 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasSplitPane)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[1] instanceof CustComponentStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[2] instanceof CustComponentStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             CustComponentStruct first_ = (CustComponentStruct) _args[1];
             CustComponentStruct second_ = (CustComponentStruct) _args[2];
             if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2965,8 +2964,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasProgBar)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2974,8 +2973,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasButton)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -2987,8 +2986,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTextLabel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3000,8 +2999,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasImageLabel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3057,8 +3056,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTreeNode)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3070,21 +3069,21 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTree)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
             if (!(_args[0] instanceof TreeNodeStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 return r_;
             }
             r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTableGui)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3092,8 +3091,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasRender)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3101,8 +3100,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasGrList)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3110,8 +3109,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasCombo)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3127,8 +3126,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasButtonGroup)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3136,8 +3135,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasRadio)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3153,8 +3152,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasCheckBox)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3170,8 +3169,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasPopupMenu)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3179,8 +3178,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasTextField)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3200,8 +3199,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasTextArea)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3221,8 +3220,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasSpinner)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3230,8 +3229,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasSlider)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3255,8 +3254,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuBar)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3264,8 +3263,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenu)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3277,8 +3276,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuItem)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3290,8 +3289,8 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuItemCheck)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
@@ -3302,10 +3301,10 @@ public final class GuiAliases {
             r_.setResult(new MenuItemCheckStruct(_args[0]));
             return r_;
         }
-        return _custAliases.getOtherResult(_cont,_method,_args);
+        return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
     }
     public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, ExecutingBlocks _execBlocks, GuiExecutingBlocks _guiEx, Struct... _args) {
+                                         ClassMethodId _method, ExecutingBlocks _execBlocks, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
@@ -3367,7 +3366,7 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasDispose)) {
                 if (inst_ instanceof FrameStruct && ((FrameStruct)inst_).getCommonFrame().isMainFrame()) {
-                    ((GuiContextEl)_cont).disposeAll(_guiEx);
+                    ((GuiContextEl)_cont).disposeAll(_guiEx, _stackCall);
                 } else {
                     ((GuiContextEl)_cont).getGuiInit().getWindows().remove(inst_,false);
                     inst_.dispose();
@@ -3383,23 +3382,23 @@ public final class GuiAliases {
         }
         if (StringUtil.quickEq(type_, aliasWindowSet)) {
             if (StringUtil.quickEq(name_,aliasWindowSetAdd)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 WindowSetStruct ins_ = (WindowSetStruct)_instance;
                 ins_.add(_args[0],true);
                 if (!(_args[0] instanceof WindowStruct)) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasWindowSetAll)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _custAliases);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _custAliases, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -3407,8 +3406,8 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasWindowSetRemove)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -3418,8 +3417,8 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasWindowSetContains)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -3428,12 +3427,12 @@ public final class GuiAliases {
                 return res_;
             }
             WindowSetStruct ins_ = (WindowSetStruct)_instance;
-            res_.setResult(ins_.toSnapshotArray(_cont));
+            res_.setResult(ins_.toSnapshotArray(_cont, _stackCall));
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasConfirm)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3479,8 +3478,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasFrame)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3519,8 +3518,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasComponent)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3695,15 +3694,15 @@ public final class GuiAliases {
             if (StringUtil.quickEq(name_, aliasComponentRepaint)) {
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                wrapAndCall(_cont, args_, _guiEx.getPairPaintMethod());
+                wrapAndCall(_cont, args_, _guiEx.getPairPaintMethod(), _stackCall);
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasPanel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3764,8 +3763,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasPanelBorder)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3942,8 +3941,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasTextLabel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3953,8 +3952,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasImageLabel)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4074,8 +4073,8 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasButton)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _custAliases, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4166,8 +4165,8 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasImageSet)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -4188,8 +4187,8 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasImageSetColor)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -4202,8 +4201,8 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasImageSetFont)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -4211,8 +4210,8 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _cont.getInitializingTypeInfos().failInitEnums();
+            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _stackCall.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4546,7 +4545,7 @@ public final class GuiAliases {
                 if (_args[0] instanceof ArrayStruct) {
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh());
+                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4555,7 +4554,7 @@ public final class GuiAliases {
                 inst_.clearSelection();
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh());
+                wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4578,7 +4577,7 @@ public final class GuiAliases {
             CustList<Argument> args_ = new CustList<Argument>(arg_);
             args_.add(new Argument(_args[0]));
             args_.add(new Argument(_args[1]));
-            wrapAndCall(_cont, args_, _guiEx.getPairPaintAdd());
+            wrapAndCall(_cont, args_, _guiEx.getPairPaintAdd(), _stackCall);
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasCombo)) {
@@ -4971,14 +4970,14 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _args);
+        return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
-    protected void processFailInit(ContextEl _cont, CustAliases _custAliases) {
-        _custAliases.processFailInit(_cont);
+    protected void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
+        _custAliases.processFailInit(_cont, _stackCall);
     }
-    private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair) {
-        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _args,_cont);
+    private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
+        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _args,_cont, _stackCall);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

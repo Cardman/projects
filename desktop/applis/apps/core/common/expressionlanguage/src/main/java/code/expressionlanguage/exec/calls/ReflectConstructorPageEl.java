@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -21,7 +22,7 @@ import code.util.CustList;
 public final class ReflectConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private boolean calledMethod;
-    private ConstructorMetaInfo metaInfo;
+    private final ConstructorMetaInfo metaInfo;
 
     private final Argument argument;
 
@@ -32,8 +33,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
-        if (!keep(_context)) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
+        if (!keep(_context, _stack)) {
             return false;
         }
         LgNames stds_ = _context.getStandards();
@@ -50,7 +51,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
                 null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
                 return false;
             }
             CustList<Argument> args_ = ((ArrayStruct)struct_).listArgs();
@@ -58,14 +59,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             if (static_) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypes().size()).toString(), null_)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypes().size()).toString(), null_, _stack)));
                     return false;
                 }
                 previous_ = Argument.createVoid();
             } else {
                 if (args_.size() != 1 + mid_.getParametersTypes().size()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypes().size()).toString(), null_)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypes().size()).toString(), null_, _stack)));
                     return false;
                 }
                 previous_ = args_.first();
@@ -76,13 +77,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
                 ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_,res_,previous_,args_,_context, null);
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, l_, "", -1);
+                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, l_, "", -1, _stack);
             }
             if (metaInfo.getStandardType() != null) {
-                arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);
+                arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_, _stack);
             }
-            if (_context.callsOrException()) {
-                setWrapException(_context.calls());
+            if (_context.callsOrException(_stack)) {
+                setWrapException(_stack.calls());
                 return false;
             }
             setReturnedArgument(arg_);

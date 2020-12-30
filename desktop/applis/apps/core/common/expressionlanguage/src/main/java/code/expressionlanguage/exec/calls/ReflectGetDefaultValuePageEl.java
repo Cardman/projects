@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -16,7 +17,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     private boolean init;
     private CustList<ExecOperationNode> ops = new CustList<ExecOperationNode>();
-    private MethodMetaInfo metaInfo;
+    private final MethodMetaInfo metaInfo;
 
     public ReflectGetDefaultValuePageEl(MethodMetaInfo _metaInfo) {
         setGlobalArgumentStruct(_metaInfo);
@@ -24,7 +25,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
         ExecAnnotableBlock annotableBlock_ = metaInfo.getAnnotableBlock();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {
             setReturnedArgument(new Argument());
@@ -43,8 +44,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             init = true;
         }
         ExpressionLanguage el_ = getCurrentEl(0,ops);
-        Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
-        if (_context.callsOrException()) {
+        Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+        if (_context.callsOrException(_stack)) {
             return false;
         }
         clearCurrentEls();
@@ -53,8 +54,8 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
-        basicReceive(_wrap, _argument,_context);
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        basicReceive(_wrap, _argument,_context, _stack);
     }
 
     public MethodMetaInfo getMetaInfo() {

@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
@@ -11,7 +13,6 @@ import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -32,7 +33,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private Element elt;
+    private final Element elt;
 
     public RendTextArea(int _offsetTrim, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
@@ -59,8 +60,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        RendReadWrite rw_ = _cont.getLastPage().getRendReadWrite();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordTextarea());
         FieldUpdates f_ = new FieldUpdates();
@@ -76,8 +77,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setOpsConverter(opsConverter);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
-            if (_ctx.callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
@@ -86,19 +87,19 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
             docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
                     elt.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
-        fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx);
-        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+        fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx, _stack, _rendStack);
+        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
             return;
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
-            if (_ctx.callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
-        processBlock(_cont, _stds, _ctx);
+        processBlock(_cont, _stds, _ctx, _stack, _rendStack);
     }
 }

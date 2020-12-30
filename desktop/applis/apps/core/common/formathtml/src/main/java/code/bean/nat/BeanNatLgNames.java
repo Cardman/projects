@@ -5,7 +5,6 @@ import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
@@ -19,15 +18,12 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
-import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
-import code.formathtml.exec.opers.RendDirectStandardInstancingOperation;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
@@ -45,7 +41,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
-import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.NodeContainer;
@@ -67,7 +62,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected static final String TYPE_ITERATOR = "code.util.SimpleItr";
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
-    private StringMap<String> iterables = new StringMap<String>();
+    private final StringMap<String> iterables = new StringMap<String>();
     private Object dataBase;
     private final StringMap<Bean> beans = new StringMap<Bean>();
     private StringMap<Validator> validators = new StringMap<Validator>();
@@ -120,17 +115,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx) {
+    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx, _stack));
             index_++;
         }
     }
 
-    private Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx) {
+    private Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, Argument.toArgArray(new CustList<Argument>()));
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
@@ -152,7 +147,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx) {
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
 
         StringMapObject forms_ = ((BeanStruct)_bean).getBean().getForms();
         StringMapObject formsMap_ = ((BeanStruct)_mainBean).getBean().getForms();
@@ -160,7 +155,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context) {
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ClassField fieldId_ = _rend.getClassField();
         Struct default_ = _previous.getStruct();
         ResultErrorStd res_ = getOtherResult(_context, fieldId_, default_);
@@ -168,7 +163,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context) {
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ClassField fieldId_ = _rend.getClassField();
         Object value_ = adaptedArg(_right.getStruct());
         setOtherResult(_context, fieldId_, _previous.getStruct(), value_);
@@ -176,9 +171,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context) {
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
-        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
+        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _rendStack);
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_all,_rend);
         int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
@@ -187,7 +182,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             a.setStruct(NumParsers.convertToInt(cast_, NumParsers.convertToNumber(cast_,a.getStruct())));
             i_++;
         }
-        ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack, Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }
 
@@ -205,18 +200,18 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         return validators_;
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
-        _conf.addPage(ip_);
+        _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = storeForms(_bean);
-        _conf.setCurrentUrl(_dest);
+        _rendStack.setCurrentUrl(_dest);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
-        _conf.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx);
+        _rendStack.clearPages();
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
     }
 
     private Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
@@ -227,7 +222,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
     @Override
-    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx) {
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Validator validator_ = validators.getVal(_validatorId);
         if (validator_ == null) {
             return null;
@@ -235,8 +230,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx);
-        if (_ctx.callsOrException()) {
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx, _stack);
+        if (_ctx.callsOrException(_stack)) {
             return null;
         }
         Struct obj_ = resError_.getResult();
@@ -298,10 +293,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
 
     @Override
-    public String getStringKey(Struct _instance, ContextEl _ctx) {
+    public String getStringKey(Struct _instance, ContextEl _ctx, StackCall _stack) {
         ResultErrorStd res_ = getName(_ctx, _instance);
         Struct str_ = res_.getResult();
-        return processString(new Argument(str_), _ctx);
+        return processString(new Argument(str_), _ctx, _stack);
     }
 
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
@@ -309,13 +304,13 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
 
 
     @Override
-    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx) {
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
@@ -323,35 +318,35 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx) {
+    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
         return new Argument(BooleanStruct.of(it_.hasNext()));
     }
 
     @Override
-    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx) {
+    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleEntry resObj_ = (SimpleEntry) ((SimpleItr)instance_).next();
         return new Argument(newId(resObj_, TYPE_ENTRY));
     }
 
     @Override
-    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx) {
+    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleKey();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx) {
+    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleValue();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx) {
+    public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         String typeInst_ = _arg.getClassName(_ctx);
         String it_ = getIterables().getVal(typeInst_);
@@ -359,14 +354,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument next(Struct _arg, Configuration _cont, ContextEl _ctx) {
+    public Argument next(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleItr)instance_).next();
         return new Argument(wrapStd(resObj_));
     }
 
     @Override
-    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx) {
+    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleItr it_ = (SimpleItr) instance_;
         return new Argument(BooleanStruct.of(it_.hasNext()));
@@ -403,7 +398,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public abstract Struct wrapStd(Object _element);
 
     @Override
-    public String processString(Argument _arg, ContextEl _ctx) {
+    public String processString(Argument _arg, ContextEl _ctx, StackCall _stack) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)struct_).getDisplayedString(_ctx).getInstance();
@@ -418,7 +413,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
         Object[] argsObj_ = adaptedArgs(list_, _args);
@@ -429,7 +424,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
                                              ConstructorId _method, Object... _args);
 
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
@@ -469,12 +464,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         dataBase = _dataBase;
     }
 
-    public void rendRefresh(Navigation _navigation, ContextEl _context) {
+    public void rendRefresh(Navigation _navigation, ContextEl _context, StackCall _stackCall) {
         for (Bean b: beans.values()) {
             b.setLanguage(_navigation.getLanguage());
         }
         _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
-        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context);
+        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _stackCall, new RendStackCall());
     }
 
     public StringMap<Bean> getBeans() {

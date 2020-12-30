@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -14,6 +15,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.AdvancedFullStack;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.*;
 import code.formathtml.stacks.*;
@@ -52,119 +54,119 @@ public abstract class RendBlock {
         offsetTrim = _offsetTrim;
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx) {
-        _conf.getFormParts().initForms();
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
-        _conf.setMainBean(bean_);
-        _conf.addPage(new ImportingPage());
-        beforeDisplaying(bean_,_conf, _stds, _ctx);
-        _conf.removeLastPage();
-        if (_ctx.callsOrException()) {
+        _rendStackCall.setMainBean(bean_);
+        _rendStackCall.addPage(new ImportingPage());
+        beforeDisplaying(bean_,_conf, _stds, _ctx, _stackCall, _rendStackCall);
+        _rendStackCall.removeLastPage();
+        if (_ctx.callsOrException(_stackCall)) {
             return EMPTY_STRING;
         }
-        _ctx.setFullStack(new AdvancedFullStack(_conf, _ctx));
+        _stackCall.setFullStack(new AdvancedFullStack(_ctx, _rendStackCall));
         ImportingPage ip_ = new ImportingPage();
         int tabWidth_ = _conf.getTabWidth();
         ip_.setTabWidth(tabWidth_);
-        ip_.setReadUrl(_conf.getCurrentUrl());
+        ip_.setReadUrl(_rendStackCall.getCurrentUrl());
         ip_.setBeanName(beanName_);
         ip_.setFile(_rend.getFile());
         if (bean_ != null) {
             ip_.setGlobalArgumentStruct(bean_);
         }
-        _conf.addPage(ip_);
+        _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         appendChild(doc_, (Element)null, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
-        rw_.setConf(_conf.getFormParts());
+        rw_.setConf(_rendStackCall.getFormParts());
         rw_.setRead(_rend.getFirstChild());
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {
-            ImportingPage p_ = _conf.getLastPage();
+            ImportingPage p_ = _rendStackCall.getLastPage();
             RendReadWrite rendReadWrite_ = p_.getRendReadWrite();
             RendBlock read_ = null;
             if (rendReadWrite_ != null) {
                 read_ = rendReadWrite_.getRead();
             }
             if (read_ == null) {
-                _conf.removeLastPage();
-                if (_conf.getImporting().isEmpty()) {
+                _rendStackCall.removeLastPage();
+                if (_rendStackCall.getImporting().isEmpty()) {
                     break;
                 }
                 continue;
             }
-            processTags(_conf, _stds, _ctx, read_);
-            processGeneException(_conf,_ctx);
-            if (_ctx.callsOrException()) {
+            processTags(_conf, _stds, _ctx, read_, _stackCall, _rendStackCall);
+            processGeneException(_ctx, _stackCall, _rendStackCall);
+            if (_ctx.callsOrException(_stackCall)) {
                 break;
             }
         }
-        if (_ctx.callsOrException()) {
+        if (_ctx.callsOrException(_stackCall)) {
             return EMPTY_STRING;
         }
-        _conf.getHtmlPage().set(_conf.getFormParts());
-        _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
+        _rendStackCall.getHtmlPage().set(_rendStackCall.getFormParts());
+        _rendStackCall.setBeanName(doc_.getDocumentElement().getAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
         doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
         doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
-        _conf.setDocument(doc_);
-        _conf.clearPages();
+        _rendStackCall.setDocument(doc_);
+        _rendStackCall.clearPages();
         return doc_.export();
     }
 
-    private static void processTags(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read) {
-        ImportingPage ip_ = _context.getLastPage();
+    private static void processTags(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(_read.getOffsetTrim());
-        tryProcessEl(_context, _stds, _ctx, _read);
+        tryProcessEl(_context, _stds, _ctx, _read, _stackCall, _rendStackCall);
     }
 
-    private static void tryProcessEl(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read) {
-        ((RendWithEl) _read).processEl(_context, _stds, _ctx);
+    private static void tryProcessEl(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ((RendWithEl) _read).processEl(_context, _stds, _ctx, _stackCall, _rendStackCall);
     }
 
     protected final void setParent(RendParentBlock _b) {
         parent = _b;
     }
 
-    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc, BeanLgNames _advStandards, ContextEl _ctx) {
+    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _cont.getFormParts().getCallsExps().add(_anc);
-        _cont.getFormParts().getAnchorsVars().add(_varNames);
+        _rendStackCall.getFormParts().getCallsExps().add(_anc);
+        _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
         if (!href_.startsWith(CALL_METHOD)) {
-            _cont.getFormParts().getAnchorsArgs().add(new StringList());
+            _rendStackCall.getFormParts().getAnchorsArgs().add(new StringList());
             if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
                 _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
-            incrAncNb(_cont, _nextWrite);
+            incrAncNb(_cont, _nextWrite, _rendStackCall);
             return;
         }
-        StringList alt_ = RenderingText.renderAltList(_textPart, _cont, _advStandards, _ctx);
+        StringList alt_ = RenderingText.renderAltList(_textPart, _cont, _advStandards, _ctx, _stackCall, _rendStackCall);
         StringList arg_ = new StringList();
         int len_ = alt_.size();
         for (int i = 1; i < len_; i += 2) {
             arg_.add(alt_.get(i));
         }
-        _cont.getFormParts().getAnchorsArgs().add(arg_);
+        _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
         String render_ = StringUtil.join(alt_,"");
-        if (_ctx.callsOrException()) {
-            incrAncNb(_cont, _nextWrite);
+        if (_ctx.callsOrException(_stackCall)) {
+            incrAncNb(_cont, _nextWrite, _rendStackCall);
             return;
         }
-        String beanName_ = _cont.getLastPage().getBeanName();
+        String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-        incrAncNb(_cont, _nextWrite);
+        incrAncNb(_cont, _nextWrite, _rendStackCall);
     }
 
-    protected static void incrAncNb(Configuration _cont, Element _nextEltWrite) {
+    protected static void incrAncNb(Configuration _cont, Element _nextEltWrite, RendStackCall _rendStackCall) {
         if (StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
                 && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
-            long currentAnchor_ = _cont.getFormParts().getIndexes().getAnchor();
+            long currentAnchor_ = _rendStackCall.getFormParts().getIndexes().getAnchor();
             _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(currentAnchor_));
             currentAnchor_++;
-            _cont.getFormParts().getIndexes().setAnchor(currentAnchor_);
+            _rendStackCall.getFormParts().getIndexes().setAnchor(currentAnchor_);
         }
     }
 
@@ -238,42 +240,42 @@ public abstract class RendBlock {
         }
     }
 
-    protected static Argument iteratorMultTable(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.iteratorMultTable(_arg,_cont, _ctx);
+    protected static Argument iteratorMultTable(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.iteratorMultTable(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument hasNextPair(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.hasNextPair(_arg,_conf, _ctx);
+    protected static Argument hasNextPair(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.hasNextPair(_arg,_conf, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument nextPair(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.nextPair(_arg,_conf, _ctx);
+    protected static Argument nextPair(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.nextPair(_arg,_conf, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument first(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.first(_arg,_conf, _ctx);
+    protected static Argument first(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.first(_arg,_conf, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument second(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.second(_arg,_conf, _ctx);
+    protected static Argument second(Struct _arg, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.second(_arg,_conf, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument iterator(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.iterator(_arg,_cont, _ctx);
+    protected static Argument iterator(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.iterator(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument hasNext(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.hasNext(_arg,_cont, _ctx);
+    protected static Argument hasNext(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.hasNext(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
-    protected static Argument next(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.next(_arg,_cont, _ctx);
+    protected static Argument next(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        return _advStandards.next(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
-    protected static void beforeDisplaying(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx) {
+    protected static void beforeDisplaying(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         if (_arg == null) {
             return;
         }
-        _advStandards.beforeDisplaying(_arg,_cont, _ctx);
+        _advStandards.beforeDisplaying(_arg,_cont, _ctx, _stackCall, _rendStackCall);
     }
 
-    static String getStringKey(Struct _instance, BeanLgNames _advStandards, ContextEl _ctx) {
-        return _advStandards.getStringKey(_instance, _ctx);
+    static String getStringKey(Struct _instance, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStack) {
+        return _advStandards.getStringKey(_instance, _ctx, _stackCall);
     }
 
-    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f, BeanLgNames _advStandards, ContextEl _ctx) {
+    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return Argument.createVoid();
@@ -287,8 +289,8 @@ public abstract class RendBlock {
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
         String idCl_ = _f.getId();
         String varName_ = _f.getVarName();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _cont, _advStandards, _ctx);
-        if (_ctx.callsOrException()) {
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _cont, _advStandards, _ctx, _stackCall, _rendStackCall);
+        if (_ctx.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
         RendDynOperationNode root_ = args_.lastKey();
@@ -303,19 +305,19 @@ public abstract class RendBlock {
         Argument arg_ = Argument.createVoid();
         boolean indexer_ = false;
         if (settable_ instanceof RendSettableFieldOperation) {
-            stack_ = _cont.getFormParts().getContainersMapStack();
+            stack_ = _rendStackCall.getFormParts().getContainersMapStack();
             ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                 obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
             } else {
-                obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
+                obj_ = new CustList<Struct>(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
             }
             objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             allObj_ = obj_;
         }
         if (settable_ instanceof RendCustArrOperation){
-            stack_ = _cont.getFormParts().getContainersMapStack();
+            stack_ = _rendStackCall.getFormParts().getContainersMapStack();
             ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             Struct instance_ = Argument.getNullableValue(pair_.getPreviousArgument()).getStruct();
             obj_ = new CustList<Struct>(instance_);
@@ -323,28 +325,28 @@ public abstract class RendBlock {
             objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             indexer_ = true;
-            for (Argument a: _cont.getLastPage().getList().getArguments()) {
+            for (Argument a: _rendStackCall.getLastPage().getList().getArguments()) {
                 obj_.add(a.getStruct());
             }
             for (String p: _f.getVarNames().getVarTypes()) {
                 objClasses_.add(p);
             }
-            for (AbstractWrapper a: _cont.getLastPage().getList().getWrappers()) {
+            for (AbstractWrapper a: _rendStackCall.getLastPage().getList().getWrappers()) {
                 wrap_.add(a);
             }
             int argIndex_ = 0;
             int wrapIndex_ = 0;
             for (boolean p: _f.getVarNames().getRefs()) {
                 if (p) {
-                    allObj_.add(ExecTemplates.getValue(_cont.getLastPage().getList().getWrappers().get(wrapIndex_),_ctx));
+                    allObj_.add(ExecTemplates.getValue(_rendStackCall.getLastPage().getList().getWrappers().get(wrapIndex_),_ctx, _stackCall));
                     wrapIndex_++;
                 } else {
-                    allObj_.add(_cont.getLastPage().getList().getArguments().get(argIndex_).getStruct());
+                    allObj_.add(_rendStackCall.getLastPage().getList().getArguments().get(argIndex_).getStruct());
                     argIndex_++;
                 }
             }
         } else if (settable_ instanceof RendMethodOperation){
-            stack_ = _cont.getFormParts().getContainersMapStack();
+            stack_ = _rendStackCall.getFormParts().getContainersMapStack();
             ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
             objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
@@ -371,7 +373,7 @@ public abstract class RendBlock {
         }
         Struct currentField_ = arg_.getStruct();
         if (found_ == -1) {
-            Longs inputs_ = _cont.getFormParts().getInputs();
+            Longs inputs_ = _rendStackCall.getFormParts().getInputs();
             long currentInput_ = inputs_.last();
             NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setIdFieldClass(_f.getIdClass());
@@ -391,7 +393,7 @@ public abstract class RendBlock {
             nodeCont_.setIndexer(indexer_);
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
-            nodeCont_.setBean(_cont.getLastPage().getGlobalArgument().getStruct());
+            nodeCont_.setBean(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _write.getAttribute(_cont.getRendKeyWords().getAttrId());
             if (id_.isEmpty()) {
@@ -405,20 +407,20 @@ public abstract class RendBlock {
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
             stack_.last().put(currentInput_, nodeCont_);
-            _cont.getFormParts().getIndexes().setNb(currentInput_);
+            _rendStackCall.getFormParts().getIndexes().setNb(currentInput_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
         } else {
-            _cont.getFormParts().getIndexes().setNb(found_);
+            _rendStackCall.getFormParts().getIndexes().setNb(found_);
         }
-        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(_cont.getFormParts().getIndexes().getNb()));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(_rendStackCall.getFormParts().getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
-        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringUtil.concat(_cont.getLastPage().getBeanName(),DOT,name_));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringUtil.concat(_rendStackCall.getLastPage().getBeanName(),DOT,name_));
         return arg_;
     }
 
-    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx) {
-        if (_ctx.callsOrException()) {
+    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        if (_ctx.callsOrException(_stackCall)) {
             return;
         }
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
@@ -429,8 +431,8 @@ public abstract class RendBlock {
             return;
         }
         if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
-            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx);
-            if (_ctx.callsOrException()) {
+            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx, _stackCall, _rendStackCall);
+            if (_ctx.callsOrException(_stackCall)) {
                 return;
             }
             if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
@@ -440,29 +442,29 @@ public abstract class RendBlock {
                     _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
                 }
             } else {
-                o_ = convertField(_cont,o_,_varNameConv,_opsConv, _advStandards, _ctx);
-                if (_ctx.callsOrException()) {
+                o_ = convertField(_cont,o_,_varNameConv,_opsConv, _advStandards, _ctx, _stackCall, _rendStackCall);
+                if (_ctx.callsOrException(_stackCall)) {
                     return;
                 }
-                String value_ = _advStandards.processString(o_, _ctx);
-                if (_ctx.callsOrException()) {
+                String value_ = _advStandards.processString(o_, _ctx, _stackCall);
+                if (_ctx.callsOrException(_stackCall)) {
                     return;
                 }
                 _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
             }
         }
         if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordTextarea())) {
-            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx);
-            if (_ctx.callsOrException()) {
+            Argument o_ = RenderExpUtil.calculateReuse(_ops,_cont, _advStandards, _ctx, _stackCall, _rendStackCall);
+            if (_ctx.callsOrException(_stackCall)) {
                 return;
             }
-            o_ = convertField(_cont,o_,_varNameConv,_opsConv, _advStandards, _ctx);
-            if (_ctx.callsOrException()) {
+            o_ = convertField(_cont,o_,_varNameConv,_opsConv, _advStandards, _ctx, _stackCall, _rendStackCall);
+            if (_ctx.callsOrException(_stackCall)) {
                 return;
             }
             Document doc_ = _write.getOwnerDocument();
-            String value_ = _advStandards.processString(o_, _ctx);
-            if (_ctx.callsOrException()) {
+            String value_ = _advStandards.processString(o_, _ctx, _stackCall);
+            if (_ctx.callsOrException(_stackCall)) {
                 return;
             }
             Text text_ = doc_.createTextNode(value_);
@@ -470,14 +472,14 @@ public abstract class RendBlock {
         }
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
-    private static Argument convertField(Configuration _cont, Argument _o, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx) {
+    private static Argument convertField(Configuration _cont, Argument _o, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _cont.getLastPage().putValueVar(_varNameConv, locVar_);
-            Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont, _advStandards, _ctx);
-            _cont.getLastPage().removeRefVar(_varNameConv);
-            if (_ctx.callsOrException()) {
+            _rendStackCall.getLastPage().putValueVar(_varNameConv, locVar_);
+            Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _cont, _advStandards, _ctx, _stackCall, _rendStackCall);
+            _rendStackCall.getLastPage().removeRefVar(_varNameConv);
+            if (_ctx.callsOrException(_stackCall)) {
                 return Argument.createVoid();
             }
             o_ = arg_.getStruct();
@@ -488,9 +490,9 @@ public abstract class RendBlock {
         return new Argument(o_);
     }
 
-    static String escapeParam(Argument _arg, BeanLgNames _advStandards, ContextEl _ctx) {
-        String str_ = _advStandards.processString(_arg, _ctx);
-        if (_ctx.callsOrException()) {
+    static String escapeParam(Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall) {
+        String str_ = _advStandards.processString(_arg, _ctx, _stackCall);
+        if (_ctx.callsOrException(_stackCall)) {
             return str_;
         }
         StringMap<String> rep_ = new StringMap<String>();
@@ -534,13 +536,13 @@ public abstract class RendBlock {
         return parent;
     }
 
-    public final void processBlockAndRemove(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public final void processBlockAndRemove(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.removeRendLastBlock();
-        processBlock(_conf, _advStandards, _ctx);
+        processBlock(_conf, _advStandards, _ctx, _stackCall, _rendStackCall);
     }
-    public final void processBlock(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public final void processBlock(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock nextSibling_ = getNextSibling();
         if (nextSibling_ != null) {
@@ -555,37 +557,37 @@ public abstract class RendBlock {
                 if (par_ instanceof RendDoBlock) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendDoBlock)par_).processLastElementLoop(_conf,_advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendDoBlock)par_).processLastElementLoop(_conf,_advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendForEachArray) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendForEachArray)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendForEachArray)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendForEachIterable) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendForEachIterable)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendForEachIterable)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendForIterativeLoop) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendForIterativeLoop)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendForIterativeLoop)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendForMutableIterativeLoop) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendForMutableIterativeLoop)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendForMutableIterativeLoop)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendForEachTable) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendForEachTable)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendForEachTable)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
                 if (par_ instanceof RendWhileCondition) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);
-                    ((RendWhileCondition)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_);
+                    ((RendWhileCondition)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
             }
             if (lastStack_ instanceof RendIfStack) {
@@ -633,11 +635,11 @@ public abstract class RendBlock {
                     if (call_ != null) {
                         RendMethodCallingFinally callingFinally_ = call_.getCallingFinally();
                         if (callingFinally_ != null) {
-                            callingFinally_.removeBlockFinally(_conf,_advStandards,_ctx);
+                            callingFinally_.removeBlockFinally(_conf,_advStandards,_ctx, _stackCall, _rendStackCall);
                         } else {
                             Struct exception_ = ((RendTryBlockStack)lastStack_).getException();
-                            _ctx.setCallingState(new CustomFoundExc(exception_));
-                            processGeneException(_conf,_ctx);
+                            _stackCall.setCallingState(new CustomFoundExc(exception_));
+                            processGeneException(_ctx, _stackCall, _rendStackCall);
                         }
                     }
                 }
@@ -712,7 +714,7 @@ public abstract class RendBlock {
         }
         return true;
     }
-    public static boolean hasBlockContinue(Configuration _config, BeanLgNames _stds,ContextEl _conf,ImportingPage _ip, String _label) {
+    public static boolean hasBlockContinue(Configuration _config, BeanLgNames _stds, ContextEl _conf, ImportingPage _ip, String _label, StackCall _stackCall, RendStackCall _rendStackCall) {
         if (!_ip.hasBlock()) {
             _ip.setNullRendReadWrite();
             return false;
@@ -727,7 +729,7 @@ public abstract class RendBlock {
                 RendLoop loop_;
                 loop_ = ((RendLoopBlockStack) bl_).getLoop();
                 _ip.getRendReadWrite().setRead(br_);
-                loop_.processLastElementLoop(_config,_stds,_conf,lSt_);
+                loop_.processLastElementLoop(_config,_stds,_conf,lSt_, _stackCall, _rendStackCall);
                 return false;
             }
             if (StringUtil.quickEq(_label, bl_.getLabel())){
@@ -737,7 +739,7 @@ public abstract class RendBlock {
                 RendLoop loop_;
                 loop_ = ((RendLoopBlockStack) bl_).getLoop();
                 _ip.getRendReadWrite().setRead(br_);
-                loop_.processLastElementLoop(_config,_stds,_conf,lSt_);
+                loop_.processLastElementLoop(_config,_stds,_conf,lSt_, _stackCall, _rendStackCall);
                 return false;
             }
         }
@@ -750,8 +752,8 @@ public abstract class RendBlock {
         }
         _ip.getRendLastStack().setCurrentVisitedBlock(_block);
     }
-    public static void processFinally(Configuration _conf, BeanLgNames _stds,ContextEl _cont ,RendParentBlock _block) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public static void processFinally(Configuration _conf, BeanLgNames _stds, ContextEl _cont, RendParentBlock _block, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         RendTryBlockStack ts_ = ip_.getLastTry();
         if (ts_ == null) {
             ip_.setNullRendReadWrite();
@@ -759,14 +761,14 @@ public abstract class RendBlock {
         }
         ts_.setCurrentVisitedBlock(_block);
         if (ts_.isVisitedFinally()) {
-            _block.processBlockAndRemove(_conf,_stds,_cont);
+            _block.processBlockAndRemove(_conf,_stds,_cont, _stackCall, _rendStackCall);
             return;
         }
         ts_.setVisitedFinally(true);
         ip_.getRendReadWrite().setRead(_block.getFirstChild());
     }
-    public static void processElseIf(Configuration _conf, BeanLgNames _stds,ContextEl _cont,RendCondition _cond) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public static void processElseIf(Configuration _conf, BeanLgNames _stds, ContextEl _cont, RendCondition _cond, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendIfStack if_ = ip_.getLastIf();
         if (if_ == null) {
@@ -775,7 +777,7 @@ public abstract class RendBlock {
         }
         if_.setCurrentVisitedBlock(_cond);
         if (!if_.isEntered()) {
-            ConditionReturn assert_ = _cond.evaluateCondition(_conf,_stds,_cont);
+            ConditionReturn assert_ = _cond.evaluateCondition(_conf,_stds,_cont, _stackCall, _rendStackCall);
             if (assert_ == ConditionReturn.CALL_EX) {
                 return;
             }
@@ -793,10 +795,10 @@ public abstract class RendBlock {
             rw_.setRead(n_);
             return;
         }
-        _cond.processBlockAndRemove(_conf,_stds,_cont);
+        _cond.processBlockAndRemove(_conf,_stds,_cont, _stackCall, _rendStackCall);
     }
-    public static void processElse(Configuration _conf, BeanLgNames _stds,ContextEl _cont,RendParentBlock _cond) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public static void processElse(Configuration _conf, BeanLgNames _stds, ContextEl _cont, RendParentBlock _cond, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         RendIfStack if_ = ip_.getLastIf();
         if (if_ == null) {
             ip_.setNullRendReadWrite();
@@ -808,17 +810,17 @@ public abstract class RendBlock {
             ip_.getRendReadWrite().setRead(_cond.getFirstChild());
             return;
         }
-        _cond.processBlockAndRemove(_conf,_stds,_cont);
+        _cond.processBlockAndRemove(_conf,_stds,_cont, _stackCall, _rendStackCall);
     }
-    public static void processDo(Configuration _conf, BeanLgNames _stds,ContextEl _cont,RendCondition _cond) {
-        ImportingPage ip_ = _conf.getLastPage();
+    public static void processDo(Configuration _conf, BeanLgNames _stds, ContextEl _cont, RendCondition _cond, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = ip_.getLastLoop();
         if (l_ == null) {
             ip_.setNullRendReadWrite();
             return;
         }
-        ConditionReturn keep_ = _cond.evaluateCondition(_conf,_stds,_cont);
+        ConditionReturn keep_ = _cond.evaluateCondition(_conf,_stds,_cont, _stackCall, _rendStackCall);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -832,11 +834,11 @@ public abstract class RendBlock {
         rw_.setRead(previousSibling_);
     }
 
-    private static void processGeneException(Configuration _conf, ContextEl _context) {
-        CallingState callingState_ = _context.getCallingState();
+    private static void processGeneException(ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+        CallingState callingState_ = _stackCall.getCallingState();
         if (callingState_ instanceof CustomFoundExc) {
             Struct exc_ = ((CustomFoundExc) callingState_).getStruct();
-            RendLocalThrowing.removeBlockFinally(_conf, _context,exc_);
+            RendLocalThrowing.removeBlockFinally(_context,exc_, _stackCall, _rendStackCall);
         }
     }
 }

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -66,14 +67,14 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         if (_l.hasNextIter()) {
-            incrementLoop(_conf, _l);
-            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(true)));
+            incrementLoop(_conf, _l, _stack);
+            _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stack);
             return;
         }
         _l.setFinished(true);
-        _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(false)));
+        _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stack);
 
     }
 
@@ -89,64 +90,64 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            ip_.processVisitedLoop(c_,this,this,_cont);
+            ip_.processVisitedLoop(c_,this,this,_cont, _stack);
             return;
         }
-        LoopBlockStack l_ = processLoop(_cont);
+        LoopBlockStack l_ = processLoop(_cont, _stack);
         if (l_ == null) {
             return;
         }
         c_ = l_;
         if (c_.isFinished()) {
-            _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(false)));
-            processBlockAndRemove(_cont);
+            _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stack);
+            processBlockAndRemove(_cont, _stack);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
+        _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stack);
         ip_.setBlock(getFirstChild());
     }
-    private LoopBlockStack processLoop(ContextEl _conf) {
+    private LoopBlockStack processLoop(ContextEl _conf, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-        AbstractPageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
 
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0);
-        if (_conf.callsOrException()) {
+        Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return null;
         }
         if (argFrom_.isNull()) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
             return null;
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
-        Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0);
-        if (_conf.callsOrException()) {
+        Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return null;
         }
         if (argTo_.isNull()) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
             return null;
         }
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX + 1, IndexConstants.SECOND_INDEX + 1);
-        Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0);
-        if (_conf.callsOrException()) {
+        Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return null;
         }
         if (argStep_.isNull()) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
             return null;
         }
         ip_.clearCurrentEls();
@@ -197,17 +198,17 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         _ip.removeRefVar(var_);
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         _l.setIndex(_l.getIndex() + 1);
         _l.incr();
-        _conf.getLastPage().setGlobalOffset(variableNameOffset);
-        _conf.getLastPage().setOffset(0);
+        _stackCall.getLastPage().setGlobalOffset(variableNameOffset);
+        _stackCall.setOffset(0);
         String var_ = getVariableName();
-        Argument struct_ = ExecTemplates.getWrapValue(_conf,var_, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
+        Argument struct_ = ExecTemplates.getWrapValue(_conf,var_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards().getPrimTypes()), new LongStruct(o_));
-        ExecTemplates.setWrapValue(_conf,var_, new Argument(element_),-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
-        ExecTemplates.incrIndexLoop(_conf,var_, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
+        ExecTemplates.setWrapValue(_conf,var_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        ExecTemplates.incrIndexLoop(_conf,var_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
     }
 
     public String getVariableName() {

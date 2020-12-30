@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
@@ -23,7 +24,7 @@ import code.util.core.StringUtil;
 
 public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
-    private ExecTypeCheckContent typeCheckContent;
+    private final ExecTypeCheckContent typeCheckContent;
     public ExecCastOperation(ExecOperationContent _opCont, ExecTypeCheckContent _typeCheckContent) {
         super(_opCont);
         typeCheckContent = _typeCheckContent;
@@ -32,18 +33,18 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
+                          ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf, _nodes);
+        Argument argres_ = getArgument(arguments_, _conf, _stack);
+        setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _conf);
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
+        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stackCall);
         Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
-        String paramName_ = _conf.formatVarType(typeCheckContent.getClassName());
+        String paramName_ = _stackCall.formatVarType(typeCheckContent.getClassName());
         wrapFct(paramName_,false, _conf, objArg_);
-        ExecTemplates.checkObject(paramName_, objArg_, _conf);
+        ExecTemplates.checkObject(paramName_, objArg_, _conf, _stackCall);
         return objArg_;
     }
     public static void wrapFct(String _className, boolean _full, ContextEl _conf, Argument _objArg) {

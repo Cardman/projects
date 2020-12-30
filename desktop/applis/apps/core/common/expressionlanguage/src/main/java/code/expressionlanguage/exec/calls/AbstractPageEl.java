@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -46,11 +47,11 @@ public abstract class AbstractPageEl extends PageEl {
     private IfBlockStack lastIf;
     private TryBlockStack lastTry;
 
-    public final void forwardTo(AbstractPageEl _page, ContextEl _context) {
-        _page.receive(wrapper, returnedArgument, _context);
+    public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
+        _page.receive(wrapper, returnedArgument, _context, _stack);
     }
-    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
-        basicReceive(_wrap, _argument,_context);
+    public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
+        basicReceive(_wrap, _argument,_context, _stack);
     }
     public String formatVarType(String _varType) {
         if (getGlobalArgument().isNull()) {
@@ -59,20 +60,20 @@ public abstract class AbstractPageEl extends PageEl {
         return ExecTemplates.quickFormat(blockRootType, globalClass, _varType);
     }
 
-    void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context) {
+    void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {
         if (isEmptyEl()) {
             return;
         }
-        getLastEl().setArgument(_wrap,_argument, _context);
+        getLastEl().setArgument(_wrap,_argument, _context, _stackCall);
     }
 
-    public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context) {
+    public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context, StackCall _stackCall) {
         if (_l.isEvaluatingKeepLoop()) {
-            _bl.processLastElementLoop(_context,_l);
+            _bl.processLastElementLoop(_context,_l, _stackCall);
             return;
         }
         if (_l.isFinished()) {
-            _next.processBlockAndRemove(_context);
+            _next.processBlockAndRemove(_context, _stackCall);
             return;
         }
         setBlock(_l.getBlock().getFirstChild());
@@ -97,7 +98,7 @@ public abstract class AbstractPageEl extends PageEl {
         return translatedOffset;
     }
 
-    public abstract boolean checkCondition(ContextEl _context);
+    public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
 
 
     public ExpressionLanguage getCurrentEl(ContextEl _context, WithNotEmptyEl _block, int _index, int _indexProcess) {
@@ -237,7 +238,7 @@ public abstract class AbstractPageEl extends PageEl {
         execBlock = _readWrite.getBlock();
     }
 
-    public abstract void tryProcessEl(ContextEl _context);
+    public abstract void tryProcessEl(ContextEl _context, StackCall _stack);
 
     public ExecBlock getBlockRoot() {
         return blockRoot;

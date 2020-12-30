@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -111,7 +112,7 @@ public final class DefaultBeanAliases {
     private String aliasMessageFormat="format";
     private String aliasMessageGetArgs="getArgs";
     private String aliasMessageSetArgs="setArgs";
-    private BeanAliasParameters beanAliasParameters = new BeanAliasParameters();
+    private final BeanAliasParameters beanAliasParameters = new BeanAliasParameters();
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> files_ = new StringMap<String>();
@@ -608,12 +609,12 @@ public final class DefaultBeanAliases {
         return fields_;
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, Struct... _args) {
+                                         ClassMethodId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
         String type_ = _method.getClassName();
         if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
-            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
+            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
         }
         String name_ = _method.getConstraints().getName();
         MessageStruct instance_ = getMessageStruct(_instance, aliasMessage);

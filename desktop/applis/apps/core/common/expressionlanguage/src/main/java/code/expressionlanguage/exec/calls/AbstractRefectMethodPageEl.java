@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -31,9 +32,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
         LgNames stds_ = _context.getStandards();
-        if (!keep(_context)) {
+        if (!keep(_context, _stack)) {
             return false;
         }
         if (!calledMethod) {
@@ -42,7 +43,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
             Struct struct_ = getArray().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_)));
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
                 return false;
             }
             args.addAllElts(((ArrayStruct)struct_).listArgs());
@@ -50,21 +51,21 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
                 if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypes().size()).toString(), null_)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypes().size()).toString(), null_, _stack)));
                     return false;
                 }
             } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
                 if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size()).toString(), null_)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size()).toString(), null_, _stack)));
                     return false;
                 }
             } else {
                 if (args.size() != mid_.getParametersTypes().size() + 1) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size() + 1).toString(), null_)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size() + 1).toString(), null_, _stack)));
                     return false;
                 }
                 rightArg = args.last();
@@ -74,14 +75,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         if (!calledAfter) {
             setWrapException(false);
             MethodId mid_ = getMetaInfo().getRealId();
-            Argument arg_ = prepare(_context, getClassName(), mid_, getInstance(), args, rightArg);
-            if (_context.getCallingState() instanceof NotInitializedClass) {
+            Argument arg_ = prepare(_context, getClassName(), mid_, getInstance(), args, rightArg, _stack);
+            if (_stack.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
             }
             calledAfter = true;
-            if (_context.callsOrException()) {
-                setWrapException(_context.calls());
+            if (_context.callsOrException(_stack)) {
+                setWrapException(_stack.calls());
                 return false;
             }
             setReturnedArgument(arg_);
@@ -89,9 +90,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
-    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
+    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName());
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, _right, getAccessKind(), getMethodName(), _stack);
     }
 
     Argument getArray() {

@@ -1,6 +1,8 @@
 package cards.gui.animations;
 
 import code.bean.nat.BeanNatLgNames;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.render.MetaDocument;
 import code.sml.Document;
 
@@ -13,7 +15,7 @@ public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
     @Override
     public void run() {
         prepare();
-        getNavigation().initializeRendSession(getContext(), getBeanNatLgNames());
+        getNavigation().initializeRendSession(getContext(), getBeanNatLgNames(), StackCall.newInstance(InitPhase.NOTHING,getContext()));
         Document doc_ = getNavigation().getDocument();
         metaDocument = MetaDocument.newInstance(doc_, getNavigation().getSession().getRendKeyWords());
     }

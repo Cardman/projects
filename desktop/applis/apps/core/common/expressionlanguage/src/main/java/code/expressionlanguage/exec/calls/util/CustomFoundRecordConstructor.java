@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 import code.util.StringMap;
@@ -33,8 +33,8 @@ public final class CustomFoundRecordConstructor implements CallingState {
     }
 
     @Override
-    public AbstractPageEl processAfterOperation(ContextEl _context) {
-        return ExecutingUtil.createRecordInstancing(_context,this);
+    public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
+        return ExecutingUtil.createRecordInstancing(_context,this, _stack);
     }
 
     public StringMap<String> getId() {

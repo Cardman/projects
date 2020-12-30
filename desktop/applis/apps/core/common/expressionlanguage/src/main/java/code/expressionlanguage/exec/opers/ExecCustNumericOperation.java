@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -11,7 +12,7 @@ import code.util.IdMap;
 
 public final class ExecCustNumericOperation extends ExecNumericOperation {
 
-    private ExecStaticEltContent staticEltContent;
+    private final ExecStaticEltContent staticEltContent;
     private final ExecTypeFunction pair;
 
     public ExecCustNumericOperation(ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecOperationContent _opCont, int _opOffset, ExecStaticEltContent _staticEltContent) {
@@ -21,9 +22,9 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                                ContextEl _conf) {
-        setRelOffsetPossibleLastPage(getOpOffset(), _conf);
-        ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind());
+                          ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(getOpOffset(), _stack);
+        ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
     }
 
 }

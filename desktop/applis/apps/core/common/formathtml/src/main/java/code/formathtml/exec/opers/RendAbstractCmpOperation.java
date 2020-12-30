@@ -2,18 +2,19 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendAbstractCmpOperation extends RendMethodOperation implements RendCalculableOperation {
 
-    private boolean stringCompare;
-    private ExecOperatorContent operatorContent;
+    private final boolean stringCompare;
+    private final ExecOperatorContent operatorContent;
 
     public RendAbstractCmpOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _stringCompare) {
         super(_content);
@@ -22,13 +23,13 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         RendDynOperationNode opOne_ = getFirstNode(this);
         RendDynOperationNode opTwo_ = getLastNode(this);
         Argument first_ = getArgument(_nodes,opOne_);
         Argument second_ = getArgument(_nodes,opTwo_);
         Argument arg_ = calculateCommon(first_, second_);
-        setSimpleArgument(arg_, _conf,_nodes, _context);
+        setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
     }
 
     private Argument calculateCommon(Argument _one, Argument _two) {

@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.IfBlockStack;
 
 public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements WithEl {
@@ -11,10 +11,10 @@ public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements W
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stack);
             return;
         }
         IfBlockStack if_ = new IfBlockStack();

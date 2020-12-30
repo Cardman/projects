@@ -1,13 +1,19 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultAliasGroups;
+import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.Initializer;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {
     private final ContextEl context;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
+    private StackCall stackCall;
 
     public AnalyzedTestContext(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards) {
         this.context = _context;
@@ -52,5 +58,25 @@ public final class AnalyzedTestContext {
 
     public String getAliasPrimInteger() {
         return analyzing.getAliasPrimInteger();
+    }
+
+    public StackCall getStackCall() {
+        return stackCall;
+    }
+
+    public void setStackCall(StackCall _stackCall) {
+        stackCall = _stackCall;
+    }
+
+    public Initializer getInit() {
+        return context.getInit();
+    }
+
+    public Classes getClasses() {
+        return context.getClasses();
+    }
+
+    public LgNames getStandards() {
+        return context.getStandards();
     }
 }

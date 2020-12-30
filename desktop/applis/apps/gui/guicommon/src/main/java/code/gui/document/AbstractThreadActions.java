@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -17,7 +18,7 @@ public abstract class AbstractThreadActions implements Runnable {
 
     private final RenderedPage page;
 
-    private Timer timer;
+    private final Timer timer;
 
     protected AbstractThreadActions(RenderedPage _page) {
         page = _page;
@@ -27,21 +28,21 @@ public abstract class AbstractThreadActions implements Runnable {
         page = _page;
         timer = _timer;
     }
-    protected void afterAction(ContextEl _ctx) {
-        if (_ctx == null) {
+    protected void afterAction(ContextEl _ctx, StackCall _stackCall) {
+        if (_ctx == null || _stackCall == null) {
             finish();
             return;
         }
         page.getContextCreator().removeContext(_ctx);
-        afterActionWithoutRemove(_ctx);
+        afterActionWithoutRemove(_ctx, _stackCall);
     }
 
-    protected void afterActionWithoutRemove(ContextEl _ctx) {
-        if (_ctx == null) {
+    protected void afterActionWithoutRemove(ContextEl _ctx, StackCall _stackCall) {
+        if (_ctx == null || _stackCall == null) {
             finish();
             return;
         }
-        CallingState exc_ = _ctx.getCallingState();
+        CallingState exc_ = _stackCall.getCallingState();
         if (exc_ instanceof CustomFoundExc) {
             if (page.getArea() != null) {
                 Struct exception_ = ((CustomFoundExc) exc_).getStruct();
@@ -49,12 +50,12 @@ public abstract class AbstractThreadActions implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
                 } else {
-                    _ctx.setCallingState(null);
-                    String str_ = page.getStandards().processString(new Argument(exception_),_ctx);
+                    _stackCall.setCallingState(null);
+                    String str_ = page.getStandards().processString(new Argument(exception_),_ctx, _stackCall);
                     page.getArea().append(str_);
                 }
             }
-            _ctx.setCallingState(null);
+            _stackCall.setCallingState(null);
             finish();
             return;
         }

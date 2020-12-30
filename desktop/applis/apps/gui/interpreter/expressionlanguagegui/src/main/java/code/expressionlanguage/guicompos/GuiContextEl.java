@@ -22,8 +22,8 @@ public final class GuiContextEl extends RunnableContextEl {
         standards_.getGuiExecutingBlocks().forwardAndClear(standards_.getGuiAliases(),standards_.getContent(), this, getClasses());
     }
 
-    public void disposeAll(GuiExecutingBlocks _guiExecutingBlocks) {
-        for (Struct s: getGuiInit().getWindows().toSnapshotArray(this).list()) {
+    public void disposeAll(GuiExecutingBlocks _guiExecutingBlocks, StackCall _stackCall) {
+        for (Struct s: getGuiInit().getWindows().toSnapshotArray(this, _stackCall).list()) {
             if (!(s instanceof WindowStruct)) {
                 continue;
             }
@@ -33,7 +33,7 @@ public final class GuiContextEl extends RunnableContextEl {
         _guiExecutingBlocks.getFrame().setVisible(false);
         _guiExecutingBlocks.getFrame().dispose();
         interrupt();
-        getGuiInit().launchHooks(this);
+        getGuiInit().launchHooks(this, _stackCall);
         _guiExecutingBlocks.getWindow().setNullCurrent();
         Thread th_ = CustComponent.newThread(new CoveringCodeTask(this, getExecutingOptions()));
         th_.start();

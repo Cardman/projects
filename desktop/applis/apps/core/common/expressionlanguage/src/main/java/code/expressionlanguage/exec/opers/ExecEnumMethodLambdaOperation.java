@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -19,8 +20,8 @@ import code.util.IdMap;
 
 public final class ExecEnumMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ExecLambdaMethodContent lambdaMethodContent;
-    private ExecRootBlock declaring;
+    private final ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecRootBlock declaring;
 
     public ExecEnumMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent, ExecRootBlock _declaring) {
         super(_opCont, _lamCont);
@@ -30,10 +31,10 @@ public final class ExecEnumMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Argument res_ = getCommonArgument(previous_);
-        setSimpleArgument(res_, _conf, _nodes);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     Argument getCommonArgument(Argument _previous) {

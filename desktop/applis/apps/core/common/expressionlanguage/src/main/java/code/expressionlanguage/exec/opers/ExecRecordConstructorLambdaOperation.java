@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -24,20 +25,20 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument res_ = getCommonArgument(_conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument res_ = getCommonArgument(_stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getCommonArgument(ContextEl _conf) {
-        return new Argument(newLambda(_conf, getFoundClass()));
+    Argument getCommonArgument(StackCall _stackCall) {
+        return new Argument(newLambda(getFoundClass(), _stackCall));
     }
 
-    private Struct newLambda(ContextEl _conf, String _foundClass) {
+    private Struct newLambda(String _foundClass, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = _foundClass;
-        ownerType_ = _conf.formatVarType(ownerType_);
-        clArg_ = _conf.formatVarType(clArg_);
+        ownerType_ = _stackCall.formatVarType(ownerType_);
+        clArg_ = _stackCall.formatVarType(clArg_);
         return newLambda(ownerType_, clArg_, pair, id);
     }
 

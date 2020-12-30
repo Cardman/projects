@@ -5,12 +5,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 
@@ -34,35 +32,35 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     @Override
-    protected boolean exitAfterCall(ContextEl _owner) {
+    protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
         if (((RunnableContextEl)_owner).stopped()) {
             return true;
         }
-        return super.exitAfterCall(_owner);
+        return super.exitAfterCall(_owner, _stack);
     }
 
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	return _ctx.getIdDate();
 	}
-    public void prExc(RunnableContextEl _cont) {
-        CallingState exc_ = _cont.getCallingState();
+    public void prExc(RunnableContextEl _cont, StackCall _stackCall) {
+        CallingState exc_ = _stackCall.getCallingState();
         if (exc_ instanceof CustomFoundExc) {
             Struct exception_ = ((CustomFoundExc) exc_).getStruct();
             if (exception_ instanceof DisplayableStruct) {
                 String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
                 log(_cont,text_);
             } else {
-                _cont.setCallingState(null);
+                _stackCall.setCallingState(null);
                 Argument out_ = new Argument(exception_);
-                out_ = ExecOperationNode.processString(out_, _cont);
-                CallingState state_ = _cont.getCallingState();
+                out_ = ExecOperationNode.processString(out_, _cont, _stackCall);
+                CallingState state_ = _stackCall.getCallingState();
                 boolean convert_ = false;
                 if (state_ instanceof CustomFoundMethod) {
                     CustomFoundMethod method_ = (CustomFoundMethod) state_;
-                    out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _cont).getValue();
+                    out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _cont, _stackCall).getValue();
                     convert_ = true;
                 }
-                if (!_cont.callsOrException()) {
+                if (!_cont.callsOrException(_stackCall)) {
                     if (convert_) {
                         out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
                     }
@@ -95,8 +93,8 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     /**This method must be called only before exit, by one (main) thread only*/
-    void joinOthers(RunnableContextEl _ctx) {
-        for (Struct s: threadSet.toSnapshotArray(_ctx).list()) {
+    void joinOthers(RunnableContextEl _ctx, StackCall _stackCall) {
+        for (Struct s: threadSet.toSnapshotArray(_ctx, _stackCall).list()) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }
@@ -107,8 +105,8 @@ public class CustInitializer extends DefaultInitializer {
             ThreadUtil.join(t_);
         }
     }
-    public void launchHooks(RunnableContextEl _ctx) {
-        CustList<Struct> inst_ = hooks.toSnapshotArray(_ctx).list();
+    public void launchHooks(RunnableContextEl _ctx, StackCall _stackCall) {
+        CustList<Struct> inst_ = hooks.toSnapshotArray(_ctx, _stackCall).list();
         for (Struct s: inst_) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
@@ -125,7 +123,7 @@ public class CustInitializer extends DefaultInitializer {
         }
     }
     public void joinHooks(RunnableContextEl _ctx) {
-        for (Struct s: hooks.toSnapshotArray(_ctx).list()) {
+        for (Struct s: hooks.toSnapshotArray(_ctx, StackCall.newInstance(InitPhase.NOTHING,_ctx)).list()) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }

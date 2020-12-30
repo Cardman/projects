@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -11,8 +12,8 @@ import code.util.StringMap;
 public final class ReflectRecordConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private boolean calledMethod;
-    private ExecRootBlock root;
-    private StringMap<String> id;
+    private final ExecRootBlock root;
+    private final StringMap<String> id;
     private final String className;
 
     private final CustList<Argument> arguments;
@@ -25,14 +26,14 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
-        if (!keep(_context)) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
+        if (!keep(_context, _stack)) {
             return false;
         }
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            _context.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, "", -1, arguments));
+            _stack.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, "", -1, arguments));
             return false;
         }
         return true;

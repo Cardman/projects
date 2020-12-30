@@ -70,53 +70,53 @@ public class DefaultInitializer implements Initializer {
         return new AnnotationStruct(_className, fields_);
     }
     @Override
-    public final void loopCalling(ContextEl _owner) {
+    public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
         while (true) {
-            AbstractPageEl p_ = _owner.getLastPage();
+            AbstractPageEl p_ = _stackCall.getLastPage();
             ReadWrite rw_ = p_.getReadWrite();
             if (rw_ == null) {
                 if (p_ instanceof StaticInitPageEl) {
                     ((StaticInitPageEl)p_).sucessClass(_owner);
                 }
-                _owner.removeLastPage();
-                if (_owner.nbPages() == 0) {
+                _stackCall.removeLastPage();
+                if (_stackCall.nbPages() == 0) {
                     break;
                 }
-                AbstractPageEl b_ = _owner.getLastPage();
-                tryForward(_owner, p_, b_);
+                AbstractPageEl b_ = _stackCall.getLastPage();
+                tryForward(_owner, p_, b_, _stackCall);
                 rw_ = b_.getReadWrite();
             }
-            if (_owner.callsOrException()) {
+            if (_owner.callsOrException(_stackCall)) {
                 rw_ = null;
             }
             if (rw_ != null) {
-                ExecutingUtil.processTagsBase(_owner);
+                ExecutingUtil.processTagsBase(_owner, _stackCall);
             }
-            if (exitAfterCall(_owner)) {
+            if (exitAfterCall(_owner, _stackCall)) {
                 break;
             }
         }
     }
 
-    private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b) {
+    private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b, StackCall _stackCall) {
         if (_p instanceof ForwardPageEl) {
-            _p.forwardTo(_b, _owner);
+            _p.forwardTo(_b, _owner, _stackCall);
         } else if (_p instanceof StaticInitPageEl) {
             StaticInitPageEl s_ = (StaticInitPageEl) _p;
             Argument fwd_ = s_.getFwd();
             if (fwd_ != null) {
-                _b.receive(null, fwd_, _owner);
+                _b.receive(null, fwd_, _owner, _stackCall);
             }
         }
     }
 
-    protected boolean exitAfterCall(ContextEl _owner) {
-        AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner);
+    protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
+        AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner, _stack);
         if (abs_ != null) {
-            ExecutingUtil.addPage(_owner,abs_);
+            ExecutingUtil.addPage(_owner,abs_, _stack);
         }
-        ExecutingUtil.processException(_owner);
-        return _owner.callsOrException();
+        ExecutingUtil.processException(_owner, _stack);
+        return _owner.callsOrException(_stack);
     }
 
     protected Struct init(ContextEl _context, Struct _parent,

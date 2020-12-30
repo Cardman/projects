@@ -3,10 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -6647,9 +6645,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
-        assertNull(cont_.getCallingState());
+        assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
         assertEq(1, getNumber(out_));
     }
@@ -6660,9 +6659,10 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
-        assertNull(cont_.getCallingState());
+        assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
         assertEq(1, getNumber(out_));
     }

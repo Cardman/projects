@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -15,15 +16,15 @@ public final class InvokeTargetErrorStruct extends WithoutParentIdStruct impleme
     private final Struct cause;
     private final String message;
 
-    public InvokeTargetErrorStruct(Struct _cause, ContextEl _cont) {
-        this("", _cause, _cont);
+    public InvokeTargetErrorStruct(Struct _cause, ContextEl _cont, StackCall _stackCall) {
+        this("", _cause, _cont, _stackCall);
     }
 
-    private InvokeTargetErrorStruct(String _message, Struct _cause, ContextEl _cont) {
+    private InvokeTargetErrorStruct(String _message, Struct _cause, ContextEl _cont, StackCall _stackCall) {
         message = _message;
         cause = _cause;
-        stack = ExecutingUtil.newStackTraceElementArray(_cont);
-        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_cont);
+        stack = ExecutingUtil.newStackTraceElementArray(_cont, _stackCall);
+        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_stackCall);
     }
 
     @Override

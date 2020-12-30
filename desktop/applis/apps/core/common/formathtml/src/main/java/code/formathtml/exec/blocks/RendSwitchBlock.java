@@ -3,11 +3,13 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -18,14 +20,14 @@ import code.util.core.StringUtil;
 
 public final class RendSwitchBlock extends RendParentBlock implements RendWithEl {
 
-    private String label;
+    private final String label;
 
-    private int valueOffset;
+    private final int valueOffset;
 
-    private CustList<RendDynOperationNode> opValue;
+    private final CustList<RendDynOperationNode> opValue;
 
-    private boolean enumTest;
-    private String instanceTest;
+    private final boolean enumTest;
+    private final String instanceTest;
 
     public RendSwitchBlock(int _offsetTrim, String _label, int _valueOffset, CustList<RendDynOperationNode> _opValue, boolean _enumTest, String _instanceTest) {
         super(_offsetTrim);
@@ -37,17 +39,17 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont, _stds, _ctx);
+            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
             return;
         }
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont, _stds, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
             return;
         }
         if (!instanceTest.isEmpty()) {
@@ -81,7 +83,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
                         RendCaseCondition c_ = (RendCaseCondition) b;
                         if (!c_.getImportedClassName().isEmpty()) {
                             RendCaseCondition b_ = (RendCaseCondition) b;
-                            found_ = fetch(_cont,if_,arg_,found_,b_, _ctx);
+                            found_ = fetch(if_,arg_,found_,b_, _ctx, _rendStack);
                         }
                     }
                 }
@@ -90,7 +92,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
                 for (RendParentBlock b: children_) {
                     if (b instanceof RendDefaultCondition) {
                         RendDefaultCondition b_ = (RendDefaultCondition) b;
-                        found_ = fetch(_cont,if_,arg_,found_,b_, _ctx);
+                        found_ = fetch(if_,arg_,found_,b_, _ctx, _rendStack);
                     }
                 }
             }
@@ -171,13 +173,13 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
         }
         ip_.addBlock(if_);
     }
-    private static RendParentBlock fetch(Configuration _cont, RendSwitchBlockStack _if, Argument _arg,
-                                         RendParentBlock _found, RendSwitchPartCondition _s, ContextEl _ctx) {
+    private static RendParentBlock fetch(RendSwitchBlockStack _if, Argument _arg,
+                                         RendParentBlock _found, RendSwitchPartCondition _s, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (_found != null) {
             return _found;
         }
         String type_ = _s.getImportedClassName();
-        ImportingPage ip_ = _cont.getLastPage();
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         if (ExecTemplates.safeObject(type_, _arg, _ctx) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(_arg.getStruct(),type_));

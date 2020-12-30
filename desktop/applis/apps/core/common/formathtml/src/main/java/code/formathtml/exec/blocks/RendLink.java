@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.CustList;
@@ -12,8 +14,8 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class RendLink extends RendElement {
-    private String content;
-    private StringMap<ExecTextPart> execOpExpTitle;
+    private final String content;
+    private final StringMap<ExecTextPart> execOpExpTitle;
 
     public RendLink(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, String _content, StringMap<ExecTextPart> _execOpExpTitle) {
         super(_offsetTrim, _read, _execAttributes, _execAttributesText);
@@ -22,7 +24,7 @@ public final class RendLink extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         String fileContent_ = content;
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
@@ -30,8 +32,8 @@ public final class RendLink extends RendElement {
             StringList objects_ = new StringList();
             for (EntryCust<String, ExecTextPart> e:execOpExpTitle.entryList()) {
                 ExecTextPart r_ = e.getValue();
-                objects_.add(RenderingText.render(r_,_cont, _stds, _ctx));
-                if (_ctx.callsOrException()) {
+                objects_.add(RenderingText.render(r_,_cont, _stds, _ctx, _stack, _rendStack));
+                if (_ctx.callsOrException(_stack)) {
                     return;
                 }
                 curWr_.removeAttribute(e.getKey());

@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdMap;
 
 
@@ -19,12 +19,12 @@ public final class ExecCatOperation extends ExecNumericOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
+                          ContextEl _conf, StackCall _stack) {
         Argument a_ = getFirstArgument(_nodes,this);
         Argument c_ = getLastArgument(_nodes,this);
-        setRelOffsetPossibleLastPage(getOpOffset(), _conf);
+        setRelOffsetPossibleLastPage(getOpOffset(), _stack);
         Argument r_ = localSumDiff(a_, c_, _conf);
-        setSimpleArgument(r_, _conf, _nodes);
+        setSimpleArgument(r_, _conf, _nodes, _stack);
     }
 
     public static Argument localSumDiff(Argument _a, Argument _b,

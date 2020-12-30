@@ -2,8 +2,10 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
@@ -12,7 +14,7 @@ import code.util.CustList;
 
 public final class RendIfCondition extends RendCondition implements RendWithEl {
 
-    private String label;
+    private final String label;
 
     public RendIfCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset, String _label) {
         super(_offsetTrim,_op,_offset);
@@ -20,14 +22,14 @@ public final class RendIfCondition extends RendCondition implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont, _stds, _ctx);
+            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
             return;
         }
-        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx);
+        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx, _stack, _rendStack);
         if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }

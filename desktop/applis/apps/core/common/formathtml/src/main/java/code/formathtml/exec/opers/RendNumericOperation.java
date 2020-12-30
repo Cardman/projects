@@ -1,6 +1,7 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -11,14 +12,14 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
-    private int opOffset;
+    private final int opOffset;
 
     public RendNumericOperation(ExecOperationContent _content, int _opOffset) {
         super(_content);
         opOffset = _opOffset;
     }
 
-    static Argument calculateAffect(Argument _left, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, ContextEl _context) {
+    static Argument calculateAffect(Argument _left, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, ContextEl _context, StackCall _stackCall) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
@@ -30,7 +31,7 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
             }
             return new Argument(res_.getResult());
         }
-        ExecNumericOperation.calculateOperator(_context, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast);
+        ExecNumericOperation.calculateOperator(_context, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
         return new Argument(res_.getResult());
     }
 

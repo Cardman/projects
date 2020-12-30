@@ -2,13 +2,14 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class WindowSetStruct extends WithoutParentIdStruct implements Struct {
-    private ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
+    private final ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
 
     private final boolean writable;
 
@@ -16,7 +17,7 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
         writable = _writable;
     }
 
-    public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
+    public ArrayStruct toSnapshotArray(ContextEl _contextEl, StackCall _stackCall) {
         CustList<WindowStruct> instantKeys_ = new CustList<WindowStruct>();
         for (WindowStruct s: elementSet.keySet()) {
             instantKeys_.add(s);
@@ -26,7 +27,7 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
         ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
-            _contextEl.getInitializingTypeInfos().addSensibleField(this,e_);
+            _stackCall.getInitializingTypeInfos().addSensibleField(this,e_);
             arr_.set(i, e_);
         }
         return arr_;

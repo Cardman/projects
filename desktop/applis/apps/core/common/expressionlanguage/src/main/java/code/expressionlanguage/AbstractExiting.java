@@ -1,6 +1,8 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.StackCall;
+
 public interface AbstractExiting {
-    boolean hasToExit(String _className);
-    boolean hasToExit(String _className,Argument _arg);
+    boolean hasToExit(StackCall _stack, String _className);
+    boolean hasToExit(StackCall _stack, String _className, Argument _arg);
 }

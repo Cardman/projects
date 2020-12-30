@@ -1,14 +1,16 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendTryBlockStack;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendTryEval extends RendParentBlock implements RendWithEl,RendEval {
 
-    private String label;
+    private final String label;
 
     public RendTryEval(String _label, int _offsetTrim) {
         super(_offsetTrim);
@@ -16,8 +18,8 @@ public final class RendTryEval extends RendParentBlock implements RendWithEl,Ren
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendBlock n_ = getNextSibling();
         RendTryBlockStack tryStack_ = new RendTryBlockStack();
         tryStack_.setLabel(label);

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
@@ -19,9 +20,9 @@ import code.util.core.StringUtil;
 public final class ExecStandardInstancingOperation extends
         ExecAbstractInstancingOperation {
 
-    private ExecInstancingStdContent instancingStdContent;
+    private final ExecInstancingStdContent instancingStdContent;
 
-    private ExecRootBlock rootBlock;
+    private final ExecRootBlock rootBlock;
     public ExecStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, boolean _initBefore, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_opCont, _intermediateDottedOperation, _initBefore, _pair,_instancingCommonContent);
         instancingStdContent = _instancingStdContent;
@@ -29,33 +30,33 @@ public final class ExecStandardInstancingOperation extends
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_,_nodes, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getArgument(previous_,_nodes, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
     Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                         ContextEl _conf) {
+                         ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
         if (!instancingStdContent.getFieldName().isEmpty()) {
-            off_ -= _conf.getLastPage().getTranslatedOffset();
+            off_ -= _stackCall.getLastPage().getTranslatedOffset();
             off_ -= instancingStdContent.getFieldName().length();
             off_--;
         }
-        setRelOffsetPossibleLastPage(off_, _conf);
-        String className_ = _conf.formatVarType(getClassName());
+        setRelOffsetPossibleLastPage(off_, _stackCall);
+        String className_ = _stackCall.formatVarType(getClassName());
         if (instancingStdContent.getFieldName().isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
-            if (_conf.getExiting().hasToExit(base_)) {
+            if (_conf.getExiting().hasToExit(_stackCall, base_)) {
                 return Argument.createVoid();
             }
         }
         if (rootBlock instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_nodes, this);
-            _conf.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+            _stackCall.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
             return Argument.createVoid();
         }
-        return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex());
+        return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stackCall);
     }
 
     private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {

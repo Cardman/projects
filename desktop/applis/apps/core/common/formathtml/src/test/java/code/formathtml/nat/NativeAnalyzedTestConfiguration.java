@@ -5,10 +5,12 @@ import code.bean.nat.NativeConverterCheck;
 import code.bean.nat.NativeReducingOperations;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
@@ -20,8 +22,10 @@ class NativeAnalyzedTestConfiguration {
     private final BeanNatLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
-    private DualConfigurationContext dual;
+    private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
+    private StackCall stackCall;
+    private final RendStackCall rendStackCall = new RendStackCall();
 
     NativeAnalyzedTestConfiguration(Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
         this.configuration = _configuration;
@@ -82,5 +86,17 @@ class NativeAnalyzedTestConfiguration {
 
     DualConfigurationContext getDual() {
         return dual;
+    }
+
+    public StackCall getStackCall() {
+        return stackCall;
+    }
+
+    public void setStackCall(StackCall _stackCall) {
+        this.stackCall = _stackCall;
+    }
+
+    public RendStackCall getRendStackCall() {
+        return rendStackCall;
     }
 }

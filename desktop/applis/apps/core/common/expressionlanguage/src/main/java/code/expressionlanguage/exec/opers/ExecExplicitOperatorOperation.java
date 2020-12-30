@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -15,9 +16,9 @@ import code.util.IdMap;
 public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOperation {
 
     private final ExecTypeFunction pair;
-    private ExecStaticFctContent staticFctContent;
+    private final ExecStaticFctContent staticFctContent;
 
-    private int offsetOper;
+    private final int offsetOper;
 
     public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock, ExecArrContent _exArr) {
         super(_opCont, _intermediateDottedOperation,_exArr);
@@ -27,14 +28,14 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = getOffsetOper();
-        setRelOffsetPossibleLastPage(off_, _conf);
-        checkParametersOperators(_conf.getExiting(),_conf, pair, getArgs(_nodes, _conf), staticFctContent.getClassName(), staticFctContent.getKind());
+        setRelOffsetPossibleLastPage(off_, _stack);
+        checkParametersOperators(_conf.getExiting(),_conf, pair, getArgs(_nodes, _stack), staticFctContent.getClassName(), staticFctContent.getKind(), _stack);
     }
 
-    public ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(),_conf, staticFctContent.getKind());
+    public ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall) {
+        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(), staticFctContent.getKind(), _stackCall);
         String lastType_ = ClassMethodId.formatType(pair.getType(),classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
         return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }

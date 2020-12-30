@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -19,7 +20,7 @@ import code.util.IdMap;
 
 public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecLambdaMethodContent lambdaMethodContent;
 
     public ExecCastMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
         super(_opCont, _lamCont);
@@ -28,21 +29,21 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getCommonArgument(previous_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints()));
+    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints(), _stackCall));
     }
 
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, int _ancestor, boolean _polymorph, MethodId _constraints) {
+    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, int _ancestor, boolean _polymorph, MethodId _constraints, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = _foundClass;
-        ownerType_ = _conf.formatVarType(ownerType_);
-        clArg_ = _conf.formatVarType(clArg_);
+        ownerType_ = _stackCall.formatVarType(ownerType_);
+        clArg_ = _stackCall.formatVarType(clArg_);
         return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _polymorph, lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints);
     }
 

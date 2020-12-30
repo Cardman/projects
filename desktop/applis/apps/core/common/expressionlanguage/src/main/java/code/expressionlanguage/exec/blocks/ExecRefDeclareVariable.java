@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.util.StringList;
 
@@ -11,8 +12,8 @@ public final class ExecRefDeclareVariable extends ExecAbstractDeclareVariable {
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        processBlock(_cont);
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        processBlock(_cont, _stack);
     }
 
     @Override

@@ -1,18 +1,20 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -67,26 +69,28 @@ public final class RenderInitStdsTest extends CommonRender {
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext an_ = new AnalyzedTestContext(contextEl_, page_, new Forwards(), b_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, an_, an_.getForwards(), b_);
-        contextEl_.setFullStack(new DefaultFullStack(contextEl_));
+        a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,contextEl_));
         BeanLgNames standards_ = (BeanLgNames) contextEl_.getStandards();
         CommonRender.getHeaders(new StringMap<String>(), a_);
-        String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), conf_, an_.getContext()).getClassName(contextEl_);
+        String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), an_.getContext(), a_.getStackCall(), a_.getRendStackCall()).getClassName(contextEl_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
-        err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), conf_, an_.getContext()).getClassName(contextEl_);
+        err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), an_.getContext(), a_.getStackCall(), a_.getRendStackCall()).getClassName(contextEl_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
-        new Navigation().initializeRendSessionDoc(null, null, null);
-        a_.getConfiguration().addPage(new ImportingPage());
-        RendBlock.processDo(a_.getConfiguration(),null,null,null);
-        RendBlock.processElse(a_.getConfiguration(),null,null,null);
-        RendBlock.processElseIf(a_.getConfiguration(),null,null,null);
-        RendBlock.processFinally(a_.getConfiguration(),null,null,null);
-        RendBlock.setVisited(a_.getConfiguration().getLastPage(),null);
-        assertTrue(!RendBlock.hasBlockBreak(a_.getConfiguration().getLastPage(),""));
-        assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null,a_.getConfiguration().getLastPage(),""));
+        new Navigation().initializeRendSessionDoc(null, null, null, null);
+        RendStackCall rendStackCall_ = new RendStackCall();
+        rendStackCall_.addPage(new ImportingPage());
+        RendBlock.processDo(a_.getConfiguration(),null,null,null, null, rendStackCall_);
+        RendBlock.processElse(a_.getConfiguration(),null,null,null, null, rendStackCall_);
+        RendBlock.processElseIf(a_.getConfiguration(),null,null,null, null, rendStackCall_);
+        RendBlock.processFinally(a_.getConfiguration(),null,null,null, null, rendStackCall_);
+        RendBlock.setVisited(rendStackCall_.getLastPage(),null);
+        assertTrue(!RendBlock.hasBlockBreak(rendStackCall_.getLastPage(),""));
+        assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null, rendStackCall_.getLastPage(),"", null, rendStackCall_));
         assertNull(RendBlock.getParentNode((Element)null));
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));
+        new ImportingPage().getSum();
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);
@@ -102,7 +106,6 @@ public final class RenderInitStdsTest extends CommonRender {
         ValidatorStandard.setupOverrides(page_);
         AnalyzedTestContext an_ = new AnalyzedTestContext(contextEl_, page_, new Forwards(), _beanLgNames);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, an_, an_.getForwards(), _beanLgNames);
-        contextEl_.setFullStack(new DefaultFullStack(contextEl_));
         CommonRender.getHeaders(_files, a_);
         return isEmptyErrors(a_);
     }

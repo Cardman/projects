@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -20,7 +21,7 @@ import code.util.core.IndexConstants;
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
         WithNotEmptyEl {
 
-    private int defaultValueOffset;
+    private final int defaultValueOffset;
 
     private CustList<ExecOperationNode> opValue = new CustList<ExecOperationNode>();
     public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
@@ -53,36 +54,36 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_ instanceof FieldInitPageEl && !opValue.isEmpty()) {
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
-            setValue(_cont,arg_, ip_.getBlockRootType());
-            if (_cont.callsOrException()) {
+            Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+            setValue(_cont,arg_, ip_.getBlockRootType(), _stack);
+            if (_cont.callsOrException(_stack)) {
                 return;
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont);
+        processBlock(_cont, _stack);
     }
 
-    private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type) {
+    private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {
         String name_ = getName();
         String idCl_ = _type.getFullName();
         String ret_ = getImportedReturnType();
-        setValue(_type,idCl_,name_,ret_,_cont,_arg);
+        setValue(_type,idCl_,name_,ret_,_cont,_arg, _stackCall);
     }
-    public static void setValue(ExecRootBlock _rootBlock,String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
-        if (_cont.callsOrException()) {
+    public static void setValue(ExecRootBlock _rootBlock, String _cl, String _name, String _returnType, ContextEl _cont, Argument _arg, StackCall _stackCall) {
+        if (_cont.callsOrException(_stackCall)) {
             return;
         }
-        AbstractPageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
         Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());
-        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, arg_, _cont);
+        ExecTemplates.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, arg_, _cont, _stackCall);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

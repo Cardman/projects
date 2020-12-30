@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
@@ -14,9 +15,9 @@ import code.util.core.IndexConstants;
 
 public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private CustList<ExecOperationNode> opExp;
+    private final CustList<ExecOperationNode> opExp;
     public ExecLine(int _expressionOffset, CustList<ExecOperationNode> _opExp, int _offsetTrim) {
         super(_offsetTrim);
         expressionOffset = _expressionOffset;
@@ -38,14 +39,14 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
 
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ExpressionLanguage.tryToCalculate(_cont,el_,0);
-        if (_cont.callsOrException()) {
+        ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+        if (_cont.callsOrException(_stack)) {
             return;
         }
         if (ip_ instanceof AbstractCallingInstancingPageEl&&(isCallSuper() || isCallInts())) {
@@ -66,12 +67,12 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
                 inst_.setFirstField(true);
                 Argument global_ = inst_.getGlobalArgument();
                 String curClass_ = inst_.getGlobalClass();
-                _cont.setCallingState(new NotInitializedFields(curClass_,inst_.getBlockRootType(), global_));
+                _stack.setCallingState(new NotInitializedFields(curClass_,inst_.getBlockRootType(), global_));
                 return;
             }
             //fields of the current class are initialized if there is no other interface constructors to call
         }
         ip_.clearCurrentEls();
-        processBlock(_cont);
+        processBlock(_cont, _stack);
     }
 }

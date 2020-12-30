@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -15,8 +16,8 @@ public final class ExecDotOperation extends ExecAbstractDotOperation {
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        calculateDot(_nodes,_conf);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        calculateDot(_nodes,_conf, _stack);
     }
 
 }

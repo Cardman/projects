@@ -2195,7 +2195,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
         setupAnalyzing(_cont, _cont.getLastPage(), _cont.getAnalyzingDoc());
-        Argument argGl_ = _cont.getConfiguration().getPageEl().getGlobalArgument();
+        Argument argGl_ = _cont.getRendStackCall().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _cont.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_cont, _el, 0);

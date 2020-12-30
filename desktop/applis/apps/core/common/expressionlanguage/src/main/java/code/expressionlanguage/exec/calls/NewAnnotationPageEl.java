@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.AnnotationTypeInfo;
@@ -19,7 +20,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
         args = _args;
     }
     @Override
-    public void tryProcessEl(ContextEl _context) {
+    public void tryProcessEl(ContextEl _context, StackCall _stack) {
         //set fields for annotation after calculating default one
         int len_ = Math.min(names.size(),args.size());
         Struct str_ = getGlobalStruct();
@@ -31,15 +32,15 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             String t_ = i_.getType();
             if (i_.isWrap()) {
                 ArrayStruct a_ = new ArrayStruct(1, t_);
-                ExecTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
-                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(a_));
-                if (_context.callsOrException()) {
+                ExecTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context, _stack);
+                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(a_), _stack);
+                if (_context.callsOrException(_stack)) {
                     return;
                 }
                 continue;
             }
-            ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,value_);
-            if (_context.callsOrException()) {
+            ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,value_, _stack);
+            if (_context.callsOrException(_stack)) {
                 return;
             }
         }

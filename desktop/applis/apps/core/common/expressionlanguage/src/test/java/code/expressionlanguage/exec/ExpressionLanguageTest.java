@@ -6133,18 +6133,20 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
-        addImportingPage(c_);
-        Argument arg_ = tryCalculate(c_);
-        assertNull(c_.getCallingState());
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);
+        addImportingPage(c_, stackCall_);
+        Argument arg_ = tryCalculate(c_, stackCall_);
+        assertNull(stackCall_.getCallingState());
         return arg_;
     }
 
     private static Struct directCalculateExc(String _el) {
         ContextEl c_ = analyze(_el);
-        addImportingPage(c_);
-        tryCalculate(c_);
-        assertNotNull(((CustomFoundExc) c_.getCallingState()).getStruct());
-        return ((CustomFoundExc)c_.getCallingState()).getStruct();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);
+        addImportingPage(c_, stackCall_);
+        tryCalculate(c_, stackCall_);
+        assertNotNull(((CustomFoundExc) stackCall_.getCallingState()).getStruct());
+        return ((CustomFoundExc) stackCall_.getCallingState()).getStruct();
     }
 
     private static ContextEl analyze(String _el) {
@@ -6159,15 +6161,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        addImportingPage(cont_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().putValueVar(_var, lv_);
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+        stackCall_.getLastPage().putValueVar(_var, lv_);
+        stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_,0);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(cont_.getCallingState());
+        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        assertNull(stackCall_.getCallingState());
         return arg_;
 
     }
@@ -6178,15 +6181,16 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        addImportingPage(cont_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().getRefParams().put(_var, new VariableWrapper(lv_));
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+        stackCall_.getLastPage().getRefParams().put(_var, new VariableWrapper(lv_));
+        stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_,0);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(cont_.getCallingState());
+        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        assertNull(stackCall_.getCallingState());
         return arg_;
 
     }
@@ -6198,24 +6202,25 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_);
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
-        addImportingPage(cont_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        addImportingPage(cont_, stackCall_);
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().putValueVar(var_, lv_);
-        cont_.getLastPage().setGlobalArgumentStruct(fresh_);
+        stackCall_.getLastPage().putValueVar(var_, lv_);
+        stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
         ExpressionLanguage el_ = f_.getEl(cont_, 0);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0);
-        assertNull(cont_.getCallingState());
+        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        assertNull(stackCall_.getCallingState());
         return arg_;
     }
 
-    private static Argument tryCalculate(ContextEl _context) {
+    private static Argument tryCalculate(ContextEl _context, StackCall _stackCall) {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
-        _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
+        _stackCall.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getEl(_context,0);
-        return ExpressionLanguage.tryToCalculate(_context,el_,0);
+        return ExpressionLanguage.tryToCalculate(_context,el_,0, _stackCall);
     }
 
     private static String addonFileStaticResult(String _el) {
@@ -6241,8 +6246,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         return str_.toString();
     }
 
-    private static void addImportingPage(ContextEl _conf) {
-        ExecutingUtil.addPage(_conf,new MethodPageEl(Argument.createVoid(),""));
+    private static void addImportingPage(ContextEl _conf, StackCall _stackCall) {
+        ExecutingUtil.addPage(_conf,new MethodPageEl(Argument.createVoid(),""), _stackCall);
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -16,8 +17,8 @@ import code.util.core.StringUtil;
 
 public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
 
-    private ExecInstFctContent instFctContent;
-    private ExecTypeFunction pair;
+    private final ExecInstFctContent instFctContent;
+    private final ExecTypeFunction pair;
 
     public ExecChoiceFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstFctContent _instFctContent, ExecArrContent _arrContent) {
         super(_opCont, _intermediateDottedOperation,_arrContent);
@@ -27,20 +28,20 @@ public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_,_nodes, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getArgument(previous_,_nodes, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
-    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelOffsetPossibleLastPage(off_, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
         String classNameFound_ = getClassName();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf));
-        if (_conf.callsOrException()) {
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _conf, _stackCall));
+        if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, _conf, prev_.getStruct()), null, MethodAccessKind.INSTANCE, "");
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, _conf, prev_.getStruct()), null, MethodAccessKind.INSTANCE, "", _stackCall);
     }
 
     private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {

@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.ArrayStruct;
 
 public final class DefaultFullStack implements AbstractFullStack {
@@ -11,7 +12,7 @@ public final class DefaultFullStack implements AbstractFullStack {
     }
 
     @Override
-    public ArrayStruct newStackTraceElementArray() {
-        return ExecutingUtil.newStackTraceElementArray(context);
+    public ArrayStruct newStackTraceElementArray(StackCall _stack) {
+        return ExecutingUtil.newStackTraceElementArray(context, _stack);
     }
 }

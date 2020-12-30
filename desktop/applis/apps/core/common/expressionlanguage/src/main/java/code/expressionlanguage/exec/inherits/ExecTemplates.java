@@ -47,25 +47,25 @@ public final class ExecTemplates {
     private ExecTemplates(){
     }
 
-    public static Struct newCustomArrayOrExc(String _className, Ints _dims, ContextEl _cont) {
-        return newCustomArrayOrExc(new Ints(),_className,_dims,_cont);
+    public static Struct newCustomArrayOrExc(String _className, Ints _dims, ContextEl _cont, StackCall _stackCall) {
+        return newCustomArrayOrExc(new Ints(),_className,_dims,_cont, _stackCall);
     }
-    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _cont) {
+    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _cont, StackCall _stackCall) {
         Ints dims_ = new Ints();
         String size_;
         LgNames lgNames_ = _cont.getStandards();
         size_ = lgNames_.getContent().getCoreNames().getAliasBadSize();
         if (_dims.isEmpty()) {
-            return new ErrorStruct(_cont,size_);
+            return new ErrorStruct(_cont,size_, _stackCall);
         }
         int j_ = 0;
         for (int s: _dims) {
             if (s < 0) {
                 if (_filter.isValidIndex(j_)) {
                     int off_ = _filter.get(j_);
-                    _cont.setOffset(off_);
+                    _stackCall.setOffset(off_);
                 }
-                return new ErrorStruct(_cont, StringUtil.concat(Long.toString(s),"<0"),size_);
+                return new ErrorStruct(_cont, StringUtil.concat(Long.toString(s),"<0"),size_, _stackCall);
             }
             dims_.add(s);
             j_++;
@@ -122,7 +122,7 @@ public final class ExecTemplates {
     /** nb calls of getParent - super type - arg object
      use class parent of object
      */
-    public static Struct getParent(int _nbAncestors,String _required, Struct _current, ContextEl _an) {
+    public static Struct getParent(int _nbAncestors, String _required, Struct _current, ContextEl _an, StackCall _stackCall) {
         String id_ = StringExpUtil.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
         Struct arg_ = _current;
@@ -137,20 +137,20 @@ public final class ExecTemplates {
             String componentDim_ = dimReq_.getComponent();
             if (StringUtil.quickEq(componentDim_, _an.getStandards().getContent().getCoreNames().getAliasObject())) {
                 if (dReq_ > dCurrent_) {
-                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
             }
             if (dReq_ != dCurrent_) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
             String dComp_ = dimCurrent_.getComponent();
             InheritedType in_ = getInheritedType(_an, cl_, dComp_);
             if (in_ != null) {
                 if (!in_.isSubTypeOf(componentDim_,_an)) {
-                    _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
@@ -158,13 +158,13 @@ public final class ExecTemplates {
             for (int i = 0; i < _nbAncestors; i++) {
                 Struct enc_ = arg_;
                 Struct par_ = enc_.getParent();
-                _an.getInitializingTypeInfos().addSensibleField(enc_, par_);
+                _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
                 arg_=par_;
             }
         }
         String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         if (arg_ == NullStruct.NULL_VALUE) {
-            _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
             return arg_;
         }
         Struct current_ = arg_;
@@ -174,16 +174,16 @@ public final class ExecTemplates {
         GeneType g_ = _an.getClassBody(cl_);
         while (hasToLookForParent(_an, id_, g_)) {
             if (StringUtil.contains(list_, cl_)) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                 break;
             }
             list_.add(cl_);
             if (!(current_ instanceof WithParentStruct)) {
-                _an.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                 break;
             }
             Struct par_ = current_.getParent();
-            _an.getInitializingTypeInfos().addSensibleField(current_, par_);
+            _stackCall.getInitializingTypeInfos().addSensibleField(current_, par_);
             className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
             cl_ = StringExpUtil.getIdFromAllTypes(className_);
@@ -350,49 +350,49 @@ public final class ExecTemplates {
         return StringExpUtil.newMappingPairs(generic_, typesParam_);
     }
 
-    public static boolean checkObject(String _param, Argument _arg, ContextEl _context) {
+    public static boolean checkObject(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
         Struct str_ = _arg.getStruct();
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_param, _context.getStandards());
         _arg.setStruct(NumParsers.convertObject(cast_, str_));
-        return checkQuick(_param, _arg, _context);
+        return checkQuick(_param, _arg, _context, _stackCall);
     }
 
-    public static boolean checkQuick(String _param, Argument _arg, ContextEl _context) {
-        Struct ex_ = checkObjectEx(_param,_arg,_context);
+    public static boolean checkQuick(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
+        Struct ex_ = checkObjectEx(_param,_arg,_context, _stackCall);
         if (ex_ != null) {
-            _context.setCallingState(new CustomFoundExc(ex_));
+            _stackCall.setCallingState(new CustomFoundExc(ex_));
             return false;
         }
         return true;
     }
 
-    public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context) {
+    public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            return new ErrorStruct(_context, getBadCastMessage(_param, _arg.getStruct().getClassName(_context)),cast_);
+            return new ErrorStruct(_context, getBadCastMessage(_param, _arg.getStruct().getClassName(_context)),cast_, _stackCall);
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            return new ErrorStruct(_context,npe_);
+            return new ErrorStruct(_context,npe_, _stackCall);
         }
         return null;
     }
-    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ContextEl _context) {
+    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ContextEl _context, StackCall _stackCall) {
         int len_ = _args.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             Argument chArg_ = _args.get(i);
             IntStruct ind_ = new IntStruct(i);
-            setElement(_arr, ind_, chArg_.getStruct(), _context);
-            if (_context.callsOrException()) {
+            setElement(_arr, ind_, chArg_.getStruct(), _context, _stackCall);
+            if (_context.callsOrException(_stackCall)) {
                 return;
             }
         }
     }
 
     public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                     Argument _previous, CustList<Argument> _firstArgs) {
+                                     Argument _previous, CustList<Argument> _firstArgs, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
@@ -400,11 +400,11 @@ public final class ExecTemplates {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
                 return "";
             }
         }
-        if (okArgsSet(_methodId, classFormat_, _firstArgs, _conf) != null) {
+        if (okArgsSet(_methodId, classFormat_, _firstArgs, _conf, _stackCall) != null) {
             return "";
         }
         return classFormat_;
@@ -416,7 +416,7 @@ public final class ExecTemplates {
 
     public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
                                                   Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
-                                                  Argument _right, MethodAccessKind _kind) {
+                                                  Argument _right, MethodAccessKind _kind, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
@@ -425,11 +425,11 @@ public final class ExecTemplates {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
                 return f_;
             }
         }
-        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _right, _kind != MethodAccessKind.STATIC);
+        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _right, _kind != MethodAccessKind.STATIC, _stackCall);
         if (parameters_.getError() != null) {
             return f_;
         }
@@ -438,23 +438,23 @@ public final class ExecTemplates {
         return f_;
     }
 
-    public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf) {
-        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf);
+    public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
+        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _stackCall);
         if (ex_ != null) {
-            _conf.setCallingState(new CustomFoundExc(ex_));
+            _stackCall.setCallingState(new CustomFoundExc(ex_));
         }
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
-        Parameters ex_ = okArgsEx(_rootBlock,_id, _classNameFound,_cache, _firstArgs, _conf, _right, _hasFormat);
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat, StackCall _stackCall) {
+        Parameters ex_ = okArgsEx(_rootBlock,_id, _classNameFound,_cache, _firstArgs, _conf, _right, _hasFormat, _stackCall);
         if (ex_.getError() != null) {
-            _conf.setCallingState(new CustomFoundExc(ex_.getError()));
+            _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
         }
         return ex_;
     }
 
-    private static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf) {
+    private static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof MethodId) {
@@ -465,7 +465,7 @@ public final class ExecTemplates {
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            return new ErrorStruct(_conf,_classNameFound,npe_);
+            return new ErrorStruct(_conf,_classNameFound,npe_, _stackCall);
         }
         int i_ = 0;
         for (String c: _id.getParametersTypes()) {
@@ -480,12 +480,12 @@ public final class ExecTemplates {
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
             StringBuilder mess_ = countDiff(_firstArgs.size(), params_.size());
-            return new ErrorStruct(_conf,mess_.toString(),cast_);
+            return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
         }
         i_ = IndexConstants.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf);
+            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
             if (ex_ != null) {
                 return ex_;
             }
@@ -498,25 +498,25 @@ public final class ExecTemplates {
                 for (Struct s: arr_.list()) {
                     ErrorType state_ = checkElement(arr_, s, _conf);
                     if (state_ != ErrorType.NOTHING) {
-                        return processError(_conf, arr_, s, state_);
+                        return processError(_conf, arr_, s, state_, _stackCall);
                     }
                 }
             }
         }
         return null;
     }
-    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat) {
+    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat, StackCall _stackCall) {
         Parameters p_ = new Parameters();
         if (_hasFormat && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            p_.setError(new ErrorStruct(_conf,_classNameFound,npe_));
+            p_.setError(new ErrorStruct(_conf,_classNameFound,npe_, _stackCall));
             return p_;
         }
         if (_cache != null) {
-            _cache.setCache(_rootBlock,_classNameFound,_conf);
+            _cache.setCache(_rootBlock,_classNameFound,_conf, _stackCall);
             p_.setCache(_cache);
-            Struct err_ = _cache.checkCache(_conf);
+            Struct err_ = _cache.checkCache(_conf, _stackCall);
             if (err_ != null){
                 p_.setError(err_);
                 return p_;
@@ -529,7 +529,7 @@ public final class ExecTemplates {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                 StringBuilder mess_ = countDiff(wrappers_.size()+args_.size(), 0);
-                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
+                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
                 return p_;
             }
             return p_;
@@ -543,7 +543,7 @@ public final class ExecTemplates {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                 StringBuilder mess_ = countDiff(s.getArg(), s.getParam());
-                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
+                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
                 return p_;
             }
 
@@ -551,7 +551,7 @@ public final class ExecTemplates {
         int i_ = IndexConstants.FIRST_INDEX;
         for (Argument a: args_) {
             String param_ = params_.getTypes().get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf);
+            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
             if (ex_ != null) {
                 p_.setError(ex_);
                 return p_;
@@ -564,8 +564,8 @@ public final class ExecTemplates {
         i_ = IndexConstants.FIRST_INDEX;
         for (AbstractWrapper w: wrappers_) {
             String param_ = params_.getTypesRef().get(i_);
-            Struct value_ = getValue(w, _conf);
-            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf);
+            Struct value_ = getValue(w, _conf, _stackCall);
+            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
             if (ex_ != null) {
                 p_.setError(ex_);
                 return p_;
@@ -578,14 +578,14 @@ public final class ExecTemplates {
             str_ = args_.last().getStruct();
         }
         if (!wrappers_.isEmpty()&&params_.isVarargRef()) {
-            str_ = getValue(wrappers_.last(), _conf);
+            str_ = getValue(wrappers_.last(), _conf, _stackCall);
         }
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
             for (Struct s: arr_.list()) {
                 ErrorType state_ = checkElement(arr_, s, _conf);
                 if (state_ != ErrorType.NOTHING) {
-                    Struct struct_ = processError(_conf, arr_, s, state_);
+                    Struct struct_ = processError(_conf, arr_, s, state_, _stackCall);
                     p_.setError(struct_);
                     return p_;
                 }
@@ -594,7 +594,7 @@ public final class ExecTemplates {
         if (_right != null) {
             String type_ = _id.getImportedReturnType();
             type_ = quickFormat(_rootBlock,_classNameFound, type_);
-            Struct ex_ = checkObjectEx(type_, _right, _conf);
+            Struct ex_ = checkObjectEx(type_, _right, _conf, _stackCall);
             if (ex_ != null) {
                 p_.setError(ex_);
                 return p_;
@@ -606,14 +606,14 @@ public final class ExecTemplates {
         return p_;
     }
 
-    public static Argument getArgValue(AbstractWrapper _w, ContextEl _context) {
-        return new Argument(getValue(_w, _context));
+    public static Argument getArgValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
+        return new Argument(getValue(_w, _context, _stackCall));
     }
-    public static Struct getValue(AbstractWrapper _w, ContextEl _context) {
+    public static Struct getValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
         if (_w == null) {
             return NullStruct.NULL_VALUE;
         }
-        return Argument.getNull(_w.getValue(_context));
+        return Argument.getNull(_w.getValue(_stackCall, _context));
     }
     public static StringBuilder countDiff(int _argsCount, int _paramsCount) {
         StringBuilder mess_ = new StringBuilder();
@@ -716,7 +716,7 @@ public final class ExecTemplates {
         }
         return out_;
     }
-    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
+    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Parameters p_ = new Parameters();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
@@ -724,28 +724,28 @@ public final class ExecTemplates {
         ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted, true);
         for (Argument a: _firstArgs) {
             String param_ = params_.getTypes().get(i_);
-            Struct ex_ = checkObjectEx(param_, a, _conf);
+            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
             if (ex_ != null) {
-                _conf.setCallingState(new CustomFoundExc(ex_));
+                _stackCall.setCallingState(new CustomFoundExc(ex_));
                 return p_;
             }
             LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), param_);
             p_.getParameters().addEntry(params_.getNames().get(i_),lv_);
             i_++;
         }
-        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
+        _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         return p_;
     }
 
-    private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state) {
+    private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         if (_state == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            return new ErrorStruct(_conf,npe_);
+            return new ErrorStruct(_conf,npe_, _stackCall);
         } else {
             String cast_ = stds_.getContent().getCoreNames().getAliasStore();
             StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
-            return new ErrorStruct(_conf,mess_.toString(),cast_);
+            return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
         }
     }
     private static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
@@ -784,23 +784,23 @@ public final class ExecTemplates {
         return ErrorType.NOTHING;
     }
 
-    public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf) {
-        Struct elt_ = gearErrorWhenIndex(_struct, _index, _conf);
-        _conf.getInitializingTypeInfos().addSensibleField(_struct, elt_);
+    public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
+        Struct elt_ = gearErrorWhenIndex(_struct, _index, _conf, _stackCall);
+        _stackCall.getInitializingTypeInfos().addSensibleField(_struct, elt_);
         return elt_;
     }
 
-    public static ErrorType setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf) {
-        return gearErrorWhenContain(_struct, _index, _value, _conf);
+    public static ErrorType setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf, StackCall _stackCall) {
+        return gearErrorWhenContain(_struct, _index, _value, _conf, _stackCall);
     }
 
-    private static ErrorType gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
+    private static ErrorType gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context, StackCall _stackCall) {
         ErrorType err_ = getErrorWhenContain(_array, _index, _value, _context);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
-            if (_context.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
-                _context.getInitializingTypeInfos().failInitEnums();
+            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
+                _stackCall.getInitializingTypeInfos().failInitEnums();
                 return err_;
             }
             int index_ = NumParsers.convertToNumber(_index).intStruct();
@@ -809,26 +809,26 @@ public final class ExecTemplates {
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return err_;
         }
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
             return err_;
         }
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             String type_ = _array.getClassName(_context);
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
             return err_;
         }
         String cast_ = stds_.getContent().getCoreNames().getAliasStore();
         ArrayStruct arr_ = (ArrayStruct) _array;
         StringBuilder mess_ = buildStoreError(_value, _context, arr_);
-        _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
         return err_;
     }
 
@@ -865,7 +865,7 @@ public final class ExecTemplates {
         }
         return ErrorType.NOTHING;
     }
-    private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context) {
+    private static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context, StackCall _stackCall) {
         ErrorType err_ = getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
@@ -875,19 +875,19 @@ public final class ExecTemplates {
         }
         if (err_ == ErrorType.NPE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         if (err_ == ErrorType.BAD_INDEX) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             StringBuilder mess_ = getIndexMessage(_index, arr_);
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, mess_.toString(), cast_, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String type_ = _array.getClassName(_context);
-        _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_)));
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, type_, cast_, _stackCall)));
         return NullStruct.NULL_VALUE;
     }
 
@@ -1114,7 +1114,7 @@ public final class ExecTemplates {
         }
         return true;
     }
-    public static boolean hasBlockContinue(ContextEl _conf,AbstractPageEl _ip, String _label) {
+    public static boolean hasBlockContinue(ContextEl _conf, AbstractPageEl _ip, String _label, StackCall _stackCall) {
         if (!_ip.hasBlock()) {
             _ip.setNullReadWrite();
             return false;
@@ -1129,7 +1129,7 @@ public final class ExecTemplates {
                 ExecLoop loop_;
                 loop_ = ((LoopBlockStack) bl_).getExecLoop();
                 _ip.setBlock(br_);
-                loop_.processLastElementLoop(_conf,lSt_);
+                loop_.processLastElementLoop(_conf,lSt_, _stackCall);
                 return false;
             }
             if (StringUtil.quickEq(_label, bl_.getLabel())){
@@ -1139,7 +1139,7 @@ public final class ExecTemplates {
                 ExecLoop loop_;
                 loop_ = ((LoopBlockStack) bl_).getExecLoop();
                 _ip.setBlock(br_);
-                loop_.processLastElementLoop(_conf,lSt_);
+                loop_.processLastElementLoop(_conf,lSt_, _stackCall);
                 return false;
             }
         }
@@ -1152,8 +1152,8 @@ public final class ExecTemplates {
         }
         _ip.getLastStack().setCurrentVisitedBlock(_block);
     }
-    public static void processFinally(ContextEl _cont,ExecBracedBlock _block) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public static void processFinally(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         TryBlockStack ts_ = ip_.getLastTry();
         if (ts_ == null) {
             ip_.setNullReadWrite();
@@ -1161,14 +1161,14 @@ public final class ExecTemplates {
         }
         ts_.setCurrentVisitedBlock(_block);
         if (ts_.isVisitedFinally()) {
-            _block.processBlockAndRemove(_cont);
+            _block.processBlockAndRemove(_cont, _stackCall);
             return;
         }
         ts_.setVisitedFinally(true);
         ip_.setBlock(_block.getFirstChild());
     }
-    public static void processElseIf(ContextEl _cont,ExecCondition _cond) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public static void processElseIf(ContextEl _cont, ExecCondition _cond, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         IfBlockStack if_ = ip_.getLastIf();
         if (if_ == null) {
             ip_.setNullReadWrite();
@@ -1176,7 +1176,7 @@ public final class ExecTemplates {
         }
         if_.setCurrentVisitedBlock(_cond);
         if (!if_.isEntered()) {
-            ConditionReturn assert_ = _cond.evaluateCondition(_cont);
+            ConditionReturn assert_ = _cond.evaluateCondition(_cont, _stackCall);
             if (assert_ == ConditionReturn.CALL_EX) {
                 return;
             }
@@ -1190,10 +1190,10 @@ public final class ExecTemplates {
             ip_.setBlock(_cond.getNextSibling());
             return;
         }
-        _cond.processBlockAndRemove(_cont);
+        _cond.processBlockAndRemove(_cont, _stackCall);
     }
-    public static void processElse(ContextEl _cont,ExecBracedBlock _cond) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public static void processElse(ContextEl _cont, ExecBracedBlock _cond, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         IfBlockStack if_ = ip_.getLastIf();
         if (if_ == null) {
             ip_.setNullReadWrite();
@@ -1205,17 +1205,17 @@ public final class ExecTemplates {
             ip_.setBlock(_cond.getFirstChild());
             return;
         }
-        _cond.processBlockAndRemove(_cont);
+        _cond.processBlockAndRemove(_cont, _stackCall);
     }
-    public static void processDo(ContextEl _cont,ExecCondition _cond) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public static void processDo(ContextEl _cont, ExecCondition _cond, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         LoopBlockStack l_ = ip_.getLastLoop();
         if (l_ == null) {
             ip_.setNullReadWrite();
             return;
         }
         l_.setEvaluatingKeepLoop(true);
-        ConditionReturn keep_ = _cond.evaluateCondition(_cont);
+        ConditionReturn keep_ = _cond.evaluateCondition(_cont, _stackCall);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -1225,16 +1225,16 @@ public final class ExecTemplates {
         l_.setEvaluatingKeepLoop(false);
         ip_.setBlock(_cond.getPreviousSibling());
     }
-    public static void processBlockAndRemove(ContextEl _context,ExecBlock _bl) {
-        AbstractPageEl ip_ = _context.getLastPage();
+    public static void processBlockAndRemove(ContextEl _context, ExecBlock _bl, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         if (!ip_.hasBlock()) {
             ip_.setNullReadWrite();
             return;
         }
         ip_.removeLastBlock();
-        _bl.processBlock(_context);
+        _bl.processBlock(_context, _stackCall);
     }
-    public static Argument getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars) {
+    public static Argument getIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         if (_cache != null) {
             LoopVariable loopVar_ = _cache.getLoopVar(_val,_deep);
@@ -1248,7 +1248,7 @@ public final class ExecTemplates {
         LoopVariable locVar_ = _vars.getVal(_val);
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return new Argument(new IntStruct(0));
         }
         byte cast_ = ClassArgumentMatching.getPrimitiveCast(locVar_.getIndexClassName(), _context.getStandards().getPrimTypes());
@@ -1257,8 +1257,8 @@ public final class ExecTemplates {
         return new Argument(value_);
     }
 
-    public static void incrIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars) {
-        if (_context.callsOrException()) {
+    public static void incrIndexLoop(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<LoopVariable> _vars, StackCall _stackCall) {
+        if (_context.callsOrException(_stackCall)) {
             return;
         }
         if (_cache != null) {
@@ -1272,15 +1272,15 @@ public final class ExecTemplates {
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return;
         }
         locVar_.setIndex(locVar_.getIndex() + 1);
     }
 
-    public static Argument getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+    public static Argument getWrapValue(ContextEl _context, String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
         AbstractWrapper wrapper_ = getWrapper(_val, _deep, _cache, _refParams);
-        return new Argument(getValue(wrapper_, _context));
+        return new Argument(getValue(wrapper_, _context, _stackCall));
     }
 
     public static AbstractWrapper getWrapper(String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
@@ -1293,35 +1293,35 @@ public final class ExecTemplates {
         return _refParams.getVal(_val);
     }
 
-    public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context) {
+    public static Argument getValueVar(String _val, StringMap<LocalVariable> _valueVars, ContextEl _context, StackCall _stackCall) {
         LocalVariable locVar_ = _valueVars.getVal(_val);
         if (locVar_ == null) {
             LgNames stds_ = _context.getStandards();
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _context.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stackCall)));
             return new Argument();
         }
         return new Argument(locVar_.getStruct());
     }
 
-    public static Argument setWrapValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
-        if (_context.callsOrException()) {
+    public static Argument setWrapValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
+        if (_context.callsOrException(_stackCall)) {
             return new Argument();
         }
         if (_cache != null) {
             AbstractWrapper wr_ = _cache.getLocalWrapper(_val, _deep);
             if (wr_ != null) {
-                wr_.setValue(_context,_value);
+                wr_.setValue(_stackCall, _context,_value);
                 return _value;
             }
         }
         AbstractWrapper wr_ = _refParams.getVal(_val);
-        return trySetArgument(_context,_value,wr_);
+        return trySetArgument(_context,_value,wr_, _stackCall);
     }
 
-    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
+    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right, StackCall _stackCall) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!checkQuick(formattedClassVar_, _right, _conf)) {
+        if (!checkQuick(formattedClassVar_, _right, _conf, _stackCall)) {
             return Argument.createVoid();
         }
         _loc.setStruct(_right.getStruct());
@@ -1546,27 +1546,27 @@ public final class ExecTemplates {
         return StringExpUtil.commonCorrectType(_genericClass,compo_,fct_,rep_);
     }
 
-    public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf) {
+    public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf, StackCall _stackCall) {
         String baseClass_ = _meta.getDeclaringClass();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         String type_ = _meta.getType();
-        return getField(new DefaultSetOffset(_conf),_conf.getExiting(),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1);
+        return getField(new DefaultSetOffset(),_conf.getExiting(),baseClass_, fieldName_, isStaticField_,type_, _previous, _conf, -1, _stackCall);
     }
 
-    public static Argument getField(AbstractSetOffset _setOffset, AbstractExiting _exit, String _className, String _fieldName, boolean _isStaticField, String _ret, Argument _previous, ContextEl _conf, int _possibleOffset) {
+    public static Argument getField(AbstractSetOffset _setOffset, AbstractExiting _exit, String _className, String _fieldName, boolean _isStaticField, String _ret, Argument _previous, ContextEl _conf, int _possibleOffset, StackCall _stackCall) {
         if (_possibleOffset > -1) {
-            _setOffset.setOffset(_possibleOffset);
+            _setOffset.setOffset(_stackCall, _possibleOffset);
         }
 
         if (_isStaticField) {
-            return getStaticField(_exit,_className, _fieldName, _ret, _conf);
+            return getStaticField(_exit,_className, _fieldName, _ret, _conf, _stackCall);
         }
-        return getInstanceField(_className, _fieldName, _previous, _conf);
+        return getInstanceField(_className, _fieldName, _previous, _conf, _stackCall);
     }
 
-    public static Argument getInstanceField(String _className, String _fieldName, Argument _previous, ContextEl _conf) {
+    public static Argument getInstanceField(String _className, String _fieldName, Argument _previous, ContextEl _conf, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getContent().getCoreNames().getAliasCastType();
@@ -1577,57 +1577,57 @@ public final class ExecTemplates {
             if (previous_ == NullStruct.NULL_VALUE) {
                 String npe_;
                 npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
                 return Argument.createVoid();
             }
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_, _stackCall)));
             return _previous;
         }
         ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_, _stackCall)));
             return _previous;
         }
         Struct struct_ = entry_.getStruct();
-        _conf.getInitializingTypeInfos().addSensibleField(previous_, struct_);
+        _stackCall.getInitializingTypeInfos().addSensibleField(previous_, struct_);
         return new Argument(struct_);
     }
 
-    public static Argument getStaticField(AbstractExiting _exit, String _className, String _fieldName, String _ret, ContextEl _conf) {
+    public static Argument getStaticField(AbstractExiting _exit, String _className, String _fieldName, String _ret, ContextEl _conf, StackCall _stackCall) {
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        if (_exit.hasToExit(_className)) {
+        if (_exit.hasToExit(_stackCall, _className)) {
             return Argument.createVoid();
         }
         Struct struct_ = classes_.getStaticField(fieldId_,_ret, _conf);
-        _conf.getInitializingTypeInfos().addSensibleField(_conf,fieldId_.getClassName(), struct_);
+        _stackCall.getInitializingTypeInfos().addSensibleField(fieldId_.getClassName(), struct_, _stackCall);
         return new Argument(struct_);
     }
 
-    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right, ContextEl _conf) {
+    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall) {
         String baseClass_ = _meta.getDeclaringClass();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(new DefaultSetOffset(_conf),_conf.getExiting(),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
+        return setField(new DefaultSetOffset(),_conf.getExiting(),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1, _stackCall);
     }
 
     public static Argument setField(AbstractSetOffset _setOffset, AbstractExiting _exit, ExecRootBlock _rootBlock, String _className, String _fieldName,
                                     boolean _isStaticField, boolean _finalField, boolean _failIfFinal,
                                     String _returnType, Argument _previous,
-                                    Argument _right, ContextEl _conf, int _possibleOffset) {
+                                    Argument _right, ContextEl _conf, int _possibleOffset, StackCall _stackCall) {
         if (_possibleOffset > -1) {
-            _setOffset.setOffset(_possibleOffset);
+            _setOffset.setOffset(_stackCall, _possibleOffset);
         }
         if (_isStaticField) {
-            return setStaticField(_exit,_className, _fieldName, _finalField, _failIfFinal, _returnType, _right, _conf);
+            return setStaticField(_exit,_className, _fieldName, _finalField, _failIfFinal, _returnType, _right, _conf, _stackCall);
         }
-        return setInstanceField(_rootBlock,_className, _fieldName, _returnType, _previous, _right, _conf);
+        return setInstanceField(_rootBlock,_className, _fieldName, _returnType, _previous, _right, _conf, _stackCall);
     }
 
-    public static Argument setInstanceField(ExecRootBlock _rootBlock, String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf) {
+    public static Argument setInstanceField(ExecRootBlock _rootBlock, String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall) {
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = _previous.getStruct();
@@ -1636,49 +1636,49 @@ public final class ExecTemplates {
         if (!(previous_ instanceof FieldableStruct)) {
             if (previous_ == NullStruct.NULL_VALUE) {
                 String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
                 return Argument.createVoid();
             }
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_, _stackCall)));
             return Argument.createVoid();
         }
         ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_className, argClassName_), cast_, _stackCall)));
             return Argument.createVoid();
         }
         String classNameFound_ = getSuperGeneric(argClassName_, _className, _conf);
         String fieldType_ = quickFormat(_rootBlock,classNameFound_, _returnType);
-        if (!checkQuick(fieldType_, _right, _conf)) {
+        if (!checkQuick(fieldType_, _right, _conf, _stackCall)) {
             return Argument.createVoid();
         }
-        if (_conf.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
-            _conf.getInitializingTypeInfos().failInitEnums();
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
         entry_.setStruct(_right.getStruct());
         return _right;
     }
 
-    private static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf) {
+    private static Argument setStaticField(AbstractExiting _exit, String _className, String _fieldName, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall) {
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         LgNames stds_ = _conf.getStandards();
         if (_finalField && _failIfFinal) {
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return Argument.createVoid();
         }
-        if (_exit.hasToExit(_className)) {
+        if (_exit.hasToExit(_stackCall, _className)) {
             return Argument.createVoid();
         }
-        if (!checkQuick(_returnType, _right, _conf)) {
+        if (!checkQuick(_returnType, _right, _conf, _stackCall)) {
             return Argument.createVoid();
         }
         String className_ = fieldId_.getClassName();
-        if (_conf.getInitializingTypeInfos().isSensibleField(_conf, className_)) {
-            _conf.getInitializingTypeInfos().failInitEnums();
+        if (_stackCall.getInitializingTypeInfos().isSensibleField(className_, _stackCall)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
         NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(fieldId_.getFieldName(), _right.getStruct());
@@ -1787,16 +1787,16 @@ public final class ExecTemplates {
         return _ctx.getStandards().getCoreNames().getAliasObject();
     }
 
-    public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair) {
+    public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {
         AbstractWrapper wrapper_ = _pair.getWrapper();
-        return trySetArgument(_conf, _res, wrapper_);
+        return trySetArgument(_conf, _res, wrapper_, _stackCall);
     }
 
-    private static Argument trySetArgument(ContextEl _conf, Argument _res, AbstractWrapper _wrapper) {
-        if (_wrapper == null || _conf.callsOrException()) {
+    private static Argument trySetArgument(ContextEl _conf, Argument _res, AbstractWrapper _wrapper, StackCall _stackCall) {
+        if (_wrapper == null || _conf.callsOrException(_stackCall)) {
             return _res;
         }
-        _wrapper.setValue(_conf, _res);
+        _wrapper.setValue(_stackCall, _conf, _res);
         return _res;
     }
 }

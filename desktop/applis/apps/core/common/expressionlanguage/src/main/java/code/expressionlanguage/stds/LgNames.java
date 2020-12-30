@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -25,7 +26,7 @@ public abstract class LgNames implements BuildableLgNames {
     public static final String ENUM_NAME = "EnumName";
     public static final String ENUM_ORDINAL = "EnumOrdinal";
 
-    private LgNamesContent content = new LgNamesContent();
+    private final LgNamesContent content = new LgNamesContent();
 
     private final AbstractGenerator generator;
     private AbstractExecConstantsCalculator calculator;
@@ -52,29 +53,29 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     public abstract void buildOther();
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         LgNames lgNames_ = _cont.getStandards();
-        return lgNames_.invoke(_cont,_method,_struct, _exit, _args);
+        return lgNames_.invoke(_stackCall, _cont,_method,_struct, _exit, _args);
     }
 
-    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args);
+    protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+        return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args, _stack);
     }
 
     /**@param  _instance l'instance*/
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+        return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stack);
     }
 
-    public Argument defaultInstance(ContextEl _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
         return new Argument(new SimpleObjectStruct());
     }
 
-    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
-        return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args);
+    protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
+        return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stack);
     }
 
-    public ResultErrorStd getOtherResult(ContextEl _cont, ConstructorId _method, Struct... _args) {
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(new SimpleObjectStruct());
         return res_;

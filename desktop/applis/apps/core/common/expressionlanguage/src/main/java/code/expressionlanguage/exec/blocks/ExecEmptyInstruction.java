@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 
 public final class ExecEmptyInstruction extends ExecLeaf implements WithEl {
     public ExecEmptyInstruction(int _offsetTrim) {
@@ -8,7 +9,7 @@ public final class ExecEmptyInstruction extends ExecLeaf implements WithEl {
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        processBlock(_cont);
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        processBlock(_cont, _stack);
     }
 }

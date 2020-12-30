@@ -4,12 +4,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -20,7 +20,7 @@ import code.util.IdMap;
 
 public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
-    private ExecLambdaMethodContent lambdaMethodContent;
+    private final ExecLambdaMethodContent lambdaMethodContent;
 
     public ExecOperatorMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
         super(_opCont, _lamCont);
@@ -29,10 +29,10 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Argument res_ = getCommonArgument(previous_);
-        setSimpleArgument(res_, _conf, _nodes);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     Argument getCommonArgument(Argument _previous) {

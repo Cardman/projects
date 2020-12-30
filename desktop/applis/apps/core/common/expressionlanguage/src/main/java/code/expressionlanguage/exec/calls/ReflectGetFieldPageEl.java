@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.stds.LgNames;
@@ -11,7 +12,7 @@ import code.expressionlanguage.structs.FieldMetaInfo;
 public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
-    private FieldMetaInfo metaInfo;
+    private final FieldMetaInfo metaInfo;
 
     private final Argument argument;
 
@@ -22,14 +23,14 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField()) {
                 String baseClass_ = metaInfo.getDeclaringClass();
                 baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                if (_context.getExiting().hasToExit(baseClass_)) {
+                if (_context.getExiting().hasToExit(_stack, baseClass_)) {
                     setWrapException(true);
                     return false;
                 }
@@ -43,8 +44,8 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
             setReturnedArgument(arg_);
             return true;
         }
-        Argument arg_ = ExecTemplates.getField(metaInfo, argument, _context);
-        if (_context.callsOrException()) {
+        Argument arg_ = ExecTemplates.getField(metaInfo, argument, _context, _stack);
+        if (_context.callsOrException(_stack)) {
             return false;
         }
         setReturnedArgument(arg_);

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -16,7 +17,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
 
-    private int opOffset;
+    private final int opOffset;
 
     public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset) {
         super(_opCont);
@@ -61,54 +62,54 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
+                          ContextEl _conf, StackCall _stack) {
         if (settableParent instanceof ExecSafeDotOperation) {
             ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
+                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
-        setRelOffsetPossibleLastPage(opOffset,_conf);
+        setRelOffsetPossibleLastPage(opOffset, _stack);
         if (settable instanceof ExecStdRefVariableOperation) {
             if (((ExecStdRefVariableOperation)settable).isDeclare()){
                 CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
                 ArgumentsPair pairRight_ = ExecTemplates.getArgumentPair(_nodes, ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1));
-                PageEl ip_ = _conf.getLastPage();
+                PageEl ip_ = _stack.getLastPage();
                 ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),pairRight_.getWrapper());
-                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes);
+                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
                 return;
             }
         }
-        Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_);
-        setSimpleArgument(arg_, _conf, _nodes);
+        Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_, _stack);
+        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
     static Argument calculateChSetting(ExecOperationNode _set,
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right){
+                                       IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
         Argument arg_ = null;
         if (_set instanceof ExecStdVariableOperation) {
-            arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecStdVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecRefParamOperation) {
-            arg_ = ((ExecRefParamOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecRefParamOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         if (_set instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right);
+            arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         return Argument.getNullableValue(arg_);
     }

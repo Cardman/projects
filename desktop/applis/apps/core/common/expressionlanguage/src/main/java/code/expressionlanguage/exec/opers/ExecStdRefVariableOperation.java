@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -23,23 +24,23 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         if (resultCanBeSet()) {
             if (!declare) {
-                PageEl ip_ = _conf.getLastPage();
-                AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
+                PageEl ip_ = _stack.getLastPage();
+                AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
                 ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
                 pair_.setWrapper(val_);
-                setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf), _conf, _nodes);
+                setQuickNoConvertSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
             } else {
-                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes);
+                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
             }
         } else {
-            PageEl ip_ = _conf.getLastPage();
-            AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _conf.getLastPage().getRefParams());
+            PageEl ip_ = _stack.getLastPage();
+            AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent.getVariableName(),variableContent.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(val_);
-            setSimpleArgument(ExecTemplates.getArgValue(val_,_conf), _conf, _nodes);
+            setSimpleArgument(ExecTemplates.getArgValue(val_,_conf, _stack), _conf, _nodes, _stack);
         }
     }
 
@@ -52,31 +53,31 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
     }
 
     @Override
-    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        return trySetArgument(_conf, _right);
+    public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+        return trySetArgument(_conf, _right, _stack);
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
-        return getCommonCompoundSetting(_conf,store_,_op,_right,_cl,_cast);
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
+        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
+        return getCommonCompoundSetting(_conf,store_,_op,_right,_cl,_cast, _stack);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
-        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams()).getStruct();
-        return getCommonSemiSetting(_conf,store_,_op,_post,_cast);
+    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
+        Struct store_ = ExecTemplates.getWrapValue(_conf,getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
+        return getCommonSemiSetting(_conf,store_,_op,_post,_cast, _stack);
     }
-    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
+    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast, StackCall _stackCall) {
         Argument left_ = new Argument(_store);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast);
-        return trySetArgument(_conf, res_);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast, _stackCall);
+        return trySetArgument(_conf, res_, _stackCall);
     }
 
-    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
+    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast, StackCall _stackCall) {
         Argument left_ = new Argument(_store);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_conf, res_);
+        trySetArgument(_conf, res_, _stackCall);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
     @Override
@@ -85,18 +86,18 @@ public class ExecStdRefVariableOperation extends ExecLeafOperation implements
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return trySetArgument(_conf, _right);
+    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+        return trySetArgument(_conf, _right, _stack);
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right) {
-        trySetArgument(_conf, _right);
+    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
+        trySetArgument(_conf, _right, _stack);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument trySetArgument(ContextEl _conf, Argument _res) {
-        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(),_conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
+    private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall) {
+        return ExecTemplates.setWrapValue(_conf,variableContent.getVariableName(), _res,variableContent.getDeep(), _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
     }
     public boolean isDeclare() {
         return declare;

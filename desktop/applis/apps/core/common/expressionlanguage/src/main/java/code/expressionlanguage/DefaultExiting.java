@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 
 public final class DefaultExiting implements AbstractExiting {
     private final ContextEl context;
@@ -10,12 +11,12 @@ public final class DefaultExiting implements AbstractExiting {
     }
 
     @Override
-    public boolean hasToExit(String _className) {
-        return hasToExit(_className,null);
+    public boolean hasToExit(StackCall _stack, String _className) {
+        return hasToExit(_stack, _className,null);
     }
 
     @Override
-    public boolean hasToExit(String _className, Argument _arg) {
-        return ExecutingUtil.hasToExit(context,_className,_arg);
+    public boolean hasToExit(StackCall _stack, String _className, Argument _arg) {
+        return ExecutingUtil.hasToExit(context,_className,_arg, _stack);
     }
 }

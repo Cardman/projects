@@ -6,6 +6,7 @@ import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -79,9 +80,9 @@ public final class AliasNumber {
     private String aliasGetCharType;
     private String aliasToLowerCaseChar;
     private String aliasToUpperCaseChar;
-    private AliasParamNumber params = new AliasParamNumber();
+    private final AliasParamNumber params = new AliasParamNumber();
 
-    public static void instantiateNumber(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
+    public static void instantiateNumber(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, StackCall _stackCall, Struct... _args) {
       String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -112,7 +113,7 @@ public final class AliasNumber {
       }
       if (StringUtil.quickEq(type_, byteType_)) {
           if (StringUtil.quickEq(list_.first(), stringType_)) {
-              parseByte(_res,list_, _args,true, _cont);
+              parseByte(_res,list_, _args,true, _cont, _stackCall);
               return;
           }
           _res.setResult(_args[0]);
@@ -120,7 +121,7 @@ public final class AliasNumber {
       }
       if (StringUtil.quickEq(type_, shortType_)) {
           if (StringUtil.quickEq(list_.first(), stringType_)) {
-              parseShort(_res,list_, _args,true, _cont);
+              parseShort(_res,list_, _args,true, _cont, _stackCall);
               return;
           }
           _res.setResult(_args[0]);
@@ -128,7 +129,7 @@ public final class AliasNumber {
       }
       if (StringUtil.quickEq(type_, intType_)) {
           if (StringUtil.quickEq(list_.first(), stringType_)) {
-              parseInt(_res,list_, _args,true, _cont);
+              parseInt(_res,list_, _args,true, _cont, _stackCall);
               return;
           }
           _res.setResult(_args[0]);
@@ -136,7 +137,7 @@ public final class AliasNumber {
       }
       if (StringUtil.quickEq(type_, longType_)) {
           if (StringUtil.quickEq(list_.first(), stringType_)) {
-              parseLong(_res,list_, _args,true, _cont);
+              parseLong(_res,list_, _args,true, _cont, _stackCall);
               return;
           }
           _res.setResult(_args[0]);
@@ -144,30 +145,30 @@ public final class AliasNumber {
       }
       if (StringUtil.quickEq(type_, floatType_)) {
           if (StringUtil.quickEq(list_.first(), stringType_)) {
-              parseFloat(_res, _args[0],true, _cont);
+              parseFloat(_res, _args[0],true, _cont, _stackCall);
               return;
           }
           _res.setResult(_args[0]);
           return;
       }
       if (StringUtil.quickEq(list_.first(), stringType_)) {
-          parseDouble(_res, _args[0],true, _cont);
+          parseDouble(_res, _args[0],true, _cont, _stackCall);
           return;
       }
       _res.setResult(_args[0]);
   }
 
-    public static void processNumber(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
+    public static void processNumber(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
             if (!(_args[0] instanceof NumberStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
                 return;
             }
             if (!(_args[1] instanceof  NumberStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
@@ -176,7 +177,7 @@ public final class AliasNumber {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             if (!(_args[0] instanceof  NumberStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
                 return;
             }
             _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
@@ -229,7 +230,7 @@ public final class AliasNumber {
         _res.setResult(disp_);
     }
 
-    public static void processNumbers(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, String _type, Struct[] _args) {
+    public static void processNumbers(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, String _type, Struct[] _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
         String byteType_ = lgNames_.getContent().getNbAlias().getAliasByte();
         String shortType_ = lgNames_.getContent().getNbAlias().getAliasShort();
@@ -269,7 +270,7 @@ public final class AliasNumber {
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseByte());
-            parseByte(_res, list_, _args,exc_, _cont);
+            parseByte(_res, list_, _args,exc_, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(_type, shortType_)) {
@@ -303,7 +304,7 @@ public final class AliasNumber {
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseShort());
-            parseShort(_res, list_, _args,exc_, _cont);
+            parseShort(_res, list_, _args,exc_, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(_type, intType_)) {
@@ -337,7 +338,7 @@ public final class AliasNumber {
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseInt());
-            parseInt(_res, list_, _args,exc_, _cont);
+            parseInt(_res, list_, _args,exc_, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(_type, longType_)) {
@@ -382,7 +383,7 @@ public final class AliasNumber {
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseLong());
-            parseLong(_res, list_, _args,exc_, _cont);
+            parseLong(_res, list_, _args,exc_, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(_type, floatType_)) {
@@ -416,7 +417,7 @@ public final class AliasNumber {
                 return;
             }
             boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseFloat());
-            parseFloat(_res, _args[0],exc_, _cont);
+            parseFloat(_res, _args[0],exc_, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
@@ -447,10 +448,10 @@ public final class AliasNumber {
             return;
         }
         boolean exc_ = StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasParseDouble());
-        parseDouble(_res, _args[0],exc_, _cont);
+        parseDouble(_res, _args[0],exc_, _cont, _stackCall);
     }
 
-    public static void processCharacter(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args) {
+    public static void processCharacter(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         if (_method.getConstraints().isStaticMethod()) {
@@ -541,7 +542,7 @@ public final class AliasNumber {
             return;
         }
         if (!(_args[0] instanceof CharStruct)) {
-            _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+            _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
             return;
         }
         CharStruct ch_ = NumParsers.convertToChar(_struct);
@@ -601,13 +602,13 @@ public final class AliasNumber {
         _res.setResult(BooleanStruct.of(false));
     }
 
-    public static void parseDouble(ResultErrorStd _res, Struct _arg, boolean _exception, ContextEl _context) {
+    public static void parseDouble(ResultErrorStd _res, Struct _arg, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_arg instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -617,19 +618,19 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, one_)));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, one_, _stackCall)));
       } else {
           _res.setResult(new DoubleStruct(v_.getValue()));
       }
   }
 
-    public static void parseFloat(ResultErrorStd _res, Struct _arg, boolean _exception, ContextEl _context) {
+    public static void parseFloat(ResultErrorStd _res, Struct _arg, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_arg instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
@@ -639,19 +640,19 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, one_)));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, one_, _stackCall)));
       } else {
           _res.setResult(new FloatStruct((float) v_.getValue()));
       }
   }
 
-    public static void parseLong(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context) {
+    public static void parseLong(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_args[0] instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -663,19 +664,19 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_))));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_), _stackCall)));
       } else {
           _res.setResult(new LongStruct(lg_.getValue()));
       }
   }
 
-    public static void parseInt(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context) {
+    public static void parseInt(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_args[0] instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -687,19 +688,19 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_))));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_), _stackCall)));
       } else {
           _res.setResult(new IntStruct((int) lg_.getValue()));
       }
   }
 
-    public static void parseShort(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context) {
+    public static void parseShort(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_args[0] instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -711,19 +712,19 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_))));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_), _stackCall)));
       } else {
           _res.setResult(new ShortStruct((short) lg_.getValue()));
       }
   }
 
-    public static void parseByte(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context) {
+    public static void parseByte(ResultErrorStd _res, StringList _list, Struct[] _args, boolean _exception, ContextEl _context, StackCall _stackCall) {
       if (!(_args[0] instanceof CharSequenceStruct)) {
           if (!_exception) {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getNpe(_context)));
+          _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
           return;
       }
       String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
@@ -735,18 +736,18 @@ public final class AliasNumber {
               _res.setResult(NullStruct.NULL_VALUE);
               return;
           }
-          _context.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_))));
+          _stackCall.setCallingState(new CustomFoundExc(getFormatError(_context, getNumberRadixMessage(one_, radix_), _stackCall)));
       } else {
           _res.setResult(new ByteStruct((byte)lg_.getValue()));
       }
   }
 
-    private static ErrorStruct getNpe(ContextEl _context) {
-        return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe());
+    private static ErrorStruct getNpe(ContextEl _context, StackCall _stackCall) {
+        return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
-    private static ErrorStruct getFormatError(ContextEl _context, String _text) {
-        return new ErrorStruct(_context, _text, _context.getStandards().getContent().getCoreNames().getAliasNbFormat());
+    private static ErrorStruct getFormatError(ContextEl _context, String _text, StackCall _stackCall) {
+        return new ErrorStruct(_context, _text, _context.getStandards().getContent().getCoreNames().getAliasNbFormat(), _stackCall);
     }
 
     private static String getNumberRadixMessage(String _nb, int _radix) {

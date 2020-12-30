@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -20,7 +21,7 @@ public final class ApplyCoreMethodUtil {
     private ApplyCoreMethodUtil() {
     }
 
-    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument[] _args) {
+    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument[] _args, StackCall _stackCall) {
         Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getClassName();
         LgNames lgNames_ = _cont.getStandards();
@@ -32,7 +33,7 @@ public final class ApplyCoreMethodUtil {
             return processResources(_cont, _method, args_);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasObjectsUtil())) {
-            return processObjectsUtil(_cont, _method, args_);
+            return processObjectsUtil(_cont, _method, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, replType_)) {
             ResultErrorStd result_ = new ResultErrorStd();
@@ -41,16 +42,16 @@ public final class ApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(type_, stringType_)
                 || StringUtil.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
-            return AliasCharSequence.invokeStdMethod(_cont, _method, _struct, _args);
+            return AliasCharSequence.invokeStdMethod(_cont, _method, _struct, _stackCall, _args);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getStackElt().getAliasStackTraceElement())) {
-            return AliasStackTraceElement.invokeMethod(_cont, _method, _struct);
+            return AliasStackTraceElement.invokeMethod(_cont, _method, _struct, _stackCall);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasError())) {
-            return processError(_cont, _method, _struct, args_);
+            return processError(_cont, _method, _struct, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, mathType_)) {
-            return AliasMath.invokeStdMethod(_cont, _method, _args);
+            return AliasMath.invokeStdMethod(_cont, _method, _stackCall, _args);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasBoolean())) {
             ResultErrorStd result_ = new ResultErrorStd();
@@ -59,7 +60,7 @@ public final class ApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasCharacter())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processCharacter(_cont, result_, _method, _struct, args_);
+            AliasNumber.processCharacter(_cont, result_, _method, _struct, args_, _stackCall);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasByte())
@@ -69,26 +70,26 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processNumbers(_cont, result_, _method, _struct, type_, args_);
+            AliasNumber.processNumbers(_cont, result_, _method, _struct, type_, args_, _stackCall);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processNumber(_cont, result_, _method, _struct, args_);
+            AliasNumber.processNumber(_cont, result_, _method, _struct, args_, _stackCall);
             return result_;
         }
         String stringUtil_ = lgNames_.getContent().getCoreNames().getAliasStringUtil();
         if (StringUtil.quickEq(type_, stringUtil_)) {
             ResultErrorStd result_ = new ResultErrorStd();
             Argument a_ = new Argument(args_[0]);
-            a_ = ExecOperationNode.processString(a_,_cont);
-            if (_cont.getCallingState() == null) {
+            a_ = ExecOperationNode.processString(a_,_cont, _stackCall);
+            if (_stackCall.getCallingState() == null) {
                 result_.setResult(a_.getStruct());
             }
             return result_;
         }
         if (StringUtil.quickEq(type_, stringBuilderType_)) {
-            return AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
+            return AliasCharSequence.invokeMethod(_cont, _method, _struct, _stackCall, _args);
         }
         AliasReflection ref_ = lgNames_.getReflect();
         if (StringUtil.quickEq(type_, ref_.getAliasAnnotationType())) {
@@ -102,46 +103,46 @@ public final class ApplyCoreMethodUtil {
         }
         String aliasAnnotated_ = lgNames_.getContent().getReflect().getAliasAnnotated();
         if (StringUtil.quickEq(aliasAnnotated_, type_)) {
-            return AliasReflection.invokeAnnotated(_cont, _method, _struct, args_);
+            return AliasReflection.invokeAnnotated(_cont, _method, _struct, args_, _stackCall);
         }
         String aliasFct_ = lgNames_.getContent().getReflect().getAliasFct();
         if (StringUtil.quickEq(aliasFct_, type_)) {
             ResultErrorStd res_ = new ResultErrorStd();
             if (args_.length == 0) {
                 if (StringUtil.quickEq(_method.getConstraints().getName(), _cont.getStandards().getContent().getReflect().getAliasMetaInfo())) {
-                    res_.setResult(ExecInvokingOperation.getMetaInfo(new Argument(_struct), _cont).getStruct());
+                    res_.setResult(ExecInvokingOperation.getMetaInfo(new Argument(_struct), _cont, _stackCall).getStruct());
                     return res_;
                 }
-                res_.setResult(ExecInvokingOperation.getInstanceCall(new Argument(_struct), _cont).getStruct());
+                res_.setResult(ExecInvokingOperation.getInstanceCall(new Argument(_struct), _cont, _stackCall).getStruct());
                 return res_;
             }
             Argument instance_ = new Argument(args_[0]);
             Struct inst_ = instance_.getStruct();
             if (!(inst_ instanceof ArrayStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
                 return res_;
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
             CustList<Argument> ar_ = arr_.listArgs();
-            res_.setResult(ExecInvokingOperation.prepareCallDynReflect(new Argument(_struct), ar_, _cont).getStruct());
+            res_.setResult(ExecInvokingOperation.prepareCallDynReflect(new Argument(_struct), ar_, _cont, _stackCall).getStruct());
             return res_;
         }
         if (StringUtil.quickEq(type_, ref_.getAliasField())) {
-            return AliasReflection.invokeFieldInfo(_cont, _method, _struct,args_);
+            return AliasReflection.invokeFieldInfo(_cont, _method, _struct,args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasMethod())) {
-            return AliasReflection.invokeMethodInfo(_cont, _method, _struct, args_);
+            return AliasReflection.invokeMethodInfo(_cont, _method, _struct, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasClassType())) {
-            return AliasReflection.invokeClassInfo(_cont, _method, _struct, _exit, args_);
+            return AliasReflection.invokeClassInfo(_cont, _method, _struct, _exit, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasConstructor())) {
-            return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_);
+            return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_, _stackCall);
         }
-        return lgNames_.getOtherResult(_cont, _struct, _method, args_);
+        return lgNames_.getOtherResult(_stackCall, _cont, _struct, _method, args_);
     }
 
-    public static ResultErrorStd instanceBase(ContextEl _cont, ConstructorId _method, Argument[] _args) {
+    public static ResultErrorStd instanceBase(ContextEl _cont, ConstructorId _method, Argument[] _args, StackCall _stackCall) {
         Struct[] args_ = ExecTemplates.getObjects(_args);
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
@@ -162,7 +163,7 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringUtil.quickEq(type_, stringType_)) {
-            AliasCharSequence.instantiateString(lgNames_, result_, _method, _cont, args_);
+            AliasCharSequence.instantiateString(lgNames_, result_, _method, _cont, _stackCall, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, booleanType_)
@@ -173,18 +174,18 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, longType_)
                 || StringUtil.quickEq(type_, floatType_)
                 || StringUtil.quickEq(type_, doubleType_)) {
-            AliasNumber.instantiateNumber(_cont, result_, _method, args_);
+            AliasNumber.instantiateNumber(_cont, result_, _method, _stackCall, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, stringBuilderType_)) {
-            AliasCharSequence.instantiateStringBuilder(_cont, result_, _method, args_);
+            AliasCharSequence.instantiateStringBuilder(_cont, result_, _method, _stackCall, args_);
             return result_;
         }
-        result_ = lgNames_.getOtherResult(_cont, _method, args_);
+        result_ = lgNames_.getOtherResult(_stackCall, _cont, _method, args_);
         return result_;
     }
 
-    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
+    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
         ResultErrorStd result_ = new ResultErrorStd();
 
         String name_ = _method.getConstraints().getName();
@@ -192,7 +193,7 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new StringStruct(en_.getName()));
@@ -200,7 +201,7 @@ public final class ApplyCoreMethodUtil {
         } else {
             Struct str_ = _args[0];
             if (!(str_ instanceof EnumerableStruct)) {
-                _cont.setCallingState(new CustomFoundExc(getNpe(_cont)));
+                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
             } else {
                 EnumerableStruct en_ = (EnumerableStruct) str_;
                 result_.setResult(new IntStruct(en_.getOrdinal()));
@@ -209,8 +210,8 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    private static ErrorStruct getNpe(ContextEl _cont) {
-        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe());
+    private static ErrorStruct getNpe(ContextEl _cont, StackCall _stackCall) {
+        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
     public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] _args) {
@@ -250,7 +251,7 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
+    private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
@@ -261,7 +262,7 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetParent())) {
             Struct arg_ = _args[0];
             Struct par_ = arg_.getParent();
-            _cont.getInitializingTypeInfos().addSensibleField(arg_, par_);
+            _stackCall.getInitializingTypeInfos().addSensibleField(arg_, par_);
             result_.setResult(par_);
             return result_;
         }
@@ -276,8 +277,8 @@ public final class ApplyCoreMethodUtil {
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
-        if (_cont.getInitializingTypeInfos().isContainedSensibleFields(i_)) {
-            _cont.getInitializingTypeInfos().failInitEnums();
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(i_)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
             return result_;
         }
         i_.setParent(par_);
@@ -285,56 +286,56 @@ public final class ApplyCoreMethodUtil {
         return result_;
     }
 
-    private static ResultErrorStd processError(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args) {
+    private static ResultErrorStd processError(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasErrorCurrentStack())) {
             ErroneousStruct err_;
             if (_args.length == 0) {
-                err_ = getError(_struct,_cont);
+                err_ = getError(_struct,_cont, _stackCall);
                 result_.setResult(err_.getStack());
                 return result_;
             }
-            err_ = getError(_args[0],_cont);
+            err_ = getError(_args[0],_cont, _stackCall);
             result_.setResult(err_.getFullStack());
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetMessage())) {
-            ErroneousStruct err_ = getError(_struct,_cont);
+            ErroneousStruct err_ = getError(_struct,_cont, _stackCall);
             result_.setResult(err_.getMessage());
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetCause())) {
-            ErroneousStruct err_ = getError(_struct,_cont);
+            ErroneousStruct err_ = getError(_struct,_cont, _stackCall);
             result_.setResult(err_.getCause());
             return result_;
         }
         ErroneousStruct err_;
         if (_args.length == 0) {
-            err_ = getError(_struct,_cont);
+            err_ = getError(_struct,_cont, _stackCall);
             result_.setResult(err_.getDisplayedString(_cont));
             return result_;
         }
-        err_ = getError(_args[0],_cont);
+        err_ = getError(_args[0],_cont, _stackCall);
         result_.setResult(new StringStruct(err_.getStringRep(_cont, err_.getFullStack())));
         return result_;
     }
 
-    private static ErroneousStruct getError(Struct _err, ContextEl _cont) {
+    private static ErroneousStruct getError(Struct _err, ContextEl _cont, StackCall _stackCall) {
         if (_err instanceof ErroneousStruct) {
             return (ErroneousStruct) _err;
         }
         String null_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-        return new ErrorStruct(_cont,null_);
+        return new ErrorStruct(_cont,null_, _stackCall);
     }
 
-    public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
+    public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
         LgNames lgNames_ = _cont.getStandards();
-        return lgNames_.instance(_cont,_method,_args);
+        return lgNames_.instance(_stackCall, _cont,_method,_args);
     }
 
-    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] _args) {
+    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] _args, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = NullStruct.NULL_VALUE;
         if (_args.length > 0) {
@@ -360,7 +361,7 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(aliasRepl_, _id)) {
             return NumParsers.getReplacement(previous_);
         }
-        return stds_.defaultInstance(_conf,_id).getStruct();
+        return stds_.defaultInstance(_conf,_id, _stackCall).getStruct();
     }
 
     public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {

@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 import code.util.IdList;
 import code.util.core.StringUtil;
@@ -9,11 +8,11 @@ public final class InitializingTypeInfos {
     private InitPhase initEnums = InitPhase.READ_ONLY_OTHERS;
     private boolean failInit;
     private final IdList<Struct> sensibleFields = new IdList<Struct>();
-    public boolean isSensibleField(ContextEl _context, String _clName) {
+    public boolean isSensibleField(String _clName, StackCall _stackCall) {
         if (!isInitEnums()) {
             return false;
         }
-        String curr_ = getCurInitType(_context);
+        String curr_ = getCurInitType(_stackCall);
         return !StringUtil.quickEq(curr_, _clName);
     }
     public boolean isContainedSensibleFields(Struct _array) {
@@ -22,14 +21,14 @@ public final class InitializingTypeInfos {
         }
         return getSensibleFields().containsObj(_array);
     }
-    public void addSensibleField(ContextEl _context,String _fc, Struct _container) {
+    public void addSensibleField(String _fc, Struct _container, StackCall _stackCall) {
         if (!isInitEnums()) {
             return;
         }
         if (!isPossibleSensible(_container)) {
             return;
         }
-        String curr_ = getCurInitType(_context);
+        String curr_ = getCurInitType(_stackCall);
         if (!StringUtil.quickEq(curr_, _fc)) {
             getSensibleFields().add(_container);
         }
@@ -91,14 +90,14 @@ public final class InitializingTypeInfos {
     }
 
 
-    public void resetInitEnums(ContextEl _context) {
+    public void resetInitEnums(StackCall _stackCall) {
         setFailInit(false);
-        _context.setCallingState(null);
+        _stackCall.setCallingState(null);
         getSensibleFields().clear();
-        _context.clearPages();
+        _stackCall.clearPages();
     }
-    private String getCurInitType(ContextEl _context) {
-        return _context.getCall(0).getGlobalClass();
+    private String getCurInitType(StackCall _stackCall) {
+        return _stackCall.getCall(0).getGlobalClass();
     }
     public InitPhase getInitEnums() {
         return initEnums;

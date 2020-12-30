@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -14,7 +15,7 @@ import code.util.core.IndexConstants;
 
 public final class ExecInnerElementBlock extends ExecRootBlock implements ExecInnerTypeOrElement, ExecUniqueRootedBlock {
 
-    private ExecElementContent elementContent;
+    private final ExecElementContent elementContent;
 
     private String importedClassName;
     private String realImportedClassName;
@@ -22,8 +23,8 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     private CustList<ExecOperationNode> opValue;
 
     private final int trOffset;
-    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
+    private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
+    private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent, int _trOffset) {
         super(_offsetTrim, _rootBlockContent, _access);
         elementContent = _elementContent;
@@ -88,19 +89,19 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_ instanceof StaticInitPageEl) {
             ip_.setGlobalOffset(elementContent.getFieldNameOffest());
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-            ExpressionLanguage.tryToCalculate(_cont,el_, trOffset);
-            if (_cont.callsOrException()) {
+            ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
+            if (_cont.callsOrException(_stack)) {
                 return;
             }
             ip_.clearCurrentEls();
         }
-        processBlock(_cont);
+        processBlock(_cont, _stack);
     }
 
     @Override

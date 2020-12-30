@@ -6,9 +6,11 @@ import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -48,37 +50,37 @@ public abstract class BeanLgNames extends LgNames {
     }
 
 
-    public abstract void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx);
-    public abstract String processString(Argument _arg, ContextEl _ctx);
+    public abstract void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract String processString(Argument _arg, ContextEl _ctx, StackCall _stack);
 
-    public abstract Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx);
-    public abstract Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx);
-    public abstract Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx);
-    public abstract Argument first(Struct _arg, Configuration _conf, ContextEl _ctx);
-    public abstract Argument second(Struct _arg, Configuration _conf, ContextEl _ctx);
-    public abstract Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx);
-    public abstract Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx);
-    public abstract Argument next(Struct _arg, Configuration _cont, ContextEl _ctx);
+    public abstract Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument next(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
-    public abstract String getStringKey(Struct _instance, ContextEl _ctx);
+    public abstract String getStringKey(Struct _instance, ContextEl _ctx, StackCall _stack);
 
     public abstract void preInitBeans(Configuration _conf);
-    public abstract void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx);
+    public abstract void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
     public String getInputClass(Element _write, Configuration _conf) {
         return _write.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
     }
-    public ResultErrorStd convert(NodeContainer _container, Configuration _conf, ContextEl _context) {
+    public ResultErrorStd convert(NodeContainer _container, Configuration _conf, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
-            _conf.getLastPage().putValueVar(varNameConvert_, lv_);
-            _conf.getLastPage().setGlobalArgumentStruct(_container.getBean());
-            Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf, this, _context);
-            _conf.getLastPage().removeRefVar(varNameConvert_);
+            _rendStackCall.getLastPage().putValueVar(varNameConvert_, lv_);
+            _rendStackCall.getLastPage().setGlobalArgumentStruct(_container.getBean());
+            Argument res_ = RenderExpUtil.calculateReuse(ops_, _conf, this, _context, _stackCall, _rendStackCall);
+            _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
             ResultErrorStd out_ = new ResultErrorStd();
-            if (_context.callsOrException()) {
+            if (_context.callsOrException(_stackCall)) {
                 return out_;
             }
             out_.setResult(res_.getStruct());
@@ -86,7 +88,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         String className_ = _container.getNodeInformation().getInputClass();
         StringList values_ = _container.getValue();
-        return getStructToBeValidated(values_, className_, _conf, _context);
+        return getStructToBeValidated(values_, className_, _conf, _context, _stackCall);
     }
     protected LocalVariable newLocVar(NodeContainer _container) {
         StringList values_ = _container.getValue();
@@ -103,7 +105,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE, getAliasString());
     }
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, getAliasString())) {
             String v_;
@@ -131,7 +133,7 @@ public abstract class BeanLgNames extends LgNames {
         if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
-                _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat())));
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack)));
                 return res_;
             }
             res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
@@ -139,7 +141,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
-            _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat())));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack)));
             return res_;
         }
         res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
@@ -171,7 +173,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual);
 
     public void setBeanForms(Configuration _conf, Struct _mainBean,
-                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx) {
+                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         if (_mainBean == null) {
             return;
         }
@@ -179,19 +181,19 @@ public abstract class BeanLgNames extends LgNames {
         if (bean_ == null) {
             return;
         }
-        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx);
+        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
     }
 
 
-    public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context);
-    public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context);
-    public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context);
+    public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
+    public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
 
 
-    protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx);
+    protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
-    public abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx);
+    public abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
-    public abstract Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx);
+    public abstract Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
 }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
@@ -12,7 +13,7 @@ import code.util.core.StringUtil;
 
 public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperation {
 
-    private String fctName;
+    private final String fctName;
     public ExecCallDynMethodOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, String _fctName, ExecArrContent _execArr) {
         super(_opCont, _intermediateDottedOperation, _execArr);
         fctName = _fctName;
@@ -20,24 +21,24 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_= getPreviousArg(this, _nodes, _conf);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_= getPreviousArg(this, _nodes, _stack);
         if (StringUtil.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasMetaInfo())) {
-            Argument res_ = getMetaInfo(previous_, _conf);
-            setSimpleArgument(res_, _conf, _nodes);
+            Argument res_ = getMetaInfo(previous_, _conf, _stack);
+            setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
         if (StringUtil.quickEq(fctName, _conf.getStandards().getContent().getReflect().getAliasInstance())) {
-            Argument res_ = getInstanceCall(previous_, _conf);
-            setSimpleArgument(res_, _conf, _nodes);
+            Argument res_ = getInstanceCall(previous_, _conf, _stack);
+            setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        Argument res_ = prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _conf);
+        Argument res_ = prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _conf, _stack);
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes);
+            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        setSimpleArgument(res_, _conf, _nodes);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     private CustList<ArgumentsPair> fectchPosArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
@@ -14,8 +15,8 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
     }
 
     @Override
-    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         ExecBlock n_ = getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -41,10 +42,10 @@ public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
             found_ = process(children_, _arg);
         }
         if (found_ == null) {
-            _cont.getCoverage().passSwitch(_cont, this, _arg);
+            _cont.getCoverage().passSwitch(this, _arg, _stack);
             _if.setCurrentVisitedBlock(this);
         } else {
-            _cont.getCoverage().passSwitch(_cont, this, found_, _arg);
+            _cont.getCoverage().passSwitch(this, found_, _arg, _stack);
             ip_.setBlock(found_);
             _if.setCurrentVisitedBlock(found_);
         }

@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -10,6 +11,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
@@ -22,13 +24,13 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
     }
 
     @Override
-    protected RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its) {
+    protected RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its, StackCall _stack, RendStackCall _rendStack) {
         boolean finished_ = false;
-        long length_ = getLength(_its, _cont);
+        long length_ = getLength(_its, _cont, _stack);
         if (length_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
-        if (_cont.callsOrException()) {
+        if (_cont.callsOrException(_stack)) {
             return null;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
@@ -42,23 +44,23 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
         l_.setContainer(_its);
         return l_;
     }
-    private static int getLength(Struct _str, ContextEl _ctx) {
+    private static int getLength(Struct _str, ContextEl _ctx, StackCall _stackCall) {
         if (_str instanceof ArrayStruct) {
             return ((ArrayStruct)_str).getLength();
         }
         String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _ctx.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_)));
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_, _stackCall)));
         return -1;
     }
     @Override
-    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l) {
+    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
         Struct container_ = _l.getContainer();
         LongStruct lg_ = new LongStruct(_l.getIndex());
-        return new Argument(ExecTemplates.getElement(container_, lg_, _ctx));
+        return new Argument(ExecTemplates.getElement(container_, lg_, _ctx, _stack));
     }
 
     @Override
-    protected ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l) {
+    protected ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
         if (_l.hasNext()) {
             return ConditionReturn.YES;
         }

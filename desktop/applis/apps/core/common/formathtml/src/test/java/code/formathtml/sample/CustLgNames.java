@@ -2,6 +2,7 @@ package code.formathtml.sample;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -15,34 +16,34 @@ import code.util.core.StringUtil;
 
 public final class CustLgNames extends BeanNatLgNames {
 
-    private String aliasStringList = "code.util.StringList";
-    private String aliasComposite = "code.expressionlanguage.classes.Composite";
-    private String aliasCompositeSec = "$CompositeSec";
-    private String aliasInheritedComposite = "code.expressionlanguage.classes.InheritedComposite";
-    private String aliasFailMethods = "code.expressionlanguage.classes.FailMethods";
-    private String aliasNotRead = "NOT_READ";
-    private String aliasStrangeInit = "code.expressionlanguage.classes.StrangeInit";
-    private String aliasFail = "fail";
-    private String aliasBeanOne = "code.expressionlanguage.classes.BeanOne";
-    private String aliasInts = "code.expressionlanguage.classes.Ints";
-    private String aliasAdd = "add";
-    private String aliasSize = "size";
-    private String aliasIntegerField = "integer";
-    private String aliasObjIntegerField = "objInteger";
-    private String aliasCompositeField = "composite";
-    private String aliasGetList = "getList";
-    private String aliasRemoveAndExistAfter = "removeAndExistAfter";
-    private String aliasGeneObjects = "code.expressionlanguage.classes.GeneObjects";
-    private String aliasPickableList = "code.expressionlanguage.classes.PickableList";
-    private String aliasGetOverridenOne = "getOverridenOne";
-    private String aliasGetOverridenTwo = "getOverridenTwo";
-    private String aliasGetOverridenThree = "getOverridenThree";
-    private String aliasGetOverridenFour = "getOverridenFour";
-    private String aliasGetOverridenFive = "getOverridenFive";
-    private String aliasGetOverridenSix = "getOverridenSix";
-    private String aliasSetPrivateInt = "setPrivateInt";
-    private String aliasGetPrivateInt = "getPrivateInt";
-    private String aliasGetInteger = "getInteger";
+    private final String aliasStringList = "code.util.StringList";
+    private final String aliasComposite = "code.expressionlanguage.classes.Composite";
+    private final String aliasCompositeSec = "$CompositeSec";
+    private final String aliasInheritedComposite = "code.expressionlanguage.classes.InheritedComposite";
+    private final String aliasFailMethods = "code.expressionlanguage.classes.FailMethods";
+    private final String aliasNotRead = "NOT_READ";
+    private final String aliasStrangeInit = "code.expressionlanguage.classes.StrangeInit";
+    private final String aliasFail = "fail";
+    private final String aliasBeanOne = "code.expressionlanguage.classes.BeanOne";
+    private final String aliasInts = "code.expressionlanguage.classes.Ints";
+    private final String aliasAdd = "add";
+    private final String aliasSize = "size";
+    private final String aliasIntegerField = "integer";
+    private final String aliasObjIntegerField = "objInteger";
+    private final String aliasCompositeField = "composite";
+    private final String aliasGetList = "getList";
+    private final String aliasRemoveAndExistAfter = "removeAndExistAfter";
+    private final String aliasGeneObjects = "code.expressionlanguage.classes.GeneObjects";
+    private final String aliasPickableList = "code.expressionlanguage.classes.PickableList";
+    private final String aliasGetOverridenOne = "getOverridenOne";
+    private final String aliasGetOverridenTwo = "getOverridenTwo";
+    private final String aliasGetOverridenThree = "getOverridenThree";
+    private final String aliasGetOverridenFour = "getOverridenFour";
+    private final String aliasGetOverridenFive = "getOverridenFive";
+    private final String aliasGetOverridenSix = "getOverridenSix";
+    private final String aliasSetPrivateInt = "setPrivateInt";
+    private final String aliasGetPrivateInt = "getPrivateInt";
+    private final String aliasGetInteger = "getInteger";
     @Override
     public void buildOther() {
         buildBeans();
@@ -218,8 +219,8 @@ public final class CustLgNames extends BeanNatLgNames {
         getStandards().addEntry(aliasBeanOne, std_);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
+                                         ClassMethodId _method, Struct... _args) {
         Object instance_ = null;
         if (!_method.getConstraints().isStaticMethod()) {
             instance_ = ((RealInstanceStruct)_instance).getInstance();
@@ -397,7 +398,7 @@ public final class CustLgNames extends BeanNatLgNames {
                 return res_;
             }
         }
-        return super.getOtherResult(_cont, _instance, _method, _args);
+        return super.getOtherResult(_stack, _cont, _instance, _method, _args);
     }
 
     @Override

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
@@ -11,7 +12,7 @@ import code.util.IdMap;
 
 public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation {
 
-    private ExecNamedContent namedContent;
+    private final ExecNamedContent namedContent;
     public ExecNamedArgumentOperation(ExecOperationContent _opCont, ExecNamedContent _namedContent) {
         super(_opCont);
         namedContent = _namedContent;
@@ -19,21 +20,21 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
+                          ContextEl _conf, StackCall _stack) {
         if (getFirstChild() instanceof ExecWrappOperation) {
             ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
             pair_.setWrapper(pairCh_.getWrapper());
-            setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes);
+            setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _conf);
-        setSimpleArgument(argres_, _conf, _nodes);
+        Argument argres_ = getArgument(arguments_, _stack);
+        setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
-        setRelOffsetPossibleLastPage(namedContent.getOffset(), _conf);
+    Argument getArgument(CustList<Argument> _arguments, StackCall _stackCall) {
+        setRelOffsetPossibleLastPage(namedContent.getOffset(), _stackCall);
         return ExecTemplates.getFirstArgument(_arguments);
     }
 

@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
@@ -10,6 +11,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
 import code.formathtml.analyze.DefaultReducingOperations;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DualConfigurationContext;
@@ -25,6 +27,8 @@ public final class AnalyzedTestConfiguration {
     private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+    private StackCall stackCall;
+    private final RendStackCall rendStackCall=new RendStackCall();
 
     public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.configuration = _configuration;
@@ -97,7 +101,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public ImportingPage getLastPage() {
-        return configuration.getLastPage();
+        return rendStackCall.getLastPage();
     }
 
     public boolean isEmptyErrors() {
@@ -106,10 +110,6 @@ public final class AnalyzedTestConfiguration {
 
     public Classes getClasses() {
         return context.getClasses();
-    }
-
-    public boolean hasPages() {
-        return configuration.hasPages();
     }
 
     public String getAliasByte() {
@@ -138,4 +138,17 @@ public final class AnalyzedTestConfiguration {
     public DualConfigurationContext getDual() {
         return dual;
     }
+
+    public StackCall getStackCall() {
+        return stackCall;
+    }
+
+    public void setStackCall(StackCall _stackCall) {
+        this.stackCall = _stackCall;
+    }
+
+    public RendStackCall getRendStackCall() {
+        return rendStackCall;
+    }
+
 }

@@ -2,10 +2,12 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -13,7 +15,6 @@ import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -33,19 +34,19 @@ public final class RendRadio extends RendInput {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
             return;
         }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _cont.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
-            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont, _stds, _ctx);
-            _cont.getLastPage().removeRefVar(varNameConverterFieldValue);
-            if (_ctx.callsOrException()) {
+            _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
+            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont, _stds, _ctx, _stack, _rendStack);
+            _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             res_ = argConv_.getStruct();
@@ -53,8 +54,8 @@ public final class RendRadio extends RendInput {
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
-            String strObj_ = getStringKey(res_, _stds, _ctx);
-            if (_ctx.callsOrException()) {
+            String strObj_ = getStringKey(res_, _stds, _ctx, _stack, _rendStack);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             if (StringUtil.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {

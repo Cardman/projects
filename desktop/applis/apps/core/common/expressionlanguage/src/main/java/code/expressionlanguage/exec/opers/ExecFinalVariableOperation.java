@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -12,7 +13,7 @@ import code.util.IdMap;
 public final class ExecFinalVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation {
 
-    private ExecVariableContent variableContent;
+    private final ExecVariableContent variableContent;
 
     public ExecFinalVariableOperation(ExecOperationContent _opCont, ExecVariableContent _variableContent) {
         super(_opCont);
@@ -20,14 +21,14 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument arg_ = getCommonArgument(_conf);
-        setSimpleArgument(arg_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument arg_ = getCommonArgument(_conf, _stack);
+        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
-    Argument getCommonArgument(ContextEl _conf) {
-        setRelOffsetPossibleLastPage(variableContent.getOff(), _conf);
-        PageEl ip_ = _conf.getLastPage();
-        return ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getVars());
+    Argument getCommonArgument(ContextEl _conf, StackCall _stackCall) {
+        setRelOffsetPossibleLastPage(variableContent.getOff(), _stackCall);
+        PageEl ip_ = _stackCall.getLastPage();
+        return ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getVars(), _stackCall);
     }
 
 }

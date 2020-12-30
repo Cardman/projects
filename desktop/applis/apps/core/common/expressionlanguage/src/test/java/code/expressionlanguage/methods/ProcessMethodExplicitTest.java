@@ -2,8 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -2071,7 +2073,8 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getParameters().addEntry(method_.getParametersName(0),lv_);
-        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_).getValue();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", new ExecTypeFunction(classBody_, method_),p_,cont_, stackCall_).getValue();
 
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));

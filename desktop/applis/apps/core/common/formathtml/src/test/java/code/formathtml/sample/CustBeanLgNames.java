@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -1984,7 +1985,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
     @Override
     public ResultErrorStd getStructToBeValidated(StringList _values,
-                                                 String _className, Configuration _context, ContextEl _ctx) {
+                                                 String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, TYPE_RATE)) {
             if (!Rate.matchesRate(_values.first())) {
@@ -2008,7 +2009,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             res_.setResult(new StdStruct(list_, _className));
             return res_;
         }
-        return super.getStructToBeValidated(_values,_className,_context, _ctx);
+        return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
     }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {

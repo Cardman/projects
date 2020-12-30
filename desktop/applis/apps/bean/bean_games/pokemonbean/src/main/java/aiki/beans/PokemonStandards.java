@@ -231,6 +231,8 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -2826,12 +2828,12 @@ public final class PokemonStandards extends BeanNatLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance),_cont)));
+        Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance),_cont, StackCall.newInstance(InitPhase.NOTHING,_cont))));
         res_.setResult(arg_);
         return res_;
     }
     @Override
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
             ResultErrorStd res_ = new ResultErrorStd();
             String value_;
@@ -2847,7 +2849,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
             return res_;
         }
-        return super.getStructToBeValidated(_values,_className,_context, _ctx);
+        return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
     }
 
     public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {

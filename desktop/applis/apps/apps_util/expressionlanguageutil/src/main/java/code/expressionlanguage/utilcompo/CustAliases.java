@@ -10,6 +10,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -1615,28 +1616,28 @@ public final class CustAliases {
         ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
         return ref_;
     }
-    public ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
+    public ResultErrorStd instance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
         try {
-            return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args);
+            return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stackCall);
         } catch (RuntimeException e) {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError())));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError(), _stackCall)));
             return new ResultErrorStd();
         }
     }
-    public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+    public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         try {
-            return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args);
+            return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args, _stackCall);
         } catch (RuntimeException e) {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError())));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError(), _stackCall)));
             return new ResultErrorStd();
         }
     }
-    public Argument defaultInstance(ContextEl _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
         if (StringUtil.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
             return new Argument(new SimpleObjectStruct());
         }
         if (StringUtil.quickEq(_id,aliasThread)) {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _id, _cont.getStandards().getContent().getCoreNames().getAliasIllegalType())));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _id, _cont.getStandards().getContent().getCoreNames().getAliasIllegalType(), _stackCall)));
             return Argument.createVoid();
         }
         if (StringUtil.quickEq(_id,aliasThreadSet)) {
@@ -1666,7 +1667,7 @@ public final class CustAliases {
         return Argument.createVoid();
     }
     public ResultErrorStd getOtherResult(ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
+                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
         if (StringUtil.quickEq(name_, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
@@ -1679,8 +1680,8 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasThread)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1759,33 +1760,33 @@ public final class CustAliases {
         return res_;
     }
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, ExecutingBlocks _execBlocks, Struct... _args) {
+                                         ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getClassName();
         String type_ = _method.getClassName();
         if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
-            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
+            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
         }
         if (StringUtil.quickEq(className_,aliasThreadSet)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasThreadSetAdd)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
                 ins_.add(_args[0]);
                 if (!(_args[0] instanceof ThreadStruct)) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 } else {
                     res_.setResult(NullStruct.NULL_VALUE);
                 }
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadSetAll)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1793,8 +1794,8 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadSetRemove)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1804,8 +1805,8 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadSetContains)) {
-                if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1814,18 +1815,18 @@ public final class CustAliases {
                 return res_;
             }
             ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-            res_.setResult(ins_.toSnapshotArray(_cont));
+            res_.setResult(ins_.toSnapshotArray(_cont, _stackCall));
             return res_;
         }
         if (StringUtil.quickEq(className_,aliasThread)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasPrint)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                log((RunnableContextEl)_cont, _method, _execBlocks, _args);
+                log((RunnableContextEl)_cont, _method, _execBlocks, _stackCall, _args);
                 ResultErrorStd out_ = new ResultErrorStd();
                 out_.setResult(NullStruct.NULL_VALUE);
                 return out_;
@@ -1835,18 +1836,18 @@ public final class CustAliases {
                 if (ThreadUtil.start(thread_)) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasIllegalThreadStateException())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasIllegalThreadStateException(), _stackCall)));
                 }
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasSleep)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 if (!(_args[0] instanceof NumberStruct)) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                     return res_;
                 }
                 res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
@@ -1863,8 +1864,8 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasCurrentThread)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1872,8 +1873,8 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadExitHook)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1887,13 +1888,13 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasJoinOthers)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
                 CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                cust_.joinOthers((RunnableContextEl) _cont);
+                cust_.joinOthers((RunnableContextEl) _cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1928,13 +1929,13 @@ public final class CustAliases {
                 if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
                 }
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasYield)) {
-                if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont);
+                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                    processFailInit(_cont, _stackCall);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1942,8 +1943,8 @@ public final class CustAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1951,8 +1952,8 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(className_,aliasReentrantLock)) {
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1982,8 +1983,8 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
-            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _cont.getInitializingTypeInfos().failInitEnums();
+            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _stackCall.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2016,8 +2017,8 @@ public final class CustAliases {
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
-            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _cont.getInitializingTypeInfos().failInitEnums();
+            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _stackCall.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2080,8 +2081,8 @@ public final class CustAliases {
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
-            if (_cont.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _cont.getInitializingTypeInfos().failInitEnums();
+            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+                _stackCall.getInitializingTypeInfos().failInitEnums();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2172,14 +2173,14 @@ public final class CustAliases {
                 return res_;
             }
             ArrayStruct bin_ = inst_.getBinary();
-            _cont.getInitializingTypeInfos().addSensibleField(inst_, bin_);
+            _stackCall.getInitializingTypeInfos().addSensibleField(inst_, bin_);
             res_.setResult(bin_);
             return res_;
         }
         if (StringUtil.quickEq(className_,aliasFile)) {
             String name_ = _method.getConstraints().getName();
-            if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont);
+            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+                processFailInit(_cont, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -2207,7 +2208,7 @@ public final class CustAliases {
                     return res_;
                 }
                 if (!(_args[0] instanceof StringStruct)) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                     return res_;
                 }
                 infos.getFileSystem().changeDir(((StringStruct)_args[0]).getInstance(), (RunnableContextEl) _cont);
@@ -2215,7 +2216,7 @@ public final class CustAliases {
                 return res_;
             }
             if (!(_args[0] instanceof StringStruct)) {
-                _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasRead)) {
@@ -2275,7 +2276,7 @@ public final class CustAliases {
             }
             if (StringUtil.quickEq(name_,aliasFileRename)) {
                 if (!(_args[1] instanceof StringStruct)) {
-                    _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe())));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                     return res_;
                 }
                 String file_ = ((StringStruct)_args[0]).getInstance();
@@ -2477,14 +2478,14 @@ public final class CustAliases {
     }
 
     private void log(RunnableContextEl _cont,
-                     ClassMethodId _method, ExecutingBlocks _execBlocks, Struct... _args) {
+                     ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
         if (_method.getConstraints().getParametersTypes().size() == 1) {
             String type_ = _method.getConstraints().getParametersTypes().first();
             String aliasObject_ = _cont.getStandards().getContent().getCoreNames().getAliasObject();
             if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
                 Argument arg_ = new Argument(_args[0]);
-                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont);
+                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont, _stackCall);
                 return;
             }
         }
@@ -2492,7 +2493,7 @@ public final class CustAliases {
             String className_ = aliasFormatType;
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont);
+            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont, _stackCall);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);
@@ -2516,11 +2517,11 @@ public final class CustAliases {
         }
         return StringUtil.concat(_cont.getStandards().getStringOfObject(_cont,_struct).getInstance(),"...");
     }
-    public void processFailInit(ContextEl _cont) {
-        if (_cont.getInitializingTypeInfos().isInitEnums()) {
-            _cont.getInitializingTypeInfos().failInitEnums();
+    public void processFailInit(ContextEl _cont, StackCall _stackCall) {
+        if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
         } else {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, aliasConcurrentError)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, aliasConcurrentError, _stackCall)));
         }
     }
     static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime) {

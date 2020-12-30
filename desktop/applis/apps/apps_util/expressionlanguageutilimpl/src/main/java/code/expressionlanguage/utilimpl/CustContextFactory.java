@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -82,7 +84,7 @@ public final class CustContextFactory {
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 _definedLgNames.getCustAliases().getAliasExecute(),
-                new CustList<Argument>(argMethod_), rCont_, pair_);
+                new CustList<Argument>(argMethod_), rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_));
         showUpdates_.stop();
         if (_options.isCovering()) {
             String exp_ = _exec.getOutput()+_exec.getCoverFolder();

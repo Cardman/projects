@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -13,8 +15,8 @@ public final class RendElseIfCondition extends RendCondition implements RendWith
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        processElseIf(_cont,_stds,_ctx,this);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        processElseIf(_cont,_stds,_ctx,this, _stack, _rendStack);
     }
 
 }

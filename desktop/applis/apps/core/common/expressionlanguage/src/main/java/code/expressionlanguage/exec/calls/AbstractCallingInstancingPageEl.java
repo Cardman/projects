@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
@@ -26,7 +27,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         firstField = _firstField;
     }
     @Override
-    public final boolean checkCondition(ContextEl _context) {
+    public final boolean checkCondition(ContextEl _context, StackCall _stack) {
         boolean implicitConstr_ = false;
         ExecBlock blockRoot_ = getBlockRoot();
         if (!(blockRoot_ instanceof ExecConstructorBlock)) {
@@ -44,7 +45,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                 if (!calledImplicitConstructor && blockRootSuperType != null) {
                     calledImplicitConstructor = true;
                     Argument global_ = getGlobalArgument();
-                    _context.setCallingState(new CustomFoundConstructor(_context.formatVarType(id_), blockRootSuperType.getEmptyCtorPair(), EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
+                    _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(id_), blockRootSuperType.getEmptyCtorPair(), EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here
@@ -67,7 +68,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                 firstField = true;
                 Argument global_ = getGlobalArgument();
                 String curClass_ = getGlobalClass();
-                _context.setCallingState(new NotInitializedFields(curClass_, blockRootType_, global_));
+                _stack.setCallingState(new NotInitializedFields(curClass_, blockRootType_, global_));
                 return false;
             }
             //fields of the current class are initialized if there is no interface constructors to call

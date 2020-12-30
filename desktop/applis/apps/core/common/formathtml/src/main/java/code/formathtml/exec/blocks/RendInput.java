@@ -2,14 +2,15 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -48,7 +49,7 @@ public abstract class RendInput extends RendElement {
         this.className = _className;
     }
 
-    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx) {
+    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         FieldUpdates f_ = new FieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
@@ -60,8 +61,8 @@ public abstract class RendInput extends RendElement {
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setClassName(className);
-        Argument arg_ = fetchName(_cont, _read, _write, f_, _advStandards, _ctx);
-        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _advStandards, _ctx);
+        Argument arg_ = fetchName(_cont, _read, _write, f_, _advStandards, _ctx, _stackCall, _rendStackCall);
+        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _advStandards, _ctx, _stackCall, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));

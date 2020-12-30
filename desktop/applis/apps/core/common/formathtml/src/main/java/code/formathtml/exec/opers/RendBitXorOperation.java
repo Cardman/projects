@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public final class RendBitXorOperation extends RendStdNumericOperation {
@@ -14,7 +15,7 @@ public final class RendBitXorOperation extends RendStdNumericOperation {
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
-            ContextEl _cont) {
+                           ContextEl _cont, StackCall _stack) {
         return new Argument(NumParsers.calculateXor(_a.getStruct(), _b.getStruct(), getResultClass().getUnwrapObjectNb()));
     }
 

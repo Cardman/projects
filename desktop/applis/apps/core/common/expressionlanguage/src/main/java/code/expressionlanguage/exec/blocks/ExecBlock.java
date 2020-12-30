@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -20,7 +21,7 @@ public abstract class ExecBlock {
 
     private ExecFileBlock file;
 
-    private int offsetTrim;
+    private final int offsetTrim;
 
 
     ExecBlock(int _offsetTrim) {
@@ -34,13 +35,13 @@ public abstract class ExecBlock {
         return offsetTrim;
     }
 
-    public final void processBlockAndRemove(ContextEl _conf) {
-        ExecTemplates.processBlockAndRemove(_conf,this);
+    public final void processBlockAndRemove(ContextEl _conf, StackCall _stackCall) {
+        ExecTemplates.processBlockAndRemove(_conf,this, _stackCall);
     }
 
-    public final void processBlock(ContextEl _conf) {
+    public final void processBlock(ContextEl _conf, StackCall _stackCall) {
         ExecBlock n_ = getNextSibling();
-        AbstractPageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         if (n_ != null) {
             ip_.setBlock(n_);
             return;
@@ -53,37 +54,37 @@ public abstract class ExecBlock {
                 if (par_ instanceof ExecDoBlock) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecDoBlock)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecDoBlock)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachArray) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecForEachArray)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForEachArray)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachIterable) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecForEachIterable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForEachIterable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForIterativeLoop) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecForIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForMutableIterativeLoop) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecForMutableIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForMutableIterativeLoop)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecForEachTable) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecForEachTable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecForEachTable)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
                 if (par_ instanceof ExecWhileCondition) {
                     par_.removeLocalVars(ip_);
                     ip_.setBlock(par_);
-                    ((ExecWhileCondition)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_);
+                    ((ExecWhileCondition)par_).processLastElementLoop(_conf, (LoopBlockStack) lastStack_, _stackCall);
                 }
             }
             if (lastStack_ instanceof IfBlockStack) {
@@ -130,11 +131,11 @@ public abstract class ExecBlock {
                     if (call_ != null) {
                         MethodCallingFinally callingFinally_ = call_.getCallingFinally();
                         if (callingFinally_ != null) {
-                            callingFinally_.removeBlockFinally(_conf);
+                            callingFinally_.removeBlockFinally(_conf, _stackCall);
                         } else {
                             Struct exception_ = ((TryBlockStack)lastStack_).getException();
-                            _conf.setCallingState(new CustomFoundExc(exception_));
-                            ExecutingUtil.processGeneException(_conf);
+                            _stackCall.setCallingState(new CustomFoundExc(exception_));
+                            ExecutingUtil.processGeneException(_conf, _stackCall);
                         }
                     }
                 }

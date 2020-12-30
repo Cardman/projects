@@ -20,14 +20,14 @@ import code.util.CustList;
 public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
     private Struct parent;
 
-    private String className;
+    private final String className;
 
-    private CustList<ClassFieldStruct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
-    private String name;
-    private int ordinal;
+    private final String name;
+    private final int ordinal;
     private final String parentClassName;
-    private CommonExecutionInfos executionInfos;
+    private final CommonExecutionInfos executionInfos;
 
     RunnableStruct(ContextEl _original, String _className,
                    String _name, int _ordinal,
@@ -100,17 +100,17 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
             return;
         }
         Argument arg_ = new Argument(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), _args, _r, mId_.getPair());
+        RunnableStruct.invoke(arg_, mId_.getClassName(), _args, _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r));
     }
-    public static Argument invoke(Argument _global, String _class, CustList<Argument> _args, RunnableContextEl _cont, ExecTypeFunction _pair) {
-        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _args, _cont);
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont).getValue();
-        _cont.getCustInit().prExc(_cont);
+    public static Argument invoke(Argument _global, String _class, CustList<Argument> _args, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall) {
+        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _args, _cont, _stackCall);
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont, _stackCall).getValue();
+        _cont.getCustInit().prExc(_cont, _stackCall);
         return arg_;
     }
-    public static Argument reflect(RunnableContextEl _cont, AbstractReflectElement _ref) {
-        Argument arg_ = ProcessMethod.reflectArgument(_cont,_ref).getValue();
-        _cont.getCustInit().prExc(_cont);
+    public static Argument reflect(RunnableContextEl _cont, AbstractReflectElement _ref, StackCall _stackCall) {
+        Argument arg_ = ProcessMethod.reflectArgument(_cont,_ref, _stackCall).getValue();
+        _cont.getCustInit().prExc(_cont, _stackCall);
         return arg_;
     }
     public static long setupThread(RunnableContextEl _r) {

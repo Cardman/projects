@@ -2,11 +2,13 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -22,43 +24,43 @@ final class RendRequestUtil {
     }
 
 
-    static Struct redirect(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context) {
-        StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
-        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
-        StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
-        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context);
+    static Struct redirect(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
+        StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
+        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
+        StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
+        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context, _stackCall, _rendStackCall);
     }
 
-    private static Struct calculate(Configuration _conf, Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, BeanLgNames _advStandards, ContextEl _context) {
-        ImportingPage ip_ = _conf.getLastPage();
+    private static Struct calculate(Configuration _conf, Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), _advStandards.getAliasPrimLong());
             ip_.putValueVar(_varNames.get(i), locVar_);
         }
-        Argument arg_ = RenderExpUtil.calculateReuse(_exps,_conf,_bean, _advStandards, _context);
+        Argument arg_ = RenderExpUtil.calculateReuse(_exps,_conf,_bean, _advStandards, _context, _stackCall, _rendStackCall);
         for (String n: _varNames) {
             ip_.removeRefVar(n);
         }
-        if (_context.callsOrException()) {
+        if (_context.callsOrException(_stackCall)) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
     }
 
-    static Struct redirectForm(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context) {
-        StringList varNames_ = _conf.getHtmlPage().getFormsVars().get(_url);
-        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsFormExps().get(_url);
-        StringList args_ = _conf.getHtmlPage().getFormsArgs().get(_url);
-        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context);
+    static Struct redirectForm(Configuration _conf, Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
+        StringList varNames_ = _htmlPage.getFormsVars().get(_url);
+        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
+        StringList args_ = _htmlPage.getFormsArgs().get(_url);
+        return calculate(_conf, _bean, varNames_, exps_, args_, _advStandards, _context, _stackCall, _rendStackCall);
     }
     static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
-                              Struct _attribute, BeanLgNames _advStandards, ContextEl _context) {
+                              Struct _attribute, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
-        ImportingPage ip_ = _conf.getLastPage();
+        ImportingPage ip_ = _rendStackCall.getLastPage();
         LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _nodeContainer.getUpdatedClass());
         ip_.putValueVar(prev_, lv_);
         CustList<Struct> structParam_ = _nodeContainer.getStructParam();
@@ -97,7 +99,7 @@ final class RendRequestUtil {
         String wrap_ = ExecTemplates.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putValueVar(attrName_, lv_);
-        RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context);
+        RenderExpUtil.calculateReuse(wr_,_conf, _advStandards, _context, _stackCall, _rendStackCall);
         ip_.removeRefVar(prev_);
         for (String p: locVars_) {
             ip_.removeRefVar(p);

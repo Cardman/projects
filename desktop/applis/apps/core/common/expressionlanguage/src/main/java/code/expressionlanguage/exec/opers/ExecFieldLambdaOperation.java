@@ -6,6 +6,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -18,7 +19,7 @@ import code.util.IdMap;
 public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation {
 
 
-    private ExecLambdaFieldContent lambdaFieldContent;
+    private final ExecLambdaFieldContent lambdaFieldContent;
 
     public ExecFieldLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaFieldContent _lambdaFieldContent) {
         super(_opCont, _lamCont);
@@ -27,23 +28,23 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getCommonArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+                          ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getCommonArgument(previous_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), lambdaFieldContent.getClassField(), getAncestor(), lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField()));
+    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), lambdaFieldContent.getClassField(), getAncestor(), lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField(), _stackCall));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, ClassField _fieldId, int _ancestor,
-                             boolean _affField, boolean _staticField, boolean _finalField) {
+                             boolean _affField, boolean _staticField, boolean _finalField, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         String ownerType_ = _foundClass;
-        ownerType_ = _conf.formatVarType(ownerType_);
-        clArg_ = _conf.formatVarType(clArg_);
-        String formatType_ = _conf.formatVarType(_returnFieldType);
+        ownerType_ = _stackCall.formatVarType(ownerType_);
+        clArg_ = _stackCall.formatVarType(clArg_);
+        String formatType_ = _stackCall.formatVarType(_returnFieldType);
         String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
         String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);
         return newLambda(_previous, ownerType_, _returnFieldType, _fieldId, _ancestor, _affField, _staticField, _finalField, isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_, formCl_);

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -52,25 +53,25 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            ip_.processVisitedLoop(c_,this,this,_cont);
+            ip_.processVisitedLoop(c_,this,this,_cont, _stack);
             return;
         }
-        Struct its_ = processLoop(_cont);
-        if (_cont.callsOrException()) {
+        Struct its_ = processLoop(_cont, _stack);
+        if (_cont.callsOrException(_stack)) {
             return;
         }
-        LoopBlockStack l_ = newLoopBlockStack(_cont,label,its_);
+        LoopBlockStack l_ = newLoopBlockStack(_cont,label,its_, _stack);
         if (l_ == null) {
             return;
         }
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
-        String className_ = _cont.formatVarType(importedClassName);
+        String className_ = _stack.formatVarType(importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
@@ -78,69 +79,69 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
         ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,className_));
-        checkIfNext(_cont, l_);
+        checkIfNext(_cont, l_, _stack);
     }
 
-    private Struct processLoop(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
+    private Struct processLoop(ContextEl _conf, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0);
-        if (_conf.callsOrException()) {
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
 
     }
     @Override
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         _l.setEvaluatingKeepLoop(true);
-        ConditionReturn hasNext_ = hasNext(_conf,_l);
+        ConditionReturn hasNext_ = hasNext(_conf,_l, _stack);
         if (hasNext_ == ConditionReturn.CALL_EX) {
             return;
         }
-        incrOrFinish(_conf, hasNext_,_l);
+        incrOrFinish(_conf, hasNext_,_l, _stack);
     }
-    protected void incrOrFinish(ContextEl _cont, ConditionReturn _hasNext, LoopBlockStack _l) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    protected void incrOrFinish(ContextEl _cont, ConditionReturn _hasNext, LoopBlockStack _l, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         if (_hasNext == ConditionReturn.NO) {
             ip_.clearCurrentEls();
-            _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(false)));
+            _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stackCall);
             _l.setEvaluatingKeepLoop(false);
             _l.setFinished(true);
             return;
         }
-        _cont.getCoverage().passLoop(_cont, this, new Argument(BooleanStruct.of(true)));
-        incrementLoop(_cont, _l);
+        _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stackCall);
+        incrementLoop(_cont, _l, _stackCall);
     }
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         _l.setIndex(_l.getIndex() + 1);
-        AbstractPageEl abs_ = _conf.getLastPage();
+        AbstractPageEl abs_ = _stackCall.getLastPage();
 
         abs_.setGlobalOffset(variableNameOffset);
         abs_.setOffset(0);
-        Argument arg_ = retrieveValue(_conf,_l);
-        if (_conf.callsOrException()) {
+        Argument arg_ = retrieveValue(_conf,_l, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
         abs_.clearCurrentEls();
-        ExecTemplates.setWrapValue(_conf, variableName, arg_,-1, abs_.getCache(), abs_.getRefParams());
-        ExecTemplates.incrIndexLoop(_conf, variableName, -1, abs_.getCache(), abs_.getVars());
-        if (_conf.callsOrException()) {
+        ExecTemplates.setWrapValue(_conf, variableName, arg_,-1, abs_.getCache(), abs_.getRefParams(), _stackCall);
+        ExecTemplates.incrIndexLoop(_conf, variableName, -1, abs_.getCache(), abs_.getVars(), _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
         _l.setEvaluatingKeepLoop(false);
         abs_.setBlock(getFirstChild());
     }
 
-    protected abstract void checkIfNext(ContextEl _cont, LoopBlockStack _l);
+    protected abstract void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack);
 
-    protected abstract LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its);
+    protected abstract LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its, StackCall _stack);
 
-    protected abstract Argument retrieveValue(ContextEl _conf, LoopBlockStack _l);
+    protected abstract Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
-    protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l);
+    protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
     protected CustList<ExecOperationNode> getOpList() {
         return opList;

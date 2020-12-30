@@ -42,19 +42,8 @@ public final class Configuration {
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
 
-    private HtmlPage htmlPage = new HtmlPage();
+    private final StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
-    private Document document;
-
-    private String beanName;
-    private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
-
-    private String currentUrl = "";
-
-    private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
-    private FormParts formParts = new FormParts();
-
-    private Struct mainBean;
     private String currentLanguage = "";
     private final RendKeyWords rendKeyWords = new RendKeyWords();
     private RendDocumentBlock rendDocumentBlock;
@@ -65,9 +54,6 @@ public final class Configuration {
     }
 
     public void init(DualConfigurationContext _dual) {
-        htmlPage = new HtmlPage();
-        document = null;
-        currentUrl = firstUrl;
         prefix = StringUtil.concat(prefix,SEP);
         _dual.getRenderFiles().removeAllString(firstUrl);
         _dual.getRenderFiles().add(firstUrl);
@@ -138,10 +124,6 @@ public final class Configuration {
         navigation = _navigation;
     }
 
-    public HtmlPage getHtmlPage() {
-        return htmlPage;
-    }
-
     public int getTabWidth() {
         return tabWidth;
     }
@@ -150,38 +132,6 @@ public final class Configuration {
         tabWidth = _tabWidth;
     }
 
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document _document) {
-        document = _document;
-    }
-
-
-    public void clearPages() {
-        importing.clear();
-    }
-    public void addPage(ImportingPage _page) {
-        importing.add(_page);
-    }
-    public ImportingPage getLastPage() {
-        return importing.last();
-    }
-    public void removeLastPage() {
-        importing.removeQuicklyLast();
-    }
-    public CustList<ImportingPage> getImporting() {
-        return importing;
-    }
-
-    public String getCurrentUrl() {
-        return currentUrl;
-    }
-
-    public void setCurrentUrl(String _currentUrl) {
-        currentUrl = _currentUrl;
-    }
 
     public String getPrefix() {
         return prefix;
@@ -212,39 +162,8 @@ public final class Configuration {
         return rendKeyWords;
     }
 
-    public void setOffset(int _offset) {
-        getLastPage().setOffset(_offset);
-    }
-    public void setOpOffset(int _offset) {
-        getLastPage().setOpOffset(_offset);
-    }
-
-    public SimplePageEl getPageEl() {
-        return importing.last().getPageEl();
-    }
-
-    public Struct getInternGlobal() {
-        return getLastPage().getInternGlobal();
-    }
-
-    public boolean hasPages() {
-        return !importing.isEmpty();
-    }
-
     public StringMap<RendDocumentBlock> getRenders() {
         return renders;
-    }
-
-    public FormParts getFormParts() {
-        return formParts;
-    }
-
-    public Struct getMainBean() {
-        return mainBean;
-    }
-
-    public void setMainBean(Struct _mainBean) {
-        mainBean = _mainBean;
     }
 
     public String getCurrentLanguage() {
@@ -253,14 +172,6 @@ public final class Configuration {
 
     public void setCurrentLanguage(String _currentLanguage) {
         currentLanguage = _currentLanguage;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String _beanName) {
-        beanName = _beanName;
     }
 
 

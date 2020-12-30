@@ -3,9 +3,11 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -14,9 +16,9 @@ import code.util.CustList;
 public abstract class RendCondition extends RendParentBlock implements RendWithEl {
 
 
-    private int conditionOffset;
+    private final int conditionOffset;
 
-    private CustList<RendDynOperationNode> opCondition;
+    private final CustList<RendDynOperationNode> opCondition;
 
     RendCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset) {
         super(_offsetTrim);
@@ -24,12 +26,12 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = _op;
     }
 
-    final ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage last_ = _context.getLastPage();
+    final ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+        ImportingPage last_ = _rendStackCall.getLastPage();
         last_.setOffset(conditionOffset);
         last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
-        Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+        Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context, _stds, _ctx, _stackCall, _rendStackCall);
+        if (_ctx.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

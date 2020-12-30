@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
@@ -16,22 +17,22 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     }
 
     @Override
-    boolean initType(ContextEl _cont) {
+    boolean initType(ContextEl _cont, StackCall _stack) {
         return false;
     }
 
     @Override
-    boolean isAbstract(ContextEl _cont) {
+    boolean isAbstract(ContextEl _cont, StackCall _stack) {
         return false;
     }
 
     @Override
-    boolean isPolymorph(ContextEl _cont) {
+    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
         return false;
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list) {
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, methodId, _instance, _list.getArguments());
+    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, methodId, _instance, _list.getArguments(), _stack);
     }
 }

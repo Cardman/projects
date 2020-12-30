@@ -1,11 +1,13 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 
@@ -30,14 +32,14 @@ public final class RendDeclareVariable extends RendAbstractDeclareVariable {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
             ip_.putValueVar(v, lv_);
         }
-        processBlock(_cont, _stds, _ctx);
+        processBlock(_cont, _stds, _ctx, _stack, _rendStack);
     }
 
 }

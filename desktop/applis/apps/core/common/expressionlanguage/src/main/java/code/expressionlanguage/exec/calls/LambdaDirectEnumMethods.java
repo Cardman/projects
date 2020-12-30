@@ -2,10 +2,10 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
 
 public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPageEl {
     public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
@@ -13,23 +13,23 @@ public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPag
     }
 
     @Override
-    boolean initType(ContextEl _context) {
-        return initDefault(_context);
+    boolean initType(ContextEl _context, StackCall _stack) {
+        return initDefault(_context, _stack);
     }
 
     @Override
-    boolean isAbstract(ContextEl _context) {
+    boolean isAbstract(ContextEl _context, StackCall _stack) {
         return false;
     }
 
     @Override
-    boolean isPolymorph(ContextEl _context) {
+    boolean isPolymorph(ContextEl _context, StackCall _stack) {
         return false;
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), _list, _right, getAccessKind(),getMethodName());
+        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, _className,method_.getPair(), _instance,method_.getCache(), _list, _right, getAccessKind(),getMethodName(), _stack);
     }
 }

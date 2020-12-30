@@ -14,7 +14,7 @@ import code.util.StringMap;
 
 public final class DefaultLockingClass {
 
-    private StringMap<InitClassState> classes = new StringMap<InitClassState>();
+    private final StringMap<InitClassState> classes = new StringMap<InitClassState>();
 
     public void init(ContextEl _context) {
         Classes cl_ = _context.getClasses();
@@ -50,22 +50,22 @@ public final class DefaultLockingClass {
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
-    public Struct processErrorClass(ContextEl _context, Struct _cause, AbstractPageEl _lastPage) {
+    public Struct processErrorClass(ContextEl _context, Struct _cause, AbstractPageEl _lastPage, StackCall _stackCall) {
         if (!(_lastPage instanceof StaticInitPageEl)) {
             if (_lastPage instanceof AbstractReflectPageEl) {
                 AbstractReflectPageEl p_ = (AbstractReflectPageEl) _lastPage;
                 if (p_.isWrapException()) {
-                    return new InvokeTargetErrorStruct(_cause,_context);
+                    return new InvokeTargetErrorStruct(_cause,_context, _stackCall);
                 }
             }
             return _cause;
         }
         String curClass_ = _lastPage.getGlobalClass();
-        errorClass(_context, curClass_);
-        return new CausingErrorStruct(_cause,_context);
+        errorClass(curClass_, _stackCall);
+        return new CausingErrorStruct(_cause,_context, _stackCall);
     }
-    private void errorClass(ContextEl _context, String _className) {
-        _context.getInitializingTypeInfos().failInitEnums();
+    private void errorClass(String _className, StackCall _stackCall) {
+        _stackCall.getInitializingTypeInfos().failInitEnums();
         String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.ERROR);
     }

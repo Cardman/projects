@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.core.StringUtil;
@@ -9,7 +10,7 @@ import code.util.core.StringUtil;
 
 public final class RendAddOperation extends RendStdNumericOperation {
 
-    private boolean catString;
+    private final boolean catString;
 
     public RendAddOperation(ExecOperationContent _content, int _opOffset, String _op, boolean _catString) {
         super(_content, _opOffset, _op);
@@ -17,7 +18,7 @@ public final class RendAddOperation extends RendStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack) {
         return localSumDiff(_a, _op, _b, _cont);
     }
 

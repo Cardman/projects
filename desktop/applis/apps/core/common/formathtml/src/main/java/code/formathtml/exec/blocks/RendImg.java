@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -9,7 +11,7 @@ import code.util.StringMap;
 
 public final class RendImg extends RendElement {
 
-    private ExecTextPart textPart;
+    private final ExecTextPart textPart;
 
     public RendImg(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _textPart) {
         super(_offsetTrim, _read, _execAttributes, _execAttributesText);
@@ -17,9 +19,9 @@ public final class RendImg extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
-        String pageName_ = RenderingText.render(textPart,_cont, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        String pageName_ = RenderingText.render(textPart,_cont, _stds, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
             return;
         }
         String lg_ = _cont.getCurrentLanguage();

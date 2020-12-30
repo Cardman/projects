@@ -4,6 +4,8 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
@@ -133,15 +135,16 @@ public final class GuiProcess implements Runnable {
         }
         CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
         if (!methods_.isEmpty()) {
-            ProcessMethod.initializeClass(clName, classBody_,context);
-            if (context.callsOrException()) {
-                context.getCustInit().prExc(context);
+            StackCall st_ = StackCall.newInstance(InitPhase.NOTHING,context);
+            ProcessMethod.initializeClass(clName, classBody_,context, st_);
+            if (context.callsOrException(st_)) {
+                context.getCustInit().prExc(context, st_);
                 return;
             }
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            RunnableStruct.invoke(arg_, clName, args_, context, new ExecTypeFunction(classBody_, fct_));
+            RunnableStruct.invoke(arg_, clName, args_, context, new ExecTypeFunction(classBody_, fct_), st_);
         } else {
             context.getCustInit().removeThreadFromList(context);
         }
@@ -150,7 +153,7 @@ public final class GuiProcess implements Runnable {
 
     private void lastThread() {
         if (!isVisible()) {
-            context.getGuiInit().launchHooks(context);
+            context.getGuiInit().launchHooks(context, StackCall.newInstance(InitPhase.NOTHING,context));
             window.setNullCurrent();
             Thread th_ = CustComponent.newThread(new CoveringCodeTask(context, executingOptions));
             th_.start();

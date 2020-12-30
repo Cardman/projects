@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -17,15 +18,15 @@ public final class ExecDeclareVariable extends ExecAbstractDeclareVariable {
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        String formatted_ = _cont.formatVarType(importedClassName);
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        String formatted_ = _stack.formatVarType(importedClassName);
         Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
             ip_.putValueVar(v, lv_);
         }
-        processBlock(_cont);
+        processBlock(_cont, _stack);
     }
 
     @Override

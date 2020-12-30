@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -54,20 +55,20 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         _l.setEvaluatingKeepLoop(true);
-        ConditionReturn has_ = iteratorHasNext(_conf, _l);
+        ConditionReturn has_ = iteratorHasNext(_conf, _l, _stack);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
         boolean hasNext_ = has_ == ConditionReturn.YES;
 
         if (hasNext_) {
-            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(true)));
-            incrementLoop(_conf, _l);
+            _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stack);
+            incrementLoop(_conf, _l, _stack);
         } else {
-            _conf.getCoverage().passLoop(_conf, this, new Argument(BooleanStruct.of(false)));
-            _conf.getLastPage().clearCurrentEls();
+            _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stack);
+            _stack.getLastPage().clearCurrentEls();
             _l.setFinished(true);
             _l.setEvaluatingKeepLoop(false);
         }
@@ -95,24 +96,24 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            ip_.processVisitedLoop(c_,this,this,_cont);
+            ip_.processVisitedLoop(c_,this,this,_cont, _stack);
             return;
         }
-        Struct its_ = processLoop(_cont);
-        if (_cont.callsOrException()) {
+        Struct its_ = processLoop(_cont, _stack);
+        if (_cont.callsOrException(_stack)) {
             return;
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Classes cls_ = _cont.getClasses();
         String locName_ = cls_.getIteratorTableVarCust();
-        _cont.getLastPage().putInternVars(locName_, its_,_cont);
-        ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
-        if (_cont.callsOrException()) {
+        _stack.getLastPage().putInternVars(locName_, its_,_cont);
+        ExpressionLanguage dyn_ = _stack.getLastPage().getCurrentEl(_cont,this, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0, _stack);
+        if (_cont.callsOrException(_stack)) {
             return;
         }
         Struct iterStr_ = arg_.getStruct();
@@ -131,35 +132,35 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         l_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String className_;
-        className_ = _cont.formatVarType(importedClassNameFirst);
+        className_ = _stack.formatVarType(importedClassNameFirst);
         Struct defFirst_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameFirst, lv_);
         ip_.putValueVar(variableNameFirst, LocalVariable.newLocalVariable(defFirst_,className_));
-        className_ = _cont.formatVarType(importedClassNameSecond);
+        className_ = _stack.formatVarType(importedClassNameSecond);
         Struct defSecond_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameSecond, lv_);
         ip_.putValueVar(variableNameSecond, LocalVariable.newLocalVariable(defSecond_,className_));
-        iteratorHasNext(_cont, l_);
+        iteratorHasNext(_cont, l_, _stack);
     }
-    private Struct processLoop(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
+    private Struct processLoop(ContextEl _conf, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0);
-        if (_conf.callsOrException()) {
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
         if (ito_== NullStruct.NULL_VALUE) {
             String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
         }
         return ito_;
 
@@ -175,60 +176,60 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         _ip.removeRefVar(variableNameSecond);
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         _l.setIndex(_l.getIndex() + 1);
         Classes cls_ = _conf.getClasses();
-        AbstractPageEl call_ = _conf.getLastPage();
+        AbstractPageEl call_ = _stackCall.getLastPage();
         if (call_.sizeEl() < 2) {
             String locName_ = cls_.getNextPairVarCust();
-            _conf.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
+            _stackCall.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
         }
         ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, IndexConstants.SECOND_INDEX, 3);
-        ExpressionLanguage.tryToCalculate(_conf,nextEl_,0);
-        if (_conf.callsOrException()) {
+        ExpressionLanguage.tryToCalculate(_conf,nextEl_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
         if (call_.sizeEl() < 3) {
             String locName_ = cls_.getFirstVarCust();
             Struct value_ = call_.getValue(1).getStruct();
-            _conf.getLastPage().putInternVars(locName_, value_,_conf);
+            _stackCall.getLastPage().putInternVars(locName_, value_,_conf);
         }
         ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,firstEl_,0);
-        if (_conf.callsOrException()) {
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,firstEl_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
         if (call_.sizeEl() < 4) {
-            ExecTemplates.setWrapValue(_conf,variableNameFirst, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
-            ExecTemplates.incrIndexLoop(_conf, variableNameFirst, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
-            if (_conf.callsOrException()) {
+            ExecTemplates.setWrapValue(_conf,variableNameFirst, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+            ExecTemplates.incrIndexLoop(_conf, variableNameFirst, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+            if (_conf.callsOrException(_stackCall)) {
                 return;
             }
             String locName_ = cls_.getSecondVarCust();
             Struct value_ = call_.getValue(1).getStruct();
-            _conf.getLastPage().putInternVars(locName_, value_,_conf);
+            _stackCall.getLastPage().putInternVars(locName_, value_,_conf);
         }
         ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
-        arg_ = ExpressionLanguage.tryToCalculate(_conf,secondEl_,0);
-        if (_conf.callsOrException()) {
+        arg_ = ExpressionLanguage.tryToCalculate(_conf,secondEl_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
-        ExecTemplates.setWrapValue(_conf,variableNameSecond, arg_,-1, _conf.getLastPage().getCache(), _conf.getLastPage().getRefParams());
-        ExecTemplates.incrIndexLoop(_conf, variableNameSecond, -1, _conf.getLastPage().getCache(), _conf.getLastPage().getVars());
-        if (_conf.callsOrException()) {
+        ExecTemplates.setWrapValue(_conf,variableNameSecond, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        ExecTemplates.incrIndexLoop(_conf, variableNameSecond, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return;
         }
         call_.clearCurrentEls();
         call_.setBlock(getFirstChild());
         _l.setEvaluatingKeepLoop(false);
     }
-    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
+    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
         Classes cls_ = _conf.getClasses();
         String locName_ = cls_.getHasNextPairVarCust();
-        _conf.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
-        if (_conf.callsOrException()) {
+        _stackCall.getLastPage().putInternVars(locName_, _l.getStructIterator(),_conf);
+        ExpressionLanguage dyn_ = _stackCall.getLastPage().getCurrentEl(_conf,this, IndexConstants.FIRST_INDEX, 2);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

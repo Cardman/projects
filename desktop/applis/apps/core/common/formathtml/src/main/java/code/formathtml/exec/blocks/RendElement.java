@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
@@ -11,9 +13,9 @@ import code.util.EntryCust;
 import code.util.StringMap;
 
 public abstract class RendElement extends RendParentBlock implements RendWithEl {
-    private Element read;
-    private StringMap<ExecTextPart> execAttributes;
-    private StringMap<ExecTextPart> execAttributesText;
+    private final Element read;
+    private final StringMap<ExecTextPart> execAttributes;
+    private final StringMap<ExecTextPart> execAttributesText;
 
     public RendElement(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
         super(_offsetTrim);
@@ -27,31 +29,31 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl 
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx) {
-        ImportingPage ip_ = _cont.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+        ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont, _stds, _ctx);
+            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, rw_, read);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
-            if (_ctx.callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             created_.setAttribute(e.getKey(),txt_);
         }
-        processExecAttr(_cont,created_,read, _stds, _ctx);
-        if (_ctx.callsOrException()) {
+        processExecAttr(_cont,created_,read, _stds, _ctx, _stack, _rendStack);
+        if (_ctx.callsOrException(_stack)) {
             return;
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx);
-            if (_ctx.callsOrException()) {
+            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             created_.setAttribute(e.getKey(),txt_);
@@ -67,6 +69,6 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl 
         rw_.setWrite(created_);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx);
+    protected abstract void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
 
 }

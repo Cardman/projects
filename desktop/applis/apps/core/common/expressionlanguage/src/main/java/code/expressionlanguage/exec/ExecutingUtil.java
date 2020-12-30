@@ -27,23 +27,23 @@ public final class ExecutingUtil {
     private ExecutingUtil() {
     }
 
-    static void processException(ContextEl _context) {
-        if (!_context.getInitializingTypeInfos().isFailInit()) {
-            processGeneException(_context);
+    static void processException(ContextEl _context, StackCall _stackCall) {
+        if (!_stackCall.getInitializingTypeInfos().isFailInit()) {
+            processGeneException(_context, _stackCall);
         }
     }
 
-    public static void processGeneException(ContextEl _context) {
-        CallingState callingState_ = _context.getCallingState();
+    public static void processGeneException(ContextEl _context, StackCall _stackCall) {
+        CallingState callingState_ = _stackCall.getCallingState();
         if (callingState_ instanceof CustomFoundExc) {
             Struct exc_ = ((CustomFoundExc)callingState_).getStruct();
-            LocalThrowing.removeBlockFinally(_context, exc_);
+            LocalThrowing.removeBlockFinally(_context, exc_, _stackCall);
         }
     }
 
-    static void processTagsBase(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        if (!ip_.checkCondition(_context)) {
+    static void processTagsBase(ContextEl _context, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
+        if (!ip_.checkCondition(_context, _stackCall)) {
             return;
         }
         ExecBlock en_ = ip_.getBlock();
@@ -51,23 +51,23 @@ public final class ExecutingUtil {
             ip_.setGlobalOffset(en_.getOffsetTrim());
             ip_.setOffset(0);
         }
-        ip_.tryProcessEl(_context);
+        ip_.tryProcessEl(_context, _stackCall);
     }
 
-    static AbstractPageEl processAfterOperation(ContextEl _context) {
-        CallingState callingState_ = _context.getCallingState();
+    static AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stackCall) {
+        CallingState callingState_ = _stackCall.getCallingState();
         if (callingState_ != null) {
-            return callingState_.processAfterOperation(_context);
+            return callingState_.processAfterOperation(_context, _stackCall);
         }
         return null;
     }
 
 
-    public static AbstractPageEl createInstancingClass(ContextEl _context,NotInitializedClass _e) {
-        return createInstancingClass(_context,_e.getRootBlock(),_e.getClassName(),_e.getArgument());
+    public static AbstractPageEl createInstancingClass(NotInitializedClass _e, StackCall _stackCall) {
+        return createInstancingClass(_e.getRootBlock(),_e.getClassName(),_e.getArgument(), _stackCall);
     }
-    public static AbstractPageEl createInstancingClass(ContextEl _context,ExecRootBlock _rootBlock,String _class,Argument _fwd) {
-        _context.setCallingState(null);
+    public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, String _class, Argument _fwd, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         ExecBlock firstChild_ = _rootBlock.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
         Argument argGl_ = new Argument();
@@ -90,26 +90,26 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static AbstractPageEl createCallingMethod(ContextEl _context,CustomFoundMethod _e) {
+    public static AbstractPageEl createCallingMethod(ContextEl _context, CustomFoundMethod _e, StackCall _stackCall) {
         String cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_);
+        return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_, _stackCall);
     }
-    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args) {
-        _context.setCallingState(null);
+    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         MethodPageEl pageLoc_ = new MethodPageEl(_gl,_class);
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
     }
 
-    public static AbstractPageEl createCallingCast(ContextEl _context,CustomFoundCast _e) {
+    public static AbstractPageEl createCallingCast(ContextEl _context, CustomFoundCast _e, StackCall _stackCall) {
         String cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
-        return createCallingCast(_context,cl_,_e.getPair(), args_);
+        return createCallingCast(_context,cl_,_e.getPair(), args_, _stackCall);
     }
-    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args) {
-        _context.setCallingState(null);
+    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         CastPageEl pageLoc_ = new CastPageEl(Argument.createVoid(),_class);
         setMethodInfos(_context, pageLoc_, _method, _args);
         return pageLoc_;
@@ -131,11 +131,11 @@ public final class ExecutingUtil {
         _page.setReadWrite(rwLoc_);
         _page.setFile(fct_.getFile());
     }
-    public static AbstractPageEl createRecordInstancing(ContextEl _context,CustomFoundRecordConstructor _e) {
+    public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e, StackCall _stackCall) {
         String cl_ = _e.getClassName();
         ExecRootBlock type_ = _e.getPair().getType();
         CustList<Argument> args_ = _e.getArguments();
-        _context.setCallingState(null);
+        _stackCall.setCallingState(null);
         NewRecordPageEl page_ = new NewRecordPageEl(_e.getId(),args_);
         Struct str_ = NullStruct.NULL_VALUE;
         String fieldName_ = _e.getFieldName();
@@ -153,18 +153,18 @@ public final class ExecutingUtil {
         page_.setFile(file_);
         return page_;
     }
-    public static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
+    public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
-            return createNewInstancing(_context,_e);
+            return createNewInstancing(_context,_e, _stackCall);
         }
-        return createForwardingInstancing(_context,_e);
+        return createForwardingInstancing(_context,_e, _stackCall);
     }
-    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
+    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
         String cl_ = _e.getClassName();
         ExecRootBlock type_ = _e.getPair().getType();
         Parameters args_ = _e.getArguments();
-        _context.setCallingState(null);
+        _stackCall.setCallingState(null);
         Argument global_ = _e.getCurrentObject();
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
@@ -180,10 +180,10 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static NewAnnotationPageEl createAnnotation(ContextEl _context,String _class,ExecRootBlock _type,
-                                                        StringMap<AnnotationTypeInfo> _id,
-                                                        CustList<Argument> _args) {
-        _context.setCallingState(null);
+    public static NewAnnotationPageEl createAnnotation(ContextEl _context, String _class, ExecRootBlock _type,
+                                                       StringMap<AnnotationTypeInfo> _id,
+                                                       CustList<Argument> _args, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         NewAnnotationPageEl page_;
         ExecFileBlock file_ = _type.getFile();
         page_ = new NewAnnotationPageEl(_id,_args);
@@ -197,8 +197,8 @@ public final class ExecutingUtil {
         page_.setBlockRootTypes(_type);
         return page_;
     }
-    private static AbstractPageEl createForwardingInstancing(ContextEl _context,CustomFoundConstructor _e) {
-        _context.setCallingState(null);
+    private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         String cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
@@ -229,8 +229,8 @@ public final class ExecutingUtil {
         _page.setReadWrite(rw_);
         _page.setFile(file_);
     }
-    public static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {
-        _context.setCallingState(null);
+    public static FieldInitPageEl createInitFields(ExecRootBlock _type, String _class, Argument _current, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);
@@ -250,8 +250,8 @@ public final class ExecutingUtil {
         page_.setFile(_type.getFile());
         return page_;
     }
-    public static BlockPageEl createBlockPageEl(ContextEl _context,String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
-        _context.setCallingState(null);
+    public static BlockPageEl createBlockPageEl(ContextEl _context, String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         ExecFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl();
         page_.setGlobalClass(_class);
@@ -268,8 +268,8 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static AbstractReflectPageEl createReflectMethod(ContextEl _context, AbstractReflectElement _ref) {
-        _context.setCallingState(null);
+    public static AbstractReflectPageEl createReflectMethod(AbstractReflectElement _ref, StackCall _stackCall) {
+        _stackCall.setCallingState(null);
         AbstractReflectPageEl pageLoc_;
         ReflectingType reflect_ = _ref.getReflect();
         if (_ref instanceof CustomReflectLambdaConstructor) {
@@ -763,23 +763,23 @@ public final class ExecutingUtil {
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
-    public static ArrayStruct newStackTraceElementArrayFull(ContextEl _cont) {
-        return _cont.getFullStack().newStackTraceElementArray();
+    public static ArrayStruct newStackTraceElementArrayFull(StackCall _stackCall) {
+        return _stackCall.getFullStack().newStackTraceElementArray(_stackCall);
     }
 
-    public static ArrayStruct newStackTraceElementArray(ContextEl _cont) {
-        int count_ = _cont.nbPages();
+    public static ArrayStruct newStackTraceElementArray(ContextEl _cont, StackCall _stackCall) {
+        int count_ = _stackCall.nbPages();
         String cl_ = _cont.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         ArrayStruct array_ = new ArrayStruct(count_, cl_);
         for (int i = 0; i < count_; i++) {
-            array_.set(i, newStackTraceElement(_cont,i));
+            array_.set(i, newStackTraceElement(_cont,i, _stackCall));
         }
         return array_;
     }
 
-    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index) {
-        AbstractPageEl call_ = _cont.getCall(_index);
+    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
+        AbstractPageEl call_ = _stackCall.getCall(_index);
         int indexFileType_ = call_.getTraceIndex();
         ExecFileBlock f_ = call_.getFile();
         String fileName_;
@@ -805,20 +805,20 @@ public final class ExecutingUtil {
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
     }
 
-    public static void addPage(ContextEl _cont,AbstractPageEl _page) {
+    public static void addPage(ContextEl _cont, AbstractPageEl _page, StackCall _stackCall) {
         LgNames stds_ = _cont.getStandards();
         String sof_ = stds_.getContent().getCoreNames().getAliasSof();
-        if (_cont.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
-            _cont.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, sof_)));
+        if (_cont.getStackOverFlow() >= IndexConstants.FIRST_INDEX && _cont.getStackOverFlow() <= _stackCall.nbPages()) {
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, sof_, _stackCall)));
         } else {
-            _cont.addInternPage(_page);
+            _stackCall.addInternPage(_page);
         }
     }
 
-    public static boolean hasToExit(ContextEl _cont,String _className,Argument _arg) {
+    public static boolean hasToExit(ContextEl _cont, String _className, Argument _arg, StackCall _stackCall) {
         Classes classes_ = _cont.getClasses();
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        String curClass_ = _cont.getLastPage().getGlobalClass();
+        String curClass_ = _stackCall.getLastPage().getGlobalClass();
         curClass_ = StringExpUtil.getIdFromAllTypes(curClass_);
         if (StringUtil.quickEq(curClass_, idClass_)) {
             return false;
@@ -826,22 +826,22 @@ public final class ExecutingUtil {
         ExecRootBlock c_ = classes_.getClassBody(idClass_);
         if (c_ != null) {
             DefaultLockingClass locks_ = _cont.getLocks();
-            if (_cont.getInitializingTypeInfos().isInitEnums()) {
+            if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
                 InitClassState res_ = locks_.getState(idClass_);
                 if (res_ != InitClassState.SUCCESS) {
-                    _cont.getInitializingTypeInfos().failInitEnums();
+                    _stackCall.getInitializingTypeInfos().failInitEnums();
                     return true;
                 }
                 return false;
             }
             InitClassState res_ = locks_.getProgressingState(idClass_);
             if (res_ == InitClassState.NOT_YET) {
-                _cont.setCallingState(new NotInitializedClass(idClass_,c_, _arg));
+                _stackCall.setCallingState(new NotInitializedClass(idClass_,c_, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont);
-                _cont.setCallingState(new CustomFoundExc(causing_));
+                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont, _stackCall);
+                _stackCall.setCallingState(new CustomFoundExc(causing_));
                 return true;
             }
         }

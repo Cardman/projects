@@ -4,8 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.IndexableListener;
@@ -16,10 +15,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public final class SimpleSelectEltListStruct extends MouseAdapter implements IndexableListener {
-    private GraphicListStruct grList;
+    private final GraphicListStruct grList;
 
     private int index;
-    private CommonExecutionInfos executionInfos;
+    private final CommonExecutionInfos executionInfos;
 
     public SimpleSelectEltListStruct(ContextEl _contextEl, GraphicListStruct _graphicList, int _index) {
         executionInfos = _contextEl.getExecutionInfos();
@@ -50,7 +49,7 @@ public final class SimpleSelectEltListStruct extends MouseAdapter implements Ind
         Argument arg_ = new Argument();
         ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefresh();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
-        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _args, _r,pair_);
+        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _args, _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r));
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);

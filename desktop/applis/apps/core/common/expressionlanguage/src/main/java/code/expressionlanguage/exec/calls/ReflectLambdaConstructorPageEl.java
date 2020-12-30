@@ -2,11 +2,8 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -16,7 +13,7 @@ import code.expressionlanguage.structs.ConstructorMetaInfo;
 public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstructorPageEl {
 
     private boolean calledMethod;
-    private ConstructorMetaInfo metaInfo;
+    private final ConstructorMetaInfo metaInfo;
 
     private final Argument argument;
     private final ArgumentListCall array;
@@ -29,8 +26,8 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context) {
-        if (!keep(_context)) {
+    public boolean checkCondition(ContextEl _context, StackCall _stack) {
+        if (!keep(_context, _stack)) {
             return false;
         }
         String res_ = getResolved();
@@ -42,13 +39,13 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
             ExecTypeFunction pair_ = metaInfo.getPair();
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, argument, array, "", -1);
+                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, argument, array, "", -1, _stack);
             }
             if (metaInfo.getStandardType() != null) {
-                arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, array.getArguments());
+                arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, array.getArguments(), _stack);
             }
-            if (_context.callsOrException()) {
-                setWrapException(_context.calls());
+            if (_context.callsOrException(_stack)) {
+                setWrapException(_stack.calls());
                 return false;
             }
             setReturnedArgument(arg_);

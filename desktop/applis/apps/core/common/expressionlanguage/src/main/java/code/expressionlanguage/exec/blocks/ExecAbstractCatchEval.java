@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 
 public abstract class ExecAbstractCatchEval extends ExecBracedBlock implements StackableBlock {
 
@@ -11,12 +11,12 @@ public abstract class ExecAbstractCatchEval extends ExecBracedBlock implements S
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         if (isNextTryParts(getNextSibling())) {
             ip_.setBlock(getNextSibling());
         } else {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stack);
         }
     }
 }

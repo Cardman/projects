@@ -6,7 +6,9 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -68,7 +70,7 @@ public final class CustThreadActions extends AbstractThreadActions {
     public void run() {
         String content_ = fileNames.getVal(fileName);
         if (content_ == null) {
-            afterActionWithoutRemove(null);
+            afterActionWithoutRemove(null, null);
             return;
         }
         DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(stds);
@@ -77,6 +79,7 @@ public final class CustThreadActions extends AbstractThreadActions {
         DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, fileBuilder_, def_);
         ContextEl ctx_ = du_.getContext().getContext();
         getPage().setContext(ctx_);
+        StackCall stack_ = null;
         if (ctx_ != null) {
             HtmlPage htmlPage_ = getPage().getNavigation().getHtmlPage();
             htmlPage_.setUrl(-1);
@@ -89,6 +92,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                 finish();
                 return;
             }
+            stack_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
             if (fileNames != null) {
                 LgNames stds_ = ctx_.getStandards();
                 String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
@@ -97,9 +101,9 @@ public final class CustThreadActions extends AbstractThreadActions {
                 if (classBody_ != null) {
                     CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
                     if (!methods_.isEmpty()) {
-                        ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
-                        if (ctx_.callsOrException()) {
-                            afterActionWithoutRemove(ctx_);
+                        ProcessMethod.initializeClass(classDbName, classBody_,ctx_, stack_);
+                        if (ctx_.callsOrException(stack_)) {
+                            afterActionWithoutRemove(ctx_, stack_);
                             return;
                         }
                         Argument arg_ = new Argument();
@@ -117,18 +121,18 @@ public final class CustThreadActions extends AbstractThreadActions {
                         args_.add(new Argument(arrContents_));
                         ExecNamedFunctionBlock method_ = methods_.first();
                         ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
-                        Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, classDbName,arg_,args_,ctx_);
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, pair_, parameters_, ctx_).getValue();
-                        if (ctx_.callsOrException()) {
-                            afterActionWithoutRemove(ctx_);
+                        Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, classDbName,arg_,args_,ctx_, stack_);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, pair_, parameters_, ctx_, stack_).getValue();
+                        if (ctx_.callsOrException(stack_)) {
+                            afterActionWithoutRemove(ctx_, stack_);
                             return;
                         }
                         getPage().getNavigation().setDataBaseStruct(out_.getStruct());
                     }
                 }
             }
-            getPage().getNavigation().initializeRendSession(ctx_, du_.getStds());
+            getPage().getNavigation().initializeRendSession(ctx_, du_.getStds(), stack_);
         }
-        afterActionWithoutRemove(ctx_);
+        afterActionWithoutRemove(ctx_, stack_);
     }
 }

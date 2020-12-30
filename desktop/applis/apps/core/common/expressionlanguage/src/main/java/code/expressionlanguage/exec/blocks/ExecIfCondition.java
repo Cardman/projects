@@ -2,15 +2,15 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.IfBlockStack;
 import code.util.CustList;
 
 public final class ExecIfCondition extends ExecCondition implements StackableBlock {
 
-    private String label;
+    private final String label;
 
     public ExecIfCondition(int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition, int _offsetTrim) {
         super(_conditionOffset, _opCondition, _offsetTrim);
@@ -18,13 +18,13 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
+    public void processEl(ContextEl _cont, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
+            processBlockAndRemove(_cont, _stack);
             return;
         }
-        ConditionReturn assert_ = evaluateCondition(_cont);
+        ConditionReturn assert_ = evaluateCondition(_cont, _stack);
         if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }

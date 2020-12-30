@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -13,36 +14,36 @@ import code.util.core.StringUtil;
 
 public final class ExecCloneOperation extends ExecInvokingOperation {
 
-    private String methodName;
+    private final String methodName;
 
     public ExecCloneOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, String _methodName) {
         super(_opCont, _intermediateDottedOperation);
         methodName = _methodName;
     }
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, _conf);
-        setSimpleArgument(res_, _conf, _nodes);
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument res_ = getArgument(previous_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(Argument _previous, ContextEl _conf) {
+    Argument getArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
-        setRelOffsetPossibleLastPage(off_, _conf);
-        return cloneArray(_previous, _conf);
+        setRelOffsetPossibleLastPage(off_, _stackCall);
+        return cloneArray(_previous, _conf, _stackCall);
     }
 
-    public static Argument cloneArray(Argument _previous, ContextEl _conf) {
+    public static Argument cloneArray(Argument _previous, ContextEl _conf, StackCall _stackCall) {
         Struct argPrev_ = _previous.getStruct();
         String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
         if (!(argPrev_ instanceof ArrayStruct)) {
-            _conf.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return new Argument();
         }
         //clone object
         ArrayStruct arr_ = (ArrayStruct) argPrev_;
         ArrayStruct copy_ = arr_.swallowCopy();
-        _conf.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
+        _stackCall.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
         return new Argument(copy_);
     }
 

@@ -1,7 +1,9 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
@@ -13,9 +15,9 @@ import code.util.core.StringUtil;
 
 public final class RendSubmit extends RendElement {
 
-    private StringMap<ExecTextPart> opExp;
+    private final StringMap<ExecTextPart> opExp;
 
-    private StringMap<String> preformatted;
+    private final StringMap<String> preformatted;
 
     public RendSubmit(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _opExp, StringMap<String> _preformatted) {
         super(_offsetTrim, _read, _execAttributes, _execAttributesText);
@@ -24,7 +26,7 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx) {
+    protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -36,8 +38,8 @@ public final class RendSubmit extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String,ExecTextPart> e:opExp.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_,_cont, _stds, _ctx));
-            if (_ctx.callsOrException()) {
+            objects_.add(RenderingText.render(r_,_cont, _stds, _ctx, _stack, _rendStack));
+            if (_ctx.callsOrException(_stack)) {
                 return;
             }
             curWr_.removeAttribute(e.getKey());

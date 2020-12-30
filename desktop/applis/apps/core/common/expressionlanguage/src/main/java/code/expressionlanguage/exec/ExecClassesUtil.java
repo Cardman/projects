@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -121,14 +122,15 @@ public final class ExecClassesUtil {
         dl_.init(_context);
         CustList<String> all_ = cl_.getClassesBodies().getKeys();
         _context.setExiting(new DefaultExiting(_context));
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
+        StackCall st_ = StackCall.newInstance(InitPhase.READ_ONLY_OTHERS,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.READ_ONLY_OTHERS);
         while (true) {
             StringList new_ = new StringList();
             for (String c: all_) {
-                _context.getInitializingTypeInfos().resetInitEnums(_context);
+                st_.getInitializingTypeInfos().resetInitEnums(st_);
                 StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.getCommon().getStaticFields());
-                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context);
-                if (_context.isFailInit()) {
+                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context, st_);
+                if (st_.isFailInit()) {
                     cl_.getCommon().setStaticFields(bk_);
                 } else {
                     new_.add(c);
@@ -139,8 +141,9 @@ public final class ExecClassesUtil {
                 break;
             }
         }
-        _context.getInitializingTypeInfos().resetInitEnums(_context);
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
+        st_.getInitializingTypeInfos().resetInitEnums(st_);
+        st_ = StackCall.newInstance(InitPhase.LIST,_context);
+        st_.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
         for (String t: _options.getTypesInit()) {
             String res_ = StringExpUtil.removeDottedSpaces(t);
@@ -148,11 +151,9 @@ public final class ExecClassesUtil {
             if (classBody_ == null) {
                 continue;
             }
-            _context.getInitializingTypeInfos().resetInitEnums(_context);
-            ProcessMethod.initializeClass(res_,classBody_,_context);
+            st_.getInitializingTypeInfos().resetInitEnums(st_);
+            ProcessMethod.initializeClass(res_,classBody_,_context, st_);
         }
-        _context.getInitializingTypeInfos().resetInitEnums(_context);
-        _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
         _context.setExiting(new NoExiting());
     }
 

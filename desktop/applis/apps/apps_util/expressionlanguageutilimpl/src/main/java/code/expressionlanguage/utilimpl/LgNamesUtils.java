@@ -16,13 +16,13 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
-    private CustAliases custAliases = new CustAliases();
+    private final CustAliases custAliases = new CustAliases();
 
-    private FileInfos infos;
+    private final FileInfos infos;
 
     private ExecutingOptions executingOptions;
 
-    private ExecutingBlocks executingBlocks = new ExecutingBlocks();
+    private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
     public LgNamesUtils(FileInfos _infos) {
         super(_infos.getGenerator());
         custAliases.setInfos(_infos);
@@ -50,27 +50,27 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
-    public Argument defaultInstance(ContextEl _cont, String _id) {
-        return custAliases.defaultInstance(_cont,_id);
+    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
+        return custAliases.defaultInstance(_cont,_id, _stackCall);
     }
 
     @Override
-    protected ResultErrorStd instance(ContextEl _cont, ConstructorId _method, Argument... _args) {
-        return custAliases.instance(_cont, _method, _args);
+    protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
+        return custAliases.instance(_cont, _method, _stack, _args);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont,
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
-        return custAliases.getOtherResult(_cont,_method,_args);
+        return custAliases.getOtherResult(_cont,_method, _stack,_args);
     }
 
-    protected ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return custAliases.invoke(_cont, _method, _struct, _exit, _args);
+    protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
+        return custAliases.invoke(_cont, _method, _struct, _exit, _stack, _args);
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
-        return custAliases.getOtherResult(_cont,_instance,_method, executingBlocks, _args);
+    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
+                                         ClassMethodId _method, Struct... _args) {
+        return custAliases.getOtherResult(_cont,_instance,_method, executingBlocks, _stack, _args);
     }
 
     public FileInfos getInfos() {

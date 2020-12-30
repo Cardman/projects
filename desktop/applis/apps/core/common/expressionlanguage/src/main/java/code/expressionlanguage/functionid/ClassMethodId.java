@@ -1,5 +1,5 @@
 package code.expressionlanguage.functionid;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.core.StringUtil;
@@ -15,9 +15,9 @@ public final class ClassMethodId {
         constraints = _constraints;
     }
 
-    public static String formatType(String _type, ContextEl _conf, MethodAccessKind _kind) {
+    public static String formatType(String _type, MethodAccessKind _kind, StackCall _stackCall) {
         if (_kind == MethodAccessKind.STATIC_CALL) {
-            return _conf.formatVarType(_type);
+            return _stackCall.formatVarType(_type);
         }
         return _type;
     }

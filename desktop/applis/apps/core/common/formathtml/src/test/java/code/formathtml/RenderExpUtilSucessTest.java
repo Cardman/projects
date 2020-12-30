@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -5598,7 +5599,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setGlobalType(_context, _context.getLastPage().getGlobalArgument().getStruct().getClassName(_context.getContext()));
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
         setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
-        Argument argGl_ = _context.getConfiguration().getPageEl().getGlobalArgument();
+        Argument argGl_ = _context.getRendStackCall().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _context.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_context, _s, 0);
@@ -5612,7 +5613,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(_context.getContext().getCallingState());
+        checkNullEx(_context);
         return arg_;
     }
 
@@ -5622,7 +5623,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(_context.getContext().getCallingState());
+        checkNullEx(_context);
         return arg_;
     }
 
@@ -5633,7 +5634,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(_context, out_);
-        assertNull(_context.getContext().getCallingState());
+        checkNullEx(_context);
         return arg_;
     }
 
@@ -5665,7 +5666,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getAnalyzingDoc().setup(conf_.getConfiguration(), conf_.getDual());
         setupAnalyzing(conf_, conf_.getLastPage(), conf_.getAnalyzingDoc());
-        Argument argGl_ = conf_.getConfiguration().getPageEl().getGlobalArgument();
+        Argument argGl_ = conf_.getRendStackCall().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         conf_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(conf_, _s, 0);
@@ -5678,7 +5679,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(conf_, out_);
-        assertNull(conf_.getContext().getCallingState());
+        checkNullEx(conf_);
         return arg_;
     }
 
@@ -5718,7 +5719,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(_an, out_);
-        assertNull(_an.getContext().getCallingState());
+        checkNullEx(_an);
         return arg_;
     }
 
@@ -5777,7 +5778,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getAnalyzing().getOptions());
         caculateReuse(context_, out_);
-        assertNull(context_.getContext().getCallingState());
+        checkNullEx(context_);
         return lv_;
     }
 
@@ -5850,7 +5851,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out1_ = CommonRender.getReducedNodes(out1_.last());
         caculateReuse(context_, out1_);
-        assertNull(context_.getContext().getCallingState());
+        checkNullEx(context_);
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, _i, context_);
         assertTrue(d_.getBadOffset() < 0);
@@ -5865,7 +5866,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(context_.getContext().getCallingState());
+        checkNullEx(context_);
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -5892,7 +5893,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setGlobalType(context_, context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         setupAnalyzing(context_, context_.getLastPage(), context_.getAnalyzingDoc());
-        Argument argGl_ = context_.getConfiguration().getPageEl().getGlobalArgument();
+        Argument argGl_ = context_.getRendStackCall().getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(context_, _el, 0);
@@ -5906,7 +5907,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(),context_.getAnalyzing().getOptions());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(context_.getContext().getCallingState());
+        checkNullEx(context_);
         return arg_;
     }
 
@@ -5939,7 +5940,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(isEmptyErrors(context_));
         out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(context_, out_);
-        assertNull(context_.getContext().getCallingState());
+        checkNullEx(context_);
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -6020,6 +6021,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static void setGlobalType(AnalyzedTestConfiguration _context, String _clasName) {
         _context.getAnalyzing().setGlobalClass(_clasName);
         _context.getAnalyzing().setGlobalType(_context.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(_clasName)));
+    }
+
+    private static void checkNullEx(AnalyzedTestConfiguration _context) {
+        assertNull(getStackCall(_context).getCallingState());
+    }
+
+    private static StackCall getStackCall(AnalyzedTestConfiguration _context) {
+        return _context.getStackCall();
     }
 
 
