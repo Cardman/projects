@@ -76,7 +76,7 @@ public final class MainWindow extends GroupFrame {
         pane_.add(scrollSession_);
         pane_.add(field_);
         pane_.add(search_);
-        pane_.add(t_);
+        pane_.add(new ScrollPane(t_));
         setContentPane(pane_);
         pack();
         setVisible(true);
