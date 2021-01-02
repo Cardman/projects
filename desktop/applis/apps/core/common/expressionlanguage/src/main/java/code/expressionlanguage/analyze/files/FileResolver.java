@@ -127,10 +127,8 @@ public final class FileResolver {
             } else {
                 if (!StringUtil.isWhitespace(currentChar_)) {
                     indexImport_ = setInstLocation(str_, indexImport_, i_);
-                    str_.append(currentChar_);
-                } else {
-                    str_.append(currentChar_);
                 }
+                str_.append(currentChar_);
             }
             i_ = i_ + 1;
         }
@@ -2405,13 +2403,12 @@ public final class FileResolver {
                 ((Condition)br_).setTestOffset(_i+_offset);
                 br_.setBegin(_instructionLocation+deltaFirst_-keyWordIf_.length()+_offset);
                 br_.setLengthHeader(keyWordIf_.length());
-                _currentParent.appendChild(br_);
             } else {
                 br_ = new ElseCondition(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
                 br_.setBegin(_instructionLocation+_offset);
                 br_.setLengthHeader(keyWordElse_.length());
-                _currentParent.appendChild(br_);
             }
+            _currentParent.appendChild(br_);
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordDo_)) {
