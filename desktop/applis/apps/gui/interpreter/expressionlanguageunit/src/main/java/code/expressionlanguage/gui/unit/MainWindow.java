@@ -30,36 +30,37 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class MainWindow extends GroupFrame implements TestableFrame {
-    private Menu menu;
-    private MenuItem open;
-    private MenuItem logErr;
-    private MenuItem simpleFrame;
-    private MenuItem stop;
-    private CheckBoxMenuItem memory;
+    private final Menu menu;
+    private final MenuItem open;
+    private final CheckBoxMenuItem logErr;
+    private final MenuItem simpleFrame;
+    private final MenuItem stop;
+    private final CheckBoxMenuItem memory;
 
-    private Panel contentPane;
-    private Panel form;
-    private PlainLabel content;
-    private TextArea conf;
-    private PlainButton launch;
-    private Panel progressing;
-    private PlainLabel doneTests;
-    private PlainLabel doneTestsCount;
+    private final Panel contentPane;
+    private final Panel form;
+    private final PlainLabel content;
+    private final TextArea conf;
+    private final PlainButton launch;
+    private final Panel progressing;
+    private final PlainLabel doneTests;
+    private final PlainLabel doneTestsCount;
 
-    private PlainLabel method;
-    private PlainLabel currentMethod;
-    private TableGui resultsTable;
-    private TextArea results;
-    private ProgressBar progressBar;
+    private final PlainLabel method;
+    private final PlainLabel currentMethod;
+    private final TableGui resultsTable;
+    private final TextArea results;
+    private final ProgressBar progressBar;
 
     private RunningTest running;
     private Thread th;
     private final StringMap<String> messages;
     private final UniformingString uniformingString = new DefaultUniformingString();
-    private TextArea errors = new TextArea();
-    private UnitIssuer unitIssuer = new UnitIssuer(errors);
+    private final TextArea errors = new TextArea();
+    private final ScrollPane errorsScroll = new ScrollPane(errors);
+    private final UnitIssuer unitIssuer = new UnitIssuer(errors);
     private final SimpleFilesFrame frame;
-    private CommonExecution commonExecution;
+    private final CommonExecution commonExecution;
 
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -72,7 +73,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         open.addActionListener(new FileOpenEvent(this, this));
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         menu.addMenuItem(open);
-        logErr = new MenuItem(messages.getVal("status"));
+        logErr = new CheckBoxMenuItem(messages.getVal("status"));
         logErr.addActionListener(new LogErrEvent(this));
         menu.addMenuItem(logErr);
         memory = new CheckBoxMenuItem(messages.getVal("memory"));
@@ -125,6 +126,9 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);
+        errorsScroll.setPreferredSize(new Dimension(512,128));
+        errorsScroll.setVisible(false);
+        contentPane.add(errorsScroll);
         setContentPane(contentPane);
         pack();
         setVisible(true);
@@ -241,7 +245,8 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     }
 
     public void logErr() {
-        ConfirmDialog.showMessage(this,errors.getText(),"",getLanguageKey(),JOptionPane.INFORMATION_MESSAGE);
+        errorsScroll.setVisible(!errorsScroll.isVisible());
+        contentPane.repaintChildren();
     }
     private AbstractLogger buildLogger(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
