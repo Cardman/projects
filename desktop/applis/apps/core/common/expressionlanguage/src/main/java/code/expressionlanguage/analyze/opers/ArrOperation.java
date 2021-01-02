@@ -22,8 +22,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     private boolean getAndSet;
 
-    private AnaArrContent arrContent;
-    private AnaCallFctContent callFctContent;
+    private final AnaArrContent arrContent;
+    private final AnaCallFctContent callFctContent;
     private int anc;
 
     private boolean staticChoiceMethod;
@@ -213,6 +213,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
         OperationNode right_ = chidren_.last();
         if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
                 ||right_ instanceof FirstOptOperation || right_ instanceof IdFctOperation
@@ -230,7 +231,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _page);
         if (!indexClass_.isNumericInt(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
             if (res_.isFoundMethod()) {
@@ -249,7 +249,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 nbErr = un_.getBuiltError();
             }
         }
-        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
         if (!class_.isArray()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

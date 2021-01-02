@@ -23,7 +23,7 @@ import code.util.core.StringUtil;
 public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
-    private AnaOperatorContent operatorContent;
+    private final AnaOperatorContent operatorContent;
     private AnaTypeFct function;
     private String className="";
     private MemberId memberId = new MemberId();
@@ -51,11 +51,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
         if (!isLeftValue(elt_)) {
-            setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -63,8 +63,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     operatorContent.getOper());
             _page.getLocalizer().addError(un_);
-            IntTreeMap< String> ops_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
@@ -145,7 +143,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         String stringType_ = _page.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _page);
 
         if (StringUtil.quickEq(operatorContent.getOper(), Block.PLUS_EQ)) {
             if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {

@@ -28,10 +28,10 @@ import code.util.core.StringUtil;
 
 public abstract class AbstractInstancingOperation extends InvokingOperation {
 
-    private AnaInstancingCommonContent instancingCommonContent;
+    private final AnaInstancingCommonContent instancingCommonContent;
     private AnaTypeFct constructor;
     private String typeInfer = EMPTY_STRING;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean newBefore = true;
 
     private StringList staticInitInterfaces = new StringList();
@@ -167,23 +167,23 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (!isIntermediateDottedOperation()) {
-            int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());
             if (type_.isEmpty()) {
                 return;
             }
         } else {
-            int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
             ContextUtil.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_, _page);
         }
+        int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');
+        int gt_ = newKeyWord_.length() + local_ + className_.indexOf('>') + 1;
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();
@@ -211,9 +211,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
                     partOffsets.addAllElts(partOffsets_);
-                    int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
-                    int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                    ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -238,9 +236,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
                     partOffsets.addAllElts(partOffsets_);
-                    int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
-                    int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                    ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
                     typeInfer = infer_;
                 }
             }
@@ -271,9 +267,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
                 partOffsets.addAllElts(partOffsets_);
-                int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
-                int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -301,9 +295,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
                 partOffsets.addAllElts(partOffsets_);
-                int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
-                int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
                 typeInfer = infer_;
             }
             return;
@@ -320,9 +312,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
         partOffsets.addAllElts(partOffsets_);
-        int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
-        int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+        ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
         typeInfer = infer_;
     }
 

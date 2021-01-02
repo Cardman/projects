@@ -13,7 +13,7 @@ import code.util.core.StringUtil;
 public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private AnaClassArgumentMatching previousResultClass;
-    private AnaThisContent thisContent;
+    private final AnaThisContent thisContent;
 
     public ThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -23,6 +23,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ thisContent.getOff(), _page);
         if (isIntermediateDottedOperation()) {
             MethodOperation m_ = getParent();
             OperationNode o_ = m_.getFirstChild();
@@ -100,12 +101,9 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                     _page.getKeyWords().getKeyWordThis());
             _page.getLocalizer().addError(static_);
             addErr(static_.getBuiltError());
-            int off_ = StringUtil.getFirstPrintableCharIndex(access_);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             setResultClass(new AnaClassArgumentMatching(arg_));
             return;
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ thisContent.getOff(), _page);
         String arg_ = _page.getGlobalClass();
         if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();

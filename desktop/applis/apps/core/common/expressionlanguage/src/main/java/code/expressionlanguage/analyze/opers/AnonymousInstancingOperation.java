@@ -19,7 +19,7 @@ import code.util.core.StringUtil;
 public final class AnonymousInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation {
 
-    private AnaInstancingAnonContent instancingAnonContent;
+    private final AnaInstancingAnonContent instancingAnonContent;
     private String glClass="";
     private RootBlock glType;
     private String base="";
@@ -54,6 +54,7 @@ public final class AnonymousInstancingOperation extends
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -64,7 +65,6 @@ public final class AnonymousInstancingOperation extends
             _page.getLocalizer().addError(static_);
             addErr(static_.getBuiltError());
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_page.getStaticContext());
             if (!getTypeInfer().isEmpty()) {

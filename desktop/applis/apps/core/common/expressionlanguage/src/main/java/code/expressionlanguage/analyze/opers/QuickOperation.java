@@ -30,8 +30,8 @@ public abstract class QuickOperation extends MethodOperation {
     private AnaTypeFct functionTest;
     private MemberId memberConverter = new MemberId();
     private ClassMethodId converter;
-    private StringList errFirst = new StringList();
-    private StringList errSecond = new StringList();
+    private final StringList errFirst = new StringList();
+    private final StringList errSecond = new StringList();
 
     private int opOffset;
 
@@ -80,6 +80,7 @@ public abstract class QuickOperation extends MethodOperation {
                     memberConverter = res_.getMemberId();
                     convert = res_.getPair();
                 } else {
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_page.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -88,7 +89,6 @@ public abstract class QuickOperation extends MethodOperation {
                             StringUtil.join(getResultClass().getNames(),"&"),
                             StringUtil.join(leftRes_.getNames(),"&"));
                     _page.getLocalizer().addError(cast_);
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     errFirst.add(LinkageUtil.transform(cast_.getBuiltError()));
                     okNum = false;
                 }
@@ -98,6 +98,7 @@ public abstract class QuickOperation extends MethodOperation {
         }
         okNum = true;
         if (!leftRes_.isBoolType(_page)) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -105,11 +106,11 @@ public abstract class QuickOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(leftRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             errFirst.add(LinkageUtil.transform(un_.getBuiltError()));
             okNum = false;
         }
         if (!rightRes_.isBoolType(_page)) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -117,7 +118,6 @@ public abstract class QuickOperation extends MethodOperation {
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(rightRes_.getNames(),"&"));
             _page.getLocalizer().addError(un_);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             errSecond.add(LinkageUtil.transform(un_.getBuiltError()));
             okNum = false;
         }
