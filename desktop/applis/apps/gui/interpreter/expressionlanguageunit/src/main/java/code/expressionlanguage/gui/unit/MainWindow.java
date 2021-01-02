@@ -54,68 +54,68 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
 
     private RunningTest running;
     private Thread th;
-    private final StringMap<String> messages;
+    private final StringMap<String> unitMessages;
     private final UniformingString uniformingString = new DefaultUniformingString();
     private final TextArea errors = new TextArea();
     private final ScrollPane errorsScroll = new ScrollPane(errors);
     private final UnitIssuer unitIssuer = new UnitIssuer(errors);
-    private final SimpleFilesFrame frame;
+    private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
 
     protected MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
-        messages = getMessages(this,"resources_unit/gui/messages");
-        setTitle(messages.getVal("title"));
+        unitMessages = getMessages(this,"resources_unit/gui/messages");
+        setTitle(unitMessages.getVal("title"));
         setJMenuBar(new MenuBar());
-        menu = new Menu(messages.getVal("file"));
-        open = new MenuItem(messages.getVal("open"));
+        menu = new Menu(unitMessages.getVal("file"));
+        open = new MenuItem(unitMessages.getVal("open"));
         open.addActionListener(new FileOpenEvent(this, this));
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         menu.addMenuItem(open);
-        logErr = new CheckBoxMenuItem(messages.getVal("status"));
+        logErr = new CheckBoxMenuItem(unitMessages.getVal("status"));
         logErr.addActionListener(new LogErrEvent(this));
         menu.addMenuItem(logErr);
-        memory = new CheckBoxMenuItem(messages.getVal("memory"));
+        memory = new CheckBoxMenuItem(unitMessages.getVal("memory"));
         menu.addMenuItem(memory);
         menu.addSeparator();
-        simpleFrame = new MenuItem(messages.getVal("archive"));
+        simpleFrame = new MenuItem(unitMessages.getVal("archive"));
         simpleFrame.addActionListener(new SimpleFilesFrameOpen(this));
         menu.addMenuItem(simpleFrame);
         menu.addSeparator();
-        stop = new MenuItem(messages.getVal("stop"));
+        stop = new MenuItem(unitMessages.getVal("stop"));
         stop.addActionListener(new StopRunEvent(this));
         menu.addMenuItem(stop);
         getJMenuBar().add(menu);
         contentPane = Panel.newPageBox();
         form = Panel.newGrid(0,2);
-        content = new PlainLabel(messages.getVal("configuration"));
+        content = new PlainLabel(unitMessages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
         ScrollPane scr_ = new ScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
-        launch = new PlainButton(messages.getVal("launch"));
+        launch = new PlainButton(unitMessages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(this, this));
         form.add(launch);
         form.add(new TextLabel(""));
         contentPane.add(form);
         progressing = Panel.newPageBox();
-        doneTests = new PlainLabel(messages.getVal("tests"));
+        doneTests = new PlainLabel(unitMessages.getVal("tests"));
         progressing.add(doneTests);
         doneTestsCount = new PlainLabel("");
         progressing.add(doneTestsCount);
-        method = new PlainLabel(messages.getVal("method"));
+        method = new PlainLabel(unitMessages.getVal("method"));
         progressing.add(method);
         currentMethod = new PlainLabel("");
         progressing.add(currentMethod);
         progressBar = new ProgressBar();
         progressing.add(progressBar);
         String[] cols_ = new String[4];
-        cols_[0] =messages.getVal("number");
-        cols_[1] =messages.getVal("method");
-        cols_[2] =messages.getVal("params");
-        cols_[3] =messages.getVal("success");
+        cols_[0] = unitMessages.getVal("number");
+        cols_[1] = unitMessages.getVal("method");
+        cols_[2] = unitMessages.getVal("params");
+        cols_[3] = unitMessages.getVal("success");
         resultsTable = new TableGui(cols_);
         results = new TextArea(1024,1024);
         ScrollPane scrTable_ = new ScrollPane(resultsTable);
@@ -134,8 +134,8 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
-        frame = new SimpleFilesFrame(this,getTitle());
-        commonExecution = new CommonExecution(messages,doneTestsCount,currentMethod,resultsTable,results,progressBar);
+        filesFrame = new SimpleFilesFrame(this,getTitle());
+        commonExecution = new CommonExecution(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar);
     }
 
     @Override
@@ -191,8 +191,8 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         th_.start();
     }
     public void open() {
-        if (!frame.isVisible()) {
-            frame.setVisible(true);
+        if (!filesFrame.isVisible()) {
+            filesFrame.setVisible(true);
         }
     }
     public void selectFile(TestableFrame _mainWindow) {
