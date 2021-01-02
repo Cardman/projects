@@ -46,6 +46,7 @@ public final class AliasParamReflection {
     public static final String METHOD_0_INVOKE_1="Method0Invoke1";
     public static final String METHOD_0_INVOKE_DIRECT_0="Method0InvokeDirect0";
     public static final String METHOD_0_INVOKE_DIRECT_1="Method0InvokeDirect1";
+    public static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0="Method0GetDeclaredAnonymousLambdaLocalVarsNb0";
     public static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0="Method0GetDeclaredAnonymousLambdaLocalVars0";
     public static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1="Method0GetDeclaredAnonymousLambdaLocalVars1";
     public static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2="Method0GetDeclaredAnonymousLambdaLocalVars2";
@@ -115,6 +116,7 @@ public final class AliasParamReflection {
     private String aliasMethod0Invoke1="b";
     private String aliasMethod0InvokeDirect0="a";
     private String aliasMethod0InvokeDirect1="b";
+    private String aliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0="a";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVars0="a";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVars1="b";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVars2="c";
@@ -497,6 +499,14 @@ public final class AliasParamReflection {
 
     public void setAliasMethod0InvokeDirect1(String _v) {
         this.aliasMethod0InvokeDirect1 =_v;
+    }
+
+    public String getAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0() {
+        return aliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0;
+    }
+
+    public void setAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0(String _v) {
+        this.aliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0 = _v;
     }
 
     public String getAliasMethod0GetDeclaredAnonymousLambdaLocalVars0() {

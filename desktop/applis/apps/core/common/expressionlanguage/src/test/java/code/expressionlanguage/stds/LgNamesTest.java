@@ -2172,6 +2172,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasMethod0Invoke1("");
         lgName_.getReflect().getParams().setAliasMethod0InvokeDirect0("");
         lgName_.getReflect().getParams().setAliasMethod0InvokeDirect1("");
+        lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars0("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars1("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars2("");

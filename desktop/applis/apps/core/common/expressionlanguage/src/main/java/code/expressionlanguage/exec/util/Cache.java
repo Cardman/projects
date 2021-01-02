@@ -99,6 +99,15 @@ public final class Cache {
         }
         return list_;
     }
+    public LongStruct getLocalWrapperCount(String _key) {
+        long index_ = 0;
+        for (NamedWrapper n: localWrappers) {
+            if (StringUtil.quickEq(n.getName(),_key)) {
+                index_++;
+            }
+        }
+        return new LongStruct(index_);
+    }
     public Struct getLocalWrapperValue(String _key, long _var, ContextEl _context, StackCall _stackCall) {
         long index_ = 0;
         for (NamedWrapper n: localWrappers) {

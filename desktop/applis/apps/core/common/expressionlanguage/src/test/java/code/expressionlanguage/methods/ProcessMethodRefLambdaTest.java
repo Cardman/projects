@@ -1812,7 +1812,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)8);\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -1876,7 +1876,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)\"8\");\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -1900,7 +1900,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("  $int t = 7;\n");
         xml_.append("  $that $int r = $that(t);\n");
         xml_.append("  $Method v = ($Method)(:$void)->{r=8;}.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)\"8\");\n");
         xml_.append("  $return t;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1924,7 +1924,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" $public $static $void exmeth($that $int r){\n");
         xml_.append("  $Method v = ($Method)(:$void)->{r=8;}.metaInfo();\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)\"8\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)\"8\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2058,8 +2058,8 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"s\",(Object)\"8\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"s\",(Object)\"8\");\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2081,7 +2081,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2103,7 +2103,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2125,10 +2125,10 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)8);\n");
         xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"v2\",0,(Object)0);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"v3\",0,(Object)0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"v3\",0,(Object)0);\n");
         xml_.append("  $return ($int)v.invoke($null);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2150,9 +2150,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\",0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaLocVars(\"r\",0);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2173,9 +2173,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\",1);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaLocVars(\"r\",1);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2196,9 +2196,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\",2);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars(\"r\",2);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2219,9 +2219,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"s\",0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars(\"s\",0);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2242,9 +2242,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars().length;\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars().length;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2265,9 +2265,9 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)8);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",1,(Object)10);\n");
-        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaWrapVars(\"r\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return ($int)v.getDeclaredAnonymousLambdaLocVars(\"r\");\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2288,7 +2288,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars();\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars();\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2309,7 +2309,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\");\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars(\"r\");\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2330,7 +2330,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
-        xml_.append("  $return v.getDeclaredAnonymousLambdaWrapVars(\"r\",0);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVars(\"r\",0);\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
         xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
@@ -2351,7 +2351,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",0,(Object)0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)0);\n");
         xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2373,7 +2373,7 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object exmeth(){\n");
         xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaWrapVars(\"r\",(Object)0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",(Object)0);\n");
         xml_.append("  $return $null;\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth($that $int r){\n");
@@ -2388,5 +2388,75 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument98Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $long exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)10);\n");
+        xml_.append("  $return v.getDeclaredAnonymousLambdaLocVarsNb(\"r\");\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument99Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVarsNb(\"z\");\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int v2 = 12; $that $int r = $that(v2); $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument100Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $class(Ex).getDeclaredMethods()[1].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",0,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"r\",1,(Object)8);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"v2\",0,(Object)0);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"v3\",0,(Object)0);\n");
+        xml_.append("  $return ($int)v.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($that $int r){\n");
+        xml_.append("  $return (:$int)->{$int r = 12; $return(:$int)->{$int v = 12;$return($that $int r:$int)->{$return #r+=r;}.call($that(v));}.call();}.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(20, getNumber(ret_));
     }
 }

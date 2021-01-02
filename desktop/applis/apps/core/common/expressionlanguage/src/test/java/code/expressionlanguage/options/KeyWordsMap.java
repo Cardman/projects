@@ -367,7 +367,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars("getDeclaredAnonymousLambdaLocVars");
-        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars("getDeclaredAnonymousLambdaWrapVars");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb("getDeclaredAnonymousLambdaLocVarsNb");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
@@ -703,7 +703,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousTypes("valTypesAnonymesDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambda("valLambdaAnonymesDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars("valLocalVarsLambdaAnonymesDeclares");
-        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars("valEnvelVarsLambdaAnonymesDeclares");
+        _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb("valLocalVarsLambdaAnonymesDeclaresNb");
         _lgNames.getContent().getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars("valBoucleVarsLambdaAnonymesDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredBlocks("valBlocsDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredLocalTypes("valLocalTypesDeclares");

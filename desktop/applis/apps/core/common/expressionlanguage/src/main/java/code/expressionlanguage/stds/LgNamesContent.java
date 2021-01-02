@@ -221,7 +221,7 @@ public final class LgNamesContent {
     private static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA = "GetDeclaredAnonymousLambda";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS = "GetDeclaredAnonymousLambdaLocalVars";
-    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS = "GetDeclaredAnonymousLambdaWrapVars";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB = "GetDeclaredAnonymousLambdaLocalVarsNb";
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS = "GetDeclaredAnonymousLambdaLoopVars";
     private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
     private static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
@@ -567,7 +567,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
         getReflect().setAliasGetDeclaredAnonymousLambda(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
         getReflect().setAliasGetDeclaredAnonymousLambdaLocalVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS));
-        getReflect().setAliasGetDeclaredAnonymousLambdaWrapperVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS));
+        getReflect().setAliasGetDeclaredAnonymousLambdaLocalVarsNb(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB));
         getReflect().setAliasGetDeclaredAnonymousLambdaLoopVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
         getReflect().setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
         getReflect().setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
@@ -1139,6 +1139,7 @@ public final class LgNamesContent {
         getReflect().getParams().setAliasMethod0Invoke1(get(_util,_cust, AliasParamReflection.METHOD_0_INVOKE_1));
         getReflect().getParams().setAliasMethod0InvokeDirect0(get(_util,_cust, AliasParamReflection.METHOD_0_INVOKE_DIRECT_0));
         getReflect().getParams().setAliasMethod0InvokeDirect1(get(_util,_cust, AliasParamReflection.METHOD_0_INVOKE_DIRECT_1));
+        getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0(get(_util,_cust, AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0));
         getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars0(get(_util,_cust, AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0));
         getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars1(get(_util,_cust, AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1));
         getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars2(get(_util,_cust, AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2));
@@ -1437,7 +1438,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLocalVars()),
-                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_WRAP_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaWrapperVars()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB,getReflect().getAliasGetDeclaredAnonymousLambdaLocalVarsNb()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getReflect().getAliasGetDeclaredAnonymousLambdaLoopVars()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getReflect().getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_DEFAULT_VALUE,getReflect().getAliasGetDefaultValue()),
@@ -2073,6 +2074,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_0, getReflect().getParams().getAliasField0SetField0()),new KeyValueMemberName(AliasParamReflection.FIELD_0_SET_FIELD_1, getReflect().getParams().getAliasField0SetField1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_0, getReflect().getParams().getAliasMethod0Invoke0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_1, getReflect().getParams().getAliasMethod0Invoke1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_0, getReflect().getParams().getAliasMethod0InvokeDirect0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_INVOKE_DIRECT_1, getReflect().getParams().getAliasMethod0InvokeDirect1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0, getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars1()),new KeyValueMemberName(AliasParamReflection.METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2, getReflect().getParams().getAliasMethod0GetDeclaredAnonymousLambdaLocalVars2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, getReflect().getParams().getAliasMethod1GetDeclaredAnonymousLambdaLocalVars1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0, getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(AliasParamReflection.METHOD_2_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1, getReflect().getParams().getAliasMethod2GetDeclaredAnonymousLambdaLocalVars1())));
