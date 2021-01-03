@@ -407,6 +407,7 @@ public final class ClassesUtil {
             int indexDef_ = p.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringUtil.splitInTwo(p, indexDef_);
             String id_ = parts_.first();
+            id_ = id_.trim();
             int offId_ = tempOff_ + StringUtil.getFirstPrintableCharIndex(p);
             if (id_.isEmpty()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
