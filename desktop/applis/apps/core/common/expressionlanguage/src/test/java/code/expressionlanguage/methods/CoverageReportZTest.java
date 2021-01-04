@@ -8747,6 +8747,49 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage602Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int3 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int4 {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param< T : Int1 & Int2 , S : Int3 & Int4 > {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public interface <a name=\"m81\">pkg.Int1</a> {\n" +
+                "}\n" +
+                "public interface <a name=\"m111\">pkg.Int2</a> {\n" +
+                "}\n" +
+                "public interface <a name=\"m141\">pkg.Int3</a> {\n" +
+                "}\n" +
+                "public interface <a name=\"m171\">pkg.Int4</a> {\n" +
+                "}\n" +
+                "public class <a name=\"m197\">pkg.Param</a>&lt; <a name=\"m208\">T</a> : <a title=\"pkg.Int1\" href=\"#m81\">Int1</a> &amp; <a title=\"pkg.Int2\" href=\"#m111\">Int2</a> , <a name=\"m226\">S</a> : <a title=\"pkg.Int3\" href=\"#m141\">Int3</a> &amp; <a title=\"pkg.Int4\" href=\"#m171\">Int4</a> &gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
