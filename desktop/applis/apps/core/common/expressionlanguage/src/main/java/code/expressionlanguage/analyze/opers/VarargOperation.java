@@ -18,22 +18,19 @@ import code.util.core.StringUtil;
 public final class VarargOperation extends LeafOperation {
 
     private String className;
-    private int offset;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public VarargOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        offset = _op.getValues().firstKey();
         className = _op.getValues().firstValue();
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         MethodOperation m_ = getParent();
         if (isNotChildOfCallDyn(m_)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -49,7 +46,6 @@ public final class VarargOperation extends LeafOperation {
             return;
         }
         if (!isFirstChildInParent()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();

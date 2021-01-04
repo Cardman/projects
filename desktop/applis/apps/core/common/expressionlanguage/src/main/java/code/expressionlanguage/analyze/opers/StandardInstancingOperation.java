@@ -30,9 +30,9 @@ public final class StandardInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
     private boolean hasFieldName;
-    private AnaInstancingStdContent instancingStdContent;
+    private final AnaInstancingStdContent instancingStdContent;
 
-    private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
+    private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
 
     public StandardInstancingOperation(int _index, int _indexChild,
@@ -234,7 +234,7 @@ public final class StandardInstancingOperation extends
             NameParametersFilter filter_ = buildQuickStrictFilter(_page,_realClassName,(RecordBlock) g_, this);
             for (NamedArgumentOperation o: filter_.getParameterFilterErr()) {
                 String name_ = o.getName();
-                o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _page);
+                o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffsetTr(), _page);
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
                 b_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -21,8 +21,7 @@ import code.util.core.StringUtil;
 
 public final class IdFctOperation extends LeafOperation {
 
-    private String className;
-    private int offset;
+    private final String className;
 
     private ClassMethodIdAncestor method;
 
@@ -31,17 +30,15 @@ public final class IdFctOperation extends LeafOperation {
     public IdFctOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        offset = _op.getValues().firstKey();
         className = _op.getValues().firstValue();
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
         partOffsets = new CustList<PartOffset>();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         MethodOperation m_ = getParent();
         if (isNotChildOfCallDyn(m_)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -56,7 +53,6 @@ public final class IdFctOperation extends LeafOperation {
             return;
         }
         if (!isFirstChildInParent()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();

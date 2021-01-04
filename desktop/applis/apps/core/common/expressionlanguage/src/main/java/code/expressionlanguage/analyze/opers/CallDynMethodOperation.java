@@ -25,7 +25,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements S
     private boolean noNeed;
     private int indexCh=-1;
     private String fctName;
-    private AnaArrContent arrContent;
+    private final AnaArrContent arrContent;
     private boolean errLeftValue;
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -35,6 +35,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements S
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         String fctName_ = getOperations().getFctName().trim();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();

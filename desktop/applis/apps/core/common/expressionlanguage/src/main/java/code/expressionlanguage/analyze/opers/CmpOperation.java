@@ -21,7 +21,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
 
     private boolean stringCompare;
     private String className="";
-    private AnaOperatorContent operatorContent;
+    private final AnaOperatorContent operatorContent;
     private boolean okNum;
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
@@ -106,9 +106,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         okNum = false;
         _page.setOkNumOp(false);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
-        StringList expectedTypes_ = new StringList();
-        expectedTypes_.add(_page.getAliasPrimDouble());
-        expectedTypes_.add(_page.getAliasString());
         String res_ = _page.getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();

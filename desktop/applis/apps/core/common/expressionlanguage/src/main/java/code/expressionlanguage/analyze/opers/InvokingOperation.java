@@ -50,7 +50,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     private static void buildFilter(NameParametersFilter _filter, AnalyzedPageEl _page) {
         for (NamedArgumentOperation o: _filter.getParameterFilterErr()) {
             String name_ = o.getName();
-            o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _page);
+            o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffsetTr(), _page);
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
             b_.setFileName(_page.getLocalizer().getCurrentFileName());

@@ -33,14 +33,13 @@ import code.util.core.StringUtil;
 public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private AnaClassArgumentMatching previousResultClass;
-    private AnaLambdaCommonContent lambdaCommonContent;
+    private final AnaLambdaCommonContent lambdaCommonContent;
     private MemberId lambdaMemberNumberContentId;
 
-    private String className;
-    private int offset;
+    private final String className;
 
     private ClassMethodId method;
-    private AnaLambdaMethodContent lambdaMethodContent;
+    private final AnaLambdaMethodContent lambdaMethodContent;
     private ConstructorId realId;
     private final StringMap<String> infos = new StringMap<String>();
     private final Ints offsets = new Ints();
@@ -50,10 +49,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private RootBlock fieldType;
     private AnaTypeFct function;
     private ClassField fieldId;
-    private AnaLambdaFieldContent lambdaFieldContent;
+    private final AnaLambdaFieldContent lambdaFieldContent;
     private int valueOffset;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
     private StandardMethod standardMethod;
     private StandardType standardType;
 
@@ -64,14 +63,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMemberNumberContentId = new MemberId();
         lambdaFieldContent = new AnaLambdaFieldContent();
         lambdaMethodContent = new AnaLambdaMethodContent();
-        offset = _op.getValues().firstKey();
         className = _op.getValues().firstValue();
         previousResultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         lambdaCommonContent.setReturnFieldType(_page.getAliasObject());
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_);

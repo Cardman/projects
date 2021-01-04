@@ -18,16 +18,16 @@ import code.util.core.StringUtil;
 public final class ValuesOperation extends LeafOperation {
 
     private String className;
-    private AnaValuesContent valuesContent;
+    private final AnaValuesContent valuesContent;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         IntTreeMap< String> vs_ = getOperations().getValues();
         className = vs_.firstValue();
-        valuesContent = new AnaValuesContent(vs_.firstKey());
+        valuesContent = new AnaValuesContent(0);
     }
 
     @Override

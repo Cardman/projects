@@ -3883,7 +3883,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage772Test() {
+    public void report772Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -3939,7 +3939,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage773Test() {
+    public void report773Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -4011,7 +4011,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage774Test() {
+    public void report774Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -4061,7 +4061,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage775Test() {
+    public void report775Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -4093,7 +4093,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage776Test() {
+    public void report776Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -4119,7 +4119,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage777Test() {
+    public void report777Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
@@ -4139,10 +4139,63 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
-    public void coverage778Test() {
+    public void report778Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", "");
         StringMap<String> filesExp_ = ctxErrStdReadOnlyImpl2(files_);
         assertTrue(!filesExp_.isEmpty());
+    }
+    @Test
+    public void report779Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  Rec r = new Rec( f :10);\n");
+        xml_.append("  return r.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@interface pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#m113\">Rec</a> <a name=\"m58\">r</a> = new <a title=\"pkg.Rec\" href=\"#m113\">Rec</a>( <a title=\"The parameter function name f is duplicated.\" class=\"e\">f</a> :10);\n" +
+                "  return <a href=\"#m58\">r</a>.<a title=\"pkg.Rec.field\" href=\"#m128\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "@interface <a name=\"m113\">pkg.Rec</a> {\n" +
+                " int <a name=\"m128\">field</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report780Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return m(2, c :5, c :3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return m(2, c :5, <a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a> :3);\n" +
+                " }\n" +
+                " static int <a name=\"m78\">m</a>(int <a name=\"m84\">a</a>,int <a name=\"m90\">b</a>,int <a name=\"m96\">c</a>){\n" +
+                "  return <a href=\"#m84\">a</a>*<a href=\"#m90\">b</a>+<a href=\"#m96\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 }

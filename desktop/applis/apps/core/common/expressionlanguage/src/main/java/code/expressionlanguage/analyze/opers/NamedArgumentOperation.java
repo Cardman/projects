@@ -13,13 +13,12 @@ import code.util.core.StringUtil;
 
 public final class NamedArgumentOperation extends AbstractUnaryOperation {
 
-    private int offset;
     private int offsetTr;
-    private AnaNamedContent namedContent;
+    private final AnaNamedContent namedContent;
     private String name;
     private RootBlock field;
     private int ref=-1;
-    private CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
+    private final CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
     public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         namedContent = new AnaNamedContent();
@@ -28,7 +27,6 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
-        offset = vs_.firstKey();
         String first_ = vs_.firstValue();
         name = first_.trim();
         offsetTr = StringUtil.getFirstPrintableCharIndex(first_);
@@ -38,8 +36,8 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
-        namedContent.setOffset(offset);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ namedContent.getOffset(), _page);
+        namedContent.setOffset(offsetTr);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ offsetTr, _page);
         MethodOperation m_ = getParent();
         if (isNotChildOfCallDyn(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
@@ -55,10 +53,6 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
         }
         OperationNode child_ = getFirstChild();
         setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getPrimitiveTypes()));
-    }
-
-    public int getOffset() {
-        return namedContent.getOffset();
     }
 
     public int getIndex() {

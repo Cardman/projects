@@ -39,8 +39,7 @@ public final class RefVariableOperation extends LeafOperation implements
                                 String _className, int _ref, int _deep) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
-        variableContent = new AnaVariableContent(StringUtil.getFirstPrintableCharIndex(originalStr_)+relativeOff_);
+        variableContent = new AnaVariableContent(relativeOff_);
         className = _className;
         ref = _ref;
         variableContent.setDeep(_deep);

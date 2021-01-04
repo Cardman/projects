@@ -17,7 +17,7 @@ public final class IdOperation extends AbstractUnaryOperation {
 
     private boolean standard = true;
 
-    private int delta;
+    private final int delta;
     public IdOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta) {
         super(_index, _indexChild, _m, _op);
@@ -138,6 +138,7 @@ public final class IdOperation extends AbstractUnaryOperation {
         }
         if (children_.isEmpty()) {
             standard = false;
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -161,7 +162,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_page.getLocalizer().getCurrentFileName());
-                undef_.setIndexFile(0);
+                undef_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //current type len
                 undef_.buildError(_page.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
