@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
@@ -38,9 +37,8 @@ public final class ElUtil {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
                 String var_ = e.getValue();
                 String trimmed_ = var_.trim();
-                String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
-                addPart(names_, var_, trimmed_, name_, offset_, false);
+                addPart(names_, var_, trimmed_, offset_, false);
             }
             return names_;
         }
@@ -48,12 +46,12 @@ public final class ElUtil {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
                 String var_ = e.getValue();
                 String trimmed_ = var_.trim();
-                String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
                 if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-                    addFieldName(names_, var_, offset_, false, name_);
+                    addFieldName(names_, var_, offset_, false, trimmed_);
                     continue;
                 }
+                String name_ = getFieldName(trimmed_);
                 String afterName_ = trimmed_.substring(name_.length()).trim();
                 if (ElResolver.isPureAffectation(afterName_,afterName_.length())) {
                     addFieldName(names_, var_, offset_, true, name_);
@@ -66,15 +64,14 @@ public final class ElUtil {
             String var_ = opTwo_.getValues().firstValue();
             int off_ = opTwo_.getValues().firstKey();
             String trimmed_ = var_.trim();
-            String name_ = getFieldName(trimmed_);
-            addPart(names_, var_, trimmed_, name_, _valueOffset + off_, true);
+            addPart(names_, var_, trimmed_, _valueOffset + off_, true);
         }
         return names_;
     }
 
-    private static void addPart(CustList<PartOffsetAffect> _names, String _var, String _trimmed, String _name, int _i, boolean _b) {
+    private static void addPart(CustList<PartOffsetAffect> _names, String _var, String _trimmed, int _i, boolean _b) {
         if (StringExpUtil.isTypeLeafPart(_trimmed)) {
-            addFieldName(_names, _var, _i, _b, _name);
+            addFieldName(_names, _var, _i, _b, _trimmed);
         }
     }
 
