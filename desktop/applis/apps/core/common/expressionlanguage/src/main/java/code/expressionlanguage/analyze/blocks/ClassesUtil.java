@@ -465,7 +465,7 @@ public final class ClassesUtil {
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
             if (indexDef_ != IndexConstants.INDEX_NOT_FOUND_ELT) {
-                int begin_ = indexDef_;
+                int begin_ = indexDef_ + tempOff_;
                 Ints ct_ = new Ints();
                 for (String b: StringUtil.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
                     int off_ = begin_ + StringUtil.getFirstPrintableCharIndex(b);

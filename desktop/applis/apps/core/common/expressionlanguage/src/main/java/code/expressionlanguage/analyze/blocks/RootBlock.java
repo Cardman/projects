@@ -36,7 +36,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private final AccessEnum access;
 
-    private int accessOffset;
+    private final int accessOffset;
 
     private final String templateDef;
 
@@ -80,7 +80,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final StringList allGenericClasses = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<OperationNode> roots = new CustList<OperationNode>();
-    private CustList<ResultExpression> resList = new CustList<ResultExpression>();
+    private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private int nbOperators;
     private int numberAll = -1;
     private final StringList allSuperTypes = new StringList();
@@ -369,11 +369,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
                     _page.getCurrentParts().clear();
-                    int off_ = t.getOffset() + 1;
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(c, this, off_ + d_, _page);
+                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(c, this, 1 + d_, _page);
                         results_.add(res_);
                         const_.add(res_.getResult());
                         i_++;

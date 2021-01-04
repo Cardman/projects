@@ -8637,6 +8637,116 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage600Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Simple {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param1< T> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param2<T > {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param3< T > {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param4< T:Simple> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param5<T :Simple> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param6< T :Simple> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param7< T: Simple> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param8<T : Simple> {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param9< T : Simple> {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m77\">pkg.Simple</a> {\n" +
+                "}\n" +
+                "public class <a name=\"m105\">pkg.Param1</a>&lt; <a name=\"m117\">T</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m137\">pkg.Param2</a>&lt;<a name=\"m148\">T</a> &gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m169\">pkg.Param3</a>&lt; <a name=\"m181\">T</a> &gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m202\">pkg.Param4</a>&lt; <a name=\"m214\">T</a>:<a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m241\">pkg.Param5</a>&lt;<a name=\"m252\">T</a> :<a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m280\">pkg.Param6</a>&lt; <a name=\"m292\">T</a> :<a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m320\">pkg.Param7</a>&lt; <a name=\"m332\">T</a>: <a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m360\">pkg.Param8</a>&lt;<a name=\"m371\">T</a> : <a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m400\">pkg.Param9</a>&lt; <a name=\"m412\">T</a> : <a title=\"pkg.Simple\" href=\"#m77\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage601Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int1 {\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int2 {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param1<T: Int1 & Int2 > {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param2<T : Int1 & Int2 > {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param3< T: Int1 & Int2 > {\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Param4< T : Int1 & Int2 > {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ext</a> {\n" +
+                " public static int <a name=\"m42\">m</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public interface <a name=\"m81\">pkg.Int1</a> {\n" +
+                "}\n" +
+                "public interface <a name=\"m111\">pkg.Int2</a> {\n" +
+                "}\n" +
+                "public class <a name=\"m137\">pkg.Param1</a>&lt;<a name=\"m148\">T</a>: <a title=\"pkg.Int1\" href=\"#m81\">Int1</a> &amp; <a title=\"pkg.Int2\" href=\"#m111\">Int2</a> &gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m182\">pkg.Param2</a>&lt;<a name=\"m193\">T</a> : <a title=\"pkg.Int1\" href=\"#m81\">Int1</a> &amp; <a title=\"pkg.Int2\" href=\"#m111\">Int2</a> &gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m228\">pkg.Param3</a>&lt; <a name=\"m240\">T</a>: <a title=\"pkg.Int1\" href=\"#m81\">Int1</a> &amp; <a title=\"pkg.Int2\" href=\"#m111\">Int2</a> &gt; {\n" +
+                "}\n" +
+                "public class <a name=\"m274\">pkg.Param4</a>&lt; <a name=\"m286\">T</a> : <a title=\"pkg.Int1\" href=\"#m81\">Int1</a> &amp; <a title=\"pkg.Int2\" href=\"#m111\">Int2</a> &gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
