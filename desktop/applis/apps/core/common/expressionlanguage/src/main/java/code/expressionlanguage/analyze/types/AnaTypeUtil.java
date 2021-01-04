@@ -378,7 +378,7 @@ public final class AnaTypeUtil {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(un_.getFile().getFileName());
-                        undef_.setIndexFile(0);
+                        undef_.setIndexFile(c.getIdRowCol());
                         //last parenthese
                         undef_.buildError(_page.getAnalysisMessages().getCallIntNeedType(),
                                 s);
@@ -391,7 +391,7 @@ public final class AnaTypeUtil {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(un_.getFile().getFileName());
-                        undef_.setIndexFile(0);
+                        undef_.setIndexFile(c.getIdRowCol());
                         //type len
                         undef_.buildError(_page.getAnalysisMessages().getCallIntNoNeedType(),
                                 s);

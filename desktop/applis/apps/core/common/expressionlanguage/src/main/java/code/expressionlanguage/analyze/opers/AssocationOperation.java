@@ -11,11 +11,10 @@ import code.util.core.StringUtil;
 
 public final class AssocationOperation extends AbstractUnaryOperation {
 
-    private String fieldName;
+    private final String fieldName;
 
-    private int offset;
-    private int delta;
-    private int offEq;
+    private final int delta;
+    private final int offEq;
     private String errAff = EMPTY_STRING;
     private AnaTypeFct function;
 
@@ -30,7 +29,6 @@ public final class AssocationOperation extends AbstractUnaryOperation {
     @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
-        offset = vs_.firstKey();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
@@ -76,7 +74,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
     }
 
     public int getSum() {
-        return offset+delta;
+        return delta;
     }
 
     public String getErrAff() {

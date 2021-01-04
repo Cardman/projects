@@ -1213,7 +1213,7 @@ public final class ClassesUtil {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(r.getFile().getFileName());
-                        undef_.setIndexFile(0);
+                        undef_.setIndexFile(r.getIdRowCol());
                         //original type len
                         undef_.buildError(_page.getAnalysisMessages().getDuplicateSuper(),
                                 c,e.getKey(),Long.toString(e.getValue()));
@@ -1333,7 +1333,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFileName(r.getFile().getFileName());
-                    undef_.setIndexFile(0);
+                    undef_.setIndexFile(r.getIdRowCol());
                     //id len
                     undef_.buildError(_page.getAnalysisMessages().getUnknownSuperType(),
                             r.getFullName());
@@ -2520,7 +2520,7 @@ public final class ClassesUtil {
             FoundErrorInterpret undef_;
             undef_ = new FoundErrorInterpret();
             undef_.setFileName(_cl.getFile().getFileName());
-            undef_.setIndexFile(0);
+            undef_.setIndexFile(_cl.getIdRowCol());
             //original id len
             undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtor(),
                     _cl.getFullName());

@@ -19,7 +19,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
 
     private boolean implicitCallSuper;
 
-    private int leftPar;
+    private final int leftPar;
 
     private String ctorName = "";
 
@@ -129,7 +129,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(getFile().getFileName());
-                        undef_.setIndexFile(0);
+                        undef_.setIndexFile(getNameOffset());
                         //left par of ctor
                         undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNeed(),
                                 n);
@@ -142,7 +142,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
                         undef_.setFileName(getFile().getFileName());
-                        undef_.setIndexFile(0);
+                        undef_.setIndexFile(getNameOffset());
                         //constructor ref header len
                         undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNotNeed(),
                                 n);
@@ -156,7 +156,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(getFile().getFileName());
-                undef_.setIndexFile(0);
+                undef_.setIndexFile(getNameOffset());
                 //first constructor ref header len
                 undef_.buildError(_page.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
                 _page.addLocError(undef_);

@@ -16,7 +16,7 @@ import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InterfaceInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -141,7 +141,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());
-                undef_.setIndexFile(0);
+                undef_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //current type len
                 undef_.buildError(_page.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
