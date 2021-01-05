@@ -1641,10 +1641,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String operator_ = _args.get(1).trim();
         int i_ = 2;
         String from_ = "";
+        boolean displayErr_ = false;
         if (!StringExpUtil.isOper(operator_)) {
             sum_ += 1+_args.get(1).length();
             int offset_ = className.indexOf(',')+1;
-            offset_ += StringExpUtil.getOffset(operator_);
+            offset_ += StringExpUtil.getOffset(_args.get(1));
             if (operator_.isEmpty()) {
                 offset_--;
             }
@@ -1653,8 +1654,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             from_ = type_;
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
+                sum_ += StringExpUtil.getOffset(_args.get(i_));
+                displayErr_ = true;
             }
             i_++;
+        } else {
+            sum_ += StringExpUtil.getOffset(_args.get(1));
         }
         int count_ = partOffsets.size();
         if (!StringExpUtil.isOper(operator_)) {
@@ -1666,8 +1671,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     operator_);
             _page.getLocalizer().addError(badMeth_);
             int j_ = _page.getLocalizer().getCurrentLocationIndex()+sum_;
-            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badMeth_.getBuiltError()) +"\" class=\"e\">",j_));
-            partOffsetsEnd.add(new PartOffset("</a>",j_+Math.max(1,operator_.length())));
+            if (!operator_.isEmpty()&&displayErr_) {
+                j_++;
+            }
+            int lenErr_= Math.max(1, operator_.length());
+            if (!displayErr_) {
+                lenErr_ = 1;
+            }
+            partOffsetsEnd.add(new PartOffset("<a title=\"" + LinkageUtil.transform(badMeth_.getBuiltError()) + "\" class=\"e\">", j_));
+            partOffsetsEnd.add(new PartOffset("</a>", j_ + lenErr_));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
