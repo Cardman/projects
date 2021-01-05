@@ -2852,11 +2852,13 @@ public final class ElResolver {
                     int before_ = _dout.getDelCastExtract().size();
                     int k_ = indexAfterPossibleCast(_string, j_, _dout, _page);
                     int after_ = _dout.getDelCastExtract().size();
+                    if (k_ == j_) {
+                        stack_.getCallings().add(k_);
+                    }
                     j_ = k_;
                     if (before_ != after_) {
                         continue;
                     }
-                    stack_.getCallings().add(k_);
                 }
                 break;
             }
