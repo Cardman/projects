@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -27,27 +26,22 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument res_ = getArgument(_nodes, _conf, _stack);
+        int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
+        setRelOffsetPossibleLastPage(off_, _stack);
+        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(), staticFctContent.getKind(), _stack);
+        Argument res_;
+        if (_conf.getExiting().hasToExit(_stack, classNameFound_)) {
+            res_ = Argument.createVoid();
+        } else {
+            Argument prev_ = new Argument();
+            String lastType_ = ClassMethodId.formatType(pair.getType(), classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+            res_ = callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg()), null, staticFctContent.getKind(), "", _stack);
+        }
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
-        int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
-        setRelOffsetPossibleLastPage(off_, _stackCall);
-        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(), staticFctContent.getKind(), _stackCall);
-        if (_conf.getExiting().hasToExit(_stackCall, classNameFound_)) {
-            return Argument.createVoid();
-        }
-        Argument prev_ = new Argument();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, pair, prev_,null, getArgs(_nodes, classNameFound_), null, staticFctContent.getKind(), "", _stackCall);
-    }
-
-    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _classNameFound) {
-        String lastType_ = ClassMethodId.formatType(pair.getType(),_classNameFound, staticFctContent.getLastType(), staticFctContent.getKind());
-        return fectchArgs(_nodes,lastType_, staticFctContent.getNaturalVararg());
     }
 
 

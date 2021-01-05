@@ -1428,6 +1428,10 @@ public abstract class OperationNode {
             group_.add(_page.getAliasPrimInteger());
             group_.add(_page.getAliasPrimLong());
             groups_.add(group_);
+        } else {
+            StringList group_ = new StringList();
+            group_.add(_page.getAliasPrimBoolean());
+            groups_.add(group_);
         }
         for (StringList g: groups_) {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();

@@ -31,17 +31,9 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getCommonArgument(previous_);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(Argument _previous) {
-        return new Argument(newLambda(_previous, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints()));
-    }
-
-    private Struct newLambda(Argument _previous, String _foundClass, String _returnFieldType, int _ancestor, boolean _polymorph, MethodId _constraints) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        return newLambda(_previous, _foundClass, _returnFieldType, _ancestor, _polymorph, lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, lambdaMethodContent.getFunction());
+        Argument res_ = new Argument(newLambda(previous_, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), lambdaMethodContent.getFunction()));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(Argument _previous, String _ownerType, String _returnFieldType,
@@ -52,19 +44,14 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(_constraints.getName());
         l_.setKind(MethodAccessKind.STATIC);
-        MethodMetaInfo metaInfo_ = buildMeta(_returnFieldType, _fileName, _ownerType, _constraints, _operator);
-        l_.setMetaInfo(metaInfo_);
-        return l_;
-    }
-
-    private static MethodMetaInfo buildMeta(String _returnFieldType, String _fileName, String _ownerType, MethodId _id, ExecNamedFunctionBlock _operator) {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         MethodModifier met_ = MethodModifier.STATIC;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, idCl_, _id, met_, _returnFieldType, _id, idCl_);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, idCl_, _constraints, met_, _returnFieldType, _constraints, idCl_);
         metaInfo_.setFileName(_fileName);
         metaInfo_.setCallee(_operator);
         metaInfo_.pair(null, _operator);
-        return metaInfo_;
+        l_.setMetaInfo(metaInfo_);
+        return l_;
     }
 
 

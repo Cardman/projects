@@ -24,18 +24,17 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument( arguments_, _conf, _stack);
+        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stack);
+        Argument objArg_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument argres_;
+        if (objArg_.isNull()) {
+            argres_ = new Argument(BooleanStruct.of(false));
+        } else {
+            String str_ = _stack.formatVarType(typeCheckContent.getClassName());
+            boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
+            argres_ = new Argument(BooleanStruct.of(res_));
+        }
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stackCall);
-        Argument objArg_ = ExecTemplates.getFirstArgument(_arguments);
-        if (objArg_.isNull()) {
-            return new Argument(BooleanStruct.of(false));
-        }
-        String str_ = _stackCall.formatVarType(typeCheckContent.getClassName());
-        boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
-        return new Argument(BooleanStruct.of(res_));
-    }
 }

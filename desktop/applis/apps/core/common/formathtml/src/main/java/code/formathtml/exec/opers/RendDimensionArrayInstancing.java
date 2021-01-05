@@ -7,6 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
@@ -15,7 +16,9 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.Ints;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -30,8 +33,9 @@ public final class RendDimensionArrayInstancing extends
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments,
-                         Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument res_;
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(m_);
@@ -44,7 +48,7 @@ public final class RendDimensionArrayInstancing extends
         int i_ = IndexConstants.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
-            NumberStruct n_ = NumParsers.convertToNumber(_arguments.get(i_).getStruct());
+            NumberStruct n_ = NumParsers.convertToNumber(arguments_.get(i_).getStruct());
             int offset_ = getIndexBegin()+ o.getIndexInEl() + off_;
             offs_.add(offset_);
             _rendStack.setOpOffset(offset_);
@@ -57,13 +61,16 @@ public final class RendDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct res_ = newCustomArrayOrExc(offs_,className_, dims_, _ctx, _stack, _rendStack);
-        if (res_ instanceof ErrorStruct) {
-            _stack.setCallingState(new CustomFoundExc(res_));
-            return new Argument();
+        Struct newArr_ = newCustomArrayOrExc(offs_,className_, dims_, _context, _stack, _rendStack);
+        if (newArr_ instanceof ErrorStruct) {
+            _stack.setCallingState(new CustomFoundExc(newArr_));
+            res_ = new Argument();
+        } else {
+            res_ = new Argument(newArr_);
         }
-        return new Argument(res_);
+        setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
+
     public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Ints dims_ = new Ints();
         String size_;

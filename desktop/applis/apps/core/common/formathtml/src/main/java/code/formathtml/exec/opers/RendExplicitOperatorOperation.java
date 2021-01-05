@@ -32,12 +32,9 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _rendStack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack, _rendStack), _context, _stack);
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, fectchArgs(_nodes,staticFctContent.getLastType(),staticFctContent.getNaturalVararg(), _rendStack), staticFctContent.getClassName(), staticFctContent.getKind(), _stack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, fectchArgs(_all,staticFctContent.getLastType(),staticFctContent.getNaturalVararg(), _rendStackCall), staticFctContent.getClassName(), staticFctContent.getKind(), _stackCall);
-        return Argument.createVoid();
-    }
 }

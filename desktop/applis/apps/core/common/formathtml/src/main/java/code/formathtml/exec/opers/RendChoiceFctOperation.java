@@ -33,25 +33,24 @@ public final class RendChoiceFctOperation extends RendSettableCallFctOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context, _stack, _rendStack), _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String lastType_ = instFctContent.getLastType();
         int naturalVararg_ = instFctContent.getNaturalVararg();
         String classNameFound_ = instFctContent.getClassName();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, _previous.getStruct(), _context, _stackCall));
-        if (_context.callsOrException(_stackCall)) {
-            return new Argument();
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, previous_.getStruct(), _context, _stack));
+        Argument result_;
+        if (_context.callsOrException(_stack)) {
+            result_ = new Argument();
+        } else {
+            String argClassName_ = prev_.getStruct().getClassName(_context);
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
+            lastType_ = ExecTemplates.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
+            result_ = ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack), null, MethodAccessKind.INSTANCE, "", _stack);
         }
-        String argClassName_ = prev_.getStruct().getClassName(_context);
-        String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-        String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _context);
-        lastType_ = ExecTemplates.quickFormat(pair.getType(),fullClassNameFound_, lastType_);
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, fectchArgs(_all,lastType_,naturalVararg_, _rendStackCall), null, MethodAccessKind.INSTANCE, "", _stackCall);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
+        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
 }

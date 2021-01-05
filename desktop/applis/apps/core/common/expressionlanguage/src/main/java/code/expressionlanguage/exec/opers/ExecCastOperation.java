@@ -35,18 +35,14 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _conf, _stack);
-        setSimpleArgument(argres_, _conf, _nodes, _stack);
+        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stack);
+        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(arguments_).getStruct());
+        String paramName_ = _stack.formatVarType(typeCheckContent.getClassName());
+        wrapFct(paramName_,false, _conf, objArg_);
+        ExecTemplates.checkObject(paramName_, objArg_, _conf, _stack);
+        setSimpleArgument(objArg_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _stackCall);
-        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
-        String paramName_ = _stackCall.formatVarType(typeCheckContent.getClassName());
-        wrapFct(paramName_,false, _conf, objArg_);
-        ExecTemplates.checkObject(paramName_, objArg_, _conf, _stackCall);
-        return objArg_;
-    }
     public static void wrapFct(String _className, boolean _full, ContextEl _conf, Argument _objArg) {
         if (StringExpUtil.customCast(_className)) {
             Struct str_ = _objArg.getStruct();
@@ -69,13 +65,13 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                            AbstractFunctionalInstance struct_;
                             if (_full) {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,r_,(LambdaStruct) str_, overridableBlock_, _conf);
-                                _objArg.setStruct(struct_);
+                                struct_ = _conf.getStandards().newFullFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);
                             } else {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,r_,(LambdaStruct) str_, overridableBlock_, _conf);
-                                _objArg.setStruct(struct_);
+                                struct_ = _conf.getStandards().newFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);
                             }
+                            _objArg.setStruct(struct_);
                         }
                     }
                 }

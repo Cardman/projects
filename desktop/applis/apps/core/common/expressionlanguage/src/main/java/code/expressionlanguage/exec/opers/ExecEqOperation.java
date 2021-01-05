@@ -16,10 +16,6 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         oper = _oper;
     }
 
-    private static boolean calculateEq(Argument _a, Argument _b) {
-        return _a.getStruct().sameReference(_b.getStruct());
-    }
-
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument first_ = getFirstArgument(_nodes,this);
@@ -29,7 +25,7 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        boolean b_ = calculateEq(first_, second_);
+        boolean b_ = first_.getStruct().sameReference(second_.getStruct());
         if (complement_) {
             b_ = !b_;
         }

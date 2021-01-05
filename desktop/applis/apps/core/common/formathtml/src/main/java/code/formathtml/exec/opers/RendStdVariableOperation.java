@@ -28,7 +28,14 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument arg_ = getCommonArgument(_context, _stack, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStack);
+        SimplePageEl ip_ = _rendStack.getPageEl();
+        Argument arg_;
+        if (resultCanBeSet()) {
+            arg_ = Argument.createVoid();
+        } else {
+            arg_ = ExecTemplates.getWrapValue(_context, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stack);
+        }
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _stack);
         } else {
@@ -40,52 +47,27 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     public boolean resultCanBeSet() {
         return variableContent.isVariable();
     }
-    Argument getCommonArgument(ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStackCall);
-        SimplePageEl ip_ = _rendStackCall.getPageEl();
-        if (resultCanBeSet()) {
-            return Argument.createVoid();
-        }
-        return ExecTemplates.getWrapValue(_context, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
-    }
 
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return getCommonSetting(_right, _context, _stack, _rendStack);
+        return processVariable(_right,_context,_stack,_rendStack);
     }
 
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
-        return getCommonCompoundSetting(store_, _op, _right, _cl, _cast, _context, _stack, _rendStack);
+        Argument left_ = new Argument(store_);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
+        return processVariable(res_,_context,_stack,_rendStack);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Struct store_ = _store.getStruct();
-        return getCommonSemiSetting(store_, _op, _post, _cast, _context, _stack, _rendStack);
-    }
-
-    private Argument getCommonSetting(Argument _right, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        SimplePageEl ip_ = _rendStackCall.getPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStackCall);
-        return ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
-    }
-    private Argument getCommonCompoundSetting(Struct _store, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        SimplePageEl ip_ = _rendStackCall.getPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStackCall);
-        Argument left_ = new Argument(_store);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stackCall);
-        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
-        return res_;
-    }
-    private Argument getCommonSemiSetting(Struct _store, String _op, boolean _post, byte _cast, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        SimplePageEl ip_ = _rendStackCall.getPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStackCall);
-        Argument left_ = new Argument(_store);
+        Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), res_, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
+        processVariable(res_,_context,_stack,_rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -101,10 +83,9 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private void processVariable(Argument _right, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private Argument processVariable(Argument _right, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         SimplePageEl ip_ = _rendStackCall.getPageEl();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStackCall);
-        ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
+        return ExecTemplates.setWrapValue(_context, variableContent.getVariableName(), _right, variableContent.getDeep(), ip_.getCache(), ip_.getRefParams(), _stackCall);
     }
 
     public ExecVariableContent getVariableContent() {

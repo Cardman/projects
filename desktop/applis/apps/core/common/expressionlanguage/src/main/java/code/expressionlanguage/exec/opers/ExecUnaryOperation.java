@@ -20,14 +20,10 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument arg_ = getArgument(_nodes,getFirstChild());
-        Argument a_ = getArgument(arg_, _stack);
-        setSimpleArgument(a_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(Argument _in, StackCall _stackCall) {
-        setRelativeOffsetPossibleLastPage(_stackCall);
+        setRelativeOffsetPossibleLastPage(_stack);
         ExecClassArgumentMatching to_ = getResultClass();
-        return getArgument(_in, to_, oper);
+        Argument a_ = getArgument(arg_, to_, oper);
+        setSimpleArgument(a_, _conf, _nodes, _stack);
     }
 
     public static Argument getArgument(Argument _in, ExecClassArgumentMatching _to, String _oper) {

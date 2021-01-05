@@ -30,15 +30,10 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(CustList<Argument> _arguments,
-                         ContextEl _conf, StackCall _stackCall) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
-        setRelOffsetPossibleLastPage(off_, _stackCall);
+        setRelOffsetPossibleLastPage(off_, _stack);
+        Argument res_;
         if (rootBlock == null) {
             int nbCh_ = chidren_.size();
             Ints dims_;
@@ -46,15 +41,16 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             dims_.add(nbCh_);
             String className_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(instancingAnnotContent.getClassName()));
             Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
-            ExecTemplates.setCheckedElements(_arguments,str_,_conf, _stackCall);
-            return new Argument(str_);
+            ExecTemplates.setCheckedElements(arguments_,str_, _conf, _stack);
+            res_ = new Argument(str_);
+        } else {
+            String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
+            if (!_conf.getExiting().hasToExit(_stack, base_)) {
+                _stack.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getClassName(), rootBlock, instancingAnnotContent.getFieldNames(), arguments_));
+            }
+            res_ = Argument.createVoid();
         }
-        String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
-        if (_conf.getExiting().hasToExit(_stackCall, base_)) {
-            return Argument.createVoid();
-        }
-        _stackCall.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getClassName(), rootBlock, instancingAnnotContent.getFieldNames(), _arguments));
-        return Argument.createVoid();
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
 }

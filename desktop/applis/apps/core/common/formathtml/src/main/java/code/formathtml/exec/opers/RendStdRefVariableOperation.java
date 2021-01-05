@@ -29,6 +29,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStack);
         if (resultCanBeSet()) {
             if (!declare) {
                 ImportingPage ip_ = _rendStack.getLastPage();
@@ -69,26 +70,20 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(), _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack).getStruct();
-        return getCommonCompoundSetting(_context,store_,_op,_right,_cl,_cast, _stack, _rendStack);
+        Argument left_ = new Argument(store_);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
+        return trySetArgument(_context, res_, _stack, _rendStack);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Struct store_ = ExecTemplates.getWrapValue(_context,getVariableName(),variableContent.getDeep(), _rendStack.getLastPage().getPageEl().getCache(), _rendStack.getLastPage().getPageEl().getRefParams(), _stack).getStruct();
-        return getCommonSemiSetting(_context,store_,_op,_post,_cast, _stack, _rendStack);
-    }
-    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Argument left_ = new Argument(_store);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast,_conf, _stackCall);
-        return trySetArgument(_conf, res_, _stackCall, _rendStackCall);
-    }
-
-    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Argument left_ = new Argument(_store);
+        Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_conf, res_, _stackCall, _rendStackCall);
+        trySetArgument(_context, res_, _stack, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
+
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         return trySetArgument(_context, _right, _stack, _rendStack);

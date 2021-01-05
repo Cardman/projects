@@ -26,16 +26,12 @@ public final class RendCastOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = getArgument(arguments_, _context, _stack, _rendStack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStackCall);
-        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(_arguments).getStruct());
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStack);
+        Argument objArg_ = new Argument(ExecTemplates.getFirstArgument(arguments_).getStruct());
         String paramName_ = typeCheckContent.getClassName();
         ExecCastOperation.wrapFct(paramName_,false, _context, objArg_);
-        ExecTemplates.checkObject(paramName_, objArg_, _context, _stackCall);
-        return objArg_;
+        ExecTemplates.checkObject(paramName_, objArg_, _context, _stack);
+        setSimpleArgument(objArg_, _nodes, _context, _stack, _rendStack);
     }
+
 }

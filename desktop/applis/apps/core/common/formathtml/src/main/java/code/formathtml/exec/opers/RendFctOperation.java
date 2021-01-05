@@ -34,30 +34,29 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context, _stack, _rendStack), _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
         classNameFound_ = instFctContent.getClassName();
-        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _context, _stackCall));
-        if (_context.callsOrException(_stackCall)) {
-            return new Argument();
+        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, previous_.getStruct(), _context, _stack));
+        Argument result_;
+        if (_context.callsOrException(_stack)) {
+            result_ = new Argument();
+        } else {
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            Struct pr_ = prev_.getStruct();
+            String cl_ = pr_.getClassName(_context);
+            String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
+            lastType_ = ExecTemplates.quickFormat(pair.getType(), clGen_, lastType_);
+            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, classNameFound_, pair);
+            ExecTypeFunction pair_ = polymorph_.getPair();
+            classNameFound_ = polymorph_.getClassName();
+            result_ = ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack), null, MethodAccessKind.INSTANCE, "", _stack);
         }
-        String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-        Struct pr_ = prev_.getStruct();
-        String cl_ = pr_.getClassName(_context);
-        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _context);
-        lastType_ = ExecTemplates.quickFormat(pair.getType(), clGen_, lastType_);
-        ExecOverrideInfo polymorph_ =  ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context,pr_,classNameFound_,pair);
-        ExecTypeFunction pair_ = polymorph_.getPair();
-        classNameFound_ = polymorph_.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair_, prev_,null, fectchArgs(_all,lastType_,naturalVararg_, _rendStackCall), null, MethodAccessKind.INSTANCE, "", _stackCall);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
+        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
     public int getNaturalVararg() {

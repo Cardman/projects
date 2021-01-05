@@ -23,12 +23,9 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument arg_ = getCommonArgument(_conf, _stack);
+        setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _stack);
+        Argument arg_ = ExecInvokingOperation.tryGetEnumValues(_conf.getExiting(), _conf, valuesContent.getRootBlock(), ClassCategory.ENUM, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-    Argument getCommonArgument(ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _stackCall);
-        return ExecInvokingOperation.tryGetEnumValues(_conf.getExiting(), _conf, valuesContent.getRootBlock(),ClassCategory.ENUM, _stackCall);
     }
 
 }

@@ -26,18 +26,17 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = getArgument(arguments_, _context, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStack);
+        Argument objArg_ = ExecTemplates.getFirstArgument(arguments_);
+        Argument argres_;
+        if (objArg_.isNull()) {
+            argres_ = new Argument(BooleanStruct.of(false));
+        } else {
+            String str_ = typeCheckContent.getClassName();
+            boolean res_ = ExecTemplates.safeObject(str_, objArg_, _context) == ErrorType.NOTHING;
+            argres_ = new Argument(BooleanStruct.of(res_));
+        }
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _context, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStackCall);
-        Argument objArg_ = ExecTemplates.getFirstArgument(_arguments);
-        if (objArg_.isNull()) {
-            return new Argument(BooleanStruct.of(false));
-        }
-        String str_ = typeCheckContent.getClassName();
-        boolean res_ = ExecTemplates.safeObject(str_, objArg_, _context) == ErrorType.NOTHING;
-        return new Argument(BooleanStruct.of(res_));
-    }
 }

@@ -24,11 +24,6 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack) {
-        return localSumDiff(_a, _op, _b);
-    }
-
-
-    private Argument localSumDiff(Argument _a, String _op, Argument _b) {
         if (StringUtil.quickEq(_op.trim(), PLUS)) {
             return new Argument(NumParsers.calculateSum(NumParsers.convertToNumber(_a.getStruct()),
                     NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
@@ -36,5 +31,6 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
         return new Argument(NumParsers.calculateDiff(NumParsers.convertToNumber(_a.getStruct()),
                 NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
+
 
 }

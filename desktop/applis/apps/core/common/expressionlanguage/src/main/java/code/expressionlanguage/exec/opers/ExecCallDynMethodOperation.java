@@ -33,15 +33,6 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        Argument res_ = prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _conf, _stack);
-        if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    private CustList<ArgumentsPair> fectchPosArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         CustList<ArgumentsPair> out_ = new CustList<ArgumentsPair>();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         for (ExecOperationNode o: chidren_) {
@@ -53,6 +44,12 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             }
             out_.add(a_);
         }
-        return out_;
+        Argument res_ = prepareCallDynNormal(previous_, out_, _conf, _stack);
+        if (resultCanBeSet()) {
+            setQuickNoConvertSimpleArgument(res_, _conf, _nodes, _stack);
+            return;
+        }
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
+
 }

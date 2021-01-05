@@ -19,12 +19,9 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
-        Argument a_ = getArgument(arg_, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
+        Argument a_ = new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(arg_.getStruct()), getResultClass().getUnwrapObjectNb()));
         setSimpleArgument(a_, _nodes, _context, _stack, _rendStack);
     }
 
-    Argument getArgument(Argument _in, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
-        return new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(_in.getStruct()), getResultClass().getUnwrapObjectNb()));
-    }
 }

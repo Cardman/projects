@@ -31,27 +31,21 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context, _stack);
-        return getCommonCompoundSetting(_nodes,_context,store_,_op,_right,_cl,_cast, _stack);
+        Argument left_ = new Argument(store_);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
+        return trySetArgument(_nodes, _context, res_, _stack);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context, _stack);
-        return getCommonSemiSetting(_nodes,_context,store_,_op,_post,_cast, _stack);
-    }
-    private Argument getCommonCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast, StackCall _stackCall) {
-        Argument left_ = new Argument(_store);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _arg.getNames(), _cast,_conf, _stackCall);
-        return trySetArgument(_nodes, _conf, res_, _stackCall);
-    }
-
-    private Argument getCommonSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast, StackCall _stackCall) {
-        Argument left_ = new Argument(_store);
+        Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _conf, res_, _stackCall);
+        trySetArgument(_nodes, _context, res_, _stack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
+
     @Override
     public boolean resultCanBeSet() {
         return arrContent.isVariable();

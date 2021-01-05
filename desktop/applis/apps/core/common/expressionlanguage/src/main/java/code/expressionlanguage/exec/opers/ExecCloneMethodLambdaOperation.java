@@ -31,20 +31,12 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getCommonArgument(previous_, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints(), _stackCall));
-    }
-
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, int _ancestor, boolean _polymorph, MethodId _constraints, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = _foundClass;
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _polymorph, lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints);
+        String ownerType_ = getFoundClass();
+        ownerType_ = _stack.formatVarType(ownerType_);
+        clArg_ = _stack.formatVarType(clArg_);
+        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, getReturnFieldType(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints()));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,
@@ -55,20 +47,15 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
         l_.setSafeInstance(_safeInstance);
         l_.setMethodName(_constraints.getName());
         l_.setKind(MethodAccessKind.INSTANCE);
-        MethodMetaInfo metaInfo_ = buildMeta(_conf, _returnFieldType, _fileName, _ownerType, _constraints);
-        l_.setMetaInfo(metaInfo_);
-        return l_;
-    }
-
-    private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, String _fileName, String _ownerType, MethodId _id) {
-        MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _id);
+        MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _constraints);
         String from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
         String formCl_ = ExecutingUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = MethodModifier.NORMAL;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _id, met_, _returnFieldType, fid_, formCl_);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, from_, _constraints, met_, _returnFieldType, fid_, formCl_);
         metaInfo_.setFileName(_fileName);
-        return metaInfo_;
+        l_.setMetaInfo(metaInfo_);
+        return l_;
     }
 
 

@@ -39,7 +39,8 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
-            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack), _context, _stack).getValue();
+            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             if (converter != null) {
                 Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _context, _stack);
                 if (res_ == null) {
@@ -58,11 +59,6 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         }
         Argument a_ = getArgument(_nodes,getLastNode(this));
         setSimpleArgument(a_, _nodes, _context, _stack, _rendStack);
-    }
-
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall) {
-        RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, _all,this, staticEltContent.getClassName(), staticEltContent.getKind(), _stackCall);
-        return Argument.createVoid();
     }
 
     public abstract boolean match(Struct _struct);

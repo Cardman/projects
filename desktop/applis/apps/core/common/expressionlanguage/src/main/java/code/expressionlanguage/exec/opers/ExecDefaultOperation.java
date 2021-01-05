@@ -22,12 +22,9 @@ public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _conf, _stack);
+        setRelOffsetPossibleLastPage(offset, _stack);
+        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecTemplates.getFirstArgument(arguments_).getStruct(), _conf, getResultClass().getNames(), _stack));
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(offset, _stackCall);
-        return new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecTemplates.getFirstArgument(_arguments).getStruct(), _conf, getResultClass().getNames(), _stackCall));
-    }
 }

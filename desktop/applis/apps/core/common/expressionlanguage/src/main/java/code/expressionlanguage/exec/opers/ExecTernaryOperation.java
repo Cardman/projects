@@ -24,12 +24,9 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _stack);
+        setRelOffsetPossibleLastPage(offsetLocal, _stack);
+        Argument res_ = getArgument(arguments_);
         setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-    Argument getArgument(CustList<Argument> _arguments, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(offsetLocal, _stackCall);
-        return getArgument(_arguments);
     }
 
     public static Argument getArgument(CustList<Argument> _arguments) {

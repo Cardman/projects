@@ -43,27 +43,20 @@ public final class ExecRefParamOperation extends ExecLeafOperation implements
 
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
         Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
-        return getCommonCompoundSetting(_conf,store_,_op,_right,_cl,_cast, _stack);
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _stack);
+        return trySetArgument(_conf, res_, _stack);
     }
 
 
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
         Struct store_ = ExecTemplates.getWrapValue(_conf,variableContent.getVariableName(),variableContent.getDeep(), _stack.getLastPage().getCache(), _stack.getLastPage().getRefParams(), _stack).getStruct();
-        return getCommonSemiSetting(_conf,store_,_op,_post,_cast, _stack);
-    }
-
-    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast, StackCall _stackCall) {
-        Argument left_ = new Argument(_store);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, variableContent.isCatString(), _arg.getNames(), _cast, _stackCall);
-        return trySetArgument(_conf, res_, _stackCall);
-    }
-
-    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast, StackCall _stackCall) {
-        Argument left_ = new Argument(_store);
+        Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_conf, res_, _stackCall);
+        trySetArgument(_conf, res_, _stack);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
+
     @Override
     public boolean resultCanBeSet() {
         return variableContent.isVariable();

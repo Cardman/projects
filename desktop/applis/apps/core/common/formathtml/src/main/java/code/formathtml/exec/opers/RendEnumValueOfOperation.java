@@ -25,17 +25,10 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack, _rendStack), _context, _stack).getValue();
+
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _rendStack);
+        Argument argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.tryGetEnumValue(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM, getArgument(_nodes, getFirstChild()), _stack), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
-    Argument getCommonArgument(Argument _argument, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _rendStackCall);
-        return ExecInvokingOperation.tryGetEnumValue(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM,_argument, _stackCall);
-    }
-
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-
-        return getCommonArgument(getArgument(_all,getFirstChild()), _context, _stackCall, _rendStackCall);
-    }
 }

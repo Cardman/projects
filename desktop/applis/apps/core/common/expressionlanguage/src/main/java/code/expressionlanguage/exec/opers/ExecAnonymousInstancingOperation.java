@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -22,23 +21,17 @@ public final class ExecAnonymousInstancingOperation extends
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getArgument(previous_,_nodes, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                         ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
-        setRelOffsetPossibleLastPage(off_, _stackCall);
-        String className_ = _stackCall.formatVarType(getInstancingCommonContent().getClassName());
+        setRelOffsetPossibleLastPage(off_, _stack);
+        String className_ = _stack.formatVarType(getInstancingCommonContent().getClassName());
         String base_ = StringExpUtil.getIdFromAllTypes(className_);
-        if (_conf.getExiting().hasToExit(_stackCall, base_)) {
-            return Argument.createVoid();
+        Argument res_;
+        if (_conf.getExiting().hasToExit(_stack, base_)) {
+            res_ = Argument.createVoid();
+        } else {
+            res_ = instancePrepareCust(_conf, className_, getPair(), previous_, fectchInstFormattedArgs(_nodes, className_, getPair().getType(), getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), "", -1, _stack);
         }
-        return instancePrepareCust(_conf, className_, getPair(), _previous, getArgs(_nodes, className_), "", -1, _stackCall);
-    }
-
-    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className) {
-        return fectchInstFormattedArgs(_nodes, _className, getPair().getType(), getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg());
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
 }

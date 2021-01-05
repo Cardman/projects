@@ -69,7 +69,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack), _context, _stack).getValue();
+            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context, _stack);
                 if (conv_ == null) {
@@ -153,11 +154,6 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     public String getOper() {
         return operatorContent.getOper();
-    }
-
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall) {
-        RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, _all,this, staticEltContent.getClassName(), staticEltContent.getKind(), _stackCall);
-        return Argument.createVoid();
     }
 
     public RendDynOperationNode getSettable() {

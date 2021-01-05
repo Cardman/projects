@@ -40,22 +40,20 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context, _stack, _rendStack), _context, _stack).getValue();
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
-                                ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String className_ = instancingCommonContent.getClassName();
         String lastType_ = ExecTemplates.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
+        Argument result_;
         if (pair.getType() instanceof ExecRecordBlock) {
-            CustList<Argument> arguments_ = getArguments(_all, this);
-            _stackCall.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
-            return Argument.createVoid();
+            CustList<Argument> arguments_ = getArguments(_nodes, this);
+            _stack.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+            result_ = Argument.createVoid();
+        } else {
+            result_ = ExecInvokingOperation.instancePrepareCust(_context, className_, pair, previous_, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stack);
         }
-        return ExecInvokingOperation.instancePrepareCust(_context, className_, pair, _previous, fectchArgs(_all,lastType_,instancingCommonContent.getNaturalVararg(), _rendStackCall), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stackCall);
+        Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
+        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
 }

@@ -22,13 +22,10 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
-        Argument a_ = getArgument(arg_, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
+        ExecClassArgumentMatching to_ = getResultClass();
+        Argument a_ = ExecUnaryOperation.getArgument(arg_, to_, oper);
         setSimpleArgument(a_, _nodes, _context, _stack, _rendStack);
     }
 
-    Argument getArgument(Argument _in, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
-        ExecClassArgumentMatching to_ = getResultClass();
-        return ExecUnaryOperation.getArgument(_in,to_,oper);
-    }
 }

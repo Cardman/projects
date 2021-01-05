@@ -22,21 +22,17 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument arg_ = getCommonArgument(_conf, _stack);
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(thisContent.getOff(), _stackCall);
-        PageEl ip_ = _stackCall.getLastPage();
+        setRelOffsetPossibleLastPage(thisContent.getOff(), _stack);
+        PageEl ip_ = _stack.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {
             String c_ = getResultClass().getSingleNameOrEmpty();
-            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), c_, ip_.getGlobalStruct(), _conf, _stackCall));
+            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), c_, ip_.getGlobalStruct(), _conf, _stack));
         } else {
             a_ = new Argument(ip_.getGlobalStruct());
         }
-        return a_;
+        Argument arg_ = a_;
+        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
     @Override

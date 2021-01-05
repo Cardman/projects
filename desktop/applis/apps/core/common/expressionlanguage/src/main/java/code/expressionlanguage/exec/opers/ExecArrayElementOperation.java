@@ -23,24 +23,21 @@ public final class ExecArrayElementOperation extends
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf, StackCall _stackCall) {
         String me_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(me_);
-        setRelOffsetPossibleLastPage(off_, _stackCall);
+        setRelOffsetPossibleLastPage(off_, _stack);
         String cl_ = getClassName();
-        String className_ = _stackCall.formatVarType(cl_);
+        String className_ = _stack.formatVarType(cl_);
 
-        int nbCh_ = _arguments.size();
+        int nbCh_ = arguments_.size();
 
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
-        ExecTemplates.setCheckedElements(_arguments,str_,_conf, _stackCall);
-        return new Argument(str_);
+        ExecTemplates.setCheckedElements(arguments_,str_, _conf, _stack);
+        Argument res_ = new Argument(str_);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
+
 }

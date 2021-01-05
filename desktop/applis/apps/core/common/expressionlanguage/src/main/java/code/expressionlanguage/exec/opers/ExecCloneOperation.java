@@ -23,14 +23,10 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getArgument(previous_, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(methodName);
-        setRelOffsetPossibleLastPage(off_, _stackCall);
-        return cloneArray(_previous, _conf, _stackCall);
+        setRelOffsetPossibleLastPage(off_, _stack);
+        Argument res_ = cloneArray(previous_, _conf, _stack);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Argument cloneArray(Argument _previous, ContextEl _conf, StackCall _stackCall) {

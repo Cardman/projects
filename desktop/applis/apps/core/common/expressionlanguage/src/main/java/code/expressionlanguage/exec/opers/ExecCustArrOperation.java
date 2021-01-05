@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -41,36 +40,30 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
             return;
         }
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getArgument(previous_,_nodes, _conf,null, _stack);
+        Argument res_ = getArgument(_conf,_nodes,null,_stack);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
-        return endCalculateCommon(_conf, _nodes, _right, _stack);
+        return getArgument(_conf, _nodes, _right, _stack);
     }
 
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _stack);
-        if (_conf.callsOrException(_stack)) {
-            return Argument.createVoid();
-        }
-        return getArgument(previous_,_nodes, _conf,res_, _stack);
+        return getArgument(_conf,_nodes,res_,_stack);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        return getArgument(previous_,_nodes, _conf,res_, _stack);
+        return getArgument(_conf,_nodes,res_,_stack);
     }
 
     @Override
@@ -80,22 +73,21 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        return endCalculateCommon(_conf, _nodes, _right, _stack);
+        return getArgument(_conf, _nodes, _right, _stack);
     }
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
-        return endCalculateCommon(_conf, _nodes, _right, _stack);
+        return getArgument(_conf, _nodes, _right, _stack);
     }
 
-    private Argument endCalculateCommon(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
+    private Argument getArgument(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
+        if (_conf.callsOrException(_stackCall)) {
+            return new Argument();
+        }
         Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
-        return getArgument(previous_,_nodes, _conf,_right, _stackCall);
-    }
-
-    private Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall) {
         setRelativeOffsetPossibleLastPage(_stackCall);
-        Struct argPrev_ = _previous.getStruct();
+        Struct argPrev_ = previous_.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getClassName(), argPrev_, _conf, _stackCall));
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
@@ -107,14 +99,10 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             fct_ = get;
         }
         Struct pr_ = prev_.getStruct();
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(),_conf,pr_, instFctContent.getClassName(),fct_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getClassName(),fct_);
         fct_ = polymorph_.getPair();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, getArgs(fct_,_nodes, _conf, pr_), _right, MethodAccessKind.INSTANCE, "", _stackCall);
-    }
-
-    private ArgumentListCall getArgs(ExecTypeFunction _pair, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr) {
-        return fetchFormattedArgs(_nodes,_conf,_pr, instFctContent.getClassName(),_pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg());
+        return callPrepare(_conf.getExiting(), _conf, classNameFound_, fct_, prev_,null, fetchFormattedArgs(_nodes, _conf, pr_, instFctContent.getClassName(), fct_.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg()), _right, MethodAccessKind.INSTANCE, "", _stackCall);
     }
 
 }

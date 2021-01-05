@@ -21,15 +21,11 @@ public final class ExecParentInstanceOperation extends ExecLeafOperation impleme
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument arg_ = getCommonArgument(_nodes,_conf, _stack);
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _stackCall);
-        Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
+        setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _stack);
+        Argument previous_ = getPreviousArg(this, _nodes, _stack);
         Struct struct_ = previous_.getStruct();
-        return new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(),_conf, getResultClass().getNames(), _stackCall));
+        Argument arg_ = new Argument(ExecClassArgumentMatching.convertFormatted(struct_.getParent(), _conf, getResultClass().getNames(), _stack));
+        setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
     @Override

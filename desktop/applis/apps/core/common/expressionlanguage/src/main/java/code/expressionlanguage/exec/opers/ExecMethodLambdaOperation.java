@@ -24,20 +24,12 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getCommonArgument(previous_, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(Argument _previous, StackCall _stackCall) {
-        return new Argument(newLambda(_previous, getFoundClass(), getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints(), _stackCall));
-    }
-
-    private Struct newLambda(Argument _previous, String _foundClass, int _ancestor, boolean _polymorph, MethodId _constraints, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = _foundClass;
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        return newLambda(_previous, ownerType_, _ancestor, _polymorph, lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, _constraints);
+        String ownerType_ = getFoundClass();
+        ownerType_ = _stack.formatVarType(ownerType_);
+        clArg_ = _stack.formatVarType(clArg_);
+        Argument res_ = new Argument(newLambda(previous_, ownerType_, getAncestor(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), isShiftArgument(), isSafeInstance(), clArg_, lambdaMethodContent.getMethod().getConstraints()));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(Argument _previous, String _ownerType,

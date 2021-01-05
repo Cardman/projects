@@ -29,13 +29,9 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _stack);
+        setRelOffsetPossibleLastPage(namedContent.getOffset(), _stack);
+        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(CustList<Argument> _arguments, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(namedContent.getOffset(), _stackCall);
-        return ExecTemplates.getFirstArgument(_arguments);
     }
 
     public int getIndex() {

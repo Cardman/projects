@@ -36,20 +36,12 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getCommonArgument(previous_, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.getMethod().getConstraints(), _stackCall));
-    }
-
-    private Struct newLambda(Argument _previous, ContextEl _conf, String _foundClass, String _returnFieldType, int _ancestor, boolean _directCast, boolean _polymorph, MethodId _constraints, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = _foundClass;
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        return newLambda(_previous, _conf, ownerType_, _returnFieldType, _ancestor, _directCast, _polymorph, lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), _constraints, pair);
+        String ownerType_ = getFoundClass();
+        ownerType_ = _stack.formatVarType(ownerType_);
+        clArg_ = _stack.formatVarType(clArg_);
+        Argument res_ = new Argument(newLambda(previous_, _conf, ownerType_, getReturnFieldType(), getAncestor(), lambdaMethodContent.isDirectCast(), lambdaMethodContent.isPolymorph(), lambdaMethodContent.isAbstractMethod(), lambdaMethodContent.isExpCast(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaMethodContent.getMethod().getConstraints(), pair));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(Argument _previous, ContextEl _conf, String _ownerType, String _returnFieldType,

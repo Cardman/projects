@@ -19,12 +19,6 @@ public final class RendAddOperation extends RendStdNumericOperation {
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack) {
-        return localSumDiff(_a, _op, _b, _cont);
-    }
-
-
-    private Argument localSumDiff(Argument _a, String _op, Argument _b,
-            ContextEl _cont) {
         if (StringUtil.quickEq(_op.trim(), PLUS)) {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);
@@ -35,5 +29,6 @@ public final class RendAddOperation extends RendStdNumericOperation {
         return new Argument(NumParsers.calculateDiff(NumParsers.convertToNumber(_a.getStruct()),
                 NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
+
 
 }

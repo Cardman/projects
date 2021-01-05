@@ -36,12 +36,8 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
             setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
             return;
         }
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(previous_, _nodes, _context, _stack), _context, _stack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.prepareCallDynNormal(previous_, fectchPosArgs(_nodes), _context, _stack), _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall) {
-        return ExecInvokingOperation.prepareCallDynNormal(_previous, fectchPosArgs(_all), _context, _stackCall);
     }
 
     private CustList<ArgumentsPair> fectchPosArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {

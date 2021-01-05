@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -35,32 +36,26 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
-            memberId = clId_.getMemberId();
-            function = clId_.getFunction();
-            className = clId_.getSymbol().getClassName();
+            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(), _page)) {
+                memberId = clId_.getMemberId();
+                function = clId_.getFunction();
+                className = clId_.getSymbol().getClassName();
+            }
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         if (!clMatch_.isBoolType(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
-            if (res_.isFoundMethod()) {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                clMatch_.getImplicits().add(cl_);
-                clMatch_.setMemberId(res_.getMemberId());
-                clMatch_.setFunction(res_.getPair());
-            } else {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
-                //operator
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                        StringUtil.join(clMatch_.getNames(),"&"),
-                        oper_);
-                if (!MethodOperation.isEmptyError(getFirstChild())){
-                    addErr(un_.getBuiltError());
-                }
-                _page.getLocalizer().addError(un_);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            //operator
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringUtil.join(clMatch_.getNames(),"&"),
+                    oper_);
+            if (!MethodOperation.isEmptyError(getFirstChild())){
+                addErr(un_.getBuiltError());
             }
+            _page.getLocalizer().addError(un_);
         }
         clMatch_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));

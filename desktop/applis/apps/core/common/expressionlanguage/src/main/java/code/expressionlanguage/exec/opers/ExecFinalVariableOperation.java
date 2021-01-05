@@ -22,13 +22,10 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument arg_ = getCommonArgument(_conf, _stack);
+        setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
+        PageEl ip_ = _stack.getLastPage();
+        Argument arg_ = ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getVars(), _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-    Argument getCommonArgument(ContextEl _conf, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(variableContent.getOff(), _stackCall);
-        PageEl ip_ = _stackCall.getLastPage();
-        return ExecTemplates.getIndexLoop(_conf, variableContent.getVariableName(), variableContent.getDeep(), ip_.getCache(), ip_.getVars(), _stackCall);
     }
 
 }

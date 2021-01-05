@@ -28,13 +28,9 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _rendStack);
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack), _context, _stack).getValue();
+        CustList<Argument> first_ = getArguments(_nodes, this);
+        Argument argres_ = RendDynOperationNode.processCall(prepare(_context.getExiting(), pair, false, first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(), _context, _stack), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall) {
-        CustList<Argument> first_ = getArguments(_all,this);
-        return prepare(_context.getExiting(),pair,false,first_, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_context, _stackCall);
     }
 
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock, boolean _direct, CustList<Argument> _arguments, String _className,

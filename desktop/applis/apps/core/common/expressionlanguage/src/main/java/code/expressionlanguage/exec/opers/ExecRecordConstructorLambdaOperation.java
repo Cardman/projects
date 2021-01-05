@@ -26,20 +26,12 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument res_ = getCommonArgument(_stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(StackCall _stackCall) {
-        return new Argument(newLambda(getFoundClass(), _stackCall));
-    }
-
-    private Struct newLambda(String _foundClass, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = _foundClass;
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        return newLambda(ownerType_, clArg_, pair, id);
+        String ownerType_ = getFoundClass();
+        ownerType_ = _stack.formatVarType(ownerType_);
+        clArg_ = _stack.formatVarType(clArg_);
+        Argument res_ = new Argument(newLambda(ownerType_, clArg_, pair, id));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(String _ownerType,

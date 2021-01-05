@@ -23,13 +23,9 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument argres_ = getArgument(_nodes, _context, _stack, _rendStack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
-                         ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
-        return ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), fectchArgs(_nodes,instancingCommonContent.getLastType(),instancingCommonContent.getNaturalVararg(), _rendStackCall).getArguments(), _stackCall);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        Argument argres_ = ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getClassName(), instancingCommonContent.getConstId(), fectchArgs(_nodes, instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _rendStack).getArguments(), _stack);
+        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 }

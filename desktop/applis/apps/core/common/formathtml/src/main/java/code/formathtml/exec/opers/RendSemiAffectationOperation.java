@@ -57,7 +57,8 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (pair.getFct() != null) {
             RendDynOperationNode left_ = getFirstNode(this);
             Argument stored_ = getArgument(_nodes,left_);
-            Argument res_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack), _context, _stack).getValue();
+            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticPostEltContent.getClassName(), staticPostEltContent.getKind(), _stack);
+            Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent, _advStandards, _context, _stack, _rendStack);
             setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
             return;
@@ -164,8 +165,4 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         return a_;
     }
 
-    private Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall) {
-        RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(),_context, pair, _all,this, staticPostEltContent.getClassName(), staticPostEltContent.getKind(), _stackCall);
-        return Argument.createVoid();
-    }
 }

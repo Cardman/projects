@@ -24,12 +24,9 @@ public final class RendTernaryOperation extends RendMethodOperation implements R
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument res_ = getArgument(arguments_, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _rendStack);
+        Argument res_ = ExecTernaryOperation.getArgument(arguments_);
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 
-    Argument  getArgument(CustList<Argument> _arguments, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _rendStackCall);
-        return ExecTernaryOperation.getArgument(_arguments);
-    }
 }

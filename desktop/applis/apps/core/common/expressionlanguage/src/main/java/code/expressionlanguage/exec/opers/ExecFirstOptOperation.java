@@ -21,12 +21,9 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = getArgument(arguments_, _stack);
+        setRelOffsetPossibleLastPage(offset, _stack);
+        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, StackCall _stackCall) {
-        setRelOffsetPossibleLastPage(offset, _stackCall);
-        return ExecTemplates.getFirstArgument(_arguments);
-    }
 }

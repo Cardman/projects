@@ -30,18 +30,12 @@ public final class ExecDimensionArrayInstancing extends
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument res_ = getArgument(_nodes, _conf, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                         ContextEl _conf, StackCall _stackCall) {
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(m_);
-        setRelOffsetPossibleLastPage(off_, _stackCall);
+        setRelOffsetPossibleLastPage(off_, _stack);
         String className_ = getClassName();
-        className_ = _stackCall.formatVarType(className_);
+        className_ = _stack.formatVarType(className_);
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_ = new int[filter_.size()];
@@ -53,7 +47,7 @@ public final class ExecDimensionArrayInstancing extends
             NumberStruct n_ = NumParsers.convertToNumber(arg_.getStruct());
             int offset_ = getIndexBegin()+o.getIndexInEl() + off_;
             offs_.add(offset_);
-            _stackCall.setOffset(offset_);
+            _stack.setOffset(offset_);
             int dim_ = n_.intStruct();
             args_[i_] = dim_;
             i_++;
@@ -63,12 +57,15 @@ public final class ExecDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf, _stackCall);
-        if (res_ instanceof ErrorStruct) {
-            _stackCall.setCallingState(new CustomFoundExc(res_));
-            return new Argument();
+        Struct newArr_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf, _stack);
+        Argument res_;
+        if (newArr_ instanceof ErrorStruct) {
+            _stack.setCallingState(new CustomFoundExc(newArr_));
+            res_ = new Argument();
+        } else {
+            res_ = new Argument(newArr_);
         }
-        return new Argument(res_);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
 }

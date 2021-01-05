@@ -51,21 +51,22 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
                 return;
             }
             pair_.setArgument(ref_);
-            Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, ref_, _context, _stack, _rendStack), _context, _stack).getValue();
+            prepareArgument(_nodes, ref_, _context, _stack, _rendStack);
+            Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
             return;
         }
-        Argument argres_ = RendDynOperationNode.processCall(getArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _context, _stack, _rendStack), _context, _stack).getValue();
+        prepareArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _context, _stack, _rendStack);
+        Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
-    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _rendStackCall);
         String superClass_ = invokingConstructorContent.getClassFromName();
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_all,lastType_,natvararg_, _rendStackCall),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stackCall);
-        return Argument.createVoid();
     }
 
     public String getLastType() {

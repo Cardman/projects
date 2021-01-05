@@ -21,14 +21,10 @@ public final class RendInternGlobalOperation extends RendLeafOperation implement
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument arg_ = getCommonArgument(_rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _rendStack);
+        Struct struct_ = _rendStack.getInternGlobal();
+        Argument arg_ = new Argument(struct_);
         setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
-    }
-
-    Argument getCommonArgument(RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _rendStackCall);
-        Struct struct_ = _rendStackCall.getInternGlobal();
-        return new Argument(struct_);
     }
 
 }

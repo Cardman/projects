@@ -31,13 +31,9 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = getArgument(arguments_, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _rendStack);
+        Argument argres_ = ExecTemplates.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    Argument getArgument(CustList<Argument> _arguments, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _rendStackCall);
-        return ExecTemplates.getFirstArgument(_arguments);
     }
 
     int getIndex() {

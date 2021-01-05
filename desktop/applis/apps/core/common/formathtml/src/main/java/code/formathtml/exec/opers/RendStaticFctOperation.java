@@ -29,17 +29,14 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(getArgument(_nodes, _context, _stack, _rendStack), _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         Argument prev_ = new Argument();
         String classNameFound_ = staticFctContent.getClassName();
-        return ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_,null, fectchArgs(_all,lastType_,naturalVararg_, _rendStackCall), null, staticFctContent.getKind(), "", _stackCall);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.callPrepare(_context.getExiting(), _context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack), null, staticFctContent.getKind(), "", _stack), _context, _stack);
+        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
+
 }

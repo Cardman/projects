@@ -24,13 +24,9 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument argres_ = RendDynOperationNode.processCall(getCommonArgument(_context, _stack, _rendStack), _context, _stack).getValue();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _rendStack);
+        Argument argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.tryGetEnumValues(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM, _stack), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
-    }
-
-    Argument getCommonArgument(ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _rendStackCall);
-        return ExecInvokingOperation.tryGetEnumValues(_context.getExiting(), _context, valuesContent.getRootBlock(),ClassCategory.ENUM, _stackCall);
     }
 
 }

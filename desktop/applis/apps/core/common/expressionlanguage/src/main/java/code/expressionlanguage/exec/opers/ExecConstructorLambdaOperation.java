@@ -19,20 +19,12 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = getCommonArgument(previous_, _stack);
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    Argument getCommonArgument(Argument _previous, StackCall _stackCall) {
-        return new Argument(newLambda(_previous, getFoundClass(), _stackCall));
-    }
-
-    private Struct newLambda(Argument _previous, String _foundClass, StackCall _stackCall) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = _foundClass;
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        return newLambda(_previous, ownerType_, isShiftArgument(), isSafeInstance(), clArg_);
+        String ownerType_ = getFoundClass();
+        ownerType_ = _stack.formatVarType(ownerType_);
+        clArg_ = _stack.formatVarType(clArg_);
+        Argument res_ = new Argument(newLambda(previous_, ownerType_, isShiftArgument(), isSafeInstance(), clArg_));
+        setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(Argument _previous, String _ownerType,

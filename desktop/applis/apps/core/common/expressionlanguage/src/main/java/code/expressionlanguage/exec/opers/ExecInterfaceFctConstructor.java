@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -42,24 +41,22 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 return;
             }
             pair_.setArgument(ref_);
-            Argument res_ = getArgument(_nodes,ref_, _conf, _stack);
+            int off_ = getOffsetOper();
+            setRelOffsetPossibleLastPage(off_, _stack);
+            String superClass_ = _stack.formatVarType(getClassFromName());
+            String lastType_ = ExecTemplates.quickFormat(getPair().getType(), superClass_, getLastType());
+            checkParameters(_conf, superClass_, getPair(), ref_,null, fectchArgs(_nodes, lastType_, getNaturalVararg()),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stack);
+            Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        Argument res_ = getArgument(_nodes, mainArgument_, _conf, _stack);
+        int off_ = getOffsetOper();
+        setRelOffsetPossibleLastPage(off_, _stack);
+        String superClass_ = _stack.formatVarType(getClassFromName());
+        String lastType_ = ExecTemplates.quickFormat(getPair().getType(), superClass_, getLastType());
+        checkParameters(_conf, superClass_, getPair(), mainArgument_,null, fectchArgs(_nodes, lastType_, getNaturalVararg()),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stack);
+        Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _argument, ContextEl _conf, StackCall _stackCall) {
-        int off_ = getOffsetOper();
-        setRelOffsetPossibleLastPage(off_, _stackCall);
-        String superClass_ = _stackCall.formatVarType(getClassFromName());
-        checkParameters(_conf, superClass_, getPair(), _argument,null, getArgs(_nodes, superClass_),CallPrepareState.CTOR, InstancingStep.USING_SUPER,null, MethodAccessKind.INSTANCE, _stackCall);
-        return Argument.createVoid();
-    }
-
-    private ArgumentListCall getArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _superClass) {
-        String lastType_ = ExecTemplates.quickFormat(getPair().getType(),_superClass, getLastType());
-        return fectchArgs(_nodes,lastType_,getNaturalVararg());
-    }
 }

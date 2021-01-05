@@ -36,8 +36,16 @@ public final class RendSettableFieldOperation extends
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+        int off_ = getOff();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        Argument arg_ = RendDynOperationNode.processCall(getCommonArgument(previous_, _conf, _advStandards, _context, _stack, _rendStack), _context, _stack).getValue();
+        Argument result_;
+        if (resultCanBeSet()) {
+            result_ = Argument.createVoid();
+        } else {
+            result_ = _advStandards.getCommonArgument(this, previous_, _conf, _context, _stack, _rendStack);
+        }
+        Argument arg_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
         if (_context.callsOrException(_stack)) {
             return;
         }
@@ -52,54 +60,28 @@ public final class RendSettableFieldOperation extends
         }
     }
 
-    Argument getCommonArgument(Argument _previous, Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (resultCanBeSet()) {
-            return Argument.createVoid();
-        }
-        return _advStandards.getCommonArgument(this,_previous,_conf, _ctx, _stackCall, _rendStackCall);
-    }
-
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        return RendDynOperationNode.processCall(getCommonSetting(previous_, _conf, _right, _advStandards, _context, _stack, _rendStack), _context, _stack).getValue();
+        return processField(_nodes,_conf,_right,_advStandards,_context,_stack,_rendStack);
     }
 
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, _cl, _cast, _advStandards, _context, _stack, _rendStack);
+        Argument left_ = new Argument(store_);
+
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
+        return processField(_nodes,_conf,res_,_advStandards,_context,_stack,_rendStack);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Struct store_ = _store.getStruct();
-        return getCommonSemiSetting(previous_, store_, _conf, _op, _post, _cast, _advStandards, _context, _stack, _rendStack);
-    }
+        Argument left_ = new Argument(store_);
 
-    private Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return _advStandards.getCommonSetting(this,_previous,_conf,_right, _context, _stackCall, _rendStackCall);
-    }
-    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
-        Argument left_ = new Argument(_store);
-        Argument res_;
-
-        res_ = RendNumericOperation.calculateAffect(left_, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _context, _stackCall);
-        return getCommonSetting(_previous,_conf,res_, _advStandards, _context, _stackCall, _rendStackCall);
-    }
-    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
-        Argument left_ = new Argument(_store);
-        Argument res_;
-
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        getCommonSetting(_previous,_conf,res_, _advStandards, _context, _stackCall, _rendStackCall);
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
+        processField(_nodes,_conf,res_,_advStandards,_context,_stack,_rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -115,14 +97,13 @@ public final class RendSettableFieldOperation extends
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private void processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
-        Argument prev_ = Argument.createVoid();
-        if (!settableFieldContent.isStaticField()) {
-            prev_ = getPreviousArg(this, _nodes, _rendStackCall);
+    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+        if (_context.callsOrException(_stackCall)) {
+            return _right;
         }
-        getCommonSetting(prev_,_conf,_right, _advStandards, _context, _stackCall, _rendStackCall);
+        Argument prev_ = getPreviousArg(this, _nodes, _rendStackCall);
+        Argument arg_ = _advStandards.getCommonSetting(this, prev_, _conf, _right, _context, _stackCall, _rendStackCall);
+        return RendDynOperationNode.processCall(arg_,_context,_stackCall).getValue();
     }
 
     public ExecSettableOperationContent getSettableFieldContent() {

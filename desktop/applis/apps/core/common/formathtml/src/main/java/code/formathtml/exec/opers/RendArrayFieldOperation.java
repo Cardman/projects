@@ -25,26 +25,22 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        Argument arg_ = getArgument(previous_, _context, _stack, _rendStack);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _rendStack);
+        Struct inst_ = previous_.getStruct();
+        Argument arg_;
+        if (inst_ instanceof ArrayStruct) {
+            ArrayStruct arr_ = (ArrayStruct) inst_;
+            arg_ = new Argument(new IntStruct(arr_.getLength()));
+        } else {
+            String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
+            setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stack)));
+            arg_ = new Argument();
+        }
         if (_context.callsOrException(_stack)) {
             return;
         }
         setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
     }
 
-    public Argument getArgument(Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return getCommonArgument(_previous, _context, _stackCall, _rendStackCall);
-    }
-    Argument getCommonArgument(Argument _previous, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _rendStackCall);
-        Struct inst_ = _previous.getStruct();
-        if (inst_ instanceof ArrayStruct) {
-            ArrayStruct arr_ = (ArrayStruct) inst_;
-            return new Argument(new IntStruct(arr_.getLength()));
-        }
-        String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
-        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_, _stackCall)));
-        return new Argument();
-    }
 }
