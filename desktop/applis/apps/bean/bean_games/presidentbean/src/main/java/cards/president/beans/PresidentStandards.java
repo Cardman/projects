@@ -84,8 +84,8 @@ public final class PresidentStandards extends BeanNatLgNames {
         fields_.add( new StandardField(LOOSER_STARTS_FIRST, getAliasPrimBoolean(), false, false, std_));
         fields_.add( new StandardField(NB_PLAYERS, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(NB_STACKS, getPrimInt(), false, false, std_));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getPrimByte(), false, false, std_));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getPrimByte(), false, false, std_));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getPrimInt(), false, false, std_));
         params_ = new StringList();
         method_ = new StandardMethod(SAME_AMOUNT, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add(method_);
@@ -154,11 +154,11 @@ public final class PresidentStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
-                res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMin()));
+                res_.setResult(new IntStruct(rules_.getNbCardsPerPlayerMin()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MAX)) {
-                res_.setResult(new ByteStruct(rules_.getNbCardsPerPlayerMax()));
+                res_.setResult(new IntStruct(rules_.getNbCardsPerPlayerMax()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
@@ -247,12 +247,6 @@ public final class PresidentStandards extends BeanNatLgNames {
         if (_element instanceof Long) {
             return new LongStruct((Long) _element);
         }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
         if (_element instanceof Boolean) {
             return BooleanStruct.of((Boolean) _element);
         }
@@ -279,10 +273,6 @@ public final class PresidentStandards extends BeanNatLgNames {
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
-    }
-
-    public String getPrimByte() {
-        return getContent().getPrimTypes().getAliasPrimByte();
     }
 
 }

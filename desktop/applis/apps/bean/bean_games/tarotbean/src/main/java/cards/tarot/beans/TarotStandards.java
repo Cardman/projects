@@ -177,8 +177,8 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(DIFF_ATTACK_DEFENSE_BONUSES, getPrimInt(), false, false, std_));
-        fields_.add( new StandardField(BASE_POINTS, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(BASE_POINTS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(PLAYER_SMALL, getAliasString(), false, false, std_));
         fields_.add( new StandardField(SMALL, getAliasString(), false, false, std_));
         fields_.add( new StandardField(LINES_DECLARING, TYPE_LIST, false, false, std_));
@@ -203,27 +203,27 @@ public final class TarotStandards extends BeanNatLgNames {
         std_ = new StandardClass(TYPE_SCORES_PLAYERS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
         fields_.add( new StandardField(RATE, TYPE_RATE, false, false, std_));
-        fields_.add( new StandardField(SCORE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(SCORE, getPrimInt(), false, false, std_));
         getStandards().addEntry(TYPE_SCORES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_RANKING_PLAYER_VARIANT_GAME, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(POSITION_DIFF, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_OUDLERS, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_CHARACTERS, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(FINAL_POSITION, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(POSITION_DIFF, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POSITION_OUDLERS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POSITION_CHARACTERS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(FINAL_POSITION, getPrimInt(), false, false, std_));
         getStandards().addEntry(TYPE_RANKING_PLAYER_VARIANT_GAME, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_POINTS_PLAYER_VARIANT_GAME, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(RATE, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MINIMUM_POINTS, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(RATE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(MINIMUM_POINTS, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(SCORE, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(DIFFERENCE_SCORE, TYPE_RATE, false, false, std_));
         fields_.add( new StandardField(POINTS_TRICKS, TYPE_RATE, false, false, std_));
         getStandards().addEntry(TYPE_POINTS_PLAYER_VARIANT_GAME, std_);
@@ -232,7 +232,7 @@ public final class TarotStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         std_ = new StandardClass(TYPE_BONUSES_PLAYERS, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         fields_.add( new StandardField(NICKNAME, getAliasString(), false, false, std_));
-        fields_.add( new StandardField(BONUS, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(BONUS, getPrimInt(), false, false, std_));
         getStandards().addEntry(TYPE_BONUSES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -280,17 +280,17 @@ public final class TarotStandards extends BeanNatLgNames {
         params_ = new StringList();
         method_ = new StandardMethod(BID_STRING, params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, getPrimByte(), false, false, std_));
-        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE_TAKER, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(MAX_DIFFERENCE, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(INITIAL_USER_POSITION, getPrimShort(), false, false, std_));
-        fields_.add( new StandardField(FINAL_USER_POSITION, getPrimShort(), false, false, std_));
+        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(SCORE_TAKER, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(MAX_DIFFERENCE, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(INITIAL_USER_POSITION, getPrimInt(), false, false, std_));
+        fields_.add( new StandardField(FINAL_USER_POSITION, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(TAKER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, getAliasString(), false, false, std_));
         fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false, std_));
@@ -402,11 +402,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, BASE_POINTS)) {
-                res_.setResult(new ShortStruct(instance_.getBasePoints()));
+                res_.setResult(new IntStruct(instance_.getBasePoints()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
-                res_.setResult(new ShortStruct(instance_.getDifferenceScoreTaker()));
+                res_.setResult(new IntStruct(instance_.getDifferenceScoreTaker()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, PLAYER_SMALL)) {
@@ -472,7 +472,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, SCORE)) {
-                res_.setResult(new ShortStruct(instance_.getScore()));
+                res_.setResult(new IntStruct(instance_.getScore()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, RATE)) {
@@ -487,23 +487,23 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POSITION_DIFF)) {
-                res_.setResult(new ShortStruct(instance_.getPositionDiff()));
+                res_.setResult(new IntStruct(instance_.getPositionDiff()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POSITION_OUDLERS)) {
-                res_.setResult(new ShortStruct(instance_.getPositionOudlers()));
+                res_.setResult(new IntStruct(instance_.getPositionOudlers()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POSITION_CHARACTERS)) {
-                res_.setResult(new ShortStruct(instance_.getPositionCharacters()));
+                res_.setResult(new IntStruct(instance_.getPositionCharacters()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POSITION_STRENGTH_CHARACTERS)) {
-                res_.setResult(new ShortStruct(instance_.getPositionStrengthCharacters()));
+                res_.setResult(new IntStruct(instance_.getPositionStrengthCharacters()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, FINAL_POSITION)) {
-                res_.setResult(new ShortStruct(instance_.getFinalPosition()));
+                res_.setResult(new IntStruct(instance_.getFinalPosition()));
                 return res_;
             }
         }
@@ -514,15 +514,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, RATE)) {
-                res_.setResult(new ShortStruct(instance_.getRate()));
+                res_.setResult(new IntStruct(instance_.getRate()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, SCORE)) {
-                res_.setResult(new ShortStruct(instance_.getScore()));
+                res_.setResult(new IntStruct(instance_.getScore()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MINIMUM_POINTS)) {
-                res_.setResult(new ShortStruct(instance_.getMinimumPoints()));
+                res_.setResult(new IntStruct(instance_.getMinimumPoints()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE)) {
@@ -541,54 +541,54 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, BONUS)) {
-                res_.setResult(new ShortStruct(instance_.getBonus()));
+                res_.setResult(new IntStruct(instance_.getBonus()));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof ResultsTarotBean) {
             ResultsTarotBean instance_ = (ResultsTarotBean) ((RealInstanceStruct)_instance).getInstance();
             if (StringUtil.quickEq(fieldName_, NUMBER_OUDLERS_TAKER)) {
-                res_.setResult(new ByteStruct(instance_.getNumberOudlersTaker()));
+                res_.setResult(new IntStruct(instance_.getNumberOudlersTaker()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NEEDLY_SCORES_TAKER)) {
-                res_.setResult(new ShortStruct(instance_.getNeedlyScoresTaker()));
+                res_.setResult(new IntStruct(instance_.getNeedlyScoresTaker()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, SCORE_TAKER)) {
-                res_.setResult(new ShortStruct(instance_.getScoreTaker()));
+                res_.setResult(new IntStruct(instance_.getScoreTaker()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE_TAKER)) {
-                res_.setResult(new ShortStruct(instance_.getDifferenceScoreTaker()));
+                res_.setResult(new IntStruct(instance_.getDifferenceScoreTaker()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, ADDITIONNAL_BONUSES_ATTACK)) {
-                res_.setResult(new ShortStruct(instance_.getAdditionnalBonusesAttack()));
+                res_.setResult(new IntStruct(instance_.getAdditionnalBonusesAttack()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, ADDITIONNAL_BONUSES_DEFENSE)) {
-                res_.setResult(new ShortStruct(instance_.getAdditionnalBonusesDefense()));
+                res_.setResult(new IntStruct(instance_.getAdditionnalBonusesDefense()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, SCORE_TAKER_WITHOUT_DECLARING)) {
-                res_.setResult(new ShortStruct(instance_.getScoreTakerWithoutDeclaring()));
+                res_.setResult(new IntStruct(instance_.getScoreTakerWithoutDeclaring()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MAX_DOUBLED_DIFFERENCE)) {
-                res_.setResult(new ShortStruct(instance_.getMaxDoubledDifference()));
+                res_.setResult(new IntStruct(instance_.getMaxDoubledDifference()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MAX_DIFFERENCE)) {
-                res_.setResult(new ShortStruct(instance_.getMaxDifference()));
+                res_.setResult(new IntStruct(instance_.getMaxDifference()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, INITIAL_USER_POSITION)) {
-                res_.setResult(new ShortStruct(instance_.getInitialUserPosition()));
+                res_.setResult(new IntStruct(instance_.getInitialUserPosition()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, FINAL_USER_POSITION)) {
-                res_.setResult(new ShortStruct(instance_.getFinalUserPosition()));
+                res_.setResult(new IntStruct(instance_.getFinalUserPosition()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, TAKER)) {
@@ -813,12 +813,6 @@ public final class TarotStandards extends BeanNatLgNames {
         if (_element instanceof Long) {
             return new LongStruct((Long) _element);
         }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
         if (_element instanceof Boolean) {
             return BooleanStruct.of((Boolean) _element);
         }
@@ -845,14 +839,6 @@ public final class TarotStandards extends BeanNatLgNames {
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
-    }
-
-    public String getPrimShort() {
-        return getContent().getPrimTypes().getAliasPrimShort();
-    }
-
-    public String getPrimByte() {
-        return getContent().getPrimTypes().getAliasPrimByte();
     }
 
 }

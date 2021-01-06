@@ -417,12 +417,6 @@ public final class BeloteStandards extends BeanNatLgNames {
         if (_element instanceof Long) {
             return new LongStruct((Long) _element);
         }
-        if (_element instanceof Float) {
-            return new FloatStruct((Float) _element);
-        }
-        if (_element instanceof Double) {
-            return new DoubleStruct((Double) _element);
-        }
         if (_element instanceof Boolean) {
             return BooleanStruct.of((Boolean) _element);
         }

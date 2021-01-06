@@ -20,7 +20,7 @@ abstract class TarotBean extends Bean {
 
     private CustList<Longs> scores;
 
-    private byte user;
+    private int user;
 
     private String loc;
     protected static String toString(ModeTarot _b, String _file){
@@ -83,11 +83,11 @@ abstract class TarotBean extends Bean {
         scores = _scores;
     }
 
-    protected final byte getUser() {
+    protected final int getUser() {
         return user;
     }
 
-    protected final void setUser(byte _user) {
+    protected final void setUser(int _user) {
         user = _user;
     }
 

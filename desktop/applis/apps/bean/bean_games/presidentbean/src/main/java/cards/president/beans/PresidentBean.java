@@ -15,7 +15,7 @@ final class PresidentBean extends Bean {
 
     private CustList<Longs> scores;
 
-    private byte user;
+    private int user;
 
     private String loc;
 
@@ -68,11 +68,11 @@ final class PresidentBean extends Bean {
         scores = _scores;
     }
 
-    byte getUser() {
+    int getUser() {
         return user;
     }
 
-    void setUser(byte _user) {
+    void setUser(int _user) {
         user = _user;
     }
 
