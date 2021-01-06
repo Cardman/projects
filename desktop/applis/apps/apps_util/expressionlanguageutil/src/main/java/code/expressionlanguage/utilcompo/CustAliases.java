@@ -1399,9 +1399,7 @@ public final class CustAliases {
         map_.put("{stTime}",tr("stTime", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
-        map_.put("{instant}",tr("instant", _keyWords, primitiveTypes_, coreNames_,
-                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
-        ));
+        map_.put("{instant}",aliasThreadCurrentTime);
         map_.put("{diff}",tr("diff", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
