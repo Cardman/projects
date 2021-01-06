@@ -77,17 +77,35 @@ public final class AliasMath {
         params_ = new StringList(aliasPrimLong_);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Abs0()));
         methods_.add( method_);
+        params_ = new StringList(aliasPrimFloat_);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimFloat_, false, MethodModifier.STATIC,new StringList(params.getAliasMath2Abs0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimDouble_);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new StringList(params.getAliasMath3Abs0()));
+        methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasMax, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Max0(),params.getAliasMath0Max1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_,aliasPrimLong_);
         method_ = new StandardMethod(aliasMax, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Max0(),params.getAliasMath1Max1()));
         methods_.add( method_);
+        params_ = new StringList(aliasPrimFloat_,aliasPrimFloat_);
+        method_ = new StandardMethod(aliasMax, params_, aliasPrimFloat_, false, MethodModifier.STATIC,new StringList(params.getAliasMath2Max0(),params.getAliasMath2Max1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimDouble_,aliasPrimDouble_);
+        method_ = new StandardMethod(aliasMax, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new StringList(params.getAliasMath3Max0(),params.getAliasMath3Max1()));
+        methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasMin, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Min0(),params.getAliasMath0Min1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_,aliasPrimLong_);
         method_ = new StandardMethod(aliasMin, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Min0(),params.getAliasMath1Min1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimFloat_,aliasPrimFloat_);
+        method_ = new StandardMethod(aliasMin, params_, aliasPrimFloat_, false, MethodModifier.STATIC,new StringList(params.getAliasMath2Min0(),params.getAliasMath2Min1()));
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimDouble_,aliasPrimDouble_);
+        method_ = new StandardMethod(aliasMin, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new StringList(params.getAliasMath3Min0(),params.getAliasMath3Min1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasQuot, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Quot0(),params.getAliasMath0Quot1()));
@@ -303,7 +321,17 @@ public final class AliasMath {
         LgNames lgNames_ = _cont.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
         String aliasPrimLong_ = lgNames_.getContent().getPrimTypes().getAliasPrimLong();
+        String aliasPrimFloat_ = lgNames_.getContent().getPrimTypes().getAliasPrimFloat();
+        String aliasPrimDouble_ = lgNames_.getContent().getPrimTypes().getAliasPrimDouble();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasAbs())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                result_.setResult(new DoubleStruct(Math.abs(NumParsers.convertToNumber(args_[0]).doubleStruct())));
+                return result_;
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                result_.setResult(new FloatStruct(Math.abs(NumParsers.convertToNumber(args_[0]).floatStruct())));
+                return result_;
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
                 return result_;
@@ -312,6 +340,14 @@ public final class AliasMath {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMax())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                result_.setResult(new DoubleStruct(Math.max(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
+                return result_;
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                result_.setResult(new FloatStruct(Math.max(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
+                return result_;
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.max(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
                 return result_;
@@ -320,6 +356,14 @@ public final class AliasMath {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMin())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                result_.setResult(new DoubleStruct(Math.min(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
+                return result_;
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                result_.setResult(new FloatStruct(Math.min(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
+                return result_;
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.min(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
                 return result_;

@@ -84,6 +84,10 @@ public final class CustAliases {
     private static final String INDEX_ITR_LI = "IndexItrLi";
     private static final String LIST_ITER_TABLE = "ListIterTable";
     private static final String DIFFERENCE = "Difference";
+    private static final String ELT_DIFFERENCE = "EltDifference";
+    private static final String INDEX = "Index";
+    private static final String ASSERT_NOT = "AssertNot";
+    private static final String ASSERT_NOT_SAME = "AssertNotSame";
     private static final String TABLE_VAR_SECOND = "TableVarSecond";
     private static final String ITER_TA_VAR_FIRST = "IterTaVarFirst";
     private static final String EXECUTED_TEST_BEFORE = "ExecutedTestBefore";
@@ -364,6 +368,8 @@ public final class CustAliases {
     private String aliasBefore;
     private String aliasParameters;
     private String aliasAssert;
+    private String aliasEltDifference;
+    private String aliasIndex;
     private String aliasDifference;
 
     private String aliasTestException;
@@ -389,11 +395,13 @@ public final class CustAliases {
     private String aliasExecuteSetupError;
 
     private String aliasAssertAssert;
+    private String aliasAssertAssertNot;
     private String aliasAssertAssertTrue;
     private String aliasAssertAssertFalse;
     private String aliasAssertAssertNull;
     private String aliasAssertAssertNotNull;
     private String aliasAssertAssertSame;
+    private String aliasAssertAssertNotSame;
 
     private String aliasDifferenceExpected;
     private String aliasDifferenceFound;
@@ -872,6 +880,7 @@ public final class CustAliases {
         AliasReflection reflect_ = _content.getReflect();
         AliasMath mathRef_ = _content.getMathRef();
         AliasStackTraceElement stackElt_ = _content.getStackElt();
+        AliasNumber nbAlias_ = _content.getNbAlias();
         String public_ = _keyWords.getKeyWordPublic();
         String private_ = _keyWords.getKeyWordPrivate();
         String interface_ = _keyWords.getKeyWordInterface();
@@ -1035,30 +1044,193 @@ public final class CustAliases {
         map_.put("{a42}",custAliasParameters.getAliasAssert3AssertAssert1());
         map_.put("{a51}",custAliasParameters.getAliasAssert4AssertAssert0());
         map_.put("{a52}",custAliasParameters.getAliasAssert4AssertAssert1());
+        map_.put("{a211}",custAliasParameters.getAliasAssert5AssertAssertDouble0());
+        map_.put("{a212}",custAliasParameters.getAliasAssert5AssertAssertDouble1());
+        map_.put("{a213}",custAliasParameters.getAliasAssert5AssertAssertDouble2());
+        map_.put("{at11}",custAliasParameters.getAliasAssert0AssertAssertArr0());
+        map_.put("{at12}",custAliasParameters.getAliasAssert0AssertAssertArr1());
+        map_.put("{at21}",custAliasParameters.getAliasAssert1AssertAssertArr0());
+        map_.put("{at22}",custAliasParameters.getAliasAssert1AssertAssertArr1());
+        map_.put("{at31}",custAliasParameters.getAliasAssert2AssertAssertArr0());
+        map_.put("{at32}",custAliasParameters.getAliasAssert2AssertAssertArr1());
+        map_.put("{at41}",custAliasParameters.getAliasAssert3AssertAssertArr0());
+        map_.put("{at42}",custAliasParameters.getAliasAssert3AssertAssertArr1());
+        map_.put("{at51}",custAliasParameters.getAliasAssert4AssertAssertArr0());
+        map_.put("{at52}",custAliasParameters.getAliasAssert4AssertAssertArr1());
+        map_.put("{at211}",custAliasParameters.getAliasAssert5AssertAssertArrDouble0());
+        map_.put("{at212}",custAliasParameters.getAliasAssert5AssertAssertArrDouble1());
+        map_.put("{at213}",custAliasParameters.getAliasAssert5AssertAssertArrDouble2());
+        map_.put("{an11}",custAliasParameters.getAliasAssert0AssertAssertNot0());
+        map_.put("{an12}",custAliasParameters.getAliasAssert0AssertAssertNot1());
+        map_.put("{an21}",custAliasParameters.getAliasAssert1AssertAssertNot0());
+        map_.put("{an22}",custAliasParameters.getAliasAssert1AssertAssertNot1());
+        map_.put("{an31}",custAliasParameters.getAliasAssert2AssertAssertNot0());
+        map_.put("{an32}",custAliasParameters.getAliasAssert2AssertAssertNot1());
+        map_.put("{an41}",custAliasParameters.getAliasAssert3AssertAssertNot0());
+        map_.put("{an42}",custAliasParameters.getAliasAssert3AssertAssertNot1());
+        map_.put("{an51}",custAliasParameters.getAliasAssert4AssertAssertNot0());
+        map_.put("{an52}",custAliasParameters.getAliasAssert4AssertAssertNot1());
+        map_.put("{an211}",custAliasParameters.getAliasAssert5AssertAssertNotDouble0());
+        map_.put("{an212}",custAliasParameters.getAliasAssert5AssertAssertNotDouble1());
+        map_.put("{an213}",custAliasParameters.getAliasAssert5AssertAssertNotDouble2());
+        map_.put("{ant11}",custAliasParameters.getAliasAssert0AssertAssertNotArr0());
+        map_.put("{ant12}",custAliasParameters.getAliasAssert0AssertAssertNotArr1());
+        map_.put("{ant21}",custAliasParameters.getAliasAssert1AssertAssertNotArr0());
+        map_.put("{ant22}",custAliasParameters.getAliasAssert1AssertAssertNotArr1());
+        map_.put("{ant31}",custAliasParameters.getAliasAssert2AssertAssertNotArr0());
+        map_.put("{ant32}",custAliasParameters.getAliasAssert2AssertAssertNotArr1());
+        map_.put("{ant41}",custAliasParameters.getAliasAssert3AssertAssertNotArr0());
+        map_.put("{ant42}",custAliasParameters.getAliasAssert3AssertAssertNotArr1());
+        map_.put("{ant51}",custAliasParameters.getAliasAssert4AssertAssertNotArr0());
+        map_.put("{ant52}",custAliasParameters.getAliasAssert4AssertAssertNotArr1());
+        map_.put("{ant211}",custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0());
+        map_.put("{ant212}",custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1());
+        map_.put("{ant213}",custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2());
         map_.put("{a6}",custAliasParameters.getAliasAssert0AssertAssertTrue0());
         map_.put("{a61}",custAliasParameters.getAliasAssert0AssertAssertFalse0());
         map_.put("{a7}",custAliasParameters.getAliasAssert0AssertAssertNull0());
         map_.put("{a8}",custAliasParameters.getAliasAssert0AssertAssertNotNull0());
         map_.put("{a91}",custAliasParameters.getAliasAssert0AssertAssertSame0());
         map_.put("{a92}",custAliasParameters.getAliasAssert0AssertAssertSame1());
+        map_.put("{an91}",custAliasParameters.getAliasAssert0AssertAssertNotSame0());
+        map_.put("{an92}",custAliasParameters.getAliasAssert0AssertAssertNotSame1());
         map_.put("{a101}",custAliasParameters.getAliasAssert5AssertAssert0());
         map_.put("{a102}",custAliasParameters.getAliasAssert5AssertAssert1());
         map_.put("{a103}",custAliasParameters.getAliasAssert5AssertAssert2());
         map_.put("{a111}",custAliasParameters.getAliasAssert6AssertAssert0());
         map_.put("{a112}",custAliasParameters.getAliasAssert6AssertAssert1());
+        map_.put("{at101}",custAliasParameters.getAliasAssert5AssertAssertArr0());
+        map_.put("{at102}",custAliasParameters.getAliasAssert5AssertAssertArr1());
+        map_.put("{at103}",custAliasParameters.getAliasAssert5AssertAssertArr2());
+        map_.put("{at111}",custAliasParameters.getAliasAssert6AssertAssertArr0());
+        map_.put("{at112}",custAliasParameters.getAliasAssert6AssertAssertArr1());
+        map_.put("{an101}",custAliasParameters.getAliasAssert5AssertAssertNot0());
+        map_.put("{an102}",custAliasParameters.getAliasAssert5AssertAssertNot1());
+        map_.put("{an103}",custAliasParameters.getAliasAssert5AssertAssertNot2());
+        map_.put("{an111}",custAliasParameters.getAliasAssert6AssertAssertNot0());
+        map_.put("{an112}",custAliasParameters.getAliasAssert6AssertAssertNot1());
+        map_.put("{ant101}",custAliasParameters.getAliasAssert5AssertAssertNotArr0());
+        map_.put("{ant102}",custAliasParameters.getAliasAssert5AssertAssertNotArr1());
+        map_.put("{ant103}",custAliasParameters.getAliasAssert5AssertAssertNotArr2());
+        map_.put("{ant111}",custAliasParameters.getAliasAssert6AssertAssertNotArr0());
+        map_.put("{ant112}",custAliasParameters.getAliasAssert6AssertAssertNotArr1());
         map_.put("{d}",tr("d", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
                 custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
                 custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
                 custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
                 custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
+                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
+                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
+                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
+                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
                 custAliasParameters.getAliasAssert0AssertAssertTrue0(),
                 custAliasParameters.getAliasAssert0AssertAssertFalse0(),
                 custAliasParameters.getAliasAssert0AssertAssertNull0(),
                 custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
                 custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
+                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
                 custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
-                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1()));
+                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
+                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1()));
+        map_.put("{la}",tr("la", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
+                custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
+                custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
+                custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
+                custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
+                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
+                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
+                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
+                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertTrue0(),
+                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
+                custAliasParameters.getAliasAssert0AssertAssertNull0(),
+                custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
+                custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
+                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
+                custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
+                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
+                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1()));
+        map_.put("{ea}",tr("ea", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasAssert0AssertAssert0(),custAliasParameters.getAliasAssert0AssertAssert1(),
+                custAliasParameters.getAliasAssert1AssertAssert0(),custAliasParameters.getAliasAssert1AssertAssert1(),
+                custAliasParameters.getAliasAssert2AssertAssert0(),custAliasParameters.getAliasAssert2AssertAssert1(),
+                custAliasParameters.getAliasAssert3AssertAssert0(),custAliasParameters.getAliasAssert3AssertAssert1(),
+                custAliasParameters.getAliasAssert4AssertAssert0(),custAliasParameters.getAliasAssert4AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertDouble0(),custAliasParameters.getAliasAssert5AssertAssertDouble1(),custAliasParameters.getAliasAssert5AssertAssertDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertArr0(),custAliasParameters.getAliasAssert0AssertAssertArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertArr0(),custAliasParameters.getAliasAssert1AssertAssertArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertArr0(),custAliasParameters.getAliasAssert2AssertAssertArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertArr0(),custAliasParameters.getAliasAssert3AssertAssertArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertArr0(),custAliasParameters.getAliasAssert4AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertArrDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNot0(),custAliasParameters.getAliasAssert0AssertAssertNot1(),
+                custAliasParameters.getAliasAssert1AssertAssertNot0(),custAliasParameters.getAliasAssert1AssertAssertNot1(),
+                custAliasParameters.getAliasAssert2AssertAssertNot0(),custAliasParameters.getAliasAssert2AssertAssertNot1(),
+                custAliasParameters.getAliasAssert3AssertAssertNot0(),custAliasParameters.getAliasAssert3AssertAssertNot1(),
+                custAliasParameters.getAliasAssert4AssertAssertNot0(),custAliasParameters.getAliasAssert4AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertNotArr0(),custAliasParameters.getAliasAssert0AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert1AssertAssertNotArr0(),custAliasParameters.getAliasAssert1AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert2AssertAssertNotArr0(),custAliasParameters.getAliasAssert2AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert3AssertAssertNotArr0(),custAliasParameters.getAliasAssert3AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert4AssertAssertNotArr0(),custAliasParameters.getAliasAssert4AssertAssertNotArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArrDouble0(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble1(),custAliasParameters.getAliasAssert5AssertAssertNotArrDouble2(),
+                custAliasParameters.getAliasAssert0AssertAssertTrue0(),
+                custAliasParameters.getAliasAssert0AssertAssertFalse0(),
+                custAliasParameters.getAliasAssert0AssertAssertNull0(),
+                custAliasParameters.getAliasAssert0AssertAssertNotNull0(),
+                custAliasParameters.getAliasAssert0AssertAssertSame0(),custAliasParameters.getAliasAssert0AssertAssertSame1(),
+                custAliasParameters.getAliasAssert0AssertAssertNotSame0(),custAliasParameters.getAliasAssert0AssertAssertNotSame1(),
+                custAliasParameters.getAliasAssert5AssertAssert0(),custAliasParameters.getAliasAssert5AssertAssert1(),custAliasParameters.getAliasAssert5AssertAssert2(),
+                custAliasParameters.getAliasAssert6AssertAssert0(),custAliasParameters.getAliasAssert6AssertAssert1(),
+                custAliasParameters.getAliasAssert5AssertAssertArr0(),custAliasParameters.getAliasAssert5AssertAssertArr1(),custAliasParameters.getAliasAssert5AssertAssertArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertArr0(),custAliasParameters.getAliasAssert6AssertAssertArr1(),
+                custAliasParameters.getAliasAssert5AssertAssertNot0(),custAliasParameters.getAliasAssert5AssertAssertNot1(),custAliasParameters.getAliasAssert5AssertAssertNot2(),
+                custAliasParameters.getAliasAssert6AssertAssertNot0(),custAliasParameters.getAliasAssert6AssertAssertNot1(),
+                custAliasParameters.getAliasAssert5AssertAssertNotArr0(),custAliasParameters.getAliasAssert5AssertAssertNotArr1(),custAliasParameters.getAliasAssert5AssertAssertNotArr2(),
+                custAliasParameters.getAliasAssert6AssertAssertNotArr0(),custAliasParameters.getAliasAssert6AssertAssertNotArr1()));
         map_.put("{co}",custAliasParameters.getAliasExecute0ExecuteConvert0());
         map_.put("{e}",tr("e", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0(),custAliasParameters.getAliasExecute0ExecuteConvert0()));
         map_.put("{f}",tr("f", _keyWords, primitiveTypes_, coreNames_));
@@ -1203,11 +1375,19 @@ public final class CustAliases {
         map_.put("{foundNull}",aliasDifferenceFoundNull);
         map_.put("{foundNotTrue}",aliasDifferenceFoundNotTrue);
         map_.put("{assert}",aliasAssertAssert);
+        map_.put("{assertNot}",aliasAssertAssertNot);
         map_.put("{assertTrue}",aliasAssertAssertTrue);
         map_.put("{assertFalse}",aliasAssertAssertFalse);
         map_.put("{assertNull}",aliasAssertAssertNull);
         map_.put("{assertNotNull}",aliasAssertAssertNotNull);
         map_.put("{assertSame}",aliasAssertAssertSame);
+        map_.put("{assertNotSame}",aliasAssertAssertNotSame);
+        map_.put("{EltDifference}",aliasEltDifference);
+        map_.put("{super}",_keyWords.getKeyWordSuper());
+        map_.put("{index}",aliasIndex);
+        map_.put("{Double}",nbAlias_.getAliasDouble());
+        map_.put("{abs}",mathRef_.getAliasAbs());
+        map_.put("{compare}",nbAlias_.getAliasCompare());
         map_.put("{success}",aliasResultSuccess);
         map_.put("{time}",aliasResultTime);
         map_.put("{tests}",aliasExecuteTests);
@@ -1340,6 +1520,8 @@ public final class CustAliases {
         setAliasIndexItrLi(LgNamesContent.get(_util, _cust, INDEX_ITR_LI));
         setAliasListIterTable(LgNamesContent.get(_util, _cust, LIST_ITER_TABLE));
         setAliasDifference(LgNamesContent.get(_util, _cust, DIFFERENCE));
+        setAliasEltDifference(LgNamesContent.get(_util, _cust, ELT_DIFFERENCE));
+        setAliasIndex(LgNamesContent.get(_util, _cust, INDEX));
         setAliasTableVarSecond(LgNamesContent.get(_util, _cust, TABLE_VAR_SECOND));
         setAliasIterTaVarFirst(LgNamesContent.get(_util, _cust, ITER_TA_VAR_FIRST));
         setAliasExecutedTestBefore(LgNamesContent.get(_util, _cust, EXECUTED_TEST_BEFORE));
@@ -1412,6 +1594,8 @@ public final class CustAliases {
         setAliasConcurrentError(LgNamesContent.get(_util, _cust, CONCURRENT_ERROR));
         setAliasResultFailMessage(LgNamesContent.get(_util, _cust, RESULT_FAIL_MESSAGE));
         setAliasAssertAssertTrue(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_TRUE));
+        setAliasAssertAssertNot(LgNamesContent.get(_util, _cust, ASSERT_NOT));
+        setAliasAssertAssertNotSame(LgNamesContent.get(_util, _cust, ASSERT_NOT_SAME));
         setAliasAssertAssertFalse(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_FALSE));
         setAliasInfoTestCurrentMethod(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_METHOD));
         setAliasResultParams(LgNamesContent.get(_util, _cust, RESULT_PARAMS));
@@ -1524,6 +1708,9 @@ public final class CustAliases {
                 new KeyValueMemberName(DIFFERENCE_FOUND_NOT_TRUE,getAliasDifferenceFoundNotTrue()),
                 new KeyValueMemberName(DIFFERENCE_FOUND_NULL,getAliasDifferenceFoundNull()),
                 new KeyValueMemberName(DIFFERENCE_STACK_DIFF,getAliasDifferenceStackDiff())
+        ));
+        f_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(INDEX,getAliasIndex())
         ));
         f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
@@ -1734,13 +1921,17 @@ public final class CustAliases {
         ));
         m_.addEntry(getAliasAssert(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ASSERT_ASSERT,getAliasAssertAssert()),
+                new KeyValueMemberName(ASSERT_NOT,getAliasAssertAssertNot()),
                 new KeyValueMemberName(ASSERT_ASSERT_NOT_NULL,getAliasAssertAssertNotNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_NULL,getAliasAssertAssertNull()),
                 new KeyValueMemberName(ASSERT_ASSERT_SAME,getAliasAssertAssertSame()),
+                new KeyValueMemberName(ASSERT_NOT_SAME,getAliasAssertAssertNotSame()),
                 new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue()),
                 new KeyValueMemberName(ASSERT_ASSERT_FALSE,getAliasAssertAssertFalse())
         ));
         m_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
+        ));
+        m_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
         ));
         return m_;
     }
@@ -1772,6 +1963,7 @@ public final class CustAliases {
         ref_.addEntry(TEST,getAliasTest());
         ref_.addEntry(ASSERT,getAliasAssert());
         ref_.addEntry(DIFFERENCE,getAliasDifference());
+        ref_.addEntry(ELT_DIFFERENCE,getAliasEltDifference());
         ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
         ref_.addEntry(ENTRY_BINARY,getAliasEntryBinary());
         ref_.addEntry(ENTRY_TEXT,getAliasEntryText());
@@ -3898,6 +4090,22 @@ public final class CustAliases {
         this.aliasDifference = _aliasDifference;
     }
 
+    public String getAliasEltDifference() {
+        return aliasEltDifference;
+    }
+
+    public void setAliasEltDifference(String _aliasEltDifference) {
+        this.aliasEltDifference = _aliasEltDifference;
+    }
+
+    public String getAliasIndex() {
+        return aliasIndex;
+    }
+
+    public void setAliasIndex(String _aliasIndex) {
+        this.aliasIndex = _aliasIndex;
+    }
+
     public String getAliasInfoTest() {
         return aliasInfoTest;
     }
@@ -4048,6 +4256,22 @@ public final class CustAliases {
 
     public void setAliasAssertAssert(String _aliasAssertAssert) {
         this.aliasAssertAssert = _aliasAssertAssert;
+    }
+
+    public String getAliasAssertAssertNot() {
+        return aliasAssertAssertNot;
+    }
+
+    public void setAliasAssertAssertNot(String _aliasAssertAssertNot) {
+        this.aliasAssertAssertNot = _aliasAssertAssertNot;
+    }
+
+    public String getAliasAssertAssertNotSame() {
+        return aliasAssertAssertNotSame;
+    }
+
+    public void setAliasAssertAssertNotSame(String _aliasAssertAssertNotSame) {
+        this.aliasAssertAssertNotSame = _aliasAssertAssertNotSame;
     }
 
     public String getAliasAssertAssertTrue() {

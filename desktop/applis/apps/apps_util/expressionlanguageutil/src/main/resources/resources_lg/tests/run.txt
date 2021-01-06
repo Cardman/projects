@@ -10,7 +10,7 @@
             {for} ({var} {m}: ({c}{loop}).{getDeclaredMethods}())'{'
                 {var} {e} = {new} {ExecutedTest}(){endLine}
                 {var} {a} = ({m}{loop}).{getAnnotations}({class}({Test})){endLine}
-                {if} ({static}({ObjectsUtil}).{eq}(({a}).{length}, 1) && !{static}({ObjectsUtil}).{eq}(({cast}({Test}){a}[0]).{exception}(), {class}({Difference})))'{'
+                {if} ({static}({ObjectsUtil}).{eq}(({a}).{length}, 1) && (({cast}({Test}){a}[0]).{exception}() == {cast}({Object}) {null} || !{class}({Difference}).{isAssignableFrom}(({cast}({Test}){a}[0]).{exception}())))'{'
                     ({e}{local}).{test} = {m}{loop}{endLine}
                     ({e}{local}).{annotations} = {a}{local}{endLine}
                     ({e}{local}).{before} = {bs}{local}{endLine}
@@ -220,6 +220,94 @@
 
 {public} {abstract} {final} {class} {Assert}'{'
 
+    {public} {static} {void} {assert}({long}[] {at11}, {long}[] {at12})'{'
+        {assert}({at11}.{length},{at12}.{length}){endLine}
+        {var} {la} = {at11}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({at11}[{ea}], {at12}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at11}[{ea}]{endLine}
+                ({d}{local}).{found}={at12}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({double}[] {at21}, {double}[] {at22})'{'
+        {assert}({at21}.{length},{at22}.{length}){endLine}
+        {var} {la} = {at21}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({at21}[{ea}], {at22}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at21}[{ea}]{endLine}
+                ({d}{local}).{found}={at22}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({double}[] {at211}, {double}[] {at212}, {double} {at213})'{'
+        {assert}({at211}.{length},{at212}.{length}){endLine}
+        {var} {la} = {at211}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} ({static}({Double}).{compare}({at211}[{ea}], {at212}[{ea}]) != 0 && !({static}({Math}).{abs}({at211}[{ea}]- {at212}[{ea}])<={at213}))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at211}[{ea}]{endLine}
+                ({d}{local}).{found}={at212}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({String}[] {at31}, {String}[] {at32})'{'
+        {assert}({at31}.{length},{at32}.{length}){endLine}
+        {var} {la} = {at31}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({at31}[{ea}], {at32}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at31}[{ea}]{endLine}
+                ({d}{local}).{found}={at32}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+    {public} {static} {void} {assert}({StringBuilder}[] {at41}, {StringBuilder}[] {at42})'{'
+        {assert}({at41}.{length},{at42}.{length}){endLine}
+        {var} {la} = {at41}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({at41}[{ea}], {at42}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at41}[{ea}]{endLine}
+                ({d}{local}).{found}={at42}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+    {public} {static} {void} {assert}({boolean}[] {at51}, {boolean}[] {at52})'{'
+        {assert}({at51}.{length},{at52}.{length}){endLine}
+        {var} {la} = {at51}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({at51}[{ea}], {at52}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at51}[{ea}]{endLine}
+                ({d}{local}).{found}={at52}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+
     {public} {static} {void} {assert}({long} {a11}, {long} {a12})'{'
         {if} (!{static}({ObjectsUtil}).{eq}({a11}{param}, {a12}{param}))'{'
             {var} {d} = {new} {Difference}(){endLine}
@@ -235,6 +323,16 @@
             {var} {d} = {new} {Difference}(){endLine}
             ({d}{local}).{expected}={a21}{param}{endLine}
             ({d}{local}).{found}={a22}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assert}({double} {a211}, {double} {a212}, {double} {a213})'{'
+        {if} ({static}({Double}).{compare}({a211}{param}, {a212}{param}) != 0 && !({static}({Math}).{abs}({a211}{param}- {a212}{param})<={a213}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={a211}{param}{endLine}
+            ({d}{local}).{found}={a212}{param}{endLine}
             ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
             {throw} {d}{local}{endLine}
         '}'
@@ -263,6 +361,164 @@
             {var} {d} = {new} {Difference}(){endLine}
             ({d}{local}).{expected}={a51}{param}{endLine}
             ({d}{local}).{found}={a52}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assertNot}({long}[] {ant11}, {long}[] {ant12})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant11}.{length},{ant12}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {assert}({ant11}.{length},{ant12}.{length}){endLine}
+        {var} {la} = {ant11}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({ant11}[{ea}], {ant12}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant11}{endLine}
+        ({d}{local}).{found}={ant12}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+
+    {public} {static} {void} {assertNot}({double}[] {ant21}, {double}[] {ant22})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant21}.{length},{ant22}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant21}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({ant21}[{ea}], {ant22}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant21}{endLine}
+        ({d}{local}).{found}={ant22}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+
+    {public} {static} {void} {assertNot}({double}[] {ant211}, {double}[] {ant212}, {double} {ant213})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant211}.{length},{ant212}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant211}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} ({static}({Double}).{compare}({ant211}[{ea}], {ant212}[{ea}]) != 0 && !({static}({Math}).{abs}({ant211}[{ea}]- {ant212}[{ea}])<={ant213}))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant211}{endLine}
+        ({d}{local}).{found}={ant212}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+
+    {public} {static} {void} {assertNot}({String}[] {ant31}, {String}[] {ant32})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant31}.{length},{ant32}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant31}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({ant31}[{ea}], {ant32}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant31}{endLine}
+        ({d}{local}).{found}={ant32}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+    {public} {static} {void} {assertNot}({StringBuilder}[] {ant41}, {StringBuilder}[] {ant42})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant41}.{length},{ant42}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant41}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({ant41}[{ea}], {ant42}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant41}{endLine}
+        ({d}{local}).{found}={ant42}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+    {public} {static} {void} {assertNot}({boolean}[] {ant51}, {boolean}[] {ant52})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant51}.{length},{ant52}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant51}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!{static}({ObjectsUtil}).{eq}({ant51}[{ea}], {ant52}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{expected}={ant51}{endLine}
+        ({d}{local}).{found}={ant52}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+
+    {public} {static} {void} {assertNot}({long} {an11}, {long} {an12})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an11}{param}, {an12}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an11}{param}{endLine}
+            ({d}{local}).{found}={an12}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assertNot}({double} {an21}, {double} {an22})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an21}{param}, {an22}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an21}{param}{endLine}
+            ({d}{local}).{found}={an22}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+
+    {public} {static} {void} {assertNot}({double} {an211}, {double} {an212}, {double} {an213})'{'
+        {if} ({static}({Double}).{compare}({an211}{param}, {an212}{param}) == 0 || {static}({Math}).{abs}({an211}{param}- {an212}{param})<={an213})'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={a211}{param}{endLine}
+            ({d}{local}).{found}={a212}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNot}({String} {an31}, {String} {an32})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an31}{param}, {an32}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an31}{param}{endLine}
+            ({d}{local}).{found}={an32}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNot}({StringBuilder} {an41}, {StringBuilder} {an42})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an41}{param}, {an42}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an41}{param}{endLine}
+            ({d}{local}).{found}={an42}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNot}({boolean} {an51}, {boolean} {an52})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an51}{param}, {an52}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an51}{param}{endLine}
+            ({d}{local}).{found}={an52}{param}{endLine}
             ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
             {throw} {d}{local}{endLine}
         '}'
@@ -311,6 +567,40 @@
             {throw} {d}{local}{endLine}
         '}'
     '}'
+    {public} {static} {void} {assertNotSame}({Object} {an91}, {Object} {an92})'{'
+        {if} ({static}({ObjectsUtil}).{eq}({an91}{param}, {an92}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an91}{param}{endLine}
+            ({d}{local}).{found}={an92}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assert}({Object}[] {at101}, {Object}[] {at102}, {Fct}<?,?,{boolean}> {at103})'{'
+        {assert}({at101}.{length},{at102}.{length}){endLine}
+        {var} {la} = {at101}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!({at103}{param}).{call}({at101}[{ea}], {at102}[{ea}]))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}={ea}{endLine}
+                ({d}{local}).{expected}={at101}[{ea}]{endLine}
+                ({d}{local}).{found}={at102}[{ea}]{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
+    {public} {static} {void} {assert}({Object}[] {at111}, {Fct}<?,{boolean}> {at112})'{'
+        {for}({var} {ea}:{at111})'{'
+            {if} (!({at112}{param}).{call}({ea}))'{'
+                {var} {d} = {new} {EltDifference}(){endLine}
+                ({d}{local}).{index}=([{ea}]){endLine}
+                ({d}{local}).{found}={ea}{endLine}
+                ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+                {throw} {d}{local}{endLine}
+            '}'
+        '}'
+    '}'
     {public} {static} {void} {assert}({Object} {a101}, {Object} {a102}, {Fct}<?,?,{boolean}> {a103})'{'
         {if} (!({a103}{param}).{call}({a101}{param}, {a102}{param}))'{'
             {var} {d} = {new} {Difference}(){endLine}
@@ -325,6 +615,50 @@
             {var} {d} = {new} {Difference}(){endLine}
             ({d}{local}).{foundNotTrue}={true}{endLine}
             ({d}{local}).{found}={a111}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNot}({Object}[] {ant101}, {Object}[] {ant102}, {Fct}<?,?,{boolean}> {ant103})'{'
+        {if} (!{static}({ObjectsUtil}).{eq}({ant101}.{length},{ant102}.{length}))'{'
+            {return}{endLine}
+        '}'
+        {var} {la} = {ant101}.{length}{endLine}
+        {iter}({int} {ea}=0{endLine}{la}{endLine}1)'{'
+            {if} (!({ant103}{param}).{call}({ant101}[{ea}], {ant102}[{ea}]))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{found}={ant111}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+    {public} {static} {void} {assertNot}({Object}[] {ant111}, {Fct}<?,{boolean}> {ant112})'{'
+        {for}({var} {ea}:{ant111})'{'
+            {if} (!({ant112}{param}).{call}({ea}))'{'
+                {return}{endLine}
+            '}'
+        '}'
+        {var} {d} = {new} {Difference}(){endLine}
+        ({d}{local}).{found}={ant111}{endLine}
+        ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+        {throw} {d}{local}{endLine}
+    '}'
+    {public} {static} {void} {assertNot}({Object} {an101}, {Object} {an102}, {Fct}<?,?,{boolean}> {an103})'{'
+        {if} (({an103}{param}).{call}({an101}{param}, {an102}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{expected}={an101}{param}{endLine}
+            ({d}{local}).{found}={an102}{param}{endLine}
+            ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
+            {throw} {d}{local}{endLine}
+        '}'
+    '}'
+    {public} {static} {void} {assertNot}({Object} {an111}, {Fct}<?,{boolean}> {an112})'{'
+        {if} (({an112}{param}).{call}({an111}{param}))'{'
+            {var} {d} = {new} {Difference}(){endLine}
+            ({d}{local}).{foundNotTrue}={true}{endLine}
+            ({d}{local}).{found}={an111}{param}{endLine}
             ({d}{local}).{stackDiff} = {static}({Stack}).{current}(){endLine}
             {throw} {d}{local}{endLine}
         '}'
@@ -358,6 +692,18 @@
         ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({this}.{found})){endLine}
         ({out}{local}).{insert}(0,"!="){endLine}
         ({out}{local}).{insert}(0,{static}({StringUtil}).{valueOf}({this}.{expected})){endLine}
+        {return} ({out}{local}).{toString}(){endLine}
+    '}'
+'}'
+
+{public} {class} {EltDifference}:{Difference}'{'
+    {public} {int} {index}{endLine}
+
+    {public} {String} {toSpecString}()'{'
+        {var} {out} = {new} {StringBuilder}(){endLine}
+        ({out}{local}).{append}({index}){endLine}
+        ({out}{local}).{append}(":"){endLine}
+        ({out}{local}).{append}({super}.{toSpecString}()){endLine}
         {return} ({out}{local}).{toString}(){endLine}
     '}'
 '}'

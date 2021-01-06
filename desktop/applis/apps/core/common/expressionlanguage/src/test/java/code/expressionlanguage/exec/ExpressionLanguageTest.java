@@ -79,6 +79,17 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl8_Test() {
+        Argument arg_ = directCalculate("$static($math).abs(8f)");
+        assertEq(8.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processEl_8Test() {
+        Argument arg_ = directCalculate("$static($math).abs(8d)");
+        assertEq(8.0, getDouble(arg_));
+    }
+    @Test
     public void processEl9Test() {
         Argument arg_ = calculateIndirect(COMPOSITE);
         assertEq(0, getNumber(arg_));
@@ -6025,6 +6036,18 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("$math.max(0,0L)");
         assertEq(0, getNumber(arg_));
     }
+
+    @Test
+    public void processEl103077_Test() {
+        Argument arg_ = directCalculate("$math.max(1f,1f)");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processEl103078_Test() {
+        Argument arg_ = directCalculate("$math.max(1d,1d)");
+        assertEq(1.0, getDouble(arg_));
+    }
     @Test
     public void processEl103079Test() {
         Argument arg_ = directCalculate("$math.min(0,0)");
@@ -6035,6 +6058,17 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     public void processEl103080Test() {
         Argument arg_ = directCalculate("$math.min(0,0L)");
         assertEq(0, getNumber(arg_));
+    }
+    @Test
+    public void processEl103079_Test() {
+        Argument arg_ = directCalculate("$math.min(1f,1f)");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processEl103080_Test() {
+        Argument arg_ = directCalculate("$math.min(1d,1d)");
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test

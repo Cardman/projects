@@ -142,17 +142,76 @@ public final class CustAliasParameters {
     private static final String ASSERT_3_ASSERT_ASSERT_1="Assert3AssertAssert1";
     private static final String ASSERT_4_ASSERT_ASSERT_0="Assert4AssertAssert0";
     private static final String ASSERT_4_ASSERT_ASSERT_1="Assert4AssertAssert1";
+    private static final String ASSERT_5_ASSERT_ASSERT_DOUBLE_0="Assert5AssertAssertDouble0";
+    private static final String ASSERT_5_ASSERT_ASSERT_DOUBLE_1="Assert5AssertAssertDouble1";
+    private static final String ASSERT_5_ASSERT_ASSERT_DOUBLE_2="Assert5AssertAssertDouble2";
+    private static final String ASSERT_0_ASSERT_ASSERT_ARR_0="Assert0AssertAssertArr0";
+    private static final String ASSERT_0_ASSERT_ASSERT_ARR_1="Assert0AssertAssertArr1";
+    private static final String ASSERT_1_ASSERT_ASSERT_ARR_0="Assert1AssertAssertArr0";
+    private static final String ASSERT_1_ASSERT_ASSERT_ARR_1="Assert1AssertAssertArr1";
+    private static final String ASSERT_2_ASSERT_ASSERT_ARR_0="Assert2AssertAssertArr0";
+    private static final String ASSERT_2_ASSERT_ASSERT_ARR_1="Assert2AssertAssertArr1";
+    private static final String ASSERT_3_ASSERT_ASSERT_ARR_0="Assert3AssertAssertArr0";
+    private static final String ASSERT_3_ASSERT_ASSERT_ARR_1="Assert3AssertAssertArr1";
+    private static final String ASSERT_4_ASSERT_ASSERT_ARR_0="Assert4AssertAssertArr0";
+    private static final String ASSERT_4_ASSERT_ASSERT_ARR_1="Assert4AssertAssertArr1";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_0="Assert5AssertAssertArrDouble0";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_1="Assert5AssertAssertArrDouble1";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_2="Assert5AssertAssertArrDouble2";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_0="Assert0AssertAssertNot0";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_1="Assert0AssertAssertNot1";
+    private static final String ASSERT_1_ASSERT_ASSERT_NOT_0="Assert1AssertAssertNot0";
+    private static final String ASSERT_1_ASSERT_ASSERT_NOT_1="Assert1AssertAssertNot1";
+    private static final String ASSERT_2_ASSERT_ASSERT_NOT_0="Assert2AssertAssertNot0";
+    private static final String ASSERT_2_ASSERT_ASSERT_NOT_1="Assert2AssertAssertNot1";
+    private static final String ASSERT_3_ASSERT_ASSERT_NOT_0="Assert3AssertAssertNot0";
+    private static final String ASSERT_3_ASSERT_ASSERT_NOT_1="Assert3AssertAssertNot1";
+    private static final String ASSERT_4_ASSERT_ASSERT_NOT_0="Assert4AssertAssertNot0";
+    private static final String ASSERT_4_ASSERT_ASSERT_NOT_1="Assert4AssertAssertNot1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_0="Assert5AssertAssertNotDouble0";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_1="Assert5AssertAssertNotDouble1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_2="Assert5AssertAssertNotDouble2";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_ARR_0="Assert0AssertAssertNotArr0";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_ARR_1="Assert0AssertAssertNotArr1";
+    private static final String ASSERT_1_ASSERT_ASSERT_NOT_ARR_0="Assert1AssertAssertNotArr0";
+    private static final String ASSERT_1_ASSERT_ASSERT_NOT_ARR_1="Assert1AssertAssertNotArr1";
+    private static final String ASSERT_2_ASSERT_ASSERT_NOT_ARR_0="Assert2AssertAssertNotArr0";
+    private static final String ASSERT_2_ASSERT_ASSERT_NOT_ARR_1="Assert2AssertAssertNotArr1";
+    private static final String ASSERT_3_ASSERT_ASSERT_NOT_ARR_0="Assert3AssertAssertNotArr0";
+    private static final String ASSERT_3_ASSERT_ASSERT_NOT_ARR_1="Assert3AssertAssertNotArr1";
+    private static final String ASSERT_4_ASSERT_ASSERT_NOT_ARR_0="Assert4AssertAssertNotArr0";
+    private static final String ASSERT_4_ASSERT_ASSERT_NOT_ARR_1="Assert4AssertAssertNotArr1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_0="Assert5AssertAssertNotArrDouble0";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_1="Assert5AssertAssertNotArrDouble1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_2="Assert5AssertAssertNotArrDouble2";
     private static final String ASSERT_0_ASSERT_ASSERT_TRUE_0="Assert0AssertAssertTrue0";
     private static final String ASSERT_0_ASSERT_ASSERT_FALSE_0="Assert0AssertAssertFalse0";
     private static final String ASSERT_0_ASSERT_ASSERT_NULL_0="Assert0AssertAssertNull0";
     private static final String ASSERT_0_ASSERT_ASSERT_NOT_NULL_0="Assert0AssertAssertNotNull0";
     private static final String ASSERT_0_ASSERT_ASSERT_SAME_0="Assert0AssertAssertSame0";
     private static final String ASSERT_0_ASSERT_ASSERT_SAME_1="Assert0AssertAssertSame1";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_SAME_0="Assert0AssertAssertNotSame0";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_SAME_1="Assert0AssertAssertNotSame1";
     private static final String ASSERT_5_ASSERT_ASSERT_0="Assert5AssertAssert0";
     private static final String ASSERT_5_ASSERT_ASSERT_1="Assert5AssertAssert1";
     private static final String ASSERT_5_ASSERT_ASSERT_2="Assert5AssertAssert2";
     private static final String ASSERT_6_ASSERT_ASSERT_0="Assert6AssertAssert0";
     private static final String ASSERT_6_ASSERT_ASSERT_1="Assert6AssertAssert1";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_0="Assert5AssertAssertArr0";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_1="Assert5AssertAssertArr1";
+    private static final String ASSERT_5_ASSERT_ASSERT_ARR_2="Assert5AssertAssertArr2";
+    private static final String ASSERT_6_ASSERT_ASSERT_ARR_0="Assert6AssertAssertArr0";
+    private static final String ASSERT_6_ASSERT_ASSERT_ARR_1="Assert6AssertAssertArr1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_0="Assert5AssertAssertNot0";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_1="Assert5AssertAssertNot1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_2="Assert5AssertAssertNot2";
+    private static final String ASSERT_6_ASSERT_ASSERT_NOT_0="Assert6AssertAssertNot0";
+    private static final String ASSERT_6_ASSERT_ASSERT_NOT_1="Assert6AssertAssertNot1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_0="Assert5AssertAssertNotArr0";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_1="Assert5AssertAssertNotArr1";
+    private static final String ASSERT_5_ASSERT_ASSERT_NOT_ARR_2="Assert5AssertAssertNotArr2";
+    private static final String ASSERT_6_ASSERT_ASSERT_NOT_ARR_0="Assert6AssertAssertNotArr0";
+    private static final String ASSERT_6_ASSERT_ASSERT_NOT_ARR_1="Assert6AssertAssertNotArr1";
     private static final String FORMAT_TYPE_0_PRINT_0="FormatType0Print0";
     private static final String FORMAT_TYPE_1_PRINT_0="FormatType1Print0";
     private static final String FORMAT_TYPE_1_PRINT_1="FormatType1Print1";
@@ -293,17 +352,76 @@ public final class CustAliasParameters {
     private String aliasAssert3AssertAssert1;
     private String aliasAssert4AssertAssert0;
     private String aliasAssert4AssertAssert1;
+    private String aliasAssert5AssertAssertDouble0;
+    private String aliasAssert5AssertAssertDouble1;
+    private String aliasAssert5AssertAssertDouble2;
+    private String aliasAssert0AssertAssertArr0;
+    private String aliasAssert0AssertAssertArr1;
+    private String aliasAssert1AssertAssertArr0;
+    private String aliasAssert1AssertAssertArr1;
+    private String aliasAssert2AssertAssertArr0;
+    private String aliasAssert2AssertAssertArr1;
+    private String aliasAssert3AssertAssertArr0;
+    private String aliasAssert3AssertAssertArr1;
+    private String aliasAssert4AssertAssertArr0;
+    private String aliasAssert4AssertAssertArr1;
+    private String aliasAssert5AssertAssertArrDouble0;
+    private String aliasAssert5AssertAssertArrDouble1;
+    private String aliasAssert5AssertAssertArrDouble2;
+    private String aliasAssert0AssertAssertNot0;
+    private String aliasAssert0AssertAssertNot1;
+    private String aliasAssert1AssertAssertNot0;
+    private String aliasAssert1AssertAssertNot1;
+    private String aliasAssert2AssertAssertNot0;
+    private String aliasAssert2AssertAssertNot1;
+    private String aliasAssert3AssertAssertNot0;
+    private String aliasAssert3AssertAssertNot1;
+    private String aliasAssert4AssertAssertNot0;
+    private String aliasAssert4AssertAssertNot1;
+    private String aliasAssert5AssertAssertNotDouble0;
+    private String aliasAssert5AssertAssertNotDouble1;
+    private String aliasAssert5AssertAssertNotDouble2;
+    private String aliasAssert0AssertAssertNotArr0;
+    private String aliasAssert0AssertAssertNotArr1;
+    private String aliasAssert1AssertAssertNotArr0;
+    private String aliasAssert1AssertAssertNotArr1;
+    private String aliasAssert2AssertAssertNotArr0;
+    private String aliasAssert2AssertAssertNotArr1;
+    private String aliasAssert3AssertAssertNotArr0;
+    private String aliasAssert3AssertAssertNotArr1;
+    private String aliasAssert4AssertAssertNotArr0;
+    private String aliasAssert4AssertAssertNotArr1;
+    private String aliasAssert5AssertAssertNotArrDouble0;
+    private String aliasAssert5AssertAssertNotArrDouble1;
+    private String aliasAssert5AssertAssertNotArrDouble2;
     private String aliasAssert0AssertAssertTrue0;
     private String aliasAssert0AssertAssertFalse0;
     private String aliasAssert0AssertAssertNull0;
     private String aliasAssert0AssertAssertNotNull0;
     private String aliasAssert0AssertAssertSame0;
     private String aliasAssert0AssertAssertSame1;
+    private String aliasAssert0AssertAssertNotSame0;
+    private String aliasAssert0AssertAssertNotSame1;
     private String aliasAssert5AssertAssert0;
     private String aliasAssert5AssertAssert1;
     private String aliasAssert5AssertAssert2;
     private String aliasAssert6AssertAssert0;
     private String aliasAssert6AssertAssert1;
+    private String aliasAssert5AssertAssertArr0;
+    private String aliasAssert5AssertAssertArr1;
+    private String aliasAssert5AssertAssertArr2;
+    private String aliasAssert6AssertAssertArr0;
+    private String aliasAssert6AssertAssertArr1;
+    private String aliasAssert5AssertAssertNot0;
+    private String aliasAssert5AssertAssertNot1;
+    private String aliasAssert5AssertAssertNot2;
+    private String aliasAssert6AssertAssertNot0;
+    private String aliasAssert6AssertAssertNot1;
+    private String aliasAssert5AssertAssertNotArr0;
+    private String aliasAssert5AssertAssertNotArr1;
+    private String aliasAssert5AssertAssertNotArr2;
+    private String aliasAssert6AssertAssertNotArr0;
+    private String aliasAssert6AssertAssertNotArr1;
     private String aliasFormatType0Print0;
     private String aliasFormatType1Print0;
     private String aliasFormatType1Print1;
@@ -412,13 +530,39 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_0,aliasAssert2AssertAssert0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_1,aliasAssert2AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_0,aliasAssert3AssertAssert0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_1,aliasAssert3AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_0,aliasAssert4AssertAssert0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_1,aliasAssert4AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_DOUBLE_0,aliasAssert5AssertAssertDouble0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_DOUBLE_1,aliasAssert5AssertAssertDouble1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_DOUBLE_2,aliasAssert5AssertAssertDouble2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_ARR_0,aliasAssert0AssertAssertArr0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_ARR_1,aliasAssert0AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_ARR_0,aliasAssert1AssertAssertArr0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_ARR_1,aliasAssert1AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_ARR_0,aliasAssert2AssertAssertArr0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_ARR_1,aliasAssert2AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_ARR_0,aliasAssert3AssertAssertArr0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_ARR_1,aliasAssert3AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_ARR_0,aliasAssert4AssertAssertArr0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_ARR_1,aliasAssert4AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_0,aliasAssert5AssertAssertArrDouble0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_1,aliasAssert5AssertAssertArrDouble1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_2,aliasAssert5AssertAssertArrDouble2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_0,aliasAssert0AssertAssertNot0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_1,aliasAssert0AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_NOT_0,aliasAssert1AssertAssertNot0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_NOT_1,aliasAssert1AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_NOT_0,aliasAssert2AssertAssertNot0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_NOT_1,aliasAssert2AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_NOT_0,aliasAssert3AssertAssertNot0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_NOT_1,aliasAssert3AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_NOT_0,aliasAssert4AssertAssertNot0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_NOT_1,aliasAssert4AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_0,aliasAssert5AssertAssertNotDouble0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_1,aliasAssert5AssertAssertNotDouble1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_2,aliasAssert5AssertAssertNotDouble2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_ARR_0,aliasAssert0AssertAssertNotArr0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_ARR_1,aliasAssert0AssertAssertNotArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_NOT_ARR_0,aliasAssert1AssertAssertNotArr0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_NOT_ARR_1,aliasAssert1AssertAssertNotArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_NOT_ARR_0,aliasAssert2AssertAssertNotArr0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_NOT_ARR_1,aliasAssert2AssertAssertNotArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_NOT_ARR_0,aliasAssert3AssertAssertNotArr0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_NOT_ARR_1,aliasAssert3AssertAssertNotArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_NOT_ARR_0,aliasAssert4AssertAssertNotArr0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_NOT_ARR_1,aliasAssert4AssertAssertNotArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_0,aliasAssert5AssertAssertNotArrDouble0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_1,aliasAssert5AssertAssertNotArrDouble1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_2,aliasAssert5AssertAssertNotArrDouble2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_TRUE_0,aliasAssert0AssertAssertTrue0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_FALSE_0,aliasAssert0AssertAssertFalse0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NULL_0,aliasAssert0AssertAssertNull0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_NULL_0,aliasAssert0AssertAssertNotNull0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_0,aliasAssert0AssertAssertSame0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_1,aliasAssert0AssertAssertSame1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_SAME_0,aliasAssert0AssertAssertNotSame0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_SAME_1,aliasAssert0AssertAssertNotSame1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_0,aliasAssert5AssertAssert0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_1,aliasAssert5AssertAssert1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_2,aliasAssert5AssertAssert2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_0,aliasAssert6AssertAssert0),new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_1,aliasAssert6AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_0,aliasAssert5AssertAssertArr0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_1,aliasAssert5AssertAssertArr1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_ARR_2,aliasAssert5AssertAssertArr2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_ARR_0,aliasAssert6AssertAssertArr0),new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_ARR_1,aliasAssert6AssertAssertArr1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_0,aliasAssert5AssertAssertNot0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_1,aliasAssert5AssertAssertNot1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_2,aliasAssert5AssertAssertNot2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_NOT_0,aliasAssert6AssertAssertNot0),new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_NOT_1,aliasAssert6AssertAssertNot1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_0,aliasAssert5AssertAssertNotArr0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_1,aliasAssert5AssertAssertNotArr1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_NOT_ARR_2,aliasAssert5AssertAssertNotArr2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_NOT_ARR_0,aliasAssert6AssertAssertNotArr0),new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_NOT_ARR_1,aliasAssert6AssertAssertNotArr1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FORMAT_TYPE_0_PRINT_0,aliasFormatType0Print0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FORMAT_TYPE_1_PRINT_0,aliasFormatType1Print0),new KeyValueMemberName(FORMAT_TYPE_1_PRINT_1,aliasFormatType1Print1)));
         return m_;
@@ -559,17 +703,76 @@ public final class CustAliasParameters {
         aliasAssert3AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_1);
         aliasAssert4AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_0);
         aliasAssert4AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_1);
+        aliasAssert5AssertAssertDouble0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_DOUBLE_0);
+        aliasAssert5AssertAssertDouble1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_DOUBLE_1);
+        aliasAssert5AssertAssertDouble2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_DOUBLE_2);
+        aliasAssert0AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_ARR_0);
+        aliasAssert0AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_ARR_1);
+        aliasAssert1AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_ARR_0);
+        aliasAssert1AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_ARR_1);
+        aliasAssert2AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_ARR_0);
+        aliasAssert2AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_ARR_1);
+        aliasAssert3AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_ARR_0);
+        aliasAssert3AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_ARR_1);
+        aliasAssert4AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_ARR_0);
+        aliasAssert4AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_ARR_1);
+        aliasAssert5AssertAssertArrDouble0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_0);
+        aliasAssert5AssertAssertArrDouble1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_1);
+        aliasAssert5AssertAssertArrDouble2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_DOUBLE_2);
+        aliasAssert0AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_0);
+        aliasAssert0AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_1);
+        aliasAssert1AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_NOT_0);
+        aliasAssert1AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_NOT_1);
+        aliasAssert2AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_NOT_0);
+        aliasAssert2AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_NOT_1);
+        aliasAssert3AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_NOT_0);
+        aliasAssert3AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_NOT_1);
+        aliasAssert4AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_NOT_0);
+        aliasAssert4AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_NOT_1);
+        aliasAssert5AssertAssertNotDouble0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_0);
+        aliasAssert5AssertAssertNotDouble1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_1);
+        aliasAssert5AssertAssertNotDouble2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_DOUBLE_2);
+        aliasAssert0AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert0AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert1AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert1AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert2AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert2AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_2_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert3AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert3AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_3_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert4AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert4AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_4_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert5AssertAssertNotArrDouble0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_0);
+        aliasAssert5AssertAssertNotArrDouble1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_1);
+        aliasAssert5AssertAssertNotArrDouble2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_DOUBLE_2);
         aliasAssert0AssertAssertTrue0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_TRUE_0);
         aliasAssert0AssertAssertFalse0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_FALSE_0);
         aliasAssert0AssertAssertNull0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NULL_0);
         aliasAssert0AssertAssertNotNull0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_NULL_0);
         aliasAssert0AssertAssertSame0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_SAME_0);
         aliasAssert0AssertAssertSame1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_SAME_1);
+        aliasAssert0AssertAssertNotSame0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_SAME_0);
+        aliasAssert0AssertAssertNotSame1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_NOT_SAME_1);
         aliasAssert5AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_0);
         aliasAssert5AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_1);
         aliasAssert5AssertAssert2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_2);
         aliasAssert6AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_0);
         aliasAssert6AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_1);
+        aliasAssert5AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_0);
+        aliasAssert5AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_1);
+        aliasAssert5AssertAssertArr2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_ARR_2);
+        aliasAssert6AssertAssertArr0= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_ARR_0);
+        aliasAssert6AssertAssertArr1= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_ARR_1);
+        aliasAssert5AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_0);
+        aliasAssert5AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_1);
+        aliasAssert5AssertAssertNot2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_2);
+        aliasAssert6AssertAssertNot0= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_NOT_0);
+        aliasAssert6AssertAssertNot1= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_NOT_1);
+        aliasAssert5AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert5AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_1);
+        aliasAssert5AssertAssertNotArr2= LgNamesContent.get(_util, _cust, ASSERT_5_ASSERT_ASSERT_NOT_ARR_2);
+        aliasAssert6AssertAssertNotArr0= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_NOT_ARR_0);
+        aliasAssert6AssertAssertNotArr1= LgNamesContent.get(_util, _cust, ASSERT_6_ASSERT_ASSERT_NOT_ARR_1);
         aliasFormatType0Print0= LgNamesContent.get(_util, _cust, FORMAT_TYPE_0_PRINT_0);
         aliasFormatType1Print0= LgNamesContent.get(_util, _cust, FORMAT_TYPE_1_PRINT_0);
         aliasFormatType1Print1= LgNamesContent.get(_util, _cust, FORMAT_TYPE_1_PRINT_1);
@@ -1109,6 +1312,242 @@ public final class CustAliasParameters {
 
     public String getAliasAssert4AssertAssert1() {
         return aliasAssert4AssertAssert1;
+    }
+
+    public String getAliasAssert5AssertAssertDouble0() {
+        return aliasAssert5AssertAssertDouble0;
+    }
+
+    public String getAliasAssert5AssertAssertDouble1() {
+        return aliasAssert5AssertAssertDouble1;
+    }
+
+    public String getAliasAssert5AssertAssertDouble2() {
+        return aliasAssert5AssertAssertDouble2;
+    }
+
+    public String getAliasAssert0AssertAssertArr0() {
+        return aliasAssert0AssertAssertArr0;
+    }
+
+    public String getAliasAssert0AssertAssertArr1() {
+        return aliasAssert0AssertAssertArr1;
+    }
+
+    public String getAliasAssert1AssertAssertArr0() {
+        return aliasAssert1AssertAssertArr0;
+    }
+
+    public String getAliasAssert1AssertAssertArr1() {
+        return aliasAssert1AssertAssertArr1;
+    }
+
+    public String getAliasAssert2AssertAssertArr0() {
+        return aliasAssert2AssertAssertArr0;
+    }
+
+    public String getAliasAssert2AssertAssertArr1() {
+        return aliasAssert2AssertAssertArr1;
+    }
+
+    public String getAliasAssert3AssertAssertArr0() {
+        return aliasAssert3AssertAssertArr0;
+    }
+
+    public String getAliasAssert3AssertAssertArr1() {
+        return aliasAssert3AssertAssertArr1;
+    }
+
+    public String getAliasAssert4AssertAssertArr0() {
+        return aliasAssert4AssertAssertArr0;
+    }
+
+    public String getAliasAssert4AssertAssertArr1() {
+        return aliasAssert4AssertAssertArr1;
+    }
+
+    public String getAliasAssert5AssertAssertArrDouble0() {
+        return aliasAssert5AssertAssertArrDouble0;
+    }
+
+    public String getAliasAssert5AssertAssertArrDouble1() {
+        return aliasAssert5AssertAssertArrDouble1;
+    }
+
+    public String getAliasAssert5AssertAssertArrDouble2() {
+        return aliasAssert5AssertAssertArrDouble2;
+    }
+
+    public String getAliasAssert0AssertAssertNot0() {
+        return aliasAssert0AssertAssertNot0;
+    }
+
+    public String getAliasAssert0AssertAssertNot1() {
+        return aliasAssert0AssertAssertNot1;
+    }
+
+    public String getAliasAssert1AssertAssertNot0() {
+        return aliasAssert1AssertAssertNot0;
+    }
+
+    public String getAliasAssert1AssertAssertNot1() {
+        return aliasAssert1AssertAssertNot1;
+    }
+
+    public String getAliasAssert2AssertAssertNot0() {
+        return aliasAssert2AssertAssertNot0;
+    }
+
+    public String getAliasAssert2AssertAssertNot1() {
+        return aliasAssert2AssertAssertNot1;
+    }
+
+    public String getAliasAssert3AssertAssertNot0() {
+        return aliasAssert3AssertAssertNot0;
+    }
+
+    public String getAliasAssert3AssertAssertNot1() {
+        return aliasAssert3AssertAssertNot1;
+    }
+
+    public String getAliasAssert4AssertAssertNot0() {
+        return aliasAssert4AssertAssertNot0;
+    }
+
+    public String getAliasAssert4AssertAssertNot1() {
+        return aliasAssert4AssertAssertNot1;
+    }
+
+    public String getAliasAssert5AssertAssertNotDouble0() {
+        return aliasAssert5AssertAssertNotDouble0;
+    }
+
+    public String getAliasAssert5AssertAssertNotDouble1() {
+        return aliasAssert5AssertAssertNotDouble1;
+    }
+
+    public String getAliasAssert5AssertAssertNotDouble2() {
+        return aliasAssert5AssertAssertNotDouble2;
+    }
+
+    public String getAliasAssert0AssertAssertNotArr0() {
+        return aliasAssert0AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert0AssertAssertNotArr1() {
+        return aliasAssert0AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert1AssertAssertNotArr0() {
+        return aliasAssert1AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert1AssertAssertNotArr1() {
+        return aliasAssert1AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert2AssertAssertNotArr0() {
+        return aliasAssert2AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert2AssertAssertNotArr1() {
+        return aliasAssert2AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert3AssertAssertNotArr0() {
+        return aliasAssert3AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert3AssertAssertNotArr1() {
+        return aliasAssert3AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert4AssertAssertNotArr0() {
+        return aliasAssert4AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert4AssertAssertNotArr1() {
+        return aliasAssert4AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert5AssertAssertNotArrDouble0() {
+        return aliasAssert5AssertAssertNotArrDouble0;
+    }
+
+    public String getAliasAssert5AssertAssertNotArrDouble1() {
+        return aliasAssert5AssertAssertNotArrDouble1;
+    }
+
+    public String getAliasAssert5AssertAssertNotArrDouble2() {
+        return aliasAssert5AssertAssertNotArrDouble2;
+    }
+
+    public String getAliasAssert0AssertAssertNotSame0() {
+        return aliasAssert0AssertAssertNotSame0;
+    }
+
+    public String getAliasAssert0AssertAssertNotSame1() {
+        return aliasAssert0AssertAssertNotSame1;
+    }
+
+    public String getAliasAssert5AssertAssertArr0() {
+        return aliasAssert5AssertAssertArr0;
+    }
+
+    public String getAliasAssert5AssertAssertArr1() {
+        return aliasAssert5AssertAssertArr1;
+    }
+
+    public String getAliasAssert5AssertAssertArr2() {
+        return aliasAssert5AssertAssertArr2;
+    }
+
+    public String getAliasAssert6AssertAssertArr0() {
+        return aliasAssert6AssertAssertArr0;
+    }
+
+    public String getAliasAssert6AssertAssertArr1() {
+        return aliasAssert6AssertAssertArr1;
+    }
+
+    public String getAliasAssert5AssertAssertNot0() {
+        return aliasAssert5AssertAssertNot0;
+    }
+
+    public String getAliasAssert5AssertAssertNot1() {
+        return aliasAssert5AssertAssertNot1;
+    }
+
+    public String getAliasAssert5AssertAssertNot2() {
+        return aliasAssert5AssertAssertNot2;
+    }
+
+    public String getAliasAssert6AssertAssertNot0() {
+        return aliasAssert6AssertAssertNot0;
+    }
+
+    public String getAliasAssert6AssertAssertNot1() {
+        return aliasAssert6AssertAssertNot1;
+    }
+
+    public String getAliasAssert5AssertAssertNotArr0() {
+        return aliasAssert5AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert5AssertAssertNotArr1() {
+        return aliasAssert5AssertAssertNotArr1;
+    }
+
+    public String getAliasAssert5AssertAssertNotArr2() {
+        return aliasAssert5AssertAssertNotArr2;
+    }
+
+    public String getAliasAssert6AssertAssertNotArr0() {
+        return aliasAssert6AssertAssertNotArr0;
+    }
+
+    public String getAliasAssert6AssertAssertNotArr1() {
+        return aliasAssert6AssertAssertNotArr1;
     }
 
     public String getAliasAssert0AssertAssertTrue0() {

@@ -133,19 +133,39 @@ public final class AnaApplyCoreMethodUtil {
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         AliasMath am_ = _page.getMathRef();
         String aliasPrimLong_ = _page.getAliasPrimLong();
+        String aliasPrimFloat_ = _page.getAliasPrimFloat();
+        String aliasPrimDouble_ = _page.getAliasPrimDouble();
         if (StringUtil.quickEq(name_, am_.getAliasAbs())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                return(new DoubleStruct(Math.abs(NumParsers.convertToNumber(args_[0]).doubleStruct())));
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                return(new FloatStruct(Math.abs(NumParsers.convertToNumber(args_[0]).floatStruct())));
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 return(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
             }
             return(new IntStruct(Math.abs(NumParsers.convertToNumber(args_[0]).intStruct())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMax())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                return(new DoubleStruct(Math.max(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                return(new FloatStruct(Math.max(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 return(new LongStruct(Math.max(NumParsers.convertToNumber(args_[0]).longStruct(),(NumParsers.convertToNumber(args_[1]).longStruct()))));
             }
             return(new IntStruct(Math.max(NumParsers.convertToNumber(args_[0]).intStruct(),NumParsers.convertToNumber(args_[1]).intStruct())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMin())) {
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+                return(new DoubleStruct(Math.min(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
+            }
+            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+                return(new FloatStruct(Math.min(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
+            }
             if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
                 return(new LongStruct(Math.min(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
             }

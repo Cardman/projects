@@ -3,6 +3,8 @@ package code.expressionlanguage.stds;
 public final class AliasParamMath {
     public static final String MATH_0_ABS_0="Math0Abs0";
     public static final String MATH_1_ABS_0="Math1Abs0";
+    public static final String MATH_2_ABS_0="Math2Abs0";
+    public static final String MATH_3_ABS_0="Math3Abs0";
     public static final String MATH_0_MAX_0="Math0Max0";
     public static final String MATH_0_MAX_1="Math0Max1";
     public static final String MATH_1_MAX_0="Math1Max0";
@@ -11,6 +13,14 @@ public final class AliasParamMath {
     public static final String MATH_0_MIN_1="Math0Min1";
     public static final String MATH_1_MIN_0="Math1Min0";
     public static final String MATH_1_MIN_1="Math1Min1";
+    public static final String MATH_2_MAX_0="Math2Max0";
+    public static final String MATH_2_MAX_1="Math2Max1";
+    public static final String MATH_3_MAX_0="Math3Max0";
+    public static final String MATH_3_MAX_1="Math3Max1";
+    public static final String MATH_2_MIN_0="Math2Min0";
+    public static final String MATH_2_MIN_1="Math2Min1";
+    public static final String MATH_3_MIN_0="Math3Min0";
+    public static final String MATH_3_MIN_1="Math3Min1";
     public static final String MATH_0_QUOT_0="Math0Quot0";
     public static final String MATH_0_QUOT_1="Math0Quot1";
     public static final String MATH_1_QUOT_0="Math1Quot0";
@@ -132,6 +142,8 @@ public final class AliasParamMath {
     public static final String MATH_0_SEED_0="Math0Seed0";
     private String aliasMath0Abs0="a";
     private String aliasMath1Abs0="a";
+    private String aliasMath2Abs0="a";
+    private String aliasMath3Abs0="a";
     private String aliasMath0Max0="a";
     private String aliasMath0Max1="b";
     private String aliasMath1Max0="a";
@@ -140,6 +152,14 @@ public final class AliasParamMath {
     private String aliasMath0Min1="b";
     private String aliasMath1Min0="a";
     private String aliasMath1Min1="b";
+    private String aliasMath2Max0="a";
+    private String aliasMath2Max1="b";
+    private String aliasMath3Max0="a";
+    private String aliasMath3Max1="b";
+    private String aliasMath2Min0="a";
+    private String aliasMath2Min1="b";
+    private String aliasMath3Min0="a";
+    private String aliasMath3Min1="b";
     private String aliasMath0Quot0="a";
     private String aliasMath0Quot1="b";
     private String aliasMath1Quot0="a";
@@ -276,6 +296,22 @@ public final class AliasParamMath {
         this.aliasMath1Abs0 =_v;
     }
 
+    public String getAliasMath2Abs0() {
+        return aliasMath2Abs0;
+    }
+
+    public void setAliasMath2Abs0(String _v) {
+        this.aliasMath2Abs0 = _v;
+    }
+
+    public String getAliasMath3Abs0() {
+        return aliasMath3Abs0;
+    }
+
+    public void setAliasMath3Abs0(String _v) {
+        this.aliasMath3Abs0 = _v;
+    }
+
     public String getAliasMath0Max0() {
         return aliasMath0Max0;
     }
@@ -338,6 +374,70 @@ public final class AliasParamMath {
 
     public void setAliasMath1Min1(String _v) {
         this.aliasMath1Min1 = _v;
+    }
+
+    public String getAliasMath2Max0() {
+        return aliasMath2Max0;
+    }
+
+    public void setAliasMath2Max0(String _v) {
+        this.aliasMath2Max0 = _v;
+    }
+
+    public String getAliasMath2Max1() {
+        return aliasMath2Max1;
+    }
+
+    public void setAliasMath2Max1(String _v) {
+        this.aliasMath2Max1 = _v;
+    }
+
+    public String getAliasMath3Max0() {
+        return aliasMath3Max0;
+    }
+
+    public void setAliasMath3Max0(String _v) {
+        this.aliasMath3Max0 = _v;
+    }
+
+    public String getAliasMath3Max1() {
+        return aliasMath3Max1;
+    }
+
+    public void setAliasMath3Max1(String _v) {
+        this.aliasMath3Max1 = _v;
+    }
+
+    public String getAliasMath2Min0() {
+        return aliasMath2Min0;
+    }
+
+    public void setAliasMath2Min0(String _v) {
+        this.aliasMath2Min0 = _v;
+    }
+
+    public String getAliasMath2Min1() {
+        return aliasMath2Min1;
+    }
+
+    public void setAliasMath2Min1(String _v) {
+        this.aliasMath2Min1 = _v;
+    }
+
+    public String getAliasMath3Min0() {
+        return aliasMath3Min0;
+    }
+
+    public void setAliasMath3Min0(String _v) {
+        this.aliasMath3Min0 = _v;
+    }
+
+    public String getAliasMath3Min1() {
+        return aliasMath3Min1;
+    }
+
+    public void setAliasMath3Min1(String _v) {
+        this.aliasMath3Min1 = _v;
     }
 
     public String getAliasMath0Quot0() {
