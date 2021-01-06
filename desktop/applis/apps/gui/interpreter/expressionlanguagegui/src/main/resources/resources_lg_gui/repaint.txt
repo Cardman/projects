@@ -1,126 +1,126 @@
 {public} {abstract} {final} {class} {Paint} '{'
   {public} {static} {void} {paint}({Component} {paintPar})'{'
-  {if} ({paintPar}{param} == {null}) '{'
-   {return}{endLine}
+  {if} ({paintPar} == {null}) '{'
+   {return};
   '}'
-  {if} (!({paintPar}{param} {is} {Panel})) '{'
-   {Fct}<{Component},?> {fct} = ({paintPar}{param}).{getPainting}(){endLine}
-   {if} ({fct}{local} != {null}) '{'
-      ({fct}{local}).{call}({paintPar}{param}){endLine}
+  {if} (!({paintPar} {is} {Panel})) '{'
+   {Fct}<{Component},?> {fct} = ({paintPar}).{getPainting}();
+   {if} ({fct} != {null}) '{'
+      ({fct}).{call}({paintPar});
    '}'
-   {return}{endLine}
+   {return};
   '}'
-  {Component} {c} = {paintPar}{param}{endLine}
+  {Component} {c} = {paintPar};
   {while} ({true}) '{'
-     {Fct}<{Component},?> {fct} = ({c}{local}).{getPainting}(){endLine}
-     {if} ({fct}{local} != {null}) '{'
-        ({fct}{local}).{call}({c}{local}){endLine}
+     {Fct}<{Component},?> {fct} = ({c}).{getPainting}();
+     {if} ({fct} != {null}) '{'
+        ({fct}).{call}({c});
      '}'
-     {if} ({c}{local} {is} {Panel}) '{'
-       {Panel} {pan} = {cast}({Panel}){c}{local}{endLine}
-       {Component} {p} = ({pan}{local}).{getComponent}(0){endLine}
-       {if} ({p}{local} != {null}) '{'
-         {c}{local} = {p}{local}{endLine}
-         {continue}{endLine}
-       '}'{elseif} ({c}{local} == {paintPar}{param})'{'
-         {return}{endLine}
+     {if} ({c} {is} {Panel}) '{'
+       {Panel} {pan} = {cast}({Panel}){c};
+       {Component} {p} = ({pan}).{getComponent}(0);
+       {if} ({p} != {null}) '{'
+         {c} = {p};
+         {continue};
+       '}'{elseif} ({c} == {paintPar})'{'
+         {return};
        '}'
      '}'
      {while} ({true}) '{'
-         {Component} {p} = ({c}{local}).{next}(){endLine}
-         {if} ({p}{local} != {null}) '{'
-            {c}{local} = {p}{local}{endLine}
-            {break}{endLine}
+         {Component} {p} = ({c}).{next}();
+         {if} ({p} != {null}) '{'
+            {c} = {p};
+            {break};
          '}'
-          {Component} {par} = ({c}{local}).{getParent}(){endLine}
-          {if} ({par}{local} == {paintPar}{param}) '{'
-              {return}{endLine}
+          {Component} {par} = ({c}).{getParent}();
+          {if} ({par} == {paintPar}) '{'
+              {return};
          '}'
-         {c}{local} = {par}{local}{endLine}
+         {c} = {par};
       '}'
       '}'
   '}'
       {public} {static} {void} {add}({GrList} {addPar00}, {int} {addPar01},{Object} {addPar02})'{'
-          {var} {r} = ({addPar00}{param}).{getRender}(){endLine}
-          {if} ({r}{local} == {null})'{'
-              {return}{endLine}
+          {var} {r} = ({addPar00}).{getRender}();
+          {if} ({r} == {null})'{'
+              {return};
           '}'
-          {var} {hf} = ({r}{local}).{getHeight}(){endLine}
-          {var} {lf} = ({r}{local}).{getWidth}(){endLine}
-          {var} {pf} = ({r}{local}).{getPaint}(){endLine}
-          {if} ({hf}{local} == {null} || {lf}{local} == {null} || {pf}{local} == {null})'{'
-              {return}{endLine}
+          {var} {hf} = ({r}).{getHeight}();
+          {var} {lf} = ({r}).{getWidth}();
+          {var} {pf} = ({r}).{getPaint}();
+          {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
+              {return};
           '}'
-          {var} {h} = ({hf}{local}).{call}({addPar02}{param}){endLine}
-          {var} {la} = 0{endLine}
-          {for} ({var} {o}{suffix} ({addPar00}{param}).{getView}())'{'
-              {la}{local} = ({lf}{local}).{call}({o}{loop},{la}{local}){endLine}
+          {var} {h} = ({hf}).{call}({addPar02});
+          {var} {la} = 0;
+          {for} ({var} {o}: ({addPar00}).{getView}())'{'
+              {la} = ({lf}).{call}({o},{la});
            '}'
-          {la}{local} = ({lf}{local}).{call}({addPar02}{param},{la}{local}){endLine}
+          {la} = ({lf}).{call}({addPar02},{la});
 
-          {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
-          ({pf}{local}).{call}({addPar00}{param},{addPar02}{param},{addPar01}{param},{false},{img}{local}){endLine}
-          ({addPar00}{param}).{addCompo}({addPar01}{param},{new} {ImageLabel}({img}{local}),{addPar02}{param}){endLine}
-          ({img}{local}).{dispose}(){endLine}
-          {refresh}({addPar00}{param}){endLine}
+          {var} {img} = {new} {Image}({la},{h},{true});
+          ({pf}).{call}({addPar00},{addPar02},{addPar01},{false},{img});
+          ({addPar00}).{addCompo}({addPar01},{new} {ImageLabel}({img}),{addPar02});
+          ({img}).{dispose}();
+          {refresh}({addPar00});
       '}'
 
       {public} {static} {void} {add}({GrList} {addPar10},{Object}[] {addPar11})'{'
-          {var} {r} = ({addPar10}{param}).{getRender}(){endLine}
+          {var} {r} = ({addPar10}).{getRender}();
           {if} ({r} == {null})'{'
-              {return}{endLine}
+              {return};
           '}'
-          {var} {hf} = ({r}{local}).{getHeight}(){endLine}
-          {var} {lf} = ({r}{local}).{getWidth}(){endLine}
-          {var} {pf} = ({r}{local}).{getPaint}(){endLine}
-          {if} ({hf}{local} == {null} || {lf}{local} == {null} || {pf}{local} == {null})'{'
-              {return}{endLine}
+          {var} {hf} = ({r}).{getHeight}();
+          {var} {lf} = ({r}).{getWidth}();
+          {var} {pf} = ({r}).{getPaint}();
+          {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
+              {return};
           '}'
-          {var} {la} = 0{endLine}
-          {for} ({var} {o}{suffix} ({addPar10}{param}).{getView}())'{'
-               {la}{local} = ({lf}{local}).{call}({o}{loop},{la}{local}){endLine}
+          {var} {la} = 0;
+          {for} ({var} {o}: ({addPar10}).{getView}())'{'
+               {la} = ({lf}).{call}({o},{la});
            '}'
-          {for} ({var} {o}{suffix} {addPar11}{param})'{'
-             {la}{local} = ({lf}{local}).{call}({o}{loop},{la}{local}){endLine}
+          {for} ({var} {o}: {addPar11})'{'
+             {la} = ({lf}).{call}({o},{la});
           '}'
-          {for} ({var} {o}{suffix} {addPar11})'{'
-              {var} {h} = ({hf}{local}).{call}({o}{loop}){endLine}
-              {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
-              ({pf}{local}).{call}({addPar10}{param},{o}{loop},([{o}]),{false},{img}{local}){endLine}
-              ({addPar10}{param}).{addCompo}(([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
-              ({img}{local}).{dispose}(){endLine}
+          {for} ({var} {o}: {addPar11})'{'
+              {var} {h} = ({hf}).{call}({o});
+              {var} {img} = {new} {Image}({la},{h},{true});
+              ({pf}).{call}({addPar10},{o},([{o}]),{false},{img});
+              ({addPar10}).{addCompo}(([{o}]),{new} {ImageLabel}({img}),{o});
+              ({img}).{dispose}();
           '}'
-          {refresh}({addPar10}{param}){endLine}
+          {refresh}({addPar10});
       '}'
       {public} {static} {void} {refresh}({GrList} {refreshPar})'{'
-          {var} {r} = ({refreshPar}{param}).{getRender}(){endLine}
+          {var} {r} = ({refreshPar}).{getRender}();
           {if} ({r} == {null})'{'
-               {return}{endLine}
+               {return};
           '}'
-          {var} {hf} = ({r}{local}).{getHeight}(){endLine}
-          {var} {lf} = ({r}{local}).{getWidth}(){endLine}
-          {var} {pf} = ({r}{local}).{getPaint}(){endLine}
-          {if} ({hf}{local} == {null} || {lf}{local} == {null} || {pf}{local} == {null})'{'
-               {return}{endLine}
+          {var} {hf} = ({r}).{getHeight}();
+          {var} {lf} = ({r}).{getWidth}();
+          {var} {pf} = ({r}).{getPaint}();
+          {if} ({hf} == {null} || {lf} == {null} || {pf} == {null})'{'
+               {return};
           '}'
-          {var} {la} = 0{endLine}
-          {for} ({var} {o}{suffix} ({refreshPar}{param}).{getView}())'{'
-               {la}{local} = ({lf}{local}).{call}({o}{loop},{la}{local}){endLine}
+          {var} {la} = 0;
+          {for} ({var} {o}: ({refreshPar}).{getView}())'{'
+               {la} = ({lf}).{call}({o},{la});
           '}'
-          {for} ({var} {o}{suffix} ({refreshPar}{param}).{getView}())'{'
-               {var} {h} = ({hf}{local}).{call}({o}{loop}){endLine}
-               {var} {img} = {new} {Image}({la}{local},{h}{local},{true}){endLine}
-               {var} {nb} = {false}{endLine}
-               {for} ({var} {c}{suffix}({refreshPar}{param}).{getSelected}())'{'
-                    {if} ({c}{loop} == ([{o}]))'{'
-                         {nb}{local} = {true}{endLine}
-                         {break}{endLine}
+          {for} ({var} {o}: ({refreshPar}).{getView}())'{'
+               {var} {h} = ({hf}).{call}({o});
+               {var} {img} = {new} {Image}({la},{h},{true});
+               {var} {nb} = {false};
+               {for} ({var} {c}:({refreshPar}).{getSelected}())'{'
+                    {if} ({c} == ([{o}]))'{'
+                         {nb} = {true};
+                         {break};
                     '}'
                '}'
-               ({pf}{local}).{call}({refreshPar}{param},{o}{loop},([{o}]),{nb}{local},{img}{local}){endLine}
-               ({refreshPar}{param}).{setCompo}(([{o}]),{new} {ImageLabel}({img}{local}),{o}{loop}){endLine}
-               ({img}{local}).{dispose}(){endLine}
+               ({pf}).{call}({refreshPar},{o},([{o}]),{nb},{img});
+               ({refreshPar}).{setCompo}(([{o}]),{new} {ImageLabel}({img}),{o});
+               ({img}).{dispose}();
            '}'
-           ({refreshPar}{param}).{updateGraphics}(){endLine}
+           ({refreshPar}).{updateGraphics}();
       '}'
 '}'

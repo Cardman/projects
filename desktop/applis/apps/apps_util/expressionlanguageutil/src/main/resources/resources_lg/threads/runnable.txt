@@ -1,4 +1,4 @@
 
 {public} {interface} {Runnable} '{'
-    {public} {abstract} {void} {run}(){endLine}
+    {public} {abstract} {void} {run}();
 '}'

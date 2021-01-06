@@ -846,7 +846,6 @@ public final class GuiAliases {
         String true_ = _keyWords.getKeyWordTrue();
         String false_ = _keyWords.getKeyWordFalse();
         String is_ = _keyWords.getKeyWordInstanceof();
-        String endLine_ = Character.toString(';');
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -856,7 +855,6 @@ public final class GuiAliases {
         map_.put("{ActionEvent}", aliasActionEvent);
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
@@ -868,7 +866,6 @@ public final class GuiAliases {
         map_.put("{ChangeListener}", aliasChangeListener);
         map_.put("{stateChanged}", aliasStateChanged);
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
@@ -882,7 +879,6 @@ public final class GuiAliases {
         map_.put("{TreeNode}", aliasTreeNode);
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
@@ -897,7 +893,6 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
         map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasTableListener);
         stds_.put(aliasTableListener, content_);
@@ -923,7 +918,6 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasMouseListener0MouseExited0());
         map_.put("{f}", guiAliasParameters.getAliasMouseListener0MouseDragged0());
         map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
@@ -937,7 +931,6 @@ public final class GuiAliases {
         map_.put("{MouseWheelEvent}", aliasWheelEvent);
         map_.put("{e}", guiAliasParameters.getAliasWheelListener0WheelMove0());
         map_.put("{void}", co_.getAliasVoid());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasWheelListener);
         stds_.put(aliasWheelListener, content_);
@@ -955,7 +948,6 @@ public final class GuiAliases {
         map_.put("{a}", guiAliasParameters.getAliasKeyListener0KeyPressed0());
         map_.put("{b}", guiAliasParameters.getAliasKeyListener0KeyTyped0());
         map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasKeyListener);
         stds_.put(aliasKeyListener, content_);
@@ -981,7 +973,6 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasWindowListener0WindowDeiconified0());
         map_.put("{f}", guiAliasParameters.getAliasWindowListener0WindowActivated0());
         map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
@@ -996,15 +987,10 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasListSelection0ValueChanged0());
         map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
         _predefinedInterfacesInitOrder.add(aliasListSelection);
-        String suffix_ = Character.toString(':');
-        String suffixLocal_ = "";
-        String suffixParam_ = "";
-        String suffixLoop_ = "";
         content_ = ResourceFiles.ressourceFichier("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1034,9 +1020,6 @@ public final class GuiAliases {
         map_.put("{while}", while_);
         map_.put("{null}", null_);
         map_.put("{cast}", cast_);
-        map_.put("{param}", suffixParam_);
-        map_.put("{local}", suffixLocal_);
-        map_.put("{loop}", suffixLoop_);
         map_.put("{Component}", aliasComponent);
         map_.put("{Panel}", aliasPanel);
         map_.put("{Fct}", _content.getReflect().getAliasFct());
@@ -1158,8 +1141,6 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd0(),
                 guiAliasParameters.getAliasPaint1TabbedPaneAdd1(),
                 guiAliasParameters.getAliasPaint0PaintRefresh0()));
-        map_.put("{endLine}", endLine_);
-        map_.put("{suffix}", suffix_);
         map_.put("{getRender}",aliasGrListGetRender);
         map_.put("{getHeight}",aliasRenderGetHeight);
         map_.put("{getWidth}",aliasRenderGetWidth);

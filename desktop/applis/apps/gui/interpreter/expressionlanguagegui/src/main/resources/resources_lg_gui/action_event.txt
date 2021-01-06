@@ -1,3 +1,3 @@
 {public} {interface} {ActionListener} '{'
- {public} {void} {actionPerformed}({ActionEvent} {e}){endLine}
+ {public} {void} {actionPerformed}({ActionEvent} {e});
 '}'

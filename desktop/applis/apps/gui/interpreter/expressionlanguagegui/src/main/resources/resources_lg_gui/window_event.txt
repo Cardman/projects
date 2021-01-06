@@ -1,9 +1,9 @@
 {public} {interface} {WindowListener} '{'
- {public} {void} {windowOpened}({WindowEvent} {a}){endLine}
- {public} {void} {windowClosing}({WindowEvent} {b}){endLine}
- {public} {void} {windowClosed}({WindowEvent} {c}){endLine}
- {public} {void} {windowIconified}({WindowEvent} {d}){endLine}
- {public} {void} {windowDeiconified}({WindowEvent} {e}){endLine}
- {public} {void} {windowActivated}({WindowEvent} {f}){endLine}
- {public} {void} {windowDeactivated}({WindowEvent} {g}){endLine}
+ {public} {void} {windowOpened}({WindowEvent} {a});
+ {public} {void} {windowClosing}({WindowEvent} {b});
+ {public} {void} {windowClosed}({WindowEvent} {c});
+ {public} {void} {windowIconified}({WindowEvent} {d});
+ {public} {void} {windowDeiconified}({WindowEvent} {e});
+ {public} {void} {windowActivated}({WindowEvent} {f});
+ {public} {void} {windowDeactivated}({WindowEvent} {g});
 '}'

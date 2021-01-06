@@ -893,11 +893,6 @@ public final class CustAliases {
         String iter_ = _keyWords.getKeyWordIter();
         String value_ = _keyWords.getKeyWordValue();
         String abstract_ = _keyWords.getKeyWordAbstract();
-        String endLine_ = Character.toString(';');
-        String suffixLocal_ = "";
-        String suffixParam_ = "";
-        String suffixLoop_ = "";
-        String suffixCatch_ = "";
         StringMap<String> map_;
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -906,7 +901,6 @@ public final class CustAliases {
         map_.put("{abstract}", abstract_);
         map_.put("{void}", coreNames_.getAliasVoid());
         map_.put("{run}", aliasRun);
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
@@ -934,10 +928,6 @@ public final class CustAliases {
         map_.put("{i}", tr("i", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
         map_.put("{p}", tr("p", _keyWords, primitiveTypes_, coreNames_));
         map_.put("{out}", tr("out", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasList0RemoveLi0(),custAliasParameters.getAliasList1AddLi0(),custAliasParameters.getAliasList1AddLi1()));
-        map_.put("{param}", suffixParam_);
-        map_.put("{local}", suffixLocal_);
-        map_.put("{loop}", suffixLoop_);
-        map_.put("{cv}", suffixCatch_);
         map_.put("{iteratorType}", predefTypes_.getAliasIteratorType());
         map_.put("{iterable}", predefTypes_.getAliasIterable());
         map_.put("{listItr}", aliasListItr);
@@ -960,7 +950,6 @@ public final class CustAliases {
         map_.put("{remove}", aliasRemoveLi);
         map_.put("{iterator}", predefTypes_.getAliasIterator());
         map_.put("{clear}",aliasListClear);
-        map_.put("{endLine}", endLine_);
         content_ = StringUtil.formatQuote(content_, map_);
         _predefinedClasses.add(aliasCustIterator);
         _predefinedClasses.add(aliasList);
