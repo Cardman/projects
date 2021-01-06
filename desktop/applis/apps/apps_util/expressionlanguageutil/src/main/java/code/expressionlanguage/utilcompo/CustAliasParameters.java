@@ -124,11 +124,14 @@ public final class CustAliasParameters {
     private static final String EXECUTE_0_RUN_2="Execute0Run2";
     private static final String EXECUTE_0_EXECUTE_CONVERT_0="Execute0ExecuteConvert0";
     private static final String EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0="Execute0ExecuteSetupNoException0";
+    private static final String EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_1="Execute0ExecuteSetupNoException1";
     private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_0="Execute0ExecuteSetupError0";
     private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_1="Execute0ExecuteSetupError1";
     private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_2="Execute0ExecuteSetupError2";
+    private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_3="Execute0ExecuteSetupError3";
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_0="Execute1ExecuteSetupError0";
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_1="Execute1ExecuteSetupError1";
+    private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_2="Execute1ExecuteSetupError2";
     private static final String ASSERT_0_ASSERT_ASSERT_0="Assert0AssertAssert0";
     private static final String ASSERT_0_ASSERT_ASSERT_1="Assert0AssertAssert1";
     private static final String ASSERT_1_ASSERT_ASSERT_0="Assert1AssertAssert0";
@@ -272,11 +275,14 @@ public final class CustAliasParameters {
     private String aliasExecute0Run2;
     private String aliasExecute0ExecuteConvert0;
     private String aliasExecute0ExecuteSetupNoException0;
+    private String aliasExecute0ExecuteSetupNoException1;
     private String aliasExecute0ExecuteSetupError0;
     private String aliasExecute0ExecuteSetupError1;
     private String aliasExecute0ExecuteSetupError2;
+    private String aliasExecute0ExecuteSetupError3;
     private String aliasExecute1ExecuteSetupError0;
     private String aliasExecute1ExecuteSetupError1;
+    private String aliasExecute1ExecuteSetupError2;
     private String aliasAssert0AssertAssert0;
     private String aliasAssert0AssertAssert1;
     private String aliasAssert1AssertAssert0;
@@ -398,9 +404,9 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_TESTS_0,aliasExecute0ExecuteTests0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_RUN_0,aliasExecute0Run0),new KeyValueMemberName(EXECUTE_0_RUN_1,aliasExecute0Run1),new KeyValueMemberName(EXECUTE_0_RUN_2,aliasExecute0Run2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_CONVERT_0,aliasExecute0ExecuteConvert0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0,aliasExecute0ExecuteSetupNoException0)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_0,aliasExecute0ExecuteSetupError0),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_1,aliasExecute0ExecuteSetupError1),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_2,aliasExecute0ExecuteSetupError2)));
-        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0,aliasExecute0ExecuteSetupNoException0),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_1,aliasExecute0ExecuteSetupNoException1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_0,aliasExecute0ExecuteSetupError0),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_1,aliasExecute0ExecuteSetupError1),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_2,aliasExecute0ExecuteSetupError2),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_3,aliasExecute0ExecuteSetupError3)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_2,aliasExecute1ExecuteSetupError2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_0,aliasAssert0AssertAssert0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_1,aliasAssert0AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_0,aliasAssert1AssertAssert0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_1,aliasAssert1AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_0,aliasAssert2AssertAssert0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_1,aliasAssert2AssertAssert1)));
@@ -535,11 +541,14 @@ public final class CustAliasParameters {
         aliasExecute0Run2= LgNamesContent.get(_util, _cust, EXECUTE_0_RUN_2);
         aliasExecute0ExecuteConvert0= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_CONVERT_0);
         aliasExecute0ExecuteSetupNoException0= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0);
+        aliasExecute0ExecuteSetupNoException1= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_1);
         aliasExecute0ExecuteSetupError0= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_ERROR_0);
         aliasExecute0ExecuteSetupError1= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_ERROR_1);
         aliasExecute0ExecuteSetupError2= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_ERROR_2);
+        aliasExecute0ExecuteSetupError3= LgNamesContent.get(_util, _cust, EXECUTE_0_EXECUTE_SETUP_ERROR_3);
         aliasExecute1ExecuteSetupError0= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_0);
         aliasExecute1ExecuteSetupError1= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_1);
+        aliasExecute1ExecuteSetupError2= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_2);
         aliasAssert0AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_0);
         aliasAssert0AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_1);
         aliasAssert1AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_0);
@@ -1030,6 +1039,10 @@ public final class CustAliasParameters {
         return aliasExecute0ExecuteSetupNoException0;
     }
 
+    public String getAliasExecute0ExecuteSetupNoException1() {
+        return aliasExecute0ExecuteSetupNoException1;
+    }
+
     public String getAliasExecute0ExecuteSetupError0() {
         return aliasExecute0ExecuteSetupError0;
     }
@@ -1042,12 +1055,20 @@ public final class CustAliasParameters {
         return aliasExecute0ExecuteSetupError2;
     }
 
+    public String getAliasExecute0ExecuteSetupError3() {
+        return aliasExecute0ExecuteSetupError3;
+    }
+
     public String getAliasExecute1ExecuteSetupError0() {
         return aliasExecute1ExecuteSetupError0;
     }
 
     public String getAliasExecute1ExecuteSetupError1() {
         return aliasExecute1ExecuteSetupError1;
+    }
+
+    public String getAliasExecute1ExecuteSetupError2() {
+        return aliasExecute1ExecuteSetupError2;
     }
 
     public String getAliasAssert0AssertAssert0() {

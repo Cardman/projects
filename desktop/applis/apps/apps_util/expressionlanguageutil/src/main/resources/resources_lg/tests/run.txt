@@ -83,7 +83,7 @@
                             ({results}{local}).{addTa}({tt}{local},{res}{local}){endLine}
                         '}'
                     '}' {else} '{'
-                        ({results}{local}).{addTa}({tt}{local},{setupError}({e}{loop},{exc}{local})){endLine}
+                        ({results}{local}).{addTa}({tt}{local},{setupError}({e}{loop},{exc}{local},-1)){endLine}
                     '}'
                 '}' {else} '{'
                     ({results}{local}).{addTa}({tt}{local},{execute}({e}{loop},{c}{loop},{new} {Object}[]'{''}')){endLine}
@@ -98,6 +98,8 @@
     '}'
     {private} {static} {Result} {execute}({ExecutedTest} {r1},{Class} {r2},{Object}[] {r3})'{'
         {var} {processEx} = {false}{endLine}
+        {var} {stTime} = {static}({Thread}).{instant}(){endLine}
+        {long} {diff} = -1{endLine}
         {try} '{'
             {var} {ctor} = ({r2}{param}).{getDeclaredConstructors}({false})[0]{endLine}
             {processEx}{local} = {true}{endLine}
@@ -105,15 +107,22 @@
             {for} ({var} {b}: ({r1}{param}).{before})'{'
                 ({b}{loop}).{invoke}({classTest}{local}){endLine}
             '}'
+            {stTime} = {static}({Thread}).{instant}(){endLine}
             ({r1}{param}).{test}.{invoke}({classTest}{local}, {r3}{param}){endLine}
+            {diff} = {static}({Thread}).{instant}()-{stTime}{endLine}
             {for} ({var} {b}: ({r1}{param}).{after})'{'
                 ({b}{loop}).{invoke}({classTest}{local}){endLine}
             '}'
-            {return} {setupNoException}({r1}{param}){endLine}
+            {return} {setupNoException}({r1}{param},{diff}){endLine}
         '}' {catch} ({InvokeTarget} {o})'{'
-            {return} {setupError}({r1}{param},{o}{cv},{processEx}{local}){endLine}
+            {diff} = {diff} == -1 ? {static}({Thread}).{instant}()-{stTime} : {diff}{endLine}
+            {return} {setupError}({r1}{param},{o}{cv},{processEx}{local},{diff}){endLine}
         '}' {catch} ({Object} {o})'{'
-            {return} {setupError}({r1}{param},{o}{cv}){endLine}
+            {diff} = {diff} == -1 ? {static}({Thread}).{instant}()-{stTime} : {diff}{endLine}
+            {return} {setupError}({r1}{param},{o}{cv},{diff}){endLine}
+        '}' {catch} '{'
+            {diff} = {diff} == -1 ? {static}({Thread}).{instant}()-{stTime} : {diff}{endLine}
+            {return} {setupError}({r1}{param},{null}{cv},{diff}){endLine}
         '}'
     '}'
     {private} {static} {String} {convert}({Object} {co})'{'
@@ -125,8 +134,9 @@
             {return} {static}({Class}).{getClass}({co}{param}).{getClassName}(){endLine}
         '}'
     '}'
-    {private} {static} {Result} {setupNoException}({ExecutedTest} {et1})'{'
+    {private} {static} {Result} {setupNoException}({ExecutedTest} {et1},{long} {tps1})'{'
         {var} {res} = {new} {Result}(){endLine}
+        {res}.{time} = {tps1}{endLine}
         {var} {tt} = {cast}({Test})({et1}{param}).{annotations}[0]{endLine}
         {if} (({tt}{local}).{nullException}())'{'
             ({res}{local}).{success} = {false}{endLine}
@@ -137,8 +147,9 @@
         '}'
         {return} {res}{local}{endLine}
     '}'
-    {private} {static} {Result} {setupError}({ExecutedTest} {et2}, {InvokeTarget} {et3}, {boolean} {et4})'{'
+    {private} {static} {Result} {setupError}({ExecutedTest} {et2}, {InvokeTarget} {et3}, {boolean} {et4}, {long} {tps2})'{'
         {var} {res} = {new} {Result}(){endLine}
+        {res}.{time} = {tps2}{endLine}
         {var} {ex} = ({et3}{param}).{getCause}(){endLine}
         {if} ({et4}{param}) '{'
             {var} {tt} = {cast}({Test})({et2}{param}).{annotations}[0]{endLine}
@@ -162,8 +173,9 @@
         '}'
         {return} {res}{endLine}
     '}'
-    {private} {static} {Result} {setupError}({ExecutedTest} {et}, {Object} {er})'{'
+    {private} {static} {Result} {setupError}({ExecutedTest} {et}, {Object} {er}, {long} {tps3})'{'
         {var} {res} = {new} {Result}(){endLine}
+        {res}.{time} = {tps3}{endLine}
         ({res}{local}).{success} = {false}{endLine}
         ({res}{local}).{failMessage} = {static}({StringUtil}).{valueOf}({er}{param}){endLine}
         {return} {res}{endLine}
@@ -179,6 +191,7 @@
 '}'
 
 {public} {class} {Result}'{'
+    {public} {long} {time} = -1{endLine}
     {public} {boolean} {success} = {true}{endLine}
     {public} {String} {pf} = ""{endLine}
     {public} {String} {failMessage} = ""{endLine}

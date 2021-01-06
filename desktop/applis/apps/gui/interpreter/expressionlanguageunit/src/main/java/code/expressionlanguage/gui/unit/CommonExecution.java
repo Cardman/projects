@@ -69,6 +69,7 @@ public final class CommonExecution {
             String pairSecond_ = _evolved.getCustAliases().getAliasSecond();
             String aliasResult_ = _evolved.getCustAliases().getAliasResult();
             String aliasSuccess_ = _evolved.getCustAliases().getAliasResultSuccess();
+            String aliasTime_ = _evolved.getCustAliases().getAliasResultTime();
             String aliasFailMessage_ = _evolved.getCustAliases().getAliasResultFailMessage();
             String aliasParams_ = _evolved.getCustAliases().getAliasResultParams();
             int testLen_ = ((ArrayStruct) array_).getLength();
@@ -85,6 +86,7 @@ public final class CommonExecution {
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();
                 resultsTable.setValueAt(((StringStruct)params_).getInstance(),i,2);
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getStruct();
+                Struct time_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasTime_)).getStruct();
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getStruct();
                 if (BooleanStruct.isTrue(success_)) {
                     results.append(messages.getVal("success")+"\n");
@@ -95,7 +97,7 @@ public final class CommonExecution {
                 }
                 results.append(((StringStruct)failMessage_).getInstance()+"\n");
                 results.append(((StringStruct)params_).getInstance()+"\n");
-                results.append("\n");
+                results.append("\n="+((NumberStruct)time_).longStruct()+" ms\n");
             }
         }
     }

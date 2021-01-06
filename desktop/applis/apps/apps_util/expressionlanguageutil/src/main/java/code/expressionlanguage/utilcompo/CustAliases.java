@@ -158,6 +158,7 @@ public final class CustAliases {
     private static final String ASSERT_ASSERT_TRUE = "AssertAssertTrue";
     private static final String ASSERT_ASSERT_FALSE = "AssertAssertFalse";
     private static final String INFO_TEST_CURRENT_METHOD = "InfoTestCurrentMethod";
+    private static final String RESULT_TIME = "ResultTime";
     private static final String RESULT_PARAMS = "ResultParams";
     private static final String PARAMETERS_METHOD = "ParametersMethod";
     private static final String EXECUTE_SETUP_ERROR = "ExecuteSetupError";
@@ -374,6 +375,7 @@ public final class CustAliases {
     private String aliasExecutedTestMethod;
 
     private String aliasResultSuccess;
+    private String aliasResultTime;
     private String aliasResultFailMessage;
     private String aliasResultParams;
 
@@ -1207,12 +1209,25 @@ public final class CustAliases {
         map_.put("{assertNotNull}",aliasAssertAssertNotNull);
         map_.put("{assertSame}",aliasAssertAssertSame);
         map_.put("{success}",aliasResultSuccess);
+        map_.put("{time}",aliasResultTime);
         map_.put("{tests}",aliasExecuteTests);
         map_.put("{count}",aliasInfoTestCount);
         map_.put("{done}",aliasInfoTestDone);
         map_.put("{currentClass}",aliasInfoTestCurrentClass);
         map_.put("{currentMethod}",aliasInfoTestCurrentMethod);
         map_.put("{currentParams}",aliasInfoTestCurrentParams);
+        map_.put("{stTime}",tr("stTime", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
+        ));
+        map_.put("{instant}",tr("instant", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
+        ));
+        map_.put("{diff}",tr("diff", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
+        ));
+        map_.put("{tps1}",custAliasParameters.getAliasExecute0ExecuteSetupNoException1());
+        map_.put("{tps2}",custAliasParameters.getAliasExecute0ExecuteSetupError3());
+        map_.put("{tps3}",custAliasParameters.getAliasExecute1ExecuteSetupError2());
         content_ = StringUtil.formatQuote(content_, map_);
 
         _predefinedClasses.add(aliasInfoTest);
@@ -1407,6 +1422,7 @@ public final class CustAliases {
         setAliasDifferenceFoundNotTrue(LgNamesContent.get(_util, _cust, DIFFERENCE_FOUND_NOT_TRUE));
         setAliasParametersLocation(LgNamesContent.get(_util, _cust, PARAMETERS_LOCATION));
         setAliasInfoTestCount(LgNamesContent.get(_util, _cust, INFO_TEST_COUNT));
+        setAliasResultTime(LgNamesContent.get(_util, _cust, RESULT_TIME));
         setAliasInfoTestDone(LgNamesContent.get(_util, _cust, INFO_TEST_DONE));
         setAliasDifferenceStackDiff(LgNamesContent.get(_util, _cust, DIFFERENCE_STACK_DIFF));
         setAliasExecuteTests(LgNamesContent.get(_util, _cust, EXECUTE_TESTS));
@@ -1518,6 +1534,7 @@ public final class CustAliases {
         f_.addEntry(getAliasResult(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RESULT_FAIL_MESSAGE,getAliasResultFailMessage()),
                 new KeyValueMemberName(RESULT_PARAMS,getAliasResultParams()),
+                new KeyValueMemberName(RESULT_TIME,getAliasResultTime()),
                 new KeyValueMemberName(RESULT_SUCCESS,getAliasResultSuccess())
         ));
         f_.addEntry(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
@@ -4119,6 +4136,14 @@ public final class CustAliases {
 
     public void setAliasInfoTestCount(String _aliasInfoTestCount) {
         this.aliasInfoTestCount = _aliasInfoTestCount;
+    }
+
+    public String getAliasResultTime() {
+        return aliasResultTime;
+    }
+
+    public void setAliasResultTime(String _aliasResultTime) {
+        this.aliasResultTime = _aliasResultTime;
     }
 
     public String getAliasInfoTestDone() {
