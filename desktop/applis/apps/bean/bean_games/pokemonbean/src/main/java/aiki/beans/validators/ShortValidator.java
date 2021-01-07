@@ -11,17 +11,18 @@ public class ShortValidator implements Validator {
     @Override
     public Message validate(Struct _value) {
         NumberStruct n_ = NumParsers.convertToNumber(_value);
-        LongInfo nb_ = parseShort(new LongInfo(n_.longStruct()));
-        return procInfo(n_.longStruct(), nb_);
+        long val_ = n_.longStruct();
+        LongInfo nb_ = parseShort(new LongInfo(val_));
+        return procInfo(val_, nb_);
     }
 
-    private static Message procInfo(Object _value, LongInfo _nb) {
+    private static Message procInfo(long _value, LongInfo _nb) {
         if (_nb.isValid() && _nb.getValue() >= 0) {
             return null;
         }
         Message message_;
         message_ = new Message();
-        message_.setArgs("" + _value);
+        message_.setArgs(Long.toString(_value));
         return message_;
     }
 
