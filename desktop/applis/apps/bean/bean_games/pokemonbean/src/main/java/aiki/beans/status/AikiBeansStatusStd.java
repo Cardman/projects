@@ -268,12 +268,12 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_STATUS)) {
-            instance_.setTypedStatus((String) _value);
+            instance_.setTypedStatus(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

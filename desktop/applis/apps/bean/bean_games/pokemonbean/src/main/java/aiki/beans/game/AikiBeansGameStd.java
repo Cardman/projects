@@ -499,92 +499,92 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         DifficultyBean instance_ = (DifficultyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setDiffWinningExpPtsFight((String) _value);
+            instance_.setDiffWinningExpPtsFight(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
-            instance_.setAllowCatchingKo((Boolean) _value);
+            instance_.setAllowCatchingKo(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ALLOWED_SWITCH_PLACES_END_ROUND)) {
-            instance_.setAllowedSwitchPlacesEndRound((Boolean) _value);
+            instance_.setAllowedSwitchPlacesEndRound(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            instance_.setWinTrainerExp((Rate) _value);
+            instance_.setWinTrainerExp(PokemonStandards.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setRateWinningExpPtsFight((Rate) _value);
+            instance_.setRateWinningExpPtsFight(PokemonStandards.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
-            instance_.setEndFightIfOneTeamKo((Boolean) _value);
+            instance_.setEndFightIfOneTeamKo(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_PLAYER)) {
-            instance_.setIvPlayer((Integer) _value);
+            instance_.setIvPlayer(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_FOE)) {
-            instance_.setIvFoe((Integer) _value);
+            instance_.setIvFoe(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            instance_.setRateWinMoneyBase((Rate) _value);
+            instance_.setRateWinMoneyBase(PokemonStandards.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            instance_.setRateLooseMoneyWin((Rate) _value);
+            instance_.setRateLooseMoneyWin(PokemonStandards.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
-            instance_.setRestoredMovesEndFight((Boolean) _value);
+            instance_.setRestoredMovesEndFight(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ENABLED_CLOSING)) {
-            instance_.setEnabledClosing((Boolean) _value);
+            instance_.setEnabledClosing(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RANDOM_WILD_FIGHT)) {
-            instance_.setRandomWildFight((Boolean) _value);
+            instance_.setRandomWildFight(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STILL_POSSIBLE_FLEE)) {
-            instance_.setStillPossibleFlee((Boolean) _value);
+            instance_.setStillPossibleFlee(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
-            instance_.setSkipLearningMovesWhileNotGrowingLevel((Boolean) _value);
+            instance_.setSkipLearningMovesWhileNotGrowingLevel(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            instance_.setDamageRatePlayer((String) _value);
+            instance_.setDamageRatePlayer(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            instance_.setDamageRateLawFoe((String) _value);
+            instance_.setDamageRateLawFoe(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

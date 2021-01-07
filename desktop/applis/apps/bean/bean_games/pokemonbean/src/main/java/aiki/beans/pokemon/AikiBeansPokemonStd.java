@@ -387,42 +387,42 @@ public final class AikiBeansPokemonStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName((String) _value);
+            instance_.setTypedName(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
-            instance_.setTypedType((String) _value);
+            instance_.setTypedType(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
-            instance_.setWholeWord((Boolean) _value);
+            instance_.setWholeWord(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
-            instance_.setTypedMinNbPossEvos((String) _value);
+            instance_.setTypedMinNbPossEvos(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
-            instance_.setTypedMaxNbPossEvos((String) _value);
+            instance_.setTypedMaxNbPossEvos(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IS_EVO)) {
-            instance_.setIsEvo((String) _value);
+            instance_.setIsEvo(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IS_LEG)) {
-            instance_.setIsLeg((String) _value);
+            instance_.setIsLeg(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

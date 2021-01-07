@@ -532,12 +532,12 @@ public final class AikiBeansEndroundStd {
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultEffectEndRoundBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultEffectEndRoundBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectEndRoundBean instance_ = (EffectEndRoundBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Integer) _value);
+            instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

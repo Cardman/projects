@@ -648,68 +648,68 @@ public final class AikiBeansMovesStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultMoveLineBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Integer) _value);
+            instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE_LINE)) {
-            instance_.setMoveLine((MoveLine) _value);
+            instance_.setMoveLine((MoveLine) ((RealInstanceStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_MOVES)) {
-            instance_.setSortedMoves((StringList) _value);
+            instance_.setSortedMoves((StringList) ((RealInstanceStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName((String) _value);
+            instance_.setTypedName(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATEGORY)) {
-            instance_.setCategory((String) _value);
+            instance_.setCategory(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
-            instance_.setTypedType((String) _value);
+            instance_.setTypedType(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
-            instance_.setWholeWord((Boolean) _value);
+            instance_.setWholeWord(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MIN_ACCURACY)) {
-            instance_.setMinAccuracy((String) _value);
+            instance_.setMinAccuracy(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAX_ACCURACY)) {
-            instance_.setMaxAccuracy((String) _value);
+            instance_.setMaxAccuracy(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MIN_POWER)) {
-            instance_.setMinPower((String) _value);
+            instance_.setMinPower(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAX_POWER)) {
-            instance_.setMaxPower((String) _value);
+            instance_.setMaxPower(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

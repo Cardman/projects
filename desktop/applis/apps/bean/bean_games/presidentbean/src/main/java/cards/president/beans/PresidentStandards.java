@@ -267,7 +267,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();
     }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         return new ResultErrorStd();
     }
 

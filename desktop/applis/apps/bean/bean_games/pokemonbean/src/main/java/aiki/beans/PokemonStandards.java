@@ -1383,82 +1383,82 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof AbilitiesBean) {
-            return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _value);
+            return AikiBeansAbilitiesStd.setResultAbilitiesBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EffectComboBean) {
-            return AikiBeansEffectsStd.setResultEffectComboBean(_cont, _classField, _instance, _value);
+            return AikiBeansEffectsStd.setResultEffectComboBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EffectWhileSendingBean) {
-            return AikiBeansEffectsStd.setResultEffectWhileSendingBean(_cont, _classField, _instance, _value);
+            return AikiBeansEffectsStd.setResultEffectWhileSendingBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EffectEndRoundBean) {
-            return AikiBeansEndroundStd.setResultEffectEndRoundBean(_cont, _classField, _instance, _value);
+            return AikiBeansEndroundStd.setResultEffectEndRoundBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EvLine) {
-            return AikiBeansFacadeSimulationDtoStd.setResultEvLine(_cont, _classField, _instance, _value);
+            return AikiBeansFacadeSimulationDtoStd.setResultEvLine(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof SelectLineMove) {
-            return AikiBeansFacadeSimulationDtoStd.setResultSelectLineMove(_cont, _classField, _instance, _value);
+            return AikiBeansFacadeSimulationDtoStd.setResultSelectLineMove(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof DifficultyBean) {
-            return AikiBeansGameStd.setResultDifficultyBean(_cont, _classField, _instance, _value);
+            return AikiBeansGameStd.setResultDifficultyBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof ItemsBean) {
-            return AikiBeansItemsStd.setResultItemsBean(_cont, _classField, _instance, _value);
+            return AikiBeansItemsStd.setResultItemsBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof ItemBean) {
-            return AikiBeansItemsStd.setResultItemBean(_cont, _classField, _instance, _value);
+            return AikiBeansItemsStd.setResultItemBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof AllyBean) {
-            return AikiBeansMapCharactersStd.setResultAllyBean(_cont, _classField, _instance, _value);
+            return AikiBeansMapCharactersStd.setResultAllyBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof PokemonTeamBean) {
-            return AikiBeansMapPokemonStd.setResultPokemonTeamBean(_cont, _classField, _instance, _value);
+            return AikiBeansMapPokemonStd.setResultPokemonTeamBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EffectBean) {
-            return AikiBeansMovesEffectsStd.setResultEffectBean(_cont, _classField, _instance, _value);
+            return AikiBeansMovesEffectsStd.setResultEffectBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof MoveLineBean) {
-            return AikiBeansMovesStd.setResultMoveLineBean(_cont, _classField, _instance, _value);
+            return AikiBeansMovesStd.setResultMoveLineBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof MovesBean) {
-            return AikiBeansMovesStd.setResultMovesBean(_cont, _classField, _instance, _value);
+            return AikiBeansMovesStd.setResultMovesBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EvolutionBean) {
-            return AikiBeansPokemonEvolutionsStd.setResultEvolutionBean(_cont, _classField, _instance, _value);
+            return AikiBeansPokemonEvolutionsStd.setResultEvolutionBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof PokedexBean) {
-            return AikiBeansPokemonStd.setResultPokedexBean(_cont, _classField, _instance, _value);
+            return AikiBeansPokemonStd.setResultPokedexBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof AddPokemonBean) {
-            return AikiBeansSimulationStd.setResultAddPokemonBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultAddPokemonBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EditPokemonBean) {
-            return AikiBeansSimulationStd.setResultEditPokemonBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultEditPokemonBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EditPokemonMovesBean) {
-            return AikiBeansSimulationStd.setResultEditPokemonMovesBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultEditPokemonMovesBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof EditTrainerPokemonBean) {
-            return AikiBeansSimulationStd.setResultEditTrainerPokemonBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultEditTrainerPokemonBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof SelectAbilityBean) {
-            return AikiBeansSimulationStd.setResultSelectAbilityBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultSelectAbilityBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof SelectItemBean) {
-            return AikiBeansSimulationStd.setResultSelectItemBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultSelectItemBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof SelectPokemonBean) {
-            return AikiBeansSimulationStd.setResultSelectPokemonBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultSelectPokemonBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof SimulationBean) {
-            return AikiBeansSimulationStd.setResultSimulationBean(_cont, _classField, _instance, _value);
+            return AikiBeansSimulationStd.setResultSimulationBean(_cont, _classField, _instance, _val);
         }
         if (instance_ instanceof StatusSetBean) {
-            return AikiBeansStatusStd.setResultStatusSetBean(_cont, _classField, _instance, _value);
+            return AikiBeansStatusStd.setResultStatusSetBean(_cont, _classField, _instance, _val);
         }
         return new ResultErrorStd();
     }
@@ -3245,5 +3245,12 @@ public final class PokemonStandards extends BeanNatLgNames {
 
     public String getAliasVoid() {
         return getContent().getCoreNames().getAliasVoid();
+    }
+
+    public static Rate convertToRate(Struct _r) {
+        if (_r instanceof RateStruct) {
+            return ((RateStruct)_r).getRate();
+        }
+        return Rate.zero();
     }
 }

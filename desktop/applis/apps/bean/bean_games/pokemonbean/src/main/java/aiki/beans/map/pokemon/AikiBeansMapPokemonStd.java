@@ -114,17 +114,17 @@ public final class AikiBeansMapPokemonStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultPokemonTeamBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
-            instance_.setTrainer((Trainer) _value);
+            instance_.setTrainer((Trainer) ((RealInstanceStruct)_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {
-            instance_.setNoFight((Integer) _value);
+            instance_.setNoFight(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

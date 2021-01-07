@@ -1018,12 +1018,12 @@ public final class AikiBeansAbilitiesStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TYPED_ABILITY)) {
-            instance_.setTypedAbility((String) _value);
+            instance_.setTypedAbility(NumParsers.getString(_val).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

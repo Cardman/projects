@@ -68,7 +68,6 @@ public final class NativeTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        assertEq(0,(Integer)BeanNatLgNames.adaptedArg(new IntStruct(0)));
         assertTrue(hasNatErr(folder_, relative_, html_, bean_));
         assertNull(bean_.getDataBase());
     }

@@ -43,7 +43,8 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock, boolean _direct, CustList<Argument> _arguments, String _className,
                                    String _classNameOwner, ContextEl _conf, StackCall _stackCall) {
         if (direct(_direct, _rootBlock, _className)) {
-            return getFormattedArgument(_arguments, _className, _conf, _stackCall);
+            String paramName_ = _stackCall.formatVarType(_className);
+            return getArgument(_arguments, paramName_, _conf, _stackCall);
         }
         checkFormattedCustomOper(_exit, _rootBlock, _arguments, _classNameOwner, _conf,null, _stackCall);
         return Argument.createVoid();
@@ -73,11 +74,6 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         }
         _stackCall.setCallingState(new CustomFoundCast(_paramNameOwner, _rootBlock, parameters_));
         return false;
-    }
-
-    public static Argument getFormattedArgument(CustList<Argument> _arguments, String _className, ContextEl _conf, StackCall _stackCall) {
-        String paramName_ = _stackCall.formatVarType(_className);
-        return getArgument(_arguments, paramName_, _conf, _stackCall);
     }
 
     public static Argument getArgument(CustList<Argument> _arguments, String _paramName, ContextEl _conf, StackCall _stackCall) {

@@ -3,6 +3,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -146,23 +147,23 @@ public final class AikiBeansFacadeSimulationDtoStd {
         }
         return AikiBeansFacadeDtoStd.getResultMoveLine(_cont, _classField, _instance);
     }
-    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EV)) {
-            instance_.setEv((Integer) _value);
+            instance_.setEv(NumParsers.convertToNumber(_val).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public static ResultErrorStd setResultSelectLineMove(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectLineMove instance_ = (SelectLineMove) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,SELECTED)) {
-            instance_.setSelected((Boolean) _value);
+            instance_.setSelected(BooleanStruct.isTrue(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

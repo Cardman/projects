@@ -52,8 +52,7 @@ public final class ExecDimensionArrayInstancing extends
             args_[i_] = dim_;
             i_++;
         }
-        Ints dims_;
-        dims_ = new Ints();
+        Ints dims_ = new Ints();
         for (int d: args_) {
             dims_.add(d);
         }

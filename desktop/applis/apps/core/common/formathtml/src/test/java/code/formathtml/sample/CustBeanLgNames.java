@@ -1100,7 +1100,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         Object instance_ =  ((RealInstanceStruct)_instance).getInstance();
         String className_ = _classField.getClassName();
@@ -1108,37 +1108,37 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
             BeanOne i_ = (BeanOne)instance_;
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBER)) {
-                i_.setChosenNumber((String)_value);
+                i_.setChosenNumber((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                i_.setChosenNumbers((EnumNumbers)_value);
+                i_.setChosenNumbers((EnumNumbers)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
-                i_.setCombobox((EnumNumbers)_value);
+                i_.setCombobox((EnumNumbers)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,COMMON_CLASS)) {
-                i_.setCommonClass((String)_value);
+                i_.setCommonClass((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,COMPOSITE)) {
-                i_.setComposite((Composite)_value);
+                i_.setComposite((Composite) _val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MESSAGE)) {
-                i_.setMessage((String)_value);
+                i_.setMessage((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
-                i_.setSelectedString((String)_value);
+                i_.setSelectedString((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1146,52 +1146,57 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo i_ = (BeanTwo)instance_;
             if (StringUtil.quickEq(fieldName_,CHECKED)) {
-                i_.setChecked((Boolean)_value);
+                i_.setChecked(BooleanStruct.isTrue(_val));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,CHOOSE)) {
-                i_.setChoose((String)_value);
+                i_.setChoose((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBER)) {
-                i_.setChosenNumber((EnumNumber)_value);
+                i_.setChosenNumber((EnumNumber)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,FIELD)) {
-                i_.setField((String)_value);
+                i_.setField((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,NULLABLE_CHECKBOX)) {
-                i_.setNullableCheckbox((Boolean)_value);
+                i_.setNullableCheckbox((Boolean)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,NULLABLE_INT)) {
-                i_.setNullableInt((Long)_value);
+                if (_val== NullStruct.NULL_VALUE) {
+                    i_.setNullableInt(null);
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                i_.setNullableInt(NumParsers.convertToNumber(_val).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,RATE)) {
-                i_.setRate((Rate)_value);
+                i_.setRate((Rate)((RealInstanceStruct)_val).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_INT)) {
-                i_.setTypedInt((Integer)_value);
+                i_.setTypedInt((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                i_.setTypedShort((Short)_value);
+                i_.setTypedShort(NumParsers.convertToNumber(_val).shortStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
-                i_.setTypedString((String)_value);
+                i_.setTypedString(NumParsers.getString(_val).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1199,12 +1204,12 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_THREE)) {
             BeanThree i_ = (BeanThree)instance_;
             if (StringUtil.quickEq(fieldName_,INDEX)) {
-                i_.setIndex((Integer)_value);
+                i_.setIndex((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,INDEX_TWO)) {
-                i_.setIndexTwo((Integer)_value);
+                i_.setIndexTwo((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1212,22 +1217,22 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
             BeanFive i_ = (BeanFive)instance_;
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS)) {
-                i_.setChosenNumbers((EnumNumbers)_value);
+                i_.setChosenNumbers((EnumNumbers)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,CHOSEN_NUMBERS_NULL)) {
-                i_.setChosenNumbersNull((StringList)_value);
+                i_.setChosenNumbersNull((StringList)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,COMBOBOX)) {
-                i_.setCombobox((EnumNumbers)_value);
+                i_.setCombobox((EnumNumbers)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,SELECTED_STRINGS)) {
-                i_.setSelectedStrings((StringList)_value);
+                i_.setSelectedStrings((StringList)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1235,17 +1240,17 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_SIX)) {
             BeanSix i_ = (BeanSix)instance_;
             if (StringUtil.quickEq(fieldName_,MY_ENUM_ONE)) {
-                i_.setMyEnumOne((EnumNumber)_value);
+                i_.setMyEnumOne((EnumNumber)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MY_ENUM_THREE)) {
-                i_.setMyEnumThree((EnumNumber)_value);
+                i_.setMyEnumThree((EnumNumber)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MY_ENUM_TWO)) {
-                i_.setMyEnumTwo((EnumNumber)_value);
+                i_.setMyEnumTwo((EnumNumber)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1253,7 +1258,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_SEVEN)) {
             BeanSeven i_ = (BeanSeven)instance_;
             if (StringUtil.quickEq(fieldName_,COMPOSITE)) {
-                i_.setComposite((Composite)_value);
+                i_.setComposite((Composite) _val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1261,27 +1266,27 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
             Composite i_ = (Composite)instance_;
             if (StringUtil.quickEq(fieldName_,DISPLAYED)) {
-                i_.setDisplayed((Boolean)_value);
+                i_.setDisplayed((Boolean)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,INTEGER)) {
-                i_.setInteger((Integer)_value);
+                i_.setInteger((Integer)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MY_CHAR)) {
-                i_.setMyChar((Character)_value);
+                i_.setMyChar((Character)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,STRING)) {
-                i_.setString((String)_value);
+                i_.setString((String)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,STRINGS)) {
-                i_.setStrings((StringList)_value);
+                i_.setStrings((StringList)(Object)_val);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

@@ -38,7 +38,7 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
         return new ResultErrorStd();
     }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
+    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
         return new ResultErrorStd();
     }
 

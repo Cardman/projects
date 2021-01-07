@@ -8,10 +8,8 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -69,28 +67,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public BeanNatLgNames() {
         super(new DefaultGenerator());
-    }
-
-    public static Object adaptedArg(Struct _args) {
-        if (_args instanceof NumberStruct) {
-            if (_args instanceof ShortStruct) {
-                return ((ShortStruct) _args).shortStruct();
-            }
-            if (_args instanceof IntStruct) {
-                return ((IntStruct) _args).intStruct();
-            }
-            return ((NumberStruct) _args).longStruct();
-        }
-        if (_args instanceof StringStruct) {
-            return ((StringStruct)_args).getInstance();
-        }
-        if (_args instanceof BooleanStruct) {
-            return BooleanStruct.isTrue(_args);
-        }
-        if (_args instanceof RealInstanceStruct) {
-            return ((RealInstanceStruct) _args).getInstance();
-        }
-        return null;
     }
 
     @Override
@@ -151,8 +127,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ClassField fieldId_ = _rend.getClassField();
-        Object value_ = adaptedArg(_right.getStruct());
-        setOtherResult(_context, fieldId_, _previous.getStruct(), value_);
+        setOtherResult(_context, fieldId_, _previous.getStruct(), _right.getStruct());
         return _right;
     }
 
@@ -161,13 +136,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _rendStack);
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_all,_rend);
-        int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
-        for (Argument a: firstArgs_) {
-            byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(classMethodId_.getConstraints().getParametersTypes().get(i_), this);
-            a.setStruct(NumParsers.convertToInt(cast_, NumParsers.convertToNumber(cast_,a.getStruct())));
-            i_++;
-        }
         ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack, Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }
@@ -221,13 +190,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             return null;
         }
         Struct obj_ = resError_.getResult();
-        Object ad_ = adaptedArg(obj_);
-        return validator_.validate(ad_);
+        return validator_.validate(obj_);
     }
 
     public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
 
-    public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value);
+    public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val);
 
     protected void buildBeans() {
         CustList<StandardField> fields_;
