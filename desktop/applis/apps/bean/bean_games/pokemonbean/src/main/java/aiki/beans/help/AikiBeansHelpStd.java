@@ -2,6 +2,7 @@ package aiki.beans.help;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -2010,13 +2011,13 @@ public final class AikiBeansHelpStd {
         fields_.add(new StandardField(BEGIN,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(MINI_MAP, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(UNLOCKED_CITY,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(NB_MAX_TEAM,_std.getAliasPrimByte(),false,false,type_));
+        fields_.add(new StandardField(NB_MAX_TEAM,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(MIN_LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(NB_MAX_MOVES,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(MAX_PP,_std.getAliasPrimLong(),false,false,type_));
         fields_.add(new StandardField(NB_NEC_STEPS_INCR_HAPPINESS,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.add(new StandardField(NB_MAX_STEPS_SAME_EVO_BASE,_std.getAliasPrimShort(),false,false,type_));
-        fields_.add(new StandardField(NB_MAX_STEPS,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(NB_MAX_STEPS_SAME_EVO_BASE,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(NB_MAX_STEPS,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(POKEMON_DEFAULT_EGG_GROUP, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(DEFAULT_MONEY,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(TM, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -2047,7 +2048,7 @@ public final class AikiBeansHelpStd {
         method_ = new StandardMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -2454,7 +2455,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MIN_HP_NOT_KO)) {
-            res_.setResult(new DefaultStruct(instance_.getMinHpNotKo(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMinHpNotKo(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ITEMS_PROT_AGAINST_KO)) {
@@ -2542,7 +2543,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WON_HAPPINESS_POINTS_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.getWonHappinessPointsLevel(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getWonHappinessPointsLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HAPPINESS_POINTS)) {
@@ -2558,7 +2559,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STRONG_MOVE)) {
-            res_.setResult(new DefaultStruct(instance_.getStrongMove(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getStrongMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGING_MOVES)) {
@@ -2893,7 +2894,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NB_MAX_TEAM)) {
-            res_.setResult(new ByteStruct(instance_.getNbMaxTeam()));
+            res_.setResult(new IntStruct(instance_.getNbMaxTeam()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MIN_LEVEL)) {
@@ -2913,11 +2914,11 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NB_MAX_STEPS_SAME_EVO_BASE)) {
-            res_.setResult(new ShortStruct(instance_.getNbMaxStepsSameEvoBase()));
+            res_.setResult(new IntStruct(instance_.getNbMaxStepsSameEvoBase()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NB_MAX_STEPS)) {
-            res_.setResult(new ShortStruct(instance_.getNbMaxSteps()));
+            res_.setResult(new IntStruct(instance_.getNbMaxSteps()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POKEMON_DEFAULT_EGG_GROUP)) {
@@ -2925,7 +2926,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DEFAULT_MONEY)) {
-            res_.setResult(new DefaultStruct(instance_.getDefaultMoney(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDefaultMoney(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TM)) {
@@ -4549,7 +4550,7 @@ public final class AikiBeansHelpStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {

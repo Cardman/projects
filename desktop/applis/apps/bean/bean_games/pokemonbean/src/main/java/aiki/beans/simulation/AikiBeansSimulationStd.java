@@ -1,7 +1,5 @@
 package aiki.beans.simulation;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
+import aiki.beans.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -286,7 +284,7 @@ public final class AikiBeansSimulationStd {
         fields_.add(new StandardField(ABILITY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(TYPED_TYPE,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false,type_));
@@ -323,13 +321,13 @@ public final class AikiBeansSimulationStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EDIT_POKEMON_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(NAME_PK,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(EXPERIENCE,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(BALLS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(BALL,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(HAPPINESS,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(HAPPINESS,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(HEAL,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(EV, BeanNatLgNames.TYPE_MAP,false,false,type_));
@@ -403,7 +401,7 @@ public final class AikiBeansSimulationStd {
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(ADD,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(ALLY_PK,_std.getAliasPrimBoolean(),false,false,type_));
         params_ = new StringList();
@@ -548,8 +546,8 @@ public final class AikiBeansSimulationStd {
         fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.add(new StandardField(IV_PLAYER,_std.getAliasPrimShort(),false,false,type_));
-        fields_.add(new StandardField(IV_FOE,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(IV_PLAYER,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(IV_FOE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,_std.getAliasPrimBoolean(),false,false,type_));
@@ -579,7 +577,7 @@ public final class AikiBeansSimulationStd {
         fields_.add(new StandardField(SELECTED_ACTION,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(AVAILABLE_EVOS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(CHOSEN_EVO,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(LEVEL_EVO,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(LEVEL_EVO,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(SELECTED_ROUND,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(PLACES_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
@@ -962,7 +960,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
@@ -1005,7 +1003,7 @@ public final class AikiBeansSimulationStd {
         EditPokemonBean instance_ = (EditPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NAME_PK)) {
@@ -1017,7 +1015,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EXPERIENCE)) {
-            res_.setResult(new DefaultStruct(instance_.getExperience(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getExperience(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BALLS)) {
@@ -1029,11 +1027,11 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HAPPINESS)) {
-            res_.setResult(new ShortStruct(instance_.getHappiness()));
+            res_.setResult(new IntStruct(instance_.getHappiness()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REMAINING_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getRemainingHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRemainingHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEAL)) {
@@ -1103,7 +1101,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ADD)) {
@@ -1215,11 +1213,11 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            res_.setResult(new DefaultStruct(instance_.getWinTrainerExp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getWinTrainerExp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(new DefaultStruct(instance_.getRateWinningExpPtsFight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateWinningExpPtsFight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
@@ -1227,19 +1225,19 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_PLAYER)) {
-            res_.setResult(new ShortStruct(instance_.getIvPlayer()));
+            res_.setResult(new IntStruct(instance_.getIvPlayer()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_FOE)) {
-            res_.setResult(new ShortStruct(instance_.getIvFoe()));
+            res_.setResult(new IntStruct(instance_.getIvFoe()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateWinMoneyBase(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateWinMoneyBase(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            res_.setResult(new DefaultStruct(instance_.getRateLooseMoneyWin(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateLooseMoneyWin(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
@@ -1351,7 +1349,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL_EVO)) {
-            res_.setResult(new ShortStruct(instance_.getLevelEvo()));
+            res_.setResult(new IntStruct(instance_.getLevelEvo()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ROUND)) {
@@ -1494,7 +1492,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            instance_.setLevel((Short) _value);
+            instance_.setLevel((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1545,7 +1543,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HAPPINESS)) {
-            instance_.setHappiness((Short) _value);
+            instance_.setHappiness((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1602,7 +1600,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            instance_.setLevel((Short) _value);
+            instance_.setLevel((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1716,12 +1714,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_PLAYER)) {
-            instance_.setIvPlayer((Short) _value);
+            instance_.setIvPlayer((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IV_FOE)) {
-            instance_.setIvFoe((Short) _value);
+            instance_.setIvFoe((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1821,7 +1819,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL_EVO)) {
-            instance_.setLevelEvo((Short) _value);
+            instance_.setLevelEvo((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -2442,11 +2440,11 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_REMAINING_LIFE_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getRemainingLifeRate((Long)_args[0]),PokemonStandards.TYPE_LG_INT));
+            res_.setResult(new LgIntStruct(instance_.getRemainingLifeRate((Long)_args[0]),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,NUMBER_NECESSARY_POINTS_FOR_GROWING_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.numberNecessaryPointsForGrowingLevel((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.numberNecessaryPointsForGrowingLevel((Long)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CHANGE_FIGHT)) {

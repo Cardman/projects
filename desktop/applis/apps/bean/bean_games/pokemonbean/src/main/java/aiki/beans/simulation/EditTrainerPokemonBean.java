@@ -16,10 +16,10 @@ public class EditTrainerPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
     private String gender = Gender.NO_GENDER.name();
-    private short level;
+    private int level;
     private TreeMap<String,String> genders;
     private String item = DataBase.EMPTY_STRING;
-    private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
+    private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
 
     @Override
@@ -129,7 +129,7 @@ public class EditTrainerPokemonBean extends CommonBean {
             selected_.add(s.getName());
         }
         if (selected_.isEmpty()) {
-            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel(level);
+            selected_ = data_.getPokemon(namePk).getMovesBeforeLevel((short) level);
         }
         if (add) {
             getForms().put(POKEMON_FOE, !allyPk);
@@ -180,11 +180,11 @@ public class EditTrainerPokemonBean extends CommonBean {
         gender = _gender;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 

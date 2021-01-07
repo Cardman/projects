@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -515,7 +516,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_COPY_FIGHTER_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(PP_FOR_MOVES,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(PP_FOR_MOVES,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_COPY_FIGHTER_BEAN, type_);
     }
     private static void buildEffectCopyMoveBean(PokemonStandards _std) {
@@ -530,7 +531,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_COPY_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(COPYING_MOVE_FOR_USER,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(COPYING_MOVE_FOR_USER,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(COPYING_MOVE_FOR_USER_DEF,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(MOVES_TRANSFORMING, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MOVES_NOT_TO_BE_COPIED, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -602,7 +603,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(DAMAGE_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MAP_VARS_DAMAGE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MULT_DAMAGE_AGAINST, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.add(new StandardField(CH_RATE,_std.getAliasPrimByte(),false,false,type_));
+        fields_.add(new StandardField(CH_RATE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(CH_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(USER_ATTACK,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(STATIS_ATT,_std.getAliasString(),false,false,type_));
@@ -1330,7 +1331,7 @@ public final class AikiBeansMovesEffectsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_VAR_P_P_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(DELETE_PP,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(DELETE_PP,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EFFECT_VAR_P_P_BEAN, type_);
     }
     private static void buildEffectWinMoneyBean(PokemonStandards _std) {
@@ -1350,7 +1351,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectAllyBean instance_ = (EffectAllyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MULT_ALLY_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1403,7 +1404,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectCloneBean instance_ = (EffectCloneBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HP_RATE_CLONE)) {
-            res_.setResult(new DefaultStruct(instance_.getHpRateClone(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHpRateClone(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVES_END_ROUND)) {
@@ -1440,7 +1441,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectCopyFighterBean instance_ = (EffectCopyFighterBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,PP_FOR_MOVES)) {
-            res_.setResult(new ShortStruct(instance_.getPpForMoves()));
+            res_.setResult(new IntStruct(instance_.getPpForMoves()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1455,7 +1456,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COPYING_MOVE_FOR_USER)) {
-            res_.setResult(new ShortStruct(instance_.getCopyingMoveForUser()));
+            res_.setResult(new IntStruct(instance_.getCopyingMoveForUser()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COPYING_MOVE_FOR_USER_DEF)) {
@@ -1486,7 +1487,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SUFFERING_DAMAGE_DIRECT_MOVE)) {
-            res_.setResult(new DefaultStruct(instance_.getSufferingDamageDirectMove(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getSufferingDamageDirectMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_PROTECT)) {
@@ -1533,7 +1534,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CH_RATE)) {
-            res_.setResult(new ByteStruct(instance_.getChRate()));
+            res_.setResult(new IntStruct(instance_.getChRate()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CH_LAW)) {
@@ -1587,7 +1588,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1617,7 +1618,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectFullHpRateBean instance_ = (EffectFullHpRateBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LEFT_USER_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getLeftUserHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getLeftUserHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RESTORED_HP)) {
@@ -1629,7 +1630,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CLOSEST_FOE_DAMAGE_RATE_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getClosestFoeDamageRateHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getClosestFoeDamageRateHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1660,23 +1661,23 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_ACCURACY)) {
-            res_.setResult(new DefaultStruct(instance_.getMultAccuracy(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultAccuracy(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getDamageEndRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDamageEndRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND_GROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getHealingEndRoundGround(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealingEndRoundGround(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getHealingEndRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealingEndRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EFFECT_LOVING_ALLY)) {
-            res_.setResult(new DefaultStruct(instance_.getMultEffectLovingAlly(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultEffectLovingAlly(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PREVENT_STATUS)) {
@@ -1779,7 +1780,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_INVOKATION_MOVE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateInvokationMove(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateInvokationMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVE_FCT_ENV)) {
@@ -1852,7 +1853,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PROT_SINGLE_AGAINST_KO)) {
-            res_.setResult(new DefaultStruct(instance_.getProtSingleAgainstKo(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getProtSingleAgainstKo(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PROT_TEAM_AGAINST_MULT_TARGETS)) {
@@ -1882,7 +1883,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getRateHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -1903,7 +1904,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectStatisticBean instance_ = (EffectStatisticBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EVT_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVT_RATE_PER_CENT)) {
@@ -2131,7 +2132,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectVarPPBean instance_ = (EffectVarPPBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DELETE_PP)) {
-            res_.setResult(new ShortStruct(instance_.getDeletePp()));
+            res_.setResult(new IntStruct(instance_.getDeletePp()));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2141,7 +2142,7 @@ public final class AikiBeansMovesEffectsStd {
         EffectWinMoneyBean instance_ = (EffectWinMoneyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WINNING_RATE_BY_SUM_TARGET_USER)) {
-            res_.setResult(new DefaultStruct(instance_.getWinningRateBySumTargetUser(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getWinningRateBySumTargetUser(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansMovesEffectsStd.getResultEffectBean(_cont, _classField, _instance);
@@ -2578,7 +2579,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_SWAP_FAIL)) {

@@ -29,8 +29,8 @@ public class DifficultyBean extends Bean {
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
     private Rate rateLooseMoneyWin;
-    private short ivPlayer;
-    private short ivFoe;
+    private int ivPlayer;
+    private int ivFoe;
     private boolean stillPossibleFlee;
     private boolean restoredMovesEndFight;
     private boolean enabledClosing;
@@ -98,8 +98,8 @@ public class DifficultyBean extends Bean {
         diff_.setWinTrainerExp(winTrainerExp);
         diff_.setRateWinningExpPtsFight(rateWinningExpPtsFight);
         diff_.setEndFightIfOneTeamKo(endFightIfOneTeamKo);
-        diff_.setIvPlayer(ivPlayer);
-        diff_.setIvFoe(ivFoe);
+        diff_.setIvPlayer((short) ivPlayer);
+        diff_.setIvFoe((short) ivFoe);
         diff_.setRateWinMoneyBase(rateWinMoneyBase);
         diff_.setRateLooseMoneyWin(rateLooseMoneyWin);
         diff_.setRestoredMovesEndFight(restoredMovesEndFight);
@@ -164,19 +164,19 @@ public class DifficultyBean extends Bean {
         return endFightIfOneTeamKo;
     }
 
-    public void setIvPlayer(short _ivPlayer) {
+    public void setIvPlayer(int _ivPlayer) {
         ivPlayer = _ivPlayer;
     }
 
-    public short getIvPlayer() {
+    public int getIvPlayer() {
         return ivPlayer;
     }
 
-    public void setIvFoe(short _ivFoe) {
+    public void setIvFoe(int _ivFoe) {
         ivFoe = _ivFoe;
     }
 
-    public short getIvFoe() {
+    public int getIvFoe() {
         return ivFoe;
     }
 

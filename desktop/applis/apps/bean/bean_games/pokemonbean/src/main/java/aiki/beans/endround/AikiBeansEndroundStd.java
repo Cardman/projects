@@ -2,6 +2,7 @@ package aiki.beans.endround;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -393,7 +394,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundFoeBean instance_ = (EffectEndRoundFoeBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INFLICTED_RATE_HP_TARGET)) {
-            res_.setResult(new DefaultStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -404,15 +405,15 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundGlobalBean instance_ = (EffectEndRoundGlobalBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DAMAGE_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getDamageEndRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDamageEndRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND_GROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getHealingEndRoundGround(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealingEndRoundGround(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getHealingEndRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealingEndRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PUTTING_KO)) {
@@ -431,15 +432,15 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundIndividualBean instance_ = (EffectEndRoundIndividualBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS)) {
-            res_.setResult(new DefaultStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getRecoilDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRecoilDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEAL_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,USER_STATUS_END_ROUND)) {
@@ -472,7 +473,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundPositionRelationBean instance_ = (EffectEndRoundPositionRelationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,HEAL_HP)) {
-            res_.setResult(new DefaultStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);
@@ -497,7 +498,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundStatusBean instance_ = (EffectEndRoundStatusBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INFLICTED_RATE_HP_TARGET)) {
-            res_.setResult(new DefaultStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,END_ROUND_STATUS_HTML)) {
@@ -511,7 +512,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundStatusRelationBean instance_ = (EffectEndRoundStatusRelationBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,THIEVED_HP_RATE_TARGET_TO_USER)) {
-            res_.setResult(new DefaultStruct(instance_.getThievedHpRateTargetToUser(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getThievedHpRateTargetToUser(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundStatusBean(_cont, _classField, _instance);
@@ -521,11 +522,11 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundTeamBean instance_ = (EffectEndRoundTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS)) {
-            res_.setResult(new DefaultStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS_ALLY)) {
-            res_.setResult(new DefaultStruct(instance_.getDeleteAllStatusAlly(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDeleteAllStatusAlly(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return AikiBeansEndroundStd.getResultEffectEndRoundBean(_cont, _classField, _instance);

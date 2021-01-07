@@ -57,8 +57,8 @@ public final class AikiBeansMapPokemonStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_POKEMON_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,type_));
-        fields_.add(new StandardField(REWARD,_std.getAliasPrimShort(),false,false,type_));
-        fields_.add(new StandardField(MULTIPLICITY,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(REWARD,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(MULTIPLICITY,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(NO_FIGHT,_std.getAliasPrimInteger(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
@@ -96,11 +96,11 @@ public final class AikiBeansMapPokemonStd {
         PokemonTeamBean instance_ = (PokemonTeamBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,REWARD)) {
-            res_.setResult(new ShortStruct(instance_.getReward()));
+            res_.setResult(new IntStruct(instance_.getReward()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULTIPLICITY)) {
-            res_.setResult(new ShortStruct(instance_.getMultiplicity()));
+            res_.setResult(new IntStruct(instance_.getMultiplicity()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TEAM)) {

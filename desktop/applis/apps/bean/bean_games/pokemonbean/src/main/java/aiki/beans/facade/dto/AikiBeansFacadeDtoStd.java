@@ -98,9 +98,9 @@ public final class AikiBeansFacadeDtoStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_MOVE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PP,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -164,7 +164,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PP)) {
-            res_.setResult(new ShortStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(instance_.getPp()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATEGORY)) {
@@ -172,7 +172,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRIORITY)) {
-            res_.setResult(new ShortStruct(instance_.getPriority()));
+            res_.setResult(new IntStruct(instance_.getPriority()));
             return res_;
         }
         return res_;

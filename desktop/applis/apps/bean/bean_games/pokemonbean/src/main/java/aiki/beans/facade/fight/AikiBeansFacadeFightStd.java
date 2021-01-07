@@ -1,6 +1,7 @@
 package aiki.beans.facade.fight;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -123,16 +124,16 @@ public final class AikiBeansFacadeFightStd {
         method_ = new StandardMethod(GET_STATIS_BASE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(IS_BOOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_STATIS_BOOST,params_,_std.getAliasPrimByte(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_STATIS_BOOST,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STATISTIC_INFO, type_);
     }
@@ -180,7 +181,7 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -190,11 +191,11 @@ public final class AikiBeansFacadeFightStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MULT_INFLICTED)) {
-            res_.setResult(new DefaultStruct(instance_.getMultInflicted(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultInflicted(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT_SUFFERING)) {
-            res_.setResult(new DefaultStruct(instance_.getMultSuffering(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultSuffering(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -212,15 +213,15 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATIS_BASE)) {
-            res_.setResult(new DefaultStruct(instance_.getStatisBase(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getStatisBase(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new ShortStruct(instance_.getEv()));
+            res_.setResult(new IntStruct(instance_.getEv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IV)) {
-            res_.setResult(new ShortStruct(instance_.getIv()));
+            res_.setResult(new IntStruct(instance_.getIv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BOOST)) {
@@ -228,7 +229,7 @@ public final class AikiBeansFacadeFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATIS_BOOST)) {
-            res_.setResult(new ByteStruct(instance_.getStatisBoost()));
+            res_.setResult(new IntStruct(instance_.getStatisBoost()));
             return res_;
         }
         return res_;
@@ -238,11 +239,11 @@ public final class AikiBeansFacadeFightStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ROUND)) {
-            res_.setResult(new DefaultStruct(instance_.getRound(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRound(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_USING)) {
-            res_.setResult(new DefaultStruct(instance_.getUsing(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getUsing(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;

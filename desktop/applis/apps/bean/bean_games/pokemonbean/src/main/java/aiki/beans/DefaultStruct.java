@@ -12,8 +12,6 @@ import aiki.map.pokemon.Pokemon;
 import code.expressionlanguage.ContextEl;
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.maths.LgInt;
-import code.maths.Rate;
 import code.util.Bytes;
 import code.util.Ints;
 import code.util.StringList;
@@ -37,15 +35,6 @@ public final class DefaultStruct extends WithoutParentIdStruct implements RealIn
         className = _className;
     }
 
-    public DefaultStruct(Rate _instance, String _className) {
-        instance = _instance;
-        className = _className;
-    }
-
-    public DefaultStruct(LgInt _instance, String _className) {
-        instance = _instance;
-        className = _className;
-    }
     public DefaultStruct(Displayable _instance, String _className) {
         instance = _instance;
         className = _className;

@@ -10,12 +10,8 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.*;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -122,7 +118,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
     private static void buildEvolutionLevelGenderBean(PokemonStandards _std) {
@@ -255,7 +251,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionLevelBean instance_ = (EvolutionLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_cont, _classField, _instance);

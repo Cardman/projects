@@ -2,6 +2,7 @@ package aiki.beans.status;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -182,7 +183,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getCatchingRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getCatchingRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DISABLED_EFF_IF_SWITCH)) {
@@ -210,7 +211,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateForUsingAMove(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateForUsingAMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NOT_ATTACK)) {
@@ -218,7 +219,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE_IF_FOE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateForUsingAMoveIfFoe(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateForUsingAMoveIfFoe(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NOT_ATTACK_FOE)) {
@@ -226,7 +227,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_FOR_FULL_HEAL_IF_MOVE)) {
-            res_.setResult(new DefaultStruct(instance_.getRateForFullHealIfMove(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRateForFullHealIfMove(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LAW_FOR_USING_A_MOVE_NB_ROUND)) {
@@ -234,7 +235,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POWER)) {
-            res_.setResult(new DefaultStruct(instance_.getPower(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getPower(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ATTACK)) {

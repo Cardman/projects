@@ -428,7 +428,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(IS_INCREMENT_COUNT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NB_TURN,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_NB_TURN,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ACTIVITY_OF_MOVE, type_);
     }
@@ -465,7 +465,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         type_ = new StandardClass(TYPE_TARGET_COORDS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_POSITION,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_POSITION,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_TARGET_COORDS, type_);
     }
@@ -482,10 +482,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         type_ = new StandardClass(TYPE_USES_OF_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_CURRENT,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_CURRENT,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MAX,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_MAX,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_USES_OF_MOVE, type_);
     }
@@ -505,7 +505,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_PP,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_PP,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_COPIED_MOVE, type_);
     }
@@ -559,7 +559,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         type_ = new StandardClass(TYPE_STACKS_OF_USES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NB_ROUNDS,params_,_std.getAliasPrimByte(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_NB_ROUNDS,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(IS_FIRST_STACKED,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
@@ -591,7 +591,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(IS_INCREMENTING,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NB_ROUNDS,params_,_std.getAliasPrimByte(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_NB_ROUNDS,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ANTICIPATION, type_);
     }
@@ -671,7 +671,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_HP_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_BOOST,params_,_std.getAliasPrimByte(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_BOOST,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_BOOST_HP_RATE, type_);
     }
@@ -687,7 +687,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_PK_TRAINER, fields_, constructors_, methods_, PokemonStandards.TYPE_POKEMON, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -725,7 +725,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_AREA_APPARITION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_AVG_NB_STEPS,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_AVG_NB_STEPS,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_WILD_POKEMON,params_, TYPE_LIST, false, MethodModifier.NORMAL);
@@ -747,7 +747,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_WILD_PK, fields_, constructors_, methods_, PokemonStandards.TYPE_POKEMON, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -806,7 +806,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_CATEGORY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_MULT,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_MULT,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_CATEGORY_MULT, type_);
     }
@@ -823,7 +823,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         type_ = new StandardClass(TYPE_LEVEL_MOVE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -845,7 +845,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         method_ = new StandardMethod(GET_WON_EXP_SINCE_LAST_LEVEL,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_HAPPINESS,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_HAPPINESS,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEMON_PLAYER, type_);
     }
@@ -2837,10 +2837,10 @@ public final class PokemonStandards extends BeanNatLgNames {
                 value_ = _values.first();
             }
             if (!Rate.isValid(value_)) {
-                res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
+                res_.setResult(new RateStruct(Rate.zero(),TYPE_RATE));
                 return res_;
             }
-            res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
+            res_.setResult(new RateStruct(new Rate(value_),TYPE_RATE));
             return res_;
         }
         return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
@@ -2859,7 +2859,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NB_TURN)) {
-            res_.setResult(new ShortStruct(instance_.getNbTurn()));
+            res_.setResult(new IntStruct(instance_.getNbTurn()));
             return res_;
         }
         return res_;
@@ -2883,7 +2883,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_POSITION)) {
-            res_.setResult(new ShortStruct(instance_.getPosition()));
+            res_.setResult(new IntStruct(instance_.getPosition()));
             return res_;
         }
         return res_;
@@ -2893,11 +2893,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_CURRENT)) {
-            res_.setResult(new ShortStruct(instance_.getCurrent()));
+            res_.setResult(new IntStruct(instance_.getCurrent()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAX)) {
-            res_.setResult(new ShortStruct(instance_.getMax()));
+            res_.setResult(new IntStruct(instance_.getMax()));
             return res_;
         }
         return res_;
@@ -2911,7 +2911,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PP)) {
-            res_.setResult(new ShortStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(instance_.getPp()));
             return res_;
         }
         return res_;
@@ -2945,7 +2945,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new ByteStruct(instance_.getNbRounds()));
+            res_.setResult(new IntStruct(instance_.getNbRounds()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_STACKED)) {
@@ -2967,7 +2967,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_INCREMENTING)) {
@@ -2975,13 +2975,13 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new ByteStruct(instance_.getNbRounds()));
+            res_.setResult(new IntStruct(instance_.getNbRounds()));
             return res_;
         }
         return res_;
     }
     public static ResultErrorStd invokeMethodRate(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
-        Rate instance_ = (Rate) ((RealInstanceStruct)_instance).getInstance();
+        Rate instance_ = ((RateStruct)_instance).getRate();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_ZERO)) {
@@ -2993,7 +2993,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,ABS_NB)) {
-            res_.setResult(new DefaultStruct(instance_.absNb(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.absNb(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -3003,7 +3003,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new DefaultStruct(instance_.getBoost(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getBoost(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -3013,11 +3013,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EFF)) {
-            res_.setResult(new DefaultStruct(instance_.getEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -3027,11 +3027,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHpRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new ByteStruct(instance_.getBoost()));
+            res_.setResult(new IntStruct(instance_.getBoost()));
             return res_;
         }
         return res_;
@@ -3042,7 +3042,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
@@ -3071,7 +3071,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_AVG_NB_STEPS)) {
-            res_.setResult(new ShortStruct(instance_.getAvgNbSteps()));
+            res_.setResult(new IntStruct(instance_.getAvgNbSteps()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON)) {
@@ -3089,7 +3089,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
@@ -3131,7 +3131,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT)) {
-            res_.setResult(new ShortStruct(instance_.getMult()));
+            res_.setResult(new IntStruct(instance_.getMult()));
             return res_;
         }
         return res_;
@@ -3141,7 +3141,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
@@ -3155,11 +3155,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_HAPPINESS)) {
-            res_.setResult(new ShortStruct(instance_.getHappiness()));
+            res_.setResult(new IntStruct(instance_.getHappiness()));
             return res_;
         }
         return PokemonStandards.invokeMethodPokemon(_cont, _instance, _method, _args);
@@ -3169,7 +3169,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_RESTORED_HP_RATE_LOVED_ALLY)) {
-            res_.setResult(new DefaultStruct(instance_.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_WEDDING_ALLY)) {
@@ -3177,7 +3177,7 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MULT_DAMAGE_AGAINST_FOE)) {
-            res_.setResult(new DefaultStruct(instance_.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;
@@ -3247,13 +3247,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
 
-    public String getAliasPrimShort() {
-        return getContent().getPrimTypes().getAliasPrimShort();
-    }
-
-    public String getAliasPrimByte() {
-        return getContent().getPrimTypes().getAliasPrimByte();
-    }
     public String getAliasVoid() {
         return getContent().getCoreNames().getAliasVoid();
     }

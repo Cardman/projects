@@ -12,6 +12,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -156,7 +157,7 @@ public final class AikiBeansMapElementsStd {
         method_ = new StandardMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -314,7 +315,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new ShortStruct(instance_.getLevel()));
+            res_.setResult(new IntStruct(instance_.getLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {

@@ -2,6 +2,7 @@ package aiki.beans.abilities;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -783,47 +784,47 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEAL_HP_WHILE_USING_BERRY)) {
-            res_.setResult(new DefaultStruct(instance_.getHealHpWhileUsingBerry(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealHpWhileUsingBerry(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAX_HP_FOR_USING_BERRY)) {
-            res_.setResult(new DefaultStruct(instance_.getMaxHpForUsingBerry(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMaxHpForUsingBerry(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_ALLY_DAMAGE)) {
-            res_.setResult(new DefaultStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultAllyDamage(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_DAMAGE_CH)) {
-            res_.setResult(new DefaultStruct(instance_.getMultDamageCh(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultDamageCh(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_CH)) {
-            res_.setResult(new DefaultStruct(instance_.getMultEvtRateCh(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultEvtRateCh(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFFECT_OWNER)) {
-            res_.setResult(new DefaultStruct(instance_.getMultEvtRateSecEffectOwner(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultEvtRateSecEffectOwner(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAB)) {
-            res_.setResult(new DefaultStruct(instance_.getMultStab(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultStab(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_SUFFERED_DAMAGE_SUPER_EFF)) {
-            res_.setResult(new DefaultStruct(instance_.getMultSufferedDamageSuperEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultSufferedDamageSuperEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_VAR_BOOST)) {
-            res_.setResult(new DefaultStruct(instance_.getMultVarBoost(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultVarBoost(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE_FOE)) {
-            res_.setResult(new DefaultStruct(instance_.getRecoilDamageFoe(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRecoilDamageFoe(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE_FOE_BY_KO_OWNER)) {
-            res_.setResult(new DefaultStruct(instance_.getRecoilDamageFoeByKoOwner(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRecoilDamageFoeByKoOwner(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DECREASE_NEC_STEPS_HATCH)) {
@@ -931,7 +932,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DEF_EFF)) {
-            res_.setResult(new DefaultStruct(instance_.getDefEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getDefEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
@@ -1007,7 +1008,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALED_HP_RATE_BY_SWITCH)) {
-            res_.setResult(new DefaultStruct(instance_.getHealedHpRateBySwitch(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHealedHpRateBySwitch(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POKEMON)) {

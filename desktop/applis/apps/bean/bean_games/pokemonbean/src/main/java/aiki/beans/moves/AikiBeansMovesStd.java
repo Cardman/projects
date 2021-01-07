@@ -13,14 +13,8 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.*;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
@@ -161,13 +155,13 @@ public final class AikiBeansMovesStd {
         fields_.add(new StandardField(TYPES_BY_OWNED_ITEMS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(TYPES_BY_WEATHERS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PP,_std.getAliasPrimShort(),false,false,type_));
-        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimByte(),false,false,type_));
+        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(ACCURACY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(MAP_VARS_ACCURACY, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(IGN_VAR_ACCUR_USER_NEG,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(IGN_VAR_EVAS_TARGET_POS,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.add(new StandardField(NB_PREPA_ROUND,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(NB_PREPA_ROUND,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(DISAPPEAR_BEFORE_USE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(DELETED_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(REQUIRED_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -182,7 +176,7 @@ public final class AikiBeansMovesStd {
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(RECHARGE_ROUND,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(CONST_USER_CHOICE,_std.getAliasPrimBoolean(),false,false,type_));
-        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(REPEAT_ROUND_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MOVES_LEVEL_LEARNT_BY_POKEMON, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MOVES_TM_LEARNT_BY_POKEMON, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -371,11 +365,11 @@ public final class AikiBeansMovesStd {
         type_ = new StandardClass(TYPE_MOVE_LINE_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PP,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(MOVE_LINE,AikiBeansFacadeDtoStd.TYPE_MOVE_LINE,false,false,type_));
-        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(ACCURACY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(POWER,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(SORTED_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -446,11 +440,11 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PP)) {
-            res_.setResult(new ShortStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(instance_.getPp()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRIORITY)) {
-            res_.setResult(new ByteStruct(instance_.getPriority()));
+            res_.setResult(new IntStruct(instance_.getPriority()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ACCURACY)) {
@@ -470,7 +464,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NB_PREPA_ROUND)) {
-            res_.setResult(new ShortStruct(instance_.getNbPrepaRound()));
+            res_.setResult(new IntStruct(instance_.getNbPrepaRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DISAPPEAR_BEFORE_USE)) {
@@ -530,7 +524,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
-            res_.setResult(new ShortStruct(instance_.getRankIncrementNbRound()));
+            res_.setResult(new IntStruct(instance_.getRankIncrementNbRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REPEAT_ROUND_LAW)) {
@@ -569,7 +563,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PP)) {
-            res_.setResult(new ShortStruct(instance_.getPp()));
+            res_.setResult(new IntStruct(instance_.getPp()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPES)) {
@@ -585,7 +579,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PRIORITY)) {
-            res_.setResult(new ShortStruct(instance_.getPriority()));
+            res_.setResult(new IntStruct(instance_.getPriority()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ACCURACY)) {

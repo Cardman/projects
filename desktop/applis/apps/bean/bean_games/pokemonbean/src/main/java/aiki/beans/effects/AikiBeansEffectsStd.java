@@ -2,6 +2,7 @@ package aiki.beans.effects;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -128,7 +129,7 @@ public final class AikiBeansEffectsStd {
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MULT_EVT_RATE_SEC_EFF,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(MULT_STATISTIC_FOE, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(REPEATED_ROUNDS_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO,false,false,type_));
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
@@ -238,7 +239,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFF)) {
-            res_.setResult(new DefaultStruct(instance_.getMultEvtRateSecEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultEvtRateSecEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STATISTIC_FOE)) {
@@ -246,7 +247,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
-            res_.setResult(new ShortStruct(instance_.getRankIncrementNbRound()));
+            res_.setResult(new IntStruct(instance_.getRankIncrementNbRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REPEATED_ROUNDS_LAW)) {
@@ -277,7 +278,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_WEIGHT)) {
-            res_.setResult(new DefaultStruct(instance_.getMultWeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getMultWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATISTIC)) {
@@ -293,7 +294,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVT_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVT_RATE_PER_CENT)) {
@@ -411,7 +412,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_SWAP_FAIL)) {

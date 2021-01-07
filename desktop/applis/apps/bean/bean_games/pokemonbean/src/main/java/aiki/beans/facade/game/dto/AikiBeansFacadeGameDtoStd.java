@@ -1,6 +1,7 @@
 package aiki.beans.facade.game.dto;
 import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
+import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -10,6 +11,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -43,10 +45,10 @@ public final class AikiBeansFacadeGameDtoStd {
         method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
@@ -62,15 +64,15 @@ public final class AikiBeansFacadeGameDtoStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new ShortStruct(instance_.getEv()));
+            res_.setResult(new IntStruct(instance_.getEv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IV)) {
-            res_.setResult(new ShortStruct(instance_.getIv()));
+            res_.setResult(new IntStruct(instance_.getIv()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new DefaultStruct(instance_.getRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;

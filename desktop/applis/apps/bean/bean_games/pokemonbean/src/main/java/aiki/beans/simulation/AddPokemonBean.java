@@ -20,10 +20,10 @@ public class AddPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
     private String gender = Gender.NO_GENDER.name();
-    private short level;
+    private int level;
     private TreeMap<String,String> genders;
     private TreeMap<String,String> abilities;
-    private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
+    private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
     private String hasEvo = SelectedBoolean.YES_AND_NO.name();
@@ -106,13 +106,13 @@ public class AddPokemonBean extends CommonBean {
         }
         WildPk pk_ = new WildPk();
         pk_.setName(namePk);
-        pk_.setLevel(level);
+        pk_.setLevel((short) level);
         pk_.setAbility(ability);
         pk_.setGender(PokemonStandards.getGenderByName(gender));
         PokemonData pkData_ = data_.getPokemon(namePk);
         PokemonPlayerDto pkDto_ = new PokemonPlayerDto();
         pkDto_.setPokemon(pk_);
-        pkDto_.setMoves(pkData_.getMovesAtLevel(level, data_.getNbMaxMoves()));
+        pkDto_.setMoves(pkData_.getMovesAtLevel((short) level, data_.getNbMaxMoves()));
         getForms().put(POKEMON_ADDED, pkDto_);
         return SIMULATION;
     }
@@ -209,11 +209,11 @@ public class AddPokemonBean extends CommonBean {
         gender = _gender;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 

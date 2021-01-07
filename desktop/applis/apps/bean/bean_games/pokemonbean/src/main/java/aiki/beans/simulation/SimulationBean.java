@@ -73,8 +73,8 @@ public class SimulationBean extends CommonBean {
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
     private Rate rateLooseMoneyWin;
-    private short ivPlayer;
-    private short ivFoe;
+    private int ivPlayer;
+    private int ivFoe;
     private boolean stillPossibleFlee;
     private boolean restoredMovesEndFight;
     private boolean enabledClosing;
@@ -85,9 +85,9 @@ public class SimulationBean extends CommonBean {
     private Coords coords;
     private boolean freeTeams;
     private int selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private CustList<PokemonTrainerDto> foeTeam = new CustList<PokemonTrainerDto>();
+    private final CustList<PokemonTrainerDto> foeTeam = new CustList<PokemonTrainerDto>();
     private int selectedAllyPk = IndexConstants.INDEX_NOT_FOUND_ELT;
-    private CustList<PokemonTrainerDto> allyTeam = new CustList<PokemonTrainerDto>();
+    private final CustList<PokemonTrainerDto> allyTeam = new CustList<PokemonTrainerDto>();
     private int multiplicity = 1;
 
     private int nbMaxActions;
@@ -95,7 +95,7 @@ public class SimulationBean extends CommonBean {
     private TreeMap<String, String> environments;
 
     private boolean enableEvolutions = true;
-    private CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
+    private final CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
     private int selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
     private String selectedFoeAction = TeamCrud.NOTHING.name();
     private String selectedAllyAction = TeamCrud.NOTHING.name();
@@ -105,11 +105,11 @@ public class SimulationBean extends CommonBean {
     private TreeMap<String, String> availableEvos;
 
     private String chosenEvo = DataBase.EMPTY_STRING;
-    private short levelEvo;
+    private int levelEvo;
 
     private FightSimulation simulation;
 
-    private Difficulty difficulty = new Difficulty();
+    private final Difficulty difficulty = new Difficulty();
 
     private int noFight;
     private String selectedRound ="0";
@@ -121,15 +121,15 @@ public class SimulationBean extends CommonBean {
     private IntTreeMap< String> targetFight = new IntTreeMap< String>();
     private String currentAbility = DataBase.EMPTY_STRING;
     private TreeMap<String,String> abilities;
-    private CustList<SelectLineMove> keptMoves = new CustList<SelectLineMove>();
-    private CustList<RadioLineMove> movesSet = new CustList<RadioLineMove>();
+    private final CustList<SelectLineMove> keptMoves = new CustList<SelectLineMove>();
+    private final CustList<RadioLineMove> movesSet = new CustList<RadioLineMove>();
     private int selectedMove;
     private boolean allyChoice;
-    private StringList comments = new StringList();
+    private final StringList comments = new StringList();
 
     private CustList<PokemonPlayer> teamAfterFight = new CustList<PokemonPlayer>();
-    private CustList<KeptMovesAfterFight> keptMovesAbilitiesDto = new CustList<KeptMovesAfterFight>();
-    private CustList<SelectLineMove> keptMovesAfterFight = new CustList<SelectLineMove>();
+    private final CustList<KeptMovesAfterFight> keptMovesAbilitiesDto = new CustList<KeptMovesAfterFight>();
+    private final CustList<SelectLineMove> keptMovesAfterFight = new CustList<SelectLineMove>();
     private String evolutionAfterFight = DataBase.EMPTY_STRING;
     private TreeMap<String,String> evolutionsAfterFight;
     private String abilityAfterFight = DataBase.EMPTY_STRING;
@@ -580,8 +580,8 @@ public class SimulationBean extends CommonBean {
         difficulty.setWinTrainerExp(winTrainerExp);
         difficulty.setRateWinningExpPtsFight(rateWinningExpPtsFight);
         difficulty.setEndFightIfOneTeamKo(endFightIfOneTeamKo);
-        difficulty.setIvPlayer(ivPlayer);
-        difficulty.setIvFoe(ivFoe);
+        difficulty.setIvPlayer((short) ivPlayer);
+        difficulty.setIvFoe((short) ivFoe);
         difficulty.setRateWinMoneyBase(rateWinMoneyBase);
         difficulty.setRateLooseMoneyWin(rateLooseMoneyWin);
         difficulty.setRestoredMovesEndFight(restoredMovesEndFight);
@@ -1015,7 +1015,7 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         int index_ = (Integer) getForms().getVal(POKEMON_INDEX_EDIT);
         levelEvo = (short) Math.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
-        simulation.setNextEvolutions(index_, chosenEvo, levelEvo, data_);
+        simulation.setNextEvolutions(index_, chosenEvo, (short) levelEvo, data_);
         StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
         availableEvosLevel = new StringMap<Short>(evos_);
         StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
@@ -1608,19 +1608,19 @@ public class SimulationBean extends CommonBean {
         return endFightIfOneTeamKo;
     }
 
-    public void setIvPlayer(short _ivPlayer) {
+    public void setIvPlayer(int _ivPlayer) {
         ivPlayer = _ivPlayer;
     }
 
-    public short getIvPlayer() {
+    public int getIvPlayer() {
         return ivPlayer;
     }
 
-    public void setIvFoe(short _ivFoe) {
+    public void setIvFoe(int _ivFoe) {
         ivFoe = _ivFoe;
     }
 
-    public short getIvFoe() {
+    public int getIvFoe() {
         return ivFoe;
     }
 
@@ -1816,11 +1816,11 @@ public class SimulationBean extends CommonBean {
         chosenEvo = _chosenEvo;
     }
 
-    public void setLevelEvo(short _levelEvo) {
+    public void setLevelEvo(int _levelEvo) {
         levelEvo = _levelEvo;
     }
 
-    public short getLevelEvo() {
+    public int getLevelEvo() {
         return levelEvo;
     }
 

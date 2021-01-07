@@ -1,7 +1,5 @@
 package aiki.beans.pokemon;
-import aiki.beans.AikiBeansStd;
-import aiki.beans.DefaultStruct;
-import aiki.beans.PokemonStandards;
+import aiki.beans.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -146,7 +144,7 @@ public final class AikiBeansPokemonStd {
         fields_.add(new StandardField(POSSIBLE_GENDERS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        fields_.add(new StandardField(CATCHING_RATE,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(CATCHING_RATE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(EVO_BASE,_std.getAliasString(),false,false,type_));
@@ -184,10 +182,10 @@ public final class AikiBeansPokemonStd {
         method_ = new StandardMethod(CLICK_BASE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_BASE,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_BASE,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(_std.getAliasLong());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -303,11 +301,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WEIGHT)) {
-            res_.setResult(new DefaultStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEIGHT)) {
-            res_.setResult(new DefaultStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POSSIBLE_GENDERS)) {
@@ -323,7 +321,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
-            res_.setResult(new ShortStruct(instance_.getCatchingRate()));
+            res_.setResult(new IntStruct(instance_.getCatchingRate()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
@@ -375,7 +373,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HATCHING_STEPS)) {
-            res_.setResult(new DefaultStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
+            res_.setResult(new LgIntStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PLACES)) {
@@ -481,11 +479,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_BASE)) {
-            res_.setResult(new ShortStruct(instance_.getBase((Long)_args[0])));
+            res_.setResult(new IntStruct(instance_.getBase((Long)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new ShortStruct(instance_.getEv((Long)_args[0])));
+            res_.setResult(new IntStruct(instance_.getEv((Long)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {

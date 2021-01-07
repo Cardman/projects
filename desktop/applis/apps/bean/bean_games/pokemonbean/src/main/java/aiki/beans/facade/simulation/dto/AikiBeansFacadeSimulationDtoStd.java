@@ -45,7 +45,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EV_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(EV,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(EV,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EV_LINE, type_);
     }
     private static void buildPokemonPlayerDto(PokemonStandards _std) {
@@ -101,7 +101,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EV)) {
-            res_.setResult(new ShortStruct(instance_.getEv()));
+            res_.setResult(new IntStruct(instance_.getEv()));
             return res_;
         }
         return res_;
@@ -151,7 +151,7 @@ public final class AikiBeansFacadeSimulationDtoStd {
         EvLine instance_ = (EvLine) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EV)) {
-            instance_.setEv((Short) _value);
+            instance_.setEv((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

@@ -1,13 +1,13 @@
 package aiki.beans.facade.simulation.dto;
 
 public final class EvLine {
-    private short ev;
+    private int ev;
 
-    public short getEv() {
+    public int getEv() {
         return ev;
     }
 
-    public void setEv(short _ev) {
+    public void setEv(int _ev) {
         ev = _ev;
     }
 }

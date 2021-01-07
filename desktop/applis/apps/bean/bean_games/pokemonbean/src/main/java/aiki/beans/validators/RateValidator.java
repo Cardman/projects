@@ -1,4 +1,6 @@
 package aiki.beans.validators;
+import aiki.beans.DefaultStruct;
+import aiki.beans.RateStruct;
 import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
 import code.maths.Rate;
@@ -7,16 +9,23 @@ public class RateValidator implements Validator {
 
     @Override
     public Message validate(Object _value) {
-        if (Rate.isValid((String)_value)) {
-            Rate rate_ = new Rate((String)_value);
-            if (rate_.isZeroOrGt()) {
-                if (!rate_.isZero()) {
-                    return null;
-                }
+        if (_value instanceof RateStruct) {
+            return procRate(((RateStruct) _value).getRate());
+        }
+        if (_value instanceof Rate) {
+            return procRate((Rate) _value);
+        }
+        return null;
+    }
+
+    private static Message procRate(Rate _value) {
+        if (_value.isZeroOrGt()) {
+            if (!_value.isZero()) {
+                return null;
             }
         }
         Message message_ = new Message();
-        message_.setArgs((String)_value);
+        message_.setArgs(_value.toNumberString());
         return message_;
     }
 

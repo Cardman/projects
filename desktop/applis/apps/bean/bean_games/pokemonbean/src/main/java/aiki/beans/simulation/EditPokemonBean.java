@@ -22,12 +22,12 @@ public class EditPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
     private short level;
     private Rate experience;
-    private short happiness;
+    private int happiness;
     private boolean heal;
     private Rate remainingHp;
     private TreeMap<Statistic, EvLine> ev;
     private String item = DataBase.EMPTY_STRING;
-    private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
+    private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private String ball;
     private TreeMap<String,String> balls;
 
@@ -193,11 +193,11 @@ public class EditPokemonBean extends CommonBean {
         ball = _ball;
     }
 
-    public void setHappiness(short _happiness) {
+    public void setHappiness(int _happiness) {
         happiness = _happiness;
     }
 
-    public short getHappiness() {
+    public int getHappiness() {
         return happiness;
     }
 
