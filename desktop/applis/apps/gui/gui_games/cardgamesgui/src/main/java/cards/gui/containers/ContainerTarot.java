@@ -39,7 +39,7 @@ public class ContainerTarot extends ContainerGame{
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
-    private AtomicBoolean arretDemo = new AtomicBoolean();
+    private final AtomicBoolean arretDemo = new AtomicBoolean();
     private boolean canBid;
     private boolean canCall;
     private boolean canDiscard;
@@ -287,6 +287,6 @@ public class ContainerTarot extends ContainerGame{
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(GameEnum.TAROT).getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedTarot().getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }

@@ -21,11 +21,11 @@ Thread safe class*/
 public final class LaunchingGame implements Runnable {
 
     private final AbstractProgramInfos list;
-    private StringMap<Object> args;
+    private final StringMap<Object> args;
 
-    private String language;
+    private final String language;
 
-    private TopLeftFrame topLeft;
+    private final TopLeftFrame topLeft;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
     public LaunchingGame(StringMap<Object> _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list) {
@@ -37,8 +37,10 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> prepared_ = generateAnalyzed();
-        MainWindow window_ = new MainWindow(language, list, prepared_);
+        StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote();
+        StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident();
+        StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot();
+        MainWindow window_ = new MainWindow(language, list, belote_,president_,tarot_);
 
         SoftApplicationCore.setLocation(window_, topLeft);
         window_.pack();
@@ -54,8 +56,7 @@ public final class LaunchingGame implements Runnable {
         }
     }
 
-    public static IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> generateAnalyzed() {
-        IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> prepared_ = new IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>>();
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedBelote() {
         StringMap<StringMap<PreparedPagesCards>> belote_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesBelote_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
@@ -72,7 +73,15 @@ public final class LaunchingGame implements Runnable {
             detResultsBelote_.addEntry(l,new PreparedPagesCards(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,l,new BeloteStandards()));
         }
         belote_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,detResultsBelote_);
-        prepared_.addEntry(GameEnum.BELOTE,belote_);
+        for (EntryCust<String,StringMap<PreparedPagesCards>> f: belote_.entryList()) {
+            for (EntryCust<String,PreparedPagesCards> g: f.getValue().entryList()) {
+                g.getValue().run();
+            }
+        }
+        return belote_;
+    }
+
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedPresident() {
         StringMap<StringMap<PreparedPagesCards>> president_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesPresident_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
@@ -84,7 +93,15 @@ public final class LaunchingGame implements Runnable {
             resultsPresident_.addEntry(l,new PreparedPagesCards(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,l,new PresidentStandards()));
         }
         president_.addEntry(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,resultsPresident_);
-        prepared_.addEntry(GameEnum.PRESIDENT,president_);
+        for (EntryCust<String,StringMap<PreparedPagesCards>> f: president_.entryList()) {
+            for (EntryCust<String,PreparedPagesCards> g: f.getValue().entryList()) {
+                g.getValue().run();
+            }
+        }
+        return president_;
+    }
+
+    public static StringMap<StringMap<PreparedPagesCards>> generateAnalyzedTarot() {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesTarot_ = new StringMap<PreparedPagesCards>();
         for (String l: Constants.getAvailableLanguages()) {
@@ -101,14 +118,11 @@ public final class LaunchingGame implements Runnable {
             detResultsTarot_.addEntry(l,new PreparedPagesCards(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,l,new TarotStandards()));
         }
         tarot_.addEntry(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,detResultsTarot_);
-        prepared_.addEntry(GameEnum.TAROT,tarot_);
-        for (EntryCust<GameEnum, StringMap<StringMap<PreparedPagesCards>>> e: prepared_.entryList()) {
-            for (EntryCust<String,StringMap<PreparedPagesCards>> f: e.getValue().entryList()) {
-                for (EntryCust<String,PreparedPagesCards> g: f.getValue().entryList()) {
-                    g.getValue().run();
-                }
+        for (EntryCust<String,StringMap<PreparedPagesCards>> f: tarot_.entryList()) {
+            for (EntryCust<String,PreparedPagesCards> g: f.getValue().entryList()) {
+                g.getValue().run();
             }
         }
-        return prepared_;
+        return tarot_;
     }
 }

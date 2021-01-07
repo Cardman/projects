@@ -28,7 +28,6 @@ import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.network.president.displaying.*;
@@ -44,9 +43,11 @@ import cards.president.HandPresident;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
+import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.*;
@@ -68,14 +69,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
+    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandPresident playerHandPresident = new HandPresident();
-    private TextLabel canPlayLabel = new TextLabel("");
+    private final TextLabel canPlayLabel = new TextLabel("");
     private int nbCardsDiscard;
 
     public ContainerMultiPresident(MainWindow _window, boolean _hasCreatedServer, int _nbPlayers) {
@@ -133,7 +134,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         editor = new RenderedPage(scroll_);
         rulesPresidentMulti.setGeneral(readCoreResource());
         rulesPresidentMulti.setSpecific(readResource());
-        editor.initialize(rulesPresidentMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(rulesPresidentMulti);
+        editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -209,7 +212,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
-        editor.initialize(rulesPresidentMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(rulesPresidentMulti);
+        editor.initialize(stds_);
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -637,7 +642,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+        ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
+        editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);

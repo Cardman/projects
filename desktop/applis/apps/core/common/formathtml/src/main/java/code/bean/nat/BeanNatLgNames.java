@@ -61,7 +61,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
     private final StringMap<String> iterables = new StringMap<String>();
-    private Object dataBase;
     private final StringMap<Bean> beans = new StringMap<Bean>();
     private StringMap<Validator> validators = new StringMap<Validator>();
 
@@ -85,19 +84,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
     }
 
-    private Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
-        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
-        Struct strBean_ = res_.getResult();
-        BeanStruct str_ = (BeanStruct) strBean_;
-        Bean bean_ = str_.getBean();
-        bean_.setDataBase(dataBase);
-        bean_.setForms(new StringMapObject());
-        bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
-        return strBean_;
-    }
-
+    protected abstract Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall);
 
     private StringMapObject storeForms(Struct _bean) {
         return ((BeanStruct)_bean).getBean().getForms();
@@ -411,9 +398,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
         return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
-    }
-    public void setDataBase(Object _dataBase){
-        dataBase = _dataBase;
     }
 
     public void rendRefresh(Navigation _navigation, ContextEl _context, StackCall _stackCall) {

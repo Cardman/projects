@@ -57,11 +57,11 @@ public class ContainerGame implements Containable {
     private String raisonCourante=EMPTY_STRING;
     private boolean threadAnime;
     private boolean aJoueCarte;
-    private AtomicBoolean pause = new AtomicBoolean();
+    private final AtomicBoolean pause = new AtomicBoolean();
     private TextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
-    private AtomicBoolean passe = new AtomicBoolean();
+    private final AtomicBoolean passe = new AtomicBoolean();
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
     private StringMap<String> messages = new StringMap<String>();
@@ -494,8 +494,5 @@ public class ContainerGame implements Containable {
         return ResourceFiles.ressourceFichier(StringUtil.concat(_dossier,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,_fichier));
     }
 
-    public PreparedPagesCards retrieve(GameEnum _game, String _conf) {
-        return getOwner().getPrepared().getVal(_game).getVal(_conf).getVal(getOwner().getLanguageKey());
-    }
 }
 

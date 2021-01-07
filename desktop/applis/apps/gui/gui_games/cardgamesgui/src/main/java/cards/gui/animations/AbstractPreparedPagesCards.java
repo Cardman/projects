@@ -17,9 +17,9 @@ import code.util.core.StringUtil;
 public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
-    private String conf;
-    private String lg;
-    private BeanNatLgNames beanNatLgNames;
+    private final String conf;
+    private final String lg;
+    private final BeanNatLgNames beanNatLgNames;
     private ContextEl context;
     private Navigation navigation;
 
@@ -29,7 +29,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         beanNatLgNames = _stds;
     }
 
-    public void prepare() {
+    public BeanNatLgNames prepare() {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.setLanguage(lg);
@@ -54,6 +54,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
         navigation.setFiles(files_);
         beanNatLgNames.setupAll(navigation, navigation.getSession(), navigation.getFiles(), du_);
+        return beanNatLgNames;
     }
 
     private static String getRealFilePath(String _lg, String _link) {

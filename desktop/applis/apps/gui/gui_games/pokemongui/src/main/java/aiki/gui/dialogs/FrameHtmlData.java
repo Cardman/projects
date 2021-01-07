@@ -3,10 +3,14 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
+import aiki.beans.PokemonStandards;
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.sml.stream.ExtractFromFiles;
@@ -19,13 +23,13 @@ public final class FrameHtmlData extends ChildFrame {
 
     private static final String SEARCH_LABEL = "searchLabel";
 
-    private RenderedPage session;
+    private final RenderedPage session;
 
     private StringMap<String> messages;
 
-    private LabelButton search;
+    private final LabelButton search;
 
-    private ProgressingWebDialog dialog;
+    private final ProgressingWebDialog dialog;
 
     public FrameHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
         super(_parent.getLanguageKey());
@@ -64,9 +68,16 @@ public final class FrameHtmlData extends ChildFrame {
         setVisible(false);
     }
 
-    public void initSessionLg(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public void initSessionLg(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         setVisible(true);
-        session.initializeOnlyConf(_dataBase,_pre, _lg);
+        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
+        session.initializeOnlyConf(_pre, _lg);
+    }
+
+    public void initSessionLg(DataBase _dataBase, PreparedRenderedPages _pre, String _lg) {
+        setVisible(true);
+        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
+        session.initializeOnlyConf(_pre, _lg);
     }
 
     public ProgressingWebDialog getDialog() {

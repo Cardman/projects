@@ -1,6 +1,7 @@
 package cards.gui.animations;
 
 import cards.belote.*;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BonusBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -18,6 +19,7 @@ import cards.gui.panels.MiniCarpet;
 import code.gui.*;
 import code.gui.Panel;
 import code.gui.ScrollPane;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
@@ -210,7 +212,9 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         RenderedPage editor_ = new RenderedPage(scroll_);
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
-        editor_.initialize(res_, container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE));
+        PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+        editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         panneau_.add(scroll_);
         panneau_.add(stopButton);

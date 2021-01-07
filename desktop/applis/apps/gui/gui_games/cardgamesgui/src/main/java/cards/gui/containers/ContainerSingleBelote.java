@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import cards.belote.*;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
@@ -54,6 +55,7 @@ import cards.gui.panels.PanelTricksHandsBelote;
 import cards.main.LaunchingCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
@@ -690,13 +692,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setScores(res_.getScores());
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.initialize(res_,retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE));
+        PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
+        editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=new ScrollPane();
             editor_ = new RenderedPage(scroll_);
-            editor_.initialize(res_, retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE));
+            PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+            ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
+            editor_.initialize(sTwo_);
             scroll_.setPreferredSize(new Dimension(300,300));
             onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),scroll_);
         }

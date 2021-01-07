@@ -3,10 +3,13 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
+import aiki.beans.PokemonStandards;
+import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
@@ -37,7 +40,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _window.getDialogHtmlData().setDialogIcon(_parent);
         _window.getDialogHtmlData().setTitle(_title);
@@ -52,7 +55,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,Object _dataBase,PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,FacadeGame _dataBase,PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _parent.getDialogHtmlData().setDialogIcon(_parent);
         _parent.getDialogHtmlData().setTitle(_title);
@@ -101,9 +104,10 @@ public final class DialogHtmlData extends Dialog {
         pack();
     }
 
-    public void initSession(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public void initSession(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         session.setFrame(this);
-        session.initializeOnlyConf(_dataBase, _pre,_lg);
+        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
+        session.initializeOnlyConf(_pre, _lg);
 
         setVisible(true);
     }

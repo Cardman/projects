@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.threads.PreparedRenderedPages;
@@ -76,6 +77,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;
 import code.network.NetCreate;
@@ -232,7 +234,7 @@ public class ScenePanel {
 
     private Panel panelMenu;
 
-    private TextLabel endGame = new TextLabel("");
+    private final TextLabel endGame = new TextLabel("");
 
     private TextLabel useKeyPad;
 
@@ -260,9 +262,9 @@ public class ScenePanel {
 
     private Panel abilities;
 
-    private CustList<AbilityLabel> abilityLabels = new CustList<AbilityLabel>();
+    private final CustList<AbilityLabel> abilityLabels = new CustList<AbilityLabel>();
 
-    private Panel panelOptions;
+    private final Panel panelOptions;
 
     private TeamPanel teamPan;
     private StringMap<String> messagesTeamPanel = new StringMap<String>();
@@ -291,7 +293,7 @@ public class ScenePanel {
 
     private TextLabel selectedForSwitch;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private Panel beginGame;
 
@@ -309,7 +311,7 @@ public class ScenePanel {
 
     private Pad pad;
 
-    private TextLabel time;
+    private final TextLabel time;
 
     private CustCheckBox switchUsable;
 
@@ -331,13 +333,13 @@ public class ScenePanel {
 
     private CustCheckBox readyCheck;
 
-    private MapPanel mapPanel;
+    private final MapPanel mapPanel;
 
     private LabelButton chosenCity;
 
-    private AtomicBoolean paintingScene = new AtomicBoolean();
+    private final AtomicBoolean paintingScene = new AtomicBoolean();
 
-    private Panel component = Panel.newLineBox();
+    private final Panel component = Panel.newLineBox();
 
     public ScenePanel(MainWindow _window, FacadeGame _facade) {
         facade = _facade;
@@ -463,11 +465,7 @@ public class ScenePanel {
             enableIfPossibleFishing();
         }
         sceneInteract.add(interaction, BorderLayout.SOUTH);
-        if (facade.getInterfaceType() != InterfaceType.RIEN) {
-            buttonInteract.setEnabledLabel(true);
-        } else {
-            buttonInteract.setEnabledLabel(false);
-        }
+        buttonInteract.setEnabledLabel(facade.getInterfaceType() != InterfaceType.RIEN);
         if (wasNull_) {
             component.add(sceneInteract, IndexConstants.FIRST_INDEX);
             sceneInteract.repaintSecondChildren();
@@ -808,7 +806,11 @@ public class ScenePanel {
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;
         }
-        receivedPk.initializeOnlyConf(facade, task_,facade.getLanguage());
+        if (receivedPk.isProcessing()) {
+            return;
+        }
+        ((PokemonStandards)task_.getBeanNatLgNames()).setDataBase(facade);
+        receivedPk.initializeOnlyConf(task_, facade.getLanguage());
     }
 
     public void interact() {
@@ -1461,7 +1463,7 @@ public class ScenePanel {
         fish.setEnabledLabel(facade.isFishArea());
     }
 
-    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }

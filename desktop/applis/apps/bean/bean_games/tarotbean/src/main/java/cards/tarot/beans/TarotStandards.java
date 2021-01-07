@@ -1,24 +1,25 @@
 package cards.tarot.beans;
 
+import cards.tarot.ResultsTarot;
+import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.bean.Bean;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
+import code.formathtml.structs.BeanInfo;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -114,6 +115,7 @@ public final class TarotStandards extends BeanNatLgNames {
     private static final String TYPE_BID_TAROT = "$BidTarot";
     private static final String TYPE_RATE = "$Rate";
     private static final String TYPE_TAROT_BEAN = "cards.tarot.beans.TarotBean";
+    private Object dataBase;
     public TarotStandards() {
         DefaultInitialization.basicStandards(this);
     }
@@ -840,5 +842,23 @@ public final class TarotStandards extends BeanNatLgNames {
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
+        Struct strBean_ = res_.getResult();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        bean_.setDataBase(dataBase);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        return strBean_;
+    }
+    public void setDataBase(ResultsTarot _dataBase){
+        dataBase = _dataBase;
+    }
 
+    public void setDataBase(RulesTarot _dataBase){
+        dataBase = _dataBase;
+    }
 }

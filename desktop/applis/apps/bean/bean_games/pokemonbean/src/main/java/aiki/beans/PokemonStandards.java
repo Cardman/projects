@@ -193,6 +193,8 @@ import aiki.beans.validators.PositiveRateValidator;
 import aiki.beans.validators.RateValidator;
 import aiki.beans.validators.ShortValidator;
 import aiki.beans.validators.UnselectedRadio;
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.fight.status.effects.EffectPartnerStatus;
@@ -241,6 +243,7 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.*;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
@@ -336,6 +339,7 @@ public final class PokemonStandards extends BeanNatLgNames {
     private static final String GET_MULT_DAMAGE_AGAINST_FOE = "getMultDamageAgainstFoe";
     private static final String GET_TRAINER = "getTrainer";
     private static final String GET_PLACE = "getPlace";
+    private Object dataBase;
     public PokemonStandards() {
         PokemonStandards val_ = this;
         DefaultInitialization.basicStandards(val_);
@@ -3252,5 +3256,23 @@ public final class PokemonStandards extends BeanNatLgNames {
             return ((RateStruct)_r).getRate();
         }
         return Rate.zero();
+    }
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
+        Struct strBean_ = res_.getResult();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        bean_.setDataBase(dataBase);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        return strBean_;
+    }
+    public void setDataBase(DataBase _dataBase){
+        dataBase = _dataBase;
+    }
+    public void setDataBase(FacadeGame _dataBase){
+        dataBase = _dataBase;
     }
 }

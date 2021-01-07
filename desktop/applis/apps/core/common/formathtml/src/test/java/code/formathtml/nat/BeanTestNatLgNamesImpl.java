@@ -17,8 +17,10 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMapObject;
 import code.util.core.StringUtil;
 
 public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
@@ -29,6 +31,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     private static final String TYPED_STRINGS = "typedStrings";
     private static final String TYPE_BEAN_ONE = "simple.BeanOne";
     private static final String TYPE_INPUT = "simple.Input";
+    private Object dataBase;
 
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
@@ -148,5 +151,19 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         getStandards().addEntry(TYPE_INPUT, cl_);
+    }
+    protected BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx) {
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
+        BeanStruct res_ = getOtherResultBean(_ctx, id_);
+        Bean bean_ = res_.getBean();
+        bean_.setDataBase(dataBase);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        return res_;
+    }
+
+    public void setDataBase(Object _dataBase){
+        dataBase = _dataBase;
     }
 }

@@ -1,23 +1,24 @@
 package cards.belote.beans;
 
+import cards.belote.ResultsBelote;
+import cards.belote.RulesBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.bean.Bean;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
+import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.SimpleEntries;
@@ -74,6 +75,7 @@ public final class BeloteStandards extends BeanNatLgNames {
     private static final String TYPE_SUM_DECLARING_PLAYER = "cards.belote.beans.SumDeclaringPlayer";
     private static final String TYPE_DETAILS_RESULTS_BELOTE_BEAN = "cards.belote.beans.DetailsResultsBeloteBean";
     private static final String TYPE_BELOTE_BEAN = "cards.belote.beans.BeloteBean";
+    private Object dataBase;
     public BeloteStandards() {
         DefaultInitialization.basicStandards(this);
     }
@@ -499,5 +501,24 @@ public final class BeloteStandards extends BeanNatLgNames {
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
+    }
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
+        Struct strBean_ = res_.getResult();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        bean_.setDataBase(dataBase);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        return strBean_;
+    }
+    public void setDataBase(ResultsBelote _dataBase){
+        dataBase = _dataBase;
+    }
+
+    public void setDataBase(RulesBelote _dataBase){
+        dataBase = _dataBase;
     }
 }

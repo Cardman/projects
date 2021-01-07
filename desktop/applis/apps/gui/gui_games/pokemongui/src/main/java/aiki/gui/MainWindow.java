@@ -179,7 +179,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private MenuItem difficulty;
 
-    private Panel mainPanel;
+    private final Panel mainPanel;
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
@@ -188,7 +188,7 @@ public final class MainWindow extends NetGroupFrame {
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean savedGame;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private Panel beginGame;
 
@@ -198,19 +198,19 @@ public final class MainWindow extends NetGroupFrame {
 
     private Sex chosenSex;
 
-    private Clock time;
+    private final Clock time;
 
-    private TextLabel lastSavedGameDate;
+    private final TextLabel lastSavedGameDate;
 
     private String dateLastSaved = DataBase.EMPTY_STRING;
 
-    private TextLabel helpInfo;
+    private final TextLabel helpInfo;
 
-    private TextLabel availableHelps;
+    private final TextLabel availableHelps;
 
     private boolean inBattle;
 
-    private ScenePanel scenePanel;
+    private final ScenePanel scenePanel;
 
 //    private Battle battle;
     private FrontBattle battle;
@@ -220,8 +220,8 @@ public final class MainWindow extends NetGroupFrame {
     private FightIntroThread fightIntroThread;
     private Thread fightIntroThreadLau;
 
-    private VideoLoading videoLoading = new VideoLoading();
-    private LoadFlag loadFlag = new LoadFlagImpl();
+    private final VideoLoading videoLoading = new VideoLoading();
+    private final LoadFlag loadFlag = new LoadFlagImpl();
     private PreparedRenderedPages preparedDataWebTask;
     private PreparedRenderedPages preparedFightTask;
     private PreparedRenderedPages preparedPkTask;
@@ -996,6 +996,9 @@ public final class MainWindow extends NetGroupFrame {
 //        }
         if (!htmlDialogs.isEmpty()) {
             if (!htmlDialogs.first().isVisible()) {
+                if (htmlDialogs.first().getSession().isProcessing()) {
+                    return;
+                }
                 reinitWebData();
                 htmlDialogs.first().setVisible(true);
             }

@@ -40,7 +40,7 @@ public class ContainerPresident extends ContainerGame {
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
 
-    private AtomicBoolean arretDemo = new AtomicBoolean();
+    private final AtomicBoolean arretDemo = new AtomicBoolean();
 
     private boolean canDiscard;
     private boolean canPlay;
@@ -290,6 +290,6 @@ public class ContainerPresident extends ContainerGame {
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(GameEnum.PRESIDENT).getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedPresident().getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }

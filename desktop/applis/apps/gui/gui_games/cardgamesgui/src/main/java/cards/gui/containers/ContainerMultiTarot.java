@@ -51,12 +51,14 @@ import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
 import cards.network.threads.Net;
 import cards.tarot.*;
+import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -80,16 +82,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private DealingTarot repTarot;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
+    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap<Byte> playersPlacesForGame = new IntTreeMap<Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
     private EnumMap<Handfuls,Integer> requiredTrumps = new EnumMap<Handfuls,Integer>();
-    private TextLabel canPlayLabel = new TextLabel("");
+    private final TextLabel canPlayLabel = new TextLabel("");
 
     public ContainerMultiTarot(MainWindow _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
@@ -243,7 +245,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
-        editor.initialize(rulesTarotMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(rulesTarotMulti);
+        editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -304,7 +308,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _rules;
         rulesTarotMulti.setGeneral(readCoreResource());
         rulesTarotMulti.setSpecific(readResource());
-        editor.initialize(rulesTarotMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(rulesTarotMulti);
+        editor.initialize(stds_);
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
@@ -1065,12 +1071,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _res.getRes().setSpecific(readResource());
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT));
+        PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+        ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
+        editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        editor_.initialize(_res, retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT));
+        PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
+        ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
+        editor_.initialize(sTwo_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

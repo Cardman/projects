@@ -44,7 +44,7 @@ public class ContainerBelote extends ContainerGame {
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
 
-    private AtomicBoolean arretDemo = new AtomicBoolean();
+    private final AtomicBoolean arretDemo = new AtomicBoolean();
 
     private boolean canBid;
     private boolean canCall;
@@ -52,8 +52,8 @@ public class ContainerBelote extends ContainerGame {
     private boolean canExcludeTrumps;
     private boolean canPlay;
     private int pts;
-    private CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
-    private CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
+    private final CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
+    private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
     private Suit suit = Suit.UNDEFINED;
     private BidBelote bidType = BidBelote.FOLD;
     private LabelButton bidOk;
@@ -245,7 +245,7 @@ public class ContainerBelote extends ContainerGame {
     }
 
     public PreparedPagesCards retrieve(String _conf) {
-        return getOwner().getPrepared().getVal(GameEnum.BELOTE).getVal(_conf).getVal(getOwner().getLanguageKey());
+        return getOwner().getPreparedBelote().getVal(_conf).getVal(getOwner().getLanguageKey());
     }
 }
 

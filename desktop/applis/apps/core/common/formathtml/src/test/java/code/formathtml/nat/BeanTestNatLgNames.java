@@ -69,7 +69,6 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
     private final StringMap<String> iterables = new StringMap<String>();
-    private Object dataBase;
     private final StringMap<Bean> beans = new StringMap<Bean>();
     private final StringMap<BeanStruct> beansStructs = new StringMap<BeanStruct>();
     private StringMap<Validator> validators = new StringMap<Validator>();
@@ -276,16 +275,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
         //
     }
 
-    private BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx) {
-        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        BeanStruct res_ = getOtherResultBean(_ctx, id_);
-        Bean bean_ = res_.getBean();
-        bean_.setDataBase(dataBase);
-        bean_.setForms(new StringMapObject());
-        bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
-        return res_;
-    }
+    protected abstract BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx);
 
 
     private static void setStoredForms(BeanStruct _bean, StringMapObject _storedForms) {
@@ -361,9 +351,6 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     @Override
     public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
         return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
-    }
-    public void setDataBase(Object _dataBase){
-        dataBase = _dataBase;
     }
 
     public void rendRefresh(Navigation _navigation, ContextEl _context) {

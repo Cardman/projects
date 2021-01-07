@@ -2,6 +2,7 @@ package cards.gui.dialogs.help.beans;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -9,6 +10,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.bean.nat.DefaultInitialization;
 import code.bean.nat.BeanNatLgNames;
+import code.formathtml.structs.BeanInfo;
 
 public final class GeneralHelpLgNames extends BeanNatLgNames {
 
@@ -45,5 +47,10 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     @Override
     public void buildOther() {
         //impl
+    }
+
+    @Override
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        return null;
     }
 }

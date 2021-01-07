@@ -14,6 +14,7 @@ import cards.belote.HandBelote;
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
+import cards.belote.beans.BeloteStandards;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DealingBelote;
@@ -65,6 +66,7 @@ import cards.network.common.before.Ready;
 import cards.network.common.select.*;
 import cards.network.threads.Net;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.*;
@@ -89,15 +91,15 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
+    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandBelote playerHandBelote = new HandBelote();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
-    private TextLabel canPlayLabel = new TextLabel("");
+    private final TextLabel canPlayLabel = new TextLabel("");
 
     public ContainerMultiBelote(MainWindow _window, boolean _hasCreatedServer) {
         super(_window);
@@ -268,7 +270,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         editor = new RenderedPage(scroll_);
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
-        editor.initialize(rulesBeloteMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
+        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(rulesBeloteMulti);
+        editor.initialize(stds_);
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -344,7 +348,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti = _rules;
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
-        editor.initialize(rulesBeloteMulti, retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE));
+        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
+        ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(rulesBeloteMulti);
+        editor.initialize(stds_);
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -828,12 +834,16 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
-        editor_.initialize(_res,retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE));
+        PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
+        editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ScrollPane ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
-        editor_.initialize(_res,retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE));
+        PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+        ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
+        editor_.initialize(sTwo_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

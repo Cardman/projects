@@ -3,11 +3,13 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
+import aiki.beans.PokemonStandards;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.*;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
@@ -40,7 +42,8 @@ public final class DialogGameProgess extends Dialog {
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
         session.setFrame(this);
-        session.initializeOnlyConf(_facade,_pre,_facade.getLanguage());
+        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
+        session.initializeOnlyConf(_pre, _facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;

@@ -114,7 +114,7 @@ public final class ConsultHosts extends Dialog {
         showHtmlDialog(session_,facade,task_,facade.getLanguage());
     }
 
-    private void showHtmlDialog(RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }

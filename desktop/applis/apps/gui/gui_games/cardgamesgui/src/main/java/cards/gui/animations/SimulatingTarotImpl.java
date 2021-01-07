@@ -12,10 +12,12 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.tarot.*;
+import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 import code.gui.Panel;
 import code.gui.ScrollPane;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.threads.ThreadUtil;
 import code.util.*;
@@ -202,7 +204,9 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         RenderedPage editor_ = new RenderedPage(scroll_);
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
-        editor_.initialize(res_, container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT));
+        PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+        ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
+        editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
 
         Panel panneau_=Panel.newPageBox();

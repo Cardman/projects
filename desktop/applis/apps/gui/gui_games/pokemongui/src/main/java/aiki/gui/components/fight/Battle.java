@@ -137,9 +137,9 @@ public class Battle extends ChildFrame {
 
 //    private int heightUpper;
 
-    private Panel lower = Panel.newLineBox();
+    private final Panel lower = Panel.newLineBox();
 
-    private FrontBattle frontBattle;
+    private final FrontBattle frontBattle;
 
     private FighterPanel fighterPanel;
 
@@ -162,7 +162,7 @@ public class Battle extends ChildFrame {
 
     private BallPanel ballPanel;
 
-    private FacadeGame facade;
+    private final FacadeGame facade;
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
@@ -202,7 +202,7 @@ public class Battle extends ChildFrame {
 
     private boolean enableClick = true;
 
-    private TextLabel nickname = new TextLabel("");
+    private final TextLabel nickname = new TextLabel("");
 
     private LabelButton nicknameLabel;
 
@@ -227,10 +227,10 @@ public class Battle extends ChildFrame {
 
     private boolean enabledClicked;
 
-    private ScrollPane scroll;
-    private Panel comments = Panel.newPageBox();
-    private Panel forms = Panel.newLineBox();
-    private Panel team = Panel.newPageBox();
+    private final ScrollPane scroll;
+    private final Panel comments = Panel.newPageBox();
+    private final Panel forms = Panel.newLineBox();
+    private final Panel team = Panel.newPageBox();
     public Battle(MainWindow _window, FacadeGame _facade, FrontBattle _frontBattle) {
         super(_window.getLanguageKey());
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
@@ -1011,6 +1011,9 @@ public class Battle extends ChildFrame {
         }
         if (!htmlDialogs.isEmpty()) {
             if (!htmlDialogs.first().isVisible()) {
+                if (htmlDialogs.first().getSession().isProcessing()) {
+                    return;
+                }
                 reinitWebFight(fightTask_);
                 htmlDialogs.first().setVisible(true);
             }
@@ -1048,6 +1051,9 @@ public class Battle extends ChildFrame {
                     Thread fightThread_ = window.getPreparedFightThread();
                     PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
                     if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
+                        return;
+                    }
+                    if (htmlDialogs.first().getSession().isProcessing()) {
                         return;
                     }
                     reinitWebFight(fightTask_);

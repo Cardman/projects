@@ -1,5 +1,6 @@
 package code.formathtml.sample;
 
+import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -16,6 +17,7 @@ import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -147,6 +149,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     private static final String TYPE_STRING_LIST = "code.util.StringList";
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
+    private Composite dataBase;
     public CustBeanLgNames() {
         CustList<StandardField> fields_;
         CustList<StandardMethod> methods_;
@@ -2030,5 +2033,20 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             return res_;
         }
         return res_;
+    }
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
+        Struct strBean_ = res_.getResult();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        bean_.setDataBase(dataBase);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        return strBean_;
+    }
+    public void setDataBase(Composite _c) {
+        dataBase = _c;
     }
 }

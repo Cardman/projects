@@ -84,11 +84,11 @@ public final class RenderedPage implements ProcessingSession {
         navigation = _nav;
         CustComponent.invokeLater(new WindowPage(_metaDoc, scroll, this));
     }
+
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(Object _db, PreparedAnalyzed _stds) {
-        start();
-        _stds.getBeanNatLgNames().setDataBase(_db);
+    public void initialize(PreparedAnalyzed _stds) {
         standards = _stds.getBeanNatLgNames();
+        start();
         navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
         ContextEl ctx_ = _stds.getContext();
@@ -96,13 +96,10 @@ public final class RenderedPage implements ProcessingSession {
         navigation.initializeRendSession(ctx_, standards, StackCall.newInstance(InitPhase.NOTHING,ctx_));
         setupText();
     }
-    public void initializeOnlyConf(Object _dataBase, PreparedAnalyzed _prepared, String _lg) {
-        if (processing.get()) {
-            return;
-        }
+
+    public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg) {
         navigation = _prepared.getNavigation();
         setContext(_prepared.getContext());
-        _prepared.getBeanNatLgNames().setDataBase(_dataBase);
         navigation.setLanguage(_lg);
         standards = _prepared.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();

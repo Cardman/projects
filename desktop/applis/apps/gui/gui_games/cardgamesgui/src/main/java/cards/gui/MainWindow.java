@@ -443,12 +443,12 @@ public final class MainWindow extends NetGroupFrame {
     private BasicClient threadEmission;
     private StringMap<String> messages = new StringMap<String>();
 
-    private CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
+    private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
     private ContainerGame containerGame;
-    private Clock clock;
+    private final Clock clock;
 
-    private TextLabel lastSavedGameDate;
+    private final TextLabel lastSavedGameDate;
 
     private String dateLastSaved = EMPTY_STRING;
 
@@ -486,24 +486,24 @@ public final class MainWindow extends NetGroupFrame {
     private MenuItem tricksHands;
     private MenuItem teams;
     private Menu edit;
-    private EnumMap<GameEnum,MenuItem> editGames = new EnumMap<GameEnum,MenuItem>();
+    private final EnumMap<GameEnum,MenuItem> editGames = new EnumMap<GameEnum,MenuItem>();
     private Menu demo;
-    private EnumMap<GameEnum,MenuItem> demoGames = new EnumMap<GameEnum,MenuItem>();
+    private final EnumMap<GameEnum,MenuItem> demoGames = new EnumMap<GameEnum,MenuItem>();
     private Menu training;
-    private EnumMap<ChoiceTarot,MenuItem> trainingTarot = new EnumMap<ChoiceTarot,MenuItem>();
+    private final EnumMap<ChoiceTarot,MenuItem> trainingTarot = new EnumMap<ChoiceTarot,MenuItem>();
     private MenuItem multiStop;
 
     //parameters menu
 
     private Menu parameters;
-    private EnumMap<GameEnum,MenuItem> rulesGames = new EnumMap<GameEnum,MenuItem>();
+    private final EnumMap<GameEnum,MenuItem> rulesGames = new EnumMap<GameEnum,MenuItem>();
     private MenuItem players;
     private MenuItem launching;
     private MenuItem timing;
     private MenuItem interact;
     private MenuItem language;
     private Menu displaying;
-    private EnumMap<GameEnum,MenuItem> displayingGames = new EnumMap<GameEnum,MenuItem>();
+    private final EnumMap<GameEnum,MenuItem> displayingGames = new EnumMap<GameEnum,MenuItem>();
 
     //parameters help
 
@@ -518,7 +518,9 @@ public final class MainWindow extends NetGroupFrame {
     private TextLabel goHelpMenu;
     private final Net net = new Net();
 
-    private final IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> prepared;
+    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
+    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
+    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
     private Thread helpInitializerThread;
@@ -542,9 +544,14 @@ public final class MainWindow extends NetGroupFrame {
     private final DialogSoft dialogSoft = new DialogSoft();
     private final DialogServer dialogServer = new DialogServer();
 
-    public MainWindow(String _lg, AbstractProgramInfos _list, IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> _prepared) {
+    public MainWindow(String _lg, AbstractProgramInfos _list,
+                      StringMap<StringMap<PreparedPagesCards>> _belote,
+                      StringMap<StringMap<PreparedPagesCards>> _president,
+                      StringMap<StringMap<PreparedPagesCards>> _tarot) {
         super(_lg, _list);
-        prepared = _prepared;
+        preparedBelote = _belote;
+        preparedPresident = _president;
+        preparedTarot = _tarot;
         pseudosJoueurs=new Nicknames(getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -2158,8 +2165,17 @@ public final class MainWindow extends NetGroupFrame {
     public Net getNet() {
         return net;
     }
-    public IdMap<GameEnum, StringMap<StringMap<PreparedPagesCards>>> getPrepared() {
-        return prepared;
+
+    public StringMap<StringMap<PreparedPagesCards>> getPreparedBelote() {
+        return preparedBelote;
+    }
+
+    public StringMap<StringMap<PreparedPagesCards>> getPreparedPresident() {
+        return preparedPresident;
+    }
+
+    public StringMap<StringMap<PreparedPagesCards>> getPreparedTarot() {
+        return preparedTarot;
     }
 
     public HelpInitializer getHelpInitializerTask() {

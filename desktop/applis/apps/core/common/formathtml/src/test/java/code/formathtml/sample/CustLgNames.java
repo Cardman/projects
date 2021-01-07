@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.RealInstanceStruct;
+import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -558,5 +559,10 @@ public final class CustLgNames extends BeanNatLgNames {
     }
     public String getAliasComposite() {
         return aliasComposite;
+    }
+
+    @Override
+    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+        return null;
     }
 }

@@ -342,7 +342,7 @@ public final class NativeTest {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -694,7 +694,7 @@ public final class NativeTest {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -726,7 +726,7 @@ public final class NativeTest {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -758,7 +758,7 @@ public final class NativeTest {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -790,7 +790,7 @@ public final class NativeTest {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1122,7 +1122,7 @@ public final class NativeTest {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1161,7 +1161,7 @@ public final class NativeTest {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1210,7 +1210,7 @@ public final class NativeTest {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(null);
+        ((CustBeanLgNames)conf_.getAdv()).setDataBase(null);
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
