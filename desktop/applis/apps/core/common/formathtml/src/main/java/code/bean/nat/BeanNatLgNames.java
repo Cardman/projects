@@ -71,16 +71,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
-    private static Object[] adaptedArgs(StringList _params, Struct... _args) {
-        int len_ = _params.size();
-        Object[] args_ = new Object[len_];
-        for (int i = 0; i < len_; i++) {
-            Struct argStruct_ = _args[i];
-            args_[i] = NumParsers.convertToNumber(argStruct_).intStruct();
-        }
-        return args_;
-    }
-
     public static Object adaptedArg(Struct _args) {
         if (_args instanceof NumberStruct) {
             if (_args instanceof ShortStruct) {
@@ -412,28 +402,26 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _args);
-        return getOtherResultBean(_cont, _method, argsObj_);
+        return getOtherResultBean(_cont, _method, _args);
     }
 
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Object... _args);
+                                             ConstructorId _method, Struct... _args);
 
     @Override
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        Object[] argsObj_ = adaptedArgs(list_, _args);
         Object instance_ = ((RealInstanceStruct)_instance).getInstance();
         if (instance_ instanceof Countable) {
             res_.setResult(BooleanStruct.of(((Countable) instance_).isEmpty()));
             return res_;
         }
-        return getOtherResultBean(_cont, _instance, _method, argsObj_);
+        return getOtherResultBean(_cont, _instance, _method, _args);
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-                                             ClassMethodId _method, Object... _args);
+                                             ClassMethodId _method, Struct... _args);
 
     protected StringMap<String> getIterables() {
         return iterables;

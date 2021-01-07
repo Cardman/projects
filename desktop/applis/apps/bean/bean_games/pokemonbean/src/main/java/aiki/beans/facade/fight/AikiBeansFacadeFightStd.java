@@ -156,7 +156,7 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_SUFFERED_DAMAGE_CATEGORY, type_);
     }
-    public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         KeyHypothesis instance_ = (KeyHypothesis) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -186,7 +186,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         MultPowerMoves instance_ = (MultPowerMoves) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -200,7 +200,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         StatisticInfo instance_ = (StatisticInfo) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -234,7 +234,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         SufferedDamageCategory instance_ = (SufferedDamageCategory) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

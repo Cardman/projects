@@ -2,6 +2,7 @@ package aiki.beans.pokemon;
 import aiki.beans.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -427,7 +428,7 @@ public final class AikiBeansPokemonStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPokedexBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodPokedexBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -436,16 +437,16 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MINI_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniImage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMiniImage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickLink(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         PokemonBean instance_ = (PokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
@@ -463,15 +464,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_BASE)) {
@@ -479,39 +480,39 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_BASE)) {
-            res_.setResult(new IntStruct(instance_.getBase((Integer)_args[0])));
+            res_.setResult(new IntStruct(instance_.getBase(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new IntStruct(instance_.getEv((Integer)_args[0])));
+            res_.setResult(new IntStruct(instance_.getEv(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TECHNICAL_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTechnicalMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTechnicalMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HIDDEN_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickHiddenMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHiddenMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_TUTORS)) {
-            res_.setResult(new StringStruct(instance_.clickMoveTutors((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveTutors(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE_TUTOR)) {
-            res_.setResult(new StringStruct(instance_.getMoveTutor((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMoveTutor(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.clickEggPk((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickEggPk(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.getEggPk((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getEggPk(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
@@ -519,23 +520,23 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING_PLACE)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMultiLayer(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearing((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearing(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
@@ -543,15 +544,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getPlaceName((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPlaceName(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniMapImage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMiniMapImage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

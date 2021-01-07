@@ -6,6 +6,7 @@ import aiki.beans.RateStruct;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -358,7 +359,7 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodCombosBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodCombosBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         CombosBean instance_ = (CombosBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
@@ -369,21 +370,21 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectComboBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectComboBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectComboBean instance_ = (EffectComboBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATISTIC)) {
-            res_.setResult(new StringStruct(instance_.getTrStatistic((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatistic(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectWhileSendingBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectWhileSendingBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -408,15 +409,15 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getFail((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFail(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new RateStruct(instance_.getRate((Integer)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate(NumParsers.convertToNumber(_args[0]).intStruct()),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_SWAP_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getSwapFail((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getSwapFail(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

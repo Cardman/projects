@@ -115,7 +115,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         StepDto instance_ = (StepDto) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();

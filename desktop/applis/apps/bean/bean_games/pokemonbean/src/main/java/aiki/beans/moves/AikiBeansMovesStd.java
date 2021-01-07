@@ -6,6 +6,7 @@ import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.MoveLine;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -714,7 +715,7 @@ public final class AikiBeansMovesStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMoveBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         MoveBean instance_ = (MoveBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -727,15 +728,15 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ITEM)) {
-            res_.setResult(BooleanStruct.of(instance_.isItem((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isItem(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TYPES_BY_OWNED_ITEMS)) {
-            res_.setResult(new StringStruct(instance_.clickTypesByOwnedItems((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTypesByOwnedItems(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPES_BY_OWNED_ITEMS)) {
-            res_.setResult(new StringStruct(instance_.getTrTypesByOwnedItems((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTypesByOwnedItems(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,TYPES_DEPEND_ONLY_ON_WEATHER)) {
@@ -743,15 +744,15 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isWeather((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TYPES_BY_WEATHERS)) {
-            res_.setResult(new StringStruct(instance_.clickTypesByWeathers((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTypesByWeathers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPES_BY_WEATHERS)) {
-            res_.setResult(new StringStruct(instance_.getTrTypesByWeathers((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTypesByWeathers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,TYPES_DEPEND_ON_WEATHER_AND_ITEM)) {
@@ -827,75 +828,75 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DELETED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDeletedStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickDeletedStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_DELETED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getDeletedStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getDeletedStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_REQUIRED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickRequiredStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickRequiredStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_REQUIRED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getRequiredStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getRequiredStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ACHIEVE_DISAPPEARED_PK_USING_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrAchieveDisappearedPkUsingMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAchieveDisappearedPkUsingMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItem(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getTrItem((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrItem(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BEFORE_PRIMARY_EFFECT)) {
-            res_.setResult(BooleanStruct.of(instance_.isBeforePrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBeforePrimaryEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_END_ROUND_EFFECT)) {
-            res_.setResult(BooleanStruct.of(instance_.isEndRoundEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isEndRoundEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_PRIMARY_EFFECT)) {
-            res_.setResult(BooleanStruct.of(instance_.isPrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isPrimaryEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_AFTER_PRIMARY_EFFECT)) {
-            res_.setResult(BooleanStruct.of(instance_.isAfterPrimaryEffect((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAfterPrimaryEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM_SEC_EFFECT)) {
-            res_.setResult(new StringStruct(instance_.clickItemSecEffect((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItemSecEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,TRANSLATE_ITEM_SEC_EFFECT)) {
-            res_.setResult(new StringStruct(instance_.translateItemSecEffect((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.translateItemSecEffect(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,SWITCH_AFTER_USING_MOVE)) {
@@ -911,50 +912,50 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.clickPokemon((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemon((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON_TM)) {
-            res_.setResult(new StringStruct(instance_.clickPokemonTm((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemonTm(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_TM)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonTm((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonTm(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON_HM)) {
-            res_.setResult(new StringStruct(instance_.clickPokemonHm((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemonHm(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_HM)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonHm((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonHm(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON_MT)) {
-            res_.setResult(new StringStruct(instance_.clickPokemonMt((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemonMt(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_MT)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonMt((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonMt(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveLineBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMoveLineBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         MoveLineBean instance_ = (MoveLineBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMovesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMovesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         MovesBean instance_ = (MovesBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

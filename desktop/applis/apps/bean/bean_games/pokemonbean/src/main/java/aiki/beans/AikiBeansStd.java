@@ -80,7 +80,7 @@ public final class AikiBeansStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_WELCOME_BEAN, type_);
     }
-    public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         WelcomeBean instance_ = (WelcomeBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

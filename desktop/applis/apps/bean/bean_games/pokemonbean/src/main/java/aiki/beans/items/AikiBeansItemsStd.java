@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -1140,7 +1141,7 @@ public final class AikiBeansItemsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodBerryBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodBerryBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BerryBean instance_ = (BerryBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1149,82 +1150,82 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_FOES_DAMAGE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultFoesDamage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultFoesDamage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CATEG_RECOIL)) {
-            res_.setResult(new StringStruct(instance_.getTrCategRecoil((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrCategRecoil(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrBoostStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBoostStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodBoostBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodBoostBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BoostBean instance_ = (BoostBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_BALL)) {
-            res_.setResult(BooleanStruct.of(instance_.isBall((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBall(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HAPPINESS)) {
-            res_.setResult(new StringStruct(instance_.clickHappiness((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHappiness(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HAPPINESS)) {
-            res_.setResult(new StringStruct(instance_.getTrHappiness((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHappiness(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_EV)) {
-            res_.setResult(new StringStruct(instance_.getTrEv((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrEv(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodEvolvingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEvolvingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EvolvingItemBean instance_ = (EvolvingItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.clickPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodEvolvingStoneBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEvolvingStoneBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EvolvingStoneBean instance_ = (EvolvingStoneBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.clickPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodFossilBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodFossilBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         FossilBean instance_ = (FossilBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1238,25 +1239,25 @@ public final class AikiBeansItemsStd {
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodHealingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodHealingItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         HealingItemBean instance_ = (HealingItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_BALL)) {
-            res_.setResult(BooleanStruct.of(instance_.isBall((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBall(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HAPPINESS)) {
-            res_.setResult(new StringStruct(instance_.clickHappiness((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHappiness(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HAPPINESS)) {
-            res_.setResult(new StringStruct(instance_.getTrHappiness((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHappiness(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodHealingPpBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodHealingPpBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         HealingPpBean instance_ = (HealingPpBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1270,21 +1271,21 @@ public final class AikiBeansItemsStd {
         }
         return AikiBeansItemsStd.invokeMethodHealingItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodHealingStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodHealingStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         HealingStatusBean instance_ = (HealingStatusBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansItemsStd.invokeMethodHealingItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         ItemBean instance_ = (ItemBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1294,7 +1295,7 @@ public final class AikiBeansItemsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodItemForBattleBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodItemForBattleBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         ItemForBattleBean instance_ = (ItemForBattleBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1303,119 +1304,119 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatRank((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatRank(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_PK_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatPkRank((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatPkRank(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MULT_STAT_PK)) {
-            res_.setResult(new StringStruct(instance_.clickMultStatPk((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMultStatPk(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_PK)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatPk((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatPk(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STATIS_SUPER_EFF)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatisSuperEff((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatisSuperEff(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STATIS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatisTypes((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatisTypes(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STATIS_TYPES_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatisTypesStat((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatisTypesStat(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickFailStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickFailStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrFailStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrFailStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TYPES_PK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickTypesPkAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTypesPkAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPES_PK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrTypesPkAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTypesPkAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPES_PK)) {
-            res_.setResult(new StringStruct(instance_.getTrTypesPk((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTypesPk(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuTypes((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuTypes(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_SYNCHRO_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickSynchroStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickSynchroStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_SYNCHRO_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrSynchroStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrSynchroStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_WIN_EV_FIGHT)) {
-            res_.setResult(new StringStruct(instance_.getTrWinEvFight((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrWinEvFight(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TRAP_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTrapMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTrapMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TRAP_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrTrapMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTrapMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_GLOBAL_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickGlobalMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickGlobalMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_GLOBAL_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrGlobalMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrGlobalMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTeamMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTeamMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrTeamMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTeamMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickImmuMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,RATE_FOR_ATTACK_FIRST)) {
@@ -1428,7 +1429,7 @@ public final class AikiBeansItemsStd {
         }
         return AikiBeansItemsStd.invokeMethodItemBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodItemsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodItemsBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         ItemsBean instance_ = (ItemsBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1437,11 +1438,11 @@ public final class AikiBeansItemsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MINI_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniImage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMiniImage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickLink(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

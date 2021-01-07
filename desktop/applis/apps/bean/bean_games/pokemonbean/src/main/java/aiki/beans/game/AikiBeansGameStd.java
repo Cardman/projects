@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -589,7 +590,7 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodDifficultyBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodDifficultyBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         DifficultyBean instance_ = (DifficultyBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -600,59 +601,59 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodGameProgressionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodGameProgressionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         GameProgressionBean instance_ = (GameProgressionBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_REMAINING_OTHER_TRAINERS_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getRemainingOtherTrainersPlaceName((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getRemainingOtherTrainersPlaceName(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonFull((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonFull(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonFull((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonFull(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonNotAll((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonNotAll(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonNotAll((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonNotAll(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartialNot((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonPartialNot(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartialNot((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonPartialNot(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KEY_POKEMON)) {
-            res_.setResult(new DefaultStruct(instance_.getKeyPokemon((Integer)_args[0],(Integer)_args[1]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getKeyPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct()), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartial((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonPartial(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartial((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonPartial(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPokemonPlayerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodPokemonPlayerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         PokemonPlayerBean instance_ = (PokemonPlayerBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EVO)) {
-            res_.setResult(new StringStruct(instance_.getEvo((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getEvo(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

@@ -55,7 +55,7 @@ public final class AikiBeansFacadeGameDtoStd {
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
     }
-    public static ResultErrorStd invokeMethodStatisticInfoPkPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodStatisticInfoPkPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         StatisticInfoPkPlayer instance_ = (StatisticInfoPkPlayer) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

@@ -53,7 +53,7 @@ public final class AikiBeansFacadeMapDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         PlaceIndex instance_ = (PlaceIndex) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

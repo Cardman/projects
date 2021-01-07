@@ -24,11 +24,11 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     }
 
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Object... _args) {
+                                             ConstructorId _method, Struct... _args) {
         return new ResultErrorStd();
     }
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-                                             ClassMethodId _method, Object... _args) {
+                                             ClassMethodId _method, Struct... _args) {
         return new ResultErrorStd();
     }
 

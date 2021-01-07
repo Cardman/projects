@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -278,7 +279,7 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         StatusBean instance_ = (StatusBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -295,7 +296,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EFFECT_PARTNER)) {
@@ -304,7 +305,7 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatusSetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodStatusSetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         StatusSetBean instance_ = (StatusSetBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -313,11 +314,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

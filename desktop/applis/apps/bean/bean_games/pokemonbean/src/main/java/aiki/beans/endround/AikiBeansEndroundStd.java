@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -542,42 +543,42 @@ public final class AikiBeansEndroundStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectEndRoundBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectEndRoundBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectEndRoundBean instance_ = (EffectEndRoundBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItem(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickMoves((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMoves(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectEndRoundIndividualBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectEndRoundIndividualBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectEndRoundIndividualBean instance_ = (EffectEndRoundIndividualBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_USER_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickUserStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickUserStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_USER_STATUS)) {
@@ -585,38 +586,38 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(BooleanStruct.of(instance_.isType((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isType(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrType(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodEffectEndRoundMultiRelationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectEndRoundMultiRelationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectEndRoundMultiRelationBean instance_ = (EffectEndRoundMultiRelationBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodEffectEndRoundPositionTargetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEffectEndRoundPositionTargetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         EffectEndRoundPositionTargetBean instance_ = (EffectEndRoundPositionTargetBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
@@ -626,16 +627,16 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTargetRelationMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTargetRelationMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrTargetRelationMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTargetRelationMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
     }
-    public static ResultErrorStd invokeMethodEndRoundBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodEndRoundBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         EndRoundBean instance_ = (EndRoundBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
@@ -645,7 +646,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

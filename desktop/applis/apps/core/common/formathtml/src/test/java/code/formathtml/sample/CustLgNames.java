@@ -402,14 +402,14 @@ public final class CustLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         return null;
     }
 
 
     @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Object... _args) {
+                                             ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getName(), aliasInts)) {
             res_.setResult(StdStruct.newInstance(new Ints(), aliasInts));

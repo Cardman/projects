@@ -4,6 +4,7 @@ import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -232,26 +233,26 @@ public final class AikiBeansMapStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMapBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMapBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMultiLayer(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct()), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMapLevelBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodMapLevelBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         MapLevelBean instance_ = (MapLevelBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -260,39 +261,39 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,WITHOUT_TITLE)) {
-            res_.setResult(BooleanStruct.of(instance_.withoutTitle((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.withoutTitle(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS)) {
-            res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TILE_ON_MAP)) {
-            res_.setResult(new StringStruct(instance_.clickTileOnMap((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTileOnMap(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STORAGE)) {
-            res_.setResult(BooleanStruct.of(instance_.isStorage((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStorage(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEALER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealer((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealer(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HOST)) {
-            res_.setResult(BooleanStruct.of(instance_.isHost((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHost(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOSSILE)) {
-            res_.setResult(BooleanStruct.of(instance_.isFossile((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFossile(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_TUTORS)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveTutors((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveTutors(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TILE)) {
@@ -308,23 +309,23 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_UP)) {
-            res_.setResult(BooleanStruct.of(instance_.isUp((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isUp(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DIRECTED_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickDirectedLink((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickDirectedLink(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_DOWN)) {
-            res_.setResult(BooleanStruct.of(instance_.isDown((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isDown(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_LEFT)) {
-            res_.setResult(BooleanStruct.of(instance_.isLeft((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isLeft(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_RIGHT)) {
-            res_.setResult(BooleanStruct.of(instance_.isRight((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isRight(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;

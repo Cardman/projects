@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -728,7 +729,7 @@ public final class AikiBeansFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodFightBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodFightBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         FightBean instance_ = (FightBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -741,66 +742,66 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STILL_ENABLED)) {
-            res_.setResult(BooleanStruct.of(instance_.isStillEnabled((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStillEnabled(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodFightCalculationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodFightCalculationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         FightCalculationBean instance_ = (FightCalculationBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_FIGHTER)) {
-            res_.setResult(new StringStruct(instance_.getFighter((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFighter(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FIGHTER_WILD_FIGHT)) {
-            res_.setResult(new StringStruct(instance_.getFighterWildFight((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getFighterWildFight(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CHOICE_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_CHOICE_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE_CONDITION)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoiceCondition((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoiceCondition(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoice((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoice(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FOE_FIGHTER_NAME)) {
-            res_.setResult(new StringStruct(instance_.getFoeFighterName((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFoeFighterName(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_CHOSEN_TARGET)) {
-            res_.setResult(BooleanStruct.of(instance_.isChosenTarget((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChosenTarget(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CH_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_FOE_CHOICE)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameFoeChoice((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameFoeChoice(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodFighterBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodFighterBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         FighterBean instance_ = (FighterBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -813,52 +814,52 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_STATUS_RELAT_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATUS_RELAT_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getStatusRelatTeam((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getStatusRelatTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(BooleanStruct.of(instance_.isEnabled((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isEnabled(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_PRIVATE_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_PRIVATE_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrPrivateMovesTeam((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrPrivateMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TRAPPING_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_TRAPPING_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrTrappingMovesTeam((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrTrappingMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TRACKING_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_TRACKING_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrTrackingMovesTeam((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrTrackingMovesTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_INCR_USER_ACCURACY_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_USER_ACCURACY_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrUserAccuracyTeam((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrUserAccuracyTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodTeamBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
         TeamBean instance_ = (TeamBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
@@ -868,31 +869,31 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FIGHTER)) {
-            res_.setResult(new StringStruct(instance_.clickFighter((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickFighter(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_LINK)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonLink((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonLink(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KEY)) {
-            res_.setResult(new StringStruct(instance_.getKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PLAYER_FIGTHER_AGAINST_FOE)) {
-            res_.setResult(new StringStruct(instance_.getPlayerFigtherAgainstFoe((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPlayerFigtherAgainstFoe(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FOE_FIGTHER_AGAINST_FOE)) {
-            res_.setResult(new StringStruct(instance_.getFoeFigtherAgainstFoe((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getFoeFigtherAgainstFoe(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         return res_;

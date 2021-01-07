@@ -5,6 +5,7 @@ import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -1028,7 +1029,7 @@ public final class AikiBeansAbilitiesStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         AbilitiesBean instance_ = (AbilitiesBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1037,16 +1038,16 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
+    public static ResultErrorStd invokeMethodAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         AbilityBean instance_ = (AbilityBean) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1059,43 +1060,43 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_BREAK_PROTECTION_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickBreakProtectionMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickBreakProtectionMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_PROTECTION_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakProtectionMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakProtectionMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_CHGT_TYPE_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_CHGT_TYPE_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickChgtTypeByWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickChgtTypeByWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherValue((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherValue(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_RECHARGE_ROUND_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuRechargeRoundMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuRechargeRoundMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_RECHARGE_ROUND_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuRechargeRoundMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuRechargeRoundMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_REVERSE_POWER_TYPES_ABILITIES)) {
-            res_.setResult(new StringStruct(instance_.clickReversePowerTypesAbilities((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickReversePowerTypesAbilities(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_REVERSE_POWER_TYPES_ABILITIES)) {
-            res_.setResult(new StringStruct(instance_.getTrReversePowerTypesAbilities((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrReversePowerTypesAbilities(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,DECREASE_NEC_STEPS_HATCH_INT)) {
@@ -1107,315 +1108,315 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickImmuMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_ALLY_FROM_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuAllyFromMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuAllyFromMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ALLY_FROM_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuAllyFromMoves((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuAllyFromMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IGN_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickIgnAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickIgnAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IGN_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrIgnAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIgnAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IGN_FOE_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickIgnFoeTeamMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickIgnFoeTeamMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IGN_FOE_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrIgnFoeTeamMove((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIgnFoeTeamMove(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickImmuAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuAbility((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_BEGIN_ROUND)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusBeginRound((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusBeginRound(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_BEGIN_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusBeginRound((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusBeginRound(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_OLD)) {
-            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesOld((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesOld(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_NEW)) {
-            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesNew((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesNew(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickHealHpByWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHealHpByWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_TYPE_IF_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickHealHpByTypeIfWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHealHpByTypeIfWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKeySec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKeySec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_LOW_STAT_IF_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickImmuLowStatIfStatusKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuLowStatIfStatusKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusValue((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusValue(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisTypes((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisTypes(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisValue((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisValue(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MAX_STATISTICS_IF_CH)) {
-            res_.setResult(new StringStruct(instance_.getTrMaxStatisticsIfCh((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMaxStatisticsIfCh(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.isStatus((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_SINGLE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickSingleStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickSingleStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_SINGLE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrSingleStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrSingleStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveByWeather((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickImmuMoveByWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuMoveByWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuMoveByWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuMoveByWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_TYPE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuTypeByWeather((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuTypeByWeather(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_BY_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveByStatus((Integer)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusWeather((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusWeather(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatus((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatus((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusTypes((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusTypes(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusTypes((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusTypes(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusValue((Integer)_args[0],(Integer)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusValue(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DIVIDE_STATUS_ROUND_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickDivideStatusRoundKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickDivideStatusRoundKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DIVIDE_STATUS_ROUND_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrDivideStatusRoundKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDivideStatusRoundKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickForwardStatusKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickForwardStatusKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrForwardStatusKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrForwardStatusKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.clickForwardStatusValue((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickForwardStatusValue(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrForwardStatusValue((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrForwardStatusValue(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneValue((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneValue(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKeySec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKeySec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeType((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeType(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKeySec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKeySec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRank((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRank(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MULT_STAT_IF_STATUT_RANK_SEC)) {
-            res_.setResult(new StringStruct(instance_.clickMultStatIfStatutRankSec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMultStatIfStatutRankSec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRankSec((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRankSec(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BONUS_STAT_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrBonusStatRank((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBonusStatRank(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_END_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getTrBoostStatRankEndRound((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBoostStatRankEndRound(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_PROTECTED)) {
-            res_.setResult(new StringStruct(instance_.getTrBoostStatRankProtected((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBoostStatRankProtected(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_LOW_STAT_FOE_HIT)) {
-            res_.setResult(new StringStruct(instance_.getTrLowStatFoeHit((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrLowStatFoeHit(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_KO_FOE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfKoFoe((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfKoFoe(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_LOW_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfLowStat((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfLowStat(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_ALLY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatAlly((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatAlly(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO)) {
-            res_.setResult(new StringStruct(instance_.getTrIncreasedPrio((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIncreasedPrio(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrIncreasedPrioTypes((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIncreasedPrioTypes(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_DAMAGE_FOE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultDamageFoe((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultDamageFoe(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultPowerMovesTypesGlobalKey((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultPowerMovesTypesGlobalKey(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickFailStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickFailStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrFailStatus((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrFailStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.clickPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemon((Integer)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemon(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         return res_;
