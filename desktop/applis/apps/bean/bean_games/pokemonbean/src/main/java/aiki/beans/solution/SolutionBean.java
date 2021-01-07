@@ -96,8 +96,8 @@ public class SolutionBean extends CommonBean {
             steps.add(s_);
         }
     }
-    public EqList<PlaceLevel> getPlaces(Long _indexStep) {
-        StepDto step_ = steps.get(_indexStep.intValue());
+    public EqList<PlaceLevel> getPlaces(int _indexStep) {
+        StepDto step_ = steps.get(_indexStep);
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
@@ -113,8 +113,8 @@ public class SolutionBean extends CommonBean {
         keys_.sortElts(new ComparatorPlaceLevel());
         return keys_;
     }
-    public String getPlace(Long _indexStep, Long _indexPlace) {
-        StepDto step_ = steps.get(_indexStep.intValue());
+    public String getPlace(int _indexStep, int _indexPlace) {
+        StepDto step_ = steps.get(_indexStep);
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
@@ -129,7 +129,7 @@ public class SolutionBean extends CommonBean {
 //        });
         keys_.sortElts(new ComparatorPlaceLevel());
         DataBase data_ = (DataBase) getDataBase();
-        PlaceLevel key_ = keys_.get(_indexPlace.intValue());
+        PlaceLevel key_ = keys_.get(_indexPlace);
         Place place_ = data_.getMap().getPlace(key_.getPlace());
         String name_ = place_.getName();
         if (place_.getLevelsMap().size() == DataBase.ONE_POSSIBLE_CHOICE) {
@@ -137,8 +137,8 @@ public class SolutionBean extends CommonBean {
         }
         return StringUtil.concat(name_,SPACE,Long.toString(key_.getLevel()));
     }
-    public CustList<WildPokemonDto> getPokemonList(Long _indexStep, Long _indexLevelPlace) {
-        StepDto step_ = steps.get(_indexStep.intValue());
+    public CustList<WildPokemonDto> getPokemonList(int _indexStep, int _indexLevelPlace) {
+        StepDto step_ = steps.get(_indexStep);
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getPokemon().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
@@ -152,10 +152,10 @@ public class SolutionBean extends CommonBean {
 //            }
 //        });
         keys_.sortElts(new ComparatorPlaceLevel());
-        return step_.getPokemon().getVal(keys_.get(_indexLevelPlace.intValue()));
+        return step_.getPokemon().getVal(keys_.get(_indexLevelPlace));
     }
-    public String getPokemonName(Long _indexStep, Long _indexLevelPlace, Long _indexPokemon) {
-        Step step_ = solution.getSteps().get(_indexStep.intValue());
+    public String getPokemonName(int _indexStep, int _indexLevelPlace, int _indexPokemon) {
+        Step step_ = solution.getSteps().get(_indexStep);
         EqList<PlaceLevel> keys_ = new EqList<PlaceLevel>();
         keys_.addAllElts(step_.getCaughtPokemonPlaceLevel().getKeys());
 //        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
@@ -169,7 +169,7 @@ public class SolutionBean extends CommonBean {
 //            }
 //        });
         keys_.sortElts(new ComparatorPlaceLevel());
-        return step_.getCaughtPokemonPlaceLevel().getVal(keys_.get(_indexLevelPlace.intValue())).get(_indexPokemon.intValue()).getName();
+        return step_.getCaughtPokemonPlaceLevel().getVal(keys_.get(_indexLevelPlace)).get(_indexPokemon).getName();
     }
 
     public CustList<StepDto> getSteps() {

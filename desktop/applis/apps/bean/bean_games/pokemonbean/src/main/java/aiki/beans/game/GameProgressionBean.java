@@ -110,61 +110,61 @@ public class GameProgressionBean extends Bean {
         nbRemainingNotMaxHappiness = progression_.getNbRemainingNotMaxHappiness();
         nbRemainingNotMaxLevel = progression_.getNbRemainingNotMaxLevel();
     }
-    public String getRemainingOtherTrainersPlaceName(Long _index) {
+    public String getRemainingOtherTrainersPlaceName(int _index) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
-        short key_ = remainingOtherTrainerPlaces.getKey(_index.intValue());
+        short key_ = remainingOtherTrainerPlaces.getKey(_index);
         DataMap dataMap_ = facade_.getMap();
         return dataMap_.getPlace(key_).getName();
     }
-    public String getTrPokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonNotAll(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonNotAll(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
-    public String getTrPokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonPartialNot(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonPartialNot(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
-    public String getTrPokemonPartial(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonPartial(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonPartial(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
-    public String getTrPokemonFull(Long _key, Long _indexList, Long _indexElt) {
+    public String getTrPokemonFull(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
-    public String getImagePokemonFull(Long _key, Long _indexList, Long _indexElt) {
+    public String getImagePokemonFull(int _key, int _indexList, int _indexElt) {
         FacadeGame facade_ = (FacadeGame) getDataBase();
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
-    public StringList getKeyPokemon(Long _key, Long _indexList) {
-        CustList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key.intValue());
-        StringList value_ = values_.get(_indexList.intValue());
+    public StringList getKeyPokemon(int _key, int _indexList) {
+        CustList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key);
+        StringList value_ = values_.get(_indexList);
         return value_;
     }
 
-    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
-        CustList<StringList> values_ = _treeMap.getValue(_key.intValue());
-        StringList value_ = values_.get(_indexList.intValue());
-        String pkName_ = value_.get(_indexElt.intValue());
+    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
+        CustList<StringList> values_ = _treeMap.getValue(_key);
+        StringList value_ = values_.get(_indexList);
+        String pkName_ = value_.get(_indexElt);
         return _facade.translatePokemon(pkName_);
     }
 
-    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
-        CustList<StringList> values_ = _treeMap.getValue(_key.intValue());
-        StringList value_ = values_.get(_indexList.intValue());
-        String pkName_ = value_.get(_indexElt.intValue());
+    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, int _key, int _indexList, int _indexElt) {
+        CustList<StringList> values_ = _treeMap.getValue(_key);
+        StringList value_ = values_.get(_indexList);
+        String pkName_ = value_.get(_indexElt);
         int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
         return BaseSixtyFourUtil.getStringByImage(img_);
     }

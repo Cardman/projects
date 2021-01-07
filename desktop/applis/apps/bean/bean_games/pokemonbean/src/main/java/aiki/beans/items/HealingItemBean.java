@@ -24,18 +24,18 @@ public class HealingItemBean extends ItemBean {
         }
         happiness = happiness_;
     }
-    public boolean isBall(Long _index) {
-        String item_ = happiness.getKey(_index.intValue());
+    public boolean isBall(int _index) {
+        String item_ = happiness.getKey(_index);
         return !item_.isEmpty();
     }
-    public String getTrHappiness(Long _index) {
+    public String getTrHappiness(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = happiness.getKey(_index.intValue());
+        String item_ = happiness.getKey(_index);
         return translatedItems_.getVal(item_);
     }
-    public String clickHappiness(Long _index) {
-        String item_ = happiness.getKey(_index.intValue());
+    public String clickHappiness(int _index) {
+        String item_ = happiness.getKey(_index);
         getForms().put(ITEM, item_);
         return BALL;
     }

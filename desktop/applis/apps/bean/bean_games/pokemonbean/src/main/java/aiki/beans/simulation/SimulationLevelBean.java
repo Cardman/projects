@@ -60,7 +60,7 @@ public class SimulationLevelBean extends CommonBean {
         outside = false;
         if (getForms().contains(INSIDE)) {
             Point ptInside_ = (Point) getForms().getVal(INSIDE);
-            Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
             Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
@@ -72,13 +72,13 @@ public class SimulationLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
             outside = true;
-            Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
-            Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+            int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
             if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -89,8 +89,8 @@ public class SimulationLevelBean extends CommonBean {
                 road = true;
             }
             placeName = data_.getMap().getPlace(pl_).getName();
-            levelIndex = lev_.intValue();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, lev_).entryList()) {
+            levelIndex = lev_;
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }
@@ -102,24 +102,24 @@ public class SimulationLevelBean extends CommonBean {
         }
         return w_;
     }
-    public boolean isFirstRow(Long _index) {
-        if (_index.intValue() == 0) {
+    public boolean isFirstRow(int _index) {
+        if (_index == 0) {
             return false;
         }
-        Point pt_ = tiles.getKey(_index.intValue());
+        Point pt_ = tiles.getKey(_index);
         return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public static String cancel() {
         return SIMULATION;
     }
-    public String clickTile(Long _index) {
+    public String clickTile(int _index) {
         if (noFight < 0) {
             noFight = 0;
         }
-        Point pt_ = tiles.getKey(_index.intValue());
+        Point pt_ = tiles.getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
@@ -130,7 +130,7 @@ public class SimulationLevelBean extends CommonBean {
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace(pl_);
+                coords_.setNumberPlace((short) pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.setInsideBuilding(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
@@ -140,7 +140,7 @@ public class SimulationLevelBean extends CommonBean {
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace(pl_);
+                coords_.setNumberPlace((short) pl_);
                 coords_.setLevel(new LevelPoint());
                 coords_.setInsideBuilding(new Point(ptInside_));
                 coords_.getLevel().setPoint(new Point(pt_));
@@ -152,12 +152,12 @@ public class SimulationLevelBean extends CommonBean {
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal(lev_);
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
             if (l_.getDualFights().contains(pt_)) {
                 Coords coords_ = new Coords();
-                coords_.setNumberPlace(pl_);
+                coords_.setNumberPlace((short) pl_);
                 coords_.setLevel(new LevelPoint());
-                coords_.getLevel().setLevelIndex(lev_);
+                coords_.getLevel().setLevelIndex((byte) lev_);
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(COORDS, coords_);
                 getForms().put(NO_FIGHT, noFight);
@@ -173,9 +173,9 @@ public class SimulationLevelBean extends CommonBean {
                     }
                     getForms().put(NO_FIGHT, noFight);
                     Coords coords_ = new Coords();
-                    coords_.setNumberPlace(pl_);
+                    coords_.setNumberPlace((short) pl_);
                     coords_.setLevel(new LevelPoint());
-                    coords_.getLevel().setLevelIndex(lev_);
+                    coords_.getLevel().setLevelIndex((byte) lev_);
                     coords_.getLevel().setPoint(new Point(pt_));
                     getForms().put(COORDS, coords_);
                     //noFight
@@ -186,9 +186,9 @@ public class SimulationLevelBean extends CommonBean {
                 DualFight d_ = l_.getDualFights().getVal(ptKey_);
                 if (Point.eq(d_.getPt(), pt_)) {
                     Coords coords_ = new Coords();
-                    coords_.setNumberPlace(pl_);
+                    coords_.setNumberPlace((short) pl_);
                     coords_.setLevel(new LevelPoint());
-                    coords_.getLevel().setLevelIndex(lev_);
+                    coords_.getLevel().setLevelIndex((byte) lev_);
                     coords_.getLevel().setPoint(new Point(ptKey_));
                     getForms().put(NO_FIGHT, noFight);
                     getForms().put(COORDS, coords_);

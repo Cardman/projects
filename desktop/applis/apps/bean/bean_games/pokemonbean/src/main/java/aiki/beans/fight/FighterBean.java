@@ -93,9 +93,9 @@ public class FighterBean extends CommonFightBean {
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
-        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
+        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
+        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         StringMap<String> translationsItems_;
@@ -467,64 +467,64 @@ public class FighterBean extends CommonFightBean {
     }
     public boolean isBack() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
-        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
+        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
+        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         return fighter_.estArriere();
     }
     public boolean isBackSubst() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
-        Long noFighter_ = (Long) getForms().getVal(NO_FIGHTER);
-        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_).getMembers().getVal(noFighter_.byteValue());
+        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
+        int noFighter_ = (Integer) getForms().getVal(NO_FIGHTER);
+        Fighter fighter_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_).getMembers().getVal((byte) noFighter_);
         return fighter_.getGroundPlaceSubst() == Fighter.BACK;
     }
-    public boolean isFoeStatusRelatTeam(Long _index) {
-        MoveTeamPosition mt_ = statusRelat.getKey(_index.intValue());
+    public boolean isFoeStatusRelatTeam(int _index) {
+        MoveTeamPosition mt_ = statusRelat.getKey(_index);
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-    public String getStatusRelatTeam(Long _index) {
+    public String getStatusRelatTeam(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        MoveTeamPosition mt_ = statusRelat.getKey(_index.intValue());
+        MoveTeamPosition mt_ = statusRelat.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-    public boolean isEnabled(Long _index) {
-        return statusRelat.getValue(_index.intValue()) > 0;
+    public boolean isEnabled(int _index) {
+        return statusRelat.getValue(_index) > 0;
     }
-    public boolean isFoePrivateMovesTeam(Long _index) {
-        MoveTeamPosition mt_ = privateMoves.getKey(_index.intValue());
+    public boolean isFoePrivateMovesTeam(int _index) {
+        MoveTeamPosition mt_ = privateMoves.getKey(_index);
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-    public String getIncrPrivateMovesTeam(Long _index) {
+    public String getIncrPrivateMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        MoveTeamPosition mt_ = privateMoves.getKey(_index.intValue());
+        MoveTeamPosition mt_ = privateMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-    public boolean isFoeTrappingMovesTeam(Long _index) {
-        MoveTeamPosition mt_ = trappingMoves.getKey(_index.intValue());
+    public boolean isFoeTrappingMovesTeam(int _index) {
+        MoveTeamPosition mt_ = trappingMoves.getKey(_index);
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-    public String getIncrTrappingMovesTeam(Long _index) {
+    public String getIncrTrappingMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        MoveTeamPosition mt_ = trappingMoves.getKey(_index.intValue());
+        MoveTeamPosition mt_ = trappingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-    public boolean isFoeTrackingMovesTeam(Long _index) {
-        MoveTeamPosition mt_ = trackingMoves.getKey(_index.intValue());
+    public boolean isFoeTrackingMovesTeam(int _index) {
+        MoveTeamPosition mt_ = trackingMoves.getKey(_index);
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-    public String getIncrTrackingMovesTeam(Long _index) {
+    public String getIncrTrackingMovesTeam(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        MoveTeamPosition mt_ = trackingMoves.getKey(_index.intValue());
+        MoveTeamPosition mt_ = trackingMoves.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
-    public boolean isFoeIncrUserAccuracyTeam(Long _index) {
-        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index.intValue());
+    public boolean isFoeIncrUserAccuracyTeam(int _index) {
+        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
         return mt_.getTeamPosition().getTeam() == Fight.FOE;
     }
-    public String getIncrUserAccuracyTeam(Long _index) {
+    public String getIncrUserAccuracyTeam(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index.intValue());
+        MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index);
         return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 

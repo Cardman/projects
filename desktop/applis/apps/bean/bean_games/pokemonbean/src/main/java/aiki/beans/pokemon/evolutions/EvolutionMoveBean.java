@@ -18,14 +18,14 @@ public class EvolutionMoveBean extends EvolutionBean {
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         move = translationsMoves_.getVal(evo_.getMove());
     }
-    public String clickMove(Long _index) {
+    public String clickMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(getBase());
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
-        EvolutionMove evo_ = (EvolutionMove) pk_.getEvolutions().getVal(evolutions_.get(_index.intValue()));
+        EvolutionMove evo_ = (EvolutionMove) pk_.getEvolutions().getVal(evolutions_.get(_index));
         getForms().put(MOVE,evo_.getMove());
         return MOVE;
     }

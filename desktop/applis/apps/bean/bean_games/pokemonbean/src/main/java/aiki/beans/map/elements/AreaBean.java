@@ -32,68 +32,68 @@ public class AreaBean extends CommonBean {
     public void beforeDisplaying() {
         area = (AreaApparition) getForms().getVal(AREA);
     }
-    public String getImage(Long _index) {
+    public String getImage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-    public String getName(Long _index) {
+    public String getName(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-    public String clickName(Long _index) {
+    public String clickName(int _index) {
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-    public String getGender(Long _index) {
+    public String getGender(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         Gender gender_ = pk_.getGender();
         return translationsGenders_.getVal(gender_);
     }
-    public String getAbility(Long _index) {
+    public String getAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-    public String clickAbility(Long _index) {
+    public String clickAbility(int _index) {
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String ability_ = pk_.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-    public String getItem(Long _index) {
+    public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-    public String clickItem(Long _index) {
+    public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         String item_ = pk_.getItem();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -141,90 +141,90 @@ public class AreaBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMove(Long _index, Long _moveIndex) {
+    public String getMove(int _index, int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevel(_index).get(_moveIndex.intValue());
+        String move_ = getMovesAtLevel(_index).get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(Long _index, Long _moveIndex) {
-        String move_ = getMovesAtLevel(_index).get(_moveIndex.intValue());
+    public String clickMove(int _index, int _moveIndex) {
+        String move_ = getMovesAtLevel(_index).get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public StringList getMovesAtLevel(Long _index) {
+    public StringList getMovesAtLevel(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getWildPokemon(_index.intValue());
+        pk_ = area.getWildPokemon(_index);
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesAtLevel(pk_.getLevel(), data_.getNbMaxMoves());
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;
     }
-    public String getImageFishing(Long _index) {
+    public String getImageFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-    public String getNameFishing(Long _index) {
+    public String getNameFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-    public String clickNameFishing(Long _index) {
+    public String clickNameFishing(int _index) {
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-    public String getGenderFishing(Long _index) {
+    public String getGenderFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Gender,String> translationsGenders_;
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         Gender gender_ = pk_.getGender();
         return translationsGenders_.getVal(gender_);
     }
-    public String getAbilityFishing(Long _index) {
+    public String getAbilityFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-    public String clickAbilityFishing(Long _index) {
+    public String clickAbilityFishing(int _index) {
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String ability_ = pk_.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-    public String getItemFishing(Long _index) {
+    public String getItemFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-    public String clickItemFishing(Long _index) {
+    public String clickItemFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         String item_ = pk_.getItem();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -272,24 +272,24 @@ public class AreaBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMoveFishing(Long _index, Long _moveIndex) {
+    public String getMoveFishing(int _index, int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevelFishing(_index).get(_moveIndex.intValue());
+        String move_ = getMovesAtLevelFishing(_index).get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMoveFishing(Long _index, Long _moveIndex) {
-        String move_ = getMovesAtLevelFishing(_index).get(_moveIndex.intValue());
+    public String clickMoveFishing(int _index, int _moveIndex) {
+        String move_ = getMovesAtLevelFishing(_index).get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public StringList getMovesAtLevelFishing(Long _index) {
+    public StringList getMovesAtLevelFishing(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Pokemon pk_;
-        pk_ = area.getPokemonFishing(_index.intValue());
+        pk_ = area.getPokemonFishing(_index);
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesAtLevel(pk_.getLevel(), data_.getNbMaxMoves());
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;

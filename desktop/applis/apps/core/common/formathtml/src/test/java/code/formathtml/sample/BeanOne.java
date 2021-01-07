@@ -106,8 +106,8 @@ public class BeanOne extends Bean {
         composite = _composite;
     }
 
-    public String invokeMethod(Long _index) {
-        composite.getStrings().add(_index.toString());
+    public String invokeMethod(int _index) {
+        composite.getStrings().add(_index+"");
         return "returned value";
     }
 

@@ -29,11 +29,11 @@ public class SellerBean extends CommonBean {
     public void beforeDisplaying() {
         seller = (Seller) getForms().getVal(SELLER);
     }
-    public String getItem(Long _index) {
+    public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = getItems().get(_index.intValue());
+        String item_ = getItems().get(_index);
         return translationsItems_.getVal(item_);
     }
     public StringList getItems() {
@@ -44,9 +44,9 @@ public class SellerBean extends CommonBean {
         items_.sortElts(new ComparatorTrStrings(translationsItems_));
         return items_;
     }
-    public String clickItem(Long _index) {
+    public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String item_ = getItems().get(_index.intValue());
+        String item_ = getItems().get(_index);
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
@@ -93,11 +93,11 @@ public class SellerBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getTm(Long _index) {
+    public String getTm(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getAllTm().get(_index.intValue());
+        String move_ = getAllTm().get(_index);
         return translationsMoves_.getVal(move_);
     }
     public StringList getAllTm() {
@@ -111,8 +111,8 @@ public class SellerBean extends CommonBean {
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;
     }
-    public String clickTm(Long _index) {
-        String move_ = getAllTm().get(_index.intValue());
+    public String clickTm(int _index) {
+        String move_ = getAllTm().get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }

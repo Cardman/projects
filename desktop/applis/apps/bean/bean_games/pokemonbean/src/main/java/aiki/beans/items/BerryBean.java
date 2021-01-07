@@ -85,39 +85,39 @@ public class BerryBean extends ItemBean {
     public boolean isHealingPp() {
         return healPp > 0;
     }
-    public String getTrMultFoesDamage(Long _index) {
+    public String getTrMultFoesDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String type_ = multFoesDamage.getKey(_index.intValue());
+        String type_ = multFoesDamage.getKey(_index);
         return translatedTypes_.getVal(type_);
     }
-    public String getTrMultStat(Long _index) {
+    public String getTrMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic type_ = multStat.getKey(_index.intValue());
+        Statistic type_ = multStat.getKey(_index);
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrBoostStat(Long _index) {
+    public String getTrBoostStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic type_ = boostStatis.getKey(_index.intValue());
+        Statistic type_ = boostStatis.getKey(_index);
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrStatus(Long _index) {
+    public String getTrStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String status_ = healStatus.get(_index.intValue());
+        String status_ = healStatus.get(_index);
         return translatedStatus_.getVal(status_);
     }
-    public String clickStatus(Long _index) {
-        String status_ = healStatus.get(_index.intValue());
+    public String clickStatus(int _index) {
+        String status_ = healStatus.get(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrCategRecoil(Long _index) {
+    public String getTrCategRecoil(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        String status_ = damageRateRecoilFoe.getKey(_index.intValue());
+        String status_ = damageRateRecoilFoe.getKey(_index);
         return translatedCategories_.getVal(status_);
     }
 

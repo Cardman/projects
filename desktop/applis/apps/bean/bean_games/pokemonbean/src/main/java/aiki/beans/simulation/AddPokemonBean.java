@@ -170,15 +170,15 @@ public class AddPokemonBean extends CommonBean {
             getForms().put(PK_NAME,pokedex_.first());
         }
     }
-    public String getMiniImage(Long _number) {
-        String name_ = pokedex.get(_number.intValue()).getName();
+    public String getMiniImage(int _number) {
+        String name_ = pokedex.get(_number).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
-    public void clickLink(Long _number) {
-        getForms().put(PK_NAME,pokedex.get(_number.intValue()).getName());
+    public void clickLink(int _number) {
+        getForms().put(PK_NAME,pokedex.get(_number).getName());
     }
 
     public String getNamePk() {

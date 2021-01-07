@@ -40,16 +40,16 @@ public class FightBean extends CommonFightBean {
         }
         stillEnabledMoves = stillEnabledMoves_;
     }
-    public boolean isStillEnabled(Long _index) {
-        String key_ = enabledMoves.getKey(_index.intValue());
+    public boolean isStillEnabled(int _index) {
+        String key_ = enabledMoves.getKey(_index);
         return stillEnabledMoves.contains(key_);
     }
     public String clickPlayer() {
-        getForms().put(NO_TEAM, Fight.PLAYER);
+        getForms().put(NO_TEAM, (int)Fight.PLAYER);
         return TEAM;
     }
     public String clickFoe() {
-        getForms().put(NO_TEAM, Fight.FOE);
+        getForms().put(NO_TEAM, (int)Fight.FOE);
         return TEAM;
     }
 

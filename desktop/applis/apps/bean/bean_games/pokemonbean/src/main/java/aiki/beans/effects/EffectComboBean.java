@@ -15,7 +15,7 @@ import code.util.TreeMap;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
-    private long index;
+    private int index;
     private StringList moves;
 
     private EffectCombo effect;
@@ -32,10 +32,10 @@ public class EffectComboBean extends CommonBean {
     public void beforeDisplaying() {
         DataBase data_ = (DataBase) getDataBase();
         moves = new StringList();
-        for (String m: combos.getKey((int) index)) {
+        for (String m: combos.getKey(index)) {
             moves.add(data_.translateMove(m));
         }
-        effect = combos.getValue((int) index);
+        effect = combos.getValue(index);
         if (!effect.getEffectEndRound().isEmpty()) {
             endRound = true;
             EffectEndRound effect_ = effect.getEffectEndRound().first();
@@ -67,16 +67,16 @@ public class EffectComboBean extends CommonBean {
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }
-    public String getTrStatistic(Long _index) {
+    public String getTrStatistic(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic stat_ = multStatisticFoe.getKey(_index.intValue());
+        Statistic stat_ = multStatisticFoe.getKey(_index);
         return translatedStatistics_.getVal(stat_);
     }
-    public String clickMove(Long _indexOne, Long _indexTwo) {
-        StringList moves_ = combos.getKey(_indexOne.intValue());
-        getForms().put(MOVE, moves_.get(_indexTwo.intValue()));
+    public String clickMove(int _indexOne, int _indexTwo) {
+        StringList moves_ = combos.getKey(_indexOne);
+        getForms().put(MOVE, moves_.get(_indexTwo));
         return MOVE;
     }
 
@@ -84,11 +84,11 @@ public class EffectComboBean extends CommonBean {
         return moves;
     }
 
-    public long getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(long _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 

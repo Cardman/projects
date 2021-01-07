@@ -37,25 +37,25 @@ public class BoostBean extends ItemBean {
         }
         evs = evs_;
     }
-    public boolean isBall(Long _index) {
-        String item_ = happiness.getKey(_index.intValue());
+    public boolean isBall(int _index) {
+        String item_ = happiness.getKey(_index);
         return !item_.isEmpty();
     }
-    public String getTrHappiness(Long _index) {
+    public String getTrHappiness(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String item_ = happiness.getKey(_index.intValue());
+        String item_ = happiness.getKey(_index);
         return translatedItems_.getVal(item_);
     }
-    public String clickHappiness(Long _index) {
-        String item_ = happiness.getKey(_index.intValue());
+    public String clickHappiness(int _index) {
+        String item_ = happiness.getKey(_index);
         getForms().put(ITEM, item_);
         return BALL;
     }
-    public String getTrEv(Long _index) {
+    public String getTrEv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic statistic_ = evs.getKey(_index.intValue());
+        Statistic statistic_ = evs.getKey(_index);
         return translatedStatistics_.getVal(statistic_);
     }
 

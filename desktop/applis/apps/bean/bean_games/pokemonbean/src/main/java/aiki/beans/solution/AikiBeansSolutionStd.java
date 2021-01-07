@@ -41,7 +41,7 @@ public final class AikiBeansSolutionStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add(method_);
         _std.getStandards().addEntry(TYPE_SOLUTION_BEAN, type_);
@@ -62,7 +62,7 @@ public final class AikiBeansSolutionStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(new StringStruct(instance_.getPlace((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getPlace((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         return res_;

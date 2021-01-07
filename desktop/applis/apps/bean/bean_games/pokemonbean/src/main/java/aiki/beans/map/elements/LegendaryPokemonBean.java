@@ -127,15 +127,15 @@ public class LegendaryPokemonBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMove(Long _moveIndex) {
+    public String getMove(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevel().get(_moveIndex.intValue());
+        String move_ = getMovesAtLevel().get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(Long _moveIndex) {
-        String move_ = getMovesAtLevel().get(_moveIndex.intValue());
+    public String clickMove(int _moveIndex) {
+        String move_ = getMovesAtLevel().get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }

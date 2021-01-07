@@ -177,7 +177,7 @@ public final class AikiBeansFightStd {
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_STILL_ENABLED,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHT_BEAN, type_);
@@ -198,40 +198,40 @@ public final class AikiBeansFightStd {
         fields_.add(new StandardField(DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(ALLY_CHOICE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(FOE_CHOICES, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FIGHTER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FIGHTER_WILD_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_TARGET_CHOICE_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_BACK_TARGET_CHOICE_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TARGET_NAME_ALLY_CHOICE_CONDITION,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_TARGET_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_BACK_TARGET_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TARGET_NAME_ALLY_CHOICE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FOE_FIGHTER_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_CHOSEN_TARGET,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_TARGET_CH_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TARGET_NAME_FOE_CHOICE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHT_CALCULATION_BEAN, type_);
@@ -312,37 +312,37 @@ public final class AikiBeansFightStd {
         params_ = new StringList();
         method_ = new StandardMethod(IS_BACK,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_STATUS_RELAT_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_STATUS_RELAT_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_ENABLED,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_PRIVATE_MOVES_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_INCR_PRIVATE_MOVES_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_TRAPPING_MOVES_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_INCR_TRAPPING_MOVES_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_TRACKING_MOVES_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_INCR_TRACKING_MOVES_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_INCR_USER_ACCURACY_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_INCR_USER_ACCURACY_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_FIGHTER_BEAN, type_);
@@ -369,25 +369,25 @@ public final class AikiBeansFightStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_MEMBERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_FIGHTER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOE_MOVES_ANTICIPATION_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_BACK_MOVES_ANTICIPATION_TEAM,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PLAYER_FIGTHER_AGAINST_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FOE_FIGTHER_AGAINST_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_TEAM_BEAN, type_);
@@ -741,7 +741,7 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STILL_ENABLED)) {
-            res_.setResult(BooleanStruct.of(instance_.isStillEnabled((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStillEnabled((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -751,51 +751,51 @@ public final class AikiBeansFightStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_FIGHTER)) {
-            res_.setResult(new StringStruct(instance_.getFighter((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFighter((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FIGHTER_WILD_FIGHT)) {
-            res_.setResult(new StringStruct(instance_.getFighterWildFight((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getFighterWildFight((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CHOICE_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChoiceTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_CHOICE_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetChoiceTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE_CONDITION)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoiceCondition((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoiceCondition((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_TARGET_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isBackTargetTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_ALLY_CHOICE)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoice((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameAllyChoice((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FOE_FIGHTER_NAME)) {
-            res_.setResult(new StringStruct(instance_.getFoeFighterName((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFoeFighterName((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_CHOSEN_TARGET)) {
-            res_.setResult(BooleanStruct.of(instance_.isChosenTarget((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChosenTarget((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TARGET_CH_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTargetChTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TARGET_NAME_FOE_CHOICE)) {
-            res_.setResult(new StringStruct(instance_.getTargetNameFoeChoice((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTargetNameFoeChoice((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -813,47 +813,47 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_STATUS_RELAT_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeStatusRelatTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_STATUS_RELAT_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getStatusRelatTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getStatusRelatTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(BooleanStruct.of(instance_.isEnabled((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isEnabled((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_PRIVATE_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoePrivateMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_PRIVATE_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrPrivateMovesTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrPrivateMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TRAPPING_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrappingMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_TRAPPING_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrTrappingMovesTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrTrappingMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_TRACKING_MOVES_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeTrackingMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_TRACKING_MOVES_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrTrackingMovesTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrTrackingMovesTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_INCR_USER_ACCURACY_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeIncrUserAccuracyTeam((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_INCR_USER_ACCURACY_TEAM)) {
-            res_.setResult(new StringStruct(instance_.getIncrUserAccuracyTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getIncrUserAccuracyTeam((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -868,31 +868,31 @@ public final class AikiBeansFightStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FIGHTER)) {
-            res_.setResult(new StringStruct(instance_.clickFighter((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickFighter((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_LINK)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonLink((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonLink((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KEY)) {
-            res_.setResult(new StringStruct(instance_.getKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOE_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isFoeMovesAnticipationTeam((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_BACK_MOVES_ANTICIPATION_TEAM)) {
-            res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isBackMovesAnticipationTeam((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PLAYER_FIGTHER_AGAINST_FOE)) {
-            res_.setResult(new StringStruct(instance_.getPlayerFigtherAgainstFoe((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPlayerFigtherAgainstFoe((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FOE_FIGTHER_AGAINST_FOE)) {
-            res_.setResult(new StringStruct(instance_.getFoeFigtherAgainstFoe((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getFoeFigtherAgainstFoe((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         return res_;

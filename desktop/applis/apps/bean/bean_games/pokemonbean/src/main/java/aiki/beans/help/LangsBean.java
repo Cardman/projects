@@ -148,108 +148,108 @@ public class LangsBean extends CommonBean {
             }
         }
     }
-    public String getTrLang(Long _index) {
-        String lang_ = languages.get(_index.intValue());
+    public String getTrLang(int _index) {
+        String lang_ = languages.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         return data_.getDisplayLanguages().getVal(lang_);
     }
     public StringList getKeysCategories() {
         return getStringKeys(translatedCategories);
     }
-    public StringList getRowCategory(Long _index) {
-//        return getRowByKey(translatedCategories, getKeys(translatedCategories).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedCategories, _index.intValue());
+    public StringList getRowCategory(int _index) {
+//        return getRowByKey(translatedCategories, getKeys(translatedCategories).get(_index));
+        return getRowByStringKey(languages, translatedCategories, _index);
     }
     public StringList getKeysEnvironments() {
         return getStringKeys(translatedEnvironment);
     }
-    public StringList getRowEnvironment(Long _index) {
-//        return getRowByKey(translatedEnvironment, getKeys(translatedEnvironment).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedEnvironment, _index.intValue());
+    public StringList getRowEnvironment(int _index) {
+//        return getRowByKey(translatedEnvironment, getKeys(translatedEnvironment).get(_index));
+        return getRowByStringKey(languages, translatedEnvironment, _index);
     }
     public StringList getKeysBooleans() {
         return getStringKeys(translatedBooleans);
     }
-    public StringList getRowBoolean(Long _index) {
-//        return getRowByKey(translatedBooleans, getKeys(translatedBooleans).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedBooleans, _index.intValue());
+    public StringList getRowBoolean(int _index) {
+//        return getRowByKey(translatedBooleans, getKeys(translatedBooleans).get(_index));
+        return getRowByStringKey(languages, translatedBooleans, _index);
     }
     public StringList getKeysGenders() {
         return getStringKeys(translatedGenders);
     }
-    public StringList getRowGender(Long _index) {
-//        return getRowByKey(translatedGenders, getKeys(translatedGenders).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedGenders, _index.intValue());
+    public StringList getRowGender(int _index) {
+//        return getRowByKey(translatedGenders, getKeys(translatedGenders).get(_index));
+        return getRowByStringKey(languages, translatedGenders, _index);
     }
     public StringList getKeysStatistics() {
         return getStringKeys(translatedStatistics);
     }
-    public StringList getRowStatistic(Long _index) {
-//        return getRowByKey(translatedStatistics, getKeys(translatedStatistics).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedStatistics, _index.intValue());
+    public StringList getRowStatistic(int _index) {
+//        return getRowByKey(translatedStatistics, getKeys(translatedStatistics).get(_index));
+        return getRowByStringKey(languages, translatedStatistics, _index);
     }
     public StringList getKeysTargets() {
         return getStringKeys(translatedTargets);
     }
-    public StringList getRowTarget(Long _index) {
-//        return getRowByKey(translatedTargets, getKeys(translatedTargets).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedTargets, _index.intValue());
+    public StringList getRowTarget(int _index) {
+//        return getRowByKey(translatedTargets, getKeys(translatedTargets).get(_index));
+        return getRowByStringKey(languages, translatedTargets, _index);
     }
     public StringList getKeysTypes() {
         return getStringKeys(translatedTypes);
     }
-    public StringList getRowType(Long _index) {
-//        return getRowByKey(translatedTypes, getKeys(translatedTypes).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedTypes, _index.intValue());
+    public StringList getRowType(int _index) {
+//        return getRowByKey(translatedTypes, getKeys(translatedTypes).get(_index));
+        return getRowByStringKey(languages, translatedTypes, _index);
     }
     public StringList getKeysPokemon() {
         return getStringKeys(translatedPokemon);
     }
-    public StringList getRowPokemon(Long _index) {
-//        return getRowByKey(translatedPokemon, getKeys(translatedPokemon).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedPokemon, _index.intValue());
+    public StringList getRowPokemon(int _index) {
+//        return getRowByKey(translatedPokemon, getKeys(translatedPokemon).get(_index));
+        return getRowByStringKey(languages, translatedPokemon, _index);
     }
     public StringList getKeysMoves() {
         return getStringKeys(translatedMoves);
     }
-    public StringList getRowMove(Long _index) {
-//        return getRowByKey(translatedMoves, getKeys(translatedMoves).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedMoves, _index.intValue());
+    public StringList getRowMove(int _index) {
+//        return getRowByKey(translatedMoves, getKeys(translatedMoves).get(_index));
+        return getRowByStringKey(languages, translatedMoves, _index);
     }
     public StringList getKeysItems() {
         return getStringKeys(translatedItems);
     }
-    public StringList getRowItem(Long _index) {
-//        return getRowByKey(translatedItems, getKeys(translatedItems).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedItems, _index.intValue());
+    public StringList getRowItem(int _index) {
+//        return getRowByKey(translatedItems, getKeys(translatedItems).get(_index));
+        return getRowByStringKey(languages, translatedItems, _index);
     }
     public StringList getKeysAbilities() {
         return getStringKeys(translatedAbilities);
     }
-    public StringList getRowAbility(Long _index) {
-//        return getRowByKey(translatedAbilities, getKeys(translatedAbilities).get(_index.intValue()));
-        return getRowByStringKey(languages,translatedAbilities, _index.intValue());
+    public StringList getRowAbility(int _index) {
+//        return getRowByKey(translatedAbilities, getKeys(translatedAbilities).get(_index));
+        return getRowByStringKey(languages,translatedAbilities, _index);
     }
     public StringList getKeysStatus() {
         return getStringKeys(translatedStatus);
     }
-    public StringList getRowStatus(Long _index) {
-//        return getRowByKey(translatedStatus, getKeys(translatedStatus).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedStatus, _index.intValue());
+    public StringList getRowStatus(int _index) {
+//        return getRowByKey(translatedStatus, getKeys(translatedStatus).get(_index));
+        return getRowByStringKey(languages, translatedStatus, _index);
     }
     public StringList getKeysDesc() {
         return getStringKeys(translatedClassesDescriptions);
     }
-    public StringList getRowDesc(Long _index) {
-//        return getRowByKey(translatedClassesDescriptions, getKeys(translatedClassesDescriptions).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedClassesDescriptions, _index.intValue());
+    public StringList getRowDesc(int _index) {
+//        return getRowByKey(translatedClassesDescriptions, getKeys(translatedClassesDescriptions).get(_index));
+        return getRowByStringKey(languages, translatedClassesDescriptions, _index);
     }
     public StringList getKeysMath() {
         return getStringKeys(translatedFctMath);
     }
-    public StringList getRowMath(Long _index) {
-//        return getRowByKey(translatedFctMath, getKeys(translatedFctMath).get(_index.intValue()));
-        return getRowByStringKey(languages, translatedFctMath, _index.intValue());
+    public StringList getRowMath(int _index) {
+//        return getRowByKey(translatedFctMath, getKeys(translatedFctMath).get(_index));
+        return getRowByStringKey(languages, translatedFctMath, _index);
     }
 
 //    private static <E> E getKey(StringList _languages,TreeMap<Pair<String,E>,String> _treeMap, int _index) {

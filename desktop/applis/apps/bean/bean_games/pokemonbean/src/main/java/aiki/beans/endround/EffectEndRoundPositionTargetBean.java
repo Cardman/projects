@@ -36,14 +36,14 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         return movesSameCategory;
     }
 
-    public String getTrTargetRelationMove(Long _index) {
+    public String getTrTargetRelationMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesSameCategory.get(_index.intValue()));
+        return translatedMoves_.getVal(movesSameCategory.get(_index));
     }
 
-    public String clickTargetRelationMove(Long _index) {
+    public String clickTargetRelationMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -59,7 +59,7 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         }
         moves_.removeDuplicates();
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        getForms().put(MOVE, moves_.get(_index.intValue()));
+        getForms().put(MOVE, moves_.get(_index));
         return MOVE;
     }
 }

@@ -17,7 +17,7 @@ public class EffectEndRoundBean extends CommonBean {
     static final String END_ROUND_HTML="web/html/endround/eff.html";
 
     private EffectEndRound effect;
-    private long index;
+    private int index;
 
     private EndRoundMainElements element;
     private String move;
@@ -32,7 +32,7 @@ public class EffectEndRoundBean extends CommonBean {
     @Override
     public void beforeDisplaying() {
         DataBase data_ = (DataBase) getDataBase();
-        element = data_.getEvtEndRound().get((int) index);
+        element = data_.getEvtEndRound().get(index);
         move = DataBase.EMPTY_STRING;
         ability = DataBase.EMPTY_STRING;
         status = DataBase.EMPTY_STRING;
@@ -88,10 +88,10 @@ public class EffectEndRoundBean extends CommonBean {
         return element;
     }
 
-    protected EffectEndRound getEffect(Long _index) {
+    protected EffectEndRound getEffect(int _index) {
         EffectEndRound effect_ = null;
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         if (element_.getEndRoundType() == EndTurnType.ATTAQUE) {
             String move_ = element_.getElement();
             for (Effect e: data_.getMove(move_).getEffects()) {
@@ -120,46 +120,46 @@ public class EffectEndRoundBean extends CommonBean {
         }
         return effect_;
     }
-    public String clickMoves(Long _indexOne, Long _indexTwo) {
+    public String clickMoves(int _indexOne, int _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne);
         StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        getForms().put(MOVE, moves_.get(_indexTwo.intValue()));
+        getForms().put(MOVE, moves_.get(_indexTwo));
         return MOVE;
     }
-    public String getTrMoves(Long _indexTwo) {
+    public String getTrMoves(int _indexTwo) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get((int) index);
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(index);
         StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        return translatedMoves_.getVal(moves_.get(_indexTwo.intValue()));
+        return translatedMoves_.getVal(moves_.get(_indexTwo));
     }
-    public String clickMove(Long _index) {
+    public String clickMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(MOVE, element_.getElement());
         return MOVE;
     }
-    public String clickAbility(Long _index) {
+    public String clickAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(ABILITY, element_.getElement());
         return ABILITY;
     }
-    public String clickItem(Long _index) {
+    public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(ITEM, element_.getElement());
         return ITEM;
     }
-    public String clickStatus(Long _index) {
+    public String clickStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index.intValue());
+        EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
         getForms().put(STATUS, element_.getElement());
         return STATUS;
     }
@@ -168,11 +168,11 @@ public class EffectEndRoundBean extends CommonBean {
         return move;
     }
 
-    public long getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(long _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 

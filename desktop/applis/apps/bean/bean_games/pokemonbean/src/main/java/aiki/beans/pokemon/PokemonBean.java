@@ -114,7 +114,7 @@ public class PokemonBean extends CommonBean {
         name = (String) getForms().getVal(PK);
         int nbPlaces_ = places.size();
         for (short i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
-            if (isAppearingPlace((long) i)) {
+            if (isAppearingPlace(i)) {
                 placesAppears.add(i);
             }
         }
@@ -211,9 +211,9 @@ public class PokemonBean extends CommonBean {
         eggGroupsPk.removeDuplicates();
         hatchingSteps = pk_.getHatchingSteps();
     }
-    public String getMiniMapImage(Long _index) {
-        int[][] image_ = images.getValue(_index.intValue());
-        MiniMapCoords key_ = images.getKey(_index.intValue());
+    public String getMiniMapImage(int _index) {
+        int[][] image_ = images.getValue(_index);
+        MiniMapCoords key_ = images.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         short pl_ = data_.getMap().getMiniMap().getVal(key_).getPlace();
         boolean appear_ = false;
@@ -230,8 +230,8 @@ public class PokemonBean extends CommonBean {
         }
         return BaseSixtyFourUtil.getStringByImage(image_);
     }
-    public String getPlaceName(Long _index) {
-        return namesPlaces.getValue(_index.intValue());
+    public String getPlaceName(int _index) {
+        return namesPlaces.getValue(_index);
     }
     public int getMapWidth() {
         int w_ = 0;
@@ -240,11 +240,11 @@ public class PokemonBean extends CommonBean {
         }
         return w_;
     }
-    public boolean isFirstRow(Long _index) {
-        if (_index.intValue() == 0) {
+    public boolean isFirstRow(int _index) {
+        if (_index == 0) {
             return false;
         }
-        MiniMapCoords key_ = images.getKey(_index.intValue());
+        MiniMapCoords key_ = images.getKey(_index);
         return key_.getXcoords() == IndexConstants.FIRST_INDEX;
     }
     public String roundWeight() {
@@ -259,7 +259,7 @@ public class PokemonBean extends CommonBean {
         }
         return POKEMON_SET;
     }
-    public String getPage(Long _index) {
+    public String getPage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         Evolution evo_ = pk_.getEvolutions().getVal(getEvo(_index));
@@ -290,15 +290,15 @@ public class PokemonBean extends CommonBean {
         return PAGE_TEAM;
     }
 
-    private String getEvo(Long _index) {
-        return evolutions.get(_index.intValue());
+    private String getEvo(int _index) {
+        return evolutions.get(_index);
     }
-    public String getTrAbility(Long _index) {
+    public String getTrAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        return data_.translateAbility(abilities.get(_index.intValue()));
+        return data_.translateAbility(abilities.get(_index));
     }
-    public String clickAbility(Long _index) {
-        getForms().put(ABILITY,abilities.get(_index.intValue()));
+    public String clickAbility(int _index) {
+        getForms().put(ABILITY,abilities.get(_index));
         return ABILITY;
     }
     public String clickBase() {
@@ -307,92 +307,92 @@ public class PokemonBean extends CommonBean {
         getForms().put(PK,pk_.getBaseEvo());
         return POKEMON;
     }
-    public short getBase(Long _index) {
+    public short getBase(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        Statistic stat_ = statisticsEnum.get(_index.intValue());
+        Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getBase();
     }
-    public short getEv(Long _index) {
+    public short getEv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        Statistic stat_ = statisticsEnum.get(_index.intValue());
+        Statistic stat_ = statisticsEnum.get(_index);
         StatBaseEv statEv_ = pk_.getStatistics().getVal(stat_);
         return statEv_.getEv();
     }
-    public String clickMove(Long _index) {
+    public String clickMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        String move_ = pk_.getLevMoves().get(_index.intValue()).getMove();
+        String move_ = pk_.getLevMoves().get(_index).getMove();
         getForms().put(MOVE,move_);
         return MOVE;
     }
-    public String clickTechnicalMove(Long _index) {
+    public String clickTechnicalMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String move_ = data_.getTm().getVal(technicalMoves.getKey(_index.intValue()));
+        String move_ = data_.getTm().getVal(technicalMoves.getKey(_index));
         getForms().put(MOVE,move_);
         return MOVE;
     }
-    public String clickHiddenMove(Long _index) {
+    public String clickHiddenMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index.intValue()));
+        String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index));
         getForms().put(MOVE,move_);
         return MOVE;
     }
-    public String getMoveTutor(Long _index) {
+    public String getMoveTutor(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translationsMoves_.getVal(moveTutors.get(_index.intValue()));
+        return translationsMoves_.getVal(moveTutors.get(_index));
     }
-    public String clickMoveTutors(Long _index) {
-        String move_ = moveTutors.get(_index.intValue());
+    public String clickMoveTutors(int _index) {
+        String move_ = moveTutors.get(_index);
         getForms().put(MOVE,move_);
         return MOVE;
     }
-    public String getEggPk(Long _index) {
+    public String getEggPk(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translationsPokemon_.getVal(eggGroupsPk.get(_index.intValue()));
+        return translationsPokemon_.getVal(eggGroupsPk.get(_index));
     }
-    public String clickEggPk(Long _index) {
-        String pk_ = eggGroupsPk.get(_index.intValue());
+    public String clickEggPk(int _index) {
+        String pk_ = eggGroupsPk.get(_index);
         getForms().put(PK,pk_);
         return POKEMON;
     }
     public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbPlaces_; i++) {
-            int nbLayers_ = layers((long)i).size();
+            int nbLayers_ = layers(i).size();
             for (int j = IndexConstants.FIRST_INDEX; j < nbLayers_; j++) {
-                if (isAppearing((long)i,(long) j)) {
+                if (isAppearing(i, j)) {
                     return true;
                 }
             }
         }
         return false;
     }
-    public boolean isMultiLayer(Long _index) {
+    public boolean isMultiLayer(int _index) {
         return layers(_index).size() > IndexConstants.SECOND_INDEX;
     }
-    public CustList<Level> layers(Long _index) {
-        Place pl_ = places.get(_index.intValue()).getPlace();
+    public CustList<Level> layers(int _index) {
+        Place pl_ = places.get(_index).getPlace();
         return pl_.getLevelsList();
     }
-    public boolean isAppearingPlace(Long _index) {
+    public boolean isAppearingPlace(int _index) {
         int nbLayers_ = layers(_index).size();
         for (int j = IndexConstants.FIRST_INDEX; j < nbLayers_; j++) {
-            if (isAppearing(_index,(long) j)) {
+            if (isAppearing(_index,j)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean isAppearing(Long _indexOne, Long _indexTwo) {
-        Place pl_ = places.get(_indexOne.intValue()).getPlace();
-        Level level_ = pl_.getLevelsMap().getVal(_indexTwo.byteValue());
+    public boolean isAppearing(int _indexOne, int _indexTwo) {
+        Place pl_ = places.get(_indexOne).getPlace();
+        Level level_ = pl_.getLevelsMap().getVal((byte) _indexTwo);
         if (!(level_ instanceof LevelWithWildPokemon)) {
             return false;
         }
@@ -416,10 +416,10 @@ public class PokemonBean extends CommonBean {
         }
         return false;
     }
-    public String clickLevel(Long _indexOne, Long _indexTwo) {
+    public String clickLevel(int _indexOne, int _indexTwo) {
         getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo.byteValue());
-        getForms().put(PLACE_MAP_INDEX, _indexOne.shortValue());
+        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(PLACE_MAP_INDEX, _indexOne);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);

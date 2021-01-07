@@ -23,13 +23,13 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         }
         damageByStatus = damageByStatus_;
     }
-    public String getTrDamageStatus(Long _index) {
+    public String getTrDamageStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(damageByStatus.getKey(_index.intValue()));
+        return translatedStatus_.getVal(damageByStatus.getKey(_index));
     }
-    public String clickDamageStatus(Long _indexOne,Long _indexTwo) {
+    public String clickDamageStatus(int _indexOne,int _indexTwo) {
         EffectEndRoundMultiRelation effect_ = (EffectEndRoundMultiRelation) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
@@ -39,7 +39,7 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         for (String s: effect_.getDamageByStatus().getKeys()) {
             multDamageStatus_.put(s, effect_.getDamageByStatus().getVal(s));
         }
-        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo.intValue()));
+        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo));
         return STATUS;
     }
 

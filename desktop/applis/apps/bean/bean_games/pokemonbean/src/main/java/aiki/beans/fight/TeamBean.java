@@ -32,9 +32,9 @@ public class TeamBean extends CommonFightBean {
     public void beforeDisplaying() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
         foeTeam = noTeam_ == Fight.FOE;
-        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
+        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_);
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         NatStringTreeMap<ActivityOfMove> enabledMoves_;
@@ -130,19 +130,19 @@ public class TeamBean extends CommonFightBean {
     }
     public Bytes getMembers() {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
+        Integer noTeam_ = (Integer) getForms().getVal(NO_TEAM);
         return getMembers(dataBaseFight_, noTeam_);
     }
-    public String getTrPokemonLink(Long _index) {
-        byte index_ = getMembers().get(_index.intValue());
+    public String getTrPokemonLink(int _index) {
+        byte index_ = getMembers().get(_index);
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
-        Byte noTeam_ = (Byte) getForms().getVal(NO_TEAM);
-        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal(noTeam_);
+        int noTeam_ = (Integer) getForms().getVal(NO_TEAM);
+        Team team_ = dataBaseFight_.getGame().getFight().getTeams().getVal((byte) noTeam_);
         Fighter fighter_ = team_.getMembers().getVal(index_);
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _index.intValue()) {
+        while (i_ < _index) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
@@ -156,36 +156,36 @@ public class TeamBean extends CommonFightBean {
         }
         return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
-    public String clickFighter(Long _index) {
+    public String clickFighter(int _index) {
         getForms().put(NO_FIGHTER, _index);
         return FIGHTER;
     }
-    public String getKey(Long _index) {
-        return StringUtil.join(enabledMovesByGroup.getKey(_index.intValue()), MOVES_SEPARATOR);
+    public String getKey(int _index) {
+        return StringUtil.join(enabledMovesByGroup.getKey(_index), MOVES_SEPARATOR);
     }
-    public boolean isFoeMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
-        return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getTeam() == Fight.FOE;
+    public boolean isFoeMovesAnticipationTeam(int _indexOne,int _indexTwo) {
+        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getTeam() == Fight.FOE;
     }
-    public boolean isBackMovesAnticipationTeam(Long _indexOne,Long _indexTwo) {
-        return movesAnticipation.getValue(_indexOne.intValue()).getValue(_indexTwo.intValue()).getTargetPosition().getPosition() == Fighter.BACK;
+    public boolean isBackMovesAnticipationTeam(int _indexOne,int _indexTwo) {
+        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getPosition() == Fighter.BACK;
     }
-    public String getPlayerFigtherAgainstFoe(Long _index) {
-        byte key_ = playerFightersAgainstFoe.getKey(_index.intValue());
+    public String getPlayerFigtherAgainstFoe(int _index) {
+        byte key_ = playerFightersAgainstFoe.getKey(_index);
         return getDisplayName(key_, _index);
     }
-    public String getFoeFigtherAgainstFoe(Long _indexOne, Long _indexTwo) {
-        byte key_ = playerFightersAgainstFoe.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getFoeFigtherAgainstFoe(int _indexOne, int _indexTwo) {
+        byte key_ = playerFightersAgainstFoe.getValue(_indexOne).get(_indexTwo);
         return getDisplayFoeName(key_, _indexTwo);
     }
 
-    private String getDisplayName(byte _indexOne, Long _index) {
+    private String getDisplayName(byte _indexOne, int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getUserTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _index.intValue()) {
+        while (i_ < _index) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_
@@ -200,14 +200,14 @@ public class TeamBean extends CommonFightBean {
         return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
-    private String getDisplayFoeName(byte _indexOne, Long _index) {
+    private String getDisplayFoeName(byte _indexOne, int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         DataBase data_ = dataBaseFight_.getData();
         Team team_ = dataBaseFight_.getGame().getFight().getFoeTeam();
         Fighter fighter_ = team_.getMembers().getVal(_indexOne);
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < _index.intValue()) {
+        while (i_ < _index) {
             byte iTmp_ = getMembers().get(i_);
             Fighter current_ = team_.getMembers().getVal(iTmp_);
             //fighter_ != current_

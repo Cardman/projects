@@ -22,8 +22,8 @@ public class EffectMultSufferedMovePowerBean extends EffectBean {
         }
         multMovePowerFctType = multMovePowerFctType_;
     }
-    public String getTrType(Long _index) {
-        String type_ = multMovePowerFctType.getKey(_index.intValue());
+    public String getTrType(int _index) {
+        String type_ = multMovePowerFctType.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);

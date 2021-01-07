@@ -92,16 +92,16 @@ public class EffectCounterAttackBean extends EffectBean {
     public NatStringTreeMap< String> getMapVarsFailCounter() {
         return mapVarsFailCounter;
     }
-    public String getTrSufferingDamageTypes(Long _index) {
+    public String getTrSufferingDamageTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = sufferingDamageTypes.getKey(_index.intValue());
+        String st_ = sufferingDamageTypes.getKey(_index);
         return translatedTypes_.getVal(st_);
     }
-    public String getTrDroppedStatDirectMove(Long _index) {
+    public String getTrDroppedStatDirectMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        Statistic st_ = droppedStatDirectMove.getKey(_index.intValue());
+        Statistic st_ = droppedStatDirectMove.getKey(_index);
         return translatedStatistics_.getVal(st_);
     }
 

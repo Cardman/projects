@@ -117,10 +117,10 @@ public final class AikiBeansPokemonStd {
         params_ = new StringList();
         method_ = new StandardMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MINI_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEDEX_BEAN, type_);
@@ -169,73 +169,73 @@ public final class AikiBeansPokemonStd {
         params_ = new StringList();
         method_ = new StandardMethod(ROUND_HEIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(CLICK_BASE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_BASE,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_TECHNICAL_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_HIDDEN_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_TUTORS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVE_TUTOR,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_EGG_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_EGG_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(IS_APPEARING_ANY_WHERE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_APPEARING_PLACE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_APPEARING,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PLACE_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MINI_MAP_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEMON_BEAN, type_);
@@ -436,11 +436,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MINI_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniImage((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMiniImage((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickLink((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -463,15 +463,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPage((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_BASE)) {
@@ -479,39 +479,39 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_BASE)) {
-            res_.setResult(new IntStruct(instance_.getBase((Long)_args[0])));
+            res_.setResult(new IntStruct(instance_.getBase((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new IntStruct(instance_.getEv((Long)_args[0])));
+            res_.setResult(new IntStruct(instance_.getEv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TECHNICAL_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTechnicalMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTechnicalMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HIDDEN_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickHiddenMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHiddenMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_TUTORS)) {
-            res_.setResult(new StringStruct(instance_.clickMoveTutors((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveTutors((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE_TUTOR)) {
-            res_.setResult(new StringStruct(instance_.getMoveTutor((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMoveTutor((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.clickEggPk((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickEggPk((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.getEggPk((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getEggPk((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
@@ -519,23 +519,23 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING_PLACE)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_APPEARING)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearing((Long)_args[0],(Long)_args[1])));
+            res_.setResult(BooleanStruct.of(instance_.isAppearing((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLevel((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
@@ -543,15 +543,15 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getPlaceName((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPlaceName((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniMapImage((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMiniMapImage((Integer)_args[0])));
             return res_;
         }
         return res_;

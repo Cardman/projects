@@ -70,12 +70,12 @@ public final class AikiBeansPokemonEvolutionsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(BASE,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(DISPLAY_BASE,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_EVO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_BEAN, type_);
@@ -104,7 +104,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(ITEM,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
@@ -145,7 +145,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
@@ -174,7 +174,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_STONE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(STONE,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STONE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
@@ -203,7 +203,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(OTHER,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EVOLUTION_TEAM_BEAN, type_);
@@ -213,7 +213,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new LongStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
@@ -321,7 +321,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         EvolutionBean instance_ = (EvolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) _value);
+            instance_.setIndex((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -342,7 +342,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_EVO)) {
-            res_.setResult(new StringStruct(instance_.clickEvo((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickEvo((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -352,7 +352,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItem((Integer)_args[0])));
             return res_;
         }
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
@@ -362,7 +362,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
@@ -372,7 +372,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_STONE)) {
-            res_.setResult(new StringStruct(instance_.clickStone((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStone((Integer)_args[0])));
             return res_;
         }
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);
@@ -382,7 +382,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_TEAM)) {
-            res_.setResult(new StringStruct(instance_.clickTeam((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTeam((Integer)_args[0])));
             return res_;
         }
         return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_cont, _instance, _method, _args);

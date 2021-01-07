@@ -165,8 +165,8 @@ public class StatusBean extends CommonBean {
     public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;
     }
-    public String getTrMultStat(Long _index) {
-        Statistic type_ = multStat.getKey(_index.intValue());
+    public String getTrMultStat(int _index) {
+        Statistic type_ = multStat.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);

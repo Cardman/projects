@@ -20,7 +20,7 @@ import code.util.core.StringUtil;
 
 public class EditPokemonBean extends CommonBean {
     private String namePk = DataBase.EMPTY_STRING;
-    private short level;
+    private int level;
     private Rate experience;
     private int happiness;
     private boolean heal;
@@ -46,13 +46,13 @@ public class EditPokemonBean extends CommonBean {
             }
         }
         namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
-        level = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
+        level = (Integer) getForms().getVal(POKEMON_LEVEL_EDIT);
         experience = (Rate) getForms().getVal(POKEMON_EXPERIENCE);
-        happiness = (Short) getForms().getVal(POKEMON_HAPPINESS);
+        happiness = (Integer) getForms().getVal(POKEMON_HAPPINESS);
         item = (String) getForms().getVal(ITEM_EDIT);
         for (Statistic s: Statistic.getStatisticsWithBase()) {
             EvLine ev_ = new EvLine();
-            ev_.setEv((Short) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name())));
+            ev_.setEv((Integer) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name())));
             ev.put(s, ev_);
         }
         remainingHp = (Rate) getForms().getVal(POKEMON_HP);
@@ -115,8 +115,8 @@ public class EditPokemonBean extends CommonBean {
         getForms().put(MOVES_SET, new StringList());
         return POKEMON_EDIT;
     }
-    public String getTranslatedStatistic(Long _index) {
-        Statistic st_ = ev.getKey(_index.intValue());
+    public String getTranslatedStatistic(int _index) {
+        Statistic st_ = ev.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return tr_.getVal(st_);
@@ -161,7 +161,7 @@ public class EditPokemonBean extends CommonBean {
         return SIMULATION;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 

@@ -44,11 +44,11 @@ public class PokemonTeamBean extends CommonBean {
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
             reward = ((TrainerOneFight)trainer).getReward();
-            multiplicity = ((TrainerOneFight)trainer).getMultiplicityFight();
+            multiplicity = trainer.getMultiplicityFight();
         } else {
             list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(noFight).getTeam();
             reward = ((TrainerMultiFights)trainer).getTeamsRewards().get(noFight).getReward();
-            multiplicity = ((TrainerMultiFights)trainer).getMultiplicityFight();
+            multiplicity = trainer.getMultiplicityFight();
         }
         for (PkTrainer p: list_) {
             PkTrainer pk_;
@@ -65,29 +65,29 @@ public class PokemonTeamBean extends CommonBean {
         }
         team = team_;
     }
-    public String getName(Long _index) {
+    public String getName(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-    public String clickName(Long _noFight,Long _index) {
+    public String clickName(int _noFight,int _index) {
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
         } else {
-            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight.intValue()).getTeam();
+            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight).getTeam();
         }
         PkTrainer pk_;
-        pk_ = list_.get(_index.intValue());
+        pk_ = list_.get(_index);
         String name_ = pk_.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-    public String getImage(Long _index) {
+    public String getImage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
@@ -96,52 +96,52 @@ public class PokemonTeamBean extends CommonBean {
             list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(noFight).getTeam();
         }
         PkTrainer pk_;
-        pk_ = list_.get(_index.intValue());
+        pk_ = list_.get(_index);
         String name_ = pk_.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-    public String getAbility(Long _index) {
+    public String getAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-    public String clickAbility(Long _noFight,Long _index) {
+    public String clickAbility(int _noFight,int _index) {
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
         } else {
-            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight.intValue()).getTeam();
+            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight).getTeam();
         }
         PkTrainer pk_;
-        pk_ = list_.get(_index.intValue());
+        pk_ = list_.get(_index);
         String ability_ = pk_.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-    public String getItem(Long _index) {
+    public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-    public String clickItem(Long _noFight,Long _index) {
+    public String clickItem(int _noFight,int _index) {
         DataBase data_ = (DataBase) getDataBase();
         CustList<PkTrainer> list_;
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
         } else {
-            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight.intValue()).getTeam();
+            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight).getTeam();
         }
         PkTrainer pk_;
-        pk_ = list_.get(_index.intValue());
+        pk_ = list_.get(_index);
         String item_ = pk_.getItem();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -189,16 +189,16 @@ public class PokemonTeamBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMove(Long _index, Long _moveIndex) {
+    public String getMove(int _index, int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
-        String move_ = pk_.getMoves().get(_moveIndex.intValue());
+        pk_ = team.get(_index);
+        String move_ = pk_.getMoves().get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(Long _noFight,Long _index, Long _moveIndex) {
+    public String clickMove(int _noFight,int _index, int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -206,13 +206,13 @@ public class PokemonTeamBean extends CommonBean {
         if (trainer instanceof TrainerOneFight) {
             list_ = ((TrainerOneFight)trainer).getTeam();
         } else {
-            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight.intValue()).getTeam();
+            list_ = ((TrainerMultiFights)trainer).getTeamsRewards().get(_noFight).getTeam();
         }
         PkTrainer pk_;
-        pk_ = list_.get(_index.intValue());
+        pk_ = list_.get(_index);
         StringList moves_ = new StringList(pk_.getMoves());
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
-        String move_ = moves_.get(_moveIndex.intValue());
+        String move_ = moves_.get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }

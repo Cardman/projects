@@ -56,23 +56,23 @@ public class EffectStatusBean extends EffectBean {
         koUserHealSubst = effect_.getKoUserHealSubst();
         statusFromUser = effect_.getStatusFromUser();
     }
-    public String clickLink(Long _indexEffect, Long _index) {
+    public String clickLink(int _indexEffect, int _index) {
         TreeMap<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
-        String status_ = lawStatus_.getKey(_index.intValue());
+        String status_ = lawStatus_.getKey(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrLink(Long _index) {
-        String status_ = lawStatus.getKey(_index.intValue());
+    public String getTrLink(int _index) {
+        String status_ = lawStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);
     }
 
-    private TreeMap<String, Rate> getLawStatus(Long _indexEffect) {
+    private TreeMap<String, Rate> getLawStatus(int _indexEffect) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect.intValue());
+        EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect);
         TreeMap<String, Rate> lawStatus_;
         lawStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
         for (String s: effect_.getLawStatus().events()) {
@@ -80,23 +80,23 @@ public class EffectStatusBean extends EffectBean {
         }
         return lawStatus_;
     }
-    public String clickLinkDeleted(Long _indexEffect, Long _index) {
+    public String clickLinkDeleted(int _indexEffect, int _index) {
         StringList deletedStatus_ = getDeletedStatus(_indexEffect);
-        String status_ = deletedStatus_.get(_index.intValue());
+        String status_ = deletedStatus_.get(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrLinkDeleted(Long _index) {
-        String status_ = deletedStatus.get(_index.intValue());
+    public String getTrLinkDeleted(int _index) {
+        String status_ = deletedStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);
     }
 
-    private StringList getDeletedStatus(Long _indexEffect) {
+    private StringList getDeletedStatus(int _indexEffect) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect.intValue());
+        EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect);
         StringList deletedStatus_;
         deletedStatus_ = new StringList();
         for (String s: effect_.getDeletedStatus()) {
@@ -105,11 +105,11 @@ public class EffectStatusBean extends EffectBean {
         deletedStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         return deletedStatus_;
     }
-    public boolean isStatus(Long _index) {
-        return !lawStatus.getKey(_index.intValue()).isEmpty();
+    public boolean isStatus(int _index) {
+        return !lawStatus.getKey(_index).isEmpty();
     }
-    public String getFail(Long _index) {
-        String status_ = lawStatus.getKey(_index.intValue());
+    public String getFail(int _index) {
+        String status_ = lawStatus.getKey(_index);
         if (!localFailStatus.contains(status_)) {
             return DataBase.EMPTY_STRING;
         }

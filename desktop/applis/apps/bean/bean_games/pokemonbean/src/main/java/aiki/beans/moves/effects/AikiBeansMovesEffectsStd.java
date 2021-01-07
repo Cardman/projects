@@ -391,10 +391,10 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_BATON_PASS_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_BATON_PASS_BEAN, type_);
@@ -469,22 +469,22 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(MOVES_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MOVES_BATON_PASS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MOVES_SENDING, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_END_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVES_END_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_BATON_PASS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVES_BATON_PASS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_SENDING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVES_SENDING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_CLONE_BEAN, type_);
@@ -502,7 +502,7 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_COMMON_STATISTICS_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(COMMON_VALUE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MAP_VARS_COMMON_STATISTICS, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COMMON_STATISTICS_BEAN, type_);
@@ -544,16 +544,16 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(COPY_MOVE_FOR_USER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_TRANS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE_TRANS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COPY_MOVE_BEAN, type_);
@@ -574,10 +574,10 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(SUFFERING_DAMAGE_DIRECT_MOVE,PokemonStandards.TYPE_RATE,false,false,type_));
         fields_.add(new StandardField(REASONS_PROTECT, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(REASONS_COUNTER, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_SUFFERING_DAMAGE_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DROPPED_STAT_DIRECT_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -629,13 +629,13 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(HAS_CONST_POWER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_STATIS_TARGET,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_STATIS_USER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_STATIS_KO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_DAMAGE_BEAN, type_);
@@ -720,34 +720,34 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(MULT_STAT_IF_CONTAINS_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MULT_DAMAGE_PREPA_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MOVES_USED_BY_TARGETED_FIGHTERS, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_PREVENTED_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_PREVENTED_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_CANCELLED_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CANCELLED_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_UNUSABLE_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_UNUSABLE_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_CANCELLED_EFFECT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CANCELLED_EFFECT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MULT_MOVE_POWER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_MOVE_POWER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -756,28 +756,28 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_TR_INVOKED_MOVE_TERRAIN,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_INVOKING_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_INVOKING_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_INVOKING_MOVE_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_INVOKING_MOVE_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE_FIRST,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE_SECOND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVES_TARGET,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVES_TARGET,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_GLOBAL_BEAN, type_);
@@ -804,37 +804,37 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(GLOBAL_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(INVOKING_MOVE_BY_USER_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(MOVES_NOT_TO_BE_INVOKED, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_GLOBAL_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_GLOBAL_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_TYPE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_USER_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_USER_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE_USER_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_NOT_INVOK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVE_NOT_INVOK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_INVOKE_BEAN, type_);
@@ -851,7 +851,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MULT_MOVE_POWER_FCT_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_MULT_SUFFERED_MOVE_POWER_BEAN, type_);
@@ -868,7 +868,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MULT_MOVE_POWER_FCT_TYPE, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_MULT_USED_MOVE_POWER_BEAN, type_);
@@ -897,7 +897,7 @@ public final class AikiBeansMovesEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(IMMU_AGAINST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_PROTECT_FROM_TYPES_BEAN, type_);
@@ -993,13 +993,13 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(NOT_EMPTY_VAR_BOOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_SWAP_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_STATISTIC_BEAN, type_);
@@ -1020,22 +1020,22 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(DELETED_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(KO_USER_HEAL_SUBST,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(STATUS_FROM_USER,_std.getAliasPrimBoolean(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_STATUS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LINK_DELETED,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_LINK_DELETED,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_STATUS_BEAN, type_);
@@ -1063,7 +1063,7 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(IS_DEF_ABILITY,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(_std.getAliasPrimInteger());
@@ -1121,10 +1121,10 @@ public final class AikiBeansMovesEffectsStd {
         type_ = new StandardClass(TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN, fields_, constructors_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(REPLACING_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(CHANGE_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_REPLACING_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CHANGED_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_MOVE_TYPES_BEAN, type_);
@@ -1175,16 +1175,16 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(IS_CONST_TYPES,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_GLOBAL_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_GLOBAL_MOVE_FCT_ENV,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ADDED_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -1199,7 +1199,7 @@ public final class AikiBeansMovesEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(GIVE_CONST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CONST_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_SWITCH_TYPES_BEAN, type_);
@@ -1229,28 +1229,28 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(UNUSABLE_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(DISABLE_FOE_TEAM_EFFECTS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(DISABLE_FOE_TEAM_STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_UNUSABLE_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_UNUSABLE_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DISABLE_FOE_TEAM_EFFECTS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DISABLE_FOE_TEAM_EFFECTS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DISABLE_FOE_TEAM_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DISABLE_FOE_TEAM_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_TEAM_BEAN, type_);
@@ -1273,16 +1273,16 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(REASONS_SENDING, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MAP_VARS_FAIL_SENDING, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(DELETED_BY_FOE_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TRANSLATED_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_TEAM_WHILE_SEND_FOE_BEAN, type_);
@@ -1302,22 +1302,22 @@ public final class AikiBeansMovesEffectsStd {
         fields_.add(new StandardField(DISABLE_IMMU_AGAINST_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(DISABLE_IMMU_FROM_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(ATTACK_TARGET_WITH_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DAMAGE_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DISABLE_IMMU_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DISABLE_IMMU_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ATTACK_TARGET_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_UNPROTECT_FROM_TYPES_BEAN, type_);
@@ -2168,11 +2168,11 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMove((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2236,27 +2236,27 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_END_ROUND)) {
-            res_.setResult(new StringStruct(instance_.clickMoveEndRound((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveEndRound((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES_END_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getTrMovesEndRound((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMovesEndRound((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_BATON_PASS)) {
-            res_.setResult(new StringStruct(instance_.clickMoveBatonPass((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveBatonPass((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES_BATON_PASS)) {
-            res_.setResult(new StringStruct(instance_.getTrMovesBatonPass((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMovesBatonPass((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_SENDING)) {
-            res_.setResult(new StringStruct(instance_.clickMoveSending((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveSending((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES_SENDING)) {
-            res_.setResult(new StringStruct(instance_.getTrMovesSending((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMovesSending((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2266,7 +2266,7 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_STATISTIC)) {
-            res_.setResult(new StringStruct(instance_.getTrStatistic((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatistic((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2288,19 +2288,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_TRANS)) {
-            res_.setResult(new StringStruct(instance_.clickMoveTrans((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveTrans((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE_TRANS)) {
-            res_.setResult(new StringStruct(instance_.getTrMoveTrans((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoveTrans((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMove((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2311,11 +2311,11 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_SUFFERING_DAMAGE_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrSufferingDamageTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrSufferingDamageTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DROPPED_STAT_DIRECT_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrDroppedStatDirectMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDroppedStatDirectMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAP_VARS_FAIL_COUNTER)) {
@@ -2349,15 +2349,15 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATIS_TARGET)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedStatisTarget((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedStatisTarget((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATIS_USER)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedStatisUser((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedStatisUser((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATIS_KO)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedStatisKo((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedStatisKo((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2367,43 +2367,43 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_PREVENTED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickPreventedStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPreventedStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_PREVENTED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrPreventedStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPreventedStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_CANCELLED_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickCancelledAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickCancelledAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CANCELLED_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrCancelledAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrCancelledAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_UNUSABLE_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickUnusableMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickUnusableMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_UNUSABLE_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrUnusableMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrUnusableMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_CANCELLED_EFFECT)) {
-            res_.setResult(new StringStruct(instance_.clickCancelledEffect((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickCancelledEffect((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CANCELLED_EFFECT)) {
-            res_.setResult(new StringStruct(instance_.getTrCancelledEffect((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrCancelledEffect((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MULT_MOVE_POWER)) {
-            res_.setResult(new StringStruct(instance_.clickMultMovePower((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMultMovePower((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_MOVE_POWER)) {
-            res_.setResult(new StringStruct(instance_.getTrMultMovePower((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultMovePower((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_INVOKED_MOVE)) {
@@ -2415,35 +2415,35 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_INVOKING_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickInvokingMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickInvokingMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INVOKING_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrInvokingMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrInvokingMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_INVOKING_MOVE_TYPES)) {
-            res_.setResult(new StringStruct(instance_.clickInvokingMoveTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickInvokingMoveTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INVOKING_MOVE_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrInvokingMoveTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrInvokingMoveTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_FIRST)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeFirst((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeFirst((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_SECOND)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSecond((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSecond((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVES_TARGET)) {
-            res_.setResult(new StringStruct(instance_.clickMovesTarget((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMovesTarget((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES_TARGET)) {
-            res_.setResult(new StringStruct(instance_.getTrMovesTarget((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMovesTarget((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2453,47 +2453,47 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_ENV)) {
-            res_.setResult(new StringStruct(instance_.getTrEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.clickMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.getTrMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_GLOBAL_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.clickGlobalMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickGlobalMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_GLOBAL_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.getTrGlobalMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrGlobalMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(BooleanStruct.of(instance_.isType((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_USER_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrUserTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrUserTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_USER_TYPES)) {
-            res_.setResult(new StringStruct(instance_.clickMoveUserTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveUserTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE_USER_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrMoveUserTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoveUserTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_NOT_INVOK)) {
-            res_.setResult(new StringStruct(instance_.clickMoveNotInvok((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMoveNotInvok((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVE_NOT_INVOK)) {
-            res_.setResult(new StringStruct(instance_.getTrMoveNotInvok((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoveNotInvok((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2503,7 +2503,7 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2513,7 +2513,7 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2523,7 +2523,7 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2575,15 +2575,15 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getFail((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFail((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new RateStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate((Integer)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_SWAP_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getSwapFail((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getSwapFail((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2593,27 +2593,27 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.isStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLink((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_LINK)) {
-            res_.setResult(new StringStruct(instance_.getTrLink((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrLink((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getFail((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFail((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LINK_DELETED)) {
-            res_.setResult(new StringStruct(instance_.clickLinkDeleted((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLinkDeleted((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_LINK_DELETED)) {
-            res_.setResult(new StringStruct(instance_.getTrLinkDeleted((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrLinkDeleted((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2639,7 +2639,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
@@ -2691,11 +2691,11 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_REPLACING_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrReplacingTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrReplacingTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHANGED_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrChangedTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChangedTypes((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2735,19 +2735,19 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ENV)) {
-            res_.setResult(new StringStruct(instance_.getTrEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_GLOBAL_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.clickGlobalMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickGlobalMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_GLOBAL_MOVE_FCT_ENV)) {
-            res_.setResult(new StringStruct(instance_.getTrGlobalMoveFctEnv((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrGlobalMoveFctEnv((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ADDED_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrAddedType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAddedType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GIVE_TO_TARGET)) {
@@ -2767,7 +2767,7 @@ public final class AikiBeansMovesEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CONST_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrConstType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrConstType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2777,35 +2777,35 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_UNUSABLE_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickUnusableMove((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickUnusableMove((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_UNUSABLE_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrUnusableMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrUnusableMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DISABLE_FOE_TEAM_EFFECTS)) {
-            res_.setResult(new StringStruct(instance_.clickDisableFoeTeamEffects((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDisableFoeTeamEffects((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DISABLE_FOE_TEAM_EFFECTS)) {
-            res_.setResult(new StringStruct(instance_.getTrDisableFoeTeamEffects((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDisableFoeTeamEffects((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DISABLE_FOE_TEAM_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDisableFoeTeamStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDisableFoeTeamStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DISABLE_FOE_TEAM_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDisableFoeTeamStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDisableFoeTeamStatus((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2815,19 +2815,19 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATISTIC)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedStatistic((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedStatistic((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRANSLATED_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTranslatedType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTranslatedType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);
@@ -2837,27 +2837,27 @@ public final class AikiBeansMovesEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDamageType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DISABLE_IMMU_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrDisableImmuType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDisableImmuType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DISABLE_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrDisableImmuMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDisableImmuMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ATTACK_TARGET_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrAttackTargetType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAttackTargetType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansMovesEffectsStd.invokeMethodEffectBean(_cont, _instance, _method, _args);

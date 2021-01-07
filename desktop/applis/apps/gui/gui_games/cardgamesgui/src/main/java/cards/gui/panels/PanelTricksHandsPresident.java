@@ -33,19 +33,19 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";
-    private StringMap<String> messages;
-    private Panel cards;
+    private final StringMap<String> messages;
+    private final Panel cards;
     private Panel selectedTrick;
-    private Panel hands;
+    private final Panel hands;
 
-    private IntTreeComboBox trickNumber;
-    private IntTreeComboBox cardNumberTrick;
-    private TricksHandsPresident tricksHands;
-    private ChangeableTitle parent;
-    private byte numberPlayers;
-    private DisplayingPresident displayingPresident;
-    private CommonFrame window;
-    private Panel container;
+    private final IntTreeComboBox trickNumber;
+    private final IntTreeComboBox cardNumberTrick;
+    private final TricksHandsPresident tricksHands;
+    private final ChangeableTitle parent;
+    private final byte numberPlayers;
+    private final DisplayingPresident displayingPresident;
+    private final CommonFrame window;
+    private final Panel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
@@ -255,9 +255,9 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             return;
         }
 //        byte numeroPli_=Byte.parseByte(o_.toString());
-        byte numeroPli_= trickNumber.getCurrent().byteValue();
-        numeroPli_ = (byte) tricksHands.getFilledTricksIndex(numeroPli_);
-        tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, numeroPli_);
+        int numeroPli_= trickNumber.getCurrent();
+        numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
+        tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) numeroPli_);
         hands.removeAll();
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
@@ -433,17 +433,17 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         }
 //        Object o_ = trickNumber.getSelectedItem();
 //        byte numeroPli_=Byte.parseByte(o_.toString());
-        byte numeroPli_=trickNumber.getCurrent().byteValue();
+        int numeroPli_=trickNumber.getCurrent();
         Integer selected_ = cardNumberTrick.getCurrent();
         if (selected_ == null) {
             return;
         }
-        numeroPli_ = (byte) tricksHands.getFilledTricksIndex(numeroPli_);
+        numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
         byte numeroCarte_=(byte)(int)selected_;
         numeroCarte_--;
         DealPresident dealt_ = tricksHands.getDistribution();
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
-        tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers,numeroPli_,numeroCarte_);
+        tricksHands.restoreHandsAtSelectedNumberedTrickWithSelectedCard(displayingPresident, numberPlayers, (byte) numeroPli_,numeroCarte_);
         hands.removeAll();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();

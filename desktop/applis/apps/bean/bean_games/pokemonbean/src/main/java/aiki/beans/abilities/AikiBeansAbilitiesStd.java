@@ -238,10 +238,10 @@ public final class AikiBeansAbilitiesStd {
         params_ = new StringList();
         method_ = new StandardMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ABILITIES_BEAN, type_);
@@ -355,34 +355,34 @@ public final class AikiBeansAbilitiesStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_EFFECT_SENDING,params_,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_BREAK_PROTECTION_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BREAK_PROTECTION_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_CHGT_TYPE_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_CHGT_TYPE_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CHGT_TYPE_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CHGT_TYPE_BY_WEATHER_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_RECHARGE_ROUND_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_RECHARGE_ROUND_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_REVERSE_POWER_TYPES_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_REVERSE_POWER_TYPES_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -391,238 +391,238 @@ public final class AikiBeansAbilitiesStd {
         params_ = new StringList();
         method_ = new StandardMethod(NB_USED_PP_INT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_ALLY_FROM_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_ALLY_FROM_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IGN_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IGN_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IGN_FOE_TEAM_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IGN_FOE_TEAM_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_STATUS_BEGIN_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_STATUS_BEGIN_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CHANGING_BOOST_TYPES_OLD,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_CHANGING_BOOST_TYPES_NEW,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_HEAL_HP_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_HEAL_HP_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_HEAL_HP_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_HEAL_HP_BY_TYPE_IF_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_LOW_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_LOW_STAT_IF_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_LOW_STATIS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_LOW_STATIS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MAX_STATISTICS_IF_CH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_STATUS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_SINGLE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_SINGLE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_MOVE_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_MOVE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_MOVE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_TYPE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_MOVE_BY_STATUS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_STATUS_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_STATUS_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_STATUS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_IMMU_STATUS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_IMMU_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DIVIDE_STATUS_ROUND_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DIVIDE_STATUS_ROUND_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_FORWARD_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_FORWARD_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_FORWARD_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_FORWARD_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BREAK_FOE_IMMUNE_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BREAK_FOE_IMMUNE_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_CAT_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_CAT_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_STATUT_RANK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MULT_STAT_IF_STATUT_RANK_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_STATUT_RANK_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BONUS_STAT_RANK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BOOST_STAT_RANK_END_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_BOOST_STAT_RANK_PROTECTED,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_LOW_STAT_FOE_HIT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_KO_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_IF_LOW_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_INCREASED_PRIO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_INCREASED_PRIO_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_DAMAGE_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_FAIL_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_FAIL_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_ABILITY_BEAN, type_);
@@ -1037,11 +1037,11 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrAbility((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -1059,43 +1059,43 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_BREAK_PROTECTION_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickBreakProtectionMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickBreakProtectionMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_PROTECTION_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakProtectionMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakProtectionMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_CHGT_TYPE_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isChgtTypeByWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_CHGT_TYPE_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickChgtTypeByWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickChgtTypeByWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHGT_TYPE_BY_WEATHER_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherValue((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChgtTypeByWeatherValue((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_RECHARGE_ROUND_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuRechargeRoundMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuRechargeRoundMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_RECHARGE_ROUND_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuRechargeRoundMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuRechargeRoundMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_REVERSE_POWER_TYPES_ABILITIES)) {
-            res_.setResult(new StringStruct(instance_.clickReversePowerTypesAbilities((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickReversePowerTypesAbilities((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_REVERSE_POWER_TYPES_ABILITIES)) {
-            res_.setResult(new StringStruct(instance_.getTrReversePowerTypesAbilities((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrReversePowerTypesAbilities((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,DECREASE_NEC_STEPS_HATCH_INT)) {
@@ -1107,315 +1107,315 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickImmuMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_ALLY_FROM_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuAllyFromMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuAllyFromMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ALLY_FROM_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuAllyFromMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuAllyFromMoves((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IGN_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickIgnAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickIgnAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IGN_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrIgnAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIgnAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IGN_FOE_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickIgnFoeTeamMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickIgnFoeTeamMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IGN_FOE_TEAM_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrIgnFoeTeamMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIgnFoeTeamMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickImmuAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_BEGIN_ROUND)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusBeginRound((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusBeginRound((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_BEGIN_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusBeginRound((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusBeginRound((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_OLD)) {
-            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesOld((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesOld((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_CHANGING_BOOST_TYPES_NEW)) {
-            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesNew((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrChangingBoostTypesNew((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickHealHpByWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHealHpByWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEAL_HP_BY_TYPE_IF_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealHpByTypeIfWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickHealHpByTypeIfWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickHealHpByTypeIfWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKeySec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrHealHpByTypeIfWeatherKeySec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStat((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStat((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_LOW_STAT_IF_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickImmuLowStatIfStatusKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuLowStatIfStatusKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusValue((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatIfStatusValue((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_LOW_STATIS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisValue((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuLowStatisValue((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MAX_STATISTICS_IF_CH)) {
-            res_.setResult(new StringStruct(instance_.getTrMaxStatisticsIfCh((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMaxStatisticsIfCh((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.isStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_SINGLE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickSingleStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickSingleStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_SINGLE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrSingleStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrSingleStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_BY_WEATHER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveByWeather((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_MOVE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickImmuMoveByWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuMoveByWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_MOVE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuMoveByWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuMoveByWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_TYPE_BY_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuTypeByWeather((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuTypeByWeather((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_BY_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveByStatus((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveByStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_WEATHER)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusWeather((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusWeather((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_IMMU_STATUS_TYPES)) {
-            res_.setResult(new StringStruct(instance_.clickImmuStatusTypes((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickImmuStatusTypes((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_IMMU_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrImmuStatusValue((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getTrImmuStatusValue((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DIVIDE_STATUS_ROUND_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickDivideStatusRoundKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickDivideStatusRoundKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DIVIDE_STATUS_ROUND_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrDivideStatusRoundKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDivideStatusRoundKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.clickForwardStatusKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickForwardStatusKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrForwardStatusKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrForwardStatusKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FORWARD_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.clickForwardStatusValue((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickForwardStatusValue((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FORWARD_STATUS_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrForwardStatusValue((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrForwardStatusValue((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BREAK_FOE_IMMUNE_VALUE)) {
-            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneValue((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBreakFoeImmuneValue((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKeySec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamageCatKeySec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfDamgeTypeSec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_CAT_KEY_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKeySec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfCatKeySec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRank((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRank((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MULT_STAT_IF_STATUT_RANK_SEC)) {
-            res_.setResult(new StringStruct(instance_.clickMultStatIfStatutRankSec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMultStatIfStatutRankSec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_STATUT_RANK_SEC)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRankSec((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfStatutRankSec((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BONUS_STAT_RANK)) {
-            res_.setResult(new StringStruct(instance_.getTrBonusStatRank((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBonusStatRank((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_END_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getTrBoostStatRankEndRound((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBoostStatRankEndRound((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_BOOST_STAT_RANK_PROTECTED)) {
-            res_.setResult(new StringStruct(instance_.getTrBoostStatRankProtected((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrBoostStatRankProtected((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_LOW_STAT_FOE_HIT)) {
-            res_.setResult(new StringStruct(instance_.getTrLowStatFoeHit((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrLowStatFoeHit((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_KO_FOE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfKoFoe((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfKoFoe((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_IF_LOW_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatIfLowStat((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatIfLowStat((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT_ALLY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStatAlly((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStatAlly((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO)) {
-            res_.setResult(new StringStruct(instance_.getTrIncreasedPrio((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIncreasedPrio((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_INCREASED_PRIO_TYPES)) {
-            res_.setResult(new StringStruct(instance_.getTrIncreasedPrioTypes((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrIncreasedPrioTypes((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_DAMAGE_FOE)) {
-            res_.setResult(new StringStruct(instance_.getTrMultDamageFoe((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultDamageFoe((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY)) {
-            res_.setResult(new StringStruct(instance_.getTrMultPowerMovesTypesGlobalKey((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultPowerMovesTypesGlobalKey((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickFailStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickFailStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_FAIL_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrFailStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrFailStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.clickPokemon((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickPokemon((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemon((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrPokemon((Integer)_args[0])));
             return res_;
         }
         return res_;

@@ -86,20 +86,20 @@ public class EffectSwitchTypesBean extends EffectBean {
     public boolean isUserTypes() {
         return constValuesType == ConstValuesType.LANCEUR_ATTAQUES_TYPES;
     }
-    public String getTrEnv(Long _index) {
-        EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index.intValue()));
+    public String getTrEnv(int _index) {
+        EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index));
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         return translatedTypes_.getVal(env_);
     }
-    public String getTrGlobalMoveFctEnv(Long _index) {
+    public String getTrGlobalMoveFctEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = globalMoves.get(_index.intValue());
+        String st_ = globalMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickGlobalMoveFctEnv(Long _index) {
-        String st_ = globalMoves.get(_index.intValue());
+    public String clickGlobalMoveFctEnv(int _index) {
+        String st_ = globalMoves.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
@@ -115,14 +115,14 @@ public class EffectSwitchTypesBean extends EffectBean {
     public boolean switchTypes() {
         return exchangeTypes == ExchangeType.EXCHANGE;
     }
-    public String getTrConstType(Long _index) {
-        String type_ = constTypes.get(_index.intValue());
+    public String getTrConstType(int _index) {
+        String type_ = constTypes.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-    public String getTrAddedType(Long _index) {
-        String type_ = addedTypes.get(_index.intValue());
+    public String getTrAddedType(int _index) {
+        String type_ = addedTypes.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);

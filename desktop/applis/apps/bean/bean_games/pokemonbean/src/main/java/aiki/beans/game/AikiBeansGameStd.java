@@ -173,34 +173,34 @@ public final class AikiBeansGameStd {
         fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE_POKEMON_FULL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_FULL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE_POKEMON_NOT_ALL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_NOT_ALL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_PARTIAL_NOT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_KEY_POKEMON,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE_POKEMON_PARTIAL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_POKEMON_PARTIAL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
@@ -236,7 +236,7 @@ public final class AikiBeansGameStd {
         fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_EVO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
@@ -606,43 +606,43 @@ public final class AikiBeansGameStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_REMAINING_OTHER_TRAINERS_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getRemainingOtherTrainersPlaceName((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getRemainingOtherTrainersPlaceName((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonFull((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonFull((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonFull((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonFull((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonNotAll((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonNotAll((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonNotAll((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonNotAll((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartialNot((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonPartialNot((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartialNot((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonPartialNot((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KEY_POKEMON)) {
-            res_.setResult(new DefaultStruct(instance_.getKeyPokemon((Long)_args[0],(Long)_args[1]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getKeyPokemon((Integer)_args[0],(Integer)_args[1]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartial((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getImagePokemonPartial((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartial((Long)_args[0],(Long)_args[1],(Long)_args[2])));
+            res_.setResult(new StringStruct(instance_.getTrPokemonPartial((Integer)_args[0],(Integer)_args[1],(Integer)_args[2])));
             return res_;
         }
         return res_;
@@ -652,7 +652,7 @@ public final class AikiBeansGameStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_EVO)) {
-            res_.setResult(new StringStruct(instance_.getEvo((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getEvo((Integer)_args[0])));
             return res_;
         }
         return res_;

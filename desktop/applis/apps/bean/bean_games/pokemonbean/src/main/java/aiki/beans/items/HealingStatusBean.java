@@ -37,14 +37,14 @@ public class HealingStatusBean extends HealingItemBean {
         return healedHpRate;
     }
 
-    public String getTrStatus(Long _index) {
+    public String getTrStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String status_ = status.get(_index.intValue());
+        String status_ = status.get(_index);
         return translatedStatus_.getVal(status_);
     }
-    public String clickStatus(Long _index) {
-        String status_ = status.get(_index.intValue());
+    public String clickStatus(int _index) {
+        String status_ = status.get(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }

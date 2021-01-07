@@ -51,59 +51,59 @@ public class AllyBean extends CommonBean {
         }
         team = team_;
     }
-    public String getImage(Long _index) {
+    public String getImage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String name_ = pk_.getName();
         return BaseSixtyFourUtil.getStringByImage(data_.getMaxiPkFront().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMaxiPkFront().getVal(name_));
     }
-    public String getName(Long _index) {
+    public String getName(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String name_ = pk_.getName();
         return translationsPokemon_.getVal(name_);
     }
-    public String clickName(Long _index) {
+    public String clickName(int _index) {
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String name_ = pk_.getName();
         getForms().put(PK, name_);
         return POKEMON;
     }
-    public String getAbility(Long _index) {
+    public String getAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String ability_ = pk_.getAbility();
         return translationsAbilities_.getVal(ability_);
     }
-    public String clickAbility(Long _index) {
+    public String clickAbility(int _index) {
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String ability_ = pk_.getAbility();
         getForms().put(ABILITY, ability_);
         return ABILITY;
     }
-    public String getItem(Long _index) {
+    public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String item_ = pk_.getItem();
         return translationsItems_.getVal(item_);
     }
-    public String clickItem(Long _index) {
+    public String clickItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
+        pk_ = team.get(_index);
         String item_ = pk_.getItem();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -151,19 +151,19 @@ public class AllyBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMove(Long _index, Long _moveIndex) {
+    public String getMove(int _index, int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
-        String move_ = pk_.getMoves().get(_moveIndex.intValue());
+        pk_ = team.get(_index);
+        String move_ = pk_.getMoves().get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(Long _index, Long _moveIndex) {
+    public String clickMove(int _index, int _moveIndex) {
         PkTrainer pk_;
-        pk_ = team.get(_index.intValue());
-        String move_ = pk_.getMoves().get(_moveIndex.intValue());
+        pk_ = team.get(_index);
+        String move_ = pk_.getMoves().get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }

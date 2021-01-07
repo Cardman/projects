@@ -76,11 +76,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
             Struct argStruct_ = _args[i];
-            if (argStruct_ instanceof IntStruct) {
-                args_[i] = NumParsers.convertToNumber(argStruct_).intStruct();
-            } else {
-                args_[i] = NumParsers.convertToNumber(argStruct_).longStruct();
-            }
+            args_[i] = NumParsers.convertToNumber(argStruct_).intStruct();
         }
         return args_;
     }

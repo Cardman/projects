@@ -36,12 +36,12 @@ public class StatusSetBean extends CommonBean {
         getForms().put(STATUS_SET, sortedAbilities_);
         return STATUS_SET;
     }
-    public String clickStatus(Long _index) {
-        getForms().put(STATUS, sortedStatus.get(_index.intValue()));
+    public String clickStatus(int _index) {
+        getForms().put(STATUS, sortedStatus.get(_index));
         return STATUS;
     }
-    public String getTrStatus(Long _index) {
-        String ability_ = sortedStatus.get(_index.intValue());
+    public String getTrStatus(int _index) {
+        String ability_ = sortedStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());

@@ -129,8 +129,8 @@ public class PokemonPlayerBean extends Bean {
         status = status_;
         nbStepsTeamLead = pkPlayer_.getNbStepsTeamLead();
     }
-    public String getEvo(Long _index) {
-        String evo_ = evolutions.getKey(_index.intValue());
+    public String getEvo(int _index) {
+        String evo_ = evolutions.getKey(_index);
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         DataBase data_ = facadeGame_.getData();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());

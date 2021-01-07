@@ -13,9 +13,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public class EditPokemonMovesBean extends CommonBean {
-    private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
+    private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private String category = DataBase.EMPTY_STRING;
-    private StringMap<String> categories = new StringMap<String>();
+    private final StringMap<String> categories = new StringMap<String>();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
     private boolean wholeWord;
@@ -93,8 +93,8 @@ public class EditPokemonMovesBean extends CommonBean {
         if (player) {
             if (availableMovesOnly) {
                 String namePk_ = (String) getForms().getVal(POKEMON_NAME_EDIT);
-                short level_ = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
-                set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, level_, data_));
+                int level_ = (Integer) getForms().getVal(POKEMON_LEVEL_EDIT);
+                set_.addAllElts(FightSimulation.possiblesInitialMoves(namePk_, (short) level_, data_));
             } else {
                 set_.addAllElts(data_.getMoves().getKeys());
             }

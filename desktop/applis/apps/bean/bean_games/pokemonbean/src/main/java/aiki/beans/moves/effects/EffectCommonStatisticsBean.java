@@ -37,8 +37,8 @@ public class EffectCommonStatisticsBean extends EffectBean {
         commonValue = commonValue_;
         mapVarsCommonStatistics = mapVarsCommonStatistics_;
     }
-    public String getTrStatistic(Long _index) {
-        Statistic st_ = commonValue.getKey(_index.intValue());
+    public String getTrStatistic(int _index) {
+        Statistic st_ = commonValue.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);

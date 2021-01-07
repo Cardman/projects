@@ -14,10 +14,10 @@ import code.util.core.StringUtil;
 
 public class MovesBean extends CommonBean {
     static final String MOVES_BEAN="web/html/moves/moveline.html";
-    private CustList<MoveLine> moves = new CustList<MoveLine>();
-    private StringList sortedMoves = new StringList();
+    private final CustList<MoveLine> moves = new CustList<MoveLine>();
+    private final StringList sortedMoves = new StringList();
     private String category = DataBase.EMPTY_STRING;
-    private StringMap<String> categories = new StringMap<String>();
+    private final StringMap<String> categories = new StringMap<String>();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
     private boolean wholeWord;
@@ -230,8 +230,8 @@ public class MovesBean extends CommonBean {
         }
         return MOVES;
     }
-    public String clickLink(Long _number) {
-        getForms().put(MOVE,moves.get(_number.intValue()).getName());
+    public String clickLink(int _number) {
+        getForms().put(MOVE,moves.get(_number).getName());
         return MOVE;
     }
 

@@ -14,7 +14,7 @@ import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
 
 public class SelectPokemonBean extends CommonBean {
-    private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
+    private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
     private String hasEvo = SelectedBoolean.YES_AND_NO.name();
@@ -114,15 +114,15 @@ public class SelectPokemonBean extends CommonBean {
         }
         return POKEMON_SET;
     }
-    public String getMiniImage(Long _number) {
-        String name_ = pokedex.get(_number.intValue()).getName();
+    public String getMiniImage(int _number) {
+        String name_ = pokedex.get(_number).getName();
         DataBase data_ = (DataBase) getDataBase();
 //        return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(name_));
         //return ConverterBufferedImage.toBaseSixtyFour(data_.getMiniPk().getVal(name_));
     }
-    public String clickLink(Long _number) {
-        getForms().put(POKEMON_NAME_EDIT,pokedex.get(_number.intValue()).getName());
+    public String clickLink(int _number) {
+        getForms().put(POKEMON_NAME_EDIT,pokedex.get(_number).getName());
         return POKEMON;
     }
 

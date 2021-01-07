@@ -207,7 +207,7 @@ public class SimulationBean extends CommonBean {
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
                     pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
-                    pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
+                    pk_.setLevel((Integer) getForms().getVal(POKEMON_LEVEL_EDIT));
                     if (foe_) {
                         pk_.setIndex(foeTeam.size());
                         foeTeam.add(pk_);
@@ -229,7 +229,7 @@ public class SimulationBean extends CommonBean {
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
                     pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
-                    pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
+                    pk_.setLevel((Integer) getForms().getVal(POKEMON_LEVEL_EDIT));
                 }
             } else {
                 if (!getForms().contains(NO_FIGHT)) {
@@ -276,26 +276,26 @@ public class SimulationBean extends CommonBean {
                 String ball_ = (String) getForms().getVal(CATCHING_BALL);
                 getForms().removeKey(CATCHING_BALL);
                 pkPlayer_.setUsedBallCatching(ball_);
-                short happy_ = (Short) getForms().getVal(POKEMON_HAPPINESS);
+                int happy_ = (Integer) getForms().getVal(POKEMON_HAPPINESS);
                 getForms().removeKey(POKEMON_HAPPINESS);
                 Rate hp_ = (Rate) getForms().getVal(POKEMON_HP);
                 getForms().removeKey(POKEMON_HP);
                 boolean heal_ = (Boolean) getForms().getVal(HEAL_EDIT_PK);
                 getForms().removeKey(HEAL_EDIT_PK);
                 for (Statistic s:Statistic.getStatisticsWithBase()) {
-                    short ev_ = (Short) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name()));
+                    int ev_ = (Integer) getForms().getVal(StringUtil.concat(POKEMON_EV_VAR, s.name()));
                     getForms().removeKey(StringUtil.concat(POKEMON_EV_VAR,s.name()));
                     if (ev_ > data_.getMaxEv()) {
                         ev_ = (short) data_.getMaxEv();
                     }
-                    pkPlayer_.getEv().put(s, ev_);
+                    pkPlayer_.getEv().put(s, (short) ev_);
                 }
                 if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || hp_.isZeroOrLt() || heal_) {
                     pkPlayer_.setRemainingHp(pkPlayer_.pvMax(data_));
                 } else {
                     pkPlayer_.setRemainingHp(hp_);
                 }
-                pkPlayer_.setHappiness(happy_);
+                pkPlayer_.setHappiness((short) happy_);
                 simulation.setInitialMoves(index_, team.get(index_).getMoves(), data_);
                 getForms().removeKey(ITEMS_SET_EDIT);
                 getForms().removeKey(POKEMON_NAME_EDIT);
@@ -490,11 +490,11 @@ public class SimulationBean extends CommonBean {
         SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
         return simu_ == SimulationSteps.EVO_AFTER_FIGHT;
     }
-    public boolean isMultiLayer(Long _index) {
+    public boolean isMultiLayer(int _index) {
         return layers(_index).size() > IndexConstants.ONE_ELEMENT;
     }
-    public CustList<Level> layers(Long _index) {
-        Place pl_ = places.get(_index.intValue()).getPlace();
+    public CustList<Level> layers(int _index) {
+        Place pl_ = places.get(_index).getPlace();
         return pl_.getLevelsList();
     }
     public String getTrainerName() {
@@ -539,16 +539,16 @@ public class SimulationBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public String clickLevel(Long _indexOne, Long _indexTwo) {
+    public String clickLevel(int _indexOne, int _indexTwo) {
         //getForms().removeKey(INSIDE);
         DataBase data_ = (DataBase) getDataBase();
-        Place pl_ = data_.getMap().getPlace(_indexOne.shortValue());
+        Place pl_ = data_.getMap().getPlace((short)_indexOne);
         if (pl_ instanceof League) {
             League l_ = (League) pl_;
             coords = new Coords();
-            coords.setNumberPlace(_indexOne.shortValue());
+            coords.setNumberPlace((short)_indexOne);
             coords.setLevel(new LevelPoint());
-            coords.getLevel().setLevelIndex(_indexTwo.byteValue());
+            coords.getLevel().setLevelIndex((byte)_indexTwo);
             coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
             getForms().put(COORDS, coords);
             noFight = IndexConstants.FIRST_INDEX;
@@ -559,16 +559,16 @@ public class SimulationBean extends CommonBean {
             for (Point p: c_.getBuildings().getKeys()) {
                 Building b_ = c_.getBuildings().getVal(p);
                 if (b_ instanceof Gym) {
-                    getForms().put(LEVEL_MAP_INDEX, _indexTwo.byteValue());
-                    getForms().put(PLACE_MAP_INDEX, _indexOne.shortValue());
+                    getForms().put(LEVEL_MAP_INDEX, _indexTwo);
+                    getForms().put(PLACE_MAP_INDEX, _indexOne);
                     getForms().put(INSIDE, new Point(p));
                     return LEVEL;
                 }
             }
         }
         getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo.byteValue());
-        getForms().put(PLACE_MAP_INDEX, _indexOne.shortValue());
+        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(PLACE_MAP_INDEX, _indexOne);
         return LEVEL;
     }
     public void validateDiffChoice() {
@@ -640,33 +640,33 @@ public class SimulationBean extends CommonBean {
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
-    public String getImageFoe(Long _index) {
+    public String getImageFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
-    public String getNameFoe(Long _index) {
+    public String getNameFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         return data_.translatePokemon(pk_.getName());
     }
-    public int getLevelFoe(Long _index) {
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+    public int getLevelFoe(int _index) {
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         return pk_.getLevel();
     }
-    public String getAbilityFoe(Long _index) {
+    public String getAbilityFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         return data_.translateAbility(pk_.getAbility());
     }
-    public String getGenderFoe(Long _index) {
+    public String getGenderFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         return data_.translateGenders(pk_.getGender());
     }
-    public StringList getMovesFoe(Long _index) {
+    public StringList getMovesFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         StringList list_ = new StringList();
         for (String m: pk_.getMoves()) {
             list_.add(data_.translateMove(m));
@@ -674,9 +674,9 @@ public class SimulationBean extends CommonBean {
         list_.sort();
         return list_;
     }
-    public String getItemFoe(Long _index) {
+    public String getItemFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = foeTeam.get(_index);
         if (pk_.getItem().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
@@ -713,33 +713,33 @@ public class SimulationBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public String getImageAlly(Long _index) {
+    public String getImageAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
-    public String getNameAlly(Long _index) {
+    public String getNameAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         return data_.translatePokemon(pk_.getName());
     }
-    public int getLevelAlly(Long _index) {
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+    public int getLevelAlly(int _index) {
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         return pk_.getLevel();
     }
-    public String getAbilityAlly(Long _index) {
+    public String getAbilityAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         return data_.translateAbility(pk_.getAbility());
     }
-    public String getGenderAlly(Long _index) {
+    public String getGenderAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         return data_.translateGenders(pk_.getGender());
     }
-    public StringList getMovesAlly(Long _index) {
+    public StringList getMovesAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         StringList list_ = new StringList();
         for (String m: pk_.getMoves()) {
             list_.add(data_.translateMove(m));
@@ -747,9 +747,9 @@ public class SimulationBean extends CommonBean {
         list_.sort();
         return list_;
     }
-    public String getItemAlly(Long _index) {
+    public String getItemAlly(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
+        PokemonTrainerDto pk_ = allyTeam.get(_index);
         if (pk_.getItem().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
@@ -791,7 +791,7 @@ public class SimulationBean extends CommonBean {
         Pokemon pk_ = data_.getMap().getFirstPokemon();
         StringList moves_ = data_.getPokemon(pk_.getName()).getMovesBeforeLevel(pk_.getLevel());
         getForms().put(POKEMON_NAME_EDIT, pk_.getName());
-        getForms().put(POKEMON_LEVEL_EDIT, pk_.getLevel());
+        getForms().put(POKEMON_LEVEL_EDIT,(int) pk_.getLevel());
         getForms().put(ITEM_EDIT, pk_.getItem());
         getForms().put(POKEMON_GENDER_EDIT, Gender.NO_GENDER);
         getForms().put(POKEMON_MOVES_EDIT, moves_);
@@ -848,16 +848,16 @@ public class SimulationBean extends CommonBean {
             getForms().put(ITEMS_SET_EDIT, new StringList());
             getForms().put(POKEMON_INDEX_EDIT, selectedPk);
             getForms().put(POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
-            getForms().put(POKEMON_LEVEL_EDIT, team.get(selectedPk).getPokemon().getLevel());
+            getForms().put(POKEMON_LEVEL_EDIT, (int)team.get(selectedPk).getPokemon().getLevel());
             getForms().put(ITEM_EDIT, team.get(selectedPk).getPokemon().getItem());
             getForms().put(POKEMON_MOVES_EDIT, team.get(selectedPk).getMoves());
             getForms().put(POKEMON_EXPERIENCE, simulation.getTeam().get(selectedPk).getWonExpSinceLastLevel());
-            getForms().put(POKEMON_HAPPINESS, simulation.getTeam().get(selectedPk).getHappiness());
+            getForms().put(POKEMON_HAPPINESS, (int)simulation.getTeam().get(selectedPk).getHappiness());
             getForms().put(HEAL_EDIT_PK, false);
             getForms().put(POKEMON_HP, simulation.getTeam().get(selectedPk).getRemainingHp());
             getForms().put(CATCHING_BALL, simulation.getTeam().get(selectedPk).getUsedBallCatching());
             for (Statistic s: Statistic.getStatisticsWithBase()) {
-                getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
+                getForms().put(StringUtil.concat(POKEMON_EV_VAR,s.name()), (int)simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
             return EDIT_POKEMON_PLAYER;
         }
@@ -876,33 +876,33 @@ public class SimulationBean extends CommonBean {
         getForms().put(POKEMON_SET_SIMU, new StringList());
         return ADD_POKEMON_PLAYER;
     }
-    public String getImage(Long _index) {
+    public String getImage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getPokemon().getName()));
     }
-    public String getName(Long _index) {
+    public String getName(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         return data_.translatePokemon(pk_.getPokemon().getName());
     }
-    public int getLevel(Long _index) {
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+    public int getLevel(int _index) {
+        PokemonPlayerDto pk_ = team.get(_index);
         return pk_.getPokemon().getLevel();
     }
-    public String getAbility(Long _index) {
+    public String getAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         return data_.translateAbility(pk_.getPokemon().getAbility());
     }
-    public String getGender(Long _index) {
+    public String getGender(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         return data_.translateGenders(pk_.getPokemon().getGender());
     }
-    public StringList getMoves(Long _index) {
+    public StringList getMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         StringList list_ = new StringList();
         for (String m: pk_.getMoves()) {
             list_.add(data_.translateMove(m));
@@ -910,9 +910,9 @@ public class SimulationBean extends CommonBean {
         list_.sort();
         return list_;
     }
-    public String getItem(Long _index) {
+    public String getItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayerDto pk_ = team.get(_index.intValue());
+        PokemonPlayerDto pk_ = team.get(_index);
         if (pk_.getPokemon().getItem().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
@@ -1220,33 +1220,33 @@ public class SimulationBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         return simulation.hasNextFight(data_);
     }
-    public String getImageAfterFight(Long _index) {
+    public String getImageAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniPk().getVal(pk_.getName()));
     }
-    public String getNameAfterFight(Long _index) {
+    public String getNameAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return data_.translatePokemon(pk_.getName());
     }
-    public int getLevelAfterFight(Long _index) {
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+    public int getLevelAfterFight(int _index) {
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return pk_.getLevel();
     }
-    public String getAbilityAfterFight(Long _index) {
+    public String getAbilityAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return data_.translateAbility(pk_.getAbility());
     }
-    public String getGenderAfterFight(Long _index) {
+    public String getGenderAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return data_.translateGenders(pk_.getGender());
     }
-    public StringList getMovesAfterFight(Long _index) {
+    public StringList getMovesAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         StringList list_ = new StringList();
         for (String m: pk_.getMoves().getKeys()) {
             list_.add(data_.translateMove(m));
@@ -1254,22 +1254,22 @@ public class SimulationBean extends CommonBean {
         list_.sort();
         return list_;
     }
-    public String getItemAfterFight(Long _index) {
+    public String getItemAfterFight(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         if (pk_.getItem().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
         return data_.translateItem(pk_.getItem());
     }
-    public LgInt getRemainingLifeRate(Long _index) {
+    public LgInt getRemainingLifeRate(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         return pk_.rateRemainHp(data_);
     }
-    public Rate numberNecessaryPointsForGrowingLevel(Long _index){
+    public Rate numberNecessaryPointsForGrowingLevel(int _index){
         DataBase data_ = (DataBase) getDataBase();
-        PokemonPlayer pk_ = teamAfterFight.get(_index.intValue());
+        PokemonPlayer pk_ = teamAfterFight.get(_index);
         short level_ = pk_.getLevel();
         PokemonData fPk_=data_.getPokemon(pk_.getName());
         String expLitt_=data_.getExpGrowth().getVal(fPk_.getExpEvo());

@@ -157,20 +157,20 @@ public class EffectDamageBean extends EffectBean {
     public boolean hasConstPower() {
         return Rate.isValid(power);
     }
-    public String getTranslatedStatisTarget(Long _index) {
-        Statistic st_ = ignVarStatTargetPos.get(_index.intValue());
+    public String getTranslatedStatisTarget(int _index) {
+        Statistic st_ = ignVarStatTargetPos.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-    public String getTranslatedStatisUser(Long _index) {
-        Statistic st_ = ignVarStatUserNeg.get(_index.intValue());
+    public String getTranslatedStatisUser(int _index) {
+        Statistic st_ = ignVarStatUserNeg.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
     }
-    public String getTranslatedStatisKo(Long _index) {
-        Statistic st_ = boostStatisOnceKoFoe.getKey(_index.intValue());
+    public String getTranslatedStatisKo(int _index) {
+        Statistic st_ = boostStatisOnceKoFoe.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);

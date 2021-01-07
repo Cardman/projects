@@ -55,24 +55,24 @@ public class EffectCopyMoveBean extends EffectBean {
     public boolean copyMoveForUser() {
         return copyingMoveForUser > 0;
     }
-    public String clickMove(Long _index) {
-        String move_ = movesNotToBeCopied.get(_index.intValue());
+    public String clickMove(int _index) {
+        String move_ = movesNotToBeCopied.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrMove(Long _index) {
-        String move_ = movesNotToBeCopied.get(_index.intValue());
+    public String getTrMove(int _index) {
+        String move_ = movesNotToBeCopied.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-    public String clickMoveTrans(Long _index) {
-        String move_ = movesTransforming.get(_index.intValue());
+    public String clickMoveTrans(int _index) {
+        String move_ = movesTransforming.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrMoveTrans(Long _index) {
-        String move_ = movesTransforming.get(_index.intValue());
+    public String getTrMoveTrans(int _index) {
+        String move_ = movesTransforming.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);

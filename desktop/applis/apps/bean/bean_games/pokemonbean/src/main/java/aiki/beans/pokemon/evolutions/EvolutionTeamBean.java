@@ -18,14 +18,14 @@ public class EvolutionTeamBean extends EvolutionBean {
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         other = translationsPokemon_.getVal(evo_.getPokemon());
     }
-    public String clickTeam(Long _index) {
+    public String clickTeam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(getBase());
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
-        EvolutionTeam evo_ = (EvolutionTeam) pk_.getEvolutions().getVal(evolutions_.get(_index.intValue()));
+        EvolutionTeam evo_ = (EvolutionTeam) pk_.getEvolutions().getVal(evolutions_.get(_index));
         getForms().put(PK,evo_.getPokemon());
         return POKEMON;
     }

@@ -271,181 +271,181 @@ public class ItemForBattleBean extends ItemBean {
         boostStatisTypes = boostStatisTypes_;
         lawForAttackFirst = item_.getLawForAttackFirst();
     }
-    public String getTrTypesPk(Long _index) {
-        String type_ = typesPk.get(_index.intValue());
+    public String getTrTypesPk(int _index) {
+        String type_ = typesPk.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-    public String getTrTypesPkAbility(Long _index) {
-        String type_ = typesPkAbilities.get(_index.intValue());
+    public String getTrTypesPkAbility(int _index) {
+        String type_ = typesPkAbilities.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
-    public String clickTypesPkAbility(Long _index) {
-        String type_ = typesPkAbilities.get(_index.intValue());
+    public String clickTypesPkAbility(int _index) {
+        String type_ = typesPkAbilities.get(_index);
         getForms().put(ABILITY, type_);
         return ABILITY;
     }
-    public String getTrImmuTypes(Long _index) {
-        String type_ = immuTypes.get(_index.intValue());
+    public String getTrImmuTypes(int _index) {
+        String type_ = immuTypes.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-    public String getTrImmuStatus(Long _index) {
-        String type_ = immuStatus.get(_index.intValue());
+    public String getTrImmuStatus(int _index) {
+        String type_ = immuStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-    public String clickImmuStatus(Long _index) {
-        String type_ = immuStatus.get(_index.intValue());
+    public String clickImmuStatus(int _index) {
+        String type_ = immuStatus.get(_index);
         getForms().put(STATUS, type_);
         return STATUS;
     }
-    public String getTrSynchroStatus(Long _index) {
-        String type_ = synchroStatus.get(_index.intValue());
+    public String getTrSynchroStatus(int _index) {
+        String type_ = synchroStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-    public String clickSynchroStatus(Long _index) {
-        String type_ = synchroStatus.get(_index.intValue());
+    public String clickSynchroStatus(int _index) {
+        String type_ = synchroStatus.get(_index);
         getForms().put(STATUS, type_);
         return STATUS;
     }
-    public String getTrFailStatus(Long _index) {
-        String type_ = failStatus.getKey(_index.intValue());
+    public String getTrFailStatus(int _index) {
+        String type_ = failStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-    public String clickFailStatus(Long _index) {
-        String type_ = failStatus.getKey(_index.intValue());
+    public String clickFailStatus(int _index) {
+        String type_ = failStatus.getKey(_index);
         getForms().put(STATUS, type_);
         return STATUS;
     }
-    public String getTrWinEvFight(Long _index) {
-        Statistic type_ = winEvFight.getKey(_index.intValue());
+    public String getTrWinEvFight(int _index) {
+        Statistic type_ = winEvFight.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMultStat(Long _index) {
-        Statistic type_ = multStat.getKey(_index.intValue());
+    public String getTrMultStat(int _index) {
+        Statistic type_ = multStat.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMultStatRank(Long _index) {
-        Statistic type_ = multStatRank.getKey(_index.intValue());
+    public String getTrMultStatRank(int _index) {
+        Statistic type_ = multStatRank.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMultStatPkRank(Long _index) {
-        Statistic type_ = multStatPokemonRank.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatPkRank(int _index) {
+        Statistic type_ = multStatPokemonRank.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMultStatPk(Long _index) {
-        String type_ = multStatPokemonRank.getKey(_index.intValue()).getPokemon();
+    public String getTrMultStatPk(int _index) {
+        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
-    public String clickMultStatPk(Long _index) {
-        String type_ = multStatPokemonRank.getKey(_index.intValue()).getPokemon();
+    public String clickMultStatPk(int _index) {
+        String type_ = multStatPokemonRank.getKey(_index).getPokemon();
         getForms().put(PK, type_);
         return POKEMON;
     }
-    public String getTrMultStatisTypes(Long _index) {
-        String type_ = boostStatisTypes.getKey(_index.intValue());
+    public String getTrMultStatisTypes(int _index) {
+        String type_ = boostStatisTypes.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatistics_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMultStatisTypesStat(Long _indexOne, Long _indexTwo) {
-        Statistic type_ = boostStatisTypes.getValue(_indexOne.intValue()).getKey(_indexTwo.intValue());
+    public String getTrMultStatisTypesStat(int _indexOne, int _indexTwo) {
+        Statistic type_ = boostStatisTypes.getValue(_indexOne).getKey(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public TreeMap<Statistic, Byte> getMapMultStatisTypesStat(Long _index) {
-        return boostStatisTypes.getValue(_index.intValue());
+    public TreeMap<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
+        return boostStatisTypes.getValue(_index);
     }
-    public String getTrMultStatisSuperEff(Long _index) {
-        Statistic type_ = boostStatisSuperEff.getKey(_index.intValue());
+    public String getTrMultStatisSuperEff(int _index) {
+        Statistic type_ = boostStatisSuperEff.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrTrapMove(Long _index) {
-        String type_ = increasingMaxNbRoundTrap.getKey(_index.intValue());
+    public String getTrTrapMove(int _index) {
+        String type_ = increasingMaxNbRoundTrap.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickTrapMove(Long _index) {
-        String type_ = increasingMaxNbRoundTrap.getKey(_index.intValue());
+    public String clickTrapMove(int _index) {
+        String type_ = increasingMaxNbRoundTrap.getKey(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrGlobalMove(Long _index) {
-        String type_ = increasingMaxNbRoundGlobalMove.getKey(_index.intValue());
+    public String getTrGlobalMove(int _index) {
+        String type_ = increasingMaxNbRoundGlobalMove.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickGlobalMove(Long _index) {
-        String type_ = increasingMaxNbRoundGlobalMove.getKey(_index.intValue());
+    public String clickGlobalMove(int _index) {
+        String type_ = increasingMaxNbRoundGlobalMove.getKey(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrTeamMove(Long _index) {
-        String type_ = increasingMaxNbRoundTeamMove.getKey(_index.intValue());
+    public String getTrTeamMove(int _index) {
+        String type_ = increasingMaxNbRoundTeamMove.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickTeamMove(Long _index) {
-        String type_ = increasingMaxNbRoundTeamMove.getKey(_index.intValue());
+    public String clickTeamMove(int _index) {
+        String type_ = increasingMaxNbRoundTeamMove.getKey(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrImmuMove(Long _index) {
-        String type_ = immuMoves.get(_index.intValue());
+    public String getTrImmuMove(int _index) {
+        String type_ = immuMoves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickImmuMove(Long _index) {
-        String type_ = immuMoves.get(_index.intValue());
+    public String clickImmuMove(int _index) {
+        String type_ = immuMoves.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrWeather(Long _index) {
-        String type_ = immuWeather.get(_index.intValue());
+    public String getTrWeather(int _index) {
+        String type_ = immuWeather.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickWeather(Long _index) {
-        String type_ = immuWeather.get(_index.intValue());
+    public String clickWeather(int _index) {
+        String type_ = immuWeather.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrHatching(Long _index) {
-        String type_ = hatching.get(_index.intValue());
+    public String getTrHatching(int _index) {
+        String type_ = hatching.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
-    public String clickHatching(Long _index) {
-        String type_ = hatching.get(_index.intValue());
+    public String clickHatching(int _index) {
+        String type_ = hatching.get(_index);
         getForms().put(PK, type_);
         return POKEMON;
     }

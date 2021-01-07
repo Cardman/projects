@@ -46,18 +46,18 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(userStatusEndRound);
     }
-    public String clickUserStatus(Long _index) {
+    public String clickUserStatus(int _index) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_index);
         getForms().put(STATUS, effect_.getUserStatusEndRound());
         return STATUS;
     }
-    public String getTrDamageStatus(Long _index) {
+    public String getTrDamageStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
         translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(multDamageStatus.getKey(_index.intValue()));
+        return translatedStatus_.getVal(multDamageStatus.getKey(_index));
     }
-    public String clickDamageStatus(Long _indexOne,Long _indexTwo) {
+    public String clickDamageStatus(int _indexOne,int _indexTwo) {
         EffectEndRoundIndividual effect_ = (EffectEndRoundIndividual) getEffect(_indexOne);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_;
@@ -67,17 +67,17 @@ public class EffectEndRoundIndividualBean extends EffectEndRoundBean {
         for (String s: effect_.getMultDamageStatus().getKeys()) {
             multDamageStatus_.put(s, effect_.getMultDamageStatus().getVal(s));
         }
-        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo.intValue()));
+        getForms().put(STATUS, multDamageStatus_.getKey(_indexTwo));
         return STATUS;
     }
-    public boolean isType(Long _index) {
-        return !healHpByOwnerTypes.getKey(_index.intValue()).isEmpty();
+    public boolean isType(int _index) {
+        return !healHpByOwnerTypes.getKey(_index).isEmpty();
     }
-    public String getTrType(Long _index) {
+    public String getTrType(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_;
         translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        return translatedTypes_.getVal(healHpByOwnerTypes.getKey(_index.intValue()));
+        return translatedTypes_.getVal(healHpByOwnerTypes.getKey(_index));
     }
 
     public Rate getDeleteAllStatus() {

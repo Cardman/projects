@@ -98,8 +98,8 @@ public class GeneralHelpBean extends CommonBean {
         types = new StringList(data_.getTypes());
         types.sortElts(new ComparatorTrStrings(data_.getTranslatedTypes().getVal(getLanguage())));
     }
-    public String getMiniMapImage(Long _index) {
-        int[][] image_ = miniMap.getValue(_index.intValue());
+    public String getMiniMapImage(int _index) {
+        int[][] image_ = miniMap.getValue(_index);
         return BaseSixtyFourUtil.getStringByImage(image_);
     }
     public int getMapWidth() {
@@ -109,23 +109,23 @@ public class GeneralHelpBean extends CommonBean {
         }
         return w_;
     }
-    public boolean isFirstRow(Long _index) {
-        if (_index.intValue() == 0) {
+    public boolean isFirstRow(int _index) {
+        if (_index == 0) {
             return false;
         }
-        MiniMapCoords key_ = miniMap.getKey(_index.intValue());
+        MiniMapCoords key_ = miniMap.getKey(_index);
         return key_.getXcoords() == IndexConstants.FIRST_INDEX;
     }
-    public String getPlaceName(Long _index) {
-        return namesPlaces.getValue(_index.intValue());
+    public String getPlaceName(int _index) {
+        return namesPlaces.getValue(_index);
     }
-    public String getTrPokemon(Long _index) {
+    public String getTrPokemon(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String pk_ = pokemonDefaultEggGroup.get(_index.intValue());
+        String pk_ = pokemonDefaultEggGroup.get(_index);
         return data_.translatePokemon(pk_);
     }
-    public String clickPokemon(Long _index) {
-        String pk_ = pokemonDefaultEggGroup.get(_index.intValue());
+    public String clickPokemon(int _index) {
+        String pk_ = pokemonDefaultEggGroup.get(_index);
         getForms().put(PK,pk_);
         return POKEMON;
     }
@@ -228,15 +228,15 @@ public class GeneralHelpBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMove(Long _moveIndex) {
+    public String getMove(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = getMovesAtLevel().get(_moveIndex.intValue());
+        String move_ = getMovesAtLevel().get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String clickMove(Long _moveIndex) {
-        String move_ = getMovesAtLevel().get(_moveIndex.intValue());
+    public String clickMove(int _moveIndex) {
+        String move_ = getMovesAtLevel().get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }
@@ -248,26 +248,26 @@ public class GeneralHelpBean extends CommonBean {
         moves_.sortElts(new ComparatorTrStrings(translationsMoves_));
         return moves_;
     }
-    public String clickTm(Long _moveIndex) {
-        String move_ = tm.get(_moveIndex.intValue());
+    public String clickTm(int _moveIndex) {
+        String move_ = tm.get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String clickHm(Long _moveIndex) {
-        String move_ = hm.get(_moveIndex.intValue());
+    public String clickHm(int _moveIndex) {
+        String move_ = hm.get(_moveIndex);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrTm(Long _moveIndex) {
+    public String getTrTm(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = tm.get(_moveIndex.intValue());
+        String move_ = tm.get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String getTmPrice(Long _moveIndex) {
+    public String getTmPrice(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
-        String move_ = tm.get(_moveIndex.intValue());
+        String move_ = tm.get(_moveIndex);
 //        short key_ = data_.getTm().getKeys(move_).first();
         short key_ = data_.getTmByMove(move_).first();
         if (data_.getTmPrice().contains(key_)) {
@@ -275,28 +275,28 @@ public class GeneralHelpBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public String getTrHm(Long _moveIndex) {
+    public String getTrHm(int _moveIndex) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String move_ = hm.get(_moveIndex.intValue());
+        String move_ = hm.get(_moveIndex);
         return translationsMoves_.getVal(move_);
     }
-    public String getTrType(Long _index) {
+    public String getTrType(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String type_ = types.get(_index.intValue());
+        String type_ = types.get(_index);
         return translationsTypes_.getVal(type_);
     }
-    public String getImageType(Long _index) {
+    public String getImageType(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String type_ = types.get(_index.intValue());
+        String type_ = types.get(_index);
         return BaseSixtyFourUtil.getStringByImage(data_.getTypesImages().getVal(type_));
     }
-    public String getColorType(Long _index) {
+    public String getColorType(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String type_ = types.get(_index.intValue());
+        String type_ = types.get(_index);
         String color_ = data_.getTypesColors().getVal(type_);
         String img_ = ConverterBufferedImage.getSquareColorSixtyFour(color_, DataBase.SEPARATOR_RGB, data_.getMap().getSideLength());
         return img_;

@@ -63,35 +63,35 @@ public class EffectCloneBean extends EffectBean {
         movesSending_.sortElts(new ComparatorTrStrings(translatedMoves_));
         movesSending = movesSending_;
     }
-    public String clickMoveEndRound(Long _index) {
-        String move_ = movesEndRound.get(_index.intValue());
+    public String clickMoveEndRound(int _index) {
+        String move_ = movesEndRound.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrMovesEndRound(Long _index) {
-        String move_ = movesEndRound.get(_index.intValue());
+    public String getTrMovesEndRound(int _index) {
+        String move_ = movesEndRound.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-    public String clickMoveBatonPass(Long _index) {
-        String move_ = movesBatonPass.get(_index.intValue());
+    public String clickMoveBatonPass(int _index) {
+        String move_ = movesBatonPass.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrMovesBatonPass(Long _index) {
-        String move_ = movesBatonPass.get(_index.intValue());
+    public String getTrMovesBatonPass(int _index) {
+        String move_ = movesBatonPass.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-    public String clickMoveSending(Long _index) {
-        String move_ = movesSending.get(_index.intValue());
+    public String clickMoveSending(int _index) {
+        String move_ = movesSending.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrMovesSending(Long _index) {
-        String move_ = movesSending.get(_index.intValue());
+    public String getTrMovesSending(int _index) {
+        String move_ = movesSending.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);

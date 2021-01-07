@@ -116,8 +116,8 @@ public class AbilityBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsFailEndRound;
     private boolean sending;
     private NatStringTreeMap<String> mapVars;
-    private Rate defEff = Rate.one();
-    private StringList pokemon = new StringList();
+    private final Rate defEff = Rate.one();
+    private final StringList pokemon = new StringList();
 
     @Override
     public void beforeDisplaying() {
@@ -561,8 +561,8 @@ public class AbilityBean extends CommonBean {
     public boolean nbUsedPpInt() {
         return nbUsedPp > 0;
     }
-    public String getTrImmuMove(Long _index) {
-        String type_ = immuMove.get(_index.intValue());
+    public String getTrImmuMove(int _index) {
+        String type_ = immuMove.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
@@ -573,88 +573,88 @@ public class AbilityBean extends CommonBean {
         }
         return ABILITIES;
     }
-    public String clickImmuMove(Long _index) {
-        String type_ = immuMove.get(_index.intValue());
+    public String clickImmuMove(int _index) {
+        String type_ = immuMove.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrImmuAllyFromMoves(Long _index) {
-        String type_ = immuAllyFromMoves.get(_index.intValue());
+    public String getTrImmuAllyFromMoves(int _index) {
+        String type_ = immuAllyFromMoves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickImmuAllyFromMoves(Long _index) {
-        String type_ = immuAllyFromMoves.get(_index.intValue());
+    public String clickImmuAllyFromMoves(int _index) {
+        String type_ = immuAllyFromMoves.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrWeather(Long _index) {
-        String type_ = immuWeather.get(_index.intValue());
+    public String getTrWeather(int _index) {
+        String type_ = immuWeather.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickWeather(Long _index) {
-        String type_ = immuWeather.get(_index.intValue());
+    public String clickWeather(int _index) {
+        String type_ = immuWeather.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrIgnAbility(Long _index) {
-        String type_ = ignAbility.get(_index.intValue());
+    public String getTrIgnAbility(int _index) {
+        String type_ = ignAbility.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
-    public String clickIgnAbility(Long _index) {
-        String type_ = ignAbility.get(_index.intValue());
+    public String clickIgnAbility(int _index) {
+        String type_ = ignAbility.get(_index);
         getForms().put(ABILITY, type_);
         return ABILITY;
     }
-    public String getTrIgnFoeTeamMove(Long _index) {
-        String type_ = ignFoeTeamMove.get(_index.intValue());
+    public String getTrIgnFoeTeamMove(int _index) {
+        String type_ = ignFoeTeamMove.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(type_);
     }
-    public String clickIgnFoeTeamMove(Long _index) {
-        String type_ = ignFoeTeamMove.get(_index.intValue());
+    public String clickIgnFoeTeamMove(int _index) {
+        String type_ = ignFoeTeamMove.get(_index);
         getForms().put(MOVE, type_);
         return MOVE;
     }
-    public String getTrImmuAbility(Long _index) {
-        String type_ = immuAbility.get(_index.intValue());
+    public String getTrImmuAbility(int _index) {
+        String type_ = immuAbility.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(type_);
     }
-    public String clickImmuAbility(Long _index) {
-        String type_ = immuAbility.get(_index.intValue());
+    public String clickImmuAbility(int _index) {
+        String type_ = immuAbility.get(_index);
         getForms().put(ABILITY, type_);
         return ABILITY;
     }
-    public String getTrImmuStatusBeginRound(Long _index) {
-        String type_ = immuStatusBeginRound.get(_index.intValue());
+    public String getTrImmuStatusBeginRound(int _index) {
+        String type_ = immuStatusBeginRound.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-    public String clickImmuStatusBeginRound(Long _index) {
-        String type_ = immuStatusBeginRound.get(_index.intValue());
+    public String clickImmuStatusBeginRound(int _index) {
+        String type_ = immuStatusBeginRound.get(_index);
         getForms().put(STATUS, type_);
         return STATUS;
     }
-    public boolean isStatus(Long _index) {
-        return !singleStatus.getKey(_index.intValue()).isEmpty();
+    public boolean isStatus(int _index) {
+        return !singleStatus.getKey(_index).isEmpty();
     }
-    public String getTrSingleStatus(Long _index) {
-        String type_ = singleStatus.getKey(_index.intValue());
+    public String getTrSingleStatus(int _index) {
+        String type_ = singleStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(type_);
     }
-    public String clickSingleStatus(Long _index) {
-        String type_ = singleStatus.getKey(_index.intValue());
+    public String clickSingleStatus(int _index) {
+        String type_ = singleStatus.getKey(_index);
         getForms().put(STATUS, type_);
         return STATUS;
     }
@@ -662,448 +662,448 @@ public class AbilityBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getAbility(name);
     }
-    public String getTrBreakProtectionMoves(Long _index) {
-        String move_ = breakProtectionMoves.get(_index.intValue());
+    public String getTrBreakProtectionMoves(int _index) {
+        String move_ = breakProtectionMoves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-    public String clickBreakProtectionMoves(Long _index) {
-        String move_ = breakProtectionMoves.get(_index.intValue());
+    public String clickBreakProtectionMoves(int _index) {
+        String move_ = breakProtectionMoves.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrImmuRechargeRoundMoves(Long _index) {
-        String move_ = immuRechargeRoundMoves.get(_index.intValue());
+    public String getTrImmuRechargeRoundMoves(int _index) {
+        String move_ = immuRechargeRoundMoves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-    public String clickImmuRechargeRoundMoves(Long _index) {
-        String move_ = immuRechargeRoundMoves.get(_index.intValue());
+    public String clickImmuRechargeRoundMoves(int _index) {
+        String move_ = immuRechargeRoundMoves.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrReversePowerTypesAbilities(Long _index) {
-        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index.intValue());
+    public String getTrReversePowerTypesAbilities(int _index) {
+        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translationsAbilities_.getVal(move_);
     }
-    public String clickReversePowerTypesAbilities(Long _index) {
-        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index.intValue());
+    public String clickReversePowerTypesAbilities(int _index) {
+        String move_ = reverseEffectsPowerMovesTypesGlobalAbilities.get(_index);
         getForms().put(ABILITY, move_);
         return ABILITY;
     }
-    public String getTrMultStat(Long _index) {
-        Statistic type_ = multStat.getKey(_index.intValue());
+    public String getTrMultStat(int _index) {
+        Statistic type_ = multStat.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrImmuLowStat(Long _index) {
-        Statistic type_ = immuLowStat.get(_index.intValue());
+    public String getTrImmuLowStat(int _index) {
+        Statistic type_ = immuLowStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public String getTrMaxStatisticsIfCh(Long _index) {
-        Statistic type_ = maxStatisticsIfCh.get(_index.intValue());
+    public String getTrMaxStatisticsIfCh(int _index) {
+        Statistic type_ = maxStatisticsIfCh.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public boolean isMoveByWeather(Long _index) {
-        return !immuMoveTypesByWeather.getKey(_index.intValue()).isEmpty();
+    public boolean isMoveByWeather(int _index) {
+        return !immuMoveTypesByWeather.getKey(_index).isEmpty();
     }
-    public String getTrImmuMoveByWeather(Long _index) {
-        String move_ = immuMoveTypesByWeather.getKey(_index.intValue());
+    public String getTrImmuMoveByWeather(int _index) {
+        String move_ = immuMoveTypesByWeather.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-    public String clickImmuMoveByWeather(Long _index) {
-        String move_ = immuMoveTypesByWeather.getKey(_index.intValue());
+    public String clickImmuMoveByWeather(int _index) {
+        String move_ = immuMoveTypesByWeather.getKey(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrImmuTypeByWeather(Long _indexOne, Long _indexTwo) {
-        String move_ = immuMoveTypesByWeather.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getTrImmuTypeByWeather(int _indexOne, int _indexTwo) {
+        String move_ = immuMoveTypesByWeather.getValue(_indexOne).get(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public boolean isMoveByStatus(Long _index) {
-        return !immuStatus.getKey(_index.intValue()).isEmpty();
+    public boolean isMoveByStatus(int _index) {
+        return !immuStatus.getKey(_index).isEmpty();
     }
-    public String getTrImmuStatusWeather(Long _index) {
-        String move_ = immuStatus.getKey(_index.intValue());
+    public String getTrImmuStatusWeather(int _index) {
+        String move_ = immuStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(move_);
     }
-    public String clickImmuStatusWeather(Long _index) {
-        String move_ = immuStatus.getKey(_index.intValue());
+    public String clickImmuStatusWeather(int _index) {
+        String move_ = immuStatus.getKey(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }
-    public String getTrImmuStatus(Long _indexOne, Long _indexTwo) {
-        String move_ = immuStatus.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getTrImmuStatus(int _indexOne, int _indexTwo) {
+        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(move_);
     }
-    public String clickImmuStatus(Long _indexOne, Long _indexTwo) {
-        String move_ = immuStatus.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String clickImmuStatus(int _indexOne, int _indexTwo) {
+        String move_ = immuStatus.getValue(_indexOne).get(_indexTwo);
         getForms().put(STATUS, move_);
         return STATUS;
     }
-    public String getTrImmuStatusTypes(Long _index) {
-        String move_ = immuStatusTypes.getKey(_index.intValue());
+    public String getTrImmuStatusTypes(int _index) {
+        String move_ = immuStatusTypes.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrImmuStatusValue(Long _indexOne, Long _indexTwo) {
-        String move_ = immuStatusTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getTrImmuStatusValue(int _indexOne, int _indexTwo) {
+        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(move_);
     }
-    public String clickImmuStatusTypes(Long _indexOne, Long _indexTwo) {
-        String move_ = immuStatusTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String clickImmuStatusTypes(int _indexOne, int _indexTwo) {
+        String move_ = immuStatusTypes.getValue(_indexOne).get(_indexTwo);
         getForms().put(STATUS, move_);
         return STATUS;
     }
-    public String getTrForwardStatusKey(Long _index) {
-        String status_ = forwardStatus.getKey(_index.intValue());
+    public String getTrForwardStatusKey(int _index) {
+        String status_ = forwardStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickForwardStatusKey(Long _index) {
-        String status_ = forwardStatus.getKey(_index.intValue());
+    public String clickForwardStatusKey(int _index) {
+        String status_ = forwardStatus.getKey(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrForwardStatusValue(Long _index) {
-        String status_ = forwardStatus.getValue(_index.intValue());
+    public String getTrForwardStatusValue(int _index) {
+        String status_ = forwardStatus.getValue(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickForwardStatusValue(Long _index) {
-        String status_ = forwardStatus.getValue(_index.intValue());
+    public String clickForwardStatusValue(int _index) {
+        String status_ = forwardStatus.getValue(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrFailStatus(Long _index) {
-        String status_ = failStatus.getKey(_index.intValue());
+    public String getTrFailStatus(int _index) {
+        String status_ = failStatus.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickFailStatus(Long _index) {
-        String status_ = failStatus.getKey(_index.intValue());
+    public String clickFailStatus(int _index) {
+        String status_ = failStatus.getKey(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrImmuLowStatIfStatusKey(Long _index) {
-        String status_ = immuLowStatIfStatus.get(_index.intValue()).getStatus();
+    public String getTrImmuLowStatIfStatusKey(int _index) {
+        String status_ = immuLowStatIfStatus.get(_index).getStatus();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickImmuLowStatIfStatusKey(Long _index) {
-        String status_ = immuLowStatIfStatus.get(_index.intValue()).getStatus();
+    public String clickImmuLowStatIfStatusKey(int _index) {
+        String status_ = immuLowStatIfStatus.get(_index).getStatus();
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrImmuLowStatIfStatusValue(Long _index) {
-        Statistic status_ = immuLowStatIfStatus.get(_index.intValue()).getStatistic();
+    public String getTrImmuLowStatIfStatusValue(int _index) {
+        Statistic status_ = immuLowStatIfStatus.get(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-    public boolean isChgtTypeByWeather(Long _index) {
-        return !chgtTypeByWeather.getKey(_index.intValue()).isEmpty();
+    public boolean isChgtTypeByWeather(int _index) {
+        return !chgtTypeByWeather.getKey(_index).isEmpty();
     }
-    public String getTrChgtTypeByWeatherKey(Long _index) {
-        String status_ = chgtTypeByWeather.getKey(_index.intValue());
+    public String getTrChgtTypeByWeatherKey(int _index) {
+        String status_ = chgtTypeByWeather.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-    public String clickChgtTypeByWeatherKey(Long _index) {
-        String status_ = chgtTypeByWeather.getKey(_index.intValue());
+    public String clickChgtTypeByWeatherKey(int _index) {
+        String status_ = chgtTypeByWeather.getKey(_index);
         getForms().put(MOVE, status_);
         return MOVE;
     }
-    public String getTrChgtTypeByWeatherValue(Long _index) {
-        String status_ = chgtTypeByWeather.getValue(_index.intValue());
+    public String getTrChgtTypeByWeatherValue(int _index) {
+        String status_ = chgtTypeByWeather.getValue(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-    public String getTrDivideStatusRoundKey(Long _index) {
-        String status_ = divideStatusRound.getKey(_index.intValue());
+    public String getTrDivideStatusRoundKey(int _index) {
+        String status_ = divideStatusRound.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickDivideStatusRoundKey(Long _index) {
-        String status_ = divideStatusRound.getKey(_index.intValue());
+    public String clickDivideStatusRoundKey(int _index) {
+        String status_ = divideStatusRound.getKey(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public boolean isHealHpByWeather(Long _index) {
-        return !healHpByWeather.getKey(_index.intValue()).isEmpty();
+    public boolean isHealHpByWeather(int _index) {
+        return !healHpByWeather.getKey(_index).isEmpty();
     }
-    public String getTrHealHpByWeatherKey(Long _index) {
-        String status_ = healHpByWeather.getKey(_index.intValue());
+    public String getTrHealHpByWeatherKey(int _index) {
+        String status_ = healHpByWeather.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-    public String clickHealHpByWeatherKey(Long _index) {
-        String status_ = healHpByWeather.getKey(_index.intValue());
+    public String clickHealHpByWeatherKey(int _index) {
+        String status_ = healHpByWeather.getKey(_index);
         getForms().put(MOVE, status_);
         return MOVE;
     }
-    public boolean isHealHpByTypeIfWeather(Long _index) {
-        return !healHpByTypeIfWeather.getKey(_index.intValue()).getWeather().isEmpty();
+    public boolean isHealHpByTypeIfWeather(int _index) {
+        return !healHpByTypeIfWeather.getKey(_index).getWeather().isEmpty();
     }
-    public String getTrHealHpByTypeIfWeatherKey(Long _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getWeather();
+    public String getTrHealHpByTypeIfWeatherKey(int _index) {
+        String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-    public String clickHealHpByTypeIfWeatherKey(Long _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getWeather();
+    public String clickHealHpByTypeIfWeatherKey(int _index) {
+        String status_ = healHpByTypeIfWeather.getKey(_index).getWeather();
         getForms().put(MOVE, status_);
         return MOVE;
     }
-    public String getTrHealHpByTypeIfWeatherKeySec(Long _index) {
-        String status_ = healHpByTypeIfWeather.getKey(_index.intValue()).getType();
+    public String getTrHealHpByTypeIfWeatherKeySec(int _index) {
+        String status_ = healHpByTypeIfWeather.getKey(_index).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-    public String getTrMultStatIfDamageCatKey(Long _index) {
-        Statistic status_ = multStatIfDamageCat.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatIfDamageCatKey(int _index) {
+        Statistic status_ = multStatIfDamageCat.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-    public String getTrMultStatIfDamageCatKeySec(Long _index) {
-        String status_ = multStatIfDamageCat.getKey(_index.intValue()).getCategory();
+    public String getTrMultStatIfDamageCatKeySec(int _index) {
+        String status_ = multStatIfDamageCat.getKey(_index).getCategory();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(status_);
     }
-    public String getTrMultStatIfCatKey(Long _index) {
-        Statistic status_ = multStatIfCat.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatIfCatKey(int _index) {
+        Statistic status_ = multStatIfCat.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-    public String getTrMultStatIfCatKeySec(Long _index) {
-        String status_ = multStatIfCat.getKey(_index.intValue()).getCategory();
+    public String getTrMultStatIfCatKeySec(int _index) {
+        String status_ = multStatIfCat.getKey(_index).getCategory();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(status_);
     }
-    public String getTrMultStatIfDamgeType(Long _index) {
-        Statistic status_ = multStatIfDamgeType.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatIfDamgeType(int _index) {
+        Statistic status_ = multStatIfDamgeType.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-    public String getTrMultStatIfDamgeTypeSec(Long _index) {
-        String status_ = multStatIfDamgeType.getKey(_index.intValue()).getType();
+    public String getTrMultStatIfDamgeTypeSec(int _index) {
+        String status_ = multStatIfDamgeType.getKey(_index).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(status_);
     }
-    public String getTrMultStatIfStatutRank(Long _index) {
-        Statistic status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatIfStatutRank(int _index) {
+        Statistic status_ = multStatIfStatutRank.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(status_);
     }
-    public String getTrMultStatIfStatutRankSec(Long _index) {
-        String status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatus();
+    public String getTrMultStatIfStatutRankSec(int _index) {
+        String status_ = multStatIfStatutRank.getKey(_index).getStatus();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String clickMultStatIfStatutRankSec(Long _index) {
-        String status_ = multStatIfStatutRank.getKey(_index.intValue()).getStatus();
+    public String clickMultStatIfStatutRankSec(int _index) {
+        String status_ = multStatIfStatutRank.getKey(_index).getStatus();
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTrMultPowerMovesTypesGlobalKey(Long _index) {
-        String status_ = multPowerMovesTypesGlobal.getKey(_index.intValue());
+    public String getTrMultPowerMovesTypesGlobalKey(int _index) {
+        String status_ = multPowerMovesTypesGlobal.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-    public String clickMultPowerMovesTypesGlobalKey(Long _index) {
-        String status_ = multPowerMovesTypesGlobal.getKey(_index.intValue());
+    public String clickMultPowerMovesTypesGlobalKey(int _index) {
+        String status_ = multPowerMovesTypesGlobal.getKey(_index);
         getForms().put(MOVE, status_);
         return MOVE;
     }
-    public String getTrImmuLowStatisTypes(Long _index) {
-        String move_ = immuLowStatisTypes.getKey(_index.intValue());
+    public String getTrImmuLowStatisTypes(int _index) {
+        String move_ = immuLowStatisTypes.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrImmuLowStatisValue(Long _indexOne, Long _indexTwo) {
-        Statistic move_ = immuLowStatisTypes.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getTrImmuLowStatisValue(int _indexOne, int _indexTwo) {
+        Statistic move_ = immuLowStatisTypes.getValue(_indexOne).get(_indexTwo);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrBreakFoeImmuneKey(Long _index) {
-        String status_ = breakFoeImmune.get(_index.intValue()).getDamageType();
+    public String getTrBreakFoeImmuneKey(int _index) {
+        String status_ = breakFoeImmune.get(_index).getDamageType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String getTrBreakFoeImmuneValue(Long _index) {
-        String status_ = breakFoeImmune.get(_index.intValue()).getPokemonType();
+    public String getTrBreakFoeImmuneValue(int _index) {
+        String status_ = breakFoeImmune.get(_index).getPokemonType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsStatus_;
         translationsStatus_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsStatus_.getVal(status_);
     }
-    public String getTrBonusStatRank(Long _index) {
-        Statistic move_ = bonusStatRank.getKey(_index.intValue());
+    public String getTrBonusStatRank(int _index) {
+        Statistic move_ = bonusStatRank.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrBoostStatRankEndRound(Long _index) {
-        Statistic move_ = boostStatRankEndRound.getKey(_index.intValue());
+    public String getTrBoostStatRankEndRound(int _index) {
+        Statistic move_ = boostStatRankEndRound.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrBoostStatRankProtected(Long _index) {
-        Statistic move_ = boostStatRankProtected.getKey(_index.intValue());
+    public String getTrBoostStatRankProtected(int _index) {
+        Statistic move_ = boostStatRankProtected.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrLowStatFoeHit(Long _index) {
-        Statistic move_ = lowStatFoeHit.getKey(_index.intValue());
+    public String getTrLowStatFoeHit(int _index) {
+        Statistic move_ = lowStatFoeHit.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrMultStatIfKoFoe(Long _index) {
-        Statistic move_ = multStatIfKoFoe.getKey(_index.intValue());
+    public String getTrMultStatIfKoFoe(int _index) {
+        Statistic move_ = multStatIfKoFoe.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrMultStatIfLowStat(Long _index) {
-        Statistic move_ = multStatIfLowStat.getKey(_index.intValue());
+    public String getTrMultStatIfLowStat(int _index) {
+        Statistic move_ = multStatIfLowStat.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrMultStatAlly(Long _index) {
-        Statistic move_ = multStatAlly.getKey(_index.intValue());
+    public String getTrMultStatAlly(int _index) {
+        Statistic move_ = multStatAlly.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(move_);
     }
-    public String getTrIncreasedPrio(Long _index) {
-        String move_ = increasedPrio.getKey(_index.intValue());
+    public String getTrIncreasedPrio(int _index) {
+        String move_ = increasedPrio.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsCategories_;
         translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
         return translationsCategories_.getVal(move_);
     }
-    public String getTrIncreasedPrioTypes(Long _index) {
-        String move_ = increasedPrioTypes.getKey(_index.intValue());
+    public String getTrIncreasedPrioTypes(int _index) {
+        String move_ = increasedPrioTypes.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrMultDamageFoe(Long _index) {
-        String move_ = multDamageFoe.getKey(_index.intValue());
+    public String getTrMultDamageFoe(int _index) {
+        String move_ = multDamageFoe.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrChangingBoostTypesOld(Long _index) {
-        String move_ = changingBoostTypes.getKey(_index.intValue());
+    public String getTrChangingBoostTypesOld(int _index) {
+        String move_ = changingBoostTypes.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrChangingBoostTypesNew(Long _index) {
-        String move_ = changingBoostTypes.getValue(_index.intValue()).getType();
+    public String getTrChangingBoostTypesNew(int _index) {
+        String move_ = changingBoostTypes.getValue(_index).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(move_);
     }
-    public String getTrPokemon(Long _index) {
-        String pk_ = pokemon.get(_index.intValue());
+    public String getTrPokemon(int _index) {
+        String pk_ = pokemon.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsPokemons_;
         translationsPokemons_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemons_.getVal(pk_);
     }
-    public String clickPokemon(Long _index) {
-        String pk_ = pokemon.get(_index.intValue());
+    public String clickPokemon(int _index) {
+        String pk_ = pokemon.get(_index);
         getForms().put(PK, pk_);
         return POKEMON;
     }

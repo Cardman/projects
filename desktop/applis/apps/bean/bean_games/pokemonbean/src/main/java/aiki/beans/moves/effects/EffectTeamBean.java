@@ -110,9 +110,9 @@ public class EffectTeamBean extends EffectBean {
         disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         disableFoeTeamStatus = disableFoeTeamStatus_;
     }
-    public String clickStatus(Long _indexEffect, Long _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
-        String st_ = getProtectAgainstStatus(effect_).get(_index.intValue());
+    public String clickStatus(int _indexEffect, int _index) {
+        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
+        String st_ = getProtectAgainstStatus(effect_).get(_index);
         getForms().put(STATUS, st_);
         return STATUS;
     }
@@ -128,14 +128,14 @@ public class EffectTeamBean extends EffectBean {
         protectAgainstStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
         return protectAgainstStatus_;
     }
-    public String getTrStatus(Long _index) {
+    public String getTrStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String st_ = protectAgainstStatus.get(_index.intValue());
+        String st_ = protectAgainstStatus.get(_index);
         return translatedStatus_.getVal(st_);
     }
-    public String clickUnusableMove(Long _indexEffect, Long _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
+    public String clickUnusableMove(int _indexEffect, int _index) {
+        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList unusableMoves_;
@@ -144,18 +144,18 @@ public class EffectTeamBean extends EffectBean {
             unusableMoves_.add(m);
         }
         unusableMoves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        String st_ = unusableMoves_.get(_index.intValue());
+        String st_ = unusableMoves_.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrUnusableMove(Long _index) {
+    public String getTrUnusableMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = unusableMoves.get(_index.intValue());
+        String st_ = unusableMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickDisableFoeTeamEffects(Long _indexEffect, Long _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
+    public String clickDisableFoeTeamEffects(int _indexEffect, int _index) {
+        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList disableFoeTeamEffects_;
@@ -164,18 +164,18 @@ public class EffectTeamBean extends EffectBean {
             disableFoeTeamEffects_.add(m);
         }
         disableFoeTeamEffects_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        String st_ = disableFoeTeamEffects_.get(_index.intValue());
+        String st_ = disableFoeTeamEffects_.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrDisableFoeTeamEffects(Long _index) {
+    public String getTrDisableFoeTeamEffects(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = disableFoeTeamEffects.get(_index.intValue());
+        String st_ = disableFoeTeamEffects.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickDisableFoeTeamStatus(Long _indexEffect, Long _index) {
-        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect.intValue());
+    public String clickDisableFoeTeamStatus(int _indexEffect, int _index) {
+        EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringList disableFoeTeamStatus_;
@@ -184,14 +184,14 @@ public class EffectTeamBean extends EffectBean {
             disableFoeTeamStatus_.add(m);
         }
         disableFoeTeamStatus_.sortElts(new ComparatorTrStrings(translatedStatus_));
-        String st_ = disableFoeTeamStatus_.get(_index.intValue());
+        String st_ = disableFoeTeamStatus_.get(_index);
         getForms().put(STATUS, st_);
         return STATUS;
     }
-    public String getTrDisableFoeTeamStatus(Long _index) {
+    public String getTrDisableFoeTeamStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String st_ = disableFoeTeamStatus.get(_index.intValue());
+        String st_ = disableFoeTeamStatus.get(_index);
         return translatedMoves_.getVal(st_);
     }
     public Listable<CategoryMult> getCatMult() {

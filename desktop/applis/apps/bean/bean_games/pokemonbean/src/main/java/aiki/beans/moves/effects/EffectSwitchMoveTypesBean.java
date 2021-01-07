@@ -30,16 +30,16 @@ public class EffectSwitchMoveTypesBean extends EffectBean {
         }
         changeTypes = changeTypes_;
     }
-    public String getTrReplacingTypes(Long _index) {
+    public String getTrReplacingTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = replacingTypes.get(_index.intValue());
+        String st_ = replacingTypes.get(_index);
         return translatedTypes_.getVal(st_);
     }
-    public String getTrChangedTypes(Long _index) {
+    public String getTrChangedTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = changeTypes.getKey(_index.intValue());
+        String st_ = changeTypes.getKey(_index);
         return translatedTypes_.getVal(st_);
     }
 

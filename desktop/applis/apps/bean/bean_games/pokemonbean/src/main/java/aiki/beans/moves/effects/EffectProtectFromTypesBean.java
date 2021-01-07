@@ -22,10 +22,10 @@ public class EffectProtectFromTypesBean extends EffectBean {
         immuAgainstTypes_.sortElts(new ComparatorTrStrings(translatedTypes_));
         immuAgainstTypes = immuAgainstTypes_;
     }
-    public String getTrType(Long _index) {
+    public String getTrType(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String type_ = immuAgainstTypes.get(_index.intValue());
+        String type_ = immuAgainstTypes.get(_index);
         return translatedTypes_.getVal(type_);
     }
 

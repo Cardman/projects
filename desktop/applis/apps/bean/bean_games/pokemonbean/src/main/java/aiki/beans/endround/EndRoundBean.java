@@ -40,9 +40,9 @@ public class EndRoundBean extends CommonBean {
         //impl
     }
 
-    public String getPage(Long _index) {
+    public String getPage(int _index) {
         CustList<EndRoundMainElements> evts_ = getEvts();
-        EndRoundMainElements elt_ = evts_.get(_index.intValue());
+        EndRoundMainElements elt_ = evts_.get(_index);
         if (elt_.isIncrementNumberOfRounds()) {
             return PAGE_EFF;
         }

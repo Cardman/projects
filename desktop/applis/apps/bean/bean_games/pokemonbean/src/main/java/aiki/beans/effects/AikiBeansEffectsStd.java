@@ -122,7 +122,7 @@ public final class AikiBeansEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_COMBO_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -132,10 +132,10 @@ public final class AikiBeansEffectsStd {
         fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(REPEATED_ROUNDS_LAW, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO,false,false,type_));
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_COMBO_BEAN, type_);
@@ -184,13 +184,13 @@ public final class AikiBeansEffectsStd {
         params_ = new StringList();
         method_ = new StandardMethod(NOT_EMPTY_VAR_BOOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_SWAP_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_WHILE_SENDING_BEAN, type_);
@@ -219,7 +219,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new LongStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,END_ROUND)) {
@@ -336,7 +336,7 @@ public final class AikiBeansEffectsStd {
         EffectComboBean instance_ = (EffectComboBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) _value);
+            instance_.setIndex((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -374,11 +374,11 @@ public final class AikiBeansEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATISTIC)) {
-            res_.setResult(new StringStruct(instance_.getTrStatistic((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatistic((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -408,15 +408,15 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getFail((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getFail((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new RateStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new RateStruct(instance_.getRate((Integer)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_SWAP_FAIL)) {
-            res_.setResult(new StringStruct(instance_.getSwapFail((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getSwapFail((Integer)_args[0])));
             return res_;
         }
         return res_;

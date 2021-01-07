@@ -104,18 +104,18 @@ public class EffectStatisticBean extends EffectBean {
     public boolean randomStatis() {
         return !lawBoost.isEmpty();
     }
-    public Rate getRate(Long _index) {
-        return lawBoost.getValue(_index.intValue());
+    public Rate getRate(int _index) {
+        return lawBoost.getValue(_index);
     }
-    public String getFail(Long _index) {
-        String stat_ = statisVarRank.getKey(_index.intValue());
+    public String getFail(int _index) {
+        String stat_ = statisVarRank.getKey(_index);
         if (!localFailStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }
         return localFailStatis.getVal(stat_);
     }
-    public String getSwapFail(Long _index) {
-        String stat_ = swapBoostStatis.get(_index.intValue());
+    public String getSwapFail(int _index) {
+        String stat_ = swapBoostStatis.get(_index);
         if (!localFailSwapBoostStatis.contains(stat_)) {
             return DataBase.EMPTY_STRING;
         }

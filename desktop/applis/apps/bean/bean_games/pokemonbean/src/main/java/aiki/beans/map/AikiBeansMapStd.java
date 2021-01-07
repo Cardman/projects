@@ -76,13 +76,13 @@ public final class AikiBeansMapStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_MAP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MAP_BEAN, type_);
@@ -113,31 +113,31 @@ public final class AikiBeansMapStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(WITHOUT_TITLE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_TILE_ON_MAP,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_STORAGE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_HEALER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_HOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_FOSSILE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_MOVE_TUTORS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -149,19 +149,19 @@ public final class AikiBeansMapStd {
         params_ = new StringList();
         method_ = new StandardMethod(SEE_AREA,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_UP,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DIRECTED_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_DOWN,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_LEFT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_RIGHT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MAP_LEVEL_BEAN, type_);
@@ -238,15 +238,15 @@ public final class AikiBeansMapStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMultiLayer((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickLevel((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         return res_;
@@ -260,39 +260,39 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFirstRow((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,WITHOUT_TITLE)) {
-            res_.setResult(BooleanStruct.of(instance_.withoutTitle((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.withoutTitle((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS)) {
-            res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TILE_ON_MAP)) {
-            res_.setResult(new StringStruct(instance_.clickTileOnMap((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTileOnMap((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_STORAGE)) {
-            res_.setResult(BooleanStruct.of(instance_.isStorage((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isStorage((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HEALER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealer((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHealer((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_HOST)) {
-            res_.setResult(BooleanStruct.of(instance_.isHost((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isHost((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_FOSSILE)) {
-            res_.setResult(BooleanStruct.of(instance_.isFossile((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isFossile((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MOVE_TUTORS)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveTutors((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isMoveTutors((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TILE)) {
@@ -308,23 +308,23 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_UP)) {
-            res_.setResult(BooleanStruct.of(instance_.isUp((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isUp((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DIRECTED_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickDirectedLink((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickDirectedLink((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_DOWN)) {
-            res_.setResult(BooleanStruct.of(instance_.isDown((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isDown((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_LEFT)) {
-            res_.setResult(BooleanStruct.of(instance_.isLeft((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isLeft((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_RIGHT)) {
-            res_.setResult(BooleanStruct.of(instance_.isRight((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isRight((Integer)_args[0])));
             return res_;
         }
         return res_;

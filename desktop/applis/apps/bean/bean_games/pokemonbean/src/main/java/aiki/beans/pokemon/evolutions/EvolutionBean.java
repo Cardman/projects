@@ -14,7 +14,7 @@ public class EvolutionBean extends CommonBean {
     private Evolution evo;
     private String displayName;
     private String name;
-    private long index;
+    private int index;
 
     @Override
     public void beforeDisplaying() {
@@ -29,14 +29,14 @@ public class EvolutionBean extends CommonBean {
     protected Evolution getEvo() {
         return evo;
     }
-    public String clickEvo(Long _index) {
+    public String clickEvo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonData pk_ = data_.getPokemon(base);
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         evolutions_.sortElts(new ComparatorTrStrings(translationsPokemon_));
-        getForms().put(PK,evolutions_.get(_index.intValue()));
+        getForms().put(PK,evolutions_.get(_index));
         return POKEMON;
     }
 
@@ -44,11 +44,11 @@ public class EvolutionBean extends CommonBean {
         return base;
     }
 
-    public void setIndex(long _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 
-    public long getIndex() {
+    public int getIndex() {
         return index;
     }
 

@@ -225,59 +225,59 @@ public class EffectGlobalBean extends EffectBean {
     public Listable<TypesDuo> getTypesDuos() {
         return efficiencyMoves.getKeys();
     }
-    public String clickPreventedStatus(Long _index) {
-        String st_ = preventStatus.get(_index.intValue());
+    public String clickPreventedStatus(int _index) {
+        String st_ = preventStatus.get(_index);
         getForms().put(STATUS, st_);
         return STATUS;
     }
-    public String getTrPreventedStatus(Long _index) {
+    public String getTrPreventedStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String st_ = preventStatus.get(_index.intValue());
+        String st_ = preventStatus.get(_index);
         return translatedStatus_.getVal(st_);
     }
-    public String clickCancelledAbility(Long _index) {
-        String st_ = cancelProtectingAbilities.get(_index.intValue());
+    public String clickCancelledAbility(int _index) {
+        String st_ = cancelProtectingAbilities.get(_index);
         getForms().put(ABILITY, st_);
         return ABILITY;
     }
-    public String getTrCancelledAbility(Long _index) {
+    public String getTrCancelledAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        String st_ = cancelProtectingAbilities.get(_index.intValue());
+        String st_ = cancelProtectingAbilities.get(_index);
         return translatedAbilities_.getVal(st_);
     }
-    public String clickUnusableMove(Long _index) {
-        String st_ = unusableMoves.get(_index.intValue());
+    public String clickUnusableMove(int _index) {
+        String st_ = unusableMoves.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrUnusableMoves(Long _index) {
+    public String getTrUnusableMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = unusableMoves.get(_index.intValue());
+        String st_ = unusableMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickCancelledEffect(Long _index) {
-        String st_ = cancelEffects.get(_index.intValue());
+    public String clickCancelledEffect(int _index) {
+        String st_ = cancelEffects.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrCancelledEffect(Long _index) {
+    public String getTrCancelledEffect(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = cancelEffects.get(_index.intValue());
+        String st_ = cancelEffects.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickMultMovePower(Long _index) {
-        String st_ = multPowerMoves.getKey(_index.intValue());
+    public String clickMultMovePower(int _index) {
+        String st_ = multPowerMoves.getKey(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrMultMovePower(Long _index) {
+    public String getTrMultMovePower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = multPowerMoves.getKey(_index.intValue());
+        String st_ = multPowerMoves.getKey(_index);
         return translatedMoves_.getVal(st_);
     }
     public String clickInvokedMove() {
@@ -289,48 +289,48 @@ public class EffectGlobalBean extends EffectBean {
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(invokedMoveTerrain);
     }
-    public String clickInvokingMove(Long _index) {
-        String st_ = invokingMoves.get(_index.intValue());
+    public String clickInvokingMove(int _index) {
+        String st_ = invokingMoves.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrInvokingMove(Long _index) {
+    public String getTrInvokingMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = invokingMoves.get(_index.intValue());
+        String st_ = invokingMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickInvokingMoveTypes(Long _index) {
-        String st_ = invokingMovesChangingTypes.get(_index.intValue());
+    public String clickInvokingMoveTypes(int _index) {
+        String st_ = invokingMovesChangingTypes.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrInvokingMoveTypes(Long _index) {
+    public String getTrInvokingMoveTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = invokingMovesChangingTypes.get(_index.intValue());
+        String st_ = invokingMovesChangingTypes.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickMovesTarget(Long _index) {
-        String st_ = movesUsedByTargetedFighters.get(_index.intValue());
+    public String clickMovesTarget(int _index) {
+        String st_ = movesUsedByTargetedFighters.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrMovesTarget(Long _index) {
+    public String getTrMovesTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = movesUsedByTargetedFighters.get(_index.intValue());
+        String st_ = movesUsedByTargetedFighters.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String getTrMultStatIfDamgeTypeFirst(Long _index) {
-        Statistic statis_ = multStatIfContainsType.getKey(_index.intValue()).getStatistic();
+    public String getTrMultStatIfDamgeTypeFirst(int _index) {
+        Statistic statis_ = multStatIfContainsType.getKey(_index).getStatistic();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translationsStatistics_.getVal(statis_);
     }
-    public String getTrMultStatIfDamgeTypeSecond(Long _index) {
-        String type_ = multStatIfContainsType.getKey(_index.intValue()).getType();
+    public String getTrMultStatIfDamgeTypeSecond(int _index) {
+        String type_ = multStatIfContainsType.getKey(_index).getType();
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());

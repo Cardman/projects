@@ -561,47 +561,47 @@ public class MoveBean extends CommonBean {
     public boolean switchAfterUsingMove() {
         return switchType == SwitchType.LANCEUR;
     }
-    public String getTrAchieveDisappearedPkUsingMove(Long _index) {
-        String move_ = achieveDisappearedPkUsingMove.get(_index.intValue());
+    public String getTrAchieveDisappearedPkUsingMove(int _index) {
+        String move_ = achieveDisappearedPkUsingMove.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-    public String clickRequiredStatus(Long _index) {
+    public String clickRequiredStatus(int _index) {
         String key_ = getRequiredStatusKey(_index);
         getForms().put(STATUS, key_);
         return STATUS;
     }
-    public String getRequiredStatus(Long _index) {
+    public String getRequiredStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getRequiredStatusKey(_index);
         return translatedStatus_.getVal(key_);
     }
 
-    private String getRequiredStatusKey(Long _index) {
-        return requiredStatus.get(_index.intValue());
+    private String getRequiredStatusKey(int _index) {
+        return requiredStatus.get(_index);
     }
-    public String clickDeletedStatus(Long _index) {
+    public String clickDeletedStatus(int _index) {
         String key_ = getDeletedStatusKey(_index);
         getForms().put(STATUS, key_);
         return STATUS;
     }
-    public String getDeletedStatus(Long _index) {
+    public String getDeletedStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         String key_ = getDeletedStatusKey(_index);
         return translatedStatus_.getVal(key_);
     }
 
-    private String getDeletedStatusKey(Long _index) {
-        return deletedStatus.get(_index.intValue());
+    private String getDeletedStatusKey(int _index) {
+        return deletedStatus.get(_index);
     }
-    public boolean isItem(Long _index) {
-        return !typesByOwnedItems.getKey(_index.intValue()).isEmpty();
+    public boolean isItem(int _index) {
+        return !typesByOwnedItems.getKey(_index).isEmpty();
     }
-    public String clickTypesByOwnedItems(Long _index) {
-        String item_ = typesByOwnedItems.getKey(_index.intValue());
+    public String clickTypesByOwnedItems(int _index) {
+        String item_ = typesByOwnedItems.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
@@ -649,27 +649,27 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getTrTypesByOwnedItems(Long _index) {
-        String item_ = typesByOwnedItems.getKey(_index.intValue());
+    public String getTrTypesByOwnedItems(int _index) {
+        String item_ = typesByOwnedItems.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedItems_.getVal(item_);
     }
-    public boolean isWeather(Long _index) {
-        return !typesByWeathers.getKey(_index.intValue()).isEmpty();
+    public boolean isWeather(int _index) {
+        return !typesByWeathers.getKey(_index).isEmpty();
     }
-    public String clickTypesByWeathers(Long _index) {
-        String item_ = typesByWeathers.getKey(_index.intValue());
+    public String clickTypesByWeathers(int _index) {
+        String item_ = typesByWeathers.getKey(_index);
         getForms().put(MOVE, item_);
         return MOVE;
     }
-    public String getTrTypesByWeathers(Long _index) {
-        String item_ = typesByWeathers.getKey(_index.intValue());
+    public String getTrTypesByWeathers(int _index) {
+        String item_ = typesByWeathers.getKey(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(item_);
     }
-    public String clickItemSecEffect(Long _index) {
+    public String clickItemSecEffect(int _index) {
         String item_ = getItemSecEffect(_index);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, item_);
@@ -718,30 +718,30 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-    public String translateItemSecEffect(Long _index) {
+    public String translateItemSecEffect(int _index) {
         String it_ = getItemSecEffect(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedItems_.getVal(it_);
     }
 
-    private String getItemSecEffect(Long _index) {
-        String it_ = secEffectsByItem.getKey(_index.intValue());
+    private String getItemSecEffect(int _index) {
+        String it_ = secEffectsByItem.getKey(_index);
         return it_;
     }
-    public String clickAbility(Long _index) {
-        String key_ = abilities.get(_index.intValue());
+    public String clickAbility(int _index) {
+        String key_ = abilities.get(_index);
         getForms().put(ABILITY, key_);
         return ABILITY;
     }
-    public String getTrAbility(Long _index) {
-        String ab_ = abilities.get(_index.intValue());
+    public String getTrAbility(int _index) {
+        String ab_ = abilities.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-    public String clickItem(Long _index) {
-        String key_ = items.get(_index.intValue());
+    public String clickItem(int _index) {
+        String key_ = items.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, key_);
         Item it_ = data_.getItem(key_);
@@ -789,67 +789,67 @@ public class MoveBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getTrItem(Long _index) {
-        String ab_ = items.get(_index.intValue());
+    public String getTrItem(int _index) {
+        String ab_ = items.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedItems().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-    public String clickMove(Long _index) {
-        String key_ = affectedByMoves.get(_index.intValue());
+    public String clickMove(int _index) {
+        String key_ = affectedByMoves.get(_index);
         getForms().put(MOVE, key_);
         return MOVE;
     }
-    public String getTrMove(Long _index) {
-        String ab_ = affectedByMoves.get(_index.intValue());
+    public String getTrMove(int _index) {
+        String ab_ = affectedByMoves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedAbilities_.getVal(ab_);
     }
-    public String clickPokemon(Long _indexLevel, Long _indexPk) {
-        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel.intValue());
-        String pk_ = pks_.get(_indexPk.intValue());
+    public String clickPokemon(int _indexLevel, int _indexPk) {
+        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
+        String pk_ = pks_.get(_indexPk);
         getForms().put(PK, pk_);
         return POKEMON;
     }
-    public String getTrPokemon(Long _indexLevel, Long _indexPk) {
-        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel.intValue());
+    public String getTrPokemon(int _indexLevel, int _indexPk) {
+        StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = pks_.get(_indexPk.intValue());
+        String pk_ = pks_.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
     }
-    public String clickPokemonTm(Long _indexPk) {
-        String pk_ = movesTmLearntByPokemon.get(_indexPk.intValue());
+    public String clickPokemonTm(int _indexPk) {
+        String pk_ = movesTmLearntByPokemon.get(_indexPk);
         getForms().put(PK, pk_);
         return POKEMON;
     }
-    public String getTrPokemonTm(Long _indexPk) {
+    public String getTrPokemonTm(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesTmLearntByPokemon.get(_indexPk.intValue());
+        String pk_ = movesTmLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
     }
-    public String clickPokemonHm(Long _indexPk) {
-        String pk_ = movesHmLearntByPokemon.get(_indexPk.intValue());
+    public String clickPokemonHm(int _indexPk) {
+        String pk_ = movesHmLearntByPokemon.get(_indexPk);
         getForms().put(PK, pk_);
         return POKEMON;
     }
-    public String getTrPokemonHm(Long _indexPk) {
+    public String getTrPokemonHm(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesHmLearntByPokemon.get(_indexPk.intValue());
+        String pk_ = movesHmLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
     }
-    public String clickPokemonMt(Long _indexPk) {
-        String pk_ = movesMtLearntByPokemon.get(_indexPk.intValue());
+    public String clickPokemonMt(int _indexPk) {
+        String pk_ = movesMtLearntByPokemon.get(_indexPk);
         getForms().put(PK, pk_);
         return POKEMON;
     }
-    public String getTrPokemonMt(Long _indexPk) {
+    public String getTrPokemonMt(int _indexPk) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        String pk_ = movesMtLearntByPokemon.get(_indexPk.intValue());
+        String pk_ = movesMtLearntByPokemon.get(_indexPk);
         return translatedPokemon_.getVal(pk_);
     }
     public boolean canBeLearnt() {
@@ -903,11 +903,11 @@ public class MoveBean extends CommonBean {
     public boolean isNothing() {
         return targetChoice == TargetChoice.NOTHING;
     }
-    public String getPage(Long _long) {
+    public String getPage(int _long) {
         String name_ = (String) getForms().getVal(MOVE);
         DataBase data_ = (DataBase) getDataBase();
         MoveData moveData_ = data_.getMove(name_);
-        Effect eff_ = moveData_.getEffet(_long.intValue());
+        Effect eff_ = moveData_.getEffet(_long);
         if (eff_ instanceof EffectDamage) {
             return PAGE_DAMAGE;
         }

@@ -67,67 +67,67 @@ public final class AikiBeansMapElementsStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_AREA_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(AREA,PokemonStandards.TYPE_AREA_APPARITION,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_IMAGE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_NAME_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_NAME_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_ABILITY_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ITEM_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_ITEM_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVES_AT_LEVEL_FISHING,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_AREA_BEAN, type_);
@@ -174,10 +174,10 @@ public final class AikiBeansMapElementsStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_LEGENDARY_POKEMON_BEAN, type_);
@@ -208,87 +208,87 @@ public final class AikiBeansMapElementsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getImage((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getImage((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
-            res_.setResult(new StringStruct(instance_.clickName((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickName((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAME)) {
-            res_.setResult(new StringStruct(instance_.getName((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getName((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_GENDER)) {
-            res_.setResult(new StringStruct(instance_.getGender((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getGender((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItem((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getItem((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getMove((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_FISHING)) {
-            res_.setResult(new StringStruct(instance_.getImageFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getImageFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_NAME_FISHING)) {
-            res_.setResult(new StringStruct(instance_.clickNameFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickNameFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAME_FISHING)) {
-            res_.setResult(new StringStruct(instance_.getNameFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getNameFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY_FISHING)) {
-            res_.setResult(new StringStruct(instance_.clickAbilityFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbilityFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ABILITY_FISHING)) {
-            res_.setResult(new StringStruct(instance_.getAbilityFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getAbilityFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM_FISHING)) {
-            res_.setResult(new StringStruct(instance_.clickItemFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItemFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ITEM_FISHING)) {
-            res_.setResult(new StringStruct(instance_.getItemFishing((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getItemFishing((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
-            res_.setResult(new DefaultStruct(instance_.getMovesAtLevelFishing((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesAtLevelFishing((Integer)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_FISHING)) {
-            res_.setResult(new StringStruct(instance_.clickMoveFishing((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMoveFishing((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE_FISHING)) {
-            res_.setResult(new StringStruct(instance_.getMoveFishing((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.getMoveFishing((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         return res_;
@@ -339,11 +339,11 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getMove((Integer)_args[0])));
             return res_;
         }
         return res_;

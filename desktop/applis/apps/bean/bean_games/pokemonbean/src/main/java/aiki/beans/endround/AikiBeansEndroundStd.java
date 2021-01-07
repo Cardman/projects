@@ -113,7 +113,7 @@ public final class AikiBeansEndroundStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(ABILITY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(ITEM,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(STATUS,_std.getAliasString(),false,false,type_));
@@ -122,22 +122,22 @@ public final class AikiBeansEndroundStd {
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(END_ROUND_HTML,_std.getAliasString(),false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_BEAN, type_);
@@ -187,22 +187,22 @@ public final class AikiBeansEndroundStd {
         fields_.add(new StandardField(USER_STATUS_END_ROUND,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(MULT_DAMAGE_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(HEAL_HP_BY_OWNER_TYPES, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_USER_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_TR_USER_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DAMAGE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DAMAGE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_TYPE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, type_);
@@ -219,10 +219,10 @@ public final class AikiBeansEndroundStd {
         fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, fields_, constructors_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(DAMAGE_BY_STATUS, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_DAMAGE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_DAMAGE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, type_);
@@ -253,10 +253,10 @@ public final class AikiBeansEndroundStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_MOVES_SAME_CATEGORY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_TARGET_RELATION_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_TARGET_RELATION_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, type_);
@@ -337,7 +337,7 @@ public final class AikiBeansEndroundStd {
         params_ = new StringList();
         method_ = new StandardMethod(GET_EVTS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_END_ROUND_BEAN, type_);
@@ -352,7 +352,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new LongStruct(instance_.getIndex()));
+            res_.setResult(new IntStruct(instance_.getIndex()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITY)) {
@@ -536,7 +536,7 @@ public final class AikiBeansEndroundStd {
         EffectEndRoundBean instance_ = (EffectEndRoundBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex((Long) _value);
+            instance_.setIndex((Integer) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -547,27 +547,27 @@ public final class AikiBeansEndroundStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickAbility((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickItem((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickMoves((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickMoves((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrMoves((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMoves((Integer)_args[0])));
             return res_;
         }
         return res_;
@@ -577,7 +577,7 @@ public final class AikiBeansEndroundStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_USER_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickUserStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickUserStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_USER_STATUS)) {
@@ -585,19 +585,19 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDamageStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(BooleanStruct.of(instance_.isType((Long)_args[0])));
+            res_.setResult(BooleanStruct.of(instance_.isType((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrType((Integer)_args[0])));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
@@ -607,11 +607,11 @@ public final class AikiBeansEndroundStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus((Long)_args[0],(Long)_args[1])));
+            res_.setResult(new StringStruct(instance_.clickDamageStatus((Integer)_args[0],(Integer)_args[1])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrDamageStatus((Integer)_args[0])));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
@@ -626,11 +626,11 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTargetRelationMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickTargetRelationMove((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrTargetRelationMove((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrTargetRelationMove((Integer)_args[0])));
             return res_;
         }
         return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_cont, _instance, _method, _args);
@@ -645,7 +645,7 @@ public final class AikiBeansEndroundStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getPage((Integer)_args[0])));
             return res_;
         }
         return res_;

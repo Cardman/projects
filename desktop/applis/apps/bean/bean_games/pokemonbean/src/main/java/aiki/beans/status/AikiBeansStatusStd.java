@@ -113,7 +113,7 @@ public final class AikiBeansStatusStd {
         params_ = new StringList();
         method_ = new StandardMethod(IS_SINGLE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_MULT_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -137,10 +137,10 @@ public final class AikiBeansStatusStd {
         params_ = new StringList();
         method_ = new StandardMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasLong());
+        params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_STATUS_SET_BEAN, type_);
@@ -295,7 +295,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrMultStat((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_EFFECT_PARTNER)) {
@@ -313,11 +313,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.clickStatus((Integer)_args[0])));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus((Long)_args[0])));
+            res_.setResult(new StringStruct(instance_.getTrStatus((Integer)_args[0])));
             return res_;
         }
         return res_;

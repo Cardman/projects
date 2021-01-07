@@ -13,7 +13,7 @@ public class MoveLineBean extends CommonBean {
     private String accuracy;
     private String power;
     private StringList sortedMoves;
-    private long index;
+    private int index;
 
     @Override
     public void beforeDisplaying() {
@@ -25,16 +25,16 @@ public class MoveLineBean extends CommonBean {
         accuracy = moveLine.getAccuracy();
         power = moveLine.getPower();
     }
-    public String clickMove(Long _index) {
-        getForms().put(MOVE, sortedMoves.get(_index.intValue()));
+    public String clickMove(int _index) {
+        getForms().put(MOVE, sortedMoves.get(_index));
         return MOVE;
     }
 
-    public long getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(long _index) {
+    public void setIndex(int _index) {
         index = _index;
     }
 

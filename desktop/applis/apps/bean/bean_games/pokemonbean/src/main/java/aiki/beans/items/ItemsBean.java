@@ -26,7 +26,7 @@ import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class ItemsBean extends CommonBean {
-    private CustList<ItemLine> items = new CustList<ItemLine>();
+    private final CustList<ItemLine> items = new CustList<ItemLine>();
     private StringList sortedItems = new StringList();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedPrice = DataBase.EMPTY_STRING;
@@ -86,7 +86,7 @@ public class ItemsBean extends CommonBean {
                 sortedItems_.add(i);
             }
         } else {
-            int int_ = price.intValue();
+            int int_ = price;
             for (String i: data_.getItems().getKeys()) {
                 String display_ = translationsItems_.getVal(i);
                 if (!StringUtil.match(display_, typedName)) {
@@ -155,9 +155,9 @@ public class ItemsBean extends CommonBean {
         }
         return ITEMS;
     }
-    public String clickLink(Long _index) {
+    public String clickLink(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String item_ = items.get(_index.intValue()).getName();
+        String item_ = items.get(_index).getName();
         getForms().put(ITEM, item_);
         Item it_ = data_.getItem(item_);
         if (it_ instanceof Ball) {
@@ -204,8 +204,8 @@ public class ItemsBean extends CommonBean {
         }
         return ITEM;
     }
-    public String getMiniImage(Long _number) {
-        String item_ = items.get(_number.intValue()).getName();
+    public String getMiniImage(int _number) {
+        String item_ = items.get(_number).getName();
         DataBase data_ = (DataBase) getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
     }

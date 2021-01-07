@@ -38,8 +38,8 @@ public class EffectSwitchAbilitiesBean extends EffectBean {
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         return translatedAbilities_.getVal(effect_.getConstAbility());
     }
-    public String clickAbility(Long _index) {
-        EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index.intValue());
+    public String clickAbility(int _index) {
+        EffectSwitchAbilities effect_ = (EffectSwitchAbilities) getEffect(_index);
         getForms().put(ABILITY, effect_.getConstAbility());
         return ABILITY;
     }

@@ -47,8 +47,8 @@ public abstract class CommonFightBean extends Bean {
         return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
     }
 
-    protected static Bytes getMembers(FacadeGame _facade, byte _noTeam) {
-        Team team_ = _facade.getGame().getFight().getTeams().getVal(_noTeam);
+    protected static Bytes getMembers(FacadeGame _facade, int _noTeam) {
+        Team team_ = _facade.getGame().getFight().getTeams().getVal((byte) _noTeam);
         Bytes numbers_ = new Bytes(team_.getMembers().getKeys());
         numbers_.sort();
         return numbers_;

@@ -38,14 +38,14 @@ public class EvolvingItemBean extends ItemBean {
         pokemon_.sortElts(new ComparatorTrStrings(translatedPokemon_));
         pokemon = pokemon_;
     }
-    public String getTrPokemon(Long _index) {
-        String type_ = pokemon.get(_index.intValue());
+    public String getTrPokemon(int _index) {
+        String type_ = pokemon.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(type_);
     }
-    public String clickPokemon(Long _index) {
-        String type_ = pokemon.get(_index.intValue());
+    public String clickPokemon(int _index) {
+        String type_ = pokemon.get(_index);
         getForms().put(PK, type_);
         return POKEMON;
     }

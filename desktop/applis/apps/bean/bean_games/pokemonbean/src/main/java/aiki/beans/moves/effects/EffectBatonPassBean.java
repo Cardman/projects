@@ -23,14 +23,14 @@ public class EffectBatonPassBean extends EffectBean {
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
         moves = moves_;
     }
-    public String getTrMove(Long _index) {
-        String move_ = moves.get(_index.intValue());
+    public String getTrMove(int _index) {
+        String move_ = moves.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
-    public String clickMove(Long _index) {
-        String move_ = moves.get(_index.intValue());
+    public String clickMove(int _index) {
+        String move_ = moves.get(_index);
         getForms().put(MOVE, move_);
         return MOVE;
     }

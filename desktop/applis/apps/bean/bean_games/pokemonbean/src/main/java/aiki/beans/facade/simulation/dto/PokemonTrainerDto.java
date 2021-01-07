@@ -5,7 +5,7 @@ import code.util.StringList;
 
 public final class PokemonTrainerDto {
     private String name;
-    private short level;
+    private int level;
     private Gender gender;
     private String ability;
     private String item;
@@ -28,7 +28,7 @@ public final class PokemonTrainerDto {
         PkTrainer pk_;
         pk_ = new PkTrainer();
         pk_.setName(name);
-        pk_.setLevel(level);
+        pk_.setLevel((short) level);
         pk_.setAbility(ability);
         pk_.setItem(item);
         pk_.setGender(gender);
@@ -44,11 +44,11 @@ public final class PokemonTrainerDto {
         name = _name;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(short _level) {
+    public void setLevel(int _level) {
         level = _level;
     }
 

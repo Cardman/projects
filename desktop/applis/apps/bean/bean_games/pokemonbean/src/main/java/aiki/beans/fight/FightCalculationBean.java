@@ -101,65 +101,65 @@ public class FightCalculationBean extends CommonFightBean {
         foeChoices = foeChoices_;
         foeChoicesTargets = foeChoicesTargets_;
     }
-    public String getFighterWildFight(Long _indexOne, Long _indexTwo) {
-        TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
+    public String getFighterWildFight(int _indexOne, int _indexTwo) {
+        TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne).get(_indexTwo);
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
-    public String getFighter(Long _index) {
-        TeamPosition f_ = sortedFighters.get(_index.intValue());
+    public String getFighter(int _index) {
+        TeamPosition f_ = sortedFighters.get(_index);
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         return getFighterAtPosition(dataBaseFight_, f_);
     }
-    public boolean isFoeTargetChoiceTeam(Long _index) {
-        return allyChoice.getKey(_index.intValue()).getTarget().getTeam() == Fight.FOE;
+    public boolean isFoeTargetChoiceTeam(int _index) {
+        return allyChoice.getKey(_index).getTarget().getTeam() == Fight.FOE;
     }
-    public boolean isFoeTargetTeam(Long _index) {
-        return allyChoice.getValue(_index.intValue()).getTarget().getTeam() == Fight.FOE;
+    public boolean isFoeTargetTeam(int _index) {
+        return allyChoice.getValue(_index).getTarget().getTeam() == Fight.FOE;
     }
-    public boolean isBackTargetChoiceTeam(Long _index) {
-        return allyChoice.getKey(_index.intValue()).getTarget().getPosition() == Fighter.BACK;
+    public boolean isBackTargetChoiceTeam(int _index) {
+        return allyChoice.getKey(_index).getTarget().getPosition() == Fighter.BACK;
     }
-    public boolean isBackTargetTeam(Long _index) {
-        return allyChoice.getValue(_index.intValue()).getTarget().getPosition() == Fighter.BACK;
+    public boolean isBackTargetTeam(int _index) {
+        return allyChoice.getValue(_index).getTarget().getPosition() == Fighter.BACK;
     }
-    public String getTargetNameAllyChoiceCondition(Long _index) {
+    public String getTargetNameAllyChoiceCondition(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = allyChoice.getKey(_index.byteValue());
+        MoveTarget mTarget_ = allyChoice.getKey(_index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-    public String getTargetNameAllyChoice(Long _index) {
+    public String getTargetNameAllyChoice(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = allyChoice.getValue(_index.byteValue());
+        MoveTarget mTarget_ = allyChoice.getValue(_index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-    public boolean isChosenTarget(Long _index) {
-        return foeChoicesTargets.getValue(_index.intValue());
+    public boolean isChosenTarget(int _index) {
+        return foeChoicesTargets.getValue(_index);
     }
-    public String getTargetNameFoeChoice(Long _index) {
+    public String getTargetNameFoeChoice(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        MoveTarget mTarget_ = foeChoices.getVal(_index.byteValue());
+        MoveTarget mTarget_ = foeChoices.getVal((byte) _index);
         TeamPosition key_ = fight_.getFighterKey(mTarget_.getTarget());
         Fighter fighter_ = fight_.getFighter(key_);
         return dataBaseFight_.translatePokemon(fighter_.getName());
     }
-    public String getFoeFighterName(Long _index) {
+    public String getFoeFighterName(int _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         Fight fight_ = dataBaseFight_.getGame().getFight();
         Team team_ = fight_.getFoeTeam();
-        byte key_ = foeChoices.getKey(_index.byteValue());
+        byte key_ = foeChoices.getKey(_index);
         Fighter f_ = team_.refPartMembres(key_);
         return dataBaseFight_.translatePokemon(f_.getName());
     }
-    public boolean isFoeTargetChTeam(Long _index) {
-        return foeChoices.getValue(_index.intValue()).getTarget().getTeam() == Fight.FOE;
+    public boolean isFoeTargetChTeam(int _index) {
+        return foeChoices.getValue(_index).getTarget().getTeam() == Fight.FOE;
     }
 
     public EqList<TeamPosition> getSortedFighters() {

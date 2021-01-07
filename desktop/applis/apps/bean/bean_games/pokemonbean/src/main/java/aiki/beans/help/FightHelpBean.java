@@ -205,8 +205,8 @@ public class FightHelpBean extends CommonBean {
     private String rateFormula;
     private String rateFormulaCh;
     private StringList itemsTypesDef;
-    private LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
-    private LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
+    private final LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
+    private final LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
     private TreeMap<TypesDuo,Rate> efficiency;
     private StringList types;
     private Rate minHpNotKo;
@@ -1775,7 +1775,7 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = autoDamage.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            mapAutoDamage_.putAllMap(data_.getDescriptions(getNumericString((long) i), getLanguage()));
+            mapAutoDamage_.putAllMap(data_.getDescriptions(getNumericString(i), getLanguage()));
         }
         mapAutoDamage = mapAutoDamage_;
     }
@@ -2051,13 +2051,13 @@ public class FightHelpBean extends CommonBean {
         statisticAnim = Statistic.getStatisticsWithBoost();
     }
 
-    public String getTrStatistic(Long _index) {
-        Statistic d_ = statisticAnim.get(_index.intValue());
+    public String getTrStatistic(int _index) {
+        Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         return data_.getTranslatedStatistics().getVal(getLanguage()).getVal(d_);
     }
-    public String getAnimStatistic(Long _index) {
-        Statistic d_ = statisticAnim.get(_index.intValue());
+    public String getAnimStatistic(int _index) {
+        Statistic d_ = statisticAnim.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getAnimStatis().getVal(d_.name()));
     }
@@ -2065,13 +2065,13 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getAnimAbsorb());
     }
-    public String getTrLawRate(Long _index) {
-        DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index.intValue()));
+    public String getTrLawRate(int _index) {
+        DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index));
         DataBase data_ = (DataBase) getDataBase();
         return data_.getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(d_);
     }
-    public String getTrDifficulty(Long _index) {
-        DifficultyWinPointsFight diff_ = PokemonStandards.getDiffWonPtsByName(rates.getKey(_index.intValue()));
+    public String getTrDifficulty(int _index) {
+        DifficultyWinPointsFight diff_ = PokemonStandards.getDiffWonPtsByName(rates.getKey(_index));
         DataBase data_ = (DataBase) getDataBase();
 //        return XmlParser.transformSpecialChars(data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_));
         return data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_);
@@ -2080,13 +2080,13 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getStab().toNumberString();
     }
-    public String getFomula(Long _index) {
+    public String getFomula(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         return data_.getFormula(getNumericString(_index), getLanguage());
     }
 
-    private String getNumericString(Long _index) {
-        String auto_ = autoDamage.get(_index.intValue());
+    private String getNumericString(int _index) {
+        String auto_ = autoDamage.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StatusBeginRoundAutoDamage st_ = (StatusBeginRoundAutoDamage) data_.getStatus(auto_);
         String str_ = data_.getDamageFormula();
@@ -2117,121 +2117,121 @@ public class FightHelpBean extends CommonBean {
         }
         return _st == Statistic.SPECIAL_DEFENSE;
     }
-    public String getTrAbilitiesSentBegin(Long _index) {
+    public String getTrAbilitiesSentBegin(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesSentBeginWeather.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesSentBeginWeather.get(_index));
     }
-    public String clickAbilitiesSentBegin(Long _index) {
-        getForms().put(ABILITY, abilitiesSentBeginWeather.get(_index.intValue()));
+    public String clickAbilitiesSentBegin(int _index) {
+        getForms().put(ABILITY, abilitiesSentBeginWeather.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesSentBeginOth(Long _index) {
+    public String getTrAbilitiesSentBeginOth(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesSentBeginOther.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesSentBeginOther.get(_index));
     }
-    public String clickAbilitiesSentBeginOth(Long _index) {
-        getForms().put(ABILITY, abilitiesSentBeginOther.get(_index.intValue()));
+    public String clickAbilitiesSentBeginOth(int _index) {
+        getForms().put(ABILITY, abilitiesSentBeginOther.get(_index));
         return ABILITY;
     }
-    public String getTrItemsSentBegin(Long _index) {
+    public String getTrItemsSentBegin(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsSentBeginWeather.get(_index.intValue()));
+        return translatedItems_.getVal(itemsSentBeginWeather.get(_index));
     }
-    public String clickItemsSentBegin(Long _index) {
-        getForms().put(ITEM, itemsSentBeginWeather.get(_index.intValue()));
+    public String clickItemsSentBegin(int _index) {
+        getForms().put(ITEM, itemsSentBeginWeather.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrItemsSentBeginOth(Long _index) {
+    public String getTrItemsSentBeginOth(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsSentBeginOther.get(_index.intValue()));
+        return translatedItems_.getVal(itemsSentBeginOther.get(_index));
     }
-    public String clickItemsSentBeginOth(Long _index) {
-        getForms().put(ITEM, itemsSentBeginOther.get(_index.intValue()));
+    public String clickItemsSentBeginOth(int _index) {
+        getForms().put(ITEM, itemsSentBeginOther.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrSlowItems(Long _index) {
+    public String getTrSlowItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(slowItems.get(_index.intValue()));
+        return translatedItems_.getVal(slowItems.get(_index));
     }
-    public String clickSlowItems(Long _index) {
-        getForms().put(ITEM, slowItems.get(_index.intValue()));
+    public String clickSlowItems(int _index) {
+        getForms().put(ITEM, slowItems.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrItemSpeed(Long _index) {
+    public String getTrItemSpeed(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemSpeed.get(_index.intValue()));
+        return translatedItems_.getVal(itemSpeed.get(_index));
     }
-    public String clickItemSpeed(Long _index) {
-        getForms().put(ITEM, itemSpeed.get(_index.intValue()));
+    public String clickItemSpeed(int _index) {
+        getForms().put(ITEM, itemSpeed.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrSpeedPreparingItems(Long _index) {
+    public String getTrSpeedPreparingItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(speedPreparingItems.get(_index.intValue()));
+        return translatedItems_.getVal(speedPreparingItems.get(_index));
     }
-    public String clickSpeedPreparingItems(Long _index) {
-        getForms().put(ITEM, speedPreparingItems.get(_index.intValue()));
+    public String clickSpeedPreparingItems(int _index) {
+        getForms().put(ITEM, speedPreparingItems.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrProtectItems(Long _index) {
+    public String getTrProtectItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(protectItems.get(_index.intValue()));
+        return translatedItems_.getVal(protectItems.get(_index));
     }
-    public String clickProtectItems(Long _index) {
-        getForms().put(ITEM, protectItems.get(_index.intValue()));
+    public String clickProtectItems(int _index) {
+        getForms().put(ITEM, protectItems.get(_index));
         return BERRY;
     }
-    public String getTrItemsFighterStatis(Long _index) {
+    public String getTrItemsFighterStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsFighterStatis.get(_index.intValue()));
+        return translatedItems_.getVal(itemsFighterStatis.get(_index));
     }
-    public String clickItemsFighterStatis(Long _index) {
-        getForms().put(ITEM, itemsFighterStatis.get(_index.intValue()));
+    public String clickItemsFighterStatis(int _index) {
+        getForms().put(ITEM, itemsFighterStatis.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrItemsFighterStatus(Long _index) {
+    public String getTrItemsFighterStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsFighterStatus.get(_index.intValue()));
+        return translatedItems_.getVal(itemsFighterStatus.get(_index));
     }
-    public String clickItemsFighterStatus(Long _index) {
-        getForms().put(ITEM, itemsFighterStatus.get(_index.intValue()));
+    public String clickItemsFighterStatus(int _index) {
+        getForms().put(ITEM, itemsFighterStatus.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrItemsProtAgainstKo(Long _index) {
+    public String getTrItemsProtAgainstKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsProtAgainstKo.get(_index.intValue()));
+        return translatedItems_.getVal(itemsProtAgainstKo.get(_index));
     }
-    public String clickItemsProtAgainstKo(Long _index) {
-        getForms().put(ITEM, itemsProtAgainstKo.get(_index.intValue()));
+    public String clickItemsProtAgainstKo(int _index) {
+        getForms().put(ITEM, itemsProtAgainstKo.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrItemsAbs(Long _index) {
+    public String getTrItemsAbs(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsAbs.get(_index.intValue()));
+        return translatedItems_.getVal(itemsAbs.get(_index));
     }
-    public String clickItemsAbs(Long _index) {
-        getForms().put(ITEM, itemsAbs.get(_index.intValue()));
+    public String clickItemsAbs(int _index) {
+        getForms().put(ITEM, itemsAbs.get(_index));
         return ITEMFORBATTLE;
     }
-    public String getTrRecoilItems(Long _index) {
+    public String getTrRecoilItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(recoilItems.get(_index.intValue()));
+        return translatedItems_.getVal(recoilItems.get(_index));
     }
-    public String clickRecoilItems(Long _index) {
-        String it_ = recoilItems.get(_index.intValue());
+    public String clickRecoilItems(int _index) {
+        String it_ = recoilItems.get(_index);
         getForms().put(ITEM, it_);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(it_) instanceof Berry) {
@@ -2239,93 +2239,93 @@ public class FightHelpBean extends CommonBean {
         }
         return ITEMFORBATTLE;
     }
-    public String getTrBerryUser(Long _index) {
+    public String getTrBerryUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(berryUser.get(_index.intValue()));
+        return translatedItems_.getVal(berryUser.get(_index));
     }
-    public String clickBerryUser(Long _index) {
-        String it_ = berryUser.get(_index.intValue());
+    public String clickBerryUser(int _index) {
+        String it_ = berryUser.get(_index);
         getForms().put(ITEM, it_);
         return BERRY;
     }
-    public String getTrBerryTarget(Long _index) {
+    public String getTrBerryTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(berryTarget.get(_index.intValue()));
+        return translatedItems_.getVal(berryTarget.get(_index));
     }
-    public String clickBerryTarget(Long _index) {
-        String it_ = berryTarget.get(_index.intValue());
+    public String clickBerryTarget(int _index) {
+        String it_ = berryTarget.get(_index);
         getForms().put(ITEM, it_);
         return BERRY;
     }
-    public String getTrBerryEndRound(Long _index) {
+    public String getTrBerryEndRound(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(berryEndRound.get(_index.intValue()));
+        return translatedItems_.getVal(berryEndRound.get(_index));
     }
-    public String clickBerryEndRound(Long _index) {
-        String it_ = berryEndRound.get(_index.intValue());
+    public String clickBerryEndRound(int _index) {
+        String it_ = berryEndRound.get(_index);
         getForms().put(ITEM, it_);
         return BERRY;
     }
-    public String getTrItemsUserPower(Long _index) {
+    public String getTrItemsUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsUserPower.get(_index.intValue()));
+        return translatedItems_.getVal(itemsUserPower.get(_index));
     }
-    public String clickItemsUserPower(Long _index) {
-        String it_ = itemsUserPower.get(_index.intValue());
+    public String clickItemsUserPower(int _index) {
+        String it_ = itemsUserPower.get(_index);
         getForms().put(ITEM, it_);
         return BERRY;
     }
-    public String getTrItemsUserDamage(Long _index) {
+    public String getTrItemsUserDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsUserDamage.get(_index.intValue()));
+        return translatedItems_.getVal(itemsUserDamage.get(_index));
     }
-    public String clickItemsUserDamage(Long _index) {
-        String it_ = itemsUserDamage.get(_index.intValue());
+    public String clickItemsUserDamage(int _index) {
+        String it_ = itemsUserDamage.get(_index);
         getForms().put(ITEM, it_);
         return ITEMFORBATTLE;
     }
-    public String getTrItemsTargetDamage(Long _index) {
+    public String getTrItemsTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsTargetDamage.get(_index.intValue()));
+        return translatedItems_.getVal(itemsTargetDamage.get(_index));
     }
-    public String clickItemsTargetDamage(Long _index) {
-        String it_ = itemsTargetDamage.get(_index.intValue());
+    public String clickItemsTargetDamage(int _index) {
+        String it_ = itemsTargetDamage.get(_index);
         getForms().put(ITEM, it_);
         return BERRY;
     }
-    public String getTrItemsCancelImmu(Long _index) {
+    public String getTrItemsCancelImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsCancelImmu.get(_index.intValue()));
+        return translatedItems_.getVal(itemsCancelImmu.get(_index));
     }
-    public String clickItemsCancelImmu(Long _index) {
-        String it_ = itemsCancelImmu.get(_index.intValue());
+    public String clickItemsCancelImmu(int _index) {
+        String it_ = itemsCancelImmu.get(_index);
         getForms().put(ITEM, it_);
         return ITEMFORBATTLE;
     }
-    public String getTrItemsImmuTypes(Long _index) {
+    public String getTrItemsImmuTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsImmuTypes.get(_index.intValue()));
+        return translatedItems_.getVal(itemsImmuTypes.get(_index));
     }
-    public String clickItemsImmuTypes(Long _index) {
-        String it_ = itemsImmuTypes.get(_index.intValue());
+    public String clickItemsImmuTypes(int _index) {
+        String it_ = itemsImmuTypes.get(_index);
         getForms().put(ITEM, it_);
         return ITEMFORBATTLE;
     }
-    public String getTrItemsImmu(Long _index) {
+    public String getTrItemsImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsImmu.get(_index.intValue()));
+        return translatedItems_.getVal(itemsImmu.get(_index));
     }
-    public String clickItemsImmu(Long _index) {
-        String it_ = itemsImmu.get(_index.intValue());
+    public String clickItemsImmu(int _index) {
+        String it_ = itemsImmu.get(_index);
         getForms().put(ITEM, it_);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(it_) instanceof Berry) {
@@ -2337,14 +2337,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemBoostNormal((long) i)) {
+            if (itemBoostNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemBoostNormal(Long _index) {
-        String ab_ = itemsBoostingStat.get(_index.intValue());
+    public boolean itemBoostNormal(int _index) {
+        String ab_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2365,14 +2365,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemBoostSpeed((long) i)) {
+            if (itemBoostSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemBoostSpeed(Long _index) {
-        String ab_ = itemsBoostingStat.get(_index.intValue());
+    public boolean itemBoostSpeed(int _index) {
+        String ab_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2393,14 +2393,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemBoostCh((long) i)) {
+            if (itemBoostCh(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemBoostCh(Long _index) {
-        String ab_ = itemsBoostingStat.get(_index.intValue());
+    public boolean itemBoostCh(int _index) {
+        String ab_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2421,14 +2421,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemBoostEvasiness((long) i)) {
+            if (itemBoostEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemBoostEvasiness(Long _index) {
-        String ab_ = itemsBoostingStat.get(_index.intValue());
+    public boolean itemBoostEvasiness(int _index) {
+        String ab_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2449,14 +2449,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemBoostAccuracy((long) i)) {
+            if (itemBoostAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemBoostAccuracy(Long _index) {
-        String ab_ = itemsBoostingStat.get(_index.intValue());
+    public boolean itemBoostAccuracy(int _index) {
+        String ab_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         if (data_.getItem(ab_) instanceof Berry) {
             Berry b_ = (Berry) data_.getItem(ab_);
@@ -2473,13 +2473,13 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrItemsBoostingStat(Long _index) {
+    public String getTrItemsBoostingStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsBoostingStat.get(_index.intValue()));
+        return translatedItems_.getVal(itemsBoostingStat.get(_index));
     }
-    public String clickItemsBoostingStat(Long _index) {
-        String it_ = itemsBoostingStat.get(_index.intValue());
+    public String clickItemsBoostingStat(int _index) {
+        String it_ = itemsBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(ITEM, it_);
         if (data_.getItem(it_) instanceof Berry) {
@@ -2491,14 +2491,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemMultNormal((long) i)) {
+            if (itemMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemMultNormal(Long _index) {
-        String ab_ = itemsMultStat.get(_index.intValue());
+    public boolean itemMultNormal(int _index) {
+        String ab_ = itemsMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
         return hasNormalStat(i_.getMultStat().getKeys());
@@ -2507,14 +2507,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemMultSpeed((long) i)) {
+            if (itemMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemMultSpeed(Long _index) {
-        String ab_ = itemsMultStat.get(_index.intValue());
+    public boolean itemMultSpeed(int _index) {
+        String ab_ = itemsMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
         return i_.getMultStat().contains(Statistic.SPEED);
@@ -2523,14 +2523,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemMultEvasiness((long) i)) {
+            if (itemMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemMultEvasiness(Long _index) {
-        String ab_ = itemsMultStat.get(_index.intValue());
+    public boolean itemMultEvasiness(int _index) {
+        String ab_ = itemsMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
         return i_.getMultStat().contains(Statistic.EVASINESS);
@@ -2539,436 +2539,436 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = itemsMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (itemMultAccuracy((long) i)) {
+            if (itemMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean itemMultAccuracy(Long _index) {
-        String ab_ = itemsMultStat.get(_index.intValue());
+    public boolean itemMultAccuracy(int _index) {
+        String ab_ = itemsMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
         return i_.getMultStat().contains(Statistic.ACCURACY);
     }
-    public String getTrItemsMultStat(Long _index) {
+    public String getTrItemsMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsMultStat.get(_index.intValue()));
+        return translatedItems_.getVal(itemsMultStat.get(_index));
     }
-    public String clickItemsMultStat(Long _index) {
-        String it_ = itemsMultStat.get(_index.intValue());
+    public String clickItemsMultStat(int _index) {
+        String it_ = itemsMultStat.get(_index);
         getForms().put(ITEM, it_);
         return ITEMFORBATTLE;
     }
-    public String getTrBerrySpeed(Long _index) {
+    public String getTrBerrySpeed(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(berrySpeed.get(_index.intValue()));
+        return translatedItems_.getVal(berrySpeed.get(_index));
     }
-    public String clickBerrySpeed(Long _index) {
-        getForms().put(ITEM, berrySpeed.get(_index.intValue()));
+    public String clickBerrySpeed(int _index) {
+        getForms().put(ITEM, berrySpeed.get(_index));
         return BERRY;
     }
-    public String getTrChangingTypesAbilities(Long _index) {
+    public String getTrChangingTypesAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(changingTypesAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(changingTypesAbilities.get(_index));
     }
-    public String clickChangingTypesAbilities(Long _index) {
-        getForms().put(ABILITY, changingTypesAbilities.get(_index.intValue()));
+    public String clickChangingTypesAbilities(int _index) {
+        getForms().put(ABILITY, changingTypesAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesSentStatis(Long _index) {
+    public String getTrAbilitiesSentStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesSentStatis.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesSentStatis.get(_index));
     }
-    public String clickAbilitiesSentStatis(Long _index) {
-        getForms().put(ABILITY, abilitiesSentStatis.get(_index.intValue()));
+    public String clickAbilitiesSentStatis(int _index) {
+        getForms().put(ABILITY, abilitiesSentStatis.get(_index));
         return ABILITY;
     }
-    public String getTrCopyAbilities(Long _index) {
+    public String getTrCopyAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(copyAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(copyAbilities.get(_index));
     }
-    public String clickCopyAbilities(Long _index) {
-        getForms().put(ABILITY, copyAbilities.get(_index.intValue()));
+    public String clickCopyAbilities(int _index) {
+        getForms().put(ABILITY, copyAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesPrio(Long _index) {
+    public String getTrAbilitiesPrio(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesPrio.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesPrio.get(_index));
     }
-    public String clickAbilitiesPrio(Long _index) {
-        getForms().put(ABILITY, abilitiesPrio.get(_index.intValue()));
+    public String clickAbilitiesPrio(int _index) {
+        getForms().put(ABILITY, abilitiesPrio.get(_index));
         return ABILITY;
     }
-    public String getTrSlowAbilities(Long _index) {
+    public String getTrSlowAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(slowAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(slowAbilities.get(_index));
     }
-    public String clickSlowAbilities(Long _index) {
-        getForms().put(ABILITY, slowAbilities.get(_index.intValue()));
+    public String clickSlowAbilities(int _index) {
+        getForms().put(ABILITY, slowAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesSwitch(Long _index) {
+    public String getTrAbilitiesSwitch(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesSwitch.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesSwitch.get(_index));
     }
-    public String clickAbilitiesSwitch(Long _index) {
-        getForms().put(ABILITY, abilitiesSwitch.get(_index.intValue()));
+    public String clickAbilitiesSwitch(int _index) {
+        getForms().put(ABILITY, abilitiesSwitch.get(_index));
         return ABILITY;
     }
-    public String getTrImmuStatusAbility(Long _index) {
+    public String getTrImmuStatusAbility(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(immuStatusAbility.get(_index.intValue()));
+        return translatedAbilities_.getVal(immuStatusAbility.get(_index));
     }
-    public String clickImmuStatusAbility(Long _index) {
-        getForms().put(ABILITY, immuStatusAbility.get(_index.intValue()));
+    public String clickImmuStatusAbility(int _index) {
+        getForms().put(ABILITY, immuStatusAbility.get(_index));
         return ABILITY;
     }
-    public String getTrImmuRecharging(Long _index) {
+    public String getTrImmuRecharging(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(immuRecharging.get(_index.intValue()));
+        return translatedAbilities_.getVal(immuRecharging.get(_index));
     }
-    public String clickImmuRecharging(Long _index) {
-        getForms().put(ABILITY, immuRecharging.get(_index.intValue()));
+    public String clickImmuRecharging(int _index) {
+        getForms().put(ABILITY, immuRecharging.get(_index));
         return ABILITY;
     }
-    public String getTrCopyMoveTypesAb(Long _index) {
+    public String getTrCopyMoveTypesAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(copyMoveTypesAb.get(_index.intValue()));
+        return translatedAbilities_.getVal(copyMoveTypesAb.get(_index));
     }
-    public String clickCopyMoveTypesAb(Long _index) {
-        getForms().put(ABILITY, copyMoveTypesAb.get(_index.intValue()));
+    public String clickCopyMoveTypesAb(int _index) {
+        getForms().put(ABILITY, copyMoveTypesAb.get(_index));
         return ABILITY;
     }
-    public String getTrPressureAbilities(Long _index) {
+    public String getTrPressureAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(pressureAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(pressureAbilities.get(_index));
     }
-    public String clickPressureAbilities(Long _index) {
-        getForms().put(ABILITY, pressureAbilities.get(_index.intValue()));
+    public String clickPressureAbilities(int _index) {
+        getForms().put(ABILITY, pressureAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrProtectAbilities(Long _index) {
+    public String getTrProtectAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(protectAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(protectAbilities.get(_index));
     }
-    public String clickProtectAbilities(Long _index) {
-        getForms().put(ABILITY, protectAbilities.get(_index.intValue()));
+    public String clickProtectAbilities(int _index) {
+        getForms().put(ABILITY, protectAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesPartStatis(Long _index) {
+    public String getTrAbilitiesPartStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesPartStatis.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesPartStatis.get(_index));
     }
-    public String clickAbilitiesPartStatis(Long _index) {
-        getForms().put(ABILITY, abilitiesPartStatis.get(_index.intValue()));
+    public String clickAbilitiesPartStatis(int _index) {
+        getForms().put(ABILITY, abilitiesPartStatis.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesRateStatis(Long _index) {
+    public String getTrAbilitiesRateStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesRateStatis.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesRateStatis.get(_index));
     }
-    public String clickAbilitiesRateStatis(Long _index) {
-        getForms().put(ABILITY, abilitiesRateStatis.get(_index.intValue()));
+    public String clickAbilitiesRateStatis(int _index) {
+        getForms().put(ABILITY, abilitiesRateStatis.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesFighterStatis(Long _index) {
+    public String getTrAbilitiesFighterStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesFighterStatis.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesFighterStatis.get(_index));
     }
-    public String clickAbilitiesFighterStatis(Long _index) {
-        getForms().put(ABILITY, abilitiesFighterStatis.get(_index.intValue()));
+    public String clickAbilitiesFighterStatis(int _index) {
+        getForms().put(ABILITY, abilitiesFighterStatis.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesFighterStatisVar(Long _index) {
+    public String getTrAbilitiesFighterStatisVar(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesFighterStatisVar.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesFighterStatisVar.get(_index));
     }
-    public String clickAbilitiesFighterStatisVar(Long _index) {
-        getForms().put(ABILITY, abilitiesFighterStatisVar.get(_index.intValue()));
+    public String clickAbilitiesFighterStatisVar(int _index) {
+        getForms().put(ABILITY, abilitiesFighterStatisVar.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesPartStatus(Long _index) {
+    public String getTrAbilitiesPartStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesPartStatus.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesPartStatus.get(_index));
     }
-    public String clickAbilitiesPartStatus(Long _index) {
-        getForms().put(ABILITY, abilitiesPartStatus.get(_index.intValue()));
+    public String clickAbilitiesPartStatus(int _index) {
+        getForms().put(ABILITY, abilitiesPartStatus.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesFighterStatus(Long _index) {
+    public String getTrAbilitiesFighterStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesFighterStatus.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesFighterStatus.get(_index));
     }
-    public String clickAbilitiesFighterStatus(Long _index) {
-        getForms().put(ABILITY, abilitiesFighterStatus.get(_index.intValue()));
+    public String clickAbilitiesFighterStatus(int _index) {
+        getForms().put(ABILITY, abilitiesFighterStatus.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesRevAbs(Long _index) {
+    public String getTrAbilitiesRevAbs(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesRevAbs.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesRevAbs.get(_index));
     }
-    public String clickAbilitiesRevAbs(Long _index) {
-        getForms().put(ABILITY, abilitiesRevAbs.get(_index.intValue()));
+    public String clickAbilitiesRevAbs(int _index) {
+        getForms().put(ABILITY, abilitiesRevAbs.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesDamageStatis(Long _index) {
+    public String getTrAbilitiesDamageStatis(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesDamageStatis.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesDamageStatis.get(_index));
     }
-    public String clickAbilitiesDamageStatis(Long _index) {
-        getForms().put(ABILITY, abilitiesDamageStatis.get(_index.intValue()));
+    public String clickAbilitiesDamageStatis(int _index) {
+        getForms().put(ABILITY, abilitiesDamageStatis.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesChangingTypesDamage(Long _index) {
+    public String getTrAbilitiesChangingTypesDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesChangingTypesDamage.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesChangingTypesDamage.get(_index));
     }
-    public String clickAbilitiesChangingTypesDamage(Long _index) {
-        getForms().put(ABILITY, abilitiesChangingTypesDamage.get(_index.intValue()));
+    public String clickAbilitiesChangingTypesDamage(int _index) {
+        getForms().put(ABILITY, abilitiesChangingTypesDamage.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesTakingItem(Long _index) {
+    public String getTrAbilitiesTakingItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesTakingItem.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesTakingItem.get(_index));
     }
-    public String clickAbilitiesTakingItem(Long _index) {
-        getForms().put(ABILITY, abilitiesTakingItem.get(_index.intValue()));
+    public String clickAbilitiesTakingItem(int _index) {
+        getForms().put(ABILITY, abilitiesTakingItem.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesStatisVarUser(Long _index) {
+    public String getTrAbilitiesStatisVarUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesStatisVarUser.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesStatisVarUser.get(_index));
     }
-    public String clickAbilitiesStatisVarUser(Long _index) {
-        getForms().put(ABILITY, abilitiesStatisVarUser.get(_index.intValue()));
+    public String clickAbilitiesStatisVarUser(int _index) {
+        getForms().put(ABILITY, abilitiesStatisVarUser.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesStatus(Long _index) {
+    public String getTrAbilitiesStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesStatus.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesStatus.get(_index));
     }
-    public String clickAbilitiesStatus(Long _index) {
-        getForms().put(ABILITY, abilitiesStatus.get(_index.intValue()));
+    public String clickAbilitiesStatus(int _index) {
+        getForms().put(ABILITY, abilitiesStatus.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesCopyAb(Long _index) {
+    public String getTrAbilitiesCopyAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesCopyAb.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesCopyAb.get(_index));
     }
-    public String clickAbilitiesCopyAb(Long _index) {
-        getForms().put(ABILITY, abilitiesCopyAb.get(_index.intValue()));
+    public String clickAbilitiesCopyAb(int _index) {
+        getForms().put(ABILITY, abilitiesCopyAb.get(_index));
         return ABILITY;
     }
-    public String getTrRecoilAbilities(Long _index) {
+    public String getTrRecoilAbilities(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(recoilAbilities.get(_index.intValue()));
+        return translatedAbilities_.getVal(recoilAbilities.get(_index));
     }
-    public String clickRecoilAbilities(Long _index) {
-        getForms().put(ABILITY, recoilAbilities.get(_index.intValue()));
+    public String clickRecoilAbilities(int _index) {
+        getForms().put(ABILITY, recoilAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesKoTarget(Long _index) {
+    public String getTrAbilitiesKoTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesKoTarget.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesKoTarget.get(_index));
     }
-    public String clickAbilitiesKoTarget(Long _index) {
-        getForms().put(ABILITY, abilitiesKoTarget.get(_index.intValue()));
+    public String clickAbilitiesKoTarget(int _index) {
+        getForms().put(ABILITY, abilitiesKoTarget.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesEndRound(Long _index) {
+    public String getTrAbilitiesEndRound(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesEndRound.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesEndRound.get(_index));
     }
-    public String clickAbilitiesEndRound(Long _index) {
-        getForms().put(ABILITY, abilitiesEndRound.get(_index.intValue()));
+    public String clickAbilitiesEndRound(int _index) {
+        getForms().put(ABILITY, abilitiesEndRound.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesUserPower(Long _index) {
+    public String getTrAbilitiesUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesUserPower.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesUserPower.get(_index));
     }
-    public String clickAbilitiesUserPower(Long _index) {
-        getForms().put(ABILITY, abilitiesUserPower.get(_index.intValue()));
+    public String clickAbilitiesUserPower(int _index) {
+        getForms().put(ABILITY, abilitiesUserPower.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesTargetDamage(Long _index) {
+    public String getTrAbilitiesTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesTargetDamage.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesTargetDamage.get(_index));
     }
-    public String clickAbilitiesTargetDamage(Long _index) {
-        getForms().put(ABILITY, abilitiesTargetDamage.get(_index.intValue()));
+    public String clickAbilitiesTargetDamage(int _index) {
+        getForms().put(ABILITY, abilitiesTargetDamage.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesGlobal(Long _index) {
+    public String getTrAbilitiesGlobal(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesGlobal.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesGlobal.get(_index));
     }
-    public String clickAbilitiesGlobal(Long _index) {
-        getForms().put(ABILITY, abilitiesGlobal.get(_index.intValue()));
+    public String clickAbilitiesGlobal(int _index) {
+        getForms().put(ABILITY, abilitiesGlobal.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesUserDamage(Long _index) {
+    public String getTrAbilitiesUserDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesUserDamage.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesUserDamage.get(_index));
     }
-    public String clickAbilitiesUserDamage(Long _index) {
-        getForms().put(ABILITY, abilitiesUserDamage.get(_index.intValue()));
+    public String clickAbilitiesUserDamage(int _index) {
+        getForms().put(ABILITY, abilitiesUserDamage.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesUserTargetDamage(Long _index) {
+    public String getTrAbilitiesUserTargetDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesUserTargetDamage.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesUserTargetDamage.get(_index));
     }
-    public String clickAbilitiesUserTargetDamage(Long _index) {
-        getForms().put(ABILITY, abilitiesUserTargetDamage.get(_index.intValue()));
+    public String clickAbilitiesUserTargetDamage(int _index) {
+        getForms().put(ABILITY, abilitiesUserTargetDamage.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesUserStabDamage(Long _index) {
+    public String getTrAbilitiesUserStabDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesUserStabDamage.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesUserStabDamage.get(_index));
     }
-    public String clickAbilitiesUserStabDamage(Long _index) {
-        getForms().put(ABILITY, abilitiesUserStabDamage.get(_index.intValue()));
+    public String clickAbilitiesUserStabDamage(int _index) {
+        getForms().put(ABILITY, abilitiesUserStabDamage.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesUserIgnTargetTeam(Long _index) {
+    public String getTrAbilitiesUserIgnTargetTeam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesUserIgnTargetTeam.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesUserIgnTargetTeam.get(_index));
     }
-    public String clickAbilitiesUserIgnTargetTeam(Long _index) {
-        getForms().put(ABILITY, abilitiesUserIgnTargetTeam.get(_index.intValue()));
+    public String clickAbilitiesUserIgnTargetTeam(int _index) {
+        getForms().put(ABILITY, abilitiesUserIgnTargetTeam.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesBreakable(Long _index) {
+    public String getTrAbilitiesBreakable(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesBreakable.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesBreakable.get(_index));
     }
-    public String clickAbilitiesBreakable(Long _index) {
-        getForms().put(ABILITY, abilitiesBreakable.get(_index.intValue()));
+    public String clickAbilitiesBreakable(int _index) {
+        getForms().put(ABILITY, abilitiesBreakable.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuTypes(Long _index) {
+    public String getTrAbilitiesImmuTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuTypes.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuTypes.get(_index));
     }
-    public String clickAbilitiesImmuTypes(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuTypes.get(_index.intValue()));
+    public String clickAbilitiesImmuTypes(int _index) {
+        getForms().put(ABILITY, abilitiesImmuTypes.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuAllies(Long _index) {
+    public String getTrAbilitiesImmuAllies(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuAllies.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuAllies.get(_index));
     }
-    public String clickAbilitiesImmuAllies(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuAllies.get(_index.intValue()));
+    public String clickAbilitiesImmuAllies(int _index) {
+        getForms().put(ABILITY, abilitiesImmuAllies.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuAlliesDam(Long _index) {
+    public String getTrAbilitiesImmuAlliesDam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuAlliesDam.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuAlliesDam.get(_index));
     }
-    public String clickAbilitiesImmuAlliesDam(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuAlliesDam.get(_index.intValue()));
+    public String clickAbilitiesImmuAlliesDam(int _index) {
+        getForms().put(ABILITY, abilitiesImmuAlliesDam.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmu(Long _index) {
+    public String getTrAbilitiesImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmu.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmu.get(_index));
     }
-    public String clickAbilitiesImmu(Long _index) {
-        getForms().put(ABILITY, abilitiesImmu.get(_index.intValue()));
+    public String clickAbilitiesImmu(int _index) {
+        getForms().put(ABILITY, abilitiesImmu.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuSecEffOther(Long _index) {
+    public String getTrAbilitiesImmuSecEffOther(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuSecEffOther.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuSecEffOther.get(_index));
     }
-    public String clickAbilitiesImmuSecEffOther(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuSecEffOther.get(_index.intValue()));
+    public String clickAbilitiesImmuSecEffOther(int _index) {
+        getForms().put(ABILITY, abilitiesImmuSecEffOther.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuSecEffOwner(Long _index) {
+    public String getTrAbilitiesImmuSecEffOwner(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuSecEffOwner.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuSecEffOwner.get(_index));
     }
-    public String clickAbilitiesImmuSecEffOwner(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuSecEffOwner.get(_index.intValue()));
+    public String clickAbilitiesImmuSecEffOwner(int _index) {
+        getForms().put(ABILITY, abilitiesImmuSecEffOwner.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesAchieveTarget(Long _index) {
+    public String getTrAbilitiesAchieveTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesAchieveTarget.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesAchieveTarget.get(_index));
     }
-    public String clickAbilitiesAchieveTarget(Long _index) {
-        getForms().put(ABILITY, abilitiesAchieveTarget.get(_index.intValue()));
+    public String clickAbilitiesAchieveTarget(int _index) {
+        getForms().put(ABILITY, abilitiesAchieveTarget.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesBreakProtectMoves(Long _index) {
+    public String getTrAbilitiesBreakProtectMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesBreakProtectMoves.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesBreakProtectMoves.get(_index));
     }
-    public String clickAbilitiesBreakProtectMoves(Long _index) {
-        getForms().put(ABILITY, abilitiesBreakProtectMoves.get(_index.intValue()));
+    public String clickAbilitiesBreakProtectMoves(int _index) {
+        getForms().put(ABILITY, abilitiesBreakProtectMoves.get(_index));
         return ABILITY;
     }
     public boolean abilityBoostNormalAny() {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityBoostNormal((long) i)) {
+            if (abilityBoostNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityBoostNormal(Long _index) {
-        String ab_ = abilitiesBoostingStat.get(_index.intValue());
+    public boolean abilityBoostNormal(int _index) {
+        String ab_ = abilitiesBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return hasNormalStat(a_.getBonusStatRank().getKeys());
@@ -2977,14 +2977,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityBoostSpeed((long) i)) {
+            if (abilityBoostSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityBoostSpeed(Long _index) {
-        String ab_ = abilitiesBoostingStat.get(_index.intValue());
+    public boolean abilityBoostSpeed(int _index) {
+        String ab_ = abilitiesBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getBonusStatRank().contains(Statistic.SPEED);
@@ -2993,14 +2993,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityBoostCh((long) i)) {
+            if (abilityBoostCh(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityBoostCh(Long _index) {
-        String ab_ = abilitiesBoostingStat.get(_index.intValue());
+    public boolean abilityBoostCh(int _index) {
+        String ab_ = abilitiesBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getBonusStatRank().contains(Statistic.CRITICAL_HIT);
@@ -3009,14 +3009,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityBoostEvasiness((long) i)) {
+            if (abilityBoostEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityBoostEvasiness(Long _index) {
-        String ab_ = abilitiesBoostingStat.get(_index.intValue());
+    public boolean abilityBoostEvasiness(int _index) {
+        String ab_ = abilitiesBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getBonusStatRank().contains(Statistic.EVASINESS);
@@ -3025,39 +3025,39 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesBoostingStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityBoostAccuracy((long) i)) {
+            if (abilityBoostAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityBoostAccuracy(Long _index) {
-        String ab_ = abilitiesBoostingStat.get(_index.intValue());
+    public boolean abilityBoostAccuracy(int _index) {
+        String ab_ = abilitiesBoostingStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getBonusStatRank().contains(Statistic.ACCURACY);
     }
-    public String getTrAbilitiesBoostingStat(Long _index) {
+    public String getTrAbilitiesBoostingStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesBoostingStat.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesBoostingStat.get(_index));
     }
-    public String clickAbilitiesBoostingStat(Long _index) {
-        getForms().put(ABILITY, abilitiesBoostingStat.get(_index.intValue()));
+    public String clickAbilitiesBoostingStat(int _index) {
+        getForms().put(ABILITY, abilitiesBoostingStat.get(_index));
         return ABILITY;
     }
     public boolean abilityMultNormalAny() {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityMultNormal((long) i)) {
+            if (abilityMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityMultNormal(Long _index) {
-        String ab_ = abilitiesMultStat.get(_index.intValue());
+    public boolean abilityMultNormal(int _index) {
+        String ab_ = abilitiesMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
@@ -3071,14 +3071,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityMultSpeed((long) i)) {
+            if (abilityMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityMultSpeed(Long _index) {
-        String ab_ = abilitiesMultStat.get(_index.intValue());
+    public boolean abilityMultSpeed(int _index) {
+        String ab_ = abilitiesMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
@@ -3092,14 +3092,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityMultEvasiness((long) i)) {
+            if (abilityMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityMultEvasiness(Long _index) {
-        String ab_ = abilitiesMultStat.get(_index.intValue());
+    public boolean abilityMultEvasiness(int _index) {
+        String ab_ = abilitiesMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
@@ -3113,14 +3113,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityMultAccuracy((long) i)) {
+            if (abilityMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityMultAccuracy(Long _index) {
-        String ab_ = abilitiesMultStat.get(_index.intValue());
+    public boolean abilityMultAccuracy(int _index) {
+        String ab_ = abilitiesMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticCategory s: a_.getMultStatIfCat().getKeys()) {
@@ -3130,27 +3130,27 @@ public class FightHelpBean extends CommonBean {
         }
         return a_.getMultStat().contains(Statistic.ACCURACY);
     }
-    public String getTrAbilitiesMultStat(Long _index) {
+    public String getTrAbilitiesMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesMultStat.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesMultStat.get(_index));
     }
-    public String clickAbilitiesMultStat(Long _index) {
-        getForms().put(ABILITY, abilitiesMultStat.get(_index.intValue()));
+    public String clickAbilitiesMultStat(int _index) {
+        getForms().put(ABILITY, abilitiesMultStat.get(_index));
         return ABILITY;
     }
     public boolean abilityAllyMultNormalAny() {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityAllyMultNormal((long) i)) {
+            if (abilityAllyMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityAllyMultNormal(Long _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index.intValue());
+    public boolean abilityAllyMultNormal(int _index) {
+        String ab_ = abilitiesAllyMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return hasNormalStat(a_.getMultStatAlly().getKeys());
@@ -3159,14 +3159,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityAllyMultEvasiness((long) i)) {
+            if (abilityAllyMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityAllyMultEvasiness(Long _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index.intValue());
+    public boolean abilityAllyMultEvasiness(int _index) {
+        String ab_ = abilitiesAllyMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getMultStatAlly().contains(Statistic.EVASINESS);
@@ -3175,14 +3175,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityAllyMultSpeed((long) i)) {
+            if (abilityAllyMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityAllyMultSpeed(Long _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index.intValue());
+    public boolean abilityAllyMultSpeed(int _index) {
+        String ab_ = abilitiesAllyMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getMultStatAlly().contains(Statistic.SPEED);
@@ -3191,39 +3191,39 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesAllyMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityAllyMultAccuracy((long) i)) {
+            if (abilityAllyMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityAllyMultAccuracy(Long _index) {
-        String ab_ = abilitiesAllyMultStat.get(_index.intValue());
+    public boolean abilityAllyMultAccuracy(int _index) {
+        String ab_ = abilitiesAllyMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         return a_.getMultStatAlly().contains(Statistic.ACCURACY);
     }
-    public String getTrAbilitiesAllyMultStat(Long _index) {
+    public String getTrAbilitiesAllyMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesAllyMultStat.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesAllyMultStat.get(_index));
     }
-    public String clickAbilitiesAllyMultStat(Long _index) {
-        getForms().put(ABILITY, abilitiesAllyMultStat.get(_index.intValue()));
+    public String clickAbilitiesAllyMultStat(int _index) {
+        getForms().put(ABILITY, abilitiesAllyMultStat.get(_index));
         return ABILITY;
     }
     public boolean abilityImmuMultNormalAny() {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityImmuMultNormal((long) i)) {
+            if (abilityImmuMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityImmuMultNormal(Long _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index.intValue());
+    public boolean abilityImmuMultNormal(int _index) {
+        String ab_ = abilitiesImmuMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
@@ -3237,14 +3237,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityImmuMultEvasiness((long) i)) {
+            if (abilityImmuMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityImmuMultEvasiness(Long _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index.intValue());
+    public boolean abilityImmuMultEvasiness(int _index) {
+        String ab_ = abilitiesImmuMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
@@ -3258,14 +3258,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityImmuMultSpeed((long) i)) {
+            if (abilityImmuMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityImmuMultSpeed(Long _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index.intValue());
+    public boolean abilityImmuMultSpeed(int _index) {
+        String ab_ = abilitiesImmuMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
@@ -3279,14 +3279,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = abilitiesImmuMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (abilityImmuMultAccuracy((long) i)) {
+            if (abilityImmuMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean abilityImmuMultAccuracy(Long _index) {
-        String ab_ = abilitiesImmuMultStat.get(_index.intValue());
+    public boolean abilityImmuMultAccuracy(int _index) {
+        String ab_ = abilitiesImmuMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         AbilityData a_ = data_.getAbility(ab_);
         for (StatisticStatus s: a_.getImmuLowStatIfStatus()) {
@@ -3296,215 +3296,215 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrAbilitiesImmuMultStat(Long _index) {
+    public String getTrAbilitiesImmuMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuMultStat.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuMultStat.get(_index));
     }
-    public String clickAbilitiesImmuMultStat(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuMultStat.get(_index.intValue()));
+    public String clickAbilitiesImmuMultStat(int _index) {
+        getForms().put(ABILITY, abilitiesImmuMultStat.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesTypeDefMoves(Long _index) {
+    public String getTrAbilitiesTypeDefMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesTypeDefMoves.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesTypeDefMoves.get(_index));
     }
-    public String clickAbilitiesTypeDefMoves(Long _index) {
-        getForms().put(ABILITY, abilitiesTypeDefMoves.get(_index.intValue()));
+    public String clickAbilitiesTypeDefMoves(int _index) {
+        getForms().put(ABILITY, abilitiesTypeDefMoves.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesChangeTypeMoves(Long _index) {
+    public String getTrAbilitiesChangeTypeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesChangeTypeMoves.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesChangeTypeMoves.get(_index));
     }
-    public String clickAbilitiesChangeTypeMoves(Long _index) {
-        getForms().put(ABILITY, abilitiesChangeTypeMoves.get(_index.intValue()));
+    public String clickAbilitiesChangeTypeMoves(int _index) {
+        getForms().put(ABILITY, abilitiesChangeTypeMoves.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesBreakImmu(Long _index) {
+    public String getTrAbilitiesBreakImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesBreakImmu.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesBreakImmu.get(_index));
     }
-    public String clickAbilitiesBreakImmu(Long _index) {
-        getForms().put(ABILITY, abilitiesBreakImmu.get(_index.intValue()));
+    public String clickAbilitiesBreakImmu(int _index) {
+        getForms().put(ABILITY, abilitiesBreakImmu.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesImmuCh(Long _index) {
+    public String getTrAbilitiesImmuCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitiesImmuCh.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitiesImmuCh.get(_index));
     }
-    public String clickAbilitiesImmuCh(Long _index) {
-        getForms().put(ABILITY, abilitiesImmuCh.get(_index.intValue()));
+    public String clickAbilitiesImmuCh(int _index) {
+        getForms().put(ABILITY, abilitiesImmuCh.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesMultEvtCh(Long _index) {
+    public String getTrAbilitiesMultEvtCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitesMultEvtCh.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitesMultEvtCh.get(_index));
     }
-    public String clickAbilitiesMultEvtCh(Long _index) {
-        getForms().put(ABILITY, abilitesMultEvtCh.get(_index.intValue()));
+    public String clickAbilitiesMultEvtCh(int _index) {
+        getForms().put(ABILITY, abilitesMultEvtCh.get(_index));
         return ABILITY;
     }
-    public String getTrAbilitiesMultRateCh(Long _index) {
+    public String getTrAbilitiesMultRateCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
-        return translatedAbilities_.getVal(abilitesMultRateCh.get(_index.intValue()));
+        return translatedAbilities_.getVal(abilitesMultRateCh.get(_index));
     }
-    public String clickAbilitiesMultRateCh(Long _index) {
-        getForms().put(ABILITY, abilitesMultRateCh.get(_index.intValue()));
+    public String clickAbilitiesMultRateCh(int _index) {
+        getForms().put(ABILITY, abilitesMultRateCh.get(_index));
         return ABILITY;
     }
-    public String getTrPrivatingMoves(Long _index) {
+    public String getTrPrivatingMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(privatingMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(privatingMoves.get(_index));
     }
-    public String clickPrivatingMoves(Long _index) {
-        getForms().put(MOVE, privatingMoves.get(_index.intValue()));
+    public String clickPrivatingMoves(int _index) {
+        getForms().put(MOVE, privatingMoves.get(_index));
         return MOVE;
     }
-    public String getTrMovesHealingSubstitute(Long _index) {
+    public String getTrMovesHealingSubstitute(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesHealingSubstitute.get(_index.intValue()));
+        return translatedMoves_.getVal(movesHealingSubstitute.get(_index));
     }
-    public String clickMovesHealingSubstitute(Long _index) {
-        getForms().put(MOVE, movesHealingSubstitute.get(_index.intValue()));
+    public String clickMovesHealingSubstitute(int _index) {
+        getForms().put(MOVE, movesHealingSubstitute.get(_index));
         return MOVE;
     }
-    public String getTrSubstitutingMoves(Long _index) {
+    public String getTrSubstitutingMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(substitutingMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(substitutingMoves.get(_index));
     }
-    public String clickSubstitutingMoves(Long _index) {
-        getForms().put(MOVE, substitutingMoves.get(_index.intValue()));
+    public String clickSubstitutingMoves(int _index) {
+        getForms().put(MOVE, substitutingMoves.get(_index));
         return MOVE;
     }
-    public String getTrReverseSpeedMoves(Long _index) {
+    public String getTrReverseSpeedMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(reverseSpeedMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(reverseSpeedMoves.get(_index));
     }
-    public String clickReverseSpeedMoves(Long _index) {
-        getForms().put(MOVE, reverseSpeedMoves.get(_index.intValue()));
+    public String clickReverseSpeedMoves(int _index) {
+        getForms().put(MOVE, reverseSpeedMoves.get(_index));
         return MOVE;
     }
-    public String getTrEntryHazard(Long _index) {
+    public String getTrEntryHazard(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(entryHazard.get(_index.intValue()));
+        return translatedMoves_.getVal(entryHazard.get(_index));
     }
-    public String clickEntryHazard(Long _index) {
-        getForms().put(MOVE, entryHazard.get(_index.intValue()));
+    public String clickEntryHazard(int _index) {
+        getForms().put(MOVE, entryHazard.get(_index));
         return MOVE;
     }
-    public String getTrDeleteStatusMove(Long _index) {
+    public String getTrDeleteStatusMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(deleteStatusMove.get(_index.intValue()));
+        return translatedMoves_.getVal(deleteStatusMove.get(_index));
     }
-    public String clickDeleteStatusMove(Long _index) {
-        getForms().put(MOVE, deleteStatusMove.get(_index.intValue()));
+    public String clickDeleteStatusMove(int _index) {
+        getForms().put(MOVE, deleteStatusMove.get(_index));
         return MOVE;
     }
-    public boolean isDisappearingUser(Long _index) {
+    public boolean isDisappearingUser(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String m_ = prepaRoundMoves.get(_index.intValue());
+        String m_ = prepaRoundMoves.get(_index);
         MoveData move_ = data_.getMove(m_);
         return move_.getDisappearBeforeUse();
     }
-    public String getTrPrepaRoundMoves(Long _index) {
+    public String getTrPrepaRoundMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(prepaRoundMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(prepaRoundMoves.get(_index));
     }
-    public String clickPrepaRoundMoves(Long _index) {
-        getForms().put(MOVE, prepaRoundMoves.get(_index.intValue()));
+    public String clickPrepaRoundMoves(int _index) {
+        getForms().put(MOVE, prepaRoundMoves.get(_index));
         return MOVE;
     }
-    public String getTrRechargeMoves(Long _index) {
+    public String getTrRechargeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(rechargeMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(rechargeMoves.get(_index));
     }
-    public String clickRechargeMoves(Long _index) {
-        getForms().put(MOVE, rechargeMoves.get(_index.intValue()));
+    public String clickRechargeMoves(int _index) {
+        getForms().put(MOVE, rechargeMoves.get(_index));
         return MOVE;
     }
-    public String getTrMovesInvoking(Long _index) {
+    public String getTrMovesInvoking(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesInvoking.get(_index.intValue()));
+        return translatedMoves_.getVal(movesInvoking.get(_index));
     }
-    public String clickMovesInvoking(Long _index) {
-        getForms().put(MOVE, movesInvoking.get(_index.intValue()));
+    public String clickMovesInvoking(int _index) {
+        getForms().put(MOVE, movesInvoking.get(_index));
         return MOVE;
     }
-    public String getTrMovesThieving(Long _index) {
+    public String getTrMovesThieving(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesThieving.get(_index.intValue()));
+        return translatedMoves_.getVal(movesThieving.get(_index));
     }
-    public String clickMovesThieving(Long _index) {
-        getForms().put(MOVE, movesThieving.get(_index.intValue()));
+    public String clickMovesThieving(int _index) {
+        getForms().put(MOVE, movesThieving.get(_index));
         return MOVE;
     }
-    public String getTrMovesAttracting(Long _index) {
+    public String getTrMovesAttracting(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesAttracting.get(_index.intValue()));
+        return translatedMoves_.getVal(movesAttracting.get(_index));
     }
-    public String clickMovesAttracting(Long _index) {
-        getForms().put(MOVE, movesAttracting.get(_index.intValue()));
+    public String clickMovesAttracting(int _index) {
+        getForms().put(MOVE, movesAttracting.get(_index));
         return MOVE;
     }
-    public String getTrMovesMirror(Long _index) {
+    public String getTrMovesMirror(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesMirror.get(_index.intValue()));
+        return translatedMoves_.getVal(movesMirror.get(_index));
     }
-    public String clickMovesMirror(Long _index) {
-        getForms().put(MOVE, movesMirror.get(_index.intValue()));
+    public String clickMovesMirror(int _index) {
+        getForms().put(MOVE, movesMirror.get(_index));
         return MOVE;
     }
-    public String getTrMovesSecEffItems(Long _index) {
+    public String getTrMovesSecEffItems(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesSecEffItems.get(_index.intValue()));
+        return translatedMoves_.getVal(movesSecEffItems.get(_index));
     }
-    public String clickMovesSecEffItems(Long _index) {
-        getForms().put(MOVE, movesSecEffItems.get(_index.intValue()));
+    public String clickMovesSecEffItems(int _index) {
+        getForms().put(MOVE, movesSecEffItems.get(_index));
         return MOVE;
     }
-    public String getTrProtectMoves(Long _index) {
+    public String getTrProtectMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(protectMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(protectMoves.get(_index));
     }
-    public String clickProtectMoves(Long _index) {
-        getForms().put(MOVE, protectMoves.get(_index.intValue()));
+    public String clickProtectMoves(int _index) {
+        getForms().put(MOVE, protectMoves.get(_index));
         return MOVE;
     }
-    public String getTrEffMoves(Long _index) {
+    public String getTrEffMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(effMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(effMoves.get(_index));
     }
-    public String clickEffMoves(Long _index) {
-        getForms().put(MOVE, effMoves.get(_index.intValue()));
+    public String clickEffMoves(int _index) {
+        getForms().put(MOVE, effMoves.get(_index));
         return MOVE;
     }
     public boolean immuStatisTeamMoveAny() {
         int len_;
         len_ = movesTeam.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (immuStatisTeamMove((long) i)) {
+            if (immuStatisTeamMove(i)) {
                 return true;
             }
         }
@@ -3514,7 +3514,7 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesTeam.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (immuStatusTeamMove((long) i)) {
+            if (immuStatusTeamMove(i)) {
                 return true;
             }
         }
@@ -3524,13 +3524,13 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesTeam.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (immuChTeamMove((long) i)) {
+            if (immuChTeamMove(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean immuStatisTeamMove(Long _index) {
+    public boolean immuStatisTeamMove(int _index) {
         MoveData move_ = getStatisTeamMove(_index);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
@@ -3543,7 +3543,7 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public boolean immuStatusTeamMove(Long _index) {
+    public boolean immuStatusTeamMove(int _index) {
         MoveData move_ = getStatisTeamMove(_index);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
@@ -3556,7 +3556,7 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public boolean immuChTeamMove(Long _index) {
+    public boolean immuChTeamMove(int _index) {
         MoveData move_ = getStatisTeamMove(_index);
         for (Effect e: move_.getEffects()) {
             if (!(e instanceof EffectTeam)) {
@@ -3569,61 +3569,61 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public MoveData getStatisTeamMove(Long _index) {
+    public MoveData getStatisTeamMove(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        String m_ = movesTeam.get(_index.intValue());
+        String m_ = movesTeam.get(_index);
         return data_.getMove(m_);
     }
-    public String getTrMovesTeam(Long _index) {
+    public String getTrMovesTeam(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTeam.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTeam.get(_index));
     }
-    public String clickMovesTeam(Long _index) {
-        getForms().put(MOVE, movesTeam.get(_index.intValue()));
+    public String clickMovesTeam(int _index) {
+        getForms().put(MOVE, movesTeam.get(_index));
         return MOVE;
     }
-    public String getTrGlobalMovesStatus(Long _index) {
+    public String getTrGlobalMovesStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(globalMovesStatus.get(_index.intValue()));
+        return translatedMoves_.getVal(globalMovesStatus.get(_index));
     }
-    public String clickGlobalMovesStatus(Long _index) {
-        getForms().put(MOVE, globalMovesStatus.get(_index.intValue()));
+    public String clickGlobalMovesStatus(int _index) {
+        getForms().put(MOVE, globalMovesStatus.get(_index));
         return MOVE;
     }
-    public String getTrMovesProtAgainstKo(Long _index) {
+    public String getTrMovesProtAgainstKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesProtAgainstKo.get(_index.intValue()));
+        return translatedMoves_.getVal(movesProtAgainstKo.get(_index));
     }
-    public String clickMovesProtAgainstKo(Long _index) {
-        getForms().put(MOVE, movesProtAgainstKo.get(_index.intValue()));
+    public String clickMovesProtAgainstKo(int _index) {
+        getForms().put(MOVE, movesProtAgainstKo.get(_index));
         return MOVE;
     }
-    public String getTrMovesCannotKo(Long _index) {
+    public String getTrMovesCannotKo(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesCannotKo.get(_index.intValue()));
+        return translatedMoves_.getVal(movesCannotKo.get(_index));
     }
-    public String clickMovesCannotKo(Long _index) {
-        getForms().put(MOVE, movesCannotKo.get(_index.intValue()));
+    public String clickMovesCannotKo(int _index) {
+        getForms().put(MOVE, movesCannotKo.get(_index));
         return MOVE;
     }
-    public String getTrMovesKoTarget(Long _index) {
+    public String getTrMovesKoTarget(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesKoTarget.get(_index.intValue()));
+        return translatedMoves_.getVal(movesKoTarget.get(_index));
     }
-    public String clickMovesKoTarget(Long _index) {
-        getForms().put(MOVE, movesKoTarget.get(_index.intValue()));
+    public String clickMovesKoTarget(int _index) {
+        getForms().put(MOVE, movesKoTarget.get(_index));
         return MOVE;
     }
     public boolean attackFirst() {
         int len_;
         len_ = movesChangingAttOrder.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (!attackLast((long) i)) {
+            if (!attackLast(i)) {
                 return true;
             }
         }
@@ -3633,14 +3633,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesChangingAttOrder.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (attackLast((long) i)) {
+            if (attackLast(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean attackLast(Long _index) {
-        String m_ = movesChangingAttOrder.get(_index.intValue());
+    public boolean attackLast(int _index) {
+        String m_ = movesChangingAttOrder.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData move_ = data_.getMove(m_);
         for(Effect e: move_.getEffects()){
@@ -3654,28 +3654,28 @@ public class FightHelpBean extends CommonBean {
         }
         return true;
     }
-    public String getTrMovesChangingAttOrder(Long _index) {
+    public String getTrMovesChangingAttOrder(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesChangingAttOrder.get(_index.intValue()));
+        return translatedMoves_.getVal(movesChangingAttOrder.get(_index));
     }
-    public String clickMovesChangingAttOrder(Long _index) {
-        getForms().put(MOVE, movesChangingAttOrder.get(_index.intValue()));
+    public String clickMovesChangingAttOrder(int _index) {
+        getForms().put(MOVE, movesChangingAttOrder.get(_index));
         return MOVE;
     }
     public boolean withConstDamageAny() {
         int len_;
         len_ = damagingMoves.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (withConstDamage((long) i)) {
+            if (withConstDamage(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean withConstDamage(Long _index) {
+    public boolean withConstDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index.intValue()));
+        MoveData move_ = data_.getMove(damagingMoves.get(_index));
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         return eff_.getConstDamage();
     }
@@ -3683,15 +3683,15 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = damagingMoves.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (withRandDamage((long) i)) {
+            if (withRandDamage(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean withRandDamage(Long _index) {
+    public boolean withRandDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index.intValue()));
+        MoveData move_ = data_.getMove(damagingMoves.get(_index));
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         return !eff_.getDamageLaw().events().isEmpty();
     }
@@ -3699,192 +3699,192 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = damagingMoves.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (withMultDamage((long) i)) {
+            if (withMultDamage(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean withMultDamage(Long _index) {
+    public boolean withMultDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
-        MoveData move_ = data_.getMove(damagingMoves.get(_index.intValue()));
+        MoveData move_ = data_.getMove(damagingMoves.get(_index));
         EffectDamage eff_ = (EffectDamage) move_.getEffet(move_.indexOfPrimaryEffect());
         return !eff_.getMultDamageAgainst().isEmpty();
     }
-    public String getTrDamagingMoves(Long _index) {
+    public String getTrDamagingMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(damagingMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(damagingMoves.get(_index));
     }
-    public String clickDamagingMoves(Long _index) {
-        getForms().put(MOVE, damagingMoves.get(_index.intValue()));
+    public String clickDamagingMoves(int _index) {
+        getForms().put(MOVE, damagingMoves.get(_index));
         return MOVE;
     }
-    public String getTrMovesUserPower(Long _index) {
+    public String getTrMovesUserPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesUserPower.get(_index.intValue()));
+        return translatedMoves_.getVal(movesUserPower.get(_index));
     }
-    public String clickMovesUserPower(Long _index) {
-        getForms().put(MOVE, movesUserPower.get(_index.intValue()));
+    public String clickMovesUserPower(int _index) {
+        getForms().put(MOVE, movesUserPower.get(_index));
         return MOVE;
     }
-    public String getTrMovesTargetPower(Long _index) {
+    public String getTrMovesTargetPower(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTargetPower.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTargetPower.get(_index));
     }
-    public String clickMovesTargetPower(Long _index) {
-        getForms().put(MOVE, movesTargetPower.get(_index.intValue()));
+    public String clickMovesTargetPower(int _index) {
+        getForms().put(MOVE, movesTargetPower.get(_index));
         return MOVE;
     }
-    public String getTrMovesTargetTeamDamage(Long _index) {
+    public String getTrMovesTargetTeamDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTargetTeamDamage.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTargetTeamDamage.get(_index));
     }
-    public String clickMovesTargetTeamDamage(Long _index) {
-        getForms().put(MOVE, movesTargetTeamDamage.get(_index.intValue()));
+    public String clickMovesTargetTeamDamage(int _index) {
+        getForms().put(MOVE, movesTargetTeamDamage.get(_index));
         return MOVE;
     }
-    public String getTrMovesGlobal(Long _index) {
+    public String getTrMovesGlobal(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobal.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobal.get(_index));
     }
-    public String clickMovesGlobal(Long _index) {
-        getForms().put(MOVE, movesGlobal.get(_index.intValue()));
+    public String clickMovesGlobal(int _index) {
+        getForms().put(MOVE, movesGlobal.get(_index));
         return MOVE;
     }
-    public String getTrMovesInvokDamage(Long _index) {
+    public String getTrMovesInvokDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesInvokDamage.get(_index.intValue()));
+        return translatedMoves_.getVal(movesInvokDamage.get(_index));
     }
-    public String clickMovesInvokDamage(Long _index) {
-        getForms().put(MOVE, movesInvokDamage.get(_index.intValue()));
+    public String clickMovesInvokDamage(int _index) {
+        getForms().put(MOVE, movesInvokDamage.get(_index));
         return MOVE;
     }
-    public String getTrMovesGlobalPrepaDamage(Long _index) {
+    public String getTrMovesGlobalPrepaDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobalPrepaDamage.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobalPrepaDamage.get(_index));
     }
-    public String clickMovesGlobalPrepaDamage(Long _index) {
-        getForms().put(MOVE, movesGlobalPrepaDamage.get(_index.intValue()));
+    public String clickMovesGlobalPrepaDamage(int _index) {
+        getForms().put(MOVE, movesGlobalPrepaDamage.get(_index));
         return MOVE;
     }
-    public String getTrMovesUserAllyDamage(Long _index) {
+    public String getTrMovesUserAllyDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesUserAllyDamage.get(_index.intValue()));
+        return translatedMoves_.getVal(movesUserAllyDamage.get(_index));
     }
-    public String clickMovesUserAllyaDamage(Long _index) {
-        getForms().put(MOVE, movesUserAllyDamage.get(_index.intValue()));
+    public String clickMovesUserAllyaDamage(int _index) {
+        getForms().put(MOVE, movesUserAllyDamage.get(_index));
         return MOVE;
     }
-    public String getTrMovesIgnLowAtt(Long _index) {
+    public String getTrMovesIgnLowAtt(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesIgnLowAtt.get(_index.intValue()));
+        return translatedMoves_.getVal(movesIgnLowAtt.get(_index));
     }
-    public String clickMovesIgnLowAtt(Long _index) {
-        getForms().put(MOVE, movesIgnLowAtt.get(_index.intValue()));
+    public String clickMovesIgnLowAtt(int _index) {
+        getForms().put(MOVE, movesIgnLowAtt.get(_index));
         return MOVE;
     }
-    public String getTrMovesIgnIncDef(Long _index) {
+    public String getTrMovesIgnIncDef(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesIgnIncDef.get(_index.intValue()));
+        return translatedMoves_.getVal(movesIgnIncDef.get(_index));
     }
-    public String clickMovesIgnIncDef(Long _index) {
-        getForms().put(MOVE, movesIgnIncDef.get(_index.intValue()));
+    public String clickMovesIgnIncDef(int _index) {
+        getForms().put(MOVE, movesIgnIncDef.get(_index));
         return MOVE;
     }
-    public String getTrMovesProtectingTypes(Long _index) {
+    public String getTrMovesProtectingTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesProtectingTypes.get(_index.intValue()));
+        return translatedMoves_.getVal(movesProtectingTypes.get(_index));
     }
-    public String clickMovesProtectingTypes(Long _index) {
-        getForms().put(MOVE, movesProtectingTypes.get(_index.intValue()));
+    public String clickMovesProtectingTypes(int _index) {
+        getForms().put(MOVE, movesProtectingTypes.get(_index));
         return MOVE;
     }
-    public String getTrMovesUnprotectingTypes(Long _index) {
+    public String getTrMovesUnprotectingTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesUnprotectingTypes.get(_index.intValue()));
+        return translatedMoves_.getVal(movesUnprotectingTypes.get(_index));
     }
-    public String clickMovesUnprotectingTypes(Long _index) {
-        getForms().put(MOVE, movesUnprotectingTypes.get(_index.intValue()));
+    public String clickMovesUnprotectingTypes(int _index) {
+        getForms().put(MOVE, movesUnprotectingTypes.get(_index));
         return MOVE;
     }
-    public String getTrMovesGlobalBreakImmu(Long _index) {
+    public String getTrMovesGlobalBreakImmu(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobalBreakImmu.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobalBreakImmu.get(_index));
     }
-    public String clickMovesGlobalBreakImmu(Long _index) {
-        getForms().put(MOVE, movesGlobalBreakImmu.get(_index.intValue()));
+    public String clickMovesGlobalBreakImmu(int _index) {
+        getForms().put(MOVE, movesGlobalBreakImmu.get(_index));
         return MOVE;
     }
-    public String getTrMovesGlobalBreakImmuAb(Long _index) {
+    public String getTrMovesGlobalBreakImmuAb(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobalBreakImmuAb.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobalBreakImmuAb.get(_index));
     }
-    public String clickMovesGlobalBreakImmuAb(Long _index) {
-        getForms().put(MOVE, movesGlobalBreakImmuAb.get(_index.intValue()));
+    public String clickMovesGlobalBreakImmuAb(int _index) {
+        getForms().put(MOVE, movesGlobalBreakImmuAb.get(_index));
         return MOVE;
     }
-    public String getTrMovesProtecting(Long _index) {
+    public String getTrMovesProtecting(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesProtecting.get(_index.intValue()));
+        return translatedMoves_.getVal(movesProtecting.get(_index));
     }
-    public String clickMovesProtecting(Long _index) {
-        getForms().put(MOVE, movesProtecting.get(_index.intValue()));
+    public String clickMovesProtecting(int _index) {
+        getForms().put(MOVE, movesProtecting.get(_index));
         return MOVE;
     }
-    public String getTrMovesIgnAcc(Long _index) {
+    public String getTrMovesIgnAcc(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesIgnAcc.get(_index.intValue()));
+        return translatedMoves_.getVal(movesIgnAcc.get(_index));
     }
-    public String clickMovesIgnAcc(Long _index) {
-        getForms().put(MOVE, movesIgnAcc.get(_index.intValue()));
+    public String clickMovesIgnAcc(int _index) {
+        getForms().put(MOVE, movesIgnAcc.get(_index));
         return MOVE;
     }
-    public String getTrMovesIgnEva(Long _index) {
+    public String getTrMovesIgnEva(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesIgnEva.get(_index.intValue()));
+        return translatedMoves_.getVal(movesIgnEva.get(_index));
     }
-    public String clickMovesIgnEva(Long _index) {
-        getForms().put(MOVE, movesIgnEva.get(_index.intValue()));
+    public String clickMovesIgnEva(int _index) {
+        getForms().put(MOVE, movesIgnEva.get(_index));
         return MOVE;
     }
-    public String getTrMovesGlobalAcc(Long _index) {
+    public String getTrMovesGlobalAcc(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobalAcc.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobalAcc.get(_index));
     }
-    public String clickMovesGlobalAcc(Long _index) {
-        getForms().put(MOVE, movesGlobalAcc.get(_index.intValue()));
+    public String clickMovesGlobalAcc(int _index) {
+        getForms().put(MOVE, movesGlobalAcc.get(_index));
         return MOVE;
     }
     public boolean moveGlobalMultNormalAny() {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveGlobalMultNormal((long) i)) {
+            if (moveGlobalMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveGlobalMultNormal(Long _index) {
-        String move_ = movesGlobalMultStat.get(_index.intValue());
+    public boolean moveGlobalMultNormal(int _index) {
+        String move_ = movesGlobalMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3904,14 +3904,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveGlobalMultEvasiness((long) i)) {
+            if (moveGlobalMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveGlobalMultEvasiness(Long _index) {
-        String move_ = movesGlobalMultStat.get(_index.intValue());
+    public boolean moveGlobalMultEvasiness(int _index) {
+        String move_ = movesGlobalMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3931,14 +3931,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveGlobalMultSpeed((long) i)) {
+            if (moveGlobalMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveGlobalMultSpeed(Long _index) {
-        String move_ = movesGlobalMultStat.get(_index.intValue());
+    public boolean moveGlobalMultSpeed(int _index) {
+        String move_ = movesGlobalMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3958,14 +3958,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesGlobalMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveGlobalMultAccuracy((long) i)) {
+            if (moveGlobalMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveGlobalMultAccuracy(Long _index) {
-        String move_ = movesGlobalMultStat.get(_index.intValue());
+    public boolean moveGlobalMultAccuracy(int _index) {
+        String move_ = movesGlobalMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -3981,26 +3981,26 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrMovesGlobalMultStat(Long _index) {
+    public String getTrMovesGlobalMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesGlobalMultStat.get(_index.intValue()));
+        return translatedMoves_.getVal(movesGlobalMultStat.get(_index));
     }
-    public String clickMovesGlobalMultStat(Long _index) {
-        getForms().put(MOVE, movesGlobalMultStat.get(_index.intValue()));
+    public String clickMovesGlobalMultStat(int _index) {
+        getForms().put(MOVE, movesGlobalMultStat.get(_index));
         return MOVE;
     }
     public boolean moveTeamMultNormalAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveTeamMultNormal((long) i)) {
+            if (moveTeamMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveTeamMultNormal(Long _index) {
-        String move_ = movesTeamMultStat.get(_index.intValue());
+    public boolean moveTeamMultNormal(int _index) {
+        String move_ = movesTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4017,14 +4017,14 @@ public class FightHelpBean extends CommonBean {
     public boolean moveTeamMultEvasinessAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveTeamMultEvasiness((long) i)) {
+            if (moveTeamMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveTeamMultEvasiness(Long _index) {
-        String move_ = movesTeamMultStat.get(_index.intValue());
+    public boolean moveTeamMultEvasiness(int _index) {
+        String move_ = movesTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4041,14 +4041,14 @@ public class FightHelpBean extends CommonBean {
     public boolean moveTeamMultSpeedAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveTeamMultSpeed((long) i)) {
+            if (moveTeamMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveTeamMultSpeed(Long _index) {
-        String move_ = movesTeamMultStat.get(_index.intValue());
+    public boolean moveTeamMultSpeed(int _index) {
+        String move_ = movesTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4065,14 +4065,14 @@ public class FightHelpBean extends CommonBean {
     public boolean moveTeamMultAccuracyAny() {
         int len_ = movesTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveTeamMultAccuracy((long) i)) {
+            if (moveTeamMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveTeamMultAccuracy(Long _index) {
-        String move_ = movesTeamMultStat.get(_index.intValue());
+    public boolean moveTeamMultAccuracy(int _index) {
+        String move_ = movesTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4086,27 +4086,27 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrMovesTeamMultStat(Long _index) {
+    public String getTrMovesTeamMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTeamMultStat.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTeamMultStat.get(_index));
     }
-    public String clickMovesTeamMultStat(Long _index) {
-        getForms().put(MOVE, movesTeamMultStat.get(_index.intValue()));
+    public String clickMovesTeamMultStat(int _index) {
+        getForms().put(MOVE, movesTeamMultStat.get(_index));
         return MOVE;
     }
     public boolean moveFoeTeamMultNormalAny() {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveFoeTeamMultNormal((long) i)) {
+            if (moveFoeTeamMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveFoeTeamMultNormal(Long _index) {
-        String move_ = movesFoeTeamMultStat.get(_index.intValue());
+    public boolean moveFoeTeamMultNormal(int _index) {
+        String move_ = movesFoeTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4124,14 +4124,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveFoeTeamMultEvasiness((long) i)) {
+            if (moveFoeTeamMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveFoeTeamMultEvasiness(Long _index) {
-        String move_ = movesFoeTeamMultStat.get(_index.intValue());
+    public boolean moveFoeTeamMultEvasiness(int _index) {
+        String move_ = movesFoeTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4149,14 +4149,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveFoeTeamMultSpeed((long) i)) {
+            if (moveFoeTeamMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveFoeTeamMultSpeed(Long _index) {
-        String move_ = movesFoeTeamMultStat.get(_index.intValue());
+    public boolean moveFoeTeamMultSpeed(int _index) {
+        String move_ = movesFoeTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4174,14 +4174,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = movesFoeTeamMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (moveFoeTeamMultAccuracy((long) i)) {
+            if (moveFoeTeamMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean moveFoeTeamMultAccuracy(Long _index) {
-        String move_ = movesFoeTeamMultStat.get(_index.intValue());
+    public boolean moveFoeTeamMultAccuracy(int _index) {
+        String move_ = movesFoeTeamMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         MoveData m_ = data_.getMove(move_);
         for (Effect e: m_.getEffects()) {
@@ -4195,90 +4195,90 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrMovesFoeTeamMultStat(Long _index) {
+    public String getTrMovesFoeTeamMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesFoeTeamMultStat.get(_index.intValue()));
+        return translatedMoves_.getVal(movesFoeTeamMultStat.get(_index));
     }
-    public String clickMovesFoeTeamMultStat(Long _index) {
-        getForms().put(MOVE, movesFoeTeamMultStat.get(_index.intValue()));
+    public String clickMovesFoeTeamMultStat(int _index) {
+        getForms().put(MOVE, movesFoeTeamMultStat.get(_index));
         return MOVE;
     }
-    public String getTrMovesTypesDefItem(Long _index) {
+    public String getTrMovesTypesDefItem(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTypesDefItem.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTypesDefItem.get(_index));
     }
-    public String clickMovesTypesDefItem(Long _index) {
-        getForms().put(MOVE, movesTypesDefItem.get(_index.intValue()));
+    public String clickMovesTypesDefItem(int _index) {
+        getForms().put(MOVE, movesTypesDefItem.get(_index));
         return MOVE;
     }
-    public String getTrItemsTypesDef(Long _index) {
+    public String getTrItemsTypesDef(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        return translatedItems_.getVal(itemsTypesDef.get(_index.intValue()));
+        return translatedItems_.getVal(itemsTypesDef.get(_index));
     }
-    public String clickItemsTypesDef(Long _index) {
-        getForms().put(ITEM, itemsTypesDef.get(_index.intValue()));
+    public String clickItemsTypesDef(int _index) {
+        getForms().put(ITEM, itemsTypesDef.get(_index));
         return ITEM;
     }
-    public String getTrMovesTypesDefWeather(Long _index) {
+    public String getTrMovesTypesDefWeather(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTypesDefWeather.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTypesDefWeather.get(_index));
     }
-    public String clickMovesTypesDefWeather(Long _index) {
-        getForms().put(MOVE, movesTypesDefWeather.get(_index.intValue()));
+    public String clickMovesTypesDefWeather(int _index) {
+        getForms().put(MOVE, movesTypesDefWeather.get(_index));
         return MOVE;
     }
-    public String getTrMovesTypeDefMoves(Long _index) {
+    public String getTrMovesTypeDefMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesTypeDefMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(movesTypeDefMoves.get(_index));
     }
-    public String clickMovesTypeDefMoves(Long _index) {
-        getForms().put(MOVE, movesTypeDefMoves.get(_index.intValue()));
+    public String clickMovesTypeDefMoves(int _index) {
+        getForms().put(MOVE, movesTypeDefMoves.get(_index));
         return MOVE;
     }
-    public String getTrMovesChangeTypeMoves(Long _index) {
+    public String getTrMovesChangeTypeMoves(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesChangeTypeMoves.get(_index.intValue()));
+        return translatedMoves_.getVal(movesChangeTypeMoves.get(_index));
     }
-    public String clickMovesChangeTypeMoves(Long _index) {
-        getForms().put(MOVE, movesChangeTypeMoves.get(_index.intValue()));
+    public String clickMovesChangeTypeMoves(int _index) {
+        getForms().put(MOVE, movesChangeTypeMoves.get(_index));
         return MOVE;
     }
-    public String getTrMovesBoostCh(Long _index) {
+    public String getTrMovesBoostCh(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(movesBoostCh.get(_index.intValue()));
+        return translatedMoves_.getVal(movesBoostCh.get(_index));
     }
-    public String clickMovesBoostCh(Long _index) {
-        getForms().put(MOVE, movesBoostCh.get(_index.intValue()));
+    public String clickMovesBoostCh(int _index) {
+        getForms().put(MOVE, movesBoostCh.get(_index));
         return MOVE;
     }
-    public String getTrDeletedStatusSwitch(Long _index) {
+    public String getTrDeletedStatusSwitch(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(deletedStatusSwitch.get(_index.intValue()));
+        return translatedStatus_.getVal(deletedStatusSwitch.get(_index));
     }
-    public String clickDeletedStatusSwitch(Long _index) {
-        getForms().put(STATUS, deletedStatusSwitch.get(_index.intValue()));
+    public String clickDeletedStatusSwitch(int _index) {
+        getForms().put(STATUS, deletedStatusSwitch.get(_index));
         return STATUS;
     }
     public boolean hasLawForAttackAny() {
         int len_;
         len_ = beginRoundStatus.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (hasLawForAttack((long) i)) {
+            if (hasLawForAttack(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean hasLawForAttack(Long _index) {
-        String status_ = beginRoundStatus.get(_index.intValue());
+    public boolean hasLawForAttack(int _index) {
+        String status_ = beginRoundStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
@@ -4291,76 +4291,76 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = beginRoundStatus.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (hasLawForHeal((long) i)) {
+            if (hasLawForHeal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean hasLawForHeal(Long _index) {
-        String status_ = beginRoundStatus.get(_index.intValue());
+    public boolean hasLawForHeal(int _index) {
+        String status_ = beginRoundStatus.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
         return !s_.getLawForFullHealIfMove().events().isEmpty();
     }
-    public String getTrBeginRoundStatus(Long _index) {
+    public String getTrBeginRoundStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(beginRoundStatus.get(_index.intValue()));
+        return translatedStatus_.getVal(beginRoundStatus.get(_index));
     }
-    public String clickBeginRoundStatus(Long _index) {
-        getForms().put(STATUS, beginRoundStatus.get(_index.intValue()));
+    public String clickBeginRoundStatus(int _index) {
+        getForms().put(STATUS, beginRoundStatus.get(_index));
         return STATUS;
     }
-    public String getTrAutoDamage(Long _index) {
+    public String getTrAutoDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(autoDamage.get(_index.intValue()));
+        return translatedStatus_.getVal(autoDamage.get(_index));
     }
-    public String clickAutoDamage(Long _index) {
-        getForms().put(STATUS, autoDamage.get(_index.intValue()));
+    public String clickAutoDamage(int _index) {
+        getForms().put(STATUS, autoDamage.get(_index));
         return STATUS;
     }
-    public String getTrBeginRoundStatusFoe(Long _index) {
+    public String getTrBeginRoundStatusFoe(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(beginRoundStatusFoe.get(_index.intValue()));
+        return translatedStatus_.getVal(beginRoundStatusFoe.get(_index));
     }
-    public String clickBeginRoundStatusFoe(Long _index) {
-        getForms().put(STATUS, beginRoundStatusFoe.get(_index.intValue()));
+    public String clickBeginRoundStatusFoe(int _index) {
+        getForms().put(STATUS, beginRoundStatusFoe.get(_index));
         return STATUS;
     }
-    public String getTrSuccessfulStatus(Long _index) {
+    public String getTrSuccessfulStatus(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(successfulStatus.get(_index.intValue()));
+        return translatedStatus_.getVal(successfulStatus.get(_index));
     }
-    public String clickSuccessfulStatus(Long _index) {
-        getForms().put(STATUS, successfulStatus.get(_index.intValue()));
+    public String clickSuccessfulStatus(int _index) {
+        getForms().put(STATUS, successfulStatus.get(_index));
         return STATUS;
     }
-    public String getTrStatusDamage(Long _index) {
+    public String getTrStatusDamage(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(statusDamage.get(_index.intValue()));
+        return translatedStatus_.getVal(statusDamage.get(_index));
     }
-    public String clickStatusDamage(Long _index) {
-        getForms().put(STATUS, statusDamage.get(_index.intValue()));
+    public String clickStatusDamage(int _index) {
+        getForms().put(STATUS, statusDamage.get(_index));
         return STATUS;
     }
     public boolean statusMultNormalAny() {
         int len_;
         len_ = statusMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (statusMultNormal((long) i)) {
+            if (statusMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean statusMultNormal(Long _index) {
-        String status_ = statusMultStat.get(_index.intValue());
+    public boolean statusMultNormal(int _index) {
+        String status_ = statusMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status s_ = data_.getStatus(status_);
         return hasNormalStat(s_.getMultStat().getKeys());
@@ -4369,14 +4369,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = statusMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (statusMultEvasiness((long) i)) {
+            if (statusMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean statusMultEvasiness(Long _index) {
-        String status_ = statusMultStat.get(_index.intValue());
+    public boolean statusMultEvasiness(int _index) {
+        String status_ = statusMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status s_ = data_.getStatus(status_);
         return s_.getMultStat().contains(Statistic.EVASINESS);
@@ -4385,14 +4385,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = statusMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (statusMultSpeed((long) i)) {
+            if (statusMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean statusMultSpeed(Long _index) {
-        String status_ = statusMultStat.get(_index.intValue());
+    public boolean statusMultSpeed(int _index) {
+        String status_ = statusMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status s_ = data_.getStatus(status_);
         return s_.getMultStat().contains(Statistic.SPEED);
@@ -4401,39 +4401,39 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = statusMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (statusMultAccuracy((long) i)) {
+            if (statusMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean statusMultAccuracy(Long _index) {
-        String status_ = statusMultStat.get(_index.intValue());
+    public boolean statusMultAccuracy(int _index) {
+        String status_ = statusMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         Status s_ = data_.getStatus(status_);
         return s_.getMultStat().contains(Statistic.ACCURACY);
     }
-    public String getTrStatusMultStat(Long _index) {
+    public String getTrStatusMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(statusMultStat.get(_index.intValue()));
+        return translatedStatus_.getVal(statusMultStat.get(_index));
     }
-    public String clickStatusMultStat(Long _index) {
-        getForms().put(STATUS, statusMultStat.get(_index.intValue()));
+    public String clickStatusMultStat(int _index) {
+        getForms().put(STATUS, statusMultStat.get(_index));
         return STATUS;
     }
     public boolean comboMultNormalAny() {
         int len_;
         len_ = comboMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (comboMultNormal((long) i)) {
+            if (comboMultNormal(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean comboMultNormal(Long _index) {
-        StringList combo_ = comboMultStat.get(_index.intValue());
+    public boolean comboMultNormal(int _index) {
+        StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
@@ -4451,14 +4451,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = comboMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (comboMultEvasiness((long) i)) {
+            if (comboMultEvasiness(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean comboMultEvasiness(Long _index) {
-        StringList combo_ = comboMultStat.get(_index.intValue());
+    public boolean comboMultEvasiness(int _index) {
+        StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
@@ -4476,14 +4476,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = comboMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (comboMultSpeed((long) i)) {
+            if (comboMultSpeed(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean comboMultSpeed(Long _index) {
-        StringList combo_ = comboMultStat.get(_index.intValue());
+    public boolean comboMultSpeed(int _index) {
+        StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
@@ -4501,14 +4501,14 @@ public class FightHelpBean extends CommonBean {
         int len_;
         len_ = comboMultStat.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            if (comboMultAccuracy((long) i)) {
+            if (comboMultAccuracy(i)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean comboMultAccuracy(Long _index) {
-        StringList combo_ = comboMultStat.get(_index.intValue());
+    public boolean comboMultAccuracy(int _index) {
+        StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         for (StringList s: data_.getCombos().getEffects().getKeys()) {
@@ -4522,46 +4522,46 @@ public class FightHelpBean extends CommonBean {
         }
         return false;
     }
-    public String getTrComboMultStat(Long _index) {
+    public String getTrComboMultStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = new StringList();
-        for (String m: comboMultStat.get(_index.intValue())) {
+        for (String m: comboMultStat.get(_index)) {
             moves_.add(translatedMoves_.getVal(m));
         }
         return StringUtil.join(moves_, SEP_DASH);
     }
-    public String clickComboMultStat(Long _index) {
-        getForms().put(COMBO, comboMultStat.get(_index.intValue()));
+    public String clickComboMultStat(int _index) {
+        getForms().put(COMBO, comboMultStat.get(_index));
         return COMBO;
     }
-    public String getTrComboEvtStat(Long _index) {
+    public String getTrComboEvtStat(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringList moves_ = new StringList();
-        for (String m: comboEvtStat.get(_index.intValue())) {
+        for (String m: comboEvtStat.get(_index)) {
             moves_.add(translatedMoves_.getVal(m));
         }
         return StringUtil.join(moves_, SEP_DASH);
     }
-    public String clickComboEvtStat(Long _index) {
-        getForms().put(COMBO, comboEvtStat.get(_index.intValue()));
+    public String clickComboEvtStat(int _index) {
+        getForms().put(COMBO, comboEvtStat.get(_index));
         return COMBO;
     }
-    public boolean nextRowAfter(Long _index) {
+    public boolean nextRowAfter(int _index) {
         if (_index == IndexConstants.FIRST_INDEX) {
             return true;
         }
-        TypesDuo types_ = efficiency.getKey(_index.intValue());
-        TypesDuo typesNext_ = efficiency.getKey(_index.intValue() - 1);
+        TypesDuo types_ = efficiency.getKey(_index);
+        TypesDuo typesNext_ = efficiency.getKey(_index - 1);
         return !StringUtil.quickEq(types_.getPokemonType(),typesNext_.getPokemonType());
     }
-    public String getEfficiency(Long _def, Long _off) {
-        int i_ = (int) (_def * types.size() + _off);
+    public String getEfficiency(int _def, int _off) {
+        int i_ = _def * types.size() + _off;
         return efficiency.getValue(i_).toNumberString();
     }
-    public String getTypes(Long _index) {
-        return types.get(_index.intValue());
+    public String getTypes(int _index) {
+        return types.get(_index);
     }
     public String getTrDefaultMove() {
         DataBase data_ = (DataBase) getDataBase();

@@ -81,64 +81,64 @@ public class EffectInvokeBean extends EffectBean {
         }
         invokingMoveByUserTypes = invokingMoveByUserTypes_;
     }
-    public String clickMoveFctEnv(Long _index) {
-        String st_ = moveFctEnv.getValue(_index.intValue());
+    public String clickMoveFctEnv(int _index) {
+        String st_ = moveFctEnv.getValue(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrEnv(Long _index) {
+    public String getTrEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedMoves_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        EnvironmentType st_ = PokemonStandards.getEnvByName(moveFctEnv.getKey(_index.intValue()));
+        EnvironmentType st_ = PokemonStandards.getEnvByName(moveFctEnv.getKey(_index));
         return translatedMoves_.getVal(st_);
     }
-    public String getTrMoveFctEnv(Long _index) {
+    public String getTrMoveFctEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = moveFctEnv.getValue(_index.intValue());
+        String st_ = moveFctEnv.getValue(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String getTrGlobalMoveFctEnv(Long _index) {
+    public String getTrGlobalMoveFctEnv(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = globalMoves.get(_index.intValue());
+        String st_ = globalMoves.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickGlobalMoveFctEnv(Long _index) {
-        String st_ = globalMoves.get(_index.intValue());
+    public String clickGlobalMoveFctEnv(int _index) {
+        String st_ = globalMoves.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String clickMoveNotInvok(Long _index) {
-        String st_ = movesNotToBeInvoked.get(_index.intValue());
+    public String clickMoveNotInvok(int _index) {
+        String st_ = movesNotToBeInvoked.get(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public String getTrMoveNotInvok(Long _index) {
+    public String getTrMoveNotInvok(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = movesNotToBeInvoked.get(_index.intValue());
+        String st_ = movesNotToBeInvoked.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickMoveUserTypes(Long _index) {
-        String st_ = invokingMoveByUserTypes.getValue(_index.intValue());
+    public String clickMoveUserTypes(int _index) {
+        String st_ = invokingMoveByUserTypes.getValue(_index);
         getForms().put(MOVE, st_);
         return MOVE;
     }
-    public boolean isType(Long _index) {
-        String st_ = invokingMoveByUserTypes.getKey(_index.intValue());
+    public boolean isType(int _index) {
+        String st_ = invokingMoveByUserTypes.getKey(_index);
         return !st_.isEmpty();
     }
-    public String getTrUserTypes(Long _index) {
+    public String getTrUserTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        String st_ = invokingMoveByUserTypes.getKey(_index.intValue());
+        String st_ = invokingMoveByUserTypes.getKey(_index);
         return translatedTypes_.getVal(st_);
     }
-    public String getTrMoveUserTypes(Long _index) {
+    public String getTrMoveUserTypes(int _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        String st_ = invokingMoveByUserTypes.getValue(_index.intValue());
+        String st_ = invokingMoveByUserTypes.getValue(_index);
         return translatedMoves_.getVal(st_);
     }
 

@@ -13,7 +13,7 @@ import code.util.core.StringUtil;
 
 public class SelectItemBean extends CommonBean {
     private String item = DataBase.EMPTY_STRING;
-    private CustList<ItemLine> items = new CustList<ItemLine>();
+    private final CustList<ItemLine> items = new CustList<ItemLine>();
     private StringList sortedItems = new StringList();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedPrice = DataBase.EMPTY_STRING;
@@ -88,7 +88,7 @@ public class SelectItemBean extends CommonBean {
                 sortedItems_.add(i);
             }
         } else {
-            int int_ = price.intValue();
+            int int_ = price;
             for (String i: data_.getItems().getKeys()) {
                 String display_ = translationsItems_.getVal(i);
                 if (!StringUtil.match(display_, typedName)) {
@@ -118,16 +118,16 @@ public class SelectItemBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public String clickLink(Long _index) {
-        item = items.get(_index.intValue()).getName();
+    public String clickLink(int _index) {
+        item = items.get(_index).getName();
         getForms().put(ITEM_EDIT, item);
         if (player) {
             return EDIT_POKEMON_PLAYER;
         }
         return POKEMON_EDIT;
     }
-    public String getMiniImage(Long _number) {
-        String item_ = items.get(_number.intValue()).getName();
+    public String getMiniImage(int _number) {
+        String item_ = items.get(_number).getName();
         DataBase data_ = (DataBase) getDataBase();
         return BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(item_));
     }

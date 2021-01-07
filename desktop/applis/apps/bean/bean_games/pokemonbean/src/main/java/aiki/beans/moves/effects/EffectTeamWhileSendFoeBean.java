@@ -91,8 +91,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         }
         mapVarsDamageSentFoe = mapVarsDamageSentFoe_;
     }
-    public String getTranslatedStatistic(Long _index) {
-        Statistic st_ = getSortedStatistics().get(_index.intValue());
+    public String getTranslatedStatistic(int _index) {
+        Statistic st_ = getSortedStatistics().get(_index);
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(st_);
@@ -104,26 +104,26 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         list_.sortElts(new ComparatorStatisticTr(data_, getLanguage()));
         return list_;
     }
-    public String getTranslatedType(Long _index) {
-        String type_ = deletedByFoeTypes.get(_index.intValue());
+    public String getTranslatedType(int _index) {
+        String type_ = deletedByFoeTypes.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translatedTypes_.getVal(type_);
     }
-    public String clickStatus(Long _indexEffect, Long _index) {
+    public String clickStatus(int _indexEffect, int _index) {
         ShortTreeMap< String> statusByNbUses_;
         statusByNbUses_ = new ShortTreeMap< String>();
-        EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect.intValue());
+        EffectTeamWhileSendFoe effect_ = (EffectTeamWhileSendFoe) getEffect(_indexEffect);
         for (Short s: effect_.getStatusByNbUses().getKeys()) {
             String status_ = effect_.getStatusByNbUses().getVal(s);
             statusByNbUses_.put(s, status_);
         }
-        String status_ = statusByNbUses_.getValue(_index.intValue());
+        String status_ = statusByNbUses_.getValue(_index);
         getForms().put(STATUS, status_);
         return STATUS;
     }
-    public String getTranslatedStatus(Long _index) {
-        String status_ = statusByNbUses.getValue(_index.intValue());
+    public String getTranslatedStatus(int _index) {
+        String status_ = statusByNbUses.getValue(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         return translatedStatus_.getVal(status_);

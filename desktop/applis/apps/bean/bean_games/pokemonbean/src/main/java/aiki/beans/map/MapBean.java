@@ -32,34 +32,34 @@ public class MapBean extends CommonBean {
         }
         places.sortElts(new ComparatorPlaceIndex());
     }
-    public boolean isMultiLayer(Long _index) {
+    public boolean isMultiLayer(int _index) {
         return layers(_index).size() > IndexConstants.ONE_ELEMENT;
     }
-    public CustList<Level> layers(Long _index) {
-        Place pl_ = places.get(_index.intValue()).getPlace();
+    public CustList<Level> layers(int _index) {
+        Place pl_ = places.get(_index).getPlace();
         return pl_.getLevelsList();
     }
-    public boolean isCenter(Long _indexOne, Long _indexTwo) {
-        return buildings(_indexOne).get(_indexTwo.intValue()) instanceof PokemonCenter;
+    public boolean isCenter(int _indexOne, int _indexTwo) {
+        return buildings(_indexOne).get(_indexTwo) instanceof PokemonCenter;
     }
-    public boolean isGym(Long _indexOne, Long _indexTwo) {
-        return buildings(_indexOne).get(_indexTwo.intValue()) instanceof Gym;
+    public boolean isGym(int _indexOne, int _indexTwo) {
+        return buildings(_indexOne).get(_indexTwo) instanceof Gym;
     }
-    public CustList<Building> buildings(Long _index) {
-        Place pl_ = places.get(_index.intValue()).getPlace();
+    public CustList<Building> buildings(int _index) {
+        Place pl_ = places.get(_index).getPlace();
         if (!(pl_ instanceof City)) {
             return new CustList<Building>();
         }
         City c_ = (City) pl_;
         return c_.getBuildings().values();
     }
-    public boolean isCity(Long _index) {
-        return places.get(_index.intValue()).getPlace() instanceof City;
+    public boolean isCity(int _index) {
+        return places.get(_index).getPlace() instanceof City;
     }
-    public String clickLevel(Long _indexOne, Long _indexTwo) {
+    public String clickLevel(int _indexOne, int _indexTwo) {
         getForms().removeKey(INSIDE);
-        getForms().put(LEVEL_MAP_INDEX, _indexTwo.byteValue());
-        getForms().put(PLACE_MAP_INDEX, _indexOne.shortValue());
+        getForms().put(LEVEL_MAP_INDEX, _indexTwo);
+        getForms().put(PLACE_MAP_INDEX, _indexOne);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);

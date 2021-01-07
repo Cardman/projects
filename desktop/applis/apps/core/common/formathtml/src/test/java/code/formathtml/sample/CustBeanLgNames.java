@@ -263,7 +263,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new StandardMethod(GO_TO_PAGE,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(getContent().getNbAlias().getAliasLong());
+        params_ = new StringList(getContent().getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(INVOKE_METHOD,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
@@ -1343,7 +1343,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 if (i_.getComposite().getStrings() == null) {
                     return res_;
                 }
-                res_.setResult(new StringStruct(i_.invokeMethod((Long)_args[0])));
+                res_.setResult(new StringStruct(i_.invokeMethod((Integer)_args[0])));
                 return res_;
             }
             if (StringUtil.quickEq(methodName_,HAS_MORE_THAN_ONE)) {

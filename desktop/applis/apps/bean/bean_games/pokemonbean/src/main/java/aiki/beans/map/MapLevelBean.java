@@ -93,7 +93,7 @@ public class MapLevelBean extends CommonBean {
         outside = false;
         if (getForms().contains(INSIDE)) {
             Point ptInside_ = (Point) getForms().getVal(INSIDE);
-            Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
             Place place_ = data_.getMap().getPlace(pl_);
             if (place_ instanceof City) {
                 City city_ = (City) place_;
@@ -105,13 +105,13 @@ public class MapLevelBean extends CommonBean {
                 }
             }
             placeName = place_.getName();
-            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage(pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
+            for (EntryCust<Point,int[][]> pt_: data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         } else {
             outside = true;
-            Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
-            Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+            int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
+            int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
             if (data_.getMap().getPlace(pl_) instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -122,8 +122,8 @@ public class MapLevelBean extends CommonBean {
                 road = true;
             }
             placeName = data_.getMap().getPlace(pl_).getName();
-            levelIndex = lev_.intValue();
-            for (EntryCust<Point, int[][]> pt_: data_.getLevelImage(pl_, lev_).entryList()) {
+            levelIndex = lev_;
+            for (EntryCust<Point, int[][]> pt_: data_.getLevelImage((short) pl_, (byte) lev_).entryList()) {
                 tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
             }
         }
@@ -150,21 +150,19 @@ public class MapLevelBean extends CommonBean {
         }
         return w_;
     }
-    public boolean isFirstRow(Long _index) {
-        if (_index.intValue() == 0) {
+    public boolean isFirstRow(int _index) {
+        if (_index == 0) {
             return false;
         }
-        Point pt_ = tiles.getKey(_index.intValue());
+        Point pt_ = tiles.getKey(_index);
         return pt_.getx() == IndexConstants.FIRST_INDEX;
     }
     public String clickTile() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
-        short plValue_ = pl_;
-        byte levValue_ = lev_;
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
-        Place p_ = data_.getMap().getPlace(plValue_);
+        Place p_ = data_.getMap().getPlace(pl_);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
         getForms().put(SEE_AREA, false);
@@ -174,56 +172,56 @@ public class MapLevelBean extends CommonBean {
         //getForms().put(FROM_LIST, false);
         CustList<Place> places_ = data_.getMap().getPlaces();
         int nb_ = places_.size();
-        for (short p = 0; p < nb_; p++) {
+        for (int p = 0; p < nb_; p++) {
             Place place_ = data_.getMap().getPlace(p);
             if (!(place_ instanceof League)) {
                 continue;
             }
             League l_ = (League) place_;
             Coords access_ = l_.getAccessCoords();
-            if (!NumberUtil.eq(plValue_, access_.getNumberPlace())) {
+            if (!NumberUtil.eq(pl_, access_.getNumberPlace())) {
                 continue;
             }
-            if (!NumberUtil.eq(levValue_, access_.getLevel().getLevelIndex())) {
+            if (!NumberUtil.eq(lev_, access_.getLevel().getLevelIndex())) {
                 continue;
             }
             if (!Point.eq(pt_, access_.getLevel().getPoint())) {
                 continue;
             }
-            getForms().put(LEVEL_MAP_INDEX, IndexConstants.FIRST_INDEX);
+            getForms().put(LEVEL_MAP_INDEX, (int) IndexConstants.FIRST_INDEX);
             getForms().put(PLACE_MAP_INDEX, p);
             return LEVEL;
         }
         if (p_ instanceof InitializedPlace) {
             Coords coords_ = new Coords();
-            coords_.setNumberPlace(pl_);
+            coords_.setNumberPlace((short) pl_);
             coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex(levValue_);
+            coords_.getLevel().setLevelIndex((byte) lev_);
             coords_.getLevel().setPoint(pt_);
             InitializedPlace i_ = (InitializedPlace) p_;
             if (i_.getLinksWithCaves().contains(pt_)) {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
                 return LEVEL;
             }
         }
         if (p_ instanceof Cave) {
             Cave c_ = (Cave) p_;
             LevelPoint lp_ = new LevelPoint();
-            lp_.setLevelIndex(lev_);
+            lp_.setLevelIndex((byte) lev_);
             lp_.setPoint(pt_);
             if (c_.getLinksWithOtherPlaces().contains(lp_)) {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
                 return LEVEL;
             }
-            LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal(lev_);
+            LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal((byte) lev_);
             if (level_.getLinksOtherLevels().contains(pt_)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
-                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
                 return LEVEL;
             }
         }
@@ -231,12 +229,12 @@ public class MapLevelBean extends CommonBean {
             League l_ = (League) p_;
             if (Point.eq(l_.getRooms().get(lev_).getAccessPoint(), pt_)) {
                 if (lev_ < l_.getRooms().size() - 1) {
-                    getForms().put(LEVEL_MAP_INDEX, (byte)(lev_ + 1));
+                    getForms().put(LEVEL_MAP_INDEX, lev_ + 1);
                     return LEVEL;
                 }
                 Coords coords_ = data_.getMap().getBegin();
-                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) coords_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) coords_.getNumberPlace());
                 return LEVEL;
             }
             if (Point.eq(l_.getRooms().get(lev_).getTrainerCoords(), pt_)) {
@@ -290,7 +288,7 @@ public class MapLevelBean extends CommonBean {
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal(lev_);
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
             if (l_.getDualFights().contains(pt_)) {
                 getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
                 getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());
@@ -380,17 +378,17 @@ public class MapLevelBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public String clickDirectedLink(Long _index) {
+    public String clickDirectedLink(int _index) {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        Direction dir_ = Direction.getDirectionByName(dirs.getKey(_index.intValue()));
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+        Direction dir_ = Direction.getDirectionByName(dirs.getKey(_index));
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         Coords coords_ = new Coords();
-        coords_.setNumberPlace(pl_);
+        coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
-        coords_.getLevel().setLevelIndex(lev_);
+        coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
@@ -406,39 +404,39 @@ public class MapLevelBean extends CommonBean {
             }
             if (Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
                 return LEVEL;
             }
         }
         return LEVEL;
     }
 
-    public boolean isUp(Long _index) {
-        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.UP;
+    public boolean isUp(int _index) {
+        return Direction.getDirectionByName(dirs.getKey(_index)) == Direction.UP;
     }
 
-    public boolean isDown(Long _index) {
-        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.DOWN;
+    public boolean isDown(int _index) {
+        return Direction.getDirectionByName(dirs.getKey(_index)) == Direction.DOWN;
     }
 
-    public boolean isLeft(Long _index) {
-        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.LEFT;
+    public boolean isLeft(int _index) {
+        return Direction.getDirectionByName(dirs.getKey(_index)) == Direction.LEFT;
     }
 
-    public boolean isRight(Long _index) {
-        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.RIGHT;
+    public boolean isRight(int _index) {
+        return Direction.getDirectionByName(dirs.getKey(_index)) == Direction.RIGHT;
     }
     public String clickLink() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         Coords coords_ = new Coords();
-        coords_.setNumberPlace(pl_);
+        coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
-        coords_.getLevel().setLevelIndex(lev_);
+        coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
@@ -450,8 +448,8 @@ public class MapLevelBean extends CommonBean {
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
             if (Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
                 return LEVEL;
             }
         }
@@ -459,8 +457,8 @@ public class MapLevelBean extends CommonBean {
     }
     public String seeArea() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         getForms().put(PROPONE_LINK, false);
         getForms().put(PROPONE_TILE, false);
@@ -469,9 +467,9 @@ public class MapLevelBean extends CommonBean {
             getForms().put(StringUtil.concat(PROPONE_LINK_VAR,d.name()), false);
         }
         Coords current_ = new Coords();
-        current_.setNumberPlace(pl_);
+        current_.setNumberPlace((short) pl_);
         current_.setLevel(new LevelPoint());
-        current_.getLevel().setLevelIndex(lev_);
+        current_.getLevel().setLevelIndex((byte) lev_);
         current_.getLevel().setPoint(pt_);
         AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
         if (!app_.isVirtual()) {
@@ -479,16 +477,16 @@ public class MapLevelBean extends CommonBean {
         }
         return AREA;
     }
-    public String clickTileOnMap(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
+    public String clickTileOnMap(int _index) {
+        Point pt_ = tiles.getKey(_index);
         getForms().put(CURRENT_TILE, pt_);
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Coords current_ = new Coords();
-        current_.setNumberPlace(pl_);
+        current_.setNumberPlace((short) pl_);
         current_.setLevel(new LevelPoint());
-        current_.getLevel().setLevelIndex(lev_);
+        current_.getLevel().setLevelIndex((byte) lev_);
         current_.getLevel().setPoint(pt_);
         AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
         boolean seeArea_ = false;
@@ -500,9 +498,9 @@ public class MapLevelBean extends CommonBean {
         StringMap<Boolean> booleans_ = new StringMap<Boolean>();
         booleans_.put(SEE_AREA,seeArea_);
         Coords coords_ = new Coords();
-        coords_.setNumberPlace(pl_);
+        coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
-        coords_.getLevel().setLevelIndex(lev_);
+        coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
         if (p_ instanceof InitializedPlace) {
             InitializedPlace i_ = (InitializedPlace) p_;
@@ -529,9 +527,9 @@ public class MapLevelBean extends CommonBean {
             }
         }
         Coords coordsLoc_ = new Coords();
-        coordsLoc_.setNumberPlace(pl_);
+        coordsLoc_.setNumberPlace((short) pl_);
         coordsLoc_.setLevel(new LevelPoint());
-        coordsLoc_.getLevel().setLevelIndex(lev_);
+        coordsLoc_.getLevel().setLevelIndex((byte) lev_);
         coordsLoc_.getLevel().setPoint(pt_);
         booleans_.put(PROPONE_TILE,!data_.getMap().isEmptyForAdding(coordsLoc_));
         int nbTrue_ = IndexConstants.SIZE_EMPTY;
@@ -552,16 +550,16 @@ public class MapLevelBean extends CommonBean {
         }
         if (p_ instanceof InitializedPlace && !getForms().contains(INSIDE)) {
             coords_ = new Coords();
-            coords_.setNumberPlace(pl_);
+            coords_.setNumberPlace((short) pl_);
             coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex(lev_);
+            coords_.getLevel().setLevelIndex((byte) lev_);
             coords_.getLevel().setPoint(pt_);
             InitializedPlace i_ = (InitializedPlace) p_;
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
                 if (Point.eq(p.getSource(), pt_)) {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                    getForms().put(LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                    getForms().put(PLACE_MAP_INDEX, c_.getNumberPlace());
+                    getForms().put(LEVEL_MAP_INDEX, (int) c_.getLevel().getLevelIndex());
+                    getForms().put(PLACE_MAP_INDEX, (int) c_.getNumberPlace());
                     return LEVEL;
                 }
             }
@@ -574,7 +572,7 @@ public class MapLevelBean extends CommonBean {
         }
         return DataBase.EMPTY_STRING;
     }
-    public boolean withoutTitle(Long _index) {
+    public boolean withoutTitle(int _index) {
         if (isStorage(_index)) {
             return false;
         }
@@ -589,21 +587,21 @@ public class MapLevelBean extends CommonBean {
         }
         return !isMoveTutors(_index);
     }
-    public boolean isAccessibleByBeatingSomeTrainers(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
-        Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
+    public boolean isAccessibleByBeatingSomeTrainers(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
+        int lev_ = (Integer) getForms().getVal(LEVEL_MAP_INDEX);
         Coords coords_ = new Coords();
-        coords_.setNumberPlace(pl_);
+        coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
-        coords_.getLevel().setLevelIndex(lev_);
+        coords_.getLevel().setLevelIndex((byte) lev_);
         coords_.getLevel().setPoint(pt_);
         DataBase data_ = (DataBase) getDataBase();
         return data_.getMap().getAccessCondition().contains(coords_);
     }
-    public boolean isStorage(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+    public boolean isStorage(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
@@ -619,9 +617,9 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-    public boolean isHealer(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+    public boolean isHealer(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
@@ -645,9 +643,9 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-    public boolean isHost(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+    public boolean isHost(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
@@ -671,9 +669,9 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-    public boolean isFossile(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+    public boolean isFossile(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
@@ -697,9 +695,9 @@ public class MapLevelBean extends CommonBean {
         }
         return false;
     }
-    public boolean isMoveTutors(Long _index) {
-        Point pt_ = tiles.getKey(_index.intValue());
-        Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
+    public boolean isMoveTutors(int _index) {
+        Point pt_ = tiles.getKey(_index);
+        int pl_ = (Integer) getForms().getVal(PLACE_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {
@@ -725,8 +723,8 @@ public class MapLevelBean extends CommonBean {
     }
 
     /*@Accessible
-    private String getTrDir(Long _index) {
-        Direction dir_ = dirs.getKey(_index.intValue());
+    private String getTrDir(int _index) {
+        Direction dir_ = dirs.getKey(_index);
 
     }*/
 

@@ -37,12 +37,12 @@ public class AbilitiesBean extends CommonBean {
         getForms().put(ABILITIES_SET, sortedAbilities_);
         return ABILITIES;
     }
-    public String clickAbility(Long _index) {
-        getForms().put(ABILITY, sortedAbilities.get(_index.intValue()));
+    public String clickAbility(int _index) {
+        getForms().put(ABILITY, sortedAbilities.get(_index));
         return ABILITY;
     }
-    public String getTrAbility(Long _index) {
-        String ability_ = sortedAbilities.get(_index.intValue());
+    public String getTrAbility(int _index) {
+        String ability_ = sortedAbilities.get(_index);
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translationsAbilities_;
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());

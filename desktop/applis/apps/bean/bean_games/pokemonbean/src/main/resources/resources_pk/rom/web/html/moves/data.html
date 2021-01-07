@@ -387,11 +387,11 @@
 						<c:message value="msg_movedata,effect_while_no_damage"/>
 					</c:if>
 					<br/>
-					<c:for className="java.lang.Long" list="l" var="n">
+					<c:for className="$int" list="l" var="n">
 						<c:import page="{getPage(n)}">
 							<c:package name="aiki.beans.moves.effects">
 								<c:class name="EffectBean">
-									<c:field prepare="$intern.index=n.intValue()"/>
+									<c:field prepare="$intern.index=n"/>
 									<c:field prepare="$intern.move=name"/>
 								</c:class>
 							</c:package>
