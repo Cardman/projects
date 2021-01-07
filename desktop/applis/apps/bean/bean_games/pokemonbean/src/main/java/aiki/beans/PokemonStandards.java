@@ -3239,10 +3239,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         return Gender.NO_GENDER;
     }
 
-    public String getAliasLong() {
-        return getContent().getNbAlias().getAliasLong();
-    }
-
     public String getAliasPrimInteger() {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
