@@ -5474,7 +5474,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
-                "  $bool(1<a title=\"The type $int is unexpected.\" class=\"e\">,</a>1,1);\n" +
+                "  $bool<a title=\"The type $int is unexpected.\" class=\"e\">(</a>1,1,1);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

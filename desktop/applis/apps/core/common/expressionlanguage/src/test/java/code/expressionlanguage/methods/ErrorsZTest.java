@@ -4490,4 +4490,488 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report797Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($int b){\n");
+        xml_.append("  $return $that(b?$that(p1):$that(p2));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
+                "  $return $that(<a href=\"#m126\">b</a><a title=\"The type $int is unexpected.\" class=\"e\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>):$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report798Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($boolean b){\n");
+        xml_.append("  $return $that(b?p1:$that(p2));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
+                "  $return $that(<a href=\"#m130\">b</a>?<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a><a title=\"The key word $that is unexpected here.\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report799Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($boolean b){\n");
+        xml_.append("  $return $that(b?$that(p1):p2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
+                "  $return $that(<a href=\"#m130\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report800Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String p1 = \"15\";\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that Object exmeth($boolean b){\n");
+        xml_.append("  $return $that(b?$that(p1):$that(p2));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
+                " $public $static $int <a name=\"m81\">p2</a> = 18;\n" +
+                " $public $static $that Object <a name=\"m120\">exmeth</a>($boolean <a name=\"m136\">b</a>){\n" +
+                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a href=\"#m136\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m48\">p1</a>)<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a>$that(<a title=\"pkg.Ex.p2\" href=\"#m81\">p2</a>));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report801Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($int b){\n");
+        xml_.append("  $return $that($bool(b,$that(p1),$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
+                "  $return $that($bool<a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#m126\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report802Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($boolean b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report803Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($boolean b){\n");
+        xml_.append("  $return $that($bool(b,$that(p1),p2));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>),<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report804Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String p1 = \"15\";\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that Object exmeth($boolean b){\n");
+        xml_.append("  $return $that($bool(b,$that(p1),$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">p1</a> = <span class=\"s\">\"15\"</span>;\n" +
+                " $public $static $int <a name=\"m81\">p2</a> = 18;\n" +
+                " $public $static $that Object <a name=\"m120\">exmeth</a>($boolean <a name=\"m136\">b</a>){\n" +
+                "  <a title=\"The type java.lang.String cannot be implicitly cast to java.lang.Object\" class=\"e\">$return</a> $that(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">$bool</a>(<a href=\"#m136\">b</a>,$that(<a title=\"pkg.Ex.p1\" href=\"#m48\">p1</a>),$that(<a title=\"pkg.Ex.p2\" href=\"#m81\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report805Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($int b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($int <a name=\"m126\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a><a title=\"The type $int is unexpected.\" class=\"e\">(</a><a href=\"#m126\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report806Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $true(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\n" +
+                "\n" +
+                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#m269\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m211\">f</a>;\n" +
+                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m269\">$true</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m282\">v</a>){\n" +
+                "  $return <a href=\"#m282\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report807Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\n" +
+                "\n" +
+                "pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#m269\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m211\">f</a>;\n" +
+                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m269\">$</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m278\">v</a>){\n" +
+                "  $return <a href=\"#m278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report808Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m128\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m192\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m211\">f</a>;\n" +
+                " <a name=\"m215\">ExBool(</a>$int <a name=\"m227\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> = <a href=\"#m227\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m269\">$</a>(<a title=\"pkg.ExBool\" href=\"#m192\">ExBool</a> <a name=\"m278\">v</a>){\n" +
+                "  $return <a href=\"#m278\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m211\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report809Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that(b?$that(p1):p2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $true(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a href=\"#m128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\n" +
+                "\n" +
+                "pkg.ExBool.$static $true($boolean,pkg.ExBool)\" href=\"#m262\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m204\">f</a>;\n" +
+                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m262\">$true</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m275\">v</a>){\n" +
+                "  $return <a href=\"#m275\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report810Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that(b?$that(p1):p2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a href=\"#m128\">b</a><a title=\"pkg.ExBool.$static $($boolean,pkg.ExBool)\" href=\"#m262\">?</a>$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m204\">f</a>;\n" +
+                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m262\">$</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m271\">v</a>){\n" +
+                "  $return <a href=\"#m271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report811Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth(ExBool b){\n");
+        xml_.append("  $return $that(b?$that(p1):p2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m128\">b</a>){\n" +
+                "  $return $that(<a href=\"#m128\">b</a>?$that(<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>)<a title=\"The key word $that is unexpected here.\" class=\"e\">:</a><a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m185\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m204\">f</a>;\n" +
+                " <a name=\"m208\">ExBool(</a>$int <a name=\"m220\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> = <a href=\"#m220\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m262\">$</a>(<a title=\"pkg.ExBool\" href=\"#m185\">ExBool</a> <a name=\"m271\">v</a>){\n" +
+                "  $return <a href=\"#m271\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m204\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report812Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int p1 = 15;\n");
+        xml_.append(" $public $static $int p2 = 18;\n");
+        xml_.append(" $public $static $that $int exmeth($boolean b){\n");
+        xml_.append("  $return $that($bool(b,p1,$that(p2)));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExBool {\n");
+        xml_.append(" $int f;\n");
+        xml_.append(" ExBool($int p){\n");
+        xml_.append("  f = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExBool v){\n");
+        xml_.append("  $return v.f == 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m46\">p1</a> = 15;\n" +
+                " $public $static $int <a name=\"m77\">p2</a> = 18;\n" +
+                " $public $static $that $int <a name=\"m114\">exmeth</a>($boolean <a name=\"m130\">b</a>){\n" +
+                "  $return $that(<a title=\"The key word $that is unexpected here.\" class=\"e\">$bool</a>(<a href=\"#m130\">b</a>,<a title=\"pkg.Ex.p1\" href=\"#m46\">p1</a>,$that(<a title=\"pkg.Ex.p2\" href=\"#m77\">p2</a>)));\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m194\">pkg.ExBool</a> {\n" +
+                " $int <a name=\"m213\">f</a>;\n" +
+                " <a name=\"m217\">ExBool(</a>$int <a name=\"m229\">p</a>){\n" +
+                "  <a title=\"pkg.ExBool.f\" href=\"#m213\">f</a> = <a href=\"#m229\">p</a>;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m271\">$</a>(<a title=\"pkg.ExBool\" href=\"#m194\">ExBool</a> <a name=\"m280\">v</a>){\n" +
+                "  $return <a href=\"#m280\">v</a>.<a title=\"pkg.ExBool.f\" href=\"#m213\">f</a> == 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

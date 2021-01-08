@@ -233,6 +233,16 @@ public abstract class ExecOperationNode {
                 }
             }
         }
+        if (par_ instanceof ExecRefTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0) {
+                if (BooleanStruct.isFalse(_value)) {
+                    return ExecTemplates.getOrder(_operation.getNextSibling()) + 1;
+                }
+            }
+        }
         return _operation.getOrder() + 1;
     }
 
@@ -292,7 +302,7 @@ public abstract class ExecOperationNode {
                 before_ = Argument.getNullableValue(pair_.getArgumentBeforeTest());
             }
             ExecMethodOperation parent_ = getParent();
-            if (parent_ == null||parent_ instanceof ExecTernaryOperation) {
+            if (parent_ == null||parent_ instanceof ExecTernaryOperation||parent_ instanceof ExecRefTernaryOperation) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
                 return;
             }

@@ -239,7 +239,13 @@ public abstract class OperationNode {
         }
         if (ternary_ == BOOLEAN_ARGS) {
             if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+                if (_m instanceof WrappOperation) {
+                    return new RefShortTernaryOperation(_index, _indexChild, _m, _op);
+                }
                 return new ShortTernaryOperation(_index, _indexChild, _m, _op);
+            }
+            if (_m instanceof WrappOperation) {
+                return new RefTernaryOperation(_index, _indexChild, _m, _op);
             }
             return new TernaryOperation(_index, _indexChild, _m, _op);
         }

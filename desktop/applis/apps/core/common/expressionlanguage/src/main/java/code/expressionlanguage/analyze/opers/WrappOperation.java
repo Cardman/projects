@@ -68,7 +68,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
                 }
             }
         }
-        if (!rightAffDecl_&&!retRef_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation)) {
+        if (!rightAffDecl_&&!retRef_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation)&&!(m_ instanceof AbstractRefTernaryOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -97,7 +97,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
             return;
         }
-        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)) {
+        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)&&!(firstChild_ instanceof AbstractRefTernaryOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_page.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -187,6 +187,11 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (firstChild_ instanceof RefVariableOperation) {
             RefVariableOperation v_ = (RefVariableOperation)firstChild_;
+            setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
+            return;
+        }
+        if (firstChild_ instanceof AbstractRefTernaryOperation) {
+            AbstractRefTernaryOperation v_ = (AbstractRefTernaryOperation)firstChild_;
             setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }

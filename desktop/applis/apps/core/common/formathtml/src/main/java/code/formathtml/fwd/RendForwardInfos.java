@@ -594,6 +594,10 @@ public final class RendForwardInfos {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
             return new RendTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal());
         }
+        if (_anaNode instanceof AbstractRefTernaryOperation) {
+            AbstractRefTernaryOperation t_ = (AbstractRefTernaryOperation) _anaNode;
+            return new RendRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal());
+        }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
             ExecTypeFunction ex_ = FetchMemberUtil.fetchTypeFunction(c_.getMemberId(), _forwards);
