@@ -1041,7 +1041,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation t_ = (AbstractRefTernaryOperation) _anaNode;
-            return new ExecRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal());
+            return new ExecRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal(),new ExecArrContent(t_.getArrContent()));
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;

@@ -49,7 +49,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         return elt_;
     }
 
-    private static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
+    static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
         ExecOperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof ExecIdOperation) {
             root_ = root_.getFirstChild();
@@ -110,6 +110,9 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         }
         if (_set instanceof ExecSettableCallFctOperation) {
             arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        if (_set instanceof ExecRefTernaryOperation) {
+            arg_ = ((ExecRefTernaryOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
         return Argument.getNullableValue(arg_);
     }

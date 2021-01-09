@@ -17,7 +17,7 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        RendDynOperationNode o_ = getFirstNode(this);
+        RendDynOperationNode o_ = RendAffectationOperation.getIdOp(this);
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof RendSettableElResult) {
@@ -26,7 +26,7 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
                 simple_ = true;
             }
         }
-        ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pairCh_ = getArgumentPair(_nodes, o_);
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {

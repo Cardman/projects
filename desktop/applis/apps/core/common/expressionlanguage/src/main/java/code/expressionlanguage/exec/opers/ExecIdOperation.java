@@ -15,7 +15,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        ExecOperationNode o_ = getFirstChild();
+        ExecOperationNode o_ = ExecAffectationOperation.getFirstToBeAnalyzed(this);
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof ExecSettableElResult) {
@@ -24,7 +24,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
                 simple_ = true;
             }
         }
-        ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, getFirstChild());
+        ArgumentsPair pairCh_ = ExecTemplates.getArgumentPair(_nodes, o_);
         ArgumentsPair pair_ = ExecTemplates.getArgumentPair(_nodes, this);
         pair_.setWrapper(pairCh_.getWrapper());
         if (simple_) {

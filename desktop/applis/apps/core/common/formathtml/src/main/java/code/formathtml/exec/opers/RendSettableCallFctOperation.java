@@ -30,8 +30,7 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
     @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context, _stack);
-        Argument left_ = new Argument(store_);
+        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _context, _stack);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
         return trySetArgument(_nodes, _context, res_, _stack);
     }
@@ -39,8 +38,7 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
     @Override
     public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Struct store_ = ExecTemplates.getValue(pair_.getWrapper(), _context, _stack);
-        Argument left_ = new Argument(store_);
+        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _context, _stack);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_nodes, _context, res_, _stack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);

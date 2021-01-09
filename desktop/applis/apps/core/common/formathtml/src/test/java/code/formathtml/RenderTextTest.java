@@ -2624,6 +2624,556 @@ public final class RenderTextTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+    @Test
+    public void process103Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='($true?$that(i):$that(j))=4'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process104Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='($false?$that(i):$that(j))=4'/>{j}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process105Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=4'/><c:set value='($true?$that(i):$that(j))++'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process106Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='($false?$that(i):$that(j))++'/>{j}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process107Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=4'/><c:set value='++($true?$that(i):$that(j))'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process108Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='++($false?$that(i):$that(j))'/>{j}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process109Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=4'/>{($true?$that(i):$that(j))++}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>2</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process110Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/>{($false?$that(i):$that(j))++}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process111Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=4'/>{++($true?$that(i):$that(j))}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process112Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/>{++($false?$that(i):$that(j))}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process113Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='($true?$that(i):$that(j))+=4'/>{i}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>6</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process114Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/><c:set value='($false?$that(i):$that(j))+=4'/>{j}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>7</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process115Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/>{($true?$that(i):$that(j))+=4}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>6</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process116Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='i=2,j=3'/>{($false?$that(i):$that(j))+=4}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>7</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process117Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/><c:set value='($true?$that(i):$that(j))+=$new Compo(4)'/>{i.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator+ Compo (Compo a, Compo b){\n");
+        file_.append("   $return $new Compo(a.f+b.f);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>6</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process118Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/><c:set value='($false?$that(i):$that(j))+=$new Compo(4)'/>{j.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator+ Compo (Compo a, Compo b){\n");
+        file_.append("   $return $new Compo(a.f+b.f);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>7</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process119Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/>{(($true?$that(i):$that(j))+=$new Compo(4)).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator+ Compo (Compo a, Compo b){\n");
+        file_.append("   $return $new Compo(a.f+b.f);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>6</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process120Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/>{(($false?$that(i):$that(j))+=$new Compo(4)).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator+ Compo (Compo a, Compo b){\n");
+        file_.append("   $return $new Compo(a.f+b.f);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>7</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process121Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(4)'/><c:set value='($true?$that(i):$that(j))++'/>{i.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process122Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/><c:set value='($false?$that(i):$that(j))++'/>{j.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process123Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(4)'/>{(($true?$that(i):$that(j))++).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>2</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process124Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/>{(($false?$that(i):$that(j))++).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process125Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(4)'/><c:set value='++($true?$that(i):$that(j))'/>{i.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process126Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/><c:set value='++($false?$that(i):$that(j))'/>{j.f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process127Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(4)'/>{(++($true?$that(i):$that(j))).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>3</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process128Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='Compo' value='i=$new Compo(2),j=$new Compo(3)'/>{(++($false?$that(i):$that(j))).f}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Compo {\n");
+        file_.append("  $public $int f;\n");
+        file_.append("  $public Compo($int p){\n");
+        file_.append("   f = p;\n");
+        file_.append("  }\n");
+        file_.append("  $operator++ Compo (Compo a){\n");
+        file_.append("   $return $new Compo(a.f+1);\n");
+        file_.append("  }\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>4</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

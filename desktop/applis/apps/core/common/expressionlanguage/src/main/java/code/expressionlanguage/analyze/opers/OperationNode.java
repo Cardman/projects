@@ -165,16 +165,20 @@ public abstract class OperationNode {
         if (c_.getIndexChild() > 0) {
             return false;
         }
-        if (p_ instanceof WrappOperation) {
+        return isParentSetter(p_);
+    }
+
+    private static boolean isParentSetter(OperationNode _p) {
+        if (_p instanceof WrappOperation) {
             return true;
         }
-        if (p_ instanceof AffectationOperation) {
+        if (_p instanceof AffectationOperation) {
             return true;
         }
-        if (p_ instanceof SemiAffectationOperation) {
+        if (_p instanceof SemiAffectationOperation) {
             return true;
         }
-        return p_ instanceof CompoundAffectationOperation;
+        return _p instanceof CompoundAffectationOperation;
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
@@ -238,13 +242,19 @@ public abstract class OperationNode {
             }
         }
         if (ternary_ == BOOLEAN_ARGS) {
+            MethodOperation m_ = _m;
+            int indCh_ = _indexChild;
+            while (m_ instanceof IdOperation && m_.getOperations().getValues().size() <= 1) {
+                indCh_ = m_.getIndexChild();
+                m_ = m_.getParent();
+            }
             if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
-                if (_m instanceof WrappOperation) {
+                if (isParentSetter(m_)&&indCh_==0) {
                     return new RefShortTernaryOperation(_index, _indexChild, _m, _op);
                 }
                 return new ShortTernaryOperation(_index, _indexChild, _m, _op);
             }
-            if (_m instanceof WrappOperation) {
+            if (isParentSetter(m_)&&indCh_==0) {
                 return new RefTernaryOperation(_index, _indexChild, _m, _op);
             }
             return new TernaryOperation(_index, _indexChild, _m, _op);

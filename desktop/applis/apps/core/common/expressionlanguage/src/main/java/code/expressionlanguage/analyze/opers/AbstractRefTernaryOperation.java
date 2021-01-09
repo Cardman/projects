@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -15,16 +16,18 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class AbstractRefTernaryOperation extends MethodOperation {
+public abstract class AbstractRefTernaryOperation extends MethodOperation implements SettableElResult {
 
     private int offsetLocal;
     private AnaTypeFct implFct;
     private AnaTypeFct testFct;
     private final StringList childrenErrors = new StringList();
+    private final AnaArrContent arrContent;
 
     public AbstractRefTernaryOperation(int _index, int _indexChild, MethodOperation _m,
                                        OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        arrContent = new AnaArrContent();
     }
 
     public final void setOffsetLocal(int _offsetLocal) {
@@ -33,6 +36,16 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation {
 
     public final int getOffsetLocal() {
         return offsetLocal;
+    }
+
+    @Override
+    public void setVariable(boolean _variable) {
+        arrContent.setVariable(_variable);
+    }
+
+    @Override
+    public void setCatenizeStrings() {
+        arrContent.setCatString(true);
     }
 
     @Override
@@ -127,5 +140,9 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation {
 
     public StringList getChildrenErrors() {
         return childrenErrors;
+    }
+
+    public AnaArrContent getArrContent() {
+        return arrContent;
     }
 }
