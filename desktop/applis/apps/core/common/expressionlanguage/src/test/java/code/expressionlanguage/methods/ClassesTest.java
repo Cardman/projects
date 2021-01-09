@@ -11,7 +11,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.assign.util.*;
-import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;

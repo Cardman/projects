@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.errors;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;

@@ -1,4 +1,4 @@
-package code.expressionlanguage.classes;
+package code.expressionlanguage.sample;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.SingleContextEl;

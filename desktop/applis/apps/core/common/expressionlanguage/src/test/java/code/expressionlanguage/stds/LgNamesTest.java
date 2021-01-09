@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;

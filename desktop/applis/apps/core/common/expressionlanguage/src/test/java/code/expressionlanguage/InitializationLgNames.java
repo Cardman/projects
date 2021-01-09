@@ -1,7 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
