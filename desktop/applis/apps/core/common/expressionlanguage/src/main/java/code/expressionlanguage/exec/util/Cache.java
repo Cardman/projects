@@ -154,7 +154,7 @@ public final class Cache {
         }
     }
     public void addLocalWrapper(String _key, AbstractWrapper _var) {
-        localWrappers.add(new NamedWrapper(_key,_var,""));
+        localWrappers.add(new NamedWrapper(_key,ExecTemplates.getWrap(_var),""));
     }
 
     public void setClassLocalValueWrapper(int _index, String _var, ContextEl _context, StackCall _stackCall) {

@@ -754,6 +754,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.getWrapValue(cont_.getContext(),"", 0, cont_.getStackCall().getLastPage().getCache(), cont_.getStackCall().getLastPage().getRefParams(), cont_.getStackCall());
         assertNull(cont_.getStackCall().getCallingState());
         ExecTemplates.getValueVar("",new StringMap<LocalVariable>(),cont_.getContext(), cont_.getStackCall());
+        ExecTemplates.getWrap(null);
     }
     @Test
     public void getValue3() {

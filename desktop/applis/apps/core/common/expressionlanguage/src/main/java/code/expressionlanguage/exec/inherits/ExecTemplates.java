@@ -570,7 +570,7 @@ public final class ExecTemplates {
                 p_.setError(ex_);
                 return p_;
             }
-            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),w);
+            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),getWrap(w));
             i_++;
         }
         Struct str_ = null;
@@ -606,6 +606,12 @@ public final class ExecTemplates {
         return p_;
     }
 
+    public static AbstractWrapper getWrap(AbstractWrapper _w) {
+        if (_w == null) {
+            return new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,""));
+        }
+        return _w;
+    }
     public static Argument getArgValue(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
         return new Argument(getValue(_w, _context, _stackCall));
     }

@@ -79,7 +79,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
                 CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
                 ArgumentsPair pairRight_ = ExecTemplates.getArgumentPair(_nodes, ExecTemplates.getNode(childrenNodes_,childrenNodes_.size()-1));
                 PageEl ip_ = _stack.getLastPage();
-                ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),pairRight_.getWrapper());
+                ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),ExecTemplates.getWrap(pairRight_.getWrapper()));
                 setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
                 return;
             }
