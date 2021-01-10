@@ -6,16 +6,21 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 
 public final class RendForEachArray extends RendAbstractForEachLoop {
@@ -52,6 +57,14 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_, _stackCall)));
         return -1;
     }
+
+    @Override
+    protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
+        ImportingPage ip_ = _rendStack.getLastPage();
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(getImportedClassName(), _ctx);
+        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_, getImportedClassName()));
+    }
+
     @Override
     protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
         Struct container_ = _l.getContainer();

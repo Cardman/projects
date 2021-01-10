@@ -28,53 +28,54 @@ import code.util.core.StringUtil;
 
 public final class ForEachTable extends AbstractForLoop implements Loop,ImportForEachTable {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String classNameFirst;
 
     private String importedClassNameFirst;
 
-    private int classNameOffsetFirst;
+    private final int classNameOffsetFirst;
 
     private final String classNameSecond;
 
     private String importedClassNameSecond;
 
-    private int classNameOffsetSecond;
+    private final int classNameOffsetSecond;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final String variableNameFirst;
 
-    private int variableNameOffsetFirst;
+    private final int variableNameOffsetFirst;
 
     private final String variableNameSecond;
 
-    private int variableNameOffsetSecond;
+    private final int variableNameOffsetSecond;
 
     private final String expression;
 
-    private int expressionOffset;
+    private final int expressionOffset;
 
-    private ResultExpression res = new ResultExpression();
-    private CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
+    private final ResultExpression res = new ResultExpression();
+    private final CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
 
-    private CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
 
     private final StringList nameErrorsFirst = new StringList();
     private final StringList nameErrorsSecond = new StringList();
 
-    private int sepOffset;
+    private final int sepOffset;
     private final StringList sepErrors = new StringList();
     private boolean okVarFirst = true;
     private boolean okVarSecond = true;
+    private final boolean refVariable;
 
     public ForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page) {
+                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
@@ -95,6 +96,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
         sepOffset = _sepOffset;
+        refVariable = _refVariable;
     }
 
     @Override
@@ -224,7 +226,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {
-        if (_types.onlyOneElt()) {
+        if (!refVariable&&_types.onlyOneElt()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             String type_ = _types.first();

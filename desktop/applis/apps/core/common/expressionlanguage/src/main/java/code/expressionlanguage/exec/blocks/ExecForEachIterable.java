@@ -9,6 +9,8 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -23,6 +25,10 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
 
     @Override
     protected void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        String className_ = _stack.formatVarType(getImportedClassName());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
+        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_,className_));
         iteratorHasNext(_cont, _l, _stack);
     }
 

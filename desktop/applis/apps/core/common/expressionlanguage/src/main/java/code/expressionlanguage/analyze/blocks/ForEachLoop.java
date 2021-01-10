@@ -29,38 +29,39 @@ import code.util.core.StringUtil;
 
 public final class ForEachLoop extends AbstractForLoop implements Loop,ImportForEachLoop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String className;
 
     private String importedClassName;
 
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final String variableName;
 
-    private int variableNameOffset;
+    private final int variableNameOffset;
 
     private final String expression;
 
-    private int sepOffset;
-    private int expressionOffset;
+    private final int sepOffset;
+    private final int expressionOffset;
 
-    private ResultExpression res = new ResultExpression();
+    private final ResultExpression res = new ResultExpression();
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     private final StringList nameErrors = new StringList();
     private final StringList sepErrors = new StringList();
     private boolean okVar = true;
+    private final boolean refVariable;
 
     public ForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page) {
+                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset, AnalyzedPageEl _page, boolean _refVariable) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -77,6 +78,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
         sepOffset = _sepOffset;
+        refVariable = _refVariable;
     }
 
     public String getLabel() {
@@ -197,20 +199,34 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 _page.addLocError(cast_);
                 sepErrors.add(cast_.getBuiltError());
             } else {
-                mapping_.setArg(compo_);
-                mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                mapping_.setMapping(vars_);
-                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
-                    cast_.setIndexFile(expressionOffset);
-                    //separator char
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(compo_.getNames(),"&"),
-                            importedClassName);
-                    _page.addLocError(cast_);
-                    sepErrors.add(cast_.getBuiltError());
+                if (refVariable) {
+                    if (!compo_.matchClass(importedClassName)) {
+                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                        cast_.setFileName(getFile().getFileName());
+                        cast_.setIndexFile(expressionOffset);
+                        //separator char
+                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                                StringUtil.join(compo_.getNames(),"&"),
+                                importedClassName);
+                        _page.addLocError(cast_);
+                        sepErrors.add(cast_.getBuiltError());
+                    }
+                } else {
+                    mapping_.setArg(compo_);
+                    mapping_.setParam(importedClassName);
+                    StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+                    mapping_.setMapping(vars_);
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                        cast_.setFileName(getFile().getFileName());
+                        cast_.setIndexFile(expressionOffset);
+                        //separator char
+                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                                StringUtil.join(compo_.getNames(),"&"),
+                                importedClassName);
+                        _page.addLocError(cast_);
+                        sepErrors.add(cast_.getBuiltError());
+                    }
                 }
             }
         }
@@ -262,7 +278,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {
-        if (_types.onlyOneElt()) {
+        if (!refVariable&&_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
@@ -319,7 +335,11 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             lInfo_.setClassName(_page.getAliasObject());
         }
         lInfo_.setRef(variableNameOffset);
-        lInfo_.setConstType(ConstType.FIX_VAR);
+        if (refVariable) {
+            lInfo_.setConstType(ConstType.REF_LOC_VAR);
+        } else {
+            lInfo_.setConstType(ConstType.FIX_VAR);
+        }
         _page.getInfosVars().put(variableName, lInfo_);
     }
 
@@ -356,5 +376,9 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
 
     public StringList getSepErrors() {
         return sepErrors;
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
     }
 }

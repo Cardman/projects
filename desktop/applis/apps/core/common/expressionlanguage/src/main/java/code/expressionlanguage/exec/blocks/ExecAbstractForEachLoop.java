@@ -71,14 +71,11 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
-        String className_ = _stack.formatVarType(importedClassName);
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
-        ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,className_));
         checkIfNext(_cont, l_, _stack);
     }
 
@@ -145,5 +142,13 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected CustList<ExecOperationNode> getOpList() {
         return opList;
+    }
+
+    protected String getVariableName() {
+        return variableName;
+    }
+
+    protected String getImportedClassName() {
+        return importedClassName;
     }
 }

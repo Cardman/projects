@@ -39,10 +39,10 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     private final CustList<ExecOperationNode> opExp;
 
     private final CustList<ExecOperationNode> opStep;
-
+    private final boolean refVariable;
     public ExecForMutableIterativeLoop(String _label, String _importedClassName, String _importedClassIndexName, StringList _variableNames,
                                        int _initOffset, int _expressionOffset, int _stepOffset,
-                                       CustList<ExecOperationNode> _opInit, CustList<ExecOperationNode> _opExp, CustList<ExecOperationNode> _opStep, int _offsetTrim) {
+                                       CustList<ExecOperationNode> _opInit, CustList<ExecOperationNode> _opExp, CustList<ExecOperationNode> _opStep, int _offsetTrim,boolean _refVariable) {
         super(_offsetTrim);
         this.label = _label;
         this.importedClassName = _importedClassName;
@@ -54,6 +54,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         this.opInit = _opInit;
         this.opExp = _opExp;
         this.opStep = _opStep;
+        refVariable = _refVariable;
     }
 
     @Override
@@ -109,13 +110,21 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         ip_.setOffset(0);
         int index_ = 0;
         if (ip_.isEmptyEl()) {
-            String formatted_ = _stack.formatVarType(importedClassName);
-            Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
-            for (String v: variableNames) {
-                LoopVariable lv_ = new LoopVariable();
-                lv_.setIndexClassName(importedClassIndexName);
-                ip_.getVars().put(v, lv_);
-                ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
+            if (refVariable) {
+                for (String v: variableNames) {
+                    LoopVariable lv_ = new LoopVariable();
+                    lv_.setIndexClassName(importedClassIndexName);
+                    ip_.getVars().put(v, lv_);
+                }
+            } else {
+                String formatted_ = _stack.formatVarType(importedClassName);
+                Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
+                for (String v: variableNames) {
+                    LoopVariable lv_ = new LoopVariable();
+                    lv_.setIndexClassName(importedClassIndexName);
+                    ip_.getVars().put(v, lv_);
+                    ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
+                }
             }
         }
         if (!opInit.isEmpty()) {

@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.ErrorPartOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -11,6 +13,7 @@ import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -27,50 +30,51 @@ import code.util.core.StringUtil;
 public final class ForMutableIterativeLoop extends BracedBlock implements
         Loop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String className;
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private String importedClassName = EMPTY_STRING;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final StringList variableNames = new StringList();
 
-    private boolean finalVariable;
-    private int finalOffset;
+    private final boolean finalVariable;
+    private final int finalOffset;
 
     private final String init;
-    private int initOffset;
+    private final int initOffset;
 
     private final String expression;
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private final String step;
-    private int stepOffset;
+    private final int stepOffset;
 
     private boolean alwaysTrue;
     private Argument argument;
 
-    private ResultExpression resInit = new ResultExpression();
-    private ResultExpression resExp = new ResultExpression();
-    private ResultExpression resStep = new ResultExpression();
+    private final ResultExpression resInit = new ResultExpression();
+    private final ResultExpression resExp = new ResultExpression();
+    private final ResultExpression resStep = new ResultExpression();
 
     private AnaTypeFct functionImpl;
     private AnaTypeFct function;
     private int testOffset;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
 
     private int conditionNb;
+    private final boolean refVariable;
     public ForMutableIterativeLoop(OffsetBooleanInfo _final,
                                    OffsetStringInfo _className,
                                    OffsetStringInfo _from,
-                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, AnalyzedPageEl _page) {
+                                   OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, AnalyzedPageEl _page,boolean _refVariable) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -90,6 +94,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         labelOffset = _label.getOffset();
         finalVariable = _final.isInfo();
         finalOffset = _final.getOffset();
+        refVariable = _refVariable;
     }
 
     public String getLabel() {
@@ -206,11 +211,26 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             StringList vars_ = _page.getVariablesNames();
             errInf = AffectationOperation.processInfer(importedClassName, _page);
             getVariableNames().addAllElts(vars_);
+            if (refVariable) {
+                checkOpers(resInit.getRoot(), _page);
+            }
         }
         _page.setMerged(false);
+        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
     }
 
+    public static void checkOpers(OperationNode _root, AnalyzedPageEl _page) {
+        Line.checkOpers(nullToErr(_root),_page);
+    }
+    public static OperationNode nullToErr(OperationNode _op) {
+        if (_op == null) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setDelimiter(new Delimiters());
+            return new ErrorPartOperation(0,0,null, op_);
+        }
+        return _op;
+    }
     public String getErrInf() {
         return errInf;
     }
@@ -241,10 +261,12 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 partOffsets.addAllElts(_page.getCurrentParts());
             }
             _page.setMerged(true);
+            _page.setRefVariable(refVariable);
             _page.setFinalVariable(finalVariable);
             _page.setCurrentVarSetting(importedClassName);
         } else {
             _page.setMerged(false);
+            _page.setRefVariable(false);
         }
     }
     private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {
@@ -366,5 +388,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public void setConditionNb(int _conditionNb) {
         conditionNb = _conditionNb;
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
     }
 }

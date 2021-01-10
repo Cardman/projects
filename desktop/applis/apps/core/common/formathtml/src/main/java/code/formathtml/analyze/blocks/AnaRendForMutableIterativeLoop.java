@@ -2,7 +2,10 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
+import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
+import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
@@ -21,28 +24,28 @@ import code.util.core.StringUtil;
 
 public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
 
-    private String label;
-    private int labelOffset;
+    private final String label;
+    private final int labelOffset;
 
     private final String className;
-    private int classNameOffset;
+    private final int classNameOffset;
 
     private String importedClassName = EMPTY_STRING;
 
     private final String classIndexName;
     private String importedClassIndexName;
-    private int classIndexNameOffset;
+    private final int classIndexNameOffset;
 
     private final StringList variableNames = new StringList();
 
     private final String init;
-    private int initOffset;
+    private final int initOffset;
 
     private final String expression;
-    private int expressionOffset;
+    private final int expressionOffset;
 
     private final String step;
-    private int stepOffset;
+    private final int stepOffset;
 
 
     private OperationNode rootInit;
@@ -50,10 +53,12 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private OperationNode rootExp;
 
     private OperationNode rootStep;
-    AnaRendForMutableIterativeLoop(OffsetStringInfo _className,
+    private final boolean refVariable;
+    AnaRendForMutableIterativeLoop(OffsetBooleanInfo _refVar, OffsetStringInfo _className,
                                    OffsetStringInfo _from,
                                    OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
+        refVariable = _refVar.isInfo();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         init = _from.getInfo();
@@ -96,10 +101,12 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                 importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
             }
             _page.setMerged(true);
+            _page.setRefVariable(refVariable);
             _page.setFinalVariable(false);
             _page.setCurrentVarSetting(importedClassName);
         } else {
             _page.setMerged(false);
+            _page.setRefVariable(false);
         }
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
@@ -116,8 +123,12 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             String t_ = inferOrObject(importedClassName, _page);
             AffectationOperation.processInfer(t_, _page);
             getVariableNames().addAllElts(vars_);
+            if (refVariable) {
+                ForMutableIterativeLoop.checkOpers(rootInit, _page);
+            }
         }
         _page.setMerged(false);
+        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
         _page.setOffset(0);
@@ -227,5 +238,9 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
 
     public OperationNode getRootStep() {
         return rootStep;
+    }
+
+    public boolean isRefVariable() {
+        return refVariable;
     }
 }

@@ -5,11 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.ArrayWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -20,60 +22,58 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
-public final class RendForEachIterable extends RendAbstractForEachLoop {
-    public RendForEachIterable(String _importedClassName, String _variable, int _expressionOffset, String _classIndex, String _label, int _offsetTrim, CustList<RendDynOperationNode> _res) {
+public final class RendForEachRefArray extends RendAbstractForEachLoop {
+    public RendForEachRefArray(String _importedClassName, String _variable, int _expressionOffset, String _classIndex, String _label, int _offsetTrim, CustList<RendDynOperationNode> _res) {
         super(_importedClassName, _variable, _expressionOffset, _classIndex, _label, _offsetTrim, _res);
     }
 
     @Override
     protected RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its, StackCall _stack, RendStackCall _rendStack) {
-        long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        if (_its == NullStruct.NULL_VALUE) {
-            String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_, _stack)));
-            return null;
+        boolean finished_ = false;
+        long length_ = getLength(_its, _cont, _stack);
+        if (length_ == IndexConstants.SIZE_EMPTY) {
+            finished_ = true;
         }
-        Argument arg_ = iterator(_its,_conf, _stds, _cont, _stack, _rendStack);
         if (_cont.callsOrException(_stack)) {
             return null;
         }
-        Struct iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
         l_.setLoop(this);
         l_.setIndex(-1);
+        l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
         l_.setContainer(_its);
         return l_;
+    }
+    private static int getLength(Struct _str, ContextEl _ctx, StackCall _stackCall) {
+        if (_str instanceof ArrayStruct) {
+            return ((ArrayStruct)_str).getLength();
+        }
+        String npe_ = _ctx.getStandards().getContent().getCoreNames().getAliasNullPe();
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, npe_, _stackCall)));
+        return -1;
     }
 
     @Override
     protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(getImportedClassName(), _ctx);
-        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_, getImportedClassName()));
+        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(_l.getContainer(),new LongStruct(0)));
     }
-
     @Override
     protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
-        return next(_l.getStructIterator(),_conf, _advStandards, _ctx, _stack, _rendStack);
+        ImportingPage ip_ = _rendStack.getLastPage();
+        Struct container_ = _l.getContainer();
+        LongStruct lg_ = new LongStruct(_l.getIndex());
+        ip_.getRefParams().set(getVariableName(),new ArrayWrapper(container_,lg_));
+        return new Argument(ExecTemplates.getElement(container_, lg_, _ctx, _stack));
     }
 
     @Override
     protected ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
-        return iteratorHasNext(_conf,_advStandards,_ctx,_l, _stack, _rendStack);
-    }
-
-    private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, StackCall _stack, RendStackCall _rendStackCall) {
-        Struct strIter_ = _rendLastStack.getStructIterator();
-        Argument arg_ = hasNext(strIter_,_conf, _advStandards, _ctx, _stack, _rendStackCall);
-        if (_ctx.callsOrException(_stack)) {
-            return ConditionReturn.CALL_EX;
-        }
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
+        if (_l.hasNext()) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

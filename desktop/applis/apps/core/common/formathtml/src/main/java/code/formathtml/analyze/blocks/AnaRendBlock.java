@@ -51,7 +51,7 @@ public abstract class AnaRendBlock {
 
     private AnaRendBlock previousSibling;
 
-    private OffsetsBlock offset;
+    private final OffsetsBlock offset;
 
     private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
@@ -148,6 +148,7 @@ public abstract class AnaRendBlock {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
             if (elt_.hasAttribute(_rendKeyWords.getAttrList())) {
                 return new AnaRendForEachLoop(
+                        newOffsetBooleanInfo(elt_,_rendKeyWords.getAttrHref()),
                         newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                         newOffsetStringInfo(elt_, _rendKeyWords.getAttrVar(), attr_),
                         newOffsetStringInfo(elt_, _rendKeyWords.getAttrList(), attr_),
@@ -182,6 +183,7 @@ public abstract class AnaRendBlock {
                 );
             }
             return new AnaRendForMutableIterativeLoop(
+                    newOffsetBooleanInfo(elt_,_rendKeyWords.getAttrHref()),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrClassName(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrInit(), attr_),
                     newOffsetStringInfo(elt_, _rendKeyWords.getAttrCondition(), attr_),

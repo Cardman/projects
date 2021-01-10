@@ -564,6 +564,11 @@ public abstract class RendBlock {
                     rw_.setRead(par_);
                     ((RendForEachArray)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
                 }
+                if (par_ instanceof RendForEachRefArray) {
+                    par_.removeLocalVars(ip_);
+                    rw_.setRead(par_);
+                    ((RendForEachRefArray)par_).processLastElementLoop(_conf, _advStandards,_ctx,(RendLoopBlockStack) lastStack_, _stackCall, _rendStackCall);
+                }
                 if (par_ instanceof RendForEachIterable) {
                     par_.removeLocalVars(ip_);
                     rw_.setRead(par_);

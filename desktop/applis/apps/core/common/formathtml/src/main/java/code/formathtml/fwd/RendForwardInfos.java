@@ -88,6 +88,10 @@ public final class RendForwardInfos {
             AnaRendForEachLoop f_ = (AnaRendForEachLoop) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
             if (f_.getRoot().getResultClass().isArray()) {
+                if (f_.isRefVariable()) {
+                    return new RendForEachRefArray(f_.getImportedClassName(),f_.getVariableName(),
+                            f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
+                }
                 return new RendForEachArray(f_.getImportedClassName(),f_.getVariableName(),
                         f_.getExpressionOffset(),f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),op_);
             }
@@ -116,7 +120,7 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opInit_ = getExecutableNodes(f_.getRootInit(), _forwards);
             CustList<RendDynOperationNode> opExp_ = getExecutableNodes(f_.getRootExp(), _forwards);
             CustList<RendDynOperationNode> opStep_ = getExecutableNodes(f_.getRootStep(), _forwards);
-            return new RendForMutableIterativeLoop(f_.getImportedClassName(),
+            return new RendForMutableIterativeLoop(f_.isRefVariable(),f_.getImportedClassName(),
                     f_.getInitOffset(),f_.getExpressionOffset(),f_.getStepOffset(),
                     f_.getVariableNames(),
                     f_.getImportedClassIndexName(),f_.getRealLabel(),f_.getOffset().getOffsetTrim(),

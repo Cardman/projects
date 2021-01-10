@@ -699,8 +699,13 @@ public final class ForwardInfos {
                 CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachLoop)en_).getRoot(), _coverage, _forwards, en_);
                 ExecAbstractForEachLoop exec_;
                 if (((ForEachLoop)en_).getRoot().getResultClass().isArray()) {
-                    exec_ = new ExecForEachArray(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
-                            ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                    if (((ForEachLoop)en_).isRefVariable()) {
+                        exec_ = new ExecForEachRefArray(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
+                                ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                    } else {
+                        exec_ = new ExecForEachArray(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
+                                ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
+                    }
                 } else {
                     exec_ = new ExecForEachIterable(((ForEachLoop) en_).getLabel(), ((ForEachLoop)en_).getImportedClassName(),
                             ((ForEachLoop)en_).getImportedClassIndexName(), ((ForEachLoop)en_).getVariableName(), ((ForEachLoop)en_).getVariableNameOffset(), ((ForEachLoop)en_).getExpressionOffset(),op_, en_.getOffset().getOffsetTrim());
@@ -757,7 +762,7 @@ public final class ForwardInfos {
                 }
                 ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(((ForMutableIterativeLoop) en_).getLabel(), ((ForMutableIterativeLoop) en_).getImportedClassName(), ((ForMutableIterativeLoop) en_).getImportedClassIndexName(),
                         ((ForMutableIterativeLoop) en_).getVariableNames(), ((ForMutableIterativeLoop) en_).getInitOffset(), ((ForMutableIterativeLoop) en_).getExpressionOffset(), ((ForMutableIterativeLoop) en_).getStepOffset(),
-                        init_,exp_,step_, en_.getOffset().getOffsetTrim());
+                        init_,exp_,step_, en_.getOffset().getOffsetTrim(),((ForMutableIterativeLoop) en_).isRefVariable());
                 _coverage.putBlockOperationsConditionsForMutable(_from,(ForMutableIterativeLoop)en_, exec_);
                 exec_.setFile(fileDest_);
                 blockToWrite_.appendChild(exec_);

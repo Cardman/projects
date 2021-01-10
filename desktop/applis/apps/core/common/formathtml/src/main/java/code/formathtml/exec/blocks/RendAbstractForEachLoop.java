@@ -76,14 +76,14 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         ip_.addBlock(l_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         lv_.setIndexClassName(importedClassIndexName);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
-        ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,importedClassName));
+        putVar(_ctx,_rendStack,l_);
         processLastElementLoop(_cont, _stds, _ctx, l_, _stack, _rendStack);
     }
 
+    protected abstract void putVar(ContextEl _ctx, RendStackCall _rendStack,RendLoopBlockStack _l);
     private Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(expressionOffset);
@@ -119,8 +119,8 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
-        AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         Argument arg_ = retrieveValue(_conf,_advStandards,_ctx,_l, _stackCall, _rendStackCall);
+        AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         if (_ctx.callsOrException(_stackCall)) {
             return;
         }
@@ -137,4 +137,11 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
 
     protected abstract ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack);
 
+    protected String getVariableName() {
+        return variableName;
+    }
+
+    protected String getImportedClassName() {
+        return importedClassName;
+    }
 }

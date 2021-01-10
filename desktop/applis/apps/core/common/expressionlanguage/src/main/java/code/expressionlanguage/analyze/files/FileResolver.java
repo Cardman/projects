@@ -2477,6 +2477,17 @@ public final class FileResolver {
             String afterIndex_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
             typeOffset_ += StringUtil.getFirstPrintableCharIndex(afterIndex_);
             exp_ = afterIndex_;
+            boolean refVariable_ = false;
+            String keyWordThat_ = keyWords_.getKeyWordThat();
+            if (StringExpUtil.startsWithKeyWord(exp_.trim(), keyWordThat_)) {
+                refVariable_ = true;
+                int delta_ = StringUtil.getFirstPrintableCharIndex(exp_) + keyWordThat_.length();
+                int deltaAfter_ = delta_;
+                String afterDelta_ = exp_.substring(delta_);
+                deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
+                typeOffset_ += deltaAfter_;
+                exp_ = exp_.substring(deltaAfter_);
+            }
             String declaringType_ = getFoundType(exp_);
             int varOffset_ = typeOffset_ + declaringType_.length();
             exp_ = exp_.substring(declaringType_.length());
@@ -2501,7 +2512,7 @@ public final class FileResolver {
                 br_ = new ForEachLoop(new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
                         new OffsetStringInfo(varOffset_+_offset, variableName_),
                         new OffsetStringInfo(expOffset_+_offset, exp_.trim()), new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page);
+                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page,refVariable_);
             } else {
                 int nextIndexVar_ = variableName_.indexOf(',');
                 String firstVar_ = "";
@@ -2525,7 +2536,7 @@ public final class FileResolver {
                         new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()), new OffsetStringInfo(varOffset_+_offset, firstVar_),
                         new OffsetStringInfo(secType_+_offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_+_offset, secVar_),
                         new OffsetStringInfo(expOffset_+_offset, exp_.trim()), new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page);
+                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page,refVariable_);
             }
             br_.setBegin(_instructionLocation+_offset);
             br_.setLengthHeader(keyWordForeach_.length());
@@ -2661,16 +2672,34 @@ public final class FileResolver {
             } else {
                 exp_ = exp_.substring(begCall_ + 1, endCall_);
             }
-            boolean finalLocalVar_ = StringExpUtil.startsWithKeyWord(exp_.trim(), keyWordFinal_);
-            int finalOffset_ = typeOffset_;
+            String keyWordThat_ = keyWords_.getKeyWordThat();
+            boolean finalLocalVar_ = false;
+            boolean refVariable_ = false;
             int deltaAfter_;
-            if (finalLocalVar_) {
-                int delta_ = StringUtil.getFirstPrintableCharIndex(exp_) + keyWordFinal_.length();
-                deltaAfter_ = delta_;
-                String afterDelta_ = exp_.substring(delta_);
-                deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
+            int finalOffset_ = typeOffset_;
+            if (StringExpUtil.startsWithKeyWord(exp_.trim(), keyWordThat_)) {
+                int thatLength_ = keyWordThat_.length();
+                String substring_ = exp_.trim().substring(thatLength_);
+                int next_ = StringExpUtil.nextPrintChar(0, substring_.length(), substring_);
+                if (next_ > -1 && StringExpUtil.isTypeLeafChar(substring_.charAt(next_))) {
+                    refVariable_ = true;
+                    int delta_ = StringUtil.getFirstPrintableCharIndex(exp_) + keyWordThat_.length();
+                    deltaAfter_ = delta_;
+                    String afterDelta_ = exp_.substring(delta_);
+                    deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
+                } else {
+                    deltaAfter_ = StringExpUtil.getOffset(exp_);
+                }
             } else {
-                deltaAfter_ = StringExpUtil.getOffset(exp_);
+                finalLocalVar_ = StringExpUtil.startsWithKeyWord(exp_.trim(), keyWordFinal_);
+                if (finalLocalVar_) {
+                    int delta_ = StringUtil.getFirstPrintableCharIndex(exp_) + keyWordFinal_.length();
+                    deltaAfter_ = delta_;
+                    String afterDelta_ = exp_.substring(delta_);
+                    deltaAfter_ += StringExpUtil.getOffset(afterDelta_);
+                } else {
+                    deltaAfter_ = StringExpUtil.getOffset(exp_);
+                }
             }
             typeOffset_ += deltaAfter_;
             exp_ = exp_.substring(deltaAfter_);
@@ -2702,7 +2731,7 @@ public final class FileResolver {
                             new OffsetStringInfo(typeOffset_+_offset,declaringType_.trim()),
                             new OffsetStringInfo(initOff_+_offset,init_.trim()), new OffsetStringInfo(toOff_+_offset,to_.trim()),
                             new OffsetStringInfo(stepOff_+_offset,step_.trim()), new OffsetStringInfo(indexClassOffest_+_offset,indexClassName_.trim()),
-                            new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset), _page);
+                            new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset), _page,refVariable_);
                     _currentParent.appendChild(br_);
                     ((ForMutableIterativeLoop) br_).setTestOffset(_i+_offset);
                     ok_ = true;
@@ -2726,7 +2755,7 @@ public final class FileResolver {
                         br_ = new ForEachLoop(new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
                                 new OffsetStringInfo(varOffset_+_offset, variableName_), new OffsetStringInfo(expOffset_+_offset, exp_.trim()),
                                 new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page);
+                                new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page,refVariable_);
                         _currentParent.appendChild(br_);
                     } else {
                         int nextIndexVar_ = variableName_.indexOf(',');
@@ -2749,7 +2778,7 @@ public final class FileResolver {
                                         new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()), new OffsetStringInfo(varOffset_+_offset, firstVar_.trim()),
                                         new OffsetStringInfo(secType_+_offset, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_+_offset, secVar_),
                                         new OffsetStringInfo(expOffset_+_offset, exp_.trim()), new OffsetStringInfo(indexClassOffest_+_offset, indexClassName_.trim()),
-                                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page);
+                                        new OffsetStringInfo(labelOff_+_offset, label_.trim()), new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset),setOff_+_offset, _page,refVariable_);
                                 _currentParent.appendChild(br_);
                             }
                         }

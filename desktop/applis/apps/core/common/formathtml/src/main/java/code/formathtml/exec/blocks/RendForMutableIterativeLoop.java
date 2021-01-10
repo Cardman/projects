@@ -43,11 +43,14 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     private final CustList<RendDynOperationNode> opStep;
 
-    public RendForMutableIterativeLoop(String _className,
+    private final boolean refVariable;
+
+    public RendForMutableIterativeLoop(boolean _refVariable,String _className,
                                 int _from,
                                 int _to, int _step,StringList _varNames, String _classIndex, String _label, int _offsetTrim,
                                 CustList<RendDynOperationNode> _opInit, CustList<RendDynOperationNode> _opExp, CustList<RendDynOperationNode> _opStep) {
         super(_offsetTrim);
+        refVariable = _refVariable;
         importedClassName = _className;
         initOffset = _from;
         expressionOffset = _to;
@@ -71,12 +74,20 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
-        for (String v: variableNames) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setIndexClassName(importedClassIndexName);
-            ip_.getVars().put(v, lv_);
-            ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
+        if (refVariable) {
+            for (String v: variableNames) {
+                LoopVariable lv_ = new LoopVariable();
+                lv_.setIndexClassName(importedClassIndexName);
+                ip_.getVars().put(v, lv_);
+            }
+        } else {
+            Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
+            for (String v: variableNames) {
+                LoopVariable lv_ = new LoopVariable();
+                lv_.setIndexClassName(importedClassIndexName);
+                ip_.getVars().put(v, lv_);
+                ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
+            }
         }
         if (!opInit.isEmpty()) {
             RenderExpUtil.calculateReuse(opInit,_cont, _stds, _ctx, _stack, _rendStack);

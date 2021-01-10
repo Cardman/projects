@@ -9330,6 +9330,76 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage615Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  Content[] arr = {null,null};\n");
+        xml_.append("  for (that Content e : arr){\n");
+        xml_.append("    e = new Content();\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">m</a>(){\n" +
+                "  <a title=\"pkg.Content\" href=\"#m164\">Content</a>[] <span class=\"f\"><span class=\"f\"><a name=\"m58\">arr</a> </span>=<span class=\"f\"> {<span class=\"f\">null</span>,<span class=\"f\">null</span>}</span></span>;\n" +
+                "  <span class=\"f\">for (that <a title=\"pkg.Content\" href=\"#m164\">Content</a> <a name=\"m97\">e</a></span> : <span class=\"f\"><a href=\"#m58\">arr</a></span>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m97\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Content\" href=\"#m164\">Content</a>()</span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m164\">pkg.Content</a> {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage616Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int m(){\n");
+        xml_.append("  Content v = new Content();\n");
+        xml_.append("  for (that Content e = that(v);;){\n");
+        xml_.append("    break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">m</a>(){\n" +
+                "  <a title=\"pkg.Content\" href=\"#m156\">Content</a> <span class=\"f\"><span class=\"f\"><a name=\"m56\">v</a> </span>=<span class=\"f\"> new <a title=\"pkg.Content\" href=\"#m156\">Content</a>()</span></span>;\n" +
+                "  for (that <a title=\"pkg.Content\" href=\"#m156\">Content</a> <span class=\"f\"><span class=\"f\"><a name=\"m95\">e</a> </span>=<span class=\"f\"> that(<span class=\"f\"><a href=\"#m56\">v</a></span>)</span></span>;;){\n" +
+                "    break;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m156\">pkg.Content</a> {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
