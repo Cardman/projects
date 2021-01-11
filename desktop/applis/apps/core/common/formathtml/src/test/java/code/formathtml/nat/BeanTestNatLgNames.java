@@ -195,8 +195,7 @@ public abstract class BeanTestNatLgNames extends BeanLgNames {
     @Override
     public Argument iterator(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
-        String typeInst_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(array_.getClassName(_ctx)));
-        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,typeInst_,Templates.TEMPLATE_END),array_));
+        return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,"?",Templates.TEMPLATE_END),array_));
     }
 
     @Override

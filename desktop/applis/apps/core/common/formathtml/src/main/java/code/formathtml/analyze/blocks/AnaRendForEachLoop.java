@@ -55,10 +55,12 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     private OperationNode root;
     private boolean okVar = true;
     private final boolean refVariable;
+    private boolean refVar;
     AnaRendForEachLoop(OffsetBooleanInfo _refVar, OffsetStringInfo _className, OffsetStringInfo _variable,
                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, PrimitiveTypes _primTypes) {
         super(_offset);
         refVariable = _refVar.isInfo();
+        refVar = _refVar.isInfo();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         variableName = _variable.getInfo();
@@ -145,29 +147,22 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             } else {
                 if (refVariable) {
                     if (!compo_.matchClass(importedClassName)) {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_anaDoc.getFileName());
-                        cast_.setIndexFile(expressionOffset);
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(),AND_ERR),
-                                importedClassName);
-                        AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                        refVar = false;
                     }
-                } else {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(compo_);
-                    mapping_.setParam(importedClassName);
-                    StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                    mapping_.setMapping(vars_);
-                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_anaDoc.getFileName());
-                        cast_.setIndexFile(expressionOffset);
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(compo_.getNames(),AND_ERR),
-                                importedClassName);
-                        AnalyzingDoc.addError(cast_, _anaDoc, _page);
-                    }
+                }
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(compo_);
+                mapping_.setParam(importedClassName);
+                StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+                mapping_.setMapping(vars_);
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _page)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_anaDoc.getFileName());
+                    cast_.setIndexFile(expressionOffset);
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(compo_.getNames(),AND_ERR),
+                            importedClassName);
+                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
                 }
             }
         }
@@ -177,7 +172,10 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         return it_.getClassName();
     }
     public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (!refVariable&&_types.onlyOneElt()) {
+        if (refVariable) {
+            refVar = false;
+        }
+        if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
@@ -230,7 +228,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         } else {
             lInfo_.setClassName(_page.getAliasObject());
         }
-        if (refVariable) {
+        if (refVar) {
             lInfo_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lInfo_.setConstType(ConstType.FIX_VAR);
@@ -276,6 +274,6 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     }
 
     public boolean isRefVariable() {
-        return refVariable;
+        return refVar;
     }
 }
