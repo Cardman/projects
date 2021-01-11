@@ -2557,9 +2557,39 @@ public class StringListTest {
         assertEq("", StringUtil.nullToEmpty(""));
     }
     @Test
-    public void applyUniformString(){
+    public void applyUniformString1(){
         DefaultUniformingString u_ = new DefaultUniformingString();
         assertEq("r", u_.apply("r"));
+    }
+    @Test
+    public void applyUniformString2(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\n", u_.apply("\r"));
+    }
+    @Test
+    public void applyUniformString3(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\n", u_.apply("\n"));
+    }
+    @Test
+    public void applyUniformString4(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\n", u_.apply("\r\n"));
+    }
+    @Test
+    public void applyUniformString5(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\nn", u_.apply("\rn"));
+    }
+    @Test
+    public void applyUniformString6(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\nn", u_.apply("\r\nn"));
+    }
+    @Test
+    public void applyUniformString7(){
+        DefaultUniformingString u_ = new DefaultUniformingString();
+        assertEq("\nn", u_.apply("\nn"));
     }
     private static String replaceFinalFile(String _str) {
         int lastIndexDot_ = _str.lastIndexOf('.');
