@@ -53,6 +53,7 @@ public final class AliasMath {
     private String aliasRotateLeft;
     private String aliasRotateRight;
     private String aliasRandom;
+    private String aliasNativeRandom;
     private String aliasSeed;
     private String aliasSeedSpecGenerator;
     private String aliasSeedSpecDoubleGenerator;
@@ -307,6 +308,12 @@ public final class AliasMath {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC);
+        methods_.add( method_);
+        params_ = new StringList(aliasPrimLong_);
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0NativeRandom0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasSeed, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()));
@@ -571,6 +578,15 @@ public final class AliasMath {
             }
             _stackCall.setSeedSpecDoubleGenerator(_args[0].getStruct());
             result_.setResult(NullStruct.NULL_VALUE);
+            return result_;
+        }
+        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasNativeRandom())) {
+            AbstractGenerator generator_ = lgNames_.getGenerator();
+            if (paramList_.isEmpty()) {
+                result_.setResult(new DoubleStruct(generator_.pick()));
+                return result_;
+            }
+            result_.setResult(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(args_[0]).longStruct(),generator_)));
             return result_;
         }
         if (paramList_.isEmpty()) {
@@ -863,6 +879,14 @@ public final class AliasMath {
 
     public void setAliasRandom(String _aliasRandom) {
         aliasRandom = _aliasRandom;
+    }
+
+    public String getAliasNativeRandom() {
+        return aliasNativeRandom;
+    }
+
+    public void setAliasNativeRandom(String _aliasNativeRandom) {
+        this.aliasNativeRandom = _aliasNativeRandom;
     }
 
     public String getAliasSeed() {

@@ -251,6 +251,7 @@ public final class LgNamesContent {
     private static final String XOR = "Xor";
     private static final String MULT = "Mult";
     private static final String RANDOM = "Random";
+    private static final String NATIVE_RANDOM = "NativeRandom";
     private static final String SEED = "Seed";
     private static final String SEED_SPEC_GENERATOR = "SeedSpecGenerator";
     private static final String SEED_SPEC_DOUBLE_GENERATOR = "SeedSpecDoubleGenerator";
@@ -599,6 +600,7 @@ public final class LgNamesContent {
         getMathRef().setAliasXor(get(_util,_cust, XOR));
         getMathRef().setAliasMult(get(_util,_cust, MULT));
         getMathRef().setAliasRandom(get(_util,_cust, RANDOM));
+        getMathRef().setAliasNativeRandom(get(_util,_cust, NATIVE_RANDOM));
         getMathRef().setAliasSeed(get(_util,_cust, SEED));
         getMathRef().setAliasSeedSpecGenerator(get(_util,_cust, SEED_SPEC_GENERATOR));
         getMathRef().setAliasSeedSpecDoubleGenerator(get(_util,_cust, SEED_SPEC_DOUBLE_GENERATOR));
@@ -986,6 +988,7 @@ public final class LgNamesContent {
         getMathRef().getParams().setAliasMath1Gt0(get(_util,_cust, AliasParamMath.MATH_1_GT_0));
         getMathRef().getParams().setAliasMath1Gt1(get(_util,_cust, AliasParamMath.MATH_1_GT_1));
         getMathRef().getParams().setAliasMath0Random0(get(_util,_cust, AliasParamMath.MATH_0_RANDOM_0));
+        getMathRef().getParams().setAliasMath0NativeRandom0(get(_util,_cust, AliasParamMath.MATH_0_NATIVE_RANDOM_0));
         getMathRef().getParams().setAliasMath0Seed0(get(_util,_cust, AliasParamMath.MATH_0_SEED_0));
         getMathRef().getParams().setAliasMath0SeedSpecGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0));
         getMathRef().getParams().setAliasMath0SeedSpecDoubleGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0));
@@ -1544,6 +1547,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(ROTATE_LEFT,getMathRef().getAliasRotateLeft()),
                 new KeyValueMemberName(ROTATE_RIGHT,getMathRef().getAliasRotateRight()),
                 new KeyValueMemberName(RANDOM,getMathRef().getAliasRandom()),
+                new KeyValueMemberName(NATIVE_RANDOM,getMathRef().getAliasNativeRandom()),
                 new KeyValueMemberName(SEED,getMathRef().getAliasSeed()),
                 new KeyValueMemberName(SEED_SPEC_GENERATOR,getMathRef().getAliasSeedSpecGenerator()),
                 new KeyValueMemberName(SEED_SPEC_DOUBLE_GENERATOR,getMathRef().getAliasSeedSpecDoubleGenerator())));
@@ -1969,6 +1973,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_LT_0, getMathRef().getParams().getAliasMath1Lt0()),new KeyValueMemberName(AliasParamMath.MATH_1_LT_1, getMathRef().getParams().getAliasMath1Lt1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GT_0, getMathRef().getParams().getAliasMath1Gt0()),new KeyValueMemberName(AliasParamMath.MATH_1_GT_1, getMathRef().getParams().getAliasMath1Gt1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_RANDOM_0, getMathRef().getParams().getAliasMath0Random0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_NATIVE_RANDOM_0, getMathRef().getParams().getAliasMath0NativeRandom0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_0, getMathRef().getParams().getAliasMath0Seed0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecGenerator0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecDoubleGenerator0())));

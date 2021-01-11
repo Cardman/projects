@@ -1238,6 +1238,24 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl372_Test() {
+        Argument arg_ = directCalculate("$math.natRandom()");
+        NumberStruct res_ = (NumberStruct)  arg_.getStruct();
+        assertTrue(res_ instanceof DoubleStruct);
+        assertTrue(res_.doubleStruct() >= 0.0d);
+        assertTrue(res_.doubleStruct() < 1.0d);
+    }
+
+    @Test
+    public void processEl373_Test() {
+        Argument arg_ = directCalculate("$math.natRandom(8l)");
+        NumberStruct res_ = (NumberStruct)  arg_.getStruct();
+        assertTrue(res_ instanceof LongStruct);
+        assertTrue(res_.longStruct() >= 0);
+        assertTrue(res_.longStruct() < 8);
+    }
+
+    @Test
     public void processEl374Test() {
         Argument arg_ = directCalculate("(Double)1.5 $instanceof Double");
         boolean isTrue_ = arg_.isTrue();
