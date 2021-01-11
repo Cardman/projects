@@ -18,10 +18,14 @@ public final class StackCall {
 
     private final InitializingTypeInfos initializingTypeInfos;
     private AbstractFullStack fullStack;
+    private Struct seedSpecGenerator;
+    private Struct seedSpecDoubleGenerator;
     private Struct seed;
     public StackCall(InitPhase _readOnlyOthers) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
+        seedSpecGenerator = NullStruct.NULL_VALUE;
+        seedSpecDoubleGenerator = NullStruct.NULL_VALUE;
         seed = NullStruct.NULL_VALUE;
     }
 
@@ -85,6 +89,22 @@ public final class StackCall {
 
     public boolean isFailInit() {
         return initializingTypeInfos.isFailInit();
+    }
+
+    public Struct getSeedSpecDoubleGenerator() {
+        return seedSpecDoubleGenerator;
+    }
+
+    public void setSeedSpecDoubleGenerator(Struct _seedSpecDoubleGenerator) {
+        this.seedSpecDoubleGenerator = _seedSpecDoubleGenerator;
+    }
+
+    public Struct getSeedSpecGenerator() {
+        return seedSpecGenerator;
+    }
+
+    public void setSeedSpecGenerator(Struct _seedSpecGenerator) {
+        this.seedSpecGenerator = _seedSpecGenerator;
     }
 
     public Struct getSeed() {

@@ -336,6 +336,8 @@ public final class DefaultInitialization {
         _lgNames.getContent().getMathRef().setAliasRotateRight("rotateRight");
         _lgNames.getContent().getMathRef().setAliasRandom("random");
         _lgNames.getContent().getMathRef().setAliasSeed("seed");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecGenerator("seedGenerator");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecDoubleGenerator("seedDoubleGenerator");
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");

@@ -507,6 +507,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getMathRef().setAliasRotateRight("rotateRight");
         _lgNames.getContent().getMathRef().setAliasRandom("random");
         _lgNames.getContent().getMathRef().setAliasSeed("seed");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecGenerator("seedGenerator");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecDoubleGenerator("seedDoubleGenerator");
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");
@@ -843,6 +845,8 @@ public final class KeyWordsMap {
         _lgNames.getContent().getMathRef().setAliasRotateRight("rotDroite");
         _lgNames.getContent().getMathRef().setAliasRandom("alea");
         _lgNames.getContent().getMathRef().setAliasSeed("graine");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecGenerator("graineGenerateur");
+        _lgNames.getContent().getMathRef().setAliasSeedSpecDoubleGenerator("graineDecGenerateur");
         _lgNames.getDisplayedStrings().setFalseString("faux");
         _lgNames.getDisplayedStrings().setTrueString("vrai");
         _lgNames.getDisplayedStrings().setNullString("");

@@ -140,6 +140,8 @@ public final class AliasParamMath {
     public static final String MATH_1_GT_1="Math1Gt1";
     public static final String MATH_0_RANDOM_0="Math0Random0";
     public static final String MATH_0_SEED_0="Math0Seed0";
+    public static final String MATH_0_SEED_SPEC_GENERATOR_0="Math0SeedSpecGenerator0";
+    public static final String MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0="Math0SeedSpecDoubleGenerator0";
     private String aliasMath0Abs0="a";
     private String aliasMath1Abs0="a";
     private String aliasMath2Abs0="a";
@@ -279,6 +281,8 @@ public final class AliasParamMath {
     private String aliasMath1Gt1="b";
     private String aliasMath0Random0="a";
     private String aliasMath0Seed0="a";
+    private String aliasMath0SeedSpecGenerator0="a";
+    private String aliasMath0SeedSpecDoubleGenerator0="a";
 
     public String getAliasMath0Abs0() {
         return aliasMath0Abs0;
@@ -1390,5 +1394,21 @@ public final class AliasParamMath {
 
     public void setAliasMath0Seed0(String _v) {
         this.aliasMath0Seed0 =_v;
+    }
+
+    public String getAliasMath0SeedSpecGenerator0() {
+        return aliasMath0SeedSpecGenerator0;
+    }
+
+    public void setAliasMath0SeedSpecGenerator0(String _v) {
+        this.aliasMath0SeedSpecGenerator0 =_v;
+    }
+
+    public String getAliasMath0SeedSpecDoubleGenerator0() {
+        return aliasMath0SeedSpecDoubleGenerator0;
+    }
+
+    public void setAliasMath0SeedSpecDoubleGenerator0(String _v) {
+        this.aliasMath0SeedSpecDoubleGenerator0 =_v;
     }
 }

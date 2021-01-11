@@ -252,6 +252,8 @@ public final class LgNamesContent {
     private static final String MULT = "Mult";
     private static final String RANDOM = "Random";
     private static final String SEED = "Seed";
+    private static final String SEED_SPEC_GENERATOR = "SeedSpecGenerator";
+    private static final String SEED_SPEC_DOUBLE_GENERATOR = "SeedSpecDoubleGenerator";
     private static final String NEG_BIN = "NegBin";
     private static final String MINUS = "Minus";
     private static final String ENUM_NAME = "EnumName";
@@ -598,6 +600,8 @@ public final class LgNamesContent {
         getMathRef().setAliasMult(get(_util,_cust, MULT));
         getMathRef().setAliasRandom(get(_util,_cust, RANDOM));
         getMathRef().setAliasSeed(get(_util,_cust, SEED));
+        getMathRef().setAliasSeedSpecGenerator(get(_util,_cust, SEED_SPEC_GENERATOR));
+        getMathRef().setAliasSeedSpecDoubleGenerator(get(_util,_cust, SEED_SPEC_DOUBLE_GENERATOR));
         getMathRef().setAliasNegBin(get(_util,_cust, NEG_BIN));
         getMathRef().setAliasMinus(get(_util,_cust, MINUS));
         getPredefTypes().setAliasEnumName(get(_util,_cust, ENUM_NAME));
@@ -983,6 +987,8 @@ public final class LgNamesContent {
         getMathRef().getParams().setAliasMath1Gt1(get(_util,_cust, AliasParamMath.MATH_1_GT_1));
         getMathRef().getParams().setAliasMath0Random0(get(_util,_cust, AliasParamMath.MATH_0_RANDOM_0));
         getMathRef().getParams().setAliasMath0Seed0(get(_util,_cust, AliasParamMath.MATH_0_SEED_0));
+        getMathRef().getParams().setAliasMath0SeedSpecGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0));
+        getMathRef().getParams().setAliasMath0SeedSpecDoubleGenerator0(get(_util,_cust, AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0));
         getNbAlias().getParams().setAliasBoolean0Compare0(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_0));
         getNbAlias().getParams().setAliasBoolean0Compare1(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_1));
         getNbAlias().getParams().setAliasBoolean0CompareTo0(get(_util,_cust, AliasParamNumber.BOOLEAN_0_COMPARE_TO_0));
@@ -1538,7 +1544,9 @@ public final class LgNamesContent {
                 new KeyValueMemberName(ROTATE_LEFT,getMathRef().getAliasRotateLeft()),
                 new KeyValueMemberName(ROTATE_RIGHT,getMathRef().getAliasRotateRight()),
                 new KeyValueMemberName(RANDOM,getMathRef().getAliasRandom()),
-                new KeyValueMemberName(SEED,getMathRef().getAliasSeed())));
+                new KeyValueMemberName(SEED,getMathRef().getAliasSeed()),
+                new KeyValueMemberName(SEED_SPEC_GENERATOR,getMathRef().getAliasSeedSpecGenerator()),
+                new KeyValueMemberName(SEED_SPEC_DOUBLE_GENERATOR,getMathRef().getAliasSeedSpecDoubleGenerator())));
         map_.addEntry(getCharSeq().getAliasReplacement(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_NEW_STRING, getCharSeq().getAliasGetNewString()),
                 new KeyValueMemberName(GET_OLD_STRING,getCharSeq().getAliasGetOldString())));
@@ -1962,6 +1970,8 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_1_GT_0, getMathRef().getParams().getAliasMath1Gt0()),new KeyValueMemberName(AliasParamMath.MATH_1_GT_1, getMathRef().getParams().getAliasMath1Gt1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_RANDOM_0, getMathRef().getParams().getAliasMath0Random0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_0, getMathRef().getParams().getAliasMath0Seed0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecGenerator0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamMath.MATH_0_SEED_SPEC_DOUBLE_GENERATOR_0, getMathRef().getParams().getAliasMath0SeedSpecDoubleGenerator0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_0, getNbAlias().getParams().getAliasBoolean0Compare0()),new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_1, getNbAlias().getParams().getAliasBoolean0Compare1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_COMPARE_TO_0, getNbAlias().getParams().getAliasBoolean0CompareTo0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.BOOLEAN_0_EQUALS_0, getNbAlias().getParams().getAliasBoolean0Equals0())));

@@ -4869,6 +4869,80 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         assertEq(6, getNumber(ret_));
     }
     @Test
+    public void calculate196() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static double exmeth(){\n");
+        xml_.append("  Math.seedDoubleGenerator((DoubleGenerator)(:double)->{return 0.25;});\n");
+        xml_.append("  return Math.random();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0.25, getDouble(ret_));
+    }
+    @Test
+    public void calculate197() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static long exmeth(){\n");
+        xml_.append("  Math.seedGenerator((Generator)(long a:long)->{return a*10;});\n");
+        xml_.append("  return Math.random(10);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(100, getNumber(ret_));
+    }
+    @Test
+    public void calculate198() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static double exmeth(){\n");
+        xml_.append("  Math.seedDoubleGenerator((DoubleGenerator)(:double)->{return 0.25;});\n");
+        xml_.append("  Math.seedGenerator((Generator)(long a:long)->{return a*10;});\n");
+        xml_.append("  return Math.random();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0.25, getDouble(ret_));
+    }
+    @Test
+    public void calculate199() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static long exmeth(){\n");
+        xml_.append("  Math.seedDoubleGenerator((DoubleGenerator)(:double)->{return 0.25;});\n");
+        xml_.append("  Math.seedGenerator((Generator)(long a:long)->{return a*10;});\n");
+        xml_.append("  return Math.random(10);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(100, getNumber(ret_));
+    }
+    @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
