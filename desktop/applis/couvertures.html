@@ -1,0 +1,205 @@
+<html>
+<script type="text/javascript">
+function fct(){
+
+	var directory = '.';
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open('GET', directory, true); // false for synchronous request
+	xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState === 4) {
+			var arr = [];
+			var arrAll = [];
+			var ret = xmlHttp.responseText;
+			var fileList = ret.split('\n');
+			var scriptTag2 = document.getElementsByTagName('script');
+				scriptTag2 = scriptTag2[scriptTag2.length - 1];
+			var existPom = false;
+			for (var i = 0; i < fileList.length; i++) {
+				if (!fileList[i].startsWith('<script>addRow')){
+					continue;
+				}
+				if (fileList[i].substring('<script>addRow'.length,fileList[i].lastIndexOf('<'+'/script>')).indexOf('pom.xml')>-1){
+					var arr3 = readModules(directory);
+					pushAll(arr,arr3);
+					pushAll(arrAll,arr3);
+					existPom = true;
+					break;
+				}
+			}
+			while (true){
+				var next = [];
+				for (var m in arr) {
+					var ne = readModules(arr[m]);
+					for (var n in ne){
+						next.push(ne[n]);
+						arrAll.push(ne[n]);
+					}
+				}
+				if (next.length === 0) {
+					break;
+				}
+				arr = next;
+			}
+			var scriptTag3 = document.getElementsByTagName('script');
+			scriptTag3 = scriptTag3[scriptTag3.length - 1];
+			for (var t in arrAll){
+				if (!existFile(arrAll[t]+'/target/site/jacoco/index.html')){
+					continue;
+				}
+				var countMiss = countMissing(readFile(arrAll[t]+'/target/site/jacoco/index.html'));
+				if (countMiss === 0){
+					continue;
+				}
+				var res = document.createElement("div");
+				var divCont = document.createTextNode(arrAll[t]);
+				
+				res.innerText = divCont.wholeText+':'+countMiss;
+				var parent = scriptTag3.parentNode;
+				parent.appendChild(res);
+			}
+        }
+     };
+	xmlHttp.send(null);
+
+
+}
+fct();
+
+function pushAll(arr,arr3){
+	for (var t in arr3){
+		arr.push(arr3[t]);
+	}
+}
+
+function readFile(link) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open('GET', link, false); // false for synchronous request
+	var o = '';
+	xmlHttp.onreadystatechange = function() {
+		if (xmlHttp.readyState === 4) {
+			o=xmlHttp.responseText;
+		}
+	};
+	xmlHttp.send(null);
+	return o;
+}
+
+function existFile(link) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open('GET', link, false); // false for synchronous request
+	var o = false;
+	xmlHttp.onreadystatechange = function() {
+		if (xmlHttp.readyState === 4) {
+			o=true;
+		}
+	};
+	try {
+		xmlHttp.send(null);
+		return o;
+	} catch(error){
+		return false;
+	}
+}
+
+
+function readModules(lk) {
+	var xml = readFileAsXml(lk+'/pom.xml');
+	var arr = [];
+	if (xml){
+		var elts = xml.documentElement.getElementsByTagName('modules');
+		var len = elts.length;
+		for (var j = 0; j < len; j++) {
+			var modules = elts[j];
+			var moduleList = modules.getElementsByTagName('module');
+			var lenList = moduleList.length;
+			for (var k = 0; k < lenList; k++) {
+				var module = moduleList[k];
+				arr.push(lk+'/'+module.textContent);
+				
+			}
+		}
+	}
+	return arr;
+
+}
+function readFileAsXml(link) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open('GET', link, false); // false for synchronous request
+	var o = null;
+	xmlHttp.onreadystatechange = function() {
+		if (xmlHttp.readyState === 4) {
+			o=xmlHttp.responseXML;
+		}
+	};
+	xmlHttp.send(null);
+	return o;
+}
+function readFolder(link) {
+	var arr2 = [];
+	var o = readFile(link);
+	var fileList2 = o.split('\n');
+	for (var i = 0; i < fileList2.length; i++) {
+		if (!fileList2[i].startsWith('<script>addRow')){
+			continue;
+		}
+		var index = fileList2[i].lastIndexOf('<'+'/script>');
+		if (index < 0){
+			continue;
+		}
+		var extr = fileList2[i].substring('<script>addRow'.length,index);
+		var sub = extr;
+		sub = sub.substring(sub.indexOf('"')+1);
+		var name = sub.substring(0,sub.indexOf('"'));
+		arr2.push(link+'/'+name);
+	}
+	return arr2;
+}
+function get_information(link, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", link, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            callback(link,xhr.responseText);
+        }
+    };
+    xhr.send(null);
+}
+function call(link,text) {
+    var conc = countMissing(text);
+	if (conc === 0){
+		return;
+	}
+	var scriptTag = document.getElementsByTagName('script');
+    scriptTag = scriptTag[scriptTag.length - 1];
+
+	var res = document.createElement("div");
+	res.innerText = link+":"+conc;
+    var parent = scriptTag.parentNode;
+	parent.appendChild(res);
+    // Do something with the div here, like inserting it into the page
+}
+function countMissing(htmlText) {
+    var div = document.createElement("div");
+    div.innerHTML = htmlText;
+	var tds = div.getElementsByTagName('td');
+	var l = tds.length;
+	var conc = 0;
+	for (var i = 0; i < l; i++){
+		var elt = tds.item(i);
+		if (!(elt.getAttribute('class') === 'ctr2')){
+			continue;
+		}
+		var txt = elt.innerText.trim();
+		if (!txt.endsWith('%')){
+			continue;
+		}
+		if (txt.substring(0,txt.length-1).trim() === '100'){
+			continue;
+		}
+		conc ++;
+	}
+	return conc;
+}
+</script>
+</body/>
+</html>
