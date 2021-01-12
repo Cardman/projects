@@ -53,7 +53,16 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (StringUtil.quickEq(name_,_page.getAliasCall())) {
                 StringList all_ = StringExpUtil.getAllTypes(fct_);
                 String ret_ = all_.last();
-                CustList<String> param_ = all_.leftMinusOne(all_.size() - 2);
+                CustList<String> param_;
+                if (all_.size() == 1) {
+                    param_ = new StringList();
+                    int len_ = getOperations().getValues().size();
+                    for (int i = 0; i < len_; i++) {
+                        param_.add(_page.getAliasObject());
+                    }
+                } else {
+                    param_ = all_.leftMinusOne(all_.size() - 2);
+                }
                 m_ = new MethodInfo();
                 ParametersGroup p_ = new ParametersGroup();
                 m_.setOriginalReturnType(_page.getAliasObject());
@@ -64,7 +73,10 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.setParameters(p_);
                 String retBase_;
                 boolean refRet_;
-                if (ret_.startsWith("~")) {
+                if (StringUtil.quickEq(ret_, Templates.SUB_TYPE)) {
+                    retBase_ = _page.getAliasObject();
+                    refRet_ = false;
+                } else if (ret_.startsWith("~")) {
                     retBase_ = ret_.substring(1);
                     refRet_ = true;
                 } else {
