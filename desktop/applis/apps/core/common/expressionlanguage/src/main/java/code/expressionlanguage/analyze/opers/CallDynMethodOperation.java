@@ -88,7 +88,10 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 StringList cls_ = new StringList();
                 BooleanList refs_ = new BooleanList();
                 for (String c: param_) {
-                    if (c.startsWith("~")) {
+                    if (StringUtil.quickEq(c, Templates.SUB_TYPE)) {
+                        cls_.add(_page.getAliasObject());
+                        refs_.add(false);
+                    } else if (c.startsWith("~")) {
                         cls_.add(c.substring(1));
                         refs_.add(true);
                     } else {
