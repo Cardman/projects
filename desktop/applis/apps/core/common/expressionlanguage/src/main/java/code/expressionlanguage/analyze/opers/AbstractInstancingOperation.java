@@ -184,6 +184,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');
         int gt_ = newKeyWord_.length() + local_ + className_.indexOf('>') + 1;
+        if (m_ instanceof ArgumentListInstancing){
+            m_ = m_.getParent().getParent();
+        }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();

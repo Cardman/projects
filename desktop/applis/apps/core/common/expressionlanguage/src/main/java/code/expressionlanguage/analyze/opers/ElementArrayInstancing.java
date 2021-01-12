@@ -29,8 +29,8 @@ import code.util.core.StringUtil;
 
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private String typeInfer = EMPTY_STRING;
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -88,6 +88,9 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             return;
         }
         StringMap<String> vars_ = new StringMap<String>();
+        if (m_ instanceof ArgumentListInstancing){
+            m_ = m_.getParent().getParent();
+        }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();

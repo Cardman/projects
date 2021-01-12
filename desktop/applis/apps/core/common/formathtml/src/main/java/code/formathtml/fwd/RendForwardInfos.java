@@ -539,6 +539,10 @@ public final class RendForwardInfos {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
             return new RendCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), c_.getFctName(), new ExecArrContent(c_.getArrContent()));
         }
+        if (_anaNode instanceof ArgumentListInstancing) {
+            ArgumentListInstancing i_ = (ArgumentListInstancing) _anaNode;
+            return new RendArgumentListInstancing(new ExecOperationContent(i_.getContent()));
+        }
         if (_anaNode instanceof InferArrayInstancing) {
             InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
             return new RendArrayElementOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(i_.getArrayInstancingContent()));

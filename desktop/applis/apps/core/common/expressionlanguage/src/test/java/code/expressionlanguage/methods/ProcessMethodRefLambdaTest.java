@@ -2459,4 +2459,29 @@ public final class ProcessMethodRefLambdaTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(20, getNumber(ret_));
     }
+    @Test
+    public void calculateArgument101Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int t = 7;\n");
+        xml_.append("  $lambda(Ex,exmeth,~$int).call(a:{$that(t)});\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeth($that $int t){\n");
+        xml_.append("  t=8;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth($int t){\n");
+        xml_.append("  $return t+8;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
 }

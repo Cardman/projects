@@ -1,7 +1,6 @@
 <html>
 <script type="text/javascript">
 function fct(){
-
 	var directory = '.';
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open('GET', directory, true); // false for synchronous request
@@ -40,22 +39,17 @@ function fct(){
 				}
 				arr = next;
 			}
-			var scriptTag3 = document.getElementsByTagName('script');
-			scriptTag3 = scriptTag3[scriptTag3.length - 1];
 			for (var t in arrAll){
 				if (!existFile(arrAll[t]+'/target/site/jacoco/index.html')){
 					continue;
 				}
 				var countMiss = countMissing(readFile(arrAll[t]+'/target/site/jacoco/index.html'));
 				if (countMiss === 0){
-					continue;
+					document.write('<span style=\'background-color:green;\'><a href=\''+arrAll[t]+'/target/site/jacoco/index.html\''+'>'+arrAll[t]+'/target/site/jacoco/index.html'+':'+countMiss+'</a></span>');
+				} else {
+					document.write('<span style=\'background-color:red;\'><a href=\''+arrAll[t]+'/target/site/jacoco/index.html\''+'>'+arrAll[t]+'/target/site/jacoco/index.html'+':'+countMiss+'</a></span>');
 				}
-				var res = document.createElement("div");
-				var divCont = document.createTextNode(arrAll[t]);
-				
-				res.innerText = divCont.wholeText+':'+countMiss;
-				var parent = scriptTag3.parentNode;
-				parent.appendChild(res);
+				document.write('<br/>');
 			}
         }
      };
@@ -201,5 +195,7 @@ function countMissing(htmlText) {
 	return conc;
 }
 </script>
-</body/>
+<body>
+
+</body>
 </html>

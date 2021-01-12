@@ -165,6 +165,72 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             _page.getLocalizer().addError(und_);
             addErr(und_.getBuiltError());
         }
+        if (!chidren_.isEmpty()) {
+            OperationNode last_ = chidren_.last();
+            if (last_ instanceof NamedArgumentOperation) {
+                if (!(last_.getFirstChild() instanceof ArgumentListInstancing)) {
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                } else {
+                    StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
+                    StringList paramNames_ = new StringList();
+                    for (StandardMethod e: fctType_.getMethods()) {
+                        MethodId id_ = e.getId();
+                        String name_ = id_.getName();
+                        if (StringUtil.quickEq(name_,_page.getAliasCall())) {
+                            paramNames_ = e.getParametersNames();
+                        }
+                    }
+                    if (StringUtil.indexOf(paramNames_,((NamedArgumentOperation) last_).getName()) < 0) {
+                        FoundErrorInterpret und_ = new FoundErrorInterpret();
+                        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        //fctName_ len
+                        und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                                _page.getAliasCall(),
+                                _page.getAliasFct());
+                        _page.getLocalizer().addError(und_);
+                        addErr(und_.getBuiltError());
+                    }
+                    last_ = last_.getFirstChild();
+                }
+                if (chidren_.size() > 1){
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                }
+            } else {
+                for (OperationNode o: chidren_) {
+                    if (o instanceof NamedArgumentOperation) {
+                        FoundErrorInterpret und_ = new FoundErrorInterpret();
+                        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        //fctName_ len
+                        und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                                _page.getAliasCall(),
+                                _page.getAliasFct());
+                        _page.getLocalizer().addError(und_);
+                        addErr(und_.getBuiltError());
+                    }
+                }
+            }
+            if (last_ instanceof ArgumentListInstancing) {
+                chidren_ = ((ArgumentListInstancing) last_).getChildrenNodes();
+            }
+        }
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
         StringList all_ = StringExpUtil.getAllTypes(fct_);

@@ -277,6 +277,11 @@ public abstract class OperationNode {
             }
             if (_op.isInstance()) {
                 if (fctName_.isEmpty()) {
+                    if (_m instanceof NamedArgumentOperation) {
+                        if (_m.getParent() instanceof CallDynMethodOperation) {
+                            return new ArgumentListInstancing(_index, _indexChild, _m, _op);
+                        }
+                    }
                     return new InferArrayInstancing(_index, _indexChild, _m, _op);
                 }
                 String op_ = _op.getOperators().firstValue();

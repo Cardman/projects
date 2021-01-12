@@ -35,6 +35,14 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
         }
         CustList<ArgumentsPair> out_ = new CustList<ArgumentsPair>();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        ExecOperationNode last_ = getLast(chidren_);
+        if (last_ instanceof ExecNamedArgumentOperation) {
+            chidren_ = ((ExecNamedArgumentOperation)last_).getChildrenNodes();
+            last_ = getLast(chidren_);
+        }
+        if (last_ instanceof ExecArgumentListInstancing) {
+            chidren_ = ((ExecArgumentListInstancing)last_).getChildrenNodes();
+        }
         for (ExecOperationNode o: chidren_) {
             ArgumentsPair a_ = new ArgumentsPair();
             if (o instanceof ExecWrappOperation) {
@@ -52,4 +60,10 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
+    private static ExecOperationNode getLast(CustList<ExecOperationNode> _list) {
+        if (_list.isEmpty()) {
+            return null;
+        }
+        return _list.last();
+    }
 }

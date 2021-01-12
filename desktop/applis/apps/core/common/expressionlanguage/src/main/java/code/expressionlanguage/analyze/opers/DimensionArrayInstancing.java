@@ -28,9 +28,9 @@ import code.util.core.StringUtil;
 
 public final class DimensionArrayInstancing extends
         AbstractArrayInstancingOperation implements PreAnalyzableOperation {
-    private int countArrayDims;
+    private final int countArrayDims;
     private String typeInfer = EMPTY_STRING;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public DimensionArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -85,6 +85,9 @@ public final class DimensionArrayInstancing extends
             return;
         }
         int chCount_ = getOperations().getValues().size();
+        if (m_ instanceof ArgumentListInstancing){
+            m_ = m_.getParent().getParent();
+        }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();

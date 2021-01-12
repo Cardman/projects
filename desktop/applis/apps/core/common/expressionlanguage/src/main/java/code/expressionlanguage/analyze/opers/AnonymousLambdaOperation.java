@@ -100,6 +100,9 @@ public final class AnonymousLambdaOperation extends
                 candidates_.add(foundType_);
             }
         }
+        if (m_ instanceof ArgumentListInstancing){
+            m_ = m_.getParent().getParent();
+        }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();

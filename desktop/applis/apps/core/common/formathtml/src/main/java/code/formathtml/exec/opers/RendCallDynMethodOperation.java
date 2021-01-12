@@ -43,6 +43,14 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
     private CustList<ArgumentsPair> fectchPosArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         CustList<ArgumentsPair> out_ = new CustList<ArgumentsPair>();
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        RendDynOperationNode last_ = getLast(chidren_);
+        if (last_ instanceof RendNamedArgumentOperation) {
+            chidren_ = ((RendNamedArgumentOperation)last_).getChildrenNodes();
+            last_ = getLast(chidren_);
+        }
+        if (last_ instanceof RendArgumentListInstancing) {
+            chidren_ = ((RendArgumentListInstancing)last_).getChildrenNodes();
+        }
         for (RendDynOperationNode o: chidren_) {
             ArgumentsPair a_ = new ArgumentsPair();
             if (o instanceof RendWrappOperation) {
@@ -53,5 +61,12 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
             out_.add(a_);
         }
         return out_;
+    }
+
+    private static RendDynOperationNode getLast(CustList<RendDynOperationNode> _list) {
+        if (_list.isEmpty()) {
+            return null;
+        }
+        return _list.last();
     }
 }

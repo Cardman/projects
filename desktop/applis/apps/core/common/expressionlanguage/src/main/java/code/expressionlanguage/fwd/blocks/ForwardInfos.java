@@ -985,6 +985,10 @@ public final class ForwardInfos {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
             return new ExecCallDynMethodOperation(new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), c_.getFctName(), new ExecArrContent(c_.getArrContent()));
         }
+        if (_anaNode instanceof ArgumentListInstancing) {
+            ArgumentListInstancing c_ = (ArgumentListInstancing) _anaNode;
+            return new ExecArgumentListInstancing(new ExecOperationContent(c_.getContent()));
+        }
         if (_anaNode instanceof InferArrayInstancing) {
             InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
             return new ExecArrayElementOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(i_.getArrayInstancingContent()));
