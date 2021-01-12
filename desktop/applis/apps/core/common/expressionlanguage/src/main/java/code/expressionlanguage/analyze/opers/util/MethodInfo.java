@@ -35,9 +35,9 @@ public final class MethodInfo implements Parametrable {
     private InvocationMethod invocation;
     private StandardMethod standardMethod;
     private NamedFunctionBlock custMethod;
-    private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
+    private final CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
     private StringList parametersNames = new StringList();
-    private Ints nameParametersFilterIndexes = new Ints();
+    private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
 
     public MethodId getConstraints() {
@@ -139,7 +139,19 @@ public final class MethodInfo implements Parametrable {
             params_.add(AnaTemplates.wildCardFormatParam(className,p, _page));
         }
         formattedParams = params_;
-        formatted = MethodId.to(MethodId.getKind(_keepParams), params_, constraints);
+        formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
+    }
+
+    public void format(MethodId _id) {
+        StringList params_ = new StringList();
+        for (String p: _id.getParametersTypes()) {
+            params_.add(p);
+        }
+        formattedParams = params_;
+        formatted = buildFormatted(_id.getKind(), params_, _id);
+    }
+    private static MethodId buildFormatted(MethodAccessKind _keepParams, StringList _params, MethodId _id) {
+        return MethodId.to(_keepParams, _params, _id);
     }
 
     public void formatWithoutParams() {

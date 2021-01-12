@@ -2,11 +2,15 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -14,19 +18,20 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.util.CustList;
-import code.util.IntTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
+import code.util.*;
 import code.util.core.StringUtil;
 
-public final class CallDynMethodOperation extends InvokingOperation implements SettableElResult,AbstractCallLeftOperation {
+public final class CallDynMethodOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,SettableElResult,AbstractCallLeftOperation {
     private String sepErr = "";
     private boolean noNeed;
     private int indexCh=-1;
     private String fctName;
     private final AnaArrContent arrContent;
     private boolean errLeftValue;
+    private String methodFound = EMPTY_STRING;
+    private final CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -34,9 +39,67 @@ public final class CallDynMethodOperation extends InvokingOperation implements S
     }
 
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         String fctName_ = getOperations().getFctName().trim();
+        AnaClassArgumentMatching clCur_ = getPreviousResultClass();
+        String fct_ = clCur_.getName();
+        CustList<MethodInfo> methodInfos_ = new CustList<MethodInfo>();
+        StandardType fctType_ = _page.getStandardsTypes().getVal(_page.getAliasFct());
+        for (StandardMethod e: fctType_.getMethods()) {
+            MethodId id_ = e.getId();
+            MethodInfo m_;
+            String name_ = id_.getName();
+            if (StringUtil.quickEq(name_,_page.getAliasCall())) {
+                StringList all_ = StringExpUtil.getAllTypes(fct_);
+                String ret_ = all_.last();
+                CustList<String> param_ = all_.leftMinusOne(all_.size() - 2);
+                m_ = new MethodInfo();
+                ParametersGroup p_ = new ParametersGroup();
+                m_.setOriginalReturnType(_page.getAliasObject());
+                m_.setStandardMethod(e);
+                m_.setParametersNames(e.getParametersNames());
+                m_.setClassName(fct_);
+                m_.setConstraints(id_);
+                m_.setParameters(p_);
+                String retBase_;
+                boolean refRet_;
+                if (ret_.startsWith("~")) {
+                    retBase_ = ret_.substring(1);
+                    refRet_ = true;
+                } else {
+                    retBase_ = ret_;
+                    refRet_ = false;
+                }
+                m_.setReturnType(retBase_);
+                m_.setAncestor(0);
+                StringList cls_ = new StringList();
+                BooleanList refs_ = new BooleanList();
+                for (String c: param_) {
+                    if (c.startsWith("~")) {
+                        cls_.add(c.substring(1));
+                        refs_.add(true);
+                    } else {
+                        cls_.add(c);
+                        refs_.add(false);
+                    }
+                }
+                m_.format(new MethodId(refRet_, MethodAccessKind.INSTANCE,
+                        name_,cls_,refs_,false));
+            } else {
+                m_ = OperationNode.getMethodInfo(e,false,0,fct_,_page,id_,e.getImportedReturnType(),e.getImportedReturnType());
+            }
+            methodInfos_.add(m_);
+        }
+        methodInfos.add(methodInfos_);
+        methodFound = fctName_;
+        filterByNameReturnType(_page, fctName_, methodInfos);
+    }
+
+    @Override
+    public void analyze(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+        String fctName_ = getMethodFound();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo())) {
@@ -253,5 +316,15 @@ public final class CallDynMethodOperation extends InvokingOperation implements S
     @Override
     public void setCatenizeStrings() {
         arrContent.setCatString(true);
+    }
+
+    @Override
+    public String getMethodFound() {
+        return methodFound;
+    }
+
+    @Override
+    public CustList<CustList<MethodInfo>> getMethodInfos() {
+        return methodInfos;
     }
 }
