@@ -138,6 +138,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return deltaCount_;
     }
 
+    protected static int getDeltaCount(boolean _list,OperationNode _firstChild) {
+        if (_list) {
+            return 0;
+        }
+        int deltaCount_ = 0;
+        if (_firstChild instanceof IdFctOperation || _firstChild instanceof VarargOperation) {
+            deltaCount_++;
+        }
+        return deltaCount_;
+    }
+
     protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page, AnaGeneType _anaGeneType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
         if (_anaGeneType instanceof StandardType) {

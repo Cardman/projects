@@ -3181,6 +3181,13 @@ public final class RenderTextTest extends CommonRender {
         String html_ = "<html><body><c:set className=\"java.lang.$Fct&lt;$int,$int,$int&gt;\" value=\"l=$static().$lambda(java.lang.$math,max,$int,$int)\"/>{l.call(a:{2,1})}</body></html>";
         assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
+    @Test
+    public void process130Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"java.lang.$Fct&lt;$int,$int,$int&gt;\" value=\"l=$static().$lambda(java.lang.$math,max,$int,$int)\"/>{l.call($id(java.lang.$Fct,java.lang.Object...),2,1)}</body></html>";
+        assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

@@ -100,7 +100,9 @@ public final class AnonymousLambdaOperation extends
                 candidates_.add(foundType_);
             }
         }
+        boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
+            list_ = true;
             m_ = m_.getParent().getParent();
         }
         if (m_ instanceof NamedArgumentOperation){
@@ -170,7 +172,7 @@ public final class AnonymousLambdaOperation extends
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
+            int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
             int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
             CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
             int len_ = methodInfos_.size();
@@ -196,7 +198,7 @@ public final class AnonymousLambdaOperation extends
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
+            int deltaCount_ = InvokingOperation.getDeltaCount(list_,firstChild_);
             int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
             CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
             int len_ = methodInfos_.size();

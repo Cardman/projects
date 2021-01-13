@@ -44,6 +44,9 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             chidren_ = ((ExecArgumentListInstancing)last_).getChildrenNodes();
         }
         for (ExecOperationNode o: chidren_) {
+            if (ExecConstLeafOperation.isFilter(o)) {
+                continue;
+            }
             ArgumentsPair a_ = new ArgumentsPair();
             if (o instanceof ExecWrappOperation) {
                 a_.setWrapper(ExecTemplates.getArgumentPair(_nodes,o).getWrapper());

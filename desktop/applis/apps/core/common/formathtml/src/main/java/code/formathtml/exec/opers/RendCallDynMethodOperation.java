@@ -52,6 +52,9 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
             chidren_ = ((RendArgumentListInstancing)last_).getChildrenNodes();
         }
         for (RendDynOperationNode o: chidren_) {
+            if (RendConstLeafOperation.isFilter(o)) {
+                continue;
+            }
             ArgumentsPair a_ = new ArgumentsPair();
             if (o instanceof RendWrappOperation) {
                 a_.setWrapper(getArgumentPair(_nodes,o).getWrapper());

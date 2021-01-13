@@ -85,8 +85,10 @@ public final class DimensionArrayInstancing extends
             return;
         }
         int chCount_ = getOperations().getValues().size();
+        boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
             m_ = m_.getParent().getParent();
+            list_ = true;
         }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
@@ -153,7 +155,7 @@ public final class DimensionArrayInstancing extends
         if (m_ instanceof RetrieveMethod){
             RetrieveMethod f_ = (RetrieveMethod) m_;
             OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = getDeltaCount(firstChild_);
+            int deltaCount_ = getDeltaCount(list_,firstChild_);
             int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
             CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
             int len_ = methodInfos_.size();
@@ -185,7 +187,7 @@ public final class DimensionArrayInstancing extends
         if (m_ instanceof RetrieveConstructor){
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
             OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = getDeltaCount(firstChild_);
+            int deltaCount_ = getDeltaCount(list_,firstChild_);
             int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
             CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
             int len_ = methodInfos_.size();

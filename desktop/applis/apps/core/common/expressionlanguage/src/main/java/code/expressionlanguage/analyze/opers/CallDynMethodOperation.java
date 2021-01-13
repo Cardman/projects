@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -117,6 +118,122 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         String fctName_ = getMethodFound();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        ClassMethodIdAncestor idMethod_ = lookOnlyForId();
+        if (idMethod_ != null) {
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            MethodId mid_ = id_.getConstraints();
+            MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
+            if (!StringUtil.quickEq(idClass_,_page.getAliasFct())) {
+                FoundErrorInterpret und_ = new FoundErrorInterpret();
+                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //fctName_ len
+                und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                        _page.getAliasCall(),
+                        _page.getAliasFct());
+                _page.getLocalizer().addError(und_);
+                addErr(und_.getBuiltError());
+            }
+            if (static_ != MethodAccessKind.INSTANCE) {
+                FoundErrorInterpret und_ = new FoundErrorInterpret();
+                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //fctName_ len
+                und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                        _page.getAliasCall(),
+                        _page.getAliasFct());
+                _page.getLocalizer().addError(und_);
+                addErr(und_.getBuiltError());
+            }
+            if (mid_.isRetRef()) {
+                FoundErrorInterpret und_ = new FoundErrorInterpret();
+                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //fctName_ len
+                und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                        _page.getAliasCall(),
+                        _page.getAliasFct());
+                _page.getLocalizer().addError(und_);
+                addErr(und_.getBuiltError());
+            }
+            if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo()) || StringUtil.quickEq(fctName_, _page.getAliasInstance())) {
+                if (mid_.getParametersTypesLength() != 0) {
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                }
+            }
+            if (StringUtil.quickEq(fctName_, _page.getAliasCall())) {
+                if (!mid_.isVararg()) {
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                }
+                if (mid_.getParametersTypesLength() != 1) {
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                } else if (!StringUtil.quickEq(mid_.getParametersType(0), _page.getAliasObject())){
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                } else if (mid_.getParametersRef(0)){
+                    FoundErrorInterpret und_ = new FoundErrorInterpret();
+                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //fctName_ len
+                    und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                            _page.getAliasCall(),
+                            _page.getAliasFct());
+                    _page.getLocalizer().addError(und_);
+                    addErr(und_.getBuiltError());
+                }
+            }
+            if (idMethod_.getAncestor() != 0) {
+                FoundErrorInterpret und_ = new FoundErrorInterpret();
+                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //fctName_ len
+                und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
+                        _page.getAliasCall(),
+                        _page.getAliasFct());
+                _page.getLocalizer().addError(und_);
+                addErr(und_.getBuiltError());
+            }
+            CustList<OperationNode> filter_ = new CustList<OperationNode>();
+            for (OperationNode o: chidren_) {
+                if (o instanceof IdFctOperation) {
+                    continue;
+                }
+                filter_.add(o);
+            }
+            chidren_ = filter_;
+        }
         if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo())) {
             errLeftValue = true;
             if (!chidren_.isEmpty()) {

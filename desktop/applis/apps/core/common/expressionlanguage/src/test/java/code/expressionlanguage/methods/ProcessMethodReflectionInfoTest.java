@@ -8074,6 +8074,26 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertEq("exmeth2", getString(ret_));
     }
     @Test
+    public void calculate209_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return (($Method)$static().$lambda(Apply,exmeth2).metaInfo($id($Fct))).getName();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth2(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("exmeth2", getString(ret_));
+    }
+    @Test
     public void calculate210Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply<T> {\n");
@@ -8159,6 +8179,26 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  $return $Class.getClass($new Apply().$lambda(Apply,exmeth2).instance()).getName();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int exmeth2(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Apply", getString(ret_));
+    }
+    @Test
+    public void calculate214_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return $Class.getClass($new Apply().$lambda(Apply,exmeth2).instance($id($Fct))).getName();\n");
         xml_.append(" }\n");
         xml_.append(" $public $int exmeth2(){\n");
         xml_.append("  $return 0;\n");
