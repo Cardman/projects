@@ -55,6 +55,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordEscForm("f");
         en_.setKeyWordEscLine("n");
         fr_.setKeyWordEscLine("n");
+        en_.setKeyWordEscSpace("s");
+        fr_.setKeyWordEscSpace("s");
         en_.setKeyWordEscTab("t");
         fr_.setKeyWordEscTab("t");
         en_.setKeyWordEscUnicode("u");

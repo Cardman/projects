@@ -6183,6 +6183,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("\"hello word\".regionMatches(0,\"hab\",0,2)");
         assertTrue(arg_.isFalse());
     }
+
+    @Test
+    public void processEl103098Test() {
+        Argument arg_ = directCalculate("\"\\s\"");
+        assertEq(" ", getString(arg_));
+    }
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);

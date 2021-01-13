@@ -65,6 +65,7 @@ public final class KeyWords {
     private static final String SWITCH = "Switch";
     private static final String INTERN = "Intern";
     private static final String NORMAL = "Normal";
+    private static final String ESC_SPACE = "EscSpace";
     private static final String ESC_TAB = "EscTab";
     private static final String NB_HEX = "NbHex";
     private static final String NB_HEX_END = "NbHexEnd";
@@ -144,6 +145,7 @@ public final class KeyWords {
     private String keyWordEscForm = "f";
     private String keyWordEscLine = "n";
     private String keyWordEscFeed = "r";
+    private String keyWordEscSpace = "s";
     private String keyWordEscTab = "t";
     private String keyWordEscBound = "b";
 
@@ -567,6 +569,7 @@ public final class KeyWords {
         setKeyWordSwitch(LgNamesContent.get(_util, _cust, SWITCH));
         setKeyWordIntern(LgNamesContent.get(_util, _cust, INTERN));
         setKeyWordNormal(LgNamesContent.get(_util, _cust, NORMAL));
+        setKeyWordEscSpace(LgNamesContent.get(_util, _cust, ESC_SPACE));
         setKeyWordEscTab(LgNamesContent.get(_util, _cust, ESC_TAB));
         setKeyWordNbHex(LgNamesContent.get(_util, _cust, NB_HEX));
         setKeyWordNbHexEnd(LgNamesContent.get(_util, _cust, NB_HEX_END));
@@ -668,6 +671,7 @@ public final class KeyWords {
         keyWords_.addEntry(ESC_FORM,keyWordEscForm);
         keyWords_.addEntry(ESC_LINE,keyWordEscLine);
         keyWords_.addEntry(ESC_FEED,keyWordEscFeed);
+        keyWords_.addEntry(ESC_SPACE,keyWordEscSpace);
         keyWords_.addEntry(ESC_TAB,keyWordEscTab);
         keyWords_.addEntry(ESC_BOUND,keyWordEscBound);
         return keyWords_;
@@ -771,6 +775,7 @@ public final class KeyWords {
         keyWords_.add(keyWordEscFeed);
         keyWords_.add(keyWordEscForm);
         keyWords_.add(keyWordEscLine);
+        keyWords_.add(keyWordEscSpace);
         keyWords_.add(keyWordEscTab);
         String sub_ = _string.substring(_from);
         StringList list_ = new StringList();
@@ -1043,6 +1048,15 @@ public final class KeyWords {
     public void setKeyWordEscFeed(String _keyWordEscFeed) {
         keyWordEscFeed = _keyWordEscFeed;
     }
+
+    public String getKeyWordEscSpace() {
+        return keyWordEscSpace;
+    }
+
+    public void setKeyWordEscSpace(String _keyWordEscSpace) {
+        this.keyWordEscSpace = _keyWordEscSpace;
+    }
+
     public String getKeyWordEscTab() {
         return keyWordEscTab;
     }

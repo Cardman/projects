@@ -45,6 +45,7 @@ public final class ElResolver {
     private static final char FORM_FEED = '\f';
     private static final char BOUND = '\b';
     private static final char LINE_FEED = '\r';
+    private static final char SPACE = ' ';
     private static final char TAB = '\t';
     private static final char ESCAPE_META_CHAR = '\\';
     private static final char DELIMITER_CHAR = 39;
@@ -352,7 +353,7 @@ public final class ElResolver {
         boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
         IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
-        char prevOp_ = ' ';
+        char prevOp_ = SPACE;
         int from_ = _from;
         int len_ = _string.length();
         while (from_ < len_) {
@@ -463,7 +464,7 @@ public final class ElResolver {
         boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
         IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
-        char prevOp_ = ' ';
+        char prevOp_ = SPACE;
         int from_ = _from;
         int len_ = _string.length();
         while (from_ < len_) {
@@ -3052,6 +3053,7 @@ public final class ElResolver {
         String newLine_ = _key.getKeyWordEscLine();
         String form_ = _key.getKeyWordEscForm();
         String rfeed_ = _key.getKeyWordEscFeed();
+        String space_ = _key.getKeyWordEscSpace();
         String tab_ = _key.getKeyWordEscTab();
         String bound_ = _key.getKeyWordEscBound();
         if (single_ != null) {
@@ -3070,6 +3072,9 @@ public final class ElResolver {
             } else if (StringUtil.quickEq(single_, tab_)) {
                 i_+=tab_.length();
                 infos_.getStringInfo().getChars().add(TAB);
+            } else if (StringUtil.quickEq(single_, space_)) {
+                i_+=tab_.length();
+                infos_.getStringInfo().getChars().add(SPACE);
             } else {
                 i_+=bound_.length();
                 infos_.getStringInfo().getChars().add(BOUND);
