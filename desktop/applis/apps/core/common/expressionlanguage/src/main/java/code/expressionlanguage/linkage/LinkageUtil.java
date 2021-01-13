@@ -2860,6 +2860,18 @@ public final class LinkageUtil {
         if (_val instanceof ConstantOperation) {
             int off_ = _val.getOperations().getOffset();
             int begCst_ = _sum + off_ + _val.getIndexInEl();
+            if (_val.getOperations().getConstType() == ConstType.TEXT_BLOCK) {
+                String tag_ = "<span class=\"s\">";
+                _parts.add(new PartOffset(tag_, begCst_));
+                if (!_val.getErrs().isEmpty()) {
+                    tag_ = "<a title=\""+transform(StringUtil.join(_val.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    _parts.add(new PartOffset(tag_, begCst_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getBlockLength()));
+                }
+                tag_ = "</span>";
+                _parts.add(new PartOffset(tag_, begCst_ + ((ConstantOperation)_val).getBlockLength()));
+            }
             if (_val.getOperations().getConstType() == ConstType.STRING) {
                 String tag_ = "<span class=\"s\">";
                 _parts.add(new PartOffset(tag_, begCst_));

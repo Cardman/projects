@@ -138,6 +138,8 @@ public final class ElResolver {
         resOpers_.setParsBrackets(parsBrackets_);
         resOpers_.setPartOfString(partOfString_);
 
+        boolean constTextString_ = false;
+        boolean constTextChar_ = false;
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean constText_ = false;
@@ -162,6 +164,7 @@ public final class ElResolver {
         }
         KeyWords keyWords_ = _page.getKeyWords();
         StringInfo si_ = new StringInfo();
+        TextBlockInfo txt_ = new TextBlockInfo();
         i_ = _minIndex;
         int nbChars_ = 0;
         ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
@@ -173,6 +176,30 @@ public final class ElResolver {
         resOpers_.setDoubleDotted(resWords_);
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
+            if (constTextChar_) {
+                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+                unic_.setIndex(i_);
+                unic_.setEscape(escapedMeta_);
+                unic_.setNbChars(nbChars_);
+                unic_.setPart(true);
+                unic_.setUnicode(unicode_);
+                unic_.setTextInfo(txt_);
+                IndexUnicodeEscape res_ = processTextBlocks(keyWords_,_string, len_, txt_,unic_, DELIMITER_CHAR);
+                int index_ = res_.getIndex();
+                if (!res_.isPart()) {
+                    _d.getTextInfo().add(txt_);
+                    _d.getDelTextBlocks().add(i_+2);
+                    txt_ = new TextBlockInfo();
+                    constTextChar_ = false;
+                    i_+=3;
+                    continue;
+                }
+                i_ = index_;
+                escapedMeta_ = res_.isEscape();
+                nbChars_ = res_.getNbChars();
+                unicode_ = res_.getUnicode();
+                continue;
+            }
             if (constChar_) {
                 IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
                 unic_.setIndex(i_);
@@ -189,6 +216,30 @@ public final class ElResolver {
                     si_ = new StringInfo();
                     constChar_ = false;
                     i_++;
+                    continue;
+                }
+                i_ = index_;
+                escapedMeta_ = res_.isEscape();
+                nbChars_ = res_.getNbChars();
+                unicode_ = res_.getUnicode();
+                continue;
+            }
+            if (constTextString_) {
+                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+                unic_.setIndex(i_);
+                unic_.setEscape(escapedMeta_);
+                unic_.setNbChars(nbChars_);
+                unic_.setPart(true);
+                unic_.setUnicode(unicode_);
+                unic_.setTextInfo(txt_);
+                IndexUnicodeEscape res_ = processTextBlocks(keyWords_,_string, len_, txt_,unic_, DELIMITER_STRING);
+                int index_ = res_.getIndex();
+                if (!res_.isPart()) {
+                    _d.getTextInfo().add(txt_);
+                    _d.getDelTextBlocks().add(i_+2);
+                    txt_ = new TextBlockInfo();
+                    constTextString_ = false;
+                    i_+=3;
                     continue;
                 }
                 i_ = index_;
@@ -296,6 +347,8 @@ public final class ElResolver {
             }
             resOpers_.setPartOfString(partOfString_);
             resOpers_.setBeginOrEnd(beginOrEnd_);
+            resOpers_.setConstTextChar(false);
+            resOpers_.setConstTextString(false);
             resOpers_.setConstChar(false);
             resOpers_.setConstString(false);
             resOpers_.setConstText(false);
@@ -308,6 +361,8 @@ public final class ElResolver {
                 return _d;
             }
             beginOrEnd_ = resOpers_.isBeginOrEnd();
+            constTextChar_ = resOpers_.isConstTextChar();
+            constTextString_ = resOpers_.isConstTextString();
             constChar_ = resOpers_.isConstChar();
             constString_ = resOpers_.isConstString();
             constText_ = resOpers_.isConstText();
@@ -317,6 +372,14 @@ public final class ElResolver {
             i_ = resOpers_.getDoubleDotted().getNextIndex();
             lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
             ctorCall_ = resOpers_.getDoubleDotted().isCallCtor();
+        }
+        if (constTextString_) {
+            _d.setBadOffset(i_);
+            return _d;
+        }
+        if (constTextChar_) {
+            _d.setBadOffset(i_);
+            return _d;
         }
         if (constString_) {
             _d.setBadOffset(i_);
@@ -348,6 +411,8 @@ public final class ElResolver {
     }
 
     private static void stackBegin(String _string, int _from, RootBlock _globalDirType, AnalyzedPageEl _page) {
+        boolean constTextString_ = false;
+        boolean constTextChar_ = false;
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean constText_ = false;
@@ -358,6 +423,22 @@ public final class ElResolver {
         int len_ = _string.length();
         while (from_ < len_) {
             char curChar_ = _string.charAt(from_);
+            if (constTextString_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_STRING
+                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_STRING)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_STRING)) {
+                    constTextString_ = false;
+                    from_ += 3;
+                    continue;
+                }
+                from_++;
+                continue;
+            }
             if (constString_) {
                 if (curChar_ == ESCAPE_META_CHAR) {
                     from_++;
@@ -366,6 +447,22 @@ public final class ElResolver {
                 }
                 if (curChar_ == DELIMITER_STRING) {
                     constString_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constTextChar_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_CHAR
+                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_CHAR)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_CHAR)) {
+                    constTextChar_ = false;
+                    from_ += 3;
+                    continue;
                 }
                 from_++;
                 continue;
@@ -395,11 +492,21 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == DELIMITER_STRING) {
+                if (are(_string, from_, len_, DELIMITER_STRING)) {
+                    constTextString_ = true;
+                    from_+=3;
+                    continue;
+                }
                 constString_ = true;
                 from_++;
                 continue;
             }
             if (curChar_ == DELIMITER_CHAR) {
+                if (are(_string, from_, len_, DELIMITER_CHAR)) {
+                    constTextChar_ = true;
+                    from_+=3;
+                    continue;
+                }
                 constChar_ = true;
                 from_++;
                 continue;
@@ -459,6 +566,8 @@ public final class ElResolver {
         }
     }
     private static int stack(String _string, int _from, RootBlock _globalDirType, AnalyzedPageEl _page) {
+        boolean constTextString_ = false;
+        boolean constTextChar_ = false;
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean constText_ = false;
@@ -469,6 +578,22 @@ public final class ElResolver {
         int len_ = _string.length();
         while (from_ < len_) {
             char curChar_ = _string.charAt(from_);
+            if (constTextString_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_STRING
+                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_STRING)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_STRING)) {
+                    constTextString_ = false;
+                    from_ += 3;
+                    continue;
+                }
+                from_++;
+                continue;
+            }
             if (constString_) {
                 if (curChar_ == ESCAPE_META_CHAR) {
                     from_++;
@@ -477,6 +602,22 @@ public final class ElResolver {
                 }
                 if (curChar_ == DELIMITER_STRING) {
                     constString_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constTextChar_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_CHAR
+                        &&StringExpUtil.nextCharIs(_string,from_+1,len_,DELIMITER_CHAR)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_,DELIMITER_CHAR)) {
+                    constTextChar_ = false;
+                    from_ += 3;
+                    continue;
                 }
                 from_++;
                 continue;
@@ -506,11 +647,21 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == DELIMITER_STRING) {
+                if (are(_string, from_, len_, DELIMITER_STRING)) {
+                    constTextString_ = true;
+                    from_+=3;
+                    continue;
+                }
                 constString_ = true;
                 from_++;
                 continue;
             }
             if (curChar_ == DELIMITER_CHAR) {
+                if (are(_string, from_, len_, DELIMITER_CHAR)) {
+                    constTextChar_ = true;
+                    from_+=3;
+                    continue;
+                }
                 constChar_ = true;
                 from_++;
                 continue;
@@ -552,6 +703,12 @@ public final class ElResolver {
         }
         return from_;
     }
+
+    private static boolean are(String _string, int _from, int _len, char _delimiter) {
+        return StringExpUtil.nextCharIs(_string, _from + 1, _len, _delimiter)
+                && StringExpUtil.nextCharIs(_string, _from + 2, _len, _delimiter);
+    }
+
     private static int processAfterInstuctionKeyWordQuick(String _string, int _i, StackDelimiters _stack, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _i;
@@ -2527,6 +2684,13 @@ public final class ElResolver {
             }
         }
         if (curChar_ == DELIMITER_CHAR) {
+            if (are(_string, i_, _string.length(), DELIMITER_CHAR)) {
+                _out.setConstTextChar(true);
+                _dout.getDelTextBlocks().add(i_);
+                i_+=3;
+                doubleDotted_.setNextIndex(i_);
+                return;
+            }
             nbChars_ = 0;
             _out.setConstChar(true);
             _out.setNbChars(nbChars_);
@@ -2536,6 +2700,13 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DELIMITER_STRING) {
+            if (are(_string, i_, _string.length(), DELIMITER_STRING)) {
+                _out.setConstTextString(true);
+                _dout.getDelTextBlocks().add(i_);
+                i_+=3;
+                doubleDotted_.setNextIndex(i_);
+                return;
+            }
             _out.setConstString(true);
             _dout.getDelStringsChars().add(i_);
             i_++;
@@ -3040,6 +3211,12 @@ public final class ElResolver {
             infos_.setUnicode(unicode_);
             return infos_;
         }
+        if (curChar_ == LINE_RETURN) {
+            infos_.setEscape(false);
+            i_++;
+            infos_.setIndex(i_);
+            return infos_;
+        }
         if (curChar_ == _delimiter) {
             nbChars_++;
             infos_.setNbChars(nbChars_);
@@ -3095,6 +3272,198 @@ public final class ElResolver {
         if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
             infos_.getStringInfo().getChars().add(curChar_);
+            nbChars_++;
+            infos_.setNbChars(nbChars_);
+            infos_.setEscape(false);
+            i_++;
+            infos_.setIndex(i_);
+            return infos_;
+        }
+        unicode_ = 1;
+        infos_.setUnicode(unicode_);
+        i_+=unicodeStr_.length();
+        infos_.setIndex(i_);
+        return infos_;
+    }
+
+    private static IndexUnicodeEscape processTextBlocks(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        int unicode_ = _infos.getUnicode();
+        char curChar_ = _string.charAt(i_);
+        boolean escapedMeta_ = _infos.isEscape();
+        IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
+        infos_.setTextInfo(_infos.getTextInfo());
+        infos_.setEscape(escapedMeta_);
+        infos_.setIndex(i_);
+        infos_.setNbChars(nbChars_);
+        infos_.setUnicode(unicode_);
+        infos_.setPart(_infos.isPart());
+        if (!StringUtil.isWhitespace(curChar_)&&!infos_.getTextInfo().isLine()) {
+            infos_.getTextInfo().setKo();
+        }
+        if (!escapedMeta_) {
+            if (curChar_ == ESCAPE_META_CHAR) {
+                if (i_ + 1 >= _max) {
+                    _si.setKo();
+                    i_++;
+                    infos_.setIndex(i_);
+                    return infos_;
+                }
+                infos_.setEscape(true);
+                i_++;
+                infos_.setIndex(i_);
+                return infos_;
+            }
+            if (curChar_ == _delimiter
+                    && StringExpUtil.nextCharIs(_string,i_+1,_string.length(),_delimiter)
+                    && StringExpUtil.nextCharIs(_string,i_+2,_string.length(),_delimiter)) {
+                int lastSpace_ = infos_.getTextInfo().getLastSpace();
+                if (lastSpace_ > -1) {
+                    int lastIndex_ = infos_.getTextInfo().getChars().size()-1;
+                    for (int i = lastIndex_; i >= lastSpace_; i--) {
+                        infos_.getTextInfo().getChars().remove(i);
+                    }
+                }
+                infos_.setPart(false);
+                i_+=3;
+                infos_.setIndex(i_);
+                return infos_;
+            }
+            if (curChar_ == LINE_RETURN) {
+                boolean line_ = infos_.getTextInfo().isLine();
+                infos_.getTextInfo().setLine(true);
+                int lastSpace_ = infos_.getTextInfo().getLastSpace();
+                if (lastSpace_ > -1) {
+                    int lastIndex_ = infos_.getTextInfo().getChars().size()-1;
+                    for (int i = lastIndex_; i >= lastSpace_; i--) {
+                        infos_.getTextInfo().getChars().remove(i);
+                    }
+                }
+                if (line_) {
+                    infos_.getTextInfo().getChars().add(curChar_);
+                    nbChars_++;
+                    infos_.setNbChars(nbChars_);
+                }
+                infos_.getTextInfo().setPrintable(false);
+                infos_.getTextInfo().setLastSpace(-1);
+            } else if (StringUtil.isWhitespace(curChar_)) {
+                if (infos_.getTextInfo().isPrintable()) {
+                    infos_.getTextInfo().setLastSpace(infos_.getTextInfo().getChars().size());
+                    infos_.getTextInfo().getChars().add(curChar_);
+                    nbChars_++;
+                    infos_.setNbChars(nbChars_);
+                }
+            } else {
+                infos_.getTextInfo().setLastSpace(-1);
+                infos_.getTextInfo().getChars().add(curChar_);
+                infos_.getTextInfo().setPrintable(true);
+                nbChars_++;
+                infos_.setNbChars(nbChars_);
+            }
+            i_++;
+            infos_.setIndex(i_);
+            return infos_;
+        }
+        infos_.getTextInfo().setLastSpace(-1);
+        if (unicode_ > 0) {
+            boolean ok_ = false;
+            if (StringExpUtil.isDigit(curChar_)) {
+                ok_ = true;
+            }
+            if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
+                ok_ = true;
+            }
+            if (curChar_ >= MIN_ENCODE_UPP_LETTER && curChar_ <= MAX_ENCODE_UPP_LETTER) {
+                ok_ = true;
+            }
+            if (!ok_) {
+                _si.setKo();
+            }
+            infos_.getTextInfo().getBuiltUnicode()[unicode_-1] = curChar_;
+            if (unicode_ < UNICODE_SIZE) {
+                unicode_++;
+            } else {
+                char[] unicodes_ = infos_.getTextInfo().getBuiltUnicode();
+                char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
+                infos_.getTextInfo().getChars().add(builtChar_);
+                infos_.getTextInfo().setPrintable(true);
+                unicode_ = 0;
+                nbChars_++;
+                escapedMeta_ = false;
+            }
+            infos_.setNbChars(nbChars_);
+            i_++;
+            infos_.setIndex(i_);
+            infos_.setEscape(escapedMeta_);
+            infos_.setUnicode(unicode_);
+            return infos_;
+        }
+        if (curChar_ == _delimiter) {
+            nbChars_++;
+            infos_.setNbChars(nbChars_);
+            infos_.setEscape(false);
+            infos_.getTextInfo().getChars().add(curChar_);
+            infos_.getTextInfo().setPrintable(true);
+            i_++;
+            infos_.setIndex(i_);
+            return infos_;
+        }
+        if (curChar_ == LINE_RETURN) {
+            infos_.setEscape(false);
+            i_++;
+            infos_.setIndex(i_);
+            infos_.getTextInfo().setPrintable(true);
+            return infos_;
+        }
+        String single_ = _key.getEscKeyWord(_string, i_);
+        String newLine_ = _key.getKeyWordEscLine();
+        String form_ = _key.getKeyWordEscForm();
+        String rfeed_ = _key.getKeyWordEscFeed();
+        String space_ = _key.getKeyWordEscSpace();
+        String tab_ = _key.getKeyWordEscTab();
+        String bound_ = _key.getKeyWordEscBound();
+        if (single_ != null) {
+            nbChars_++;
+            infos_.setNbChars(nbChars_);
+            infos_.setEscape(false);
+            if (StringUtil.quickEq(single_, newLine_)) {
+                i_+=newLine_.length();
+                infos_.getTextInfo().getChars().add(LINE_RETURN);
+            } else if (StringUtil.quickEq(single_, form_)) {
+                i_+=form_.length();
+                infos_.getTextInfo().getChars().add(FORM_FEED);
+            } else if (StringUtil.quickEq(single_, rfeed_)) {
+                i_+=rfeed_.length();
+                infos_.getTextInfo().getChars().add(LINE_FEED);
+            } else if (StringUtil.quickEq(single_, tab_)) {
+                i_+=tab_.length();
+                infos_.getTextInfo().getChars().add(TAB);
+            } else if (StringUtil.quickEq(single_, space_)) {
+                i_+=tab_.length();
+                infos_.getTextInfo().getChars().add(SPACE);
+            } else {
+                i_+=bound_.length();
+                infos_.getTextInfo().getChars().add(BOUND);
+            }
+            infos_.getTextInfo().setPrintable(true);
+            infos_.setIndex(i_);
+            return infos_;
+        }
+        if (curChar_ == ESCAPE_META_CHAR) {
+            infos_.getTextInfo().getChars().add(ESCAPE_META_CHAR);
+            infos_.getTextInfo().setPrintable(true);
+            nbChars_++;
+            infos_.setNbChars(nbChars_);
+            infos_.setEscape(false);
+            i_++;
+            infos_.setIndex(i_);
+            return infos_;
+        }
+        String unicodeStr_ = _key.getKeyWordEscUnicode();
+        if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
+            _si.setKo();
+            infos_.getTextInfo().getChars().add(curChar_);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
@@ -3898,6 +4267,25 @@ public final class ElResolver {
             op_.setConstType(ConstType.STRING);
             op_.setOperators(new IntTreeMap< String>());
             op_.setStrInfo(info_);
+            info_.setFound(_string);
+            op_.setValue(String.valueOf(str_), firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelTextBlocks().indexOfObj(firstPrintChar_+_offset);
+        end_ = _d.getDelTextBlocks().indexOfObj(lastPrintChar_+_offset);
+        if (delimits(begin_, end_)) {
+            TextBlockInfo info_ = _d.getTextInfo().get(begin_/2);
+            CharList list_ = info_.getChars();
+            int lenStr_ = list_.size();
+            char[] str_ = new char[lenStr_];
+            for (int i = 0; i < lenStr_; i++) {
+                str_[i] = list_.get(i);
+            }
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.TEXT_BLOCK);
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setTextInfo(info_);
             info_.setFound(_string);
             op_.setValue(String.valueOf(str_), firstPrintChar_);
             op_.setDelimiter(_d);

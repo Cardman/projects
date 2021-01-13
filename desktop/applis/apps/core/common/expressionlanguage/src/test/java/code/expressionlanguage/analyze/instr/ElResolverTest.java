@@ -5126,11 +5126,27 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void checkSyntax20_FailTest() {
+        AnalyzedTestContext conf_ = contextEl();
+
+        String el_ = "'''\\";
+        assertEq(4, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    @Test
     public void checkSyntax21FailTest() {
         AnalyzedTestContext conf_ = contextEl();
 
         String el_ = "\"\\";
         assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax21_FailTest() {
+        AnalyzedTestContext conf_ = contextEl();
+
+        String el_ = "\"\"\"\\";
+        assertEq(4, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5142,11 +5158,27 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void checkSyntax22_FailTest() {
+        AnalyzedTestContext conf_ = contextEl();
+
+        String el_ = "\"\"\"\\u9fc";
+        assertEq(8, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    @Test
     public void checkSyntax23FailTest() {
         AnalyzedTestContext conf_ = contextEl();
 
         String el_ = "'\\u9fc";
         assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax23_FailTest() {
+        AnalyzedTestContext conf_ = contextEl();
+
+        String el_ = "'''\\u9fc";
+        assertEq(8, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test

@@ -5,6 +5,8 @@ import code.util.*;
 public final class ResultAfterOperators {
     private ResultAfterDoubleDotted doubleDotted;
     private IntTreeMap<Character> parsBrackets;
+    private boolean constTextString;
+    private boolean constTextChar;
     private boolean constString;
     private boolean constChar;
     private boolean constText;
@@ -25,6 +27,22 @@ public final class ResultAfterOperators {
 
     public void setParsBrackets(IntTreeMap< Character> _parsBrackets) {
         parsBrackets = _parsBrackets;
+    }
+
+    public boolean isConstTextString() {
+        return constTextString;
+    }
+
+    public void setConstTextString(boolean _constTextString) {
+        constTextString = _constTextString;
+    }
+
+    public boolean isConstTextChar() {
+        return constTextChar;
+    }
+
+    public void setConstTextChar(boolean _constTextChar) {
+        constTextChar = _constTextChar;
     }
 
     public boolean isConstString() {

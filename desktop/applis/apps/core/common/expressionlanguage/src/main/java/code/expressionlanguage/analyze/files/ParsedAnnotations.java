@@ -14,12 +14,12 @@ public final class ParsedAnnotations {
     private static final char DEL_TEXT = '`';
     private static final char ESCAPE = '\\';
     private static final char ANNOT = '@';
-    private Ints annotationsIndexes = new Ints();
-    private StringList annotations = new StringList();
+    private final Ints annotationsIndexes = new Ints();
+    private final StringList annotations = new StringList();
     private String instruction = "";
     private String after = "";
     private int index;
-    private int instructionLocation;
+    private final int instructionLocation;
 
     public ParsedAnnotations(String _instruction, int _instructionLocation) {
         instruction = _instruction;
@@ -31,11 +31,33 @@ public final class ParsedAnnotations {
         int nbPars_ = 0;
         StringBuilder annotation_ = new StringBuilder();
         boolean quoted_ = false;
+        boolean quotedStringText_ = false;
+        boolean quotedCharText_ = false;
         boolean quotedChar_ = false;
         boolean quotedText_ = false;
         boolean endLoop_ = true;
         while (j_ < lenInst_) {
             char cur_ = instruction.charAt(j_);
+            if (quotedCharText_) {
+                annotation_.append(cur_);
+                if (cur_ == ESCAPE) {
+                    j_++;
+                    annotation_.append(instruction.charAt(j_));
+                    j_++;
+                    continue;
+                }
+                if (cur_ == DEL_CHAR
+                        &&StringExpUtil.nextCharIs(instruction,j_+1,lenInst_,DEL_CHAR)
+                        &&StringExpUtil.nextCharIs(instruction,j_+2,lenInst_,DEL_CHAR)) {
+                    quotedCharText_ = false;
+                    annotation_.append(instruction.charAt(j_+1));
+                    annotation_.append(instruction.charAt(j_+2));
+                    j_+=3;
+                    continue;
+                }
+                j_++;
+                continue;
+            }
             if (quotedChar_) {
                 annotation_.append(cur_);
                 if (cur_ == ESCAPE) {
@@ -46,6 +68,26 @@ public final class ParsedAnnotations {
                 }
                 if (cur_ == DEL_CHAR) {
                     quotedChar_ = false;
+                }
+                j_++;
+                continue;
+            }
+            if (quotedStringText_) {
+                annotation_.append(cur_);
+                if (cur_ == ESCAPE) {
+                    j_++;
+                    annotation_.append(instruction.charAt(j_));
+                    j_++;
+                    continue;
+                }
+                if (cur_ == DEL_STRING
+                        &&StringExpUtil.nextCharIs(instruction,j_+1,lenInst_,DEL_STRING)
+                        &&StringExpUtil.nextCharIs(instruction,j_+2,lenInst_,DEL_STRING)) {
+                    quotedStringText_ = false;
+                    annotation_.append(instruction.charAt(j_+1));
+                    annotation_.append(instruction.charAt(j_+2));
+                    j_+=3;
+                    continue;
                 }
                 j_++;
                 continue;
@@ -79,12 +121,28 @@ public final class ParsedAnnotations {
                 continue;
             }
             if (cur_ == DEL_CHAR) {
+                if (are(lenInst_, j_, DEL_CHAR)) {
+                    annotation_.append(cur_);
+                    annotation_.append(instruction.charAt(j_+1));
+                    annotation_.append(instruction.charAt(j_+2));
+                    quotedCharText_ = true;
+                    j_ += 3;
+                    continue;
+                }
                 annotation_.append(cur_);
                 quotedChar_ = true;
                 j_++;
                 continue;
             }
             if (cur_ == DEL_STRING) {
+                if (are(lenInst_, j_, DEL_STRING)) {
+                    annotation_.append(cur_);
+                    annotation_.append(instruction.charAt(j_+1));
+                    annotation_.append(instruction.charAt(j_+2));
+                    quotedStringText_ = true;
+                    j_ += 3;
+                    continue;
+                }
                 annotation_.append(cur_);
                 quoted_ = true;
                 j_++;
@@ -163,6 +221,12 @@ public final class ParsedAnnotations {
             index = lenInst_ + instructionLocation;
         }
     }
+
+    private boolean are(int _lenInst, int _j, char _delChar) {
+        return StringExpUtil.nextCharIs(instruction, _j + 1, _lenInst, _delChar)
+                && StringExpUtil.nextCharIs(instruction, _j + 2, _lenInst, _delChar);
+    }
+
     private static boolean isPart(char _char) {
         if (StringExpUtil.isTypeLeafChar(_char)) {
             return true;

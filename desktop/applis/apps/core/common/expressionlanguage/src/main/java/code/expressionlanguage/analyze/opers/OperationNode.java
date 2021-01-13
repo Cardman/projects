@@ -462,6 +462,9 @@ public abstract class OperationNode {
         if (ct_ == ConstType.STRING) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
+        if (ct_ == ConstType.TEXT_BLOCK) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
         if (ct_ == ConstType.SIMPLE_ANNOTATION) {
             return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
         }

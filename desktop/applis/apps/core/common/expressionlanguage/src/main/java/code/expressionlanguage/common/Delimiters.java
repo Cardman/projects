@@ -11,35 +11,37 @@ public final class Delimiters {
     private int indexEnd;
     private int length;
     private boolean partOfString;
-    private Ints allowedOperatorsIndexes = new Ints();
-    private Ints delStringsChars = new Ints();
-    private Ints delNumbers = new Ints();
-    private Ints delKeyWordSuper = new Ints();
-    private Ints delKeyWordSuperAccess = new Ints();
-    private Ints delKeyWordClassChoice = new Ints();
-    private Ints delKeyWordStatic = new Ints();
-    private Ints delKeyWordStaticCall = new Ints();
-    private StringList delKeyWordStaticExtract = new StringList();
-    private CustList<CustList<PartOffset>> staticParts = new CustList<CustList<PartOffset>>();
-    private Ints delExplicit = new Ints();
-    private Ints delCast = new Ints();
-    private StringList delCastExtract = new StringList();
-    private CustList<CustList<PartOffset>> castParts = new CustList<CustList<PartOffset>>();
-    private Ints delInstanceof = new Ints();
-    private Ints delLambda = new Ints();
-    private Ints delIds = new Ints();
-    private Ints delLoopVars = new Ints();
-    private Ints delVararg = new Ints();
-    private Ints delDefaultValue = new Ints();
-    private Ints delClass = new Ints();
-    private Ints delSimpleAnnotations = new Ints();
-    private StackDelimiters stack = new StackDelimiters();
-    private CustList<StringInfo> stringInfo = new CustList<StringInfo>();
-    private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
-    private CustList<VariableInfo> variables = new CustList<VariableInfo>();
-    private Ints dimsAddonIndexes = new Ints();
-    private Ints delAccessIndexers = new Ints();
-    private Ints delValues = new Ints();
+    private final Ints allowedOperatorsIndexes = new Ints();
+    private final Ints delStringsChars = new Ints();
+    private final Ints delTextBlocks = new Ints();
+    private final Ints delNumbers = new Ints();
+    private final Ints delKeyWordSuper = new Ints();
+    private final Ints delKeyWordSuperAccess = new Ints();
+    private final Ints delKeyWordClassChoice = new Ints();
+    private final Ints delKeyWordStatic = new Ints();
+    private final Ints delKeyWordStaticCall = new Ints();
+    private final StringList delKeyWordStaticExtract = new StringList();
+    private final CustList<CustList<PartOffset>> staticParts = new CustList<CustList<PartOffset>>();
+    private final Ints delExplicit = new Ints();
+    private final Ints delCast = new Ints();
+    private final StringList delCastExtract = new StringList();
+    private final CustList<CustList<PartOffset>> castParts = new CustList<CustList<PartOffset>>();
+    private final Ints delInstanceof = new Ints();
+    private final Ints delLambda = new Ints();
+    private final Ints delIds = new Ints();
+    private final Ints delLoopVars = new Ints();
+    private final Ints delVararg = new Ints();
+    private final Ints delDefaultValue = new Ints();
+    private final Ints delClass = new Ints();
+    private final Ints delSimpleAnnotations = new Ints();
+    private final StackDelimiters stack = new StackDelimiters();
+    private final CustList<StringInfo> stringInfo = new CustList<StringInfo>();
+    private final CustList<TextBlockInfo> textInfo = new CustList<TextBlockInfo>();
+    private final CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
+    private final CustList<VariableInfo> variables = new CustList<VariableInfo>();
+    private final Ints dimsAddonIndexes = new Ints();
+    private final Ints delAccessIndexers = new Ints();
+    private final Ints delValues = new Ints();
 
     public int getBadOffset() {
         return badOffset;
@@ -51,6 +53,10 @@ public final class Delimiters {
 
     public Ints getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
+    }
+
+    public Ints getDelTextBlocks() {
+        return delTextBlocks;
     }
 
     public Ints getDelStringsChars() {
@@ -164,6 +170,11 @@ public final class Delimiters {
     public CustList<NumberInfos> getNbInfos() {
         return nbInfos;
     }
+
+    public CustList<TextBlockInfo> getTextInfo() {
+        return textInfo;
+    }
+
     public CustList<StringInfo> getStringInfo() {
         return stringInfo;
     }

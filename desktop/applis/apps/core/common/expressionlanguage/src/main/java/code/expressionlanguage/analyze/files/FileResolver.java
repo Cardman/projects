@@ -2935,11 +2935,29 @@ public final class FileResolver {
         int indexInstr_ = 0;
         int instrLen_ = _info.length();
         int localCallings_ = 0;
+        boolean localConstCharText_ = false;
+        boolean localConstStringText_ = false;
         boolean localConstChar_ = false;
         boolean localConstString_ = false;
         boolean localConstText_ = false;
         while (indexInstr_ < instrLen_) {
             char locChar_ = _info.charAt(indexInstr_);
+            if (localConstCharText_) {
+                if (locChar_ == ESCAPE) {
+                    indexInstr_++;
+                    indexInstr_++;
+                    continue;
+                }
+                if (locChar_ == DEL_CHAR
+                    &&StringExpUtil.nextCharIs(_info,indexInstr_+1,instrLen_,DEL_CHAR)
+                    &&StringExpUtil.nextCharIs(_info,indexInstr_+2,instrLen_,DEL_CHAR)) {
+                    indexInstr_+=3;
+                    localConstCharText_ = false;
+                    continue;
+                }
+                indexInstr_++;
+                continue;
+            }
             if (localConstChar_) {
                 if (locChar_ == ESCAPE) {
                     indexInstr_++;
@@ -2949,6 +2967,22 @@ public final class FileResolver {
                 if (locChar_ == DEL_CHAR) {
                     indexInstr_++;
                     localConstChar_ = false;
+                    continue;
+                }
+                indexInstr_++;
+                continue;
+            }
+            if (localConstStringText_) {
+                if (locChar_ == ESCAPE) {
+                    indexInstr_++;
+                    indexInstr_++;
+                    continue;
+                }
+                if (locChar_ == DEL_STRING
+                        &&StringExpUtil.nextCharIs(_info,indexInstr_+1,instrLen_,DEL_STRING)
+                        &&StringExpUtil.nextCharIs(_info,indexInstr_+2,instrLen_,DEL_STRING)) {
+                    indexInstr_+=3;
+                    localConstStringText_ = false;
                     continue;
                 }
                 indexInstr_++;
@@ -2984,9 +3018,19 @@ public final class FileResolver {
                 return indexInstr_;
             }
             if (locChar_ == DEL_CHAR) {
+                if (are(_info, indexInstr_, instrLen_, DEL_CHAR)){
+                    localConstCharText_ = true;
+                    indexInstr_+=3;
+                    continue;
+                }
                 localConstChar_ = true;
             }
             if (locChar_ == DEL_STRING) {
+                if (are(_info, indexInstr_, instrLen_, DEL_STRING)){
+                    localConstStringText_ = true;
+                    indexInstr_+=3;
+                    continue;
+                }
                 localConstString_ = true;
             }
             if (locChar_ == DEL_TEXT) {
@@ -3013,6 +3057,11 @@ public final class FileResolver {
             indexInstr_++;
         }
         return -1;
+    }
+
+    private static boolean are(String _info, int _indexInstr, int _instrLen, char _del) {
+        return StringExpUtil.nextCharIs(_info, _indexInstr + 1, _instrLen, _del)
+                && StringExpUtil.nextCharIs(_info, _indexInstr + 2, _instrLen, _del);
     }
 
     private static boolean canHaveElements(Block _bl) {

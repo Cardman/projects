@@ -1,9 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.NumberInfos;
-import code.expressionlanguage.common.StringInfo;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.util.CustList;
 import code.util.*;
@@ -18,6 +15,7 @@ public final class OperationsSequence {
     private ConstType constType = ConstType.NOTHING;
 
     private NumberInfos nbInfos;
+    private TextBlockInfo textInfo;
     private StringInfo strInfo;
 
     private String fctName = "";
@@ -42,7 +40,7 @@ public final class OperationsSequence {
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int countArrays;
-    private Ints errorParts = new Ints();
+    private final Ints errorParts = new Ints();
     private boolean instance;
     private ParsedFctHeader results;
     private Block block;
@@ -349,6 +347,14 @@ public final class OperationsSequence {
 
     public void setStrInfo(StringInfo _strInfo) {
         strInfo = _strInfo;
+    }
+
+    public TextBlockInfo getTextInfo() {
+        return textInfo;
+    }
+
+    public void setTextInfo(TextBlockInfo _textInfo) {
+        this.textInfo = _textInfo;
     }
 
     public String getExtractType() {

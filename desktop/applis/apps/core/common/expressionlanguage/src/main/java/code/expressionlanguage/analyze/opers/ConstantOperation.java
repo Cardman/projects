@@ -49,6 +49,21 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
+        if (op_.getConstType() == ConstType.TEXT_BLOCK) {
+            Argument a_ = new Argument(new StringStruct(originalStr_));
+            setSimpleArgument(a_);
+            setResultClass(new AnaClassArgumentMatching(stringType_));
+            if (op_.getTextInfo().isKo()) {
+                FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
+                badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //constant len
+                badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getTextInfo().getFound());
+                _page.getLocalizer().addError(badFormat_);
+                addErr(badFormat_.getBuiltError());
+            }
+            return;
+        }
         if (op_.getConstType() == ConstType.STRING) {
             Argument a_ = new Argument(new StringStruct(originalStr_));
             setSimpleArgument(a_);
@@ -120,6 +135,14 @@ public final class ConstantOperation extends LeafOperation {
         int offset_ = getIndexInEl();
         int begin_ = d_.getDelStringsChars().indexOfObj(firstPrintChar_+offset_);
         return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
+    }
+
+    public int getBlockLength() {
+        Delimiters d_ = getOperations().getDelimiter();
+        int firstPrintChar_ = getOperations().getOffset();
+        int offset_ = getIndexInEl();
+        int begin_ = d_.getDelTextBlocks().indexOfObj(firstPrintChar_+offset_);
+        return d_.getDelTextBlocks().get(begin_+1)-offset_+1-firstPrintChar_;
     }
 
     public int getNbLength() {

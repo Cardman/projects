@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -10,13 +11,15 @@ final class ParseStringsCommentsState {
     private static final char DEL_STRING = '"';
     private static final char DEL_TEXT = '`';
     private static final char ESCAPE = '\\';
+    private boolean constTextChar;
+    private boolean constTextString;
     private boolean constChar;
     private boolean constString;
     private boolean constText;
     private int index;
     private int instructionLocation;
-    private String file;
-    private StringBuilder instruction;
+    private final String file;
+    private final StringBuilder instruction;
     private CommentDelimiters currentCom;
     ParseStringsCommentsState(int _index, String _file, StringBuilder _instruction) {
         index = _index;
@@ -48,6 +51,34 @@ final class ParseStringsCommentsState {
                 i_++;
                 continue;
             }
+            if (constTextChar) {
+                instruction.append(currentChar_);
+                if (currentChar_ == ESCAPE) {
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        i_++;
+                        continue;
+                    }
+                    instruction.append(file.charAt(i_+1));
+
+                    i_ = i_ + 1;
+
+                    i_ = i_ + 1;
+                    continue;
+                }
+                if (currentChar_ == DEL_CHAR
+                        && StringExpUtil.nextCharIs(file,i_+1,len_,DEL_CHAR)
+                        &&StringExpUtil.nextCharIs(file,i_+2,len_,DEL_CHAR)) {
+                    instruction.append(file.charAt(i_+1));
+                    instruction.append(file.charAt(i_+2));
+                    i_+=3;
+                    constTextChar = false;
+                    continue;
+                }
+
+                i_ = i_ + 1;
+                continue;
+            }
             if (constChar) {
                 instruction.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
@@ -67,6 +98,34 @@ final class ParseStringsCommentsState {
 
                     i_ = i_ + 1;
                     constChar = false;
+                    continue;
+                }
+
+                i_ = i_ + 1;
+                continue;
+            }
+            if (constTextString) {
+                instruction.append(currentChar_);
+                if (currentChar_ == ESCAPE) {
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        i_++;
+                        continue;
+                    }
+                    instruction.append(file.charAt(i_+1));
+
+                    i_ = i_ + 1;
+
+                    i_ = i_ + 1;
+                    continue;
+                }
+                if (currentChar_ == DEL_STRING
+                        && StringExpUtil.nextCharIs(file,i_+1,len_,DEL_STRING)
+                        &&StringExpUtil.nextCharIs(file,i_+2,len_,DEL_STRING)) {
+                    instruction.append(file.charAt(i_+1));
+                    instruction.append(file.charAt(i_+2));
+                    i_+=3;
+                    constTextString = false;
                     continue;
                 }
 
@@ -138,6 +197,14 @@ final class ParseStringsCommentsState {
             if (currentChar_ == DEL_CHAR) {
                 instructionLocation_ = FileResolver.setInstLocation(instruction, instructionLocation_, i_);
                 instruction.append(currentChar_);
+                if (StringExpUtil.nextCharIs(file,i_+1,len_,DEL_CHAR)
+                        &&StringExpUtil.nextCharIs(file,i_+2,len_,DEL_CHAR)) {
+                    constTextChar = true;
+                    instruction.append(file.charAt(i_+1));
+                    instruction.append(file.charAt(i_+2));
+                    i_ += 3;
+                    continue;
+                }
                 constChar = true;
 
                 i_ = i_ + 1;
@@ -146,6 +213,14 @@ final class ParseStringsCommentsState {
             if (currentChar_ == DEL_STRING) {
                 instructionLocation_ = FileResolver.setInstLocation(instruction, instructionLocation_, i_);
                 instruction.append(currentChar_);
+                if (StringExpUtil.nextCharIs(file,i_+1,len_,DEL_STRING)
+                        &&StringExpUtil.nextCharIs(file,i_+2,len_,DEL_STRING)) {
+                    constTextString = true;
+                    instruction.append(file.charAt(i_+1));
+                    instruction.append(file.charAt(i_+2));
+                    i_ += 3;
+                    continue;
+                }
                 constString = true;
 
                 i_ = i_ + 1;

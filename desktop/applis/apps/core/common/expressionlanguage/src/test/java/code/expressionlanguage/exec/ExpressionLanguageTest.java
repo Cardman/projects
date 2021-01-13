@@ -6189,6 +6189,329 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("\"\\s\"");
         assertEq(" ", getString(arg_));
     }
+
+    @Test
+    public void processEl103099Test() {
+        Argument arg_ = directCalculate("\"\"\"\nc\"\"\"");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl103100Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc\"\"\"");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl103101Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc\\\nh\"\"\"");
+        assertEq("ch", getString(arg_));
+    }
+
+    @Test
+    public void processEl103102Test() {
+        Argument arg_ = directCalculate("\"\"\" \n c\"\"\"");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl103103Test() {
+        Argument arg_ = directCalculate("\"\"\" \n c h\"\"\"");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl103104Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc\nt\"\"\"");
+        assertEq("c\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl103105Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc \nt\"\"\"");
+        assertEq("c\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl103106Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc h \nt\"\"\"");
+        assertEq("c h\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl103107Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n \nc\"\"\"");
+        assertEq("l\n\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103108Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\nc \"\"\"");
+        assertEq("l\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103109Test() {
+        Argument arg_ = directCalculate("\"\"\"\n\\\"\"\";\"\"\"");
+        assertEq("\"\"\";", getString(arg_));
+    }
+
+    @Test
+    public void processEl103110Test() {
+        Argument arg_ = directCalculate("\"\"\"\n\\\"\\\"\\\"\"\"\"");
+        assertEq("\"\"\"", getString(arg_));
+    }
+
+    @Test
+    public void processEl103111Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\s\nc\"\"\"");
+        assertEq("l\n \nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103112Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\t\nc\"\"\"");
+        assertEq("l\n\t\nc", getString(arg_));
+    }
+
+
+    @Test
+    public void processEl103113Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\f\nc\"\"\"");
+        assertEq("l\n\f\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103114Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\r\nc\"\"\"");
+        assertEq("l\n\r\nc", getString(arg_));
+    }
+
+
+    @Test
+    public void processEl103115Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\b\nc\"\"\"");
+        assertEq("l\n\b\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103116Test() {
+        Argument arg_ = directCalculate("\"\"\"\n\"a\"\"\"");
+        assertEq("\"a", getString(arg_));
+    }
+
+    @Test
+    public void processEl103117Test() {
+        Argument arg_ = directCalculate("\"\"\"\n\"\"a\"\"\"");
+        assertEq("\"\"a", getString(arg_));
+    }
+
+    @Test
+    public void processEl103118Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\u0020\nc\"\"\"");
+        assertEq("l\n \nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103119Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\uaaaa\nc\"\"\"");
+        assertEq("l\n\uaaaa\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103120Test() {
+        Argument arg_ = directCalculate("\"\"\" \nl\n\\uAAAA\nc\"\"\"");
+        assertEq("l\n\uaaaa\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl103121Test() {
+        Argument arg_ = directCalculate("\"\"\" \n\\\\\"\"\"");
+        assertEq("\\", getString(arg_));
+    }
+
+    @Test
+    public void processEl103122Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc \\\nh\"\"\"");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl103123Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc\\\n h\"\"\"");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl103124Test() {
+        Argument arg_ = directCalculate("\"\"\" \nc\\n h\"\"\"");
+        assertEq("c\n h", getString(arg_));
+    }
+
+    @Test
+    public void processEl113099Test() {
+        Argument arg_ = directCalculate("'''\nc'''");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl113100Test() {
+        Argument arg_ = directCalculate("''' \nc'''");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl113101Test() {
+        Argument arg_ = directCalculate("''' \nc\\\nh'''");
+        assertEq("ch", getString(arg_));
+    }
+
+    @Test
+    public void processEl113102Test() {
+        Argument arg_ = directCalculate("''' \n c'''");
+        assertEq("c", getString(arg_));
+    }
+
+    @Test
+    public void processEl113103Test() {
+        Argument arg_ = directCalculate("''' \n c h'''");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl113104Test() {
+        Argument arg_ = directCalculate("''' \nc\nt'''");
+        assertEq("c\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl113105Test() {
+        Argument arg_ = directCalculate("''' \nc \nt'''");
+        assertEq("c\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl113106Test() {
+        Argument arg_ = directCalculate("''' \nc h \nt'''");
+        assertEq("c h\nt", getString(arg_));
+    }
+
+    @Test
+    public void processEl113107Test() {
+        Argument arg_ = directCalculate("''' \nl\n \nc'''");
+        assertEq("l\n\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113108Test() {
+        Argument arg_ = directCalculate("''' \nl\nc '''");
+        assertEq("l\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113109Test() {
+        Argument arg_ = directCalculate("'''\n\\''';'''");
+        assertEq("''';", getString(arg_));
+    }
+
+    @Test
+    public void processEl113110Test() {
+        Argument arg_ = directCalculate("'''\n\\'\\'\\''''");
+        assertEq("'''", getString(arg_));
+    }
+
+    @Test
+    public void processEl113111Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\s\nc'''");
+        assertEq("l\n \nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113112Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\t\nc'''");
+        assertEq("l\n\t\nc", getString(arg_));
+    }
+
+
+    @Test
+    public void processEl113113Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\f\nc'''");
+        assertEq("l\n\f\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113114Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\r\nc'''");
+        assertEq("l\n\r\nc", getString(arg_));
+    }
+
+
+    @Test
+    public void processEl113115Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\b\nc'''");
+        assertEq("l\n\b\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113116Test() {
+        Argument arg_ = directCalculate("'''\n'a'''");
+        assertEq("'a", getString(arg_));
+    }
+
+    @Test
+    public void processEl113117Test() {
+        Argument arg_ = directCalculate("'''\n''a'''");
+        assertEq("''a", getString(arg_));
+    }
+
+    @Test
+    public void processEl113118Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\u0020\nc'''");
+        assertEq("l\n \nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113119Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\uaaaa\nc'''");
+        assertEq("l\n\uaaaa\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113120Test() {
+        Argument arg_ = directCalculate("''' \nl\n\\uAAAA\nc'''");
+        assertEq("l\n\uaaaa\nc", getString(arg_));
+    }
+
+    @Test
+    public void processEl113121Test() {
+        Argument arg_ = directCalculate("''' \n\\\\'''");
+        assertEq("\\", getString(arg_));
+    }
+
+    @Test
+    public void processEl113122Test() {
+        Argument arg_ = directCalculate("''' \nc \\\nh'''");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl113123Test() {
+        Argument arg_ = directCalculate("''' \nc\\\n h'''");
+        assertEq("c h", getString(arg_));
+    }
+
+    @Test
+    public void processEl113124Test() {
+        Argument arg_ = directCalculate("''' \nc\\n h'''");
+        assertEq("c\n h", getString(arg_));
+    }
+
+    @Test
+    public void processElLineRetTest() {
+        Argument arg_ = directCalculate("\"a\\\nb\"");
+        assertEq("ab", getString(arg_));
+    }
+
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);

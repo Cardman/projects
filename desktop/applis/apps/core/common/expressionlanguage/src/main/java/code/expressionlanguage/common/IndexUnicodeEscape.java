@@ -14,6 +14,8 @@ public final class IndexUnicodeEscape {
 
     private StringInfo stringInfo;
 
+    private TextBlockInfo textInfo;
+
     public int getIndex() {
         return index;
     }
@@ -58,5 +60,13 @@ public final class IndexUnicodeEscape {
     }
     public void setStringInfo(StringInfo _stringInfo) {
         stringInfo = _stringInfo;
+    }
+
+    public TextBlockInfo getTextInfo() {
+        return textInfo;
+    }
+
+    public void setTextInfo(TextBlockInfo _textInfo) {
+        this.textInfo = _textInfo;
     }
 }

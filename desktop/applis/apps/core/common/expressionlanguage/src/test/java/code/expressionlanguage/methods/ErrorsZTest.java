@@ -4974,4 +4974,124 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report813Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"`\n\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;`\n" +
+                "&quot;&quot;&quot;\" class=\"e\">\"\"\"`\n" +
+                "\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report814Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"\n\\u000g\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
+                "\\u000g&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "\\u000g\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report815Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"\n\\u000G\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
+                "\\u000G&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "\\u000G\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report816Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"\n\\u000!\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
+                "\\u000!&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "\\u000!\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report817Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"\n\\u000~\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
+                "\\u000~&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "\\u000~\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report818Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth($boolean b){\n");
+        xml_.append("  $return \"\"\"\n\\a\"\"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+                " $public $static String <a name=\"m48\">exmeth</a>($boolean <a name=\"m64\">b</a>){\n" +
+                "  $return <span class=\"s\"><a title=\"Bad character format &quot;&quot;&quot;\n" +
+                "\\a&quot;&quot;&quot;\" class=\"e\">\"\"\"\n" +
+                "\\a\"\"\"</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
