@@ -211,9 +211,6 @@ public abstract class OperationNode {
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.ERROR_INST) {
-            return new BadInstancingOperation(_index, _indexChild, _m, _op);
-        }
         if (_op.getOperators().isEmpty()) {
             return createLeaf(_index, _indexChild, _m, _op, _page);
         }

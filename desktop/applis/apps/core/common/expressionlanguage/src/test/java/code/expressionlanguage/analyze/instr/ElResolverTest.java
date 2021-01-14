@@ -5,16 +5,18 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
+import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public final class ElResolverTest extends ProcessMethodCommon {
@@ -668,6 +670,20 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq("\"8\"", values_.getVal(23));
     
         assertTrue(seq_.isCall());
+    }
+
+
+    @Test
+    public void getOperationsSequence36_Test() {
+        AnalyzedTestContext conf_ = contextEl();
+
+        String el_ = "$new java.lang.Integer(\"8\"){}";
+        Delimiters d_ = checkSyntax(conf_, el_);
+        OperationsSequence seq_ = getOperationsSequence(conf_, el_, d_, 0);
+        IntTreeMap<String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(22));
+        assertEq(")", opers_.getVal(26));
     }
 
     @Test

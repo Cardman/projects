@@ -158,7 +158,11 @@ public final class FileResolver {
         }
         //the file is not trimmed empty
         while (true) {
-            ResultCreation res_ = createType(_file, input_, _page);
+            String def_ = EMPTY_STRING;
+            if (StringExpUtil.startsWithKeyWord(_file,i_,keyWordOperator_)) {
+                def_ = _page.getDefaultPkg();
+            }
+            ResultCreation res_ = createType(_file, input_, _page, def_);
             badIndexes_ = input_.getBadIndexes();
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
@@ -226,8 +230,8 @@ public final class FileResolver {
         }
     }
 
-    private static ResultCreation createType(String _file, InputTypeCreation _input, AnalyzedPageEl _page) {
-        return processOuterTypeBody(_input, EMPTY_STRING,0, _file, _page);
+    private static ResultCreation createType(String _file, InputTypeCreation _input, AnalyzedPageEl _page, String _defaultPkg) {
+        return processOuterTypeBody(_input, _defaultPkg,0, _file, _page);
     }
     public static ResultCreation processOuterTypeBody(InputTypeCreation _input, String _pkgName, int _offset,
                                                       String _file, AnalyzedPageEl _page) {

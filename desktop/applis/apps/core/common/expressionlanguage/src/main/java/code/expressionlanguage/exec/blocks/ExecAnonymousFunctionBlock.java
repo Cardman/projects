@@ -14,6 +14,7 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
 
     private final MethodModifier methodModifier;
     private ExecRootBlock parentType;
+    private ExecOperatorBlock operator;
     private final ExecAnonFctContent anonFctContent;
 
     public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, BooleanList _parametersRef) {
@@ -48,6 +49,14 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
 
     public void setParentType(ExecRootBlock _parentType) {
         this.parentType = _parentType;
+    }
+
+    public ExecOperatorBlock getOperator() {
+        return operator;
+    }
+
+    public void setOperator(ExecOperatorBlock _operator) {
+        this.operator = _operator;
     }
 
     public CacheInfo getCacheInfo() {

@@ -9,9 +9,9 @@ public abstract class MethodOperation extends OperationNode {
 
     private OperationNode firstChild;
 
-    private IntTreeMap<String> children;
-    private CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
-    private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
+    private final IntTreeMap<String> children;
+    private final CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
+    private final CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
 
 
     public MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -71,9 +71,6 @@ public abstract class MethodOperation extends OperationNode {
     }
     public static boolean isEmptyError(OperationNode _op) {
         if (_op instanceof ErrorPartOperation) {
-            return true;
-        }
-        if (_op instanceof BadInstancingOperation) {
             return true;
         }
         return _op instanceof BadDottedOperation;

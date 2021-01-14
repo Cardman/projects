@@ -662,21 +662,37 @@ public final class AliasReflection {
         for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
             MethodId id_ = f.getId();
             ExecRootBlock type_ = f.getParentType();
-            String ret_ = f.getImportedReturnType();
-            boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
-            MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
-            String idType_ = type_.getFullName();
-            String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
-            String idCl_ = type_.getFullName();
-            if (param_) {
-                idCl_ = declaringClass_;
+            if (type_ != null) {
+                String ret_ = f.getImportedReturnType();
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
+                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                String idType_ = type_.getFullName();
+                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = type_.getFullName();
+                if (param_) {
+                    idCl_ = declaringClass_;
+                }
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
+                met_.setCallee(f);
+                met_.pair(type_,f);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.add(met_);
             }
-            MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-            met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
-            met_.setCallee(f);
-            met_.pair(type_,f);
-            met_.setFileName(f.getFile().getFileName());
-            methods_.add(met_);
+            ExecOperatorBlock operator_ = f.getOperator();
+            if (operator_ != null) {
+                String ret_ = f.getImportedReturnType();
+                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                String idType_ = "";
+                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = "";
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
+                met_.setCallee(f);
+                met_.pair(null,f);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.add(met_);
+            }
         }
         if (_args.length == 0) {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);

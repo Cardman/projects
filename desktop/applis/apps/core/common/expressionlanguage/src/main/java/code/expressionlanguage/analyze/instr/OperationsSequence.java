@@ -110,7 +110,7 @@ public final class OperationsSequence {
                             }
                             if (block == null) {
                                 values.put((int) IndexConstants.FIRST_INDEX, _string);
-                                constType = ConstType.ERROR_INST;
+                                constType = ConstType.ERROR;
                                 return;
                             }
                         }

@@ -12,8 +12,9 @@ import code.util.core.IndexConstants;
 
 public final class AnonymousFunctionBlock extends NamedCalledFunctionBlock implements ReturnableWithSignature {
     private RootBlock parentType;
+    private OperatorBlock operator;
     private int indexEnd;
-    private StringList allReservedInners = new StringList();
+    private final StringList allReservedInners = new StringList();
     private final boolean staticMethod;
     private final boolean staticCallMethod;
     private int numberLambda;
@@ -62,6 +63,14 @@ public final class AnonymousFunctionBlock extends NamedCalledFunctionBlock imple
             return MethodAccessKind.STATIC_CALL;
         }
         return MethodAccessKind.INSTANCE;
+    }
+
+    public OperatorBlock getOperator() {
+        return operator;
+    }
+
+    public void setOperator(OperatorBlock _operator) {
+        operator = _operator;
     }
 
     public RootBlock getParentType() {

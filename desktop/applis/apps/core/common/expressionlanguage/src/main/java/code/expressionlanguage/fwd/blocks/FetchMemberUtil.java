@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -95,6 +96,10 @@ public final class FetchMemberUtil {
             }
             return null;
         }
+        return fetchOperator(_operatorNumber, _forwards);
+    }
+
+    public static ExecOperatorBlock fetchOperator(int _operatorNumber, Forwards _forwards) {
         if (_forwards.getMapOperators().isValidIndex(_operatorNumber)) {
             return _forwards.getMapOperators().getValue(_operatorNumber);
         }

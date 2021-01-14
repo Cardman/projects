@@ -76,6 +76,18 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+
+    @Test
+    public void calculate6FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" {{};$new $int{}{};}");
+        xml_.append("}");
+        files_.put("pkg/ExTwo", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
     @Test
     public void calculateStaticField183__FailTest() {
         StringMap<String> files_ = new StringMap<String>();

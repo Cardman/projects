@@ -118,14 +118,26 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, _realClassName);
         base = base_;
-        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
+        RootBlock parentType_ = instancingAnonContent.getBlock().getParentType();
+        OperatorBlock operator_ = instancingAnonContent.getBlock().getOperator();
+        if (parentType_ != null) {
+            instancingAnonContent.getBlock().getAllReservedInners().addAllElts(parentType_.getAllReservedInners());
+        }
+        if (operator_ != null) {
+            instancingAnonContent.getBlock().getAllReservedInners().addAllElts(operator_.getAllReservedInners());
+        }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
             instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            instancingAnonContent.getBlock().getMappings().putAllMap(_page.getGlobalType().getMappings());
+            if (parentType_ != null) {
+                instancingAnonContent.getBlock().getMappings().putAllMap(parentType_.getMappings());
+            }
+            if (operator_ != null) {
+                instancingAnonContent.getBlock().getMappings().putAllMap(operator_.getMappings());
+            }
         }
         Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
@@ -138,7 +150,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
         glClass = _page.getGlobalClass();
-        glType = _page.getGlobalType();
+        glType = parentType_;
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -134,7 +135,10 @@ public final class ResolvingSuperTypes {
         _page.getAvailableVariables().clear();
         _page.getAvailableVariables().putAllMap(variables_);
         String gl_ = _ana.getGenericString();
-        RootBlock scope_ = _ana.getParentType();
+        AccessedBlock scope_ = _ana.getParentType();
+        if (scope_ == null) {
+            scope_ = _ana.getOperator();
+        }
         _page.getCurrentBadIndexes().clear();
         _page.setImportingAcces(new TypeAccessor(_ana.getFullName()));
         _page.setImportingTypes(_ana);
@@ -163,7 +167,10 @@ public final class ResolvingSuperTypes {
 
     public static String resolveBaseInherits(String _idSup, RootBlock _ana, StringList _readyTypes, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_idSup);
-        RootBlock scope_ = _ana.getParentType();
+        AccessedBlock scope_ = _ana.getParentType();
+        if (scope_ == null) {
+            scope_= _ana.getOperator();
+        }
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         _page.setImportingTypes(_ana);
         _page.getMappingLocal().clear();

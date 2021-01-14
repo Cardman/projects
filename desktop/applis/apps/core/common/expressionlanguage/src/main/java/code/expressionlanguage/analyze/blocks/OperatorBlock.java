@@ -8,16 +8,17 @@ import code.expressionlanguage.analyze.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.BooleanList;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 
 public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,ReturnableWithSignature {
+    private final StringList allReservedInners = new StringList();
+    private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
+    private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
+    private int countsAnonFct;
+    private final StringList imports = new StringList();
 
-    private StringList imports = new StringList();
-
-    private Ints importsOffset = new Ints();
+    private final Ints importsOffset = new Ints();
 
     public OperatorBlock(boolean _retRef, OffsetStringInfo _retType, OffsetStringInfo _fctName,
                          StringList _paramTypes, Ints _paramTypesOffset,
@@ -58,6 +59,26 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     public boolean isAbstractMethod() {
         return false;
+    }
+
+    public StringList getAllReservedInners() {
+        return allReservedInners;
+    }
+
+    public CustList<RootBlock> getLocalTypes() {
+        return localTypes;
+    }
+
+    public CustList<AnonymousTypeBlock> getAnonymousTypes() {
+        return anonymousTypes;
+    }
+
+    public int getCountsAnonFct() {
+        return countsAnonFct;
+    }
+
+    public void setCountsAnonFct(int _countsAnonFct) {
+        this.countsAnonFct = _countsAnonFct;
     }
 
     @Override

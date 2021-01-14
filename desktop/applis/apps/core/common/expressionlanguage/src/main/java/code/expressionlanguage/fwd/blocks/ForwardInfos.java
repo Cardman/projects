@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -389,6 +390,11 @@ public final class ForwardInfos {
                 value_.getAnonymousRoot().add(_forwards.getMapAnonTypes().getValue(a.getNumberAnonType()));
             }
         }
+        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
+            OperatorBlock key_ = e.getKey();
+            ExecOperatorBlock value_ = e.getValue();
+            feedFct(key_, value_, _forwards);
+        }
         for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
             AnonymousFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
@@ -532,11 +538,13 @@ public final class ForwardInfos {
     }
 
     private static ExecAnonymousFunctionBlock buildExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, Forwards _forwards) {
-        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
+        ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
+//        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         AnonymousFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.getMapAnonLambda().size());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset().getOffsetTrim(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), block_.getImportedParametersTypes(), block_.getParametersRef());
         fct_.setParentType(declaring_);
+        fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
         _forwards.getMapAnonLambda().addEntry(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());
         return fct_;
@@ -1108,7 +1116,8 @@ public final class ForwardInfos {
 
             AnonymousFunctionBlock method_ = s_.getBlock();
             ExecAnonymousFunctionBlock r_ = _forwards.getMapAnonLambda().getValue(method_.getNumberLambda());
-            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
+            ExecTypeFunction pair_ = new ExecTypeFunction(FetchMemberUtil.fetchType(s_.getRootNumber(),_forwards), r_);
+//            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
             return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent()), new ExecLambdaAnoContent(s_.getLambdaAnoContent()), pair_);
         }
         if (_anaNode instanceof LambdaOperation) {

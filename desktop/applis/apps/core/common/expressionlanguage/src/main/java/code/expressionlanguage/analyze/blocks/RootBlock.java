@@ -29,6 +29,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
+    private OperatorBlock operator;
 
     private final StringList nameErrors = new StringList();
 
@@ -1015,7 +1016,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 idConstructors_.add(idCt_);
             }
-            validateParameters(method_, _page);
+            validateParameters(method_, _page, getFile());
             if (method_.isRetRef()) {
                 if (StringUtil.quickEq(method_.getImportedReturnType(),_page.getAliasVoid())) {
                     int r_ = method_.getNameOffset();
@@ -1047,7 +1048,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         validateIndexers(indexersGet_, indexersSet_, _page);
     }
 
-    public void validateParameters(NamedFunctionBlock _method, AnalyzedPageEl _page) {
+    public static void validateParameters(NamedFunctionBlock _method, AnalyzedPageEl _page, FileBlock _file) {
         String keyWordValue_ = _page.getKeyWords().getKeyWordValue();
         StringList l_ = _method.getParametersNames();
         StringList seen_ = new StringList();
@@ -1058,7 +1059,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (res_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(getFile().getFileName());
+                b_.setFileName(_file.getFileName());
                 b_.setIndexFile(_method.getOffset().getOffsetTrim());
                 //param name len
                 b_.setBuiltError(res_.getMessage());
@@ -1071,7 +1072,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (StringUtil.quickEq(v, keyWordValue_)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
-                        b_.setFileName(getFile().getFileName());
+                        b_.setFileName(_file.getFileName());
                         b_.setIndexFile(_method.getOffset().getOffsetTrim());
                         //param name len
                         b_.buildError(_page.getAnalysisMessages().getReservedParamName(),
@@ -1084,7 +1085,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (StringUtil.contains(seen_, v)){
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(getFile().getFileName());
+                b_.setFileName(_file.getFileName());
                 b_.setIndexFile(_method.getOffset().getOffsetTrim());
                 //param name len
                 b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
@@ -1999,6 +2000,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             generic_.add(r.rootBlockContent.getParamTypes().size());
         }
         return generic_;
+    }
+    public OperatorBlock getOperator() {
+        return operator;
+    }
+
+    public void setOperator(OperatorBlock _operator) {
+        operator = _operator;
     }
 
     public CustList<ResultExpression> getResList() {

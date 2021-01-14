@@ -16,12 +16,12 @@ import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
 
-    private Element elt;
+    private final Element elt;
 
-    private String file;
-    private String fileName;
+    private final String file;
+    private final String fileName;
     private String beanName;
-    private CustList<AnaRendBlock> bodies = new CustList<AnaRendBlock>();
+    private final CustList<AnaRendBlock> bodies = new CustList<AnaRendBlock>();
     private StringList imports = new StringList();
     AnaRendDocumentBlock(Element _elt, String _file, OffsetsBlock _offset, String _fileName) {
         super(_offset);
@@ -37,6 +37,8 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.setOffset(0);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setGlobalDirType(null);
+        _page.setCurrentPkg("");
+        _page.setCurrentFile(null);
         if (_anaDoc.getBeansInfosBefore().contains(beanName)) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _anaDoc.getBeansInfosBefore().getVal(beanName).getResolvedClassName();

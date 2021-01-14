@@ -406,11 +406,13 @@ public final class ElResolver {
     }
     public static void commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page,ResultExpression _res) {
         _page.getAnonymousResults().clear();
-        stackBegin(_string,_minIndex,_page.getGlobalDirType(),_page);
+        String currentPkg_ = _page.getCurrentPkg();
+        FileBlock currentFile_ = _page.getCurrentFile();
+        stackBegin(_string,_minIndex, currentFile_,currentPkg_,_page);
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
     }
 
-    private static void stackBegin(String _string, int _from, RootBlock _globalDirType, AnalyzedPageEl _page) {
+    private static void stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page) {
         boolean constTextString_ = false;
         boolean constTextChar_ = false;
         boolean constString_ = false;
@@ -537,7 +539,7 @@ public final class ElResolver {
                 continue;
             }
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                next_ = processWordsQuickBegin(_string,from_,prevOp_,curChar_,stack_, _globalDirType, _page);
+                next_ = processWordsQuickBegin(_string,from_,prevOp_,curChar_,stack_, _page, _pkg, _file);
                 if (next_ < 0) {
                     break;
                 }
@@ -555,7 +557,7 @@ public final class ElResolver {
                     }
                 }
             }
-            next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _globalDirType, _page);
+            next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _page, _pkg, _file);
             if (next_ < 0) {
                 break;
             }
@@ -565,7 +567,7 @@ public final class ElResolver {
             from_ = next_;
         }
     }
-    private static int stack(String _string, int _from, RootBlock _globalDirType, AnalyzedPageEl _page) {
+    private static int stack(String _string, int _from, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
         boolean constTextString_ = false;
         boolean constTextChar_ = false;
         boolean constString_ = false;
@@ -677,7 +679,7 @@ public final class ElResolver {
                 continue;
             }
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,stack_, _globalDirType, _page);
+                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,stack_, _page, _packageName, _file);
                 from_ = next_;
                 continue;
             }
@@ -692,7 +694,7 @@ public final class ElResolver {
                     }
                 }
             }
-            next_ = processOperatorsQuick(parsBrackets_,stack_,from_,curChar_, _string, _globalDirType, _page);
+            next_ = processOperatorsQuick(parsBrackets_,stack_,from_,curChar_, _string, _page, _packageName, _file);
             if (next_ < 0) {
                 break;
             }
@@ -986,7 +988,7 @@ public final class ElResolver {
         }
         return _from;
     }
-    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, RootBlock _globalDirType, AnalyzedPageEl _page) {
+    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1020,23 +1022,22 @@ public final class ElResolver {
             int deltaArr_ = off_;
             off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
             if (after_.startsWith("{")) {
-                String packageName_ = _globalDirType.getPackageName();
                 int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                 int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
                 int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
-                input_.setFile(_globalDirType.getFile());
+                input_.setFile(_file);
                 input_.setNextIndex(j_);
                 input_.setNextIndexBef(jBef_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                 int k_ = res_.getNextIndex() - 1;
                 return k_+1;
             }
         }
         return i_;
     }
-    private static int processWordsQuickBegin(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, RootBlock _globalDirType, AnalyzedPageEl _page) {
+    private static int processWordsQuickBegin(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, AnalyzedPageEl _page, String _packageName, FileBlock _file) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1063,13 +1064,12 @@ public final class ElResolver {
             return i_;
         }
         int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
-        if (_globalDirType != null&&dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
+        if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
             String afterArrow_ = _string.substring(dash_+"->".length());
             String after_ = afterArrow_.trim();
             int off_ = StringUtil.getFirstPrintableCharIndex(afterArrow_);
             int indAfterArrow_ = dash_ + off_ + 2;
             if (after_.startsWith("{")) {
-                String packageName_ = _globalDirType.getPackageName();
                 int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 parse_.getOffestsParams().add(beginWord_+instrLoc_);
@@ -1079,10 +1079,10 @@ public final class ElResolver {
                 parse_.getParametersRef().add(false);
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
-                input_.setFile(_globalDirType.getFile());
+                input_.setFile(_file);
                 input_.setNextIndex(indAfterArrow_);
                 input_.setNextIndexBef(dash_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                 if (res_.isOkType()) {
                     int k_ = res_.getNextIndex() - 1;
                     AnonymousResult anonymous_ = new AnonymousResult();
@@ -1104,14 +1104,14 @@ public final class ElResolver {
             parse_.getParametersName().add(word_);
             parse_.getParametersType().add("");
             parse_.getParametersRef().add(false);
-            int k_ = stack(_string, indAfterArrow_, _globalDirType, _page);
+            int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
             String part_ = _string.substring(indAfterArrow_,k_);
             int begAnon_ = dash_ + instrLoc_;
             int begImplRet_ = indAfterArrow_ + instrLoc_;
             AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
             block_.setBegin(begImplRet_);
             block_.setLengthHeader(1);
-            block_.setFile(_globalDirType.getFile());
+            block_.setFile(_file);
             String tr_ = part_.trim();
             ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(begImplRet_, tr_),new OffsetsBlock(begImplRet_, begImplRet_));
             ret_.setImplicit(true);
@@ -1132,7 +1132,7 @@ public final class ElResolver {
         return i_;
     }
     private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
-                                             RootBlock _globalDirType, AnalyzedPageEl _page) {
+                                             AnalyzedPageEl _page, String _packageName, FileBlock _file) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _parsBrackets;
 
@@ -1152,16 +1152,15 @@ public final class ElResolver {
                         int deltaArr_ = off_;
                         off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
                         if (after_.startsWith("{")) {
-                            String packageName_ = _globalDirType.getPackageName();
                             int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                             int j_ = i_+1 + substring_.length()+off_+2;
                             int jBef_ = i_+1 + substring_.length()+deltaArr_;
                             InputTypeCreation input_ = new InputTypeCreation();
                             input_.setType(OuterBlockEnum.ANON_FCT);
-                            input_.setFile(_globalDirType.getFile());
+                            input_.setFile(_file);
                             input_.setNextIndex(j_);
                             input_.setNextIndexBef(jBef_);
-                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                             int k_ = res_.getNextIndex() - 1;
                             return k_+1;
                         }
@@ -1190,13 +1189,12 @@ public final class ElResolver {
                 if (indexLast_ > -1) {
                     String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
                     int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    String packageName_ = _globalDirType.getPackageName();
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
-                    input_.setFile(_globalDirType.getFile());
+                    input_.setFile(_file);
                     input_.setNextIndex(i_);
                     input_.generatedId(beforeCall_,_page.getKeyWords().getKeyWordId());
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     int j_ = res_.getNextIndex() - 1;
                     return j_+1;
                 }
@@ -1373,7 +1371,7 @@ public final class ElResolver {
         return i_;
     }
     private static int processOperatorsQuickBegin(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
-                                                  RootBlock _globalDirType, AnalyzedPageEl _page) {
+                                                  AnalyzedPageEl _page, String _packageName, FileBlock _file) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _parsBrackets;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1382,7 +1380,7 @@ public final class ElResolver {
         int i_ = _i;
         if (_curChar == PAR_LEFT) {
             int rightPar_ = _string.indexOf(')', i_);
-            if (rightPar_ > -1&&_globalDirType != null) {
+            if (rightPar_ > -1) {
                 String substring_ = _string.substring(i_+1,rightPar_+1);
                 if (noInternDelimiter(substring_)) {
                     String info_ = _string.substring(rightPar_+1);
@@ -1396,16 +1394,15 @@ public final class ElResolver {
                         int indAfterArrow_ = rightPar_+1 + off_ + 2;
                         int indBeforeArrow_ = rightPar_+1+ deltaArr_;
                         if (after_.startsWith("{")) {
-                            String packageName_ = _globalDirType.getPackageName();
                             int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                             ParsedFctHeader parse_ = new ParsedFctHeader();
                             parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
                             InputTypeCreation input_ = new InputTypeCreation();
                             input_.setType(OuterBlockEnum.ANON_FCT);
-                            input_.setFile(_globalDirType.getFile());
+                            input_.setFile(_file);
                             input_.setNextIndex(indAfterArrow_);
                             input_.setNextIndexBef(indBeforeArrow_);
-                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                             if (res_.isOkType()) {
                                 int k_ = res_.getNextIndex() - 1;
                                 AnonymousResult anonymous_ = new AnonymousResult();
@@ -1423,12 +1420,12 @@ public final class ElResolver {
                         ParsedFctHeader parse_ = new ParsedFctHeader();
                         int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
                         parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
-                        int k_ = stack(_string, indAfterArrow_, _globalDirType, _page);
+                        int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
                         String part_ = _string.substring(indAfterArrow_,k_);
                         AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
                         block_.setBegin(indAfterArrow_ +instrLoc_);
                         block_.setLengthHeader(1);
-                        block_.setFile(_globalDirType.getFile());
+                        block_.setFile(_file);
                         String trim_ = part_.trim();
                         ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_),new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_));
                         ret_.setImplicit(true);
@@ -1464,18 +1461,17 @@ public final class ElResolver {
         }
         if (_curChar == ANN_ARR_LEFT) {
             int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
-            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)&&_globalDirType != null) {
+            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
                 int indexLast_ = _stack.getIndexesNewEnd().indexOf(bk_);
                 if (indexLast_ > -1) {
                     String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
                     int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                    String packageName_ = _globalDirType.getPackageName();
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
-                    input_.setFile(_globalDirType.getFile());
+                    input_.setFile(_file);
                     input_.setNextIndex(i_);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, packageName_, instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
                         AnonymousResult anonymous_ = new AnonymousResult();

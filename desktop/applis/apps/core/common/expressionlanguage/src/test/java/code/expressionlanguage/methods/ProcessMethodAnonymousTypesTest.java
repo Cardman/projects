@@ -1046,6 +1046,331 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq("pkg.Ext..$id*1", getString(ret_));
     }
+
+    @Test
+    public void calculate32() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate33() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field+new pkg.Int(){public int field(){return 0;}}.field();\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate34() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  public class Intern:pkg.Int{public int field(){return 0;}}\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field+new Intern().field();\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate35() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   public class Intern:pkg.Int{public int field(){return 0;}}\n");
+        xml_.append("   return field+new Intern().field();\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate36() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot{\n");
+        xml_.append(" int val();\n");
+        xml_.append("}\n");
+        xml_.append("@pkg.Annot(new pkg.Int(){public int field(){return 1;}}.field())\n");
+        xml_.append("operator+ pkg.Comp(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Comp(a.field+b.field);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return ((Annot)Class.getOperators()[0].getAnnotations()[0]).val();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate37() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return (pkg.Int)(:int)-> a.field+b.field;\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate38() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot{\n");
+        xml_.append(" int val();\n");
+        xml_.append("}\n");
+        xml_.append("@pkg.Annot(((:int)-> 1).call())\n");
+        xml_.append("operator+ pkg.Comp(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Comp(a.field+b.field);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return ((Annot)Class.getOperators()[0].getAnnotations()[0]).val();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate39() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return (pkg.Int)(:int)-> a.field+b.field;\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return Class.getOperators()[0].getDeclaredAnonymousLambda().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate40() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot{\n");
+        xml_.append(" int val();\n");
+        xml_.append("}\n");
+        xml_.append("@pkg.Annot(((:int)-> 2).call())\n");
+        xml_.append("operator+ pkg.Comp(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Comp(a.field+b.field);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return Class.getOperators()[0].getDeclaredAnonymousLambda().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
     @Test
     public void fail1() {
         StringMap<String> files_ = new StringMap<String>();

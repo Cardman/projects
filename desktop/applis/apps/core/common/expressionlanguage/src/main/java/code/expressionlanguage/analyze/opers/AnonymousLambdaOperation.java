@@ -217,16 +217,28 @@ public final class AnonymousLambdaOperation extends
         }
         lambdaCommonContent.setFoundClass(_page.getGlobalClass());
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
-        RootBlock globalType_ = _page.getGlobalType();
-        lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
-        block.getAllReservedInners().addAllElts(_page.getGlobalType().getAllReservedInners());
+        RootBlock globalType_ = block.getParentType();
+        OperatorBlock operator_ = block.getOperator();
+        if (globalType_ != null) {
+            lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
+            block.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
+        }
+        if (operator_ != null) {
+            lambdaAnoContent.setOperatorNumber(operator_.getNameNumber());
+            block.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
+        }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(_page.getGlobalType().getMappings());
+            if (globalType_ != null) {
+                block.getMappings().putAllMap(globalType_.getMappings());
+            }
+            if (operator_ != null) {
+                block.getMappings().putAllMap(operator_.getMappings());
+            }
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
@@ -294,7 +306,7 @@ public final class AnonymousLambdaOperation extends
                     parse.getParametersRef(),parse.isRetRef(), parse.getReturnType(), parse.getReturnOffest());
             block.buildInternImportedTypes(_page);
         }
-        globalType_.validateParameters(block, _page);
+        RootBlock.validateParameters(block, _page, _page.getCurrentFile());
         Block currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
@@ -329,6 +341,10 @@ public final class AnonymousLambdaOperation extends
 
     public int getRootNumber() {
         return lambdaAnoContent.getRootNumber();
+    }
+
+    public int getOperatorNumber() {
+        return lambdaAnoContent.getOperatorNumber();
     }
 
     public AnaLambdaCommonContent getLambdaCommonContent() {

@@ -29,12 +29,23 @@ public final class SplitExpressionUtil {
         for (OperatorBlock o: _page.getFoundOperators()) {
             _page.setGlobalType(null);
             _page.setGlobalDirType(null);
+            _page.setCurrentPkg(_page.getDefaultPkg());
+            _page.setCurrentFile(o.getFile());
             processFunction(_page,int_,o);
         }
         for (OperatorBlock o: _page.getFoundOperators()) {
             _page.setGlobalType(null);
             _page.setGlobalDirType(null);
+            _page.setCurrentPkg(_page.getDefaultPkg());
+            _page.setCurrentFile(o.getFile());
             processAnnotFct(_page, int_, o);
+        }
+        allInit_ = new CustList<RootBlock>();
+        for (OperatorBlock c: _page.getFoundOperators()) {
+            allInit_.addAllElts(walkType(c));
+        }
+        for (RootBlock c: allInit_) {
+            processType(_page, int_, c);
         }
         while (!int_.getAnonymousTypes().isEmpty()||!int_.getAnonymousFunctions().isEmpty()) {
             list_.add(int_);
@@ -42,22 +53,31 @@ public final class SplitExpressionUtil {
             CustList<AnonymousFunctionBlock> anonymousFunctions_ = int_.getAnonymousFunctions();
             int_ = new IntermediaryResults();
             CustList<RootBlock> all_ = new CustList<RootBlock>();
-            for (RootBlock c: anonymousTypes_) {
+            for (AnonymousTypeBlock c: anonymousTypes_) {
                 RootBlock parentType_ = c.getParentType();
-                StringMap<Integer> countsAnon_ = parentType_.getCountsAnon();
-                Integer val_ = countsAnon_.getVal(c.getName());
-                if (val_ == null) {
-                    countsAnon_.put(c.getName(),1);
-                    c.setSuffix("*1");
-                } else {
-                    countsAnon_.put(c.getName(),val_+1);
-                    c.setSuffix("*"+(val_+1));
+                if (parentType_ != null) {
+                    StringMap<Integer> countsAnon_ = parentType_.getCountsAnon();
+                    Integer val_ = countsAnon_.getVal(c.getName());
+                    if (val_ == null) {
+                        countsAnon_.put(c.getName(),1);
+                        c.setSuffix("*1");
+                    } else {
+                        countsAnon_.put(c.getName(),val_+1);
+                        c.setSuffix("*"+(val_+1));
+                    }
                 }
             }
             for (AnonymousFunctionBlock c: anonymousFunctions_) {
                 RootBlock parentType_ = c.getParentType();
-                parentType_.setCountsAnonFct(parentType_.getCountsAnonFct()+1);
-                c.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
+                if (parentType_ != null) {
+                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct() + 1);
+                    c.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
+                }
+                OperatorBlock operator_ = c.getOperator();
+                if (operator_ != null) {
+                    operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
+                    c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
+                }
             }
             for (RootBlock c: anonymousTypes_) {
                 all_.addAllElts(walkType(c));
@@ -69,9 +89,7 @@ public final class SplitExpressionUtil {
                 processType(_page, int_, c);
             }
             for (AnonymousFunctionBlock c: anonymousFunctions_) {
-                RootBlock parentType_ = c.getParentType();
-                _page.setGlobalType(parentType_);
-                _page.setGlobalDirType(parentType_);
+                _page.setupFctChars(c);
                 processFunction(_page,int_,c);
             }
         }
@@ -90,8 +108,14 @@ public final class SplitExpressionUtil {
         current_ = _type;
         while (current_ != null) {
             if (current_ instanceof RootBlock) {
+                if (_type instanceof OperatorBlock) {
+                    ((RootBlock)current_).setOperator((OperatorBlock)_type);
+                }
                 if (!(current_ instanceof AnonymousTypeBlock)) {
                     MemberCallingsBlock outerFuntion_ = current_.getOuterFuntionInType();
+                    if (_type instanceof OperatorBlock&&outerFuntion_!=null) {
+                        ((OperatorBlock) _type).getLocalTypes().add((RootBlock)current_);
+                    }
                     RootBlock possibleParent_ = ((RootBlock) current_).getParentType();
                     if (possibleParent_ != null&&outerFuntion_ != null) {
                         String s_ = ((RootBlock) current_).getName();
@@ -132,6 +156,8 @@ public final class SplitExpressionUtil {
     private static void processType(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type) {
         _page.setGlobalType(_type);
         _page.setGlobalDirType(_type);
+        _page.setCurrentPkg(_type.getPackageName());
+        _page.setCurrentFile(_type.getFile());
         CustList<Block> bl_ = ClassesUtil.getDirectChildren(_type);
         for (Block b: bl_) {
             if (b instanceof AnnotationMethodBlock) {
@@ -142,7 +168,7 @@ public final class SplitExpressionUtil {
                 ResultExpression resultExpression_ = ((AnnotationMethodBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,null, resultExpression_, _int);
             }
             if (b instanceof FieldBlock) {
                 _page.setCurrentBlock(b);
@@ -152,7 +178,7 @@ public final class SplitExpressionUtil {
                 ResultExpression resultExpression_ = ((FieldBlock) b).getRes();
                 _page.setAccessStaticContext(MethodId.getKind(((FieldBlock) b).isStaticField()));
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,null, resultExpression_, _int);
             }
             if (b instanceof ElementBlock) {
                 _page.setCurrentBlock(b);
@@ -164,7 +190,7 @@ public final class SplitExpressionUtil {
                 ResultExpression resultExpression_ = ((ElementBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,null, resultExpression_, _int);
                 _page.setTranslatedOffset(0);
             }
             if (b instanceof InnerElementBlock) {
@@ -177,7 +203,7 @@ public final class SplitExpressionUtil {
                 ResultExpression resultExpression_ = ((InnerElementBlock) b).getRes();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,null, resultExpression_, _int);
                 _page.setTranslatedOffset(0);
             }
             if (b instanceof MemberCallingsBlock) {
@@ -195,7 +221,7 @@ public final class SplitExpressionUtil {
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
                     ElResolver.commonCheckQuick(((FieldBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
-                    feedResult(_page, res_, _int);
+                    feedResult(_page,null, res_, _int);
                     ((FieldBlock) b).getResList().add(res_);
                 }
             }
@@ -209,7 +235,7 @@ public final class SplitExpressionUtil {
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
                     ElResolver.commonCheckQuick(((ElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
-                    feedResult(_page, res_, _int);
+                    feedResult(_page,null, res_, _int);
                     ((ElementBlock) b).getResList().add(res_);
                 }
             }
@@ -223,7 +249,7 @@ public final class SplitExpressionUtil {
                     ResultExpression res_ = new ResultExpression();
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
                     ElResolver.commonCheckQuick(((InnerElementBlock) b).getAnnotations().get(i).trim(),0,_page,res_);
-                    feedResult(_page, res_, _int);
+                    feedResult(_page,null, res_, _int);
                     ((InnerElementBlock) b).getResList().add(res_);
                 }
             }
@@ -241,7 +267,7 @@ public final class SplitExpressionUtil {
                 ResultExpression res_ = new ResultExpression();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElResolver.commonCheckQuick(_type.getAnnotations().get(i).trim(),0,_page,res_);
-                feedResult(_page, res_, _int);
+                feedResult(_page,null, res_, _int);
                 _type.getResList().add(res_);
             }
         }
@@ -257,7 +283,7 @@ public final class SplitExpressionUtil {
             ResultExpression res_ = new ResultExpression();
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
             ElResolver.commonCheckQuick(((NamedFunctionBlock) _fct).getAnnotations().get(i).trim(),0,_page,res_);
-            feedResult(_page, res_, _int);
+            feedResult(_page,(NamedFunctionBlock) _fct, res_, _int);
             ((NamedFunctionBlock) _fct).getResList().add(res_);
         }
         int j_ = 0;
@@ -272,7 +298,7 @@ public final class SplitExpressionUtil {
                 ResultExpression res_ = new ResultExpression();
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 ElResolver.commonCheckQuick(list_.get(i).trim(),0,_page,res_);
-                feedResult(_page, res_, _int);
+                feedResult(_page,(NamedFunctionBlock) _fct, res_, _int);
                 resList_.add(res_);
             }
             ((NamedFunctionBlock) _fct).getResLists().add(resList_);
@@ -296,7 +322,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((Line) current_).getExpression();
                 ResultExpression resultExpression_ = ((Line) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof CaseCondition) {
                 String value_ = ((CaseCondition) current_).getValue();
@@ -312,7 +338,7 @@ public final class SplitExpressionUtil {
                     _page.setOffset(0);
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
                     ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                    feedResult(_page, resultExpression_, _int);
+                    feedResult(_page,_method, resultExpression_, _int);
                 }
             }
             if (current_ instanceof SwitchBlock) {
@@ -321,7 +347,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((SwitchBlock) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof Condition) {
                 String value_ = ((Condition) current_).getCondition();
@@ -329,7 +355,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((Condition) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof ForEachLoop) {
                 String value_ = ((ForEachLoop) current_).getExpression();
@@ -337,7 +363,7 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((ForEachLoop) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof ForEachTable) {
                 String value_ = ((ForEachTable) current_).getExpression();
@@ -345,41 +371,41 @@ public final class SplitExpressionUtil {
                 _page.setOffset(0);
                 ResultExpression resultExpression_ = ((ForEachTable) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof ForIterativeLoop) {
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getInitOffset());
                 _page.setOffset(0);
                 ResultExpression resultInit_ = ((ForIterativeLoop) current_).getResInit();
                 ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getInit(), 0, _page,resultInit_);
-                feedResult(_page, resultInit_, _int);
+                feedResult(_page,_method, resultInit_, _int);
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExp_ = ((ForIterativeLoop) current_).getResExp();
                 ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
-                feedResult(_page, resultExp_, _int);
+                feedResult(_page,_method, resultExp_, _int);
                 _page.setGlobalOffset(((ForIterativeLoop) current_).getStepOffset());
                 _page.setOffset(0);
                 ResultExpression resultStep_ = ((ForIterativeLoop) current_).getResStep();
                 ElResolver.commonCheckQuick(((ForIterativeLoop) current_).getStep(), 0, _page,resultStep_);
-                feedResult(_page, resultStep_, _int);
+                feedResult(_page,_method, resultStep_, _int);
             }
             if (current_ instanceof ForMutableIterativeLoop) {
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getInitOffset());
                 _page.setOffset(0);
                 ResultExpression resultInit_ = ((ForMutableIterativeLoop) current_).getResInit();
                 ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getInit(), 0, _page,resultInit_);
-                feedResult(_page, resultInit_, _int);
+                feedResult(_page,_method, resultInit_, _int);
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getExpressionOffset());
                 _page.setOffset(0);
                 ResultExpression resultExp_ = ((ForMutableIterativeLoop) current_).getResExp();
                 ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getExpression(), 0, _page,resultExp_);
-                feedResult(_page, resultExp_, _int);
+                feedResult(_page,_method, resultExp_, _int);
                 _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getStepOffset());
                 _page.setOffset(0);
                 ResultExpression resultStep_ = ((ForMutableIterativeLoop) current_).getResStep();
                 ElResolver.commonCheckQuick(((ForMutableIterativeLoop) current_).getStep(), 0, _page,resultStep_);
-                feedResult(_page, resultStep_, _int);
+                feedResult(_page,_method, resultStep_, _int);
             }
             if (current_ instanceof ReturnMethod) {
                 _page.setGlobalOffset(((ReturnMethod) current_).getExpressionOffset());
@@ -387,7 +413,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((ReturnMethod) current_).getExpression();
                 ResultExpression resultExpression_ = ((ReturnMethod) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof Throwing) {
                 _page.setGlobalOffset(((Throwing) current_).getExpressionOffset());
@@ -395,7 +421,7 @@ public final class SplitExpressionUtil {
                 String value_ = ((Throwing) current_).getExpression();
                 ResultExpression resultExpression_ = ((Throwing) current_).getRes();
                 ElResolver.commonCheckQuick(value_, 0, _page,resultExpression_);
-                feedResult(_page, resultExpression_, _int);
+                feedResult(_page,_method, resultExpression_, _int);
             }
             if (current_ instanceof BuildableElMethod || current_ instanceof UnclassedBracedBlock) {
                 Block ch_ = current_.getFirstChild();
@@ -420,14 +446,23 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static void feedResult(AnalyzedPageEl _page, ResultExpression _resultExpression, IntermediaryResults _int) {
+    private static void feedResult(AnalyzedPageEl _page,MemberCallingsBlock _mem, ResultExpression _resultExpression, IntermediaryResults _int) {
+        OperatorBlock op_ = null;
+        if (_mem instanceof OperatorBlock) {
+            op_ = (OperatorBlock) _mem;
+        }
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             Block type_ = a.getType();
             if (type_ instanceof AnonymousTypeBlock) {
+                if (op_ != null) {
+                    op_.getAnonymousTypes().add((AnonymousTypeBlock)type_);
+                }
+                ((AnonymousTypeBlock)type_).setOperator(op_);
                 ((AnonymousTypeBlock)type_).setParentType(_page.getGlobalDirType());
                 _int.getAnonymousTypes().add((AnonymousTypeBlock)type_);
             }
             if (type_ instanceof AnonymousFunctionBlock) {
+                ((AnonymousFunctionBlock)type_).setOperator(op_);
                 ((AnonymousFunctionBlock)type_).setParentType(_page.getGlobalDirType());
                 _int.getAnonymousFunctions().add((AnonymousFunctionBlock)type_);
             }

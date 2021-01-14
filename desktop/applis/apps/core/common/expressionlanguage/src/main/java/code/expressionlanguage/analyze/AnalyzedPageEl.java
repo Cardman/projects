@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.analyze.accessing.OperatorAccessor;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
@@ -54,6 +56,8 @@ public final class AnalyzedPageEl {
 
     private String globalClass = "";
     private RootBlock globalType;
+    private String currentPkg = "";
+    private FileBlock currentFile;
     private RootBlock globalDirType;
 
     private final StringMap<AnaLocalVariable> infosVars = new StringMap<AnaLocalVariable>();
@@ -125,6 +129,8 @@ public final class AnalyzedPageEl {
     private final Errors errors = new Errors();
     private final MethodHeaders headers = new MethodHeaders();
     private final ReportedMessages messages = new ReportedMessages();
+    private final StringMap<Integer> counts = new StringMap<Integer>();
+    private final StringMap<Integer> countsAnon = new StringMap<Integer>();
 
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
@@ -457,6 +463,51 @@ public final class AnalyzedPageEl {
         globalDirType = _globalDirType;
     }
 
+    public void setupFctChars(AnonymousFunctionBlock _fct) {
+        setImporting(null);
+        setGlobalType(null);
+        setGlobalDirType(null);
+        setImportingTypes(null);
+        setGlobalClass("");
+        setCurrentPkg("");
+        setCurrentFile(null);
+        RootBlock c_ = _fct.getParentType();
+        if (c_ != null) {
+            setImporting(c_);
+            setImportingAcces(new TypeAccessor(c_.getFullName()));
+            setImportingTypes(c_);
+            setGlobalClass(c_.getGenericString());
+            setGlobalType(c_);
+            setGlobalDirType(c_);
+            setCurrentPkg(c_.getPackageName());
+            setCurrentFile(c_.getFile());
+        }
+        OperatorBlock operator_ = _fct.getOperator();
+        if (operator_ != null) {
+            setImporting(operator_);
+            setImportingAcces(new OperatorAccessor());
+            setImportingTypes(operator_);
+            setGlobalClass("");
+            setCurrentPkg(getDefaultPkg());
+            setCurrentFile(operator_.getFile());
+        }
+    }
+    public String getCurrentPkg() {
+        return currentPkg;
+    }
+
+    public void setCurrentPkg(String _currentPkg) {
+        this.currentPkg = _currentPkg;
+    }
+
+    public FileBlock getCurrentFile() {
+        return currentFile;
+    }
+
+    public void setCurrentFile(FileBlock _currentFile) {
+        this.currentFile = _currentFile;
+    }
+
     public void clearAllLocalVars(AssignedVariablesBlock _a) {
         _a.getLocalVars().clear();
         _a.getVariables().clear();
@@ -538,9 +589,18 @@ public final class AnalyzedPageEl {
         importingTypes.clear();
         if (_importingTypes instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _importingTypes;
+            CustList<RootBlock> types_ = new CustList<RootBlock>();
+            types_.add(r_);
             importingTypes.add(r_.getImports());
             for (RootBlock r: r_.getAllParentTypes()) {
+                types_.add(r);
                 importingTypes.add(r.getImports());
+            }
+            for (RootBlock r:types_){
+                OperatorBlock operator_ = r.getOperator();
+                if (operator_ != null) {
+                    importingTypes.add(operator_.getImports());
+                }
             }
             importingTypes.add(r_.getFileImports());
         }
@@ -1097,6 +1157,14 @@ public final class AnalyzedPageEl {
 
     public StringMap<ToStringMethodHeader> getToStringMethods() {
         return toStringMethods;
+    }
+
+    public StringMap<Integer> getCounts() {
+        return counts;
+    }
+
+    public StringMap<Integer> getCountsAnon() {
+        return countsAnon;
     }
 
     public CustList<AnonymousResult> getAnonymousResults() {

@@ -3,15 +3,12 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -151,6 +148,14 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
         }
+        if (_local instanceof OperatorBlock) {
+            String type_ = getTypeName().trim();
+            MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
+            if (resolved_ != null) {
+                setAnalyzedType(resolved_.getFullName());
+                return;
+            }
+        }
         lookupImports(_rooted, new AlwaysReadyTypes(), _page);
     }
     private boolean skipGenericImports(RootBlock _local, AnalyzedPageEl _page) {
@@ -161,7 +166,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (resolved_ != null) {
             ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName());
             res_.setResolvedType(resolved_.getType());
-            allAncestors_.addEntry(resolved_.getParentType().getGenericString(), res_);
+            allAncestors_.addEntry(resolved_.getParentTypeGenericString(), res_);
         }
         while (p_ != null) {
             allAncestors_.addEntry(p_.getGenericString(), new ResultTypeAncestor(false,type_));
@@ -217,6 +222,14 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
         }
+        if (_local instanceof OperatorBlock) {
+            String type_ = getTypeName().trim();
+            MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
+            if (resolved_ != null) {
+                setAnalyzedType(resolved_.getFullName());
+                return;
+            }
+        }
         lookupImports(_rooted, _ready, _page);
     }
 
@@ -229,7 +242,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (resolved_ != null) {
             ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName());
             res_.setResolvedType(resolved_.getType());
-            allAncestors_.addEntry(resolved_.getParentType().getFullName(), res_);
+            allAncestors_.addEntry(resolved_.getParentFullName(), res_);
         }
         while (p_ != null) {
             allAncestors_.addEntry(p_.getFullName(), new ResultTypeAncestor(false,type_));

@@ -5,14 +5,16 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 public final class MappingLocalType {
     private final String fullName;
     private final String suffixedName;
-    private final RootBlock parentType;
     private final RootBlock type;
+    private final String parentTypeFullName;
+    private final String parentTypeGenericString;
 
-    public MappingLocalType(String _fullName, String _suffixedName, RootBlock _parentType,RootBlock _type) {
+    public MappingLocalType(String _fullName, String _suffixedName, RootBlock _type, String _parFullName, String _parGenericString) {
         this.fullName = _fullName;
         this.suffixedName = _suffixedName;
-        this.parentType = _parentType;
+        parentTypeFullName = _parFullName;
         this.type = _type;
+        parentTypeGenericString = _parGenericString;
     }
 
     public String getFullName() {
@@ -23,8 +25,12 @@ public final class MappingLocalType {
         return suffixedName;
     }
 
-    public RootBlock getParentType() {
-        return parentType;
+    public String getParentTypeGenericString() {
+        return parentTypeGenericString;
+    }
+
+    public String getParentFullName() {
+        return parentTypeFullName;
     }
 
     public RootBlock getType() {
