@@ -63,7 +63,7 @@ public final class AnalyzedPageEl {
     private MemberCallingsBlock currentFct;
     private AccessedBlock importing;
     private AccessingImportingBlock importingAcces;
-    private CustList<StringList> importingTypes = new CustList<StringList>();
+    private final CustList<StringList> importingTypes = new CustList<StringList>();
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private int countTypes;
     private int countInnerEltTypes;
@@ -84,6 +84,7 @@ public final class AnalyzedPageEl {
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
     private final CustList<OperatorBlock> allOperators = new CustList<OperatorBlock>();
+    private final CustList<OperatorBlock> sortedOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final IdMap<RootBlock,ClassMethodIdReturn> toStr = new IdMap<RootBlock, ClassMethodIdReturn>();
@@ -122,10 +123,10 @@ public final class AnalyzedPageEl {
     private final CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
-    private MethodHeaders headers = new MethodHeaders();
+    private final MethodHeaders headers = new MethodHeaders();
     private final ReportedMessages messages = new ReportedMessages();
 
-    private StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
+    private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
     private AbstractForEachFetch forEachFetch;
     private AbstractHiddenTypes hiddenTypes;
@@ -137,12 +138,12 @@ public final class AnalyzedPageEl {
     private AbstractBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
-    private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
+    private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
-    private CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
-    private CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
-    private CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
-    private CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
+    private final CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
+    private final CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
+    private final CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
+    private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
@@ -780,6 +781,10 @@ public final class AnalyzedPageEl {
 
     public CustList<OperatorBlock> getAllOperators() {
         return allOperators;
+    }
+
+    public CustList<OperatorBlock> getSortedOperators() {
+        return sortedOperators;
     }
 
     public CustList<RootBlock> getPrevFoundTypes() {

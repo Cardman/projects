@@ -104,8 +104,8 @@ public final class ForwardInfos {
                 }
             }
         }
-        for (EntryCust<OperatorBlock, ExecOperatorBlock> e: _forwards.getMapOperators().entryList()) {
-            classes_.getOperators().add(e.getValue());
+        for (OperatorBlock o: _page.getSortedOperators()) {
+            classes_.getSortedOperators().add(_forwards.getMapOperators().getValue(o.getNameNumber()));
         }
         for (EntryCust<String,FileBlock> e: _page.getFilesBodies().entryList()) {
             FileBlock fileBlock_ = e.getValue();

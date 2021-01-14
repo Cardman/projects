@@ -227,6 +227,9 @@ public final class ClassesUtil {
     public static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
         tryBuildAllBracedClassesBodies(_files, _page);
         validateInheritingClasses(_page);
+        validateIdsOperators(_page);
+        _page.getSortedOperators().addAllElts(_page.getFoundOperators());
+        _page.getSortedOperators().sortElts(new AnaOperatorCmp());
         validateIds(_page);
         validateOverridingInherit(_page);
         validateEl(_page);
@@ -1617,6 +1620,9 @@ public final class ClassesUtil {
                 }
             }
         }
+    }
+
+    private static void validateIdsOperators(AnalyzedPageEl _page) {
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         _page.setGlobalClass("");
         _page.setGlobalType(null);
@@ -1684,7 +1690,7 @@ public final class ClassesUtil {
                 i_++;
             }
             if (o.isRetRef()) {
-                if (StringUtil.quickEq(o.getImportedReturnType(),_page.getAliasVoid())) {
+                if (StringUtil.quickEq(o.getImportedReturnType(), _page.getAliasVoid())) {
                     int r_ = o.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                     badMeth_.setFileName(o.getFile().getFileName());

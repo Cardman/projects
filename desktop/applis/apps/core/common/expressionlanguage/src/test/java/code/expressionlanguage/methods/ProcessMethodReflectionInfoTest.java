@@ -7759,6 +7759,52 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertEq(28, getNumber(ret_));
     }
     @Test
+    public void processEl195_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ $int(pkg.Apply a) {\n");
+        xml_.append(" $return 0;\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ $int(pkg.Apply... a) {\n");
+        xml_.append(" $return 0;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $Class.getOperators().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
+    public void processEl195__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ $int($that pkg.Apply a) {\n");
+        xml_.append(" $return 0;\n");
+        xml_.append("}\n");
+        xml_.append("$operator+ $int(pkg.Apply a) {\n");
+        xml_.append(" $return 0;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $Class.getOperators().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
     public void calculate196Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");

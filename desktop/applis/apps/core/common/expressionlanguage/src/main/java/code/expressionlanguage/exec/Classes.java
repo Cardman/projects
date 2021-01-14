@@ -38,7 +38,7 @@ public final class Classes {
     private CustList<ExecOperationNode> expsNextPairCust;
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
-    private CustList<ExecOperatorBlock> operators;
+    private final CustList<ExecOperatorBlock> sortedOperators = new CustList<ExecOperatorBlock>();
     private ExecTypeFunction seedDoubleGeneratorPair;
     private ExecTypeFunction seedGeneratorPair;
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
@@ -47,7 +47,6 @@ public final class Classes {
     public Classes(ClassesCommon _common){
         common = _common;
         classesBodies = new StringMap<ExecRootBlock>();
-        operators = new CustList<ExecOperatorBlock>();
     }
 
 
@@ -95,10 +94,10 @@ public final class Classes {
         }
     }
 
-    public CustList<ExecOperatorBlock> getOperators() {
-        return operators;
-    }
 
+    public CustList<ExecOperatorBlock> getSortedOperators() {
+        return sortedOperators;
+    }
 
     public CustList<ExecRootBlock> getClassBodies() {
         return classesBodies.values();

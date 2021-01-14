@@ -1421,18 +1421,17 @@ public final class AliasReflection {
             CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
             if (_args.length == 0) {
-                for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
+                for (ExecOperatorBlock o: _cont.getClasses().getSortedOperators()) {
                     MethodMetaInfo met_ = feedOperator(o);
                     operators_.add(met_);
                 }
-                operators_.sortElts(new OperatorCmp());
                 ArrayStruct str_ = getMethodsMeta(className_, operators_);
                 result_.setResult(str_);
                 return result_;
             }
             AbstractMethodCriteria abs_ = _cont.getDefCriteria();
             CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
-            for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
+            for (ExecOperatorBlock o: _cont.getClasses().getSortedOperators()) {
                 MethodId id_ = o.getId();
                 if (eqStatic(id_, _args[0], NullStruct.NULL_VALUE, _args[1], _args[2], abs_.matches(id_))) {
                     MethodMetaInfo met_ = feedOperator(o);
