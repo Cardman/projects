@@ -108,24 +108,23 @@ public final class SplitExpressionUtil {
         current_ = _type;
         while (current_ != null) {
             if (current_ instanceof RootBlock) {
-                if (_type instanceof OperatorBlock) {
-                    ((RootBlock)current_).setOperator((OperatorBlock)_type);
-                }
                 if (!(current_ instanceof AnonymousTypeBlock)) {
                     MemberCallingsBlock outerFuntion_ = current_.getOuterFuntionInType();
-                    if (_type instanceof OperatorBlock&&outerFuntion_!=null) {
-                        ((OperatorBlock) _type).getLocalTypes().add((RootBlock)current_);
-                    }
-                    RootBlock possibleParent_ = ((RootBlock) current_).getParentType();
-                    if (possibleParent_ != null&&outerFuntion_ != null) {
-                        String s_ = ((RootBlock) current_).getName();
-                        Integer val_ = possibleParent_.getCounts().getVal(s_);
-                        if (val_ == null) {
-                            possibleParent_.getCounts().put(s_,1);
-                            ((RootBlock) current_).setSuffix("+1");
-                        } else {
-                            possibleParent_.getCounts().put(s_,val_+1);
-                            ((RootBlock) current_).setSuffix("+"+(val_+1));
+                    if (outerFuntion_ != null) {
+                        RootBlock possibleParent_ = ((RootBlock) current_).getParentType();
+                        if (possibleParent_ != null) {
+                            String s_ = ((RootBlock) current_).getName();
+                            Integer val_ = possibleParent_.getCounts().getVal(s_);
+                            if (val_ == null) {
+                                possibleParent_.getCounts().put(s_,1);
+                                ((RootBlock) current_).setSuffix("+1");
+                            } else {
+                                possibleParent_.getCounts().put(s_,val_+1);
+                                ((RootBlock) current_).setSuffix("+"+(val_+1));
+                            }
+                        } else if (_type instanceof OperatorBlock) {
+                            ((RootBlock)current_).setOperator((OperatorBlock)_type);
+                            ((OperatorBlock) _type).getLocalTypes().add((RootBlock)current_);
                         }
                     }
 
