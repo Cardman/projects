@@ -3188,6 +3188,139 @@ public final class RenderTextTest extends CommonRender {
         String html_ = "<html><body><c:set className=\"java.lang.$Fct&lt;$int,$int,$int&gt;\" value=\"l=$static().$lambda(java.lang.$math,max,$int,$int)\"/>{l.call($id(java.lang.$Fct,java.lang.Object...),2,1)}</body></html>";
         assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
+    @Test
+    public void process131Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{$staticCall(pkg.Ex&lt;$int&gt;).cat($new pkg.Ex&lt;&gt;(2,4))}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process132Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='pkg.Ex&lt;$int&gt;' value='v=$new(2,4)'/>{$staticCall(pkg.Ex&lt;$int&gt;).cat(v)}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process133Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='pkg.Ex&lt;$int&gt;[]' value='v=$new pkg.Ex&lt;&gt;[]{$new pkg.Ex&lt;&gt;(2,4)}'/>{$staticCall(pkg.Ex&lt;$int&gt;).cat(v[0])}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process134Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='pkg.Ex&lt;$int&gt;[]' value='v=$new pkg.Ex&lt;&gt;[1]'/><c:set value='v[0]=$new pkg.Ex&lt;&gt;(2,4)'/>{$staticCall(pkg.Ex&lt;$int&gt;).cat(v[0])}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process135Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className='pkg.Ex&lt;$int&gt;[]' value='v=$new[1]'/><c:set value='v[0]=$new(2,4)'/>{$staticCall(pkg.Ex&lt;$int&gt;).cat(v[0])}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process136Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{$staticCall(pkg.Ex&lt;$int&gt;).cat($new { } pkg.Ex&lt;&gt;(2,4))}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+a.inst[0]+\",\"+a.inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process137Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body>{$staticCall(pkg.Ex&lt;$int[]&gt;).cat($new pkg.Ex&lt;$int[]&gt;($new $int[]{2},$new $int[]{4}))}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T[] inst;\n");
+        xml_.append(" $public Ex(T... p){\n");
+        xml_.append("  inst = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall String cat(Ex<T> a){\n");
+        xml_.append("  $return \"\"+(($int[])a.inst[0])[0]+\",\"+(($int[])a.inst[1])[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }
@@ -3281,6 +3414,14 @@ public final class RenderTextTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process9FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><l>{$new}</l><l>{$new {r}</l><l>{$new {}</l><l>{$new $int{}}</l><l>{$new</l></html>";
+        StringMap<String> files_ = new StringMap<String>();
         assertTrue(hasErr(folder_, relative_, html_, files_));
     }
 

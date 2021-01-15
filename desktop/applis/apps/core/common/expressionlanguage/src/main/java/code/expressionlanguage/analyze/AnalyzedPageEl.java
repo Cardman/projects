@@ -168,7 +168,7 @@ public final class AnalyzedPageEl {
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
-        page_.setProcessKeyWord(new DefaultProcessKeyWord());
+        page_.setProcessKeyWord(new DefaultProcessKeyWord(page_));
         page_.setHiddenTypes(new DefaultHiddenTypes(page_));
         page_.setForEachFetch(new DefaultForEachFetch(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.*;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -744,9 +743,6 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
             int j_ = i_+keyWordNew_.length();
-            int l_ = j_;
-
-            int count_ = 0;
             boolean foundLeftPar_ = false;
             boolean foundLeft_ = false;
             while (j_ < len_) {
@@ -754,7 +750,6 @@ public final class ElResolver {
                 if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
-                        l_++;
                         j_++;
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
@@ -766,7 +761,6 @@ public final class ElResolver {
                     }
                     break;
                 }
-                l_++;
                 j_++;
             }
             if (foundLeftPar_) {
@@ -780,28 +774,19 @@ public final class ElResolver {
                 char curLoc_ = _string.charAt(j_);
                 if (!StringUtil.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_RIGHT) {
-                        l_++;
                         j_++;
                         found_ = true;
                     }
                     break;
                 }
-                l_++;
                 j_++;
             }
             if (foundLeft_ && !found_) {
                 return j_;
             }
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    break;
-                }
-                l_++;
-                j_++;
-            }
-            if (StringExpUtil.startsWithKeyWord(_string,l_, keyWordInterfaces_)) {
-                int k_ = _string.indexOf(PAR_LEFT, l_);
+            j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
+            if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordInterfaces_)) {
+                int k_ = _string.indexOf(PAR_LEFT, j_);
                 if (k_ < 0) {
                     return j_;
                 }
@@ -812,30 +797,7 @@ public final class ElResolver {
                 j_ = k_;
             }
             int from_ = j_;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (curLoc_ == Templates.LT) {
-                    count_++;
-                    j_++;
-                    continue;
-                }
-                if (curLoc_ == Templates.GT) {
-                    count_--;
-                    j_++;
-                    continue;
-                }
-                if (curLoc_ == PAR_LEFT) {
-                    _stack.getCallings().add(j_);
-                    break;
-                }
-                if (curLoc_ == ANN_ARR_LEFT) {
-                    break;
-                }
-                if (curLoc_ == ARR_LEFT && count_ == 0) {
-                    break;
-                }
-                j_++;
-            }
+            j_ = DefaultProcessKeyWord.extractType(_string,_stack,j_);
             _stack.getStringsNew().add(_string.substring(from_,j_));
             _stack.getIndexesNew().add(j_);
             return j_;
@@ -1674,7 +1636,6 @@ public final class ElResolver {
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordLambda_ = keyWords_.getKeyWordLambda();
-        String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
@@ -1789,114 +1750,6 @@ public final class ElResolver {
             return;
         }
         StackDelimiters stack_ = _d.getStack();
-        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
-            int j_ = i_+keyWordNew_.length();
-            int l_ = j_;
-
-            int count_ = 0;
-            boolean foundLeftPar_ = false;
-            boolean foundLeft_ = false;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    if (curLoc_ == ANN_ARR_LEFT) {
-                        foundLeft_ = true;
-                        l_++;
-                        j_++;
-                    }
-                    if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
-                        foundLeftPar_ = true;
-                        if (curLoc_ == PAR_LEFT ) {
-                            stack_.getCallings().add(j_);
-                        }
-                        j_++;
-                    }
-                    break;
-                }
-                l_++;
-                j_++;
-            }
-            if (foundLeftPar_) {
-                i_ = j_-1;
-                stack_.getIndexesNew().add(i_);
-                stack_.getStringsNew().add("");
-                _out.setNextIndex(i_);
-                return;
-            }
-            boolean found_ = false;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    if (curLoc_ == ANN_ARR_RIGHT) {
-                        l_++;
-                        j_++;
-                        found_ = true;
-                    }
-                    break;
-                }
-                l_++;
-                j_++;
-            }
-            if (foundLeft_ && !found_) {
-                _d.setBadOffset(j_);
-                return;
-            }
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (!StringUtil.isWhitespace(curLoc_)) {
-                    break;
-                }
-                l_++;
-                j_++;
-            }
-            if (StringExpUtil.startsWithKeyWord(_string,l_, keyWordInterfaces_)) {
-                int k_ = _string.indexOf(PAR_LEFT, l_);
-                if (k_ < 0) {
-                    _d.setBadOffset(j_);
-                    return;
-                }
-                k_ = _string.indexOf(PAR_RIGHT, k_);
-                if (k_ < 0) {
-                    _d.setBadOffset(j_);
-                    return;
-                }
-                j_ = k_;
-            }
-            int from_ = j_;
-            while (j_ < len_) {
-                char curLoc_ = _string.charAt(j_);
-                if (curLoc_ == Templates.LT) {
-                    count_++;
-                    j_++;
-                    continue;
-                }
-                if (curLoc_ == Templates.GT) {
-                    count_--;
-                    j_++;
-                    continue;
-                }
-                if (curLoc_ == PAR_LEFT) {
-                    stack_.getCallings().add(j_);
-                    break;
-                }
-                if (curLoc_ == ANN_ARR_LEFT) {
-                    break;
-                }
-                if (curLoc_ == ARR_LEFT && count_ == 0) {
-                    break;
-                }
-                j_++;
-            }
-            if (j_ >= len_) {
-                _d.setBadOffset(len_ - 1);
-                return;
-            }
-            i_ = j_;
-            stack_.getIndexesNew().add(i_);
-            stack_.getStringsNew().add(_string.substring(from_,j_));
-            _out.setNextIndex(i_);
-            return;
-        }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordLambda_)) {
             //lambda
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
