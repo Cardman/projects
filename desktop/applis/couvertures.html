@@ -39,8 +39,10 @@ function fct(){
 				}
 				arr = next;
 			}
+			var remain = [];
 			for (var t in arrAll){
 				if (!existFile(arrAll[t]+'/target/site/jacoco/index.html')){
+					remain.push(arrAll[t]);
 					continue;
 				}
 				var countMiss = countMissing(readFile(arrAll[t]+'/target/site/jacoco/index.html'));
@@ -50,6 +52,19 @@ function fct(){
 					document.write('<span style=\'background-color:red;\'><a href=\''+arrAll[t]+'/target/site/jacoco/index.html\''+'>'+arrAll[t]+'/target/site/jacoco/index.html'+':'+countMiss+'</a></span>');
 				}
 				document.write('<br/>');
+			}
+			document.write('<hr/>');
+			var others = [];
+			for (var t in remain){
+				if (!existFile(remain[t]+'/src')){
+					others.push(remain[t]);
+					continue;
+				}
+				document.write(remain[t]+'<br/>');
+			}
+			document.write('<hr/>');
+			for (var t in others){
+				document.write(others[t]+'<br/>');
 			}
         }
      };
