@@ -1629,7 +1629,6 @@ public final class ClassesUtil {
         for (RootBlock c: _page.getFoundTypes()) {
             _page.setGlobalClass(c.getGenericString());
             _page.setGlobalType(c);
-            _page.setGlobalDirType(c);
             _page.setCurrentPkg(c.getPackageName());
             _page.setCurrentFile(c.getFile());
             _page.setImporting(c);
@@ -1827,7 +1826,6 @@ public final class ClassesUtil {
                 if (b instanceof InnerTypeOrElement) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     _page.setCurrentFct(null);
@@ -1841,7 +1839,6 @@ public final class ClassesUtil {
                 if (b instanceof FieldBlock) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     FieldBlock method_ = (FieldBlock) b;
@@ -1858,7 +1855,6 @@ public final class ClassesUtil {
                 if (b instanceof StaticBlock) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     StaticBlock method_ = (StaticBlock) b;
@@ -1903,7 +1899,6 @@ public final class ClassesUtil {
                 if (b instanceof FieldBlock) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     FieldBlock method_ = (FieldBlock) b;
@@ -1917,7 +1912,6 @@ public final class ClassesUtil {
                 if (b instanceof InstanceBlock) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     InstanceBlock method_ = (InstanceBlock) b;
@@ -1936,7 +1930,6 @@ public final class ClassesUtil {
                     _page.getInitFieldsCtors().addAllElts(_page.getInitFields());
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     ConstructorBlock method_ = (ConstructorBlock) b;
@@ -1966,7 +1959,6 @@ public final class ClassesUtil {
                 if (isStdOrExplicit(method_)) {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                     StringList params_ = method_.getParametersNames();
@@ -1981,7 +1973,6 @@ public final class ClassesUtil {
                 } else {
                     _page.setGlobalClass(c.getGenericString());
                     _page.setGlobalType(c);
-                    _page.setGlobalDirType(c);
                     _page.setCurrentPkg(c.getPackageName());
                     _page.setCurrentFile(c.getFile());
                      StringList params_ = method_.getParametersNames();
@@ -1998,7 +1989,6 @@ public final class ClassesUtil {
             }
         }
         _page.setGlobalClass("");
-        _page.setGlobalDirType(null);
         _page.setAnnotAnalysis(true);
         for (RootBlock c: _page.getFoundTypes()) {
             _page.setImporting(c);
@@ -2006,7 +1996,6 @@ public final class ClassesUtil {
             _page.setImportingTypes(c);
             _page.setGlobalClass(c.getGenericString());
             _page.setGlobalType(c);
-            _page.setGlobalDirType(c);
             _page.setCurrentPkg(c.getPackageName());
             _page.setCurrentFile(c.getFile());
             _page.setCurrentFct(null);
@@ -2035,7 +2024,6 @@ public final class ClassesUtil {
         }
         _page.setGlobalClass("");
         _page.setGlobalType(null);
-        _page.setGlobalDirType(null);
         _page.setCurrentFct(null);
         _page.setAnnotAnalysis(false);
         //init annotations here
@@ -2325,7 +2313,6 @@ public final class ClassesUtil {
         assVars_.setCache(new AnaCache());
         _page.setGlobalClass("");
         _page.setGlobalType(null);
-        _page.setGlobalDirType(null);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
@@ -2441,7 +2428,6 @@ public final class ClassesUtil {
         assVars_.setCache(new AnaCache());
         _page.setGlobalClass("");
         _page.setGlobalType(null);
-        _page.setGlobalDirType(null);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
@@ -2641,7 +2627,6 @@ public final class ClassesUtil {
                 }
                 _page.setGlobalClass(c.getGenericString());
                 _page.setGlobalType(c);
-                _page.setGlobalDirType(c);
                 _page.setCurrentPkg(c.getPackageName());
                 _page.setCurrentFile(c.getFile());
                 _page.setCurrentBlock(f_);

@@ -58,7 +58,6 @@ public final class AnalyzedPageEl {
     private RootBlock globalType;
     private String currentPkg = "";
     private FileBlock currentFile;
-    private RootBlock globalDirType;
 
     private final StringMap<AnaLocalVariable> infosVars = new StringMap<AnaLocalVariable>();
     private final StringMap<AnaLoopVariable> loopsVars = new StringMap<AnaLoopVariable>();
@@ -455,18 +454,9 @@ public final class AnalyzedPageEl {
         globalType = _globalType;
     }
 
-    public RootBlock getGlobalDirType() {
-        return globalDirType;
-    }
-
-    public void setGlobalDirType(RootBlock _globalDirType) {
-        globalDirType = _globalDirType;
-    }
-
     public void setupFctChars(AnonymousFunctionBlock _fct) {
         setImporting(null);
         setGlobalType(null);
-        setGlobalDirType(null);
         setImportingTypes(null);
         setGlobalClass("");
         setCurrentPkg("");
@@ -478,7 +468,6 @@ public final class AnalyzedPageEl {
             setImportingTypes(c_);
             setGlobalClass(c_.getGenericString());
             setGlobalType(c_);
-            setGlobalDirType(c_);
             setCurrentPkg(c_.getPackageName());
             setCurrentFile(c_.getFile());
         }

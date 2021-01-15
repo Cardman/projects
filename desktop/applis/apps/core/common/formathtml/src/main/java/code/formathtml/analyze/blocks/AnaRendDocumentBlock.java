@@ -36,7 +36,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.setGlobalOffset(getOffset().getOffsetTrim());
         _page.setOffset(0);
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
-        _page.setGlobalDirType(null);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);
         if (_anaDoc.getBeansInfosBefore().contains(beanName)) {
