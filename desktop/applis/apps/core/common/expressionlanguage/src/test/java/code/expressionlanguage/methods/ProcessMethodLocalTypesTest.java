@@ -1427,4 +1427,43 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(6, getNumber(ret_));
     }
+    @Test
+    public void calculate35() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" public class Loc:pkg.Int{\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Loc(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" return new Loc(a.field+b.field);\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return Class.getOperators()[0].getDeclaredLocalTypes().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
 }
