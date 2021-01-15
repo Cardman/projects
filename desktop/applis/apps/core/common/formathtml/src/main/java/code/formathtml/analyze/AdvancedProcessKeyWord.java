@@ -18,23 +18,15 @@ public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
 
     @Override
     public void processInternKeyWord(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out) {
-        processInternKeyWord(_exp,_fr,_out, page, analyzingDoc);
-    }
-
-    private static void processInternKeyWord(String _string, int _fr,
-                                             ResultAfterInstKeyWord _out, AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {
-        KeyWords keyWords_ = _analyzing.getKeyWords();
+        KeyWords keyWords_ = page.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
-        String sub_ = _string.substring(_fr);
-        int i_ = _fr;
-        if (_analyzingDoc.isInternGlobal()) {
-            if (StringExpUtil.startsWithKeyWord(sub_, keyWordIntern_)) {
-                int afterSuper_ = i_ + keyWordIntern_.length();
-                String trim_ = _string.substring(afterSuper_).trim();
+        if (analyzingDoc.isInternGlobal()) {
+            if (StringExpUtil.startsWithKeyWord(_exp, _fr,keyWordIntern_)) {
+                int afterSuper_ = _fr + keyWordIntern_.length();
+                String trim_ = _exp.substring(afterSuper_).trim();
                 if (trim_.startsWith(".")) {
                     //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                    i_ = _string.indexOf('.',afterSuper_);
-                    _out.setNextIndex(i_);
+                    _out.setNextIndex(_exp.indexOf('.',afterSuper_));
                 }
             }
         }
