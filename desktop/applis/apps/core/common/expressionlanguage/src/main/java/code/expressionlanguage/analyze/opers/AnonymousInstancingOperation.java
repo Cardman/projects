@@ -35,7 +35,7 @@ public final class AnonymousInstancingOperation extends
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        _page.getAnonymous().last().add(this);
+        _page.getAnonymous().add(this);
         _page.getAnonymousList().add(this);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();

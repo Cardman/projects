@@ -146,9 +146,9 @@ public final class AnalyzedPageEl {
     private AbstractTokenValidation tokenValidation;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
-    private final CustList<CustList<AnonymousInstancingOperation>> anonymous = new CustList<CustList<AnonymousInstancingOperation>>();
+    private final CustList<AnonymousInstancingOperation> anonymous = new CustList<AnonymousInstancingOperation>();
     private final CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
-    private final CustList<CustList<AnonymousLambdaOperation>> anonymousLambda = new CustList<CustList<AnonymousLambdaOperation>>();
+    private final CustList<AnonymousLambdaOperation> anonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
@@ -1179,7 +1179,7 @@ public final class AnalyzedPageEl {
         this.currentAnonymousResults = _currentAnonymousResults;
     }
 
-    public CustList<CustList<AnonymousInstancingOperation>> getAnonymous() {
+    public CustList<AnonymousInstancingOperation> getAnonymous() {
         return anonymous;
     }
 
@@ -1187,7 +1187,7 @@ public final class AnalyzedPageEl {
         return anonymousList;
     }
 
-    public CustList<CustList<AnonymousLambdaOperation>> getAnonymousLambda() {
+    public CustList<AnonymousLambdaOperation> getAnonymousLambda() {
         return anonymousLambda;
     }
     public CustList<AnonymousLambdaOperation> getAllAnonymousLambda() {

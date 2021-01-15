@@ -154,8 +154,6 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
-        _page.getAnonymous().removeLast();
-        _page.getAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();

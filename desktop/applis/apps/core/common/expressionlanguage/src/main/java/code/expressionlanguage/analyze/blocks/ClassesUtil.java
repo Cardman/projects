@@ -315,36 +315,34 @@ public final class ClassesUtil {
         _page.setAnnotAnalysis(false);
 
         for (IntermediaryResults s:_page.getNextResults()) {
-            for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
-                for (AnonymousInstancingOperation e: m) {
-                    AnonymousTypeBlock block_ = e.getBlock();
-                    String base_ = e.getBase();
-                    String enumClassName_ = _page.getAliasEnumType();
-                    String enumParamClassName_ = _page.getAliasEnumParam();
-                    if (StringUtil.quickEq(enumParamClassName_, base_)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(block_.getFile().getFileName());
-                        undef_.setIndexFile(e.getIndex());
-                        //original type len
-                        undef_.buildError(_page.getAnalysisMessages().getReservedType(),
-                                block_.getFullName(),
-                                base_);
-                        _page.addLocError(undef_);
-                        block_.addNameErrors(undef_);
-                    }
-                    if (StringUtil.quickEq(enumClassName_, base_)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(block_.getFile().getFileName());
-                        undef_.setIndexFile(e.getIndex());
-                        //original type len
-                        undef_.buildError(_page.getAnalysisMessages().getReservedType(),
-                                block_.getFullName(),
-                                base_);
-                        _page.addLocError(undef_);
-                        block_.addNameErrors(undef_);
-                    }
+            for (AnonymousInstancingOperation e: _page.getAnonymous()) {
+                AnonymousTypeBlock block_ = e.getBlock();
+                String base_ = e.getBase();
+                String enumClassName_ = _page.getAliasEnumType();
+                String enumParamClassName_ = _page.getAliasEnumParam();
+                if (StringUtil.quickEq(enumParamClassName_, base_)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(block_.getFile().getFileName());
+                    undef_.setIndexFile(e.getIndex());
+                    //original type len
+                    undef_.buildError(_page.getAnalysisMessages().getReservedType(),
+                            block_.getFullName(),
+                            base_);
+                    _page.addLocError(undef_);
+                    block_.addNameErrors(undef_);
+                }
+                if (StringUtil.quickEq(enumClassName_, base_)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(block_.getFile().getFileName());
+                    undef_.setIndexFile(e.getIndex());
+                    //original type len
+                    undef_.buildError(_page.getAnalysisMessages().getReservedType(),
+                            block_.getFullName(),
+                            base_);
+                    _page.addLocError(undef_);
+                    block_.addNameErrors(undef_);
                 }
             }
             _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
@@ -359,12 +357,10 @@ public final class ClassesUtil {
             validateInheritingClasses(_page);
             validateIds(_page);
             validateOverridingInherit(_page);
-            for (CustList<AnonymousInstancingOperation> m: _page.getAnonymous()) {
-                for (AnonymousInstancingOperation e: m) {
-                    _page.setGlobalType(e.getGlType());
-                    _page.setGlobalClass(e.getGlClass());
-                    e.postAnalyze(_page);
-                }
+            for (AnonymousInstancingOperation e: _page.getAnonymous()) {
+                _page.setGlobalType(e.getGlType());
+                _page.setGlobalClass(e.getGlClass());
+                e.postAnalyze(_page);
             }
             _page.getAnonymous().clear();
             _page.getAnonymousLambda().clear();

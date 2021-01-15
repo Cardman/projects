@@ -40,7 +40,7 @@ public final class AnonymousLambdaOperation extends
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        _page.getAnonymousLambda().last().add(this);
+        _page.getAnonymousLambda().add(this);
         _page.getAllAnonymousLambda().add(this);
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();

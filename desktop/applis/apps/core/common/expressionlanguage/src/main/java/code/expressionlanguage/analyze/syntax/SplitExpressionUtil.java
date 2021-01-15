@@ -122,9 +122,28 @@ public final class SplitExpressionUtil {
                                 possibleParent_.getCounts().put(s_,val_+1);
                                 ((RootBlock) current_).setSuffix("+"+(val_+1));
                             }
-                        } else if (_type instanceof OperatorBlock) {
-                            ((RootBlock)current_).setOperator((OperatorBlock)_type);
-                            ((OperatorBlock) _type).getLocalTypes().add((RootBlock)current_);
+                        } else {
+//                            if (_type instanceof OperatorBlock) {
+//                                ((RootBlock) current_).setOperator((OperatorBlock)_type);
+//                                ((OperatorBlock)_type).getLocalTypes().add((RootBlock) current_);
+//                            }
+//                            if (_type instanceof AnonymousFunctionBlock) {
+//                                ((RootBlock) current_).setOperator(((AnonymousFunctionBlock)_type).getOperator());
+//
+//                                ((AnonymousFunctionBlock)_type).getOperator().getLocalTypes().add((RootBlock) current_);
+//                            }
+                            OperatorBlock op_ = null;
+                            if (_type instanceof AnonymousFunctionBlock) {
+                                op_ = ((AnonymousFunctionBlock)_type).getOperator();
+//                                ((RootBlock) current_).setOperator(((AnonymousFunctionBlock)_type).getOperator());
+                            }
+                            if (_type instanceof OperatorBlock) {
+                                op_ = (OperatorBlock)_type;
+                            }
+                            if (op_ != null) {
+                                ((RootBlock) current_).setOperator(op_);
+                                op_.getLocalTypes().add((RootBlock) current_);
+                            }
                         }
                     }
 
@@ -450,19 +469,26 @@ public final class SplitExpressionUtil {
         if (_mem instanceof OperatorBlock) {
             op_ = (OperatorBlock) _mem;
         }
+        if (_mem instanceof AnonymousFunctionBlock) {
+            op_ = ((AnonymousFunctionBlock) _mem).getOperator();
+        }
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             Block type_ = a.getType();
             if (type_ instanceof AnonymousTypeBlock) {
+                ((AnonymousTypeBlock)type_).setParentType(_page.getGlobalDirType());
                 if (op_ != null) {
                     op_.getAnonymousTypes().add((AnonymousTypeBlock)type_);
                 }
-                ((AnonymousTypeBlock)type_).setOperator(op_);
-                ((AnonymousTypeBlock)type_).setParentType(_page.getGlobalDirType());
+                if (((AnonymousTypeBlock)type_).getParentType() == null) {
+                    ((AnonymousTypeBlock)type_).setOperator(op_);
+                }
                 _int.getAnonymousTypes().add((AnonymousTypeBlock)type_);
             }
             if (type_ instanceof AnonymousFunctionBlock) {
-                ((AnonymousFunctionBlock)type_).setOperator(op_);
                 ((AnonymousFunctionBlock)type_).setParentType(_page.getGlobalDirType());
+                if (((AnonymousFunctionBlock)type_).getParentType() == null) {
+                    ((AnonymousFunctionBlock)type_).setOperator(op_);
+                }
                 _int.getAnonymousFunctions().add((AnonymousFunctionBlock)type_);
             }
         }
