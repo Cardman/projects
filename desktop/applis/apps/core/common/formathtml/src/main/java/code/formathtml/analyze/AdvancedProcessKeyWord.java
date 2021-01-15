@@ -1,6 +1,7 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.analyze.instr.ResultAfterInstKeyWord;
@@ -16,7 +17,7 @@ public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
     }
 
     @Override
-    public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
+    public void processInternKeyWord(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out) {
         processInternKeyWord(_exp,_fr,_out, page, analyzingDoc);
     }
 

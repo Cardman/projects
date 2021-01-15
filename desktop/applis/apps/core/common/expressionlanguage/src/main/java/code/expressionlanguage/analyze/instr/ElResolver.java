@@ -3,8 +3,6 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
-import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -2514,7 +2512,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        _page.getProcessKeyWord().processInternKeyWord(_string, i_, _out);
+        _page.getProcessKeyWord().processInternKeyWord(_string, i_, _d, _out);
     }
 
     private static int incrType(int _i, String _string) {
