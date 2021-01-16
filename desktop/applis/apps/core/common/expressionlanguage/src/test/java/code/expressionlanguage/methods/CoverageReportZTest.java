@@ -9428,6 +9428,134 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage618Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field()$intern($core.Int*1:field($core.Int*1)){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Int\" href=\"#m239\">pkg.Int</a>(<a title=\"pkg.Comp\" href=\"#m278\">pkg.Comp</a> <a name=\"m27\">a</a>, <a title=\"pkg.Comp\" href=\"#m278\">pkg.Comp</a> <a name=\"m39\">b</a>) {\n" +
+                " return <span class=\"f\"><a title=\"$core.Int*1.$core.Int*1(int)\" href=\"#m97\">new</a> <a title=\"pkg.Int\" href=\"#m239\">pkg.Int</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m27\">a</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m301\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m39\">b</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m301\">field</a></span></span></span>)<span class=\"t\"><a name=\"m80\">{</a>\n" +
+                "  int <span class=\"f\"><a name=\"m88\">field</a></span>;\n" +
+                "  <a name=\"m97\">public Int(</a>int <a name=\"m112\">p</a>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a title=\"$core.Int*1.field\" href=\"#m88\">field</a> </span>=<span class=\"f\"> <a href=\"#m112\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  public int <a name=\"m147\">field</a>()$intern(<a title=\"$core.Int*1\" href=\"#m80\">$core.Int*1</a>:<a title=\"$core.Int*1.field()\" href=\"#m147\">field</a>(<a title=\"$core.Int*1\" href=\"#m80\">$core.Int*1</a>)){\n" +
+                "   return <span class=\"f\"><a title=\"$core.Int*1.field\" href=\"#m88\">field</a></span>;\n" +
+                "  }\n" +
+                " }</span></span>;\n" +
+                "}\n" +
+                "public interface <a name=\"m239\">pkg.Int</a> {\n" +
+                " int <a name=\"m254\">field</a>();\n" +
+                "}\n" +
+                "public class <a name=\"m278\">pkg.Comp</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m301\">field</a></span>;\n" +
+                " <a name=\"m309\">public Comp(</a>int <a name=\"m325\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m301\">field</a></span>=<span class=\"f\"><a href=\"#m325\">p</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "class <a name=\"m351\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m373\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m309\">new</a> <a title=\"pkg.Comp\" href=\"#m278\">Comp</a>(<span class=\"f\">2</span>)</span><a title=\"static +(pkg.Comp,pkg.Comp)\" href=\"#m8\">+</a><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m309\">new</a> <a title=\"pkg.Comp\" href=\"#m278\">Comp</a>(<span class=\"f\">4</span>)</span></span>)</span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m254\">field</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage619Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new pkg.Int(a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public Int(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(int f)$intern($core.Int*1:field($core.Int*1,int)){\n");
+        xml_.append("   return field+f;\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field(int f);\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Int\" href=\"#m250\">pkg.Int</a>(<a title=\"pkg.Comp\" href=\"#m294\">pkg.Comp</a> <a name=\"m27\">a</a>, <a title=\"pkg.Comp\" href=\"#m294\">pkg.Comp</a> <a name=\"m39\">b</a>) {\n" +
+                " return <span class=\"f\"><a title=\"$core.Int*1.$core.Int*1(int)\" href=\"#m97\">new</a> <a title=\"pkg.Int\" href=\"#m250\">pkg.Int</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m27\">a</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m317\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m39\">b</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m317\">field</a></span></span></span>)<span class=\"t\"><a name=\"m80\">{</a>\n" +
+                "  int <span class=\"f\"><a name=\"m88\">field</a></span>;\n" +
+                "  <a name=\"m97\">public Int(</a>int <a name=\"m112\">p</a>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a title=\"$core.Int*1.field\" href=\"#m88\">field</a> </span>=<span class=\"f\"> <a href=\"#m112\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  public int <a name=\"m147\">field</a>(int <a name=\"m157\">f</a>)$intern(<a title=\"$core.Int*1\" href=\"#m80\">$core.Int*1</a>:<a title=\"$core.Int*1.field(int)\" href=\"#m147\">field</a>(<a title=\"$core.Int*1\" href=\"#m80\">$core.Int*1</a>,int)){\n" +
+                "   return <span class=\"f\"><span class=\"f\"><a title=\"$core.Int*1.field\" href=\"#m88\">field</a></span>+<span class=\"f\"><a href=\"#m157\">f</a></span></span>;\n" +
+                "  }\n" +
+                " }</span></span>;\n" +
+                "}\n" +
+                "public interface <a name=\"m250\">pkg.Int</a> {\n" +
+                " int <a name=\"m265\">field</a>(int <a name=\"m275\">f</a>);\n" +
+                "}\n" +
+                "public class <a name=\"m294\">pkg.Comp</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m317\">field</a></span>;\n" +
+                " <a name=\"m325\">public Comp(</a>int <a name=\"m341\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m317\">field</a></span>=<span class=\"f\"><a href=\"#m341\">p</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "class <a name=\"m367\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m389\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m325\">new</a> <a title=\"pkg.Comp\" href=\"#m294\">Comp</a>(<span class=\"f\">2</span>)</span><a title=\"static +(pkg.Comp,pkg.Comp)\" href=\"#m8\">+</a><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m325\">new</a> <a title=\"pkg.Comp\" href=\"#m294\">Comp</a>(<span class=\"f\">4</span>)</span></span>)</span>.<span class=\"f\"><a title=\"pkg.Int.field(int)\" href=\"#m265\">field</a>(<span class=\"f\">0</span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

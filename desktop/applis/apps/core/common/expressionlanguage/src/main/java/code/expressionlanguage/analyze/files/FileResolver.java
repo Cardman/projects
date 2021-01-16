@@ -2023,7 +2023,7 @@ public final class FileResolver {
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                     ov_.setDefinition(info_);
-                    ov_.setDefinitionOffset(offsetLast_);
+                    ov_.setDefinitionOffset(offsetLast_+_offset);
                 }
                 ov_.setKind(kind_);
                 _currentParent.getOverridableBlocks().add(ov_);
