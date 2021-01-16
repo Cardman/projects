@@ -310,7 +310,7 @@ public final class FileResolver {
             ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
             parsPars_.parse(currentChar_,endInstruction_);
             if (parsPars_.isExitLoop()) {
-                FileResolver.addBadIndex(_input, currentParent_, out_, i_);
+                FileResolver.addBadIndex(_input, currentParent_, out_, i_+_offset);
                 break;
             }
             braces_ = parsPars_.getBraces();
@@ -336,7 +336,7 @@ public final class FileResolver {
 
             i_ = i_ + 1;
         } else {
-            addBadIndex(_input, currentParent_, out_, len_);
+            addBadIndex(_input, currentParent_, out_, len_+_offset);
         }
         out_.setNextIndex(i_);
         out_.setOkType(okType_);
@@ -717,7 +717,7 @@ public final class FileResolver {
         String packageName_ = _pkgName;
         if (currentParent_ == null) {
             if (_out.getBlock() != null) {
-                _out.getBlock().getBadIndexes().add(_i);
+                _out.getBlock().getBadIndexes().add(_i+_offset);
                 _out.getBlock().getBadIndexesGlobal().add(_i);
                 _instruction.delete(0, _instruction.length());
                 after_.setIndex(_i);
@@ -1222,7 +1222,7 @@ public final class FileResolver {
                     affectOffset_ += StringUtil.getFirstPrintableCharIndex(found_);
                     afterDeclareOffset_ = affectOffset_;
                     br_ = new Line(new OffsetStringInfo(afterDeclareOffset_+_offset, trimmedInstruction_), new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                    br_.getBadIndexes().add(_i);
+                    br_.getBadIndexes().add(_i+_offset);
                     br_.setBegin(_i+_offset);
                     br_.setLengthHeader(1);
                     currentParent_.appendChild(br_);
@@ -1597,7 +1597,7 @@ public final class FileResolver {
                 _type, _categoryOffset, importedTypes_,
                 offsetsImports_, staticInitInterfaces_, staticInitInterfacesOffset_);
         if (!ok_) {
-            r_.getBadIndexes().add(locIndex_);
+            r_.getBadIndexes().add(locIndex_+_offset);
         }
         return r_;
     }
@@ -2316,7 +2316,7 @@ public final class FileResolver {
                         new OffsetStringInfo(variableOffset_+_offset,variable_.trim()),
                         new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
                 if (!ok_) {
-                    br_.getBadIndexes().add(_i);
+                    br_.getBadIndexes().add(_i+_offset);
                 }
             } else {
                 br_ = new NullCatchEval(new OffsetsBlock(_instructionRealLocation+_offset, _instructionLocation+_offset));
