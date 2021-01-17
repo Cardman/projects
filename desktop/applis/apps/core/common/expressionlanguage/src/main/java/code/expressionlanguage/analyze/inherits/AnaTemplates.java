@@ -743,12 +743,12 @@ public final class AnaTemplates {
             multi_.put(StringUtil.concat(PREFIX_VAR_TYPE,e.getKey()), new StringList());
         }
         for (EntryCust<String,String> e: _vars.entryList()) {
-            multi_.getVal(StringUtil.concat(PREFIX_VAR_TYPE,e.getKey())).add(e.getValue());
+            feed(multi_,StringUtil.concat(PREFIX_VAR_TYPE,e.getKey()),e.getValue());
         }
         for (InferenceConstraints i: found_) {
             String argLoc_ = i.getArg();
             String paramLoc_ = i.getParam();
-            multi_.getVal(argLoc_).add(paramLoc_);
+            feed(multi_,argLoc_,paramLoc_);
         }
         StringMap<String> vars_ = new StringMap<String>();
         StringList parts_ = new StringList();
@@ -768,6 +768,13 @@ public final class AnaTemplates {
         return formattedType_;
     }
 
+    private static void feed(StringMap<StringList> _multi, String _key, String _value) {
+        for (EntryCust<String,StringList> e: _multi.entryList()) {
+            if (StringUtil.quickEq(e.getKey(),_key)) {
+                e.getValue().add(_value);
+            }
+        }
+    }
     public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping, AnalyzedPageEl _page) {
         if (AnaTypeUtil.isPrimitive(_p, _page)) {
             if (!AnaTypeUtil.isPrimitive(_a, _page)) {
