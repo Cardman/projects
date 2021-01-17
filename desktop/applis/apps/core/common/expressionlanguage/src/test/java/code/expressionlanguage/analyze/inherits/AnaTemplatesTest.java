@@ -440,6 +440,40 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<pkg.Param>", inferred_);
     }
     @Test
+    public void tryInfer20Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
+        xml_.append("$public $interface pkg.Param {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U:Param> :pkg.Ex<pkg.Ex<U>>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_,"pkg.ExTwo", "pkg.Ex", new StringMap<String>());
+        assertNull(inferred_);
+    }
+
+    @Test
+    public void tryInfer21Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<ExIter<W,W>> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        xml_.append("$public $class pkg.ExIter<Z,A> :$iterable<Z>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", new StringMap<String>()));
+    }
+
+    @Test
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
         unfullValidateOverridingMethods(files_);

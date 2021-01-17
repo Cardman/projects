@@ -665,6 +665,9 @@ public final class AnaTemplates {
         for (String p: StringExpUtil.getAllTypes(_declaring).mid(1)) {
             paramTypes_.add(p);
         }
+        if (argTypes_.size() != paramTypes_.size()) {
+            return null;
+        }
         int len_ = argTypes_.size();
         for (int i = 0; i < len_; i++) {
             InferenceConstraints i_ = new InferenceConstraints();
@@ -713,6 +716,9 @@ public final class AnaTemplates {
                 }
                 StringList nArgTypes_ = StringExpUtil.getAllTypes(argLoc_);
                 StringList nParamTypes_ = StringExpUtil.getAllTypes(paramLoc_);
+                if (nArgTypes_.size() != nParamTypes_.size()) {
+                    continue;
+                }
                 if (!StringUtil.quickEq(nArgTypes_.first(), nParamTypes_.first())) {
                     continue;
                 }
