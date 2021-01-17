@@ -5094,4 +5094,72 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report819Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$interface pkg.Int {\n");
+        xml_.append(" $int field();\n");
+        xml_.append("}\n");
+        xml_.append("$class pkg.Ext {\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $new @Annot(info={2})@AnnotTwo(info2={2}) Int(){\n");
+        xml_.append("   $public $int field(){\n");
+        xml_.append("    $return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\"m11\">pkg.Int</a> {\n" +
+                " $int <a name=\"m27\">field</a>();\n" +
+                "}\n" +
+                "$class <a name=\"m45\">pkg.Ext</a> {\n" +
+                " $static $int <a name=\"m69\">m</a>(){\n" +
+                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>\n" +
+                "   $public $int <a name=\"m141\">field</a>(){\n" +
+                "    $return 0;\n" +
+                "   }\n" +
+                "  }</span>;\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report820Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$interface pkg.Int {\n");
+        xml_.append(" $int field();\n");
+        xml_.append("}\n");
+        xml_.append("$class pkg.Ext {\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $new @Annot(info={$new Int(){}.field()})@AnnotTwo(info2={2}) Int(){\n");
+        xml_.append("   $public $int field(){\n");
+        xml_.append("    $return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnlyImpl(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$interface <a name=\"m11\">pkg.Int</a> {\n" +
+                " $int <a name=\"m27\">field</a>();\n" +
+                "}\n" +
+                "$class <a name=\"m45\">pkg.Ext</a> {\n" +
+                " $static $int <a name=\"m69\">m</a>(){\n" +
+                "  $new <a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(info=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>$new <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m104\" title=\"The method field() from the type pkg.Int must be overriden in the concrete type pkg.Ext..Int*1..Int*1.\" class=\"e\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m27\">field</a>()})<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>2}) <a title=\"pkg.Int\" href=\"#m11\">Int</a>()<span class=\"t\"><a name=\"m142\">{</a>\n" +
+                "   $public $int <a name=\"m160\">field</a>(){\n" +
+                "    $return 0;\n" +
+                "   }\n" +
+                "  }</span>;\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

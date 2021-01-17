@@ -1,7 +1,9 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.util.CustList;
 
 public final class LinkageStackElement {
     private Block block;
@@ -10,6 +12,9 @@ public final class LinkageStackElement {
     private int indexAnnotationGroup=-1;
     private int indexAnnotation;
     private int indexEnd;
+    private boolean annotationMode;
+    private boolean stopVisit;
+    private final CustList<PartOffset> partsAfter = new CustList<PartOffset>();
 
     public Block getBlock() {
         return block;
@@ -59,4 +64,23 @@ public final class LinkageStackElement {
         this.indexEnd = _v;
     }
 
+    public boolean isAnnotationMode() {
+        return annotationMode;
+    }
+
+    public void setAnnotationMode(boolean _annotationMode) {
+        this.annotationMode = _annotationMode;
+    }
+
+    public boolean isStopVisit() {
+        return stopVisit;
+    }
+
+    public void setStopVisit(boolean _stopVisit) {
+        this.stopVisit = _stopVisit;
+    }
+
+    public CustList<PartOffset> getPartsAfter() {
+        return partsAfter;
+    }
 }

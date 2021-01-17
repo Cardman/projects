@@ -752,8 +752,8 @@ public final class FileResolver {
                     typeBlock_.setBegin(beginType_+_offset);
                     typeBlock_.setNameLength(1);
                     typeBlock_.setLengthHeader(1);
-                    typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
-                    typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+                    typeBlock_.getAnnotations().addAllElts(_input.getAnnotations());
+                    typeBlock_.getAnnotationsIndexes().addAllElts(_input.getAnnotationsIndexes());
                     typeBlock_.setFile(file_);
                     _out.setBlock(typeBlock_);
                     currentParent_ = typeBlock_;

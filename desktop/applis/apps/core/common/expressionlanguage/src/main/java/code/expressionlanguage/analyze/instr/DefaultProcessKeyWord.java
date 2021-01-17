@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StackDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
@@ -33,6 +34,13 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                 return;
             }
             j_ = af_;
+            if (_exp.startsWith("@",j_)) {
+                int gl_ = page.getLocalizer().getCurrentLocationIndex();
+                ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_+ gl_);
+                parse_.parse();
+                j_ = parse_.getIndex()-gl_;
+                j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_);
+            }
             if (StringExpUtil.startsWithKeyWord(_exp,j_, keyWordInterfaces_)) {
                 int k_ = _exp.indexOf(PAR_LEFT, j_);
                 if (k_ < 0) {
@@ -44,7 +52,7 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                     _d.setBadOffset(j_);
                     return;
                 }
-                j_ = k_;
+                j_ = k_+1;
             }
             extractType(_exp, _d, _out, j_);
         }

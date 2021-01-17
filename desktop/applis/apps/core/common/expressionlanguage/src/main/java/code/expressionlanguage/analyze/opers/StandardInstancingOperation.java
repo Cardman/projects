@@ -1,10 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.RecordBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -68,11 +69,28 @@ public final class StandardInstancingOperation extends
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
-        int j_ = realClassName_.indexOf("}");
+        int j_ = -1;
+        if (realClassName_.trim().startsWith("{")) {
+            j_ =  realClassName_.indexOf("}",realClassName_.indexOf('{'));
+        }
         if (j_ > -1) {
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
+        int first_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
+        int local_ = first_;
+        if (realClassName_.trim().startsWith("@")) {
+            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_);
+            parse_.parse();
+            local_ = parse_.getIndex();
+            realClassName_ = parse_.getAfter();
+            local_ += StringExpUtil.getOffset(realClassName_);
+            realClassName_ = realClassName_.trim();
+        }
+        InterfacesPart ints_ = new InterfacesPart(realClassName_,local_);
+        ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
+        local_ = ints_.getLocIndex();
+        realClassName_ = ints_.getPart();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         CustList<OperationNode> filter_ =  getChildrenNodes();
         String varargParam_ = getVarargParam(filter_);
@@ -81,8 +99,7 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else if (!hasFieldName) {
-                int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_-first_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();

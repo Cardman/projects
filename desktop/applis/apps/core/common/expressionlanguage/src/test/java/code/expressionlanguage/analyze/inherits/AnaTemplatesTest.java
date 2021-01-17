@@ -410,6 +410,36 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq(0,AnaTemplates.getBoundAll(null).size());
     }
     @Test
+    public void tryInfer18Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
+        xml_.append("$public $interface pkg.Param {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U:Param> :pkg.Ex<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_,"pkg.ExTwo", "pkg.Ex<java.lang.Object>", new StringMap<String>());
+        assertNull(inferred_);
+    }
+    @Test
+    public void tryInfer19Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
+        xml_.append("$public $interface pkg.Param {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U:Param> :pkg.Ex<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_,"pkg.ExTwo", "pkg.Ex<pkg.Param>", new StringMap<String>());
+        assertEq("pkg.ExTwo<pkg.Param>", inferred_);
+    }
+    @Test
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
         unfullValidateOverridingMethods(files_);

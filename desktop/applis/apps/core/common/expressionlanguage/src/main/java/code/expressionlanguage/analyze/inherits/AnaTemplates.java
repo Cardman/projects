@@ -591,19 +591,33 @@ public final class AnaTemplates {
             return "";
         }
         CustList<StringList> bounds_ = g_.getBoundAll();
-        int len_ = bounds_.size();
+        return check(_realClassName, _parts, _inherit, _page, g_, bounds_);
+    }
+
+    public static String getCorrectTemplateAllAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+        String id_ = StringExpUtil.getIdFromAllTypes(_realClassName);
+        RootBlock g_ = _page.getAnaClassBody(id_);
+        if (g_ == null) {
+            return "";
+        }
+        CustList<StringList> bounds_ = g_.getBoundAllAll();
+        return check(_realClassName, _parts, _inherit, _page, g_, bounds_);
+    }
+
+    private static String check(String _realClassName, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page, RootBlock _g, CustList<StringList> _bounds) {
+        int len_ = _bounds.size();
         if (len_ != _parts.size()) {
             return "";
         }
         for (int i = 0; i < len_; i++) {
-            StringList b_ = bounds_.get(i);
-            for (String b:b_) {
+            StringList b_ = _bounds.get(i);
+            for (String b : b_) {
                 Mapping mapp_ = new Mapping();
                 mapp_.setArg(_parts.get(i));
-                String param_ = format(g_,_realClassName, b);
+                String param_ = format(_g, _realClassName, b);
                 mapp_.setParam(param_);
                 mapp_.setMapping(_inherit);
-                if (!isCorrect(mapp_, _page)){
+                if (!isCorrect(mapp_, _page)) {
                     return "";
                 }
             }
@@ -731,13 +745,21 @@ public final class AnaTemplates {
             multi_.getVal(argLoc_).add(paramLoc_);
         }
         StringMap<String> vars_ = new StringMap<String>();
+        StringList parts_ = new StringList();
         for (EntryCust<String,StringList> e: multi_.entryList()) {
             if (!e.getValue().onlyOneElt()) {
                 return null;
             }
-            vars_.put(e.getKey().substring(1), e.getValue().first());
+            String value_ = e.getValue().first();
+            parts_.add(value_);
+            vars_.put(e.getKey().substring(1), value_);
         }
-        return StringExpUtil.getQuickFormattedType(gene_,vars_);
+        String formattedType_ = StringExpUtil.getQuickFormattedType(gene_, vars_);
+        String correct_ = getCorrectTemplateAllAll(formattedType_, parts_, _page.getCurrentConstraints().getCurrentConstraints(), _page);
+        if (correct_.isEmpty()) {
+            return null;
+        }
+        return formattedType_;
     }
 
     public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping, AnalyzedPageEl _page) {

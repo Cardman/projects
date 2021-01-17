@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -40,19 +41,28 @@ public final class AnonymousInstancingOperation extends
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = getMethodName().trim().substring(newKeyWord_.length());
-        int j_ = afterNew_.indexOf("}");
-        if (j_ > -1) {
+        int j_ = -1;
+        if (afterNew_.trim().startsWith("{")) {
             setNewBefore(false);
+            j_ =  afterNew_.indexOf("}",afterNew_.indexOf('{'));
         }
         tryAnalyze(_page);
         index = _page.getLocalizer().getCurrentLocationIndex();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setClassName(_page.getAliasObject());
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
-        j_ = realClassName_.indexOf("}");
         if (j_ > -1) {
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
+        }
+        int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
+        if (realClassName_.trim().startsWith("@")) {
+            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_);
+            parse_.parse();
+            local_ = parse_.getIndex();
+            realClassName_ = parse_.getAfter();
+            local_ += StringExpUtil.getOffset(realClassName_);
+            realClassName_ = realClassName_.trim();
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
@@ -70,7 +80,6 @@ public final class AnonymousInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
-                int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
                 realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             }

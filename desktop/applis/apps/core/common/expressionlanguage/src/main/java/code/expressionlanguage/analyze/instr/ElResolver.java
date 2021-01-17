@@ -765,6 +765,8 @@ public final class ElResolver {
             }
             if (foundLeftPar_) {
                 i_ = j_-1;
+                _stack.getAnnotationsIndexes().add(new Ints());
+                _stack.getAnnotations().add(new StringList());
                 _stack.getStringsNew().add("");
                 _stack.getIndexesNew().add(i_);
                 return i_;
@@ -785,6 +787,17 @@ public final class ElResolver {
                 return j_;
             }
             j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
+            Ints annotationsIndexes_ = new Ints();
+            StringList annotations_ = new StringList();
+            if (_string.startsWith("@",j_)) {
+                int gl_ = _page.getLocalizer().getCurrentLocationIndex();
+                ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ gl_);
+                parse_.parse();
+                annotationsIndexes_ = parse_.getAnnotationsIndexes();
+                annotations_ = parse_.getAnnotations();
+                j_ = parse_.getIndex()-gl_;
+                j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
+            }
             if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordInterfaces_)) {
                 int k_ = _string.indexOf(PAR_LEFT, j_);
                 if (k_ < 0) {
@@ -794,10 +807,12 @@ public final class ElResolver {
                 if (k_ < 0) {
                     return j_;
                 }
-                j_ = k_;
+                j_ = k_+1;
             }
             int from_ = j_;
             j_ = DefaultProcessKeyWord.extractType(_string,_stack,j_);
+            _stack.getAnnotationsIndexes().add(annotationsIndexes_);
+            _stack.getAnnotations().add(annotations_);
             _stack.getStringsNew().add(_string.substring(from_,j_));
             _stack.getIndexesNew().add(j_);
             return j_;
@@ -1136,6 +1151,7 @@ public final class ElResolver {
                 return -1;
             }
             tryAddStringParts(parsBrackets_, i_, _stack);
+            tryAddAnnotationsParts(parsBrackets_, _stack);
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (_curChar == ANN_ARR_LEFT) {
@@ -1149,6 +1165,8 @@ public final class ElResolver {
                     input_.setType(OuterBlockEnum.ANON_TYPE);
                     input_.setFile(_file);
                     input_.setNextIndex(i_);
+                    input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
+                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     input_.generatedId(beforeCall_,_page.getKeyWords().getKeyWordId());
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     int j_ = res_.getNextIndex() - 1;
@@ -1413,6 +1431,7 @@ public final class ElResolver {
                 return -1;
             }
             tryAddStringParts(parsBrackets_, i_, _stack);
+            tryAddAnnotationsParts(parsBrackets_, _stack);
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (_curChar == ANN_ARR_LEFT) {
@@ -1427,6 +1446,8 @@ public final class ElResolver {
                     input_.setFile(_file);
                     input_.setNextIndex(i_);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                    input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
+                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -2927,6 +2948,14 @@ public final class ElResolver {
         if (indexLast_ > -1) {
             _stack.getIndexesNewEnd().add(_i);
             _stack.getStringsNewEnd().add(_stack.getStringsNew().get(indexLast_));
+        }
+    }
+
+    private static void tryAddAnnotationsParts(IntTreeMap<Character> _parsBrackets, StackDelimiters _stack) {
+        int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
+        if (indexLast_ > -1) {
+            _stack.getAnnotationsEnd().add(_stack.getAnnotations().get(indexLast_));
+            _stack.getAnnotationsIndexesEnd().add(_stack.getAnnotationsIndexes().get(indexLast_));
         }
     }
 

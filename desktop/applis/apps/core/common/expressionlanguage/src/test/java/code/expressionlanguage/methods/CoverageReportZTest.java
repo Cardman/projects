@@ -9556,6 +9556,512 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage620Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int[] info2();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new @Annot(info={2})@AnnotTwo(info2={2}) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m51\">pkg.AnnotTwo</a> {\n" +
+                " int[] <a name=\"m73\">info2</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m94\">pkg.Int</a> {\n" +
+                " int <a name=\"m109\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m126\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m148\">m</a>(){\n" +
+                "  <span class=\"f\">new <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span><span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m51\">AnnotTwo</a>(<span class=\"f2\"><a title=\"pkg.AnnotTwo.info2()\" href=\"#m73\">info2</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m94\">Int</a>()<span class=\"t\"><a name=\"m201\">{</a>\n" +
+                "   public int <a name=\"m217\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage621Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int[] info2();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new @Annot(info={2})@AnnotTwo(info2={2}) Int(5){\n");
+        xml_.append("   public int field;\n");
+        xml_.append("   public Int(int p){\n");
+        xml_.append("    field=p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m51\">pkg.AnnotTwo</a> {\n" +
+                " int[] <a name=\"m73\">info2</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m94\">pkg.Int</a> {\n" +
+                " int <a name=\"m109\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m126\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m148\">m</a>(){\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m228\">new</a> <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span><span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m51\">AnnotTwo</a>(<span class=\"f2\"><a title=\"pkg.AnnotTwo.info2()\" href=\"#m73\">info2</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m94\">Int</a>(<span class=\"f\">5</span>)<span class=\"t\"><a name=\"m202\">{</a>\n" +
+                "   public int <span class=\"f\"><a name=\"m218\">field</a></span>;\n" +
+                "   <a name=\"m228\">public Int(</a>int <a name=\"m243\">p</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m218\">field</a></span>=<span class=\"f\"><a href=\"#m243\">p</a></span></span>;\n" +
+                "   }\n" +
+                "   public int <a name=\"m279\">field</a>(){\n" +
+                "    return <span class=\"n\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m218\">field</a></span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage622Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int[] info2();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new @Annot(info={new Int(){public int field(){return 0;}}.field()})@AnnotTwo(info2={2}) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m51\">pkg.AnnotTwo</a> {\n" +
+                " int[] <a name=\"m73\">info2</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m94\">pkg.Int</a> {\n" +
+                " int <a name=\"m109\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m126\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m148\">m</a>(){\n" +
+                "  <span class=\"f\">new <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\"><span class=\"f2\">new <a title=\"pkg.Int\" href=\"#m94\">Int</a>()<span class=\"t\"><a name=\"m181\">{</a>public int <a name=\"m193\">field</a>(){return <span class=\"f\">0</span>;}}</span></span>.<span class=\"f2\"><a title=\"pkg.Int.field()\" href=\"#m109\">field</a>()</span></span>}</span></span>)</span><span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m51\">AnnotTwo</a>(<span class=\"f2\"><a title=\"pkg.AnnotTwo.info2()\" href=\"#m73\">info2</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m94\">Int</a>()<span class=\"t\"><a name=\"m248\">{</a>\n" +
+                "   public int <a name=\"m264\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage623Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int[] info2();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotThree {\n");
+        xml_.append(" int[] info3();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotFour {\n");
+        xml_.append(" int[] info4();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new @Annot(info={2})@AnnotTwo(info2={2}) Int(new @AnnotThree(info3={2})@AnnotFour(info4={2}) Int(){public int field(){return 0;}}.field()){\n");
+        xml_.append("   public int field;\n");
+        xml_.append("   public Int(int p){\n");
+        xml_.append("    field=p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m51\">pkg.AnnotTwo</a> {\n" +
+                " int[] <a name=\"m73\">info2</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m95\">pkg.AnnotThree</a> {\n" +
+                " int[] <a name=\"m119\">info3</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m141\">pkg.AnnotFour</a> {\n" +
+                " int[] <a name=\"m164\">info4</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m185\">pkg.Int</a> {\n" +
+                " int <a name=\"m200\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m217\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m239\">m</a>(){\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ext..Int*2.pkg.Ext..Int*2(int)\" href=\"#m410\">new</a> <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"n2\">{<span class=\"n2\">2</span>}</span></span>)</span><span class=\"n2\">@<a title=\"pkg.AnnotTwo\" href=\"#m51\">AnnotTwo</a>(<span class=\"n2\"><a title=\"pkg.AnnotTwo.info2()\" href=\"#m73\">info2</a>=<span class=\"n2\">{<span class=\"n2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m185\">Int</a>(<span class=\"f\"><span class=\"f\">new <span class=\"f2\">@<a title=\"pkg.AnnotThree\" href=\"#m95\">AnnotThree</a>(<span class=\"f2\"><a title=\"pkg.AnnotThree.info3()\" href=\"#m119\">info3</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span><span class=\"f2\">@<a title=\"pkg.AnnotFour\" href=\"#m141\">AnnotFour</a>(<span class=\"f2\"><a title=\"pkg.AnnotFour.info4()\" href=\"#m164\">info4</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m185\">Int</a>()<span class=\"t\"><a name=\"m344\">{</a>public int <a name=\"m356\">field</a>(){return <span class=\"f\">0</span>;}}</span></span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m200\">field</a>()</span></span>)<span class=\"t\"><a name=\"m384\">{</a>\n" +
+                "   public int <span class=\"f\"><a name=\"m400\">field</a></span>;\n" +
+                "   <a name=\"m410\">public Int(</a>int <a name=\"m425\">p</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*2.field\" href=\"#m400\">field</a></span>=<span class=\"f\"><a href=\"#m425\">p</a></span></span>;\n" +
+                "   }\n" +
+                "   public int <a name=\"m461\">field</a>(){\n" +
+                "    return <span class=\"n\"><a title=\"pkg.Ext..Int*2.field\" href=\"#m400\">field</a></span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage624Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new {} @Annot(info={2}) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m50\">pkg.Int</a> {\n" +
+                " int <a name=\"m65\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m82\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m104\">m</a>(){\n" +
+                "  <span class=\"f\">new {} <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m50\">Int</a>()<span class=\"t\"><a name=\"m140\">{</a>\n" +
+                "   public int <a name=\"m156\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage625Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" static int st;\n");
+        xml_.append(" static{\n");
+        xml_.append("  st++;\n");
+        xml_.append(" }\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new {} @Annot(info={2}) interfaces(Int) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m50\">pkg.Int</a> {\n" +
+                " static int <span class=\"g\"><a name=\"m72\">st</a></span>;\n" +
+                " static{\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Int.st\" href=\"#m72\">st</a></span>++</span>;\n" +
+                " }\n" +
+                " int <a name=\"m101\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m118\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m140\">m</a>(){\n" +
+                "  <span class=\"f\">new {} <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> interfaces(<a title=\"pkg.Int\" href=\"#m50\">Int</a>) <a title=\"pkg.Int\" href=\"#m50\">Int</a>()<span class=\"t\"><a name=\"m192\">{</a>\n" +
+                "   public int <a name=\"m208\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage626Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" static int st;\n");
+        xml_.append(" static{\n");
+        xml_.append("  st++;\n");
+        xml_.append(" }\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Int v = new {} @Annot(info={2}) interfaces(Int) (){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..$id*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m50\">pkg.Int</a> {\n" +
+                " static int <span class=\"g\"><a name=\"m72\">st</a></span>;\n" +
+                " static{\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Int.st\" href=\"#m72\">st</a></span>++</span>;\n" +
+                " }\n" +
+                " int <a name=\"m101\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m118\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m140\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#m50\">Int</a> <span class=\"f\"><span class=\"f\"><a name=\"m151\">v</a> </span>=<span class=\"f\"> new {} <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> interfaces(<a title=\"pkg.Int\" href=\"#m50\">Int</a>) ()<span class=\"t\"><a name=\"m197\">{</a>\n" +
+                "   public int <a name=\"m213\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..$id*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage627Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int<T> {\n");
+        xml_.append(" T field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Int<int> v = new {} @Annot(info={2}) Int<>(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m50\">pkg.Int</a>&lt;<a name=\"m58\">T</a>&gt; {\n" +
+                " <a href=\"#m58\">T</a> <a name=\"m66\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m83\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m105\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#m50\">Int</a>&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m121\">v</a> </span>=<span class=\"f\"> new {} <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m50\">Int</a><a title=\"pkg.Int&lt;int&gt;\">&lt;&gt;</a>()<span class=\"t\"><a name=\"m156\">{</a>\n" +
+                "   public int <a name=\"m172\">field</a>(){\n" +
+                "    return <span class=\"n\">0</span>;\n" +
+                "   }\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage628Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("operator+ pkg.Int(pkg.Comp a, pkg.Comp b) {\n");
+        xml_.append(" return new @pkg.Annot(info={1}) (a.field+b.field){\n");
+        xml_.append("  int field;\n");
+        xml_.append("  public $id(int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public int field(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("public interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Comp {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public Comp(int p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return (new Comp(2)+new Comp(4)).field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m37\">info</a>();\n" +
+                "}\n" +
+                "operator<a name=\"m55\">+</a> <a title=\"pkg.Int\" href=\"#m261\">pkg.Int</a>(<a title=\"pkg.Comp\" href=\"#m300\">pkg.Comp</a> <a name=\"m74\">a</a>, <a title=\"pkg.Comp\" href=\"#m300\">pkg.Comp</a> <a name=\"m86\">b</a>) {\n" +
+                " return <span class=\"f\"><a title=\"$core.$id*1.$core.$id*1(int)\" href=\"#m158\">new</a> <span class=\"n2\">@<a title=\"pkg.Annot\" href=\"#m18\">pkg.Annot</a>(<span class=\"n2\"><a title=\"pkg.Annot.info()\" href=\"#m37\">info</a>=<span class=\"n2\">{<span class=\"n2\">1</span>}</span></span>)</span> (<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m74\">a</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m323\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m86\">b</a></span>.<span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m323\">field</a></span></span></span>)<span class=\"t\"><a name=\"m141\">{</a>\n" +
+                "  int <span class=\"f\"><a name=\"m149\">field</a></span>;\n" +
+                "  <a name=\"m158\">public $id(</a>int <a name=\"m173\">p</a>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a title=\"$core.$id*1.field\" href=\"#m149\">field</a> </span>=<span class=\"f\"> <a href=\"#m173\">p</a></span></span>;\n" +
+                "  }\n" +
+                "  public int <a name=\"m208\">field</a>(){\n" +
+                "   return <span class=\"f\"><a title=\"$core.$id*1.field\" href=\"#m149\">field</a></span>;\n" +
+                "  }\n" +
+                " }</span></span>;\n" +
+                "}\n" +
+                "public interface <a name=\"m261\">pkg.Int</a> {\n" +
+                " int <a name=\"m276\">field</a>();\n" +
+                "}\n" +
+                "public class <a name=\"m300\">pkg.Comp</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m323\">field</a></span>;\n" +
+                " <a name=\"m331\">public Comp(</a>int <a name=\"m347\">p</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.field\" href=\"#m323\">field</a></span>=<span class=\"f\"><a href=\"#m347\">p</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "class <a name=\"m373\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m395\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m331\">new</a> <a title=\"pkg.Comp\" href=\"#m300\">Comp</a>(<span class=\"f\">2</span>)</span><a title=\"static +(pkg.Comp,pkg.Comp)\" href=\"#m55\">+</a><span class=\"f\"><a title=\"pkg.Comp.pkg.Comp(int)\" href=\"#m331\">new</a> <a title=\"pkg.Comp\" href=\"#m300\">Comp</a>(<span class=\"f\">4</span>)</span></span>)</span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m276\">field</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

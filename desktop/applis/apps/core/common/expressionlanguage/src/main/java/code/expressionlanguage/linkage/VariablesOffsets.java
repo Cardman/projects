@@ -8,8 +8,9 @@ import code.util.IdList;
 import code.util.StringList;
 
 public final class VariablesOffsets {
-    private IdList<OperationNode> visited = new IdList<OperationNode>();
-    private CustList<LinkageStackElement> stack = new CustList<LinkageStackElement>();
+    private final IdList<OperationNode> visited = new IdList<OperationNode>();
+    private final IdList<OperationNode> visitedAnnotations = new IdList<OperationNode>();
+    private final CustList<LinkageStackElement> stack = new CustList<LinkageStackElement>();
     private LinkageStackElement state;
     private String currentFileName = "";
     private KeyWords keyWords;
@@ -27,6 +28,10 @@ public final class VariablesOffsets {
 
     public IdList<OperationNode> getVisited() {
         return visited;
+    }
+
+    public IdList<OperationNode> getVisitedAnnotations() {
+        return visitedAnnotations;
     }
 
     public CustList<LinkageStackElement> getStack() {

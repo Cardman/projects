@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -46,10 +47,13 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = instancingCommonContent.getMethodName().trim().substring(newKeyWord_.length());
-        int j_ = afterNew_.indexOf("}");
+        int j_ = -1;
         int delta_ = 0;
         int offDelta_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
+        if (afterNew_.trim().startsWith("{")) {
+            j_ =  afterNew_.indexOf("}",afterNew_.indexOf('{'));
+        }
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);
             delta_ = j_+1;
@@ -57,6 +61,16 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         int local_ = StringUtil.getFirstPrintableCharIndex(afterNew_)+delta_;
         String className_ = afterNew_.trim();
+
+        if (className_.startsWith("@")) {
+            ParsedAnnotations parse_ = new ParsedAnnotations(className_,local_);
+            parse_.parse();
+            local_ = parse_.getIndex();
+            className_ = parse_.getAfter();
+            local_ += StringExpUtil.getOffset(className_);
+            className_ = className_.trim();
+        }
+
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
         ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
@@ -92,7 +106,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         } else {
             setStaticAccess(_page.getStaticContext());
         }
-        String type_;
         OperationNode current_;
         if (!isIntermediateDottedOperation()) {
             current_ = this;
@@ -167,8 +180,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+        String type_;
         if (!isIntermediateDottedOperation()) {
             type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
             partOffsets_.addAllElts(_page.getCurrentParts());

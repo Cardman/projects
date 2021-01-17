@@ -1672,6 +1672,18 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return boundsAll_;
     }
+
+    public CustList<StringList> getBoundAllAll() {
+        CustList<StringList> boundsAll_ = new CustList<StringList>();
+        for (TypeVar t: getParamTypesMapValues()) {
+            StringList localBound_ = new StringList();
+            for (String b: t.getConstraints()) {
+                localBound_.add(b);
+            }
+            boundsAll_.add(localBound_);
+        }
+        return boundsAll_;
+    }
     private static CustList<MethodIdAncestors> areModifierCompatible(
             CustList<MethodIdAncestors> _methodIds) {
         CustList<MethodIdAncestors> output_;

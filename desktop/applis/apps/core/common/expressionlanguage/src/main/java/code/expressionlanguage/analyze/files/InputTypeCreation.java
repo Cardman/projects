@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.common.StringExpUtil;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -12,8 +13,10 @@ public final class InputTypeCreation {
 
     private OuterBlockEnum type;
     private FileBlock file;
-    private Ints badIndexes = new Ints();
+    private final Ints badIndexes = new Ints();
     private String generatedId="";
+    private Ints annotationsIndexes = new Ints();
+    private StringList annotations = new StringList();
 
     public int getNextIndex() {
         return nextIndex;
@@ -61,5 +64,21 @@ public final class InputTypeCreation {
         } else {
             generatedId = parts_.last().trim();
         }
+    }
+
+    public Ints getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
+
+    public void setAnnotationsIndexes(Ints _annotationsIndexes) {
+        this.annotationsIndexes = _annotationsIndexes;
+    }
+
+    public StringList getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(StringList _annotations) {
+        this.annotations = _annotations;
     }
 }
