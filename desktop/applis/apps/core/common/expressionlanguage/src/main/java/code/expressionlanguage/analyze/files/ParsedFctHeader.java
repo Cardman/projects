@@ -13,13 +13,13 @@ public final class ParsedFctHeader {
     private static final char SEP_CALLING = ',';
     private static final char END_CALLING = ')';
     private static final char ANNOT = '@';
-    private Ints offestsTypes = new Ints();
-    private Ints offestsParams = new Ints();
-    private BooleanList parametersRef = new BooleanList();
-    private StringList parametersType = new StringList();
-    private StringList parametersName = new StringList();
-    private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
-    private CustList<StringList> annotationsParams = new CustList<StringList>();
+    private final Ints offestsTypes = new Ints();
+    private final Ints offestsParams = new Ints();
+    private final BooleanList parametersRef = new BooleanList();
+    private final StringList parametersType = new StringList();
+    private final StringList parametersName = new StringList();
+    private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
+    private final CustList<StringList> annotationsParams = new CustList<StringList>();
     private String info = "";
     private String returnType = "";
     private boolean ok = true;
@@ -50,14 +50,15 @@ public final class ParsedFctHeader {
             StringList annotationsParam_ = new StringList();
             String trimBefAnn_ = info_.trim();
             if (StringExpUtil.nextCharIs(trimBefAnn_,0,trimBefAnn_.length(), ANNOT)) {
-                ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest+_offset);
+                ParsedAnnotations par_ = new ParsedAnnotations(trimBefAnn_, paramOffest+_offset);
                 par_.parse();
                 annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                 annotationsParam_ = par_.getAnnotations();
                 info_ = par_.getAfter();
                 paramOffest = par_.getIndex()-_offset;
-                paramOffest += StringUtil.getFirstPrintableCharIndex(info_);
             }
+            paramOffest += StringUtil.getFirstPrintableCharIndex(info_);
+            info_ = info_.trim();
             annotationsIndexesParams.add(annotationsIndexesParam_);
             annotationsParams.add(annotationsParam_);
             if (StringExpUtil.startsWithKeyWord(info_,_keyWordThat)) {

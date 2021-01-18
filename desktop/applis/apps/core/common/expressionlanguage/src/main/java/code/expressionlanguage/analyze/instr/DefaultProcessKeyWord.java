@@ -35,11 +35,9 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
             }
             j_ = af_;
             if (_exp.startsWith("@",j_)) {
-                int gl_ = page.getLocalizer().getCurrentLocationIndex();
-                ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_+ gl_);
+                ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_);
                 parse_.parse();
-                j_ = parse_.getIndex()-gl_;
-                j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_);
+                j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,parse_.getIndex());
             }
             if (StringExpUtil.startsWithKeyWord(_exp,j_, keyWordInterfaces_)) {
                 int k_ = _exp.indexOf(PAR_LEFT, j_);

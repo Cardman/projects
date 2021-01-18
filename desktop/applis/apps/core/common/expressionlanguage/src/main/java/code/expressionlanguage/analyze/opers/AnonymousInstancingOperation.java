@@ -62,8 +62,8 @@ public final class AnonymousInstancingOperation extends
             local_ = parse_.getIndex();
             realClassName_ = parse_.getAfter();
             local_ += StringExpUtil.getOffset(realClassName_);
-            realClassName_ = realClassName_.trim();
         }
+        realClassName_ = realClassName_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (getTypeInfer().contains("#")||!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();

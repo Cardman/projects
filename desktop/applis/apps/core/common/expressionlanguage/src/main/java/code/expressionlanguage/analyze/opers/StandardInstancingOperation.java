@@ -77,16 +77,15 @@ public final class StandardInstancingOperation extends
             realClassName_ = realClassName_.substring(j_+1);
             off_ += j_+1;
         }
-        int first_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-        int local_ = first_;
+        int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
         if (realClassName_.trim().startsWith("@")) {
             ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_);
             parse_.parse();
             local_ = parse_.getIndex();
             realClassName_ = parse_.getAfter();
             local_ += StringExpUtil.getOffset(realClassName_);
-            realClassName_ = realClassName_.trim();
         }
+        realClassName_ = realClassName_.trim();
         InterfacesPart ints_ = new InterfacesPart(realClassName_,local_);
         ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         local_ = ints_.getLocIndex();
@@ -99,7 +98,7 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else if (!hasFieldName) {
-                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_-first_,realClassName_, _page);
+                realClassName_ = ResolvingTypes.resolveCorrectType(newKeyWord_.length()+local_,realClassName_, _page);
                 getPartOffsets().addAllElts(_page.getCurrentParts());
             } else {
                 realClassName_ = realClassName_.trim();

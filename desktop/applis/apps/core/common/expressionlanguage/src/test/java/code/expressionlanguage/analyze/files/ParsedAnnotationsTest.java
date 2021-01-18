@@ -458,4 +458,21 @@ public final class ParsedAnnotationsTest {
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(28, p_.getIndex());
     }
+
+    @Test
+    public void parse29Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkgtwo.MyClassTwo;\n");
+        file_.append("@MyAnnot\n");
+        file_.append("$public $class pkg.MyClass{}");
+        int index_ = "pkgtwo.MyClassTwo;".length();
+        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
+        p_.parse("class");
+        assertEq(1,p_.getAnnotations().size());
+        assertEq("@MyAnnot",p_.getAnnotations().first());
+        assertEq(1,p_.getAnnotationsIndexes().size());
+        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq("$public $class pkg.MyClass{}",p_.getAfter());
+        assertEq(28, p_.getIndex());
+    }
 }
