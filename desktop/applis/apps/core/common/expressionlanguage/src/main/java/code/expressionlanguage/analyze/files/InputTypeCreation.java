@@ -17,6 +17,8 @@ public final class InputTypeCreation {
     private String generatedId="";
     private Ints annotationsIndexes = new Ints();
     private StringList annotations = new StringList();
+    private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
+    private CustList<StringList> annotationsParams = new CustList<StringList>();
 
     public int getNextIndex() {
         return nextIndex;
@@ -80,5 +82,21 @@ public final class InputTypeCreation {
 
     public void setAnnotations(StringList _annotations) {
         this.annotations = _annotations;
+    }
+
+    public CustList<Ints> getAnnotationsIndexesParams() {
+        return annotationsIndexesParams;
+    }
+
+    public void setAnnotationsIndexesParams(CustList<Ints> _annotationsIndexesParams) {
+        this.annotationsIndexesParams = _annotationsIndexesParams;
+    }
+
+    public CustList<StringList> getAnnotationsParams() {
+        return annotationsParams;
+    }
+
+    public void setAnnotationsParams(CustList<StringList> _annotationsParams) {
+        this.annotationsParams = _annotationsParams;
     }
 }

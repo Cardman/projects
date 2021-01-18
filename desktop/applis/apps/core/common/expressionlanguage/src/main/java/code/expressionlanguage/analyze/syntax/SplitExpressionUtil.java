@@ -90,6 +90,10 @@ public final class SplitExpressionUtil {
                 _page.setupFctChars(c);
                 processFunction(_page,int_,c, c.getParentType());
             }
+            for (AnonymousFunctionBlock c: anonymousFunctions_) {
+                _page.setupFctChars(c);
+                processAnnotFct(_page,int_,c, c.getParentType());
+            }
         }
         return list_;
     }

@@ -15,6 +15,7 @@ public final class LinkageStackElement {
     private boolean annotationMode;
     private boolean stopVisit;
     private final CustList<PartOffset> partsAfter = new CustList<PartOffset>();
+    private boolean visitedParams;
 
     public Block getBlock() {
         return block;
@@ -82,5 +83,13 @@ public final class LinkageStackElement {
 
     public CustList<PartOffset> getPartsAfter() {
         return partsAfter;
+    }
+
+    public boolean isVisitedParams() {
+        return visitedParams;
+    }
+
+    public void setVisitedParams(boolean _visitedParams) {
+        this.visitedParams = _visitedParams;
     }
 }

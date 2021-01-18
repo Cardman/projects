@@ -1048,11 +1048,17 @@ public final class ElResolver {
                 parse_.getParametersName().add(word_);
                 parse_.getParametersType().add("");
                 parse_.getParametersRef().add(false);
+                parse_.getAnnotationsParams().add(new StringList());
+                parse_.getAnnotationsIndexesParams().add(new Ints());
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
                 input_.setFile(_file);
                 input_.setNextIndex(indAfterArrow_);
                 input_.setNextIndexBef(dash_);
+                input_.setAnnotations(parse_.getAnnotations());
+                input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
+                input_.setAnnotationsParams(parse_.getAnnotationsParams());
+                input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                 if (res_.isOkType()) {
                     int k_ = res_.getNextIndex() - 1;
@@ -1075,11 +1081,17 @@ public final class ElResolver {
             parse_.getParametersName().add(word_);
             parse_.getParametersType().add("");
             parse_.getParametersRef().add(false);
+            parse_.getAnnotationsParams().add(new StringList());
+            parse_.getAnnotationsIndexesParams().add(new Ints());
             int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
             String part_ = _string.substring(indAfterArrow_,k_);
             int begAnon_ = dash_ + instrLoc_;
             int begImplRet_ = indAfterArrow_ + instrLoc_;
             AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(begAnon_,new OffsetsBlock(begImplRet_, begImplRet_), _page);
+            block_.getAnnotations().addAllElts(parse_.getAnnotations());
+            block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
+            block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
+            block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
             block_.setBegin(begImplRet_);
             block_.setLengthHeader(1);
             block_.setFile(_file);
@@ -1109,36 +1121,41 @@ public final class ElResolver {
 
         int len_ = _string.length();
         int i_ = _i;
+        KeyWords keyWords_ = _page.getKeyWords();
         if (_curChar == PAR_LEFT) {
-            int rightPar_ = _string.indexOf(')', i_);
-            if (rightPar_ > -1) {
-                String substring_ = _string.substring(i_+1,rightPar_+1);
-                if (noInternDelimiter(substring_)) {
+            if (!_stack.getCallings().containsObj(i_)) {
+                ParsedFctHeader parse_ = new ParsedFctHeader();
+                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
+                parse_.parseAnonymous(i_,_string,instrLoc_,keyWords_.getKeyWordThat());
+                int rightPar_ = parse_.getNextIndex();
+                if (rightPar_ > i_) {
+                    String substring_ = _string.substring(i_+1,rightPar_+1);
                     String info_ = _string.substring(rightPar_+1);
-                    String tr_ = info_.trim();
                     int off_ = StringUtil.getFirstPrintableCharIndex(info_);
-                    if (tr_.startsWith("->")) {
-                        String afterArrow_ = tr_.substring("->".length());
-                        String after_ = afterArrow_.trim();
-                        int deltaArr_ = off_;
-                        off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
-                        if (after_.startsWith("{")) {
-                            int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                            int j_ = i_+1 + substring_.length()+off_+2;
-                            int jBef_ = i_+1 + substring_.length()+deltaArr_;
-                            InputTypeCreation input_ = new InputTypeCreation();
-                            input_.setType(OuterBlockEnum.ANON_FCT);
-                            input_.setFile(_file);
-                            input_.setNextIndex(j_);
-                            input_.setNextIndexBef(jBef_);
-                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                            int k_ = res_.getNextIndex() - 1;
-                            return k_+1;
-                        }
-                        return rightPar_+1;
+                    String afterArrow_ = parse_.getAfterArrow();
+                    String after_ = afterArrow_.trim();
+                    int deltaArr_ = off_;
+                    off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
+                    if (after_.startsWith("{")) {
+                        int j_ = i_+1 + substring_.length()+off_+2;
+                        int jBef_ = i_+1 + substring_.length()+deltaArr_;
+                        InputTypeCreation input_ = new InputTypeCreation();
+                        input_.setType(OuterBlockEnum.ANON_FCT);
+                        input_.setFile(_file);
+                        input_.setNextIndex(j_);
+                        input_.setNextIndexBef(jBef_);
+                        input_.setAnnotations(parse_.getAnnotations());
+                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
+                        input_.setAnnotationsParams(parse_.getAnnotationsParams());
+                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
+                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                        int k_ = res_.getNextIndex() - 1;
+                        return k_+1;
                     }
+                    return rightPar_+1;
                 }
             }
+
             int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
             if (j_ > i_) {
                 return j_;
@@ -1167,7 +1184,7 @@ public final class ElResolver {
                     input_.setNextIndex(i_);
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
-                    input_.generatedId(beforeCall_,_page.getKeyWords().getKeyWordId());
+                    input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     int j_ = res_.getNextIndex() - 1;
                     return j_+1;
@@ -1353,72 +1370,74 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = _i;
         if (_curChar == PAR_LEFT) {
-            int rightPar_ = _string.indexOf(')', i_);
-            if (rightPar_ > -1) {
-                String substring_ = _string.substring(i_+1,rightPar_+1);
-                if (noInternDelimiter(substring_)) {
+            if (!_stack.getCallings().containsObj(i_)) {
+                ParsedFctHeader parse_ = new ParsedFctHeader();
+                int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
+                parse_.parseAnonymous(i_,_string,instrLoc_,keyWords_.getKeyWordThat());
+                int rightPar_ = parse_.getNextIndex();
+                if (rightPar_ > i_) {
                     String info_ = _string.substring(rightPar_+1);
-                    String tr_ = info_.trim();
                     int off_ = StringUtil.getFirstPrintableCharIndex(info_);
-                    if (tr_.startsWith("->")) {
-                        String afterArrow_ = tr_.substring("->".length());
-                        String after_ = afterArrow_.trim();
-                        int deltaArr_ = off_;
-                        off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
-                        int indAfterArrow_ = rightPar_+1 + off_ + 2;
-                        int indBeforeArrow_ = rightPar_+1+ deltaArr_;
-                        if (after_.startsWith("{")) {
-                            int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                            ParsedFctHeader parse_ = new ParsedFctHeader();
-                            parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
-                            InputTypeCreation input_ = new InputTypeCreation();
-                            input_.setType(OuterBlockEnum.ANON_FCT);
-                            input_.setFile(_file);
-                            input_.setNextIndex(indAfterArrow_);
-                            input_.setNextIndexBef(indBeforeArrow_);
-                            ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                            if (res_.isOkType()) {
-                                int k_ = res_.getNextIndex() - 1;
-                                AnonymousResult anonymous_ = new AnonymousResult();
-                                anonymous_.setResults(parse_);
-                                anonymous_.setIndex(i_);
-                                anonymous_.setUntil(k_);
-                                anonymous_.setLength(k_- indBeforeArrow_ +1);
-                                anonymous_.setType(res_.getBlock());
-                                anonymous_.setNext(k_ + 1);
-                                _page.getAnonymousResults().add(anonymous_);
-                                return k_ + 1;
-                            }
-                            return -1;
+                    String afterArrow_ = parse_.getAfterArrow();
+                    String after_ = afterArrow_.trim();
+                    int deltaArr_ = off_;
+                    off_ += StringUtil.getFirstPrintableCharIndex(afterArrow_);
+                    int indAfterArrow_ = rightPar_+1 + off_ + 2;
+                    int indBeforeArrow_ = rightPar_+1+ deltaArr_;
+                    if (after_.startsWith("{")) {
+                        InputTypeCreation input_ = new InputTypeCreation();
+                        input_.setType(OuterBlockEnum.ANON_FCT);
+                        input_.setFile(_file);
+                        input_.setNextIndex(indAfterArrow_);
+                        input_.setNextIndexBef(indBeforeArrow_);
+                        input_.setAnnotations(parse_.getAnnotations());
+                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
+                        input_.setAnnotationsParams(parse_.getAnnotationsParams());
+                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
+                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                        if (res_.isOkType()) {
+                            int k_ = res_.getNextIndex() - 1;
+                            AnonymousResult anonymous_ = new AnonymousResult();
+                            anonymous_.setResults(parse_);
+                            anonymous_.setIndex(i_);
+                            anonymous_.setUntil(k_);
+                            anonymous_.setLength(k_- indBeforeArrow_ +1);
+                            anonymous_.setType(res_.getBlock());
+                            anonymous_.setNext(k_ + 1);
+                            _page.getAnonymousResults().add(anonymous_);
+                            return k_ + 1;
                         }
-                        ParsedFctHeader parse_ = new ParsedFctHeader();
-                        int instrLoc_ = _page.getLocalizer().getCurrentLocationIndex();
-                        parse_.parseAnonymous(i_+1, substring_, instrLoc_,':',keyWords_.getKeyWordThat());
-                        int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
-                        String part_ = _string.substring(indAfterArrow_,k_);
-                        AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
-                        block_.setBegin(indAfterArrow_ +instrLoc_);
-                        block_.setLengthHeader(1);
-                        block_.setFile(_file);
-                        String trim_ = part_.trim();
-                        ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_),new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_));
-                        ret_.setImplicit(true);
-                        ret_.setBegin(indBeforeArrow_ +instrLoc_);
-                        ret_.setLengthHeader(2);
-                        block_.appendChild(ret_);
-                        AnonymousResult anonymous_ = new AnonymousResult();
-                        anonymous_.setResults(parse_);
-                        anonymous_.setIndex(i_);
-                        int withoutWhiteBoundsCount_ = part_.length() - trim_.length();
-                        anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
-                        anonymous_.setLength(k_- withoutWhiteBoundsCount_ - indBeforeArrow_);
-                        anonymous_.setType(block_);
-                        anonymous_.setNext(k_);
-                        _page.getAnonymousResults().add(anonymous_);
-                        return k_;
+                        return -1;
                     }
+                    int k_ = stack(_string, indAfterArrow_, _page, _packageName, _file);
+                    String part_ = _string.substring(indAfterArrow_,k_);
+                    AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(indBeforeArrow_ +instrLoc_,new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_), _page);
+                    block_.getAnnotations().addAllElts(parse_.getAnnotations());
+                    block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
+                    block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
+                    block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
+                    block_.setBegin(indAfterArrow_ +instrLoc_);
+                    block_.setLengthHeader(1);
+                    block_.setFile(_file);
+                    String trim_ = part_.trim();
+                    ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_),new OffsetsBlock(indAfterArrow_ +instrLoc_, indAfterArrow_ +instrLoc_));
+                    ret_.setImplicit(true);
+                    ret_.setBegin(indBeforeArrow_ +instrLoc_);
+                    ret_.setLengthHeader(2);
+                    block_.appendChild(ret_);
+                    AnonymousResult anonymous_ = new AnonymousResult();
+                    anonymous_.setResults(parse_);
+                    anonymous_.setIndex(i_);
+                    int withoutWhiteBoundsCount_ = part_.length() - trim_.length();
+                    anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
+                    anonymous_.setLength(k_- withoutWhiteBoundsCount_ - indBeforeArrow_);
+                    anonymous_.setType(block_);
+                    anonymous_.setNext(k_);
+                    _page.getAnonymousResults().add(anonymous_);
+                    return k_;
                 }
             }
+
             int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
             if (j_ > i_) {
                 return j_;
@@ -2961,10 +2980,6 @@ public final class ElResolver {
 
     private static boolean noWideInternDelimiter(String _substring) {
         return noDelSt(_substring) && StringExpUtil.noDel(_substring);
-    }
-
-    private static boolean noInternDelimiter(String _substring) {
-        return _substring.indexOf(PAR_LEFT) < 0 && noDelSt(_substring);
     }
 
     private static boolean noDelSt(String _substring) {

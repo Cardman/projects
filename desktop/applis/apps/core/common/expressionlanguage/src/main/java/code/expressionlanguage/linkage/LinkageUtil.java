@@ -292,6 +292,9 @@ public final class LinkageUtil {
             if (child_ instanceof OverridableBlock) {
                 processOverridableBlockError(vars_,(OverridableBlock)child_, list_);
             }
+            if (child_ instanceof AnonymousFunctionBlock) {
+                processAnonymousFctBlockError(vars_,(AnonymousFunctionBlock) child_,list_);
+            }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_, list_);
             }
@@ -501,6 +504,9 @@ public final class LinkageUtil {
             }
             if (child_ instanceof InternOverrideBlock) {
                 processInternOverrideBlock(vars_,list_, (InternOverrideBlock) child_);
+            }
+            if (child_ instanceof AnonymousFunctionBlock) {
+                processAnonymousFctReport(vars_,(AnonymousFunctionBlock)child_,list_,_coverage);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_, list_, _coverage);
@@ -1763,11 +1769,20 @@ public final class LinkageUtil {
         processOverridableRedef(_vars,m_,_parts);
     }
 
-    private static void processAnonymousFctReport(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int begName_ = _cond.getNameOffset();
-        _parts.add(new PartOffset("<span class=\"t\">", _begin));
-        refParams(_cond, _parts);
+    private static void processAnonymousFctReport(VariablesOffsets _vars, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts, Coverage _cov) {
+        if (!_vars.getStack().last().isVisitedParams()) {
+            refParams(_vars,_cond, _parts, _cov);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setVisitedParams(true);
+        }
+        buildAnnotationsReport(_vars,_cond, _parts, _cov);
+        if (_vars.getState() != null) {
+            return;
+        }
         _parts.addAllElts(_cond.getPartOffsetsReturn());
+        int begName_ = _cond.getNameOffset();
         addNameParts(_cond,_parts, begName_, 2);
     }
 
@@ -1841,16 +1856,25 @@ public final class LinkageUtil {
             _parts.addAllElts(p.getSuperTypes());
         }
     }
-    private static void processAnonymousFctBlockError(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int begName_ = _cond.getNameOffset();
-        _parts.add(new PartOffset("<span class=\"t\">", _begin));
-        refParamsError(_cond, _parts);
+    private static void processAnonymousFctBlockError(VariablesOffsets _vars, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
+        if (!_vars.getStack().last().isVisitedParams()) {
+            refParamsError(_vars,_cond, _parts);
+            if (_vars.getState() != null) {
+                return;
+            }
+            _vars.getStack().last().setVisitedParams(true);
+        }
+        buildAnnotationsError(_vars,_cond, _parts);
+        if (_vars.getState() != null) {
+            return;
+        }
         _parts.addAllElts(_cond.getPartOffsetsReturn());
         StringList errs_ = new StringList();
         Block child_ = _cond.getFirstChild();
         if (isImplicitReturn(child_)){
             errs_.addAllElts(child_.getErrorsBlock());
         }
+        int begName_ = _cond.getNameOffset();
         addNameParts(errs_,_cond,_parts, begName_, 2);
     }
 
@@ -2252,17 +2276,6 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
 
-    private static void refParams(AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getParametersNamesOffset().size();
-        for (int i = 0; i < len_; i++) {
-            _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
-            Integer off_ = _cond.getParametersNamesOffset().get(i);
-            String param_ = _cond.getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
-        }
-    }
-
     private static void refParamsError(VariablesOffsets _vars, NamedFunctionBlock _cond, CustList<PartOffset> _parts) {
         int len_ = _cond.getParametersNamesOffset().size();
         int k_ = _vars.getStack().last().getIndexAnnotationGroup();
@@ -2288,23 +2301,6 @@ public final class LinkageUtil {
         _vars.getStack().last().setIndexAnnotationGroup(-1);
     }
 
-    private static void refParamsError(AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
-        int len_ = _cond.getParametersNamesOffset().size();
-        for (int i = 0; i < len_; i++) {
-            _parts.addAllElts(_cond.getPartOffsetsParams().get(i));
-            Integer off_ = _cond.getParametersNamesOffset().get(i);
-            String param_ = _cond.getParametersNames().get(i);
-            StringList errs_ = _cond.getParamErrors().get(i);
-            if (errs_.isEmpty()) {
-                _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-                _parts.add(new PartOffset("</a>",off_+param_.length()));
-            } else {
-                String err_ = transform(StringUtil.join(errs_,"\n\n"));
-                _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
-            }
-        }
-    }
     private static void processConditionReport(Condition _cond, VariablesOffsets _vars, CustList<PartOffset> _parts, Coverage _cov) {
         int off_ =  _cond.getConditionOffset();
         int offsetEndBlock_ = off_ + _cond.getCondition().length();
@@ -2357,6 +2353,23 @@ public final class LinkageUtil {
                     getBeginOpReport(_block, _parts, _fieldName, _root, val_, sum_, addCover_, result_, _cov, _annotation, _indexAnnotationGroup, _indexAnnotation);
                     leftReport(_vars, _block,sum_,val_, result_,_parts, currentFileName_);
                 }
+                if (val_ instanceof AnonymousLambdaOperation) {
+                    LinkageStackElement state_ = new LinkageStackElement();
+                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
+                    state_.setBlock(block_);
+                    int begin_ = sum_ + val_.getIndexInEl();
+                    _parts.add(new PartOffset("<span class=\"t\">", begin_));
+                    state_.setIndexEnd(block_.getIndexEnd());
+                    state_.setIndexAnnotationGroup(0);
+                    _vars.setState(state_);
+                    _vars.getStack().last().setCurrent(val_);
+                    _vars.getStack().last().setBlock(_block);
+                    _vars.getStack().last().setIndexLoop(_indexLoop);
+                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
+                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getVisited().add(val_);
+                    break;
+                }
                 if (val_ instanceof AnonymousInstancingOperation) {
                     if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                         LinkageStackElement state_ = new LinkageStackElement();
@@ -2384,20 +2397,6 @@ public final class LinkageUtil {
                 if (val_ instanceof AnonymousInstancingOperation) {
                     LinkageStackElement state_ = new LinkageStackElement();
                     AnonymousTypeBlock block_ = ((AnonymousInstancingOperation) val_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
-                    _vars.setState(state_);
-                    _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
-                    _vars.getVisited().add(val_);
-                    break;
-                }
-                if (val_ instanceof AnonymousLambdaOperation) {
-                    LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
                     state_.setBlock(block_);
                     state_.setIndexEnd(block_.getIndexEnd());
                     _vars.setState(state_);
@@ -2477,6 +2476,23 @@ public final class LinkageUtil {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                     leftError(_vars, _block,sum_,val_, _parts, currentFileName_);
                 }
+                if (val_ instanceof AnonymousLambdaOperation) {
+                    LinkageStackElement state_ = new LinkageStackElement();
+                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
+                    state_.setBlock(block_);
+                    state_.setIndexEnd(block_.getIndexEnd());
+                    state_.setIndexAnnotationGroup(0);
+                    int begin_ = sum_ + val_.getIndexInEl();
+                    _parts.add(new PartOffset("<span class=\"t\">", begin_));
+                    _vars.setState(state_);
+                    _vars.getStack().last().setCurrent(val_);
+                    _vars.getStack().last().setBlock(_block);
+                    _vars.getStack().last().setIndexLoop(_indexLoop);
+                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
+                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
+                    _vars.getVisited().add(val_);
+                    break;
+                }
                 if (val_ instanceof AnonymousInstancingOperation) {
                     if (!_vars.getVisitedAnnotations().containsObj(val_)) {
                         LinkageStackElement state_ = new LinkageStackElement();
@@ -2515,20 +2531,7 @@ public final class LinkageUtil {
                     _vars.getVisited().add(val_);
                     break;
                 }
-                if (val_ instanceof AnonymousLambdaOperation) {
-                    LinkageStackElement state_ = new LinkageStackElement();
-                    AnonymousFunctionBlock block_ = ((AnonymousLambdaOperation) val_).getBlock();
-                    state_.setBlock(block_);
-                    state_.setIndexEnd(block_.getIndexEnd());
-                    _vars.setState(state_);
-                    _vars.getStack().last().setCurrent(val_);
-                    _vars.getStack().last().setBlock(_block);
-                    _vars.getStack().last().setIndexLoop(_indexLoop);
-                    _vars.getStack().last().setIndexAnnotation(_indexAnnotation);
-                    _vars.getStack().last().setIndexAnnotationGroup(_indexAnnotationGroup);
-                    _vars.getVisited().add(val_);
-                    break;
-                }
+
             }
             boolean stopOp_ = false;
             while (true) {
@@ -2797,7 +2800,6 @@ public final class LinkageUtil {
         processAssociation(_vars, _sum, _val, _parts, _currentFileName);
         processFieldsReport(_block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, _currentFileName, _sum, _val, _parts);
-        processAnonLambaReport(_sum, _val, _parts);
         processLamba(_vars, _sum, _val, _parts, _currentFileName);
         processLeafType(_vars, _sum,_val, _parts);
         processDynamicCall(_sum, _val, _parts);
@@ -2879,7 +2881,6 @@ public final class LinkageUtil {
         processAssociation(_vars, _sum, _val, _parts, _currentFileName);
         processFieldsError(_block, _sum, _val, _parts, _currentFileName);
         processInstances(_vars, _currentFileName, _sum, _val, _parts);
-        processAnonLambaError(_sum, _val, _parts);
         processLamba(_vars, _sum, _val, _parts, _currentFileName);
         processLeafType(_vars, _sum,_val, _parts);
         processDynamicCall(_sum, _val, _parts);
@@ -3355,23 +3356,6 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processAnonLambaReport(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (!(_val instanceof AnonymousLambdaOperation)) {
-            return;
-        }
-        AnonymousLambdaOperation v_ = (AnonymousLambdaOperation)_val;
-        int begin_ = _sum + _val.getIndexInEl();
-        processAnonymousFctReport(begin_,v_.getBlock(), _parts);
-    }
-
-    private static void processAnonLambaError(int _sum, OperationNode _val, CustList<PartOffset> _parts) {
-        if (!(_val instanceof AnonymousLambdaOperation)) {
-            return;
-        }
-        AnonymousLambdaOperation v_ = (AnonymousLambdaOperation)_val;
-        int begin_ = _sum + _val.getIndexInEl();
-        processAnonymousFctBlockError(begin_,v_.getBlock(), _parts);
-    }
     private static void processLamba(VariablesOffsets _vars, int _sum, OperationNode _val, CustList<PartOffset> _parts, String _currentFileName) {
         if (!(_val instanceof LambdaOperation)) {
             return;

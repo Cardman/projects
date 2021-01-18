@@ -381,6 +381,15 @@ public final class ClassesUtil {
                 a_.setVariableIssue(_page.isVariableIssue());
                 _page.getResultsMethod().addEntry(e,a_);
             }
+            _page.setAnnotAnalysis(true);
+            for (AnonymousFunctionBlock e:s.getAnonymousFunctions()) {
+                _page.setupFctChars(e);
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(e.getMappings());
+                e.buildAnnotations(_page);
+                e.buildAnnotationsParameters(_page);
+            }
+            _page.setAnnotAnalysis(false);
             AnaTypeUtil.checkInterfaces(_page);
         }
     }

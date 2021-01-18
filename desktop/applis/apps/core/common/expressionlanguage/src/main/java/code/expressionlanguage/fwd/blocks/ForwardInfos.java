@@ -361,6 +361,12 @@ public final class ForwardInfos {
             fwdAnnotations(o, value_, coverage_, _forwards);
             fwdAnnotationsParameters(o, value_, coverage_, _forwards);
         }
+        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: _forwards.getMapAnonLambda().entryList()) {
+            AnonymousFunctionBlock key_ = a.getKey();
+            ExecAnonymousFunctionBlock value_ = a.getValue();
+            fwdAnnotations(key_, value_, coverage_, _forwards);
+            fwdAnnotationsParameters(key_, value_, coverage_, _forwards);
+        }
         for (EntryCust<RootBlock, Members> e: _forwards.getMapMembers().entryList()) {
             RootBlock root_ = e.getKey();
             Members valueMember_ = e.getValue();

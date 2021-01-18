@@ -5162,4 +5162,64 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report821Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int v = m((@AnnotOne(info1=7)@AnnotTwo(info2=8) int a,@AnnotThree(info3=9)@AnnotFour(info4=10) int b:@AnnotFive(info5=11)@AnnotSix(info6=12) int)->{return 2 * a * b;},3,4);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int,int> fct,int a, int b){\n");
+        xml_.append("  return fct.call(a,b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#m235\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7)<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8) int <a name=\"m87\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9)<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10) int <a name=\"m134\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11)<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12) int)<a name=\"m180\">-&gt;</a>{return 2 * <a href=\"#m87\">a</a> * <a href=\"#m134\">b</a>;}</span>,3,4);\n" +
+                "  return 0;\n" +
+                " }\n" +
+                " static int <a name=\"m235\">m</a>(Fct&lt;int,int,int&gt; <a name=\"m254\">fct</a>,int <a name=\"m262\">a</a>, int <a name=\"m269\">b</a>){\n" +
+                "  return <a href=\"#m254\">fct</a>.<b>call</b>(<a href=\"#m262\">a</a>,<a href=\"#m269\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report822Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int v = m((@AnnotOne(info1=7+new Int(){public int field(){return 0;}}.field())@AnnotTwo(info2=8+new Int(){public int field(){return 0;}}.field()) int a,@AnnotThree(info3=9+new Int(){public int field(){return 0;}}.field())@AnnotFour(info4=10+new Int(){public int field(){return 0;}}.field()) int b:@AnnotFive(info5=11+new Int(){public int field(){return 0;}}.field())@AnnotSix(info6=12+new Int(){public int field(){return 0;}}.field()) int)->{return 2 * a * b;},3,4);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int,int> fct,int a, int b){\n");
+        xml_.append("  return fct.call(a,b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
+                " int <a name=\"m25\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m42\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m64\">m</a>(){\n" +
+                "  int <a name=\"m75\">v</a> = <a title=\"pkg.Ext.static m($core.Fct&lt;int,int,int&gt;,int,int)\" href=\"#m565\">m</a>(<span class=\"t\">(<a title=\"After @ the type AnnotOne is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotOne is unknown.\" class=\"e\">AnnotOne</a>(info1=7+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m109\">{</a>public int <a name=\"m121\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(info2=8+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m176\">{</a>public int <a name=\"m188\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int <a name=\"m221\">a</a>,<a title=\"After @ the type AnnotThree is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotThree is unknown.\" class=\"e\">AnnotThree</a>(info3=9+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m252\">{</a>public int <a name=\"m264\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotFour is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFour is unknown.\" class=\"e\">AnnotFour</a>(info4=10+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m321\">{</a>public int <a name=\"m333\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int <a name=\"m366\">b</a>:<a title=\"After @ the type AnnotFive is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotFive is unknown.\" class=\"e\">AnnotFive</a>(info5=11+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m397\">{</a>public int <a name=\"m409\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>())<a title=\"After @ the type AnnotSix is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotSix is unknown.\" class=\"e\">AnnotSix</a>(info6=12+new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m465\">{</a>public int <a name=\"m477\">field</a>(){return 0;}}</span>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()) int)<a name=\"m510\">-&gt;</a>{return 2 * <a href=\"#m221\">a</a> * <a href=\"#m366\">b</a>;}</span>,3,4);\n" +
+                "  return 0;\n" +
+                " }\n" +
+                " static int <a name=\"m565\">m</a>(Fct&lt;int,int,int&gt; <a name=\"m584\">fct</a>,int <a name=\"m592\">a</a>, int <a name=\"m599\">b</a>){\n" +
+                "  return <a href=\"#m584\">fct</a>.<b>call</b>(<a href=\"#m592\">a</a>,<a href=\"#m599\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
