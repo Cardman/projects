@@ -613,15 +613,7 @@ public final class ClassesUtil {
         if (ok_) {
             _page.getRefFoundTypes().add(_root);
         }
-        RootBlock parentType_ = _root.getParentType();
-        if (parentType_ != null) {
-            _root.setFile(parentType_.getFile());
-        }
         if (_root instanceof AnonymousTypeBlock) {
-            OperatorBlock operator_ = _root.getOperator();
-            if (operator_ != null) {
-                _root.setFile(operator_.getFile());
-            }
             int c_ = _page.getCountAnonTypes();
             ((AnonymousTypeBlock)_root).setNumberAnonType(c_);
             _page.setCountAnonTypes(c_+1);
