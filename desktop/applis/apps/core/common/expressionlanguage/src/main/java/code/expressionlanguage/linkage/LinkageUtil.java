@@ -385,7 +385,7 @@ public final class LinkageUtil {
             }
             if (vars_.getStack().last().isStopVisit()) {
                 vars_.getStack().removeQuicklyLast();
-                child_ = redirect(vars_,child_);
+                child_ = redirect(vars_);
                 continue;
             }
             child_ = next(child_, _ex);
@@ -395,7 +395,7 @@ public final class LinkageUtil {
                 if (!vars_.getStack().isEmpty()) {
                     list_.add(new PartOffset("</span>",indexEnd_));
                 }
-                child_ = redirect(vars_, null);
+                child_ = redirect(vars_);
             }
         }
         return list_;
@@ -532,7 +532,7 @@ public final class LinkageUtil {
             }
             if (vars_.getStack().last().isStopVisit()) {
                 vars_.getStack().removeQuicklyLast();
-                child_ = redirect(vars_,child_);
+                child_ = redirect(vars_);
                 continue;
             }
             child_ = next(child_, _ex);
@@ -542,17 +542,17 @@ public final class LinkageUtil {
                 if (!vars_.getStack().isEmpty()) {
                     list_.add(new PartOffset("</span>", indexEnd_));
                 }
-                child_ = redirect(vars_, null);
+                child_ = redirect(vars_);
             }
         }
         return list_;
     }
 
-    private static Block redirect(VariablesOffsets _vars,Block _child) {
+    private static Block redirect(VariablesOffsets _vars) {
         if (!_vars.getStack().isEmpty()) {
             return _vars.getStack().last().getBlock();
         }
-        return _child;
+        return null;
     }
     private static Block next(Block _current, Block _ex) {
         Block firstChild_ = _current.getFirstChild();

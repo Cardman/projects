@@ -10217,6 +10217,57 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage631Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int[] info();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int[] info2();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new @Annot(info={})@AnnotTwo(info2={2}) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return new Int(){public int field(){return 0;}}.field();\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations().length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">annotation <a name=\"m11\">pkg.Annot</a> {\n" +
+                " int[] <a name=\"m30\">info</a>();\n" +
+                "}\n" +
+                "annotation <a name=\"m51\">pkg.AnnotTwo</a> {\n" +
+                " int[] <a name=\"m73\">info2</a>();\n" +
+                "}\n" +
+                "interface <a name=\"m94\">pkg.Int</a> {\n" +
+                " int <a name=\"m109\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m126\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m148\">m</a>(){\n" +
+                "  <span class=\"f\">new <span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m11\">Annot</a>(<span class=\"f2\"><a title=\"pkg.Annot.info()\" href=\"#m30\">info</a>=<span class=\"f2\">{}</span></span>)</span><span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m51\">AnnotTwo</a>(<span class=\"f2\"><a title=\"pkg.AnnotTwo.info2()\" href=\"#m73\">info2</a>=<span class=\"f2\">{<span class=\"f2\">2</span>}</span></span>)</span> <a title=\"pkg.Int\" href=\"#m94\">Int</a>()<span class=\"t\"><a name=\"m200\">{</a>\n" +
+                "   public int <a name=\"m216\">field</a>(){\n" +
+                "    return <span class=\"n\"><span class=\"n\">new <a title=\"pkg.Int\" href=\"#m94\">Int</a>()<span class=\"t\"><a name=\"m245\">{</a>public int <a name=\"m257\">field</a>(){return <span class=\"n\">0</span>;}}</span></span>.<span class=\"n\"><a title=\"pkg.Int.field()\" href=\"#m109\">field</a>()</span></span>;\n" +
+                "   }\n" +
+                "  }</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">Class</span>.<span class=\"f\">forName(<span class=\"f\"><span class=\"s\">\"pkg.Ext..Int*1\"</span></span>,<span class=\"f\">false</span>)</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
