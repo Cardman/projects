@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -37,7 +37,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         clArg_ = _stack.formatVarType(clArg_);
         String formatType_ = _stack.formatVarType(returnFieldType_);
         String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
-        String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);
+        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, ownerType_, _conf);
         Argument res_ = new Argument(newLambda(previous_, ownerType_, returnFieldType_, lambdaFieldContent.getClassField(), getAncestor(), lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField(), isShiftArgument(), isSafeInstance(), clArg_, getFileName(), lambdaFieldContent.getRootBlock(), lambdaFieldContent.getInfoBlock(), formatType_, formCl_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

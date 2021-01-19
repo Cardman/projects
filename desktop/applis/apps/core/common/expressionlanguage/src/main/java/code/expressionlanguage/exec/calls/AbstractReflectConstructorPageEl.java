@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -18,7 +18,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         String className_ = getDeclaringClass();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
-        if (ExecutingUtil.isAbstractType(type_)) {
+        if (MetaInfoUtil.isAbstractType(type_)) {
             String null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stackCall)));
             return false;

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -48,7 +48,7 @@ public final class ExecTypeConstructorLambdaOperation extends ExecAbstractLambda
         l_.setInstanceCall(_previous);
         l_.setSafeInstance(_safeInstance);
         String className_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        ConstructorId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _realId);
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _realId);
         ConstructorMetaInfo met_ = new ConstructorMetaInfo(_ownerType,AccessEnum.PUBLIC, _realId, _returnFieldType, fid_, className_);
         met_.setFileName(_fileName);
         met_.setPair(_pair);

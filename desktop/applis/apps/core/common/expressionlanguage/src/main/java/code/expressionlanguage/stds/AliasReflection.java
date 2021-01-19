@@ -665,9 +665,9 @@ public final class AliasReflection {
             if (type_ != null) {
                 String ret_ = f.getImportedReturnType();
                 boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
-                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
                 String idType_ = type_.getFullName();
-                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
                 String idCl_ = type_.getFullName();
                 if (param_) {
                     idCl_ = declaringClass_;
@@ -682,9 +682,9 @@ public final class AliasReflection {
             ExecOperatorBlock operator_ = f.getOperator();
             if (operator_ != null) {
                 String ret_ = f.getImportedReturnType();
-                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                MethodId fid_ = MetaInfoUtil.tryFormatId(declaringClass_, _cont, id_);
                 String idType_ = "";
-                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String formCl_ = MetaInfoUtil.tryFormatType(idType_, declaringClass_, _cont);
                 String idCl_ = "";
                 MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
                 met_.setCache(new Cache(f, standards_.getContent().getCoreNames().getAliasObject()));
@@ -757,13 +757,13 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,field_));
+            result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,field_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetType)) {
             String typeField_ = field_.getType();
             typeField_ = tryFormatType(_cont, field_, typeField_);
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,field_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeField_,field_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
@@ -780,7 +780,7 @@ public final class AliasReflection {
             return result_;
         }
         String typeField_ = field_.getType();
-        result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,field_));
+        result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeField_,field_));
         return result_;
     }
 
@@ -1050,19 +1050,19 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasGetReturnType)) {
             String typeMethod_ = method_.getReturnType();
             typeMethod_ = tryFormatType(_cont, method_, typeMethod_);
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_, method_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeMethod_, method_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericReturnType)) {
             String typeMethod_ = method_.getReturnType();
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_, method_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeMethod_, method_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
             result_.setResult(new StringStruct(method_.getName()));
             return result_;
         }
-        result_.setResult(ExecutingUtil.getClassMetaInfo(_cont, method_));
+        result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont, method_));
         return result_;
     }
 
@@ -1074,7 +1074,7 @@ public final class AliasReflection {
         ArrayStruct str_ = new ArrayStruct(_typesNames.size(), _className);
         int index_ = 0;
         for (String t: _typesNames) {
-            str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t,""));
+            str_.set(index_, MetaInfoUtil.getExtendedClassMetaInfo(_cont,t,""));
             index_++;
         }
         return str_;
@@ -1099,7 +1099,7 @@ public final class AliasReflection {
             if (_vararg && i+1 == len_) {
                 int_ = StringExpUtil.getPrettyArrayType(int_);
             }
-            arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,int_, _declaring));
+            arr_.set(i, MetaInfoUtil.getExtendedClassMetaInfo(_cont,int_, _declaring));
         }
         return arr_;
     }
@@ -1143,7 +1143,7 @@ public final class AliasReflection {
             }
             String clDyn_ = ((StringStruct) struct_).getInstance();
             if (StringUtil.quickEq(clDyn_.trim(), _cont.getStandards().getContent().getCoreNames().getAliasVoid())) {
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,clDyn_));
+                result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,clDyn_));
                 return result_;
             }
             String res_ = ExecTemplates.correctClassPartsDynamic(clDyn_, _cont);
@@ -1156,7 +1156,7 @@ public final class AliasReflection {
                     return result_;
                 }
             }
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,res_));
+            result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,res_));
             return result_;
         }
         if (StringUtil.quickEq(aliasDefaultInstance_, name_)) {
@@ -1175,7 +1175,7 @@ public final class AliasReflection {
                 result_.setResult(ApplyCoreMethodUtil.defaultMeta(_cont,id_,_args));
                 return result_;
             }
-            if (ExecutingUtil.isAbstractType(type_)) {
+            if (MetaInfoUtil.isAbstractType(type_)) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
                 return result_;
@@ -1283,7 +1283,7 @@ public final class AliasReflection {
             if (BooleanStruct.isTrue(_args[0])) {
                 cat_ = "~"+ext_;
             }
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont, cat_, instanceClass_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, cat_, instanceClass_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasMakeWildCard)) {
@@ -1294,18 +1294,18 @@ public final class AliasReflection {
             Struct isUpper_ = _args[0];
             String nameCl_ = instanceClass_.getName();
             if (!(isUpper_ instanceof BooleanStruct)) {
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
                 return result_;
             }
             if (StringUtil.quickEq(nameCl_,Templates.SUB_TYPE)) {
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,Templates.SUB_TYPE, instanceClass_));
                 return result_;
             }
             String baseWildCard_ = extractName(nameCl_);
             if (BooleanStruct.isTrue(isUpper_)) {
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUB_TYPE,baseWildCard_), instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUB_TYPE,baseWildCard_), instanceClass_));
             } else {
-                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUP_TYPE,baseWildCard_), instanceClass_));
+                result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont, StringUtil.concat(Templates.SUP_TYPE,baseWildCard_), instanceClass_));
             }
             return result_;
         }
@@ -1418,7 +1418,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,t_, instanceClass_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,t_, instanceClass_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
@@ -1427,7 +1427,7 @@ public final class AliasReflection {
             ArrayStruct str_ = new ArrayStruct(methods_.size(), className_);
             int index_ = 0;
             for (String t: methods_) {
-                str_.set(index_, ExecutingUtil.getExtendedClassMetaInfo(_cont,t, instanceClass_));
+                str_.set(index_, MetaInfoUtil.getExtendedClassMetaInfo(_cont,t, instanceClass_));
                 index_++;
             }
             result_.setResult(str_);
@@ -1463,12 +1463,12 @@ public final class AliasReflection {
             Classes classesInfo_ = _cont.getClasses();
             for (ExecRootBlock c: classesInfo_.getClassBodies()) {
                 String forName_ = c.getGenericString();
-                classes_.add(ExecutingUtil.getCustomClassMetaInfo(c, forName_, _cont));
+                classes_.add(MetaInfoUtil.getCustomClassMetaInfo(c, forName_, _cont));
             }
             for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                 String k_ = c.getKey();
                 StandardType clblock_ = c.getValue();
-                classes_.add(ExecutingUtil.getClassMetaInfo(_cont,clblock_, k_));
+                classes_.add(MetaInfoUtil.getClassMetaInfo(_cont,clblock_, k_));
             }
             classes_.sortElts(new ClassNameCmp());
             String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
@@ -1487,7 +1487,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
             } else {
                 String className_ = str_.getClassName(_cont);
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,className_));
+                result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,className_));
             }
             return result_;
         }
@@ -1503,7 +1503,7 @@ public final class AliasReflection {
             CustList<ConstructorMetaInfo> candidates_;
             candidates_ = new CustList<ConstructorMetaInfo>();
             for (ConstructorMetaInfo e: ctors_) {
-                ConstructorId id_ = ExecutingUtil.tryFormatId(instClassName_,_cont,e.getRealId());
+                ConstructorId id_ = MetaInfoUtil.tryFormatId(instClassName_,_cont,e.getRealId());
                 if (eqStatic(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0], _args[1], BooleanStruct.of(false))) {
                     candidates_.add(e);
                 }
@@ -1718,7 +1718,7 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
+            result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,owner_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericVariableOwner)) {
@@ -1728,7 +1728,7 @@ public final class AliasReflection {
                 return result_;
             }
             owner_ = StringExpUtil.getIdFromAllTypes(owner_);
-            result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,owner_));
+            result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,owner_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetTypeParameters)) {
@@ -1782,7 +1782,7 @@ public final class AliasReflection {
             if (res_ == null) {
                 result_.setResult(NullStruct.NULL_VALUE);
             } else {
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,res_));
+                result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,res_));
             }
             return result_;
         }
@@ -1862,7 +1862,7 @@ public final class AliasReflection {
         ArrayStruct arr_ = new ArrayStruct(len_-1, className_);
         for (int i = 1; i < len_; i++) {
             String nameVar_ = types_.get(i);
-            arr_.set(i-1, ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_));
+            arr_.set(i-1, MetaInfoUtil.getExtendedClassMetaInfo(_cont,nameVar_, owner_));
         }
         result_.setResult(arr_);
         return result_;
@@ -1910,7 +1910,7 @@ public final class AliasReflection {
         for (int i = 0; i < len_; i++) {
             String nameVar_ = _geneInterfaces.get(i);
             nameVar_ = tryFormatType(_cont, _clName,nameVar_);
-            arr_.set(i, ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_, variableOwner_));
+            arr_.set(i, MetaInfoUtil.getExtendedClassMetaInfo(_cont,nameVar_, variableOwner_));
         }
         return arr_;
     }
@@ -1928,7 +1928,7 @@ public final class AliasReflection {
         String pref_ = pre_;
         String owner_ = _cl.getVariableOwner();
         String fName_ = StringUtil.concat(pref_, _typeName);
-        _result.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,fName_, owner_));
+        _result.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,fName_, owner_));
         return _result;
     }
 
@@ -1965,7 +1965,7 @@ public final class AliasReflection {
             return _result;
         }
         genericSuperClassName_ = tryFormatType(_cont, _nameType, genericSuperClassName_);
-        ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,_cl.getVariableOwner());
+        ClassMetaInfo superCl_ = MetaInfoUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,_cl.getVariableOwner());
         _result.setResult(superCl_);
         return _result;
     }
@@ -1983,7 +1983,7 @@ public final class AliasReflection {
     private static CustList<MethodMetaInfo> filterMethods(ContextEl _cont, CustList<MethodMetaInfo> _methods, String _instClassName, Struct _name, Struct _static, Struct _vararg, Struct _params, AbstractMethodCriteria _abs) {
         CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
         for (MethodMetaInfo e : _methods) {
-            MethodId id_ = ExecutingUtil.tryFormatId(_instClassName,_cont,e.getRealId());
+            MethodId id_ = MetaInfoUtil.tryFormatId(_instClassName,_cont,e.getRealId());
             if (eqStatic(id_, _name, _static, _vararg, _params, _abs.matches(id_))) {
                 candidates_.add(e);
             }
@@ -2060,12 +2060,12 @@ public final class AliasReflection {
         if (StringUtil.quickEq(name_, ref_.aliasGetReturnType)) {
             String typeMethod_ = ctor_.getReturnType();
             typeMethod_ = tryFormatType(_cont, ctor_, typeMethod_);
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_, ctor_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeMethod_, ctor_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericReturnType)) {
             String typeMethod_ = ctor_.getReturnType();
-            result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_, ctor_));
+            result_.setResult(MetaInfoUtil.getExtendedClassMetaInfo(_cont,typeMethod_, ctor_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
@@ -2090,7 +2090,7 @@ public final class AliasReflection {
             result_.setResult(str_);
             return result_;
         }
-        result_.setResult(ExecutingUtil.getClassMetaInfo(_cont, ctor_));
+        result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont, ctor_));
         return result_;
     }
 

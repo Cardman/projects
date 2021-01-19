@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.util.CollCapacity;
 import code.util.StringList;
@@ -23,8 +23,8 @@ public final class InvokeTargetErrorStruct extends WithoutParentIdStruct impleme
     private InvokeTargetErrorStruct(String _message, Struct _cause, ContextEl _cont, StackCall _stackCall) {
         message = _message;
         cause = _cause;
-        stack = ExecutingUtil.newStackTraceElementArray(_cont, _stackCall);
-        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_stackCall);
+        stack = MetaInfoUtil.newStackTraceElementArray(_cont, _stackCall);
+        fullStack = MetaInfoUtil.newStackTraceElementArrayFull(_stackCall);
     }
 
     @Override

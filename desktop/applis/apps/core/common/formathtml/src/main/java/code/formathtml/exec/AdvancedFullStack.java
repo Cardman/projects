@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.AbstractFullStack;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
@@ -33,7 +33,7 @@ public final class AdvancedFullStack implements AbstractFullStack {
             array_.set(i, newStackTraceElement(_rendStackCall.getImporting().get(i), _context));
         }
         for (int i = 0; i < lenArrCtx_; i++) {
-            array_.set(i+count_, ExecutingUtil.newStackTraceElement(_context,i, _stackCall));
+            array_.set(i+count_, MetaInfoUtil.newStackTraceElement(_context,i, _stackCall));
         }
         return array_;
     }

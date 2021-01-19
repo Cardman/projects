@@ -2151,6 +2151,49 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculate58() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int info1();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" int info2();\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  new@Annot(info1=3)@AnnotTwo(info2=4) Int(){\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return 0;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  var arr = Class.forName(\"pkg.Ext..Int*1\",false).getAnnotations();\n");
+        xml_.append("  if (arr.length != 2){\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (((Annot)arr[0]).info1() != 3){\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (((AnnotTwo)arr[1]).info2() != 4){\n");
+        xml_.append("   return 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
     public void fail1() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

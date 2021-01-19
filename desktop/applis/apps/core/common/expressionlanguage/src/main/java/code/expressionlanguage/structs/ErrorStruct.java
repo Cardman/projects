@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.util.CollCapacity;
 import code.util.StringList;
@@ -22,8 +22,8 @@ public final class ErrorStruct extends WithoutParentIdStruct implements Erroneou
     }
 
     public ErrorStruct(ContextEl _context, String _message, String _className, StackCall _stackCall) {
-        stack = ExecutingUtil.newStackTraceElementArray(_context, _stackCall);
-        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_stackCall);
+        stack = MetaInfoUtil.newStackTraceElementArray(_context, _stackCall);
+        fullStack = MetaInfoUtil.newStackTraceElementArrayFull(_stackCall);
         className = _className;
         message = _message;
     }

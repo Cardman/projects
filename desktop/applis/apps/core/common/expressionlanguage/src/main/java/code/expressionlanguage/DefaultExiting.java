@@ -1,6 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 
 public final class DefaultExiting implements AbstractExiting {
@@ -17,6 +17,6 @@ public final class DefaultExiting implements AbstractExiting {
 
     @Override
     public boolean hasToExit(StackCall _stack, String _className, Argument _arg) {
-        return ExecutingUtil.hasToExit(context,_className,_arg, _stack);
+        return MetaInfoUtil.hasToExit(context,_className,_arg, _stack);
     }
 }

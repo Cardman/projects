@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
@@ -78,7 +78,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
     }
 
     private static MethodMetaInfo buildMeta(ContextEl _conf, String _returnFieldType, boolean _expCast, String _fileName, String _ownerType, MethodId _id, LambdaMethodStruct _l, ExecTypeFunction _pair) {
-        MethodId fid_ = ExecutingUtil.tryFormatId(_ownerType, _conf, _id);
+        MethodId fid_ = MetaInfoUtil.tryFormatId(_ownerType, _conf, _id);
         String className_;
         if (_l.isStaticCall()) {
             className_ = _ownerType;
@@ -87,7 +87,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         }
         String from_ = className_;
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        String formCl_ = ExecutingUtil.tryFormatType(idCl_, _ownerType, _conf);
+        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_;
         if (_l.isAbstractMethod()) {
             met_ = MethodModifier.ABSTRACT;

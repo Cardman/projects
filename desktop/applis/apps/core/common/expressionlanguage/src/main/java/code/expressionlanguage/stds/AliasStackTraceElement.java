@@ -3,7 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -54,11 +54,11 @@ public final class AliasStackTraceElement {
         LgNames lgNames_ = _cont.getStandards();
         AliasStackTraceElement ref_ = lgNames_.getStackElt();
         if (StringUtil.quickEq(name_, ref_.aliasCurrentStack)) {
-            result_.setResult(ExecutingUtil.newStackTraceElementArray(_cont, _stackCall));
+            result_.setResult(MetaInfoUtil.newStackTraceElementArray(_cont, _stackCall));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasCurrentFullStack)) {
-            result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_stackCall));
+            result_.setResult(MetaInfoUtil.newStackTraceElementArrayFull(_stackCall));
             return result_;
         }
         result_.setResult(NumParsers.getStack(_struct).getDisplayedString(_cont));

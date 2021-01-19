@@ -3,7 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -68,7 +68,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         }
         if (methodId_ == null && lambdaConstructorContent.getRealId() == null) {
             String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
-            String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _context);
+            String formCl_ = MetaInfoUtil.tryFormatType(idCl_, ownerType_, _context);
             return new Argument(ExecFieldLambdaOperation.newLambda(_previous, ownerType_, lambdaCommonContent.getReturnFieldType(), lambdaFieldContent.getClassField(), lambdaCommonContent.getAncestor(),
                     lambdaFieldContent.isAffField(), lambdaFieldContent.isStaticField(), lambdaFieldContent.isFinalField(), lambdaCommonContent.isShiftArgument(), lambdaCommonContent.isSafeInstance(), name_, lambdaCommonContent.getFileName(),lambdaFieldContent.getRootBlock(),lambdaFieldContent.getInfoBlock(), lambdaCommonContent.getReturnFieldType(), formCl_));
         }

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -160,7 +159,7 @@ public final class ExecClassesUtil {
     public static void forwardClassesMetaInfos(ContextEl _context) {
         for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
-            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
+            ClassMetaInfo.forward(MetaInfoUtil.getClassMetaInfo(_context,name_),c);
         }
     }
 

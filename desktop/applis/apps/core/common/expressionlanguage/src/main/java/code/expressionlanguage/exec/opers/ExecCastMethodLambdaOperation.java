@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -49,7 +49,7 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
         l_.setMethodName(_constraints.getName());
         l_.setKind(MethodAccessKind.STATIC);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType);
-        String formCl_ = ExecutingUtil.tryFormatType(idCl_, _ownerType, _conf);
+        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType, _conf);
         MethodModifier met_ = MethodModifier.STATIC;
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_ownerType,AccessEnum.PUBLIC, _ownerType, _constraints, met_, _returnFieldType, _constraints, formCl_);
         metaInfo_.setDirectCast(true);
