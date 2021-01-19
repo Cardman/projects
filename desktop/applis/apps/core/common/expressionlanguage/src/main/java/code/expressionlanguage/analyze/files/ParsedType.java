@@ -5,7 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 
 public final class ParsedType {
-    private StringBuilder instruction = new StringBuilder();
+    private final StringBuilder instruction = new StringBuilder();
     private int delta;
     private boolean ok;
 
@@ -72,9 +72,18 @@ public final class ParsedType {
                     i_++;
                     instruction.append(ch_);
                     int next_ = StringExpUtil.nextPrintChar(i_, len_, _found);
-                    if (next_ > i_ && StringExpUtil.isTypeLeafChar(_found.charAt(next_))) {
-                        ok = true;
-                        break;
+                    if (next_ > i_) {
+                        char nextCh_ = _found.charAt(next_);
+                        if (StringExpUtil.isTypeLeafChar(nextCh_)) {
+                            ok = true;
+                            break;
+                        }
+                        if (nextCh_ == '.'
+                            || nextCh_ == '['
+                            || nextCh_ == '<') {
+                            instruction.append(_found,i_,next_);
+                            i_ = next_;
+                        }
                     }
                     continue;
                 }

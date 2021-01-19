@@ -224,4 +224,44 @@ public final class ParsedTypeTest {
         assertEq(9, p_.getCurrent());
         assertTrue(!p_.isOk());
     }
+    @Test
+    public void parse27Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp [] []a");
+        assertEq("Tmp [] []",p_.getInstruction().toString());
+        assertEq(9, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+    @Test
+    public void parse28Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After .. AfterTwo < Five , Six > a");
+        assertEq("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After .. AfterTwo < Five , Six >",p_.getInstruction().toString());
+        assertEq(87, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+    @Test
+    public void parse29Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After [ ] a");
+        assertEq("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After [ ]",p_.getInstruction().toString());
+        assertEq(64, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+    @Test
+    public void parse30Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next [ ] a");
+        assertEq("Tmp < One , Two > . Next [ ]",p_.getInstruction().toString());
+        assertEq(28, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+    @Test
+    public void parse31Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next , a");
+        assertEq("Tmp < One , Two > . Next",p_.getInstruction().toString());
+        assertEq(24, p_.getCurrent());
+        assertTrue(!p_.isOk());
+    }
 }
