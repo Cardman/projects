@@ -264,4 +264,21 @@ public final class ParsedTypeTest {
         assertEq(24, p_.getCurrent());
         assertTrue(!p_.isOk());
     }
+    @Test
+    public void parse32Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After [ ] [ ] a");
+        assertEq("Tmp < One , Two > . Next . NextTwo < Three , Four > .. After [ ] [ ]",p_.getInstruction().toString());
+        assertEq(68, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+    @Test
+    public void parse33Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("Tmp < One , Two > . Next [ ] [ ] a");
+        assertEq("Tmp < One , Two > . Next [ ] [ ]",p_.getInstruction().toString());
+        assertEq(32, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+
 }
