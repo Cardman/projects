@@ -11,7 +11,7 @@ function fct(){
 			var ret = xmlHttp.responseText;
 			var fileList = ret.split('\n');
 			var scriptTag2 = document.getElementsByTagName('script');
-				scriptTag2 = scriptTag2[scriptTag2.length - 1];
+			scriptTag2 = scriptTag2[scriptTag2.length - 1];
 			var existPom = false;
 			for (var i = 0; i < fileList.length; i++) {
 				if (!fileList[i].startsWith('<script>addRow')){
