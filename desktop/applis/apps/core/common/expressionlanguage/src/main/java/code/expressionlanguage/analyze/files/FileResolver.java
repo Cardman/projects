@@ -823,7 +823,7 @@ public final class FileResolver {
                     paramOffest_ += StringUtil.getFirstPrintableCharIndex(afterMethodName_);
                     info_ = afterMethodName_.trim();
                     ParsedFctHeader parseHeader_ = new ParsedFctHeader();
-                    parseHeader_.parse(paramOffest_,info_,_offset, _page);
+                    parseHeader_.parse(info_, _page, paramOffest_ + _offset);
                     Ints offestsTypes_ = parseHeader_.getOffestsTypes();
                     Ints offestsParams_ = parseHeader_.getOffestsParams();
                     StringList parametersType_ = parseHeader_.getParametersType();
@@ -1918,7 +1918,7 @@ public final class FileResolver {
                 info_ = after_.trim();
             }
             ParsedFctHeader parseHeader_ = new ParsedFctHeader();
-            parseHeader_.parse(paramOffest_,info_,_offset, _page);
+            parseHeader_.parse(info_, _page, paramOffest_ + _offset);
             info_ = parseHeader_.getInfo();
             Ints offestsTypes_ = parseHeader_.getOffestsTypes();
             Ints offestsParams_ = parseHeader_.getOffestsParams();
@@ -2019,7 +2019,7 @@ public final class FileResolver {
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset), _page, parametersRef_);
                     ov_.setDefinition(info_);
-                    ov_.setDefinitionOffset(offsetLast_+_offset);
+                    ov_.setDefinitionOffset(offsetLast_);
                 }
                 ov_.setKind(kind_);
                 _currentParent.getOverridableBlocks().add(ov_);

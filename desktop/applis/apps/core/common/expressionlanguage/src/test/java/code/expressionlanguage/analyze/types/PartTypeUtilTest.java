@@ -1400,6 +1400,10 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     public void isCorrectType53Test() {
         assertTrue(!isCorrectType("~t"));
     }
+    @Test
+    public void isCorrectType54Test() {
+        assertTrue(!isCorrectType("[]"));
+    }
     private static boolean isCorrectType(String _input) {
         return AnaPartTypeUtil.isCorrectType(_input,new StringList());
     }
