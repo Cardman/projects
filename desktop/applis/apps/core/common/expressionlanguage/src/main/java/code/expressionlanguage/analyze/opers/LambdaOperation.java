@@ -1814,7 +1814,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 
-    private ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
+    private static ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
         if (!_from.isEmpty()) {
             if (_feed == null) {
                 return tryGetDeclaredCustMethodLambda(-1, MethodAccessKind.STATIC_CALL,
