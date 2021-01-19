@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -1355,6 +1354,7 @@ public final class ForwardInfos {
     }
 
     private static void updateExec(ExecRootBlock _ex, RootBlock _root){
+        ExecRootBlockContent rootBlockContent_ = _ex.getRootBlockContent();
         CustList<ExecRootBlock> pars_ = new CustList<ExecRootBlock>();
         ExecRootBlock c_ = _ex;
         boolean add_ = true;
@@ -1367,7 +1367,6 @@ public final class ForwardInfos {
             }
             c_ = c_.getParentType();
         }
-        ExecRootBlockContent rootBlockContent_ = _ex.getRootBlockContent();
         rootBlockContent_.setSelfAndParentTypes(pars_.getReverse());
         updateExec(rootBlockContent_,_root);
     }
