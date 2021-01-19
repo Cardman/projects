@@ -835,11 +835,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         processAbstract(staticChoiceMethod_, id_, _page);
     }
 
-    private boolean matchIdKeyWord(StringList _args, int _len, int _i, String _keyWordId) {
+    private static boolean matchIdKeyWord(StringList _args, int _len, int _i, String _keyWordId) {
         return _i < _len && StringUtil.quickEq(_args.get(_i).trim(), _keyWordId);
     }
 
-    private boolean cloneArray(StringList _bounds) {
+    private static boolean cloneArray(StringList _bounds) {
         boolean cloneArray_ = false;
         for (String b: _bounds) {
             if (b.startsWith(StringExpUtil.ARR_CLASS)) {
