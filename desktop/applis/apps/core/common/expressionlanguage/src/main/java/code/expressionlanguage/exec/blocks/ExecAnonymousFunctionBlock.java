@@ -17,8 +17,8 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     private ExecOperatorBlock operator;
     private final ExecAnonFctContent anonFctContent;
 
-    public ExecAnonymousFunctionBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, BooleanList _parametersRef) {
-        super(false, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+    public ExecAnonymousFunctionBlock(boolean _retRef,String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, BooleanList _parametersRef) {
+        super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
         methodModifier = _modifier;
         anonFctContent = _anonFctContent;
     }
