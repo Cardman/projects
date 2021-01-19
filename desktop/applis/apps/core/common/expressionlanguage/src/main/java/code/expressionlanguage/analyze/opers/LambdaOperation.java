@@ -2018,7 +2018,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, StringList _paramsReturn) {
         IdentifiableUtil.appendLeftPart(_paramsReturn, _constraints);
-        appendRightPart(_paramsReturn, _constraints, _page, _realClass, _realId);
+        appendRightPart(_paramsReturn, _page, _realClass, _realId);
         if (_constraints.isRetRef()) {
             _paramsReturn.add("~"+_returnType);
         } else {
@@ -2028,8 +2028,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return StringUtil.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringUtil.join(_paramsReturn, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 
-    private static void appendRightPart(StringList _paramsReturn, MethodId _id, AnalyzedPageEl _page, String _realClass, MethodId _realId) {
-        if (StringUtil.quickEq(_id.getName(),"[]=")) {
+    private static void appendRightPart(StringList _paramsReturn, AnalyzedPageEl _page, String _realClass, MethodId _realId) {
+        if (StringUtil.quickEq(_realId.getName(),"[]=")) {
             CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_realClass);
             for (Block b: ClassesUtil.getDirectChildren(_page.getAnaClassBody(idCl_))) {
